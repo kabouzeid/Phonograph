@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView
+    android:id="@+id/fragment_placeholder"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:fontFamily="sans-serif-medium"
+    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+    android:textColor="?title_text_color"
+    android:text="Comming soon!"/>

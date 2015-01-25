@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="transition_album_cover">album_cover_transition</string>
+    <string name="transition_fab">fab_transition</string>
+    <string name="transition_album_text">album_text_transition</string>
+    <string name="transition_artist_image">artist_image_transition</string>
+    <string name="transition_artist_text">artist_text_transition</string>
+    <string name="DEV_TAG">karim23697</string>
+</resources>

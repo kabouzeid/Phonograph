@@ -1,0 +1,166 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+        android:id="@+id/observableScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.kabouzeid.materialmusic.view.SquareImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_album_art"/>
+
+            <LinearLayout
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/image"
+                android:minHeight="@dimen/title_view_height"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp">
+
+                <EditText
+                    android:id="@+id/album_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center_vertical"
+                    android:hint="Album"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textColor="?attr/title_text_color"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/editables"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/header"
+                android:background="@color/background_material_dark"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:singleLine="true"
+                        android:text="@string/album_artist"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+                    <EditText
+                        android:id="@+id/album_artist"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center_vertical"
+                        android:hint="@string/album_artist"
+                        android:singleLine="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="?attr/title_text_color"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:singleLine="true"
+                        android:text="@string/genre"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+                    <EditText
+                        android:id="@+id/genre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center_vertical"
+                        android:hint="@string/genre"
+                        android:singleLine="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="?attr/title_text_color"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:singleLine="true"
+                        android:text="@string/year"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+                    <EditText
+                        android:id="@+id/year"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center_vertical"
+                        android:hint="@string/year"
+                        android:singleLine="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="?attr/title_text_color"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="#00000000"
+        android:minHeight="@dimen/abc_action_bar_default_height_material"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab"
+        style="@style/PlayPauseFab"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/editables"
+        android:layout_gravity="bottom|right"/>
+
+</FrameLayout>
+

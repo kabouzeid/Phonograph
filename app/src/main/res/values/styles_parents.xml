@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.MaterialMusic.Base" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+
+        <item name="colorPrimary">@color/materialmusic_dark_color</item>
+        <item name="colorPrimaryDark">@color/materialmusic_dark_color_darker</item>
+        <item name="colorAccent">@color/materialmusic_dark_accent_color</item>
+
+        <item name="fab_color">@color/materialmusic_dark_accent_color</item>
+        <item name="fab_color_pressed">@color/materialmusic_dark_accent_color_lighter</item>
+
+        <item name="title_text_color">?android:attr/textColorPrimary</item>
+        <item name="caption_text_color">?android:attr/textColorSecondary</item>
+
+        <item name="music_controller_container_color">
+            @color/materialmusic_dark_music_controller_container_color
+        </item>
+
+        <item name="list_selector">@drawable/list_selector_dark</item>
+        <item name="md_dark_theme">true</item>
+
+    </style>
+
+    <style name="Theme.MaterialMusic.Base.Light" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+
+        <item name="colorPrimary">@color/materialmusic_color</item>
+        <item name="colorPrimaryDark">@color/materialmusic_color_darker</item>
+        <item name="colorAccent">@color/materialmusic_accent_color</item>
+
+        <item name="fab_color">@color/materialmusic_accent_color</item>
+        <item name="fab_color_pressed">@color/materialmusic_accent_color_lighter</item>
+
+        <item name="title_text_color">?android:attr/textColorPrimaryInverse</item>
+        <item name="caption_text_color">?android:attr/textColorSecondaryInverse</item>
+
+        <item name="music_controller_container_color">
+            @color/materialmusic_music_controller_container_color
+        </item>
+
+        <item name="list_selector">@drawable/list_selector</item>
+
+    </style>
+
+    <style name="PlayPauseFabParent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:padding">14dp</item>
+        <item name="fab_color">@color/materialmusic_accent_color</item>
+        <item name="fab_colorNormal">@color/materialmusic_accent_color</item>
+        <item name="fab_colorPressed">@color/materialmusic_accent_color_darker</item>
+    </style>
+
+    <style name="NotificationButtonParent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:tint">@color/notification_buttons_tint</item>
+    </style>
+</resources>

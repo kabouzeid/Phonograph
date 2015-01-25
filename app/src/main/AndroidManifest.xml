@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.kabouzeid.materialmusic">
+
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.MaterialMusic">
+        <activity
+            android:name=".ui.activities.MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activities.AlbumDetailActivity">
+        </activity>
+        <activity android:name=".ui.activities.ArtistDetailActivity">
+        </activity>
+        <activity
+            android:name=".ui.activities.MusicControllerActivity"
+            android:parentActivityName=".ui.activities.MainActivity">
+        </activity>
+
+        <service
+            android:name=".service.MusicService"
+            android:enabled="true">
+        </service>
+
+        <receiver android:name=".service.MediaButtonIntentReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON"/>
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+            android:name="com.crashlytics.ApiKey"
+            android:value="b23725bd3d266aa65c5a3dd1816b2f801524a189"/>
+
+        <activity
+            android:name=".ui.activities.tageditor.SongTagEditorActivity"
+            android:label="@string/title_activity_tag_editor"
+            android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity
+            android:name=".ui.activities.tageditor.AlbumTagEditorActivity"
+            android:label="@string/title_activity_album_tag_editor">
+        </activity>
+    </application>
+
+</manifest>

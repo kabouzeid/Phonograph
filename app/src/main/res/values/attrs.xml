@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="title_text_color" format="color"/>
+    <attr name="caption_text_color" format="color"/>
+    <attr name="music_controller_container_color" format="color"/>
+    <attr name="fab_color" format="color"/>
+    <attr name="fab_color_pressed" format="color"/>
+    <attr name="list_selector" format="reference"/>
+</resources>

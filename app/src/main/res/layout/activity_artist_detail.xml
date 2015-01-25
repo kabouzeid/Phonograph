@@ -1,0 +1,106 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:orientation="vertical">
+
+        <View
+            android:id="@+id/list_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/colorBackground"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <ImageView
+                android:id="@+id/artist_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/header_image_height"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_artist_image"
+                android:transitionName="@string/transition_artist_image"/>
+
+            <View
+                android:id="@+id/overlay"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/header_image_height"
+                android:background="?attr/colorPrimary"/>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/artist_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/title_view_height"
+                android:height="@dimen/title_view_height"
+                android:background="?attr/colorPrimary"
+                android:elevation="@dimen/toolbar_elevation"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center_vertical"
+                android:paddingLeft="72dp"
+                android:paddingRight="72dp"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="?attr/title_text_color"/>
+
+            <com.google.samples.apps.iosched.ui.widget.SlidingTabLayout
+                android:id="@+id/sliding_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tab_height"
+                android:background="?attr/colorPrimary"
+                android:elevation="@dimen/toolbar_elevation"
+                android:paddingRight="88dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/transparent"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/statusBar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/statusMargin"
+                android:background="@android:color/transparent"/>
+
+            <android.support.v7.widget.Toolbar
+                android:elevation="@dimen/toolbar_elevation"
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"/>
+        </LinearLayout>
+
+        <com.melnykov.fab.FloatingActionButton
+            android:id="@+id/fab"
+            style="@style/PlayPauseFab"
+            android:layout_gravity="right"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"/>
+
+    </FrameLayout>
+</RelativeLayout>

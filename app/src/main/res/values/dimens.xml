@@ -1,0 +1,39 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
+         https://developer.android.com/design/patterns/navigation-drawer.html -->
+    <dimen name="navigation_drawer_textsize">14sp</dimen>
+    <dimen name="navigation_drawer_image_height">140dp</dimen>
+    <dimen name="navigation_drawer_width">260dp</dimen>
+
+    <dimen name="title_view_height">72dp</dimen>
+    <dimen name="toolbar_elevation">2dp</dimen>
+
+    <dimen name="header_image_height">240dp</dimen>
+
+    <dimen name="statusMargin">0dp</dimen>
+
+    <!-- Notification template -->
+    <dimen name="notification_big_icon_height">64.0dip</dimen>
+    <dimen name="notification_big_icon_width">64.0dip</dimen>
+    <dimen name="notification_info_container_padding_left">8.0dip</dimen>
+    <dimen name="notification_info_container_padding_bottom">4.0dip</dimen>
+    <dimen name="notification_action_padding">8.0dip</dimen>
+    <dimen name="notification_action_height">48.0dip</dimen>
+    <dimen name="notification_action_width">48.0dip</dimen>
+
+    <!-- Notification template expanded -->
+    <dimen name="notification_expanded_height">128.0dip</dimen>
+    <dimen name="notification_expanded_buttons_divider_padding">12.0dip</dimen>
+    <dimen name="notification_expanded_button_height">48.0dip</dimen>
+    <dimen name="notification_expanded_button_padding">10.0dip</dimen>
+    <dimen name="notification_expanded_content_padding_top">8.0dip</dimen>
+    <dimen name="notification_expanded_collapse_padding">8.0dip</dimen>
+
+    <dimen name="tab_height">48dp</dimen>
+
+    <dimen name="tagEditorHeaderVariableSpace">100dp</dimen>
+</resources>
