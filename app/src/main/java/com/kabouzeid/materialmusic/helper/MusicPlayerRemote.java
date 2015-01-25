@@ -227,6 +227,19 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
         return false;
     }
 
+    public void moveSong(int from, int to){
+        final int currentPosition = getPosition();
+        Song songToMove = getPlayingQueue().remove(from);
+        getPlayingQueue().add(to, songToMove);
+        if(from > currentPosition && to <= currentPosition){
+            setPosition(getPosition() + 1);
+        } else if(from < currentPosition && to >= currentPosition){
+            setPosition(getPosition() - 1);
+        } else if(from == currentPosition){
+            setPosition(to);
+        }
+    }
+
     @Override
     public void onMusicRemoteEvent(MusicRemoteEvent event) {
         notifyOnMusicRemoteEventListeners(event.getAction());

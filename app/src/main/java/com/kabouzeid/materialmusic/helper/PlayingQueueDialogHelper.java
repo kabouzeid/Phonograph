@@ -5,7 +5,7 @@ import android.content.Context;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.materialmusic.App;
 import com.kabouzeid.materialmusic.R;
-import com.kabouzeid.materialmusic.adapter.PlayListAdapter;
+import com.kabouzeid.materialmusic.adapter.PlayingQueueAdapter;
 import com.kabouzeid.materialmusic.model.Song;
 import com.mobeta.android.dslv.DragSortListView;
 
@@ -34,15 +34,13 @@ public class PlayingQueueDialogHelper {
                 })
                 .build();
         final DragSortListView dragSortListView = (DragSortListView) dialog.getCustomView().findViewById(R.id.dragSortListView);
-        final PlayListAdapter playListAdapter = new PlayListAdapter(context, app.getMusicPlayerRemote().getPlayingQueue());
-        dragSortListView.setAdapter(playListAdapter);
+        final PlayingQueueAdapter playingQueueAdapter = new PlayingQueueAdapter(context, app.getMusicPlayerRemote().getPlayingQueue());
+        dragSortListView.setAdapter(playingQueueAdapter);
         dragSortListView.setDropListener(new DragSortListView.DropListener() {
             @Override
             public void drop(int from, int to) {
-                Song songToMove = app.getMusicPlayerRemote().getPlayingQueue().get(from);
-                app.getMusicPlayerRemote().getPlayingQueue().remove(from);
-                app.getMusicPlayerRemote().getPlayingQueue().add(to, songToMove);
-                playListAdapter.notifyDataSetChanged();
+                app.getMusicPlayerRemote().moveSong(from, to);
+                playingQueueAdapter.notifyDataSetChanged();
             }
         });
         return dialog;

@@ -17,11 +17,11 @@ import java.util.List;
 /**
  * Created by karim on 24.01.15.
  */
-public class PlayListAdapter extends ArrayAdapter<Song> {
+public class PlayingQueueAdapter extends ArrayAdapter<Song> {
     private Context context;
     private App app;
 
-    public PlayListAdapter(Context context, List<Song> playList) {
+    public PlayingQueueAdapter(Context context, List<Song> playList) {
         super(context, R.layout.item_playlist, playList);
         this.context = context;
         app = (App) context.getApplicationContext();
