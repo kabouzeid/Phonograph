@@ -425,39 +425,70 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
         return id;
     }
 
-    protected String getSongTitle() throws NullPointerException {
-        return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.TITLE);
+    protected String getSongTitle() {
+        try {
+            return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.TITLE);
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
-    protected String getAlbumTitle() throws NullPointerException {
-        return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.ALBUM);
+    protected String getAlbumTitle() {
+        try {
+            return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.ALBUM);
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
-    protected String getArtistName() throws NullPointerException {
-        return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.ARTIST);
+    protected String getArtistName() {
+        try {
+            return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.ARTIST);
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
-    protected String getAlbumArtistName() throws NullPointerException {
-        return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.ALBUM_ARTIST);
+    protected String getAlbumArtistName() {
+        try {
+            return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.ALBUM_ARTIST);
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
-    protected String getGenreName() throws NullPointerException {
-        return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.GENRE);
+    protected String getGenreName() {
+        try {
+            return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.GENRE);
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
-    protected String getSongYear() throws NullPointerException {
-        return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.YEAR);
+    protected String getSongYear() {
+        try {
+            return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.YEAR);
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
-    protected String getTrackNumber() throws NullPointerException {
-        return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.TRACK);
+    protected String getTrackNumber() {
+        try {
+            return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.TRACK);
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
-    protected Bitmap getAlbumArt() throws NullPointerException {
-        Artwork artworkTag = getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirstArtwork();
-        if (artworkTag != null) {
-            byte[] artworkBinaryData = artworkTag.getBinaryData();
-            return BitmapFactory.decodeByteArray(artworkBinaryData, 0, artworkBinaryData.length);
+    protected Bitmap getAlbumArt() {
+        try {
+            Artwork artworkTag = getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirstArtwork();
+            if (artworkTag != null) {
+                byte[] artworkBinaryData = artworkTag.getBinaryData();
+                return BitmapFactory.decodeByteArray(artworkBinaryData, 0, artworkBinaryData.length);
+            }
+        } catch (NullPointerException e) {
         }
         return null;
     }

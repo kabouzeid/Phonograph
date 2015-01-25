@@ -158,8 +158,8 @@
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab"
         style="@style/PlayPauseFab"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/editables"
+        android:src="@drawable/ic_done_white_48dp"
+        android:layout_margin="16dp"
         android:layout_gravity="bottom|right"/>
 
 </FrameLayout>

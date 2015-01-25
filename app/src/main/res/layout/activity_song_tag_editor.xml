@@ -197,21 +197,10 @@
 
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/editables"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        android:elevation="8dp"
-        android:padding="14dp"
-        android:scaleType="fitCenter"
+        style="@style/PlayPauseFab"
         android:src="@drawable/ic_done_white_48dp"
-        android:transitionName="@string/transition_fab"
-        fab:fab_color="@color/materialmusic_accent_color"
-        fab:fab_colorNormal="@color/materialmusic_accent_color"
-        fab:fab_colorPressed="@color/materialmusic_accent_color_darker"/>
+        android:layout_margin="16dp"
+        android:layout_gravity="bottom|right"/>
 
 </FrameLayout>
 

@@ -27,6 +27,7 @@ import org.jaudiotagger.tag.images.ArtworkFactory;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -80,6 +81,8 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
         Artwork artwork = null;
         Map<FieldKey, String> fieldKeyValueMap = new EnumMap<>(FieldKey.class);
         fieldKeyValueMap.put(FieldKey.ALBUM, albumTitle.getText().toString());
+        //android seems not to recognize album_artist field so we additionally write the normal artist field
+        fieldKeyValueMap.put(FieldKey.ARTIST, albumArtistName.getText().toString());
         fieldKeyValueMap.put(FieldKey.ALBUM_ARTIST, albumArtistName.getText().toString());
         fieldKeyValueMap.put(FieldKey.GENRE, genreName.getText().toString());
         fieldKeyValueMap.put(FieldKey.YEAR, year.getText().toString());

@@ -130,42 +130,57 @@
 
                 <com.melnykov.fab.FloatingActionButton
                     android:id="@+id/fab"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="false"
-                    android:layout_alignParentTop="false"
+                    style="@style/PlayPauseFab"
                     android:layout_centerInParent="true"
                     android:layout_marginBottom="16dp"
                     android:layout_marginTop="16dp"
-                    android:adjustViewBounds="false"
-                    android:cropToPadding="false"
-                    android:elevation="8dp"
-                    android:transitionName="@string/transition_fab"
-                    fab:fab_color="@color/materialmusic_accent_color"
-                    fab:fab_colorNormal="@color/materialmusic_accent_color"
-                    fab:fab_colorPressed="@color/materialmusic_accent_color_darker"/>
+                    />
 
                 <ImageButton
+                    android:scaleType="fitCenter"
                     android:id="@+id/prev_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
                     android:layout_centerVertical="true"
-                    android:layout_margin="8dp"
                     android:layout_toLeftOf="@+id/fab"
                     android:background="?android:attr/selectableItemBackground"
-                    android:padding="16dp"
+                    android:padding="14dp"
                     android:src="@drawable/ic_skip_previous_white_48dp"/>
 
                 <ImageButton
+                    android:scaleType="fitCenter"
                     android:id="@+id/next_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
                     android:layout_centerVertical="true"
-                    android:layout_margin="8dp"
                     android:layout_toRightOf="@+id/fab"
                     android:background="?android:attr/selectableItemBackground"
-                    android:padding="16dp"
+                    android:padding="14dp"
                     android:src="@drawable/ic_skip_next_white_48dp"/>
+
+                <ImageButton
+                    android:scaleType="fitCenter"
+                    android:id="@+id/repeat_button"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="8dp"
+                    android:layout_alignParentLeft="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:padding="14dp"
+                    android:src="@drawable/ic_repeat_grey600_48dp"/>
+
+                <ImageButton
+                    android:scaleType="fitCenter"
+                    android:id="@+id/shuffle_button"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="8dp"
+                    android:layout_alignParentRight="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:padding="14dp"
+                    android:src="@drawable/ic_shuffle_grey600_48dp"/>
 
             </RelativeLayout>
 
