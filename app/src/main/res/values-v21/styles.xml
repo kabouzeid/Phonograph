@@ -19,5 +19,6 @@
 
     <style name="NotificationButton" parent="NotificationButtonParent">
         <item name="android:background">@drawable/notification_selector</item>
+        <item name="android:tint">@color/notification_buttons_tint</item>
     </style>
 </resources>

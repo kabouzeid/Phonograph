@@ -74,11 +74,11 @@ public class NotificationHelper {
             return;
         }
         if (notificationLayout != null) {
-            notificationLayout.setImageViewResource(R.id.button_toggle_playpause,
+            notificationLayout.setImageViewResource(R.id.button_toggle_play_pause,
                     isPlaying ? R.drawable.ic_pause_white_48dp : R.drawable.ic_play_arrow_white_48dp);
         }
         if (notificationLayoutExpanded != null) {
-            notificationLayoutExpanded.setImageViewResource(R.id.button_toggle_playpause,
+            notificationLayoutExpanded.setImageViewResource(R.id.button_toggle_play_pause,
                     isPlaying ? R.drawable.ic_pause_white_48dp : R.drawable.ic_play_arrow_white_48dp);
         }
         notificationManager.notify(NOTIFICATION_ID, notification);
@@ -93,7 +93,7 @@ public class NotificationHelper {
     }
 
     private void setUpExpandedPlaybackActions(boolean isPlaying) {
-        notificationLayoutExpanded.setOnClickPendingIntent(R.id.button_toggle_playpause,
+        notificationLayoutExpanded.setOnClickPendingIntent(R.id.button_toggle_play_pause,
                 retrievePlaybackActions(1));
 
         notificationLayoutExpanded.setOnClickPendingIntent(R.id.button_next,
@@ -105,12 +105,12 @@ public class NotificationHelper {
         notificationLayoutExpanded.setOnClickPendingIntent(R.id.button_quit,
                 retrievePlaybackActions(4));
 
-        notificationLayoutExpanded.setImageViewResource(R.id.button_toggle_playpause,
+        notificationLayoutExpanded.setImageViewResource(R.id.button_toggle_play_pause,
                 isPlaying ? R.drawable.ic_pause_white_48dp : R.drawable.ic_play_arrow_white_48dp);
     }
 
     private void setUpPlaybackActions(boolean isPlaying) {
-        notificationLayout.setOnClickPendingIntent(R.id.button_toggle_playpause,
+        notificationLayout.setOnClickPendingIntent(R.id.button_toggle_play_pause,
                 retrievePlaybackActions(1));
 
         notificationLayout.setOnClickPendingIntent(R.id.button_next,
@@ -119,7 +119,7 @@ public class NotificationHelper {
         notificationLayout.setOnClickPendingIntent(R.id.button_quit,
                 retrievePlaybackActions(4));
 
-        notificationLayout.setImageViewResource(R.id.button_toggle_playpause,
+        notificationLayout.setImageViewResource(R.id.button_toggle_play_pause,
                 isPlaying ? R.drawable.ic_pause_white_48dp : R.drawable.ic_play_arrow_white_48dp);
     }
 

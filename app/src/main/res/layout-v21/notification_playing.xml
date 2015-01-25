@@ -36,29 +36,29 @@
             />
 
         <LinearLayout
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="fill_vertical"
-            android:paddingLeft="@dimen/notification_info_container_padding_left"
-            android:paddingBottom="@dimen/notification_info_container_padding_bottom"
             android:layout_weight="1"
+            android:gravity="center_vertical"
             android:minHeight="@dimen/notification_big_icon_height"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/notification_info_container_padding_bottom"
+            android:paddingLeft="@dimen/notification_info_container_padding_left">
 
             <TextView
-                android:textAppearance="@style/Theme.MaterialMusic.Notification.Title"
-                android:singleLine="true"
                 android:id="@+id/song_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textAppearance="@style/Theme.MaterialMusic.Notification.Title"/>
 
             <TextView
-                android:singleLine="true"
-                android:textAppearance="@style/Theme.MaterialMusic.Notification"
                 android:id="@+id/song_artist"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textAppearance="@style/Theme.MaterialMusic.Notification"/>
         </LinearLayout>
 
         <LinearLayout
@@ -66,30 +66,30 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="6dp"
             android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
             android:orientation="horizontal"
             >
 
             <ImageButton
-                android:id="@+id/button_toggle_playpause"
+                android:id="@+id/button_toggle_play_pause"
                 style="@style/NotificationButton"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
                 android:src="@drawable/ic_play_arrow_white_48dp"
                 />
 
             <ImageButton
                 android:id="@+id/button_next"
                 style="@style/NotificationButton"
-                android:src="@drawable/ic_skip_next_white_48dp"/>
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:src="@drawable/ic_skip_next_white_48dp"
+                />
 
             <ImageButton
-                android:tint="@color/notification_buttons_tint"
-                android:layout_weight="1"
-                android:background="@drawable/notification_selector"
                 android:id="@+id/button_quit"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
+                style="@style/NotificationButton"
                 android:padding="16dp"
                 android:src="@drawable/close"/>
         </LinearLayout>
