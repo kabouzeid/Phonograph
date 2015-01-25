@@ -236,8 +236,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position > 0) {
-                    app.getMusicPlayerRemote().setPlayingQueue(songs);
-                    app.getMusicPlayerRemote().playSongAt(position - 1);
+                    app.getMusicPlayerRemote().openQueue(songs, position - 1, true);
                 }
             }
         });

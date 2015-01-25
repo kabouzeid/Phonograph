@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.kabouzeid.materialmusic.R;
 import com.kabouzeid.materialmusic.helper.NotificationHelper;
-import com.kabouzeid.materialmusic.helper.Shuffler;
+import com.kabouzeid.materialmusic.helper.ShuffleHelper;
 import com.kabouzeid.materialmusic.interfaces.OnMusicRemoteEventListener;
 import com.kabouzeid.materialmusic.misc.AppKeys;
 import com.kabouzeid.materialmusic.model.MusicRemoteEvent;
@@ -34,7 +34,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener, AudioManager.OnAudioFocusChangeListener {
@@ -57,7 +56,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     private MediaPlayer player;
     private List<Song> playingQueue;
-    private LinkedList<Song> playingHistory;
+    private List<Song> originalPlayingQueue;
     private List<OnMusicRemoteEventListener> onMusicRemoteEventListeners;
     private int currentSongId = -1;
     private int position = -1;
@@ -70,7 +69,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private NotificationHelper notificationHelper;
     private AudioManager audioManager;
     private RemoteControlClient remoteControlClient;
-    private Shuffler shuffler;
 
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -96,7 +94,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         super.onCreate();
         isPlayerPrepared = false;
         playingQueue = new ArrayList<>();
-        playingHistory = new LinkedList<>();
+        originalPlayingQueue = new ArrayList<>();
         onMusicRemoteEventListeners = new ArrayList<>();
         notificationHelper = new NotificationHelper(this);
 
@@ -104,13 +102,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         repeatMode = PreferenceManager.getDefaultSharedPreferences(this).getInt(AppKeys.SP_REPEAT_MODE, 0);
 
         registerEverything();
-    }
-
-    private Shuffler getShuffler() {
-        if (shuffler == null) {
-            shuffler = new Shuffler(playingQueue.size());
-        }
-        return shuffler;
     }
 
     private boolean requestFocus() {
@@ -253,7 +244,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     private void killEverythingAndReleaseResources() {
         savePosition();
-        saveQueue();
+        saveQueues();
         stopPlaying();
         notificationHelper.killNotification();
         stopSelf();
@@ -276,12 +267,27 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         notificationHelper.buildNotification(playingQueue.get(position), isPlaying());
     }
 
-    public void setPlayingQueue(List<Song> songs) {
-        if (!playingQueue.equals(songs)) {
-            this.playingQueue = songs;
-            shuffler = new Shuffler(playingQueue.size());
-            saveQueue();
+    public void openQueue(final List<Song> playingQueue, final int startPosition, final boolean startPlaying) {
+        if (playingQueue != null && !playingQueue.isEmpty() && startPosition >= 0 && startPosition < playingQueue.size()) {
+            originalPlayingQueue = playingQueue;
+            this.playingQueue = new ArrayList<>(originalPlayingQueue);
+            setPosition(startPosition);
+            if (shuffleMode == SHUFFLE_MODE_SHUFFLE) {
+                ShuffleHelper.makeShuffleList(this.playingQueue, startPosition);
+                setPosition(0);
+            }
+            if (startPlaying) {
+                playSong();
+            }
+            saveState();
         }
+    }
+
+    public void restorePreviousState(final List<Song> originalPlayingQueue, final List<Song> playingQueue, int position) {
+        this.originalPlayingQueue = originalPlayingQueue;
+        this.playingQueue = playingQueue;
+        this.position = position;
+        saveState();
     }
 
     public List<Song> getPlayingQueue() {
@@ -309,9 +315,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 player.setVolume(1.0f, 1.0f);
                 if (wasPlayingBeforeFocusLoss) {
                     resumePlaying();
-                    updateRemoteControlClient(getPlayingQueue().get(position));
+                    updateRemoteControlClient(getPlayingQueue().get(getPosition()));
                 }
-                updateRemoteControlClient(getPlayingQueue().get(position));
+                updateRemoteControlClient(getPlayingQueue().get(getPosition()));
                 break;
 
             case AudioManager.AUDIOFOCUS_LOSS:
@@ -344,6 +350,15 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         }
     }
 
+    public void playSongAt(final int position) {
+        if (position < getPlayingQueue().size() && position >= 0) {
+            setPosition(position);
+            playSong();
+        } else {
+            Log.e(TAG, "No song in queue at given index!");
+        }
+    }
+
     public void playSong() {
         if (requestFocus()) {
             setUpMediaPlayerIfNeeded();
@@ -353,9 +368,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             Uri trackUri = getCurrentPositionTrackUri();
             try {
                 player.setDataSource(getApplicationContext(), trackUri);
-                currentSongId = playingQueue.get(position).id;
+                currentSongId = getPlayingQueue().get(getPosition()).id;
                 updateNotification();
-                updateRemoteControlClient(getPlayingQueue().get(position));
+                updateRemoteControlClient(getPlayingQueue().get(getPosition()));
                 player.prepareAsync();
             } catch (Exception e) {
                 Log.e("MUSIC SERVICE", "Error setting data source", e);
@@ -407,7 +422,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public void playNextSong() {
         if (position != -1) {
             if (isPlayerPrepared) {
-
                 setPosition(getNextPosition());
                 playSong();
                 notifyOnMusicRemoteEventListeners(MusicRemoteEvent.NEXT);
@@ -437,29 +451,15 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         int position = 0;
         switch (repeatMode) {
             case REPEAT_MODE_NONE:
-                switch (shuffleMode) {
-                    case SHUFFLE_MODE_NONE:
-                        position = getPosition() + 1;
-                        if (isLastTrack()) {
-                            position -= 1;
-                        }
-                        break;
-                    case SHUFFLE_MODE_SHUFFLE:
-                        position = getShuffler().nextInt(false);
-                        break;
+                position = getPosition() + 1;
+                if (isLastTrack()) {
+                    position -= 1;
                 }
                 break;
             case REPEAT_MODE_ALL:
-                switch (shuffleMode) {
-                    case SHUFFLE_MODE_NONE:
-                        position = getPosition() + 1;
-                        if (isLastTrack()) {
-                            position = 0;
-                        }
-                        break;
-                    case SHUFFLE_MODE_SHUFFLE:
-                        position = getShuffler().nextInt(true);
-                        break;
+                position = getPosition() + 1;
+                if (isLastTrack()) {
+                    position = 0;
                 }
                 break;
             case REPEAT_MODE_THIS:
@@ -473,29 +473,15 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         int position = 0;
         switch (repeatMode) {
             case REPEAT_MODE_NONE:
-                switch (shuffleMode) {
-                    case SHUFFLE_MODE_NONE:
-                        position = getPosition() - 1;
-                        if (position < 0) {
-                            position = 0;
-                        }
-                        break;
-                    case SHUFFLE_MODE_SHUFFLE:
-                        position = getShuffler().previousInt();
-                        break;
+                position = getPosition() - 1;
+                if (position < 0) {
+                    position = 0;
                 }
                 break;
             case REPEAT_MODE_ALL:
-                switch (shuffleMode) {
-                    case SHUFFLE_MODE_NONE:
-                        position = getPosition() - 1;
-                        if (position < 0) {
-                            position = getPlayingQueue().size() - 1;
-                        }
-                        break;
-                    case SHUFFLE_MODE_SHUFFLE:
-                        position = getShuffler().previousInt();
-                        break;
+                position = getPosition() - 1;
+                if (position < 0) {
+                    position = getPlayingQueue().size() - 1;
                 }
                 break;
             case REPEAT_MODE_THIS:
@@ -526,10 +512,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public boolean isPlayerPrepared() {
-        if (player == null) {
-            return false;
-        }
-        return isPlayerPrepared;
+        return player != null && isPlayerPrepared;
     }
 
     private boolean isLastTrack() {
@@ -547,13 +530,24 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         onMusicRemoteEventListeners.add(onMusicRemoteEventListener);
     }
 
-    public void saveQueue() {
-        try {
-            InternalStorageUtil.writeObject(MusicService.this, AppKeys.IS_PLAYING_QUEUE, getPlayingQueue());
-            Log.i(TAG, "saved current queue state");
-        } catch (IOException e) {
-            Log.e(TAG, "error while saving music service queue state", e);
-        }
+    public void saveState() {
+        saveQueues();
+        savePosition();
+    }
+
+    public void saveQueues() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    InternalStorageUtil.writeObject(MusicService.this, AppKeys.IS_PLAYING_QUEUE, playingQueue);
+                    InternalStorageUtil.writeObject(MusicService.this, AppKeys.IS_ORIGINAL_PLAYING_QUEUE, originalPlayingQueue);
+                    Log.i(TAG, "saved current queue state");
+                } catch (IOException e) {
+                    Log.e(TAG, "error while saving music service queue state", e);
+                }
+            }
+        }).start();
     }
 
     public void savePosition() {
@@ -573,12 +567,27 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public void setShuffleMode(final int shuffleMode) {
         switch (shuffleMode) {
             case SHUFFLE_MODE_SHUFFLE:
-                shuffler = new Shuffler(getPlayingQueue().size());
+                this.shuffleMode = shuffleMode;
+                PreferenceManager.getDefaultSharedPreferences(this).edit()
+                        .putInt(AppKeys.SP_SHUFFLE_MODE, shuffleMode)
+                        .apply();
+                ShuffleHelper.makeShuffleList(this.playingQueue, getPosition());
+                setPosition(0);
+                notifyOnMusicRemoteEventListeners(MusicRemoteEvent.SHUFFLE_MODE_CHANGED);
+                break;
             case SHUFFLE_MODE_NONE:
                 this.shuffleMode = shuffleMode;
                 PreferenceManager.getDefaultSharedPreferences(this).edit()
                         .putInt(AppKeys.SP_SHUFFLE_MODE, shuffleMode)
                         .apply();
+                playingQueue = new ArrayList<>(originalPlayingQueue);
+                int newPosition = 0;
+                for (Song song : playingQueue) {
+                    if (song.id == currentSongId) {
+                        newPosition = playingQueue.indexOf(song);
+                    }
+                }
+                setPosition(newPosition);
                 notifyOnMusicRemoteEventListeners(MusicRemoteEvent.SHUFFLE_MODE_CHANGED);
                 break;
         }
@@ -599,7 +608,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public void cycleRepeatMode() {
-        switch (repeatMode) {
+        switch (getRepeatMode()) {
             case REPEAT_MODE_NONE:
                 setRepeatMode(REPEAT_MODE_ALL);
                 break;
@@ -613,7 +622,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public void toggleShuffle() {
-        if (shuffleMode == SHUFFLE_MODE_NONE) {
+        if (getShuffleMode() == SHUFFLE_MODE_NONE) {
             setShuffleMode(SHUFFLE_MODE_SHUFFLE);
         } else {
             setShuffleMode(SHUFFLE_MODE_NONE);

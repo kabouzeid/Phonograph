@@ -11,6 +11,7 @@ public final class AppKeys {
     public static final String SP_SHUFFLE_MODE = "com.kabouzeid.materialmusic.SHUFFLE_MODE";
     public static final String SP_REPEAT_MODE = "com.kabouzeid.materialmusic.REPEAT_MODE";
 
+    public static final String IS_ORIGINAL_PLAYING_QUEUE = "com.kabouzeid.materialmusic.ORIGINAL_PLAYING_QUEUE";
     public static final String IS_PLAYING_QUEUE = "com.kabouzeid.materialmusic.PLAYING_QUEUE";
     public static final String IS_POSITION_IN_QUEUE = "com.kabouzeid.materialmusic.POSITION_IN_QUEUE";
     public static final String IS_ARTIST_JSON_INFO_CACHE = "com.kabouzeid.materialmusic.ARTIST_JSON_INFO_CACHE";

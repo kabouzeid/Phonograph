@@ -29,8 +29,7 @@ public class ViewPagerTabArtistSongListFragment extends AbsViewPagerTabArtistLis
         setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                app.getMusicPlayerRemote().setPlayingQueue(songs);
-                app.getMusicPlayerRemote().playSongAt(position);
+                app.getMusicPlayerRemote().openQueue(songs, position, true);
             }
         });
         return adapter;

@@ -30,6 +30,7 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
     private int position = -1;
 
     private List<Song> playingQueue;
+    private List<Song> restoredOriginalQueue;
     private List<OnMusicRemoteEventListener> onMusicRemoteEventListeners;
 
     private MusicService musicService;
@@ -39,6 +40,7 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
     public MusicPlayerRemote(Context context) {
         app = (App) context.getApplicationContext();
         playingQueue = new ArrayList<>();
+        restoredOriginalQueue = new ArrayList<>();
         onMusicRemoteEventListeners = new ArrayList<>();
         startAndBindService();
     }
@@ -56,10 +58,9 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
         public void onServiceConnected(ComponentName name, IBinder service) {
             MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
             musicService = binder.getService();
-            musicService.setPosition(position);
             musicBound = true;
+            musicService.restorePreviousState(restoredOriginalQueue, playingQueue, position);
             musicService.addOnMusicRemoteEventListener(MusicPlayerRemote.this);
-            setPlayingQueue(playingQueue);
             notifyOnMusicRemoteEventListeners(MusicRemoteEvent.SERVICE_CONNECTED);
         }
 
@@ -70,16 +71,9 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
         }
     };
 
-    public boolean playSongAt(int position) {
+    public boolean playSongAt(final int position) {
         if (musicBound) {
-            if (position < getPlayingQueue().size() && position >= 0) {
-                this.position = position;
-                musicService.setPosition(position);
-                musicService.playSong();
-                return true;
-            } else {
-                Log.e(TAG, "No song in queue at given index!");
-            }
+            musicService.playSongAt(position);
         }
         return false;
     }
@@ -139,10 +133,17 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
         return position;
     }
 
-    public void setPlayingQueue(List<Song> songs) {
-        playingQueue = songs;
+    private void setPosition(int position) {
+        this.position = position;
         if (musicBound) {
-            musicService.setPlayingQueue(playingQueue);
+            musicService.setPosition(position);
+        }
+    }
+
+    public void openQueue(final List<Song> playingQueue, final int startPosition, final boolean startPlaying) {
+        this.playingQueue = playingQueue;
+        if (musicBound) {
+            musicService.openQueue(this.playingQueue, startPosition, startPlaying);
         }
     }
 
@@ -254,12 +255,17 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
     public void restorePreviousState() {
         try {
             List restoredQueue = (ArrayList<Song>) InternalStorageUtil.readObject(app, AppKeys.IS_PLAYING_QUEUE);
+            List restoredOriginalQueue = (ArrayList<Song>) InternalStorageUtil.readObject(app, AppKeys.IS_ORIGINAL_PLAYING_QUEUE);
             int restoredPosition = (int) InternalStorageUtil.readObject(app, AppKeys.IS_POSITION_IN_QUEUE);
-            setPlayingQueue(restoredQueue);
-            position = restoredPosition;
+
             if (musicBound) {
-                musicService.setPosition(restoredPosition);
+                musicService.restorePreviousState(restoredOriginalQueue, restoredQueue, restoredPosition);
             }
+
+            playingQueue = restoredQueue;
+            this.restoredOriginalQueue = restoredOriginalQueue;
+            position = restoredPosition;
+
             notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STATE_RESTORED);
             Log.i(TAG, "restored last state");
         } catch (IOException | ClassNotFoundException | ClassCastException e) {
