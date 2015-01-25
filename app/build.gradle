@@ -59,6 +59,6 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.1.0@aar') {
         transitive = true;
     }
-    compile files('/Users/karim/Google Drive/Dokumente/AndroidStudioProjects/MaterialMusic/libs/jaudiotagger-2.0.4-20111207.115108-15.jar')
-    compile project(':libraries:drag-sort-listview:library')
+    compile files('../libs/jaudiotagger-2.0.4-20111207.115108-15.jar')
+    compile 'asia.ivity.android:drag-sort-listview:1.0'
 }
