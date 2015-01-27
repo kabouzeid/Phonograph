@@ -60,6 +60,15 @@ public class LastFMArtistInfoUtil {
         }
     }
 
+    public static JSONArray getArtistImageArrayFromJSON(JSONObject rootJSON) {
+        try {
+            return rootJSON.getJSONObject("artist").getJSONArray("image");
+        } catch (JSONException e) {
+            //Log.e(TAG, "Error while getting artist image array from JSON parameter!", e);
+            return null;
+        }
+    }
+
     public static String getArtistImageUrlFromJSON(JSONObject rootJSON) {
         try {
             JSONArray images = getArtistImageArrayFromJSON(rootJSON);
@@ -67,15 +76,6 @@ public class LastFMArtistInfoUtil {
         } catch (JSONException | NullPointerException e) {
             //Log.e(TAG, "Error while getting artist image from JSON parameter!", e);
             return "";
-        }
-    }
-
-    public static JSONArray getArtistImageArrayFromJSON(JSONObject rootJSON) {
-        try {
-            return rootJSON.getJSONObject("artist").getJSONArray("image");
-        } catch (JSONException e) {
-            //Log.e(TAG, "Error while getting artist image array from JSON parameter!", e);
-            return null;
         }
     }
 

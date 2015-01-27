@@ -5,8 +5,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:fontFamily="sans-serif-medium"
+    android:gravity="center"
+    android:text="Comming soon!"
     android:textAppearance="@style/TextAppearance.AppCompat.Title"
-    android:textColor="?title_text_color"
-    android:text="Comming soon!"/>
+    android:textColor="?title_text_color"/>

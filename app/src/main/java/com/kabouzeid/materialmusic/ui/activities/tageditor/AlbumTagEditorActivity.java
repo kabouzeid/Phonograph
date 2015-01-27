@@ -27,7 +27,6 @@ import org.jaudiotagger.tag.images.ArtworkFactory;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;

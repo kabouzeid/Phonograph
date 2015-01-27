@@ -32,10 +32,32 @@ public abstract class AbsBaseActivity extends ActionBarActivity implements KabVi
         super.onCreate(savedInstanceState);
     }
 
+    protected App getApp() {
+        if (app == null) {
+            app = (App) getApplicationContext();
+        }
+        return app;
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         enableViews();
+    }
+
+    @Override
+    public void enableViews() {
+        areViewsEnabled = true;
+    }
+
+    @Override
+    public void disableViews() {
+        areViewsEnabled = false;
+    }
+
+    @Override
+    public boolean areViewsEnabled() {
+        return areViewsEnabled;
     }
 
     protected void setUpTranslucence(boolean statusBarTranslucent, boolean navigationBarTranslucent) {
@@ -78,19 +100,6 @@ public abstract class AbsBaseActivity extends ActionBarActivity implements KabVi
         goToArtistDetailsActivity(artistId, null);
     }
 
-    public void goToAlbumDetailsActivity(int albumId, Pair[] sharedViews) {
-        final Intent intent = new Intent(this, AlbumDetailActivity.class);
-        intent.putExtra(AppKeys.E_ALBUM, albumId);
-        if (sharedViews != null) {
-            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
-                    sharedViews
-            );
-            ActivityCompat.startActivity(this, intent, optionsCompat.toBundle());
-        } else {
-            startActivity(intent);
-        }
-    }
-
     public void goToArtistDetailsActivity(int artistId, Pair[] sharedViews) {
         final Intent intent = new Intent(this, ArtistDetailActivity.class);
         intent.putExtra(AppKeys.E_ARTIST, artistId);
@@ -104,25 +113,16 @@ public abstract class AbsBaseActivity extends ActionBarActivity implements KabVi
         }
     }
 
-    @Override
-    public boolean areViewsEnabled() {
-        return areViewsEnabled;
-    }
-
-    @Override
-    public void enableViews() {
-        areViewsEnabled = true;
-    }
-
-    @Override
-    public void disableViews() {
-        areViewsEnabled = false;
-    }
-
-    protected App getApp() {
-        if (app == null) {
-            app = (App) getApplicationContext();
+    public void goToAlbumDetailsActivity(int albumId, Pair[] sharedViews) {
+        final Intent intent = new Intent(this, AlbumDetailActivity.class);
+        intent.putExtra(AppKeys.E_ALBUM, albumId);
+        if (sharedViews != null) {
+            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
+                    sharedViews
+            );
+            ActivityCompat.startActivity(this, intent, optionsCompat.toBundle());
+        } else {
+            startActivity(intent);
         }
-        return app;
     }
 }

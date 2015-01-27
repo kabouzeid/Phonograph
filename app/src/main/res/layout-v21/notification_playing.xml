@@ -74,16 +74,16 @@
             <ImageButton
                 android:id="@+id/button_toggle_play_pause"
                 style="@style/NotificationButton"
-                android:paddingTop="16dp"
                 android:paddingBottom="16dp"
+                android:paddingTop="16dp"
                 android:src="@drawable/ic_play_arrow_white_48dp"
                 />
 
             <ImageButton
                 android:id="@+id/button_next"
                 style="@style/NotificationButton"
-                android:paddingTop="16dp"
                 android:paddingBottom="16dp"
+                android:paddingTop="16dp"
                 android:src="@drawable/ic_skip_next_white_48dp"
                 />
 

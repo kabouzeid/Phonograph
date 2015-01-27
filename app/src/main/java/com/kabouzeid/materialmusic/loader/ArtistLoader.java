@@ -36,6 +36,20 @@ public class ArtistLoader {
         return artists;
     }
 
+    public static final Cursor makeArtistCursor(final Context context) {
+        return context.getContentResolver().query(MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI,
+                new String[]{
+                        /* 0 */
+                        BaseColumns._ID,
+                        /* 1 */
+                        MediaStore.Audio.ArtistColumns.ARTIST,
+                        /* 2 */
+                        MediaStore.Audio.ArtistColumns.NUMBER_OF_ALBUMS,
+                        /* 3 */
+                        MediaStore.Audio.ArtistColumns.NUMBER_OF_TRACKS
+                }, null, null, null);
+    }
+
     public static Artist getArtist(Context context, int artistId) {
         Cursor cursor = makeArtistCursor(context);
         Artist artist = new Artist();
@@ -79,19 +93,5 @@ public class ArtistLoader {
             cursor.close();
         }
         return artists;
-    }
-
-    public static final Cursor makeArtistCursor(final Context context) {
-        return context.getContentResolver().query(MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI,
-                new String[]{
-                        /* 0 */
-                        BaseColumns._ID,
-                        /* 1 */
-                        MediaStore.Audio.ArtistColumns.ARTIST,
-                        /* 2 */
-                        MediaStore.Audio.ArtistColumns.NUMBER_OF_ALBUMS,
-                        /* 3 */
-                        MediaStore.Audio.ArtistColumns.NUMBER_OF_TRACKS
-                }, null, null, null);
     }
 }

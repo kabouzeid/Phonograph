@@ -97,28 +97,6 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
         lollipopTransitionImageWrongSizeFix();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_artist_detail, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case android.R.id.home:
-                super.onBackPressed();
-                return true;
-            case R.id.action_settings:
-                return true;
-            case R.id.action_current_playing:
-                openCurrentPlayingIfPossible(null);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     private void initViews() {
         artistImageView = (ImageView) findViewById(R.id.artist_image);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -181,80 +159,42 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
         });
     }
 
-    private void setUpArtistImageAndApplyPalette() {
-        if (artistImage == null) {
-            LastFMArtistImageLoader.loadArtistImage(this, artist.name, new LastFMArtistImageLoader.ArtistImageLoaderCallback() {
-                @Override
-                public void onArtistImageLoaded(Bitmap artistImage) {
-                    if (artistImage != null) {
-                        ArtistDetailActivity.this.artistImage = artistImage;
-                        artistImageView.setImageBitmap(artistImage);
-                        applyPalette(artistImage);
-                    }
-                }
-            });
-        } else {
-            artistImageView.setImageBitmap(artistImage);
-            applyPalette(artistImage);
-        }
-    }
-
-    private void setUpViewPatch() {
-        final View contentView = getWindow().getDecorView().findViewById(android.R.id.content);
-        contentView.post(new Runnable() {
+    public void restoreY(final int scrollY) {
+        translateToolBar(scrollY);
+        int animationTime = 1000;
+        DecelerateInterpolator interpolator = new DecelerateInterpolator(4);
+        int titleTranslationY = getTitleTranslation(scrollY);
+        ViewPropertyAnimator.animate(artistArtOverlayView).y(getOverlayTranslation(scrollY)).setDuration(animationTime).setInterpolator(interpolator).start();
+        ViewPropertyAnimator.animate(artistImageView).y(getImageViewTranslation(scrollY)).setDuration(animationTime).setInterpolator(interpolator).start();
+        ViewPropertyAnimator.animate(absAlbumListBackgroundView).y(getListBackgroundTranslation(scrollY)).setDuration(animationTime).setInterpolator(interpolator).start();
+        ViewPropertyAnimator.animate(artistArtOverlayView).alpha(getOverlayAlpha(scrollY)).setDuration(animationTime).setInterpolator(interpolator).start();
+        ViewPropertyAnimator.animate(slidingTabs).y(titleTranslationY + titleViewHeight).setDuration(animationTime).setInterpolator(interpolator).start();
+        ViewPropertyAnimator.animate(artistTitleText).y(titleTranslationY).setDuration(animationTime).setInterpolator(interpolator).start();
+        ViewPropertyAnimator.animate(getFab()).y(getFabTranslation(scrollY)).setDuration(animationTime).setInterpolator(interpolator).setListener(new Animator.AnimatorListener() {
             @Override
-            public void run() {
-                absAlbumListBackgroundView.getLayoutParams().height = contentView.getHeight();
+            public void onAnimationStart(Animator animation) {
+                isAnimating = true;
             }
-        });
-    }
 
-    private void setUpToolBar() {
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(null);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        if (!TOOLBAR_IS_STICKY) {
-            toolbar.setBackgroundColor(Color.TRANSPARENT);
-        }
-    }
-
-    private void applyPalette(Bitmap bitmap) {
-        Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
             @Override
-            public void onGenerated(Palette palette) {
-                Palette.Swatch swatch = palette.getVibrantSwatch();
-                if (swatch != null) {
-                    toolbarColor = swatch.getRgb();
-                    artistArtOverlayView.setBackgroundColor(swatch.getRgb());
-                    artistTitleText.setBackgroundColor(swatch.getRgb());
-                    slidingTabs.setBackgroundColor(swatch.getRgb());
-                    artistTitleText.setTextColor(swatch.getTitleTextColor());
+            public void onAnimationEnd(Animator animation) {
+                translateToolBar(scrollY);
+                isAnimating = false;
+                if (currentFragment instanceof AbsViewPagerTabArtistListFragment) {
+                    onScrollChanged((((AbsViewPagerTabArtistListFragment) currentFragment).getY()), false, false);
                 }
             }
-        });
-    }
 
-    @Override
-    public void enableViews() {
-        super.enableViews();
-        viewPager.setEnabled(true);
-        toolbar.setEnabled(true);
-    }
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                isAnimating = false;
+            }
 
-    @Override
-    public void disableViews() {
-        super.disableViews();
-        viewPager.setEnabled(false);
-        toolbar.setEnabled(false);
-    }
-
-    private void getIntentExtras() {
-        Bundle intentExtras = getIntent().getExtras();
-        final int artistId = intentExtras.getInt(AppKeys.E_ARTIST);
-        artist = ArtistLoader.getArtist(this, artistId);
-        if (artist == null) {
-            finish();
-        }
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                isAnimating = true;
+            }
+        }).start();
     }
 
     @Override
@@ -270,6 +210,14 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
             ViewHelper.setTranslationY(getFab(), getFabTranslation(scrollY));
             translateToolBar(scrollY);
         }
+    }
+
+    @Override
+    public void onDownMotionEvent() {
+    }
+
+    @Override
+    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
     }
 
     private int getImageViewTranslation(int scrollY) {
@@ -325,50 +273,66 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
         }
     }
 
-    public void restoreY(final int scrollY) {
-        translateToolBar(scrollY);
-        int animationTime = 1000;
-        DecelerateInterpolator interpolator = new DecelerateInterpolator(4);
-        int titleTranslationY = getTitleTranslation(scrollY);
-        ViewPropertyAnimator.animate(artistArtOverlayView).y(getOverlayTranslation(scrollY)).setDuration(animationTime).setInterpolator(interpolator).start();
-        ViewPropertyAnimator.animate(artistImageView).y(getImageViewTranslation(scrollY)).setDuration(animationTime).setInterpolator(interpolator).start();
-        ViewPropertyAnimator.animate(absAlbumListBackgroundView).y(getListBackgroundTranslation(scrollY)).setDuration(animationTime).setInterpolator(interpolator).start();
-        ViewPropertyAnimator.animate(artistArtOverlayView).alpha(getOverlayAlpha(scrollY)).setDuration(animationTime).setInterpolator(interpolator).start();
-        ViewPropertyAnimator.animate(slidingTabs).y(titleTranslationY + titleViewHeight).setDuration(animationTime).setInterpolator(interpolator).start();
-        ViewPropertyAnimator.animate(artistTitleText).y(titleTranslationY).setDuration(animationTime).setInterpolator(interpolator).start();
-        ViewPropertyAnimator.animate(getFab()).y(getFabTranslation(scrollY)).setDuration(animationTime).setInterpolator(interpolator).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                isAnimating = true;
-            }
+    private void setUpArtistImageAndApplyPalette() {
+        if (artistImage == null) {
+            LastFMArtistImageLoader.loadArtistImage(this, artist.name, new LastFMArtistImageLoader.ArtistImageLoaderCallback() {
+                @Override
+                public void onArtistImageLoaded(Bitmap artistImage) {
+                    if (artistImage != null) {
+                        ArtistDetailActivity.this.artistImage = artistImage;
+                        artistImageView.setImageBitmap(artistImage);
+                        applyPalette(artistImage);
+                    }
+                }
+            });
+        } else {
+            artistImageView.setImageBitmap(artistImage);
+            applyPalette(artistImage);
+        }
+    }
 
+    private void applyPalette(Bitmap bitmap) {
+        Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
             @Override
-            public void onAnimationEnd(Animator animation) {
-                translateToolBar(scrollY);
-                isAnimating = false;
-                if (currentFragment instanceof AbsViewPagerTabArtistListFragment) {
-                    onScrollChanged((((AbsViewPagerTabArtistListFragment) currentFragment).getY()), false, false);
+            public void onGenerated(Palette palette) {
+                Palette.Swatch swatch = palette.getVibrantSwatch();
+                if (swatch != null) {
+                    toolbarColor = swatch.getRgb();
+                    artistArtOverlayView.setBackgroundColor(swatch.getRgb());
+                    artistTitleText.setBackgroundColor(swatch.getRgb());
+                    slidingTabs.setBackgroundColor(swatch.getRgb());
+                    artistTitleText.setTextColor(swatch.getTitleTextColor());
                 }
             }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                isAnimating = false;
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-                isAnimating = true;
-            }
-        }).start();
+        });
     }
 
-    @Override
-    public void onDownMotionEvent() {
+    private void setUpViewPatch() {
+        final View contentView = getWindow().getDecorView().findViewById(android.R.id.content);
+        contentView.post(new Runnable() {
+            @Override
+            public void run() {
+                absAlbumListBackgroundView.getLayoutParams().height = contentView.getHeight();
+            }
+        });
     }
 
-    @Override
-    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+    private void setUpToolBar() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (!TOOLBAR_IS_STICKY) {
+            toolbar.setBackgroundColor(Color.TRANSPARENT);
+        }
+    }
+
+    private void getIntentExtras() {
+        Bundle intentExtras = getIntent().getExtras();
+        final int artistId = intentExtras.getInt(AppKeys.E_ARTIST);
+        artist = ArtistLoader.getArtist(this, artistId);
+        if (artist == null) {
+            finish();
+        }
     }
 
     @Override
@@ -420,6 +384,42 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_artist_detail, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home:
+                super.onBackPressed();
+                return true;
+            case R.id.action_settings:
+                return true;
+            case R.id.action_current_playing:
+                openCurrentPlayingIfPossible(null);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void enableViews() {
+        super.enableViews();
+        viewPager.setEnabled(true);
+        toolbar.setEnabled(true);
+    }
+
+    @Override
+    public void disableViews() {
+        super.disableViews();
+        viewPager.setEnabled(false);
+        toolbar.setEnabled(false);
+    }
+
     private static class NavigationAdapter extends FragmentPagerAdapter {
 
         private String[] titles;
@@ -465,6 +465,14 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
             return f;
         }
 
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            if (0 <= mPages.indexOfKey(position)) {
+                mPages.remove(position);
+            }
+            super.destroyItem(container, position, object);
+        }
+
         public Fragment getItemAt(int position) {
             return mPages.get(position, null);
         }
@@ -472,14 +480,6 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
         @Override
         public int getCount() {
             return titles.length;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            if (0 <= mPages.indexOfKey(position)) {
-                mPages.remove(position);
-            }
-            super.destroyItem(container, position, object);
         }
 
         @Override

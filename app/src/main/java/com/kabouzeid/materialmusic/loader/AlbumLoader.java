@@ -38,6 +38,24 @@ public class AlbumLoader {
         return albums;
     }
 
+    private static Cursor makeAlbumCursor(final Context context) {
+        return context.getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
+                new String[]{
+                        /* 0 */
+                        BaseColumns._ID,
+                        /* 1 */
+                        MediaStore.Audio.AlbumColumns.ALBUM,
+                        /* 2 */
+                        MediaStore.Audio.AlbumColumns.ARTIST,
+                        /* 3 */
+                        MediaStore.Audio.Media.ARTIST_ID,
+                        /* 4 */
+                        MediaStore.Audio.AlbumColumns.NUMBER_OF_SONGS,
+                        /* 5 */
+                        MediaStore.Audio.AlbumColumns.FIRST_YEAR
+                }, null, null, null);
+    }
+
     public static Album getAlbum(Context context, int albumId) {
         Cursor cursor = makeAlbumCursor(context);
         Album album = new Album();
@@ -84,23 +102,5 @@ public class AlbumLoader {
             cursor.close();
         }
         return albums;
-    }
-
-    private static Cursor makeAlbumCursor(final Context context) {
-        return context.getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
-                new String[]{
-                        /* 0 */
-                        BaseColumns._ID,
-                        /* 1 */
-                        MediaStore.Audio.AlbumColumns.ALBUM,
-                        /* 2 */
-                        MediaStore.Audio.AlbumColumns.ARTIST,
-                        /* 3 */
-                        MediaStore.Audio.Media.ARTIST_ID,
-                        /* 4 */
-                        MediaStore.Audio.AlbumColumns.NUMBER_OF_SONGS,
-                        /* 5 */
-                        MediaStore.Audio.AlbumColumns.FIRST_YEAR
-                }, null, null, null);
     }
 }

@@ -36,23 +36,6 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
     private MusicService musicService;
     private Intent musicServiceIntent;
     private boolean musicBound = false;
-
-    public MusicPlayerRemote(Context context) {
-        app = (App) context.getApplicationContext();
-        playingQueue = new ArrayList<>();
-        restoredOriginalQueue = new ArrayList<>();
-        onMusicRemoteEventListeners = new ArrayList<>();
-        startAndBindService();
-    }
-
-    private void startAndBindService() {
-        if (musicServiceIntent == null) {
-            musicServiceIntent = new Intent(app, MusicService.class);
-            app.bindService(musicServiceIntent, musicConnection, Context.BIND_AUTO_CREATE);
-            app.startService(musicServiceIntent);
-        }
-    }
-
     private ServiceConnection musicConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -70,6 +53,22 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
             notifyOnMusicRemoteEventListeners(MusicRemoteEvent.SERVICE_DISCONNECTED);
         }
     };
+
+    public MusicPlayerRemote(Context context) {
+        app = (App) context.getApplicationContext();
+        playingQueue = new ArrayList<>();
+        restoredOriginalQueue = new ArrayList<>();
+        onMusicRemoteEventListeners = new ArrayList<>();
+        startAndBindService();
+    }
+
+    private void startAndBindService() {
+        if (musicServiceIntent == null) {
+            musicServiceIntent = new Intent(app, MusicService.class);
+            app.bindService(musicServiceIntent, musicConnection, Context.BIND_AUTO_CREATE);
+            app.startService(musicServiceIntent);
+        }
+    }
 
     public boolean playSongAt(final int position) {
         if (musicBound) {
@@ -126,6 +125,21 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
         }
     }
 
+    public void openQueue(final List<Song> playingQueue, final int startPosition, final boolean startPlaying) {
+        this.playingQueue = playingQueue;
+        if (musicBound) {
+            musicService.openQueue(this.playingQueue, startPosition, startPlaying);
+        }
+    }
+
+    public Song getCurrentSong() {
+        final int position = getPosition();
+        if (position != -1) {
+            return getPlayingQueue().get(position);
+        }
+        return new Song();
+    }
+
     public int getPosition() {
         if (musicBound) {
             position = musicService.getPosition();
@@ -140,13 +154,6 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
         }
     }
 
-    public void openQueue(final List<Song> playingQueue, final int startPosition, final boolean startPlaying) {
-        this.playingQueue = playingQueue;
-        if (musicBound) {
-            musicService.openQueue(this.playingQueue, startPosition, startPlaying);
-        }
-    }
-
     public List<Song> getPlayingQueue() {
         if (musicBound) {
             playingQueue = musicService.getPlayingQueue();
@@ -154,19 +161,18 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
         return playingQueue;
     }
 
-    public Song getCurrentSong() {
-        final int position = getPosition();
-        if (position != -1) {
-            return getPlayingQueue().get(position);
-        }
-        return new Song();
-    }
-
     public int getSongProgressMillis() {
         if (isPlayerPrepared()) {
             return musicService.getSongProgressMillis();
         }
         return -1;
+    }
+
+    public boolean isPlayerPrepared() {
+        if (musicBound) {
+            return musicService.isPlayerPrepared();
+        }
+        return false;
     }
 
     public int getSongDurationMillis() {
@@ -184,13 +190,6 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
         if (musicBound) {
             musicService.seekTo(millis);
         }
-    }
-
-    public boolean isPlayerPrepared() {
-        if (musicBound) {
-            return musicService.isPlayerPrepared();
-        }
-        return false;
     }
 
     public int getRepeatMode() {
@@ -223,15 +222,15 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
         return false;
     }
 
-    public void moveSong(int from, int to){
+    public void moveSong(int from, int to) {
         final int currentPosition = getPosition();
         Song songToMove = getPlayingQueue().remove(from);
         getPlayingQueue().add(to, songToMove);
-        if(from > currentPosition && to <= currentPosition){
+        if (from > currentPosition && to <= currentPosition) {
             setPosition(getPosition() + 1);
-        } else if(from < currentPosition && to >= currentPosition){
+        } else if (from < currentPosition && to >= currentPosition) {
             setPosition(getPosition() - 1);
-        } else if(from == currentPosition){
+        } else if (from == currentPosition) {
             setPosition(to);
         }
     }
@@ -239,6 +238,13 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
     @Override
     public void onMusicRemoteEvent(MusicRemoteEvent event) {
         notifyOnMusicRemoteEventListeners(event.getAction());
+    }
+
+    private void notifyOnMusicRemoteEventListeners(int event) {
+        MusicRemoteEvent musicRemoteEvent = new MusicRemoteEvent(event);
+        for (OnMusicRemoteEventListener listener : onMusicRemoteEventListeners) {
+            listener.onMusicRemoteEvent(musicRemoteEvent);
+        }
     }
 
     public void addOnMusicRemoteEventListener(OnMusicRemoteEventListener onMusicRemoteEventListener) {
@@ -251,13 +257,6 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
 
     public void removeAllOnMusicRemoteEventListeners() {
         onMusicRemoteEventListeners.clear();
-    }
-
-    private void notifyOnMusicRemoteEventListeners(int event) {
-        MusicRemoteEvent musicRemoteEvent = new MusicRemoteEvent(event);
-        for (OnMusicRemoteEventListener listener : onMusicRemoteEventListeners) {
-            listener.onMusicRemoteEvent(musicRemoteEvent);
-        }
     }
 
     @SuppressWarnings("unchecked")

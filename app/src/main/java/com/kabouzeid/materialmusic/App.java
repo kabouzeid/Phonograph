@@ -43,18 +43,18 @@ public class App extends Application {
         return playerRemote;
     }
 
-    public SharedPreferences getDefaultSharedPreferences() {
-        if (defaultSharedPreferences == null) {
-            defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        }
-        return defaultSharedPreferences;
-    }
-
     public int getAppTheme() {
         if (appTheme == 0) {
             appTheme = getDefaultSharedPreferences().getInt(AppKeys.SP_THEME, R.style.Theme_MaterialMusic);
         }
         return appTheme;
+    }
+
+    public SharedPreferences getDefaultSharedPreferences() {
+        if (defaultSharedPreferences == null) {
+            defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        }
+        return defaultSharedPreferences;
     }
 
     public void setAppTheme(int appTheme) {
@@ -70,15 +70,15 @@ public class App extends Application {
         return getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
     }
 
+    public void addToRequestQueue(Request request) {
+        request.setTag(TAG);
+        getRequestQueue().add(request);
+    }
+
     public RequestQueue getRequestQueue() {
         if (requestQueue == null) {
             requestQueue = Volley.newRequestQueue(this);
         }
         return requestQueue;
-    }
-
-    public void addToRequestQueue(Request request) {
-        request.setTag(TAG);
-        getRequestQueue().add(request);
     }
 }

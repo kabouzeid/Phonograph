@@ -68,6 +68,23 @@ public class AlbumViewFragment extends Fragment implements KabViewsDisableAble, 
         enableViews();
     }
 
+    @Override
+    public void enableViews() {
+        areViewsEnabled = true;
+        absListView.setEnabled(true);
+    }
+
+    @Override
+    public void disableViews() {
+        areViewsEnabled = false;
+        absListView.setEnabled(false);
+    }
+
+    @Override
+    public boolean areViewsEnabled() {
+        return areViewsEnabled;
+    }
+
     private void initViews() {
         absListView = (AbsListView) fragmentRootView.findViewById(R.id.absList);
         fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
@@ -79,11 +96,6 @@ public class AlbumViewFragment extends Fragment implements KabViewsDisableAble, 
 
     private void setUpAbsListView() {
         List<Album> albums = AlbumLoader.getAllAlbums(getActivity());
-        fillAbsListView(albums);
-    }
-
-    private void setUpAbsListView(String query) {
-        List<Album> albums = AlbumLoader.getAlbums(getActivity(), query);
         fillAbsListView(albums);
     }
 
@@ -145,25 +157,13 @@ public class AlbumViewFragment extends Fragment implements KabViewsDisableAble, 
     }
 
     @Override
-    public void disableViews() {
-        areViewsEnabled = false;
-        absListView.setEnabled(false);
-    }
-
-    @Override
-    public boolean areViewsEnabled() {
-        return areViewsEnabled;
-    }
-
-    @Override
-    public void enableViews() {
-        areViewsEnabled = true;
-        absListView.setEnabled(true);
-    }
-
-    @Override
     public void search(String query) {
         setUpAbsListView(query);
+    }
+
+    private void setUpAbsListView(String query) {
+        List<Album> albums = AlbumLoader.getAlbums(getActivity(), query);
+        fillAbsListView(albums);
     }
 
     @Override

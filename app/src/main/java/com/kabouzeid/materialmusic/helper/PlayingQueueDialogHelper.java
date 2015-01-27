@@ -6,7 +6,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.materialmusic.App;
 import com.kabouzeid.materialmusic.R;
 import com.kabouzeid.materialmusic.adapter.PlayingQueueAdapter;
-import com.kabouzeid.materialmusic.model.Song;
 import com.mobeta.android.dslv.DragSortListView;
 
 /**

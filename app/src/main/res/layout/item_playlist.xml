@@ -7,6 +7,7 @@
     android:descendantFocusability="blocksDescendants"
     android:orientation="horizontal"
     >
+
     <TextView
         android:id="@+id/song_title"
         android:layout_width="0dp"

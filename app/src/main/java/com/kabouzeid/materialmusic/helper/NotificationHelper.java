@@ -64,26 +64,6 @@ public class NotificationHelper {
         service.startForeground(NOTIFICATION_ID, notification);
     }
 
-    public void killNotification() {
-        service.stopForeground(true);
-        notification = null;
-    }
-
-    public void updatePlayState(final boolean isPlaying) {
-        if (notification == null || notificationManager == null) {
-            return;
-        }
-        if (notificationLayout != null) {
-            notificationLayout.setImageViewResource(R.id.button_toggle_play_pause,
-                    isPlaying ? R.drawable.ic_pause_white_48dp : R.drawable.ic_play_arrow_white_48dp);
-        }
-        if (notificationLayoutExpanded != null) {
-            notificationLayoutExpanded.setImageViewResource(R.id.button_toggle_play_pause,
-                    isPlaying ? R.drawable.ic_pause_white_48dp : R.drawable.ic_play_arrow_white_48dp);
-        }
-        notificationManager.notify(NOTIFICATION_ID, notification);
-    }
-
     private PendingIntent getOpenMusicControllerPendingIntent() {
         Intent result = new Intent(service, MusicControllerActivity.class);
         TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(service);
@@ -160,13 +140,6 @@ public class NotificationHelper {
         notificationLayout.setTextViewText(R.id.song_artist, song.title);
     }
 
-    private void setUpExpandedLayout(Song song) {
-        loadAlbumArt(notificationLayoutExpanded, MusicUtil.getAlbumArtUri(song.albumId).toString());
-        notificationLayoutExpanded.setTextViewText(R.id.song_title, song.title);
-        notificationLayoutExpanded.setTextViewText(R.id.song_artist, song.artistName);
-        notificationLayoutExpanded.setTextViewText(R.id.album_title, song.albumName);
-    }
-
     private static void loadAlbumArt(RemoteViews notificationView, String albumArtUri) {
         Bitmap albumArtBitmap = ImageLoader.getInstance().loadImageSync(albumArtUri);
         if (albumArtBitmap == null) {
@@ -174,5 +147,32 @@ public class NotificationHelper {
         } else {
             notificationView.setImageViewBitmap(R.id.album_art, albumArtBitmap);
         }
+    }
+
+    private void setUpExpandedLayout(Song song) {
+        loadAlbumArt(notificationLayoutExpanded, MusicUtil.getAlbumArtUri(song.albumId).toString());
+        notificationLayoutExpanded.setTextViewText(R.id.song_title, song.title);
+        notificationLayoutExpanded.setTextViewText(R.id.song_artist, song.artistName);
+        notificationLayoutExpanded.setTextViewText(R.id.album_title, song.albumName);
+    }
+
+    public void killNotification() {
+        service.stopForeground(true);
+        notification = null;
+    }
+
+    public void updatePlayState(final boolean isPlaying) {
+        if (notification == null || notificationManager == null) {
+            return;
+        }
+        if (notificationLayout != null) {
+            notificationLayout.setImageViewResource(R.id.button_toggle_play_pause,
+                    isPlaying ? R.drawable.ic_pause_white_48dp : R.drawable.ic_play_arrow_white_48dp);
+        }
+        if (notificationLayoutExpanded != null) {
+            notificationLayoutExpanded.setImageViewResource(R.id.button_toggle_play_pause,
+                    isPlaying ? R.drawable.ic_pause_white_48dp : R.drawable.ic_play_arrow_white_48dp);
+        }
+        notificationManager.notify(NOTIFICATION_ID, notification);
     }
 }

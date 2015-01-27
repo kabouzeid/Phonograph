@@ -25,19 +25,14 @@ import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter
 import java.util.ArrayList;
 
 public class NavigationDrawerFragment extends Fragment {
-    private static final String TAG = NavigationDrawerFragment.class.getSimpleName();
-
     public static final int NAVIGATION_DRAWER_HEADER = -1;
+    private static final String TAG = NavigationDrawerFragment.class.getSimpleName();
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
-
-    private App app;
-
-    private NavigationDrawerCallbacks mCallbacks;
-
-    private NavigationDrawerItemAdapter drawerAdapter;
-
-    private DrawerLayout drawerLayout;
     public View fragmentRootView;
+    private App app;
+    private NavigationDrawerCallbacks mCallbacks;
+    private NavigationDrawerItemAdapter drawerAdapter;
+    private DrawerLayout drawerLayout;
     private ListView drawerListView;
     private View fragmentContainerView;
 
@@ -51,6 +46,45 @@ public class NavigationDrawerFragment extends Fragment {
     private boolean userLearnedDrawer;
 
     public NavigationDrawerFragment() {
+    }
+
+    public boolean isDrawerOpen() {
+        return drawerLayout != null && drawerLayout.isDrawerOpen(fragmentContainerView);
+    }
+
+    public void setUp(int fragmentId, final DrawerLayout drawerLayout) {
+        fragmentContainerView = getActivity().findViewById(fragmentId);
+        this.drawerLayout = drawerLayout;
+        this.drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+
+
+        if (!userLearnedDrawer && !fromSavedInstanceState) {
+            this.drawerLayout.openDrawer(fragmentContainerView);
+            userLearnedDrawer = true;
+            app.getDefaultSharedPreferences().edit().putBoolean(AppKeys.SP_USER_LEARNED_DRAWER, true).apply();
+        }
+    }
+
+    public TextView getSongArtist() {
+        return songArtist;
+    }
+
+    public ImageView getAlbumArtImageView() {
+        return albumArt;
+    }
+
+    public TextView getSongTitle() {
+        return songTitle;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mCallbacks = (NavigationDrawerCallbacks) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Activity must implement NavigationDrawerCallbacks.");
+        }
     }
 
     @Override
@@ -126,23 +160,6 @@ public class NavigationDrawerFragment extends Fragment {
         });
     }
 
-    public boolean isDrawerOpen() {
-        return drawerLayout != null && drawerLayout.isDrawerOpen(fragmentContainerView);
-    }
-
-    public void setUp(int fragmentId, final DrawerLayout drawerLayout) {
-        fragmentContainerView = getActivity().findViewById(fragmentId);
-        this.drawerLayout = drawerLayout;
-        this.drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-
-
-        if (!userLearnedDrawer && !fromSavedInstanceState) {
-            this.drawerLayout.openDrawer(fragmentContainerView);
-            userLearnedDrawer = true;
-            app.getDefaultSharedPreferences().edit().putBoolean(AppKeys.SP_USER_LEARNED_DRAWER, true).apply();
-        }
-    }
-
     private void selectItem(int position) {
         if (position != NAVIGATION_DRAWER_HEADER) {
             currentSelectedPosition = position;
@@ -165,38 +182,16 @@ public class NavigationDrawerFragment extends Fragment {
         }
     }
 
-    public TextView getSongArtist() {
-        return songArtist;
-    }
-
-    public ImageView getAlbumArtImageView() {
-        return albumArt;
-    }
-
-    public TextView getSongTitle() {
-        return songTitle;
-    }
-
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mCallbacks = (NavigationDrawerCallbacks) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException("Activity must implement NavigationDrawerCallbacks.");
-        }
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(STATE_SELECTED_POSITION, currentSelectedPosition);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mCallbacks = null;
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt(STATE_SELECTED_POSITION, currentSelectedPosition);
     }
 
     public static interface NavigationDrawerCallbacks {

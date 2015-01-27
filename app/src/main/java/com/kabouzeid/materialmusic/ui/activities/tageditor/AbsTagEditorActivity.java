@@ -68,7 +68,21 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
     private Toolbar toolBar;
     private ImageView image;
     private View header;
-
+    private SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
+        @Override
+        public void onScrollChanged(int scrollY, boolean b, boolean b2) {
+            float alpha;
+            if (!isInNoImageMode) {
+                alpha = 1 - (float) Math.max(0, headerVariableSpace - scrollY) / headerVariableSpace;
+            } else {
+                ViewHelper.setTranslationY(header, scrollY);
+                alpha = 1;
+            }
+            ViewUtil.setBackgroundAlpha(toolBar, alpha, paletteColorPrimary);
+            ViewUtil.setBackgroundAlpha(header, alpha, paletteColorPrimary);
+            ViewHelper.setTranslationY(image, scrollY / 2);
+        }
+    };
     private List<String> songPaths;
 
     @Override
@@ -147,21 +161,42 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
         });
     }
 
-    protected void searchWebFor(List<String> strings) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String string : strings) {
-            stringBuilder.append(string);
-            stringBuilder.append(" ");
-        }
-        Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-        intent.putExtra(SearchManager.QUERY, stringBuilder.toString());
-        startActivity(intent);
-    }
-
     private void startImagePicker() {
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, REQUEST_CODE_SELECT_IMAGE);
+    }
+
+    protected abstract void loadCurrentImage();
+
+    protected abstract void getImageFromLastFM();
+
+    protected abstract void searchImageOnWeb();
+
+    protected abstract void deleteImage();
+
+    protected void setUpFab() {
+        ViewHelper.setScaleX(fab, 0);
+        ViewHelper.setScaleY(fab, 0);
+        fab.setEnabled(false);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                save();
+            }
+        });
+    }
+
+    protected abstract void save();
+
+    private void restoreStandardColors() {
+        final int vibrantColor = Util.resolveColor(this, R.attr.colorPrimary);
+        paletteColorPrimary = vibrantColor;
+        observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(vibrantColor);
+            getWindow().setNavigationBarColor(vibrantColor);
+        }
     }
 
     private void setUpTranslucence() {
@@ -184,6 +219,21 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    protected abstract int getContentViewResId();
+
+    protected abstract List<String> getSongPaths();
+
+    protected void searchWebFor(List<String> strings) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String string : strings) {
+            stringBuilder.append(string);
+            stringBuilder.append(" ");
+        }
+        Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+        intent.putExtra(SearchManager.QUERY, stringBuilder.toString());
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_tag_editor, menu);
@@ -203,16 +253,16 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    protected void setUpFab() {
-        ViewHelper.setScaleX(fab, 0);
-        ViewHelper.setScaleY(fab, 0);
-        fab.setEnabled(false);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                save();
-            }
-        });
+    protected void setNoImageMode() {
+        isInNoImageMode = true;
+        image.setVisibility(View.GONE);
+        image.setEnabled(false);
+        scrollView.setPadding(0, Util.getActionBarSize(this), 0, 0);
+        observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
+    }
+
+    protected void dataChanged() {
+        showFab();
     }
 
     private void showFab() {
@@ -225,21 +275,17 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
         fab.setEnabled(true);
     }
 
-    private SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
-        @Override
-        public void onScrollChanged(int scrollY, boolean b, boolean b2) {
-            float alpha;
-            if (!isInNoImageMode) {
-                alpha = 1 - (float) Math.max(0, headerVariableSpace - scrollY) / headerVariableSpace;
-            } else {
-                ViewHelper.setTranslationY(header, scrollY);
-                alpha = 1;
-            }
-            ViewUtil.setBackgroundAlpha(toolBar, alpha, paletteColorPrimary);
-            ViewUtil.setBackgroundAlpha(header, alpha, paletteColorPrimary);
-            ViewHelper.setTranslationY(image, scrollY / 2);
+    protected void setImageRes(int resId) {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId);
+        setImageBitmap(bitmap);
+    }
+
+    protected void setImageBitmap(final Bitmap bitmap) {
+        if (bitmap != null) {
+            image.setImageBitmap(bitmap);
+            applyPalette(bitmap);
         }
-    };
+    }
 
     private void applyPalette(final Bitmap bitmap) {
         if (bitmap != null) {
@@ -260,69 +306,8 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
         }
     }
 
-    private void restoreStandardColors() {
-        final int vibrantColor = Util.resolveColor(this, R.attr.colorPrimary);
-        paletteColorPrimary = vibrantColor;
-        observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(vibrantColor);
-            getWindow().setNavigationBarColor(vibrantColor);
-        }
-    }
-
-    protected void setNoImageMode() {
-        isInNoImageMode = true;
-        image.setVisibility(View.GONE);
-        image.setEnabled(false);
-        scrollView.setPadding(0, Util.getActionBarSize(this), 0, 0);
-        observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
-    }
-
-    protected void dataChanged() {
-        showFab();
-    }
-
-    protected void setImageBitmap(final Bitmap bitmap) {
-        if (bitmap != null) {
-            image.setImageBitmap(bitmap);
-            applyPalette(bitmap);
-        }
-    }
-
-    protected void setImageRes(int resId) {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId);
-        setImageBitmap(bitmap);
-    }
-
-    private void rescanMedia() {
-        String[] toBeScanned = new String[songPaths.size()];
-        toBeScanned = songPaths.toArray(toBeScanned);
-        MediaScannerConnection.scanFile(this, toBeScanned, null, null);
-    }
-
-    private AudioFile getAudioFile(String path) {
-        try {
-            return AudioFileIO.read(new File(path));
-        } catch (CannotReadException | ReadOnlyFileException | InvalidAudioFrameException | TagException | IOException e) {
-            Log.e(TAG, "error while trying to create the AudioFile from File", e);
-        }
-        return null;
-    }
-
     protected void writeValuesToFiles(final Map<FieldKey, String> fieldKeyValueMap) {
         writeValuesToFiles(fieldKeyValueMap, null, false);
-    }
-
-    protected void writeValuesToFiles(final Map<FieldKey, String> fieldKeyValueMap, final Artwork artwork) {
-        if (artwork == null) {
-            writeValuesToFiles(fieldKeyValueMap, null, true);
-        } else {
-            writeValuesToFiles(fieldKeyValueMap, artwork, false);
-        }
-    }
-
-    protected void writeValuesToFiles(final Map<FieldKey, String> fieldKeyValueMap, boolean deleteArtwork) {
-        writeValuesToFiles(fieldKeyValueMap, null, deleteArtwork);
     }
 
     protected void writeValuesToFiles(final Map<FieldKey, String> fieldKeyValueMap, final Artwork artwork, final boolean deleteArtwork) {
@@ -382,11 +367,33 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
         }).start();
     }
 
+    private void rescanMedia() {
+        String[] toBeScanned = new String[songPaths.size()];
+        toBeScanned = songPaths.toArray(toBeScanned);
+        MediaScannerConnection.scanFile(this, toBeScanned, null, null);
+    }
+
     private void restartApp() {
         Intent i = getBaseContext().getPackageManager()
                 .getLaunchIntentForPackage(getBaseContext().getPackageName());
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
+    }
+
+    protected int getId() {
+        return id;
+    }
+
+    protected void writeValuesToFiles(final Map<FieldKey, String> fieldKeyValueMap, final Artwork artwork) {
+        if (artwork == null) {
+            writeValuesToFiles(fieldKeyValueMap, null, true);
+        } else {
+            writeValuesToFiles(fieldKeyValueMap, artwork, false);
+        }
+    }
+
+    protected void writeValuesToFiles(final Map<FieldKey, String> fieldKeyValueMap, boolean deleteArtwork) {
+        writeValuesToFiles(fieldKeyValueMap, null, deleteArtwork);
     }
 
     @Override
@@ -401,28 +408,10 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
         }
     }
 
-    protected abstract void save();
-
-    protected abstract int getContentViewResId();
-
-    protected abstract void loadCurrentImage();
-
-    protected abstract void getImageFromLastFM();
-
-    protected abstract void searchImageOnWeb();
-
     protected abstract void loadImageFromFile(Uri selectedFile);
-
-    protected abstract void deleteImage();
-
-    protected abstract List<String> getSongPaths();
 
     protected App getApp() {
         return app;
-    }
-
-    protected int getId() {
-        return id;
     }
 
     protected String getSongTitle() {
@@ -431,6 +420,15 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
         } catch (NullPointerException e) {
             return null;
         }
+    }
+
+    private AudioFile getAudioFile(String path) {
+        try {
+            return AudioFileIO.read(new File(path));
+        } catch (CannotReadException | ReadOnlyFileException | InvalidAudioFrameException | TagException | IOException e) {
+            Log.e(TAG, "error while trying to create the AudioFile from File", e);
+        }
+        return null;
     }
 
     protected String getAlbumTitle() {

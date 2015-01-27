@@ -6,21 +6,21 @@
                 tools:context="com.kabouzeid.materialmusic.ui.activities.AlbumDetailActivity$PlaceholderFragment">
 
     <com.kabouzeid.materialmusic.view.SquareImageView
-        android:scaleType="centerCrop"
-        android:background="@color/black"
         android:id="@+id/album_art"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/black"
+        android:scaleType="centerCrop"
         android:src="@drawable/default_album_art"
         android:transitionName="@string/transition_album_cover"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/navigation_drawer_gradient"
-        android:orientation="vertical"
         android:layout_above="@+id/footer"
-        android:layout_alignTop="@+id/progress_container"/>
+        android:layout_alignTop="@+id/progress_container"
+        android:background="@drawable/navigation_drawer_gradient"
+        android:orientation="vertical"/>
 
     <LinearLayout
         android:id="@+id/progress_container"
@@ -60,13 +60,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/album_art"
+        android:background="?attr/colorPrimary"
+        android:elevation="1dp"
+        android:orientation="vertical"
         android:paddingBottom="16dp"
         android:paddingLeft="72dp"
         android:paddingRight="72dp"
         android:paddingTop="16dp"
-        android:background="?attr/colorPrimary"
-        android:elevation="1dp"
-        android:orientation="vertical"
         android:transitionName="@string/transition_album_text"
         >
 
@@ -74,8 +74,8 @@
             android:id="@+id/song_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:singleLine="true"
             android:fontFamily="sans-serif-medium"
+            android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="?attr/title_text_color"/>
 
@@ -83,8 +83,8 @@
             android:id="@+id/song_artist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:singleLine="true"
             android:fontFamily="sans-serif"
+            android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textColor="?attr/caption_text_color"/>
 
@@ -103,12 +103,11 @@
 
         <com.melnykov.fab.FloatingActionButton
             android:id="@+id/fab"
-            android:layout_centerInParent="true"
             style="@style/PlayPauseFab"
+            android:layout_centerInParent="true"
             />
 
         <ImageButton
-            android:scaleType="fitCenter"
             android:id="@+id/prev_button"
             android:layout_width="56dp"
             android:layout_height="56dp"
@@ -117,10 +116,10 @@
             android:layout_toLeftOf="@+id/fab"
             android:background="?android:attr/selectableItemBackground"
             android:padding="14dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_skip_previous_white_48dp"/>
 
         <ImageButton
-            android:scaleType="fitCenter"
             android:id="@+id/next_button"
             android:layout_width="56dp"
             android:layout_height="56dp"
@@ -129,30 +128,31 @@
             android:layout_toRightOf="@+id/fab"
             android:background="?android:attr/selectableItemBackground"
             android:padding="14dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_skip_next_white_48dp"/>
 
         <ImageButton
-            android:scaleType="fitCenter"
             android:id="@+id/repeat_button"
             android:layout_width="56dp"
             android:layout_height="56dp"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_margin="8dp"
-            android:layout_alignParentLeft="true"
             android:background="?android:attr/selectableItemBackground"
             android:padding="14dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_repeat_grey600_48dp"/>
 
         <ImageButton
-            android:scaleType="fitCenter"
             android:id="@+id/shuffle_button"
             android:layout_width="56dp"
             android:layout_height="56dp"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_margin="8dp"
-            android:layout_alignParentRight="true"
             android:background="?android:attr/selectableItemBackground"
             android:padding="14dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_shuffle_grey600_48dp"/>
 
     </RelativeLayout>

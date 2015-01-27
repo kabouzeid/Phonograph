@@ -84,56 +84,6 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
         setUpToolBar();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_title_playing, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case android.R.id.home:
-                super.onBackPressed();
-                return true;
-            case R.id.action_playing_queue:
-                final MaterialDialog materialDialog = PlayingQueueDialogHelper.getDialog(this);
-                materialDialog.show();
-                return true;
-            case R.id.action_tag_editor:
-                Intent intent = new Intent(this, SongTagEditorActivity.class);
-                intent.putExtra(AppKeys.E_ID, song.id);
-                startActivity(intent);
-                return true;
-            case R.id.action_details:
-                String songFilePath = SongFileLoader.getSongFile(this, song.id);
-                File songFile = new File(songFilePath);
-                SongDetailDialogHelper.getDialog(this, songFile).show();
-                return true;
-            case R.id.action_go_to_album:
-                goToAlbumDetailsActivity(song.albumId, null);
-                return true;
-            case R.id.action_go_to_artist:
-                goToArtistDetailsActivity(song.artistId, null);
-                return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        startMusicControllerStateUpdateThread();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        killThreads = true;
-    }
-
     private void updateCurrentSong() {
         getCurrentSongAndQueue();
         setHeadersText();
@@ -141,13 +91,6 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
         setUpAlbumArtAndApplyPalette();
         totalSongDuration.setText(MusicUtil.getReadableDurationString(song.duration));
         currentSongProgress.setText(MusicUtil.getReadableDurationString(-1));
-    }
-
-    private void moveSeekBarIntoPlace() {
-        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) progressSlider.getLayoutParams();
-        progressSlider.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        lp.setMargins(0, 0, 0, -(progressSlider.getMeasuredHeight() / 2));
-        progressSlider.setLayoutParams(lp);
     }
 
     private void setHeadersText() {
@@ -179,41 +122,6 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
                 setStandardColors();
             }
         });
-    }
-
-    private void setUpArtistArt() {
-        if (artistArt != null) {
-            artistArt.setImageResource(R.drawable.default_artist_image);
-            LastFMArtistImageLoader.loadArtistImage(this, song.artistName, new LastFMArtistImageLoader.ArtistImageLoaderCallback() {
-                @Override
-                public void onArtistImageLoaded(Bitmap artistImage) {
-                    artistArt.setImageBitmap(artistImage);
-                }
-            });
-        }
-    }
-
-    private void getCurrentSongAndQueue() {
-        if (getApp().getMusicPlayerRemote().getPosition() >= 0) {
-            song = getApp().getMusicPlayerRemote().getPlayingQueue().get(getApp().getMusicPlayerRemote().getPosition());
-        } else {
-            finish();
-        }
-    }
-
-    private void initViews() {
-        nextButton = (ImageButton) findViewById(R.id.next_button);
-        prevButton = (ImageButton) findViewById(R.id.prev_button);
-        repeatButton = (ImageButton) findViewById(R.id.repeat_button);
-        shuffleButton = (ImageButton) findViewById(R.id.shuffle_button);
-        albumArt = (ImageView) findViewById(R.id.album_art);
-        artistArt = (ImageView) findViewById(R.id.artist_image);
-        songTitle = (TextView) findViewById(R.id.song_title);
-        songArtist = (TextView) findViewById(R.id.song_artist);
-        currentSongProgress = (TextView) findViewById(R.id.song_current_progress);
-        totalSongDuration = (TextView) findViewById(R.id.song_total_time);
-        footer = findViewById(R.id.footer);
-        progressSlider = (SeekBar) findViewById(R.id.progress_slider);
     }
 
     private void applyPalette(Bitmap bitmap) {
@@ -253,6 +161,48 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
             getWindow().setNavigationBarColor(newColor);
         }
         lastFooterColor = newColor;
+    }
+
+    private void setUpArtistArt() {
+        if (artistArt != null) {
+            artistArt.setImageResource(R.drawable.default_artist_image);
+            LastFMArtistImageLoader.loadArtistImage(this, song.artistName, new LastFMArtistImageLoader.ArtistImageLoaderCallback() {
+                @Override
+                public void onArtistImageLoaded(Bitmap artistImage) {
+                    artistArt.setImageBitmap(artistImage);
+                }
+            });
+        }
+    }
+
+    private void getCurrentSongAndQueue() {
+        if (getApp().getMusicPlayerRemote().getPosition() >= 0) {
+            song = getApp().getMusicPlayerRemote().getPlayingQueue().get(getApp().getMusicPlayerRemote().getPosition());
+        } else {
+            finish();
+        }
+    }
+
+    private void moveSeekBarIntoPlace() {
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) progressSlider.getLayoutParams();
+        progressSlider.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        lp.setMargins(0, 0, 0, -(progressSlider.getMeasuredHeight() / 2));
+        progressSlider.setLayoutParams(lp);
+    }
+
+    private void initViews() {
+        nextButton = (ImageButton) findViewById(R.id.next_button);
+        prevButton = (ImageButton) findViewById(R.id.prev_button);
+        repeatButton = (ImageButton) findViewById(R.id.repeat_button);
+        shuffleButton = (ImageButton) findViewById(R.id.shuffle_button);
+        albumArt = (ImageView) findViewById(R.id.album_art);
+        artistArt = (ImageView) findViewById(R.id.artist_image);
+        songTitle = (TextView) findViewById(R.id.song_title);
+        songArtist = (TextView) findViewById(R.id.song_artist);
+        currentSongProgress = (TextView) findViewById(R.id.song_current_progress);
+        totalSongDuration = (TextView) findViewById(R.id.song_total_time);
+        footer = findViewById(R.id.footer);
+        progressSlider = (SeekBar) findViewById(R.id.progress_slider);
     }
 
     private void setUpMusicControllers() {
@@ -306,6 +256,17 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
         });
     }
 
+    private void updateShuffleState() {
+        switch (getApp().getMusicPlayerRemote().getShuffleMode()) {
+            case MusicService.SHUFFLE_MODE_SHUFFLE:
+                shuffleButton.setImageResource(R.drawable.ic_shuffle_white_48dp);
+                break;
+            default:
+                shuffleButton.setImageResource(R.drawable.ic_shuffle_grey600_48dp);
+                break;
+        }
+    }
+
     private void setUpRepeatButton() {
         updateRepeatState();
         repeatButton.setOnClickListener(new View.OnClickListener() {
@@ -330,22 +291,21 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
         }
     }
 
-    private void updateShuffleState() {
-        switch (getApp().getMusicPlayerRemote().getShuffleMode()) {
-            case MusicService.SHUFFLE_MODE_SHUFFLE:
-                shuffleButton.setImageResource(R.drawable.ic_shuffle_white_48dp);
-                break;
-            default:
-                shuffleButton.setImageResource(R.drawable.ic_shuffle_grey600_48dp);
-                break;
-        }
+    private void prepareViewsForOpenAnimation() {
+        footer.setPivotY(0);
+        footer.setScaleY(0);
+    }
+
+    private void setUpToolBar() {
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportActionBar().setTitle(null);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
-    protected void updateControllerState() {
-        super.updateControllerState();
-        updateRepeatState();
-        updateShuffleState();
+    protected void onResume() {
+        super.onResume();
+        startMusicControllerStateUpdateThread();
     }
 
     private void startMusicControllerStateUpdateThread() {
@@ -380,6 +340,19 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
     }
 
     @Override
+    protected boolean openCurrentPlayingIfPossible(Pair[] sharedViews) {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    protected void updateControllerState() {
+        super.updateControllerState();
+        updateRepeatState();
+        updateShuffleState();
+    }
+
+    @Override
     public void onMusicRemoteEvent(MusicRemoteEvent event) {
         super.onMusicRemoteEvent(event);
         switch (event.getAction()) {
@@ -398,19 +371,10 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
         }
     }
 
-    private void prepareViewsForOpenAnimation() {
-        footer.setPivotY(0);
-        footer.setScaleY(0);
-    }
-
-    private void animateActivityOpened(int startDelay) {
-        ViewPropertyAnimator.animate(footer)
-                .scaleX(1)
-                .scaleY(1)
-                .setInterpolator(new DecelerateInterpolator(4))
-                .setDuration(DEFAULT_ANIMATION_TIME)
-                .setStartDelay(startDelay)
-                .start();
+    @Override
+    protected void onPause() {
+        super.onPause();
+        killThreads = true;
     }
 
     @Override
@@ -421,15 +385,51 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
         }
     }
 
-    private void setUpToolBar() {
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-        getSupportActionBar().setTitle(null);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_title_playing, menu);
+        return true;
     }
 
     @Override
-    protected boolean openCurrentPlayingIfPossible(Pair[] sharedViews) {
-        onBackPressed();
-        return true;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home:
+                super.onBackPressed();
+                return true;
+            case R.id.action_playing_queue:
+                final MaterialDialog materialDialog = PlayingQueueDialogHelper.getDialog(this);
+                materialDialog.show();
+                return true;
+            case R.id.action_tag_editor:
+                Intent intent = new Intent(this, SongTagEditorActivity.class);
+                intent.putExtra(AppKeys.E_ID, song.id);
+                startActivity(intent);
+                return true;
+            case R.id.action_details:
+                String songFilePath = SongFileLoader.getSongFile(this, song.id);
+                File songFile = new File(songFilePath);
+                SongDetailDialogHelper.getDialog(this, songFile).show();
+                return true;
+            case R.id.action_go_to_album:
+                goToAlbumDetailsActivity(song.albumId, null);
+                return true;
+            case R.id.action_go_to_artist:
+                goToArtistDetailsActivity(song.artistId, null);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void animateActivityOpened(int startDelay) {
+        ViewPropertyAnimator.animate(footer)
+                .scaleX(1)
+                .scaleY(1)
+                .setInterpolator(new DecelerateInterpolator(4))
+                .setDuration(DEFAULT_ANIMATION_TIME)
+                .setStartDelay(startDelay)
+                .start();
     }
 }

@@ -68,6 +68,48 @@ public class MainActivity extends AbsFabActivity
         }
     }
 
+    private void initViews() {
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationDrawerFragment = (NavigationDrawerFragment)
+                getFragmentManager().findFragmentById(R.id.navigation_drawer);
+        updateNavigationDrawerHeader();
+    }
+
+    private void updateNavigationDrawerHeader() {
+        Song song = getApp().getMusicPlayerRemote().getCurrentSong();
+        if (navigationDrawerFragment != null && song.id != -1) {
+            ImageLoader.getInstance().displayImage(MusicUtil.getAlbumArtUri(song.albumId).toString(), navigationDrawerFragment.getAlbumArtImageView(), new ImageLoaderUtil.defaultAlbumArtOnFailed());
+            navigationDrawerFragment.getSongTitle().setText(song.title);
+            navigationDrawerFragment.getSongArtist().setText(song.artistName);
+        }
+    }
+
+    private void setUpToolBar() {
+        toolbarTitle = getTitle();
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        statusBar = findViewById(R.id.statusBar);
+        setSupportActionBar(toolbar);
+        ViewUtil.setBackgroundAlpha(toolbar, 0.97f, Util.resolveColor(this, R.attr.colorPrimary));
+        ViewUtil.setBackgroundAlpha(statusBar, 0.97f, Util.resolveColor(this, R.attr.colorPrimary));
+        setUpDrawerToggle();
+    }
+
+    private void setUpDrawerToggle() {
+        drawerToggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close
+        );
+        drawerLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                drawerToggle.syncState();
+            }
+        });
+        drawerLayout.setDrawerListener(drawerToggle);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -75,9 +117,23 @@ public class MainActivity extends AbsFabActivity
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        getApp().getMusicPlayerRemote().removeAllOnMusicRemoteEventListeners();
+    public void enableViews() {
+        try {
+            super.enableViews();
+            toolbar.setEnabled(true);
+        } catch (NullPointerException e) {
+            Log.e(TAG, "wasn't able to enable the views", e.fillInStackTrace());
+        }
+    }
+
+    @Override
+    public void disableViews() {
+        try {
+            super.disableViews();
+            toolbar.setEnabled(false);
+        } catch (NullPointerException e) {
+            Log.e(TAG, "wasn't able to disable the views", e.fillInStackTrace());
+        }
     }
 
     @Override
@@ -135,22 +191,6 @@ public class MainActivity extends AbsFabActivity
         }
     }
 
-    private void initViews() {
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationDrawerFragment = (NavigationDrawerFragment)
-                getFragmentManager().findFragmentById(R.id.navigation_drawer);
-        updateNavigationDrawerHeader();
-    }
-
-    public void restoreActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setTitle(toolbarTitle);
-    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.drawer, menu);
@@ -193,6 +233,14 @@ public class MainActivity extends AbsFabActivity
         return true;
     }
 
+    public void restoreActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setTitle(toolbarTitle);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (drawerToggle.onOptionsItemSelected(item)) {
@@ -217,47 +265,18 @@ public class MainActivity extends AbsFabActivity
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        getApp().getMusicPlayerRemote().removeAllOnMusicRemoteEventListeners();
+    }
+
+    @Override
     public void onBackPressed() {
         if (navigationDrawerFragment.isDrawerOpen()) {
             drawerLayout.closeDrawers();
             return;
         }
         super.onBackPressed();
-    }
-
-    private void setUpToolBar() {
-        toolbarTitle = getTitle();
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        statusBar = findViewById(R.id.statusBar);
-        setSupportActionBar(toolbar);
-        ViewUtil.setBackgroundAlpha(toolbar, 0.97f, Util.resolveColor(this, R.attr.colorPrimary));
-        ViewUtil.setBackgroundAlpha(statusBar, 0.97f, Util.resolveColor(this, R.attr.colorPrimary));
-        setUpDrawerToggle();
-    }
-
-    private void setUpDrawerToggle() {
-        drawerToggle = new ActionBarDrawerToggle(
-                this,
-                drawerLayout,
-                R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close
-        );
-        drawerLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                drawerToggle.syncState();
-            }
-        });
-        drawerLayout.setDrawerListener(drawerToggle);
-    }
-
-    private void updateNavigationDrawerHeader() {
-        Song song = getApp().getMusicPlayerRemote().getCurrentSong();
-        if (navigationDrawerFragment != null && song.id != -1) {
-            ImageLoader.getInstance().displayImage(MusicUtil.getAlbumArtUri(song.albumId).toString(), navigationDrawerFragment.getAlbumArtImageView(), new ImageLoaderUtil.defaultAlbumArtOnFailed());
-            navigationDrawerFragment.getSongTitle().setText(song.title);
-            navigationDrawerFragment.getSongArtist().setText(song.artistName);
-        }
     }
 
     private void disableFragmentViews() {
@@ -283,26 +302,6 @@ public class MainActivity extends AbsFabActivity
             }
         }
         return true;
-    }
-
-    @Override
-    public void enableViews() {
-        try {
-            super.enableViews();
-            toolbar.setEnabled(true);
-        } catch (NullPointerException e) {
-            Log.e(TAG, "wasn't able to enable the views", e.fillInStackTrace());
-        }
-    }
-
-    @Override
-    public void disableViews() {
-        try {
-            super.disableViews();
-            toolbar.setEnabled(false);
-        } catch (NullPointerException e) {
-            Log.e(TAG, "wasn't able to disable the views", e.fillInStackTrace());
-        }
     }
 
     public static class PlaceholderFragment extends Fragment {

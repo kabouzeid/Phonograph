@@ -1,5 +1,4 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:fab="http://schemas.android.com/apk/res-auto"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
@@ -137,7 +136,6 @@
                     />
 
                 <ImageButton
-                    android:scaleType="fitCenter"
                     android:id="@+id/prev_button"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
@@ -145,10 +143,10 @@
                     android:layout_toLeftOf="@+id/fab"
                     android:background="?android:attr/selectableItemBackground"
                     android:padding="14dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/ic_skip_previous_white_48dp"/>
 
                 <ImageButton
-                    android:scaleType="fitCenter"
                     android:id="@+id/next_button"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
@@ -156,30 +154,31 @@
                     android:layout_toRightOf="@+id/fab"
                     android:background="?android:attr/selectableItemBackground"
                     android:padding="14dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/ic_skip_next_white_48dp"/>
 
                 <ImageButton
-                    android:scaleType="fitCenter"
                     android:id="@+id/repeat_button"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
+                    android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:layout_margin="8dp"
-                    android:layout_alignParentLeft="true"
                     android:background="?android:attr/selectableItemBackground"
                     android:padding="14dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/ic_repeat_grey600_48dp"/>
 
                 <ImageButton
-                    android:scaleType="fitCenter"
                     android:id="@+id/shuffle_button"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
+                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_margin="8dp"
-                    android:layout_alignParentRight="true"
                     android:background="?android:attr/selectableItemBackground"
                     android:padding="14dp"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/ic_shuffle_grey600_48dp"/>
 
             </RelativeLayout>

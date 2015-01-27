@@ -46,12 +46,6 @@ public class ViewPagerTabArtistAlbumFragment extends AbsViewPagerTabArtistListFr
         return adapter;
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        fab = (FloatingActionButton) getParentActivity().findViewById(R.id.fab);
-    }
-
     @SuppressWarnings("unchecked")
     private void openAlbumDetailsActivityIfPossible(Album album, View albumArtForTransition) {
         if (areParentActivitiesViewsEnabled()) {
@@ -82,5 +76,11 @@ public class ViewPagerTabArtistAlbumFragment extends AbsViewPagerTabArtistListFr
 
     private boolean areParentActivitiesViewsEnabled() {
         return !(getParentActivity() instanceof KabViewsDisableAble) || ((KabViewsDisableAble) getParentActivity()).areViewsEnabled();
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        fab = (FloatingActionButton) getParentActivity().findViewById(R.id.fab);
     }
 }

@@ -68,6 +68,44 @@ public abstract class AbsViewPagerTabArtistListFragment extends Fragment impleme
         }
     }
 
+    /*
+    *
+    * IMPORTANT:
+    *
+    * You CAN return null here and use setAdapter(ListAdapter adapter) inside getAdapter() to manually set the adapter.
+    *
+    * (i.e. if you must set the adapter async).
+    *
+    * */
+    protected abstract ListAdapter getAdapter();
+
+    protected void setAdapter(ListAdapter adapter) {
+        observableGridView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        enableViews();
+    }
+
+    @Override
+    public void enableViews() {
+        areViewsEnabled = true;
+        observableGridView.setEnabled(true);
+    }
+
+    @Override
+    public void disableViews() {
+        areViewsEnabled = false;
+        observableGridView.setEnabled(false);
+    }
+
+    @Override
+    public boolean areViewsEnabled() {
+        return areViewsEnabled;
+    }
+
     public int getY() {
         return observableGridView.getCurrentScrollY() + paddingViewHeight;
     }
@@ -84,10 +122,6 @@ public abstract class AbsViewPagerTabArtistListFragment extends Fragment impleme
         return parentActivity;
     }
 
-    protected void setAdapter(ListAdapter adapter) {
-        observableGridView.setAdapter(adapter);
-    }
-
     protected void setOnItemClickListener(AdapterView.OnItemClickListener onItemClickListener) {
         observableGridView.setOnItemClickListener(onItemClickListener);
     }
@@ -95,17 +129,6 @@ public abstract class AbsViewPagerTabArtistListFragment extends Fragment impleme
     protected void setColumns(int columns) {
         observableGridView.setNumColumns(columns);
     }
-
-    /*
-    *
-    * IMPORTANT:
-    *
-    * You CAN return null here and use setAdapter(ListAdapter adapter) inside getAdapter() to manually set the adapter.
-    *
-    * (i.e. if you must set the adapter async).
-    *
-    * */
-    protected abstract ListAdapter getAdapter();
 
     @Override
     public void onScrollChanged(int scrollY, boolean b, boolean b2) {
@@ -124,28 +147,5 @@ public abstract class AbsViewPagerTabArtistListFragment extends Fragment impleme
     @Override
     public void onUpOrCancelMotionEvent(ScrollState scrollState) {
 
-    }
-
-    @Override
-    public void disableViews() {
-        areViewsEnabled = false;
-        observableGridView.setEnabled(false);
-    }
-
-    @Override
-    public boolean areViewsEnabled() {
-        return areViewsEnabled;
-    }
-
-    @Override
-    public void enableViews() {
-        areViewsEnabled = true;
-        observableGridView.setEnabled(true);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        enableViews();
     }
 }

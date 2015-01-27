@@ -4,8 +4,8 @@
       tools:context="com.kabouzeid.materialmusic.ui.activities.MusicControllerActivity">
     <item
         android:id="@+id/action_playing_queue"
-        android:title="@string/action_playing_queue"
         android:icon="@drawable/playlist"
+        android:title="@string/action_playing_queue"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_add_to_playlist"
@@ -29,7 +29,7 @@
         app:showAsAction="never"/>
     <item
         android:id="@+id/action_settings"
-        android:title="@string/action_settings"
         android:orderInCategory="100"
+        android:title="@string/action_settings"
         app:showAsAction="never"/>
 </menu>

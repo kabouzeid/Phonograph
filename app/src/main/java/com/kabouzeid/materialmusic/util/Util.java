@@ -21,6 +21,8 @@ import com.kabouzeid.materialmusic.misc.AppKeys;
  * Created by karim on 12.12.14.
  */
 public class Util {
+    private static int albumArtSize = 600;
+
     public static int resolveDrawable(Context context, int drawable) {
         TypedArray a = context.obtainStyledAttributes(new int[]{drawable});
         int resId = a.getResourceId(0, 0);
@@ -159,8 +161,6 @@ public class Util {
         cursor.close();
         return path;
     }
-
-    private static int albumArtSize = 600;
 
     public static Bitmap getAlbumArtScaledBitmap(final Bitmap bitmap, boolean keepAspectRatio) {
         if (keepAspectRatio) {

@@ -65,6 +65,23 @@ public class ArtistViewFragment extends Fragment implements KabSearchAbleFragmen
         enableViews();
     }
 
+    @Override
+    public void enableViews() {
+        areViewsEnabled = true;
+        absListView.setEnabled(true);
+    }
+
+    @Override
+    public void disableViews() {
+        areViewsEnabled = false;
+        absListView.setEnabled(false);
+    }
+
+    @Override
+    public boolean areViewsEnabled() {
+        return areViewsEnabled;
+    }
+
     private void initViews() {
         absListView = (AbsListView) fragmentRootView.findViewById(R.id.absList);
     }
@@ -75,11 +92,6 @@ public class ArtistViewFragment extends Fragment implements KabSearchAbleFragmen
 
     private void setUpAbsListView() {
         List<Artist> artists = ArtistLoader.getAllArtists(getActivity());
-        fillAbsListView(artists);
-    }
-
-    private void setUpAbsListView(String query) {
-        List<Artist> artists = ArtistLoader.getArtists(getActivity(), query);
         fillAbsListView(artists);
     }
 
@@ -121,6 +133,11 @@ public class ArtistViewFragment extends Fragment implements KabSearchAbleFragmen
         setUpAbsListView(query);
     }
 
+    private void setUpAbsListView(String query) {
+        List<Artist> artists = ArtistLoader.getArtists(getActivity(), query);
+        fillAbsListView(artists);
+    }
+
     @Override
     public void returnToNonSearch() {
         setUpAbsListView();
@@ -134,22 +151,5 @@ public class ArtistViewFragment extends Fragment implements KabSearchAbleFragmen
 
     private boolean areParentActivityViewsEnabled() {
         return !(getActivity() instanceof KabViewsDisableAble) || ((KabViewsDisableAble) getActivity()).areViewsEnabled();
-    }
-
-    @Override
-    public void enableViews() {
-        areViewsEnabled = true;
-        absListView.setEnabled(true);
-    }
-
-    @Override
-    public void disableViews() {
-        areViewsEnabled = false;
-        absListView.setEnabled(false);
-    }
-
-    @Override
-    public boolean areViewsEnabled() {
-        return areViewsEnabled;
     }
 }

@@ -66,11 +66,6 @@ public class SongViewFragment extends Fragment implements KabSearchAbleFragment 
         fillAbsListView(songs);
     }
 
-    private void setUpAbsListView(String query) {
-        List<Song> songs = SongLoader.getSongs(getActivity(), query);
-        fillAbsListView(songs);
-    }
-
     private void fillAbsListView(final List<Song> songs) {
         Collections.sort(songs, new SongAlphabeticComparator());
         AbsBaseActivity absBaseActivity = null;
@@ -100,6 +95,11 @@ public class SongViewFragment extends Fragment implements KabSearchAbleFragment 
     @Override
     public void search(String query) {
         setUpAbsListView(query);
+    }
+
+    private void setUpAbsListView(String query) {
+        List<Song> songs = SongLoader.getSongs(getActivity(), query);
+        fillAbsListView(songs);
     }
 
     @Override

@@ -56,6 +56,11 @@ public class MusicUtil {
         contentResolver.delete(ContentUris.withAppendedId(localUri, albumId), null, null);
     }
 
+    public static File getAlbumArtFile(Context context, String name)
+            throws IOException {
+        return new File(createAlbumArtDir(context), name + System.currentTimeMillis());
+    }
+
     public static File createAlbumArtDir(Context paramContext) {
         File albumArtDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "/.albumart/");
         if (!albumArtDir.exists()) {
@@ -67,10 +72,5 @@ public class MusicUtil {
             }
         }
         return albumArtDir;
-    }
-
-    public static File getAlbumArtFile(Context context, String name)
-            throws IOException {
-        return new File(createAlbumArtDir(context), name + System.currentTimeMillis());
     }
 }

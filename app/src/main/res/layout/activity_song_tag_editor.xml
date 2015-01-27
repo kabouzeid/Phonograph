@@ -1,6 +1,5 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
@@ -198,9 +197,9 @@
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab"
         style="@style/PlayPauseFab"
-        android:src="@drawable/ic_done_white_48dp"
+        android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
-        android:layout_gravity="bottom|right"/>
+        android:src="@drawable/ic_done_white_48dp"/>
 
 </FrameLayout>
 

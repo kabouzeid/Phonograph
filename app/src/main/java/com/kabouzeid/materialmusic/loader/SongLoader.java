@@ -39,6 +39,30 @@ public class SongLoader {
         return songs;
     }
 
+    public static final Cursor makeAlbumSongCursor(final Context context) {
+        final StringBuilder selection = new StringBuilder();
+        selection.append(MediaStore.Audio.AudioColumns.IS_MUSIC + "=1");
+        return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                new String[]{
+                        /* 0 */
+                        BaseColumns._ID,
+                        /* 1 */
+                        MediaStore.Audio.AudioColumns.TITLE,
+                        /* 2 */
+                        MediaStore.Audio.AudioColumns.ARTIST,
+                        /* 3 */
+                        MediaStore.Audio.AudioColumns.ALBUM,
+                        /* 4 */
+                        MediaStore.Audio.AudioColumns.DURATION,
+                        /* 5 */
+                        MediaStore.Audio.AudioColumns.TRACK,
+                        /* 6 */
+                        MediaStore.Audio.AudioColumns.ARTIST_ID,
+                        /* 7 */
+                        MediaStore.Audio.AudioColumns.ALBUM_ID
+                }, selection.toString(), null, null);
+    }
+
     public static List<Song> getSongs(Context context, String query) {
         Cursor cursor = makeAlbumSongCursor(context);
         List<Song> songs = new ArrayList<>();
@@ -89,29 +113,5 @@ public class SongLoader {
             cursor.close();
         }
         return song;
-    }
-
-    public static final Cursor makeAlbumSongCursor(final Context context) {
-        final StringBuilder selection = new StringBuilder();
-        selection.append(MediaStore.Audio.AudioColumns.IS_MUSIC + "=1");
-        return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                new String[]{
-                        /* 0 */
-                        BaseColumns._ID,
-                        /* 1 */
-                        MediaStore.Audio.AudioColumns.TITLE,
-                        /* 2 */
-                        MediaStore.Audio.AudioColumns.ARTIST,
-                        /* 3 */
-                        MediaStore.Audio.AudioColumns.ALBUM,
-                        /* 4 */
-                        MediaStore.Audio.AudioColumns.DURATION,
-                        /* 5 */
-                        MediaStore.Audio.AudioColumns.TRACK,
-                        /* 6 */
-                        MediaStore.Audio.AudioColumns.ARTIST_ID,
-                        /* 7 */
-                        MediaStore.Audio.AudioColumns.ALBUM_ID
-                }, selection.toString(), null, null);
     }
 }

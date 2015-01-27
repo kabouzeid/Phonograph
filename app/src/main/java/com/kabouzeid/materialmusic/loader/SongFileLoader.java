@@ -32,6 +32,16 @@ public class SongFileLoader {
         return songFiles;
     }
 
+    public static final Cursor makeSongFileCursor(final Context context) {
+        return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                new String[]{
+                        /* 0 */
+                        BaseColumns._ID,
+                        /* 1 */
+                        MediaStore.Audio.AudioColumns.DATA,
+                }, null, null, null);
+    }
+
     public static String getSongFile(Context context, int queryId) {
         Cursor cursor = makeSongFileCursor(context);
         String filePath = "";
@@ -48,15 +58,5 @@ public class SongFileLoader {
             cursor.close();
         }
         return filePath;
-    }
-
-    public static final Cursor makeSongFileCursor(final Context context) {
-        return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                new String[]{
-                        /* 0 */
-                        BaseColumns._ID,
-                        /* 1 */
-                        MediaStore.Audio.AudioColumns.DATA,
-                }, null, null, null);
     }
 }

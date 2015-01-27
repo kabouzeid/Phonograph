@@ -4,9 +4,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/list_selector"
     android:minHeight="48dp"
     android:orientation="horizontal"
-    android:background="?attr/list_selector"
     android:padding="16dp">
 
     <ImageView

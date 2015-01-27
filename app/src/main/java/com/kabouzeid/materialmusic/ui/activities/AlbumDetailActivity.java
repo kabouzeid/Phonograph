@@ -84,9 +84,55 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
     private int titleViewHeight;
     private int albumArtViewHeight;
     private int toolbarColor;
+    private SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
+        @Override
+        public void onScrollChanged(int scrollY, boolean b, boolean b2) {
+            super.onScrollChanged(scrollY, b, b2);
+            // Translate overlay and image
+            float flexibleRange = albumArtViewHeight - headerOffset;
+            int minOverlayTransitionY = headerOffset - albumArtOverlayView.getHeight();
+            ViewHelper.setTranslationY(albumArtOverlayView, Math.max(minOverlayTransitionY, Math.min(0, -scrollY)));
+            ViewHelper.setTranslationY(albumArtImageView, Math.max(minOverlayTransitionY, Math.min(0, -scrollY / 2)));
 
+            // Translate list background
+            ViewHelper.setTranslationY(songsBackgroundView, Math.max(0, -scrollY + albumArtViewHeight));
+
+            // Change alpha of overlay
+            ViewHelper.setAlpha(albumArtOverlayView, Math.max(0, Math.min(1, (float) scrollY / flexibleRange)));
+
+            // Translate name text
+            int maxTitleTranslationY = albumArtViewHeight;
+            int titleTranslationY = maxTitleTranslationY - scrollY;
+            if (TOOLBAR_IS_STICKY) {
+                titleTranslationY = Math.max(headerOffset, titleTranslationY);
+            }
+            ViewHelper.setTranslationY(albumTitleView, titleTranslationY);
+
+            // Translate FAB
+            int fabTranslationY = titleTranslationY + titleViewHeight - (fab.getHeight() / 2);
+            ViewHelper.setTranslationY(fab, fabTranslationY);
+
+            if (TOOLBAR_IS_STICKY) {
+                // Change alpha of toolbar background
+                if (-scrollY + albumArtViewHeight <= headerOffset) {
+                    ViewUtil.setBackgroundAlpha(toolbar, 1, toolbarColor);
+                    ViewUtil.setBackgroundAlpha(statusBar, 1, toolbarColor);
+
+                } else {
+                    ViewUtil.setBackgroundAlpha(toolbar, 0, toolbarColor);
+                    ViewUtil.setBackgroundAlpha(statusBar, 0, toolbarColor);
+                }
+            } else {
+                // Translate Toolbar
+                if (scrollY < albumArtViewHeight) {
+                    ViewHelper.setTranslationY(toolbar, 0);
+                } else {
+                    ViewHelper.setTranslationY(toolbar, -scrollY);
+                }
+            }
+        }
+    };
     private Bitmap albumCover;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,49 +159,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
         setUpViews();
         lollipopTransitionImageWrongSizeFix();
         animateEnterActivity();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        enableViews();
-        updateFabIcon();
-        app.getMusicPlayerRemote().addOnMusicRemoteEventListener(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        app.getMusicPlayerRemote().removeOnMusicRemoteEventListener(this);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_album_detail, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case android.R.id.home:
-                super.onBackPressed();
-                return true;
-            case R.id.action_settings:
-                return true;
-            case R.id.action_current_playing:
-                return openCurrentPlayingIfPossible(null);
-            case R.id.action_tag_editor:
-                Intent intent = new Intent(this, AlbumTagEditorActivity.class);
-                intent.putExtra(AppKeys.E_ID, album.id);
-                startActivity(intent);
-                return true;
-            case R.id.action_go_to_artist:
-                goToArtistDetailsActivity(album.artistId, null);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void initViews() {
@@ -217,26 +220,16 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
         });
     }
 
-    private void setUpSongsAdapter() {
-        final List<Song> songs = AlbumSongLoader.getAlbumSongList(this, album.id);
-        Collections.sort(songs, new SongTrackNumberComparator());
-        final SongAdapter songAdapter = new SongAdapter(this, this, songs);
-
-//        SwingBottomInAnimationAdapter songsAdapter = new SwingBottomInAnimationAdapter(songAdapter);
-//        SwingRightInAnimationAdapter songsAdapter = new SwingRightInAnimationAdapter(songAdapter);
-//        SwingLeftInAnimationAdapter songsAdapter = new SwingLeftInAnimationAdapter(songAdapter);
-        ScaleInAnimationAdapter songsAdapter = new ScaleInAnimationAdapter(songAdapter);
-//        AlphaInAnimationAdapter songsAdapter = new AlphaInAnimationAdapter(songAdapter);
-
-        animatedSongsAdapter = songsAdapter;
-        animatedSongsAdapter.setAbsListView(absSongListView);
-
-        absSongListView.setAdapter(animatedSongsAdapter);
-        absSongListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    private void applyPalette(Bitmap bitmap) {
+        Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position > 0) {
-                    app.getMusicPlayerRemote().openQueue(songs, position - 1, true);
+            public void onGenerated(Palette palette) {
+                Palette.Swatch swatch = palette.getVibrantSwatch();
+                if (swatch != null) {
+                    toolbarColor = swatch.getRgb();
+                    albumArtOverlayView.setBackgroundColor(swatch.getRgb());
+                    albumTitleView.setBackgroundColor(swatch.getRgb());
+                    albumTitleView.setTextColor(swatch.getTitleTextColor());
                 }
             }
         });
@@ -289,107 +282,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
         }
     }
 
-    private void applyPalette(Bitmap bitmap) {
-        Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
-            @Override
-            public void onGenerated(Palette palette) {
-                Palette.Swatch swatch = palette.getVibrantSwatch();
-                if (swatch != null) {
-                    toolbarColor = swatch.getRgb();
-                    albumArtOverlayView.setBackgroundColor(swatch.getRgb());
-                    albumTitleView.setBackgroundColor(swatch.getRgb());
-                    albumTitleView.setTextColor(swatch.getTitleTextColor());
-                }
-            }
-        });
-    }
-
-    private SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
-        @Override
-        public void onScrollChanged(int scrollY, boolean b, boolean b2) {
-            super.onScrollChanged(scrollY, b, b2);
-            // Translate overlay and image
-            float flexibleRange = albumArtViewHeight - headerOffset;
-            int minOverlayTransitionY = headerOffset - albumArtOverlayView.getHeight();
-            ViewHelper.setTranslationY(albumArtOverlayView, Math.max(minOverlayTransitionY, Math.min(0, -scrollY)));
-            ViewHelper.setTranslationY(albumArtImageView, Math.max(minOverlayTransitionY, Math.min(0, -scrollY / 2)));
-
-            // Translate list background
-            ViewHelper.setTranslationY(songsBackgroundView, Math.max(0, -scrollY + albumArtViewHeight));
-
-            // Change alpha of overlay
-            ViewHelper.setAlpha(albumArtOverlayView, Math.max(0, Math.min(1, (float) scrollY / flexibleRange)));
-
-            // Translate name text
-            int maxTitleTranslationY = albumArtViewHeight;
-            int titleTranslationY = maxTitleTranslationY - scrollY;
-            if (TOOLBAR_IS_STICKY) {
-                titleTranslationY = Math.max(headerOffset, titleTranslationY);
-            }
-            ViewHelper.setTranslationY(albumTitleView, titleTranslationY);
-
-            // Translate FAB
-            int fabTranslationY = titleTranslationY + titleViewHeight - (fab.getHeight() / 2);
-            ViewHelper.setTranslationY(fab, fabTranslationY);
-
-            if (TOOLBAR_IS_STICKY) {
-                // Change alpha of toolbar background
-                if (-scrollY + albumArtViewHeight <= headerOffset) {
-                    ViewUtil.setBackgroundAlpha(toolbar, 1, toolbarColor);
-                    ViewUtil.setBackgroundAlpha(statusBar, 1, toolbarColor);
-
-                } else {
-                    ViewUtil.setBackgroundAlpha(toolbar, 0, toolbarColor);
-                    ViewUtil.setBackgroundAlpha(statusBar, 0, toolbarColor);
-                }
-            } else {
-                // Translate Toolbar
-                if (scrollY < albumArtViewHeight) {
-                    ViewHelper.setTranslationY(toolbar, 0);
-                } else {
-                    ViewHelper.setTranslationY(toolbar, -scrollY);
-                }
-            }
-        }
-    };
-
-    @Override
-    public void onMusicRemoteEvent(MusicRemoteEvent event) {
-        switch (event.getAction()) {
-            case MusicRemoteEvent.PLAY:
-                fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_white_48dp));
-                break;
-            case MusicRemoteEvent.PAUSE:
-                fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow_white_48dp));
-                break;
-            case MusicRemoteEvent.RESUME:
-                fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_white_48dp));
-                break;
-            case MusicRemoteEvent.STOP:
-                fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow_white_48dp));
-                break;
-            case MusicRemoteEvent.QUEUE_COMPLETED:
-                fab.setImageResource(R.drawable.ic_play_arrow_white_48dp);
-                break;
-        }
-    }
-
-    @Override
-    public void enableViews() {
-        super.enableViews();
-        absSongListView.setEnabled(true);
-        fab.setEnabled(true);
-        toolbar.setEnabled(true);
-    }
-
-    @Override
-    public void disableViews() {
-        super.disableViews();
-        absSongListView.setEnabled(false);
-        fab.setEnabled(false);
-        toolbar.setEnabled(false);
-    }
-
     private void setUpTranslucence() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Util.setStatusBarTranslucent(getWindow(), true);
@@ -399,12 +291,48 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
         }
     }
 
-    private void updateFabIcon() {
-        if (app.getMusicPlayerRemote().isPlaying()) {
-            fab.setImageResource(R.drawable.ic_pause_white_48dp);
+    private void animateEnterActivity() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    animateHeader(0);
+                    setUpSongsAdapter();
+                }
+            }, DEFAULT_DELAY);
+
         } else {
-            fab.setImageResource(R.drawable.ic_play_arrow_white_48dp);
+            setUpSongsAdapter();
+            fab.setScaleX(0);
+            fab.setScaleY(0);
+            animateHeader(DEFAULT_DELAY_NO_TRANSITION);
+            animateFab(DEFAULT_DELAY_NO_TRANSITION);
         }
+    }
+
+    private void setUpSongsAdapter() {
+        final List<Song> songs = AlbumSongLoader.getAlbumSongList(this, album.id);
+        Collections.sort(songs, new SongTrackNumberComparator());
+        final SongAdapter songAdapter = new SongAdapter(this, this, songs);
+
+//        SwingBottomInAnimationAdapter songsAdapter = new SwingBottomInAnimationAdapter(songAdapter);
+//        SwingRightInAnimationAdapter songsAdapter = new SwingRightInAnimationAdapter(songAdapter);
+//        SwingLeftInAnimationAdapter songsAdapter = new SwingLeftInAnimationAdapter(songAdapter);
+        ScaleInAnimationAdapter songsAdapter = new ScaleInAnimationAdapter(songAdapter);
+//        AlphaInAnimationAdapter songsAdapter = new AlphaInAnimationAdapter(songAdapter);
+
+        animatedSongsAdapter = songsAdapter;
+        animatedSongsAdapter.setAbsListView(absSongListView);
+
+        absSongListView.setAdapter(animatedSongsAdapter);
+        absSongListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0) {
+                    app.getMusicPlayerRemote().openQueue(songs, position - 1, true);
+                }
+            }
+        });
     }
 
     private void animateHeader(int startDelay) {
@@ -425,25 +353,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
                 .setDuration(DEFAULT_ANIMATION_TIME)
                 .setStartDelay(startDelay)
                 .start();
-    }
-
-    private void animateEnterActivity() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    animateHeader(0);
-                    setUpSongsAdapter();
-                }
-            }, DEFAULT_DELAY);
-
-        } else {
-            setUpSongsAdapter();
-            fab.setScaleX(0);
-            fab.setScaleY(0);
-            animateHeader(DEFAULT_DELAY_NO_TRANSITION);
-            animateFab(DEFAULT_DELAY_NO_TRANSITION);
-        }
     }
 
     @Override
@@ -486,5 +395,93 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
                 }
             });
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        enableViews();
+        updateFabIcon();
+        app.getMusicPlayerRemote().addOnMusicRemoteEventListener(this);
+    }
+
+    @Override
+    public void enableViews() {
+        super.enableViews();
+        absSongListView.setEnabled(true);
+        fab.setEnabled(true);
+        toolbar.setEnabled(true);
+    }
+
+    @Override
+    public void disableViews() {
+        super.disableViews();
+        absSongListView.setEnabled(false);
+        fab.setEnabled(false);
+        toolbar.setEnabled(false);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        app.getMusicPlayerRemote().removeOnMusicRemoteEventListener(this);
+    }
+
+    @Override
+    public void onMusicRemoteEvent(MusicRemoteEvent event) {
+        switch (event.getAction()) {
+            case MusicRemoteEvent.PLAY:
+                fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_white_48dp));
+                break;
+            case MusicRemoteEvent.PAUSE:
+                fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow_white_48dp));
+                break;
+            case MusicRemoteEvent.RESUME:
+                fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_white_48dp));
+                break;
+            case MusicRemoteEvent.STOP:
+                fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow_white_48dp));
+                break;
+            case MusicRemoteEvent.QUEUE_COMPLETED:
+                fab.setImageResource(R.drawable.ic_play_arrow_white_48dp);
+                break;
+        }
+    }
+
+    private void updateFabIcon() {
+        if (app.getMusicPlayerRemote().isPlaying()) {
+            fab.setImageResource(R.drawable.ic_pause_white_48dp);
+        } else {
+            fab.setImageResource(R.drawable.ic_play_arrow_white_48dp);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_album_detail, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home:
+                super.onBackPressed();
+                return true;
+            case R.id.action_settings:
+                return true;
+            case R.id.action_current_playing:
+                return openCurrentPlayingIfPossible(null);
+            case R.id.action_tag_editor:
+                Intent intent = new Intent(this, AlbumTagEditorActivity.class);
+                intent.putExtra(AppKeys.E_ID, album.id);
+                startActivity(intent);
+                return true;
+            case R.id.action_go_to_artist:
+                goToArtistDetailsActivity(album.artistId, null);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

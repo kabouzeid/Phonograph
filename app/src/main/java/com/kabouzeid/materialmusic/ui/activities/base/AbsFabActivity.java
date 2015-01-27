@@ -19,71 +19,10 @@ import com.melnykov.fab.FloatingActionButton;
 public abstract class AbsFabActivity extends AbsBaseActivity implements OnMusicRemoteEventListener {
     private FloatingActionButton fab;
 
-    protected FloatingActionButton getFab() {
-        if (fab == null) {
-            fab = (FloatingActionButton) findViewById(R.id.fab);
-        }
-        return fab;
-    }
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         setUpFab();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        updateControllerState();
-        getApp().getMusicPlayerRemote().addOnMusicRemoteEventListener(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        getApp().getMusicPlayerRemote().removeOnMusicRemoteEventListener(this);
-    }
-
-    @Override
-    public void enableViews() {
-        super.enableViews();
-        fab.setEnabled(true);
-    }
-
-    @Override
-    public void disableViews() {
-        super.disableViews();
-        fab.setEnabled(false);
-    }
-
-    @Override
-    protected boolean openCurrentPlayingIfPossible(Pair[] sharedViews) {
-        return super.openCurrentPlayingIfPossible(getSharedViewsWithFab(sharedViews));
-    }
-
-    @Override
-    public void goToArtistDetailsActivity(int artistId, Pair[] sharedViews) {
-        super.goToArtistDetailsActivity(artistId, getSharedViewsWithFab(sharedViews));
-    }
-
-    @Override
-    public void goToAlbumDetailsActivity(int albumId, Pair[] sharedViews) {
-        super.goToAlbumDetailsActivity(albumId, getSharedViewsWithFab(sharedViews));
-    }
-
-    private Pair[] getSharedViewsWithFab(Pair[] sharedViews) {
-        Pair[] sharedViewsWithFab;
-        if (sharedViews != null) {
-            sharedViewsWithFab = new Pair[sharedViews.length + 1];
-            for (int i = 0; i < sharedViews.length; i++) {
-                sharedViewsWithFab[i] = sharedViews[i];
-            }
-        } else {
-            sharedViewsWithFab = new Pair[1];
-        }
-        sharedViewsWithFab[sharedViewsWithFab.length - 1] = Pair.create((View) getFab(), getString(R.string.transition_fab));
-        return sharedViewsWithFab;
     }
 
     private void setUpFab() {
@@ -128,16 +67,77 @@ public abstract class AbsFabActivity extends AbsBaseActivity implements OnMusicR
         });
     }
 
-    protected void updateControllerState() {
-        updateFabState();
-    }
-
     private void updateFabState() {
         if (getApp().getMusicPlayerRemote().isPlaying()) {
             getFab().setImageResource(R.drawable.ic_pause_white_48dp);
         } else {
             getFab().setImageResource(R.drawable.ic_play_arrow_white_48dp);
         }
+    }
+
+    protected FloatingActionButton getFab() {
+        if (fab == null) {
+            fab = (FloatingActionButton) findViewById(R.id.fab);
+        }
+        return fab;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateControllerState();
+        getApp().getMusicPlayerRemote().addOnMusicRemoteEventListener(this);
+    }
+
+    @Override
+    public void enableViews() {
+        super.enableViews();
+        fab.setEnabled(true);
+    }
+
+    @Override
+    public void disableViews() {
+        super.disableViews();
+        fab.setEnabled(false);
+    }
+
+    @Override
+    protected boolean openCurrentPlayingIfPossible(Pair[] sharedViews) {
+        return super.openCurrentPlayingIfPossible(getSharedViewsWithFab(sharedViews));
+    }
+
+    @Override
+    public void goToArtistDetailsActivity(int artistId, Pair[] sharedViews) {
+        super.goToArtistDetailsActivity(artistId, getSharedViewsWithFab(sharedViews));
+    }
+
+    @Override
+    public void goToAlbumDetailsActivity(int albumId, Pair[] sharedViews) {
+        super.goToAlbumDetailsActivity(albumId, getSharedViewsWithFab(sharedViews));
+    }
+
+    private Pair[] getSharedViewsWithFab(Pair[] sharedViews) {
+        Pair[] sharedViewsWithFab;
+        if (sharedViews != null) {
+            sharedViewsWithFab = new Pair[sharedViews.length + 1];
+            for (int i = 0; i < sharedViews.length; i++) {
+                sharedViewsWithFab[i] = sharedViews[i];
+            }
+        } else {
+            sharedViewsWithFab = new Pair[1];
+        }
+        sharedViewsWithFab[sharedViewsWithFab.length - 1] = Pair.create((View) getFab(), getString(R.string.transition_fab));
+        return sharedViewsWithFab;
+    }
+
+    protected void updateControllerState() {
+        updateFabState();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        getApp().getMusicPlayerRemote().removeOnMusicRemoteEventListener(this);
     }
 
     @Override

@@ -8,26 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class ArtistJSONStore extends SQLiteOpenHelper {
 
-    private static final int VERSION = 1;
     public static final String DATABASE_NAME = "artistJSONLastFM.db";
+    private static final int VERSION = 1;
     private static ArtistJSONStore sInstance = null;
 
     public ArtistJSONStore(final Context context) {
         super(context, DATABASE_NAME, null, VERSION);
-    }
-
-    @Override
-    public void onCreate(final SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + ArtistJSONColumns.NAME +
-                        " (" + ArtistJSONColumns.ARTIST_NAME + " TEXT NOT NULL," +
-                        ArtistJSONColumns.JSON + " TEXT NOT NULL);"
-        );
-    }
-
-    @Override
-    public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + ArtistJSONColumns.NAME);
-        onCreate(db);
     }
 
     public static synchronized ArtistJSONStore getInstance(final Context context) {
@@ -35,6 +21,20 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
             sInstance = new ArtistJSONStore(context.getApplicationContext());
         }
         return sInstance;
+    }    @Override
+    public void onCreate(final SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + ArtistJSONColumns.NAME +
+                        " (" + ArtistJSONColumns.ARTIST_NAME + " TEXT NOT NULL," +
+                        ArtistJSONColumns.JSON + " TEXT NOT NULL);"
+        );
+    }
+
+    public static void deleteDatabase(final Context context) {
+        context.deleteDatabase(DATABASE_NAME);
+    }    @Override
+    public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + ArtistJSONColumns.NAME);
+        onCreate(db);
     }
 
     public void addArtistJSON(final String artistName, final String JSON) {
@@ -82,10 +82,6 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
         return null;
     }
 
-    public static void deleteDatabase(final Context context) {
-        context.deleteDatabase(DATABASE_NAME);
-    }
-
     public void removeItem(final String artistName) {
         final SQLiteDatabase database = getReadableDatabase();
         database.delete(ArtistJSONColumns.NAME, ArtistJSONColumns.ARTIST_NAME + " = ?", new String[]{
@@ -99,5 +95,9 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
         public static final String ARTIST_NAME = "ArtistName";
         public static final String JSON = "JSON";
     }
+
+
+
+
 
 }
