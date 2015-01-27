@@ -66,6 +66,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private boolean isPlayerPrepared;
     private boolean wasPlayingBeforeFocusLoss;
     private boolean thingsRegistered;
+    private boolean saveQueuesAgain;
+    private boolean isSavingQueues;
     private NotificationHelper notificationHelper;
     private AudioManager audioManager;
     private RemoteControlClient remoteControlClient;
@@ -105,7 +107,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     private boolean requestFocus() {
-        int result = audioManager.requestAudioFocus(this, AudioManager.STREAM_MUSIC,
+        int result = getAudioManager().requestAudioFocus(this, AudioManager.STREAM_MUSIC,
                 AudioManager.AUDIOFOCUS_GAIN);
 
         return (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED);
@@ -140,11 +142,13 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             unregisterReceiver(receiver);
             getAudioManager().unregisterRemoteControlClient(remoteControlClient);
             getAudioManager().unregisterMediaButtonEventReceiver(new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class));
+            getAudioManager().abandonAudioFocus(this);
             thingsRegistered = false;
         }
     }
 
-    private void updateRemoteControlClient(Song song) {
+    private void updateRemoteControlClient() {
+        Song song = getPlayingQueue().get(getPosition());
         Bitmap loadedImage = ImageLoader.getInstance().loadImageSync(MusicUtil.getAlbumArtUri(song.albumId).toString());
         remoteControlClient
                 .editMetadata(false)
@@ -243,10 +247,10 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     private void killEverythingAndReleaseResources() {
-        savePosition();
-        saveQueues();
         stopPlaying();
         notificationHelper.killNotification();
+        savePosition();
+        saveQueues();
         stopSelf();
     }
 
@@ -312,18 +316,20 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             case AudioManager.AUDIOFOCUS_GAIN:
                 // resume playback
                 registerEverything();
+                if (!isPlayerPrepared()) {
+                    setUpMediaPlayerIfNeeded();
+                }
                 player.setVolume(1.0f, 1.0f);
                 if (wasPlayingBeforeFocusLoss) {
                     resumePlaying();
-                    updateRemoteControlClient(getPlayingQueue().get(getPosition()));
                 }
-                updateRemoteControlClient(getPlayingQueue().get(getPosition()));
+                updateRemoteControlClient();
                 break;
 
             case AudioManager.AUDIOFOCUS_LOSS:
                 // Lost focus for an unbounded amount of time: stop playback and release media player
-                //TODO maybe also release player
-                wasPlayingBeforeFocusLoss = isPlaying();
+                //TODO maybe also release player (stopPlaying()) but the the current position in the song is 0 again
+                wasPlayingBeforeFocusLoss = false;
                 pausePlaying();
                 unregisterEverything();
                 break;
@@ -339,6 +345,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
                 // Lost focus for a short time, but it's ok to keep playing
                 // at an attenuated level
+                if (!isPlayerPrepared()) {
+                    setUpMediaPlayerIfNeeded();
+                }
                 player.setVolume(0.2f, 0.2f);
                 break;
         }
@@ -370,7 +379,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 player.setDataSource(getApplicationContext(), trackUri);
                 currentSongId = getPlayingQueue().get(getPosition()).id;
                 updateNotification();
-                updateRemoteControlClient(getPlayingQueue().get(getPosition()));
+                updateRemoteControlClient();
                 player.prepareAsync();
             } catch (Exception e) {
                 Log.e("MUSIC SERVICE", "Error setting data source", e);
@@ -531,23 +540,36 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public void saveState() {
-        saveQueues();
+        saveQueuesAsync();
         savePosition();
     }
 
-    public void saveQueues() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    InternalStorageUtil.writeObject(MusicService.this, AppKeys.IS_PLAYING_QUEUE, playingQueue);
-                    InternalStorageUtil.writeObject(MusicService.this, AppKeys.IS_ORIGINAL_PLAYING_QUEUE, originalPlayingQueue);
-                    Log.i(TAG, "saved current queue state");
-                } catch (IOException e) {
-                    Log.e(TAG, "error while saving music service queue state", e);
+    public void saveQueuesAsync() {
+        if (isSavingQueues) {
+            saveQueuesAgain = true;
+        } else {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    isSavingQueues = true;
+                    do {
+                        saveQueuesAgain = false;
+                        saveQueues();
+                    } while (saveQueuesAgain);
+                    isSavingQueues = false;
                 }
-            }
-        }).start();
+            }).start();
+        }
+    }
+
+    public void saveQueues() {
+        try {
+            InternalStorageUtil.writeObject(MusicService.this, AppKeys.IS_PLAYING_QUEUE, playingQueue);
+            InternalStorageUtil.writeObject(MusicService.this, AppKeys.IS_ORIGINAL_PLAYING_QUEUE, originalPlayingQueue);
+            Log.i(TAG, "saved current queue state");
+        } catch (IOException e) {
+            Log.e(TAG, "error while saving music service queue state", e);
+        }
     }
 
     public void savePosition() {

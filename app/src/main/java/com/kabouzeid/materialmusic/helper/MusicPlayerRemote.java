@@ -193,10 +193,6 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
         return false;
     }
 
-    public void notifyPlayingQueueChanged() {
-        final long currentSongId = getCurrentSongId();
-    }
-
     public int getRepeatMode() {
         if (musicBound) {
             return musicService.getRepeatMode();

@@ -269,7 +269,6 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
                 if (fromUser) {
                     getApp().getMusicPlayerRemote().seekTo(progress);
                 }
-                currentSongProgress.setText(MusicUtil.getReadableDurationString(progress));
             }
 
             @Override
@@ -365,8 +364,16 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
                         return;
                     } catch (Exception e) {
                     }
-                    progressSlider.setMax(total);
-                    progressSlider.setProgress(currentPosition);
+                    final int finalTotal = total;
+                    final int finalCurrentPosition = currentPosition;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressSlider.setMax(finalTotal);
+                            progressSlider.setProgress(finalCurrentPosition);
+                            currentSongProgress.setText(MusicUtil.getReadableDurationString(finalCurrentPosition));
+                        }
+                    });
                 }
             }
         }).start();
