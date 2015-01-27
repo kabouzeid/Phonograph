@@ -76,40 +76,6 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
     }
 
     @Override
-    protected void save() {
-        Artwork artwork = null;
-        Map<FieldKey, String> fieldKeyValueMap = new EnumMap<>(FieldKey.class);
-        fieldKeyValueMap.put(FieldKey.ALBUM, albumTitle.getText().toString());
-        //android seems not to recognize album_artist field so we additionally write the normal artist field
-        fieldKeyValueMap.put(FieldKey.ARTIST, albumArtistName.getText().toString());
-        fieldKeyValueMap.put(FieldKey.ALBUM_ARTIST, albumArtistName.getText().toString());
-        fieldKeyValueMap.put(FieldKey.GENRE, genreName.getText().toString());
-        fieldKeyValueMap.put(FieldKey.YEAR, year.getText().toString());
-
-        try {
-            albumArtFile = MusicUtil.getAlbumArtFile(this, String.valueOf(getId()));
-        } catch (IOException e) {
-            Log.e(TAG, "error while creating albumArtFile", e);
-        }
-
-        if (albumArtBitmap != null && albumArtFile != null) {
-            try {
-                albumArtBitmap.compress(Bitmap.CompressFormat.PNG, 0, new FileOutputStream(albumArtFile));
-                artwork = ArtworkFactory.createArtworkFromFile(albumArtFile);
-                MusicUtil.insertAlbumArt(this, getId(), albumArtFile.getAbsolutePath());
-            } catch (IOException e) {
-                Log.e(TAG, "error while trying to create the artwork from file", e);
-            }
-        }
-        writeValuesToFiles(fieldKeyValueMap, artwork, deleteAlbumArt);
-    }
-
-    @Override
-    protected int getContentViewResId() {
-        return R.layout.activity_album_tag_editor;
-    }
-
-    @Override
     protected void loadCurrentImage() {
         setImageBitmap(getAlbumArt());
         deleteAlbumArt = false;
@@ -148,6 +114,57 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
     }
 
     @Override
+    protected void deleteImage() {
+        setImageRes(R.drawable.default_album_art);
+        deleteAlbumArt = true;
+        dataChanged();
+    }
+
+    @Override
+    protected void save() {
+        Artwork artwork = null;
+        Map<FieldKey, String> fieldKeyValueMap = new EnumMap<>(FieldKey.class);
+        fieldKeyValueMap.put(FieldKey.ALBUM, albumTitle.getText().toString());
+        //android seems not to recognize album_artist field so we additionally write the normal artist field
+        fieldKeyValueMap.put(FieldKey.ARTIST, albumArtistName.getText().toString());
+        fieldKeyValueMap.put(FieldKey.ALBUM_ARTIST, albumArtistName.getText().toString());
+        fieldKeyValueMap.put(FieldKey.GENRE, genreName.getText().toString());
+        fieldKeyValueMap.put(FieldKey.YEAR, year.getText().toString());
+
+        try {
+            albumArtFile = MusicUtil.getAlbumArtFile(this, String.valueOf(getId()));
+        } catch (IOException e) {
+            Log.e(TAG, "error while creating albumArtFile", e);
+        }
+
+        if (albumArtBitmap != null && albumArtFile != null) {
+            try {
+                albumArtBitmap.compress(Bitmap.CompressFormat.PNG, 0, new FileOutputStream(albumArtFile));
+                artwork = ArtworkFactory.createArtworkFromFile(albumArtFile);
+                MusicUtil.insertAlbumArt(this, getId(), albumArtFile.getAbsolutePath());
+            } catch (IOException e) {
+                Log.e(TAG, "error while trying to create the artwork from file", e);
+            }
+        }
+        writeValuesToFiles(fieldKeyValueMap, artwork, deleteAlbumArt);
+    }
+
+    @Override
+    protected int getContentViewResId() {
+        return R.layout.activity_album_tag_editor;
+    }
+
+    @Override
+    protected List<String> getSongPaths() {
+        List<Song> songs = AlbumSongLoader.getAlbumSongList(this, getId());
+        List<Integer> songIds = new ArrayList<>();
+        for (Song song : songs) {
+            songIds.add(song.id);
+        }
+        return SongFileLoader.getSongFiles(this, songIds);
+    }
+
+    @Override
     protected void loadImageFromFile(final Uri selectedFileUri) {
         DisplayImageOptions options = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
@@ -165,23 +182,6 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
             deleteAlbumArt = false;
             dataChanged();
         }
-    }
-
-    @Override
-    protected void deleteImage() {
-        setImageRes(R.drawable.default_album_art);
-        deleteAlbumArt = true;
-        dataChanged();
-    }
-
-    @Override
-    protected List<String> getSongPaths() {
-        List<Song> songs = AlbumSongLoader.getAlbumSongList(this, getId());
-        List<Integer> songIds = new ArrayList<>();
-        for (Song song : songs) {
-            songIds.add(song.id);
-        }
-        return SongFileLoader.getSongFiles(this, songIds);
     }
 
     @Override

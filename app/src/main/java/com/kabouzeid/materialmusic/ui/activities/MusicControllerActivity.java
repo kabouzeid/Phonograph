@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.materialmusic.R;
@@ -356,10 +357,7 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
     public void onMusicRemoteEvent(MusicRemoteEvent event) {
         super.onMusicRemoteEvent(event);
         switch (event.getAction()) {
-            case MusicRemoteEvent.NEXT:
-                updateCurrentSong();
-                break;
-            case MusicRemoteEvent.PREV:
+            case MusicRemoteEvent.TRACK_CHANGED:
                 updateCurrentSong();
                 break;
             case MusicRemoteEvent.REPEAT_MODE_CHANGED:
@@ -399,8 +397,12 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
                 super.onBackPressed();
                 return true;
             case R.id.action_playing_queue:
-                final MaterialDialog materialDialog = PlayingQueueDialogHelper.getDialog(this);
-                materialDialog.show();
+                final MaterialDialog materialDialog = PlayingQueueDialogHelper.getDialog(this, this);
+                if (materialDialog != null) {
+                    materialDialog.show();
+                } else {
+                    Toast.makeText(this, getResources().getString(R.string.nothing_playing), Toast.LENGTH_SHORT).show();
+                }
                 return true;
             case R.id.action_tag_editor:
                 Intent intent = new Intent(this, SongTagEditorActivity.class);

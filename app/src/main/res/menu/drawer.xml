@@ -7,7 +7,7 @@
         android:id="@+id/action_current_playing"
         android:icon="@drawable/music_box"
         android:title="@string/action_current_playing"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/action_search"
@@ -15,6 +15,12 @@
         android:title="@string/action_search"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="collapseActionView|ifRoom"/>
+
+    <item
+        android:id="@+id/action_playing_queue"
+        android:icon="@drawable/playlist"
+        android:title="@string/action_playing_queue"
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/action_settings"

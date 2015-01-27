@@ -21,20 +21,16 @@ public class AlbumJSONStore extends SQLiteOpenHelper {
             sInstance = new AlbumJSONStore(context.getApplicationContext());
         }
         return sInstance;
+    }
+
+    public static void deleteDatabase(final Context context) {
+        context.deleteDatabase(DATABASE_NAME);
     }    @Override
     public void onCreate(final SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS " + AlbumJSONColumns.NAME +
                         " (" + AlbumJSONColumns.ALBUMANDARTIST_NAME + " TEXT NOT NULL," +
                         AlbumJSONColumns.JSON + " TEXT NOT NULL);"
         );
-    }
-
-    public static void deleteDatabase(final Context context) {
-        context.deleteDatabase(DATABASE_NAME);
-    }    @Override
-    public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + AlbumJSONColumns.NAME);
-        onCreate(db);
     }
 
     public void addAlbumJSON(final String albumAndArtistName, final String JSON) {
@@ -80,6 +76,10 @@ public class AlbumJSONStore extends SQLiteOpenHelper {
             cursor.close();
         }
         return null;
+    }    @Override
+    public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + AlbumJSONColumns.NAME);
+        onCreate(db);
     }
 
     public void removeItem(final String albumAndArtistName) {
@@ -95,6 +95,7 @@ public class AlbumJSONStore extends SQLiteOpenHelper {
         public static final String ALBUMANDARTIST_NAME = "AlbumAndArtistName";
         public static final String JSON = "JSON";
     }
+
 
 
 

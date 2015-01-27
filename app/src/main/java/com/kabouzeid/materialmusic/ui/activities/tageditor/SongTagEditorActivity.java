@@ -65,6 +65,26 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
     }
 
     @Override
+    protected void loadCurrentImage() {
+
+    }
+
+    @Override
+    protected void getImageFromLastFM() {
+
+    }
+
+    @Override
+    protected void searchImageOnWeb() {
+
+    }
+
+    @Override
+    protected void deleteImage() {
+
+    }
+
+    @Override
     protected void save() {
         Map<FieldKey, String> fieldKeyValueMap = new EnumMap<>(FieldKey.class);
         fieldKeyValueMap.put(FieldKey.TITLE, songTitle.getText().toString());
@@ -82,35 +102,15 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
     }
 
     @Override
-    protected void loadCurrentImage() {
-
-    }
-
-    @Override
-    protected void getImageFromLastFM() {
-
-    }
-
-    @Override
-    protected void searchImageOnWeb() {
-
+    protected List<String> getSongPaths() {
+        List<Integer> tempIdList = new ArrayList<>();
+        tempIdList.add(getId());
+        return SongFileLoader.getSongFiles(this, tempIdList);
     }
 
     @Override
     protected void loadImageFromFile(Uri imageFilePath) {
 
-    }
-
-    @Override
-    protected void deleteImage() {
-
-    }
-
-    @Override
-    protected List<String> getSongPaths() {
-        List<Integer> tempIdList = new ArrayList<>();
-        tempIdList.add(getId());
-        return SongFileLoader.getSongFiles(this, tempIdList);
     }
 
     @Override

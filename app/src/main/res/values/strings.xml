@@ -9,12 +9,13 @@
     <string name="action_playing_queue">Playing queue</string>
     <string name="action_search">Search</string>
     <string name="action_play_next">Play next</string>
-    <string name="action_add_to_current_playing">Add to playing queue"</string>
-    <string name="action_add_to_playlist">Add to playlist..."</string>
+    <string name="action_add_to_playing_queue">Add to playing queue"</string>
+    <string name="action_remove_from_playing_queue">Remove from playing queue</string>
+    <string name="action_add_to_playlist">Add to playlist…"</string>
     <string name="action_tag_editor">Tag Editor"</string>
     <string name="action_delete_from_disk">Delete from disk"</string>
     <string name="action_details">Details</string>
-    <string name="action_go_to">Go to...</string>
+    <string name="action_go_to">Go to…</string>
     <string name="albums">Albums</string>
     <string name="artists">Artists</string>
     <string name="genres">Genres</string>
@@ -55,7 +56,7 @@
     <string name="label_track_length">Length</string>
     <string name="label_bit_rate">Bitrate</string>
     <string name="label_sampling_rate">Sampling rate</string>
-    <string name="ok">ok</string>
+    <string name="ok">OK</string>
     <string name="action_go_to_artist">Go to artist</string>
     <string name="action_go_to_album">Go to album</string>
     <string name="label_current_playing_queue">Playing queue</string>

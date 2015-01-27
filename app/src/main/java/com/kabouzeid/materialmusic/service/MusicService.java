@@ -299,6 +299,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         } else {
             Toast.makeText(this, getResources().getString(R.string.audio_focus_denied), Toast.LENGTH_SHORT).show();
         }
+        notifyOnMusicRemoteEventListeners(MusicRemoteEvent.TRACK_CHANGED);
     }
 
     private boolean requestFocus() {

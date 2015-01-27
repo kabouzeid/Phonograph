@@ -18,8 +18,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.materialmusic.R;
+import com.kabouzeid.materialmusic.helper.PlayingQueueDialogHelper;
 import com.kabouzeid.materialmusic.interfaces.KabSearchAbleFragment;
 import com.kabouzeid.materialmusic.interfaces.KabViewsDisableAble;
 import com.kabouzeid.materialmusic.interfaces.OnMusicRemoteEventListener;
@@ -85,7 +88,6 @@ public class MainActivity extends AbsFabActivity
     }
 
     private void setUpToolBar() {
-        toolbarTitle = getTitle();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         statusBar = findViewById(R.id.statusBar);
         setSupportActionBar(toolbar);
@@ -253,7 +255,14 @@ public class MainActivity extends AbsFabActivity
             case R.id.action_current_playing:
                 openCurrentPlayingIfPossible(null);
                 return true;
-
+            case R.id.action_playing_queue:
+                final MaterialDialog materialDialog = PlayingQueueDialogHelper.getDialog(this, this);
+                if (materialDialog != null) {
+                    materialDialog.show();
+                } else {
+                    Toast.makeText(this, getResources().getString(R.string.nothing_playing), Toast.LENGTH_SHORT).show();
+                }
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
