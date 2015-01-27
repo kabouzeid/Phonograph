@@ -143,6 +143,7 @@
                         android:fontFamily="sans-serif"
                         android:gravity="center_vertical"
                         android:hint="@string/year"
+                        android:inputType="numberDecimal"
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="?attr/title_text_color"/>
@@ -169,6 +170,7 @@
                         android:fontFamily="sans-serif"
                         android:gravity="center_vertical"
                         android:hint="@string/track"
+                        android:inputType="numberDecimal"
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="?attr/title_text_color"/>

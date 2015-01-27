@@ -25,12 +25,6 @@ public class AlbumJSONStore extends SQLiteOpenHelper {
 
     public static void deleteDatabase(final Context context) {
         context.deleteDatabase(DATABASE_NAME);
-    }    @Override
-    public void onCreate(final SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + AlbumJSONColumns.NAME +
-                        " (" + AlbumJSONColumns.ALBUMANDARTIST_NAME + " TEXT NOT NULL," +
-                        AlbumJSONColumns.JSON + " TEXT NOT NULL);"
-        );
     }
 
     public void addAlbumJSON(final String albumAndArtistName, final String JSON) {
@@ -49,6 +43,12 @@ public class AlbumJSONStore extends SQLiteOpenHelper {
         database.insert(AlbumJSONColumns.NAME, null, values);
         database.setTransactionSuccessful();
         database.endTransaction();
+    }    @Override
+    public void onCreate(final SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + AlbumJSONColumns.NAME +
+                        " (" + AlbumJSONColumns.ALBUMANDARTIST_NAME + " TEXT NOT NULL," +
+                        AlbumJSONColumns.JSON + " TEXT NOT NULL);"
+        );
     }
 
     public String getAlbumJSON(final String albumAndArtistName) {
@@ -76,10 +76,6 @@ public class AlbumJSONStore extends SQLiteOpenHelper {
             cursor.close();
         }
         return null;
-    }    @Override
-    public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + AlbumJSONColumns.NAME);
-        onCreate(db);
     }
 
     public void removeItem(final String albumAndArtistName) {
@@ -94,6 +90,10 @@ public class AlbumJSONStore extends SQLiteOpenHelper {
         public static final String NAME = "AlbumJSON";
         public static final String ALBUMANDARTIST_NAME = "AlbumAndArtistName";
         public static final String JSON = "JSON";
+    }    @Override
+    public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + AlbumJSONColumns.NAME);
+        onCreate(db);
     }
 
 

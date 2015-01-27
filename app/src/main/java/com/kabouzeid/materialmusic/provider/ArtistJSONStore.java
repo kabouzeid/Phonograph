@@ -25,12 +25,6 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
 
     public static void deleteDatabase(final Context context) {
         context.deleteDatabase(DATABASE_NAME);
-    }    @Override
-    public void onCreate(final SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + ArtistJSONColumns.NAME +
-                        " (" + ArtistJSONColumns.ARTIST_NAME + " TEXT NOT NULL," +
-                        ArtistJSONColumns.JSON + " TEXT NOT NULL);"
-        );
     }
 
     public void addArtistJSON(final String artistName, final String JSON) {
@@ -49,6 +43,12 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
         database.insert(ArtistJSONColumns.NAME, null, values);
         database.setTransactionSuccessful();
         database.endTransaction();
+    }    @Override
+    public void onCreate(final SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + ArtistJSONColumns.NAME +
+                        " (" + ArtistJSONColumns.ARTIST_NAME + " TEXT NOT NULL," +
+                        ArtistJSONColumns.JSON + " TEXT NOT NULL);"
+        );
     }
 
     public String getArtistJSON(final String artistName) {
@@ -76,10 +76,6 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
             cursor.close();
         }
         return null;
-    }    @Override
-    public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + ArtistJSONColumns.NAME);
-        onCreate(db);
     }
 
     public void removeItem(final String artistName) {
@@ -94,6 +90,10 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
         public static final String NAME = "ArtistJSON";
         public static final String ARTIST_NAME = "ArtistName";
         public static final String JSON = "JSON";
+    }    @Override
+    public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + ArtistJSONColumns.NAME);
+        onCreate(db);
     }
 
 

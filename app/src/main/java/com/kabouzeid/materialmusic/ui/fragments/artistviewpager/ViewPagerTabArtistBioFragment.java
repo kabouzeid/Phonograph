@@ -35,8 +35,8 @@ public class ViewPagerTabArtistBioFragment extends AbsViewPagerTabArtistListFrag
                     try {
                         biography = getResources().getString(R.string.biography_unavailable);
                     } catch (IllegalStateException e) {
-                        Log.e(TAG, "error while trying to get ressources", e);
-                        biography = "Errorm";
+                        Log.e(TAG, "error while trying to access resources", e);
+                        biography = "Error";
                     }
                 }
                 strings.clear();
