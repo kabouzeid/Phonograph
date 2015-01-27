@@ -34,13 +34,15 @@ public class PlayingQueueAdapter extends ArrayAdapter<Song> {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_playlist, parent, false);
         }
         final TextView title = (TextView) convertView.findViewById(R.id.song_title);
-        final ImageView albumArt = (ImageView) convertView.findViewById(R.id.album_art);
+        final ImageView playingIndicator = (ImageView) convertView.findViewById(R.id.playing_indicator);
 
         title.setText(song.title);
-        if (app.getMusicPlayerRemote().getCurrentSongId() == song.id) {
-            albumArt.setImageResource(R.drawable.ic_speaker_white_48dp);
+        if (app.getMusicPlayerRemote().getPosition() == position) {
+            playingIndicator.setVisibility(View.VISIBLE);
+            playingIndicator.setImageResource(R.drawable.ic_speaker_white_48dp);
         } else {
-            albumArt.setImageBitmap(null);
+            playingIndicator.setVisibility(View.GONE);
+            playingIndicator.setImageBitmap(null);
         }
         return convertView;
     }

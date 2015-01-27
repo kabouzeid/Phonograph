@@ -7,14 +7,6 @@
     android:descendantFocusability="blocksDescendants"
     android:orientation="horizontal"
     >
-
-    <ImageView
-        android:layout_gravity="center"
-        android:id="@id/album_art"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginLeft="16dp"/>
-
     <TextView
         android:id="@+id/song_title"
         android:layout_width="0dp"
@@ -25,6 +17,12 @@
         android:fontFamily="sans-serif"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+    <ImageView
+        android:id="@+id/playing_indicator"
+        style="@style/PlayingIndicator"
+        android:layout_marginRight="-8dp"
+        />
 
     <ImageView
         android:id="@+id/menu"
