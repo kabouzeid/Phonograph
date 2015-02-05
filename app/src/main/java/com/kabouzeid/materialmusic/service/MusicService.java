@@ -458,7 +458,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
             case AudioManager.AUDIOFOCUS_LOSS:
                 // Lost focus for an unbounded amount of time: stop playback and release media player
-                //TODO maybe also release player (stopPlaying()) but the the current position in the song is 0 again
+                //TODO maybe also release player (stopPlaying()) but then the current position in the song is 0 again
                 wasPlayingBeforeFocusLoss = false;
                 pausePlaying();
                 unregisterEverything();
