@@ -22,8 +22,8 @@ import com.kabouzeid.materialmusic.ui.activities.MusicControllerActivity;
 import com.kabouzeid.materialmusic.util.MusicUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class NotificationHelper {
-    public static final String TAG = NotificationHelper.class.getSimpleName();
+public class PlayingNotificationHelper {
+    public static final String TAG = PlayingNotificationHelper.class.getSimpleName();
     public static final int NOTIFICATION_ID = 1337;
 
     private final MusicService service;
@@ -34,7 +34,7 @@ public class NotificationHelper {
     private RemoteViews notificationLayout;
     private RemoteViews notificationLayoutExpanded;
 
-    public NotificationHelper(final MusicService service) {
+    public PlayingNotificationHelper(final MusicService service) {
         this.service = service;
         notificationManager = (NotificationManager) service
                 .getSystemService(Context.NOTIFICATION_SERVICE);

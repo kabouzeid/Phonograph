@@ -22,7 +22,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.kabouzeid.materialmusic.R;
-import com.kabouzeid.materialmusic.helper.NotificationHelper;
+import com.kabouzeid.materialmusic.helper.PlayingNotificationHelper;
 import com.kabouzeid.materialmusic.helper.ShuffleHelper;
 import com.kabouzeid.materialmusic.interfaces.OnMusicRemoteEventListener;
 import com.kabouzeid.materialmusic.misc.AppKeys;
@@ -72,7 +72,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private boolean thingsRegistered;
     private boolean saveQueuesAgain;
     private boolean isSavingQueues;
-    private NotificationHelper notificationHelper;
+    private PlayingNotificationHelper playingNotificationHelper;
     private AudioManager audioManager;
     private RemoteControlClient remoteControlClient;
 
@@ -86,7 +86,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         playingQueue = new ArrayList<>();
         originalPlayingQueue = new ArrayList<>();
         onMusicRemoteEventListeners = new ArrayList<>();
-        notificationHelper = new NotificationHelper(this);
+        playingNotificationHelper = new PlayingNotificationHelper(this);
 
         shuffleMode = PreferenceManager.getDefaultSharedPreferences(this).getInt(AppKeys.SP_SHUFFLE_MODE, 0);
         repeatMode = PreferenceManager.getDefaultSharedPreferences(this).getInt(AppKeys.SP_REPEAT_MODE, 0);
@@ -193,7 +193,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     private void killEverythingAndReleaseResources() {
         stopPlaying();
-        notificationHelper.killNotification();
+        playingNotificationHelper.killNotification();
         savePosition();
         saveQueues();
         stopSelf();
@@ -202,7 +202,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public void stopPlaying() {
         isPlayerPrepared = false;
         player.stop();
-        notificationHelper.updatePlayState(isPlaying());
+        playingNotificationHelper.updatePlayState(isPlaying());
         remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
         player.release();
         player = null;
@@ -257,7 +257,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         notifyOnMusicRemoteEventListeners(MusicRemoteEvent.SONG_COMPLETED);
         if (isLastTrack()) {
             notifyOnMusicRemoteEventListeners(MusicRemoteEvent.QUEUE_COMPLETED);
-            notificationHelper.updatePlayState(isPlaying());
+            playingNotificationHelper.updatePlayState(isPlaying());
             remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
             notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STOP);
         } else {
@@ -293,7 +293,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 player.reset();
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.unplayable_file), Toast.LENGTH_SHORT).show();
                 notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STOP);
-                notificationHelper.updatePlayState(false);
+                playingNotificationHelper.updatePlayState(false);
                 remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
             }
         } else {
@@ -335,7 +335,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     private void updateNotification() {
-        notificationHelper.buildNotification(playingQueue.get(position), isPlaying());
+        playingNotificationHelper.buildNotification(playingQueue.get(position), isPlaying());
     }
 
     private Uri getCurrentPositionTrackUri() {
@@ -384,7 +384,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public void onPrepared(MediaPlayer mp) {
         player.start();
         isPlayerPrepared = true;
-        notificationHelper.updatePlayState(isPlaying());
+        playingNotificationHelper.updatePlayState(isPlaying());
         remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PLAYING);
         notifyOnMusicRemoteEventListeners(MusicRemoteEvent.PLAY);
         savePosition();
@@ -495,7 +495,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public void pausePlaying() {
         if (isPlaying()) {
             player.pause();
-            notificationHelper.updatePlayState(isPlaying());
+            playingNotificationHelper.updatePlayState(isPlaying());
             remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PAUSED);
             notifyOnMusicRemoteEventListeners(MusicRemoteEvent.PAUSE);
         }
@@ -505,7 +505,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         if (requestFocus()) {
             if (isPlayerPrepared) {
                 player.start();
-                notificationHelper.updatePlayState(isPlaying());
+                playingNotificationHelper.updatePlayState(isPlaying());
                 remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PLAYING);
                 notifyOnMusicRemoteEventListeners(MusicRemoteEvent.RESUME);
             } else {

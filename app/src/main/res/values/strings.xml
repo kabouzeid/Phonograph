@@ -5,6 +5,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
+    <string name="action_about">About</string>
     <string name="action_current_playing">Current playing</string>
     <string name="action_playing_queue">Playing queue</string>
     <string name="action_search">Search</string>
@@ -62,5 +63,7 @@
     <string name="label_current_playing_queue">Playing queue</string>
     <string name="close">Close</string>
     <string name="save_as_playlist">Save as playlist</string>
+    <string name="credits">Material Music is a completely free material designed music player by <b>Karim Abou Zeid</b>.\n\n<a href="https://plus.google.com/+KarimAbouZeid23697">Google+</a>&#160;&#160;&#160;<a href="https://twitter.com/karim23697">Twitter</a></string>
+
 
 </resources>

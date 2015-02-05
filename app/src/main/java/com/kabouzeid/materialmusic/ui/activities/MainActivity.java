@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.materialmusic.R;
+import com.kabouzeid.materialmusic.helper.AboutDeveloperDialogHelper;
 import com.kabouzeid.materialmusic.helper.PlayingQueueDialogHelper;
 import com.kabouzeid.materialmusic.interfaces.KabSearchAbleFragment;
 import com.kabouzeid.materialmusic.interfaces.KabViewsDisableAble;
@@ -251,6 +252,9 @@ public class MainActivity extends AbsFabActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.action_settings:
+                return true;
+            case R.id.action_about:
+                AboutDeveloperDialogHelper.getDialog(this).show();
                 return true;
             case R.id.action_current_playing:
                 openCurrentPlayingIfPossible(null);
