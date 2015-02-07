@@ -180,6 +180,7 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
         if (getApp().getMusicPlayerRemote().getPosition() >= 0) {
             song = getApp().getMusicPlayerRemote().getPlayingQueue().get(getApp().getMusicPlayerRemote().getPosition());
         } else {
+            song = new Song();
             finish();
         }
     }

@@ -430,7 +430,7 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
         try {
             return AudioFileIO.read(new File(path));
         } catch (CannotReadException | ReadOnlyFileException | InvalidAudioFrameException | TagException | IOException e) {
-            Log.e(TAG, "error while trying to create the AudioFile from File", e);
+            Log.e(TAG, "Error while trying to create the AudioFile from java.io.File", e);
         }
         return null;
     }
@@ -438,49 +438,43 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
     protected String getAlbumTitle() {
         try {
             return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.ALBUM);
-        } catch (NullPointerException e) {
-            return null;
-        }
+        } catch (NullPointerException ignored) {}
+        return null;
     }
 
     protected String getArtistName() {
         try {
             return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.ARTIST);
-        } catch (NullPointerException e) {
-            return null;
-        }
+        } catch (NullPointerException ignored) {}
+        return null;
     }
 
     protected String getAlbumArtistName() {
         try {
             return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.ALBUM_ARTIST);
-        } catch (NullPointerException e) {
-            return null;
-        }
+        } catch (NullPointerException ignored) {}
+        return null;
     }
 
     protected String getGenreName() {
         try {
             return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.GENRE);
-        } catch (NullPointerException e) {
-            return null;
-        }
+        } catch (NullPointerException ignored) {}
+        return null;
     }
 
     protected String getSongYear() {
         try {
             return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.YEAR);
-        } catch (NullPointerException e) {
-            return null;
-        }
+        } catch (NullPointerException ignored) {}
+        return null;
     }
 
     protected String getTrackNumber() {
         try {
             return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.TRACK);
-        } catch (NullPointerException e) {
-            return null;
-        }
+        } catch (NullPointerException ignored) {}
+        return null;
     }
 
     protected Bitmap getAlbumArt() {
@@ -490,8 +484,7 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
                 byte[] artworkBinaryData = artworkTag.getBinaryData();
                 return BitmapFactory.decodeByteArray(artworkBinaryData, 0, artworkBinaryData.length);
             }
-        } catch (NullPointerException e) {
-        }
+        } catch (NullPointerException ignored) {}
         return null;
     }
 }

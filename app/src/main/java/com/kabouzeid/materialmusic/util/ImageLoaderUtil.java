@@ -48,12 +48,12 @@ public class ImageLoaderUtil {
     public static class defaultAlbumArtOnFailed implements ImageLoadingListener {
         @Override
         public void onLoadingStarted(String imageUri, View view) {
-            ((ImageView) view).setImageResource(R.drawable.default_album_art);
+            if (view != null) ((ImageView) view).setImageResource(R.drawable.default_album_art);
         }
 
         @Override
         public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-            ((ImageView) view).setImageResource(R.drawable.default_album_art);
+            if (view != null) ((ImageView) view).setImageResource(R.drawable.default_album_art);
         }
 
         @Override
@@ -63,7 +63,7 @@ public class ImageLoaderUtil {
 
         @Override
         public void onLoadingCancelled(String imageUri, View view) {
-            ((ImageView) view).setImageResource(R.drawable.default_album_art);
+            if (view != null) ((ImageView) view).setImageResource(R.drawable.default_album_art);
         }
     }
 
@@ -71,12 +71,12 @@ public class ImageLoaderUtil {
 
         @Override
         public void onLoadingStarted(String imageUri, View view) {
-            ((ImageView) view).setImageResource(R.drawable.default_artist_image);
+            if (view != null) ((ImageView) view).setImageResource(R.drawable.default_artist_image);
         }
 
         @Override
         public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-            ((ImageView) view).setImageResource(R.drawable.default_artist_image);
+            if (view != null) ((ImageView) view).setImageResource(R.drawable.default_artist_image);
         }
 
         @Override
@@ -86,7 +86,7 @@ public class ImageLoaderUtil {
 
         @Override
         public void onLoadingCancelled(String imageUri, View view) {
-            ((ImageView) view).setImageResource(R.drawable.default_artist_image);
+            if (view != null) ((ImageView) view).setImageResource(R.drawable.default_artist_image);
         }
     }
 }

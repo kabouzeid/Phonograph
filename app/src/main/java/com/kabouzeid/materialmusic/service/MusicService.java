@@ -283,8 +283,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             registerEverything();
             isPlayerPrepared = false;
             player.reset();
-            Uri trackUri = getCurrentPositionTrackUri();
             try {
+                Uri trackUri = getCurrentPositionTrackUri();
                 player.setDataSource(getApplicationContext(), trackUri);
                 currentSongId = getPlayingQueue().get(getPosition()).id;
                 updateNotification();
@@ -298,8 +298,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 playingNotificationHelper.updatePlayState(false);
                 remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
             }
-        } else {
-            Toast.makeText(this, getResources().getString(R.string.audio_focus_denied), Toast.LENGTH_SHORT).show();
         }
         notifyOnMusicRemoteEventListeners(MusicRemoteEvent.TRACK_CHANGED);
     }

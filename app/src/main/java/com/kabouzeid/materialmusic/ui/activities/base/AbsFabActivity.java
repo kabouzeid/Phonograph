@@ -2,6 +2,7 @@ package com.kabouzeid.materialmusic.ui.activities.base;
 
 import android.os.Bundle;
 import android.support.v4.util.Pair;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -78,6 +79,10 @@ public abstract class AbsFabActivity extends AbsBaseActivity implements OnMusicR
     protected FloatingActionButton getFab() {
         if (fab == null) {
             fab = (FloatingActionButton) findViewById(R.id.fab);
+            if(fab == null){
+                fab = new FloatingActionButton(this);
+                Log.e(getTag(), "No FAB found created default FAB.");
+            }
         }
         return fab;
     }
@@ -92,13 +97,13 @@ public abstract class AbsFabActivity extends AbsBaseActivity implements OnMusicR
     @Override
     public void enableViews() {
         super.enableViews();
-        fab.setEnabled(true);
+        getFab().setEnabled(true);
     }
 
     @Override
     public void disableViews() {
         super.disableViews();
-        fab.setEnabled(false);
+        getFab().setEnabled(false);
     }
 
     @Override
@@ -144,19 +149,19 @@ public abstract class AbsFabActivity extends AbsBaseActivity implements OnMusicR
     public void onMusicRemoteEvent(MusicRemoteEvent event) {
         switch (event.getAction()) {
             case MusicRemoteEvent.PLAY:
-                fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_white_48dp));
+                getFab().setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_white_48dp));
                 break;
             case MusicRemoteEvent.PAUSE:
-                fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow_white_48dp));
+                getFab().setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow_white_48dp));
                 break;
             case MusicRemoteEvent.RESUME:
-                fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_white_48dp));
+                getFab().setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_white_48dp));
                 break;
             case MusicRemoteEvent.STOP:
-                fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow_white_48dp));
+                getFab().setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow_white_48dp));
                 break;
             case MusicRemoteEvent.QUEUE_COMPLETED:
-                fab.setImageResource(R.drawable.ic_play_arrow_white_48dp);
+                getFab().setImageResource(R.drawable.ic_play_arrow_white_48dp);
                 break;
         }
     }
