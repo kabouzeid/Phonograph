@@ -27,6 +27,7 @@ import com.kabouzeid.materialmusic.helper.PlayingQueueDialogHelper;
 import com.kabouzeid.materialmusic.interfaces.KabSearchAbleFragment;
 import com.kabouzeid.materialmusic.interfaces.KabViewsDisableAble;
 import com.kabouzeid.materialmusic.interfaces.OnMusicRemoteEventListener;
+import com.kabouzeid.materialmusic.model.MusicRemoteEvent;
 import com.kabouzeid.materialmusic.model.Song;
 import com.kabouzeid.materialmusic.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.materialmusic.ui.fragments.NavigationDrawerFragment;
@@ -80,11 +81,13 @@ public class MainActivity extends AbsFabActivity
     }
 
     private void updateNavigationDrawerHeader() {
-        Song song = getApp().getMusicPlayerRemote().getCurrentSong();
-        if (navigationDrawerFragment != null && song.id != -1) {
-            ImageLoader.getInstance().displayImage(MusicUtil.getAlbumArtUri(song.albumId).toString(), navigationDrawerFragment.getAlbumArtImageView(), new ImageLoaderUtil.defaultAlbumArtOnFailed());
-            navigationDrawerFragment.getSongTitle().setText(song.title);
-            navigationDrawerFragment.getSongArtist().setText(song.artistName);
+        if (navigationDrawerFragment != null) {
+            Song song = getApp().getMusicPlayerRemote().getCurrentSong();
+            if (song.id != -1) {
+                ImageLoader.getInstance().displayImage(MusicUtil.getAlbumArtUri(song.albumId).toString(), navigationDrawerFragment.getAlbumArtImageView(), new ImageLoaderUtil.defaultAlbumArtOnFailed());
+                navigationDrawerFragment.getSongTitle().setText(song.title);
+                navigationDrawerFragment.getSongArtist().setText(song.artistName);
+            }
         }
     }
 
@@ -137,6 +140,11 @@ public class MainActivity extends AbsFabActivity
         } catch (NullPointerException e) {
             Log.e(TAG, "wasn't able to disable the views", e.fillInStackTrace());
         }
+    }
+
+    @Override
+    public String getTag() {
+        return TAG;
     }
 
     @Override
@@ -315,6 +323,14 @@ public class MainActivity extends AbsFabActivity
             }
         }
         return true;
+    }
+
+    @Override
+    public void onMusicRemoteEvent(MusicRemoteEvent event) {
+        super.onMusicRemoteEvent(event);
+        if (event.getAction() == MusicRemoteEvent.STATE_RESTORED || event.getAction() == MusicRemoteEvent.TRACK_CHANGED) {
+            updateNavigationDrawerHeader();
+        }
     }
 
     public static class PlaceholderFragment extends Fragment {

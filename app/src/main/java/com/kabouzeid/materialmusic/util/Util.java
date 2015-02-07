@@ -152,12 +152,14 @@ public class Util {
     }
 
     public static String getFilePathFromContentProviderUri(Context context, Uri uri) {
+        String path = "";
         String[] projection = {MediaStore.MediaColumns.DATA};
         Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
         if (cursor == null) return null;
         int column_index = cursor.getColumnIndexOrThrow(projection[0]);
-        cursor.moveToFirst();
-        String path = cursor.getString(column_index);
+        if (cursor.moveToFirst()) {
+            path = cursor.getString(column_index);
+        }
         cursor.close();
         return path;
     }

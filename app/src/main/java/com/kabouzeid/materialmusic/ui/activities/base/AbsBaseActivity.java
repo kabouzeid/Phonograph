@@ -9,6 +9,7 @@ import android.support.v4.util.Pair;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.kabouzeid.materialmusic.App;
 import com.kabouzeid.materialmusic.R;
 import com.kabouzeid.materialmusic.adapter.songadapter.SongAdapter;
@@ -28,6 +29,7 @@ public abstract class AbsBaseActivity extends ActionBarActivity implements KabVi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Crashlytics.setString(AppKeys.CL_CURRENT_ACTIVITY, getTag());
         setTheme(getApp().getAppTheme());
         super.onCreate(savedInstanceState);
     }
@@ -125,4 +127,6 @@ public abstract class AbsBaseActivity extends ActionBarActivity implements KabVi
             startActivity(intent);
         }
     }
+
+    public abstract String getTag();
 }

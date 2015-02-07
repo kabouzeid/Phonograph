@@ -201,11 +201,13 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     public void stopPlaying() {
         isPlayerPrepared = false;
-        player.stop();
+        if (player != null) {
+            player.stop();
+            player.release();
+            player = null;
+        }
         playingNotificationHelper.updatePlayState(isPlaying());
         remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
-        player.release();
-        player = null;
         notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STOP);
     }
 
@@ -446,9 +448,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             case AudioManager.AUDIOFOCUS_GAIN:
                 // resume playback
                 registerEverything();
-                if (!isPlayerPrepared()) {
-                    setUpMediaPlayerIfNeeded();
-                }
+                setUpMediaPlayerIfNeeded();
                 player.setVolume(1.0f, 1.0f);
                 if (wasPlayingBeforeFocusLoss) {
                     resumePlaying();

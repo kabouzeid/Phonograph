@@ -347,6 +347,11 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
     }
 
     @Override
+    public String getTag() {
+        return TAG;
+    }
+
+    @Override
     protected void updateControllerState() {
         super.updateControllerState();
         updateRepeatState();

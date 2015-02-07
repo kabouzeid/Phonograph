@@ -342,6 +342,11 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
         }
     }
 
+    @Override
+    public String getTag() {
+        return TAG;
+    }
+
     private void lollipopTransitionImageWrongSizeFix() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().getSharedElementEnterTransition().addListener(new Transition.TransitionListener() {

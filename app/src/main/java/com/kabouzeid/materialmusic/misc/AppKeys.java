@@ -4,6 +4,8 @@ package com.kabouzeid.materialmusic.misc;
  * Created by karim on 22.12.14.
  */
 public final class AppKeys {
+    public static final String CL_CURRENT_ACTIVITY = "Current activity";
+
     public static final String SP_THEME = "com.kabouzeid.materialmusic.THEME";
     public static final String SP_NAVIGATION_DRAWER_ITEM_POSITION = "com.kabouzeid.materialmusic.NAVIGATION_DRAWER_ITEM_POSITION";
     public static final String SP_USER_LEARNED_DRAWER = "com.kabouzeid.materialmusic.NAVIGATION_DRAWER_LEARNED";
