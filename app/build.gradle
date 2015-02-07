@@ -56,7 +56,7 @@ dependencies {
     compile 'com.mcxiaoke.volley:library:1.0.+'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
     compile 'com.afollestad:material-dialogs:0.6.1.5'
-    compile('com.crashlytics.sdk.android:crashlytics:2.1.0@aar') {
+    compile('com.crashlytics.sdk.android:crashlytics:2.2.1@aar') {
         transitive = true;
     }
     compile files('../libs/jaudiotagger-2.0.4-20111207.115108-15.jar')
