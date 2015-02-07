@@ -169,7 +169,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="sans-serif"
                         android:gravity="center_vertical"
-                        android:hint="@string/track"
+                        android:hint="@string/track_hint"
                         android:inputType="numberDecimal"
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"

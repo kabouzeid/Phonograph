@@ -210,7 +210,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public boolean isPlaying() {
-        return player != null && player.isPlaying();
+        return player != null && isPlayerPrepared && player.isPlaying();
     }
 
     private void notifyOnMusicRemoteEventListeners(int event) {

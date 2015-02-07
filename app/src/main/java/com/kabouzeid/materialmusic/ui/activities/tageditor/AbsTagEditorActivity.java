@@ -335,7 +335,11 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
                         AudioFile audioFile = AudioFileIO.read(new File(songPath));
                         Tag tag = audioFile.getTagOrCreateAndSetDefault();
                         for (Map.Entry<FieldKey, String> entry : fieldKeyValueMap.entrySet()) {
-                            tag.setField(entry.getKey(), entry.getValue());
+                            try {
+                                tag.setField(entry.getKey(), entry.getValue());
+                            } catch (NumberFormatException e) {
+                                tag.deleteField(entry.getKey());
+                            }
                         }
                         if (deleteArtwork) {
                             tag.deleteArtworkField();

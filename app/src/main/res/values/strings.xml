@@ -46,6 +46,7 @@
     <string name="album_artist">Album artist</string>
     <string name="year">Year</string>
     <string name="track">Track</string>
+    <string name="track_hint">Track (2 for track 2 or 3004 for CD3 track 4)</string>
     <string name="album_or_artist_empty">The album title or the album artist text field is empty.</string>
     <string name="writing_file_number">Writing file</string>
     <string name="title_activity_album_tag_editor">AlbumTagEditorActivity</string>
