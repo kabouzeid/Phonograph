@@ -172,7 +172,9 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
                 .postProcessor(new BitmapProcessor() {
                     @Override
                     public Bitmap process(Bitmap bmp) {
-                        return Util.getAlbumArtScaledBitmap(bmp, true);
+                        Bitmap scaledBitmap = Util.getAlbumArtScaledBitmap(bmp, true);
+                        bmp.recycle();
+                        return scaledBitmap;
                     }
                 })
                 .build();
