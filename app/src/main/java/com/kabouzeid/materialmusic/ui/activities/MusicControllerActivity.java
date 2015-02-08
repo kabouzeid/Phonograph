@@ -76,8 +76,6 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
 
         moveSeekBarIntoPlace();
 
-        updateCurrentSong();
-
         setUpMusicControllers();
 
         prepareViewsForOpenAnimation();
@@ -86,7 +84,7 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
     }
 
     private void updateCurrentSong() {
-        getCurrentSongAndQueue();
+        getCurrentSong();
         setHeadersText();
         setUpArtistArt();
         setUpAlbumArtAndApplyPalette();
@@ -176,11 +174,9 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
         }
     }
 
-    private void getCurrentSongAndQueue() {
-        if (getApp().getMusicPlayerRemote().getPosition() >= 0) {
-            song = getApp().getMusicPlayerRemote().getPlayingQueue().get(getApp().getMusicPlayerRemote().getPosition());
-        } else {
-            song = new Song();
+    private void getCurrentSong() {
+        song = getApp().getMusicPlayerRemote().getCurrentSong();
+        if(song.id == -1){
             finish();
         }
     }
@@ -308,6 +304,7 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
     protected void onResume() {
         super.onResume();
         startMusicControllerStateUpdateThread();
+        updateCurrentSong();
     }
 
     private void startMusicControllerStateUpdateThread() {

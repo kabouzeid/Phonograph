@@ -257,7 +257,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     @Override
     public void onCompletion(MediaPlayer mp) {
         notifyOnMusicRemoteEventListeners(MusicRemoteEvent.SONG_COMPLETED);
-        if (isLastTrack()) {
+        if (isLastTrack() && getRepeatMode() == REPEAT_MODE_NONE) {
             notifyOnMusicRemoteEventListeners(MusicRemoteEvent.QUEUE_COMPLETED);
             playingNotificationHelper.updatePlayState(isPlaying());
             remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
