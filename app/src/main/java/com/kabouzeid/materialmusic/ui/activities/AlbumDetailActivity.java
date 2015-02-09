@@ -77,7 +77,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
     private View albumArtOverlayView;
     private View songsBackgroundView;
     private TextView albumTitleView;
-    private FloatingActionButton fab;
     private Toolbar toolbar;
     private int toolbarHeight;
     private int headerOffset;
@@ -109,8 +108,8 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
             ViewHelper.setTranslationY(albumTitleView, titleTranslationY);
 
             // Translate FAB
-            int fabTranslationY = titleTranslationY + titleViewHeight - (fab.getHeight() / 2);
-            ViewHelper.setTranslationY(fab, fabTranslationY);
+            int fabTranslationY = titleTranslationY + titleViewHeight - (getFab().getHeight() / 2);
+            ViewHelper.setTranslationY(getFab(), fabTranslationY);
 
             if (TOOLBAR_IS_STICKY) {
                 // Change alpha of toolbar background
@@ -167,7 +166,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
         albumArtOverlayView = findViewById(R.id.overlay);
         absSongListView = (ObservableListView) findViewById(R.id.list);
         albumTitleView = (TextView) findViewById(R.id.album_title);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
         songsBackgroundView = findViewById(R.id.list_background);
         statusBar = findViewById(R.id.statusBar);
     }
@@ -303,8 +301,8 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
 
         } else {
             setUpSongsAdapter();
-            fab.setScaleX(0);
-            fab.setScaleY(0);
+            getFab().setScaleX(0);
+            getFab().setScaleY(0);
             animateHeader(DEFAULT_DELAY_NO_TRANSITION);
             animateFab(DEFAULT_DELAY_NO_TRANSITION);
         }
@@ -346,7 +344,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
     }
 
     private void animateFab(int startDelay) {
-        ViewPropertyAnimator.animate(fab)
+        ViewPropertyAnimator.animate(getFab())
                 .scaleX(1)
                 .scaleY(1)
                 .setInterpolator(new DecelerateInterpolator(4))
@@ -403,18 +401,9 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        enableViews();
-        updateFabIcon();
-        app.getMusicPlayerRemote().addOnMusicRemoteEventListener(this);
-    }
-
-    @Override
     public void enableViews() {
         super.enableViews();
         absSongListView.setEnabled(true);
-        fab.setEnabled(true);
         toolbar.setEnabled(true);
     }
 
@@ -422,43 +411,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
     public void disableViews() {
         super.disableViews();
         absSongListView.setEnabled(false);
-        fab.setEnabled(false);
         toolbar.setEnabled(false);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        app.getMusicPlayerRemote().removeOnMusicRemoteEventListener(this);
-    }
-
-    @Override
-    public void onMusicRemoteEvent(MusicRemoteEvent event) {
-        switch (event.getAction()) {
-            case MusicRemoteEvent.PLAY:
-                fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_white_48dp));
-                break;
-            case MusicRemoteEvent.PAUSE:
-                fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow_white_48dp));
-                break;
-            case MusicRemoteEvent.RESUME:
-                fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_white_48dp));
-                break;
-            case MusicRemoteEvent.STOP:
-                fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow_white_48dp));
-                break;
-            case MusicRemoteEvent.QUEUE_COMPLETED:
-                fab.setImageResource(R.drawable.ic_play_arrow_white_48dp);
-                break;
-        }
-    }
-
-    private void updateFabIcon() {
-        if (app.getMusicPlayerRemote().isPlaying()) {
-            fab.setImageResource(R.drawable.ic_pause_white_48dp);
-        } else {
-            fab.setImageResource(R.drawable.ic_play_arrow_white_48dp);
-        }
     }
 
     @Override

@@ -101,8 +101,8 @@ public class AlbumViewFragment extends Fragment implements KabViewsDisableAble, 
 
     private void fillAbsListView(List<Album> albums) {
         Collections.sort(albums, new AlbumAlphabeticComparator());
-        AlbumViewGridAdapter albumTileAdapter = new AlbumViewGridAdapter(getActivity(), albums);
-        absListView.setAdapter(albumTileAdapter);
+        AlbumViewGridAdapter albumViewGridAdapter = new AlbumViewGridAdapter(getActivity(), albums);
+        absListView.setAdapter(albumViewGridAdapter);
         absListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

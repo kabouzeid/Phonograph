@@ -231,7 +231,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
     }
 
     private int getListBackgroundTranslation(int scrollY) {
-        return Math.max(0, -scrollY + artistImageViewHeight);
+        return Math.max(0, -scrollY + artistImageViewHeight - 200);
     }
 
     private int getTitleTranslation(int scrollY) {
@@ -425,18 +425,23 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
         toolbar.setEnabled(false);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+
+    }
+
     private static class NavigationAdapter extends FragmentPagerAdapter {
 
         private String[] titles;
 
-        private SparseArray<Fragment> mPages;
+        private static SparseArray<Fragment> pages;
         private Artist artist;
         private Context context;
 
         public NavigationAdapter(Activity activity, Artist artist) {
             super(activity.getFragmentManager());
             this.artist = artist;
-            mPages = new SparseArray<>();
+            pages = new SparseArray<>();
             context = activity;
             titles = new String[]{
                     context.getResources().getString(R.string.tab_songs),
@@ -447,39 +452,40 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
 
         @Override
         public Fragment getItem(int position) {
-            Bundle args = new Bundle();
+            final Bundle args = new Bundle();
             args.putInt(ARG_ARTIST_ID, artist.id);
             args.putString(ARG_ARTIST_NAME, artist.name);
-            Fragment f;
-            switch (position) {
-                case 1:
-                    f = mPages.get(position, new ViewPagerTabArtistAlbumFragment());
-                    break;
-                case 0:
-                    f = mPages.get(position, new ViewPagerTabArtistSongListFragment());
-                    break;
-                case 2:
-                    f = mPages.get(position, new ViewPagerTabArtistBioFragment());
-                    break;
-                default:
-                    f = mPages.get(position, new MainActivity.PlaceholderFragment());
-                    break;
-            }
+
+            Fragment f = getOrCreateFragmentAt(position);
             f.setArguments(args);
-            mPages.put(position, f);
+
+            pages.put(position, f);
             return f;
         }
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            if (0 <= mPages.indexOfKey(position)) {
-                mPages.remove(position);
+            if (0 <= pages.indexOfKey(position)) {
+                pages.remove(position);
             }
             super.destroyItem(container, position, object);
         }
 
         public Fragment getItemAt(int position) {
-            return mPages.get(position, null);
+            return pages.get(position, null);
+        }
+
+        private Fragment getOrCreateFragmentAt(int position) {
+            switch (position) {
+                case 1:
+                    return pages.get(position, new ViewPagerTabArtistAlbumFragment());
+                case 0:
+                    return pages.get(position, new ViewPagerTabArtistSongListFragment());
+                case 2:
+                    return pages.get(position, new ViewPagerTabArtistBioFragment());
+                default:
+                    return pages.get(position, new MainActivity.PlaceholderFragment());
+            }
         }
 
         @Override

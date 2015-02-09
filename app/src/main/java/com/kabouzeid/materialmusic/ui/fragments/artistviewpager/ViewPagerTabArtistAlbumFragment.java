@@ -42,7 +42,7 @@ public class ViewPagerTabArtistAlbumFragment extends AbsViewPagerTabArtistListFr
                 openAlbumDetailsActivityIfPossible(album, albumArtView);
             }
         });
-        setColumns(2);
+        setColumns(getResources().getInteger(R.integer.grid_columns));
         return adapter;
     }
 

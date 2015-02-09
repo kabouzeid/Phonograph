@@ -70,9 +70,9 @@ public abstract class AbsFabActivity extends AbsBaseActivity implements OnMusicR
 
     private void updateFabState() {
         if (getApp().getMusicPlayerRemote().isPlaying()) {
-            getFab().setImageResource(R.drawable.ic_pause_white_48dp);
+            getFab().setImageResource(R.drawable.ic_pause_white_24dp);
         } else {
-            getFab().setImageResource(R.drawable.ic_play_arrow_white_48dp);
+            getFab().setImageResource(R.drawable.ic_play_arrow_white_24dp);
         }
     }
 
@@ -149,19 +149,19 @@ public abstract class AbsFabActivity extends AbsBaseActivity implements OnMusicR
     public void onMusicRemoteEvent(MusicRemoteEvent event) {
         switch (event.getAction()) {
             case MusicRemoteEvent.PLAY:
-                getFab().setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_white_48dp));
+                getFab().setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_white_24dp));
                 break;
             case MusicRemoteEvent.PAUSE:
-                getFab().setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow_white_48dp));
+                getFab().setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow_white_24dp));
                 break;
             case MusicRemoteEvent.RESUME:
-                getFab().setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_white_48dp));
+                getFab().setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_white_24dp));
                 break;
             case MusicRemoteEvent.STOP:
-                getFab().setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow_white_48dp));
+                getFab().setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow_white_24dp));
                 break;
             case MusicRemoteEvent.QUEUE_COMPLETED:
-                getFab().setImageResource(R.drawable.ic_play_arrow_white_48dp);
+                getFab().setImageResource(R.drawable.ic_play_arrow_white_24dp);
                 break;
         }
     }

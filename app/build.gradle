@@ -61,4 +61,6 @@ dependencies {
     }
     compile files('../libs/jaudiotagger-2.0.4-20111207.115108-15.jar')
     compile 'asia.ivity.android:drag-sort-listview:1.0'
+
+    compile 'com.github.navasmdc:MaterialDesign:1.+@aar'
 }

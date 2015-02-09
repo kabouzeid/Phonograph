@@ -159,13 +159,8 @@
 
     <SeekBar
         android:id="@+id/progress_slider"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/footer"
-        android:elevation="2dp"
-        android:padding="0dp"
-        android:progressTint="@color/materialmusic_accent_color"
-        android:thumbTint="@color/materialmusic_accent_color_darker"/>
+        style="@style/MusicProgressSlider"
+        android:layout_above="@+id/footer"/>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
