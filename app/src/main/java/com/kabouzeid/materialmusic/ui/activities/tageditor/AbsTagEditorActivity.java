@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
@@ -311,13 +310,14 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
     }
 
     protected void writeValuesToFiles(final Map<FieldKey, String> fieldKeyValueMap, final Artwork artwork, final boolean deleteArtwork) {
+        Util.hideSoftKeyboard(this);
         final String writingFileStr = getResources().getString(R.string.writing_file_number);
+        final String savingStr = getResources().getString(R.string.saving_changes);
         final MaterialDialog progressDialog = new MaterialDialog.Builder(AbsTagEditorActivity.this)
-                .customView(R.layout.dialog_loading, true)
-                .title(writingFileStr)
+                .title(savingStr)
                 .cancelable(false)
+                .progress(true, 0)
                 .build();
-        final TextView progressText = (TextView) progressDialog.getCustomView().findViewById(R.id.text);
         progressDialog.show();
         new Thread(new Runnable() {
             @Override
@@ -328,7 +328,7 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            progressText.setText((finalI + 1) + "/" + songPaths.size());
+                            progressDialog.setContent(writingFileStr + " " + ((finalI + 1) + "/" + songPaths.size()));
                         }
                     });
                     try {

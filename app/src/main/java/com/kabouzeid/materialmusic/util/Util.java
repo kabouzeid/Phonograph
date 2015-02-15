@@ -1,6 +1,7 @@
 package com.kabouzeid.materialmusic.util;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.Cursor;
@@ -10,8 +11,10 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import com.kabouzeid.materialmusic.App;
 import com.kabouzeid.materialmusic.R;
@@ -177,5 +180,15 @@ public class Util {
 
     private static Bitmap getScaledBitmap(final Bitmap bitmap) {
         return Bitmap.createScaledBitmap(bitmap, albumArtSize, albumArtSize, false);
+    }
+
+    public static void hideSoftKeyboard(Activity activity) {
+        if (activity != null) {
+            View currentFocus = activity.getCurrentFocus();
+            if (currentFocus != null) {
+                InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
+            }
+        }
     }
 }
