@@ -20,6 +20,8 @@
         </item>
 
         <item name="list_selector">@drawable/list_selector_dark</item>
+        <item name="round_selector">@drawable/round_selector_dark</item>
+
         <item name="md_dark_theme">true</item>
 
     </style>
@@ -43,7 +45,9 @@
         </item>
 
         <item name="list_selector">@drawable/list_selector</item>
+        <item name="round_selector">@drawable/round_selector</item>
 
+        <item name="md_dark_theme">false</item>
     </style>
 
     <style name="PlayPauseFabParent">
