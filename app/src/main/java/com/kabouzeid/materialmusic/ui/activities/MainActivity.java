@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -342,6 +343,8 @@ public class MainActivity extends AbsFabActivity
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_place_holder, container, false);
+            TextView text = (TextView)rootView.findViewById(R.id.text);
+            text.setText("Coming soon!");
             return rootView;
         }
     }
