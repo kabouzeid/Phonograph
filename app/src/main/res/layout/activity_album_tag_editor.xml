@@ -161,7 +161,7 @@
         style="@style/PlayPauseFab"
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_done_white_48dp"/>
+        android:src="@drawable/ic_done_white_24dp"/>
 
 </FrameLayout>
 
