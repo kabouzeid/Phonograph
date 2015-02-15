@@ -2,10 +2,12 @@
 
     <style name="Theme.MaterialMusic" parent="Theme.MaterialMusic.Base">
         <item name="round_selector">@drawable/round_ripple_selector_dark</item>
+        <item name="rect_selector">@drawable/rect_ripple_selector_dark</item>
     </style>
 
     <style name="Theme.MaterialMusic.Light" parent="Theme.MaterialMusic.Base.Light">
-        <!--<item name="round_selector">@drawable/round_ripple_selector</item>-->
+        <item name="round_selector">@drawable/round_ripple_selector</item>
+        <item name="rect_selector">@drawable/rect_ripple_selector</item>
     </style>
 
     <style name="Theme.MaterialMusic.Notification" parent="@android:style/TextAppearance.Material.Notification"/>

@@ -7,4 +7,5 @@
     <attr name="fab_color_pressed" format="color"/>
     <attr name="list_selector" format="reference"/>
     <attr name="round_selector" format="reference"/>
+    <attr name="rect_selector" format="reference"/>
 </resources>
