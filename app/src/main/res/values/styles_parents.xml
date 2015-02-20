@@ -55,6 +55,7 @@
     <style name="PlayPauseFabParent">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="fab_shadow">true</item>
         <item name="fab_color">@color/materialmusic_accent_color</item>
         <item name="fab_colorNormal">@color/materialmusic_accent_color</item>
         <item name="fab_colorPressed">@color/materialmusic_accent_color_darker</item>

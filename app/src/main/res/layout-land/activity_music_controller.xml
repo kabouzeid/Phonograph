@@ -126,8 +126,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_margin="16dp"
                 android:background="?attr/music_controller_container_color"
-                android:elevation="2dp"
-                android:padding="8dp">
+                android:elevation="2dp">
 
                 <com.melnykov.fab.FloatingActionButton
                     android:id="@+id/fab"
@@ -140,7 +139,6 @@
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_centerVertical="true"
-
                     android:layout_toLeftOf="@+id/fab"
                     android:background="?round_selector"
                     android:padding="14dp"
@@ -152,7 +150,6 @@
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_centerVertical="true"
-
                     android:layout_toRightOf="@+id/fab"
                     android:background="?round_selector"
                     android:padding="14dp"
@@ -165,7 +162,7 @@
                     android:layout_height="56dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-
+                    android:layout_marginLeft="8dp"
                     android:background="?round_selector"
                     android:padding="14dp"
                     android:scaleType="fitCenter"
@@ -177,7 +174,7 @@
                     android:layout_height="56dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-
+                    android:layout_marginRight="8dp"
                     android:background="?round_selector"
                     android:padding="14dp"
                     android:scaleType="fitCenter"
