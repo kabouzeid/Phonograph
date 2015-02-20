@@ -5,10 +5,11 @@
                 android:orientation="vertical"
                 tools:context="com.kabouzeid.materialmusic.ui.activities.AlbumDetailActivity$PlaceholderFragment">
 
-    <com.kabouzeid.materialmusic.view.SquareImageView
+    <ImageView
         android:id="@+id/album_art"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/footer"
         android:background="@color/black"
         android:scaleType="centerCrop"
         android:src="@drawable/default_album_art"
@@ -59,7 +60,7 @@
         android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/album_art"
+        android:layout_above="@+id/media_controller_container"
         android:background="?attr/colorPrimary"
         android:elevation="1dp"
         android:orientation="vertical"
@@ -67,10 +68,9 @@
         android:paddingLeft="72dp"
         android:paddingRight="72dp"
         android:paddingTop="16dp"
-        android:transitionName="@string/transition_album_text"
-        >
+        android:transitionName="@string/transition_album_text">
 
-        <TextView
+    <TextView
             android:id="@+id/song_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,13 +93,13 @@
     <RelativeLayout
         android:id="@+id/media_controller_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/footer"
         android:layout_centerHorizontal="true"
         android:layout_margin="16dp"
         android:background="?attr/music_controller_container_color"
-        android:elevation="1dp">
+        android:elevation="2dp"
+        android:padding="8dp">
 
         <com.melnykov.fab.FloatingActionButton
             android:id="@+id/fab"
@@ -109,49 +109,49 @@
 
         <ImageButton
             android:id="@+id/prev_button"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:layout_centerVertical="true"
-            android:layout_margin="8dp"
+
             android:layout_toLeftOf="@+id/fab"
             android:background="?round_selector"
-            android:padding="14dp"
+            android:padding="22dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_skip_previous_white_48dp"/>
 
         <ImageButton
             android:id="@+id/next_button"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:layout_centerVertical="true"
-            android:layout_margin="8dp"
+
             android:layout_toRightOf="@+id/fab"
             android:background="?round_selector"
-            android:padding="14dp"
+            android:padding="22dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_skip_next_white_48dp"/>
 
         <ImageButton
             android:id="@+id/repeat_button"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_margin="8dp"
+
             android:background="?round_selector"
-            android:padding="14dp"
+            android:padding="22dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_repeat_grey600_48dp"/>
 
         <ImageButton
             android:id="@+id/shuffle_button"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_margin="8dp"
+
             android:background="?round_selector"
-            android:padding="14dp"
+            android:padding="22dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_shuffle_grey600_48dp"/>
 

@@ -2,6 +2,7 @@
 <resources>
     <color name="notification_buttons_tint">#de000000</color>
 
-    <color name="button_selected">#D0D0D0</color>
-    <color name="button_selected_dark">#88FFFFFF</color>
+    <!--must be solid colors so the ripple will not be semi transparent. Note: the color have no effect on the ripple-->
+    <color name="button_selected">#FFFFFFFF</color>
+    <color name="button_selected_dark">#FFFFFFFF</color>
 </resources>

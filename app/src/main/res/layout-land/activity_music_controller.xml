@@ -121,18 +121,18 @@
             <RelativeLayout
                 android:id="@+id/media_controller_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="88dp"
                 android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
                 android:layout_margin="16dp"
                 android:background="?attr/music_controller_container_color"
-                android:elevation="1dp">
+                android:elevation="2dp"
+                android:padding="8dp">
 
                 <com.melnykov.fab.FloatingActionButton
                     android:id="@+id/fab"
                     style="@style/PlayPauseFab"
                     android:layout_centerInParent="true"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginTop="16dp"
                     />
 
                 <ImageButton
@@ -140,8 +140,9 @@
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_centerVertical="true"
+
                     android:layout_toLeftOf="@+id/fab"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:background="?round_selector"
                     android:padding="14dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_skip_previous_white_48dp"/>
@@ -151,8 +152,9 @@
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_centerVertical="true"
+
                     android:layout_toRightOf="@+id/fab"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:background="?round_selector"
                     android:padding="14dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_skip_next_white_48dp"/>
@@ -163,8 +165,8 @@
                     android:layout_height="56dp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:layout_margin="8dp"
-                    android:background="?android:attr/selectableItemBackground"
+
+                    android:background="?round_selector"
                     android:padding="14dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_repeat_grey600_48dp"/>
@@ -175,8 +177,8 @@
                     android:layout_height="56dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_margin="8dp"
-                    android:background="?android:attr/selectableItemBackground"
+
+                    android:background="?round_selector"
                     android:padding="14dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_shuffle_grey600_48dp"/>
@@ -195,7 +197,6 @@
 
 
         </RelativeLayout>
-
 
     </LinearLayout>
 
