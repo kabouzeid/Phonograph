@@ -101,7 +101,7 @@ public class LastFMAlbumImageLoader {
                 callback.onAlbumImageLoaded(null, null);
             }
         });
-        app.addToRequestQueue(albumInfoJSONRequest);
+        app.addToVolleyRequestQueue(albumInfoJSONRequest);
     }
 
     public static interface AlbumImageLoaderCallback {

@@ -36,7 +36,7 @@ public class LastFMArtistImageLoader {
                 }
             } else {
                 Log.i(TAG, queryArtist + " is not in cache.");
-                downloadArtistImage(context, queryArtist, callback);
+                downloadArtistJSONAndStartImageDownload(context, queryArtist, callback);
             }
         }
     }
@@ -71,7 +71,7 @@ public class LastFMArtistImageLoader {
         }
     }
 
-    private static void downloadArtistImage(final Context context, final String artist, final ArtistImageLoaderCallback callback) {
+    private static void downloadArtistJSONAndStartImageDownload(final Context context, final String artist, final ArtistImageLoaderCallback callback) {
         Log.i(TAG, "Downloading details for " + artist);
         App app = (App) context.getApplicationContext();
         String artistUrl = LastFMArtistInfoUtil.getArtistUrl(artist);
@@ -89,7 +89,7 @@ public class LastFMArtistImageLoader {
                 callback.onArtistImageLoaded(null);
             }
         });
-        app.addToRequestQueue(artistInfoJSONRequest);
+        app.addToVolleyRequestQueue(artistInfoJSONRequest);
     }
 
     public static interface ArtistImageLoaderCallback {

@@ -68,12 +68,12 @@ public class App extends Application {
         return getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
     }
 
-    public void addToRequestQueue(Request request) {
+    public void addToVolleyRequestQueue(Request request) {
         request.setTag(TAG);
-        getRequestQueue().add(request);
+        getVolleyRequestQueue().add(request);
     }
 
-    public RequestQueue getRequestQueue() {
+    public RequestQueue getVolleyRequestQueue() {
         if (requestQueue == null) {
             requestQueue = Volley.newRequestQueue(this);
         }

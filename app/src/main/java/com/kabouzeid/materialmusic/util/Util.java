@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.util.TypedValue;
 import android.view.View;
@@ -190,5 +191,13 @@ public class Util {
                 inputMethodManager.hideSoftInputFromWindow(currentFocus.getWindowToken(), 0);
             }
         }
+    }
+
+    public static boolean hasLollipopSDK() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    }
+
+    public static boolean hasKitKatSDK() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
     }
 }

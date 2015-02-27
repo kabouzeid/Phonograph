@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.MenuItemCompat;
@@ -14,7 +13,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.transition.Explode;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -73,16 +71,12 @@ public class MainActivity extends AbsFabActivity
                 R.id.navigation_drawer,
                 drawerLayout
         );
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setExitTransition(new Explode());
-        }
     }
 
     private void setUpViewPager() {
         viewPagerAdapter = new MainActivityViewPagerAdapter(this);
         viewPager.setAdapter(viewPagerAdapter);
-        slidingTabLayout.setDistributeEvenly(true);
+        //slidingTabLayout.setDistributeEvenly(true);
         slidingTabLayout.setSelectedIndicatorColors(Util.resolveColor(MainActivity.this, R.attr.colorAccent));
         slidingTabLayout.setViewPager(viewPager);
     }
@@ -318,7 +312,7 @@ public class MainActivity extends AbsFabActivity
             pages = new SparseArray<>();
             context = activity;
             titles = new String[]{
-                    context.getResources().getString(R.string.all_songs),
+                    context.getResources().getString(R.string.songs),
                     context.getResources().getString(R.string.albums),
                     context.getResources().getString(R.string.artists),
                     context.getResources().getString(R.string.genres),

@@ -1,5 +1,6 @@
 package com.kabouzeid.materialmusic.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -8,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
-import android.transition.Transition;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,7 +33,6 @@ import com.kabouzeid.materialmusic.model.Album;
 import com.kabouzeid.materialmusic.model.Song;
 import com.kabouzeid.materialmusic.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.materialmusic.ui.activities.tageditor.AlbumTagEditorActivity;
-import com.kabouzeid.materialmusic.util.ImageLoaderUtil;
 import com.kabouzeid.materialmusic.util.MusicUtil;
 import com.kabouzeid.materialmusic.util.Util;
 import com.kabouzeid.materialmusic.util.ViewUtil;
@@ -129,10 +128,11 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
             }
         }
     };
-    private Bitmap albumCover;
 
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (Util.hasLollipopSDK()) postponeEnterTransition();
         app = (App) getApplicationContext();
         setTheme(app.getAppTheme());
         setUpTranslucence();
@@ -154,8 +154,19 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
         setUpObservableListViewParams();
         setUpToolBar();
         setUpViews();
-        lollipopTransitionImageWrongSizeFix();
-        animateEnterActivity();
+        if (!Util.hasLollipopSDK()) animateEnterActivity();
+    }
+
+    @Override
+    public String getTag() {
+        return TAG;
+    }
+
+    @Override
+    public void goToAlbum(int albumId) {
+        if (album.id != albumId) {
+            goToAlbum(albumId);
+        }
     }
 
     private void initViews() {
@@ -191,27 +202,38 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
         albumTitleView.setScaleY(0);
     }
 
+    @SuppressLint("NewApi")
     private void setUpAlbumArtAndApplyPalette() {
         ImageLoader.getInstance().displayImage(MusicUtil.getAlbumArtUri(album.id).toString(), albumArtImageView, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String imageUri, View view) {
-                albumArtImageView.setImageResource(R.drawable.default_album_art);
             }
 
             @Override
             public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                 albumArtImageView.setImageResource(R.drawable.default_album_art);
+                if (Util.hasLollipopSDK()) {
+                    startPostponedEnterTransition();
+                    animateEnterActivity();
+                }
             }
 
             @Override
             public void onLoadingComplete(String imageUri, final View view, Bitmap loadedImage) {
-                albumCover = loadedImage;
                 applyPalette(loadedImage);
+                if (Util.hasLollipopSDK()) {
+                    startPostponedEnterTransition();
+                    animateEnterActivity();
+                }
             }
 
             @Override
             public void onLoadingCancelled(String imageUri, View view) {
                 albumArtImageView.setImageResource(R.drawable.default_album_art);
+                if (Util.hasLollipopSDK()) {
+                    startPostponedEnterTransition();
+                    animateEnterActivity();
+                }
             }
         });
     }
@@ -349,53 +371,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
                 .setDuration(DEFAULT_ANIMATION_TIME)
                 .setStartDelay(startDelay)
                 .start();
-    }
-
-    @Override
-    public String getTag() {
-        return TAG;
-    }
-
-    @Override
-    public void goToAlbum(int albumId) {
-        if (album.id != albumId) {
-            goToAlbum(albumId);
-        }
-    }
-
-    private void lollipopTransitionImageWrongSizeFix() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().getSharedElementEnterTransition().addListener(new Transition.TransitionListener() {
-                @Override
-                public void onTransitionStart(Transition transition) {
-
-                }
-
-                @Override
-                public void onTransitionEnd(Transition transition) {
-                    if (albumCover == null) {
-                        ImageLoader.getInstance().displayImage(MusicUtil.getAlbumArtUri(album.id).toString(), albumArtImageView, new ImageLoaderUtil.defaultAlbumArtOnFailed());
-                    } else {
-                        albumArtImageView.setImageBitmap(albumCover);
-                    }
-                }
-
-                @Override
-                public void onTransitionCancel(Transition transition) {
-
-                }
-
-                @Override
-                public void onTransitionPause(Transition transition) {
-
-                }
-
-                @Override
-                public void onTransitionResume(Transition transition) {
-
-                }
-            });
-        }
     }
 
     @Override

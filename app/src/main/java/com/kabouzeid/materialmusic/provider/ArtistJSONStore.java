@@ -70,12 +70,6 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
             cursor.close();
         }
         return null;
-    }    @Override
-    public void onCreate(final SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + ArtistJSONColumns.NAME +
-                        " (" + ArtistJSONColumns.ARTIST_NAME + " TEXT NOT NULL," +
-                        ArtistJSONColumns.JSON + " TEXT NOT NULL);"
-        );
     }
 
     public void removeItem(final String artistName) {
@@ -84,6 +78,12 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
                 artistName.trim().toLowerCase()
         });
 
+    }    @Override
+    public void onCreate(final SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + ArtistJSONColumns.NAME +
+                        " (" + ArtistJSONColumns.ARTIST_NAME + " TEXT NOT NULL," +
+                        ArtistJSONColumns.JSON + " TEXT NOT NULL);"
+        );
     }
 
     public interface ArtistJSONColumns {
@@ -91,6 +91,7 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
         public static final String ARTIST_NAME = "ArtistName";
         public static final String JSON = "JSON";
     }
+
 
 
 

@@ -89,7 +89,7 @@ public class LastFMArtistThumbnailLoader {
                 callback.onArtistThumbnailLoaded(null);
             }
         });
-        app.addToRequestQueue(artistInfoJSONRequest);
+        app.addToVolleyRequestQueue(artistInfoJSONRequest);
     }
 
     public static interface ArtistThumbnailLoaderCallback {

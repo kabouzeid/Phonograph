@@ -140,7 +140,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     private void setUpListView() {
         final ArrayList<NavigationDrawerItem> navigationDrawerItems = new ArrayList<>();
-        navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.all_songs), R.drawable.songs));
+        navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.songs), R.drawable.songs));
         navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.albums), R.drawable.album));
         navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.artists), R.drawable.interpret));
         navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.genres), R.drawable.songs));

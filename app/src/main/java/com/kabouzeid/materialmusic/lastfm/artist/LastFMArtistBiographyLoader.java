@@ -56,7 +56,7 @@ public class LastFMArtistBiographyLoader {
                 callback.onArtistBioLoaded("");
             }
         });
-        app.addToRequestQueue(artistInfoJSONRequest);
+        app.addToVolleyRequestQueue(artistInfoJSONRequest);
     }
 
     public static interface ArtistBioLoaderCallback {

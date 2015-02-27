@@ -1,11 +1,11 @@
 package com.kabouzeid.materialmusic.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -78,11 +78,10 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
     private int toolbarColor;
     private int tabHeight;
 
-    private Bitmap artistImage;
-
     private Fragment currentFragment;
 
 
+    @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setUpTranslucence(true, true);
@@ -94,7 +93,47 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
         setUpObservableListViewParams();
         setUpToolBar();
         setUpViews();
-        lollipopTransitionImageWrongSizeFix();
+
+        if (Util.hasLollipopSDK()) {
+            getWindow().getSharedElementEnterTransition().addListener(new Transition.TransitionListener() {
+                @Override
+                public void onTransitionStart(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionEnd(Transition transition) {
+                    setUpArtistImageAndApplyPalette();
+                }
+
+                @Override
+                public void onTransitionCancel(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionPause(Transition transition) {
+
+                }
+
+                @Override
+                public void onTransitionResume(Transition transition) {
+
+                }
+            });
+        }
+    }
+
+    @Override
+    public String getTag() {
+        return TAG;
+    }
+
+    @Override
+    public void goToArtist(int artistId) {
+        if (artist.id != artistId) {
+            super.goToArtist(artistId);
+        }
     }
 
     private void initViews() {
@@ -274,21 +313,17 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
     }
 
     private void setUpArtistImageAndApplyPalette() {
-        if (artistImage == null) {
-            LastFMArtistImageLoader.loadArtistImage(this, artist.name, new LastFMArtistImageLoader.ArtistImageLoaderCallback() {
-                @Override
-                public void onArtistImageLoaded(Bitmap artistImage) {
-                    if (artistImage != null) {
-                        ArtistDetailActivity.this.artistImage = artistImage;
-                        artistImageView.setImageBitmap(artistImage);
-                        applyPalette(artistImage);
-                    }
+        LastFMArtistImageLoader.loadArtistImage(this, artist.name, new LastFMArtistImageLoader.ArtistImageLoaderCallback() {
+            @SuppressLint("NewApi")
+            @Override
+            public void onArtistImageLoaded(Bitmap artistImage) {
+                if (artistImage != null) {
+                    artistImageView.setImageBitmap(artistImage);
+                    applyPalette(artistImage);
                 }
-            });
-        } else {
-            artistImageView.setImageBitmap(artistImage);
-            applyPalette(artistImage);
-        }
+                //if (Util.hasLollipopSDK()) startPostponedEnterTransition();
+            }
+        });
     }
 
     private void applyPalette(Bitmap bitmap) {
@@ -332,60 +367,6 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
         artist = ArtistLoader.getArtist(this, artistId);
         if (artist == null) {
             finish();
-        }
-    }
-
-    @Override
-    public String getTag() {
-        return TAG;
-    }
-
-    @Override
-    public void goToArtist(int artistId) {
-        if (artist.id != artistId) {
-            super.goToArtist(artistId);
-        }
-    }
-
-    private void lollipopTransitionImageWrongSizeFix() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().getSharedElementEnterTransition().addListener(new Transition.TransitionListener() {
-                @Override
-                public void onTransitionStart(Transition transition) {
-
-                }
-
-                @Override
-                public void onTransitionEnd(Transition transition) {
-                    if (artistImage == null) {
-                        LastFMArtistImageLoader.loadArtistImage(ArtistDetailActivity.this, artist.name, new LastFMArtistImageLoader.ArtistImageLoaderCallback() {
-                            @Override
-                            public void onArtistImageLoaded(Bitmap artistImage) {
-                                if (artistImage != null) {
-                                    artistImageView.setImageBitmap(artistImage);
-                                }
-                            }
-                        });
-                    } else {
-                        artistImageView.setImageBitmap(artistImage);
-                    }
-                }
-
-                @Override
-                public void onTransitionCancel(Transition transition) {
-
-                }
-
-                @Override
-                public void onTransitionPause(Transition transition) {
-
-                }
-
-                @Override
-                public void onTransitionResume(Transition transition) {
-
-                }
-            });
         }
     }
 

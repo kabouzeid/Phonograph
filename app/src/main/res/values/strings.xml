@@ -20,7 +20,7 @@
     <string name="albums">Albums</string>
     <string name="artists">Artists</string>
     <string name="genres">Genres</string>
-    <string name="all_songs">All Songs</string>
+    <string name="songs">Songs</string>
     <string name="playlists">Playlists</string>
     <string name="unknown_artist">Unknown Artist</string>
     <string name="unknown_album">Unknown Album</string>
