@@ -79,7 +79,7 @@ public abstract class AbsFabActivity extends AbsBaseActivity implements OnMusicR
     protected FloatingActionButton getFab() {
         if (fab == null) {
             fab = (FloatingActionButton) findViewById(R.id.fab);
-            if(fab == null){
+            if (fab == null) {
                 fab = new FloatingActionButton(this);
                 Log.e(getTag(), "No FAB found created default FAB.");
             }

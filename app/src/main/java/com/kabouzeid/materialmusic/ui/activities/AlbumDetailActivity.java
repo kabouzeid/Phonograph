@@ -30,7 +30,6 @@ import com.kabouzeid.materialmusic.loader.AlbumSongLoader;
 import com.kabouzeid.materialmusic.misc.AppKeys;
 import com.kabouzeid.materialmusic.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.materialmusic.model.Album;
-import com.kabouzeid.materialmusic.model.MusicRemoteEvent;
 import com.kabouzeid.materialmusic.model.Song;
 import com.kabouzeid.materialmusic.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.materialmusic.ui.activities.tageditor.AlbumTagEditorActivity;
@@ -38,7 +37,6 @@ import com.kabouzeid.materialmusic.util.ImageLoaderUtil;
 import com.kabouzeid.materialmusic.util.MusicUtil;
 import com.kabouzeid.materialmusic.util.Util;
 import com.kabouzeid.materialmusic.util.ViewUtil;
-import com.melnykov.fab.FloatingActionButton;
 import com.nhaarman.listviewanimations.appearance.AnimationAdapter;
 import com.nhaarman.listviewanimations.appearance.simple.ScaleInAnimationAdapter;
 import com.nineoldandroids.view.ViewHelper;
@@ -354,15 +352,15 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
     }
 
     @Override
+    public String getTag() {
+        return TAG;
+    }
+
+    @Override
     public void goToAlbum(int albumId) {
         if (album.id != albumId) {
             goToAlbum(albumId);
         }
-    }
-
-    @Override
-    public String getTag() {
-        return TAG;
     }
 
     private void lollipopTransitionImageWrongSizeFix() {

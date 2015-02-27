@@ -1,8 +1,6 @@
 package com.kabouzeid.materialmusic.ui.fragments.mainactivityfragments;
 
-import android.app.Fragment;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -17,13 +15,11 @@ import com.kabouzeid.materialmusic.App;
 import com.kabouzeid.materialmusic.R;
 import com.kabouzeid.materialmusic.adapter.AlbumViewGridAdapter;
 import com.kabouzeid.materialmusic.comparator.AlbumAlphabeticComparator;
-import com.kabouzeid.materialmusic.interfaces.KabSearchAbleFragment;
 import com.kabouzeid.materialmusic.interfaces.KabViewsDisableAble;
 import com.kabouzeid.materialmusic.loader.AlbumLoader;
 import com.kabouzeid.materialmusic.misc.AppKeys;
 import com.kabouzeid.materialmusic.model.Album;
 import com.kabouzeid.materialmusic.ui.activities.AlbumDetailActivity;
-import com.kabouzeid.materialmusic.util.Util;
 import com.melnykov.fab.FloatingActionButton;
 
 import java.util.Collections;
@@ -32,7 +28,7 @@ import java.util.List;
 /**
  * Created by karim on 22.11.14.
  */
-public class AlbumViewFragment extends Fragment implements KabViewsDisableAble, KabSearchAbleFragment {
+public class AlbumViewFragment extends MainActivityFragment {
     public static final String TAG = AlbumViewFragment.class.getSimpleName();
 
     private App app;
@@ -113,15 +109,7 @@ public class AlbumViewFragment extends Fragment implements KabViewsDisableAble, 
             }
         });
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (app.isInPortraitMode() || app.isTablet()) {
-                absListView.setPadding(0, Util.getActionBarSize(getActivity()) + Util.getStatusBarHeight(getActivity()), 0, Util.getNavigationBarHeight(getActivity()));
-            } else {
-                absListView.setPadding(0, Util.getActionBarSize(getActivity()) + Util.getStatusBarHeight(getActivity()), 0, 0);
-            }
-        } else {
-            absListView.setPadding(0, Util.getActionBarSize(getActivity()), 0, 0);
-        }
+        absListView.setPadding(0, getTopPadding(app), 0, getBottomPadding(app));
     }
 
     @SuppressWarnings("unchecked")

@@ -41,6 +41,8 @@ public abstract class AbsBaseActivity extends ActionBarActivity implements KabVi
         return app;
     }
 
+    public abstract String getTag();
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -127,6 +129,4 @@ public abstract class AbsBaseActivity extends ActionBarActivity implements KabVi
             startActivity(intent);
         }
     }
-
-    public abstract String getTag();
 }

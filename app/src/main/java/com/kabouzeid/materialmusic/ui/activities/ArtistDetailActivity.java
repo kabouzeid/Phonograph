@@ -336,15 +336,15 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
     }
 
     @Override
+    public String getTag() {
+        return TAG;
+    }
+
+    @Override
     public void goToArtist(int artistId) {
         if (artist.id != artistId) {
             super.goToArtist(artistId);
         }
-    }
-
-    @Override
-    public String getTag() {
-        return TAG;
     }
 
     private void lollipopTransitionImageWrongSizeFix() {
@@ -434,7 +434,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
 
         private String[] titles;
 
-        private static SparseArray<Fragment> pages;
+        private SparseArray<Fragment> pages; //TODO check if this must be static
         private Artist artist;
         private Context context;
 
@@ -471,10 +471,6 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
             super.destroyItem(container, position, object);
         }
 
-        public Fragment getItemAt(int position) {
-            return pages.get(position, null);
-        }
-
         private Fragment getOrCreateFragmentAt(int position) {
             switch (position) {
                 case 1:
@@ -486,6 +482,10 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
                 default:
                     return pages.get(position, new MainActivity.PlaceholderFragment());
             }
+        }
+
+        public Fragment getItemAt(int position) {
+            return pages.get(position, null);
         }
 
         @Override

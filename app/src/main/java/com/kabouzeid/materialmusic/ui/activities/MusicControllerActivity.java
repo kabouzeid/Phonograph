@@ -83,104 +83,6 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
         setUpToolBar();
     }
 
-    private void updateCurrentSong() {
-        getCurrentSong();
-        setHeadersText();
-        setUpArtistArt();
-        setUpAlbumArtAndApplyPalette();
-        totalSongDuration.setText(MusicUtil.getReadableDurationString(song.duration));
-        currentSongProgress.setText(MusicUtil.getReadableDurationString(-1));
-    }
-
-    private void setHeadersText() {
-        songTitle.setText(song.title);
-        songArtist.setText(song.artistName);
-    }
-
-    private void setUpAlbumArtAndApplyPalette() {
-        ImageLoader.getInstance().displayImage(MusicUtil.getAlbumArtUri(song.albumId).toString(), albumArt, new ImageLoadingListener() {
-            @Override
-            public void onLoadingStarted(String imageUri, View view) {
-                albumArt.setImageResource(R.drawable.default_album_art);
-            }
-
-            @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                albumArt.setImageResource(R.drawable.default_album_art);
-                setStandardColors();
-            }
-
-            @Override
-            public void onLoadingComplete(String imageUri, final View view, Bitmap loadedImage) {
-                applyPalette(loadedImage);
-            }
-
-            @Override
-            public void onLoadingCancelled(String imageUri, View view) {
-                albumArt.setImageResource(R.drawable.default_album_art);
-                setStandardColors();
-            }
-        });
-    }
-
-    private void applyPalette(Bitmap bitmap) {
-        Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
-            @Override
-            public void onGenerated(Palette palette) {
-                Palette.Swatch swatch = palette.getVibrantSwatch();
-                if (swatch != null) {
-                    animateColorChange(swatch.getRgb());
-                    songTitle.setTextColor(swatch.getTitleTextColor());
-                    songArtist.setTextColor(swatch.getBodyTextColor());
-                } else {
-                    setStandardColors();
-                }
-            }
-        });
-    }
-
-    private void setStandardColors() {
-        int songTitleTextColor = Util.resolveColor(this, R.attr.title_text_color);
-        int artistNameTextColor = Util.resolveColor(this, R.attr.caption_text_color);
-        int colorPrimary = Util.resolveColor(MusicControllerActivity.this, R.attr.colorPrimary);
-
-        animateColorChange(colorPrimary);
-
-        songTitle.setTextColor(songTitleTextColor);
-        songArtist.setTextColor(artistNameTextColor);
-    }
-
-    private void animateColorChange(final int newColor) {
-        if (lastFooterColor != -1 && lastFooterColor != newColor) {
-            ViewUtil.animateViewColor(footer, lastFooterColor, newColor, 300);
-        } else {
-            footer.setBackgroundColor(newColor);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setNavigationBarColor(newColor);
-        }
-        lastFooterColor = newColor;
-    }
-
-    private void setUpArtistArt() {
-        if (artistArt != null) {
-            artistArt.setImageResource(R.drawable.default_artist_image);
-            LastFMArtistImageLoader.loadArtistImage(this, song.artistName, new LastFMArtistImageLoader.ArtistImageLoaderCallback() {
-                @Override
-                public void onArtistImageLoaded(Bitmap artistImage) {
-                    artistArt.setImageBitmap(artistImage);
-                }
-            });
-        }
-    }
-
-    private void getCurrentSong() {
-        song = getApp().getMusicPlayerRemote().getCurrentSong();
-        if(song.id == -1){
-            finish();
-        }
-    }
-
     private void moveSeekBarIntoPlace() {
         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) progressSlider.getLayoutParams();
         progressSlider.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
@@ -301,10 +203,113 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
     }
 
     @Override
+    public String getTag() {
+        return TAG;
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         startMusicControllerStateUpdateThread();
         updateCurrentSong();
+    }
+
+    private void updateCurrentSong() {
+        getCurrentSong();
+        setHeadersText();
+        setUpArtistArt();
+        setUpAlbumArtAndApplyPalette();
+        totalSongDuration.setText(MusicUtil.getReadableDurationString(song.duration));
+        currentSongProgress.setText(MusicUtil.getReadableDurationString(-1));
+    }
+
+    private void setHeadersText() {
+        songTitle.setText(song.title);
+        songArtist.setText(song.artistName);
+    }
+
+    private void setUpAlbumArtAndApplyPalette() {
+        ImageLoader.getInstance().displayImage(MusicUtil.getAlbumArtUri(song.albumId).toString(), albumArt, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
+                albumArt.setImageResource(R.drawable.default_album_art);
+            }
+
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                albumArt.setImageResource(R.drawable.default_album_art);
+                setStandardColors();
+            }
+
+            @Override
+            public void onLoadingComplete(String imageUri, final View view, Bitmap loadedImage) {
+                applyPalette(loadedImage);
+            }
+
+            @Override
+            public void onLoadingCancelled(String imageUri, View view) {
+                albumArt.setImageResource(R.drawable.default_album_art);
+                setStandardColors();
+            }
+        });
+    }
+
+    private void applyPalette(Bitmap bitmap) {
+        Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(Palette palette) {
+                Palette.Swatch swatch = palette.getVibrantSwatch();
+                if (swatch != null) {
+                    animateColorChange(swatch.getRgb());
+                    songTitle.setTextColor(swatch.getTitleTextColor());
+                    songArtist.setTextColor(swatch.getBodyTextColor());
+                } else {
+                    setStandardColors();
+                }
+            }
+        });
+    }
+
+    private void setStandardColors() {
+        int songTitleTextColor = Util.resolveColor(this, R.attr.title_text_color);
+        int artistNameTextColor = Util.resolveColor(this, R.attr.caption_text_color);
+        int colorPrimary = Util.resolveColor(MusicControllerActivity.this, R.attr.colorPrimary);
+
+        animateColorChange(colorPrimary);
+
+        songTitle.setTextColor(songTitleTextColor);
+        songArtist.setTextColor(artistNameTextColor);
+    }
+
+    private void animateColorChange(final int newColor) {
+        if (lastFooterColor != -1 && lastFooterColor != newColor) {
+            ViewUtil.animateViewColor(footer, lastFooterColor, newColor, 300);
+        } else {
+            footer.setBackgroundColor(newColor);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(newColor);
+        }
+        lastFooterColor = newColor;
+    }
+
+    private void setUpArtistArt() {
+        if (artistArt != null) {
+            artistArt.setImageResource(R.drawable.default_artist_image);
+            LastFMArtistImageLoader.loadArtistImage(this, song.artistName, new LastFMArtistImageLoader.ArtistImageLoaderCallback() {
+                @Override
+                public void onArtistImageLoaded(Bitmap artistImage) {
+                    artistArt.setImageBitmap(artistImage);
+                }
+            });
+        }
+    }
+
+    private void getCurrentSong() {
+        song = getApp().getMusicPlayerRemote().getCurrentSong();
+        if (song.id == -1) {
+            finish();
+        }
     }
 
     private void startMusicControllerStateUpdateThread() {
@@ -342,11 +347,6 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
     protected boolean openCurrentPlayingIfPossible(Pair[] sharedViews) {
         onBackPressed();
         return true;
-    }
-
-    @Override
-    public String getTag() {
-        return TAG;
     }
 
     @Override

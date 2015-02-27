@@ -1,7 +1,6 @@
 package com.kabouzeid.materialmusic;
 
 import android.app.Application;
-import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.preference.PreferenceManager;
@@ -22,7 +21,6 @@ import io.fabric.sdk.android.Fabric;
 public class App extends Application {
     private static final String TAG = App.class.getSimpleName();
 
-    public Fragment[] MainActivityFragments = new Fragment[5];
     private MusicPlayerRemote playerRemote;
     private int appTheme;
     private SharedPreferences defaultSharedPreferences;
@@ -59,7 +57,7 @@ public class App extends Application {
 
     public void setAppTheme(int appTheme) {
         this.appTheme = appTheme;
-        defaultSharedPreferences.edit().putInt(AppKeys.SP_THEME, appTheme);
+        defaultSharedPreferences.edit().putInt(AppKeys.SP_THEME, appTheme).apply();
     }
 
     public boolean isTablet() {

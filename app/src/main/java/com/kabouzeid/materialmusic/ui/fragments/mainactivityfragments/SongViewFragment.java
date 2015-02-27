@@ -1,8 +1,6 @@
 package com.kabouzeid.materialmusic.ui.fragments.mainactivityfragments;
 
 
-import android.app.Fragment;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +12,9 @@ import com.kabouzeid.materialmusic.App;
 import com.kabouzeid.materialmusic.R;
 import com.kabouzeid.materialmusic.adapter.songadapter.SongViewListAdapter;
 import com.kabouzeid.materialmusic.comparator.SongAlphabeticComparator;
-import com.kabouzeid.materialmusic.interfaces.KabSearchAbleFragment;
 import com.kabouzeid.materialmusic.loader.SongLoader;
 import com.kabouzeid.materialmusic.model.Song;
 import com.kabouzeid.materialmusic.ui.activities.base.AbsBaseActivity;
-import com.kabouzeid.materialmusic.util.Util;
 
 import java.util.Collections;
 import java.util.List;
@@ -26,7 +22,7 @@ import java.util.List;
 /**
  * Created by karim on 29.12.14.
  */
-public class SongViewFragment extends Fragment implements KabSearchAbleFragment {
+public class SongViewFragment extends MainActivityFragment {
     public static final String TAG = SongViewFragment.class.getSimpleName();
 
     private App app;
@@ -81,15 +77,7 @@ public class SongViewFragment extends Fragment implements KabSearchAbleFragment 
             }
         });
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (app.isInPortraitMode() || app.isTablet()) {
-                absListView.setPadding(0, Util.getActionBarSize(getActivity()) + Util.getStatusBarHeight(getActivity()), 0, Util.getNavigationBarHeight(getActivity()));
-            } else {
-                absListView.setPadding(0, Util.getActionBarSize(getActivity()) + Util.getStatusBarHeight(getActivity()), 0, 0);
-            }
-        } else {
-            absListView.setPadding(0, Util.getActionBarSize(getActivity()), 0, 0);
-        }
+        absListView.setPadding(0, getTopPadding(app), 0, getBottomPadding(app));
     }
 
     @Override
@@ -105,5 +93,20 @@ public class SongViewFragment extends Fragment implements KabSearchAbleFragment 
     @Override
     public void returnToNonSearch() {
         setUpAbsListView();
+    }
+
+    @Override
+    public void enableViews() {
+
+    }
+
+    @Override
+    public void disableViews() {
+
+    }
+
+    @Override
+    public boolean areViewsEnabled() {
+        return false;
     }
 }

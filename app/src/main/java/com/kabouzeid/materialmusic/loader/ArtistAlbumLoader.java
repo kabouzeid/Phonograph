@@ -37,7 +37,7 @@ public class ArtistAlbumLoader {
     }
 
     public static Cursor makeArtistAlbumCursor(final Context context, final int artistId) {
-        if(artistId == -1) return null;
+        if (artistId == -1) return null;
         return context.getContentResolver().query(
                 MediaStore.Audio.Artists.Albums.getContentUri("external", artistId), new String[]{
                         /* 0 */

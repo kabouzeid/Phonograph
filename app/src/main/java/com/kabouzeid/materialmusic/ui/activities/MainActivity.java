@@ -1,11 +1,14 @@
 package com.kabouzeid.materialmusic.ui.activities;
 
+import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,6 +16,7 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,10 +26,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 import com.kabouzeid.materialmusic.R;
 import com.kabouzeid.materialmusic.helper.AboutDeveloperDialogHelper;
 import com.kabouzeid.materialmusic.helper.PlayingQueueDialogHelper;
-import com.kabouzeid.materialmusic.interfaces.KabSearchAbleFragment;
 import com.kabouzeid.materialmusic.interfaces.KabViewsDisableAble;
 import com.kabouzeid.materialmusic.interfaces.OnMusicRemoteEventListener;
 import com.kabouzeid.materialmusic.model.MusicRemoteEvent;
@@ -46,14 +50,14 @@ public class MainActivity extends AbsFabActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, OnMusicRemoteEventListener, KabViewsDisableAble {
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    private int currentFragmentPosition = -1;
-
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private NavigationDrawerFragment navigationDrawerFragment;
-    private CharSequence toolbarTitle;
     private Toolbar toolbar;
     private View statusBar;
+    private MainActivityViewPagerAdapter viewPagerAdapter;
+    private ViewPager viewPager;
+    private SlidingTabLayout slidingTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,7 @@ public class MainActivity extends AbsFabActivity
 
         initViews();
         setUpToolBar();
+        setUpViewPager();
 
         navigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
@@ -74,7 +79,17 @@ public class MainActivity extends AbsFabActivity
         }
     }
 
+    private void setUpViewPager() {
+        viewPagerAdapter = new MainActivityViewPagerAdapter(this);
+        viewPager.setAdapter(viewPagerAdapter);
+        slidingTabLayout.setDistributeEvenly(true);
+        slidingTabLayout.setSelectedIndicatorColors(Util.resolveColor(MainActivity.this, R.attr.colorAccent));
+        slidingTabLayout.setViewPager(viewPager);
+    }
+
     private void initViews() {
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -96,8 +111,10 @@ public class MainActivity extends AbsFabActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         statusBar = findViewById(R.id.statusBar);
         setSupportActionBar(toolbar);
-        ViewUtil.setBackgroundAlpha(toolbar, 0.97f, Util.resolveColor(this, R.attr.colorPrimary));
-        ViewUtil.setBackgroundAlpha(statusBar, 0.97f, Util.resolveColor(this, R.attr.colorPrimary));
+        float alpha = 0.97f;
+        ViewUtil.setBackgroundAlpha(toolbar, alpha, Util.resolveColor(this, R.attr.colorPrimary));
+        ViewUtil.setBackgroundAlpha(statusBar, alpha, Util.resolveColor(this, R.attr.colorPrimary));
+        ViewUtil.setBackgroundAlpha(slidingTabLayout, alpha, Util.resolveColor(this, R.attr.colorPrimary));
         setUpDrawerToggle();
     }
 
@@ -118,6 +135,11 @@ public class MainActivity extends AbsFabActivity
     }
 
     @Override
+    public String getTag() {
+        return TAG;
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         updateNavigationDrawerHeader();
@@ -129,7 +151,7 @@ public class MainActivity extends AbsFabActivity
             super.enableViews();
             toolbar.setEnabled(true);
         } catch (NullPointerException e) {
-            Log.e(TAG, "wasn't able to enable the views", e.fillInStackTrace());
+            Log.e(TAG, "wasn't able to enable the views", e);
         }
     }
 
@@ -139,13 +161,16 @@ public class MainActivity extends AbsFabActivity
             super.disableViews();
             toolbar.setEnabled(false);
         } catch (NullPointerException e) {
-            Log.e(TAG, "wasn't able to disable the views", e.fillInStackTrace());
+            Log.e(TAG, "wasn't able to disable the views", e);
         }
     }
 
     @Override
-    public String getTag() {
-        return TAG;
+    public void onMusicRemoteEvent(MusicRemoteEvent event) {
+        super.onMusicRemoteEvent(event);
+        if (event.getAction() == MusicRemoteEvent.STATE_RESTORED || event.getAction() == MusicRemoteEvent.TRACK_CHANGED) {
+            updateNavigationDrawerHeader();
+        }
     }
 
     @Override
@@ -153,54 +178,12 @@ public class MainActivity extends AbsFabActivity
         if (position == NavigationDrawerFragment.NAVIGATION_DRAWER_HEADER) {
             openCurrentPlayingIfPossible(null);
         } else {
-            setFragment(position);
+            goToFragment(position);
         }
     }
 
-    private void setFragment(int position) {
-        if (currentFragmentPosition != position) {
-            switch (position) {
-                case 0:
-                    if (getApp().MainActivityFragments[position] == null) {
-                        getApp().MainActivityFragments[position] = new SongViewFragment();
-                    }
-                    toolbarTitle = getString(R.string.all_songs);
-                    break;
-                case 1:
-                    if (getApp().MainActivityFragments[position] == null) {
-                        getApp().MainActivityFragments[position] = new AlbumViewFragment();
-                    }
-                    toolbarTitle = getString(R.string.albums);
-                    break;
-                case 2:
-                    if (getApp().MainActivityFragments[position] == null) {
-                        getApp().MainActivityFragments[position] = new ArtistViewFragment();
-                    }
-                    toolbarTitle = getString(R.string.artists);
-                    break;
-                case 3:
-                    if (getApp().MainActivityFragments[position] == null) {
-                        getApp().MainActivityFragments[position] = new PlaceholderFragment();
-                    }
-                    toolbarTitle = getString(R.string.genres);
-                    break;
-                case 4:
-                    if (getApp().MainActivityFragments[position] == null) {
-                        getApp().MainActivityFragments[position] = new PlaceholderFragment();
-                    }
-                    toolbarTitle = getString(R.string.playlists);
-                    break;
-                default:
-                    toolbarTitle = getString(R.string.app_name);
-                    return;
-            }
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.container, getApp().MainActivityFragments[position])
-                    .commit();
-            currentFragmentPosition = position;
-            supportInvalidateOptionsMenu();
-        }
+    private void goToFragment(int position) {
+        //TODO goToFragment
     }
 
     @Override
@@ -209,7 +192,7 @@ public class MainActivity extends AbsFabActivity
         restoreActionBar();
 
         final MenuItem search = menu.findItem(R.id.action_search);
-        search.setVisible(currentFragmentPosition != -1 && getApp().MainActivityFragments[currentFragmentPosition] instanceof KabSearchAbleFragment);
+        search.setVisible(true); //TODO only when fragment is searchable
 
 
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
@@ -221,9 +204,7 @@ public class MainActivity extends AbsFabActivity
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (currentFragmentPosition != -1 && getApp().MainActivityFragments[currentFragmentPosition] instanceof KabSearchAbleFragment) {
-                    ((KabSearchAbleFragment) getApp().MainActivityFragments[currentFragmentPosition]).search(newText);
-                }
+                //TODO start search
                 return false;
             }
         });
@@ -236,9 +217,7 @@ public class MainActivity extends AbsFabActivity
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
-                if (currentFragmentPosition != -1 && getApp().MainActivityFragments[currentFragmentPosition] instanceof KabSearchAbleFragment) {
-                    ((KabSearchAbleFragment) getApp().MainActivityFragments[currentFragmentPosition]).returnToNonSearch();
-                }
+                //TODO finish search
                 return true;
             }
         });
@@ -250,7 +229,6 @@ public class MainActivity extends AbsFabActivity
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        actionBar.setTitle(toolbarTitle);
     }
 
     @Override
@@ -302,36 +280,15 @@ public class MainActivity extends AbsFabActivity
     }
 
     private void disableFragmentViews() {
-        if (currentFragmentPosition >= 0 && currentFragmentPosition < getApp().MainActivityFragments.length) {
-            if (getApp().MainActivityFragments[currentFragmentPosition] instanceof KabViewsDisableAble) {
-                ((KabViewsDisableAble) getApp().MainActivityFragments[currentFragmentPosition]).disableViews();
-            }
-        }
+
     }
 
     private void enableFragmentViews() {
-        if (currentFragmentPosition >= 0 && currentFragmentPosition < getApp().MainActivityFragments.length) {
-            if (getApp().MainActivityFragments[currentFragmentPosition] instanceof KabViewsDisableAble) {
-                ((KabViewsDisableAble) getApp().MainActivityFragments[currentFragmentPosition]).enableViews();
-            }
-        }
+
     }
 
     private boolean areFragmentViewsEnabled() {
-        if (currentFragmentPosition >= 0 && currentFragmentPosition < getApp().MainActivityFragments.length) {
-            if (getApp().MainActivityFragments[currentFragmentPosition] instanceof KabViewsDisableAble) {
-                return ((KabViewsDisableAble) getApp().MainActivityFragments[currentFragmentPosition]).areViewsEnabled();
-            }
-        }
         return true;
-    }
-
-    @Override
-    public void onMusicRemoteEvent(MusicRemoteEvent event) {
-        super.onMusicRemoteEvent(event);
-        if (event.getAction() == MusicRemoteEvent.STATE_RESTORED || event.getAction() == MusicRemoteEvent.TRACK_CHANGED) {
-            updateNavigationDrawerHeader();
-        }
     }
 
     public static class PlaceholderFragment extends Fragment {
@@ -343,9 +300,57 @@ public class MainActivity extends AbsFabActivity
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_place_holder, container, false);
-            TextView text = (TextView)rootView.findViewById(R.id.text);
+            TextView text = (TextView) rootView.findViewById(R.id.text);
             text.setText("Coming soon!");
             return rootView;
+        }
+    }
+
+    private class MainActivityViewPagerAdapter extends FragmentPagerAdapter {
+
+        private String[] titles;
+
+        private SparseArray<Fragment> pages; //TODO check if this must be static
+        private Context context;
+
+        public MainActivityViewPagerAdapter(Activity activity) {
+            super(activity.getFragmentManager());
+            pages = new SparseArray<>();
+            context = activity;
+            titles = new String[]{
+                    context.getResources().getString(R.string.all_songs),
+                    context.getResources().getString(R.string.albums),
+                    context.getResources().getString(R.string.artists),
+                    context.getResources().getString(R.string.genres),
+                    context.getResources().getString(R.string.playlists)
+            };
+        }
+
+        @Override
+        public Fragment getItem(final int position) {
+            switch (position) {
+                case 0:
+                    return pages.get(position, new SongViewFragment());
+                case 1:
+                    return pages.get(position, new AlbumViewFragment());
+                case 2:
+                    return pages.get(position, new ArtistViewFragment());
+                case 3:
+                    //TODO genres
+                case 4:
+                    //TODO playlists
+            }
+            return pages.get(position, new PlaceholderFragment());
+        }
+
+        @Override
+        public int getCount() {
+            return titles.length;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles[position];
         }
     }
 }

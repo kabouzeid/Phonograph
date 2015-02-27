@@ -372,6 +372,24 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         return playingQueue;
     }
 
+    public int getRepeatMode() {
+        return repeatMode;
+    }
+
+    public void setRepeatMode(final int repeatMode) {
+        switch (repeatMode) {
+            case REPEAT_MODE_NONE:
+            case REPEAT_MODE_ALL:
+            case REPEAT_MODE_THIS:
+                this.repeatMode = repeatMode;
+                PreferenceManager.getDefaultSharedPreferences(this).edit()
+                        .putInt(AppKeys.SP_REPEAT_MODE, repeatMode)
+                        .apply();
+                notifyOnMusicRemoteEventListeners(MusicRemoteEvent.REPEAT_MODE_CHANGED);
+                break;
+        }
+    }
+
     @Override
     public boolean onError(MediaPlayer mp, int what, int extra) {
         isPlayerPrepared = false;
@@ -584,24 +602,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 break;
             default:
                 setRepeatMode(REPEAT_MODE_NONE);
-                break;
-        }
-    }
-
-    public int getRepeatMode() {
-        return repeatMode;
-    }
-
-    public void setRepeatMode(final int repeatMode) {
-        switch (repeatMode) {
-            case REPEAT_MODE_NONE:
-            case REPEAT_MODE_ALL:
-            case REPEAT_MODE_THIS:
-                this.repeatMode = repeatMode;
-                PreferenceManager.getDefaultSharedPreferences(this).edit()
-                        .putInt(AppKeys.SP_REPEAT_MODE, repeatMode)
-                        .apply();
-                notifyOnMusicRemoteEventListeners(MusicRemoteEvent.REPEAT_MODE_CHANGED);
                 break;
         }
     }

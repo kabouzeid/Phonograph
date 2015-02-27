@@ -18,11 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <FrameLayout
-                android:id="@+id/container"
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clipToPadding="false"/>
+                android:clipToPadding="false"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -42,6 +43,13 @@
                     android:background="?colorPrimary"
                     android:elevation="@dimen/toolbar_elevation"
                     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+                <com.google.samples.apps.iosched.ui.widget.SlidingTabLayout
+                    android:id="@+id/sliding_tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/tab_height"
+                    android:background="?colorPrimary"
+                    android:elevation="2dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -60,13 +68,6 @@
 
         </FrameLayout>
 
-        <!-- android:layout_gravity="start" tells DrawerLayout to treat
-             this as a sliding drawer on the left side for left-to-right
-             languages and on the right side for right-to-left languages.
-             If you're not building against API 17 or higher, use
-             android:layout_gravity="left" instead. -->
-        <!-- The drawer is given a fixed width in dp and extends the full height of
-             the container. -->
         <fragment
             android:id="@+id/navigation_drawer"
             android:name="com.kabouzeid.materialmusic.ui.fragments.NavigationDrawerFragment"
