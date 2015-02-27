@@ -3,15 +3,14 @@ package com.kabouzeid.materialmusic.ui.activities;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.SparseArray;
@@ -30,6 +29,7 @@ import com.kabouzeid.materialmusic.helper.AboutDeveloperDialogHelper;
 import com.kabouzeid.materialmusic.helper.PlayingQueueDialogHelper;
 import com.kabouzeid.materialmusic.interfaces.KabViewsDisableAble;
 import com.kabouzeid.materialmusic.interfaces.OnMusicRemoteEventListener;
+import com.kabouzeid.materialmusic.misc.AppKeys;
 import com.kabouzeid.materialmusic.model.MusicRemoteEvent;
 import com.kabouzeid.materialmusic.model.Song;
 import com.kabouzeid.materialmusic.ui.activities.base.AbsFabActivity;
@@ -64,21 +64,40 @@ public class MainActivity extends AbsFabActivity
         setContentView(R.layout.activity_main);
 
         initViews();
-        setUpToolBar();
-        setUpViewPager();
-
         navigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 drawerLayout
         );
+        setUpToolBar();
+        setUpViewPager();
     }
 
     private void setUpViewPager() {
         viewPagerAdapter = new MainActivityViewPagerAdapter(this);
         viewPager.setAdapter(viewPagerAdapter);
-        //slidingTabLayout.setDistributeEvenly(true);
+        int startPosition = getApp().getDefaultSharedPreferences().getInt(AppKeys.SP_VIEWPAGER_ITEM_POSITION, 1);
+        viewPager.setCurrentItem(startPosition);
+        navigationDrawerFragment.setItemChecked(startPosition);
+
         slidingTabLayout.setSelectedIndicatorColors(Util.resolveColor(MainActivity.this, R.attr.colorAccent));
         slidingTabLayout.setViewPager(viewPager);
+        slidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(final int position) {
+                getApp().getDefaultSharedPreferences().edit().putInt(AppKeys.SP_VIEWPAGER_ITEM_POSITION, position).apply();
+                navigationDrawerFragment.setItemChecked(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void initViews() {
@@ -87,18 +106,6 @@ public class MainActivity extends AbsFabActivity
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
-        updateNavigationDrawerHeader();
-    }
-
-    private void updateNavigationDrawerHeader() {
-        if (navigationDrawerFragment != null) {
-            Song song = getApp().getMusicPlayerRemote().getCurrentSong();
-            if (song.id != -1) {
-                ImageLoader.getInstance().displayImage(MusicUtil.getAlbumArtUri(song.albumId).toString(), navigationDrawerFragment.getAlbumArtImageView(), new ImageLoaderUtil.defaultAlbumArtOnFailed());
-                navigationDrawerFragment.getSongTitle().setText(song.title);
-                navigationDrawerFragment.getSongArtist().setText(song.artistName);
-            }
-        }
     }
 
     private void setUpToolBar() {
@@ -139,6 +146,17 @@ public class MainActivity extends AbsFabActivity
         updateNavigationDrawerHeader();
     }
 
+    private void updateNavigationDrawerHeader() {
+        if (navigationDrawerFragment != null) {
+            Song song = getApp().getMusicPlayerRemote().getCurrentSong();
+            if (song.id != -1) {
+                ImageLoader.getInstance().displayImage(MusicUtil.getAlbumArtUri(song.albumId).toString(), navigationDrawerFragment.getAlbumArtImageView(), new ImageLoaderUtil.defaultAlbumArtOnFailed());
+                navigationDrawerFragment.getSongTitle().setText(song.title);
+                navigationDrawerFragment.getSongArtist().setText(song.artistName);
+            }
+        }
+    }
+
     @Override
     public void enableViews() {
         try {
@@ -172,49 +190,16 @@ public class MainActivity extends AbsFabActivity
         if (position == NavigationDrawerFragment.NAVIGATION_DRAWER_HEADER) {
             openCurrentPlayingIfPossible(null);
         } else {
-            goToFragment(position);
+            if (viewPager != null) {
+                viewPager.setCurrentItem(position, true);
+            }
         }
-    }
-
-    private void goToFragment(int position) {
-        //TODO goToFragment
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.drawer, menu);
         restoreActionBar();
-
-        final MenuItem search = menu.findItem(R.id.action_search);
-        search.setVisible(true); //TODO only when fragment is searchable
-
-
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                //TODO start search
-                return false;
-            }
-        });
-        MenuItemCompat.setOnActionExpandListener(search, new MenuItemCompat.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                //TODO finish search
-                return true;
-            }
-        });
         return true;
     }
 
@@ -232,6 +217,9 @@ public class MainActivity extends AbsFabActivity
         }
         int id = item.getItemId();
         switch (id) {
+            case R.id.action_search:
+                startActivity(new Intent(MainActivity.this, SearchActivity.class));
+                return true;
             case R.id.action_settings:
                 return true;
             case R.id.action_about:

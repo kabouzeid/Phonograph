@@ -112,13 +112,13 @@ public abstract class AbsFabActivity extends AbsBaseActivity implements OnMusicR
     }
 
     @Override
-    public void goToArtistDetailsActivity(int artistId, Pair[] sharedViews) {
-        super.goToArtistDetailsActivity(artistId, getSharedViewsWithFab(sharedViews));
+    public void goToArtist(int artistId, Pair[] sharedViews) {
+        super.goToArtist(artistId, getSharedViewsWithFab(sharedViews));
     }
 
     @Override
-    public void goToAlbumDetailsActivity(int albumId, Pair[] sharedViews) {
-        super.goToAlbumDetailsActivity(albumId, getSharedViewsWithFab(sharedViews));
+    public void goToAlbum(int albumId, Pair[] sharedViews) {
+        super.goToAlbum(albumId, getSharedViewsWithFab(sharedViews));
     }
 
     private Pair[] getSharedViewsWithFab(Pair[] sharedViews) {

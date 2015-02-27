@@ -1,11 +1,13 @@
 package com.kabouzeid.materialmusic.model;
 
+import android.widget.ImageView;
+
 import java.io.Serializable;
 
 /**
  * Created by karim on 23.11.14.
  */
-public class Song implements Serializable {
+public class Song implements Serializable, SearchEntry {
     public int id;
     public int albumId;
     public int artistId;
@@ -36,5 +38,20 @@ public class Song implements Serializable {
         this.albumName = "";
         this.duration = -1;
         this.trackNumber = -1;
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public String getSubTitle() {
+        return artistName;
+    }
+
+    @Override
+    public void loadImage(ImageView imageView) {
+
     }
 }

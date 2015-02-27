@@ -96,15 +96,15 @@ public abstract class AbsBaseActivity extends ActionBarActivity implements KabVi
 
     @Override
     public void goToAlbum(int albumId) {
-        goToAlbumDetailsActivity(albumId, null);
+        goToAlbum(albumId, null);
     }
 
     @Override
     public void goToArtist(int artistId) {
-        goToArtistDetailsActivity(artistId, null);
+        goToArtist(artistId, null);
     }
 
-    public void goToArtistDetailsActivity(int artistId, Pair[] sharedViews) {
+    public void goToArtist(int artistId, Pair[] sharedViews) {
         final Intent intent = new Intent(this, ArtistDetailActivity.class);
         intent.putExtra(AppKeys.E_ARTIST, artistId);
         if (sharedViews != null) {
@@ -117,7 +117,7 @@ public abstract class AbsBaseActivity extends ActionBarActivity implements KabVi
         }
     }
 
-    public void goToAlbumDetailsActivity(int albumId, Pair[] sharedViews) {
+    public void goToAlbum(int albumId, Pair[] sharedViews) {
         final Intent intent = new Intent(this, AlbumDetailActivity.class);
         intent.putExtra(AppKeys.E_ALBUM, albumId);
         if (sharedViews != null) {

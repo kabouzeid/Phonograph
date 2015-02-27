@@ -30,7 +30,7 @@ public class NavigationDrawerFragment extends Fragment {
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
     public View fragmentRootView;
     private App app;
-    private NavigationDrawerCallbacks mCallbacks;
+    private NavigationDrawerCallbacks callbacks;
     private NavigationDrawerItemAdapter drawerAdapter;
     private DrawerLayout drawerLayout;
     private ListView drawerListView;
@@ -41,9 +41,10 @@ public class NavigationDrawerFragment extends Fragment {
     private TextView songTitle;
     private TextView songArtist;
 
-    private int currentSelectedPosition;
     private boolean fromSavedInstanceState;
     private boolean userLearnedDrawer;
+
+    private int checkedPosition = 0;
 
     public NavigationDrawerFragment() {
     }
@@ -81,7 +82,7 @@ public class NavigationDrawerFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mCallbacks = (NavigationDrawerCallbacks) activity;
+            callbacks = (NavigationDrawerCallbacks) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException("Activity must implement NavigationDrawerCallbacks.");
         }
@@ -91,12 +92,9 @@ public class NavigationDrawerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         app = (App) getActivity().getApplicationContext();
         userLearnedDrawer = app.getDefaultSharedPreferences().getBoolean(AppKeys.SP_USER_LEARNED_DRAWER, false);
-
         if (savedInstanceState != null) {
-            currentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
+            setItemChecked(savedInstanceState.getInt(STATE_SELECTED_POSITION));
             fromSavedInstanceState = true;
-        } else {
-            currentSelectedPosition = app.getDefaultSharedPreferences().getInt(AppKeys.SP_NAVIGATION_DRAWER_ITEM_POSITION, 0);
         }
         super.onCreate(savedInstanceState);
     }
@@ -110,13 +108,9 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         fragmentRootView = view;
-
         super.onViewCreated(view, savedInstanceState);
-
         initViews();
         setUpViews();
-
-        selectItem(currentSelectedPosition);
     }
 
     private void initViews() {
@@ -160,38 +154,41 @@ public class NavigationDrawerFragment extends Fragment {
         });
     }
 
-    private void selectItem(int position) {
+    private void selectItem(final int position) {
         if (position != NAVIGATION_DRAWER_HEADER) {
-            currentSelectedPosition = position;
-            if (drawerAdapter != null) {
-                drawerAdapter.setChecked(position);
-            }
+            setItemChecked(position);
             if (drawerLayout != null) {
-                //close drawer lag workaround
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         drawerLayout.closeDrawer(fragmentContainerView);
                     }
-                }, 100);
+                }, 400);
             }
-            app.getDefaultSharedPreferences().edit().putInt(AppKeys.SP_NAVIGATION_DRAWER_ITEM_POSITION, position).apply();
+
         }
-        if (mCallbacks != null) {
-            mCallbacks.onNavigationDrawerItemSelected(position);
+        if (callbacks != null) {
+            callbacks.onNavigationDrawerItemSelected(position);
         }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(STATE_SELECTED_POSITION, currentSelectedPosition);
+        outState.putInt(STATE_SELECTED_POSITION, checkedPosition);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mCallbacks = null;
+        callbacks = null;
+    }
+
+    public void setItemChecked(final int position) {
+        if (drawerAdapter != null) {
+            drawerAdapter.setChecked(position);
+            checkedPosition = position;
+        }
     }
 
     public static interface NavigationDrawerCallbacks {

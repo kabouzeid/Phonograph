@@ -66,6 +66,7 @@
     <string name="close">Close</string>
     <string name="save_as_playlist">Save as playlist</string>
     <string name="credits">Material Music is a completely free material designed music player by <b>Karim Abou Zeid</b>.\n\n<a href="https://plus.google.com/+KarimAbouZeid23697">Google+</a>&#160;&#160;&#160;<a href="https://twitter.com/karim23697">Twitter</a></string>
-
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="more">more</string>
 
 </resources>

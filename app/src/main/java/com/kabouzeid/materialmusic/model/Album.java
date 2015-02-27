@@ -1,9 +1,11 @@
 package com.kabouzeid.materialmusic.model;
 
+import android.widget.ImageView;
+
 /**
  * Created by karim on 22.11.14.
  */
-public class Album {
+public class Album implements SearchEntry {
 
     public int id;
     public int artistId;
@@ -28,5 +30,20 @@ public class Album {
         this.artistName = "";
         songCount = -1;
         year = -1;
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public String getSubTitle() {
+        return artistName;
+    }
+
+    @Override
+    public void loadImage(ImageView imageView) {
+
     }
 }

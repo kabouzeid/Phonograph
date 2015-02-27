@@ -418,10 +418,10 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
                 SongDetailDialogHelper.getDialog(this, songFile).show();
                 return true;
             case R.id.action_go_to_album:
-                goToAlbumDetailsActivity(song.albumId, null);
+                goToAlbum(song.albumId, null);
                 return true;
             case R.id.action_go_to_artist:
-                goToArtistDetailsActivity(song.artistId, null);
+                goToArtist(song.artistId, null);
                 return true;
         }
 

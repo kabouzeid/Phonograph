@@ -105,7 +105,7 @@ public class ArtistViewFragment extends MainActivityFragment {
                 if (getActivity() instanceof AbsFabActivity) {
                     AbsFabActivity absFabActivity = (AbsFabActivity) getActivity();
                     Pair[] sharedElements = {Pair.create(artistImageView, getString(R.string.transition_artist_image))};
-                    absFabActivity.goToArtistDetailsActivity(artist.id, sharedElements);
+                    absFabActivity.goToArtist(artist.id, sharedElements);
                 } else {
                     Intent intent = new Intent(getActivity(), ArtistDetailActivity.class);
                     intent.putExtra(AppKeys.E_ARTIST, artist.id);

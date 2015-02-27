@@ -7,7 +7,7 @@ public final class AppKeys {
     public static final String CL_CURRENT_ACTIVITY = "Current activity";
 
     public static final String SP_THEME = "com.kabouzeid.materialmusic.THEME";
-    public static final String SP_NAVIGATION_DRAWER_ITEM_POSITION = "com.kabouzeid.materialmusic.NAVIGATION_DRAWER_ITEM_POSITION";
+    public static final String SP_VIEWPAGER_ITEM_POSITION = "com.kabouzeid.materialmusic.NAVIGATION_DRAWER_ITEM_POSITION";
     public static final String SP_USER_LEARNED_DRAWER = "com.kabouzeid.materialmusic.NAVIGATION_DRAWER_LEARNED";
     public static final String SP_ONLY_ON_WIFI = "com.kabouzeid.materialmusic.ONLY_ON_WIFI";
     public static final String SP_SHUFFLE_MODE = "com.kabouzeid.materialmusic.SHUFFLE_MODE";

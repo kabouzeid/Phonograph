@@ -8,12 +8,20 @@ import android.provider.MediaStore;
 import com.kabouzeid.materialmusic.model.Song;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
  * Created by karim on 29.12.14.
  */
 public class AlbumSongLoader {
+
+    public static List<Song> getAlbumSongList(final Context context, final int albumId, Comparator<Song> comparator) {
+        List<Song> songs = getAlbumSongList(context, albumId);
+        Collections.sort(songs, comparator);
+        return songs;
+    }
 
     public static List<Song> getAlbumSongList(final Context context, final int albumId) {
         Cursor cursor = makeAlbumSongCursor(context, albumId);

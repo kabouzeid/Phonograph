@@ -44,7 +44,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
-import java.util.Collections;
 import java.util.List;
 
 /*
@@ -329,8 +328,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
     }
 
     private void setUpSongsAdapter() {
-        final List<Song> songs = AlbumSongLoader.getAlbumSongList(this, album.id);
-        Collections.sort(songs, new SongTrackNumberComparator());
+        final List<Song> songs = AlbumSongLoader.getAlbumSongList(this, album.id, new SongTrackNumberComparator());
         final SongAdapter songAdapter = new SongAdapter(this, this, songs);
 
 //        SwingBottomInAnimationAdapter songsAdapter = new SwingBottomInAnimationAdapter(songAdapter);
@@ -410,7 +408,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
                 startActivity(intent);
                 return true;
             case R.id.action_go_to_artist:
-                goToArtistDetailsActivity(album.artistId, null);
+                goToArtist(album.artistId, null);
                 return true;
         }
         return super.onOptionsItemSelected(item);
