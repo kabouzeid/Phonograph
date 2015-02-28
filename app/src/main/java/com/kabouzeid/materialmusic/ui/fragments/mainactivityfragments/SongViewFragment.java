@@ -97,16 +97,13 @@ public class SongViewFragment extends MainActivityFragment {
 
     @Override
     public void enableViews() {
-
+        super.enableViews();
+        absListView.setEnabled(true);
     }
 
     @Override
     public void disableViews() {
-
-    }
-
-    @Override
-    public boolean areViewsEnabled() {
-        return false;
+        super.disableViews();
+        absListView.setEnabled(false);
     }
 }

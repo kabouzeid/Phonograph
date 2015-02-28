@@ -62,10 +62,8 @@ public class SearchActivity extends AbsBaseActivity {
                         playList.add((Song) item);
                         getApp().getMusicPlayerRemote().openQueue(playList, 0, true);
                     } else if (item instanceof Album) {
-                        disableViews();
                         goToAlbum(((Album) item).id, new Pair[]{Pair.create(view.findViewById(R.id.image), getResources().getString(R.string.transition_album_cover))});
                     } else if (item instanceof Artist) {
-                        disableViews();
                         goToArtist(((Artist) item).id, new Pair[]{Pair.create(view.findViewById(R.id.image), getResources().getString(R.string.transition_artist_image))});
                     }
                 }
@@ -90,12 +88,6 @@ public class SearchActivity extends AbsBaseActivity {
     @Override
     public String getTag() {
         return TAG;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        enableViews();
     }
 
     @Override

@@ -36,6 +36,7 @@ import com.kabouzeid.materialmusic.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.materialmusic.ui.fragments.NavigationDrawerFragment;
 import com.kabouzeid.materialmusic.ui.fragments.mainactivityfragments.AlbumViewFragment;
 import com.kabouzeid.materialmusic.ui.fragments.mainactivityfragments.ArtistViewFragment;
+import com.kabouzeid.materialmusic.ui.fragments.mainactivityfragments.MainActivityFragment;
 import com.kabouzeid.materialmusic.ui.fragments.mainactivityfragments.SongViewFragment;
 import com.kabouzeid.materialmusic.util.ImageLoaderUtil;
 import com.kabouzeid.materialmusic.util.MusicUtil;
@@ -162,6 +163,7 @@ public class MainActivity extends AbsFabActivity
         try {
             super.enableViews();
             toolbar.setEnabled(true);
+            ((MainActivityFragment)viewPagerAdapter.getItem(viewPager.getCurrentItem())).enableViews();
         } catch (NullPointerException e) {
             Log.e(TAG, "wasn't able to enable the views", e);
         }
@@ -171,7 +173,7 @@ public class MainActivity extends AbsFabActivity
     public void disableViews() {
         try {
             super.disableViews();
-            toolbar.setEnabled(false);
+            ((MainActivityFragment)viewPagerAdapter.getItem(viewPager.getCurrentItem())).disableViews();
         } catch (NullPointerException e) {
             Log.e(TAG, "wasn't able to disable the views", e);
         }
@@ -261,19 +263,7 @@ public class MainActivity extends AbsFabActivity
         super.onBackPressed();
     }
 
-    private void disableFragmentViews() {
-
-    }
-
-    private void enableFragmentViews() {
-
-    }
-
-    private boolean areFragmentViewsEnabled() {
-        return true;
-    }
-
-    public static class PlaceholderFragment extends Fragment {
+    public static class PlaceholderFragment extends MainActivityFragment {
 
         public PlaceholderFragment() {
         }
@@ -286,13 +276,38 @@ public class MainActivity extends AbsFabActivity
             text.setText("Coming soon!");
             return rootView;
         }
+
+        @Override
+        public void search(String query) {
+
+        }
+
+        @Override
+        public void returnToNonSearch() {
+
+        }
+
+        @Override
+        public void enableViews() {
+
+        }
+
+        @Override
+        public void disableViews() {
+
+        }
+
+        @Override
+        public boolean areViewsEnabled() {
+            return false;
+        }
     }
 
     private class MainActivityViewPagerAdapter extends FragmentPagerAdapter {
 
         private String[] titles;
 
-        private SparseArray<Fragment> pages; //TODO check if this must be static
+        private SparseArray<MainActivityFragment> pages; //TODO check if this must be static
         private Context context;
 
         public MainActivityViewPagerAdapter(Activity activity) {

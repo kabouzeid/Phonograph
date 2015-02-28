@@ -56,27 +56,17 @@ public class ArtistViewFragment extends MainActivityFragment {
         setUpViews();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        enableViews();
-    }
 
     @Override
     public void enableViews() {
-        areViewsEnabled = true;
+        super.enableViews();
         absListView.setEnabled(true);
     }
 
     @Override
     public void disableViews() {
-        areViewsEnabled = false;
+        super.disableViews();
         absListView.setEnabled(false);
-    }
-
-    @Override
-    public boolean areViewsEnabled() {
-        return areViewsEnabled;
     }
 
     private void initViews() {
@@ -131,15 +121,5 @@ public class ArtistViewFragment extends MainActivityFragment {
     @Override
     public void returnToNonSearch() {
         setUpAbsListView();
-    }
-
-    private void disableParentActivityViews() {
-        if (getActivity() instanceof KabViewsDisableAble) {
-            ((KabViewsDisableAble) getActivity()).disableViews();
-        }
-    }
-
-    private boolean areParentActivityViewsEnabled() {
-        return !(getActivity() instanceof KabViewsDisableAble) || ((KabViewsDisableAble) getActivity()).areViewsEnabled();
     }
 }

@@ -105,28 +105,34 @@ public abstract class AbsBaseActivity extends ActionBarActivity implements KabVi
     }
 
     public void goToArtist(int artistId, Pair[] sharedViews) {
-        final Intent intent = new Intent(this, ArtistDetailActivity.class);
-        intent.putExtra(AppKeys.E_ARTIST, artistId);
-        if (sharedViews != null) {
-            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
-                    sharedViews
-            );
-            ActivityCompat.startActivity(this, intent, optionsCompat.toBundle());
-        } else {
-            startActivity(intent);
+        if(areViewsEnabled()) {
+            disableViews();
+            final Intent intent = new Intent(this, ArtistDetailActivity.class);
+            intent.putExtra(AppKeys.E_ARTIST, artistId);
+            if (sharedViews != null) {
+                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
+                        sharedViews
+                );
+                ActivityCompat.startActivity(this, intent, optionsCompat.toBundle());
+            } else {
+                startActivity(intent);
+            }
         }
     }
 
     public void goToAlbum(int albumId, Pair[] sharedViews) {
-        final Intent intent = new Intent(this, AlbumDetailActivity.class);
-        intent.putExtra(AppKeys.E_ALBUM, albumId);
-        if (sharedViews != null) {
-            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
-                    sharedViews
-            );
-            ActivityCompat.startActivity(this, intent, optionsCompat.toBundle());
-        } else {
-            startActivity(intent);
+        if(areViewsEnabled()) {
+            disableViews();
+            final Intent intent = new Intent(this, AlbumDetailActivity.class);
+            intent.putExtra(AppKeys.E_ALBUM, albumId);
+            if (sharedViews != null) {
+                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
+                        sharedViews
+                );
+                ActivityCompat.startActivity(this, intent, optionsCompat.toBundle());
+            } else {
+                startActivity(intent);
+            }
         }
     }
 }
