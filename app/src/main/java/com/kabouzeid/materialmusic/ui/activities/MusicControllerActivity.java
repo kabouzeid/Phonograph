@@ -24,7 +24,7 @@ import com.kabouzeid.materialmusic.helper.PlayingQueueDialogHelper;
 import com.kabouzeid.materialmusic.helper.SongDetailDialogHelper;
 import com.kabouzeid.materialmusic.interfaces.OnMusicRemoteEventListener;
 import com.kabouzeid.materialmusic.lastfm.artist.LastFMArtistImageLoader;
-import com.kabouzeid.materialmusic.loader.SongFileLoader;
+import com.kabouzeid.materialmusic.loader.SongFilePathLoader;
 import com.kabouzeid.materialmusic.misc.AppKeys;
 import com.kabouzeid.materialmusic.model.MusicRemoteEvent;
 import com.kabouzeid.materialmusic.model.Song;
@@ -413,7 +413,7 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
                 startActivity(intent);
                 return true;
             case R.id.action_details:
-                String songFilePath = SongFileLoader.getSongFile(this, song.id);
+                String songFilePath = SongFilePathLoader.getSongFilePath(this, song.id);
                 File songFile = new File(songFilePath);
                 SongDetailDialogHelper.getDialog(this, songFile).show();
                 return true;

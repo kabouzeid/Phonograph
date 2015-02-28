@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.kabouzeid.materialmusic.R;
 import com.kabouzeid.materialmusic.helper.SongDetailDialogHelper;
-import com.kabouzeid.materialmusic.loader.SongFileLoader;
+import com.kabouzeid.materialmusic.loader.SongFilePathLoader;
 import com.kabouzeid.materialmusic.misc.AppKeys;
 import com.kabouzeid.materialmusic.model.Song;
 import com.kabouzeid.materialmusic.ui.activities.tageditor.SongTagEditorActivity;
@@ -58,7 +58,7 @@ public class SongViewListAdapter extends SongAdapter {
                                 context.startActivity(intent);
                                 return true;
                             case R.id.action_details:
-                                String songFilePath = SongFileLoader.getSongFile(context, song.id);
+                                String songFilePath = SongFilePathLoader.getSongFilePath(context, song.id);
                                 File songFile = new File(songFilePath);
                                 SongDetailDialogHelper.getDialog(context, songFile).show();
                                 return true;

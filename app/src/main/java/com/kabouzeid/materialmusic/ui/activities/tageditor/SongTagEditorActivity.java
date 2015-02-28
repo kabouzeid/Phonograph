@@ -7,7 +7,7 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 import com.kabouzeid.materialmusic.R;
-import com.kabouzeid.materialmusic.loader.SongFileLoader;
+import com.kabouzeid.materialmusic.loader.SongFilePathLoader;
 
 import org.jaudiotagger.tag.FieldKey;
 
@@ -103,9 +103,7 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
 
     @Override
     protected List<String> getSongPaths() {
-        List<Integer> tempIdList = new ArrayList<>();
-        tempIdList.add(getId());
-        return SongFileLoader.getSongFiles(this, tempIdList);
+        return SongFilePathLoader.getSongFilePaths(this, new int[]{getId()});
     }
 
     @Override

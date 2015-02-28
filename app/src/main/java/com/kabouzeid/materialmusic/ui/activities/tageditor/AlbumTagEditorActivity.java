@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.kabouzeid.materialmusic.R;
 import com.kabouzeid.materialmusic.lastfm.album.LastFMAlbumImageLoader;
 import com.kabouzeid.materialmusic.loader.AlbumSongLoader;
-import com.kabouzeid.materialmusic.loader.SongFileLoader;
+import com.kabouzeid.materialmusic.loader.SongFilePathLoader;
 import com.kabouzeid.materialmusic.model.Song;
 import com.kabouzeid.materialmusic.util.MusicUtil;
 import com.kabouzeid.materialmusic.util.Util;
@@ -157,11 +157,11 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
     @Override
     protected List<String> getSongPaths() {
         List<Song> songs = AlbumSongLoader.getAlbumSongList(this, getId());
-        List<Integer> songIds = new ArrayList<>();
-        for (Song song : songs) {
-            songIds.add(song.id);
+        int[] songIds = new int[songs.size()];
+        for (int i = 0; i < songs.size(); i++) {
+            songIds[i] = songs.get(i).id;
         }
-        return SongFileLoader.getSongFiles(this, songIds);
+        return SongFilePathLoader.getSongFilePaths(this, songIds);
     }
 
     @Override

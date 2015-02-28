@@ -43,7 +43,7 @@ public class SongLoader {
         return makeSongCursor(context, (MediaStore.Audio.AudioColumns.IS_MUSIC + "=1"));
     }
 
-    private static final Cursor makeSongCursor(final Context context, final String selection) {
+    public static final Cursor makeSongCursor(final Context context, final String selection) {
         return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 new String[]{
                         /* 0 */
@@ -66,23 +66,21 @@ public class SongLoader {
     }
 
     public static List<Song> getSongs(Context context, String query) {
-        Cursor cursor = makeSongCursor(context);
+        Cursor cursor = makeSongCursor(context, MediaStore.Audio.AudioColumns.TITLE + " LIKE '%" + query + "%'");
         List<Song> songs = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 final String songName = cursor.getString(1);
-                if (songName.trim().toLowerCase().contains(query.trim().toLowerCase())) {
-                    final int id = cursor.getInt(0);
-                    final String artist = cursor.getString(2);
-                    final String album = cursor.getString(3);
-                    final long duration = cursor.getLong(4);
-                    final int trackNumber = cursor.getInt(5);
-                    final int artistId = cursor.getInt(6);
-                    final int albumId = cursor.getInt(7);
+                final int id = cursor.getInt(0);
+                final String artist = cursor.getString(2);
+                final String album = cursor.getString(3);
+                final long duration = cursor.getLong(4);
+                final int trackNumber = cursor.getInt(5);
+                final int artistId = cursor.getInt(6);
+                final int albumId = cursor.getInt(7);
 
-                    final Song song = new Song(id, albumId, artistId, songName, artist, album, duration, trackNumber);
-                    songs.add(song);
-                }
+                final Song song = new Song(id, albumId, artistId, songName, artist, album, duration, trackNumber);
+                songs.add(song);
             } while (cursor.moveToNext());
         }
 
