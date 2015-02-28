@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class SongLoader {
     public static List<Song> getAllSongs(Context context) {
-        Cursor cursor = makeAlbumSongCursor(context);
+        Cursor cursor = makeSongCursor(context);
         List<Song> songs = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -39,9 +39,11 @@ public class SongLoader {
         return songs;
     }
 
-    public static final Cursor makeAlbumSongCursor(final Context context) {
-        final StringBuilder selection = new StringBuilder();
-        selection.append(MediaStore.Audio.AudioColumns.IS_MUSIC + "=1");
+    public static final Cursor makeSongCursor(final Context context) {
+        return makeSongCursor(context, (MediaStore.Audio.AudioColumns.IS_MUSIC + "=1"));
+    }
+
+    private static final Cursor makeSongCursor(final Context context, final String selection) {
         return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 new String[]{
                         /* 0 */
@@ -60,11 +62,11 @@ public class SongLoader {
                         MediaStore.Audio.AudioColumns.ARTIST_ID,
                         /* 7 */
                         MediaStore.Audio.AudioColumns.ALBUM_ID
-                }, selection.toString(), null, null);
+                }, selection, null, null);
     }
 
     public static List<Song> getSongs(Context context, String query) {
-        Cursor cursor = makeAlbumSongCursor(context);
+        Cursor cursor = makeSongCursor(context);
         List<Song> songs = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -91,23 +93,18 @@ public class SongLoader {
     }
 
     public static Song getSong(Context context, int queryId) {
-        Cursor cursor = makeAlbumSongCursor(context);
+        Cursor cursor = makeSongCursor(context, MediaStore.Audio.AudioColumns._ID + "=" + queryId);
         Song song = null;
         if (cursor != null && cursor.moveToFirst()) {
-            do {
-                final int id = cursor.getInt(0);
-                if (id == queryId) {
-                    final String songName = cursor.getString(1);
-                    final String artist = cursor.getString(2);
-                    final String album = cursor.getString(3);
-                    final long duration = cursor.getLong(4);
-                    final int trackNumber = cursor.getInt(5);
-                    final int artistId = cursor.getInt(6);
-                    final int albumId = cursor.getInt(7);
-                    song = new Song(id, albumId, artistId, songName, artist, album, duration, trackNumber);
-                    break;
-                }
-            } while (cursor.moveToNext());
+            final int id = cursor.getInt(0);
+            final String songName = cursor.getString(1);
+            final String artist = cursor.getString(2);
+            final String album = cursor.getString(3);
+            final long duration = cursor.getLong(4);
+            final int trackNumber = cursor.getInt(5);
+            final int artistId = cursor.getInt(6);
+            final int albumId = cursor.getInt(7);
+            song = new Song(id, albumId, artistId, songName, artist, album, duration, trackNumber);
         }
         if (cursor != null) {
             cursor.close();
