@@ -2,6 +2,7 @@ package com.kabouzeid.materialmusic.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
 import android.support.v4.view.MenuItemCompat;
@@ -9,6 +10,7 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -34,6 +36,7 @@ public class SearchActivity extends AbsBaseActivity {
     public static final String TAG = SearchActivity.class.getSimpleName();
 
     private ListView listView;
+    private SearchView searchView;
 
     @SuppressLint("NewApi")
     @Override
@@ -69,6 +72,17 @@ public class SearchActivity extends AbsBaseActivity {
             }
         });
 
+        listView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Util.hideSoftKeyboard(SearchActivity.this);
+                if(searchView != null){
+                    searchView.clearFocus();
+                }
+                return false;
+            }
+        });
+
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -101,7 +115,7 @@ public class SearchActivity extends AbsBaseActivity {
         getMenuInflater().inflate(R.menu.menu_search, menu);
 
         final MenuItem search = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
+        searchView = (SearchView) MenuItemCompat.getActionView(search);
         searchView.setIconified(false);
         searchView.setIconifiedByDefault(false);
 
@@ -111,7 +125,10 @@ public class SearchActivity extends AbsBaseActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+                onQueryTextChange(query);
+                Util.hideSoftKeyboard(SearchActivity.this);
+                searchView.clearFocus();
+                return true;
             }
 
             @Override
@@ -148,26 +165,51 @@ public class SearchActivity extends AbsBaseActivity {
     }
 
     private void search(String query) {
+        List<SearchEntry> results = new ArrayList<>();
         if (!query.trim().equals("")) {
-            List<SearchEntry> results = new ArrayList<>();
-            results.add(new LabelEntry("Songs"));
-            results.addAll(SongLoader.getSongs(this, query));
-            results.add(new LabelEntry("Artists"));
-            results.addAll(ArtistLoader.getArtists(this, query));
-            results.add(new LabelEntry("Albums"));
-            results.addAll(AlbumLoader.getAlbums(this, query));
-            ArrayAdapter adapter = new SearchAdapter(this, results);
-            listView.setAdapter(adapter);
-        } else {
-            listView.setAdapter(null);
+            LabelEntry songLabel = new LabelEntry(getResources().getString(R.string.songs).toUpperCase());
+            results.add(songLabel);
+            List<Song> songs = SongLoader.getSongs(this, query);
+            results.addAll(songs);
+            songLabel.setNumber(songs.size());
+
+            LabelEntry artistLabel = new LabelEntry(getResources().getString(R.string.artists).toUpperCase());
+            results.add(artistLabel);
+            List<Artist> artists = ArtistLoader.getArtists(this, query);
+            results.addAll(artists);
+            artistLabel.setNumber(artists.size());
+
+            LabelEntry albumLabel = new LabelEntry(getResources().getString(R.string.albums).toUpperCase());
+            results.add(albumLabel);
+            List<Album> albums = AlbumLoader.getAlbums(this, query);
+            results.addAll(albums);
+            albumLabel.setNumber(albums.size());
         }
+        if(results.size() <= 3){
+            results.clear();
+            results.add(new LabelEntry(getResources().getString(R.string.no_results).toUpperCase()));
+        }
+        ArrayAdapter adapter = new SearchAdapter(this, results);
+        listView.setAdapter(adapter);
     }
 
+
+
     public static class LabelEntry implements SearchEntry {
+        String title;
         String label;
 
         public LabelEntry(String label) {
             this.label = label;
+            this.title = label;
+        }
+
+        public void setNumber(int number){
+            if(number != -1) {
+                label = title + " (" + number + ")";
+            } else {
+                label = title;
+            }
         }
 
         @Override
@@ -181,7 +223,7 @@ public class SearchActivity extends AbsBaseActivity {
         }
 
         @Override
-        public void loadImage(ImageView imageView) {
+        public void loadImage(Context context, ImageView imageView) {
 
         }
     }

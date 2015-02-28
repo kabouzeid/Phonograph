@@ -1,5 +1,6 @@
 package com.kabouzeid.materialmusic.model;
 
+import android.content.Context;
 import android.widget.ImageView;
 
 /**
@@ -10,5 +11,5 @@ public interface SearchEntry {
 
     public String getSubTitle();
 
-    public void loadImage(ImageView imageView);
+    public void loadImage(Context context, ImageView imageView);
 }

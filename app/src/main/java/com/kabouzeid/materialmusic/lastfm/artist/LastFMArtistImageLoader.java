@@ -24,10 +24,15 @@ import org.json.JSONObject;
 public class LastFMArtistImageLoader {
     public static final String TAG = LastFMArtistImageLoader.class.getSimpleName();
 
+    @Deprecated
     public static void loadArtistImage(Context context, String queryArtist, ArtistImageLoaderCallback callback) {
+        loadArtistImage(context, queryArtist, false, callback);
+    }
+
+    public static void loadArtistImage(Context context, String queryArtist, boolean forceDownload, ArtistImageLoaderCallback callback) {
         if (queryArtist != null) {
             String artistJSON = ArtistJSONStore.getInstance(context).getArtistJSON(queryArtist);
-            if (artistJSON != null) {
+            if (artistJSON != null && !forceDownload) {
                 Log.i(TAG, queryArtist + " is in cache.");
                 try {
                     loadArtistImageFromJSON(new JSONObject(artistJSON), callback);
@@ -35,7 +40,11 @@ public class LastFMArtistImageLoader {
                     Log.e(TAG, "Error while parsing string from cache to JSONObject", e);
                 }
             } else {
-                Log.i(TAG, queryArtist + " is not in cache.");
+                if(forceDownload){
+                    Log.i(TAG, queryArtist + " force re-download");
+                } else {
+                    Log.i(TAG, queryArtist + " is not in cache.");
+                }
                 downloadArtistJSONAndStartImageDownload(context, queryArtist, callback);
             }
         }

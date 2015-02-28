@@ -90,6 +90,7 @@ public class LastFMArtistInfoUtil {
 
     public static void saveArtistJSONDataToCacheAndDisk(Context context, String artist, JSONObject jsonObject) {
         Log.i(TAG, "Saving new JSON artist data for " + artist + "...");
+        ArtistJSONStore.getInstance(context).removeItem(artist);
         ArtistJSONStore.getInstance(context).addArtistJSON(artist, jsonObject.toString());
     }
 }

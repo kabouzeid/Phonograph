@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
@@ -103,7 +104,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
 
                 @Override
                 public void onTransitionEnd(Transition transition) {
-                    setUpArtistImageAndApplyPalette();
+                    setUpArtistImageAndApplyPalette(false);
                 }
 
                 @Override
@@ -160,7 +161,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
         artistTitleText.setText(artist.name);
         ViewHelper.setAlpha(artistArtOverlayView, 0);
 
-        setUpArtistImageAndApplyPalette();
+        setUpArtistImageAndApplyPalette(false);
         setUpViewPatch();
         setUpSlidingTabs();
     }
@@ -312,8 +313,8 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
         }
     }
 
-    private void setUpArtistImageAndApplyPalette() {
-        LastFMArtistImageLoader.loadArtistImage(this, artist.name, new LastFMArtistImageLoader.ArtistImageLoaderCallback() {
+    private void setUpArtistImageAndApplyPalette(final boolean forceDownload) {
+        LastFMArtistImageLoader.loadArtistImage(this, artist.name, forceDownload, new LastFMArtistImageLoader.ArtistImageLoaderCallback() {
             @SuppressLint("NewApi")
             @Override
             public void onArtistImageLoaded(Bitmap artistImage) {
@@ -321,7 +322,9 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
                     artistImageView.setImageBitmap(artistImage);
                     applyPalette(artistImage);
                 }
-                //if (Util.hasLollipopSDK()) startPostponedEnterTransition();
+                if(forceDownload){
+                    Toast.makeText(ArtistDetailActivity.this, getResources().getString(R.string.updated_artist_image_for) + " " + artist.name, Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -383,6 +386,9 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
             case android.R.id.home:
                 super.onBackPressed();
                 return true;
+            case R.id.action_re_download_artist_image:
+                Toast.makeText(ArtistDetailActivity.this, getResources().getString(R.string.updating), Toast.LENGTH_SHORT).show();
+                setUpArtistImageAndApplyPalette(true);
             case R.id.action_settings:
                 return true;
             case R.id.action_current_playing:

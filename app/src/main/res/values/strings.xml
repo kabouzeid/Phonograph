@@ -68,5 +68,9 @@
     <string name="credits">Material Music is a completely free material designed music player by <b>Karim Abou Zeid</b>.\n\n<a href="https://plus.google.com/+KarimAbouZeid23697">Google+</a>&#160;&#160;&#160;<a href="https://twitter.com/karim23697">Twitter</a></string>
     <string name="title_activity_search">SearchActivity</string>
     <string name="more">more</string>
+    <string name="no_results">No results</string>
+    <string name="action_re_download_artist_image">Update artist image</string>
+    <string name="updated_artist_image_for">Updated artist image for</string>
+    <string name="updating">Updating…</string>
 
 </resources>

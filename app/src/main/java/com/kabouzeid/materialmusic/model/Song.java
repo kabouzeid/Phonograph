@@ -1,6 +1,11 @@
 package com.kabouzeid.materialmusic.model;
 
+import android.content.Context;
 import android.widget.ImageView;
+
+import com.kabouzeid.materialmusic.util.ImageLoaderUtil;
+import com.kabouzeid.materialmusic.util.MusicUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.Serializable;
 
@@ -51,7 +56,7 @@ public class Song implements Serializable, SearchEntry {
     }
 
     @Override
-    public void loadImage(ImageView imageView) {
-
+    public void loadImage(Context context, ImageView imageView) {
+        ImageLoader.getInstance().displayImage(MusicUtil.getAlbumArtUri(albumId).toString(), imageView, new ImageLoaderUtil.defaultAlbumArtOnFailed());
     }
 }

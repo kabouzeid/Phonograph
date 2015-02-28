@@ -2,6 +2,7 @@ package com.kabouzeid.materialmusic.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,16 +39,22 @@ public class SearchAdapter extends ArrayAdapter<SearchEntry> {
         final ImageView imageView = (ImageView) convertView.findViewById(R.id.image);
 
         if (item instanceof SearchActivity.LabelEntry) {
+            title.setTypeface(null, Typeface.BOLD);
             subTitle.setVisibility(View.GONE);
+            imageView.setVisibility(View.GONE);
             convertView.setBackgroundColor(Util.resolveColor(getContext(), R.attr.colorPrimary));
         } else {
+            title.setTypeface(null, Typeface.NORMAL);
             subTitle.setVisibility(View.VISIBLE);
+            imageView.setVisibility(View.VISIBLE);
             convertView.setBackgroundColor(Color.TRANSPARENT);
         }
 
         title.setText(item.getTitle());
         subTitle.setText(item.getSubTitle());
-        item.loadImage(imageView);
+
+        imageView.setImageBitmap(null);
+        item.loadImage(getContext(), imageView);
 
         return convertView;
     }
