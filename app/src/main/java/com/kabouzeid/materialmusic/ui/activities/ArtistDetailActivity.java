@@ -340,9 +340,22 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
                     artistTitleText.setBackgroundColor(swatch.getRgb());
                     slidingTabs.setBackgroundColor(swatch.getRgb());
                     artistTitleText.setTextColor(swatch.getTitleTextColor());
+                } else {
+                    setStandardColors();
                 }
             }
         });
+    }
+
+    private void setStandardColors() {
+        int titleTextColor = Util.resolveColor(this, R.attr.title_text_color);
+        int defaultBarColor = getResources().getColor(R.color.materialmusic_default_bar_color);
+
+        toolbarColor = defaultBarColor;
+        artistArtOverlayView.setBackgroundColor(defaultBarColor);
+        artistTitleText.setBackgroundColor(defaultBarColor);
+        slidingTabs.setBackgroundColor(defaultBarColor);
+        artistTitleText.setTextColor(titleTextColor);
     }
 
     private void setUpViewPatch() {

@@ -14,22 +14,15 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_gravity="center_vertical"
-        android:layout_marginRight="16dp"
-        android:padding="4dp"
-        android:src="@drawable/ic_skip_next_white_48dp"/>
+        android:layout_marginRight="16dp"/>
 
     <TextView
         android:id="@+id/title"
-
         android:layout_width="match_parent"
-
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
-
-
         android:fontFamily="sans-serif-medium"
         android:gravity="center_vertical"
-
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         />
 </LinearLayout>

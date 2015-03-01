@@ -61,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/media_controller_container"
-        android:background="?attr/colorPrimary"
+        android:background="@color/materialmusic_default_bar_color"
         android:elevation="1dp"
         android:orientation="vertical"
         android:paddingBottom="16dp"

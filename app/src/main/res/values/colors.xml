@@ -1,36 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--general-->
+    <color name="materialmusic_default_bar_color">@color/grey_900</color>
+
+    <!--light theme-->
     <color name="materialmusic_color">@color/blue_500</color>
     <color name="materialmusic_color_darker">@color/blue_600</color>
-
     <color name="materialmusic_accent_color">@color/pink_500</color>
     <color name="materialmusic_accent_color_darker">@color/pink_600</color>
     <color name="materialmusic_accent_color_lighter">@color/pink_300</color>
-
     <color name="materialmusic_title_text_color">?android:attr/textColorPrimaryInverse</color>
     <color name="materialmusic_caption_text_color">?android:attr/textColorSecondaryInverse</color>
-
     <color name="materialmusic_music_controller_container_color">@color/grey_400</color>
-
-    <color name="materialmusic_dark_color">@color/grey_900</color>
-    <color name="materialmusic_dark_color_darker">#161616</color>
-
+    <color name="materialmusic_navigation_drawer_background_color">@color/grey_300</color>
+    
+    <!--dark theme-->
+    <color name="materialmusic_dark_color">@color/indigo_500</color>
+    <color name="materialmusic_dark_color_darker">@color/indigo_600</color>
     <color name="materialmusic_dark_accent_color">@color/pink_500</color>
     <color name="materialmusic_dark_accent_color_darker">@color/pink_600</color>
     <color name="materialmusic_dark_accent_color_lighter">@color/pink_300</color>
-
     <color name="materialmusic_dark_title_text_color">?android:attr/textColorPrimary</color>
     <color name="materialmusic_dark_caption_text_color">?android:attr/textColorSecondary</color>
-
     <color name="materialmusic_dark_music_controller_container_color">@color/grey_800</color>
+    <color name="materialmusic_dark_navigation_drawer_background_color">@color/grey_900</color>
 
-    <drawable name="notification_template_divider_media">#29ffffff</drawable>
-
-    <color name="list_item_activated">#26000000</color>
-    <color name="list_item_activated_dark">#26FFFFFF</color>
+    <!--nav drawer list items-->
+    <color name="list_item_activated">#55000000</color>
+    <color name="list_item_activated_dark">#55000000</color>
     <color name="list_item_selected">#D0D0D0</color>
     <color name="list_item_selected_dark">#77404040</color>
 
+    <!--round and rect selector-->
     <color name="button_selected">#D0D0D0</color>
     <color name="button_selected_dark">#30FFFFFF</color>
+
+    <!--notification-->
+    <drawable name="notification_template_divider_media">#29ffffff</drawable>
 </resources>

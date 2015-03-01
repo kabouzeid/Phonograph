@@ -110,6 +110,7 @@ public class MainActivity extends AbsFabActivity
     }
 
     private void setUpToolBar() {
+        setTitle(getResources().getString(R.string.app_name));
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         statusBar = findViewById(R.id.statusBar);
         setSupportActionBar(toolbar);

@@ -3,8 +3,7 @@
     <attr name="title_text_color" format="color"/>
     <attr name="caption_text_color" format="color"/>
     <attr name="music_controller_container_color" format="color"/>
-    <attr name="fab_color" format="color"/>
-    <attr name="fab_color_pressed" format="color"/>
+    <attr name="navigation_drawer_background_color" format="color"/>
     <attr name="list_selector" format="reference"/>
     <attr name="round_selector" format="reference"/>
     <attr name="rect_selector" format="reference"/>

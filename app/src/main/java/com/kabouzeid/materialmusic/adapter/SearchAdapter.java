@@ -42,7 +42,7 @@ public class SearchAdapter extends ArrayAdapter<SearchEntry> {
             title.setTypeface(null, Typeface.BOLD);
             subTitle.setVisibility(View.GONE);
             imageView.setVisibility(View.GONE);
-            convertView.setBackgroundColor(Util.resolveColor(getContext(), R.attr.colorPrimary));
+            convertView.setBackgroundColor(getContext().getResources().getColor(R.color.materialmusic_default_bar_color));
         } else {
             title.setTypeface(null, Typeface.NORMAL);
             subTitle.setVisibility(View.VISIBLE);

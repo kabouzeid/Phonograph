@@ -87,7 +87,7 @@ public class AlbumViewGridAdapter extends ArrayAdapter<Album> {
                 if (vibrantSwatch != null) {
                     title.setTextColor(vibrantSwatch.getTitleTextColor());
                     artist.setTextColor(vibrantSwatch.getTitleTextColor());
-                    ViewUtil.animateViewColor(footer, Util.resolveColor(context, R.attr.colorPrimary),
+                    ViewUtil.animateViewColor(footer, getContext().getResources().getColor(R.color.materialmusic_default_bar_color),
                             vibrantSwatch.getRgb());
                 } else {
                     paletteBugFixBlackAndWhite(title, artist, footer);
@@ -99,7 +99,7 @@ public class AlbumViewGridAdapter extends ArrayAdapter<Album> {
     private void paletteBugFixBlackAndWhite(TextView title, TextView artist, View footer) {
         title.setTextColor(Util.resolveColor(context, R.attr.title_text_color));
         artist.setTextColor(Util.resolveColor(context, R.attr.caption_text_color));
-        ViewUtil.animateViewColor(footer, Util.resolveColor(context, R.attr.colorPrimary),
-                Util.resolveColor(context, R.attr.colorPrimary));
+        int defaultBarColor = getContext().getResources().getColor(R.color.materialmusic_default_bar_color);
+        ViewUtil.animateViewColor(footer, defaultBarColor, defaultBarColor);
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Material Music</string>
+    <string name="app_name">Gramophone</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
@@ -65,7 +65,7 @@
     <string name="label_current_playing_queue">Playing queue</string>
     <string name="close">Close</string>
     <string name="save_as_playlist">Save as playlist</string>
-    <string name="credits">Material Music is a completely free material designed music player by <b>Karim Abou Zeid</b>.\n\n<a href="https://plus.google.com/+KarimAbouZeid23697">Google+</a>&#160;&#160;&#160;<a href="https://twitter.com/karim23697">Twitter</a></string>
+    <string name="credits">Gramophone is a completely free material designed music player by <b>Karim Abou Zeid</b>.\n\n<a href="https://plus.google.com/+KarimAbouZeid23697">Google+</a>&#160;&#160;&#160;<a href="https://twitter.com/karim23697">Twitter</a></string>
     <string name="title_activity_search">SearchActivity</string>
     <string name="more">more</string>
     <string name="no_results">No results</string>

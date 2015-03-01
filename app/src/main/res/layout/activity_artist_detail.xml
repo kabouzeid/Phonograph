@@ -35,7 +35,7 @@
                 android:id="@+id/overlay"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/header_image_height"
-                android:background="?attr/colorPrimary"/>
+                android:background="@color/materialmusic_default_bar_color"/>
 
         </FrameLayout>
 
@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/title_view_height"
                 android:height="@dimen/title_view_height"
-                android:background="?attr/colorPrimary"
+                android:background="@color/materialmusic_default_bar_color"
                 android:elevation="@dimen/toolbar_elevation"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center_vertical"
@@ -64,7 +64,7 @@
                 android:id="@+id/sliding_tabs"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tab_height"
-                android:background="?attr/colorPrimary"
+                android:background="@color/materialmusic_default_bar_color"
                 android:elevation="@dimen/toolbar_elevation"
                 android:paddingRight="88dp"/>
 

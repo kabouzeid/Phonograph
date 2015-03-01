@@ -291,7 +291,7 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
             Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
                 @Override
                 public void onGenerated(Palette palette) {
-                    final int vibrantColor = palette.getVibrantColor(Util.resolveColor(AbsTagEditorActivity.this, R.attr.colorPrimary));
+                    final int vibrantColor = palette.getVibrantColor(getResources().getColor(R.color.materialmusic_default_bar_color));
                     paletteColorPrimary = vibrantColor;
                     observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

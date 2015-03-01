@@ -134,11 +134,11 @@ public class NavigationDrawerFragment extends Fragment {
 
     private void setUpListView() {
         final ArrayList<NavigationDrawerItem> navigationDrawerItems = new ArrayList<>();
-        navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.songs), R.drawable.songs));
-        navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.albums), R.drawable.album));
-        navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.artists), R.drawable.interpret));
-        navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.genres), R.drawable.songs));
-        navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.playlists), R.drawable.playlist));
+        navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.songs), R.drawable.ic_my_library_music_white_24dp));
+        navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.albums), R.drawable.ic_album_white_24dp));
+        navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.artists), R.drawable.ic_person_white_24dp));
+        navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.genres), R.drawable.ic_my_library_music_white_24dp));
+        navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.playlists), R.drawable.ic_queue_music_white_24dp));
 
         drawerAdapter = new NavigationDrawerItemAdapter(getActivity(), R.id.navigation_drawer, navigationDrawerItems);
 

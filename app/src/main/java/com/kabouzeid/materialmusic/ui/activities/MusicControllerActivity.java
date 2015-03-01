@@ -273,9 +273,9 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
     private void setStandardColors() {
         int songTitleTextColor = Util.resolveColor(this, R.attr.title_text_color);
         int artistNameTextColor = Util.resolveColor(this, R.attr.caption_text_color);
-        int colorPrimary = Util.resolveColor(MusicControllerActivity.this, R.attr.colorPrimary);
+        int defaultBarColor = getResources().getColor(R.color.materialmusic_default_bar_color);
 
-        animateColorChange(colorPrimary);
+        animateColorChange(defaultBarColor);
 
         songTitle.setTextColor(songTitleTextColor);
         songArtist.setTextColor(artistNameTextColor);
