@@ -90,8 +90,8 @@
             <ImageButton
                 android:id="@+id/button_quit"
                 style="@style/NotificationButton"
-                android:padding="16dp"
-                android:src="@drawable/close"/>
+                android:padding="8dp"
+                android:src="@drawable/ic_close_black_24dp"/>
         </LinearLayout>
     </LinearLayout>
 

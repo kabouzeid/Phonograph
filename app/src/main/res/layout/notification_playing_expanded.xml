@@ -37,8 +37,8 @@
         android:layout_alignParentTop="true"
         android:layout_gravity="center"
         android:background="?android:selectableItemBackground"
-        android:padding="16dp"
-        android:src="@drawable/close"/>
+        android:padding="8dp"
+        android:src="@drawable/ic_close_black_24dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
