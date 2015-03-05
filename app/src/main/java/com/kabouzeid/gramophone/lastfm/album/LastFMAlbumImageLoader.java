@@ -30,21 +30,18 @@ public class LastFMAlbumImageLoader {
         if (queryAlbum != null) {
             String albumJSON = AlbumJSONStore.getInstance(context).getAlbumJSON(queryAlbum + queryArtist);
             if (albumJSON != null) {
-                Log.i(TAG, queryAlbum + " by " + queryArtist + " is in cache.");
                 try {
                     loadAlbumImageFromJSON(new JSONObject(albumJSON), callback);
                 } catch (JSONException e) {
                     Log.e(TAG, "Error while parsing string from cache to JSONObject", e);
                 }
             } else {
-                Log.i(TAG, queryAlbum + " is not in cache.");
                 downloadAlbumImage(context, queryAlbum, queryArtist, callback);
             }
         }
     }
 
     private static void loadAlbumImageFromJSON(JSONObject jsonObject, final AlbumImageLoaderCallback callback) {
-        Log.i(TAG, "Applying album art...");
         String url = LastFMAlbumInfoUtil.getAlbumImageUrlFromJSON(jsonObject);
         if (!url.trim().equals("")) {
             DisplayImageOptions options = new DisplayImageOptions.Builder()
@@ -84,13 +81,11 @@ public class LastFMAlbumImageLoader {
     }
 
     private static void downloadAlbumImage(final Context context, final String album, final String artist, final AlbumImageLoaderCallback callback) {
-        Log.i(TAG, "Downloading details for " + album);
         App app = (App) context.getApplicationContext();
         String albumUrl = LastFMAlbumInfoUtil.getAlbumUrl(album, artist);
         JsonObjectRequest albumInfoJSONRequest = new JsonObjectRequest(0, albumUrl, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.i(TAG, "Download was successful!");
                 LastFMAlbumInfoUtil.saveAlbumJSONDataToCacheAndDisk(context, album, artist, response);
                 loadAlbumImageFromJSON(response, callback);
             }

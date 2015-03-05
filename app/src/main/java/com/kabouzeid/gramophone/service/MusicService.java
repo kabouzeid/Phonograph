@@ -170,7 +170,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     @Override
     public IBinder onBind(Intent intent) {
-        Log.i(TAG, "onBind");
         return musicBind;
     }
 
@@ -226,7 +225,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         try {
             InternalStorageUtil.writeObject(MusicService.this, AppKeys.IS_PLAYING_QUEUE, playingQueue);
             InternalStorageUtil.writeObject(MusicService.this, AppKeys.IS_ORIGINAL_PLAYING_QUEUE, originalPlayingQueue);
-            Log.i(TAG, "saved current queue state");
         } catch (IOException e) {
             Log.e(TAG, "error while saving music service queue state", e);
         }
@@ -238,7 +236,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             public void run() {
                 try {
                     InternalStorageUtil.writeObject(MusicService.this, AppKeys.IS_POSITION_IN_QUEUE, getPosition());
-                    Log.i(TAG, "saved current position state");
                 } catch (IOException e) {
                     Log.e(TAG, "error while saving music service position state", e);
                 }

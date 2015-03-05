@@ -275,7 +275,6 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
             position = restoredPosition;
 
             notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STATE_RESTORED);
-            Log.i(TAG, "restored last state");
         } catch (IOException | ClassNotFoundException | ClassCastException e) {
             Log.e(TAG, "error while restoring music service state", e);
             playingQueue = new ArrayList<>();

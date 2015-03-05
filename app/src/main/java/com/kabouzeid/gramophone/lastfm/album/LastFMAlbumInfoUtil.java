@@ -81,7 +81,6 @@ public class LastFMAlbumInfoUtil {
     }
 
     public static void saveAlbumJSONDataToCacheAndDisk(Context context, String album, String artist, JSONObject jsonObject) {
-        Log.i(TAG, "Saving new JSON album data for " + album + "...");
         AlbumJSONStore.getInstance(context).addAlbumJSON(album + artist, jsonObject.toString());
     }
 }

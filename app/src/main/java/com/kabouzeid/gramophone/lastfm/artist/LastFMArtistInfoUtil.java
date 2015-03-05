@@ -83,13 +83,12 @@ public class LastFMArtistInfoUtil {
         try {
             return rootJSON.getJSONObject("artist").getJSONObject("bio").getString("content");
         } catch (JSONException e) {
-            //Log.e(TAG, "Error while getting artist biografie from JSON parameter!", e);
+            //Log.e(TAG, "Error while getting artist biography from JSON parameter!", e);
             return "";
         }
     }
 
     public static void saveArtistJSONDataToCacheAndDisk(Context context, String artist, JSONObject jsonObject) {
-        Log.i(TAG, "Saving new JSON artist data for " + artist + "...");
         ArtistJSONStore.getInstance(context).removeItem(artist);
         ArtistJSONStore.getInstance(context).addArtistJSON(artist, jsonObject.toString());
     }

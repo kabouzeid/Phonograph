@@ -22,7 +22,6 @@ public class LastFMArtistBiographyLoader {
         if (queryArtist != null) {
             String artistJSON = ArtistJSONStore.getInstance(context).getArtistJSON(queryArtist);
             if (artistJSON != null) {
-                Log.i(TAG, queryArtist + " is in cache.");
                 try {
                     JSONObject json = new JSONObject(artistJSON);
                     String bio = LastFMArtistInfoUtil.getArtistBiographyFromJSON(json);
@@ -31,20 +30,17 @@ public class LastFMArtistBiographyLoader {
                     Log.e(TAG, "Error while parsing bio from cache to JSONObject", e);
                 }
             } else {
-                Log.i(TAG, queryArtist + " is not in cache.");
                 downloadArtistBio(context, queryArtist, callback);
             }
         }
     }
 
     private static void downloadArtistBio(final Context context, final String artist, final ArtistBioLoaderCallback callback) {
-        Log.i(TAG, "Downloading details for " + artist);
         App app = (App) context.getApplicationContext();
         String artistUrl = LastFMArtistInfoUtil.getArtistUrl(artist);
         JsonObjectRequest artistInfoJSONRequest = new JsonObjectRequest(0, artistUrl, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.i(TAG, "Download was successful!");
                 LastFMArtistInfoUtil.saveArtistJSONDataToCacheAndDisk(context, artist, response);
                 String bio = LastFMArtistInfoUtil.getArtistBiographyFromJSON(response);
                 callback.onArtistBioLoaded(bio);
