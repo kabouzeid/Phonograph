@@ -1,7 +1,6 @@
-/local.properties
 app/src/main/res/values/com_crashlytics_export_strings.xml
 app/src/main/assets/crashlytics-build.properties
-app/crashlytics.properties
+#app/crashlytics.properties
 
 # built application files
 *.apk
@@ -19,7 +18,7 @@ gen/
 target/
 
 # external libraries
-libs/
+#libs/
 
 # gradle files
 .gradle/
