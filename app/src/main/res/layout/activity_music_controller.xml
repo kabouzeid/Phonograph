@@ -100,12 +100,6 @@
         android:background="?attr/music_controller_container_color"
         android:elevation="2dp">
 
-        <com.melnykov.fab.FloatingActionButton
-            android:id="@+id/fab"
-            style="@style/PlayPauseFab"
-            android:layout_centerInParent="true"
-            />
-
         <ImageButton
             android:id="@+id/prev_button"
             android:layout_width="72dp"
@@ -115,7 +109,8 @@
             android:background="?round_selector"
             android:padding="22dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_skip_previous_white_48dp"/>
+            android:src="@drawable/ic_skip_previous_white_48dp"
+            android:layout_marginRight="-8dp"/>
 
         <ImageButton
             android:id="@+id/next_button"
@@ -126,7 +121,8 @@
             android:background="?round_selector"
             android:padding="22dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_skip_next_white_48dp"/>
+            android:src="@drawable/ic_skip_next_white_48dp"
+            android:layout_marginLeft="-8dp"/>
 
         <ImageButton
             android:id="@+id/repeat_button"
@@ -151,6 +147,12 @@
             android:padding="22dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_shuffle_grey600_48dp"/>
+
+        <com.melnykov.fab.FloatingActionButton
+            android:id="@+id/fab"
+            style="@style/PlayPauseFab"
+            android:layout_centerInParent="true"
+            />
 
     </RelativeLayout>
 

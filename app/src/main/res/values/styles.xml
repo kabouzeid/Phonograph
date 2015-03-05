@@ -39,8 +39,8 @@
     </style>
 
     <style name="MusicProgressSlider" parent="MusicProgressSliderParent">
-        <item name="android:progressDrawable">@drawable/seekbar_progress</item>
-        <item name="android:thumb">@drawable/seekbar_thumb</item>
+        <item name="android:progressDrawable">@drawable/slider_progress</item>
+        <item name="android:thumb">@drawable/slider_thumb</item>
     </style>
 
 </resources>

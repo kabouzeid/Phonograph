@@ -180,7 +180,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
 
     private void setUpObservableListViewParams() {
         albumArtViewHeight = getResources().getDimensionPixelSize(R.dimen.header_image_height);
-        toolbarColor = Util.resolveColor(this, R.attr.colorPrimary);
+        toolbarColor = getResources().getColor(R.color.materialmusic_default_bar_color);
         toolbarHeight = Util.getActionBarSize(this);
         titleViewHeight = getResources().getDimensionPixelSize(R.dimen.title_view_height);
         headerOffset = toolbarHeight;

@@ -38,7 +38,7 @@
     <string name="audio_focus_denied">We were not able to gain audio focus.</string>
     <string name="title_activity_tag_editor">TagEditorActivity</string>
     <string name="hello_world">Hello world!</string>
-    <string name="tag_editor">Tag Editor [beta]</string>
+    <string name="tag_editor">Tag Editor</string>
     <string name="song">Song</string>
     <string name="album">Album</string>
     <string name="artist">Artist</string>
