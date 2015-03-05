@@ -1,13 +1,6 @@
-.gradle
 /local.properties
-/.idea/workspace.xml
-/.idea/libraries
-.DS_Store
-/build
 app/src/main/res/values/com_crashlytics_export_strings.xml
 app/src/main/assets/crashlytics-build.properties
-app/app-release.apk
-app/build
 app/crashlytics.properties
 
 # built application files
