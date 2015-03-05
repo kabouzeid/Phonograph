@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kabouzeid.materialmusic" >
+    package="com.kabouzeid.gramophone" >
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -9,13 +9,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".App"
+        android:name="com.kabouzeid.gramophone.App"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.MaterialMusic" >
         <activity
-            android:name=".ui.activities.MainActivity"
+            android:name="com.kabouzeid.gramophone.ui.activities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,21 +23,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.AlbumDetailActivity" >
+        <activity android:name="com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity" >
         </activity>
-        <activity android:name=".ui.activities.ArtistDetailActivity" >
+        <activity android:name="com.kabouzeid.gramophone.ui.activities.ArtistDetailActivity" >
         </activity>
         <activity
-            android:name=".ui.activities.MusicControllerActivity"
-            android:parentActivityName=".ui.activities.MainActivity" >
+            android:name="com.kabouzeid.gramophone.ui.activities.MusicControllerActivity"
+            android:parentActivityName="com.kabouzeid.gramophone.ui.activities.MainActivity" >
         </activity>
 
         <service
-            android:name=".service.MusicService"
+            android:name="com.kabouzeid.gramophone.service.MusicService"
             android:enabled="true" >
         </service>
 
-        <receiver android:name=".service.MediaButtonIntentReceiver" >
+        <receiver android:name="com.kabouzeid.gramophone.service.MediaButtonIntentReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
@@ -48,16 +48,16 @@
             android:value="b23725bd3d266aa65c5a3dd1816b2f801524a189" />
 
         <activity
-            android:name=".ui.activities.tageditor.SongTagEditorActivity"
+            android:name="com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity"
             android:label="@string/title_activity_tag_editor"
             android:windowSoftInputMode="adjustResize" >
         </activity>
         <activity
-            android:name=".ui.activities.tageditor.AlbumTagEditorActivity"
+            android:name="com.kabouzeid.gramophone.ui.activities.tageditor.AlbumTagEditorActivity"
             android:label="@string/title_activity_album_tag_editor" >
         </activity>
         <activity
-            android:name=".ui.activities.SearchActivity"
+            android:name="com.kabouzeid.gramophone.ui.activities.SearchActivity"
             android:label="@string/title_activity_search" >
         </activity>
     </application>

@@ -7,7 +7,7 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
 
-    <com.kabouzeid.materialmusic.view.SquareImageView
+    <com.kabouzeid.gramophone.view.SquareImageView
         android:id="@+id/artist_image"
         android:layout_width="60dp"
         android:layout_height="60dp"

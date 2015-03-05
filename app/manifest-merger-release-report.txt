@@ -74,7 +74,7 @@ MERGED from com.android.support:support-v4:21.0.3:16:5
 		ADDED from AndroidManifest.xml:16:9
 	android:name
 		ADDED from AndroidManifest.xml:12:9
-activity#com.kabouzeid.materialmusic.ui.activities.MainActivity
+activity#gramophone.ui.activities.MainActivity
 ADDED from AndroidManifest.xml:17:9
 	android:label
 		ADDED from AndroidManifest.xml:19:13
@@ -90,27 +90,27 @@ category#android.intent.category.LAUNCHER
 ADDED from AndroidManifest.xml:23:17
 	android:name
 		ADDED from AndroidManifest.xml:23:27
-activity#com.kabouzeid.materialmusic.ui.activities.AlbumDetailActivity
+activity#gramophone.ui.activities.AlbumDetailActivity
 ADDED from AndroidManifest.xml:26:9
 	android:name
 		ADDED from AndroidManifest.xml:26:19
-activity#com.kabouzeid.materialmusic.ui.activities.ArtistDetailActivity
+activity#gramophone.ui.activities.ArtistDetailActivity
 ADDED from AndroidManifest.xml:28:9
 	android:name
 		ADDED from AndroidManifest.xml:28:19
-activity#com.kabouzeid.materialmusic.ui.activities.MusicControllerActivity
+activity#gramophone.ui.activities.MusicControllerActivity
 ADDED from AndroidManifest.xml:30:9
 	android:parentActivityName
 		ADDED from AndroidManifest.xml:32:13
 	android:name
 		ADDED from AndroidManifest.xml:31:13
-service#com.kabouzeid.materialmusic.service.MusicService
+service#gramophone.service.MusicService
 ADDED from AndroidManifest.xml:35:9
 	android:enabled
 		ADDED from AndroidManifest.xml:37:13
 	android:name
 		ADDED from AndroidManifest.xml:36:13
-receiver#com.kabouzeid.materialmusic.service.MediaButtonIntentReceiver
+receiver#gramophone.service.MediaButtonIntentReceiver
 ADDED from AndroidManifest.xml:40:9
 	android:name
 		ADDED from AndroidManifest.xml:40:19
@@ -126,7 +126,7 @@ ADDED from AndroidManifest.xml:46:9
 		ADDED from AndroidManifest.xml:48:13
 	android:name
 		ADDED from AndroidManifest.xml:47:13
-activity#com.kabouzeid.materialmusic.ui.activities.tageditor.SongTagEditorActivity
+activity#gramophone.ui.activities.tageditor.SongTagEditorActivity
 ADDED from AndroidManifest.xml:50:9
 	android:label
 		ADDED from AndroidManifest.xml:52:13
@@ -134,13 +134,13 @@ ADDED from AndroidManifest.xml:50:9
 		ADDED from AndroidManifest.xml:53:13
 	android:name
 		ADDED from AndroidManifest.xml:51:13
-activity#com.kabouzeid.materialmusic.ui.activities.tageditor.AlbumTagEditorActivity
+activity#gramophone.ui.activities.tageditor.AlbumTagEditorActivity
 ADDED from AndroidManifest.xml:55:9
 	android:label
 		ADDED from AndroidManifest.xml:57:13
 	android:name
 		ADDED from AndroidManifest.xml:56:13
-activity#com.kabouzeid.materialmusic.ui.activities.SearchActivity
+activity#gramophone.ui.activities.SearchActivity
 ADDED from AndroidManifest.xml:59:9
 	android:label
 		ADDED from AndroidManifest.xml:61:13

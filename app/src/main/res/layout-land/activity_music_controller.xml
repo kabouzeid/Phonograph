@@ -2,7 +2,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.kabouzeid.materialmusic.ui.activities.AlbumDetailActivity$PlaceholderFragment">
+             tools:context="com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity$PlaceholderFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
