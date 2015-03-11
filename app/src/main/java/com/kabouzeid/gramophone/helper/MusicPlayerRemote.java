@@ -8,7 +8,6 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.kabouzeid.gramophone.App;
-import com.kabouzeid.gramophone.interfaces.OnMusicRemoteEventListener;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
@@ -22,7 +21,7 @@ import java.util.List;
 /**
  * Created by karim on 29.11.14.
  */
-public class MusicPlayerRemote implements OnMusicRemoteEventListener {
+public class MusicPlayerRemote {
     private static final String TAG = MusicPlayerRemote.class.getSimpleName();
 
     private App app;
@@ -31,7 +30,6 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
 
     private List<Song> playingQueue;
     private List<Song> restoredOriginalQueue;
-    private List<OnMusicRemoteEventListener> onMusicRemoteEventListeners;
 
     private MusicService musicService;
     private Intent musicServiceIntent;
@@ -43,7 +41,6 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
             musicService = binder.getService();
             musicBound = true;
             musicService.restorePreviousState(restoredOriginalQueue, playingQueue, position);
-            musicService.addOnMusicRemoteEventListener(MusicPlayerRemote.this);
             notifyOnMusicRemoteEventListeners(MusicRemoteEvent.SERVICE_CONNECTED);
         }
 
@@ -58,7 +55,6 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
         app = (App) context.getApplicationContext();
         playingQueue = new ArrayList<>();
         restoredOriginalQueue = new ArrayList<>();
-        onMusicRemoteEventListeners = new ArrayList<>();
         startAndBindService();
     }
 
@@ -235,28 +231,9 @@ public class MusicPlayerRemote implements OnMusicRemoteEventListener {
         }
     }
 
-    @Override
-    public void onMusicRemoteEvent(MusicRemoteEvent event) {
-        notifyOnMusicRemoteEventListeners(event.getAction());
-    }
-
     private void notifyOnMusicRemoteEventListeners(int event) {
         MusicRemoteEvent musicRemoteEvent = new MusicRemoteEvent(event);
-        for (OnMusicRemoteEventListener listener : onMusicRemoteEventListeners) {
-            listener.onMusicRemoteEvent(musicRemoteEvent);
-        }
-    }
-
-    public void addOnMusicRemoteEventListener(OnMusicRemoteEventListener onMusicRemoteEventListener) {
-        onMusicRemoteEventListeners.add(onMusicRemoteEventListener);
-    }
-
-    public void removeOnMusicRemoteEventListener(OnMusicRemoteEventListener onMusicRemoteEventListener) {
-        onMusicRemoteEventListeners.remove(onMusicRemoteEventListener);
-    }
-
-    public void removeAllOnMusicRemoteEventListeners() {
-        onMusicRemoteEventListeners.clear();
+        App.bus.post(musicRemoteEvent);
     }
 
     @SuppressWarnings("unchecked")

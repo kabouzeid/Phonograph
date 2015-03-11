@@ -28,7 +28,6 @@ import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
-import com.kabouzeid.gramophone.interfaces.OnMusicRemoteEventListener;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistImageUrlLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
@@ -54,7 +53,7 @@ import com.squareup.picasso.Picasso;
 *
 * */
 
-public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemoteEventListener, KabViewsDisableAble, ObservableScrollViewCallbacks {
+public class ArtistDetailActivity extends AbsFabActivity implements KabViewsDisableAble, ObservableScrollViewCallbacks {
     public static final String TAG = ArtistDetailActivity.class.getSimpleName();
 
     public static final String ARG_ARTIST_ID = "com.kabouzeid.gramophone.artist.id";

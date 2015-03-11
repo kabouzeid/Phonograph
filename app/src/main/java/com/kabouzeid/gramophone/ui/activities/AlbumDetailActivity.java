@@ -25,7 +25,6 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.songadapter.SongAdapter;
 import com.kabouzeid.gramophone.comparator.SongTrackNumberComparator;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
-import com.kabouzeid.gramophone.interfaces.OnMusicRemoteEventListener;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
@@ -54,7 +53,7 @@ import java.util.List;
 *
 * */
 
-public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemoteEventListener, KabViewsDisableAble {
+public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisableAble {
     public static final String TAG = AlbumDetailActivity.class.getSimpleName();
 
     private static final boolean TOOLBAR_IS_STICKY = true;

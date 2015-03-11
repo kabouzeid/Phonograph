@@ -3,7 +3,6 @@ package com.kabouzeid.gramophone.ui.activities;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
@@ -24,7 +23,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.PlayingQueueDialogHelper;
 import com.kabouzeid.gramophone.helper.SongDetailDialogHelper;
-import com.kabouzeid.gramophone.interfaces.OnMusicRemoteEventListener;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistImageUrlLoader;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
@@ -37,13 +35,13 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nineoldandroids.view.ViewPropertyAnimator;
+import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.io.File;
 
-public class MusicControllerActivity extends AbsFabActivity implements OnMusicRemoteEventListener {
+public class MusicControllerActivity extends AbsFabActivity {
     public static final String TAG = MusicControllerActivity.class.getSimpleName();
 
     private static final int DEFAULT_DELAY = 350;

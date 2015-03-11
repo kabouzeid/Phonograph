@@ -8,17 +8,25 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.interfaces.OnMusicRemoteEventListener;
 import com.kabouzeid.gramophone.misc.SmallOnGestureListener;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.melnykov.fab.FloatingActionButton;
+import com.squareup.otto.Subscribe;
 
 /**
  * Created by karim on 22.01.15.
  */
-public abstract class AbsFabActivity extends AbsBaseActivity implements OnMusicRemoteEventListener {
+public abstract class AbsFabActivity extends AbsBaseActivity {
+    public static final String TAG = AbsFabActivity.class.getSimpleName();
     private FloatingActionButton fab;
+    private Object busEventListener = new Object() {
+        @Subscribe
+        public void onBusEvent(MusicRemoteEvent event) {
+            onMusicRemoteEvent(event);
+        }
+    };
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -91,7 +99,7 @@ public abstract class AbsFabActivity extends AbsBaseActivity implements OnMusicR
     protected void onResume() {
         super.onResume();
         updateControllerState();
-        getApp().getMusicPlayerRemote().addOnMusicRemoteEventListener(this);
+        App.bus.register(busEventListener);
     }
 
     @Override
@@ -142,10 +150,9 @@ public abstract class AbsFabActivity extends AbsBaseActivity implements OnMusicR
     @Override
     protected void onStop() {
         super.onStop();
-        getApp().getMusicPlayerRemote().removeOnMusicRemoteEventListener(this);
+        App.bus.unregister(busEventListener);
     }
 
-    @Override
     public void onMusicRemoteEvent(MusicRemoteEvent event) {
         switch (event.getAction()) {
             case MusicRemoteEvent.PLAY:

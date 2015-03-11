@@ -12,7 +12,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,7 +27,6 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.AboutDeveloperDialogHelper;
 import com.kabouzeid.gramophone.helper.PlayingQueueDialogHelper;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
-import com.kabouzeid.gramophone.interfaces.OnMusicRemoteEventListener;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
@@ -45,7 +43,7 @@ import com.squareup.picasso.Picasso;
 
 
 public class MainActivity extends AbsFabActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, OnMusicRemoteEventListener, KabViewsDisableAble {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, KabViewsDisableAble {
     public static final String TAG = MainActivity.class.getSimpleName();
 
     private DrawerLayout drawerLayout;
@@ -169,7 +167,7 @@ public class MainActivity extends AbsFabActivity
             toolbar.setEnabled(true);
             ((MainActivityFragment) viewPagerAdapter.getItem(viewPager.getCurrentItem())).enableViews();
         } catch (NullPointerException e) {
-            Log.e(TAG, "wasn't able to enable the views", e);
+            //Log.e(TAG, "wasn't able to enable the views", e);
         }
     }
 
@@ -179,7 +177,7 @@ public class MainActivity extends AbsFabActivity
             super.disableViews();
             ((MainActivityFragment) viewPagerAdapter.getItem(viewPager.getCurrentItem())).disableViews();
         } catch (NullPointerException e) {
-            Log.e(TAG, "wasn't able to disable the views", e);
+            //Log.e(TAG, "wasn't able to disable the views", e);
         }
     }
 
@@ -250,12 +248,6 @@ public class MainActivity extends AbsFabActivity
     public void onConfigurationChanged(Configuration newConfig) {
         drawerToggle.onConfigurationChanged(newConfig);
         super.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        getApp().getMusicPlayerRemote().removeAllOnMusicRemoteEventListeners();
     }
 
     @Override

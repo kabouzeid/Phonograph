@@ -22,10 +22,10 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.PlayingNotificationHelper;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
-import com.kabouzeid.gramophone.interfaces.OnMusicRemoteEventListener;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
@@ -64,7 +64,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private MediaPlayer player;
     private List<Song> playingQueue;
     private List<Song> originalPlayingQueue;
-    private List<OnMusicRemoteEventListener> onMusicRemoteEventListeners;
     private int currentSongId = -1;
     private int position = -1;
     private int shuffleMode;
@@ -87,7 +86,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         isPlayerPrepared = false;
         playingQueue = new ArrayList<>();
         originalPlayingQueue = new ArrayList<>();
-        onMusicRemoteEventListeners = new ArrayList<>();
         playingNotificationHelper = new PlayingNotificationHelper(this);
 
         shuffleMode = PreferenceManager.getDefaultSharedPreferences(this).getInt(AppKeys.SP_SHUFFLE_MODE, 0);
@@ -218,9 +216,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     private void notifyOnMusicRemoteEventListeners(int event) {
         MusicRemoteEvent musicRemoteEvent = new MusicRemoteEvent(event);
-        for (OnMusicRemoteEventListener listener : onMusicRemoteEventListeners) {
-            listener.onMusicRemoteEvent(musicRemoteEvent);
-        }
+        App.bus.post(musicRemoteEvent);
     }
 
     public void saveQueues() {
@@ -613,10 +609,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     public boolean isPlayerPrepared() {
         return player != null && isPlayerPrepared;
-    }
-
-    public void addOnMusicRemoteEventListener(OnMusicRemoteEventListener onMusicRemoteEventListener) {
-        onMusicRemoteEventListeners.add(onMusicRemoteEventListener);
     }
 
     public void cycleRepeatMode() {

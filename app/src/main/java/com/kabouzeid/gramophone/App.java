@@ -11,6 +11,8 @@ import com.android.volley.toolbox.Volley;
 import com.crashlytics.android.Crashlytics;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.misc.AppKeys;
+import com.squareup.otto.Bus;
+import com.squareup.otto.ThreadEnforcer;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -19,6 +21,8 @@ import io.fabric.sdk.android.Fabric;
  */
 public class App extends Application {
     private static final String TAG = App.class.getSimpleName();
+
+    public static Bus bus = new Bus(ThreadEnforcer.MAIN);
 
     private MusicPlayerRemote playerRemote;
     private int appTheme;
