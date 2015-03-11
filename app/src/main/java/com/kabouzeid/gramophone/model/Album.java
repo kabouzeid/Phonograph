@@ -3,9 +3,9 @@ package com.kabouzeid.gramophone.model;
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.kabouzeid.gramophone.util.ImageLoaderUtil;
+import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by karim on 22.11.14.
@@ -49,6 +49,9 @@ public class Album implements SearchEntry {
 
     @Override
     public void loadImage(Context context, ImageView imageView) {
-        ImageLoader.getInstance().displayImage(MusicUtil.getAlbumArtUri(id).toString(), imageView, new ImageLoaderUtil.defaultAlbumArtOnFailed());
+        imageView.setImageResource(R.drawable.default_album_art);
+        Picasso.with(context)
+                .load(MusicUtil.getAlbumArtUri(id))
+                .into(imageView);
     }
 }

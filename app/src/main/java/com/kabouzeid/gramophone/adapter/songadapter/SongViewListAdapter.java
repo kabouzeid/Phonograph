@@ -16,9 +16,8 @@ import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
-import com.kabouzeid.gramophone.util.ImageLoaderUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.List;
@@ -81,7 +80,10 @@ public class SongViewListAdapter extends SongAdapter {
         });
 
         songTitle.setText(song.title);
-        ImageLoader.getInstance().displayImage(MusicUtil.getAlbumArtUri(song.albumId).toString(), albumArt, new ImageLoaderUtil.defaultAlbumArtOnFailed());
+        Picasso.with(getContext())
+                .load(MusicUtil.getAlbumArtUri(song.albumId))
+                .placeholder(R.drawable.default_album_art)
+                .into(albumArt);
 
         return convertView;
     }

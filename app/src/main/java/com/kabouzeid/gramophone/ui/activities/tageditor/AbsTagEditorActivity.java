@@ -30,8 +30,6 @@ import com.kabouzeid.gramophone.util.ViewUtil;
 import com.melnykov.fab.FloatingActionButton;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -356,13 +354,11 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
                 }
                 if (deleteArtwork) {
                     String imagePath = MusicUtil.getAlbumArtUri(getId()).toString();
-                    ImageLoader.getInstance().getDiskCache().remove(imagePath);
-                    MemoryCacheUtils.removeFromCache(imagePath, ImageLoader.getInstance().getMemoryCache());
+                    //TODO delete from picasso cache
                     MusicUtil.deleteAlbumArt(AbsTagEditorActivity.this, getId());
                 } else if (artwork != null) {
                     String imagePath = MusicUtil.getAlbumArtUri(getId()).toString();
-                    MemoryCacheUtils.removeFromCache(imagePath, ImageLoader.getInstance().getMemoryCache());
-                    ImageLoader.getInstance().getDiskCache().remove(imagePath);
+                    //TODO delete from Picasso cache
                 }
                 progressDialog.dismiss();
                 rescanMedia();

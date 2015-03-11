@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
@@ -30,7 +31,8 @@ import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.InternalStorageUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -294,6 +296,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STOP);
                 playingNotificationHelper.updatePlayState(false);
                 remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
+                updateNotification();
+                updateRemoteControlClient();
             }
         }
         notifyOnMusicRemoteEventListeners(MusicRemoteEvent.TRACK_CHANGED);
@@ -307,14 +311,40 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     private void updateRemoteControlClient() {
-        Song song = getPlayingQueue().get(getPosition());
-        Bitmap loadedImage = ImageLoader.getInstance().loadImageSync(MusicUtil.getAlbumArtUri(song.albumId).toString());
+        final Song song = getPlayingQueue().get(getPosition());
         remoteControlClient
                 .editMetadata(false)
                 .putString(MediaMetadataRetriever.METADATA_KEY_ARTIST, song.artistName)
                 .putString(MediaMetadataRetriever.METADATA_KEY_TITLE, song.title)
                 .putLong(MediaMetadataRetriever.METADATA_KEY_DURATION, song.duration)
-                .putBitmap(RemoteControlClient.MetadataEditor.BITMAP_KEY_ARTWORK, loadedImage)
+                .apply();
+        Picasso.with(this)
+                .cancelRequest(remoteAlbumArt);
+        Picasso.with(this)
+                .load(MusicUtil.getAlbumArtUri(song.albumId))
+                .into(remoteAlbumArt);
+    }
+
+    private Target remoteAlbumArt = new Target() {
+        @Override
+        public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
+            updateRemoteControlClientBitmap(bitmap.copy(bitmap.getConfig(), true));
+        }
+
+        @Override
+        public void onBitmapFailed(Drawable errorDrawable) {
+            updateRemoteControlClientBitmap(null);
+        }
+
+        @Override
+        public void onPrepareLoad(Drawable placeHolderDrawable) {
+        }
+    };
+
+    private void updateRemoteControlClientBitmap(final Bitmap albumArt) {
+        remoteControlClient
+                .editMetadata(false)
+                .putBitmap(RemoteControlClient.MetadataEditor.BITMAP_KEY_ARTWORK, albumArt)
                 .apply();
     }
 

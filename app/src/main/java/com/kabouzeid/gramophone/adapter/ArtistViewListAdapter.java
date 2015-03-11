@@ -10,8 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistThumbnailLoader;
+import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistThumbnailUrlLoader;
 import com.kabouzeid.gramophone.model.Artist;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -39,19 +40,13 @@ public class ArtistViewListAdapter extends ArrayAdapter<Artist> {
         artistName.setText(artist.name);
         artistArt.setImageResource(R.drawable.default_artist_image);
 
-        final Object tag = artist.name;
-        artistArt.setTag(tag);
-
-        LastFMArtistThumbnailLoader.loadArtistThumbnail(context, artist.name, new LastFMArtistThumbnailLoader.ArtistThumbnailLoaderCallback() {
+        LastFMArtistThumbnailUrlLoader.loadArtistThumbnailUrl(context, artist.name, false, new LastFMArtistThumbnailUrlLoader.ArtistThumbnailUrlLoaderCallback() {
             @Override
-            public void onArtistThumbnailLoaded(Bitmap thumbnail) {
-                if (artistArt.getTag().equals(tag)) {
-                    if (thumbnail != null) {
-                        artistArt.setImageBitmap(thumbnail);
-                    } else {
-                        artistArt.setImageResource(R.drawable.default_artist_image);
-                    }
-                }
+            public void onArtistThumbnailUrlLoaded(String url) {
+                Picasso.with(getContext())
+                        .load(url)
+                        .placeholder(R.drawable.default_artist_image)
+                        .into(artistArt);
             }
         });
 

@@ -2,6 +2,8 @@ package com.kabouzeid.gramophone.ui.activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
@@ -23,7 +25,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.PlayingQueueDialogHelper;
 import com.kabouzeid.gramophone.helper.SongDetailDialogHelper;
 import com.kabouzeid.gramophone.interfaces.OnMusicRemoteEventListener;
-import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistImageLoader;
+import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistImageUrlLoader;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
@@ -35,9 +37,9 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nineoldandroids.view.ViewPropertyAnimator;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.io.File;
 
@@ -229,29 +231,18 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
     }
 
     private void setUpAlbumArtAndApplyPalette() {
-        ImageLoader.getInstance().displayImage(MusicUtil.getAlbumArtUri(song.albumId).toString(), albumArt, new ImageLoadingListener() {
-            @Override
-            public void onLoadingStarted(String imageUri, View view) {
-                albumArt.setImageResource(R.drawable.default_album_art);
-            }
-
-            @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                albumArt.setImageResource(R.drawable.default_album_art);
-                setStandardColors();
-            }
-
-            @Override
-            public void onLoadingComplete(String imageUri, final View view, Bitmap loadedImage) {
-                applyPalette(loadedImage);
-            }
-
-            @Override
-            public void onLoadingCancelled(String imageUri, View view) {
-                albumArt.setImageResource(R.drawable.default_album_art);
-                setStandardColors();
-            }
-        });
+        setStandardColors();
+        Picasso.with(this)
+                .load(MusicUtil.getAlbumArtUri(song.albumId))
+                .placeholder(R.drawable.default_album_art)
+                .into(albumArt, new Callback.EmptyCallback() {
+                    @Override
+                    public void onSuccess() {
+                        super.onSuccess();
+                        final Bitmap bitmap = ((BitmapDrawable) albumArt.getDrawable()).getBitmap();
+                        if (bitmap != null) applyPalette(bitmap);
+                    }
+                });
     }
 
     private void applyPalette(Bitmap bitmap) {
@@ -296,10 +287,14 @@ public class MusicControllerActivity extends AbsFabActivity implements OnMusicRe
     private void setUpArtistArt() {
         if (artistArt != null) {
             artistArt.setImageResource(R.drawable.default_artist_image);
-            LastFMArtistImageLoader.loadArtistImage(this, song.artistName, new LastFMArtistImageLoader.ArtistImageLoaderCallback() {
+            LastFMArtistImageUrlLoader.loadArtistImageUrl(this, song.artistName, false, new LastFMArtistImageUrlLoader.ArtistImageUrlLoaderCallback() {
                 @Override
-                public void onArtistImageLoaded(Bitmap artistImage) {
-                    artistArt.setImageBitmap(artistImage);
+                public void onArtistImageUrlLoaded(String url) {
+                    Picasso.with(MusicControllerActivity.this)
+                            .load(url)
+                            .placeholder(R.drawable.default_artist_image)
+                            .error(R.drawable.default_artist_image)
+                            .into(artistArt);
                 }
             });
         }

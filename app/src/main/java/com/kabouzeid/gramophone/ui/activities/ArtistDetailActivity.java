@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -28,7 +29,7 @@ import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.interfaces.OnMusicRemoteEventListener;
-import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistImageLoader;
+import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistImageUrlLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.Artist;
@@ -42,6 +43,8 @@ import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 /*
 *
@@ -149,7 +152,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
 
     private void setUpObservableListViewParams() {
         artistImageViewHeight = getResources().getDimensionPixelSize(R.dimen.header_image_height);
-        toolbarColor = Util.resolveColor(this, R.attr.colorPrimary);
+        toolbarColor = getResources().getColor(R.color.materialmusic_default_bar_color);
         toolbarHeight = Util.getActionBarSize(this);
         titleViewHeight = getResources().getDimensionPixelSize(R.dimen.title_view_height);
         headerOffset = toolbarHeight;
@@ -314,17 +317,23 @@ public class ArtistDetailActivity extends AbsFabActivity implements OnMusicRemot
     }
 
     private void setUpArtistImageAndApplyPalette(final boolean forceDownload) {
-        LastFMArtistImageLoader.loadArtistImage(this, artist.name, forceDownload, new LastFMArtistImageLoader.ArtistImageLoaderCallback() {
-            @SuppressLint("NewApi")
+        LastFMArtistImageUrlLoader.loadArtistImageUrl(this, artist.name, forceDownload, new LastFMArtistImageUrlLoader.ArtistImageUrlLoaderCallback() {
             @Override
-            public void onArtistImageLoaded(Bitmap artistImage) {
-                if (artistImage != null) {
-                    artistImageView.setImageBitmap(artistImage);
-                    applyPalette(artistImage);
-                }
-                if(forceDownload){
-                    Toast.makeText(ArtistDetailActivity.this, getResources().getString(R.string.updated_artist_image_for) + " " + artist.name, Toast.LENGTH_SHORT).show();
-                }
+            public void onArtistImageUrlLoaded(String url) {
+                Picasso.with(ArtistDetailActivity.this)
+                        .load(url)
+                        .placeholder(R.drawable.default_artist_image)
+                        .into(artistImageView, new Callback.EmptyCallback() {
+                            @Override
+                            public void onSuccess() {
+                                super.onSuccess();
+                                final Bitmap bitmap = ((BitmapDrawable) artistImageView.getDrawable()).getBitmap();
+                                if (bitmap != null) applyPalette(bitmap);
+                                if (forceDownload) {
+                                    Toast.makeText(ArtistDetailActivity.this, getResources().getString(R.string.updated_artist_image_for) + " " + artist.name, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
             }
         });
     }

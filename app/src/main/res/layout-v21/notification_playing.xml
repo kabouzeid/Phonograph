@@ -91,7 +91,7 @@
                 android:id="@+id/button_quit"
                 style="@style/NotificationButton"
                 android:padding="8dp"
-                android:src="@drawable/ic_close_black_24dp"/>
+                android:src="@drawable/ic_close_white_24dp"/>
         </LinearLayout>
     </LinearLayout>
 

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,9 +41,8 @@ import com.nhaarman.listviewanimations.appearance.AnimationAdapter;
 import com.nhaarman.listviewanimations.appearance.simple.ScaleInAnimationAdapter;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -131,7 +131,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (Util.hasLollipopSDK()) postponeEnterTransition();
         app = (App) getApplicationContext();
         setTheme(app.getAppTheme());
         setUpTranslucence();
@@ -153,7 +152,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
         setUpObservableListViewParams();
         setUpToolBar();
         setUpViews();
-        if (!Util.hasLollipopSDK()) animateEnterActivity();
+        animateEnterActivity();
     }
 
     @Override
@@ -203,38 +202,16 @@ public class AlbumDetailActivity extends AbsFabActivity implements OnMusicRemote
 
     @SuppressLint("NewApi")
     private void setUpAlbumArtAndApplyPalette() {
-        ImageLoader.getInstance().displayImage(MusicUtil.getAlbumArtUri(album.id).toString(), albumArtImageView, new ImageLoadingListener() {
-            @Override
-            public void onLoadingStarted(String imageUri, View view) {
-            }
-
-            @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                albumArtImageView.setImageResource(R.drawable.default_album_art);
-                if (Util.hasLollipopSDK()) {
-                    startPostponedEnterTransition();
-                    animateEnterActivity();
-                }
-            }
-
-            @Override
-            public void onLoadingComplete(String imageUri, final View view, Bitmap loadedImage) {
-                applyPalette(loadedImage);
-                if (Util.hasLollipopSDK()) {
-                    startPostponedEnterTransition();
-                    animateEnterActivity();
-                }
-            }
-
-            @Override
-            public void onLoadingCancelled(String imageUri, View view) {
-                albumArtImageView.setImageResource(R.drawable.default_album_art);
-                if (Util.hasLollipopSDK()) {
-                    startPostponedEnterTransition();
-                    animateEnterActivity();
-                }
-            }
-        });
+        Picasso.with(this).load(MusicUtil.getAlbumArtUri(album.id))
+                .placeholder(R.drawable.default_album_art)
+                .into(albumArtImageView, new Callback.EmptyCallback() {
+                    @Override
+                    public void onSuccess() {
+                        super.onSuccess();
+                        final Bitmap bitmap = ((BitmapDrawable) albumArtImageView.getDrawable()).getBitmap();
+                        if (bitmap != null) applyPalette(bitmap);
+                    }
+                });
     }
 
     private void applyPalette(Bitmap bitmap) {

@@ -11,7 +11,6 @@ import com.android.volley.toolbox.Volley;
 import com.crashlytics.android.Crashlytics;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.misc.AppKeys;
-import com.kabouzeid.gramophone.util.ImageLoaderUtil;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -30,7 +29,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
-        ImageLoaderUtil.initImageLoader(this);
     }
 
     public MusicPlayerRemote getMusicPlayerRemote() {

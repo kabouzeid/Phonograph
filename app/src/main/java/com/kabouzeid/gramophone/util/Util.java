@@ -168,17 +168,6 @@ public class Util {
         return path;
     }
 
-    public static Bitmap getAlbumArtScaledBitmap(final Bitmap bitmap, boolean keepAspectRatio) {
-        if (keepAspectRatio) {
-            double aspectRatio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
-            int targetWidth = albumArtSize;
-            int targetHeight = (int) (targetWidth * aspectRatio);
-            return Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, false);
-        } else {
-            return getScaledBitmap(bitmap);
-        }
-    }
-
     private static Bitmap getScaledBitmap(final Bitmap bitmap) {
         return Bitmap.createScaledBitmap(bitmap, albumArtSize, albumArtSize, false);
     }

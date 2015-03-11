@@ -5,7 +5,8 @@ import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistThumbnailLoader;
+import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistThumbnailUrlLoader;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by karim on 29.12.14.
@@ -41,18 +42,14 @@ public class Artist implements SearchEntry {
     }
 
     @Override
-    public void loadImage(Context context, final ImageView imageView) {
-        imageView.setTag(name);
-        LastFMArtistThumbnailLoader.loadArtistThumbnail(context, name, new LastFMArtistThumbnailLoader.ArtistThumbnailLoaderCallback() {
+    public void loadImage(final Context context, final ImageView imageView) {
+        imageView.setImageResource(R.drawable.default_artist_image);
+        LastFMArtistThumbnailUrlLoader.loadArtistThumbnailUrl(context, name, false, new LastFMArtistThumbnailUrlLoader.ArtistThumbnailUrlLoaderCallback() {
             @Override
-            public void onArtistThumbnailLoaded(Bitmap thumbnail) {
-                if (imageView.getTag().equals(name)) {
-                    if (thumbnail != null) {
-                        imageView.setImageBitmap(thumbnail);
-                    } else {
-                        imageView.setImageResource(R.drawable.default_artist_image);
-                    }
-                }
+            public void onArtistThumbnailUrlLoaded(String url) {
+                Picasso.with(context)
+                        .load(url)
+                        .into(imageView);
             }
         });
     }

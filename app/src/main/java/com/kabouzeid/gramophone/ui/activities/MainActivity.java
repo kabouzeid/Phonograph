@@ -38,11 +38,10 @@ import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AlbumViewFrag
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.ArtistViewFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.MainActivityFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.SongViewFragment;
-import com.kabouzeid.gramophone.util.ImageLoaderUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.squareup.picasso.Picasso;
 
 
 public class MainActivity extends AbsFabActivity
@@ -152,7 +151,11 @@ public class MainActivity extends AbsFabActivity
         if (navigationDrawerFragment != null) {
             Song song = getApp().getMusicPlayerRemote().getCurrentSong();
             if (song.id != -1) {
-                ImageLoader.getInstance().displayImage(MusicUtil.getAlbumArtUri(song.albumId).toString(), navigationDrawerFragment.getAlbumArtImageView(), new ImageLoaderUtil.defaultAlbumArtOnFailed());
+                Picasso.with(this)
+                        .load(MusicUtil.getAlbumArtUri(song.albumId))
+                        .error(R.drawable.default_album_art)
+                        .placeholder(R.drawable.default_album_art)
+                        .into(navigationDrawerFragment.getAlbumArtImageView());
                 navigationDrawerFragment.getSongTitle().setText(song.title);
                 navigationDrawerFragment.getSongArtist().setText(song.artistName);
             }
@@ -164,7 +167,7 @@ public class MainActivity extends AbsFabActivity
         try {
             super.enableViews();
             toolbar.setEnabled(true);
-            ((MainActivityFragment)viewPagerAdapter.getItem(viewPager.getCurrentItem())).enableViews();
+            ((MainActivityFragment) viewPagerAdapter.getItem(viewPager.getCurrentItem())).enableViews();
         } catch (NullPointerException e) {
             Log.e(TAG, "wasn't able to enable the views", e);
         }
@@ -174,7 +177,7 @@ public class MainActivity extends AbsFabActivity
     public void disableViews() {
         try {
             super.disableViews();
-            ((MainActivityFragment)viewPagerAdapter.getItem(viewPager.getCurrentItem())).disableViews();
+            ((MainActivityFragment) viewPagerAdapter.getItem(viewPager.getCurrentItem())).disableViews();
         } catch (NullPointerException e) {
             Log.e(TAG, "wasn't able to disable the views", e);
         }

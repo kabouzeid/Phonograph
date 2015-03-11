@@ -6,17 +6,11 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.widget.RemoteViews;
 
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MusicControllerActivity;
-import com.kabouzeid.gramophone.util.MusicUtil;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * Implementation of App Widget functionality.
@@ -82,22 +76,6 @@ public class MusicPlayerWidget extends AppWidgetProvider {
                 return pendingIntent;
         }
         return null;
-    }
-
-    public void performUpdate(final  MusicService service, final Song song){
-        final RemoteViews views = new RemoteViews(service.getPackageName(), R.layout.music_player_widget);
-        linkButtons(service, views);
-        loadAlbumArt(views, MusicUtil.getAlbumArtUri(song.albumId).toString());
-        views.setTextViewText(R.id.song_title, song.title);
-    }
-
-    private static void loadAlbumArt(RemoteViews widgetView, String albumArtUri) {
-        Bitmap albumArtBitmap = ImageLoader.getInstance().loadImageSync(albumArtUri);
-        if (albumArtBitmap == null) {
-            widgetView.setImageViewResource(R.id.album_art, R.drawable.default_album_art);
-        } else {
-            widgetView.setImageViewBitmap(R.id.album_art, albumArtBitmap);
-        }
     }
 }
 

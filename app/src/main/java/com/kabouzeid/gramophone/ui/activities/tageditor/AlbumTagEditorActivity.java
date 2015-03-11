@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.ui.activities.tageditor;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,15 +11,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.lastfm.album.LastFMAlbumImageLoader;
+import com.kabouzeid.gramophone.lastfm.album.LastFMAlbumImageUrlLoader;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.kabouzeid.gramophone.util.Util;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.process.BitmapProcessor;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.images.Artwork;
@@ -89,20 +88,42 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
             Toast.makeText(this, getResources().getString(R.string.album_or_artist_empty), Toast.LENGTH_SHORT).show();
             return;
         }
-        LastFMAlbumImageLoader.loadAlbumImage(this, albumTitleStr, albumArtistNameStr, new LastFMAlbumImageLoader.AlbumImageLoaderCallback() {
-            @Override
-            public void onAlbumImageLoaded(Bitmap albumImage, String uri) {
-                if (albumImage != null) {
-                    setImageBitmap(albumImage);
-                    albumArtBitmap = albumImage;
-                    deleteAlbumArt = false;
-                    dataChanged();
-                    Toast.makeText(AlbumTagEditorActivity.this, "Success.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(AlbumTagEditorActivity.this, "Failed.", Toast.LENGTH_SHORT).show();
+        LastFMAlbumImageUrlLoader.loadAlbumImageUrl(this, albumTitleStr, albumArtistNameStr, new LastFMAlbumImageUrlLoader.AlbumImageUrlLoaderCallback() {
+                    @Override
+                    public void onAlbumImageUrlLoaded(String url) {
+                        Picasso.with(AlbumTagEditorActivity.this)
+                                .load(url)
+                                .resize(500, 500)
+                                .centerCrop()
+                                .onlyScaleDown()
+                                .into(new Target() {
+                                    @Override
+                                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                        albumArtBitmap = bitmap;
+                                        setImageBitmap(albumArtBitmap);
+                                        deleteAlbumArt = false;
+                                        dataChanged();
+                                        Toast.makeText(AlbumTagEditorActivity.this, "Success.", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onBitmapFailed(Drawable errorDrawable) {
+                                        Toast.makeText(AlbumTagEditorActivity.this, "Failed.", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onError() {
+                        Toast.makeText(AlbumTagEditorActivity.this, "Failed.", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+        );
     }
 
     @Override
@@ -166,24 +187,30 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
     @Override
     protected void loadImageFromFile(final Uri selectedFileUri) {
-        DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .cacheInMemory(true)
-                .cacheOnDisk(false)
-                .postProcessor(new BitmapProcessor() {
+        Picasso.with(this)
+                .load(selectedFileUri)
+                .resize(500, 500)
+                .centerCrop()
+                .onlyScaleDown()
+                .into(new Target() {
                     @Override
-                    public Bitmap process(Bitmap bmp) {
-                        Bitmap scaledBitmap = Util.getAlbumArtScaledBitmap(bmp, true);
-                        bmp.recycle();
-                        return scaledBitmap;
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        albumArtBitmap = bitmap;
+                        setImageBitmap(albumArtBitmap);
+                        deleteAlbumArt = false;
+                        dataChanged();
                     }
-                })
-                .build();
-        albumArtBitmap = ImageLoader.getInstance().loadImageSync(selectedFileUri.toString(), options);
-        if (albumArtBitmap != null) {
-            setImageBitmap(albumArtBitmap);
-            deleteAlbumArt = false;
-            dataChanged();
-        }
+
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable) {
+                        //TODO Toast could not read file
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                    }
+                });
     }
 
     @Override

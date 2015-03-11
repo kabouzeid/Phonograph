@@ -4,6 +4,10 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.lastfm.LastFMUtil;
 import com.kabouzeid.gramophone.provider.AlbumJSONStore;
 
@@ -78,6 +82,25 @@ public class LastFMAlbumInfoUtil {
             //Log.e(TAG, "Error while getting album image from JSON parameter!", e);
             return "";
         }
+    }
+
+    public static void downloadAlbumInfoJSON(final Context context, final String album, final String artist, final Response.Listener<JSONObject> callbackSuccess, final Response.ErrorListener callbackError) {
+        App app = (App) context.getApplicationContext();
+        String albumUrl = LastFMAlbumInfoUtil.getAlbumUrl(album, artist);
+        JsonObjectRequest albumInfoJSONRequest = new JsonObjectRequest(0, albumUrl, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                LastFMAlbumInfoUtil.saveAlbumJSONDataToCacheAndDisk(context, album, artist, response);
+                callbackSuccess.onResponse(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(TAG, "Download failed!", error);
+                callbackError.onErrorResponse(error);
+            }
+        });
+        app.addToVolleyRequestQueue(albumInfoJSONRequest);
     }
 
     public static void saveAlbumJSONDataToCacheAndDisk(Context context, String album, String artist, JSONObject jsonObject) {
