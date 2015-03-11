@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.model.SearchEntry;
+import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.SearchActivity;
 
 import java.util.List;
@@ -42,6 +43,11 @@ public class SearchAdapter extends ArrayAdapter<SearchEntry> {
             subTitle.setVisibility(View.GONE);
             imageView.setVisibility(View.GONE);
             convertView.setBackgroundColor(getContext().getResources().getColor(R.color.materialmusic_default_bar_color));
+        } else if (item instanceof Song) {
+            title.setTypeface(null, Typeface.NORMAL);
+            subTitle.setVisibility(View.VISIBLE);
+            imageView.setVisibility(View.GONE);
+            convertView.setBackgroundColor(Color.TRANSPARENT);
         } else {
             title.setTypeface(null, Typeface.NORMAL);
             subTitle.setVisibility(View.VISIBLE);

@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.misc.SmallOnGestureListener;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.melnykov.fab.FloatingActionButton;
@@ -47,11 +48,11 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
         getFab().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getApp().getMusicPlayerRemote().getPosition() != -1) {
-                    if (getApp().getMusicPlayerRemote().isPlaying()) {
-                        getApp().getMusicPlayerRemote().pauseSong();
+                if (MusicPlayerRemote.getPosition() != -1) {
+                    if (MusicPlayerRemote.isPlaying()) {
+                        MusicPlayerRemote.pauseSong();
                     } else {
-                        getApp().getMusicPlayerRemote().resumePlaying();
+                        MusicPlayerRemote.resumePlaying();
                     }
                 } else {
                     Toast.makeText(AbsFabActivity.this, getResources().getString(R.string.nothing_playing), Toast.LENGTH_SHORT).show();
@@ -77,7 +78,7 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
     }
 
     private void updateFabState() {
-        if (getApp().getMusicPlayerRemote().isPlaying()) {
+        if (MusicPlayerRemote.isPlaying()) {
             getFab().setImageResource(R.drawable.ic_pause_white_24dp);
         } else {
             getFab().setImageResource(R.drawable.ic_play_arrow_white_24dp);

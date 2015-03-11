@@ -35,9 +35,12 @@ public class ArtistViewListAdapter extends ArrayAdapter<Artist> {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_artist_view, parent, false);
         }
         final TextView artistName = (TextView) convertView.findViewById(R.id.artist_name);
+        final TextView artistInfo = (TextView) convertView.findViewById(R.id.artist_info);
         final ImageView artistArt = (ImageView) convertView.findViewById(R.id.artist_image);
 
         artistName.setText(artist.name);
+        artistInfo.setText(artist.getSubTitle());
+
         artistArt.setImageResource(R.drawable.default_artist_image);
 
         LastFMArtistThumbnailUrlLoader.loadArtistThumbnailUrl(context, artist.name, false, new LastFMArtistThumbnailUrlLoader.ArtistThumbnailUrlLoaderCallback() {

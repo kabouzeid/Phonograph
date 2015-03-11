@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.songadapter.SongAdapter;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.SongDetailDialogHelper;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
@@ -49,7 +50,7 @@ public class PlayingQueueAdapter extends ArrayAdapter<Song> {
         final ImageView overflowButton = (ImageView) convertView.findViewById(R.id.menu);
 
         title.setText(song.title);
-        if (app.getMusicPlayerRemote().getPosition() == position) {
+        if (MusicPlayerRemote.getPosition() == position) {
             playingIndicator.setVisibility(View.VISIBLE);
             playingIndicator.setImageResource(R.drawable.ic_speaker_white_48dp);
         } else {

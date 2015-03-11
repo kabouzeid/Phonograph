@@ -19,6 +19,7 @@ import android.widget.ListView;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.SearchAdapter;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.SongLoader;
@@ -60,7 +61,7 @@ public class SearchActivity extends AbsBaseActivity {
                     if (item instanceof Song) {
                         List<Song> playList = new ArrayList<>();
                         playList.add((Song) item);
-                        getApp().getMusicPlayerRemote().openQueue(playList, 0, true);
+                        MusicPlayerRemote.openQueue(playList, 0, true);
                     } else if (item instanceof Album) {
                         goToAlbum(((Album) item).id, new Pair[]{Pair.create(view.findViewById(R.id.image), getResources().getString(R.string.transition_album_cover))});
                     } else if (item instanceof Artist) {

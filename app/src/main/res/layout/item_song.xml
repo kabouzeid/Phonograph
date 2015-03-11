@@ -43,6 +43,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
     <ImageView
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
         android:id="@+id/menu"
         style="@style/OverFlowButton"
         android:layout_gravity="center_vertical"/>

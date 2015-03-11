@@ -24,6 +24,7 @@ import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.songadapter.SongAdapter;
 import com.kabouzeid.gramophone.comparator.SongTrackNumberComparator;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
@@ -321,7 +322,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position > 0) {
-                    app.getMusicPlayerRemote().openQueue(songs, position - 1, true);
+                    MusicPlayerRemote.openQueue(songs, position - 1, true);
                 }
             }
         });

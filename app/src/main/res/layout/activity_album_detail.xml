@@ -57,7 +57,6 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textColor="?attr/title_text_color"/>
 
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

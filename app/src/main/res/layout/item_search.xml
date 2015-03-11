@@ -12,15 +12,18 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
+        android:background="@drawable/image_background"
         android:gravity="center"
+        android:scaleType="centerCrop"
         />
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_weight="1"
-        android:layout_gravity="center"
         android:layout_width="0dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -29,7 +32,7 @@
             android:layout_marginRight="16dp"
             android:fontFamily="sans-serif"
             android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
         <TextView
             android:id="@+id/sub_title"
@@ -39,6 +42,6 @@
             android:layout_marginRight="16dp"
             android:fontFamily="sans-serif"
             android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
-        </LinearLayout>
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
+    </LinearLayout>
 </LinearLayout>

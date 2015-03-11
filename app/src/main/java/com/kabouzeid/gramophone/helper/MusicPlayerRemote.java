@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.kabouzeid.gramophone.App;
@@ -24,94 +25,93 @@ import java.util.List;
 public class MusicPlayerRemote {
     private static final String TAG = MusicPlayerRemote.class.getSimpleName();
 
-    private App app;
+    private static int position = -1;
 
-    private int position = -1;
+    private static List<Song> playingQueue;
+    private static List<Song> restoredOriginalQueue;
 
-    private List<Song> playingQueue;
-    private List<Song> restoredOriginalQueue;
+    private static Context context;
+    private static MusicService musicService;
+    private static Intent musicServiceIntent;
 
-    private MusicService musicService;
-    private Intent musicServiceIntent;
-    private boolean musicBound = false;
-    private ServiceConnection musicConnection = new ServiceConnection() {
+    private static ServiceConnection musicConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
             musicService = binder.getService();
-            musicBound = true;
             musicService.restorePreviousState(restoredOriginalQueue, playingQueue, position);
-            notifyOnMusicRemoteEventListeners(MusicRemoteEvent.SERVICE_CONNECTED);
+            postToBus(MusicRemoteEvent.SERVICE_CONNECTED);
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            musicBound = false;
-            notifyOnMusicRemoteEventListeners(MusicRemoteEvent.SERVICE_DISCONNECTED);
+            musicService = null;
+            postToBus(MusicRemoteEvent.SERVICE_DISCONNECTED);
         }
     };
 
-    public MusicPlayerRemote(Context context) {
-        app = (App) context.getApplicationContext();
+    public static void init(final Context context) {
+        MusicPlayerRemote.context = context;
         playingQueue = new ArrayList<>();
         restoredOriginalQueue = new ArrayList<>();
         startAndBindService();
+        restorePreviousState();
     }
 
-    private void startAndBindService() {
+    private static void startAndBindService() {
         if (musicServiceIntent == null) {
-            musicServiceIntent = new Intent(app, MusicService.class);
-            app.bindService(musicServiceIntent, musicConnection, Context.BIND_AUTO_CREATE);
-            app.startService(musicServiceIntent);
+            musicServiceIntent = new Intent(context, MusicService.class);
+            context.bindService(musicServiceIntent, musicConnection, Context.BIND_AUTO_CREATE);
+            context.startService(musicServiceIntent);
         }
     }
 
-    public boolean playSongAt(final int position) {
-        if (musicBound) {
+    public static boolean playSongAt(final int position) {
+        if (musicService != null) {
             musicService.playSongAt(position);
         }
         return false;
     }
 
-    public void pauseSong() {
-        if (musicBound) {
+    public static void pauseSong() {
+        if (musicService != null) {
             musicService.pausePlaying();
         }
     }
 
-    public void playNextSong() {
-        if (musicBound) {
+    public static void playNextSong() {
+        if (musicService != null) {
             musicService.playNextSong();
         }
     }
 
-    public void playPreviousSong() {
-        if (musicBound) {
+    public static void playPreviousSong() {
+        if (musicService != null) {
             musicService.back();
         }
     }
 
-    public void back() {
-        if (musicBound) {
+    public static void back() {
+        if (musicService != null) {
             musicService.back();
         }
     }
 
-    public boolean isPlaying() {
-        if (musicBound) {
+    public static boolean isPlaying() {
+        if (musicService != null) {
             return musicService.isPlaying();
         }
         return false;
     }
 
-    public void resumePlaying() {
-        if (musicBound) {
+    public static void resumePlaying() {
+        if (musicService != null) {
             musicService.resumePlaying();
         }
     }
 
-    public long getCurrentSongId() {
-        if (musicBound) {
+    public static long getCurrentSongId() {
+        if (musicService != null) {
             return musicService.getCurrentSongId();
         }
         try {
@@ -121,14 +121,14 @@ public class MusicPlayerRemote {
         }
     }
 
-    public void openQueue(final List<Song> playingQueue, final int startPosition, final boolean startPlaying) {
-        this.playingQueue = playingQueue;
-        if (musicBound) {
-            musicService.openQueue(this.playingQueue, startPosition, startPlaying);
+    public static void openQueue(final List<Song> playingQueue, final int startPosition, final boolean startPlaying) {
+        MusicPlayerRemote.playingQueue = playingQueue;
+        if (musicService != null) {
+            musicService.openQueue(MusicPlayerRemote.playingQueue, startPosition, startPlaying);
         }
     }
 
-    public Song getCurrentSong() {
+    public static Song getCurrentSong() {
         final int position = getPosition();
         if (position != -1) {
             return getPlayingQueue().get(position);
@@ -136,89 +136,85 @@ public class MusicPlayerRemote {
         return new Song();
     }
 
-    public int getPosition() {
-        if (musicBound) {
+    public static int getPosition() {
+        if (musicService != null) {
             position = musicService.getPosition();
         }
         return position;
     }
 
-    private void setPosition(int position) {
-        this.position = position;
-        if (musicBound) {
+    private static void setPosition(int position) {
+        MusicPlayerRemote.position = position;
+        if (musicService != null) {
             musicService.setPosition(position);
         }
     }
 
-    public List<Song> getPlayingQueue() {
-        if (musicBound) {
+    public static List<Song> getPlayingQueue() {
+        if (musicService != null) {
             playingQueue = musicService.getPlayingQueue();
         }
         return playingQueue;
     }
 
-    public int getSongProgressMillis() {
+    public static int getSongProgressMillis() {
         if (isPlayerPrepared()) {
             return musicService.getSongProgressMillis();
         }
         return -1;
     }
 
-    public boolean isPlayerPrepared() {
-        if (musicBound) {
+    public static boolean isPlayerPrepared() {
+        if (musicService != null) {
             return musicService.isPlayerPrepared();
         }
         return false;
     }
 
-    public int getSongDurationMillis() {
+    public static int getSongDurationMillis() {
         if (isPlayerPrepared()) {
             return musicService.getSongDurationMillis();
         }
         return -1;
     }
 
-    public boolean isMusicBound() {
-        return musicBound;
-    }
-
-    public void seekTo(int millis) {
-        if (musicBound) {
+    public static void seekTo(int millis) {
+        if (musicService != null) {
             musicService.seekTo(millis);
         }
     }
 
-    public int getRepeatMode() {
-        if (musicBound) {
+    public static int getRepeatMode() {
+        if (musicService != null) {
             return musicService.getRepeatMode();
         }
-        return app.getDefaultSharedPreferences().getInt(AppKeys.SP_REPEAT_MODE, 0);
+        return PreferenceManager.getDefaultSharedPreferences(context).getInt(AppKeys.SP_REPEAT_MODE, 0);
     }
 
-    public int getShuffleMode() {
-        if (musicBound) {
+    public static int getShuffleMode() {
+        if (musicService != null) {
             return musicService.getShuffleMode();
         }
-        return app.getDefaultSharedPreferences().getInt(AppKeys.SP_SHUFFLE_MODE, 0);
+        return PreferenceManager.getDefaultSharedPreferences(context).getInt(AppKeys.SP_SHUFFLE_MODE, 0);
     }
 
-    public boolean cycleRepeatMode() {
-        if (musicBound) {
+    public static boolean cycleRepeatMode() {
+        if (musicService != null) {
             musicService.cycleRepeatMode();
             return true;
         }
         return false;
     }
 
-    public boolean toggleShuffleMode() {
-        if (musicBound) {
+    public static boolean toggleShuffleMode() {
+        if (musicService != null) {
             musicService.toggleShuffle();
             return true;
         }
         return false;
     }
 
-    public void moveSong(int from, int to) {
+    public static void moveSong(int from, int to) {
         final int currentPosition = getPosition();
         Song songToMove = getPlayingQueue().remove(from);
         getPlayingQueue().add(to, songToMove);
@@ -231,27 +227,27 @@ public class MusicPlayerRemote {
         }
     }
 
-    private void notifyOnMusicRemoteEventListeners(int event) {
+    private static void postToBus(int event) {
         MusicRemoteEvent musicRemoteEvent = new MusicRemoteEvent(event);
         App.bus.post(musicRemoteEvent);
     }
 
     @SuppressWarnings("unchecked")
-    public void restorePreviousState() {
+    public static void restorePreviousState() {
         try {
-            List restoredQueue = (ArrayList<Song>) InternalStorageUtil.readObject(app, AppKeys.IS_PLAYING_QUEUE);
-            List restoredOriginalQueue = (ArrayList<Song>) InternalStorageUtil.readObject(app, AppKeys.IS_ORIGINAL_PLAYING_QUEUE);
-            int restoredPosition = (int) InternalStorageUtil.readObject(app, AppKeys.IS_POSITION_IN_QUEUE);
+            List restoredQueue = (ArrayList<Song>) InternalStorageUtil.readObject(context, AppKeys.IS_PLAYING_QUEUE);
+            List restoredOriginalQueue = (ArrayList<Song>) InternalStorageUtil.readObject(context, AppKeys.IS_ORIGINAL_PLAYING_QUEUE);
+            int restoredPosition = (int) InternalStorageUtil.readObject(context, AppKeys.IS_POSITION_IN_QUEUE);
 
-            if (musicBound) {
+            if (musicService != null) {
                 musicService.restorePreviousState(restoredOriginalQueue, restoredQueue, restoredPosition);
             }
 
             playingQueue = restoredQueue;
-            this.restoredOriginalQueue = restoredOriginalQueue;
+            MusicPlayerRemote.restoredOriginalQueue = restoredOriginalQueue;
             position = restoredPosition;
 
-            notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STATE_RESTORED);
+            postToBus(MusicRemoteEvent.STATE_RESTORED);
         } catch (IOException | ClassNotFoundException | ClassCastException e) {
             Log.e(TAG, "error while restoring music service state", e);
             playingQueue = new ArrayList<>();

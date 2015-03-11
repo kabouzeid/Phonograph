@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.PlayingQueueDialogHelper;
 import com.kabouzeid.gramophone.helper.SongDetailDialogHelper;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistImageUrlLoader;
@@ -117,7 +118,7 @@ public class MusicControllerActivity extends AbsFabActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
-                    getApp().getMusicPlayerRemote().seekTo(progress);
+                    MusicPlayerRemote.seekTo(progress);
                 }
             }
 
@@ -135,13 +136,13 @@ public class MusicControllerActivity extends AbsFabActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getApp().getMusicPlayerRemote().playNextSong();
+                MusicPlayerRemote.playNextSong();
             }
         });
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getApp().getMusicPlayerRemote().back();
+                MusicPlayerRemote.back();
             }
         });
     }
@@ -151,13 +152,13 @@ public class MusicControllerActivity extends AbsFabActivity {
         shuffleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getApp().getMusicPlayerRemote().toggleShuffleMode();
+                MusicPlayerRemote.toggleShuffleMode();
             }
         });
     }
 
     private void updateShuffleState() {
-        switch (getApp().getMusicPlayerRemote().getShuffleMode()) {
+        switch (MusicPlayerRemote.getShuffleMode()) {
             case MusicService.SHUFFLE_MODE_SHUFFLE:
                 shuffleButton.setImageResource(R.drawable.ic_shuffle_white_48dp);
                 break;
@@ -172,13 +173,13 @@ public class MusicControllerActivity extends AbsFabActivity {
         repeatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getApp().getMusicPlayerRemote().cycleRepeatMode();
+                MusicPlayerRemote.cycleRepeatMode();
             }
         });
     }
 
     private void updateRepeatState() {
-        switch (getApp().getMusicPlayerRemote().getRepeatMode()) {
+        switch (MusicPlayerRemote.getRepeatMode()) {
             case MusicService.REPEAT_MODE_NONE:
                 repeatButton.setImageResource(R.drawable.ic_repeat_grey600_48dp);
                 break;
@@ -299,7 +300,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     private void getCurrentSong() {
-        song = getApp().getMusicPlayerRemote().getCurrentSong();
+        song = MusicPlayerRemote.getCurrentSong();
         if (song.id == -1) {
             finish();
         }
@@ -312,10 +313,10 @@ public class MusicControllerActivity extends AbsFabActivity {
             public void run() {
                 int currentPosition = 0;
                 int total = 0;
-                while (getApp().getMusicPlayerRemote().isMusicBound() && !killThreads) {
+                while (!killThreads) {
                     try {
-                        total = getApp().getMusicPlayerRemote().getSongDurationMillis();
-                        currentPosition = getApp().getMusicPlayerRemote().getSongProgressMillis();
+                        total = MusicPlayerRemote.getSongDurationMillis();
+                        currentPosition = MusicPlayerRemote.getSongProgressMillis();
                         Thread.sleep(1);
                     } catch (InterruptedException e) {
                         return;

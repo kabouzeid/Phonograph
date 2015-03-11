@@ -20,7 +20,7 @@ import java.util.List;
 public class PlayingQueueDialogHelper {
     public static MaterialDialog getDialog(Context context, SongAdapter.GoToAble goToAble) {
         final App app = (App) context.getApplicationContext();
-        List<Song> playingQueue = app.getMusicPlayerRemote().getPlayingQueue();
+        List<Song> playingQueue = MusicPlayerRemote.getPlayingQueue();
         if (playingQueue.isEmpty()) {
             return null;
         }
@@ -49,14 +49,14 @@ public class PlayingQueueDialogHelper {
         dragSortListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                app.getMusicPlayerRemote().playSongAt(position);
+                MusicPlayerRemote.playSongAt(position);
                 playingQueueAdapter.notifyDataSetChanged();
             }
         });
         dragSortListView.setDropListener(new DragSortListView.DropListener() {
             @Override
             public void drop(int from, int to) {
-                app.getMusicPlayerRemote().moveSong(from, to);
+                MusicPlayerRemote.moveSong(from, to);
                 playingQueueAdapter.notifyDataSetChanged();
             }
         });

@@ -39,6 +39,7 @@ public class SongViewListAdapter extends SongAdapter {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_song_view, parent, false);
         }
         TextView songTitle = (TextView) convertView.findViewById(R.id.song_title);
+        TextView songInfo = (TextView) convertView.findViewById(R.id.song_info);
         final ImageView albumArt = (ImageView) convertView.findViewById(R.id.album_art);
         ImageView overflowButton = (ImageView) convertView.findViewById(R.id.menu);
 
@@ -80,6 +81,8 @@ public class SongViewListAdapter extends SongAdapter {
         });
 
         songTitle.setText(song.title);
+        songInfo.setText(song.getSubTitle());
+
         Picasso.with(getContext())
                 .load(MusicUtil.getAlbumArtUri(song.albumId))
                 .placeholder(R.drawable.default_album_art)

@@ -6,6 +6,7 @@ import android.widget.ListAdapter;
 
 import com.kabouzeid.gramophone.adapter.songadapter.SongAdapter;
 import com.kabouzeid.gramophone.comparator.SongAlphabeticComparator;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
@@ -29,7 +30,7 @@ public class ViewPagerTabArtistSongListFragment extends AbsViewPagerTabArtistLis
         setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                app.getMusicPlayerRemote().openQueue(songs, position, true);
+                MusicPlayerRemote.openQueue(songs, position, true);
             }
         });
         return adapter;

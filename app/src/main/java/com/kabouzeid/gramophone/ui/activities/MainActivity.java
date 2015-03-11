@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -25,6 +26,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.AboutDeveloperDialogHelper;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.PlayingQueueDialogHelper;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.misc.AppKeys;
@@ -73,7 +75,7 @@ public class MainActivity extends AbsFabActivity
     private void setUpViewPager() {
         viewPagerAdapter = new MainActivityViewPagerAdapter(this);
         viewPager.setAdapter(viewPagerAdapter);
-        int startPosition = getApp().getDefaultSharedPreferences().getInt(AppKeys.SP_VIEWPAGER_ITEM_POSITION, 1);
+        int startPosition = PreferenceManager.getDefaultSharedPreferences(this).getInt(AppKeys.SP_VIEWPAGER_ITEM_POSITION, 1);
         viewPager.setCurrentItem(startPosition);
         navigationDrawerFragment.setItemChecked(startPosition);
 
@@ -87,7 +89,7 @@ public class MainActivity extends AbsFabActivity
 
             @Override
             public void onPageSelected(final int position) {
-                getApp().getDefaultSharedPreferences().edit().putInt(AppKeys.SP_VIEWPAGER_ITEM_POSITION, position).apply();
+                PreferenceManager.getDefaultSharedPreferences(MainActivity.this).edit().putInt(AppKeys.SP_VIEWPAGER_ITEM_POSITION, position).apply();
                 navigationDrawerFragment.setItemChecked(position);
             }
 
@@ -147,7 +149,7 @@ public class MainActivity extends AbsFabActivity
 
     private void updateNavigationDrawerHeader() {
         if (navigationDrawerFragment != null) {
-            Song song = getApp().getMusicPlayerRemote().getCurrentSong();
+            Song song = MusicPlayerRemote.getCurrentSong();
             if (song.id != -1) {
                 Picasso.with(this)
                         .load(MusicUtil.getAlbumArtUri(song.albumId))

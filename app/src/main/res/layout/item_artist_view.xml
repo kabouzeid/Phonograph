@@ -12,20 +12,37 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
+        android:background="@drawable/image_background"
         android:gravity="center"
         android:scaleType="centerCrop"
         />
 
-    <TextView
-        android:id="@+id/artist_name"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:layout_weight="1"
-        android:fontFamily="sans-serif"
-        android:singleLine="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/artist_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:fontFamily="sans-serif"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+        <TextView
+            android:id="@+id/artist_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:fontFamily="sans-serif"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
+    </LinearLayout>
 
 </LinearLayout>

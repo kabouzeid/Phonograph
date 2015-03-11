@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
@@ -62,7 +63,7 @@ public class NavigationDrawerFragment extends Fragment {
         if (!userLearnedDrawer && !fromSavedInstanceState) {
             this.drawerLayout.openDrawer(fragmentContainerView);
             userLearnedDrawer = true;
-            app.getDefaultSharedPreferences().edit().putBoolean(AppKeys.SP_USER_LEARNED_DRAWER, true).apply();
+            PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().putBoolean(AppKeys.SP_USER_LEARNED_DRAWER, true).apply();
         }
     }
 
@@ -91,7 +92,7 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         app = (App) getActivity().getApplicationContext();
-        userLearnedDrawer = app.getDefaultSharedPreferences().getBoolean(AppKeys.SP_USER_LEARNED_DRAWER, false);
+        userLearnedDrawer = PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean(AppKeys.SP_USER_LEARNED_DRAWER, false);
         if (savedInstanceState != null) {
             setItemChecked(savedInstanceState.getInt(STATE_SELECTED_POSITION));
             fromSavedInstanceState = true;

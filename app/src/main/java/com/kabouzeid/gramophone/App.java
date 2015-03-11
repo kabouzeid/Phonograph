@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone;
 
 import android.app.Application;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.preference.PreferenceManager;
 
@@ -24,42 +23,26 @@ public class App extends Application {
 
     public static Bus bus = new Bus(ThreadEnforcer.MAIN);
 
-    private MusicPlayerRemote playerRemote;
     private int appTheme;
-    private SharedPreferences defaultSharedPreferences;
     private RequestQueue requestQueue;
 
     @Override
     public void onCreate() {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
-    }
-
-    public MusicPlayerRemote getMusicPlayerRemote() {
-        if (playerRemote == null) {
-            playerRemote = new MusicPlayerRemote(this);
-            playerRemote.restorePreviousState();
-        }
-        return playerRemote;
+        MusicPlayerRemote.init(this);
     }
 
     public int getAppTheme() {
         if (appTheme == 0) {
-            appTheme = getDefaultSharedPreferences().getInt(AppKeys.SP_THEME, R.style.Theme_MaterialMusic);
+            appTheme = PreferenceManager.getDefaultSharedPreferences(this).getInt(AppKeys.SP_THEME, R.style.Theme_MaterialMusic);
         }
         return appTheme;
     }
 
-    public SharedPreferences getDefaultSharedPreferences() {
-        if (defaultSharedPreferences == null) {
-            defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        }
-        return defaultSharedPreferences;
-    }
-
     public void setAppTheme(int appTheme) {
         this.appTheme = appTheme;
-        defaultSharedPreferences.edit().putInt(AppKeys.SP_THEME, appTheme).apply();
+        PreferenceManager.getDefaultSharedPreferences(this).edit().putInt(AppKeys.SP_THEME, appTheme).apply();
     }
 
     public boolean isTablet() {

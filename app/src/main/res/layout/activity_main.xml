@@ -50,6 +50,11 @@
                     android:layout_height="@dimen/tab_height"
                     android:background="?colorPrimary"
                     android:elevation="2dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@drawable/shadow_down" />
             </LinearLayout>
 
             <LinearLayout

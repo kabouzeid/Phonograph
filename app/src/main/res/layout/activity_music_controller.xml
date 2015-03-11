@@ -15,13 +15,12 @@
         android:src="@drawable/default_album_art"
         android:transitionName="@string/transition_album_cover"/>
 
-    <LinearLayout
+    <View
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/footer"
         android:layout_alignTop="@+id/progress_container"
-        android:background="@drawable/navigation_drawer_gradient"
-        android:orientation="vertical"/>
+        android:background="@drawable/shadow_up"/>
 
     <LinearLayout
         android:id="@+id/progress_container"
@@ -89,6 +88,12 @@
             android:textColor="?attr/caption_text_color"/>
 
     </LinearLayout>
+
+    <View
+        android:layout_below="@id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@drawable/shadow_down" />
 
     <RelativeLayout
         android:id="@+id/media_controller_container"

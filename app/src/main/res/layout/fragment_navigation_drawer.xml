@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/navigation_drawer_gradient"
+            android:background="@drawable/shadow_up"
             android:orientation="vertical"/>
 
         <LinearLayout

@@ -13,6 +13,7 @@ import com.crashlytics.android.Crashlytics;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.songadapter.SongAdapter;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity;
@@ -74,7 +75,7 @@ public abstract class AbsBaseActivity extends ActionBarActivity implements KabVi
     }
 
     protected boolean openCurrentPlayingIfPossible(Pair[] sharedViews) {
-        if (getApp().getMusicPlayerRemote().getPosition() != -1) {
+        if (MusicPlayerRemote.getPosition() != -1) {
             if (areViewsEnabled()) {
                 disableViews();
                 Intent intent = new Intent(this, MusicControllerActivity.class);

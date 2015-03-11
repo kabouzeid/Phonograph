@@ -12,6 +12,7 @@ import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.songadapter.SongViewListAdapter;
 import com.kabouzeid.gramophone.comparator.SongAlphabeticComparator;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
@@ -73,7 +74,7 @@ public class SongViewFragment extends MainActivityFragment {
         absListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                app.getMusicPlayerRemote().openQueue(songs, position, true);
+                MusicPlayerRemote.openQueue(songs, position, true);
             }
         });
 

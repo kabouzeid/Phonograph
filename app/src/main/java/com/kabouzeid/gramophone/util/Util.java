@@ -10,6 +10,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.TypedValue;
 import android.view.View;
@@ -116,7 +117,7 @@ public class Util {
         }
 
         boolean state = false;
-        final boolean onlyOnWifi = ((App) context.getApplicationContext()).getDefaultSharedPreferences().getBoolean(AppKeys.SP_ONLY_ON_WIFI, true);
+        final boolean onlyOnWifi = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(AppKeys.SP_ONLY_ON_WIFI, true);
 
         /* Monitor network connections */
         final ConnectivityManager connectivityManager = (ConnectivityManager) context
