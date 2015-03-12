@@ -75,7 +75,7 @@ public class AlbumViewFragment extends MainActivityFragment {
     }
 
     private void fillAbsListView(List<Album> albums) {
-        Collections.sort(albums, new AlbumAlphabeticComparator());
+        //Collections.sort(albums, new AlbumAlphabeticComparator());
         AlbumViewGridAdapter albumViewGridAdapter = new AlbumViewGridAdapter(getActivity(), albums);
         absListView.setAdapter(albumViewGridAdapter);
         absListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

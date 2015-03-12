@@ -6,9 +6,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
 import java.io.File;
+import java.io.FileDescriptor;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -22,6 +25,16 @@ public class MusicUtil {
                 .parse("content://media/external/audio/albumart");
 
         return ContentUris.withAppendedId(sArtworkUri, album_id);
+    }
+
+    public static boolean hasAlbumArt(final Context context, int album_id) {
+        try {
+            context.getContentResolver().openFileDescriptor(getAlbumArtUri(album_id), "r");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     public static String getReadableDurationString(long songDurationMillis) {

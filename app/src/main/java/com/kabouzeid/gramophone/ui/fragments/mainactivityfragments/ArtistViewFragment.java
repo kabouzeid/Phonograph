@@ -82,7 +82,7 @@ public class ArtistViewFragment extends MainActivityFragment {
     }
 
     private void fillAbsListView(List<Artist> artists) {
-        Collections.sort(artists, new ArtistAlphabeticComparator());
+        //Collections.sort(artists, new ArtistAlphabeticComparator());
         ArtistViewListAdapter artistAdapter = new ArtistViewListAdapter(getActivity(), artists);
         absListView.setAdapter(artistAdapter);
         absListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

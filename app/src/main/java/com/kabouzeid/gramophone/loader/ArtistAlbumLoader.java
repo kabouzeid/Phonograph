@@ -6,6 +6,7 @@ import android.provider.BaseColumns;
 import android.provider.MediaStore;
 
 import com.kabouzeid.gramophone.model.Album;
+import com.kabouzeid.gramophone.util.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,6 @@ public class ArtistAlbumLoader {
                         MediaStore.Audio.AlbumColumns.NUMBER_OF_SONGS,
                         /* 4 */
                         MediaStore.Audio.AlbumColumns.FIRST_YEAR
-                }, null, null, null);
+                }, null, null, PreferenceUtils.getInstace(context).getArtistAlbumSortOrder());
     }
 }

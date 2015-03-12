@@ -6,6 +6,7 @@ import android.provider.BaseColumns;
 import android.provider.MediaStore;
 
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.util.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -68,6 +69,6 @@ public class AlbumSongLoader {
                         MediaStore.Audio.AudioColumns.TRACK,
                         /* 6 */
                         MediaStore.Audio.AudioColumns.ARTIST_ID
-                }, selection.toString(), null, null);
+                }, selection.toString(), null, PreferenceUtils.getInstace(context).getAlbumSongSortOrder());
     }
 }

@@ -64,7 +64,7 @@ public class SongViewFragment extends MainActivityFragment {
     }
 
     private void fillAbsListView(final List<Song> songs) {
-        Collections.sort(songs, new SongAlphabeticComparator());
+        //Collections.sort(songs, new SongAlphabeticComparator());
         AbsBaseActivity absBaseActivity = null;
         if (getActivity() instanceof AbsBaseActivity) {
             absBaseActivity = (AbsBaseActivity) getActivity();

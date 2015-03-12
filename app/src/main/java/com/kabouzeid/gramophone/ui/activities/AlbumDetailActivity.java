@@ -7,13 +7,11 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -37,10 +35,7 @@ import com.kabouzeid.gramophone.ui.activities.tageditor.AlbumTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.nhaarman.listviewanimations.appearance.AnimationAdapter;
-import com.nhaarman.listviewanimations.appearance.simple.ScaleInAnimationAdapter;
 import com.nineoldandroids.view.ViewHelper;
-import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -58,15 +53,11 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
     public static final String TAG = AlbumDetailActivity.class.getSimpleName();
 
     private static final boolean TOOLBAR_IS_STICKY = true;
-    private static final int DEFAULT_DELAY_NO_TRANSITION = 200;
-    private static final int DEFAULT_DELAY = 450;
-    private static final int DEFAULT_ANIMATION_TIME = 1000;
 
     private App app;
 
     private Album album;
 
-    private AnimationAdapter animatedSongsAdapter;
     private ObservableListView absSongListView;
     private View statusBar;
     private ImageView albumArtImageView;
@@ -138,6 +129,8 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_detail);
 
+        if (Util.hasLollipopSDK()) postponeEnterTransition();
+
         Bundle intentExtras = getIntent().getExtras();
         int albumId = -1;
         if (intentExtras != null) {
@@ -152,7 +145,8 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
         setUpObservableListViewParams();
         setUpToolBar();
         setUpViews();
-        animateEnterActivity();
+
+        if (Util.hasLollipopSDK()) startPostponedEnterTransition();
     }
 
     @Override
@@ -190,17 +184,11 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
         albumTitleView.setText(album.title);
         ViewHelper.setAlpha(albumArtOverlayView, 0);
 
-        prepareViewsForOpenAnimation();
         setUpAlbumArtAndApplyPalette();
         setUpListView();
+        setUpSongsAdapter();
     }
 
-    private void prepareViewsForOpenAnimation() {
-        albumTitleView.setPivotY(0);
-        albumTitleView.setScaleY(0);
-    }
-
-    @SuppressLint("NewApi")
     private void setUpAlbumArtAndApplyPalette() {
         Picasso.with(this).load(MusicUtil.getAlbumArtUri(album.id))
                 .placeholder(R.drawable.default_album_art)
@@ -285,39 +273,11 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
         }
     }
 
-    private void animateEnterActivity() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    animateHeader(0);
-                    setUpSongsAdapter();
-                }
-            }, DEFAULT_DELAY);
-
-        } else {
-            setUpSongsAdapter();
-            getFab().setScaleX(0);
-            getFab().setScaleY(0);
-            animateHeader(DEFAULT_DELAY_NO_TRANSITION);
-            animateFab(DEFAULT_DELAY_NO_TRANSITION);
-        }
-    }
-
     private void setUpSongsAdapter() {
         final List<Song> songs = AlbumSongLoader.getAlbumSongList(this, album.id, new SongTrackNumberComparator());
         final SongAdapter songAdapter = new SongAdapter(this, this, songs);
 
-//        SwingBottomInAnimationAdapter songsAdapter = new SwingBottomInAnimationAdapter(songAdapter);
-//        SwingRightInAnimationAdapter songsAdapter = new SwingRightInAnimationAdapter(songAdapter);
-//        SwingLeftInAnimationAdapter songsAdapter = new SwingLeftInAnimationAdapter(songAdapter);
-        ScaleInAnimationAdapter songsAdapter = new ScaleInAnimationAdapter(songAdapter);
-//        AlphaInAnimationAdapter songsAdapter = new AlphaInAnimationAdapter(songAdapter);
-
-        animatedSongsAdapter = songsAdapter;
-        animatedSongsAdapter.setAbsListView(absSongListView);
-
-        absSongListView.setAdapter(animatedSongsAdapter);
+        absSongListView.setAdapter(songAdapter);
         absSongListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -326,26 +286,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
                 }
             }
         });
-    }
-
-    private void animateHeader(int startDelay) {
-        ViewPropertyAnimator.animate(albumTitleView)
-                .scaleX(1)
-                .scaleY(1)
-                .setInterpolator(new DecelerateInterpolator(4))
-                .setDuration(DEFAULT_ANIMATION_TIME)
-                .setStartDelay(startDelay)
-                .start();
-    }
-
-    private void animateFab(int startDelay) {
-        ViewPropertyAnimator.animate(getFab())
-                .scaleX(1)
-                .scaleY(1)
-                .setInterpolator(new DecelerateInterpolator(4))
-                .setDuration(DEFAULT_ANIMATION_TIME)
-                .setStartDelay(startDelay)
-                .start();
     }
 
     @Override

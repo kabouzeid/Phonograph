@@ -33,7 +33,7 @@ public class AlbumViewGridAdapter extends ArrayAdapter<Album> {
     public AlbumViewGridAdapter(Context context, List<Album> objects) {
         super(context, R.layout.album_tile, objects);
         this.context = context;
-        usePalette = true;
+        usePalette = false;
     }
 
     @Override
@@ -62,7 +62,6 @@ public class AlbumViewGridAdapter extends ArrayAdapter<Album> {
         Picasso.with(context)
                 .load(MusicUtil.getAlbumArtUri(album.id))
                 .placeholder(R.drawable.default_album_art)
-                .error(R.drawable.default_album_art)
                 .into(viewHolder.image, new Callback.EmptyCallback(){
                     @Override
                     public void onSuccess() {

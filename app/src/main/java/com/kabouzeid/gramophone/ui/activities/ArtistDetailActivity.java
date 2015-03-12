@@ -12,7 +12,6 @@ import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
-import android.transition.Transition;
 import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -91,40 +90,15 @@ public class ArtistDetailActivity extends AbsFabActivity implements KabViewsDisa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist_detail);
 
+        if (Util.hasLollipopSDK()) postponeEnterTransition();
+
         getIntentExtras();
         initViews();
         setUpObservableListViewParams();
         setUpToolBar();
         setUpViews();
 
-        if (Util.hasLollipopSDK()) {
-            getWindow().getSharedElementEnterTransition().addListener(new Transition.TransitionListener() {
-                @Override
-                public void onTransitionStart(Transition transition) {
-
-                }
-
-                @Override
-                public void onTransitionEnd(Transition transition) {
-                    setUpArtistImageAndApplyPalette(false);
-                }
-
-                @Override
-                public void onTransitionCancel(Transition transition) {
-
-                }
-
-                @Override
-                public void onTransitionPause(Transition transition) {
-
-                }
-
-                @Override
-                public void onTransitionResume(Transition transition) {
-
-                }
-            });
-        }
+        if (Util.hasLollipopSDK()) startPostponedEnterTransition();
     }
 
     @Override
@@ -442,7 +416,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements KabViewsDisa
 
         private String[] titles;
 
-        private SparseArray<Fragment> pages; //TODO check if this must be static
+        private SparseArray<Fragment> pages;
         private Artist artist;
         private Context context;
 

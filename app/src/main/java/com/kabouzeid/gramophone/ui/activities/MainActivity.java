@@ -39,6 +39,7 @@ import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.ArtistViewFra
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.MainActivityFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.SongViewFragment;
 import com.kabouzeid.gramophone.util.MusicUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.squareup.picasso.Picasso;
@@ -75,7 +76,7 @@ public class MainActivity extends AbsFabActivity
     private void setUpViewPager() {
         viewPagerAdapter = new MainActivityViewPagerAdapter(this);
         viewPager.setAdapter(viewPagerAdapter);
-        int startPosition = PreferenceManager.getDefaultSharedPreferences(this).getInt(AppKeys.SP_VIEWPAGER_ITEM_POSITION, 1);
+        int startPosition = PreferenceUtils.getInstace(this).getStartPage();
         viewPager.setCurrentItem(startPosition);
         navigationDrawerFragment.setItemChecked(startPosition);
 
@@ -89,7 +90,7 @@ public class MainActivity extends AbsFabActivity
 
             @Override
             public void onPageSelected(final int position) {
-                PreferenceManager.getDefaultSharedPreferences(MainActivity.this).edit().putInt(AppKeys.SP_VIEWPAGER_ITEM_POSITION, position).apply();
+                PreferenceUtils.getInstace(MainActivity.this).setStartPage(position);
                 navigationDrawerFragment.setItemChecked(position);
             }
 

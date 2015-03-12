@@ -10,7 +10,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
-import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.TypedValue;
 import android.view.View;
@@ -18,9 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.misc.AppKeys;
 
 /**
  * Created by karim on 12.12.14.
@@ -117,7 +114,7 @@ public class Util {
         }
 
         boolean state = false;
-        final boolean onlyOnWifi = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(AppKeys.SP_ONLY_ON_WIFI, true);
+        final boolean onlyOnWifi = PreferenceUtils.getInstace(context).onlyOnWifi();
 
         /* Monitor network connections */
         final ConnectivityManager connectivityManager = (ConnectivityManager) context
