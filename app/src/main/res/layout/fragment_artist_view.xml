@@ -12,6 +12,5 @@
         android:dividerHeight="0px"
         android:divider="@null"
         android:listSelector="?rect_selector"
-        android:numColumns="@integer/grid_columns"
         android:scrollbars="vertical"/>
 </LinearLayout>

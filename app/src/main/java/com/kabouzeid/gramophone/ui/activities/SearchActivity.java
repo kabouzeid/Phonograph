@@ -28,6 +28,7 @@ import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.SearchEntry;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
+import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
 
 import java.util.ArrayList;
@@ -63,9 +64,21 @@ public class SearchActivity extends AbsBaseActivity {
                         playList.add((Song) item);
                         MusicPlayerRemote.openQueue(playList, 0, true);
                     } else if (item instanceof Album) {
-                        goToAlbum(((Album) item).id, new Pair[]{Pair.create(view.findViewById(R.id.image), getResources().getString(R.string.transition_album_cover))});
+                        NavigationUtil.goToAlbum(SearchActivity.this,
+                                ((Album) item).id,
+                                new Pair[]{
+                                        Pair.create(view.findViewById(R.id.image),
+                                                getResources().getString(R.string.transition_album_cover)
+                                        )
+                                });
                     } else if (item instanceof Artist) {
-                        goToArtist(((Artist) item).id, new Pair[]{Pair.create(view.findViewById(R.id.image), getResources().getString(R.string.transition_artist_image))});
+                        NavigationUtil.goToArtist(SearchActivity.this,
+                                ((Artist) item).id,
+                                new Pair[]{
+                                        Pair.create(view.findViewById(R.id.image),
+                                                getResources().getString(R.string.transition_artist_image)
+                                        )
+                                });
                     }
                 }
             }
@@ -75,7 +88,7 @@ public class SearchActivity extends AbsBaseActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Util.hideSoftKeyboard(SearchActivity.this);
-                if(searchView != null){
+                if (searchView != null) {
                     searchView.clearFocus();
                 }
                 return false;
@@ -178,14 +191,13 @@ public class SearchActivity extends AbsBaseActivity {
             results.addAll(albums);
             albumLabel.setNumber(albums.size());
         }
-        if(results.size() <= 3){
+        if (results.size() <= 3) {
             results.clear();
             results.add(new LabelEntry(getResources().getString(R.string.no_results).toUpperCase()));
         }
         ArrayAdapter adapter = new SearchAdapter(this, results);
         listView.setAdapter(adapter);
     }
-
 
 
     public static class LabelEntry implements SearchEntry {
@@ -197,8 +209,8 @@ public class SearchActivity extends AbsBaseActivity {
             this.title = label;
         }
 
-        public void setNumber(int number){
-            if(number != -1) {
+        public void setNumber(int number) {
+            if (number != -1) {
                 label = title + " (" + number + ")";
             } else {
                 label = title;

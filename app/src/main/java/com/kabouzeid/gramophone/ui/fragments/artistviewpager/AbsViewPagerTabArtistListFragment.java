@@ -22,7 +22,6 @@ public abstract class AbsViewPagerTabArtistListFragment extends Fragment impleme
     public static final String TAG = AbsViewPagerTabArtistListFragment.class.getSimpleName();
     protected App app;
     private ObservableGridView observableGridView;
-    private Activity parentActivity;
     private int artistId = -1;
     private String artistName = "";
     private int paddingViewHeight;
@@ -31,7 +30,6 @@ public abstract class AbsViewPagerTabArtistListFragment extends Fragment impleme
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         app = (App) getActivity().getApplicationContext();
-        parentActivity = getActivity();
         getArgs();
 
         View view = inflater.inflate(R.layout.fragment_gridview, container, false);
@@ -53,7 +51,7 @@ public abstract class AbsViewPagerTabArtistListFragment extends Fragment impleme
 
         paddingViewHeight = artistImageViewHeight + titleViewHeight + tabHeight;
 
-        if (app.isInPortraitMode() || app.isTablet()) {
+        if (Util.isInPortraitMode(getActivity()) || Util.isTablet(getActivity())) {
             observableGridView.setPadding(0, paddingViewHeight, 0, Util.getNavigationBarHeight(getActivity()));
         } else {
             observableGridView.setPadding(0, paddingViewHeight, 0, 0);
@@ -118,10 +116,6 @@ public abstract class AbsViewPagerTabArtistListFragment extends Fragment impleme
         return artistName;
     }
 
-    public Activity getParentActivity() {
-        return parentActivity;
-    }
-
     protected void setOnItemClickListener(AdapterView.OnItemClickListener onItemClickListener) {
         observableGridView.setOnItemClickListener(onItemClickListener);
     }
@@ -132,9 +126,9 @@ public abstract class AbsViewPagerTabArtistListFragment extends Fragment impleme
 
     @Override
     public void onScrollChanged(int scrollY, boolean b, boolean b2) {
-        if (parentActivity instanceof ObservableScrollViewCallbacks) {
+        if (getActivity() instanceof ObservableScrollViewCallbacks) {
             if (getUserVisibleHint()) {
-                ((ObservableScrollViewCallbacks) parentActivity).onScrollChanged(scrollY + paddingViewHeight, b, b2);
+                ((ObservableScrollViewCallbacks) getActivity()).onScrollChanged(scrollY + paddingViewHeight, b, b2);
             }
         }
     }

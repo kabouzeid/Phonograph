@@ -45,14 +45,6 @@ public class App extends Application {
         PreferenceManager.getDefaultSharedPreferences(this).edit().putInt(AppKeys.SP_THEME, appTheme).apply();
     }
 
-    public boolean isTablet() {
-        return getResources().getConfiguration().smallestScreenWidthDp >= 600;
-    }
-
-    public boolean isInPortraitMode() {
-        return getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
-    }
-
     public void addToVolleyRequestQueue(Request request) {
         request.setTag(TAG);
         getVolleyRequestQueue().add(request);

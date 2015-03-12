@@ -13,6 +13,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.misc.SmallOnGestureListener;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
+import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.melnykov.fab.FloatingActionButton;
 import com.squareup.otto.Subscribe;
 
@@ -41,7 +42,7 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
         final GestureDetector gestureDetector = new GestureDetector(this, new SmallOnGestureListener() {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                openCurrentPlayingIfPossible(null);
+                NavigationUtil.openCurrentPlayingIfPossible(AbsFabActivity.this, getSharedViewsWithFab(null));
                 return true;
             }
         });
@@ -115,22 +116,7 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
         getFab().setEnabled(false);
     }
 
-    @Override
-    protected boolean openCurrentPlayingIfPossible(Pair[] sharedViews) {
-        return super.openCurrentPlayingIfPossible(getSharedViewsWithFab(sharedViews));
-    }
-
-    @Override
-    public void goToArtist(int artistId, Pair[] sharedViews) {
-        super.goToArtist(artistId, getSharedViewsWithFab(sharedViews));
-    }
-
-    @Override
-    public void goToAlbum(int albumId, Pair[] sharedViews) {
-        super.goToAlbum(albumId, getSharedViewsWithFab(sharedViews));
-    }
-
-    private Pair[] getSharedViewsWithFab(Pair[] sharedViews) {
+    public Pair[] getSharedViewsWithFab(Pair[] sharedViews) {
         Pair[] sharedViewsWithFab;
         if (sharedViews != null) {
             sharedViewsWithFab = new Pair[sharedViews.length + 1];
@@ -150,8 +136,8 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
 
     @Override
     protected void onDestroy() {
-        App.bus.unregister(busEventListener);
         super.onDestroy();
+        App.bus.unregister(busEventListener);
     }
 
     public void onMusicRemoteEvent(MusicRemoteEvent event) {

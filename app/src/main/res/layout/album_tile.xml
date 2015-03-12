@@ -1,51 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:descendantFocusability="blocksDescendants"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="4dp">
-
-    <com.kabouzeid.gramophone.view.SquareImageView
-        android:id="@+id/album_art"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:transitionName="@string/transition_album_cover"/>
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:id="@+id/footer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/materialmusic_default_bar_color"
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants"
+        android:gravity="center"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:transitionName="@string/transition_album_text">
+        android:padding="4dp">
 
-        <TextView
-            android:id="@+id/album_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="?attr/title_text_color"
-            android:textSize="16sp"
-            tools:text="Album Title"/>
+        <com.kabouzeid.gramophone.view.SquareImageView
+            android:id="@+id/album_art"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:transitionName="@string/transition_album_cover"/>
 
-        <TextView
-            android:id="@+id/album_interpret"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/footer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textColor="?attr/caption_text_color"
-            android:textSize="12sp"
-            tools:text="Interpret"/>
+            android:background="@color/materialmusic_default_bar_color"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:transitionName="@string/transition_album_text">
+
+            <TextView
+                android:id="@+id/album_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="?attr/title_text_color"
+                android:textSize="16sp"
+                tools:text="Album Title"/>
+
+            <TextView
+                android:id="@+id/album_interpret"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="?attr/caption_text_color"
+                android:textSize="12sp"
+                tools:text="Interpret"/>
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+    <View
+        android:layout_margin="4dp"
+        android:background="?rect_selector"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</FrameLayout>

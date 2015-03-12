@@ -36,6 +36,7 @@ import com.kabouzeid.gramophone.ui.fragments.artistviewpager.AbsViewPagerTabArti
 import com.kabouzeid.gramophone.ui.fragments.artistviewpager.ViewPagerTabArtistAlbumFragment;
 import com.kabouzeid.gramophone.ui.fragments.artistviewpager.ViewPagerTabArtistBioFragment;
 import com.kabouzeid.gramophone.ui.fragments.artistviewpager.ViewPagerTabArtistSongListFragment;
+import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nineoldandroids.animation.Animator;
@@ -104,13 +105,6 @@ public class ArtistDetailActivity extends AbsFabActivity implements KabViewsDisa
     @Override
     public String getTag() {
         return TAG;
-    }
-
-    @Override
-    public void goToArtist(int artistId) {
-        if (artist.id != artistId) {
-            super.goToArtist(artistId);
-        }
     }
 
     private void initViews() {
@@ -387,7 +381,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements KabViewsDisa
             case R.id.action_settings:
                 return true;
             case R.id.action_current_playing:
-                openCurrentPlayingIfPossible(null);
+                NavigationUtil.openCurrentPlayingIfPossible(this, null);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -462,7 +456,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements KabViewsDisa
                 case 2:
                     return pages.get(position, new ViewPagerTabArtistBioFragment());
                 default:
-                    return pages.get(position, new MainActivity.PlaceholderFragment());
+                    return pages.get(position, new MainActivity.PlaceholderFragmentAbs());
             }
         }
 

@@ -33,6 +33,7 @@ import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
+import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nineoldandroids.view.ViewPropertyAnimator;
@@ -338,12 +339,6 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     @Override
-    protected boolean openCurrentPlayingIfPossible(Pair[] sharedViews) {
-        onBackPressed();
-        return true;
-    }
-
-    @Override
     protected void updateControllerState() {
         super.updateControllerState();
         updateRepeatState();
@@ -394,7 +389,7 @@ public class MusicControllerActivity extends AbsFabActivity {
                 super.onBackPressed();
                 return true;
             case R.id.action_playing_queue:
-                final MaterialDialog materialDialog = PlayingQueueDialogHelper.getDialog(this, this);
+                final MaterialDialog materialDialog = PlayingQueueDialogHelper.getDialog(this);
                 if (materialDialog != null) {
                     materialDialog.show();
                 } else {
@@ -412,10 +407,10 @@ public class MusicControllerActivity extends AbsFabActivity {
                 SongDetailDialogHelper.getDialog(this, songFile).show();
                 return true;
             case R.id.action_go_to_album:
-                goToAlbum(song.albumId, null);
+                NavigationUtil.goToAlbum(this, song.albumId, null);
                 return true;
             case R.id.action_go_to_artist:
-                goToArtist(song.artistId, null);
+                NavigationUtil.goToAlbum(this, song.artistId, null);
                 return true;
         }
 

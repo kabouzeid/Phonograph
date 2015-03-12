@@ -20,13 +20,9 @@ import java.util.List;
 public class ViewPagerTabArtistSongListFragment extends AbsViewPagerTabArtistListFragment {
     @Override
     protected ListAdapter getAdapter() {
-        final List<Song> songs = ArtistSongLoader.getArtistSongList(getParentActivity(), getArtistId());
-        Collections.sort(songs, new SongAlphabeticComparator());
-        AbsBaseActivity absBaseActivity = null;
-        if (getParentActivity() instanceof AbsBaseActivity) {
-            absBaseActivity = (AbsBaseActivity) getParentActivity();
-        }
-        ListAdapter adapter = new SongAdapter(getParentActivity(), absBaseActivity, songs);
+        final List<Song> songs = ArtistSongLoader.getArtistSongList(getActivity(), getArtistId());
+
+        ListAdapter adapter = new SongAdapter(getActivity(), songs);
         setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

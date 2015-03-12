@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -29,16 +28,16 @@ import com.kabouzeid.gramophone.helper.AboutDeveloperDialogHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.PlayingQueueDialogHelper;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
-import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.fragments.NavigationDrawerFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AlbumViewFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.ArtistViewFragment;
-import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.MainActivityFragment;
+import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.SongViewFragment;
 import com.kabouzeid.gramophone.util.MusicUtil;
+import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
@@ -168,7 +167,7 @@ public class MainActivity extends AbsFabActivity
         try {
             super.enableViews();
             toolbar.setEnabled(true);
-            ((MainActivityFragment) viewPagerAdapter.getItem(viewPager.getCurrentItem())).enableViews();
+            ((AbsMainActivityFragment) viewPagerAdapter.getItem(viewPager.getCurrentItem())).enableViews();
         } catch (NullPointerException e) {
             //Log.e(TAG, "wasn't able to enable the views", e);
         }
@@ -178,7 +177,7 @@ public class MainActivity extends AbsFabActivity
     public void disableViews() {
         try {
             super.disableViews();
-            ((MainActivityFragment) viewPagerAdapter.getItem(viewPager.getCurrentItem())).disableViews();
+            ((AbsMainActivityFragment) viewPagerAdapter.getItem(viewPager.getCurrentItem())).disableViews();
         } catch (NullPointerException e) {
             //Log.e(TAG, "wasn't able to disable the views", e);
         }
@@ -195,7 +194,7 @@ public class MainActivity extends AbsFabActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         if (position == NavigationDrawerFragment.NAVIGATION_DRAWER_HEADER) {
-            openCurrentPlayingIfPossible(null);
+            NavigationUtil.openCurrentPlayingIfPossible(this, null);
         } else {
             if (viewPager != null) {
                 viewPager.setCurrentItem(position, true);
@@ -233,10 +232,10 @@ public class MainActivity extends AbsFabActivity
                 AboutDeveloperDialogHelper.getDialog(this).show();
                 return true;
             case R.id.action_current_playing:
-                openCurrentPlayingIfPossible(null);
+                NavigationUtil.openCurrentPlayingIfPossible(this, null);
                 return true;
             case R.id.action_playing_queue:
-                final MaterialDialog materialDialog = PlayingQueueDialogHelper.getDialog(this, this);
+                final MaterialDialog materialDialog = PlayingQueueDialogHelper.getDialog(this);
                 if (materialDialog != null) {
                     materialDialog.show();
                 } else {
@@ -262,9 +261,9 @@ public class MainActivity extends AbsFabActivity
         super.onBackPressed();
     }
 
-    public static class PlaceholderFragment extends MainActivityFragment {
+    public static class PlaceholderFragmentAbs extends AbsMainActivityFragment {
 
-        public PlaceholderFragment() {
+        public PlaceholderFragmentAbs() {
         }
 
         @Override
@@ -274,16 +273,6 @@ public class MainActivity extends AbsFabActivity
             TextView text = (TextView) rootView.findViewById(R.id.text);
             text.setText("Coming soon!");
             return rootView;
-        }
-
-        @Override
-        public void search(String query) {
-
-        }
-
-        @Override
-        public void returnToNonSearch() {
-
         }
 
         @Override
@@ -306,7 +295,7 @@ public class MainActivity extends AbsFabActivity
 
         private String[] titles;
 
-        private SparseArray<MainActivityFragment> pages; //TODO check if this must be static
+        private SparseArray<AbsMainActivityFragment> pages; //TODO check if this must be static
         private Context context;
 
         public MainActivityViewPagerAdapter(Activity activity) {
@@ -336,7 +325,7 @@ public class MainActivity extends AbsFabActivity
                 case 4:
                     //TODO playlists
             }
-            return pages.get(position, new PlaceholderFragment());
+            return pages.get(position, new PlaceholderFragmentAbs());
         }
 
         @Override

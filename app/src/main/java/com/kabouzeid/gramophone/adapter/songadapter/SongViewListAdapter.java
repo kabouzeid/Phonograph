@@ -1,7 +1,8 @@
 package com.kabouzeid.gramophone.adapter.songadapter;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
+import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,8 +16,10 @@ import com.kabouzeid.gramophone.helper.SongDetailDialogHelper;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
+import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -28,8 +31,8 @@ import java.util.List;
 public class SongViewListAdapter extends SongAdapter {
     public static final String TAG = SongViewListAdapter.class.getSimpleName();
 
-    public SongViewListAdapter(Context context, SongAdapter.GoToAble goToAble, List<Song> objects) {
-        super(context, goToAble, objects);
+    public SongViewListAdapter(Activity activity, List<Song> objects) {
+        super(activity, objects);
     }
 
     @Override
@@ -46,31 +49,33 @@ public class SongViewListAdapter extends SongAdapter {
         overflowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                PopupMenu popupMenu = new PopupMenu(context, v);
+                PopupMenu popupMenu = new PopupMenu(activity, v);
                 popupMenu.inflate(R.menu.menu_song);
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.action_tag_editor:
-                                Intent intent = new Intent(context, SongTagEditorActivity.class);
+                                Intent intent = new Intent(activity, SongTagEditorActivity.class);
                                 intent.putExtra(AppKeys.E_ID, song.id);
-                                context.startActivity(intent);
+                                activity.startActivity(intent);
                                 return true;
                             case R.id.action_details:
-                                String songFilePath = SongFilePathLoader.getSongFilePath(context, song.id);
+                                String songFilePath = SongFilePathLoader.getSongFilePath(activity, song.id);
                                 File songFile = new File(songFilePath);
-                                SongDetailDialogHelper.getDialog(context, songFile).show();
+                                SongDetailDialogHelper.getDialog(activity, songFile).show();
                                 return true;
                             case R.id.action_go_to_album:
-                                if (goToAble != null) {
-                                    goToAble.goToAlbum(song.albumId);
-                                }
+                                Pair[] albumPairs = new Pair[]{Pair.create(albumArt, getContext().getResources().getString(R.string.transition_album_cover))};
+                                if (activity instanceof AbsFabActivity)
+                                    albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(albumPairs);
+                                NavigationUtil.goToAlbum(activity, song.albumId, albumPairs);
                                 return true;
                             case R.id.action_go_to_artist:
-                                if (goToAble != null) {
-                                    goToAble.goToArtist(song.artistId);
-                                }
+                                Pair[] artistPairs = null;
+                                if (activity instanceof AbsFabActivity)
+                                    artistPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(artistPairs);
+                                NavigationUtil.goToArtist(activity, song.artistId, artistPairs);
                                 return true;
                         }
                         return false;

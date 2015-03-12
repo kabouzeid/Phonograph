@@ -25,10 +25,10 @@ public class ViewPagerTabArtistBioFragment extends AbsViewPagerTabArtistListFrag
     protected ListAdapter getAdapter() {
         final List<String> strings = new ArrayList<>();
         strings.add("loading");
-        ListAdapter adapter = new SimpleTextAdapter(getParentActivity(), strings);
+        ListAdapter adapter = new SimpleTextAdapter(getActivity(), strings);
         setAdapter(adapter);
 
-        LastFMArtistBiographyLoader.loadArtistBio(getParentActivity(), getArtistName(), new LastFMArtistBiographyLoader.ArtistBioLoaderCallback() {
+        LastFMArtistBiographyLoader.loadArtistBio(getActivity(), getArtistName(), new LastFMArtistBiographyLoader.ArtistBioLoaderCallback() {
             @Override
             public void onArtistBioLoaded(String biography) {
                 if (biography == null || biography.trim().equals("")) {
@@ -41,7 +41,7 @@ public class ViewPagerTabArtistBioFragment extends AbsViewPagerTabArtistListFrag
                 }
                 strings.clear();
                 strings.add(biography);
-                ListAdapter adapter = new SimpleTextAdapter(getParentActivity(), strings);
+                ListAdapter adapter = new SimpleTextAdapter(getActivity(), strings);
                 setAdapter(adapter);
             }
         });

@@ -33,6 +33,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AlbumTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
+import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nineoldandroids.view.ViewHelper;
@@ -154,13 +155,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
         return TAG;
     }
 
-    @Override
-    public void goToAlbum(int albumId) {
-        if (album.id != albumId) {
-            goToAlbum(albumId);
-        }
-    }
-
     private void initViews() {
         albumArtImageView = (ImageView) findViewById(R.id.album_art);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -232,7 +226,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
 
     private void setListViewPadding() {
         setListViewPaddingTop();
-        if (app.isInPortraitMode() || app.isTablet()) {
+        if (Util.isInPortraitMode(this) || Util.isTablet(this)) {
             setListViewPaddingBottom();
         }
     }
@@ -267,7 +261,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
     private void setUpTranslucence() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Util.setStatusBarTranslucent(getWindow(), true);
-            if (app.isInPortraitMode() || app.isTablet()) {
+            if (Util.isInPortraitMode(this) || Util.isTablet(this)) {
                 Util.setNavBarTranslucent(getWindow(), true);
             }
         }
@@ -275,7 +269,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
 
     private void setUpSongsAdapter() {
         final List<Song> songs = AlbumSongLoader.getAlbumSongList(this, album.id, new SongTrackNumberComparator());
-        final SongAdapter songAdapter = new SongAdapter(this, this, songs);
+        final SongAdapter songAdapter = new SongAdapter(this, songs);
 
         absSongListView.setAdapter(songAdapter);
         absSongListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -318,14 +312,14 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
             case R.id.action_settings:
                 return true;
             case R.id.action_current_playing:
-                return openCurrentPlayingIfPossible(null);
+                return NavigationUtil.openCurrentPlayingIfPossible(this, null);
             case R.id.action_tag_editor:
                 Intent intent = new Intent(this, AlbumTagEditorActivity.class);
                 intent.putExtra(AppKeys.E_ID, album.id);
                 startActivity(intent);
                 return true;
             case R.id.action_go_to_artist:
-                goToArtist(album.artistId, null);
+                NavigationUtil.goToArtist(this, album.artistId, null);
                 return true;
         }
         return super.onOptionsItemSelected(item);

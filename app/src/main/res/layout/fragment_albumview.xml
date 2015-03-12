@@ -6,13 +6,11 @@
     android:layout_height="match_parent"
     android:padding="2dp">
 
-    <GridView
-        android:listSelector="?rect_selector"
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/absList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:numColumns="@integer/grid_columns"
         android:padding="2dp"
         android:scrollbars="vertical"/>
 </LinearLayout>

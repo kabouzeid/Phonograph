@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.helper;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,18 +19,17 @@ import java.util.List;
  * Created by karim on 24.01.15.
  */
 public class PlayingQueueDialogHelper {
-    public static MaterialDialog getDialog(Context context, SongAdapter.GoToAble goToAble) {
-        final App app = (App) context.getApplicationContext();
+    public static MaterialDialog getDialog(Activity activity) {
         List<Song> playingQueue = MusicPlayerRemote.getPlayingQueue();
         if (playingQueue.isEmpty()) {
             return null;
         }
 
-        MaterialDialog dialog = new MaterialDialog.Builder(context)
-                .title(context.getResources().getString(R.string.label_current_playing_queue))
+        MaterialDialog dialog = new MaterialDialog.Builder(activity)
+                .title(activity.getResources().getString(R.string.label_current_playing_queue))
                 .customView(R.layout.dialog_playlist, false)
-                .positiveText(context.getResources().getString(R.string.close))
-                .negativeText(context.getResources().getString(R.string.save_as_playlist))
+                .positiveText(activity.getResources().getString(R.string.close))
+                .negativeText(activity.getResources().getString(R.string.save_as_playlist))
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
@@ -44,7 +44,7 @@ public class PlayingQueueDialogHelper {
                 })
                 .build();
         final DragSortListView dragSortListView = (DragSortListView) dialog.getCustomView().findViewById(R.id.dragSortListView);
-        final PlayingQueueAdapter playingQueueAdapter = new PlayingQueueAdapter(context, goToAble, playingQueue);
+        final PlayingQueueAdapter playingQueueAdapter = new PlayingQueueAdapter(activity, playingQueue);
         dragSortListView.setAdapter(playingQueueAdapter);
         dragSortListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

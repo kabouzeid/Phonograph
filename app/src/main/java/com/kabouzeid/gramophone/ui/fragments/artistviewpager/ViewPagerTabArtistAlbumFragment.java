@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.AlbumViewGridAdapter;
+import com.kabouzeid.gramophone.adapter.AlbumAdapter;
 import com.kabouzeid.gramophone.comparator.AlbumAlphabeticComparator;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.loader.ArtistAlbumLoader;
@@ -30,9 +30,9 @@ public class ViewPagerTabArtistAlbumFragment extends AbsViewPagerTabArtistListFr
 
     @Override
     protected ListAdapter getAdapter() {
-        List<Album> albums = ArtistAlbumLoader.getArtistAlbumList(getParentActivity(), getArtistId());
+        List<Album> albums = ArtistAlbumLoader.getArtistAlbumList(getActivity(), getArtistId());
         Collections.sort(albums, new AlbumAlphabeticComparator());
-        ListAdapter adapter = new AlbumViewGridAdapter(getParentActivity(), albums);
+        //ListAdapter adapter = new AlbumAdapter(getActivity(), albums);
         setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -43,7 +43,8 @@ public class ViewPagerTabArtistAlbumFragment extends AbsViewPagerTabArtistListFr
             }
         });
         setColumns(getResources().getInteger(R.integer.grid_columns));
-        return adapter;
+        //return adapter;
+        return null;
     }
 
     @SuppressWarnings("unchecked")
@@ -69,18 +70,18 @@ public class ViewPagerTabArtistAlbumFragment extends AbsViewPagerTabArtistListFr
     }
 
     private void disableParentActivitiesViews() {
-        if (getParentActivity() instanceof KabViewsDisableAble) {
-            ((KabViewsDisableAble) getParentActivity()).disableViews();
+        if (getActivity() instanceof KabViewsDisableAble) {
+            ((KabViewsDisableAble) getActivity()).disableViews();
         }
     }
 
     private boolean areParentActivitiesViewsEnabled() {
-        return !(getParentActivity() instanceof KabViewsDisableAble) || ((KabViewsDisableAble) getParentActivity()).areViewsEnabled();
+        return !(getActivity() instanceof KabViewsDisableAble) || ((KabViewsDisableAble) getActivity()).areViewsEnabled();
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        fab = (FloatingActionButton) getParentActivity().findViewById(R.id.fab);
+        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
     }
 }
