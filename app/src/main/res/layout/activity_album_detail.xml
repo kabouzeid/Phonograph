@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:background="?android:attr/colorBackground"/>
 
-        <com.github.ksoichiro.android.observablescrollview.ObservableListView
+        <com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

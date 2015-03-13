@@ -1,20 +1,16 @@
 package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
-
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
 
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.songadapter.SongViewListAdapter;
-import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.adapter.songadapter.SongAdapter;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 
 import java.util.List;
 
@@ -24,58 +20,38 @@ import java.util.List;
 public class SongViewFragment extends AbsMainActivityFragment {
     public static final String TAG = SongViewFragment.class.getSimpleName();
 
-    private AbsListView absListView;
-    private View fragmentRootView;
+    private RecyclerView recyclerView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_songview, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        fragmentRootView = view;
         super.onViewCreated(view, savedInstanceState);
-        initViews();
-        setUpViews();
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        setUpRecyclerView();
     }
 
-    private void initViews() {
-        absListView = (AbsListView) fragmentRootView.findViewById(R.id.absList);
-    }
-
-    private void setUpViews() {
-        setUpAbsListView();
-    }
-
-    private void setUpAbsListView() {
+    private void setUpRecyclerView() {
         List<Song> songs = SongLoader.getAllSongs(getActivity());
-        fillAbsListView(songs);
-    }
+        SongAdapter songAdapter = new SongAdapter(getActivity(), songs);
 
-    private void fillAbsListView(final List<Song> songs) {
-        SongViewListAdapter songAdapter = new SongViewListAdapter(getActivity(), songs);
-        absListView.setAdapter(songAdapter);
-        absListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                MusicPlayerRemote.openQueue(songs, position, true);
-            }
-        });
-
-        absListView.setPadding(0, getTopPadding(), 0, getBottomPadding());
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+        recyclerView.setAdapter(songAdapter);
+        recyclerView.setPadding(0, getTopPadding(), 0, getBottomPadding());
     }
 
     @Override
     public void enableViews() {
         super.enableViews();
-        absListView.setEnabled(true);
+        recyclerView.setEnabled(true);
     }
 
     @Override
     public void disableViews() {
         super.disableViews();
-        absListView.setEnabled(false);
+        recyclerView.setEnabled(false);
     }
 }

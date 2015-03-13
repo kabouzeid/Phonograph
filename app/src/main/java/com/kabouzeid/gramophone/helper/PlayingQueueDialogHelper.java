@@ -1,15 +1,12 @@
 package com.kabouzeid.gramophone.helper;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.View;
 import android.widget.AdapterView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PlayingQueueAdapter;
-import com.kabouzeid.gramophone.adapter.songadapter.SongAdapter;
 import com.kabouzeid.gramophone.model.Song;
 import com.mobeta.android.dslv.DragSortListView;
 

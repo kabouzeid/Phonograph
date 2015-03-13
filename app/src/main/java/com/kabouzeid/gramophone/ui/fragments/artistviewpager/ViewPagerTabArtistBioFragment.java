@@ -2,13 +2,13 @@ package com.kabouzeid.gramophone.ui.fragments.artistviewpager;
 
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -22,10 +22,8 @@ public class ViewPagerTabArtistBioFragment extends AbsViewPagerTabArtistListFrag
 
 
     @Override
-    protected ListAdapter getAdapter() {
-        final List<String> strings = new ArrayList<>();
-        strings.add("loading");
-        ListAdapter adapter = new SimpleTextAdapter(getActivity(), strings);
+    protected RecyclerView.Adapter getAdapter() {
+        final SimpleTextAdapter adapter = new SimpleTextAdapter(getActivity(), "loading");
         setAdapter(adapter);
 
         LastFMArtistBiographyLoader.loadArtistBio(getActivity(), getArtistName(), new LastFMArtistBiographyLoader.ArtistBioLoaderCallback() {
@@ -35,37 +33,58 @@ public class ViewPagerTabArtistBioFragment extends AbsViewPagerTabArtistListFrag
                     try {
                         biography = getResources().getString(R.string.biography_unavailable);
                     } catch (IllegalStateException e) {
-                        Log.e(TAG, "error while trying to access resources", e);
                         biography = "Error";
                     }
                 }
-                strings.clear();
-                strings.add(biography);
-                ListAdapter adapter = new SimpleTextAdapter(getActivity(), strings);
-                setAdapter(adapter);
+                adapter.setText(biography);
             }
         });
         return null;
     }
 
-    private static class SimpleTextAdapter extends ArrayAdapter<String> {
-        private Context context;
+    @Override
+    protected int getNumColumns() {
+        return 1;
+    }
 
-        public SimpleTextAdapter(Context context, List<String> objects) {
-            super(context, R.layout.item_artist_details_biography, objects);
-            this.context = context;
+    private static class SimpleTextAdapter extends RecyclerView.Adapter<SimpleTextAdapter.ViewHolder> {
+        private Context context;
+        private String text;
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(context).inflate(R.layout.item_artist_details_biography, parent, false);
+            return new ViewHolder(view);
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            String string = getItem(position);
-            if (convertView == null) {
-                convertView = LayoutInflater.from(context).inflate(R.layout.item_artist_details_biography, parent, false);
+        public void onBindViewHolder(ViewHolder holder, int position) {
+            holder.textView.setText(Html.fromHtml(text));
+            holder.textView.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+
+        @Override
+        public int getItemCount() {
+            return 1;
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder{
+            TextView textView;
+
+            public ViewHolder(View itemView) {
+                super(itemView);
+                textView = (TextView) itemView.findViewById(R.id.text);
             }
-            TextView text = (TextView) convertView.findViewById(R.id.text);
-            text.setText(Html.fromHtml(string));
-            text.setMovementMethod(LinkMovementMethod.getInstance());
-            return convertView;
+        }
+
+        public SimpleTextAdapter(Context context, String text) {
+            this.context = context;
+            this.text = text;
+        }
+
+        public void setText(String text){
+            this.text = text;
+            notifyDataSetChanged();
         }
     }
 }

@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.ArtistViewListAdapter;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
@@ -56,7 +55,7 @@ public class ArtistViewFragment extends AbsMainActivityFragment {
     }
 
     private void initViews() {
-        absListView = (AbsListView) fragmentRootView.findViewById(R.id.absList);
+        absListView = (AbsListView) fragmentRootView.findViewById(R.id.recyclerView);
     }
 
     private void setUpViews() {

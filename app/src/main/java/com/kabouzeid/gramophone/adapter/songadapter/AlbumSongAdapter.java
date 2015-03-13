@@ -22,7 +22,6 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.List;
@@ -30,33 +29,29 @@ import java.util.List;
 /**
  * Created by karim on 27.11.14.
  */
-public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
+public class AlbumSongAdapter extends RecyclerView.Adapter<AlbumSongAdapter.ViewHolder> {
     public static final String TAG = AlbumSongAdapter.class.getSimpleName();
     protected Activity activity;
     protected List<Song> dataSet;
 
-    public SongAdapter(Activity activity, List<Song> objects) {
+    public AlbumSongAdapter(Activity activity, List<Song> objects) {
         this.activity = activity;
         dataSet = objects;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(activity).inflate(R.layout.item_song_view, parent, false);
+        View view = LayoutInflater.from(activity).inflate(R.layout.item_song, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         final Song song = dataSet.get(position);
 
         holder.songTitle.setText(song.title);
-        holder.songInfo.setText(song.artistName);
-
-        Picasso.with(activity)
-                .load(MusicUtil.getAlbumArtUri(song.albumId))
-                .placeholder(R.drawable.default_album_art)
-                .into(holder.albumArt);
+        holder.trackNumber.setText(String.valueOf(MusicUtil.getFixedTrackNumber(song.trackNumber)));
+        holder.songDuration.setText(MusicUtil.getReadableDurationString(song.duration));
     }
 
     @Override
@@ -66,15 +61,15 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView songTitle;
-        TextView songInfo;
+        TextView trackNumber;
+        TextView songDuration;
         ImageView overflowButton;
-        ImageView albumArt;
 
         public ViewHolder(View itemView) {
             super(itemView);
             songTitle = (TextView) itemView.findViewById(R.id.song_title);
-            songInfo = (TextView) itemView.findViewById(R.id.song_info);
-            albumArt = (ImageView) itemView.findViewById(R.id.album_art);
+            trackNumber = (TextView) itemView.findViewById(R.id.track_number);
+            songDuration = (TextView) itemView.findViewById(R.id.song_duration);
             overflowButton = (ImageView) itemView.findViewById(R.id.menu);
             overflowButton.setOnClickListener(this);
             itemView.setOnClickListener(new View.OnClickListener() {

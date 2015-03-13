@@ -21,15 +21,7 @@ import java.util.List;
 public class AlbumViewFragment extends AbsMainActivityFragment {
     public static final String TAG = AlbumViewFragment.class.getSimpleName();
 
-    private App app;
     private RecyclerView recyclerView;
-    private View fragmentRootView;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        app = (App) getActivity().getApplicationContext();
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,12 +30,18 @@ public class AlbumViewFragment extends AbsMainActivityFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        fragmentRootView = view;
-
         super.onViewCreated(view, savedInstanceState);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        setUpRecyclerView();
+    }
 
-        initViews();
-        setUpViews();
+    private void setUpRecyclerView() {
+        List<Album> albums = AlbumLoader.getAllAlbums(getActivity());
+        AlbumAdapter albumAdapter = new AlbumAdapter(getActivity(), albums);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        recyclerView.setAdapter(albumAdapter);
+        recyclerView.setPadding(0, getTopPadding(), 0, getBottomPadding());
     }
 
     @Override
@@ -56,25 +54,5 @@ public class AlbumViewFragment extends AbsMainActivityFragment {
     public void disableViews() {
         super.disableViews();
         recyclerView.setEnabled(false);
-    }
-
-    private void initViews() {
-        recyclerView = (RecyclerView) fragmentRootView.findViewById(R.id.absList);
-    }
-
-    private void setUpViews() {
-        setUpAbsListView();
-    }
-
-    private void setUpAbsListView() {
-        List<Album> albums = AlbumLoader.getAllAlbums(getActivity());
-        fillAbsListView(albums);
-    }
-
-    private void fillAbsListView(List<Album> albums) {
-        AlbumAdapter albumAdapter = new AlbumAdapter(getActivity(), albums);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        recyclerView.setAdapter(albumAdapter);
-        recyclerView.setPadding(0, getTopPadding(), 0, getBottomPadding());
     }
 }

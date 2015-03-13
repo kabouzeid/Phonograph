@@ -8,7 +8,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,9 +20,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
+import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.songadapter.SongAdapter;
+import com.kabouzeid.gramophone.adapter.songadapter.AlbumSongAdapter;
 import com.kabouzeid.gramophone.comparator.SongTrackNumberComparator;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
@@ -59,7 +62,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
 
     private Album album;
 
-    private ObservableListView absSongListView;
+    private ObservableRecyclerView recyclerView;
     private View statusBar;
     private ImageView albumArtImageView;
     private View albumArtOverlayView;
@@ -74,12 +77,15 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
     private SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
         @Override
         public void onScrollChanged(int scrollY, boolean b, boolean b2) {
+            scrollY += albumArtViewHeight + titleViewHeight;
             super.onScrollChanged(scrollY, b, b2);
             // Translate overlay and image
             float flexibleRange = albumArtViewHeight - headerOffset;
             int minOverlayTransitionY = headerOffset - albumArtOverlayView.getHeight();
             ViewHelper.setTranslationY(albumArtOverlayView, Math.max(minOverlayTransitionY, Math.min(0, -scrollY)));
             ViewHelper.setTranslationY(albumArtImageView, Math.max(minOverlayTransitionY, Math.min(0, -scrollY / 2)));
+
+            Log.i(TAG, "image t " + Math.max(0, Math.min(0, -scrollY / 2)));
 
             // Translate list background
             ViewHelper.setTranslationY(songsBackgroundView, Math.max(0, -scrollY + albumArtViewHeight));
@@ -117,6 +123,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
                     ViewHelper.setTranslationY(toolbar, -scrollY);
                 }
             }
+            Log.d(TAG, "scrollY " +scrollY);
         }
     };
 
@@ -159,7 +166,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
         albumArtImageView = (ImageView) findViewById(R.id.album_art);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         albumArtOverlayView = findViewById(R.id.overlay);
-        absSongListView = (ObservableListView) findViewById(R.id.list);
+        recyclerView = (ObservableRecyclerView) findViewById(R.id.list);
         albumTitleView = (TextView) findViewById(R.id.album_title);
         songsBackgroundView = findViewById(R.id.list_background);
         statusBar = findViewById(R.id.statusBar);
@@ -212,41 +219,24 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
     }
 
     private void setUpListView() {
-        absSongListView.setScrollViewCallbacks(observableScrollViewCallbacks);
+        recyclerView.setScrollViewCallbacks(observableScrollViewCallbacks);
         setListViewPadding();
         final View contentView = getWindow().getDecorView().findViewById(android.R.id.content);
         contentView.post(new Runnable() {
             @Override
             public void run() {
                 songsBackgroundView.getLayoutParams().height = contentView.getHeight();
-                observableScrollViewCallbacks.onScrollChanged(0, false, false);
+                observableScrollViewCallbacks.onScrollChanged(-(albumArtViewHeight + titleViewHeight), false, false);
             }
         });
     }
 
     private void setListViewPadding() {
-        setListViewPaddingTop();
         if (Util.isInPortraitMode(this) || Util.isTablet(this)) {
-            setListViewPaddingBottom();
+            recyclerView.setPadding(0, albumArtViewHeight + titleViewHeight, 0, Util.getNavigationBarHeight(this));
+        } else {
+            recyclerView.setPadding(0, albumArtViewHeight + titleViewHeight, 0, 0);
         }
-    }
-
-    private void setListViewPaddingTop() {
-        final View paddingView = new View(AlbumDetailActivity.this);
-        AbsListView.LayoutParams lp = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT,
-                albumArtViewHeight + titleViewHeight);
-        paddingView.setLayoutParams(lp);
-        paddingView.setClickable(true);
-        absSongListView.addHeaderView(paddingView);
-    }
-
-    private void setListViewPaddingBottom() {
-        final View paddingView = new View(AlbumDetailActivity.this);
-        AbsListView.LayoutParams lp = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT,
-                Util.getNavigationBarHeight(this));
-        paddingView.setLayoutParams(lp);
-        paddingView.setClickable(true);
-        absSongListView.addFooterView(paddingView);
     }
 
     private void setUpToolBar() {
@@ -269,30 +259,22 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
 
     private void setUpSongsAdapter() {
         final List<Song> songs = AlbumSongLoader.getAlbumSongList(this, album.id, new SongTrackNumberComparator());
-        final SongAdapter songAdapter = new SongAdapter(this, songs);
-
-        absSongListView.setAdapter(songAdapter);
-        absSongListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position > 0) {
-                    MusicPlayerRemote.openQueue(songs, position - 1, true);
-                }
-            }
-        });
+        final AlbumSongAdapter albumSongAdapter = new AlbumSongAdapter(this, songs);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+        recyclerView.setAdapter(albumSongAdapter);
     }
 
     @Override
     public void enableViews() {
         super.enableViews();
-        absSongListView.setEnabled(true);
+        recyclerView.setEnabled(true);
         toolbar.setEnabled(true);
     }
 
     @Override
     public void disableViews() {
         super.disableViews();
-        absSongListView.setEnabled(false);
+        recyclerView.setEnabled(false);
         toolbar.setEnabled(false);
     }
 
@@ -312,7 +294,8 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
             case R.id.action_settings:
                 return true;
             case R.id.action_current_playing:
-                return NavigationUtil.openCurrentPlayingIfPossible(this, null);
+                NavigationUtil.openCurrentPlayingIfPossible(this, null);
+                return true;
             case R.id.action_tag_editor:
                 Intent intent = new Intent(this, AlbumTagEditorActivity.class);
                 intent.putExtra(AppKeys.E_ID, album.id);

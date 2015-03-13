@@ -59,9 +59,10 @@ public class NavigationUtil {
         }
     }
 
-    public static boolean openCurrentPlayingIfPossible(final Activity activity, final Pair[] sharedViews) {
+    public static void openCurrentPlayingIfPossible(final Activity activity, final Pair[] sharedViews) {
         if (activity instanceof MusicControllerActivity){
-            return true;
+            activity.onBackPressed();
+            return;
         }
         if (MusicPlayerRemote.getPosition() != -1) {
             if ((activity instanceof KabViewsDisableAble && ((KabViewsDisableAble) activity).areViewsEnabled()) || !(activity instanceof KabViewsDisableAble)) {
@@ -76,11 +77,9 @@ public class NavigationUtil {
                 } else {
                     activity.startActivity(intent);
                 }
-                return true;
             }
         } else {
             Toast.makeText(activity, activity.getResources().getString(R.string.nothing_playing), Toast.LENGTH_SHORT).show();
         }
-        return false;
     }
 }
