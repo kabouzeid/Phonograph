@@ -47,7 +47,7 @@ import java.util.List;
 *
 * */
 
-public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisableAble {
+public class AlbumDetailActivity extends AbsFabActivity {
     public static final String TAG = AlbumDetailActivity.class.getSimpleName();
 
     private App app;
@@ -152,7 +152,12 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
     private void setUpViews() {
         albumTitleView.setText(album.title);
 
-        setUpAlbumArtAndApplyPalette();
+        ViewUtil.addOnGlobalLayoutListener(albumArtImageView, new Runnable() {
+            @Override
+            public void run() {
+                setUpAlbumArtAndApplyPalette();
+            }
+        });
         setUpListView();
         setUpSongsAdapter();
     }

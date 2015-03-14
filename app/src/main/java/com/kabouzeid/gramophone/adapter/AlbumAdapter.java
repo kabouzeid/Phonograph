@@ -85,7 +85,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
 
         public ViewHolder(View itemView) {
             super(itemView);
-            image = (SquareImageView) itemView.findViewById(R.id.album_art);
+            image = (ImageView) itemView.findViewById(R.id.album_art);
             title = (TextView) itemView.findViewById(R.id.album_title);
             artist = (TextView) itemView.findViewById(R.id.album_interpret);
             footer = itemView.findViewById(R.id.footer);

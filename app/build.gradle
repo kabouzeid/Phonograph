@@ -42,11 +42,12 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:21.0.+'
-    compile 'com.android.support:gridlayout-v7:21.0.+'
-    compile 'com.android.support:recyclerview-v7:21.0.+'
-    compile 'com.android.support:palette-v7:21.0.+'
-    compile 'com.android.support:support-v13:21.0.+'
+    compile 'com.android.support:appcompat-v7:21.0.0'
+    compile 'com.android.support:gridlayout-v7:21.0.0'
+    compile 'com.android.support:recyclerview-v7:21.0.0'
+    compile 'com.android.support:palette-v7:21.0.0'
+    compile 'com.android.support:support-v13:21.0.0'
+    compile 'com.android.support:cardview-v7:21.0.0'
     compile 'com.nhaarman.listviewanimations:lib-core:3.1.0@aar'
     compile 'com.nhaarman.listviewanimations:lib-manipulation:3.1.0@aar'
     compile 'com.nhaarman.listviewanimations:lib-core-slh:3.1.0@aar'

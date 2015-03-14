@@ -30,7 +30,7 @@ public class SongViewFragment extends AbsMainActivityFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         setUpRecyclerView();
     }
 

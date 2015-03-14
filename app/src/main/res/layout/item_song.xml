@@ -6,47 +6,49 @@
     android:background="?rect_selector"
     android:descendantFocusability="blocksDescendants"
     android:orientation="horizontal"
-    android:paddingLeft="16dp"
-    >
+    android:paddingLeft="16dp">
 
-    <TextView
-        android:id="@+id/track_number"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-
+    <com.kabouzeid.gramophone.view.SquareImageView
+        android:id="@+id/album_art"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_gravity="center"
-        android:fontFamily="sans-serif"
+        android:background="@drawable/image_background"
         android:gravity="center"
-        android:singleLine="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        android:scaleType="centerCrop"
+        />
 
-    <TextView
-        android:id="@+id/song_title"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:layout_weight="1"
-        android:fontFamily="sans-serif"
-        android:singleLine="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/song_duration"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/song_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:fontFamily="sans-serif"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
-        android:layout_gravity="center"
-        android:fontFamily="sans-serif"
-        android:gravity="center"
-        android:singleLine="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+        <TextView
+            android:id="@+id/song_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:fontFamily="sans-serif"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
+    </LinearLayout>
 
     <ImageView
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
         android:id="@+id/menu"
         style="@style/OverFlowButton"
-        android:layout_gravity="center_vertical"/>
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="2dp"/>
 </LinearLayout>

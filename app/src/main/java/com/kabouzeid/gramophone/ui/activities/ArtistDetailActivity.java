@@ -1,49 +1,46 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.Fragment;
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.SparseArray;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
-import com.github.ksoichiro.android.observablescrollview.ScrollState;
-import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
+import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
+import com.kabouzeid.gramophone.adapter.AlbumAdapter;
+import com.kabouzeid.gramophone.adapter.ArtistAlbumAdapter;
+import com.kabouzeid.gramophone.adapter.songadapter.ArtistSongAdapter;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistImageUrlLoader;
+import com.kabouzeid.gramophone.loader.ArtistAlbumLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
+import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
+import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
+import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
+import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
-import com.kabouzeid.gramophone.ui.fragments.artistviewpager.AbsViewPagerTabArtistListFragment;
-import com.kabouzeid.gramophone.ui.fragments.artistviewpager.ViewPagerTabArtistAlbumFragment;
-import com.kabouzeid.gramophone.ui.fragments.artistviewpager.ViewPagerTabArtistBioFragment;
-import com.kabouzeid.gramophone.ui.fragments.artistviewpager.ViewPagerTabArtistSongListFragment;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.view.ViewHelper;
-import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 /*
 *
@@ -53,35 +50,59 @@ import com.squareup.picasso.Picasso;
 *
 * */
 
-public class ArtistDetailActivity extends AbsFabActivity implements KabViewsDisableAble, ObservableScrollViewCallbacks {
+public class ArtistDetailActivity extends AbsFabActivity {
     public static final String TAG = ArtistDetailActivity.class.getSimpleName();
 
     public static final String ARG_ARTIST_ID = "com.kabouzeid.gramophone.artist.id";
     public static final String ARG_ARTIST_NAME = "com.kabouzeid.gramophone.artist.name";
 
-    private static final boolean TOOLBAR_IS_STICKY = true;
-
-    private boolean isAnimating;
-
     private Artist artist;
 
-    private SlidingTabLayout slidingTabs;
+    private ObservableListView songListView;
     private View statusBar;
-    private ImageView artistImageView;
-    private View artistArtOverlayView;
-    private View absAlbumListBackgroundView;
-    private TextView artistTitleText;
+    private ImageView artistIv;
+    private View songsBackgroundView;
+    private TextView artistNameTv;
     private Toolbar toolbar;
-    private ViewPager viewPager;
-    private NavigationAdapter navigationAdapter;
     private int toolbarHeight;
     private int headerOffset;
     private int titleViewHeight;
     private int artistImageViewHeight;
     private int toolbarColor;
-    private int tabHeight;
 
-    private Fragment currentFragment;
+    private View songListHeader;
+    private RecyclerView albumRecyclerView;
+
+    private SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
+        @Override
+        public void onScrollChanged(int scrollY, boolean b, boolean b2) {
+            scrollY += artistImageViewHeight + titleViewHeight;
+            super.onScrollChanged(scrollY, b, b2);
+            float flexibleRange = artistImageViewHeight - headerOffset;
+
+            // Translate album cover
+            ViewHelper.setTranslationY(artistIv, Math.max(-artistImageViewHeight, -scrollY / 2));
+
+            // Translate list background
+            ViewHelper.setTranslationY(songsBackgroundView, Math.max(0, -scrollY + artistImageViewHeight));
+
+            // Change alpha of overlay
+            float alpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
+            ViewUtil.setBackgroundAlpha(toolbar, alpha, toolbarColor);
+            ViewUtil.setBackgroundAlpha(statusBar, alpha, toolbarColor);
+
+            // Translate name text
+            int maxTitleTranslationY = artistImageViewHeight;
+            int titleTranslationY = maxTitleTranslationY - scrollY;
+            titleTranslationY = Math.max(headerOffset, titleTranslationY);
+
+            ViewHelper.setTranslationY(artistNameTv, titleTranslationY);
+
+            // Translate FAB
+            int fabTranslationY = titleTranslationY + titleViewHeight - (getFab().getHeight() / 2);
+            ViewHelper.setTranslationY(getFab(), fabTranslationY);
+        }
+    };
 
 
     @SuppressLint("NewApi")
@@ -102,19 +123,14 @@ public class ArtistDetailActivity extends AbsFabActivity implements KabViewsDisa
         if (Util.hasLollipopSDK()) startPostponedEnterTransition();
     }
 
-    @Override
-    public String getTag() {
-        return TAG;
-    }
-
     private void initViews() {
-        artistImageView = (ImageView) findViewById(R.id.artist_image);
+        artistIv = (ImageView) findViewById(R.id.artist_image);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        artistArtOverlayView = findViewById(R.id.overlay);
-        artistTitleText = (TextView) findViewById(R.id.artist_name);
-        absAlbumListBackgroundView = findViewById(R.id.list_background);
+        songListView = (ObservableListView) findViewById(R.id.list);
+        artistNameTv = (TextView) findViewById(R.id.artist_name);
+        songsBackgroundView = findViewById(R.id.list_background);
         statusBar = findViewById(R.id.statusBar);
-        slidingTabs = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
+        songListHeader = LayoutInflater.from(this).inflate(R.layout.artist_detail_header, songListView, false);
     }
 
     private void setUpObservableListViewParams() {
@@ -124,162 +140,71 @@ public class ArtistDetailActivity extends AbsFabActivity implements KabViewsDisa
         titleViewHeight = getResources().getDimensionPixelSize(R.dimen.title_view_height);
         headerOffset = toolbarHeight;
         headerOffset += getResources().getDimensionPixelSize(R.dimen.statusMargin);
-        tabHeight = getResources().getDimensionPixelSize(R.dimen.tab_height);
+    }
+
+    @Override
+    public String getTag() {
+        return TAG;
     }
 
     private void setUpViews() {
-        artistTitleText.setText(artist.name);
-        ViewHelper.setAlpha(artistArtOverlayView, 0);
+        artistNameTv.setText(artist.name);
 
-        setUpArtistImageAndApplyPalette(false);
-        setUpViewPatch();
-        setUpSlidingTabs();
+        ViewUtil.addOnGlobalLayoutListener(artistIv, new Runnable() {
+            @Override
+            public void run() {
+                setUpArtistImageAndApplyPalette(false);
+            }
+        });
+        setUpSongListView();
+        setUpAlbumRecyclerView();
     }
 
-    private void setUpSlidingTabs() {
-        navigationAdapter = new NavigationAdapter(this, artist);
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setOffscreenPageLimit(2);
-        viewPager.setAdapter(navigationAdapter);
-        viewPager.setCurrentItem(1);
+    private void setUpSongListView() {
+        songListView.setScrollViewCallbacks(observableScrollViewCallbacks);
 
-        slidingTabs.setViewPager(viewPager);
-        slidingTabs.setDistributeEvenly(true);
-        slidingTabs.setCustomTabView(R.layout.tab_indicator, android.R.id.text1);
-        slidingTabs.setSelectedIndicatorColors(Util.resolveColor(this, R.attr.colorAccent));
-        slidingTabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        setListViewPadding();
 
+        songListView.addHeaderView(songListHeader);
+
+        final List<Song> songs = ArtistSongLoader.getArtistSongList(this, artist.id);
+        ArtistSongAdapter songAdapter = new ArtistSongAdapter(this, songs);
+        songListView.setAdapter(songAdapter);
+
+        final View contentView = getWindow().getDecorView().findViewById(android.R.id.content);
+        contentView.post(new Runnable() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+            public void run() {
+                songsBackgroundView.getLayoutParams().height = contentView.getHeight();
+                observableScrollViewCallbacks.onScrollChanged(-(artistImageViewHeight + titleViewHeight), false, false);
             }
+        });
 
+        songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onPageSelected(int position) {
-                currentFragment = navigationAdapter.getItemAt(position);
-                if (currentFragment instanceof AbsViewPagerTabArtistListFragment) {
-                    restoreY(((AbsViewPagerTabArtistListFragment) currentFragment).getY());
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // header view has position 0
+                if(position == 0){
+                    return;
                 }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
+                MusicPlayerRemote.openQueue(songs, position - 1, true);
             }
         });
     }
 
-    public void restoreY(final int scrollY) {
-        translateToolBar(scrollY);
-        int animationTime = 1000;
-        DecelerateInterpolator interpolator = new DecelerateInterpolator(4);
-        int titleTranslationY = getTitleTranslation(scrollY);
-        ViewPropertyAnimator.animate(artistArtOverlayView).y(getOverlayTranslation(scrollY)).setDuration(animationTime).setInterpolator(interpolator).start();
-        ViewPropertyAnimator.animate(artistImageView).y(getImageViewTranslation(scrollY)).setDuration(animationTime).setInterpolator(interpolator).start();
-        ViewPropertyAnimator.animate(absAlbumListBackgroundView).y(getListBackgroundTranslation(scrollY)).setDuration(animationTime).setInterpolator(interpolator).start();
-        ViewPropertyAnimator.animate(artistArtOverlayView).alpha(getOverlayAlpha(scrollY)).setDuration(animationTime).setInterpolator(interpolator).start();
-        ViewPropertyAnimator.animate(slidingTabs).y(titleTranslationY + titleViewHeight).setDuration(animationTime).setInterpolator(interpolator).start();
-        ViewPropertyAnimator.animate(artistTitleText).y(titleTranslationY).setDuration(animationTime).setInterpolator(interpolator).start();
-        ViewPropertyAnimator.animate(getFab()).y(getFabTranslation(scrollY)).setDuration(animationTime).setInterpolator(interpolator).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                isAnimating = true;
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                translateToolBar(scrollY);
-                isAnimating = false;
-                if (currentFragment instanceof AbsViewPagerTabArtistListFragment) {
-                    onScrollChanged((((AbsViewPagerTabArtistListFragment) currentFragment).getY()), false, false);
-                }
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                isAnimating = false;
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-                isAnimating = true;
-            }
-        }).start();
+    private void setUpAlbumRecyclerView(){
+        albumRecyclerView = (RecyclerView) songListHeader.findViewById(R.id.recycler_view);
+        albumRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        List<Album> albums = ArtistAlbumLoader.getArtistAlbumList(this, artist.id);
+        ArtistAlbumAdapter albumAdapter = new ArtistAlbumAdapter(this, albums);
+        albumRecyclerView.setAdapter(albumAdapter);
     }
 
-    @Override
-    public void onScrollChanged(int scrollY, boolean b, boolean b2) {
-        if (!isAnimating) {
-            int titleTranslationY = getTitleTranslation(scrollY);
-            ViewHelper.setTranslationY(artistArtOverlayView, getOverlayTranslation(scrollY));
-            ViewHelper.setTranslationY(artistImageView, getImageViewTranslation(scrollY));
-            ViewHelper.setTranslationY(absAlbumListBackgroundView, getListBackgroundTranslation(scrollY));
-            ViewHelper.setAlpha(artistArtOverlayView, getOverlayAlpha(scrollY));
-            ViewHelper.setTranslationY(artistTitleText, titleTranslationY);
-            ViewHelper.setTranslationY(slidingTabs, titleTranslationY);
-            ViewHelper.setTranslationY(getFab(), getFabTranslation(scrollY));
-            translateToolBar(scrollY);
-        }
-    }
-
-    @Override
-    public void onDownMotionEvent() {
-    }
-
-    @Override
-    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-    }
-
-    private int getImageViewTranslation(int scrollY) {
-        int minOverlayTransitionY = headerOffset - artistArtOverlayView.getHeight();
-        return Math.max(minOverlayTransitionY, Math.min(0, -scrollY / 2));
-    }
-
-    private int getOverlayTranslation(int scrollY) {
-        int minOverlayTransitionY = headerOffset - artistArtOverlayView.getHeight();
-        return Math.max(minOverlayTransitionY, Math.min(0, -scrollY));
-    }
-
-    private int getListBackgroundTranslation(int scrollY) {
-        return Math.max(0, -scrollY + artistImageViewHeight - 200);
-    }
-
-    private int getTitleTranslation(int scrollY) {
-        int maxTitleTranslationY = artistImageViewHeight;
-        int titleTranslationY = maxTitleTranslationY - scrollY;
-        if (TOOLBAR_IS_STICKY) {
-            titleTranslationY = Math.max(headerOffset, titleTranslationY);
-        }
-        return titleTranslationY;
-    }
-
-    private int getFabTranslation(int scrollY) {
-        return getTitleTranslation(scrollY) + titleViewHeight + tabHeight - (getFab().getHeight() / 2);
-    }
-
-    private float getOverlayAlpha(int scrollY) {
-        float flexibleRange = artistImageViewHeight - headerOffset;
-        return Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
-    }
-
-    private void translateToolBar(int scrollY) {
-        if (TOOLBAR_IS_STICKY) {
-            // Change alpha of toolbar background
-            if (-scrollY + artistImageViewHeight <= headerOffset) {
-                ViewUtil.setBackgroundAlpha(toolbar, 1, toolbarColor);
-                ViewUtil.setBackgroundAlpha(statusBar, 1, toolbarColor);
-
-            } else {
-                ViewUtil.setBackgroundAlpha(toolbar, 0, toolbarColor);
-                ViewUtil.setBackgroundAlpha(statusBar, 0, toolbarColor);
-            }
+    private void setListViewPadding() {
+        if (Util.isInPortraitMode(this) || Util.isTablet(this)) {
+            songListView.setPadding(0, artistImageViewHeight + titleViewHeight, 0, Util.getNavigationBarHeight(this));
         } else {
-            // Translate Toolbar
-            if (scrollY < artistImageViewHeight) {
-                ViewHelper.setTranslationY(toolbar, 0);
-            } else {
-                ViewHelper.setTranslationY(toolbar, -scrollY);
-            }
+            songListView.setPadding(0, artistImageViewHeight + titleViewHeight, 0, 0);
         }
     }
 
@@ -290,15 +215,13 @@ public class ArtistDetailActivity extends AbsFabActivity implements KabViewsDisa
                 Picasso.with(ArtistDetailActivity.this)
                         .load(url)
                         .placeholder(R.drawable.default_artist_image)
-                        .into(artistImageView, new Callback.EmptyCallback() {
+                        .into(artistIv, new Callback.EmptyCallback() {
                             @Override
                             public void onSuccess() {
                                 super.onSuccess();
-                                final Bitmap bitmap = ((BitmapDrawable) artistImageView.getDrawable()).getBitmap();
+                                final Bitmap bitmap = ((BitmapDrawable) artistIv.getDrawable()).getBitmap();
                                 if (bitmap != null) applyPalette(bitmap);
-                                if (forceDownload) {
-                                    Toast.makeText(ArtistDetailActivity.this, getResources().getString(R.string.updated_artist_image_for) + " " + artist.name, Toast.LENGTH_SHORT).show();
-                                }
+
                             }
                         });
             }
@@ -312,10 +235,8 @@ public class ArtistDetailActivity extends AbsFabActivity implements KabViewsDisa
                 Palette.Swatch swatch = palette.getVibrantSwatch();
                 if (swatch != null) {
                     toolbarColor = swatch.getRgb();
-                    artistArtOverlayView.setBackgroundColor(swatch.getRgb());
-                    artistTitleText.setBackgroundColor(swatch.getRgb());
-                    slidingTabs.setBackgroundColor(swatch.getRgb());
-                    artistTitleText.setTextColor(swatch.getTitleTextColor());
+                    artistNameTv.setBackgroundColor(swatch.getRgb());
+                    artistNameTv.setTextColor(swatch.getTitleTextColor());
                 } else {
                     setStandardColors();
                 }
@@ -328,29 +249,14 @@ public class ArtistDetailActivity extends AbsFabActivity implements KabViewsDisa
         int defaultBarColor = getResources().getColor(R.color.materialmusic_default_bar_color);
 
         toolbarColor = defaultBarColor;
-        artistArtOverlayView.setBackgroundColor(defaultBarColor);
-        artistTitleText.setBackgroundColor(defaultBarColor);
-        slidingTabs.setBackgroundColor(defaultBarColor);
-        artistTitleText.setTextColor(titleTextColor);
-    }
-
-    private void setUpViewPatch() {
-        final View contentView = getWindow().getDecorView().findViewById(android.R.id.content);
-        contentView.post(new Runnable() {
-            @Override
-            public void run() {
-                absAlbumListBackgroundView.getLayoutParams().height = contentView.getHeight();
-            }
-        });
+        artistNameTv.setBackgroundColor(defaultBarColor);
+        artistNameTv.setTextColor(titleTextColor);
     }
 
     private void setUpToolBar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        if (!TOOLBAR_IS_STICKY) {
-            toolbar.setBackgroundColor(Color.TRANSPARENT);
-        }
     }
 
     private void getIntentExtras() {
@@ -390,88 +296,14 @@ public class ArtistDetailActivity extends AbsFabActivity implements KabViewsDisa
     @Override
     public void enableViews() {
         super.enableViews();
-        viewPager.setEnabled(true);
+        songListView.setEnabled(true);
         toolbar.setEnabled(true);
     }
 
     @Override
     public void disableViews() {
         super.disableViews();
-        viewPager.setEnabled(false);
+        songListView.setEnabled(false);
         toolbar.setEnabled(false);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-
-    }
-
-    private static class NavigationAdapter extends FragmentPagerAdapter {
-
-        private String[] titles;
-
-        private SparseArray<Fragment> pages;
-        private Artist artist;
-        private Context context;
-
-        public NavigationAdapter(Activity activity, Artist artist) {
-            super(activity.getFragmentManager());
-            this.artist = artist;
-            pages = new SparseArray<>();
-            context = activity;
-            titles = new String[]{
-                    context.getResources().getString(R.string.tab_songs),
-                    context.getResources().getString(R.string.tab_albums),
-                    context.getResources().getString(R.string.tab_biography)
-            };
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            final Bundle args = new Bundle();
-            args.putInt(ARG_ARTIST_ID, artist.id);
-            args.putString(ARG_ARTIST_NAME, artist.name);
-
-            Fragment f = getOrCreateFragmentAt(position);
-            f.setArguments(args);
-
-            pages.put(position, f);
-            return f;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            if (0 <= pages.indexOfKey(position)) {
-                pages.remove(position);
-            }
-            super.destroyItem(container, position, object);
-        }
-
-        private Fragment getOrCreateFragmentAt(int position) {
-            switch (position) {
-                case 1:
-                    return pages.get(position, new ViewPagerTabArtistAlbumFragment());
-                case 0:
-                    return pages.get(position, new ViewPagerTabArtistSongListFragment());
-                case 2:
-                    return pages.get(position, new ViewPagerTabArtistBioFragment());
-                default:
-                    return pages.get(position, new MainActivity.PlaceholderFragmentAbs());
-            }
-        }
-
-        public Fragment getItemAt(int position) {
-            return pages.get(position, null);
-        }
-
-        @Override
-        public int getCount() {
-            return titles.length;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return titles[position];
-        }
     }
 }
