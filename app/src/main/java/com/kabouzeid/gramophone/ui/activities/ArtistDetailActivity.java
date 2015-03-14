@@ -381,7 +381,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements KabViewsDisa
             case R.id.action_settings:
                 return true;
             case R.id.action_current_playing:
-                NavigationUtil.openCurrentPlayingIfPossible(this, null);
+                NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithFab(null));
                 return true;
         }
         return super.onOptionsItemSelected(item);

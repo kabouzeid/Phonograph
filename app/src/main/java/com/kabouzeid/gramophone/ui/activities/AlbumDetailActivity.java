@@ -257,7 +257,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
             case R.id.action_settings:
                 return true;
             case R.id.action_current_playing:
-                NavigationUtil.openCurrentPlayingIfPossible(this, null);
+                NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithFab(null));
                 return true;
             case R.id.action_tag_editor:
                 Intent intent = new Intent(this, AlbumTagEditorActivity.class);

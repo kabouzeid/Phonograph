@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -194,7 +195,11 @@ public class MainActivity extends AbsFabActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         if (position == NavigationDrawerFragment.NAVIGATION_DRAWER_HEADER) {
-            NavigationUtil.openCurrentPlayingIfPossible(this, null);
+            NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithFab(new Pair[]{
+                    Pair.create(navigationDrawerFragment.getAlbumArtImageView(),
+                            getResources().getString(R.string.transition_album_cover)
+                    )
+            }));
         } else {
             if (viewPager != null) {
                 viewPager.setCurrentItem(position, true);
@@ -232,7 +237,7 @@ public class MainActivity extends AbsFabActivity
                 AboutDeveloperDialogHelper.getDialog(this).show();
                 return true;
             case R.id.action_current_playing:
-                NavigationUtil.openCurrentPlayingIfPossible(this, null);
+                NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithFab(null));
                 return true;
             case R.id.action_playing_queue:
                 final MaterialDialog materialDialog = PlayingQueueDialogHelper.getDialog(this);

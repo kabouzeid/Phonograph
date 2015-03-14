@@ -15,6 +15,7 @@
         android:clickable="true">
 
         <ImageView
+            android:transitionName="@string/transition_album_cover"
             android:id="@+id/album_art"
             android:layout_width="match_parent"
             android:layout_height="@dimen/navigation_drawer_image_height"
