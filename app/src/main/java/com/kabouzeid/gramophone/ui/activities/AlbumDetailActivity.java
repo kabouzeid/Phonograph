@@ -3,29 +3,23 @@ package com.kabouzeid.gramophone.ui.activities;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.songadapter.AlbumSongAdapter;
 import com.kabouzeid.gramophone.comparator.SongTrackNumberComparator;
-import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
@@ -56,8 +50,6 @@ import java.util.List;
 public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisableAble {
     public static final String TAG = AlbumDetailActivity.class.getSimpleName();
 
-    private static final boolean TOOLBAR_IS_STICKY = true;
-
     private App app;
 
     private Album album;
@@ -65,7 +57,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
     private ObservableRecyclerView recyclerView;
     private View statusBar;
     private ImageView albumArtImageView;
-    private View albumArtOverlayView;
     private View songsBackgroundView;
     private TextView albumTitleView;
     private Toolbar toolbar;
@@ -79,51 +70,29 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
         public void onScrollChanged(int scrollY, boolean b, boolean b2) {
             scrollY += albumArtViewHeight + titleViewHeight;
             super.onScrollChanged(scrollY, b, b2);
-            // Translate overlay and image
             float flexibleRange = albumArtViewHeight - headerOffset;
-            int minOverlayTransitionY = headerOffset - albumArtOverlayView.getHeight();
-            ViewHelper.setTranslationY(albumArtOverlayView, Math.max(minOverlayTransitionY, Math.min(0, -scrollY)));
-            ViewHelper.setTranslationY(albumArtImageView, Math.max(minOverlayTransitionY, Math.min(0, -scrollY / 2)));
 
-            Log.i(TAG, "image t " + Math.max(0, Math.min(0, -scrollY / 2)));
+            // Translate album cover
+            ViewHelper.setTranslationY(albumArtImageView, Math.max(-albumArtViewHeight, -scrollY / 2));
 
             // Translate list background
             ViewHelper.setTranslationY(songsBackgroundView, Math.max(0, -scrollY + albumArtViewHeight));
 
             // Change alpha of overlay
-            ViewHelper.setAlpha(albumArtOverlayView, Math.max(0, Math.min(1, (float) scrollY / flexibleRange)));
+            float alpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
+            ViewUtil.setBackgroundAlpha(toolbar, alpha, toolbarColor);
+            ViewUtil.setBackgroundAlpha(statusBar, alpha, toolbarColor);
 
             // Translate name text
             int maxTitleTranslationY = albumArtViewHeight;
             int titleTranslationY = maxTitleTranslationY - scrollY;
-            if (TOOLBAR_IS_STICKY) {
-                titleTranslationY = Math.max(headerOffset, titleTranslationY);
-            }
+            titleTranslationY = Math.max(headerOffset, titleTranslationY);
+
             ViewHelper.setTranslationY(albumTitleView, titleTranslationY);
 
             // Translate FAB
             int fabTranslationY = titleTranslationY + titleViewHeight - (getFab().getHeight() / 2);
             ViewHelper.setTranslationY(getFab(), fabTranslationY);
-
-            if (TOOLBAR_IS_STICKY) {
-                // Change alpha of toolbar background
-                if (-scrollY + albumArtViewHeight <= headerOffset) {
-                    ViewUtil.setBackgroundAlpha(toolbar, 1, toolbarColor);
-                    ViewUtil.setBackgroundAlpha(statusBar, 1, toolbarColor);
-
-                } else {
-                    ViewUtil.setBackgroundAlpha(toolbar, 0, toolbarColor);
-                    ViewUtil.setBackgroundAlpha(statusBar, 0, toolbarColor);
-                }
-            } else {
-                // Translate Toolbar
-                if (scrollY < albumArtViewHeight) {
-                    ViewHelper.setTranslationY(toolbar, 0);
-                } else {
-                    ViewHelper.setTranslationY(toolbar, -scrollY);
-                }
-            }
-            Log.d(TAG, "scrollY " +scrollY);
         }
     };
 
@@ -165,7 +134,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
     private void initViews() {
         albumArtImageView = (ImageView) findViewById(R.id.album_art);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        albumArtOverlayView = findViewById(R.id.overlay);
         recyclerView = (ObservableRecyclerView) findViewById(R.id.list);
         albumTitleView = (TextView) findViewById(R.id.album_title);
         songsBackgroundView = findViewById(R.id.list_background);
@@ -183,7 +151,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
 
     private void setUpViews() {
         albumTitleView.setText(album.title);
-        ViewHelper.setAlpha(albumArtOverlayView, 0);
 
         setUpAlbumArtAndApplyPalette();
         setUpListView();
@@ -210,7 +177,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
                 Palette.Swatch swatch = palette.getVibrantSwatch();
                 if (swatch != null) {
                     toolbarColor = swatch.getRgb();
-                    albumArtOverlayView.setBackgroundColor(swatch.getRgb());
                     albumTitleView.setBackgroundColor(swatch.getRgb());
                     albumTitleView.setTextColor(swatch.getTitleTextColor());
                 }
@@ -243,9 +209,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements KabViewsDisab
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        if (!TOOLBAR_IS_STICKY) {
-            toolbar.setBackgroundColor(Color.TRANSPARENT);
-        }
     }
 
     private void setUpTranslucence() {

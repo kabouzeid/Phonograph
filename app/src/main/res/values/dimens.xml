@@ -12,7 +12,7 @@
     <dimen name="title_view_height">72dp</dimen>
     <dimen name="toolbar_elevation">2dp</dimen>
 
-    <dimen name="header_image_height">240dp</dimen>
+    <dimen name="header_image_height">360dp</dimen>
 
     <dimen name="statusMargin">0dp</dimen>
 

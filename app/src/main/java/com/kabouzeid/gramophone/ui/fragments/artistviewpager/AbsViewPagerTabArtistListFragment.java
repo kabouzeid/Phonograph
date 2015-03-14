@@ -42,6 +42,13 @@ public abstract class AbsViewPagerTabArtistListFragment extends Fragment impleme
             observableRecyclerView.setAdapter(adapter);
         }
         observableRecyclerView.setScrollViewCallbacks(this);
+
+        ScrollUtils.addOnGlobalLayoutListener(observableRecyclerView, new Runnable() {
+            @Override
+            public void run() {
+                observableRecyclerView.smoothScrollBy(0,1);
+            }
+        });
         return view;
     }
 

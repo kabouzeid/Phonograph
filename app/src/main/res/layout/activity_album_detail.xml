@@ -17,12 +17,6 @@
             android:transitionName="@string/transition_album_cover"/>
 
         <View
-            android:id="@+id/overlay"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/header_image_height"
-            android:background="@color/materialmusic_default_bar_color"/>
-
-        <View
             android:id="@+id/list_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
