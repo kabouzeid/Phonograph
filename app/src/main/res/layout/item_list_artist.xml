@@ -4,16 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="64dp"
     android:background="?rect_selector"
-    android:descendantFocusability="blocksDescendants"
     android:orientation="horizontal"
-    android:paddingLeft="16dp">
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
 
     <com.kabouzeid.gramophone.view.SquareImageView
-        android:id="@+id/album_art"
+        android:id="@+id/artist_image"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
-        android:background="@drawable/image_background"
         android:gravity="center"
         android:scaleType="centerCrop"
         />
@@ -26,7 +25,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/song_title"
+            android:id="@+id/artist_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -36,7 +35,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
         <TextView
-            android:id="@+id/song_info"
+            android:id="@+id/artist_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -46,9 +45,4 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/menu"
-        style="@style/OverFlowButton"
-        android:layout_gravity="center_vertical"
-        android:layout_marginRight="2dp"/>
 </LinearLayout>

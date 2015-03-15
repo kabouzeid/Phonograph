@@ -1,13 +1,16 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -120,6 +123,7 @@ public class ArtistDetailActivity extends AbsFabActivity {
         setUpToolBar();
         setUpViews();
 
+        if (Util.hasLollipopSDK()) fixLollipopTransitionImageWrongSize();
         if (Util.hasLollipopSDK()) startPostponedEnterTransition();
     }
 
@@ -184,7 +188,7 @@ public class ArtistDetailActivity extends AbsFabActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // header view has position 0
-                if(position == 0){
+                if (position == 0) {
                     return;
                 }
                 MusicPlayerRemote.openQueue(songs, position - 1, true);
@@ -305,5 +309,35 @@ public class ArtistDetailActivity extends AbsFabActivity {
         super.disableViews();
         songListView.setEnabled(false);
         toolbar.setEnabled(false);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void fixLollipopTransitionImageWrongSize(){
+        getWindow().getSharedElementEnterTransition().addListener(new Transition.TransitionListener() {
+            @Override
+            public void onTransitionStart(Transition transition) {
+
+            }
+
+            @Override
+            public void onTransitionEnd(Transition transition) {
+                setUpArtistImageAndApplyPalette(false);
+            }
+
+            @Override
+            public void onTransitionCancel(Transition transition) {
+
+            }
+
+            @Override
+            public void onTransitionPause(Transition transition) {
+
+            }
+
+            @Override
+            public void onTransitionResume(Transition transition) {
+
+            }
+        });
     }
 }

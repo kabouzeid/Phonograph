@@ -13,7 +13,6 @@
         android:id="@+id/track_number"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
-
         android:layout_gravity="center"
         android:fontFamily="sans-serif"
         android:gravity="center"
@@ -44,9 +43,9 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
     <ImageView
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
         android:id="@+id/menu"
         style="@style/OverFlowButton"
-        android:layout_gravity="center_vertical"/>
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"/>
 </LinearLayout>

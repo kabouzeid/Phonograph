@@ -23,13 +23,13 @@ import java.util.List;
 public class SearchAdapter extends ArrayAdapter<SearchEntry> {
 
     public SearchAdapter(Context context, List<SearchEntry> objects) {
-        super(context, R.layout.item_search, objects);
+        super(context, R.layout.item_list_search, objects);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_search, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_list_search, parent, false);
         }
 
         SearchEntry item = getItem(position);

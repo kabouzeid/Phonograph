@@ -14,7 +14,6 @@ import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.view.SquareImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -35,7 +34,7 @@ public class ArtistAlbumAdapter extends RecyclerView.Adapter<ArtistAlbumAdapter.
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(activity).inflate(R.layout.item_artist_album, parent, false);
+        View view = LayoutInflater.from(activity).inflate(R.layout.item_grid_artist_album, parent, false);
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         if (viewType == TYPE_FIRST) {
             params.leftMargin = listMargin;

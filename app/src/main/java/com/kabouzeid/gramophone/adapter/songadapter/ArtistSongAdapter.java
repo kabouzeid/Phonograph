@@ -33,7 +33,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> {
     private Activity activity;
 
     public ArtistSongAdapter(Activity activity, List<Song> songs) {
-        super(activity, R.layout.item_song, songs);
+        super(activity, R.layout.item_list_song, songs);
         this.activity = activity;
     }
 
@@ -41,7 +41,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> {
     public View getView(int position, View convertView, ViewGroup parent) {
         final Song song = getItem(position);
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_artist_song, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_list_artist_song, parent, false);
         }
 
         final TextView songTitle = (TextView) convertView.findViewById(R.id.song_title);
