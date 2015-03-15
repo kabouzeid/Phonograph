@@ -10,6 +10,8 @@ import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.Spanned;
 import android.transition.Transition;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,12 +22,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.AlbumAdapter;
 import com.kabouzeid.gramophone.adapter.ArtistAlbumAdapter;
 import com.kabouzeid.gramophone.adapter.songadapter.ArtistSongAdapter;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistBiographyLoader;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistImageUrlLoader;
 import com.kabouzeid.gramophone.loader.ArtistAlbumLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
@@ -75,6 +78,8 @@ public class ArtistDetailActivity extends AbsFabActivity {
 
     private View songListHeader;
     private RecyclerView albumRecyclerView;
+
+    private Spanned biography;
 
     private SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
         @Override
@@ -134,7 +139,9 @@ public class ArtistDetailActivity extends AbsFabActivity {
         artistNameTv = (TextView) findViewById(R.id.artist_name);
         songsBackgroundView = findViewById(R.id.list_background);
         statusBar = findViewById(R.id.statusBar);
+
         songListHeader = LayoutInflater.from(this).inflate(R.layout.artist_detail_header, songListView, false);
+        albumRecyclerView = (RecyclerView) songListHeader.findViewById(R.id.recycler_view);
     }
 
     private void setUpObservableListViewParams() {
@@ -162,6 +169,7 @@ public class ArtistDetailActivity extends AbsFabActivity {
         });
         setUpSongListView();
         setUpAlbumRecyclerView();
+        loadBiography();
     }
 
     private void setUpSongListView() {
@@ -196,12 +204,31 @@ public class ArtistDetailActivity extends AbsFabActivity {
         });
     }
 
-    private void setUpAlbumRecyclerView(){
-        albumRecyclerView = (RecyclerView) songListHeader.findViewById(R.id.recycler_view);
+    private void setUpAlbumRecyclerView() {
         albumRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         List<Album> albums = ArtistAlbumLoader.getArtistAlbumList(this, artist.id);
         ArtistAlbumAdapter albumAdapter = new ArtistAlbumAdapter(this, albums);
         albumRecyclerView.setAdapter(albumAdapter);
+    }
+
+    private void loadBiography() {
+        LastFMArtistBiographyLoader.loadArtistBio(this, artist.name, new LastFMArtistBiographyLoader.ArtistBioLoaderCallback() {
+            @Override
+            public void onArtistBioLoaded(String bio) {
+                if (bio != null && !bio.trim().equals("")) {
+                    biography = Html.fromHtml(bio);
+                } else {
+                    biography = null;
+                }
+            }
+        });
+    }
+
+    private MaterialDialog getBiographyDialog(){
+        return new MaterialDialog.Builder(ArtistDetailActivity.this)
+                .title(artist.name)
+                .content(biography)
+                .build();
     }
 
     private void setListViewPadding() {
@@ -285,6 +312,13 @@ public class ArtistDetailActivity extends AbsFabActivity {
             case android.R.id.home:
                 super.onBackPressed();
                 return true;
+            case R.id.action_biography:
+                if(biography != null){
+                    getBiographyDialog().show();
+                } else {
+                    Toast.makeText(ArtistDetailActivity.this, getResources().getString(R.string.biography_unavailable), Toast.LENGTH_SHORT).show();
+                }
+                return true;
             case R.id.action_re_download_artist_image:
                 Toast.makeText(ArtistDetailActivity.this, getResources().getString(R.string.updating), Toast.LENGTH_SHORT).show();
                 setUpArtistImageAndApplyPalette(true);
@@ -312,7 +346,7 @@ public class ArtistDetailActivity extends AbsFabActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void fixLollipopTransitionImageWrongSize(){
+    private void fixLollipopTransitionImageWrongSize() {
         getWindow().getSharedElementEnterTransition().addListener(new Transition.TransitionListener() {
             @Override
             public void onTransitionStart(Transition transition) {

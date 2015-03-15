@@ -32,9 +32,7 @@
     <string name="unplayable_file">Sorry - an error occurred while attempting to play this song</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="biography_unavailable">Sorry, we were not able to find a matching biography for this artist.</string>
-    <string name="tab_biography">biography</string>
-    <string name="tab_songs">songs</string>
-    <string name="tab_albums">albums</string>
+    <string name="biography">Biography</string>
     <string name="audio_focus_denied">We were not able to gain audio focus.</string>
     <string name="title_activity_tag_editor">TagEditorActivity</string>
     <string name="hello_world">Hello world!</string>
@@ -72,5 +70,6 @@
     <string name="action_re_download_artist_image">Update artist image</string>
     <string name="updated_artist_image_for">Updated artist image for</string>
     <string name="updating">Updating…</string>
+    <string name="loading">Loading…</string>
 
 </resources>

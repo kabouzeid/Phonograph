@@ -12,7 +12,6 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
-        android:background="@drawable/image_background"
         android:gravity="center"
         android:scaleType="centerCrop"
         />

@@ -10,8 +10,10 @@
         android:fontFamily="sans-serif"
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:text="@string/albums"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="?title_text_color"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -27,7 +29,9 @@
         android:fontFamily="sans-serif"
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:text="@string/songs"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="?title_text_color"/>
 
 </LinearLayout>

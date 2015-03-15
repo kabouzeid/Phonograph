@@ -77,7 +77,9 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> {
                                 SongDetailDialogHelper.getDialog(activity, songFile).show();
                                 return true;
                             case R.id.action_go_to_album:
-                                Pair[] albumPairs = null;
+                                Pair[] albumPairs = new Pair[]{
+                                        Pair.create(albumArt, activity.getResources().getString(R.string.transition_album_cover))
+                                };
                                 if (activity instanceof AbsFabActivity)
                                     albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(albumPairs);
                                 NavigationUtil.goToAlbum(activity, song.albumId, albumPairs);

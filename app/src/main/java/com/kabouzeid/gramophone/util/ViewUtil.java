@@ -6,9 +6,11 @@ import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.PathInterpolator;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * Created by karim on 06.12.14.
@@ -94,5 +96,17 @@ public class ViewUtil {
                 runnable.run();
             }
         });
+    }
+
+    public static void animateTextViewMaxLines(TextView text, int maxLines) {
+        try {
+            ObjectAnimator animation = ObjectAnimator.ofInt(text, "maxLines", maxLines);
+            animation.setInterpolator(new AccelerateInterpolator());
+            animation.setDuration(200);
+            animation.start();
+        } catch (Exception e) {
+            // Some devices crash at runtime when using the ObjectAnimator
+            text.setMaxLines(maxLines);
+        }
     }
 }

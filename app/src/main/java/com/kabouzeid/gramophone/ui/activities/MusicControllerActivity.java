@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.util.Pair;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -37,7 +36,6 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nineoldandroids.view.ViewPropertyAnimator;
-import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -231,7 +229,6 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     private void setUpAlbumArtAndApplyPalette() {
-        setStandardColors();
         Picasso.with(this)
                 .load(MusicUtil.getAlbumArtUri(song.albumId))
                 .placeholder(R.drawable.default_album_art)
@@ -241,6 +238,12 @@ public class MusicControllerActivity extends AbsFabActivity {
                         super.onSuccess();
                         final Bitmap bitmap = ((BitmapDrawable) albumArt.getDrawable()).getBitmap();
                         if (bitmap != null) applyPalette(bitmap);
+                    }
+
+                    @Override
+                    public void onError() {
+                        super.onError();
+                        setStandardColors();
                     }
                 });
     }
