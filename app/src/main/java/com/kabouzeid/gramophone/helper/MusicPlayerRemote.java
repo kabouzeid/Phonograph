@@ -7,8 +7,10 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.kabouzeid.gramophone.App;
+import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
@@ -214,16 +216,29 @@ public class MusicPlayerRemote {
         return false;
     }
 
+    public static void playNext(Song song) {
+        if (musicService != null) {
+            musicService.addSong(getPosition() + 1, song);
+            Toast.makeText(musicService, musicService.getResources().getString(R.string.added_title_to_playing_queue), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public static void enqueue(Song song) {
+        if (musicService != null) {
+            musicService.addSong(song);
+            Toast.makeText(musicService, musicService.getResources().getString(R.string.added_title_to_playing_queue), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public static void removeFromQueue(int position) {
+        if (musicService != null) {
+            musicService.removeSong(position);
+        }
+    }
+
     public static void moveSong(int from, int to) {
-        final int currentPosition = getPosition();
-        Song songToMove = getPlayingQueue().remove(from);
-        getPlayingQueue().add(to, songToMove);
-        if (from > currentPosition && to <= currentPosition) {
-            setPosition(getPosition() + 1);
-        } else if (from < currentPosition && to >= currentPosition) {
-            setPosition(getPosition() - 1);
-        } else if (from == currentPosition) {
-            setPosition(to);
+        if(musicService != null){
+            musicService.moveSong(from, to);
         }
     }
 

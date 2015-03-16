@@ -93,6 +93,12 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     switch (item.getItemId()) {
+                        case R.id.action_play_next:
+                            MusicPlayerRemote.playNext(dataSet.get(getPosition()));
+                            return true;
+                        case R.id.action_add_to_current_playing:
+                            MusicPlayerRemote.enqueue(dataSet.get(getPosition()));
+                            return true;
                         case R.id.action_tag_editor:
                             Intent intent = new Intent(activity, SongTagEditorActivity.class);
                             intent.putExtra(AppKeys.E_ID, dataSet.get(getPosition()).id);

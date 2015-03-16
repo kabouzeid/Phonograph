@@ -312,6 +312,9 @@ public class ArtistDetailActivity extends AbsFabActivity {
             case android.R.id.home:
                 super.onBackPressed();
                 return true;
+            case R.id.action_playing_queue:
+                NavigationUtil.openPlayingQueueDialog(this);
+                return true;
             case R.id.action_biography:
                 if(biography != null){
                     getBiographyDialog().show();

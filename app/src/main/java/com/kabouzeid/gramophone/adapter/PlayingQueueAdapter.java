@@ -35,7 +35,7 @@ public class PlayingQueueAdapter extends ArrayAdapter<Song> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final Song song = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(activity).inflate(R.layout.item_list_playlist, parent, false);
@@ -57,11 +57,19 @@ public class PlayingQueueAdapter extends ArrayAdapter<Song> {
             @Override
             public void onClick(final View v) {
                 PopupMenu popupMenu = new PopupMenu(activity, v);
-                popupMenu.inflate(R.menu.menu_song);
+                popupMenu.inflate(R.menu.menu_playing_queue_song);
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
+                            case R.id.action_remove_from_playing_queue:
+                                MusicPlayerRemote.removeFromQueue(position);
+                                notifyDataSetChanged();
+                                return true;
+                            case R.id.action_play_next:
+                                MusicPlayerRemote.playNext(song);
+                                notifyDataSetChanged();
+                                return true;
                             case R.id.action_tag_editor:
                                 Intent intent = new Intent(activity, SongTagEditorActivity.class);
                                 intent.putExtra(AppKeys.E_ID, song.id);
@@ -76,7 +84,7 @@ public class PlayingQueueAdapter extends ArrayAdapter<Song> {
                                 NavigationUtil.goToAlbum(activity, song.albumId, null);
                                 return true;
                             case R.id.action_go_to_artist:
-                                NavigationUtil.goToAlbum(activity, song.artistId, null);
+                                NavigationUtil.goToArtist(activity, song.artistId, null);
                                 return true;
                         }
                         return false;

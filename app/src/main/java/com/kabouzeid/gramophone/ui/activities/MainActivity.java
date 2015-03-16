@@ -240,12 +240,7 @@ public class MainActivity extends AbsFabActivity
                 NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithFab(null));
                 return true;
             case R.id.action_playing_queue:
-                final MaterialDialog materialDialog = PlayingQueueDialogHelper.getDialog(this);
-                if (materialDialog != null) {
-                    materialDialog.show();
-                } else {
-                    Toast.makeText(this, getResources().getString(R.string.nothing_playing), Toast.LENGTH_SHORT).show();
-                }
+                NavigationUtil.openPlayingQueueDialog(this);
                 return true;
         }
         return super.onOptionsItemSelected(item);

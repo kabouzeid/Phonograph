@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.util.Pair;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -259,6 +260,9 @@ public class AlbumDetailActivity extends AbsFabActivity {
             case android.R.id.home:
                 super.onBackPressed();
                 return true;
+            case R.id.action_playing_queue:
+                NavigationUtil.openPlayingQueueDialog(this);
+                return true;
             case R.id.action_settings:
                 return true;
             case R.id.action_current_playing:
@@ -270,7 +274,9 @@ public class AlbumDetailActivity extends AbsFabActivity {
                 startActivity(intent);
                 return true;
             case R.id.action_go_to_artist:
-                NavigationUtil.goToArtist(this, album.artistId, null);
+                Pair[] artistPairs = null;
+                    artistPairs = getSharedViewsWithFab(artistPairs);
+                NavigationUtil.goToArtist(this, album.artistId, artistPairs);
                 return true;
         }
         return super.onOptionsItemSelected(item);

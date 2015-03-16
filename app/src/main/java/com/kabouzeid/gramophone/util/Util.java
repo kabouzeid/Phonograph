@@ -3,7 +3,6 @@ package com.kabouzeid.gramophone.util;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.database.Cursor;
@@ -13,22 +12,13 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.misc.AppKeys;
-import com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity;
-import com.kabouzeid.gramophone.ui.activities.ArtistDetailActivity;
-import com.kabouzeid.gramophone.ui.activities.MusicControllerActivity;
 
 /**
  * Created by karim on 12.12.14.

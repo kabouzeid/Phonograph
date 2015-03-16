@@ -392,12 +392,7 @@ public class MusicControllerActivity extends AbsFabActivity {
                 super.onBackPressed();
                 return true;
             case R.id.action_playing_queue:
-                final MaterialDialog materialDialog = PlayingQueueDialogHelper.getDialog(this);
-                if (materialDialog != null) {
-                    materialDialog.show();
-                } else {
-                    Toast.makeText(this, getResources().getString(R.string.nothing_playing), Toast.LENGTH_SHORT).show();
-                }
+                NavigationUtil.openPlayingQueueDialog(this);
                 return true;
             case R.id.action_tag_editor:
                 Intent intent = new Intent(this, SongTagEditorActivity.class);
@@ -410,10 +405,10 @@ public class MusicControllerActivity extends AbsFabActivity {
                 SongDetailDialogHelper.getDialog(this, songFile).show();
                 return true;
             case R.id.action_go_to_album:
-                NavigationUtil.goToAlbum(this, song.albumId, null);
+                NavigationUtil.goToAlbum(this, song.albumId, getSharedViewsWithFab(null));
                 return true;
             case R.id.action_go_to_artist:
-                NavigationUtil.goToAlbum(this, song.artistId, null);
+                NavigationUtil.goToArtist(this, song.artistId, getSharedViewsWithFab(null));
                 return true;
         }
 

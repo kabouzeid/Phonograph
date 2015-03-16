@@ -9,10 +9,7 @@
         android:id="@+id/action_remove_from_playing_queue"
         android:title="@string/action_remove_from_playing_queue"
         app:showAsAction="never"/>
-    <item
-        android:id="@+id/action_add_to_current_playing"
-        android:title="@string/action_add_to_playing_queue"
-        app:showAsAction="never"/>
+
     <item
         android:id="@+id/action_add_to_playlist"
         android:title="@string/action_add_to_playlist"

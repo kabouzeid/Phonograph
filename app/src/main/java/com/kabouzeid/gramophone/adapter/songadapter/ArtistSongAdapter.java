@@ -13,6 +13,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.SongDetailDialogHelper;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
@@ -66,6 +67,12 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
+                            case R.id.action_play_next:
+                                MusicPlayerRemote.playNext(song);
+                                return true;
+                            case R.id.action_add_to_current_playing:
+                                MusicPlayerRemote.enqueue(song);
+                                return true;
                             case R.id.action_tag_editor:
                                 Intent intent = new Intent(activity, SongTagEditorActivity.class);
                                 intent.putExtra(AppKeys.E_ID, song.id);

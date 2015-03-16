@@ -477,6 +477,46 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         saveState();
     }
 
+    public void addSong(int position, Song song){
+        playingQueue.add(position, song);
+        originalPlayingQueue.add(position, song);
+        saveState();
+    }
+
+    public void addSong(Song song){
+        playingQueue.add(song);
+        originalPlayingQueue.add(song);
+        saveState();
+    }
+
+    public void removeSong(int position){
+        if(getShuffleMode() == SHUFFLE_MODE_NONE){
+            playingQueue.remove(position);
+            originalPlayingQueue.remove(position);
+        } else {
+            originalPlayingQueue.remove(playingQueue.remove(position));
+        }
+        saveState();
+    }
+
+    public void moveSong(int from, int to) {
+        final int currentPosition = getPosition();
+        Song songToMove = playingQueue.remove(from);
+        playingQueue.add(to, songToMove);
+        if(getShuffleMode() == SHUFFLE_MODE_NONE) {
+            Song tmpSong = originalPlayingQueue.remove(from);
+            originalPlayingQueue.add(to, tmpSong);
+        }
+        if (from > currentPosition && to <= currentPosition) {
+            setPosition(getPosition() + 1);
+        } else if (from < currentPosition && to >= currentPosition) {
+            setPosition(getPosition() - 1);
+        } else if (from == currentPosition) {
+            setPosition(to);
+        }
+        saveState();
+    }
+
     public long getCurrentSongId() {
         return currentSongId;
     }

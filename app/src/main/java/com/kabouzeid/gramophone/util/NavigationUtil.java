@@ -7,8 +7,10 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.helper.PlayingQueueDialogHelper;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity;
@@ -20,7 +22,7 @@ import com.kabouzeid.gramophone.ui.activities.MusicControllerActivity;
  */
 public class NavigationUtil {
     public static void goToArtist(final Activity activity, final int artistId, final Pair[] sharedViews) {
-        if(activity instanceof ArtistDetailActivity){
+        if (activity instanceof ArtistDetailActivity) {
             return;
         }
         if ((activity instanceof KabViewsDisableAble && ((KabViewsDisableAble) activity).areViewsEnabled()) || !(activity instanceof KabViewsDisableAble)) {
@@ -40,7 +42,7 @@ public class NavigationUtil {
     }
 
     public static void goToAlbum(final Activity activity, final int albumId, final Pair[] sharedViews) {
-        if(activity instanceof AlbumDetailActivity){
+        if (activity instanceof AlbumDetailActivity) {
             return;
         }
         if ((activity instanceof KabViewsDisableAble && ((KabViewsDisableAble) activity).areViewsEnabled()) || !(activity instanceof KabViewsDisableAble)) {
@@ -60,7 +62,7 @@ public class NavigationUtil {
     }
 
     public static void openCurrentPlayingIfPossible(final Activity activity, final Pair[] sharedViews) {
-        if (activity instanceof MusicControllerActivity){
+        if (activity instanceof MusicControllerActivity) {
             activity.onBackPressed();
             return;
         }
@@ -78,6 +80,15 @@ public class NavigationUtil {
                     activity.startActivity(intent);
                 }
             }
+        } else {
+            Toast.makeText(activity, activity.getResources().getString(R.string.nothing_playing), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public static void openPlayingQueueDialog(final Activity activity) {
+        final MaterialDialog materialDialog = PlayingQueueDialogHelper.getDialog(activity);
+        if (materialDialog != null) {
+            materialDialog.show();
         } else {
             Toast.makeText(activity, activity.getResources().getString(R.string.nothing_playing), Toast.LENGTH_SHORT).show();
         }
