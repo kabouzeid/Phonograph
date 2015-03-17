@@ -74,5 +74,7 @@
     <string name="added_title_to_playing_queue">Added 1 title to the playing queue.</string>
     <string name="added_titles_to_playing_queue_1">Added </string>
     <string name="added_titles_to_playing_queue_2"> titles to the playing queue.</string>
+    <string name="title_activity_playlist_detail">PlaylistDetailActivity</string>
+    <string name="action_delete_from_playlist">Delete from playlist</string>
 
 </resources>

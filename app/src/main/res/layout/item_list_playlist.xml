@@ -3,29 +3,28 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="64dp"
-    android:descendantFocusability="blocksDescendants"
+    android:background="?rect_selector"
     android:orientation="horizontal"
-    >
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
 
-    <TextView
-        android:id="@+id/song_title"
-        android:layout_width="0dp"
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:gravity="center"
+        android:src="@drawable/ic_queue_music_white_24dp"
+        />
+
+    <TextView
+        android:id="@+id/playlist_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:layout_marginLeft="16dp"
-        android:layout_weight="1"
+        android:layout_marginRight="16dp"
         android:fontFamily="sans-serif"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
-    <ImageView
-        android:id="@+id/playing_indicator"
-        style="@style/PlayingIndicator"
-        android:layout_marginRight="-8dp"
-        />
-
-    <ImageView
-        android:id="@+id/menu"
-        style="@style/OverFlowButton"
-        android:layout_gravity="center_vertical"/>
 </LinearLayout>

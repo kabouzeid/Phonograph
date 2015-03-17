@@ -12,6 +12,7 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.squareup.otto.Bus;
 import com.squareup.otto.ThreadEnforcer;
+import com.squareup.picasso.Picasso;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -31,6 +32,7 @@ public class App extends Application {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
         MusicPlayerRemote.init(this);
+        //Picasso.with(this).setIndicatorsEnabled(true);// debug only
     }
 
     public int getAppTheme() {

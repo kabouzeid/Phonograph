@@ -4,15 +4,24 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
+import android.provider.BaseColumns;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.loader.SongLoader;
+import com.kabouzeid.gramophone.model.Song;
 
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by karim on 29.12.14.
@@ -85,5 +94,58 @@ public class MusicUtil {
             }
         }
         return albumArtDir;
+    }
+
+    public static void deleteTracks(final Context context, final List<Song> songs) {
+        final String[] projection = new String[] {
+                BaseColumns._ID, MediaStore.MediaColumns.DATA
+        };
+        final StringBuilder selection = new StringBuilder();
+        selection.append(BaseColumns._ID + " IN (");
+        for (int i = 0; i < songs.size(); i++) {
+            selection.append(songs.get(i).id);
+            if (i < songs.size() - 1) {
+                selection.append(",");
+            }
+        }
+        selection.append(")");
+        final Cursor cursor = context.getContentResolver().query(
+                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection, selection.toString(),
+                null, null);
+        if (cursor != null) {
+            // Step 1: Remove selected tracks from the current playlist, as well
+            // as from the album art cache
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                final int id = cursor.getInt(0);
+                final Song song = SongLoader.getSong(context, id);
+                MusicPlayerRemote.removeFromQueue(song);
+            }
+
+            // Step 2: Remove selected tracks from the database
+            context.getContentResolver().delete(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                    selection.toString(), null);
+
+            // Step 3: Remove files from card
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                final String name = cursor.getString(1);
+                final File f = new File(name);
+                try { // File.delete can throw a security exception
+                    if (!f.delete()) {
+                        // I'm not sure if we'd ever get here (deletion would
+                        // have to fail, but no exception thrown)
+                        Log.e("MusicUtils", "Failed to delete file " + name);
+                    }
+                    cursor.moveToNext();
+                } catch (final SecurityException ex) {
+                    cursor.moveToNext();
+                }
+            }
+            cursor.close();
+        }
+        context.getContentResolver().notifyChange(Uri.parse("content://media"), null);
+        Toast.makeText(context, "Deleted " + songs.size() + " songs", Toast.LENGTH_SHORT).show();
+        //TODO add resource string
     }
 }

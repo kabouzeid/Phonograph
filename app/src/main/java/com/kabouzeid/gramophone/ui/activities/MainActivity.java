@@ -36,6 +36,7 @@ import com.kabouzeid.gramophone.ui.fragments.NavigationDrawerFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AlbumViewFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.ArtistViewFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityFragment;
+import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.PlaylistViewFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.SongViewFragment;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -261,41 +262,11 @@ public class MainActivity extends AbsFabActivity
         super.onBackPressed();
     }
 
-    public static class PlaceholderFragmentAbs extends AbsMainActivityFragment {
-
-        public PlaceholderFragmentAbs() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_place_holder, container, false);
-            TextView text = (TextView) rootView.findViewById(R.id.text);
-            text.setText("Coming soon!");
-            return rootView;
-        }
-
-        @Override
-        public void enableViews() {
-
-        }
-
-        @Override
-        public void disableViews() {
-
-        }
-
-        @Override
-        public boolean areViewsEnabled() {
-            return false;
-        }
-    }
-
     private class MainActivityViewPagerAdapter extends FragmentPagerAdapter {
 
         private String[] titles;
 
-        private SparseArray<AbsMainActivityFragment> pages; //TODO check if this must be static
+        private SparseArray<AbsMainActivityFragment> pages;
         private Context context;
 
         public MainActivityViewPagerAdapter(Activity activity) {
@@ -306,7 +277,6 @@ public class MainActivity extends AbsFabActivity
                     context.getResources().getString(R.string.songs),
                     context.getResources().getString(R.string.albums),
                     context.getResources().getString(R.string.artists),
-                    context.getResources().getString(R.string.genres),
                     context.getResources().getString(R.string.playlists)
             };
         }
@@ -321,11 +291,9 @@ public class MainActivity extends AbsFabActivity
                 case 2:
                     return pages.get(position, new ArtistViewFragment());
                 case 3:
-                    //TODO genres
-                case 4:
-                    //TODO playlists
+                    return pages.get(position, new PlaylistViewFragment());
             }
-            return pages.get(position, new PlaceholderFragmentAbs());
+            return null;
         }
 
         @Override

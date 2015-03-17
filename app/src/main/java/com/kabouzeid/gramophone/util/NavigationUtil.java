@@ -16,6 +16,7 @@ import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity;
 import com.kabouzeid.gramophone.ui.activities.ArtistDetailActivity;
 import com.kabouzeid.gramophone.ui.activities.MusicControllerActivity;
+import com.kabouzeid.gramophone.ui.activities.PlaylistDetailActivity;
 
 /**
  * Created by karim on 12.03.15.
@@ -50,6 +51,23 @@ public class NavigationUtil {
                 ((KabViewsDisableAble) activity).disableViews();
             final Intent intent = new Intent(activity, AlbumDetailActivity.class);
             intent.putExtra(AppKeys.E_ALBUM, albumId);
+            if (sharedViews != null) {
+                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+                        sharedViews
+                );
+                ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
+            } else {
+                activity.startActivity(intent);
+            }
+        }
+    }
+
+    public static void goToPlaylist(final Activity activity, final int playlistId, final Pair[] sharedViews) {
+        if ((activity instanceof KabViewsDisableAble && ((KabViewsDisableAble) activity).areViewsEnabled()) || !(activity instanceof KabViewsDisableAble)) {
+            if (activity instanceof KabViewsDisableAble)
+                ((KabViewsDisableAble) activity).disableViews();
+            final Intent intent = new Intent(activity, PlaylistDetailActivity.class);
+            intent.putExtra(AppKeys.E_PLAYLIST, playlistId);
             if (sharedViews != null) {
                 ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
                         sharedViews

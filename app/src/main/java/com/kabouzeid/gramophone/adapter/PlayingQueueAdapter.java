@@ -30,7 +30,7 @@ public class PlayingQueueAdapter extends ArrayAdapter<Song> {
     private Activity activity;
 
     public PlayingQueueAdapter(Activity activity, List<Song> playList) {
-        super(activity, R.layout.item_list_playlist, playList);
+        super(activity, R.layout.item_list_playlist_song, playList);
         this.activity = activity;
     }
 
@@ -38,7 +38,7 @@ public class PlayingQueueAdapter extends ArrayAdapter<Song> {
     public View getView(final int position, View convertView, ViewGroup parent) {
         final Song song = getItem(position);
         if (convertView == null) {
-            convertView = LayoutInflater.from(activity).inflate(R.layout.item_list_playlist, parent, false);
+            convertView = LayoutInflater.from(activity).inflate(R.layout.item_list_playlist_song, parent, false);
         }
         final TextView title = (TextView) convertView.findViewById(R.id.song_title);
         final ImageView playingIndicator = (ImageView) convertView.findViewById(R.id.playing_indicator);

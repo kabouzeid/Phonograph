@@ -499,6 +499,16 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         saveState();
     }
 
+    public void removeSong(Song song){
+        while (playingQueue.contains(song)){
+            playingQueue.remove(song);
+        }
+        while (originalPlayingQueue.contains(song)){
+            originalPlayingQueue.remove(song);
+        }
+        saveState();
+    }
+
     public void moveSong(int from, int to) {
         final int currentPosition = getPosition();
         Song songToMove = playingQueue.remove(from);

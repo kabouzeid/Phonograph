@@ -230,6 +230,12 @@ public class MusicPlayerRemote {
         }
     }
 
+    public static void removeFromQueue(Song song) {
+        if (musicService != null) {
+            musicService.removeSong(song);
+        }
+    }
+
     public static void removeFromQueue(int position) {
         if (musicService != null) {
             musicService.removeSong(position);

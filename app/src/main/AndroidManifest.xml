@@ -70,6 +70,11 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/music_player_widget_info" />
         </receiver>
+
+        <activity
+            android:name=".ui.activities.PlaylistDetailActivity"
+            android:label="@string/title_activity_playlist_detail" >
+        </activity>
     </application>
 
 </manifest>
