@@ -26,6 +26,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.AboutDeveloperDialogHelper;
+import com.kabouzeid.gramophone.helper.CreatePlaylistDialogHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.PlayingQueueDialogHelper;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
@@ -58,6 +59,7 @@ public class MainActivity extends AbsFabActivity
     private MainActivityViewPagerAdapter viewPagerAdapter;
     private ViewPager viewPager;
     private SlidingTabLayout slidingTabLayout;
+    private int currentPage = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,7 @@ public class MainActivity extends AbsFabActivity
         viewPagerAdapter = new MainActivityViewPagerAdapter(this);
         viewPager.setAdapter(viewPagerAdapter);
         int startPosition = PreferenceUtils.getInstace(this).getStartPage();
+        currentPage = startPosition;
         viewPager.setCurrentItem(startPosition);
         navigationDrawerFragment.setItemChecked(startPosition);
 
@@ -93,6 +96,8 @@ public class MainActivity extends AbsFabActivity
             public void onPageSelected(final int position) {
                 PreferenceUtils.getInstace(MainActivity.this).setStartPage(position);
                 navigationDrawerFragment.setItemChecked(position);
+                currentPage = position;
+                invalidateOptionsMenu();
             }
 
             @Override
@@ -210,7 +215,14 @@ public class MainActivity extends AbsFabActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.drawer, menu);
+        switch (currentPage){
+            case 3:
+                getMenuInflater().inflate(R.menu.menu_playlists, menu);
+                break;
+            default:
+                getMenuInflater().inflate(R.menu.drawer, menu);
+                break;
+        }
         restoreActionBar();
         return true;
     }
@@ -229,10 +241,17 @@ public class MainActivity extends AbsFabActivity
         }
         int id = item.getItemId();
         switch (id) {
+            case R.id.action_licenses:
+                Toast.makeText(this, "This feature is not available yet", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.action_new_playlist:
+                CreatePlaylistDialogHelper.getDialog(this).show();
+                return true;
             case R.id.action_search:
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
                 return true;
             case R.id.action_settings:
+                Toast.makeText(this, "This feature is not available yet", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_about:
                 AboutDeveloperDialogHelper.getDialog(this).show();
@@ -277,7 +296,7 @@ public class MainActivity extends AbsFabActivity
                     context.getResources().getString(R.string.songs),
                     context.getResources().getString(R.string.albums),
                     context.getResources().getString(R.string.artists),
-                    context.getResources().getString(R.string.playlists)
+                    context.getResources().getString(R.string.playlists) + " BETA"
             };
         }
 

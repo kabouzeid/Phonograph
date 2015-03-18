@@ -73,8 +73,16 @@
     <string name="loading">Loading…</string>
     <string name="added_title_to_playing_queue">Added 1 title to the playing queue.</string>
     <string name="added_titles_to_playing_queue_1">Added </string>
-    <string name="added_titles_to_playing_queue_2"> titles to the playing queue.</string>
+    <string name="added_titles_to_playing_queue_2">\u0020titles to the playing queue.</string>
     <string name="title_activity_playlist_detail">PlaylistDetailActivity</string>
     <string name="action_delete_from_playlist">Delete from playlist</string>
+    <string name="inserted_titles_to_playlist_1">Inserted\u0020</string>
+    <string name="inserted_titles_to_playlist_2">\u0020titles to playlist\u0020</string>
+    <string name="action_new_playlist">New playlist</string>
+    <string name="cancel">Cancel</string>
+    <string name="created_playlist">Created playlist\u0020</string>
+    <string name="deleted_playlist">Deleted playlist\u0020</string>
+    <string name="create_playlist_failed">Could not create playlist\u0020</string>
+    <string name="delete_playlist">Delete playlist\u0020</string>
 
 </resources>

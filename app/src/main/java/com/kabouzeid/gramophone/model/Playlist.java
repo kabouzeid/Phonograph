@@ -2,15 +2,15 @@ package com.kabouzeid.gramophone.model;
 
 public class Playlist {
     public int id;
-    public String playlistName;
+    public String name;
 
-    public Playlist(final int id, final String playlistName) {
+    public Playlist(final int id, final String name) {
         this.id = id;
-        this.playlistName = playlistName;
+        this.name = name;
     }
 
     public Playlist() {
         this.id = -1;
-        this.playlistName = "";
+        this.name = "";
     }
 }

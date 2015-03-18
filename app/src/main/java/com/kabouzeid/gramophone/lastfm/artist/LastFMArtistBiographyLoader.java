@@ -38,7 +38,7 @@ public class LastFMArtistBiographyLoader {
     private static void downloadArtistBio(final Context context, final String artist, final ArtistBioLoaderCallback callback) {
         App app = (App) context.getApplicationContext();
         String artistUrl = LastFMArtistInfoUtil.getArtistUrl(artist);
-        JsonObjectRequest artistInfoJSONRequest = new JsonObjectRequest(0, artistUrl, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest artistInfoJSONRequest = new JsonObjectRequest(0, artistUrl, (JSONObject)null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 LastFMArtistInfoUtil.saveArtistJSONDataToCacheAndDisk(context, artist, response);

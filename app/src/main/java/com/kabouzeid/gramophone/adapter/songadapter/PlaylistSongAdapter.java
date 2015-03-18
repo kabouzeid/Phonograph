@@ -11,12 +11,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.helper.AddToPlaylistDialogHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.SongDetailDialogHelper;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
+import com.kabouzeid.gramophone.misc.DragSortRecycler;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
@@ -97,6 +100,12 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     switch (item.getItemId()) {
+                        case R.id.action_delete_from_disk:
+                            Toast.makeText(activity, "This feature is not available yet", Toast.LENGTH_SHORT).show();
+                            return true;
+                        case R.id.action_add_to_playlist:
+                            AddToPlaylistDialogHelper.getDialog(activity, dataSet.get(getAdapterPosition())).show();
+                            return true;
                         case R.id.action_delete_from_playlist:
                             int position = getAdapterPosition();
                             PlaylistsUtil.removeFromPlaylist(activity, dataSet.remove(position));
@@ -114,7 +123,7 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
                             activity.startActivity(intent);
                             return true;
                         case R.id.action_details:
-                            String songFilePath = SongFilePathLoader.getSongFilePath(activity, dataSet.get(getPosition()).id);
+                            String songFilePath = SongFilePathLoader.getSongFilePath(activity, dataSet.get(getAdapterPosition()).id);
                             File songFile = new File(songFilePath);
                             SongDetailDialogHelper.getDialog(activity, songFile).show();
                             return true;

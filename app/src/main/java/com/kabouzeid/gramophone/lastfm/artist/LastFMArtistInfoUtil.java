@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.lastfm.artist;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
 
@@ -101,7 +100,7 @@ public class LastFMArtistInfoUtil {
     public static void downloadArtistJSON(final Context context, final String artist, final Response.Listener<JSONObject> callback) {
         App app = (App) context.getApplicationContext();
         String artistUrl = LastFMArtistInfoUtil.getArtistUrl(artist);
-        JsonObjectRequest artistInfoJSONRequest = new JsonObjectRequest(0, artistUrl, null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest artistInfoJSONRequest = new JsonObjectRequest(0, artistUrl, (JSONObject)null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 LastFMArtistInfoUtil.saveArtistJSONDataToCacheAndDisk(context, artist, response);

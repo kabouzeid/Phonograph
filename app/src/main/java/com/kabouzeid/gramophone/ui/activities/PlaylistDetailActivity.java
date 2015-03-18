@@ -12,10 +12,12 @@ import com.kabouzeid.gramophone.adapter.songadapter.PlaylistSongAdapter;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
+import com.kabouzeid.gramophone.misc.DragSortRecycler;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.PlaylistsUtil;
 
 import java.util.List;
 
@@ -34,10 +36,27 @@ public class PlaylistDetailActivity extends AbsFabActivity {
         setUpToolBar();
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        List<PlaylistSong> songs = PlaylistSongLoader.getPlaylistSongList(this, playlist.id);
-        PlaylistSongAdapter adapter = new PlaylistSongAdapter(this, songs);
+        final List<PlaylistSong> songs = PlaylistSongLoader.getPlaylistSongList(this, playlist.id);
+        final PlaylistSongAdapter adapter = new PlaylistSongAdapter(this, songs);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(adapter);
+
+        DragSortRecycler dragSortRecycler = new DragSortRecycler();
+        dragSortRecycler.setViewHandleId(R.id.album_art);
+
+        dragSortRecycler.setOnItemMovedListener(new DragSortRecycler.OnItemMovedListener() {
+            @Override
+            public void onItemMoved(int from, int to) {
+                PlaylistSong song = songs.remove(from);
+                songs.add(to, song);
+                adapter.notifyDataSetChanged();
+                PlaylistsUtil.moveItem(PlaylistDetailActivity.this, playlist.id, from, to);
+            }
+        });
+
+        recyclerView.addItemDecoration(dragSortRecycler);
+        recyclerView.addOnItemTouchListener(dragSortRecycler);
+        recyclerView.setOnScrollListener(dragSortRecycler.getScrollListener());
     }
 
     private void getIntentExtras() {
@@ -51,7 +70,7 @@ public class PlaylistDetailActivity extends AbsFabActivity {
 
     private void setUpToolBar() {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-        getSupportActionBar().setTitle(playlist.playlistName);
+        getSupportActionBar().setTitle(playlist.name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

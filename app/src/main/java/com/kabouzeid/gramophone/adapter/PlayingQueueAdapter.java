@@ -10,8 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.helper.AddToPlaylistDialogHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.SongDetailDialogHelper;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
@@ -62,6 +64,12 @@ public class PlayingQueueAdapter extends ArrayAdapter<Song> {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
+                            case R.id.action_delete_from_disk:
+                                Toast.makeText(activity, "This feature is not available yet", Toast.LENGTH_SHORT).show();
+                                return true;
+                            case R.id.action_add_to_playlist:
+                                AddToPlaylistDialogHelper.getDialog(activity, song).show();
+                                return true;
                             case R.id.action_remove_from_playing_queue:
                                 MusicPlayerRemote.removeFromQueue(position);
                                 notifyDataSetChanged();

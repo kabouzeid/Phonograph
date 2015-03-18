@@ -17,14 +17,14 @@ repositories {
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "21.1.2"
+    buildToolsVersion "22"
 
     defaultConfig {
         applicationId "com.kabouzeid.gramophone"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0"
+        versionName "0.9b"
     }
 
     compileOptions {

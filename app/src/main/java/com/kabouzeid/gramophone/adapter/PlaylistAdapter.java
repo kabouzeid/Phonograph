@@ -8,10 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.PlaylistsUtil;
 
 import java.util.List;
 
@@ -36,7 +40,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.playlistName.setText(dataSet.get(position).playlistName);
+        holder.playlistName.setText(dataSet.get(position).name);
     }
 
     @Override
@@ -44,20 +48,46 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
         return dataSet.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         public TextView playlistName;
 
         public ViewHolder(View itemView) {
             super(itemView);
             playlistName = (TextView) itemView.findViewById(R.id.playlist_name);
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             Pair[] sharedViews = null;
-            if (activity instanceof AbsFabActivity) sharedViews = ((AbsFabActivity)activity).getSharedViewsWithFab(sharedViews);
-            NavigationUtil.goToPlaylist(activity, dataSet.get(getPosition()).id, sharedViews);
+            if (activity instanceof AbsFabActivity)
+                sharedViews = ((AbsFabActivity) activity).getSharedViewsWithFab(sharedViews);
+            NavigationUtil.goToPlaylist(activity, dataSet.get(getAdapterPosition()).id, sharedViews);
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            final Playlist playlist = dataSet.get(getAdapterPosition());
+            new MaterialDialog.Builder(activity)
+                    .title(activity.getResources().getString(R.string.delete_playlist) + playlist.name)
+                    .positiveText(activity.getResources().getString(R.string.ok))
+                    .negativeText(activity.getResources().getString(R.string.cancel))
+                    .callback(new MaterialDialog.ButtonCallback() {
+                        @Override
+                        public void onPositive(MaterialDialog dialog) {
+                            super.onPositive(dialog);
+                            dialog.dismiss();
+                            PlaylistsUtil.deletePlaylist(activity, playlist.id);
+                        }
+
+                        @Override
+                        public void onNegative(MaterialDialog dialog) {
+                            super.onNegative(dialog);
+                            dialog.dismiss();
+                        }
+                    }).show();
+            return true;
         }
     }
 }

@@ -2,20 +2,19 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
 
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PlaylistAdapter;
-import com.kabouzeid.gramophone.adapter.songadapter.SongAdapter;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
-import com.kabouzeid.gramophone.loader.SongLoader;
+import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Playlist;
-import com.kabouzeid.gramophone.model.Song;
+import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
@@ -37,12 +36,27 @@ public class PlaylistViewFragment extends AbsMainActivityFragment {
     }
 
     private void setUpRecyclerView() {
-        List<Playlist> playlists = PlaylistLoader.getAllPlaylists(getActivity());
-        PlaylistAdapter adapter = new PlaylistAdapter(getActivity(), playlists);
-
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-        recyclerView.setAdapter(adapter);
         recyclerView.setPadding(0, getTopPadding(), 0, getBottomPadding());
+        setUpAdapter();
+    }
+
+    private void setUpAdapter(){
+        if(recyclerView != null) {
+            List<Playlist> playlists = PlaylistLoader.getAllPlaylists(getActivity());
+            PlaylistAdapter adapter = new PlaylistAdapter(getActivity(), playlists);
+            recyclerView.setAdapter(adapter);
+        }
+    }
+
+    @Subscribe
+    public void onDataBaseEvent(DataBaseChangedEvent event) {
+        switch (event.getAction()) {
+            case DataBaseChangedEvent.PLAYLISTS_CHANGED:
+            case DataBaseChangedEvent.DATABASE_CHANGED:
+                setUpAdapter();
+                break;
+        }
     }
 
     @Override
@@ -55,5 +69,17 @@ public class PlaylistViewFragment extends AbsMainActivityFragment {
     public void disableViews() {
         super.disableViews();
         recyclerView.setEnabled(false);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        App.bus.register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        App.bus.unregister(this);
     }
 }

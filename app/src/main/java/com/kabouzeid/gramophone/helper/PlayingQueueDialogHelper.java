@@ -8,6 +8,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PlayingQueueAdapter;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.util.PlaylistsUtil;
 import com.mobeta.android.dslv.DragSortListView;
 
 import java.util.List;
@@ -16,8 +17,8 @@ import java.util.List;
  * Created by karim on 24.01.15.
  */
 public class PlayingQueueDialogHelper {
-    public static MaterialDialog getDialog(Activity activity) {
-        List<Song> playingQueue = MusicPlayerRemote.getPlayingQueue();
+    public static MaterialDialog getDialog(final Activity activity) {
+        final List<Song> playingQueue = MusicPlayerRemote.getPlayingQueue();
         if (playingQueue.isEmpty()) {
             return null;
         }
@@ -26,7 +27,7 @@ public class PlayingQueueDialogHelper {
                 .title(activity.getResources().getString(R.string.label_current_playing_queue))
                 .customView(R.layout.dialog_playlist, false)
                 .positiveText(activity.getResources().getString(R.string.close))
-                .negativeText(activity.getResources().getString(R.string.save_as_playlist))
+                .neutralText(activity.getResources().getString(R.string.save_as_playlist))
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
@@ -35,8 +36,10 @@ public class PlayingQueueDialogHelper {
                     }
 
                     @Override
-                    public void onNegative(MaterialDialog dialog) {
+                    public void onNeutral(MaterialDialog dialog) {
                         super.onNegative(dialog);
+                        dialog.dismiss();
+                        AddToPlaylistDialogHelper.getDialog(activity, playingQueue).show();
                     }
                 })
                 .build();

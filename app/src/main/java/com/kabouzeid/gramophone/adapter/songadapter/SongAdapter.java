@@ -11,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.helper.AddToPlaylistDialogHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.SongDetailDialogHelper;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
@@ -93,6 +95,12 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     switch (item.getItemId()) {
+                        case R.id.action_delete_from_disk:
+                            Toast.makeText(activity, "This feature is not available yet", Toast.LENGTH_SHORT).show();
+                            return true;
+                        case R.id.action_add_to_playlist:
+                            AddToPlaylistDialogHelper.getDialog(activity, dataSet.get(getAdapterPosition())).show();
+                            return true;
                         case R.id.action_play_next:
                             MusicPlayerRemote.playNext(dataSet.get(getPosition()));
                             return true;

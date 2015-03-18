@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.kabouzeid.gramophone.App;
@@ -264,6 +265,7 @@ public class AlbumDetailActivity extends AbsFabActivity {
                 NavigationUtil.openPlayingQueueDialog(this);
                 return true;
             case R.id.action_settings:
+                Toast.makeText(this, "This feature is not available yet", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_current_playing:
                 NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithFab(null));

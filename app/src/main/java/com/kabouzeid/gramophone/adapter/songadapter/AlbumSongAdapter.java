@@ -11,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.helper.AddToPlaylistDialogHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.SongDetailDialogHelper;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
@@ -22,6 +24,7 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.PlaylistsUtil;
 
 import java.io.File;
 import java.util.List;
@@ -75,7 +78,7 @@ public class AlbumSongAdapter extends RecyclerView.Adapter<AlbumSongAdapter.View
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MusicPlayerRemote.openQueue(dataSet, getPosition(), true);
+                    MusicPlayerRemote.openQueue(dataSet, getAdapterPosition(), true);
                 }
             });
         }
@@ -88,18 +91,24 @@ public class AlbumSongAdapter extends RecyclerView.Adapter<AlbumSongAdapter.View
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     switch (item.getItemId()) {
+                        case R.id.action_delete_from_disk:
+                            Toast.makeText(activity, "This feature is not available yet", Toast.LENGTH_SHORT).show();
+                            return true;
+                        case R.id.action_add_to_playlist:
+                            AddToPlaylistDialogHelper.getDialog(activity, dataSet.get(getAdapterPosition())).show();
+                            return true;
                         case R.id.action_play_next:
-                            MusicPlayerRemote.playNext(dataSet.get(getPosition()));
+                            MusicPlayerRemote.playNext(dataSet.get(getAdapterPosition()));
                             return true;
                         case R.id.action_add_to_current_playing:
-                            MusicPlayerRemote.enqueue(dataSet.get(getPosition()));
+                            MusicPlayerRemote.enqueue(dataSet.get(getAdapterPosition()));
                         case R.id.action_tag_editor:
                             Intent intent = new Intent(activity, SongTagEditorActivity.class);
-                            intent.putExtra(AppKeys.E_ID, dataSet.get(getPosition()).id);
+                            intent.putExtra(AppKeys.E_ID, dataSet.get(getAdapterPosition()).id);
                             activity.startActivity(intent);
                             return true;
                         case R.id.action_details:
-                            String songFilePath = SongFilePathLoader.getSongFilePath(activity, dataSet.get(getPosition()).id);
+                            String songFilePath = SongFilePathLoader.getSongFilePath(activity, dataSet.get(getAdapterPosition()).id);
                             File songFile = new File(songFilePath);
                             SongDetailDialogHelper.getDialog(activity, songFile).show();
                             return true;
@@ -107,13 +116,13 @@ public class AlbumSongAdapter extends RecyclerView.Adapter<AlbumSongAdapter.View
                             Pair[] albumPairs = null;
                             if (activity instanceof AbsFabActivity)
                                 albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(albumPairs);
-                            NavigationUtil.goToAlbum(activity, dataSet.get(getPosition()).albumId, albumPairs);
+                            NavigationUtil.goToAlbum(activity, dataSet.get(getAdapterPosition()).albumId, albumPairs);
                             return true;
                         case R.id.action_go_to_artist:
                             Pair[] artistPairs = null;
                             if (activity instanceof AbsFabActivity)
                                 artistPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(artistPairs);
-                            NavigationUtil.goToArtist(activity, dataSet.get(getPosition()).artistId, artistPairs);
+                            NavigationUtil.goToArtist(activity, dataSet.get(getAdapterPosition()).artistId, artistPairs);
                             return true;
                     }
                     return false;

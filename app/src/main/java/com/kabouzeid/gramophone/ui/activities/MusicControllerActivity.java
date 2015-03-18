@@ -18,10 +18,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.helper.AddToPlaylistDialogHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.helper.PlayingQueueDialogHelper;
 import com.kabouzeid.gramophone.helper.SongDetailDialogHelper;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistImageUrlLoader;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
@@ -388,6 +387,12 @@ public class MusicControllerActivity extends AbsFabActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case R.id.action_settings:
+                Toast.makeText(this, "This feature is not available yet", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.action_add_to_playlist:
+                AddToPlaylistDialogHelper.getDialog(this, song).show();
+                return true;
             case android.R.id.home:
                 super.onBackPressed();
                 return true;

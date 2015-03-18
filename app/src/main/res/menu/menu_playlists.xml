@@ -1,8 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context=".DrawerActivity">
-
+      xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_current_playing"
         android:icon="@drawable/music_box"
@@ -14,6 +12,11 @@
         android:icon="@drawable/abc_ic_search_api_mtrl_alpha"
         android:title="@string/action_search"
         app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_new_playlist"
+        android:title="@string/action_new_playlist"
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/action_playing_queue"
@@ -29,8 +32,8 @@
         app:showAsAction="never"/>
 
     <item
-        android:orderInCategory="101"
         android:id="@+id/action_licenses"
+        android:orderInCategory="101"
         android:title="Open Source Licenses"
         app:showAsAction="never"/>
 
