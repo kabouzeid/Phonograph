@@ -19,8 +19,6 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.SongDetailDialogHelper;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
-import com.kabouzeid.gramophone.misc.DragSortRecycler;
-import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
@@ -31,7 +29,6 @@ import com.kabouzeid.gramophone.util.PlaylistsUtil;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -95,7 +92,7 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
         @Override
         public void onClick(View v) {
             PopupMenu popupMenu = new PopupMenu(activity, v);
-            popupMenu.inflate(R.menu.menu_playlist_song);
+            popupMenu.inflate(R.menu.menu_item_playlist_song);
             popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {

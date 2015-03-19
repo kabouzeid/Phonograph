@@ -8,30 +8,23 @@ import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Created by karim on 17.03.15.
+ * Created by karim on 19.03.15.
  */
-public class CreatePlaylistDialogHelper {
-    public static MaterialDialog getDialog(final Context context, final Song song) {
-        List<Song> tmpSong = new ArrayList<>();
-        tmpSong.add(song);
-        return getDialog(context, tmpSong);
-    }
-
-    public static MaterialDialog getDialog(final Context context, final List<Song> songs) {
+public class RenamePlaylistDialogHelper {
+    public static MaterialDialog getDialog(final Context context, final int playlistId) {
         final EditText editText = new EditText(context);
         ViewGroup layout = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.dialog_empty_frame, null);
-        if (editText.getParent() != null) {((ViewGroup) editText.getParent()).removeView(editText);}
+        if (editText.getParent() != null) {
+            ((ViewGroup) editText.getParent()).removeView(editText);
+        }
+        editText.setText(PlaylistsUtil.getNameForPlaylist(context, playlistId));
         layout.addView(editText, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         return new MaterialDialog.Builder(context)
-                .title(context.getResources().getString(R.string.action_new_playlist))
+                .title(context.getResources().getString(R.string.rename_playlist))
                 .customView(layout, false)
                 .positiveText(context.getResources().getString(R.string.ok))
                 .negativeText(context.getResources().getString(R.string.cancel))
@@ -41,13 +34,7 @@ public class CreatePlaylistDialogHelper {
                                   super.onPositive(dialog);
                                   final String playlistName = editText.getText().toString();
                                   if (!playlistName.trim().equals("")) {
-                                      dialog.dismiss();
-                                      final int playlistId = PlaylistsUtil.createPlaylist(context, playlistName);
-                                      if (playlistId != -1) {
-                                          if (songs != null) {
-                                              PlaylistsUtil.addToPlaylist(context, songs, playlistId);
-                                          }
-                                      }
+                                      PlaylistsUtil.renamePlaylist(context, playlistId, playlistName);
                                   }
                               }
 
@@ -59,9 +46,5 @@ public class CreatePlaylistDialogHelper {
                           }
                 )
                 .build();
-    }
-
-    public static MaterialDialog getDialog(final Context context) {
-        return getDialog(context, (List<Song>) null);
     }
 }

@@ -379,7 +379,7 @@ public class MusicControllerActivity extends AbsFabActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_title_playing, menu);
+        getMenuInflater().inflate(R.menu.menu_music_playing, menu);
         return true;
     }
 

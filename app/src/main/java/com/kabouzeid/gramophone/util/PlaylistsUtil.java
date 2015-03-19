@@ -165,6 +165,16 @@ public class PlaylistsUtil {
                 playlistId, from, to);
     }
 
+    public static void renamePlaylist(final Context context, final int id, final String newName) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MediaStore.Audio.PlaylistsColumns.NAME, newName);
+        context.getContentResolver().update(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,
+                contentValues,
+                MediaStore.Audio.Playlists._ID + "=?",
+                new String[]{ String.valueOf(id) });
+        App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
+    }
+
     public static String getNameForPlaylist(final Context context, final int id) {
         Cursor cursor = context.getContentResolver().query(
                 MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,

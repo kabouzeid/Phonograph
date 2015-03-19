@@ -84,5 +84,6 @@
     <string name="deleted_playlist">Deleted playlist\u0020</string>
     <string name="create_playlist_failed">Could not create playlist\u0020</string>
     <string name="delete_playlist">Delete playlist\u0020</string>
+    <string name="rename_playlist">Rename playlist\u0020</string>
 
 </resources>

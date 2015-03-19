@@ -59,7 +59,7 @@ public class PlayingQueueAdapter extends ArrayAdapter<Song> {
             @Override
             public void onClick(final View v) {
                 PopupMenu popupMenu = new PopupMenu(activity, v);
-                popupMenu.inflate(R.menu.menu_playing_queue_song);
+                popupMenu.inflate(R.menu.menu_item_playing_queue_song);
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
