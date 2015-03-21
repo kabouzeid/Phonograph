@@ -23,12 +23,11 @@
             android:scaleType="centerCrop"
             android:src="@drawable/default_album_art"/>
 
-        <LinearLayout
+        <View
             android:layout_width="match_parent"
-            android:layout_height="64dp"
+            android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/shadow_up"
-            android:orientation="vertical"/>
+            android:background="@drawable/shadow_up"/>
 
         <LinearLayout
             android:layout_width="match_parent"

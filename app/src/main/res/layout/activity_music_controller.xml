@@ -17,9 +17,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_above="@+id/footer"
-        android:layout_alignTop="@+id/progress_container"
         android:background="@drawable/shadow_up"/>
 
     <LinearLayout
@@ -31,11 +30,12 @@
         android:orientation="horizontal">
 
         <TextView
+            android:textStyle="bold"
             android:id="@+id/song_current_progress"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:fontFamily="sans-serif-medium"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif"
             android:gravity="bottom|left"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
@@ -45,12 +45,11 @@
             android:id="@+id/song_total_time"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
             android:layout_weight="1"
             android:fontFamily="sans-serif"
             android:gravity="bottom|right"
             android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="?attr/caption_text_color"/>
 
     </LinearLayout>
@@ -69,7 +68,7 @@
         android:paddingTop="16dp"
         android:transitionName="@string/transition_album_text">
 
-    <TextView
+        <TextView
             android:id="@+id/song_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,10 +89,10 @@
     </LinearLayout>
 
     <View
-        android:layout_below="@id/footer"
         android:layout_width="match_parent"
         android:layout_height="5dp"
-        android:background="@drawable/shadow_down" />
+        android:layout_below="@id/footer"
+        android:background="@drawable/shadow_down"/>
 
     <RelativeLayout
         android:id="@+id/media_controller_container"
@@ -110,24 +109,24 @@
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_centerVertical="true"
+            android:layout_marginRight="-8dp"
             android:layout_toLeftOf="@+id/fab"
             android:background="?round_selector"
             android:padding="22dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_skip_previous_white_48dp"
-            android:layout_marginRight="-8dp"/>
+            android:src="@drawable/ic_skip_previous_white_48dp"/>
 
         <ImageButton
             android:id="@+id/next_button"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="-8dp"
             android:layout_toRightOf="@+id/fab"
             android:background="?round_selector"
             android:padding="22dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_skip_next_white_48dp"
-            android:layout_marginLeft="-8dp"/>
+            android:src="@drawable/ic_skip_next_white_48dp"/>
 
         <ImageButton
             android:id="@+id/repeat_button"

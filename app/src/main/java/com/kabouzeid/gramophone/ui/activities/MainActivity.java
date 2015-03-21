@@ -44,6 +44,7 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
+import com.mikepenz.aboutlibraries.Libs;
 import com.squareup.picasso.Picasso;
 
 
@@ -242,7 +243,7 @@ public class MainActivity extends AbsFabActivity
         int id = item.getItemId();
         switch (id) {
             case R.id.action_licenses:
-                Toast.makeText(this, "This feature is not available yet", Toast.LENGTH_SHORT).show();
+                new Libs.Builder().withAutoDetect(true).start(this);
                 return true;
             case R.id.action_new_playlist:
                 CreatePlaylistDialogHelper.getDialog(this).show();
