@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/media_controller_container"
         android:background="@color/materialmusic_default_bar_color"
-        android:elevation="1dp"
+        android:elevation="2dp"
         android:orientation="vertical"
         android:paddingBottom="16dp"
         android:paddingLeft="72dp"
@@ -87,12 +87,6 @@
             android:textColor="?attr/caption_text_color"/>
 
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:layout_below="@id/footer"
-        android:background="@drawable/shadow_down"/>
 
     <RelativeLayout
         android:id="@+id/media_controller_container"
@@ -161,6 +155,7 @@
     </RelativeLayout>
 
     <SeekBar
+        android:elevation="2dp"
         android:id="@+id/progress_slider"
         style="@style/MusicProgressSlider"
         android:layout_above="@+id/footer"/>

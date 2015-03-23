@@ -41,10 +41,10 @@ public class SongLoader {
     }
 
     public static final Cursor makeSongCursor(final Context context) {
-        return makeSongCursor(context, (MediaStore.Audio.AudioColumns.IS_MUSIC + "=1"));
+        return makeSongCursor(context, MediaStore.Audio.AudioColumns.IS_MUSIC + "=?", new String[]{"1"});
     }
 
-    public static final Cursor makeSongCursor(final Context context, final String selection) {
+    public static final Cursor makeSongCursor(final Context context, final String selection, final String[] values) {
         return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 new String[]{
                         /* 0 */
@@ -63,11 +63,11 @@ public class SongLoader {
                         MediaStore.Audio.AudioColumns.ARTIST_ID,
                         /* 7 */
                         MediaStore.Audio.AudioColumns.ALBUM_ID
-                }, selection, null, PreferenceUtils.getInstace(context).getSongSortOrder());
+                }, selection, values, PreferenceUtils.getInstace(context).getSongSortOrder());
     }
 
-    public static List<Song> getSongs(Context context, String query) {
-        Cursor cursor = makeSongCursor(context, MediaStore.Audio.AudioColumns.TITLE + " LIKE '%" + query + "%'");
+    public static List<Song> getSongs(final Context context, final String query) {
+        Cursor cursor = makeSongCursor(context, MediaStore.Audio.AudioColumns.TITLE + " LIKE ?", new String[]{"%"+query+"%"});
         List<Song> songs = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -91,8 +91,8 @@ public class SongLoader {
         return songs;
     }
 
-    public static Song getSong(Context context, int queryId) {
-        Cursor cursor = makeSongCursor(context, MediaStore.Audio.AudioColumns._ID + "=" + queryId);
+    public static Song getSong(final Context context, final int queryId) {
+        Cursor cursor = makeSongCursor(context, MediaStore.Audio.AudioColumns._ID + "=?", new String[]{String.valueOf(queryId)});
         Song song = null;
         if (cursor != null && cursor.moveToFirst()) {
             final int id = cursor.getInt(0);

@@ -38,10 +38,10 @@ public class ArtistLoader {
     }
 
     public static final Cursor makeArtistCursor(final Context context) {
-        return makeArtistCursor(context, null);
+        return makeArtistCursor(context, null, null);
     }
 
-    public static final Cursor makeArtistCursor(final Context context, String selection) {
+    public static final Cursor makeArtistCursor(final Context context, final String selection, final String[] values) {
         return context.getContentResolver().query(MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI,
                 new String[]{
                         /* 0 */
@@ -52,11 +52,11 @@ public class ArtistLoader {
                         MediaStore.Audio.ArtistColumns.NUMBER_OF_ALBUMS,
                         /* 3 */
                         MediaStore.Audio.ArtistColumns.NUMBER_OF_TRACKS
-                }, selection, null, PreferenceUtils.getInstace(context).getArtistSortOrder());
+                }, selection, values, PreferenceUtils.getInstace(context).getArtistSortOrder());
     }
 
     public static Artist getArtist(Context context, int artistId) {
-        Cursor cursor = makeArtistCursor(context, BaseColumns._ID + "=" + artistId);
+        Cursor cursor = makeArtistCursor(context, BaseColumns._ID + "=?", new String[]{String.valueOf(artistId)});
         Artist artist = new Artist();
         if (cursor != null && cursor.moveToFirst()) {
             final int id = cursor.getInt(0);
@@ -74,7 +74,7 @@ public class ArtistLoader {
     }
 
     public static List<Artist> getArtists(Context context, String query) {
-        Cursor cursor = makeArtistCursor(context, MediaStore.Audio.ArtistColumns.ARTIST + " LIKE '%" + query + "%'");
+        Cursor cursor = makeArtistCursor(context, MediaStore.Audio.ArtistColumns.ARTIST + " LIKE ?", new String[]{"%"+query+"%"});
         List<Artist> artists = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {

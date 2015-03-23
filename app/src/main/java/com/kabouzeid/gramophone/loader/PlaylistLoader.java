@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlaylistLoader {
-    public static Playlist getPlaylist(final Context context, final int playlistID) {
+    public static Playlist getPlaylist(final Context context, final int playlistId) {
         Playlist playlist = new Playlist();
-        Cursor cursor = makePlaylistCursor(context, BaseColumns._ID + "=" + playlistID);
+        Cursor cursor = makePlaylistCursor(context, BaseColumns._ID + "=?", new String[]{String.valueOf(playlistId)});
 
         if (cursor != null && cursor.moveToFirst()) {
                 final int id = cursor.getInt(0);
@@ -29,7 +29,7 @@ public class PlaylistLoader {
 
     public static List<Playlist> getAllPlaylists(final Context context) {
         List<Playlist> playlists = new ArrayList<>();
-        Cursor cursor = makePlaylistCursor(context, null);
+        Cursor cursor = makePlaylistCursor(context, null, null);
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -45,13 +45,13 @@ public class PlaylistLoader {
         return playlists;
     }
 
-    public static Cursor makePlaylistCursor(final Context context, final String selection) {
+    public static Cursor makePlaylistCursor(final Context context, final String selection, final String[] values) {
         return context.getContentResolver().query(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,
                 new String[]{
                         /* 0 */
                         BaseColumns._ID,
                         /* 1 */
                         PlaylistsColumns.NAME
-                }, selection, null, MediaStore.Audio.Playlists.DEFAULT_SORT_ORDER);
+                }, selection, values, MediaStore.Audio.Playlists.DEFAULT_SORT_ORDER);
     }
 }
