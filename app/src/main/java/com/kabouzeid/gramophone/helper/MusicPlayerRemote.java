@@ -243,7 +243,7 @@ public class MusicPlayerRemote {
     }
 
     public static void moveSong(int from, int to) {
-        if(musicService != null){
+        if (musicService != null) {
             musicService.moveSong(from, to);
         }
     }

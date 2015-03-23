@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone;
 
 import android.app.Application;
-import android.content.res.Configuration;
 import android.preference.PreferenceManager;
 
 import com.android.volley.Request;
@@ -12,7 +11,6 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.squareup.otto.Bus;
 import com.squareup.otto.ThreadEnforcer;
-import com.squareup.picasso.Picasso;
 
 import io.fabric.sdk.android.Fabric;
 

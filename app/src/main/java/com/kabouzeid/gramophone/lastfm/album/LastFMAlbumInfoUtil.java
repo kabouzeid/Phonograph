@@ -87,7 +87,7 @@ public class LastFMAlbumInfoUtil {
     public static void downloadAlbumInfoJSON(final Context context, final String album, final String artist, final Response.Listener<JSONObject> callbackSuccess, final Response.ErrorListener callbackError) {
         App app = (App) context.getApplicationContext();
         String albumUrl = LastFMAlbumInfoUtil.getAlbumUrl(album, artist);
-        JsonObjectRequest albumInfoJSONRequest = new JsonObjectRequest(0, albumUrl, (JSONObject)null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest albumInfoJSONRequest = new JsonObjectRequest(0, albumUrl, (JSONObject) null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 LastFMAlbumInfoUtil.saveAlbumJSONDataToCacheAndDisk(context, album, artist, response);

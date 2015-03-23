@@ -224,7 +224,7 @@ public class ArtistDetailActivity extends AbsFabActivity {
         });
     }
 
-    private MaterialDialog getBiographyDialog(){
+    private MaterialDialog getBiographyDialog() {
         return new MaterialDialog.Builder(ArtistDetailActivity.this)
                 .title(artist.name)
                 .content(biography)
@@ -316,7 +316,7 @@ public class ArtistDetailActivity extends AbsFabActivity {
                 NavigationUtil.openPlayingQueueDialog(this);
                 return true;
             case R.id.action_biography:
-                if(biography != null){
+                if (biography != null) {
                     getBiographyDialog().show();
                 } else {
                     Toast.makeText(ArtistDetailActivity.this, getResources().getString(R.string.biography_unavailable), Toast.LENGTH_SHORT).show();

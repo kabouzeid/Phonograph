@@ -1,14 +1,10 @@
 package com.kabouzeid.gramophone.lastfm.artist;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import com.android.volley.Response;
 import com.kabouzeid.gramophone.provider.ArtistJSONStore;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import org.json.JSONException;
 import org.json.JSONObject;

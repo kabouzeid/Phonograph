@@ -82,7 +82,7 @@ public class AlbumLoader {
     }
 
     public static List<Album> getAlbums(Context context, String query) {
-        Cursor cursor = makeAlbumCursor(context, MediaStore.Audio.AlbumColumns.ALBUM + " LIKE ?", new String[]{"%"+query+"%"});
+        Cursor cursor = makeAlbumCursor(context, MediaStore.Audio.AlbumColumns.ALBUM + " LIKE ?", new String[]{"%" + query + "%"});
         List<Album> albums = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {

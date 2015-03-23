@@ -8,7 +8,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PlayingQueueAdapter;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.util.PlaylistsUtil;
 import com.mobeta.android.dslv.DragSortListView;
 
 import java.util.List;

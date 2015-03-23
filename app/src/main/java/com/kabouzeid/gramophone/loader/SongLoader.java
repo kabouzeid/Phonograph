@@ -67,7 +67,7 @@ public class SongLoader {
     }
 
     public static List<Song> getSongs(final Context context, final String query) {
-        Cursor cursor = makeSongCursor(context, MediaStore.Audio.AudioColumns.TITLE + " LIKE ?", new String[]{"%"+query+"%"});
+        Cursor cursor = makeSongCursor(context, MediaStore.Audio.AudioColumns.TITLE + " LIKE ?", new String[]{"%" + query + "%"});
         List<Song> songs = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {

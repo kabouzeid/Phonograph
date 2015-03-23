@@ -27,7 +27,9 @@ public class CreatePlaylistDialogHelper {
     public static MaterialDialog getDialog(final Context context, final List<Song> songs) {
         final EditText editText = new EditText(context);
         ViewGroup layout = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.dialog_empty_frame, null);
-        if (editText.getParent() != null) {((ViewGroup) editText.getParent()).removeView(editText);}
+        if (editText.getParent() != null) {
+            ((ViewGroup) editText.getParent()).removeView(editText);
+        }
         layout.addView(editText, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         return new MaterialDialog.Builder(context)

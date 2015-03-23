@@ -84,7 +84,7 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MusicPlayerRemote.openQueue((List<Song>) (List)dataSet, getAdapterPosition(), true);
+                    MusicPlayerRemote.openQueue((List<Song>) (List) dataSet, getAdapterPosition(), true);
                 }
             });
         }

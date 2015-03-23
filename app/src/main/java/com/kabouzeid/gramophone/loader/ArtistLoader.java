@@ -74,7 +74,7 @@ public class ArtistLoader {
     }
 
     public static List<Artist> getArtists(Context context, String query) {
-        Cursor cursor = makeArtistCursor(context, MediaStore.Audio.ArtistColumns.ARTIST + " LIKE ?", new String[]{"%"+query+"%"});
+        Cursor cursor = makeArtistCursor(context, MediaStore.Audio.ArtistColumns.ARTIST + " LIKE ?", new String[]{"%" + query + "%"});
         List<Artist> artists = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {

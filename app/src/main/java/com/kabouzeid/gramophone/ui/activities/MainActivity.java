@@ -14,29 +14,24 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.AboutDeveloperDialogHelper;
 import com.kabouzeid.gramophone.helper.CreatePlaylistDialogHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.helper.PlayingQueueDialogHelper;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.fragments.NavigationDrawerFragment;
+import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AlbumViewFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.ArtistViewFragment;
-import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.PlaylistViewFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.SongViewFragment;
 import com.kabouzeid.gramophone.util.MusicUtil;
@@ -216,7 +211,7 @@ public class MainActivity extends AbsFabActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        switch (currentPage){
+        switch (currentPage) {
             case 3:
                 getMenuInflater().inflate(R.menu.menu_playlists, menu);
                 break;

@@ -11,8 +11,6 @@ import android.app.TaskStackBuilder;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
@@ -21,9 +19,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MusicControllerActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 public class PlayingNotificationHelper {
     public static final String TAG = PlayingNotificationHelper.class.getSimpleName();
@@ -165,7 +161,9 @@ public class PlayingNotificationHelper {
         notificationLayout.setImageViewResource(R.id.album_art, R.drawable.default_album_art);
         notificationLayoutExpanded.setImageViewResource(R.id.album_art, R.drawable.default_album_art);
         notificationManager.notify(NOTIFICATION_ID, notification);
-    };
+    }
+
+    ;
 
     public void killNotification() {
         service.stopForeground(true);

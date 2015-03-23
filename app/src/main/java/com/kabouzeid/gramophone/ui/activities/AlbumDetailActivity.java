@@ -22,7 +22,6 @@ import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.songadapter.AlbumSongAdapter;
 import com.kabouzeid.gramophone.comparator.SongTrackNumberComparator;
-import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
@@ -277,7 +276,7 @@ public class AlbumDetailActivity extends AbsFabActivity {
                 return true;
             case R.id.action_go_to_artist:
                 Pair[] artistPairs = null;
-                    artistPairs = getSharedViewsWithFab(artistPairs);
+                artistPairs = getSharedViewsWithFab(artistPairs);
                 NavigationUtil.goToArtist(this, album.artistId, artistPairs);
                 return true;
         }

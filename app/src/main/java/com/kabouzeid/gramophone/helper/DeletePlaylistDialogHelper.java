@@ -10,7 +10,7 @@ import com.kabouzeid.gramophone.util.PlaylistsUtil;
  * Created by karim on 19.03.15.
  */
 public class DeletePlaylistDialogHelper {
-    public static MaterialDialog getDialog(final Context context, final int playlistId){
+    public static MaterialDialog getDialog(final Context context, final int playlistId) {
         return new MaterialDialog.Builder(context)
                 .title(context.getResources().getString(R.string.delete_playlist) + PlaylistsUtil.getNameForPlaylist(context, playlistId))
                 .positiveText(context.getResources().getString(R.string.ok))

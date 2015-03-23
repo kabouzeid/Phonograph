@@ -28,7 +28,7 @@ public class AddToPlaylistDialogHelper {
         CharSequence[] playlistNames = new CharSequence[playlists.size() + 1];
         playlistNames[0] = context.getResources().getString(R.string.action_new_playlist);
         for (int i = 1; i < playlistNames.length; i++) {
-            playlistNames[i] = playlists.get(i-1).name;
+            playlistNames[i] = playlists.get(i - 1).name;
         }
         return new MaterialDialog.Builder(context)
                 .items(playlistNames)

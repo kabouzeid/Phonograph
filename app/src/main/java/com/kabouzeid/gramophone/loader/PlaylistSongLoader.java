@@ -5,9 +5,7 @@ import android.database.Cursor;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Audio.AudioColumns;
 
-import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
-import com.kabouzeid.gramophone.model.Song;
 
 import java.util.ArrayList;
 import java.util.List;

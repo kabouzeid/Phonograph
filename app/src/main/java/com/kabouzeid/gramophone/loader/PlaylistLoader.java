@@ -17,9 +17,9 @@ public class PlaylistLoader {
         Cursor cursor = makePlaylistCursor(context, BaseColumns._ID + "=?", new String[]{String.valueOf(playlistId)});
 
         if (cursor != null && cursor.moveToFirst()) {
-                final int id = cursor.getInt(0);
-                final String name = cursor.getString(1);
-                playlist = new Playlist(id, name);
+            final int id = cursor.getInt(0);
+            final String name = cursor.getString(1);
+            playlist = new Playlist(id, name);
         }
         if (cursor != null) {
             cursor.close();

@@ -171,7 +171,7 @@ public class PlaylistsUtil {
         context.getContentResolver().update(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,
                 contentValues,
                 MediaStore.Audio.Playlists._ID + "=?",
-                new String[]{ String.valueOf(id) });
+                new String[]{String.valueOf(id)});
         App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
     }
 

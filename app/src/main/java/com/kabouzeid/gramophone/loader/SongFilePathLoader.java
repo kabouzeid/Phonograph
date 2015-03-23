@@ -38,10 +38,10 @@ public class SongFilePathLoader {
         return songFiles;
     }
 
-    public static String getSongFilePath(Context context, int queryId){
+    public static String getSongFilePath(Context context, int queryId) {
         try {
             return getSongFilePaths(context, new int[]{queryId}).get(0);
-        } catch (Exception e){
+        } catch (Exception e) {
             return "";
         }
     }
