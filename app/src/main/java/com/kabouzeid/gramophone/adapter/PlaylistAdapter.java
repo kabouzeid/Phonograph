@@ -11,12 +11,16 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.DeletePlaylistDialogHelper;
 import com.kabouzeid.gramophone.helper.RenamePlaylistDialogHelper;
+import com.kabouzeid.gramophone.loader.PlaylistLoader;
+import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
@@ -28,9 +32,13 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
     protected Activity activity;
     protected List<Playlist> dataSet;
 
-    public PlaylistAdapter(Activity activity, List<Playlist> objects) {
+    public PlaylistAdapter(Activity activity) {
         this.activity = activity;
-        dataSet = objects;
+        loadDataSet();
+    }
+
+    private void loadDataSet() {
+        dataSet = PlaylistLoader.getAllPlaylists(activity);
     }
 
     @Override
@@ -88,6 +96,29 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
             if (activity instanceof AbsFabActivity)
                 sharedViews = ((AbsFabActivity) activity).getSharedViewsWithFab(sharedViews);
             NavigationUtil.goToPlaylist(activity, dataSet.get(getAdapterPosition()).id, sharedViews);
+        }
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        App.bus.unregister(this);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        App.bus.register(this);
+    }
+
+    @Subscribe
+    public void onDataBaseEvent(DataBaseChangedEvent event) {
+        switch (event.getAction()) {
+            case DataBaseChangedEvent.PLAYLISTS_CHANGED:
+            case DataBaseChangedEvent.DATABASE_CHANGED:
+                loadDataSet();
+                notifyDataSetChanged();
+                break;
         }
     }
 }

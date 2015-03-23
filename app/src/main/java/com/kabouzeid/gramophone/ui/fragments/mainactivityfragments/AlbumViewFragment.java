@@ -9,10 +9,6 @@ import android.view.ViewGroup;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.AlbumAdapter;
-import com.kabouzeid.gramophone.loader.AlbumLoader;
-import com.kabouzeid.gramophone.model.Album;
-
-import java.util.List;
 
 /**
  * Created by karim on 22.11.14.
@@ -35,12 +31,9 @@ public class AlbumViewFragment extends AbsMainActivityFragment {
     }
 
     private void setUpRecyclerView() {
-        List<Album> albums = AlbumLoader.getAllAlbums(getActivity());
-        AlbumAdapter albumAdapter = new AlbumAdapter(getActivity(), albums);
-
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        recyclerView.setAdapter(albumAdapter);
         recyclerView.setPadding(0, getTopPadding(), 0, getBottomPadding());
+        recyclerView.setAdapter(new AlbumAdapter(getActivity()));
     }
 
     @Override

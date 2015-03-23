@@ -10,10 +10,6 @@ import android.view.ViewGroup;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.ArtistAdapter;
-import com.kabouzeid.gramophone.loader.ArtistLoader;
-import com.kabouzeid.gramophone.model.Artist;
-
-import java.util.List;
 
 public class ArtistViewFragment extends AbsMainActivityFragment {
     public static final String TAG = ArtistViewFragment.class.getSimpleName();
@@ -33,12 +29,9 @@ public class ArtistViewFragment extends AbsMainActivityFragment {
     }
 
     private void setUpRecyclerView() {
-        List<Artist> artists = ArtistLoader.getAllArtists(getActivity());
-        ArtistAdapter artistAdapter = new ArtistAdapter(getActivity(), artists);
-
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-        recyclerView.setAdapter(artistAdapter);
         recyclerView.setPadding(0, getTopPadding(), 0, getBottomPadding());
+        recyclerView.setAdapter(new ArtistAdapter(getActivity()));
     }
 
     @Override

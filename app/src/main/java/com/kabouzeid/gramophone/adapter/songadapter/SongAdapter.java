@@ -11,19 +11,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.AddToPlaylistDialogHelper;
+import com.kabouzeid.gramophone.helper.DeleteSongsDialogHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.SongDetailDialogHelper;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
+import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
+import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -37,9 +41,13 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     protected Activity activity;
     protected List<Song> dataSet;
 
-    public SongAdapter(Activity activity, List<Song> objects) {
+    public SongAdapter(Activity activity) {
         this.activity = activity;
-        dataSet = objects;
+        loadDataSet();
+    }
+
+    private void loadDataSet() {
+        dataSet = SongLoader.getAllSongs(activity);
     }
 
     @Override
@@ -96,24 +104,24 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                 public boolean onMenuItemClick(MenuItem item) {
                     switch (item.getItemId()) {
                         case R.id.action_delete_from_disk:
-                            Toast.makeText(activity, "This feature is not available yet", Toast.LENGTH_SHORT).show();
+                            DeleteSongsDialogHelper.getDialog(activity, dataSet.get(getAdapterPosition())).show();
                             return true;
                         case R.id.action_add_to_playlist:
                             AddToPlaylistDialogHelper.getDialog(activity, dataSet.get(getAdapterPosition())).show();
                             return true;
                         case R.id.action_play_next:
-                            MusicPlayerRemote.playNext(dataSet.get(getPosition()));
+                            MusicPlayerRemote.playNext(dataSet.get(getAdapterPosition()));
                             return true;
                         case R.id.action_add_to_current_playing:
-                            MusicPlayerRemote.enqueue(dataSet.get(getPosition()));
+                            MusicPlayerRemote.enqueue(dataSet.get(getAdapterPosition()));
                             return true;
                         case R.id.action_tag_editor:
                             Intent intent = new Intent(activity, SongTagEditorActivity.class);
-                            intent.putExtra(AppKeys.E_ID, dataSet.get(getPosition()).id);
+                            intent.putExtra(AppKeys.E_ID, dataSet.get(getAdapterPosition()).id);
                             activity.startActivity(intent);
                             return true;
                         case R.id.action_details:
-                            String songFilePath = SongFilePathLoader.getSongFilePath(activity, dataSet.get(getPosition()).id);
+                            String songFilePath = SongFilePathLoader.getSongFilePath(activity, dataSet.get(getAdapterPosition()).id);
                             File songFile = new File(songFilePath);
                             SongDetailDialogHelper.getDialog(activity, songFile).show();
                             return true;
@@ -123,19 +131,42 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                             };
                             if (activity instanceof AbsFabActivity)
                                 albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(albumPairs);
-                            NavigationUtil.goToAlbum(activity, dataSet.get(getPosition()).albumId, albumPairs);
+                            NavigationUtil.goToAlbum(activity, dataSet.get(getAdapterPosition()).albumId, albumPairs);
                             return true;
                         case R.id.action_go_to_artist:
                             Pair[] artistPairs = null;
                             if (activity instanceof AbsFabActivity)
                                 artistPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(artistPairs);
-                            NavigationUtil.goToArtist(activity, dataSet.get(getPosition()).artistId, artistPairs);
+                            NavigationUtil.goToArtist(activity, dataSet.get(getAdapterPosition()).artistId, artistPairs);
                             return true;
                     }
                     return false;
                 }
             });
             popupMenu.show();
+        }
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        App.bus.unregister(this);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        App.bus.register(this);
+    }
+
+    @Subscribe
+    public void onDataBaseEvent(DataBaseChangedEvent event) {
+        switch (event.getAction()) {
+            case DataBaseChangedEvent.SONGS_CHANGED:
+            case DataBaseChangedEvent.DATABASE_CHANGED:
+                loadDataSet();
+                notifyDataSetChanged();
+                break;
         }
     }
 }

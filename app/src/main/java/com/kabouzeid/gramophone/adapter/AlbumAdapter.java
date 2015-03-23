@@ -12,13 +12,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.model.Album;
+import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
+import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -103,11 +107,15 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
         }
     }
 
-    public AlbumAdapter(Activity activity, List<Album> objects) {
+    public AlbumAdapter(Activity activity) {
         this.activity = activity;
-        dataSet = objects;
-
+        //TODO shared prefs
         usePalette = true;
+        loadDataSet();
+    }
+
+    private void loadDataSet() {
+        dataSet = AlbumLoader.getAllAlbums(activity);
     }
 
     private void applyPalette(Bitmap bitmap, final TextView title, final TextView artist, final View footer) {
@@ -138,5 +146,28 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
         artist.setTextColor(Util.resolveColor(activity, R.attr.caption_text_color));
         int defaultBarColor = activity.getResources().getColor(R.color.materialmusic_default_bar_color);
         footer.setBackgroundColor(defaultBarColor);
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        App.bus.unregister(this);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        App.bus.register(this);
+    }
+
+    @Subscribe
+    public void onDataBaseEvent(DataBaseChangedEvent event) {
+        switch (event.getAction()) {
+            case DataBaseChangedEvent.ALBUMS_CHANGED:
+            case DataBaseChangedEvent.DATABASE_CHANGED:
+                loadDataSet();
+                notifyDataSetChanged();
+                break;
+        }
     }
 }

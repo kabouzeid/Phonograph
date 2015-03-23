@@ -7,18 +7,18 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
-import android.os.ParcelFileDescriptor;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.loader.SongLoader;
+import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
 
 import java.io.File;
-import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
@@ -97,7 +97,7 @@ public class MusicUtil {
     }
 
     public static void deleteTracks(final Context context, final List<Song> songs) {
-        final String[] projection = new String[] {
+        final String[] projection = new String[]{
                 BaseColumns._ID, MediaStore.MediaColumns.DATA
         };
         final StringBuilder selection = new StringBuilder();
@@ -120,6 +120,7 @@ public class MusicUtil {
                 final int id = cursor.getInt(0);
                 final Song song = SongLoader.getSong(context, id);
                 MusicPlayerRemote.removeFromQueue(song);
+                cursor.moveToNext();
             }
 
             // Step 2: Remove selected tracks from the database
@@ -147,5 +148,6 @@ public class MusicUtil {
         context.getContentResolver().notifyChange(Uri.parse("content://media"), null);
         Toast.makeText(context, "Deleted " + songs.size() + " songs", Toast.LENGTH_SHORT).show();
         //TODO add resource string
+        App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.SONGS_CHANGED));
     }
 }

@@ -9,10 +9,6 @@ import android.view.ViewGroup;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.songadapter.SongAdapter;
-import com.kabouzeid.gramophone.loader.SongLoader;
-import com.kabouzeid.gramophone.model.Song;
-
-import java.util.List;
 
 /**
  * Created by karim on 29.12.14.
@@ -35,12 +31,9 @@ public class SongViewFragment extends AbsMainActivityFragment {
     }
 
     private void setUpRecyclerView() {
-        List<Song> songs = SongLoader.getAllSongs(getActivity());
-        SongAdapter songAdapter = new SongAdapter(getActivity(), songs);
-
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-        recyclerView.setAdapter(songAdapter);
         recyclerView.setPadding(0, getTopPadding(), 0, getBottomPadding());
+        recyclerView.setAdapter(new SongAdapter(getActivity()));
     }
 
     @Override

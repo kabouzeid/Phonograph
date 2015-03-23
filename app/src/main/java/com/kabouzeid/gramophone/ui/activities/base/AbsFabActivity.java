@@ -33,8 +33,11 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+        try {
+            App.bus.register(busEventListener);
+        } catch (Exception ignored) {
+        }
         setUpFab();
-        App.bus.register(busEventListener);
     }
 
     private void setUpFab() {
@@ -137,7 +140,10 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        App.bus.unregister(busEventListener);
+        try {
+            App.bus.unregister(busEventListener);
+        } catch (Exception ignored) {
+        }
     }
 
     public void onMusicRemoteEvent(MusicRemoteEvent event) {

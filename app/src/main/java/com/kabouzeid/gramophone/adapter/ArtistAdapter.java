@@ -9,11 +9,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistThumbnailUrlLoader;
+import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.model.Artist;
+import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -25,9 +29,13 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
     protected Activity activity;
     protected List<Artist> dataSet;
 
-    public ArtistAdapter(Activity activity, List<Artist> objects) {
+    public ArtistAdapter(Activity activity) {
         this.activity = activity;
-        dataSet = objects;
+        loadDataSet();
+    }
+
+    private void loadDataSet() {
+        dataSet = ArtistLoader.getAllArtists(activity);
     }
 
     @Override
@@ -82,6 +90,29 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
             if (activity instanceof AbsFabActivity)
                 artistPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(artistPairs);
             NavigationUtil.goToArtist(activity, dataSet.get(getPosition()).id, artistPairs);
+        }
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        App.bus.unregister(this);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        App.bus.register(this);
+    }
+
+    @Subscribe
+    public void onDataBaseEvent(DataBaseChangedEvent event) {
+        switch (event.getAction()) {
+            case DataBaseChangedEvent.ARTISTS_CHANGED:
+            case DataBaseChangedEvent.DATABASE_CHANGED:
+                loadDataSet();
+                notifyDataSetChanged();
+                break;
         }
     }
 }

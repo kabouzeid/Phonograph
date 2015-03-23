@@ -2,9 +2,7 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
 import android.app.Fragment;
 import android.os.Build;
-import android.view.ViewConfiguration;
 
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;

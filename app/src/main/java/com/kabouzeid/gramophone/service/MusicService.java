@@ -477,20 +477,20 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         saveState();
     }
 
-    public void addSong(int position, Song song){
+    public void addSong(int position, Song song) {
         playingQueue.add(position, song);
         originalPlayingQueue.add(position, song);
         saveState();
     }
 
-    public void addSong(Song song){
+    public void addSong(Song song) {
         playingQueue.add(song);
         originalPlayingQueue.add(song);
         saveState();
     }
 
-    public void removeSong(int position){
-        if(getShuffleMode() == SHUFFLE_MODE_NONE){
+    public void removeSong(int position) {
+        if (getShuffleMode() == SHUFFLE_MODE_NONE) {
             playingQueue.remove(position);
             originalPlayingQueue.remove(position);
         } else {
@@ -499,12 +499,15 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         saveState();
     }
 
-    public void removeSong(Song song){
-        while (playingQueue.contains(song)){
-            playingQueue.remove(song);
+    public void removeSong(Song song) {
+        for (int i = 0; i < playingQueue.size(); i++) {
+            if (playingQueue.get(i).id == song.id) playingQueue.remove(i);
         }
-        while (originalPlayingQueue.contains(song)){
-            originalPlayingQueue.remove(song);
+        for (int i = 0; i < originalPlayingQueue.size(); i++) {
+            if (originalPlayingQueue.get(i).id == song.id) originalPlayingQueue.remove(i);
+        }
+        if (song.id == currentSongId) {
+            playSong();
         }
         saveState();
     }
@@ -513,7 +516,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         final int currentPosition = getPosition();
         Song songToMove = playingQueue.remove(from);
         playingQueue.add(to, songToMove);
-        if(getShuffleMode() == SHUFFLE_MODE_NONE) {
+        if (getShuffleMode() == SHUFFLE_MODE_NONE) {
             Song tmpSong = originalPlayingQueue.remove(from);
             originalPlayingQueue.add(to, tmpSong);
         }
