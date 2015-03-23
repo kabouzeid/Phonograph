@@ -32,14 +32,8 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/action_licenses"
-        android:orderInCategory="101"
-        android:title="Open Source Licenses"
-        app:showAsAction="never"/>
-
-    <item
         android:id="@+id/action_about"
-        android:orderInCategory="102"
+        android:orderInCategory="101"
         android:title="@string/action_about"
         app:showAsAction="never"/>
 </menu>

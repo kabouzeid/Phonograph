@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.AddToPlaylistDialogHelper;
+import com.kabouzeid.gramophone.helper.DeleteSongsDialogHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.SongDetailDialogHelper;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
@@ -70,7 +71,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.action_delete_from_disk:
-                                Toast.makeText(activity, "This feature is not available yet", Toast.LENGTH_SHORT).show();
+                                DeleteSongsDialogHelper.getDialog(activity, song).show();
                                 return true;
                             case R.id.action_add_to_playlist:
                                 AddToPlaylistDialogHelper.getDialog(activity, song).show();

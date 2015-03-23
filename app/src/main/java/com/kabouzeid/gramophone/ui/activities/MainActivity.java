@@ -39,7 +39,6 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.mikepenz.aboutlibraries.Libs;
 import com.squareup.picasso.Picasso;
 
 
@@ -216,7 +215,7 @@ public class MainActivity extends AbsFabActivity
                 getMenuInflater().inflate(R.menu.menu_playlists, menu);
                 break;
             default:
-                getMenuInflater().inflate(R.menu.drawer, menu);
+                getMenuInflater().inflate(R.menu.menu_main, menu);
                 break;
         }
         restoreActionBar();
@@ -237,9 +236,6 @@ public class MainActivity extends AbsFabActivity
         }
         int id = item.getItemId();
         switch (id) {
-            case R.id.action_licenses:
-                new Libs.Builder().withAutoDetect(true).start(this);
-                return true;
             case R.id.action_new_playlist:
                 CreatePlaylistDialogHelper.getDialog(this).show();
                 return true;

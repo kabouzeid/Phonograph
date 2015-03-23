@@ -17,14 +17,14 @@ repositories {
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "22"
+    buildToolsVersion "22.0.1"
 
     defaultConfig {
         applicationId "com.kabouzeid.gramophone"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 3
-        versionName "0.9.1b"
+        versionCode 4
+        versionName "0.9.2b"
     }
 
     compileOptions {
@@ -63,8 +63,5 @@ dependencies {
     compile 'asia.ivity.android:drag-sort-listview:1.0'
     compile('com.crashlytics.sdk.android:crashlytics:2.2.1@aar') {
         transitive = true;
-    }
-    compile('com.mikepenz.aboutlibraries:library:4.5.9@aar') {
-        transitive = true
     }
 }

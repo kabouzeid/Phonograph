@@ -146,8 +146,7 @@ public class MusicUtil {
             cursor.close();
         }
         context.getContentResolver().notifyChange(Uri.parse("content://media"), null);
-        Toast.makeText(context, "Deleted " + songs.size() + " songs", Toast.LENGTH_SHORT).show();
-        //TODO add resource string
-        App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.SONGS_CHANGED));
+        Toast.makeText(context, "Deleted " + songs.size() + " songs", Toast.LENGTH_SHORT).show(); //TODO add resource string
+        App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.DATABASE_CHANGED));
     }
 }

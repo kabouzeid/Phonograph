@@ -24,6 +24,7 @@ import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
+import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
@@ -362,7 +363,6 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
                 }
                 progressDialog.dismiss();
                 rescanMedia();
-                restartApp();
             }
         }).start();
     }
@@ -370,14 +370,22 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
     private void rescanMedia() {
         String[] toBeScanned = new String[songPaths.size()];
         toBeScanned = songPaths.toArray(toBeScanned);
-        MediaScannerConnection.scanFile(this, toBeScanned, null, null);
-    }
-
-    private void restartApp() {
-        Intent i = getBaseContext().getPackageManager()
-                .getLaunchIntentForPackage(getBaseContext().getPackageName());
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
+        MediaScannerConnection.scanFile(this, toBeScanned, null, new MediaScannerConnection.OnScanCompletedListener() {
+            boolean refreshed;
+            @Override
+            public void onScanCompleted(String s, Uri uri) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(!refreshed) {
+                            App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.DATABASE_CHANGED));
+                        }
+                        refreshed = true;
+                    }
+                });
+            }
+        });
+        finish();
     }
 
     protected int getId() {
