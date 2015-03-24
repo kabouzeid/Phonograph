@@ -26,7 +26,7 @@
     <string name="unknown_album">Unknown Album</string>
     <string name="untitled_song">Untitled Song</string>
     <string name="nothing_playing">Nothing is playing</string>
-    <string name="hint_fling_to_open">fling to open current playing</string>
+    <string name="hint_fling_to_open">Fling to toggle the now playing screen</string>
     <string name="hint_fling_to_go_back">fling to return</string>
     <string name="hint_press_again_to_exit">Press once again to exit!</string>
     <string name="unplayable_file">Sorry - an error occurred while attempting to play this song</string>
@@ -63,7 +63,7 @@
     <string name="label_current_playing_queue">Playing queue</string>
     <string name="close">Close</string>
     <string name="save_as_playlist">Save as playlist</string>
-    <string name="credits">Gramophone is a completely free material designed music player by <b>Karim Abou Zeid</b>.\n\nIcon by <a href="http://cookicons.co/">Cookicons</a>\n\n<a href="https://plus.google.com/+KarimAbouZeid23697">Google+</a>&#160;&#160;&#160;<a href="https://twitter.com/karim23697">Twitter</a></string>
+    <string name="credits">Gramophone is a completely free material designed music player by <b>Karim Abou Zeid</b>.\n\n<a href="https://plus.google.com/+KarimAbouZeid23697">Google+</a>&#160;&#160;&#160;<a href="https://twitter.com/karim23697">Twitter</a>\n\nIcon by <a href="http://cookicons.co/">Cookicons</a></string>
     <string name="title_activity_search">SearchActivity</string>
     <string name="more">more</string>
     <string name="no_results">No results</string>

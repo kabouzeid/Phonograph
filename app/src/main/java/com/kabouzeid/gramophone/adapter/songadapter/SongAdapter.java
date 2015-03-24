@@ -83,7 +83,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             holder.songTitle.setTextColor(accentColor);
             holder.songInfo.setVisibility(View.GONE);
             holder.overflowButton.setVisibility(View.GONE);
-            holder.albumArt.setPadding(48, 48, 48, 48);
+            final int padding = activity.getResources().getDimensionPixelSize(R.dimen.default_item_margin);
+            holder.albumArt.setPadding(padding, padding, padding, padding);
             holder.albumArt.setColorFilter(accentColor);
             holder.albumArt.setImageResource(R.drawable.ic_shuffle_white_48dp);
             holder.separator.setVisibility(View.VISIBLE);

@@ -41,6 +41,7 @@ import java.util.List;
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener, AudioManager.OnAudioFocusChangeListener {
     public static final String ACTION_TOGGLE_PLAYBACK = "com.kabouzeid.gramophone.action.TOGGLE_PLAYBACK";
     public static final String ACTION_PLAY = "com.kabouzeid.gramophone.action.PLAY";
+    public static final String ACTION_RESUME = "com.kabouzeid.gramophone.action.RESUME";
     public static final String ACTION_PAUSE = "com.kabouzeid.gramophone.action.PAUSE";
     public static final String ACTION_STOP = "com.kabouzeid.gramophone.action.STOP";
     public static final String ACTION_SKIP = "com.kabouzeid.gramophone.action.SKIP";
@@ -56,7 +57,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(AudioManager.ACTION_AUDIO_BECOMING_NOISY)) {
+            if (intent.getAction().compareTo(AudioManager.ACTION_AUDIO_BECOMING_NOISY) == 0) {
                 pausePlaying();
             }
         }
@@ -144,6 +145,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                         break;
                     case ACTION_PLAY:
                         playSong();
+                        break;
+                    case ACTION_RESUME:
+                        resumePlaying();
                         break;
                     case ACTION_REWIND:
                         back();
@@ -594,17 +598,19 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public void resumePlaying() {
-        if (requestFocus()) {
-            if (isPlayerPrepared) {
-                player.start();
-                playingNotificationHelper.updatePlayState(isPlaying());
-                remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PLAYING);
-                notifyOnMusicRemoteEventListeners(MusicRemoteEvent.RESUME);
+        if(!isPlaying()) {
+            if (requestFocus()) {
+                if (isPlayerPrepared) {
+                    player.start();
+                    playingNotificationHelper.updatePlayState(isPlaying());
+                    remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PLAYING);
+                    notifyOnMusicRemoteEventListeners(MusicRemoteEvent.RESUME);
+                } else {
+                    playSong();
+                }
             } else {
-                playSong();
+                Toast.makeText(this, getResources().getString(R.string.audio_focus_denied), Toast.LENGTH_SHORT).show();
             }
-        } else {
-            Toast.makeText(this, getResources().getString(R.string.audio_focus_denied), Toast.LENGTH_SHORT).show();
         }
     }
 
