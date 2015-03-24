@@ -216,6 +216,23 @@ public class MusicPlayerRemote {
         return false;
     }
 
+    public static boolean setShuffleMode(final int shuffleMode) {
+        if (musicService != null) {
+            musicService.setShuffleMode(shuffleMode);
+            return true;
+        } return false;
+    }
+
+    public static void forceSetShuffleMode(final Context context, final int shuffleMode){
+        if (musicService != null) {
+            musicService.setShuffleMode(shuffleMode);
+        } else {
+            PreferenceManager.getDefaultSharedPreferences(context).edit()
+                    .putInt(AppKeys.SP_SHUFFLE_MODE, shuffleMode)
+                    .apply();
+        }
+    }
+
     public static void playNext(Song song) {
         if (musicService != null) {
             musicService.addSong(getPosition() + 1, song);

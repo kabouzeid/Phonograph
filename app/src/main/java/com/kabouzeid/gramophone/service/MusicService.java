@@ -691,21 +691,18 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public void setShuffleMode(final int shuffleMode) {
+        PreferenceManager.getDefaultSharedPreferences(this).edit()
+                .putInt(AppKeys.SP_SHUFFLE_MODE, shuffleMode)
+                .apply();
         switch (shuffleMode) {
             case SHUFFLE_MODE_SHUFFLE:
                 this.shuffleMode = shuffleMode;
-                PreferenceManager.getDefaultSharedPreferences(this).edit()
-                        .putInt(AppKeys.SP_SHUFFLE_MODE, shuffleMode)
-                        .apply();
                 ShuffleHelper.makeShuffleList(this.playingQueue, getPosition());
                 setPosition(0);
                 notifyOnMusicRemoteEventListeners(MusicRemoteEvent.SHUFFLE_MODE_CHANGED);
                 break;
             case SHUFFLE_MODE_NONE:
                 this.shuffleMode = shuffleMode;
-                PreferenceManager.getDefaultSharedPreferences(this).edit()
-                        .putInt(AppKeys.SP_SHUFFLE_MODE, shuffleMode)
-                        .apply();
                 playingQueue = new ArrayList<>(originalPlayingQueue);
                 int newPosition = 0;
                 for (Song song : playingQueue) {
