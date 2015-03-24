@@ -131,8 +131,8 @@ public class MusicUtil {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 final String name = cursor.getString(1);
-                final File f = new File(name);
                 try { // File.delete can throw a security exception
+                    final File f = new File(name);
                     if (!f.delete()) {
                         // I'm not sure if we'd ever get here (deletion would
                         // have to fail, but no exception thrown)
@@ -141,6 +141,8 @@ public class MusicUtil {
                     cursor.moveToNext();
                 } catch (final SecurityException ex) {
                     cursor.moveToNext();
+                } catch (NullPointerException e){
+                    Log.e("MusicUtils", "Failed to find file " + name);
                 }
             }
             cursor.close();

@@ -61,6 +61,7 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.2.0'
     compile files('../libs/jaudiotagger-2.0.4-20111207.115108-15.jar')
     compile 'asia.ivity.android:drag-sort-listview:1.0'
+    compile 'de.hdodenhof:circleimageview:1.2.2'
     compile('com.crashlytics.sdk.android:crashlytics:2.2.1@aar') {
         transitive = true;
     }

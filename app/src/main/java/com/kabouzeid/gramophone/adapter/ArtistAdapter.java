@@ -57,6 +57,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
             public void onArtistThumbnailUrlLoaded(String url) {
                 Picasso.with(activity)
                         .load(url)
+                        .noFade()
                         .placeholder(R.drawable.default_artist_image)
                         .into(holder.artistImage);
             }
