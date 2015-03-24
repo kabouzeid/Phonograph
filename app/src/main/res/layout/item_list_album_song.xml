@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="64dp"
+    android:layout_height="wrap_content"
     android:background="?rect_selector"
     android:descendantFocusability="blocksDescendants"
     android:orientation="horizontal"
@@ -12,7 +12,7 @@
     <TextView
         android:id="@+id/track_number"
         android:layout_width="40dp"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
         android:layout_gravity="center"
         android:fontFamily="sans-serif"
         android:gravity="center"

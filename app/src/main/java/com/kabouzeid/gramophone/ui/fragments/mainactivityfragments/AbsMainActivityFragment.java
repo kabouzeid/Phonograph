@@ -15,7 +15,7 @@ public abstract class AbsMainActivityFragment extends Fragment implements KabVie
     private boolean areViewsEnabled;
 
     protected int getTopPadding() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        if (Util.hasKitKatSDK()) {
             if (Util.isInPortraitMode(getActivity()) || Util.isTablet(getActivity())) {
                 return Util.getActionBarSize(getActivity()) + getResources().getDimensionPixelSize(R.dimen.tab_height) + Util.getStatusBarHeight(getActivity());
             }

@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -97,17 +98,18 @@ public class AlbumDetailActivity extends AbsFabActivity {
         }
     };
 
-    @SuppressLint("NewApi")
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         app = (App) getApplicationContext();
         setTheme(app.getAppTheme());
-        setUpTranslucence();
+        setUpTranslucence(true, false);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_detail);
 
         if (Util.hasLollipopSDK()) postponeEnterTransition();
+        if (Util.hasLollipopSDK()) getWindow().setNavigationBarColor(getResources().getColor(R.color.materialmusic_default_bar_color));
 
         Bundle intentExtras = getIntent().getExtras();
         int albumId = -1;
@@ -178,6 +180,7 @@ public class AlbumDetailActivity extends AbsFabActivity {
 
     private void applyPalette(Bitmap bitmap) {
         Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onGenerated(Palette palette) {
                 Palette.Swatch swatch = palette.getVibrantSwatch();
@@ -185,6 +188,7 @@ public class AlbumDetailActivity extends AbsFabActivity {
                     toolbarColor = swatch.getRgb();
                     albumTitleView.setBackgroundColor(swatch.getRgb());
                     albumTitleView.setTextColor(swatch.getTitleTextColor());
+                    if (Util.hasLollipopSDK()) getWindow().setNavigationBarColor(swatch.getRgb());
                 }
             }
         });
@@ -192,7 +196,7 @@ public class AlbumDetailActivity extends AbsFabActivity {
 
     private void setUpListView() {
         recyclerView.setScrollViewCallbacks(observableScrollViewCallbacks);
-        setListViewPadding();
+        recyclerView.setPadding(0, albumArtViewHeight + titleViewHeight, 0, 0);
         final View contentView = getWindow().getDecorView().findViewById(android.R.id.content);
         contentView.post(new Runnable() {
             @Override
@@ -203,27 +207,10 @@ public class AlbumDetailActivity extends AbsFabActivity {
         });
     }
 
-    private void setListViewPadding() {
-        if (Util.isInPortraitMode(this) || Util.isTablet(this)) {
-            recyclerView.setPadding(0, albumArtViewHeight + titleViewHeight, 0, Util.getNavigationBarHeight(this));
-        } else {
-            recyclerView.setPadding(0, albumArtViewHeight + titleViewHeight, 0, 0);
-        }
-    }
-
     private void setUpToolBar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    private void setUpTranslucence() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Util.setStatusBarTranslucent(getWindow(), true);
-            if (Util.isInPortraitMode(this) || Util.isTablet(this)) {
-                Util.setNavBarTranslucent(getWindow(), true);
-            }
-        }
     }
 
     private void setUpSongsAdapter() {

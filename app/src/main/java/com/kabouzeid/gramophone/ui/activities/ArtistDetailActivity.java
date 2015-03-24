@@ -113,14 +113,15 @@ public class ArtistDetailActivity extends AbsFabActivity {
     };
 
 
-    @SuppressLint("NewApi")
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setUpTranslucence(true, true);
+        setUpTranslucence(true, false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist_detail);
 
         if (Util.hasLollipopSDK()) postponeEnterTransition();
+        if (Util.hasLollipopSDK()) getWindow().setNavigationBarColor(getResources().getColor(R.color.materialmusic_default_bar_color));
 
         getIntentExtras();
         initViews();
@@ -174,9 +175,7 @@ public class ArtistDetailActivity extends AbsFabActivity {
 
     private void setUpSongListView() {
         songListView.setScrollViewCallbacks(observableScrollViewCallbacks);
-
-        setListViewPadding();
-
+        songListView.setPadding(0, artistImageViewHeight + titleViewHeight, 0, 0);
         songListView.addHeaderView(songListHeader);
 
         final List<Song> songs = ArtistSongLoader.getArtistSongList(this, artist.id);
@@ -231,14 +230,6 @@ public class ArtistDetailActivity extends AbsFabActivity {
                 .build();
     }
 
-    private void setListViewPadding() {
-        if (Util.isInPortraitMode(this) || Util.isTablet(this)) {
-            songListView.setPadding(0, artistImageViewHeight + titleViewHeight, 0, Util.getNavigationBarHeight(this));
-        } else {
-            songListView.setPadding(0, artistImageViewHeight + titleViewHeight, 0, 0);
-        }
-    }
-
     private void setUpArtistImageAndApplyPalette(final boolean forceDownload) {
         LastFMArtistImageUrlLoader.loadArtistImageUrl(this, artist.name, forceDownload, new LastFMArtistImageUrlLoader.ArtistImageUrlLoaderCallback() {
             @Override
@@ -252,7 +243,6 @@ public class ArtistDetailActivity extends AbsFabActivity {
                                 super.onSuccess();
                                 final Bitmap bitmap = ((BitmapDrawable) artistIv.getDrawable()).getBitmap();
                                 if (bitmap != null) applyPalette(bitmap);
-
                             }
                         });
             }
@@ -261,6 +251,7 @@ public class ArtistDetailActivity extends AbsFabActivity {
 
     private void applyPalette(Bitmap bitmap) {
         Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onGenerated(Palette palette) {
                 Palette.Swatch swatch = palette.getVibrantSwatch();
@@ -268,6 +259,7 @@ public class ArtistDetailActivity extends AbsFabActivity {
                     toolbarColor = swatch.getRgb();
                     artistNameTv.setBackgroundColor(swatch.getRgb());
                     artistNameTv.setTextColor(swatch.getTitleTextColor());
+                    if (Util.hasLollipopSDK()) getWindow().setNavigationBarColor(swatch.getRgb());
                 } else {
                     setStandardColors();
                 }
@@ -275,6 +267,7 @@ public class ArtistDetailActivity extends AbsFabActivity {
         });
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setStandardColors() {
         int titleTextColor = Util.resolveColor(this, R.attr.title_text_color);
         int defaultBarColor = getResources().getColor(R.color.materialmusic_default_bar_color);
@@ -282,6 +275,8 @@ public class ArtistDetailActivity extends AbsFabActivity {
         toolbarColor = defaultBarColor;
         artistNameTv.setBackgroundColor(defaultBarColor);
         artistNameTv.setTextColor(titleTextColor);
+
+        if (Util.hasLollipopSDK()) getWindow().setNavigationBarColor(getResources().getColor(R.color.materialmusic_default_bar_color));
     }
 
     private void setUpToolBar() {

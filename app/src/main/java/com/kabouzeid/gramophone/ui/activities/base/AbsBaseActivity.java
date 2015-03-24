@@ -59,6 +59,8 @@ public abstract class AbsBaseActivity extends ActionBarActivity implements KabVi
             Util.setStatusBarTranslucent(getWindow(), statusBarTranslucent);
             if (Util.isInPortraitMode(this) || Util.isTablet(this)) {
                 Util.setNavBarTranslucent(getWindow(), navigationBarTranslucent);
+            } else {
+                Util.setNavBarTranslucent(getWindow(), false);
             }
         }
     }

@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.AddToPlaylistDialogHelper;
@@ -34,6 +33,7 @@ import java.util.List;
  */
 public class AlbumSongAdapter extends RecyclerView.Adapter<AlbumSongAdapter.ViewHolder> {
     public static final String TAG = AlbumSongAdapter.class.getSimpleName();
+
     protected Activity activity;
     protected List<Song> dataSet;
 
