@@ -387,6 +387,9 @@ public class MusicControllerActivity extends AbsFabActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case R.id.action_shuffle_all:
+                MusicPlayerRemote.shuffleAllSongs(this);
+                return true;
             case R.id.action_settings:
                 Toast.makeText(this, "This feature is not available yet", Toast.LENGTH_SHORT).show();
                 return true;

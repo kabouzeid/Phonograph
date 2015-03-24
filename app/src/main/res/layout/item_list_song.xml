@@ -1,50 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="72dp"
+<FrameLayout
     android:background="?rect_selector"
-    android:descendantFocusability="blocksDescendants"
-    android:orientation="horizontal"
-    android:paddingLeft="16dp">
-
-    <com.kabouzeid.gramophone.view.SquareImageView
-        android:id="@+id/album_art"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:scaleType="centerCrop"/>
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp">
 
-        <TextView
-            android:id="@+id/song_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+        <com.kabouzeid.gramophone.view.SquareImageView
+            android:id="@+id/album_art"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:scaleType="centerCrop"/>
 
-        <TextView
-            android:id="@+id/song_info"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/song_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+            <TextView
+                android:id="@+id/song_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/menu"
+            style="@style/OverFlowButton"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="2dp"/>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/menu"
-        style="@style/OverFlowButton"
-        android:layout_gravity="center_vertical"
-        android:layout_marginRight="2dp"/>
-</LinearLayout>
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="#0CFFFFFF"
+        android:visibility="gone"/>
+</FrameLayout>

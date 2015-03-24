@@ -304,6 +304,9 @@ public class ArtistDetailActivity extends AbsFabActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case R.id.action_shuffle_all:
+                MusicPlayerRemote.shuffleAllSongs(this);
+                return true;
             case android.R.id.home:
                 super.onBackPressed();
                 return true;

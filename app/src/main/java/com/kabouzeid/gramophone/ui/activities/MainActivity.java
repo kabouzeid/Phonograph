@@ -236,6 +236,9 @@ public class MainActivity extends AbsFabActivity
         }
         int id = item.getItemId();
         switch (id) {
+            case R.id.action_shuffle_all:
+                MusicPlayerRemote.shuffleAllSongs(this);
+                return true;
             case R.id.action_new_playlist:
                 CreatePlaylistDialogHelper.getDialog(this).show();
                 return true;

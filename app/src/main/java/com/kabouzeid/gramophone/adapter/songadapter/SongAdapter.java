@@ -23,7 +23,6 @@ import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
@@ -34,7 +33,6 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by karim on 27.11.14.
@@ -69,7 +67,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        if(getItemViewType(position) == SONG) {
+        if (getItemViewType(position) == SONG) {
             final Song song = dataSet.get(position - 1);
 
             holder.songTitle.setText(song.title);
@@ -88,6 +86,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             holder.albumArt.setPadding(48, 48, 48, 48);
             holder.albumArt.setColorFilter(accentColor);
             holder.albumArt.setImageResource(R.drawable.ic_shuffle_white_48dp);
+            holder.separator.setVisibility(View.VISIBLE);
         }
     }
 
@@ -101,6 +100,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         TextView songInfo;
         ImageView overflowButton;
         ImageView albumArt;
+        View separator;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -108,13 +108,14 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             songInfo = (TextView) itemView.findViewById(R.id.song_info);
             albumArt = (ImageView) itemView.findViewById(R.id.album_art);
             overflowButton = (ImageView) itemView.findViewById(R.id.menu);
+            separator = itemView.findViewById(R.id.separator);
+
             overflowButton.setOnClickListener(this);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (getItemViewType() == SHUFFLE_BUTTON) {
-                        MusicPlayerRemote.openQueue(dataSet, new Random().nextInt(dataSet.size()), true);
-                        MusicPlayerRemote.forceSetShuffleMode(activity, MusicService.SHUFFLE_MODE_SHUFFLE);
+                        MusicPlayerRemote.shuffleAllSongs(activity);
                     } else {
                         MusicPlayerRemote.openQueue(dataSet, getAdapterPosition() - 1, true);
                     }

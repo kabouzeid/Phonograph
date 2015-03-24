@@ -23,6 +23,7 @@ import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.songadapter.AlbumSongAdapter;
 import com.kabouzeid.gramophone.comparator.SongTrackNumberComparator;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
@@ -244,6 +245,9 @@ public class AlbumDetailActivity extends AbsFabActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case R.id.action_shuffle_all:
+                MusicPlayerRemote.shuffleAllSongs(this);
+                return true;
             case android.R.id.home:
                 super.onBackPressed();
                 return true;

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
@@ -20,6 +21,7 @@ import com.kabouzeid.gramophone.util.InternalStorageUtil;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by karim on 29.11.14.
@@ -231,6 +233,12 @@ public class MusicPlayerRemote {
                     .putInt(AppKeys.SP_SHUFFLE_MODE, shuffleMode)
                     .apply();
         }
+    }
+
+    public static void shuffleAllSongs(final Context context){
+        List<Song> songs = SongLoader.getAllSongs(context);
+        MusicPlayerRemote.openQueue(songs, new Random().nextInt(songs.size()), true);
+        forceSetShuffleMode(context, MusicService.SHUFFLE_MODE_SHUFFLE);
     }
 
     public static void playNext(Song song) {
