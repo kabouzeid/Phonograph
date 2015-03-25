@@ -131,7 +131,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
-                    final int position = getAdapterPosition();
+                    final int position = getAdapterPosition() - 1;
                     switch (item.getItemId()) {
                         case R.id.action_delete_from_disk:
                             DeleteSongsDialogHelper.getDialog(activity, dataSet.get(position)).show();

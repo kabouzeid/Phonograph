@@ -354,12 +354,7 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
                     }
                 }
                 if (deleteArtwork) {
-                    String imagePath = MusicUtil.getAlbumArtUri(getId()).toString();
-                    //TODO delete from picasso cache
                     MusicUtil.deleteAlbumArt(AbsTagEditorActivity.this, getId());
-                } else if (artwork != null) {
-                    String imagePath = MusicUtil.getAlbumArtUri(getId()).toString();
-                    //TODO delete from Picasso cache
                 }
                 progressDialog.dismiss();
                 rescanMedia();
@@ -370,17 +365,19 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
     private void rescanMedia() {
         String[] toBeScanned = new String[songPaths.size()];
         toBeScanned = songPaths.toArray(toBeScanned);
+        final int toBeScannedLength = toBeScanned.length;
         MediaScannerConnection.scanFile(this, toBeScanned, null, new MediaScannerConnection.OnScanCompletedListener() {
-            boolean refreshed;
+            int i = 0;
+
             @Override
             public void onScanCompleted(String s, Uri uri) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(!refreshed) {
+                        if (i == 0 || i == toBeScannedLength - 1) {
                             App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.DATABASE_CHANGED));
                         }
-                        refreshed = true;
+                        i++;
                     }
                 });
             }
