@@ -7,13 +7,13 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="164dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:scrollbars="none"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#0CFFFFFF"/>
+        android:background="?separator_color"/>
 
 </LinearLayout>

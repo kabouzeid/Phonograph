@@ -4,14 +4,18 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.support.annotation.DrawableRes;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
@@ -35,7 +39,7 @@ public class Util {
 
     public static int resolveColor(Context context, int color) {
         TypedArray a = context.obtainStyledAttributes(new int[]{color});
-        int resId = a.getColor(0, context.getResources().getColor(R.color.materialmusic_color));
+        int resId = a.getColor(0, 0);
         a.recycle();
         return resId;
     }
@@ -115,7 +119,7 @@ public class Util {
         }
 
         boolean state = false;
-        final boolean onlyOnWifi = PreferenceUtils.getInstace(context).onlyOnWifi();
+        final boolean onlyOnWifi = PreferenceUtils.getInstance(context).autoDownloadOnlyOnWifi();
 
         /* Monitor network connections */
         final ConnectivityManager connectivityManager = (ConnectivityManager) context
@@ -195,5 +199,13 @@ public class Util {
 
     public static boolean isInPortraitMode(final Context context) {
         return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+    }
+
+    public static Drawable getTintedDrawable(Resources res, @DrawableRes int drawableResId, int color) {
+        Drawable drawable = res.getDrawable(drawableResId);
+        if (drawable != null) {
+            drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+        }
+        return drawable;
     }
 }

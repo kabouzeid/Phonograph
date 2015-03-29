@@ -58,7 +58,7 @@ public class AlbumLoader {
                         MediaStore.Audio.AlbumColumns.NUMBER_OF_SONGS,
                         /* 5 */
                         MediaStore.Audio.AlbumColumns.FIRST_YEAR
-                }, selection, values, PreferenceUtils.getInstace(context).getAlbumSortOrder());
+                }, selection, values, PreferenceUtils.getInstance(context).getAlbumSortOrder());
     }
 
     public static Album getAlbum(Context context, int albumId) {

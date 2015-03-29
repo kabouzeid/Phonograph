@@ -15,6 +15,8 @@ import java.util.List;
  * Created by karim on 29.12.14.
  */
 public class SongLoader {
+    private static final String BASE_SELECTION = MediaStore.Audio.AudioColumns.IS_MUSIC + "=1" + " AND " + MediaStore.Audio.AudioColumns.TITLE + " != ''";
+
     public static List<Song> getAllSongs(Context context) {
         Cursor cursor = makeSongCursor(context);
         List<Song> songs = new ArrayList<>();
@@ -40,11 +42,16 @@ public class SongLoader {
         return songs;
     }
 
-    public static final Cursor makeSongCursor(final Context context) {
+    public static Cursor makeSongCursor(final Context context) {
         return makeSongCursor(context, MediaStore.Audio.AudioColumns.IS_MUSIC + "=?", new String[]{"1"});
     }
 
-    public static final Cursor makeSongCursor(final Context context, final String selection, final String[] values) {
+    public static Cursor makeSongCursor(final Context context, final String selection, final String[] values) {
+        String finalSelection = BASE_SELECTION;
+        if(selection != null){
+            finalSelection += " AND " + selection;
+        }
+
         return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 new String[]{
                         /* 0 */
@@ -63,7 +70,7 @@ public class SongLoader {
                         MediaStore.Audio.AudioColumns.ARTIST_ID,
                         /* 7 */
                         MediaStore.Audio.AudioColumns.ALBUM_ID
-                }, selection, values, PreferenceUtils.getInstace(context).getSongSortOrder());
+                }, finalSelection, values, PreferenceUtils.getInstance(context).getSongSortOrder());
     }
 
     public static List<Song> getSongs(final Context context, final String query) {

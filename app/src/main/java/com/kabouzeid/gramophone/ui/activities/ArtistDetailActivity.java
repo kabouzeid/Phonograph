@@ -1,8 +1,8 @@
 package com.kabouzeid.gramophone.ui.activities;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.ArtistAlbumAdapter;
 import com.kabouzeid.gramophone.adapter.songadapter.ArtistSongAdapter;
@@ -38,11 +39,14 @@ import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nineoldandroids.view.ViewHelper;
+import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -120,8 +124,10 @@ public class ArtistDetailActivity extends AbsFabActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist_detail);
 
+        App.bus.register(this);
+
         if (Util.hasLollipopSDK()) postponeEnterTransition();
-        if (Util.hasLollipopSDK()) getWindow().setNavigationBarColor(getResources().getColor(R.color.materialmusic_default_bar_color));
+        if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled()) getWindow().setNavigationBarColor(Util.resolveColor(this, R.attr.default_bar_color));
 
         getIntentExtras();
         initViews();
@@ -147,7 +153,7 @@ public class ArtistDetailActivity extends AbsFabActivity {
 
     private void setUpObservableListViewParams() {
         artistImageViewHeight = getResources().getDimensionPixelSize(R.dimen.header_image_height);
-        toolbarColor = getResources().getColor(R.color.materialmusic_default_bar_color);
+        toolbarColor = Util.resolveColor(this, R.attr.default_bar_color);
         toolbarHeight = Util.getActionBarSize(this);
         titleViewHeight = getResources().getDimensionPixelSize(R.dimen.title_view_height);
         headerOffset = toolbarHeight;
@@ -171,6 +177,15 @@ public class ArtistDetailActivity extends AbsFabActivity {
         setUpSongListView();
         setUpAlbumRecyclerView();
         loadBiography();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void setNavigationBarColored(boolean colored){
+        if (colored){
+            if (Util.hasLollipopSDK()) getWindow().setNavigationBarColor(toolbarColor);
+        } else {
+            if (Util.hasLollipopSDK()) getWindow().setNavigationBarColor(Color.BLACK);
+        }
     }
 
     private void setUpSongListView() {
@@ -259,7 +274,8 @@ public class ArtistDetailActivity extends AbsFabActivity {
                     toolbarColor = swatch.getRgb();
                     artistNameTv.setBackgroundColor(swatch.getRgb());
                     artistNameTv.setTextColor(swatch.getTitleTextColor());
-                    if (Util.hasLollipopSDK()) getWindow().setNavigationBarColor(swatch.getRgb());
+                    if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(ArtistDetailActivity.this).coloredNavigationBarArtistEnabled())
+                        getWindow().setNavigationBarColor(swatch.getRgb());
                 } else {
                     setStandardColors();
                 }
@@ -270,13 +286,13 @@ public class ArtistDetailActivity extends AbsFabActivity {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setStandardColors() {
         int titleTextColor = Util.resolveColor(this, R.attr.title_text_color);
-        int defaultBarColor = getResources().getColor(R.color.materialmusic_default_bar_color);
+        int defaultBarColor = Util.resolveColor(this, R.attr.default_bar_color);
 
         toolbarColor = defaultBarColor;
         artistNameTv.setBackgroundColor(defaultBarColor);
         artistNameTv.setTextColor(titleTextColor);
 
-        if (Util.hasLollipopSDK()) getWindow().setNavigationBarColor(getResources().getColor(R.color.materialmusic_default_bar_color));
+        if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled()) getWindow().setNavigationBarColor(Util.resolveColor(this, R.attr.default_bar_color));
     }
 
     private void setUpToolBar() {
@@ -323,6 +339,7 @@ public class ArtistDetailActivity extends AbsFabActivity {
             case R.id.action_re_download_artist_image:
                 Toast.makeText(ArtistDetailActivity.this, getResources().getString(R.string.updating), Toast.LENGTH_SHORT).show();
                 setUpArtistImageAndApplyPalette(true);
+                return true;
             case R.id.action_settings:
                 Toast.makeText(this, "This feature is not available yet", Toast.LENGTH_SHORT).show();
                 return true;
@@ -375,5 +392,20 @@ public class ArtistDetailActivity extends AbsFabActivity {
 
             }
         });
+    }
+
+    @Subscribe
+    public void onUIPreferenceChanged(UIPreferenceChangedEvent event){
+        switch (event.getAction()){
+            case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_ARTIST_CHANGED:
+                setNavigationBarColored((boolean) event.getValue());
+                break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.bus.unregister(this);
     }
 }

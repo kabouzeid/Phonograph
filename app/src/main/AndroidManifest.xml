@@ -75,6 +75,10 @@
             android:name=".ui.activities.PlaylistDetailActivity"
             android:label="@string/title_activity_playlist_detail" >
         </activity>
+        <activity
+            android:name=".ui.activities.SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
     </application>
 
 </manifest>

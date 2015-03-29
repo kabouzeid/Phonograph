@@ -296,8 +296,11 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STOP);
                 playingNotificationHelper.updatePlayState(false);
                 remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
-                updateNotification();
-                updateRemoteControlClient();
+                try {
+                    updateNotification();
+                    updateRemoteControlClient();
+                } catch (Exception ignored) {
+                }
             }
         }
         notifyOnMusicRemoteEventListeners(MusicRemoteEvent.TRACK_CHANGED);
@@ -311,7 +314,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     private void updateRemoteControlClient() {
-        final Song song = getPlayingQueue().get(getPosition());
+        final Song song = playingQueue.get(getPosition());
         remoteControlClient
                 .editMetadata(false)
                 .putString(MediaMetadataRetriever.METADATA_KEY_ARTIST, song.artistName)
@@ -598,7 +601,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public void resumePlaying() {
-        if(!isPlaying()) {
+        if (!isPlaying()) {
             if (requestFocus()) {
                 if (isPlayerPrepared) {
                     player.start();

@@ -69,6 +69,6 @@ public class AlbumSongLoader {
                         MediaStore.Audio.AudioColumns.TRACK,
                         /* 6 */
                         MediaStore.Audio.AudioColumns.ARTIST_ID
-                }, selection.toString(), null, PreferenceUtils.getInstace(context).getAlbumSongSortOrder());
+                }, selection.toString(), null, PreferenceUtils.getInstance(context).getAlbumSongSortOrder());
     }
 }

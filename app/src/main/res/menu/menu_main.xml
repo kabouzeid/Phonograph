@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/action_current_playing"
-        android:icon="@drawable/music_box"
+        android:icon="@drawable/ic_equalizer_white_24dp"
         android:title="@string/action_current_playing"
         app:showAsAction="always"/>
 
@@ -17,7 +17,6 @@
 
     <item
         android:id="@+id/action_shuffle_all"
-        android:icon="@drawable/ic_shuffle_white_48dp"
         android:title="@string/shuffle_all"
         app:showAsAction="never"/>
 
@@ -29,7 +28,6 @@
 
     <item
         android:id="@+id/action_settings"
-        android:icon="@drawable/settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never"/>

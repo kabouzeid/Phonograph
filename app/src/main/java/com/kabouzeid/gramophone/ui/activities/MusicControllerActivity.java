@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.ui.activities;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -18,6 +19,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.AddToPlaylistDialogHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -27,14 +29,17 @@ import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nineoldandroids.view.ViewPropertyAnimator;
+import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -59,6 +64,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     private ImageButton prevButton;
     private ImageButton repeatButton;
     private ImageButton shuffleButton;
+    private View mediaControllerContainer;
 
     private int lastFooterColor = -1;
 
@@ -70,6 +76,8 @@ public class MusicControllerActivity extends AbsFabActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_music_controller);
+
+        App.bus.register(this);
 
         initViews();
 
@@ -102,6 +110,7 @@ public class MusicControllerActivity extends AbsFabActivity {
         totalSongDuration = (TextView) findViewById(R.id.song_total_time);
         footer = findViewById(R.id.footer);
         progressSlider = (SeekBar) findViewById(R.id.progress_slider);
+        mediaControllerContainer = findViewById(R.id.media_controller_container);
     }
 
     private void setUpMusicControllers() {
@@ -109,6 +118,24 @@ public class MusicControllerActivity extends AbsFabActivity {
         setUpRepeatButton();
         setUpShuffleButton();
         setUpProgressSlider();
+        setUpBox(PreferenceUtils.getInstance(this).playbackControllerBoxEnabled());
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void setUpBox(boolean boxEnabled) {
+        if (boxEnabled) {
+            if (Util.hasLollipopSDK()) {
+                mediaControllerContainer.setElevation(getResources().getDimensionPixelSize(R.dimen.cardview_default_elevation));
+            }
+            mediaControllerContainer.setBackgroundColor(Util.resolveColor(this, R.attr.music_controller_container_color));
+        } else {
+            if (Util.hasLollipopSDK() && !Util.isInPortraitMode(this)) {
+                mediaControllerContainer.setElevation(getResources().getDimensionPixelSize(R.dimen.cardview_default_elevation));
+                mediaControllerContainer.setBackgroundColor(Util.resolveColor(this, R.attr.music_controller_container_color));
+            } else {
+                mediaControllerContainer.setBackground(null);
+            }
+        }
     }
 
     private void setUpProgressSlider() {
@@ -131,6 +158,8 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     private void setUpPrevNext() {
+        nextButton.setImageDrawable(Util.getTintedDrawable(getResources(), R.drawable.ic_skip_next_white_48dp, Util.resolveColor(this, R.attr.themed_drawable_color)));
+        prevButton.setImageDrawable(Util.getTintedDrawable(getResources(), R.drawable.ic_skip_previous_white_48dp, Util.resolveColor(this, R.attr.themed_drawable_color)));
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,10 +187,10 @@ public class MusicControllerActivity extends AbsFabActivity {
     private void updateShuffleState() {
         switch (MusicPlayerRemote.getShuffleMode()) {
             case MusicService.SHUFFLE_MODE_SHUFFLE:
-                shuffleButton.setImageResource(R.drawable.ic_shuffle_white_48dp);
+                shuffleButton.setImageDrawable(Util.getTintedDrawable(getResources(), R.drawable.ic_shuffle_white_48dp, Util.resolveColor(this, R.attr.themed_drawable_activated_color)));
                 break;
             default:
-                shuffleButton.setImageResource(R.drawable.ic_shuffle_grey600_48dp);
+                shuffleButton.setImageDrawable(Util.getTintedDrawable(getResources(), R.drawable.ic_shuffle_white_48dp, Util.resolveColor(this, R.attr.themed_drawable_color)));
                 break;
         }
     }
@@ -179,13 +208,13 @@ public class MusicControllerActivity extends AbsFabActivity {
     private void updateRepeatState() {
         switch (MusicPlayerRemote.getRepeatMode()) {
             case MusicService.REPEAT_MODE_NONE:
-                repeatButton.setImageResource(R.drawable.ic_repeat_grey600_48dp);
+                repeatButton.setImageDrawable(Util.getTintedDrawable(getResources(), R.drawable.ic_repeat_white_48dp, Util.resolveColor(this, R.attr.themed_drawable_color)));
                 break;
             case MusicService.REPEAT_MODE_ALL:
-                repeatButton.setImageResource(R.drawable.ic_repeat_white_48dp);
+                repeatButton.setImageDrawable(Util.getTintedDrawable(getResources(), R.drawable.ic_repeat_white_48dp, Util.resolveColor(this, R.attr.themed_drawable_activated_color)));
                 break;
             default:
-                repeatButton.setImageResource(R.drawable.ic_repeat_one_white_48dp);
+                repeatButton.setImageDrawable(Util.getTintedDrawable(getResources(), R.drawable.ic_repeat_one_white_48dp, Util.resolveColor(this, R.attr.themed_drawable_activated_color)));
                 break;
         }
     }
@@ -266,7 +295,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     private void setStandardColors() {
         int songTitleTextColor = Util.resolveColor(this, R.attr.title_text_color);
         int artistNameTextColor = Util.resolveColor(this, R.attr.caption_text_color);
-        int defaultBarColor = getResources().getColor(R.color.materialmusic_default_bar_color);
+        int defaultBarColor = Util.resolveColor(this, R.attr.default_bar_color);
 
         animateColorChange(defaultBarColor);
 
@@ -274,15 +303,15 @@ public class MusicControllerActivity extends AbsFabActivity {
         songArtist.setTextColor(artistNameTextColor);
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void animateColorChange(final int newColor) {
         if (lastFooterColor != -1 && lastFooterColor != newColor) {
             ViewUtil.animateViewColor(footer, lastFooterColor, newColor, 300);
         } else {
             footer.setBackgroundColor(newColor);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarCurrentPlayingEnabled())
             getWindow().setNavigationBarColor(newColor);
-        }
         lastFooterColor = newColor;
     }
 
@@ -431,5 +460,20 @@ public class MusicControllerActivity extends AbsFabActivity {
                 .setDuration(DEFAULT_ANIMATION_TIME)
                 .setStartDelay(startDelay)
                 .start();
+    }
+
+    @Subscribe
+    public void onUIPrefsChanged(UIPreferenceChangedEvent event) {
+        switch (event.getAction()) {
+            case UIPreferenceChangedEvent.PLAYBACK_CONTROLLER_CARD_CHANGED:
+                setUpBox((boolean) event.getValue());
+                break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.bus.unregister(this);
     }
 }

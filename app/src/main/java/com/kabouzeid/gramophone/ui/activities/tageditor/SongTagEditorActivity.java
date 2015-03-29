@@ -34,6 +34,11 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
         setUpViews();
     }
 
+    @Override
+    public String getTag() {
+        return TAG;
+    }
+
     private void initViews() {
         songTitle = (EditText) findViewById(R.id.title1);
         albumTitle = (EditText) findViewById(R.id.title2);

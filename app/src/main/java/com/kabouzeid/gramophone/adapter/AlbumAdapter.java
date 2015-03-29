@@ -17,9 +17,11 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
+import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.squareup.otto.Subscribe;
@@ -47,7 +49,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Album album = dataSet.get(position);
 
-        if (usePalette) resetColors(holder.title, holder.artist, holder.footer);
+        resetColors(holder.title, holder.artist, holder.footer);
         Picasso.with(activity)
                 .load(MusicUtil.getAlbumArtUri(album.id))
                 .placeholder(R.drawable.default_album_art)
@@ -109,8 +111,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
 
     public AlbumAdapter(Activity activity) {
         this.activity = activity;
-        //TODO shared prefs
-        usePalette = true;
+        usePalette = PreferenceUtils.getInstance(activity).coloredAlbumFootersEnabled();
         loadDataSet();
     }
 
@@ -126,7 +127,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
                 if (vibrantSwatch != null) {
                     title.setTextColor(vibrantSwatch.getTitleTextColor());
                     artist.setTextColor(vibrantSwatch.getTitleTextColor());
-                    ViewUtil.animateViewColor(footer, activity.getResources().getColor(R.color.materialmusic_default_bar_color), vibrantSwatch.getRgb());
+                    ViewUtil.animateViewColor(footer, Util.resolveColor(activity, R.attr.default_bar_color), vibrantSwatch.getRgb());
                 } else {
                     paletteBlackAndWhite(title, artist, footer);
                 }
@@ -137,14 +138,14 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
     private void paletteBlackAndWhite(final TextView title, final TextView artist, final View footer) {
         title.setTextColor(Util.resolveColor(activity, R.attr.title_text_color));
         artist.setTextColor(Util.resolveColor(activity, R.attr.caption_text_color));
-        int defaultBarColor = activity.getResources().getColor(R.color.materialmusic_default_bar_color);
+        int defaultBarColor = Util.resolveColor(activity, R.attr.default_bar_color);
         ViewUtil.animateViewColor(footer, defaultBarColor, defaultBarColor);
     }
 
     private void resetColors(final TextView title, final TextView artist, final View footer) {
         title.setTextColor(Util.resolveColor(activity, R.attr.title_text_color));
         artist.setTextColor(Util.resolveColor(activity, R.attr.caption_text_color));
-        int defaultBarColor = activity.getResources().getColor(R.color.materialmusic_default_bar_color);
+        int defaultBarColor = Util.resolveColor(activity, R.attr.default_bar_color);
         footer.setBackgroundColor(defaultBarColor);
     }
 
@@ -166,6 +167,16 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
             case DataBaseChangedEvent.ALBUMS_CHANGED:
             case DataBaseChangedEvent.DATABASE_CHANGED:
                 loadDataSet();
+                notifyDataSetChanged();
+                break;
+        }
+    }
+
+    @Subscribe
+    public void onUIChangeEvent(UIPreferenceChangedEvent event) {
+        switch (event.getAction()) {
+            case UIPreferenceChangedEvent.ALBUM_OVERVIEW_PALETTE_CHANGED:
+                usePalette = (boolean) event.getValue();
                 notifyDataSetChanged();
                 break;
         }

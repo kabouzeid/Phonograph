@@ -9,8 +9,8 @@
 
     <com.kabouzeid.gramophone.view.SquareImageView
         android:id="@+id/image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_gravity="center"
         android:gravity="center"
         android:scaleType="centerCrop"
@@ -31,7 +31,8 @@
             android:layout_marginRight="16dp"
             android:fontFamily="sans-serif"
             android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="?title_text_color"/>
 
         <TextView
             android:id="@+id/sub_title"
@@ -41,6 +42,7 @@
             android:layout_marginRight="16dp"
             android:fontFamily="sans-serif"
             android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="?caption_text_color"/>
     </LinearLayout>
 </LinearLayout>

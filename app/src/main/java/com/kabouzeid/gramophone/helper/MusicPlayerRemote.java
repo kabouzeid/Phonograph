@@ -135,7 +135,10 @@ public class MusicPlayerRemote {
     public static Song getCurrentSong() {
         final int position = getPosition();
         if (position != -1) {
-            return getPlayingQueue().get(position);
+            try {
+                return getPlayingQueue().get(position);
+            } catch (Exception ignored) {
+            }
         }
         return new Song();
     }
@@ -222,10 +225,11 @@ public class MusicPlayerRemote {
         if (musicService != null) {
             musicService.setShuffleMode(shuffleMode);
             return true;
-        } return false;
+        }
+        return false;
     }
 
-    public static void forceSetShuffleMode(final Context context, final int shuffleMode){
+    public static void forceSetShuffleMode(final Context context, final int shuffleMode) {
         if (musicService != null) {
             musicService.setShuffleMode(shuffleMode);
         } else {
@@ -235,7 +239,7 @@ public class MusicPlayerRemote {
         }
     }
 
-    public static void shuffleAllSongs(final Context context){
+    public static void shuffleAllSongs(final Context context) {
         List<Song> songs = SongLoader.getAllSongs(context);
         MusicPlayerRemote.openQueue(songs, new Random().nextInt(songs.size()), true);
         forceSetShuffleMode(context, MusicService.SHUFFLE_MODE_SHUFFLE);

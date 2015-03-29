@@ -18,11 +18,9 @@ import io.fabric.sdk.android.Fabric;
  * Created by karim on 25.11.14.
  */
 public class App extends Application {
-    private static final String TAG = App.class.getSimpleName();
-
+    public static final String TAG = App.class.getSimpleName();
     public static Bus bus = new Bus(ThreadEnforcer.MAIN);
 
-    private int appTheme;
     private RequestQueue requestQueue;
 
     @Override
@@ -31,18 +29,6 @@ public class App extends Application {
         Fabric.with(this, new Crashlytics());
         MusicPlayerRemote.init(this);
         //Picasso.with(this).setIndicatorsEnabled(true);// debug only
-    }
-
-    public int getAppTheme() {
-        if (appTheme == 0) {
-            appTheme = PreferenceManager.getDefaultSharedPreferences(this).getInt(AppKeys.SP_THEME, R.style.Theme_MaterialMusic);
-        }
-        return appTheme;
-    }
-
-    public void setAppTheme(int appTheme) {
-        this.appTheme = appTheme;
-        PreferenceManager.getDefaultSharedPreferences(this).edit().putInt(AppKeys.SP_THEME, appTheme).apply();
     }
 
     public void addToVolleyRequestQueue(Request request) {

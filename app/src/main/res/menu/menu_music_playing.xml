@@ -10,7 +10,6 @@
 
     <item
         android:id="@+id/action_shuffle_all"
-        android:icon="@drawable/ic_shuffle_white_48dp"
         android:title="@string/shuffle_all"
         app:showAsAction="never"/>
 
@@ -33,10 +32,5 @@
     <item
         android:id="@+id/action_details"
         android:title="@string/action_details"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
         app:showAsAction="never"/>
 </menu>

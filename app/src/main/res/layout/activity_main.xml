@@ -38,23 +38,37 @@
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="?colorPrimary"
-                    android:elevation="@dimen/toolbar_elevation"
-                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+                    style="@style/Toolbar"
+                    android:background="?colorPrimary">
 
-                <com.google.samples.apps.iosched.ui.widget.SlidingTabLayout
-                    android:id="@+id/sliding_tabs"
+                    <TextView
+                        android:id="@+id/toolbar_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginStart="16dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="left|center"
+                        android:text="@string/app_name"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"/>
+                </android.support.v7.widget.Toolbar>
+
+                <com.astuetz.PagerSlidingTabStrip
+                    android:id="@+id/tabs"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/tab_height"
                     android:background="?colorPrimary"
-                    android:elevation="2dp"/>
+                    app:elevation="@dimen/toolbar_elevation"
+                    android:paddingLeft="64dp"
+                    android:textColor="@color/grey_400"
+                    android:textColorPrimary="@color/white"
+                    app:pstsTabPaddingLeftRight="8dp"/>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
-                    android:background="@drawable/shadow_down" />
+                    android:background="@drawable/shadow_down"/>
             </LinearLayout>
 
             <LinearLayout

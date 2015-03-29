@@ -20,7 +20,9 @@ import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.Util;
 import com.squareup.otto.Subscribe;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -60,11 +62,14 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView playlistName;
         private ImageView menu;
+        private ImageView playlistIcon;
 
         public ViewHolder(View itemView) {
             super(itemView);
             playlistName = (TextView) itemView.findViewById(R.id.playlist_name);
             menu = (ImageView) itemView.findViewById(R.id.menu);
+            playlistIcon = (ImageView) itemView.findViewById(R.id.playlist_icon);
+            playlistIcon.setImageDrawable(Util.getTintedDrawable(activity.getResources(), R.drawable.ic_queue_music_white_24dp, Util.resolveColor(activity, R.attr.themed_drawable_color)));
             itemView.setOnClickListener(this);
             menu.setOnClickListener(new View.OnClickListener() {
                 @Override

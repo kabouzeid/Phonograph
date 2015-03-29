@@ -6,10 +6,7 @@ package com.kabouzeid.gramophone.misc;
 public final class AppKeys {
     public static final String CL_CURRENT_ACTIVITY = "Current activity";
 
-    public static final String SP_THEME = "com.kabouzeid.gramophone.THEME";
-    public static final String SP_VIEWPAGER_ITEM_POSITION = "com.kabouzeid.gramophone.NAVIGATION_DRAWER_ITEM_POSITION";
     public static final String SP_USER_LEARNED_DRAWER = "com.kabouzeid.gramophone.NAVIGATION_DRAWER_LEARNED";
-    public static final String SP_ONLY_ON_WIFI = "com.kabouzeid.gramophone.ONLY_ON_WIFI";
     public static final String SP_SHUFFLE_MODE = "com.kabouzeid.gramophone.SHUFFLE_MODE";
     public static final String SP_REPEAT_MODE = "com.kabouzeid.gramophone.REPEAT_MODE";
 

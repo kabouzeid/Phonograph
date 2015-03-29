@@ -22,6 +22,7 @@ import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.Util;
 
 import java.io.File;
 import java.util.List;
@@ -50,10 +51,9 @@ public class PlayingQueueAdapter extends ArrayAdapter<Song> {
         title.setText(song.title);
         if (MusicPlayerRemote.getPosition() == position) {
             playingIndicator.setVisibility(View.VISIBLE);
-            playingIndicator.setImageResource(R.drawable.ic_speaker_white_48dp);
+            playingIndicator.setImageDrawable(Util.getTintedDrawable(getContext().getResources(), R.drawable.ic_speaker_white_48dp, Util.resolveColor(getContext(), R.attr.themed_drawable_color)));
         } else {
             playingIndicator.setVisibility(View.GONE);
-            playingIndicator.setImageBitmap(null);
         }
 
         overflowButton.setOnClickListener(new View.OnClickListener() {

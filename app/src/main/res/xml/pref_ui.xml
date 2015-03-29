@@ -1,0 +1,34 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/pref_header_ui">
+    <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        android:defaultValue="1"
+        android:entries="@array/pref_general_theme_list_titles"
+        android:entryValues="@array/pref_general_theme_list_values"
+        android:key="general_theme"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="@string/pref_title_general_theme"/>
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="playback_controller_card"
+        android:title="@string/pref_title_show_playback_controller_card"/>
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="colored_navigation_bar_artist"
+        android:title="@string/pref_title_colored_navigation_bar_artists"/>
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="colored_navigation_bar_album"
+        android:title="@string/pref_title_colored_navigation_bar_albums"/>
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="colored_album_footers"
+        android:title="@string/pref_title_colored_album_footers"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

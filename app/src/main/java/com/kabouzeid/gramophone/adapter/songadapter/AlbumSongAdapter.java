@@ -54,7 +54,7 @@ public class AlbumSongAdapter extends RecyclerView.Adapter<AlbumSongAdapter.View
 
         holder.songTitle.setText(song.title);
         holder.trackNumber.setText(String.valueOf(MusicUtil.getFixedTrackNumber(song.trackNumber)));
-        holder.songDuration.setText(MusicUtil.getReadableDurationString(song.duration));
+        holder.artistName.setText(MusicUtil.getReadableDurationString(song.duration));
     }
 
     @Override
@@ -65,14 +65,14 @@ public class AlbumSongAdapter extends RecyclerView.Adapter<AlbumSongAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView songTitle;
         TextView trackNumber;
-        TextView songDuration;
+        TextView artistName;
         ImageView overflowButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
             songTitle = (TextView) itemView.findViewById(R.id.song_title);
             trackNumber = (TextView) itemView.findViewById(R.id.track_number);
-            songDuration = (TextView) itemView.findViewById(R.id.song_duration);
+            artistName = (TextView) itemView.findViewById(R.id.song_info);
             overflowButton = (ImageView) itemView.findViewById(R.id.menu);
             overflowButton.setOnClickListener(this);
             itemView.setOnClickListener(new View.OnClickListener() {

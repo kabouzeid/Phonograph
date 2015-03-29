@@ -38,11 +38,12 @@ public class NavigationDrawerItemAdapter extends ArrayAdapter<NavigationDrawerIt
         TextView title = (TextView) convertView.findViewById(R.id.title);
         ImageView icon = (ImageView) convertView.findViewById(R.id.album_art);
         title.setText(item.title);
-        icon.setImageResource(item.imageRes);
         if (position == currentChecked) {
             title.setTextColor(Util.resolveColor(getContext(), R.attr.colorAccent));
+            icon.setImageDrawable(Util.getTintedDrawable(getContext().getResources(), item.imageRes, Util.resolveColor(getContext(), R.attr.colorAccent)));
         } else {
             title.setTextColor(Util.resolveColor(getContext(), R.attr.title_text_color));
+            icon.setImageDrawable(Util.getTintedDrawable(getContext().getResources(), item.imageRes, Util.resolveColor(getContext(), R.attr.title_text_color)));
         }
         View container = convertView.findViewById(R.id.container);
         container.setActivated(position == currentChecked);

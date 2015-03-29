@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
@@ -17,9 +18,8 @@ import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
+import com.astuetz.PagerSlidingTabStrip;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.AboutDeveloperDialogHelper;
 import com.kabouzeid.gramophone.helper.CreatePlaylistDialogHelper;
@@ -53,7 +53,7 @@ public class MainActivity extends AbsFabActivity
     private View statusBar;
     private MainActivityViewPagerAdapter viewPagerAdapter;
     private ViewPager viewPager;
-    private SlidingTabLayout slidingTabLayout;
+    private PagerSlidingTabStrip slidingTabLayout;
     private int currentPage = -1;
 
     @Override
@@ -74,13 +74,16 @@ public class MainActivity extends AbsFabActivity
     private void setUpViewPager() {
         viewPagerAdapter = new MainActivityViewPagerAdapter(this);
         viewPager.setAdapter(viewPagerAdapter);
-        int startPosition = PreferenceUtils.getInstace(this).getStartPage();
+        int startPosition = PreferenceUtils.getInstance(this).getDefaultStartPage();
+        startPosition = startPosition == -1 ? PreferenceUtils.getInstance(this).getLastStartPage() : startPosition;
         currentPage = startPosition;
         viewPager.setCurrentItem(startPosition);
         navigationDrawerFragment.setItemChecked(startPosition);
 
-        slidingTabLayout.setSelectedIndicatorColors(Util.resolveColor(MainActivity.this, R.attr.colorAccent));
+        final int accentColor = Util.resolveColor(MainActivity.this, R.attr.colorAccent);
+        slidingTabLayout.setIndicatorColor(accentColor);
         slidingTabLayout.setViewPager(viewPager);
+
         slidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -89,7 +92,7 @@ public class MainActivity extends AbsFabActivity
 
             @Override
             public void onPageSelected(final int position) {
-                PreferenceUtils.getInstace(MainActivity.this).setStartPage(position);
+                PreferenceUtils.getInstance(MainActivity.this).setLastStartPage(position);
                 navigationDrawerFragment.setItemChecked(position);
                 currentPage = position;
                 invalidateOptionsMenu();
@@ -104,7 +107,7 @@ public class MainActivity extends AbsFabActivity
 
     private void initViews() {
         viewPager = (ViewPager) findViewById(R.id.pager);
-        slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
+        slidingTabLayout = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -246,7 +249,7 @@ public class MainActivity extends AbsFabActivity
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
                 return true;
             case R.id.action_settings:
-                Toast.makeText(this, "This feature is not available yet", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                 return true;
             case R.id.action_about:
                 AboutDeveloperDialogHelper.getDialog(this).show();
@@ -291,12 +294,12 @@ public class MainActivity extends AbsFabActivity
                     context.getResources().getString(R.string.songs),
                     context.getResources().getString(R.string.albums),
                     context.getResources().getString(R.string.artists),
-                    context.getResources().getString(R.string.playlists) + " BETA"
+                    context.getResources().getString(R.string.playlists)
             };
         }
 
         @Override
-        public Fragment getItem(final int position) {
+        public AbsMainActivityFragment getItem(final int position) {
             switch (position) {
                 case 0:
                     return pages.get(position, new SongViewFragment());

@@ -25,6 +25,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
+import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
@@ -51,7 +52,7 @@ import java.util.Map;
 /**
  * Created by karim on 18.01.15.
  */
-public abstract class AbsTagEditorActivity extends ActionBarActivity {
+public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     public static final String TAG = AbsTagEditorActivity.class.getSimpleName();
     private static final int REQUEST_CODE_SELECT_IMAGE = 1337;
 
@@ -85,10 +86,7 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        app = (App) getApplicationContext();
-        setTheme(app.getAppTheme());
-        setUpTranslucence();
-
+        setUpTranslucence(false, false);
         super.onCreate(savedInstanceState);
         setContentView(getContentViewResId());
 
@@ -197,13 +195,6 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
         }
     }
 
-    private void setUpTranslucence() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Util.setStatusBarTranslucent(getWindow(), false);
-            Util.setNavBarTranslucent(getWindow(), false);
-        }
-    }
-
     private void getIntentExtras() {
         Bundle intentExtras = getIntent().getExtras();
         if (intentExtras != null) {
@@ -233,19 +224,11 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_tag_editor, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
             case android.R.id.home:
                 super.onBackPressed();
-                return true;
-            case R.id.action_settings:
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -290,7 +273,7 @@ public abstract class AbsTagEditorActivity extends ActionBarActivity {
             Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
                 @Override
                 public void onGenerated(Palette palette) {
-                    final int vibrantColor = palette.getVibrantColor(getResources().getColor(R.color.materialmusic_default_bar_color));
+                    final int vibrantColor = palette.getVibrantColor(Util.resolveColor(AbsTagEditorActivity.this, R.attr.default_bar_color));
                     paletteColorPrimary = vibrantColor;
                     observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

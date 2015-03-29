@@ -4,12 +4,11 @@
       tools:context="com.kabouzeid.gramophone.ui.activities.PlaylistDetailActivity">
     <item
         android:id="@+id/action_current_playing"
-        android:icon="@drawable/music_box"
+        android:icon="@drawable/ic_equalizer_white_24dp"
         android:title="@string/action_current_playing"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_playing_queue"
-        android:icon="@drawable/ic_queue_music_white_24dp"
         android:title="@string/action_playing_queue"
         app:showAsAction="never"/>
     <item

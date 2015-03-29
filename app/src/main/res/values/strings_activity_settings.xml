@@ -1,0 +1,40 @@
+<resources>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- General settings -->
+    <string name="pref_header_general">General</string>
+    <string name="pref_title_set_default_start_page">Set default start page</string>
+    <string-array name="pref_start_page_list_titles">
+        <item>@string/last_opened</item>
+        <item>@string/songs</item>
+        <item>@string/albums</item>
+        <item>@string/artists</item>
+        <item>@string/playlists</item>
+    </string-array>
+    <string-array name="pref_start_page_list_values">
+        <item>-1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <!-- UI settings -->
+    <string name="pref_header_ui">UI</string>
+    <string name="pref_title_general_theme">General theme</string>
+    <string-array name="pref_general_theme_list_titles">
+        <item>@string/light_theme_name</item>
+        <item>@string/dark_theme_name</item>
+    </string-array>
+    <string-array name="pref_general_theme_list_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <string name="pref_title_show_playback_controller_card">Playback controller card</string>
+    <string name="pref_title_colored_navigation_bar_artists">Colored navigation bar artist view</string>
+    <string name="pref_title_colored_navigation_bar_albums">Colored navigation bar album view</string>
+    <string name="pref_title_colored_album_footers">Colored album footers</string>
+
+</resources>

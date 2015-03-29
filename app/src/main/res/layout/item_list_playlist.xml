@@ -1,36 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="64dp"
-    android:background="?rect_selector"
-    android:orientation="horizontal"
-    android:paddingLeft="16dp">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="64dp"
+             android:background="?rect_selector">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:src="@drawable/ic_queue_music_white_24dp"
-        />
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
 
-    <TextView
-        android:layout_weight="1"
-        android:id="@+id/playlist_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:fontFamily="sans-serif"
-        android:singleLine="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+        android:orientation="horizontal"
+        android:paddingLeft="16dp">
 
-    <ImageView
-        android:id="@+id/menu"
-        style="@style/OverFlowButton"
-        android:layout_gravity="center_vertical"
-        android:layout_marginRight="2dp"/>
+        <ImageView
+            android:id="@+id/playlist_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="8dp"
+            android:src="@drawable/ic_queue_music_white_24dp"
+            />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/playlist_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="?title_text_color"/>
+
+        <ImageView
+            android:id="@+id/menu"
+            style="@style/OverFlowButton"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="2dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/short_separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="72dp"
+        android:background="?separator_color"/>
+</FrameLayout>

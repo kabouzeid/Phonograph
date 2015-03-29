@@ -2,13 +2,16 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v7.widget.RecyclerView;
 
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.AlbumAdapter;
+import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
+import com.squareup.otto.Subscribe;
 
 /**
  * Created by karim on 22.11.14.

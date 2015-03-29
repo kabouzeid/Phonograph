@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_view_height"
             android:height="@dimen/title_view_height"
-            android:background="@color/materialmusic_default_bar_color"
+            android:background="?default_bar_color"
             android:elevation="@dimen/toolbar_elevation"
             android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
@@ -66,8 +66,7 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            style="@style/Toolbar"
             android:background="@android:color/transparent"/>
     </LinearLayout>
 

@@ -52,7 +52,7 @@ public class ArtistLoader {
                         MediaStore.Audio.ArtistColumns.NUMBER_OF_ALBUMS,
                         /* 3 */
                         MediaStore.Audio.ArtistColumns.NUMBER_OF_TRACKS
-                }, selection, values, PreferenceUtils.getInstace(context).getArtistSortOrder());
+                }, selection, values, PreferenceUtils.getInstance(context).getArtistSortOrder());
     }
 
     public static Artist getArtist(Context context, int artistId) {

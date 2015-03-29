@@ -16,7 +16,7 @@
         <item name="android:padding">12dp</item>
         <item name="android:layout_width">48dp</item>
         <item name="android:layout_height">48dp</item>
-        <item name="android:src">@drawable/ic_overflow</item>
+        <item name="android:src">?icon_overflow</item>
         <item name="android:scaleType">fitXY</item>
         <item name="android:background">?round_selector</item>
         <item name="android:layout_centerVertical">true</item>
@@ -41,6 +41,15 @@
     <style name="MusicProgressSlider" parent="MusicProgressSliderParent">
         <item name="android:progressDrawable">@drawable/slider_progress</item>
         <item name="android:thumb">@drawable/slider_thumb</item>
+    </style>
+
+    <style name="Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="android:minHeight">@dimen/abc_action_bar_default_height_material</item>
+        <item name="popupTheme">?toolbarPopupTheme</item>
+        <item name="elevation">@dimen/toolbar_elevation</item>
     </style>
 
 </resources>

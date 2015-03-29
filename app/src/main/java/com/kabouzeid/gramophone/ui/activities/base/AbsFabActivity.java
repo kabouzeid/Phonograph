@@ -35,8 +35,7 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
         super.onPostCreate(savedInstanceState);
         try {
             App.bus.register(busEventListener);
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
         setUpFab();
     }
 
@@ -142,8 +141,7 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
         super.onDestroy();
         try {
             App.bus.unregister(busEventListener);
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
     }
 
     public void onMusicRemoteEvent(MusicRemoteEvent event) {

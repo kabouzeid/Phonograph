@@ -7,26 +7,25 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        style="@style/Toolbar"
         android:background="?colorPrimary"
-        android:elevation="@dimen/toolbar_elevation"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        app:elevation="@dimen/toolbar_elevation"/>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <View
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:background="@drawable/shadow_down" />
+            android:background="@drawable/shadow_down"/>
 
         <ListView
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:dividerHeight="0px"
-            android:divider="@null"/>
-        </FrameLayout>
+            android:divider="@null"
+            android:dividerHeight="0px"/>
+    </FrameLayout>
 
 </LinearLayout>
