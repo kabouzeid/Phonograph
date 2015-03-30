@@ -13,9 +13,9 @@
     <color name="materialmusic_navigation_drawer_background_color">@color/grey_300</color>
     <color name="materialmusic_separator_color">#0C000000</color>
     <color name="materialmusic_default_bar_color">@color/white</color>
-    <color name="materialmusic_themed_drawable_color">@color/grey_800</color>
+    <color name="materialmusic_themed_drawable_color">#8A000000</color>
     <color name="materialmusic_themed_drawable_activated_color">@color/materialmusic_accent_color</color>
-    <color name="list_item_activated">#D0D0D0</color>
+    <color name="list_item_selector_activated">#D0D0D0</color>
     
     <!--dark theme-->
     <color name="materialmusic_dark_color">@color/indigo_500</color>
@@ -29,11 +29,14 @@
     <color name="materialmusic_dark_default_bar_color">@color/grey_900</color>
     <color name="materialmusic_dark_themed_drawable_color">@color/white</color>
     <color name="materialmusic_dark_themed_drawable_activated_color">@color/materialmusic_dark_accent_color</color>
-    <color name="list_item_activated_dark">#55000000</color>
+    <color name="list_item_selector_activated_dark">#55000000</color>
 
     <!--round and rect selector-->
     <color name="button_selected">#D0D0D0</color>
     <color name="button_selected_dark">#30FFFFFF</color>
+
+    <color name="sliding_tabs_activated">#FFFFFF</color>
+    <color name="sliding_tabs_deactivated">#99FFFFFF</color>
 
     <!--notification-->
     <drawable name="notification_template_divider_media">#29ffffff</drawable>

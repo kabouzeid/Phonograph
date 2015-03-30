@@ -61,7 +61,7 @@
             android:label="@string/title_activity_search" >
         </activity>
 
-        <receiver android:name=".widget.MusicPlayerWidget" >
+        <receiver android:name=".appwidget.MusicPlayerWidget" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

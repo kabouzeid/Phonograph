@@ -23,8 +23,6 @@
         <item name="rect_selector">@drawable/rect_selector_dark</item>
         <item name="separator_color">@color/materialmusic_dark_separator_color</item>
 
-        <item name="icon_overflow">@drawable/ic_more_vert_white_24dp</item>
-
         <item name="themed_drawable_color">@color/materialmusic_dark_themed_drawable_color</item>
         <item name="themed_drawable_activated_color">@color/materialmusic_dark_themed_drawable_activated_color</item>
 
@@ -58,8 +56,6 @@
         <item name="rect_selector">@drawable/rect_selector</item>
         <item name="separator_color">@color/materialmusic_separator_color</item>
 
-        <item name="icon_overflow">@drawable/ic_more_vert_black_24dp</item>
-
         <item name="themed_drawable_color">@color/materialmusic_themed_drawable_color</item>
         <item name="themed_drawable_activated_color">@color/materialmusic_themed_drawable_activated_color</item>
 
@@ -71,6 +67,7 @@
     </style>
 
     <style name="PlayPauseFabParent">
+        <item name="elevation">8dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="fab_shadow">true</item>

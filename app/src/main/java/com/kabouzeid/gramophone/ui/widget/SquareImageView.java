@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.view;
+package com.kabouzeid.gramophone.ui.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;

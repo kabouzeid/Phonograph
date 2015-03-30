@@ -35,7 +35,8 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
         super.onPostCreate(savedInstanceState);
         try {
             App.bus.register(busEventListener);
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
         setUpFab();
     }
 
@@ -61,14 +62,6 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
                 } else {
                     Toast.makeText(AbsFabActivity.this, getResources().getString(R.string.nothing_playing), Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-
-        getFab().setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Toast.makeText(AbsFabActivity.this, getResources().getString(R.string.hint_fling_to_open), Toast.LENGTH_SHORT).show();
-                return true;
             }
         });
 
@@ -141,7 +134,8 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
         super.onDestroy();
         try {
             App.bus.unregister(busEventListener);
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 
     public void onMusicRemoteEvent(MusicRemoteEvent event) {

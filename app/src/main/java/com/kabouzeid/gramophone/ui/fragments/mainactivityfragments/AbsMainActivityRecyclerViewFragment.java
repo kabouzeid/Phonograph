@@ -1,26 +1,22 @@
 package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.songadapter.SongAdapter;
 
 /**
- * Created by karim on 29.12.14.
+ * Created by karim on 30.03.15.
  */
-public class SongViewFragment extends AbsMainActivityFragment {
-    public static final String TAG = SongViewFragment.class.getSimpleName();
-
+public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivityFragment {
     private RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_songview, container, false);
+        return inflater.inflate(getLayoutResId(), container, false);
     }
 
     @Override
@@ -31,9 +27,9 @@ public class SongViewFragment extends AbsMainActivityFragment {
     }
 
     private void setUpRecyclerView() {
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+        recyclerView.setLayoutManager(getLayoutManager());
         recyclerView.setPadding(0, getTopPadding(), 0, getBottomPadding());
-        recyclerView.setAdapter(new SongAdapter(getActivity()));
+        recyclerView.setAdapter(getAdapter());
     }
 
     @Override
@@ -46,5 +42,15 @@ public class SongViewFragment extends AbsMainActivityFragment {
     public void disableViews() {
         super.disableViews();
         recyclerView.setEnabled(false);
+    }
+
+    protected abstract int getLayoutResId();
+
+    protected abstract RecyclerView.LayoutManager getLayoutManager();
+
+    protected abstract RecyclerView.Adapter getAdapter();
+
+    public RecyclerView getRecyclerView() {
+        return recyclerView;
     }
 }

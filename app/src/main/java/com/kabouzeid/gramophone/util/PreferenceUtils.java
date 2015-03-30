@@ -58,6 +58,9 @@ public final class PreferenceUtils {
     // Key used to en or disable the colored navigation bar
     public static final String PLAYBACK_CONTROLLER_BOX = "playback_controller_card";
 
+    /* Saves the last page the pager was on in {@link MainActivity} */
+    public static final String TRANSPARENT_TOOLBAR = "transparent_toolbar";
+
     private static PreferenceUtils sInstance;
 
     private final SharedPreferences mPreferences;
@@ -179,6 +182,16 @@ public final class PreferenceUtils {
     public void setPlaybackControllerBoxEnabled(final boolean value) {
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.putBoolean(PLAYBACK_CONTROLLER_BOX, value);
+        editor.apply();
+    }
+
+    public final boolean transparentToolbar() {
+        return mPreferences.getBoolean(TRANSPARENT_TOOLBAR, true);
+    }
+
+    public void setTransparentToolbar(final boolean value) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putBoolean(TRANSPARENT_TOOLBAR, value);
         editor.apply();
     }
 

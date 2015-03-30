@@ -40,6 +40,7 @@
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="@color/white"
+            android:textSize="14dp"
             android:textStyle="bold"/>
 
         <TextView
@@ -50,6 +51,7 @@
             android:fontFamily="sans-serif"
             android:gravity="bottom|right"
             android:singleLine="true"
+            android:textSize="14dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="@color/white"/>
 
@@ -60,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/media_controller_container"
-        android:background="@color/materialmusic_default_bar_color"
+        android:background="?default_bar_color"
         android:orientation="vertical"
         android:paddingBottom="16dp"
         android:paddingLeft="72dp"

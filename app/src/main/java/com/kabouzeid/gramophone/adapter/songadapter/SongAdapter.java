@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.adapter.songadapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -81,6 +82,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             int accentColor = Util.resolveColor(activity, R.attr.colorAccent);
             holder.songTitle.setText(activity.getResources().getString(R.string.shuffle_all).toUpperCase());
             holder.songTitle.setTextColor(accentColor);
+            holder.songTitle.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
             holder.songInfo.setVisibility(View.GONE);
             holder.overflowButton.setVisibility(View.GONE);
             final int padding = activity.getResources().getDimensionPixelSize(R.dimen.default_item_margin) / 2;

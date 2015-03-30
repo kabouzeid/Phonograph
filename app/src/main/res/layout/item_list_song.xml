@@ -12,7 +12,7 @@
         android:orientation="horizontal"
         android:paddingLeft="16dp">
 
-        <com.kabouzeid.gramophone.view.SquareImageView
+        <com.kabouzeid.gramophone.ui.widget.SquareImageView
             android:id="@+id/album_art"
             android:layout_width="40dp"
             android:layout_height="40dp"

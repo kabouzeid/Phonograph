@@ -136,7 +136,7 @@ public class PlayingNotificationHelper {
 
     private void setUpCollapsedLayout(final Song song) {
         notificationLayout.setTextViewText(R.id.song_title, song.title);
-        notificationLayout.setTextViewText(R.id.song_artist, song.title);
+        notificationLayout.setTextViewText(R.id.song_artist, song.artistName);
     }
 
     private void setUpExpandedLayout(final Song song) {

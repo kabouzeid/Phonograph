@@ -43,7 +43,7 @@ public class NavigationDrawerItemAdapter extends ArrayAdapter<NavigationDrawerIt
             icon.setImageDrawable(Util.getTintedDrawable(getContext().getResources(), item.imageRes, Util.resolveColor(getContext(), R.attr.colorAccent)));
         } else {
             title.setTextColor(Util.resolveColor(getContext(), R.attr.title_text_color));
-            icon.setImageDrawable(Util.getTintedDrawable(getContext().getResources(), item.imageRes, Util.resolveColor(getContext(), R.attr.title_text_color)));
+            icon.setImageDrawable(Util.getTintedDrawable(getContext().getResources(), item.imageRes, Util.resolveColor(getContext(), R.attr.themed_drawable_color)));
         }
         View container = convertView.findViewById(R.id.container);
         container.setActivated(position == currentChecked);
