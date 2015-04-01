@@ -22,7 +22,7 @@ public class DeleteSongsDialogHelper {
 
     public static MaterialDialog getDialog(final Context context, final List<Song> songs) {
         String title = context.getResources().getString(R.string.delete_songs_1);
-        title = songs.size() > 1 ? title + songs.size() + context.getResources().getString(R.string.delete_songs_2) : title + songs.get(0).title + "?";
+        title = songs.size() > 1 ? title + songs.size() + context.getResources().getString(R.string.delete_songs_2) : title + "'" + songs.get(0).title + "' " + "?";
         return new MaterialDialog.Builder(context)
                 .title(title)
                 .content(context.getResources().getString(R.string.delete_warning))

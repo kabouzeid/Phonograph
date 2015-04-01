@@ -54,12 +54,11 @@
                     android:fontFamily="sans-serif-medium"
                     android:gravity="bottom|left"
                     android:singleLine="true"
-                    android:textSize="14dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:textSize="16sp"/>
 
                 <TextView
-                    android:textSize="14dp"
                     android:id="@+id/song_total_time"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -68,7 +67,8 @@
                     android:gravity="bottom|right"
                     android:singleLine="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:textSize="16sp"/>
 
             </LinearLayout>
 

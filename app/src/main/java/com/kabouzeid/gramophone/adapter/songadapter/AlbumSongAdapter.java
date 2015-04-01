@@ -102,6 +102,7 @@ public class AlbumSongAdapter extends RecyclerView.Adapter<AlbumSongAdapter.View
                             return true;
                         case R.id.action_add_to_current_playing:
                             MusicPlayerRemote.enqueue(dataSet.get(getAdapterPosition()));
+                            return true;
                         case R.id.action_tag_editor:
                             Intent intent = new Intent(activity, SongTagEditorActivity.class);
                             intent.putExtra(AppKeys.E_ID, dataSet.get(getAdapterPosition()).id);

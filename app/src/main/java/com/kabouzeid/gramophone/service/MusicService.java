@@ -58,6 +58,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().compareTo(AudioManager.ACTION_AUDIO_BECOMING_NOISY) == 0) {
+                wasPlayingBeforeFocusLoss = false;
                 pausePlaying();
             }
         }
