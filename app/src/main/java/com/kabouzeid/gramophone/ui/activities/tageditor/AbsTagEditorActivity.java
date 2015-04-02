@@ -19,6 +19,7 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.github.clans.fab.FloatingActionButton;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
@@ -29,7 +30,6 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.melnykov.fab.FloatingActionButton;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 
@@ -56,7 +56,6 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     public static final String TAG = AbsTagEditorActivity.class.getSimpleName();
     private static final int REQUEST_CODE_SELECT_IMAGE = 1337;
 
-    private App app;
     private int id;
     private int headerVariableSpace;
     private int paletteColorPrimary;
@@ -397,10 +396,6 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     }
 
     protected abstract void loadImageFromFile(Uri selectedFile);
-
-    protected App getApp() {
-        return app;
-    }
 
     protected String getSongTitle() {
         try {

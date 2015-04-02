@@ -70,7 +70,6 @@
         <item name="elevation">8dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="fab_shadow">true</item>
     </style>
 
     <style name="NotificationButtonParent">

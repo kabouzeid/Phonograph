@@ -23,8 +23,8 @@ android {
         applicationId "com.kabouzeid.gramophone"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 8
-        versionName "0.9.4.1b"
+        versionCode 9
+        versionName "0.9.5b"
     }
 
     compileOptions {
@@ -57,7 +57,7 @@ dependencies {
     compile 'com.nhaarman.listviewanimations:lib-manipulation:3.1.0@aar'
     compile 'com.nhaarman.listviewanimations:lib-core-slh:3.1.0@aar'
     compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.melnykov:floatingactionbutton:1.2.0'
+    compile 'com.github.clans:fab:1.2.0'
     compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
     compile 'com.mcxiaoke.volley:library:1.0.15'
     compile 'com.squareup.picasso:picasso:2.5.0'

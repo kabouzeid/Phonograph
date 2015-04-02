@@ -166,7 +166,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/ic_shuffle_grey600_48dp"/>
 
-        <com.melnykov.fab.FloatingActionButton
+        <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab"
             style="@style/PlayPauseFab"
             android:layout_centerInParent="true"/>

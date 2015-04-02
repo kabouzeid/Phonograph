@@ -79,7 +79,7 @@
                 android:layout_gravity="right|bottom"
                 android:fitsSystemWindows="true">
 
-                <com.melnykov.fab.FloatingActionButton
+                <com.github.clans.fab.FloatingActionButton
                     android:id="@+id/fab"
                     style="@style/PlayPauseFab"
                     android:layout_margin="16dp"

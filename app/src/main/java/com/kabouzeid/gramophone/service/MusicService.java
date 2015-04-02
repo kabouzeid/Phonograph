@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.service;
 
 import android.app.PendingIntent;
 import android.app.Service;
+import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentUris;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.appwidget.MusicPlayerWidget;
 import com.kabouzeid.gramophone.helper.PlayingNotificationHelper;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.misc.AppKeys;
@@ -211,6 +213,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             player = null;
         }
         playingNotificationHelper.updatePlayState(isPlaying());
+        MusicPlayerWidget.updateWidgets(this);
         remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
         notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STOP);
     }
@@ -260,6 +263,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         if (isLastTrack() && getRepeatMode() == REPEAT_MODE_NONE) {
             notifyOnMusicRemoteEventListeners(MusicRemoteEvent.QUEUE_COMPLETED);
             playingNotificationHelper.updatePlayState(isPlaying());
+            MusicPlayerWidget.updateWidgets(this);
             remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
             notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STOP);
         } else {
@@ -288,6 +292,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 player.setDataSource(getApplicationContext(), trackUri);
                 currentSongId = getPlayingQueue().get(getPosition()).id;
                 updateNotification();
+                MusicPlayerWidget.updateWidgets(this);
                 updateRemoteControlClient();
                 player.prepareAsync();
             } catch (Exception e) {
@@ -296,6 +301,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.unplayable_file), Toast.LENGTH_SHORT).show();
                 notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STOP);
                 playingNotificationHelper.updatePlayState(false);
+                MusicPlayerWidget.updateWidgets(this);
                 remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
                 try {
                     updateNotification();
@@ -434,6 +440,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         player.start();
         isPlayerPrepared = true;
         playingNotificationHelper.updatePlayState(isPlaying());
+        MusicPlayerWidget.updateWidgets(this);
         remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PLAYING);
         notifyOnMusicRemoteEventListeners(MusicRemoteEvent.PLAY);
         savePosition();
@@ -596,6 +603,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         if (isPlaying()) {
             player.pause();
             playingNotificationHelper.updatePlayState(isPlaying());
+            MusicPlayerWidget.updateWidgets(this);
             remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PAUSED);
             notifyOnMusicRemoteEventListeners(MusicRemoteEvent.PAUSE);
         }
@@ -607,6 +615,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 if (isPlayerPrepared) {
                     player.start();
                     playingNotificationHelper.updatePlayState(isPlaying());
+                    MusicPlayerWidget.updateWidgets(this);
                     remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PLAYING);
                     notifyOnMusicRemoteEventListeners(MusicRemoteEvent.RESUME);
                 } else {

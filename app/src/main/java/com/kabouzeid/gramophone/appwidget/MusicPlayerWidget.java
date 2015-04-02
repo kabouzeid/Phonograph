@@ -6,51 +6,58 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MusicControllerActivity;
+import com.kabouzeid.gramophone.util.MusicUtil;
+import com.kabouzeid.gramophone.util.Util;
+import com.squareup.picasso.Picasso;
 
 /**
  * Implementation of App Widget functionality.
  */
 public class MusicPlayerWidget extends AppWidgetProvider {
-    private static MusicPlayerWidget instance;
-
-    public static synchronized MusicPlayerWidget getInstance() {
-        if (instance == null) {
-            instance = new MusicPlayerWidget();
-        }
-        return instance;
-    }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.music_player_widget);
-
-        appWidgetManager.updateAppWidget(appWidgetIds, views);
+        update(context, appWidgetManager, appWidgetIds);
     }
 
+    public static void update(Context context, AppWidgetManager manager, int[] ids) {
+        final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.music_player_widget);
+        linkButtons(context, views);
+        final Song song = MusicPlayerRemote.getCurrentSong();
 
-    @Override
-    public void onEnabled(Context context) {
-        // Enter relevant functionality for when the first widget is created
+        if (song.id != -1) {
+            views.setTextViewText(R.id.song_title, song.title);
+        }
+
+        Picasso.with(context)
+                .load(MusicUtil.getAlbumArtUri(song.albumId))
+                .error(R.drawable.default_album_art)
+                .into(views, R.id.album_art, ids);
+
+        int playPauseRes = MusicPlayerRemote.isPlaying() ? R.drawable.ic_pause_black_36dp : R.drawable.ic_play_arrow_black_36dp;
+        views.setImageViewResource(R.id.button_toggle_play_pause, playPauseRes);
+
+        for (int widgetId : ids) {
+            manager.updateAppWidget(widgetId, views);
+        }
     }
 
-    @Override
-    public void onDisabled(Context context) {
-        // Enter relevant functionality for when the last widget is disabled
-    }
-
-    private void linkButtons(final Context context, final RemoteViews views) {
+    private static void linkButtons(final Context context, final RemoteViews views) {
         views.setOnClickPendingIntent(R.id.album_art, retrievePlaybackActions(context, 0));
         views.setOnClickPendingIntent(R.id.button_toggle_play_pause, retrievePlaybackActions(context, 1));
         views.setOnClickPendingIntent(R.id.button_next, retrievePlaybackActions(context, 2));
         views.setOnClickPendingIntent(R.id.button_prev, retrievePlaybackActions(context, 3));
     }
 
-    private PendingIntent retrievePlaybackActions(final Context context, final int which) {
+    private static PendingIntent retrievePlaybackActions(final Context context, final int which) {
         Intent action;
         PendingIntent pendingIntent;
         final ComponentName serviceName = new ComponentName(context, MusicService.class);
@@ -76,6 +83,13 @@ public class MusicPlayerWidget extends AppWidgetProvider {
                 return pendingIntent;
         }
         return null;
+    }
+
+    public static void updateWidgets(Context context) {
+        AppWidgetManager man = AppWidgetManager.getInstance(context);
+        int[] ids = man.getAppWidgetIds(
+                new ComponentName(context, MusicPlayerWidget.class));
+        update(context, man, ids);
     }
 }
 

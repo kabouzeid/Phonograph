@@ -8,13 +8,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.misc.SmallOnGestureListener;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.melnykov.fab.FloatingActionButton;
 import com.squareup.otto.Subscribe;
 
 /**

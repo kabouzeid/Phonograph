@@ -191,7 +191,7 @@
         android:layout_alignParentTop="true"
         android:background="#00000000"/>
 
-    <com.melnykov.fab.FloatingActionButton
+    <com.github.clans.fab.FloatingActionButton
         android:id="@+id/fab"
         style="@style/PlayPauseFab"
         android:layout_gravity="bottom|right"

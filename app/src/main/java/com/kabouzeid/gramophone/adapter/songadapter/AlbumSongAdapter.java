@@ -52,8 +52,10 @@ public class AlbumSongAdapter extends RecyclerView.Adapter<AlbumSongAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Song song = dataSet.get(position);
 
+        final int trackNumber = MusicUtil.getFixedTrackNumber(song.trackNumber);
+        final String trackNumberString = trackNumber > 0 ? String.valueOf(trackNumber) : "-";
+        holder.trackNumber.setText(trackNumberString);
         holder.songTitle.setText(song.title);
-        holder.trackNumber.setText(String.valueOf(MusicUtil.getFixedTrackNumber(song.trackNumber)));
         holder.artistName.setText(MusicUtil.getReadableDurationString(song.duration));
     }
 

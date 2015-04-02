@@ -130,7 +130,7 @@
                 android:layout_margin="16dp"
                 android:background="?attr/music_controller_container_color">
 
-                <com.melnykov.fab.FloatingActionButton
+                <com.github.clans.fab.FloatingActionButton
                     android:id="@+id/fab"
                     style="@style/PlayPauseFab"
                     android:layout_centerInParent="true"
