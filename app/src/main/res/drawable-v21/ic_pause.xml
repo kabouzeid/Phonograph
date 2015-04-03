@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportWidth="24"
+        android:viewportHeight="24">
+    <group
+        android:name="rotationGroup"
+        android:pivotX="12"
+        android:pivotY="12">
+        <path
+            android:name="left"
+            android:fillColor="@android:color/white"
+            android:pathData="@string/drawable_vector_pause_left" />
+        <path
+            android:name="right"
+            android:fillColor="@android:color/white"
+            android:pathData="@string/drawable_vector_pause_right" />
+    </group>
+</vector>

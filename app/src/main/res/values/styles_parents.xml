@@ -27,6 +27,7 @@
         <item name="themed_drawable_activated_color">@color/materialmusic_dark_themed_drawable_activated_color</item>
 
         <item name="default_bar_color">@color/materialmusic_dark_default_bar_color</item>
+        <item name="card_color">@color/materialmusic_dark_default_bar_color</item>
 
         <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat</item>
 
@@ -60,6 +61,7 @@
         <item name="themed_drawable_activated_color">@color/materialmusic_themed_drawable_activated_color</item>
 
         <item name="default_bar_color">@color/materialmusic_default_bar_color</item>
+        <item name="card_color">@color/white</item>
 
         <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
 

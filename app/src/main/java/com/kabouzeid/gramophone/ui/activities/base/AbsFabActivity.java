@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.ui.activities.base;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
 import android.util.Log;
@@ -41,6 +42,9 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
     }
 
     private void setUpFab() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            getFab().setImageResource(R.drawable.ic_pause_resume);
+        }
         updateFabState();
         final GestureDetector gestureDetector = new GestureDetector(this, new SmallOnGestureListener() {
             @Override
@@ -76,9 +80,9 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
 
     private void updateFabState() {
         if (MusicPlayerRemote.isPlaying()) {
-            getFab().setImageResource(R.drawable.ic_pause_white_24dp);
+            setFabPause();
         } else {
-            getFab().setImageResource(R.drawable.ic_play_arrow_white_24dp);
+            setFabPlay();
         }
     }
 
@@ -141,20 +145,34 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
     public void onMusicRemoteEvent(MusicRemoteEvent event) {
         switch (event.getAction()) {
             case MusicRemoteEvent.PLAY:
-                getFab().setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_white_24dp));
+                setFabPause();
                 break;
             case MusicRemoteEvent.PAUSE:
-                getFab().setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow_white_24dp));
+                setFabPlay();
                 break;
             case MusicRemoteEvent.RESUME:
-                getFab().setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_white_24dp));
+                setFabPause();
                 break;
             case MusicRemoteEvent.STOP:
-                getFab().setImageDrawable(getResources().getDrawable(R.drawable.ic_play_arrow_white_24dp));
+                setFabPlay();
                 break;
             case MusicRemoteEvent.QUEUE_COMPLETED:
-                getFab().setImageResource(R.drawable.ic_play_arrow_white_24dp);
+                setFabPlay();
                 break;
+        }
+    }
+
+    private void setFabPlay(){
+        getFab().setSelected(true);
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
+            getFab().setImageResource(R.drawable.ic_play_arrow_white_24dp);
+        }
+    }
+
+    private void setFabPause(){
+        getFab().setSelected(false);
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
+            getFab().setImageResource(R.drawable.ic_pause_white_24dp);
         }
     }
 }

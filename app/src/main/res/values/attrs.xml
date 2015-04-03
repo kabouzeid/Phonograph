@@ -19,6 +19,7 @@
     <attr name="themed_drawable_activated_color" format="color"/>
 
     <attr name="default_bar_color" format="color"/>
+    <attr name="card_color" format="color"/>
 
     <attr name="toolbarPopupTheme" format="reference"/>
 

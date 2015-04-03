@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:drawable="@drawable/ic_resume">
+    <target
+        android:name="rotationGroup"
+        android:animation="@anim/drawable_resume_to_pause_group" />
+    <target
+        android:name="left"
+        android:animation="@anim/drawable_resume_to_pause_left" />
+    <target
+        android:name="right"
+        android:animation="@anim/drawable_resume_to_pause_right" />
+</animated-vector>
