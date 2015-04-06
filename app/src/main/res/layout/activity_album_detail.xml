@@ -70,7 +70,7 @@
             android:background="@android:color/transparent"/>
     </LinearLayout>
 
-    <com.github.clans.fab.FloatingActionButton
+    <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab"
         style="@style/PlayPauseFab"
         android:layout_gravity="right"

@@ -16,12 +16,12 @@ public class PlaylistViewFragment extends AbsMainActivityRecyclerViewFragment {
     }
 
     @Override
-    protected RecyclerView.LayoutManager getLayoutManager() {
+    protected RecyclerView.LayoutManager createLayoutManager() {
         return new GridLayoutManager(getActivity(), 1);
     }
 
     @Override
-    protected RecyclerView.Adapter getAdapter() {
+    protected RecyclerView.Adapter createAdapter() {
         return new PlaylistAdapter(getActivity());
     }
 }

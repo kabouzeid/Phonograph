@@ -18,12 +18,12 @@ public class AlbumViewFragment extends AbsMainActivityRecyclerViewFragment {
     }
 
     @Override
-    protected RecyclerView.LayoutManager getLayoutManager() {
-        return new GridLayoutManager(getActivity(), 2);
+    protected RecyclerView.LayoutManager createLayoutManager() {
+        return new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.grid_columns));
     }
 
     @Override
-    protected RecyclerView.Adapter getAdapter() {
+    protected RecyclerView.Adapter createAdapter() {
         return new AlbumAdapter(getActivity());
     }
 }

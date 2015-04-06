@@ -130,7 +130,7 @@
                 android:layout_margin="16dp"
                 android:background="?attr/music_controller_container_color">
 
-                <com.github.clans.fab.FloatingActionButton
+                <com.melnykov.fab.FloatingActionButton
                     android:id="@+id/fab"
                     style="@style/PlayPauseFab"
                     android:layout_centerInParent="true"
@@ -141,6 +141,7 @@
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="-4dp"
                     android:layout_toLeftOf="@+id/fab"
                     android:background="?round_selector"
                     android:padding="14dp"
@@ -152,6 +153,7 @@
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="-4dp"
                     android:layout_toRightOf="@+id/fab"
                     android:background="?round_selector"
                     android:padding="14dp"

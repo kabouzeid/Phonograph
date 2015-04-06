@@ -63,8 +63,8 @@
                     android:background="?colorPrimary"
                     app:elevation="@dimen/toolbar_elevation"
                     android:paddingLeft="64dp"
-                    android:textColor="@color/grey_400"
-                    android:textColorPrimary="@color/white"
+                    android:textColor="@color/sliding_tabs_deactivated"
+                    android:textColorPrimary="@color/sliding_tabs_activated"
                     app:pstsTabPaddingLeftRight="8dp"/>
 
                 <View
@@ -79,7 +79,7 @@
                 android:layout_gravity="right|bottom"
                 android:fitsSystemWindows="true">
 
-                <com.github.clans.fab.FloatingActionButton
+                <com.melnykov.fab.FloatingActionButton
                     android:id="@+id/fab"
                     style="@style/PlayPauseFab"
                     android:layout_margin="16dp"

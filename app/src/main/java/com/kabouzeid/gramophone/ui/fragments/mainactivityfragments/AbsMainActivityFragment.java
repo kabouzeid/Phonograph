@@ -1,7 +1,8 @@
 package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
-import android.app.Fragment;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
@@ -52,6 +53,12 @@ public abstract class AbsMainActivityFragment extends Fragment implements KabVie
     public void onResume() {
         super.onResume();
         enableViews();
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     protected MainActivity getMainActivity() {

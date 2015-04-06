@@ -2,7 +2,10 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -12,6 +15,7 @@ import com.kabouzeid.gramophone.R;
  * Created by karim on 30.03.15.
  */
 public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivityFragment {
+    public static final String TAG = AbsMainActivityRecyclerViewFragment.class.getSimpleName();
     private RecyclerView recyclerView;
 
     @Override
@@ -27,9 +31,9 @@ public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivit
     }
 
     private void setUpRecyclerView() {
-        recyclerView.setLayoutManager(getLayoutManager());
+        recyclerView.setLayoutManager(createLayoutManager());
         recyclerView.setPadding(0, getTopPadding(), 0, getBottomPadding());
-        recyclerView.setAdapter(getAdapter());
+        recyclerView.setAdapter(createAdapter());
     }
 
     @Override
@@ -46,11 +50,7 @@ public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivit
 
     protected abstract int getLayoutResId();
 
-    protected abstract RecyclerView.LayoutManager getLayoutManager();
+    protected abstract RecyclerView.LayoutManager createLayoutManager();
 
-    protected abstract RecyclerView.Adapter getAdapter();
-
-    public RecyclerView getRecyclerView() {
-        return recyclerView;
-    }
+    protected abstract RecyclerView.Adapter createAdapter();
 }

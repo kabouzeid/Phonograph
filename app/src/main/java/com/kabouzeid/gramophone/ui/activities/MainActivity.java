@@ -1,26 +1,23 @@
 package com.kabouzeid.gramophone.ui.activities;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
-import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.SparseArray;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.adapter.PagerAdapter;
 import com.kabouzeid.gramophone.helper.AboutDeveloperDialogHelper;
 import com.kabouzeid.gramophone.helper.CreatePlaylistDialogHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -30,10 +27,6 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.fragments.NavigationDrawerFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityFragment;
-import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AlbumViewFragment;
-import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.ArtistViewFragment;
-import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.PlaylistViewFragment;
-import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.SongViewFragment;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
@@ -51,7 +44,7 @@ public class MainActivity extends AbsFabActivity
     private NavigationDrawerFragment navigationDrawerFragment;
     private Toolbar toolbar;
     private View statusBar;
-    private MainActivityViewPagerAdapter viewPagerAdapter;
+    private PagerAdapter pagerAdapter;
     private ViewPager viewPager;
     private PagerSlidingTabStrip slidingTabLayout;
     private int currentPage = -1;
@@ -72,12 +65,20 @@ public class MainActivity extends AbsFabActivity
     }
 
     private void setUpViewPager() {
-        viewPagerAdapter = new MainActivityViewPagerAdapter(this);
-        viewPager.setAdapter(viewPagerAdapter);
+        pagerAdapter = new PagerAdapter(this, getSupportFragmentManager());
+        final PagerAdapter.MusicFragments[] fragments = PagerAdapter.MusicFragments.values();
+        for (final PagerAdapter.MusicFragments fragment : fragments) {
+            pagerAdapter.add(fragment.getFragmentClass(), null);
+        }
+
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.setOffscreenPageLimit(pagerAdapter.getCount() - 1);
+
         int startPosition = PreferenceUtils.getInstance(this).getDefaultStartPage();
         startPosition = startPosition == -1 ? PreferenceUtils.getInstance(this).getLastStartPage() : startPosition;
         currentPage = startPosition;
         viewPager.setCurrentItem(startPosition);
+
         navigationDrawerFragment.setItemChecked(startPosition);
 
         final int accentColor = Util.resolveColor(MainActivity.this, R.attr.colorAccent);
@@ -92,10 +93,8 @@ public class MainActivity extends AbsFabActivity
 
             @Override
             public void onPageSelected(final int position) {
-                PreferenceUtils.getInstance(MainActivity.this).setLastStartPage(position);
                 navigationDrawerFragment.setItemChecked(position);
                 currentPage = position;
-                invalidateOptionsMenu();
             }
 
             @Override
@@ -172,7 +171,7 @@ public class MainActivity extends AbsFabActivity
         try {
             super.enableViews();
             toolbar.setEnabled(true);
-            ((AbsMainActivityFragment) viewPagerAdapter.getItem(viewPager.getCurrentItem())).enableViews();
+            ((AbsMainActivityFragment) pagerAdapter.getItem(viewPager.getCurrentItem())).enableViews();
         } catch (NullPointerException e) {
             //Log.e(TAG, "wasn't able to enable the views", e);
         }
@@ -182,7 +181,7 @@ public class MainActivity extends AbsFabActivity
     public void disableViews() {
         try {
             super.disableViews();
-            ((AbsMainActivityFragment) viewPagerAdapter.getItem(viewPager.getCurrentItem())).disableViews();
+            ((AbsMainActivityFragment) pagerAdapter.getItem(viewPager.getCurrentItem())).disableViews();
         } catch (NullPointerException e) {
             //Log.e(TAG, "wasn't able to disable the views", e);
         }
@@ -279,48 +278,9 @@ public class MainActivity extends AbsFabActivity
         super.onBackPressed();
     }
 
-    private class MainActivityViewPagerAdapter extends FragmentPagerAdapter {
-
-        private String[] titles;
-
-        private SparseArray<AbsMainActivityFragment> pages;
-        private Context context;
-
-        public MainActivityViewPagerAdapter(Activity activity) {
-            super(activity.getFragmentManager());
-            pages = new SparseArray<>();
-            context = activity;
-            titles = new String[]{
-                    context.getResources().getString(R.string.songs),
-                    context.getResources().getString(R.string.albums),
-                    context.getResources().getString(R.string.artists),
-                    context.getResources().getString(R.string.playlists)
-            };
-        }
-
-        @Override
-        public AbsMainActivityFragment getItem(final int position) {
-            switch (position) {
-                case 0:
-                    return pages.get(position, new SongViewFragment());
-                case 1:
-                    return pages.get(position, new AlbumViewFragment());
-                case 2:
-                    return pages.get(position, new ArtistViewFragment());
-                case 3:
-                    return pages.get(position, new PlaylistViewFragment());
-            }
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-            return titles.length;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return titles[position];
-        }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        PreferenceUtils.getInstance(MainActivity.this).setLastStartPage(currentPage);
     }
 }

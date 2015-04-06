@@ -150,7 +150,7 @@
         android:layout_alignParentTop="true"
         android:background="#00000000"/>
 
-    <com.github.clans.fab.FloatingActionButton
+    <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab"
         style="@style/PlayPauseFab"
         android:layout_gravity="bottom|right"
