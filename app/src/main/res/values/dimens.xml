@@ -46,4 +46,11 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     -->
     <dimen name="widget_margin">8dp</dimen>
     <dimen name="app_widget_small_artwork_height">64dp</dimen>
+
+    <dimen name="pause_bar_width">5dp</dimen>
+    <dimen name="pause_bar_distance">4dp</dimen>
+    <dimen name="pause_bar_height">14dp</dimen>
+
+    <dimen name="fab_icon_bound_width">32dp</dimen>
+    <dimen name="fab_icon_bound_height">36dp</dimen>
 </resources>

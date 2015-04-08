@@ -163,6 +163,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                         break;
                     case ACTION_QUIT:
                         killEverythingAndReleaseResources();
+                        break;
                 }
             }
         }

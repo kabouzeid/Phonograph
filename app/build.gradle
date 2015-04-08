@@ -23,8 +23,8 @@ android {
         applicationId "com.kabouzeid.gramophone"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 10
-        versionName "0.9.6b"
+        versionCode 12
+        versionName "0.9.6.2b"
     }
 
     compileOptions {
@@ -46,7 +46,7 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.2.1@aar') {
         transitive = true;
     }
-    compile 'com.afollestad:material-dialogs:0.6.4.1'
+    compile 'com.afollestad:material-dialogs:0.7.0.1'
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.android.support:recyclerview-v7:22.0.0'
     compile 'com.android.support:gridlayout-v7:22.0.0'

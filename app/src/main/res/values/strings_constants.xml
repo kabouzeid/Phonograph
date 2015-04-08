@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="drawable_vector_pause_left">M6,5 l4,0 0,14 -4,0 z</string>
-    <string name="drawable_vector_pause_right">M14,5 l4,0 0,14 -4,0 z</string>
-    <string name="drawable_vector_resume_left">M12,5 l0,0 0,11 -7,0 z</string>
-    <string name="drawable_vector_resume_right">M12,5 l0,0 7,11 -7,0 z</string>
-</resources>

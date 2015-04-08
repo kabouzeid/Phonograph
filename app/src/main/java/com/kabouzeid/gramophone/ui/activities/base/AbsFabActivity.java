@@ -1,6 +1,5 @@
 package com.kabouzeid.gramophone.ui.activities.base;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
 import android.util.Log;
@@ -14,6 +13,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.misc.SmallOnGestureListener;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
+import com.kabouzeid.gramophone.ui.widget.PlayPauseDrawable;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.melnykov.fab.FloatingActionButton;
 import com.squareup.otto.Subscribe;
@@ -23,7 +23,9 @@ import com.squareup.otto.Subscribe;
  */
 public abstract class AbsFabActivity extends AbsBaseActivity {
     public static final String TAG = AbsFabActivity.class.getSimpleName();
+
     private FloatingActionButton fab;
+    private PlayPauseDrawable playPauseDrawable;
     private Object busEventListener = new Object() {
         @Subscribe
         public void onBusEvent(MusicRemoteEvent event) {
@@ -42,9 +44,11 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
     }
 
     private void setUpFab() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            getFab().setImageResource(R.drawable.ic_pause_resume);
+        if (playPauseDrawable == null) {
+            playPauseDrawable = new PlayPauseDrawable(this);
         }
+
+        getFab().setImageDrawable(playPauseDrawable);
         updateFabState();
         final GestureDetector gestureDetector = new GestureDetector(this, new SmallOnGestureListener() {
             @Override
@@ -80,9 +84,9 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
 
     private void updateFabState() {
         if (MusicPlayerRemote.isPlaying()) {
-            setFabPause();
+            playPauseDrawable.setPause();
         } else {
-            setFabPlay();
+            playPauseDrawable.setPlay();
         }
     }
 
@@ -150,17 +154,11 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
         }
     }
 
-    private void setFabPlay(){
-        getFab().setSelected(true);
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
-            getFab().setImageResource(R.drawable.ic_play_arrow_white_24dp);
-        }
+    private void setFabPlay() {
+        playPauseDrawable.animatedPlay();
     }
 
-    private void setFabPause(){
-        getFab().setSelected(false);
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
-            getFab().setImageResource(R.drawable.ic_pause_white_24dp);
-        }
+    private void setFabPause() {
+        playPauseDrawable.animatedPause();
     }
 }
