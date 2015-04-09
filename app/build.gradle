@@ -23,8 +23,8 @@ android {
         applicationId "com.kabouzeid.gramophone"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 12
-        versionName "0.9.6.2b"
+        versionCode 13
+        versionName "0.9.6.3b"
     }
 
     compileOptions {

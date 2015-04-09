@@ -46,7 +46,7 @@ public class PlayingNotificationHelper {
                 R.layout.notification_playing_expanded);
 
         notification = new NotificationCompat.Builder(service)
-                .setSmallIcon(R.drawable.ic_audiotrack_white_24dp)
+                .setSmallIcon(R.drawable.ic_notification)
                 .setContentIntent(getOpenMusicControllerPendingIntent())
                 .setCategory(NotificationCompat.CATEGORY_PROGRESS)
                 .setPriority(NotificationCompat.PRIORITY_MAX)

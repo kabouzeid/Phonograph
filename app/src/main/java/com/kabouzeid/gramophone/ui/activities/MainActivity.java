@@ -9,10 +9,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -24,6 +22,7 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.fragments.NavigationDrawerFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityFragment;
@@ -116,12 +115,17 @@ public class MainActivity extends AbsFabActivity
         setTitle(getResources().getString(R.string.app_name));
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         statusBar = findViewById(R.id.statusBar);
+        setToolBarTransparent(PreferenceUtils.getInstance(this).transparentToolbar());
         setSupportActionBar(toolbar);
-        float alpha = 0.97f;
-        ViewUtil.setBackgroundAlpha(toolbar, alpha, Util.resolveColor(this, R.attr.colorPrimary));
-        ViewUtil.setBackgroundAlpha(statusBar, alpha, Util.resolveColor(this, R.attr.colorPrimary));
-        ViewUtil.setBackgroundAlpha(slidingTabLayout, alpha, Util.resolveColor(this, R.attr.colorPrimary));
         setUpDrawerToggle();
+    }
+
+    private void setToolBarTransparent(boolean transparent){
+        float alpha = transparent ? 0.97f : 1f;
+        final int colorPrimary = Util.resolveColor(this, R.attr.colorPrimary);
+        ViewUtil.setBackgroundAlpha(toolbar, alpha, colorPrimary);
+        ViewUtil.setBackgroundAlpha(statusBar, alpha, colorPrimary);
+        ViewUtil.setBackgroundAlpha(slidingTabLayout, alpha, colorPrimary);
     }
 
     private void setUpDrawerToggle() {
@@ -267,6 +271,16 @@ public class MainActivity extends AbsFabActivity
     public void onConfigurationChanged(Configuration newConfig) {
         drawerToggle.onConfigurationChanged(newConfig);
         super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void onUIPreferenceChangedEvent(UIPreferenceChangedEvent event) {
+        super.onUIPreferenceChangedEvent(event);
+        switch (event.getAction()) {
+            case UIPreferenceChangedEvent.TOOLBAR_TRANSPARENT_CHANGED:
+                setToolBarTransparent((boolean) event.getValue());
+                break;
+        }
     }
 
     @Override
