@@ -45,4 +45,10 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="?caption_text_color"/>
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/menu"
+        style="@style/OverFlowButton"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="2dp"/>
 </LinearLayout>

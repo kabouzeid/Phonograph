@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.AddToPlaylistDialogHelper;
 import com.kabouzeid.gramophone.helper.DeleteSongsDialogHelper;
+import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.SongDetailDialogHelper;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
@@ -70,28 +71,6 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.action_delete_from_disk:
-                                DeleteSongsDialogHelper.getDialog(activity, song).show();
-                                return true;
-                            case R.id.action_add_to_playlist:
-                                AddToPlaylistDialogHelper.getDialog(activity, song).show();
-                                return true;
-                            case R.id.action_play_next:
-                                MusicPlayerRemote.playNext(song);
-                                return true;
-                            case R.id.action_add_to_current_playing:
-                                MusicPlayerRemote.enqueue(song);
-                                return true;
-                            case R.id.action_tag_editor:
-                                Intent intent = new Intent(activity, SongTagEditorActivity.class);
-                                intent.putExtra(AppKeys.E_ID, song.id);
-                                activity.startActivity(intent);
-                                return true;
-                            case R.id.action_details:
-                                String songFilePath = SongFilePathLoader.getSongFilePath(activity, song.id);
-                                File songFile = new File(songFilePath);
-                                SongDetailDialogHelper.getDialog(activity, songFile).show();
-                                return true;
                             case R.id.action_go_to_album:
                                 Pair[] albumPairs = new Pair[]{
                                         Pair.create(albumArt, activity.getResources().getString(R.string.transition_album_cover))
@@ -100,14 +79,8 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> {
                                     albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(albumPairs);
                                 NavigationUtil.goToAlbum(activity, song.albumId, albumPairs);
                                 return true;
-                            case R.id.action_go_to_artist:
-                                Pair[] artistPairs = null;
-                                if (activity instanceof AbsFabActivity)
-                                    artistPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(artistPairs);
-                                NavigationUtil.goToArtist(activity, song.artistId, artistPairs);
-                                return true;
                         }
-                        return false;
+                        return MenuItemClickHelper.handleSongMenuClick(activity, song, item);
                     }
                 });
                 popupMenu.show();

@@ -52,6 +52,7 @@ public class Album implements SearchEntry {
         imageView.setImageResource(R.drawable.default_album_art);
         Picasso.with(context)
                 .load(MusicUtil.getAlbumArtUri(id))
+                .placeholder(R.drawable.default_album_art)
                 .into(imageView);
     }
 }

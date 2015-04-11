@@ -2,13 +2,16 @@ package com.kabouzeid.gramophone.ui.activities;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +23,9 @@ import com.kabouzeid.gramophone.helper.AboutDeveloperDialogHelper;
 import com.kabouzeid.gramophone.helper.CreatePlaylistDialogHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
+import com.kabouzeid.gramophone.loader.AlbumSongLoader;
+import com.kabouzeid.gramophone.loader.ArtistSongLoader;
+import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
@@ -32,6 +38,8 @@ import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 
 public class MainActivity extends AbsFabActivity
@@ -61,6 +69,8 @@ public class MainActivity extends AbsFabActivity
         );
         setUpToolBar();
         setUpViewPager();
+
+        handlePlaybackIntent(getIntent());
     }
 
     private void setUpViewPager() {
@@ -120,7 +130,7 @@ public class MainActivity extends AbsFabActivity
         setUpDrawerToggle();
     }
 
-    private void setToolBarTransparent(boolean transparent){
+    private void setToolBarTransparent(boolean transparent) {
         float alpha = transparent ? 0.97f : 1f;
         final int colorPrimary = Util.resolveColor(this, R.attr.colorPrimary);
         ViewUtil.setBackgroundAlpha(toolbar, alpha, colorPrimary);
@@ -296,5 +306,61 @@ public class MainActivity extends AbsFabActivity
     protected void onPause() {
         super.onPause();
         PreferenceUtils.getInstance(MainActivity.this).setLastStartPage(currentPage);
+    }
+
+    private boolean handlePlaybackIntent(Intent intent) {
+        if (intent == null) {
+            return false;
+        }
+
+        Uri uri = intent.getData();
+        String mimeType = intent.getType();
+        boolean handled = false;
+
+        if (uri != null && uri.toString().length() > 0) {
+            MusicPlayerRemote.playFile(uri);
+            handled = true;
+        } else if (MediaStore.Audio.Playlists.CONTENT_TYPE.equals(mimeType)) {
+            final int id = (int) parseIdFromIntent(intent, "playlistId", "playlist");
+            if (id >= 0) {
+                int position = intent.getIntExtra("position", 0);
+                MusicPlayerRemote.openQueue((List<Song>) (List<? extends Song>) PlaylistSongLoader.getPlaylistSongList(this, id), position, true);
+                handled = true;
+            }
+        } else if (MediaStore.Audio.Albums.CONTENT_TYPE.equals(mimeType)) {
+            final int id = (int) parseIdFromIntent(intent, "albumId", "album");
+            if (id >= 0) {
+                int position = intent.getIntExtra("position", 0);
+                MusicPlayerRemote.openQueue(AlbumSongLoader.getAlbumSongList(this, id), position, true);
+                handled = true;
+            }
+        } else if (MediaStore.Audio.Artists.CONTENT_TYPE.equals(mimeType)) {
+            final int id = (int) parseIdFromIntent(intent, "artistId", "artist");
+            if (id >= 0) {
+                int position = intent.getIntExtra("position", 0);
+                MusicPlayerRemote.openQueue(ArtistSongLoader.getArtistSongList(this, id), position, true);
+                handled = true;
+            }
+        }
+        if (handled) {
+            setIntent(new Intent());
+        }
+        return handled;
+    }
+
+    private long parseIdFromIntent(Intent intent, String longKey,
+                                   String stringKey) {
+        long id = intent.getLongExtra(longKey, -1);
+        if (id < 0) {
+            String idString = intent.getStringExtra(stringKey);
+            if (idString != null) {
+                try {
+                    id = Long.parseLong(idString);
+                } catch (NumberFormatException e) {
+                    Log.e(TAG, e.getMessage());
+                }
+            }
+        }
+        return id;
     }
 }

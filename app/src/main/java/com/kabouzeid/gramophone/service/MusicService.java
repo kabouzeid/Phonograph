@@ -20,6 +20,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -153,10 +154,10 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                         resumePlaying();
                         break;
                     case ACTION_REWIND:
-                        back();
+                        back(true);
                         break;
                     case ACTION_SKIP:
-                        playNextSong();
+                        playNextSong(true);
                         break;
                     case ACTION_STOP:
                         stopPlaying();
@@ -167,7 +168,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 }
             }
         }
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     @Override
@@ -268,14 +269,14 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
             notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STOP);
         } else {
-            playNextSong();
+            playNextSong(false);
         }
     }
 
-    public void playNextSong() {
+    public void playNextSong(boolean force) {
         if (position != -1) {
             if (isPlayerPrepared) {
-                setPosition(getNextPosition());
+                setPosition(getNextPosition(force));
                 playSong();
                 notifyOnMusicRemoteEventListeners(MusicRemoteEvent.NEXT);
             }
@@ -380,7 +381,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         return ContentUris.withAppendedId(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, playingQueue.get(position).id);
     }
 
-    public int getNextPosition() {
+    public int getNextPosition(boolean force) {
         int position = 0;
         switch (repeatMode) {
             case REPEAT_MODE_NONE:
@@ -396,7 +397,14 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 }
                 break;
             case REPEAT_MODE_THIS:
-                position = getPosition();
+                if(force){
+                    position = getPosition() + 1;
+                    if (isLastTrack()) {
+                        position = 0;
+                    }
+                } else {
+                    position = getPosition();
+                }
                 break;
         }
         return position;
@@ -628,25 +636,25 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         }
     }
 
-    public void playPreviousSong() {
+    public void playPreviousSong(boolean force) {
         if (position != -1) {
-            setPosition(getPreviousPosition());
+            setPosition(getPreviousPosition(force));
             playSong();
             notifyOnMusicRemoteEventListeners(MusicRemoteEvent.PREV);
         }
     }
 
-    public void back() {
+    public void back(boolean force) {
         if (position != -1) {
             if (getSongProgressMillis() > 2000) {
                 seekTo(0);
             } else {
-                playPreviousSong();
+                playPreviousSong(force);
             }
         }
     }
 
-    public int getPreviousPosition() {
+    public int getPreviousPosition(boolean force) {
         int position = 0;
         switch (repeatMode) {
             case REPEAT_MODE_NONE:
@@ -662,7 +670,14 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 }
                 break;
             case REPEAT_MODE_THIS:
-                position = getPosition();
+                if(force){
+                    position = getPosition() - 1;
+                    if (position < 0) {
+                        position = getPlayingQueue().size() - 1;
+                    }
+                } else {
+                    position = getPosition();
+                }
                 break;
         }
         return position;

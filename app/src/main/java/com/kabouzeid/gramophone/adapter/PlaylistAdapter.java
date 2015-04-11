@@ -1,10 +1,8 @@
 package com.kabouzeid.gramophone.adapter;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,16 +13,13 @@ import android.widget.TextView;
 
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.helper.DeletePlaylistDialogHelper;
-import com.kabouzeid.gramophone.helper.RenamePlaylistDialogHelper;
+import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.util.Util;
 import com.squareup.otto.Subscribe;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -78,15 +73,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
-                            switch (item.getItemId()) {
-                                case R.id.action_rename_playlist:
-                                    RenamePlaylistDialogHelper.getDialog(activity, dataSet.get(getAdapterPosition()).id).show();
-                                    return true;
-                                case R.id.action_delete_playlist:
-                                    DeletePlaylistDialogHelper.getDialog(activity, dataSet.get(getAdapterPosition()).id).show();
-                                    return true;
-                            }
-                            return false;
+                            return MenuItemClickHelper.handlePlaylistMenuClick(activity, dataSet.get(getAdapterPosition()), item);
                         }
                     });
                     popupMenu.show();

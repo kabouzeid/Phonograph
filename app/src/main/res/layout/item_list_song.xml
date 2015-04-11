@@ -30,22 +30,22 @@
             android:orientation="vertical">
 
             <TextView
-                android:textColor="?title_text_color"
                 android:id="@+id/song_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="?title_text_color"/>
 
             <TextView
-                android:textColor="?caption_text_color"
                 android:id="@+id/song_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="?caption_text_color"/>
         </LinearLayout>
 
         <ImageView
