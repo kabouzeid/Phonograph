@@ -65,6 +65,11 @@ public class PlayingQueueAdapter extends ArrayAdapter<Song> {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
+                        if(item.getItemId() == R.id.action_remove_from_playing_queue) {
+                            MusicPlayerRemote.removeFromQueue(position);
+                            notifyDataSetChanged();
+                            return true;
+                        }
                         return MenuItemClickHelper.handleSongMenuClick(activity, song, item);
                     }
                 });

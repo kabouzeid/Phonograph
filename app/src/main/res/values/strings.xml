@@ -79,6 +79,8 @@
     <string name="inserted_titles_to_playlist_1">Inserted\u0020</string>
     <string name="inserted_titles_to_playlist_2">\u0020titles to playlist\u0020</string>
     <string name="action_new_playlist">New playlist</string>
+    <string name="action_grid_columns">Grid columns</string>
+    <string name="action_grid_columns_land">Grid columns (Land)</string>
     <string name="cancel">Cancel</string>
     <string name="created_playlist">Created playlist\u0020</string>
     <string name="deleted_playlist">Deleted playlist\u0020</string>

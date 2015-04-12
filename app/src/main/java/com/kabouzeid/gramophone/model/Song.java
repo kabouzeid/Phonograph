@@ -9,6 +9,7 @@ import java.io.Serializable;
  * Created by karim on 23.11.14.
  */
 public class Song implements Serializable, SearchEntry {
+
     public int id;
     public int albumId;
     public int artistId;

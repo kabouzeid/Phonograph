@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_current_playing"
+        android:icon="@drawable/ic_equalizer_white_24dp"
+        android:title="@string/action_current_playing"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/abc_ic_search_api_mtrl_alpha"
+        android:title="@string/action_search"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_shuffle_all"
+        android:title="@string/shuffle_all"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_playing_queue"
+        android:title="@string/action_playing_queue"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_grid_columns"
+        android:title="@string/action_grid_columns">
+        <menu>
+            <group
+                android:id="@+id/gridSizeGroup"
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/gridSizeOne"
+                    android:title="1"/>
+                <item
+                    android:id="@+id/gridSizeTwo"
+                    android:title="2"/>
+                <item
+                    android:id="@+id/gridSizeThree"
+                    android:title="3"/>
+                <item
+                    android:id="@+id/gridSizeFour"
+                    android:title="4"/>
+                <item
+                    android:id="@+id/gridSizeFive"
+                    android:title="5"/>
+                <item
+                    android:id="@+id/gridSizeSix"
+                    android:title="6"/>
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="101"
+        android:title="@string/action_about"
+        app:showAsAction="never"/>
+</menu>

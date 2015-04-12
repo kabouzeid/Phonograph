@@ -74,7 +74,7 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
 
     public void removeItem(final String artistName) {
         final SQLiteDatabase database = getReadableDatabase();
-        database.delete(ArtistJSONColumns.NAME, ArtistJSONColumns.ARTIST_NAME + " = ?", new String[]{
+        database.delete(ArtistJSONColumns.NAME, ArtistJSONColumns.ARTIST_NAME + "=?", new String[]{
                 artistName.trim().toLowerCase()
         });
 

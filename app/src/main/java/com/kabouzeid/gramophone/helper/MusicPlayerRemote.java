@@ -12,9 +12,6 @@ import android.widget.Toast;
 
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.loader.AlbumSongLoader;
-import com.kabouzeid.gramophone.loader.ArtistSongLoader;
-import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
@@ -310,16 +307,16 @@ public class MusicPlayerRemote {
     }
 
     public static void playFile(Uri uri) {
-        if (musicService != null && uri != null) {
-            String filename;
-            String scheme = uri.getScheme();
-            if ("file".equals(scheme)) {
-                filename = uri.getPath();
-            } else {
-                filename = uri.toString();
-            }
-            //musicService.playFile(filename); //TODO
-            Toast.makeText(context, "This feature is not working yet", Toast.LENGTH_SHORT).show();
-        }
+//        if (musicService != null && uri != null) {
+//            String filename;
+//            String scheme = uri.getScheme();
+//            if ("file".equals(scheme)) {
+//                filename = uri.getPath();
+//            } else {
+//                filename = uri.toString();
+//            }
+//        }
+        //TODO
+        Toast.makeText(context, "Sorry, this feature is not available yet!", Toast.LENGTH_SHORT).show();
     }
 }

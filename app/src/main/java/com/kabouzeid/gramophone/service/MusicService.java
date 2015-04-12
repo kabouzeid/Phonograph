@@ -2,7 +2,6 @@ package com.kabouzeid.gramophone.service;
 
 import android.app.PendingIntent;
 import android.app.Service;
-import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentUris;
@@ -20,7 +19,6 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -289,10 +287,11 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             registerEverything();
             isPlayerPrepared = false;
             player.reset();
+            player.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
             try {
                 Uri trackUri = getCurrentPositionTrackUri();
                 player.setDataSource(getApplicationContext(), trackUri);
-                currentSongId = getPlayingQueue().get(getPosition()).id;
+                currentSongId = playingQueue.get(getPosition()).id;
                 updateNotification();
                 MusicPlayerWidget.updateWidgets(this);
                 updateRemoteControlClient();
@@ -300,6 +299,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             } catch (Exception e) {
                 Log.e("MUSIC SERVICE", "Error setting data source", e);
                 player.reset();
+                player = null;
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.unplayable_file), Toast.LENGTH_SHORT).show();
                 notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STOP);
                 playingNotificationHelper.updatePlayState(false);
@@ -397,7 +397,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 }
                 break;
             case REPEAT_MODE_THIS:
-                if(force){
+                if (force) {
                     position = getPosition() + 1;
                     if (isLastTrack()) {
                         position = 0;
@@ -440,6 +440,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public boolean onError(MediaPlayer mp, int what, int extra) {
         isPlayerPrepared = false;
         player.reset();
+        player = null;
         notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STOP);
         return false;
     }
@@ -670,7 +671,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 }
                 break;
             case REPEAT_MODE_THIS:
-                if(force){
+                if (force) {
                     position = getPosition() - 1;
                     if (position < 0) {
                         position = getPlayingQueue().size() - 1;

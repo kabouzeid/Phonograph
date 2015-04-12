@@ -8,58 +8,26 @@ import com.kabouzeid.gramophone.R;
 
 public final class PreferenceUtils {
 
-    /* Default start page (Album page) */
     public static final int DEFAULT_PAGE = 1;
-
     public static final String GENERAL_THEME = "general_theme";
-
-    /* Saves the last page the pager was on in {@link MainActivity} */
     public static final String DEFAULT_START_PAGE = "default_start_page";
-
-    /* Saves the last page the pager was on in {@link MainActivity} */
     public static final String LAST_START_PAGE = "last_start_page";
-
-    // Sort order for the artist list
     public static final String ARTIST_SORT_ORDER = "artist_sort_order";
-
-    // Sort order for the artist song list
     public static final String ARTIST_SONG_SORT_ORDER = "artist_song_sort_order";
-
-    // Sort order for the artist album list
     public static final String ARTIST_ALBUM_SORT_ORDER = "artist_album_sort_order";
-
-    // Sort order for the album list
     public static final String ALBUM_SORT_ORDER = "album_sort_order";
-
-    // Sort order for the album song list
     public static final String ALBUM_SONG_SORT_ORDER = "album_song_sort_order";
-
-    // Sort order for the song list
     public static final String SONG_SORT_ORDER = "song_sort_order";
-
-    // Key used to download images only on Wi-Fi
     public static final String ONLY_ON_WIFI = "auto_download_artist_images";
-
-    // Key that gives permissions to download missing artist images
     public static final String DOWNLOAD_MISSING_ARTIST_IMAGES = "auto_download_artist_images";
-
-    // Key used to en or disable palette
     public static final String COLORED_ALBUM_FOOTERS = "colored_album_footers";
-
-    // Key used to en or disable the colored navigation bar
     public static final String COLORED_NAVIGATION_BAR_ALBUM = "colored_navigation_bar_album";
-
-    // Key used to en or disable the colored navigation bar
     public static final String COLORED_NAVIGATION_BAR_ARTIST = "colored_navigation_bar_artist";
-
-    // Key used to en or disable the colored navigation bar
     public static final String COLORED_NAVIGATION_BAR_CURRENT_PLAYING = "colored_navigation_bar_current_playing_enabled";
-
-    // Key used to en or disable the colored navigation bar
     public static final String PLAYBACK_CONTROLLER_BOX = "playback_controller_card";
-
-    /* Saves the last page the pager was on in {@link MainActivity} */
     public static final String TRANSPARENT_TOOLBAR = "transparent_toolbar";
+    public static final String ALBUM_GRID_COLUMNS = "album_grid_columns";
+    public static final String ALBUM_GRID_COLUMNS_LAND = "album_grid_columns_land";
 
     private static PreferenceUtils sInstance;
 
@@ -77,8 +45,8 @@ public final class PreferenceUtils {
     }
 
     public int getGeneralTheme() {
-        int value =  Integer.parseInt(mPreferences.getString(GENERAL_THEME, "1"));
-        switch (value){
+        int value = Integer.parseInt(mPreferences.getString(GENERAL_THEME, "1"));
+        switch (value) {
             case 0:
                 return R.style.Theme_MaterialMusic_Light;
             case 1:
@@ -260,5 +228,25 @@ public final class PreferenceUtils {
 
     public final String getSongSortOrder() {
         return mPreferences.getString(SONG_SORT_ORDER, SortOrder.SongSortOrder.SONG_A_Z);
+    }
+
+    public void setAlbumGridColumns(final int value) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putInt(ALBUM_GRID_COLUMNS, value);
+        editor.apply();
+    }
+
+    public final int getAlbumGridColumns() {
+        return mPreferences.getInt(ALBUM_GRID_COLUMNS, 2);
+    }
+
+    public void setAlbumGridColumnsLand(final int value) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putInt(ALBUM_GRID_COLUMNS_LAND, value);
+        editor.apply();
+    }
+
+    public final int getAlbumGridColumnsLand() {
+        return mPreferences.getInt(ALBUM_GRID_COLUMNS_LAND, 3);
     }
 }

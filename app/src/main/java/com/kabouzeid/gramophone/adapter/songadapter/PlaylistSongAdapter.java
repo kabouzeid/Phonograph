@@ -19,6 +19,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.PlaylistsUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -89,6 +90,11 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
                     switch (item.getItemId()) {
+                        case R.id.action_delete_from_playlist:
+                            int position = getAdapterPosition();
+                            PlaylistsUtil.removeFromPlaylist(activity, dataSet.remove(position));
+                            notifyItemRemoved(position);
+                            return true;
                         case R.id.action_go_to_album:
                             Pair[] albumPairs = new Pair[]{
                                     Pair.create(albumArt, activity.getResources().getString(R.string.transition_album_cover))
