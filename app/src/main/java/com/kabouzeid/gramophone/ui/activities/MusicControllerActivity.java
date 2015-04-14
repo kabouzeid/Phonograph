@@ -417,6 +417,9 @@ public class MusicControllerActivity extends AbsFabActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case R.id.action_equalizer:
+                NavigationUtil.openEqualizer(this);
+                return true;
             case R.id.action_shuffle_all:
                 MusicPlayerRemote.shuffleAllSongs(this);
                 return true;

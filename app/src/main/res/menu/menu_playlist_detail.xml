@@ -4,13 +4,20 @@
       tools:context="com.kabouzeid.gramophone.ui.activities.PlaylistDetailActivity">
     <item
         android:id="@+id/action_current_playing"
-        android:icon="@drawable/ic_equalizer_white_24dp"
+        android:icon="@drawable/ic_play_circle_outline_white_24dp"
         android:title="@string/action_current_playing"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_playing_queue"
         android:title="@string/action_playing_queue"
         app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_equalizer"
+        android:orderInCategory="99"
+        android:title="@string/equalizer"
+        app:showAsAction="never"/>
+
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

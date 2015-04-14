@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.media.audiofx.AudioEffect;
 import android.net.Uri;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -281,6 +282,13 @@ public class MusicPlayerRemote {
     private static void postToBus(int event) {
         MusicRemoteEvent musicRemoteEvent = new MusicRemoteEvent(event);
         App.bus.post(musicRemoteEvent);
+    }
+
+    public static int getAudioSessionId() {
+        if (musicService != null) {
+            return musicService.getAudioSessionId();
+        }
+        return AudioEffect.ERROR_BAD_VALUE;
     }
 
     @SuppressWarnings("unchecked")

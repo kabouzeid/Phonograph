@@ -52,7 +52,7 @@ public final class PreferenceUtils {
             case 1:
                 return R.style.Theme_MaterialMusic;
         }
-        return R.style.Theme_MaterialMusic;
+        return R.style.Theme_MaterialMusic_Light;
     }
 
     public void setGeneralTheme(int appTheme) {
@@ -144,7 +144,7 @@ public final class PreferenceUtils {
     }
 
     public final boolean playbackControllerBoxEnabled() {
-        return mPreferences.getBoolean(PLAYBACK_CONTROLLER_BOX, true);
+        return mPreferences.getBoolean(PLAYBACK_CONTROLLER_BOX, false);
     }
 
     public void setPlaybackControllerBoxEnabled(final boolean value) {
@@ -154,7 +154,7 @@ public final class PreferenceUtils {
     }
 
     public final boolean transparentToolbar() {
-        return mPreferences.getBoolean(TRANSPARENT_TOOLBAR, true);
+        return mPreferences.getBoolean(TRANSPARENT_TOOLBAR, false);
     }
 
     public void setTransparentToolbar(final boolean value) {

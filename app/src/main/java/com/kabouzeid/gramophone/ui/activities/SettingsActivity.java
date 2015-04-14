@@ -1,5 +1,9 @@
 package com.kabouzeid.gramophone.ui.activities;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.media.audiofx.AudioEffect;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -12,6 +16,7 @@ import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
+import com.kabouzeid.gramophone.util.NavigationUtil;
 
 public class SettingsActivity extends AbsBaseActivity {
     public static final String TAG = SettingsActivity.class.getSimpleName();
@@ -27,11 +32,14 @@ public class SettingsActivity extends AbsBaseActivity {
     }
 
     public static class SettingsFragment extends PreferenceFragment {
+        private Preference equalizer;
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_general);
             addPreferencesFromResource(R.xml.pref_ui);
+            addPreferencesFromResource(R.xml.pref_audio);
 
             final Preference defaultStartPage = findPreference("default_start_page");
             setSummary(defaultStartPage);
@@ -93,6 +101,16 @@ public class SettingsActivity extends AbsBaseActivity {
                     return true;
                 }
             });
+
+            equalizer = findPreference("equalizer");
+            resolveEqualizer();
+            equalizer.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    NavigationUtil.openEqualizer(getActivity());
+                    return true;
+                }
+            });
         }
 
         private static void setSummary(Preference preference) {
@@ -113,6 +131,16 @@ public class SettingsActivity extends AbsBaseActivity {
                                 : null);
             } else {
                 preference.setSummary(stringValue);
+            }
+        }
+
+        private void resolveEqualizer() {
+            final Intent effects = new Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL);
+            PackageManager pm = getActivity().getPackageManager();
+            ResolveInfo ri = pm.resolveActivity(effects, 0);
+            if (ri == null) {
+                equalizer.setEnabled(false);
+                equalizer.setSummary(getResources().getString(R.string.no_equalizer));
             }
         }
     }

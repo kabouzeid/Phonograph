@@ -14,6 +14,7 @@ import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.media.RemoteControlClient;
+import android.media.audiofx.AudioEffect;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
@@ -171,6 +172,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     @Override
     public void onDestroy() {
+        closeAudioEffectSession();
         unregisterEverything();
         killEverythingAndReleaseResources();
     }
@@ -315,11 +317,27 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         notifyOnMusicRemoteEventListeners(MusicRemoteEvent.TRACK_CHANGED);
     }
 
-    private boolean requestFocus() {
-        int result = getAudioManager().requestAudioFocus(this, AudioManager.STREAM_MUSIC,
-                AudioManager.AUDIOFOCUS_GAIN);
+    private void openAudioEffectSession() {
+        if (player != null) {
+            final Intent intent = new Intent(AudioEffect.ACTION_OPEN_AUDIO_EFFECT_CONTROL_SESSION);
+            intent.putExtra(AudioEffect.EXTRA_AUDIO_SESSION, getAudioSessionId());
+            intent.putExtra(AudioEffect.EXTRA_PACKAGE_NAME, getPackageName());
+            intent.putExtra(AudioEffect.EXTRA_CONTENT_TYPE, AudioEffect.CONTENT_TYPE_MUSIC);
+            sendBroadcast(intent);
+        }
+    }
 
-        return (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED);
+    private void closeAudioEffectSession() {
+        if (player != null) {
+            final Intent audioEffectsIntent = new Intent(AudioEffect.ACTION_CLOSE_AUDIO_EFFECT_CONTROL_SESSION);
+            audioEffectsIntent.putExtra(AudioEffect.EXTRA_AUDIO_SESSION, player.getAudioSessionId());
+            audioEffectsIntent.putExtra(AudioEffect.EXTRA_PACKAGE_NAME, getPackageName());
+            sendBroadcast(audioEffectsIntent);
+        }
+    }
+
+    private boolean requestFocus() {
+        return (getAudioManager().requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED);
     }
 
     private void updateRemoteControlClient() {
@@ -449,6 +467,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public void onPrepared(MediaPlayer mp) {
         player.start();
         isPlayerPrepared = true;
+        openAudioEffectSession();
         playingNotificationHelper.updatePlayState(isPlaying());
         MusicPlayerWidget.updateWidgets(this);
         remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PLAYING);
@@ -750,6 +769,10 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 notifyOnMusicRemoteEventListeners(MusicRemoteEvent.SHUFFLE_MODE_CHANGED);
                 break;
         }
+    }
+
+    public int getAudioSessionId() {
+        return player.getAudioSessionId();
     }
 
     public class MusicBinder extends Binder {

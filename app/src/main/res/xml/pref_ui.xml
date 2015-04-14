@@ -2,7 +2,7 @@
     <PreferenceCategory
         android:title="@string/pref_header_ui">
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
-            android:defaultValue="1"
+            android:defaultValue="0"
             android:entries="@array/pref_general_theme_list_titles"
             android:entryValues="@array/pref_general_theme_list_values"
             android:key="general_theme"
@@ -11,12 +11,12 @@
             android:title="@string/pref_title_general_theme"/>
 
         <CheckBoxPreference
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:key="transparent_toolbar"
             android:title="@string/pref_title_transparent_toolbar"/>
 
         <CheckBoxPreference
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:key="playback_controller_card"
             android:title="@string/pref_title_show_playback_controller_card"/>
 
