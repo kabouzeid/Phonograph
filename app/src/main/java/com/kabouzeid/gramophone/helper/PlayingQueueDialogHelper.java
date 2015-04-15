@@ -25,18 +25,11 @@ public class PlayingQueueDialogHelper {
         MaterialDialog dialog = new MaterialDialog.Builder(activity)
                 .title(activity.getResources().getString(R.string.label_current_playing_queue))
                 .customView(R.layout.dialog_playlist, false)
-                .positiveText(activity.getResources().getString(R.string.close))
-                .neutralText(activity.getResources().getString(R.string.save_as_playlist))
+                .positiveText(activity.getResources().getString(R.string.save_as_playlist))
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
                         super.onPositive(dialog);
-                        dialog.dismiss();
-                    }
-
-                    @Override
-                    public void onNeutral(MaterialDialog dialog) {
-                        super.onNegative(dialog);
                         dialog.dismiss();
                         AddToPlaylistDialogHelper.getDialog(activity, playingQueue).show();
                     }

@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.helper;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -17,7 +18,11 @@ public class AboutDeveloperDialogHelper {
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .title(context.getResources().getString(R.string.app_name) + " " + getCurrentVersionName(context))
                 .iconRes(R.drawable.ic_launcher)
-                .content(context.getResources().getText(R.string.credits))
+                .content(TextUtils.concat(context.getResources().getText(R.string.credits_1),
+                        context.getResources().getText(R.string.credits_2),
+                        context.getResources().getText(R.string.credits_3),
+                        context.getResources().getText(R.string.credits_4))
+                )
                 .positiveText(context.getResources().getString(R.string.ok))
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override

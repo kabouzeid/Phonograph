@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Gramophone</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
     <string name="action_about">About</string>
     <string name="action_current_playing">Current playing</string>
     <string name="action_playing_queue">Playing queue</string>
     <string name="action_search">Search</string>
     <string name="action_play_next">Play next</string>
-    <string name="action_add_to_playing_queue">Add to playing queue"</string>
+    <string name="action_add_to_playing_queue">Add to playing queue</string>
     <string name="action_remove_from_playing_queue">Remove from playing queue</string>
-    <string name="action_add_to_playlist">Add to playlist…"</string>
-    <string name="action_tag_editor">Tag Editor"</string>
-    <string name="action_delete_from_disk">Delete from disk"</string>
+    <string name="action_add_to_playlist">Add to playlist…</string>
+    <string name="action_tag_editor">Tag Editor</string>
+    <string name="action_delete_from_disk">Delete from disk</string>
     <string name="action_details">Details</string>
     <string name="action_go_to">Go to…</string>
     <string name="albums">Albums</string>
@@ -26,17 +23,12 @@
     <string name="unknown_album">Unknown Album</string>
     <string name="untitled_song">Untitled Song</string>
     <string name="nothing_playing">Nothing is playing</string>
-    <string name="hint_fling_to_open">Fling to toggle the now playing screen</string>
-    <string name="hint_fling_to_go_back">fling to return</string>
-    <string name="hint_press_again_to_exit">Press once again to exit!</string>
     <string name="unplayable_file">Sorry - an error occurred while attempting to play this song</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="biography_unavailable">Sorry, we were not able to find a matching biography for this artist.</string>
     <string name="biography">Biography</string>
     <string name="audio_focus_denied">We were not able to gain audio focus.</string>
-    <string name="title_activity_tag_editor">TagEditorActivity</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="tag_editor">Tag Editor</string>
+    <string name="title_activity_tag_editor">Tag editor</string>
+    <string name="tag_editor">Tag editor</string>
     <string name="song">Song</string>
     <string name="album">Album</string>
     <string name="artist">Artist</string>
@@ -48,7 +40,7 @@
     <string name="album_or_artist_empty">The album title or the album artist text field is empty.</string>
     <string name="writing_file_number">Writing file</string>
     <string name="saving_changes">Saving changes…</string>
-    <string name="title_activity_album_tag_editor">AlbumTagEditorActivity</string>
+    <string name="title_activity_album_tag_editor">Album Tag Editor</string>
     <string name="label_details">Details</string>
     <string name="label_file_name">File name</string>
     <string name="label_file_path">File path</string>
@@ -63,8 +55,9 @@
     <string name="label_current_playing_queue">Playing queue</string>
     <string name="close">Close</string>
     <string name="save_as_playlist">Save as playlist</string>
-    <string name="credits">Gramophone is a completely free material designed music player by <b>Karim Abou Zeid</b>.\n\n<a href="https://plus.google.com/+KarimAbouZeid23697">Google+</a>&#160;&#160;&#160;<a href="https://twitter.com/karim23697">Twitter</a>\n\nIcon by <a href="http://cookicons.co/">Cookicons</a></string>
-    <string name="title_activity_search">SearchActivity</string>
+    <string name="credits_3">Icon by</string>
+    <string name="credits_1">Gramophone is a completely free material designed music player by</string>
+    <string name="title_activity_search">Search</string>
     <string name="more">more</string>
     <string name="no_results">No results</string>
     <string name="action_re_download_artist_image">Update artist image</string>
@@ -72,12 +65,12 @@
     <string name="updating">Updating…</string>
     <string name="loading">Loading…</string>
     <string name="added_title_to_playing_queue">Added 1 title to the playing queue.</string>
-    <string name="added_titles_to_playing_queue_1">Added </string>
+    <string name="added_titles_to_playing_queue_1">Added\u0020</string>
     <string name="added_titles_to_playing_queue_2">\u0020titles to the playing queue.</string>
-    <string name="title_activity_playlist_detail">PlaylistDetailActivity</string>
+    <string name="title_activity_playlist_detail">Playlist Activity</string>
     <string name="action_delete_from_playlist">Delete from playlist</string>
-    <string name="inserted_titles_to_playlist_1">Inserted\u0020</string>
-    <string name="inserted_titles_to_playlist_2">\u0020titles to playlist\u0020</string>
+    <string name="inserted_titles_to_playlist_1">Added\u0020</string>
+    <string name="inserted_titles_to_playlist_2">\u0020titles to playlist.</string>
     <string name="action_new_playlist">New playlist</string>
     <string name="action_grid_columns">Grid columns</string>
     <string name="action_grid_columns_land">Grid columns (Land)</string>
@@ -109,5 +102,8 @@
     <string name="pref_title_colored_album_footers">Colored album footers</string>
     <string name="no_equalizer">No equalizer found</string>
     <string name="no_audio_id">No audio id, play something and try again.</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="delete">delete</string>
 
 </resources>

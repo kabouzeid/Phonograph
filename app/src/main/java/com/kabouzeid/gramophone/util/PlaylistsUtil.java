@@ -99,7 +99,7 @@ public class PlaylistsUtil {
             numinserted += resolver.bulkInsert(uri, makeInsertItems(songs, offSet, 1000, base));
         }
 
-        Toast.makeText(context, context.getResources().getString(R.string.inserted_titles_to_playlist_1) + numinserted + context.getResources().getString(R.string.inserted_titles_to_playlist_2) + getNameForPlaylist(context, playlistId) + ".", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, context.getResources().getString(R.string.inserted_titles_to_playlist_1) + numinserted + context.getResources().getString(R.string.inserted_titles_to_playlist_2), Toast.LENGTH_SHORT).show();
         App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
     }
 
