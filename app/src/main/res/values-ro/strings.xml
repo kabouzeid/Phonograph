@@ -52,6 +52,8 @@
     <string name="label_current_playing_queue">Lista de redare</string>
     <string name="close">Închide</string>
     <string name="save_as_playlist">Salvează ca și playlist</string>
+    <string name="credits_3">Iconița de</string>
+    <string name="credits_1">Gramophone este o aplicație complet gratuită bazată pe Material Design făcută de</string>
     <string name="title_activity_search">ActivitateaDeCăutare</string>
     <string name="more">mai mult</string>
     <string name="no_results">Niciun rezultat</string>
@@ -98,4 +100,5 @@
     <string name="no_audio_id">Nicio identificare audio, redă ceva şi încearcă din nou.</string>
     <string name="navigation_drawer_open">Deschide sertarul de navigație</string>
     <string name="navigation_drawer_close">Închide sertarul de navigație</string>
+    <string name="delete">șterge</string>
 </resources>

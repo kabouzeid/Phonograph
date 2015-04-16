@@ -3,12 +3,11 @@ package com.kabouzeid.gramophone.ui.activities;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +29,7 @@ import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
+import com.kabouzeid.gramophone.model.UiPreferenceChangedEvent;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
@@ -39,10 +38,10 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.squareup.otto.Subscribe;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
@@ -71,6 +70,7 @@ public class MusicControllerActivity extends AbsFabActivity {
 
     private boolean killThreads = false;
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setUpTranslucence(true, false);
@@ -258,23 +258,30 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     private void setUpAlbumArtAndApplyPalette() {
-        Picasso.with(this)
-                .load(MusicUtil.getAlbumArtUri(song.albumId))
-                .placeholder(R.drawable.default_album_art)
-                .into(albumArt, new Callback.EmptyCallback() {
-                    @Override
-                    public void onSuccess() {
-                        super.onSuccess();
-                        final Bitmap bitmap = ((BitmapDrawable) albumArt.getDrawable()).getBitmap();
-                        if (bitmap != null) applyPalette(bitmap);
-                    }
-
-                    @Override
-                    public void onError() {
-                        super.onError();
-                        setStandardColors();
-                    }
-                });
+        albumArt.post(new Runnable() {
+            @Override
+            public void run() {
+                Ion.with(MusicControllerActivity.this)
+                        .load(MusicUtil.getAlbumArtUri(song.albumId).toString())
+                        .withBitmap()
+                        .resize(albumArt.getWidth(), albumArt.getHeight())
+                        .centerCrop()
+                        .asBitmap()
+                        .setCallback(new FutureCallback<Bitmap>() {
+                            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                            @Override
+                            public void onCompleted(Exception e, Bitmap result) {
+                                if (result != null) {
+                                    albumArt.setImageBitmap(result);
+                                    applyPalette(result);
+                                } else {
+                                    albumArt.setImageResource(R.drawable.default_album_art);
+                                    resetColors();
+                                }
+                            }
+                        });
+            }
+        });
     }
 
     private void applyPalette(Bitmap bitmap) {
@@ -287,13 +294,13 @@ public class MusicControllerActivity extends AbsFabActivity {
                     songTitle.setTextColor(swatch.getTitleTextColor());
                     songArtist.setTextColor(swatch.getBodyTextColor());
                 } else {
-                    setStandardColors();
+                    resetColors();
                 }
             }
         });
     }
 
-    private void setStandardColors() {
+    private void resetColors() {
         int songTitleTextColor = Util.resolveColor(this, R.attr.title_text_color);
         int artistNameTextColor = Util.resolveColor(this, R.attr.caption_text_color);
         int defaultBarColor = Util.resolveColor(this, R.attr.default_bar_color);
@@ -322,11 +329,9 @@ public class MusicControllerActivity extends AbsFabActivity {
             LastFMArtistImageUrlLoader.loadArtistImageUrl(this, song.artistName, false, new LastFMArtistImageUrlLoader.ArtistImageUrlLoaderCallback() {
                 @Override
                 public void onArtistImageUrlLoaded(String url) {
-                    Picasso.with(MusicControllerActivity.this)
-                            .load(url)
-                            .placeholder(R.drawable.default_artist_image)
+                    Ion.with(artistArt)
                             .error(R.drawable.default_artist_image)
-                            .into(artistArt);
+                            .load(url);
                 }
             });
         }
@@ -467,9 +472,9 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     @Subscribe
-    public void onUIPrefsChanged(UIPreferenceChangedEvent event) {
+    public void onUIPrefsChanged(UiPreferenceChangedEvent event) {
         switch (event.getAction()) {
-            case UIPreferenceChangedEvent.PLAYBACK_CONTROLLER_CARD_CHANGED:
+            case UiPreferenceChangedEvent.PLAYBACK_CONTROLLER_CARD_CHANGED:
                 setUpBox((boolean) event.getValue());
                 break;
         }

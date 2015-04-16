@@ -20,7 +20,7 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
-import com.squareup.picasso.Picasso;
+import com.koushikdutta.ion.Ion;
 
 import java.util.List;
 
@@ -44,16 +44,26 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
     }
 
     @Override
+    public void onViewRecycled(ViewHolder holder) {
+        super.onViewRecycled(holder);
+    }
+
+    @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Song song = dataSet.get(position);
 
         holder.songTitle.setText(song.title);
         holder.songInfo.setText(song.artistName);
 
-        Picasso.with(activity)
-                .load(MusicUtil.getAlbumArtUri(song.albumId))
-                .placeholder(R.drawable.default_album_art)
-                .into(holder.albumArt);
+        holder.albumArt.setTag(
+                Ion.with(activity)
+                        .load(MusicUtil.getAlbumArtUri(song.albumId).toString())
+                        .withBitmap()
+                        .resize(holder.albumArt.getWidth(), holder.albumArt.getHeight())
+                        .centerCrop()
+                        .error(R.drawable.default_album_art)
+                        .intoImageView(holder.albumArt)
+        );
     }
 
     @Override

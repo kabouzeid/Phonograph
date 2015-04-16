@@ -8,11 +8,11 @@
     <string name="action_play_next">"Siguiente "</string>
     <string name="action_add_to_playing_queue">Agregar a reproducción actual</string>
     <string name="action_remove_from_playing_queue">Eliminar de reproducción actual</string>
-    <string name="action_add_to_playlist">"Añadir a lista de reproducción "</string>
+    <string name="action_add_to_playlist">Añadir a lista de reproducción...</string>
     <string name="action_tag_editor">Editor de etiquetas</string>
     <string name="action_delete_from_disk">Borrar del disco</string>
     <string name="action_details">Detalles</string>
-    <string name="action_go_to">Ir a</string>
+    <string name="action_go_to">Ir a...</string>
     <string name="albums">Álbumes</string>
     <string name="artists">Artistas</string>
     <string name="genres">Géneros</string>
@@ -23,9 +23,9 @@
     <string name="untitled_song">Canción sin título</string>
     <string name="nothing_playing">Nada se está reproduciendo</string>
     <string name="unplayable_file">Disculpe, un error ha ocurrido intentando reproducir esta canción</string>
-    <string name="biography_unavailable">"Lo sentimos. No encontramos una biografía correspondiente a éste artista "</string>
+    <string name="biography_unavailable">Lo sentimos, no encontramos una biografía correspondiente a éste artista</string>
     <string name="biography">Biografía</string>
-    <string name="audio_focus_denied">"No podemos encontrar el foco de audio "</string>
+    <string name="audio_focus_denied">No podemos encontrar el foco de audio</string>
     <string name="tag_editor">Editor de etiquetas</string>
     <string name="song">Canción</string>
     <string name="album">Álbum</string>
@@ -34,7 +34,7 @@
     <string name="album_artist">Artista del álbum</string>
     <string name="year">Año</string>
     <string name="track">Canción</string>
-    <string name="track_hint">"Pista () "</string>
+    <string name="track_hint">Pista (2 for track 2 or 3004 for CD3 track 4)</string>
     <string name="album_or_artist_empty">El campo título del álbum o el artista del álbum está vacío</string>
     <string name="writing_file_number">Escribiendo archivo</string>
     <string name="saving_changes">Guardando cambios...</string>
@@ -52,7 +52,9 @@
     <string name="label_current_playing_queue">Reproducción actual</string>
     <string name="close">Cerrar</string>
     <string name="save_as_playlist">Guardar como lista de reproducción</string>
-    <string name="title_activity_search">Buscar Actividad</string>
+    <string name="credits_3">Icono por</string>
+    <string name="credits_1">Gramophone es un reproductor de música gratuito con diseño material por</string>
+    <string name="title_activity_search">Buscar</string>
     <string name="more">más</string>
     <string name="no_results">Sin resultados</string>
     <string name="action_re_download_artist_image">Actualizar imagen del artista</string>
@@ -63,8 +65,8 @@
     <string name="added_titles_to_playing_queue_1">Añadido</string>
     <string name="added_titles_to_playing_queue_2">t\u00edtulos a la reproducci\u00f3n actual</string>
     <string name="action_delete_from_playlist">Borrar de la lista de reproducción</string>
-    <string name="inserted_titles_to_playlist_1">Insertado</string>
-    <string name="inserted_titles_to_playlist_2">t\u00edtulos a lista de reproducci\u00f3n</string>
+    <string name="inserted_titles_to_playlist_1">A\u00f1adido</string>
+    <string name="inserted_titles_to_playlist_2">t\u00edtulos a lista de reproducci\u00f3n.</string>
     <string name="action_new_playlist">Nueva lista de reproducción</string>
     <string name="action_grid_columns">Columnas de la cuadrícula</string>
     <string name="action_grid_columns_land">Columnas de la cuadrícula (apaisado)</string>
@@ -98,4 +100,5 @@
     <string name="no_audio_id">Sin id de audio, toca algo e intenta nuevamente</string>
     <string name="navigation_drawer_open">Abrir cajón de navegación</string>
     <string name="navigation_drawer_close">"Cerrar la barra de navegación "</string>
+    <string name="delete">Borrar</string>
 </resources>

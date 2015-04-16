@@ -39,7 +39,7 @@
 "</string>
     <string name="album_or_artist_empty">El campo del título del álbum o del artista del álbum está vacío</string>
     <string name="writing_file_number">Escribiendo archivo</string>
-    <string name="saving_changes">Guardando cambios</string>
+    <string name="saving_changes">Guardando cambios...</string>
     <string name="title_activity_album_tag_editor">Editor de las etiquetas del álbum activo</string>
     <string name="label_details">Detalles</string>
     <string name="label_file_name">Nombre de archivo</string>
@@ -80,7 +80,7 @@
     <string name="delete_songs_1">Borrar</string>
     <string name="delete_songs_2">Canciones?</string>
     <string name="delete_warning">"Advertencia: Esta operación es irreversible."</string>
-    <string name="shuffle_all">Mezclar todas</string>
+    <string name="shuffle_all">Aleatorio</string>
     <string name="last_opened">Abierto recientemente</string>
     <string name="title_setting_start_page">Página de inicio</string>
     <string name="light_theme_name">Claro</string>

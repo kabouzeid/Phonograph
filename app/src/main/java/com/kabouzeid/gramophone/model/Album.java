@@ -5,7 +5,7 @@ import android.widget.ImageView;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.squareup.picasso.Picasso;
+import com.koushikdutta.ion.Ion;
 
 /**
  * Created by karim on 22.11.14.
@@ -48,11 +48,19 @@ public class Album implements SearchEntry {
     }
 
     @Override
-    public void loadImage(Context context, ImageView imageView) {
+    public void loadImage(final Context context, final ImageView imageView) {
         imageView.setImageResource(R.drawable.default_album_art);
-        Picasso.with(context)
-                .load(MusicUtil.getAlbumArtUri(id))
-                .placeholder(R.drawable.default_album_art)
-                .into(imageView);
+        imageView.post(new Runnable() {
+            @Override
+            public void run() {
+                Ion.with(context)
+                        .load(MusicUtil.getAlbumArtUri(id).toString())
+                        .withBitmap()
+                        .resize(imageView.getWidth(), imageView.getHeight())
+                        .centerCrop()
+                        .error(R.drawable.default_album_art)
+                        .intoImageView(imageView);
+            }
+        });
     }
 }

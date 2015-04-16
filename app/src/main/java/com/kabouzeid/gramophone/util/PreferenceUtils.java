@@ -45,7 +45,7 @@ public final class PreferenceUtils {
     }
 
     public int getGeneralTheme() {
-        int value = Integer.parseInt(mPreferences.getString(GENERAL_THEME, "1"));
+        int value = Integer.parseInt(mPreferences.getString(GENERAL_THEME, "0"));
         switch (value) {
             case 0:
                 return R.style.Theme_MaterialMusic_Light;

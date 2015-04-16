@@ -11,6 +11,7 @@ import android.app.TaskStackBuilder;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
@@ -19,7 +20,9 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MusicControllerActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.squareup.picasso.Picasso;
+import com.koushikdutta.async.future.Future;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 public class PlayingNotificationHelper {
     public static final String TAG = PlayingNotificationHelper.class.getSimpleName();
@@ -32,6 +35,8 @@ public class PlayingNotificationHelper {
 
     private RemoteViews notificationLayout;
     private RemoteViews notificationLayoutExpanded;
+
+    private Future albumArtTask;
 
     public PlayingNotificationHelper(final MusicService service) {
         this.service = service;
@@ -146,15 +151,17 @@ public class PlayingNotificationHelper {
     }
 
     private void loadAlbumArt(final Song song) {
-        resetAlbumArt();
-        Picasso.with(service)
-                .load(MusicUtil.getAlbumArtUri(song.albumId))
-                .error(R.drawable.default_album_art)
-                .into(notificationLayoutExpanded, R.id.album_art, NOTIFICATION_ID, notification);
-        Picasso.with(service)
-                .load(MusicUtil.getAlbumArtUri(song.albumId))
-                .error(R.drawable.default_album_art)
-                .into(notificationLayout, R.id.album_art, NOTIFICATION_ID, notification);
+        if (albumArtTask != null) albumArtTask.cancel();
+        albumArtTask = Ion.with(service)
+                .load(MusicUtil.getAlbumArtUri(song.albumId).toString())
+                .asBitmap()
+                .setCallback(new FutureCallback<Bitmap>() {
+                    @Override
+                    public void onCompleted(Exception e, Bitmap result) {
+                        if (result != null) setAlbumArt(result);
+                        else resetAlbumArt();
+                    }
+                });
     }
 
     private void resetAlbumArt() {
@@ -163,7 +170,11 @@ public class PlayingNotificationHelper {
         notificationManager.notify(NOTIFICATION_ID, notification);
     }
 
-    ;
+    private void setAlbumArt(Bitmap albumArt) {
+        notificationLayout.setImageViewBitmap(R.id.album_art, albumArt);
+        notificationLayoutExpanded.setImageViewBitmap(R.id.album_art, albumArt);
+        notificationManager.notify(NOTIFICATION_ID, notification);
+    }
 
     public void killNotification() {
         service.stopForeground(true);

@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.ui.activities.tageditor;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,8 +15,8 @@ import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.images.Artwork;
@@ -96,36 +95,30 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
         LastFMAlbumImageUrlLoader.loadAlbumImageUrl(this, albumTitleStr, albumArtistNameStr, new LastFMAlbumImageUrlLoader.AlbumImageUrlLoaderCallback() {
                     @Override
                     public void onAlbumImageUrlLoaded(String url) {
-                        Picasso.with(AlbumTagEditorActivity.this)
+                        Ion.with(AlbumTagEditorActivity.this)
                                 .load(url)
+                                .withBitmap()
                                 .resize(500, 500)
                                 .centerCrop()
-                                .onlyScaleDown()
-                                .into(new Target() {
+                                .asBitmap()
+                                .setCallback(new FutureCallback<Bitmap>() {
                                     @Override
-                                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                                        albumArtBitmap = bitmap;
-                                        setImageBitmap(albumArtBitmap);
-                                        deleteAlbumArt = false;
-                                        dataChanged();
-                                        Toast.makeText(AlbumTagEditorActivity.this, "Success.", Toast.LENGTH_SHORT).show();
-                                    }
-
-                                    @Override
-                                    public void onBitmapFailed(Drawable errorDrawable) {
-                                        Toast.makeText(AlbumTagEditorActivity.this, "Failed.", Toast.LENGTH_SHORT).show();
-                                    }
-
-                                    @Override
-                                    public void onPrepareLoad(Drawable placeHolderDrawable) {
-
+                                    public void onCompleted(Exception e, Bitmap result) {
+                                        if(result != null) {
+                                            albumArtBitmap = result;
+                                            setImageBitmap(albumArtBitmap);
+                                            deleteAlbumArt = false;
+                                            dataChanged();
+                                        } else {
+                                            //TODO Toast failed message
+                                        }
                                     }
                                 });
                     }
 
                     @Override
                     public void onError() {
-                        Toast.makeText(AlbumTagEditorActivity.this, "Failed.", Toast.LENGTH_SHORT).show();
+                        //TODO Toast failed message
                     }
                 }
         );
@@ -192,28 +185,21 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
     @Override
     protected void loadImageFromFile(final Uri selectedFileUri) {
-        Picasso.with(this)
-                .load(selectedFileUri)
+        Ion.with(this)
+                .load(selectedFileUri.toString())
+                .withBitmap()
                 .resize(500, 500)
                 .centerCrop()
-                .onlyScaleDown()
-                .into(new Target() {
+                .asBitmap()
+                .setCallback(new FutureCallback<Bitmap>() {
                     @Override
-                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                        albumArtBitmap = bitmap;
-                        setImageBitmap(albumArtBitmap);
-                        deleteAlbumArt = false;
-                        dataChanged();
-                    }
-
-                    @Override
-                    public void onBitmapFailed(Drawable errorDrawable) {
-                        //TODO Toast could not read file
-                    }
-
-                    @Override
-                    public void onPrepareLoad(Drawable placeHolderDrawable) {
-
+                    public void onCompleted(Exception e, Bitmap result) {
+                        if (result != null) {
+                            albumArtBitmap = result;
+                            setImageBitmap(albumArtBitmap);
+                            deleteAlbumArt = false;
+                            dataChanged();
+                        }
                     }
                 });
     }

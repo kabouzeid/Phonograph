@@ -14,7 +14,7 @@ import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.squareup.picasso.Picasso;
+import com.koushikdutta.ion.Ion;
 
 import java.util.List;
 
@@ -48,10 +48,13 @@ public class ArtistAlbumAdapter extends RecyclerView.Adapter<ArtistAlbumAdapter.
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Album album = dataSet.get(position);
 
-        Picasso.with(activity)
-                .load(MusicUtil.getAlbumArtUri(album.id))
-                .placeholder(R.drawable.default_album_art)
-                .into(holder.image);
+        Ion.with(activity)
+                .load(MusicUtil.getAlbumArtUri(album.id).toString())
+                .withBitmap()
+                .resize(holder.albumArt.getWidth(), holder.albumArt.getHeight())
+                .centerCrop()
+                .error(R.drawable.default_album_art)
+                .intoImageView(holder.albumArt);
 
         holder.title.setText(album.title);
         holder.year.setText(String.valueOf(album.year));
@@ -72,13 +75,13 @@ public class ArtistAlbumAdapter extends RecyclerView.Adapter<ArtistAlbumAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageView image;
+        ImageView albumArt;
         TextView title;
         TextView year;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            image = (ImageView) itemView.findViewById(R.id.album_art);
+            albumArt = (ImageView) itemView.findViewById(R.id.album_art);
             title = (TextView) itemView.findViewById(R.id.album_title);
             year = (TextView) itemView.findViewById(R.id.album_year);
             itemView.setOnClickListener(this);
@@ -87,12 +90,12 @@ public class ArtistAlbumAdapter extends RecyclerView.Adapter<ArtistAlbumAdapter.
         @Override
         public void onClick(View v) {
             Pair[] albumPairs = new Pair[]{
-                    Pair.create(image,
+                    Pair.create(albumArt,
                             activity.getResources().getString(R.string.transition_album_cover)
                     )};
             if (activity instanceof AbsFabActivity)
                 albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(albumPairs);
-            NavigationUtil.goToAlbum(activity, dataSet.get(getPosition()).id, albumPairs);
+            NavigationUtil.goToAlbum(activity, dataSet.get(getAdapterPosition()).id, albumPairs);
         }
     }
 

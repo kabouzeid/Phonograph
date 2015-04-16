@@ -40,7 +40,7 @@
     <string name="saving_changes">Sto salvando le modifiche</string>
     <string name="title_activity_album_tag_editor">AttivitàModificaTagAlbum</string>
     <string name="label_details">Dettagli</string>
-    <string name="label_file_name">Nome file</string>
+    <string name="label_file_name">Nome del file</string>
     <string name="label_file_size">Dimensione</string>
     <string name="label_file_format">Formato</string>
     <string name="label_track_length">Lunghezza</string>
@@ -52,7 +52,7 @@
     <string name="label_current_playing_queue">Riproduci coda</string>
     <string name="close">Chiudi</string>
     <string name="save_as_playlist">Salva come playlist</string>
-    <string name="title_activity_search">AttivitàCerca</string>
+    <string name="title_activity_search">Cerca</string>
     <string name="more">Altro</string>
     <string name="no_results">Nessun risultato</string>
     <string name="action_re_download_artist_image">Aggiorna immagine artista</string>

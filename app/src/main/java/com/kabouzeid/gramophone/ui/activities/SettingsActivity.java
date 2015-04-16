@@ -14,7 +14,7 @@ import android.view.MenuItem;
 
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
+import com.kabouzeid.gramophone.model.UiPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 
@@ -57,7 +57,7 @@ public class SettingsActivity extends AbsBaseActivity {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object o) {
                     setSummary(generalTheme, o);
-                    App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.THEME_CHANGED, o));
+                    App.bus.post(new UiPreferenceChangedEvent(UiPreferenceChangedEvent.THEME_CHANGED, o));
                     return true;
                 }
             });
@@ -65,7 +65,7 @@ public class SettingsActivity extends AbsBaseActivity {
             findPreference("transparent_toolbar").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object o) {
-                    App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.TOOLBAR_TRANSPARENT_CHANGED, o));
+                    App.bus.post(new UiPreferenceChangedEvent(UiPreferenceChangedEvent.TOOLBAR_TRANSPARENT_CHANGED, o));
                     return true;
                 }
             });
@@ -73,7 +73,7 @@ public class SettingsActivity extends AbsBaseActivity {
             findPreference("colored_album_footers").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object o) {
-                    App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.ALBUM_OVERVIEW_PALETTE_CHANGED, o));
+                    App.bus.post(new UiPreferenceChangedEvent(UiPreferenceChangedEvent.ALBUM_OVERVIEW_PALETTE_CHANGED, o));
                     return true;
                 }
             });
@@ -81,7 +81,7 @@ public class SettingsActivity extends AbsBaseActivity {
             findPreference("colored_navigation_bar_artist").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object o) {
-                    App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_ARTIST_CHANGED, o));
+                    App.bus.post(new UiPreferenceChangedEvent(UiPreferenceChangedEvent.COLORED_NAVIGATION_BAR_ARTIST_CHANGED, o));
                     return true;
                 }
             });
@@ -89,7 +89,7 @@ public class SettingsActivity extends AbsBaseActivity {
             findPreference("colored_navigation_bar_album").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object o) {
-                    App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_ALBUM_CHANGED, o));
+                    App.bus.post(new UiPreferenceChangedEvent(UiPreferenceChangedEvent.COLORED_NAVIGATION_BAR_ALBUM_CHANGED, o));
                     return true;
                 }
             });
@@ -97,7 +97,7 @@ public class SettingsActivity extends AbsBaseActivity {
             findPreference("playback_controller_card").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object o) {
-                    App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.PLAYBACK_CONTROLLER_CARD_CHANGED, o));
+                    App.bus.post(new UiPreferenceChangedEvent(UiPreferenceChangedEvent.PLAYBACK_CONTROLLER_CARD_CHANGED, o));
                     return true;
                 }
             });

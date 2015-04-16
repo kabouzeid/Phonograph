@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.adapter;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,8 +18,9 @@ import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.squareup.otto.Subscribe;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -54,12 +56,20 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
 
         LastFMArtistThumbnailUrlLoader.loadArtistThumbnailUrl(activity, artist.name, false, new LastFMArtistThumbnailUrlLoader.ArtistThumbnailUrlLoaderCallback() {
             @Override
-            public void onArtistThumbnailUrlLoaded(String url) {
-                Picasso.with(activity)
+            public void onArtistThumbnailUrlLoaded(final String url) {
+                Ion.with(activity)
                         .load(url)
-                        .noFade()
-                        .placeholder(R.drawable.default_artist_image)
-                        .into(holder.artistImage);
+                        .asBitmap()
+                        .setCallback(new FutureCallback<Bitmap>() {
+                            @Override
+                            public void onCompleted(Exception e, Bitmap result) {
+                                if (result != null)
+                                    holder.artistImage.setImageBitmap(result);
+                                else {
+                                    holder.artistImage.setImageResource(R.drawable.default_artist_image);
+                                }
+                            }
+                        });
             }
         });
     }

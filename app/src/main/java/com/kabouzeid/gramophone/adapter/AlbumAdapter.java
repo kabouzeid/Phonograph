@@ -2,7 +2,6 @@ package com.kabouzeid.gramophone.adapter;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.util.Pair;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
@@ -17,16 +16,19 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
-import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
+import com.kabouzeid.gramophone.model.UiPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
+import com.koushikdutta.async.future.Future;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.ImageViewBitmapInfo;
+import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.bitmap.BitmapInfo;
 import com.squareup.otto.Subscribe;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -46,35 +48,50 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
     }
 
     @Override
+    public void onViewRecycled(ViewHolder holder) {
+        super.onViewRecycled(holder);
+        Object tag = holder.image.getTag();
+        if (tag instanceof Future) {
+            ((Future) tag).cancel();
+        }
+    }
+
+    @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Album album = dataSet.get(position);
 
         resetColors(holder.title, holder.artist, holder.footer);
-        Picasso.with(activity)
-                .load(MusicUtil.getAlbumArtUri(album.id))
-                .placeholder(R.drawable.default_album_art)
-                .into(holder.image, new Callback.EmptyCallback() {
-                    @Override
-                    public void onSuccess() {
-                        super.onSuccess();
-                        if (usePalette) {
-                            final Bitmap bitmap = ((BitmapDrawable) holder.image.getDrawable()).getBitmap();
-                            if (bitmap != null)
-                                applyPalette(bitmap, holder.title, holder.artist, holder.footer);
-                        }
-                    }
-
-                    @Override
-                    public void onError() {
-                        super.onError();
-                        if (usePalette) {
-                            paletteBlackAndWhite(holder.title, holder.artist, holder.footer);
-                        }
-                    }
-                });
 
         holder.title.setText(album.title);
         holder.artist.setText(album.artistName);
+        holder.image.setTag(
+                Ion.with(activity)
+                        .load(MusicUtil.getAlbumArtUri(album.id).toString())
+                        .withBitmap()
+                        .resize(holder.image.getWidth(), holder.image.getHeight())
+                        .centerCrop()
+                        .intoImageView(holder.image)
+                        .withBitmapInfo()
+                        .setCallback(new FutureCallback<ImageViewBitmapInfo>() {
+                            @Override
+                            public void onCompleted(Exception e, ImageViewBitmapInfo result) {
+                                if(result != null){
+                                    BitmapInfo info = result.getBitmapInfo();
+                                    if(info != null){
+                                        Bitmap bitmap = info.bitmap;
+                                        if (bitmap != null) {
+                                            if (usePalette)
+                                                applyPalette(bitmap, holder.title, holder.artist, holder.footer);
+                                            return;
+                                        }
+                                    }
+                                }
+                                holder.image.setImageResource(R.drawable.default_album_art);
+                                if (usePalette)
+                                    paletteBlackAndWhite(holder.title, holder.artist, holder.footer);
+                            }
+                        })
+        );
     }
 
     @Override
@@ -173,9 +190,9 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
     }
 
     @Subscribe
-    public void onUIChangeEvent(UIPreferenceChangedEvent event) {
+    public void onUIChangeEvent(UiPreferenceChangedEvent event) {
         switch (event.getAction()) {
-            case UIPreferenceChangedEvent.ALBUM_OVERVIEW_PALETTE_CHANGED:
+            case UiPreferenceChangedEvent.ALBUM_OVERVIEW_PALETTE_CHANGED:
                 usePalette = (boolean) event.getValue();
                 notifyDataSetChanged();
                 break;

@@ -6,7 +6,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import android.graphics.Bitmap;
 import android.widget.RemoteViews;
 
 import com.kabouzeid.gramophone.R;
@@ -15,39 +15,71 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MusicControllerActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.kabouzeid.gramophone.util.Util;
-import com.squareup.picasso.Picasso;
+import com.koushikdutta.async.future.Future;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
-/**
- * Implementation of App Widget functionality.
- */
 public class MusicPlayerWidget extends AppWidgetProvider {
+    private static RemoteViews widgetLayout;
+    private static Future albumArtTask;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        update(context, appWidgetManager, appWidgetIds);
+        updateWidgets(context, MusicPlayerRemote.getCurrentSong(), MusicPlayerRemote.isPlaying());
+        for (int widgetId : appWidgetIds) {
+            appWidgetManager.updateAppWidget(widgetId, widgetLayout);
+        }
     }
 
-    public static void update(Context context, AppWidgetManager manager, int[] ids) {
-        final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.music_player_widget);
-        linkButtons(context, views);
-        final Song song = MusicPlayerRemote.getCurrentSong();
-
+    public static void updateWidgets(final Context context, final Song song, boolean isPlaying) {
+        widgetLayout = new RemoteViews(context.getPackageName(), R.layout.music_player_widget);
+        linkButtons(context, widgetLayout);
         if (song.id != -1) {
-            views.setTextViewText(R.id.song_title, song.title);
+            widgetLayout.setTextViewText(R.id.song_title, song.title);
         }
+        updateWidgetsPlayState(context, isPlaying);
+        loadAlbumArt(context, song);
+    }
 
-        Picasso.with(context)
-                .load(MusicUtil.getAlbumArtUri(song.albumId))
-                .error(R.drawable.default_album_art)
-                .into(views, R.id.album_art, ids);
+    public static void updateWidgetsPlayState(final Context context, boolean isPlaying) {
+        if (widgetLayout == null)
+            widgetLayout = new RemoteViews(context.getPackageName(), R.layout.music_player_widget);
+        int playPauseRes = isPlaying ? R.drawable.ic_pause_black_36dp : R.drawable.ic_play_arrow_black_36dp;
+        widgetLayout.setImageViewResource(R.id.button_toggle_play_pause, playPauseRes);
+        updateWidgets(context);
+    }
 
-        int playPauseRes = MusicPlayerRemote.isPlaying() ? R.drawable.ic_pause_black_36dp : R.drawable.ic_play_arrow_black_36dp;
-        views.setImageViewResource(R.id.button_toggle_play_pause, playPauseRes);
-
+    private static void updateWidgets(final Context context) {
+        AppWidgetManager man = AppWidgetManager.getInstance(context);
+        int[] ids = man.getAppWidgetIds(
+                new ComponentName(context, MusicPlayerWidget.class));
         for (int widgetId : ids) {
-            manager.updateAppWidget(widgetId, views);
+            man.updateAppWidget(widgetId, widgetLayout);
         }
+    }
+
+    private static void loadAlbumArt(final Context context, final Song song) {
+        if (albumArtTask != null) albumArtTask.cancel();
+        albumArtTask = Ion.with(context)
+                .load(MusicUtil.getAlbumArtUri(song.albumId).toString())
+                .asBitmap()
+                .setCallback(new FutureCallback<Bitmap>() {
+                    @Override
+                    public void onCompleted(Exception e, Bitmap result) {
+                        if (result != null) setAlbumArt(context, result);
+                        else resetAlbumArt(context);
+                    }
+                });
+    }
+
+    private static void resetAlbumArt(final Context context) {
+        widgetLayout.setImageViewResource(R.id.album_art, R.drawable.default_album_art);
+        updateWidgets(context);
+    }
+
+    private static void setAlbumArt(final Context context, final Bitmap albumArt) {
+        widgetLayout.setImageViewBitmap(R.id.album_art, albumArt);
+        updateWidgets(context);
     }
 
     private static void linkButtons(final Context context, final RemoteViews views) {
@@ -83,13 +115,6 @@ public class MusicPlayerWidget extends AppWidgetProvider {
                 return pendingIntent;
         }
         return null;
-    }
-
-    public static void updateWidgets(Context context) {
-        AppWidgetManager man = AppWidgetManager.getInstance(context);
-        int[] ids = man.getAppWidgetIds(
-                new ComponentName(context, MusicPlayerWidget.class));
-        update(context, man, ids);
     }
 }
 

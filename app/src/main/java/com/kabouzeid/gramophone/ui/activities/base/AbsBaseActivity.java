@@ -9,7 +9,7 @@ import com.crashlytics.android.Crashlytics;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.misc.AppKeys;
-import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
+import com.kabouzeid.gramophone.model.UiPreferenceChangedEvent;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.squareup.otto.Subscribe;
@@ -22,7 +22,7 @@ public abstract class AbsBaseActivity extends ActionBarActivity implements KabVi
     private boolean areViewsEnabled;
     private Object uiPreferenceChangeListener = new Object() {
         @Subscribe
-        public void onUIPreferenceChangedEvent(UIPreferenceChangedEvent event) {
+        public void onUIPreferenceChangedEvent(UiPreferenceChangedEvent event) {
             AbsBaseActivity.this.onUIPreferenceChangedEvent(event);
         }
     };
@@ -54,9 +54,9 @@ public abstract class AbsBaseActivity extends ActionBarActivity implements KabVi
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public void onUIPreferenceChangedEvent(UIPreferenceChangedEvent event) {
+    public void onUIPreferenceChangedEvent(UiPreferenceChangedEvent event) {
         switch (event.getAction()) {
-            case UIPreferenceChangedEvent.THEME_CHANGED:
+            case UiPreferenceChangedEvent.THEME_CHANGED:
                 recreate();
                 break;
         }

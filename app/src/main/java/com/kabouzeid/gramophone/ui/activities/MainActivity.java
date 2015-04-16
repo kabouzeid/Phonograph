@@ -29,7 +29,7 @@ import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
+import com.kabouzeid.gramophone.model.UiPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.fragments.NavigationDrawerFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityFragment;
@@ -42,7 +42,7 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.squareup.picasso.Picasso;
+import com.koushikdutta.ion.Ion;
 
 import java.util.List;
 
@@ -174,11 +174,12 @@ public class MainActivity extends AbsFabActivity
         if (navigationDrawerFragment != null) {
             Song song = MusicPlayerRemote.getCurrentSong();
             if (song.id != -1) {
-                Picasso.with(this)
-                        .load(MusicUtil.getAlbumArtUri(song.albumId))
-                        .error(R.drawable.default_album_art)
-                        .placeholder(R.drawable.default_album_art)
-                        .into(navigationDrawerFragment.getAlbumArtImageView());
+                Ion.with(this)
+                        .load(MusicUtil.getAlbumArtUri(song.albumId).toString())
+                        .withBitmap()
+                        .resize(navigationDrawerFragment.getAlbumArtImageView().getWidth(), navigationDrawerFragment.getAlbumArtImageView().getHeight())
+                        .centerCrop()
+                        .intoImageView(navigationDrawerFragment.getAlbumArtImageView());
                 navigationDrawerFragment.getSongTitle().setText(song.title);
                 navigationDrawerFragment.getSongArtist().setText(song.artistName);
             }
@@ -295,10 +296,10 @@ public class MainActivity extends AbsFabActivity
     }
 
     @Override
-    public void onUIPreferenceChangedEvent(UIPreferenceChangedEvent event) {
+    public void onUIPreferenceChangedEvent(UiPreferenceChangedEvent event) {
         super.onUIPreferenceChangedEvent(event);
         switch (event.getAction()) {
-            case UIPreferenceChangedEvent.TOOLBAR_TRANSPARENT_CHANGED:
+            case UiPreferenceChangedEvent.TOOLBAR_TRANSPARENT_CHANGED:
                 setToolBarTransparent((boolean) event.getValue());
                 break;
         }

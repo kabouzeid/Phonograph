@@ -3,7 +3,6 @@ package com.kabouzeid.gramophone.ui.activities;
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
@@ -39,16 +38,16 @@ import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
+import com.kabouzeid.gramophone.model.UiPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 import com.nineoldandroids.view.ViewHelper;
 import com.squareup.otto.Subscribe;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -70,7 +69,7 @@ public class ArtistDetailActivity extends AbsFabActivity {
 
     private ObservableListView songListView;
     private View statusBar;
-    private ImageView artistIv;
+    private ImageView artistImage;
     private View songsBackgroundView;
     private TextView artistNameTv;
     private Toolbar toolbar;
@@ -93,7 +92,7 @@ public class ArtistDetailActivity extends AbsFabActivity {
             float flexibleRange = artistImageViewHeight - headerOffset;
 
             // Translate album cover
-            ViewHelper.setTranslationY(artistIv, Math.max(-artistImageViewHeight, -scrollY / 2));
+            ViewHelper.setTranslationY(artistImage, Math.max(-artistImageViewHeight, -scrollY / 2));
 
             // Translate list background
             ViewHelper.setTranslationY(songsBackgroundView, Math.max(0, -scrollY + artistImageViewHeight));
@@ -127,7 +126,8 @@ public class ArtistDetailActivity extends AbsFabActivity {
         App.bus.register(this);
 
         if (Util.hasLollipopSDK()) postponeEnterTransition();
-        if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled()) getWindow().setNavigationBarColor(Util.resolveColor(this, R.attr.default_bar_color));
+        if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled())
+            getWindow().setNavigationBarColor(Util.resolveColor(this, R.attr.default_bar_color));
 
         getIntentExtras();
         initViews();
@@ -140,7 +140,7 @@ public class ArtistDetailActivity extends AbsFabActivity {
     }
 
     private void initViews() {
-        artistIv = (ImageView) findViewById(R.id.artist_image);
+        artistImage = (ImageView) findViewById(R.id.artist_image);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         songListView = (ObservableListView) findViewById(R.id.list);
         artistNameTv = (TextView) findViewById(R.id.artist_name);
@@ -168,7 +168,7 @@ public class ArtistDetailActivity extends AbsFabActivity {
     private void setUpViews() {
         artistNameTv.setText(artist.name);
 
-        ViewUtil.addOnGlobalLayoutListener(artistIv, new Runnable() {
+        ViewUtil.addOnGlobalLayoutListener(artistImage, new Runnable() {
             @Override
             public void run() {
                 setUpArtistImageAndApplyPalette(false);
@@ -180,8 +180,8 @@ public class ArtistDetailActivity extends AbsFabActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void setNavigationBarColored(boolean colored){
-        if (colored){
+    private void setNavigationBarColored(boolean colored) {
+        if (colored) {
             if (Util.hasLollipopSDK()) getWindow().setNavigationBarColor(toolbarColor);
         } else {
             if (Util.hasLollipopSDK()) getWindow().setNavigationBarColor(Color.BLACK);
@@ -248,18 +248,30 @@ public class ArtistDetailActivity extends AbsFabActivity {
     private void setUpArtistImageAndApplyPalette(final boolean forceDownload) {
         LastFMArtistImageUrlLoader.loadArtistImageUrl(this, artist.name, forceDownload, new LastFMArtistImageUrlLoader.ArtistImageUrlLoaderCallback() {
             @Override
-            public void onArtistImageUrlLoaded(String url) {
-                Picasso.with(ArtistDetailActivity.this)
-                        .load(url)
-                        .placeholder(R.drawable.default_artist_image)
-                        .into(artistIv, new Callback.EmptyCallback() {
-                            @Override
-                            public void onSuccess() {
-                                super.onSuccess();
-                                final Bitmap bitmap = ((BitmapDrawable) artistIv.getDrawable()).getBitmap();
-                                if (bitmap != null) applyPalette(bitmap);
-                            }
-                        });
+            public void onArtistImageUrlLoaded(final String url) {
+                artistImage.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Ion.with(ArtistDetailActivity.this)
+                                .load(url)
+                                .withBitmap()
+                                .resize(artistImage.getWidth(), artistImage.getHeight())
+                                .centerCrop()
+                                .asBitmap()
+                                .setCallback(new FutureCallback<Bitmap>() {
+                                    @Override
+                                    public void onCompleted(Exception e, Bitmap result) {
+                                        if (result != null) {
+                                            artistImage.setImageBitmap(result);
+                                            applyPalette(result);
+                                        } else {
+                                            artistImage.setImageResource(R.drawable.default_artist_image);
+                                            resetColors();
+                                        }
+                                    }
+                                });
+                    }
+                });
             }
         });
     }
@@ -277,14 +289,14 @@ public class ArtistDetailActivity extends AbsFabActivity {
                     if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(ArtistDetailActivity.this).coloredNavigationBarArtistEnabled())
                         getWindow().setNavigationBarColor(swatch.getRgb());
                 } else {
-                    setStandardColors();
+                    resetColors();
                 }
             }
         });
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void setStandardColors() {
+    private void resetColors() {
         int titleTextColor = Util.resolveColor(this, R.attr.title_text_color);
         int defaultBarColor = Util.resolveColor(this, R.attr.default_bar_color);
 
@@ -292,7 +304,8 @@ public class ArtistDetailActivity extends AbsFabActivity {
         artistNameTv.setBackgroundColor(defaultBarColor);
         artistNameTv.setTextColor(titleTextColor);
 
-        if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled()) getWindow().setNavigationBarColor(Util.resolveColor(this, R.attr.default_bar_color));
+        if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled())
+            getWindow().setNavigationBarColor(Util.resolveColor(this, R.attr.default_bar_color));
     }
 
     private void setUpToolBar() {
@@ -398,9 +411,9 @@ public class ArtistDetailActivity extends AbsFabActivity {
     }
 
     @Subscribe
-    public void onUIPreferenceChanged(UIPreferenceChangedEvent event){
-        switch (event.getAction()){
-            case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_ARTIST_CHANGED:
+    public void onUIPreferenceChanged(UiPreferenceChangedEvent event) {
+        switch (event.getAction()) {
+            case UiPreferenceChangedEvent.COLORED_NAVIGATION_BAR_ARTIST_CHANGED:
                 setNavigationBarColored((boolean) event.getValue());
                 break;
         }

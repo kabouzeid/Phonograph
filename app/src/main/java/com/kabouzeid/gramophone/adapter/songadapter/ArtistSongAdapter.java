@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.adapter.songadapter;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -11,24 +10,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.helper.AddToPlaylistDialogHelper;
-import com.kabouzeid.gramophone.helper.DeleteSongsDialogHelper;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
-import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.helper.SongDetailDialogHelper;
-import com.kabouzeid.gramophone.loader.SongFilePathLoader;
-import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
-import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.squareup.picasso.Picasso;
+import com.koushikdutta.ion.Ion;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -56,10 +46,13 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> {
         songTitle.setText(song.title);
         songInfo.setText(song.albumName);
 
-        Picasso.with(activity)
-                .load(MusicUtil.getAlbumArtUri(song.albumId))
-                .placeholder(R.drawable.default_album_art)
-                .into(albumArt);
+        Ion.with(activity)
+                .load(MusicUtil.getAlbumArtUri(song.albumId).toString())
+                .withBitmap()
+                .resize(albumArt.getWidth(), albumArt.getHeight())
+                .centerCrop()
+                .error(R.drawable.default_album_art)
+                .intoImageView(albumArt);
 
         final ImageView overflowButton = (ImageView) convertView.findViewById(R.id.menu);
         overflowButton.setOnClickListener(new View.OnClickListener() {

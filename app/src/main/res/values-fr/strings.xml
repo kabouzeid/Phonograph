@@ -52,6 +52,8 @@
     <string name="label_current_playing_queue">File de lecture</string>
     <string name="close">Fermer</string>
     <string name="save_as_playlist">Sauvegarder en tant que playlist</string>
+    <string name="credits_3">Logo fourni par</string>
+    <string name="credits_1">Gramophone est un lecteur de musique matériel et entièrement gratuit créé par</string>
     <string name="title_activity_search">Dernières recherches</string>
     <string name="more">Plus</string>
     <string name="no_results">Aucun résultat</string>

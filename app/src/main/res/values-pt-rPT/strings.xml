@@ -52,7 +52,9 @@
     <string name="label_current_playing_queue">Reproduzindo lista</string>
     <string name="close">Fechar</string>
     <string name="save_as_playlist">Salvar como uma playlist</string>
-    <string name="title_activity_search">Buscar atividade</string>
+    <string name="credits_3">Ícone por</string>
+    <string name="credits_1">Gramophone é um player de música completamente grátis com Material Design feito por</string>
+    <string name="title_activity_search">Pesquisar</string>
     <string name="more">mais</string>
     <string name="no_results">Nenhum resultado</string>
     <string name="action_re_download_artist_image">Atualizar imagem do artista</string>
@@ -60,11 +62,11 @@
     <string name="updating">Atualizando...</string>
     <string name="loading">Carregando...</string>
     <string name="added_title_to_playing_queue">Adicionada uma música para a fila atual de músicas.</string>
-    <string name="added_titles_to_playing_queue_1">Adicionado</string>
+    <string name="added_titles_to_playing_queue_1">"Adicionado "</string>
     <string name="added_titles_to_playing_queue_2">" m\u00fasicas para a fila atual."</string>
     <string name="action_delete_from_playlist">Apagar da playlist</string>
-    <string name="inserted_titles_to_playlist_1">Inserido</string>
-    <string name="inserted_titles_to_playlist_2">" m\u00fasicas para playlist "</string>
+    <string name="inserted_titles_to_playlist_1">"Inserido "</string>
+    <string name="inserted_titles_to_playlist_2">" m\u00fasicas para playlist."</string>
     <string name="action_new_playlist">Nova playlist</string>
     <string name="action_grid_columns">Colunas da grade</string>
     <string name="action_grid_columns_land">Colunas da grade (Paisagem)</string>
@@ -98,4 +100,5 @@
     <string name="no_audio_id">Nenhuma identificação de áudio, reproduza algo e tente novamente.</string>
     <string name="navigation_drawer_open">Abrir área de navegação</string>
     <string name="navigation_drawer_close">Fechar área de navegação</string>
+    <string name="delete">excluir</string>
 </resources>

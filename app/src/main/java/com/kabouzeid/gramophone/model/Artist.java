@@ -5,7 +5,7 @@ import android.widget.ImageView;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistThumbnailUrlLoader;
-import com.squareup.picasso.Picasso;
+import com.koushikdutta.ion.Ion;
 
 /**
  * Created by karim on 29.12.14.
@@ -45,10 +45,19 @@ public class Artist implements SearchEntry {
         imageView.setImageResource(R.drawable.default_artist_image);
         LastFMArtistThumbnailUrlLoader.loadArtistThumbnailUrl(context, name, false, new LastFMArtistThumbnailUrlLoader.ArtistThumbnailUrlLoaderCallback() {
             @Override
-            public void onArtistThumbnailUrlLoaded(String url) {
-                Picasso.with(context)
-                        .load(url)
-                        .into(imageView);
+            public void onArtistThumbnailUrlLoaded(final String url) {
+                imageView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Ion.with(context)
+                                .load(url)
+                                .withBitmap()
+                                .resize(imageView.getWidth(), imageView.getHeight())
+                                .centerCrop()
+                                .error(R.drawable.default_artist_image)
+                                .intoImageView(imageView);
+                    }
+                });
             }
         });
     }
