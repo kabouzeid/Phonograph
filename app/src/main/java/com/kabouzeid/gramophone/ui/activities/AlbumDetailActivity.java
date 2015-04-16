@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.util.DialogUtils;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
@@ -28,7 +29,7 @@ import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.model.UiPreferenceChangedEvent;
+import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AlbumTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
@@ -41,7 +42,7 @@ import com.koushikdutta.ion.Ion;
 import com.nineoldandroids.view.ViewHelper;
 import com.squareup.otto.Subscribe;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /*
 *
@@ -52,10 +53,8 @@ import java.util.List;
 * */
 
 public class AlbumDetailActivity extends AbsFabActivity {
+
     public static final String TAG = AlbumDetailActivity.class.getSimpleName();
-
-    private App app;
-
     private Album album;
 
     private ObservableRecyclerView recyclerView;
@@ -64,12 +63,11 @@ public class AlbumDetailActivity extends AbsFabActivity {
     private View songsBackgroundView;
     private TextView albumTitleView;
     private Toolbar toolbar;
-    private int toolbarHeight;
     private int headerOffset;
     private int titleViewHeight;
     private int albumArtViewHeight;
     private int toolbarColor;
-    private SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
+    private final SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
         @Override
         public void onScrollChanged(int scrollY, boolean b, boolean b2) {
             scrollY += albumArtViewHeight + titleViewHeight;
@@ -111,7 +109,7 @@ public class AlbumDetailActivity extends AbsFabActivity {
 
         if (Util.hasLollipopSDK()) postponeEnterTransition();
         if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarAlbumEnabled())
-            getWindow().setNavigationBarColor(Util.resolveColor(this, R.attr.default_bar_color));
+            getWindow().setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
 
         Bundle intentExtras = getIntent().getExtras();
         int albumId = -1;
@@ -145,8 +143,8 @@ public class AlbumDetailActivity extends AbsFabActivity {
 
     private void setUpObservableListViewParams() {
         albumArtViewHeight = getResources().getDimensionPixelSize(R.dimen.header_image_height);
-        toolbarColor = Util.resolveColor(this, R.attr.default_bar_color);
-        toolbarHeight = Util.getActionBarSize(this);
+        toolbarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
+        int toolbarHeight = Util.getActionBarSize(this);
         titleViewHeight = getResources().getDimensionPixelSize(R.dimen.title_view_height);
         headerOffset = toolbarHeight;
         headerOffset += getResources().getDimensionPixelSize(R.dimen.statusMargin);
@@ -235,7 +233,7 @@ public class AlbumDetailActivity extends AbsFabActivity {
     }
 
     private void setUpSongsAdapter() {
-        final List<Song> songs = AlbumSongLoader.getAlbumSongList(this, album.id, new SongTrackNumberComparator());
+        final ArrayList<Song> songs = AlbumSongLoader.getAlbumSongList(this, album.id, new SongTrackNumberComparator());
         final AlbumSongAdapter albumSongAdapter = new AlbumSongAdapter(this, songs);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(albumSongAdapter);
@@ -289,8 +287,7 @@ public class AlbumDetailActivity extends AbsFabActivity {
                 startActivity(intent);
                 return true;
             case R.id.action_go_to_artist:
-                Pair[] artistPairs = null;
-                artistPairs = getSharedViewsWithFab(artistPairs);
+                Pair[] artistPairs = getSharedViewsWithFab(null);
                 NavigationUtil.goToArtist(this, album.artistId, artistPairs);
                 return true;
         }
@@ -298,9 +295,9 @@ public class AlbumDetailActivity extends AbsFabActivity {
     }
 
     @Subscribe
-    public void onUIPreferenceChanged(UiPreferenceChangedEvent event) {
+    public void onUIPreferenceChanged(UIPreferenceChangedEvent event) {
         switch (event.getAction()) {
-            case UiPreferenceChangedEvent.COLORED_NAVIGATION_BAR_ALBUM_CHANGED:
+            case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_ALBUM_CHANGED:
                 setNavigationBarColored((boolean) event.getValue());
                 break;
         }

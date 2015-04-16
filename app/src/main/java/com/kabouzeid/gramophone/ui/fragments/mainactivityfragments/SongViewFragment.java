@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -7,9 +8,10 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.songadapter.SongAdapter;
 
 /**
- * Created by karim on 29.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class SongViewFragment extends AbsMainActivityRecyclerViewFragment {
+
     public static final String TAG = SongViewFragment.class.getSimpleName();
 
     @Override
@@ -24,6 +26,6 @@ public class SongViewFragment extends AbsMainActivityRecyclerViewFragment {
 
     @Override
     protected RecyclerView.Adapter createAdapter() {
-        return new SongAdapter(getActivity());
+        return new SongAdapter((ActionBarActivity) getActivity());
     }
 }

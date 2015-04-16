@@ -8,11 +8,11 @@
     <string name="action_play_next">Reproduzir a seguir</string>
     <string name="action_add_to_playing_queue">Adicionar à fila</string>
     <string name="action_remove_from_playing_queue">Remover da fila</string>
-    <string name="action_add_to_playlist">Adicionar à playlist...</string>
+    <string name="action_add_to_playlist">Adicionar à playlist…</string>
     <string name="action_tag_editor">Editor de tags</string>
     <string name="action_delete_from_disk">Excluir da memória</string>
     <string name="action_details">Detalhes</string>
-    <string name="action_go_to">Ir para...</string>
+    <string name="action_go_to">Ir para…</string>
     <string name="albums">Álbuns</string>
     <string name="artists">Artistas</string>
     <string name="genres">Gêneros</string>
@@ -37,7 +37,7 @@
     <string name="track_hint">Faixa (2 para faixa 2 ou 3004 para CD3 faixa 4)</string>
     <string name="album_or_artist_empty">O título do álbum ou o campo de texto do artista do álbum está vazio.</string>
     <string name="writing_file_number">Escrevendo artista</string>
-    <string name="saving_changes">Salvando alterações...</string>
+    <string name="saving_changes">Salvando alterações…</string>
     <string name="label_details">Detalhes</string>
     <string name="label_file_name">Nome do arquivo</string>
     <string name="label_file_path">Local do arquivo</string>
@@ -59,8 +59,8 @@
     <string name="no_results">Nenhum resultado</string>
     <string name="action_re_download_artist_image">Atualizar imagem do artista</string>
     <string name="updated_artist_image_for">Imagem do artista atualizada para</string>
-    <string name="updating">Atualizando...</string>
-    <string name="loading">Carregando...</string>
+    <string name="updating">Atualizando…</string>
+    <string name="loading">Carregando…</string>
     <string name="added_title_to_playing_queue">Adicionada uma música para a fila atual de músicas.</string>
     <string name="added_titles_to_playing_queue_1">"Adicionado "</string>
     <string name="added_titles_to_playing_queue_2">" m\u00fasicas para a fila atual."</string>

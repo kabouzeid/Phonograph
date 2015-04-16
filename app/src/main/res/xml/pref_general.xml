@@ -1,7 +1,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        android:title="@string/pref_header_general">
+    <com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory android:title="@string/pref_header_general">
+
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:defaultValue="-1"
             android:entries="@array/pref_start_page_list_titles"
@@ -9,7 +9,9 @@
             android:key="default_start_page"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
-            android:title="@string/pref_title_set_default_start_page"/>
-    </PreferenceCategory>
+            android:layout="@layout/preference_custom"
+            android:title="@string/pref_title_set_default_start_page" />
+
+    </com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory>
 
 </PreferenceScreen>

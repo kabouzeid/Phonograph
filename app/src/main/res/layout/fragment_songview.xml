@@ -13,5 +13,6 @@
         android:clipToPadding="false"
         android:dividerHeight="0px"
         android:divider="@null"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical" />
+
 </LinearLayout>

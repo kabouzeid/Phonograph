@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.util;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,24 +10,19 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 /**
- * Created by karim on 22.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public final class InternalStorageUtil {
-    private static final String TAG = InternalStorageUtil.class.getSimpleName();
 
     public static synchronized void writeObject(final Context context, final String key, final Object object) throws IOException {
-        try {
-            String tempFileName = "TEMP_" + key;
-            FileOutputStream fos;
-            fos = context.openFileOutput(tempFileName, Context.MODE_PRIVATE);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(object);
-            oos.close();
-            fos.close();
-            renameAppFile(context, tempFileName, key);
-        } catch (IOException e) {
-            Log.e(TAG, "Writing Object to internal storage failed! Maybe the Object is not serializable?", e);
-        }
+        String tempFileName = "TEMP_" + key;
+        FileOutputStream fos;
+        fos = context.openFileOutput(tempFileName, Context.MODE_PRIVATE);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(object);
+        oos.close();
+        fos.close();
+        renameAppFile(context, tempFileName, key);
     }
 
     public static synchronized void renameAppFile(final Context context, String originalFileName, String newFileName) {

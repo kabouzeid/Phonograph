@@ -1,5 +1,7 @@
 package com.kabouzeid.gramophone.ui.activities;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,25 +20,34 @@ import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.Util;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class PlaylistDetailActivity extends AbsFabActivity {
+
     public static final String TAG = PlaylistDetailActivity.class.getSimpleName();
-    private RecyclerView recyclerView;
     private Playlist playlist;
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setUpTranslucence(false, false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_detail);
 
-        getIntentExtras();
-        setUpToolBar();
+        final int primary = PreferenceUtils.getInstance(this).getThemeColorPrimary();
+        final int primaryDark = PreferenceUtils.getInstance(this).getThemeColorPrimaryDarker();
+        if (Util.hasLollipopSDK()) {
+            getWindow().setStatusBarColor(primaryDark);
+            getWindow().setNavigationBarColor(primaryDark);
+        }
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        final List<PlaylistSong> songs = PlaylistSongLoader.getPlaylistSongList(this, playlist.id);
+        getIntentExtras();
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        final ArrayList<PlaylistSong> songs = PlaylistSongLoader.getPlaylistSongList(this, playlist.id);
         final PlaylistSongAdapter adapter = new PlaylistSongAdapter(this, songs);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(adapter);
@@ -57,6 +68,12 @@ public class PlaylistDetailActivity extends AbsFabActivity {
         recyclerView.addItemDecoration(dragSortRecycler);
         recyclerView.addOnItemTouchListener(dragSortRecycler);
         recyclerView.setOnScrollListener(dragSortRecycler.getScrollListener());
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(primary);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(playlist.name);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void getIntentExtras() {
@@ -66,12 +83,6 @@ public class PlaylistDetailActivity extends AbsFabActivity {
         if (playlist == null) {
             finish();
         }
-    }
-
-    private void setUpToolBar() {
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-        getSupportActionBar().setTitle(playlist.name);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

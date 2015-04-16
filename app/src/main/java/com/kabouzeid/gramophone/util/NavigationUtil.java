@@ -7,12 +7,12 @@ import android.media.audiofx.AudioEffect;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
+import android.support.v7.app.ActionBarActivity;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.dialogs.PlayingQueueDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.helper.PlayingQueueDialogHelper;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity;
@@ -21,7 +21,7 @@ import com.kabouzeid.gramophone.ui.activities.MusicControllerActivity;
 import com.kabouzeid.gramophone.ui.activities.PlaylistDetailActivity;
 
 /**
- * Created by karim on 12.03.15.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class NavigationUtil {
     public static void goToArtist(final Activity activity, final int artistId, final Pair[] sharedViews) {
@@ -34,7 +34,7 @@ public class NavigationUtil {
             final Intent intent = new Intent(activity, ArtistDetailActivity.class);
             intent.putExtra(AppKeys.E_ARTIST, artistId);
             if (sharedViews != null) {
-                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+                @SuppressWarnings("unchecked") ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
                         sharedViews
                 );
                 ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
@@ -54,7 +54,7 @@ public class NavigationUtil {
             final Intent intent = new Intent(activity, AlbumDetailActivity.class);
             intent.putExtra(AppKeys.E_ALBUM, albumId);
             if (sharedViews != null) {
-                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+                @SuppressWarnings("unchecked") ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
                         sharedViews
                 );
                 ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
@@ -71,7 +71,7 @@ public class NavigationUtil {
             final Intent intent = new Intent(activity, PlaylistDetailActivity.class);
             intent.putExtra(AppKeys.E_PLAYLIST, playlistId);
             if (sharedViews != null) {
-                ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+                @SuppressWarnings("unchecked") ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
                         sharedViews
                 );
                 ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
@@ -92,7 +92,7 @@ public class NavigationUtil {
                     ((KabViewsDisableAble) activity).disableViews();
                 Intent intent = new Intent(activity, MusicControllerActivity.class);
                 if (sharedViews != null) {
-                    ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+                    @SuppressWarnings("unchecked") ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
                             sharedViews
                     );
                     ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
@@ -105,10 +105,10 @@ public class NavigationUtil {
         }
     }
 
-    public static void openPlayingQueueDialog(final Activity activity) {
-        final MaterialDialog materialDialog = PlayingQueueDialogHelper.getDialog(activity);
-        if (materialDialog != null) {
-            materialDialog.show();
+    public static void openPlayingQueueDialog(final ActionBarActivity activity) {
+        PlayingQueueDialog dialog = PlayingQueueDialog.create();
+        if (dialog != null) {
+            dialog.show(activity.getSupportFragmentManager(), "PLAY_QUEUE");
         } else {
             Toast.makeText(activity, activity.getResources().getString(R.string.nothing_playing), Toast.LENGTH_SHORT).show();
         }

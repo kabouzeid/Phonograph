@@ -11,22 +11,21 @@ import com.kabouzeid.gramophone.util.PreferenceUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 /**
- * Created by karim on 29.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class AlbumSongLoader {
 
-    public static List<Song> getAlbumSongList(final Context context, final int albumId, Comparator<Song> comparator) {
-        List<Song> songs = getAlbumSongList(context, albumId);
+    public static ArrayList<Song> getAlbumSongList(final Context context, final int albumId, Comparator<Song> comparator) {
+        ArrayList<Song> songs = getAlbumSongList(context, albumId);
         Collections.sort(songs, comparator);
         return songs;
     }
 
-    public static List<Song> getAlbumSongList(final Context context, final int albumId) {
+    public static ArrayList<Song> getAlbumSongList(final Context context, final int albumId) {
         Cursor cursor = makeAlbumSongCursor(context, albumId);
-        List<Song> songs = new ArrayList<>();
+        ArrayList<Song> songs = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 final int id = cursor.getInt(0);
@@ -48,11 +47,7 @@ public class AlbumSongLoader {
         return songs;
     }
 
-    public static final Cursor makeAlbumSongCursor(final Context context, final int albumId) {
-        final StringBuilder selection = new StringBuilder();
-        selection.append(MediaStore.Audio.AudioColumns.IS_MUSIC + "=1");
-        selection.append(" AND " + MediaStore.Audio.AudioColumns.TITLE + " != ''");
-        selection.append(" AND " + MediaStore.Audio.AudioColumns.ALBUM_ID + "=" + albumId);
+    public static Cursor makeAlbumSongCursor(final Context context, final int albumId) {
         return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 new String[]{
                         /* 0 */
@@ -69,6 +64,9 @@ public class AlbumSongLoader {
                         MediaStore.Audio.AudioColumns.TRACK,
                         /* 6 */
                         MediaStore.Audio.AudioColumns.ARTIST_ID
-                }, selection.toString(), null, PreferenceUtils.getInstance(context).getAlbumSongSortOrder());
+                }, (MediaStore.Audio.AudioColumns.IS_MUSIC + "=1") + " AND " +
+                        MediaStore.Audio.AudioColumns.TITLE + " != ''" + " AND " +
+                        MediaStore.Audio.AudioColumns.ALBUM_ID + "=" + albumId, null,
+                PreferenceUtils.getInstance(context).getAlbumSongSortOrder());
     }
 }

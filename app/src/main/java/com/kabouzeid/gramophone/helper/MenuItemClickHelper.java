@@ -1,11 +1,15 @@
 package com.kabouzeid.gramophone.helper;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.util.Pair;
+import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
+import com.kabouzeid.gramophone.dialogs.DeletePlaylistDialog;
+import com.kabouzeid.gramophone.dialogs.RenamePlaylistDialog;
+import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.Playlist;
@@ -17,16 +21,17 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import java.io.File;
 
 /**
- * Created by karim on 11.04.15.
+ * @author Karim Abou Zeid (kabouzeid), Aidan Follestad (afollestad)
  */
 public class MenuItemClickHelper {
-    public static boolean handleSongMenuClick(Activity activity, Song song, MenuItem item){
+
+    public static boolean handleSongMenuClick(ActionBarActivity activity, Song song, MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_delete_from_disk:
                 DeleteSongsDialogHelper.getDialog(activity, song).show();
                 return true;
             case R.id.action_add_to_playlist:
-                AddToPlaylistDialogHelper.getDialog(activity, song).show();
+                AddToPlaylistDialog.create(song).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");
                 return true;
             case R.id.action_play_next:
                 MusicPlayerRemote.playNext(song);
@@ -42,31 +47,31 @@ public class MenuItemClickHelper {
             case R.id.action_details:
                 String songFilePath = SongFilePathLoader.getSongFilePath(activity, song.id);
                 File songFile = new File(songFilePath);
-                SongDetailDialogHelper.getDialog(activity, songFile).show();
+                SongDetailDialog.create(songFile).show(activity.getSupportFragmentManager(), "SONG_DETAILS");
                 return true;
             case R.id.action_go_to_album:
                 Pair[] albumPairs = null;
                 if (activity instanceof AbsFabActivity)
-                    albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(albumPairs);
+                    albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(null);
                 NavigationUtil.goToAlbum(activity, song.albumId, albumPairs);
                 return true;
             case R.id.action_go_to_artist:
                 Pair[] artistPairs = null;
                 if (activity instanceof AbsFabActivity)
-                    artistPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(artistPairs);
+                    artistPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(null);
                 NavigationUtil.goToArtist(activity, song.artistId, artistPairs);
                 return true;
         }
         return false;
     }
 
-    public static boolean handlePlaylistMenuClick(Activity activity, Playlist playlist, MenuItem item){
+    public static boolean handlePlaylistMenuClick(ActionBarActivity activity, Playlist playlist, MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_rename_playlist:
-                RenamePlaylistDialogHelper.getDialog(activity, playlist.id).show();
+                RenamePlaylistDialog.create(playlist.id).show(activity.getSupportFragmentManager(), "RENAME_PLAYLIST");
                 return true;
             case R.id.action_delete_playlist:
-                DeletePlaylistDialogHelper.getDialog(activity, playlist.id).show();
+                DeletePlaylistDialog.create(playlist.id).show(activity.getSupportFragmentManager(), "DELETE_PLAYLIST");
                 return true;
         }
         return false;

@@ -11,9 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by karim on 23.03.15.
+ * @author Karim Abou Zeid (kabouzeid), Aidan Follestad (afollestad)
  */
 public class DeleteSongsDialogHelper {
+
     public static MaterialDialog getDialog(final Context context, final Song song) {
         List<Song> tmpList = new ArrayList<>();
         tmpList.add(song);
@@ -27,7 +28,7 @@ public class DeleteSongsDialogHelper {
                 .title(title)
                 .content(context.getResources().getString(R.string.delete_warning))
                 .positiveText(context.getResources().getString(R.string.delete))
-                .negativeText(context.getResources().getString(R.string.cancel))
+                .negativeText(context.getResources().getString(android.R.string.cancel))
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {

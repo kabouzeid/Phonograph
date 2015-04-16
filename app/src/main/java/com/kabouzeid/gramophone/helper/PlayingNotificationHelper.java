@@ -1,7 +1,7 @@
 package com.kabouzeid.gramophone.helper;
 
 /**
- * Created by karim on 27.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 
 import android.app.Notification;
@@ -25,6 +25,7 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 public class PlayingNotificationHelper {
+
     public static final String TAG = PlayingNotificationHelper.class.getSimpleName();
     public static final int NOTIFICATION_ID = 1337;
 

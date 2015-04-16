@@ -5,7 +5,7 @@ import com.kabouzeid.gramophone.model.Song;
 import java.util.Comparator;
 
 /**
- * Created by karim on 28.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class SongAlphabeticComparator implements Comparator<Song> {
     @Override

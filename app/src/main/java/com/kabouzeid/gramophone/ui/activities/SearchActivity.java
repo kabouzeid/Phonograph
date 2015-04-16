@@ -29,6 +29,7 @@ import com.kabouzeid.gramophone.model.SearchEntry;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 
 import java.util.ArrayList;
@@ -48,9 +49,11 @@ public class SearchActivity extends AbsBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        final int primary = PreferenceUtils.getInstance(this).getThemeColorPrimary();
+        final int primaryDark = PreferenceUtils.getInstance(this).getThemeColorPrimaryDarker();
         if (Util.hasLollipopSDK()) {
-            getWindow().setStatusBarColor(Util.resolveColor(this, R.attr.colorPrimaryDark));
-            getWindow().setNavigationBarColor(Util.resolveColor(this, R.attr.colorPrimaryDark));
+            getWindow().setStatusBarColor(primaryDark);
+            getWindow().setNavigationBarColor(primaryDark);
         }
 
         listView = (ListView) findViewById(R.id.list);
@@ -60,7 +63,7 @@ public class SearchActivity extends AbsBaseActivity {
                 Object item = parent.getItemAtPosition(position);
                 if (item instanceof SearchEntry) {
                     if (item instanceof Song) {
-                        List<Song> playList = new ArrayList<>();
+                        ArrayList<Song> playList = new ArrayList<>();
                         playList.add((Song) item);
                         MusicPlayerRemote.openQueue(playList, 0, true);
                     } else if (item instanceof Album) {
@@ -95,7 +98,9 @@ public class SearchActivity extends AbsBaseActivity {
             }
         });
 
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(primary);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -164,10 +169,7 @@ public class SearchActivity extends AbsBaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
     private void search(String query) {
@@ -201,7 +203,7 @@ public class SearchActivity extends AbsBaseActivity {
 
 
     public static class LabelEntry implements SearchEntry {
-        String title;
+        final String title;
         String label;
 
         public LabelEntry(String label) {

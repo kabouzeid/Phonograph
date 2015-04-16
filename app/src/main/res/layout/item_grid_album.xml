@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="2dp"
@@ -12,14 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UnusedAttribute,UselessParent">
 
         <com.kabouzeid.gramophone.ui.widget.SquareImageView
             android:id="@+id/album_art"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:transitionName="@string/transition_album_cover"/>
+            android:transitionName="@string/transition_album_cover" />
 
         <LinearLayout
             android:id="@+id/footer"
@@ -37,7 +38,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="?title_text_color"/>
+                android:textColor="?title_text_color" />
 
             <TextView
                 android:id="@+id/album_interpret"
@@ -46,8 +47,10 @@
                 android:fontFamily="sans-serif"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="?caption_text_color"/>
+                android:textColor="?caption_text_color" />
+
         </LinearLayout>
 
     </LinearLayout>
+
 </FrameLayout>

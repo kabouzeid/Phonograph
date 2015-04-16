@@ -81,9 +81,9 @@ public class AlbumJSONStore extends SQLiteOpenHelper {
     }
 
     public interface AlbumJSONColumns {
-        public static final String NAME = "AlbumJSON";
-        public static final String ALBUMANDARTIST_NAME = "AlbumAndArtistName";
-        public static final String JSON = "JSON";
+        String NAME = "AlbumJSON";
+        String ALBUMANDARTIST_NAME = "AlbumAndArtistName";
+        String JSON = "JSON";
     }
 
     @Override

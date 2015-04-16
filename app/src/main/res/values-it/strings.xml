@@ -12,7 +12,7 @@
     <string name="action_tag_editor">Modifica tag</string>
     <string name="action_delete_from_disk">Elimina</string>
     <string name="action_details">Dettagli</string>
-    <string name="action_go_to">Vai a...</string>
+    <string name="action_go_to">Vai a…</string>
     <string name="albums">Album</string>
     <string name="artists">Artisti</string>
     <string name="genres">Generi</string>
@@ -57,7 +57,7 @@
     <string name="no_results">Nessun risultato</string>
     <string name="action_re_download_artist_image">Aggiorna immagine artista</string>
     <string name="updated_artist_image_for">Aggiorna immagine artista per</string>
-    <string name="updating">Aggiornando...</string>
+    <string name="updating">Aggiornando…</string>
     <string name="loading">Caricando..</string>
     <string name="added_title_to_playing_queue">Aggiunto un brano alla coda.</string>
     <string name="added_titles_to_playing_queue_1">Aggiunto</string>

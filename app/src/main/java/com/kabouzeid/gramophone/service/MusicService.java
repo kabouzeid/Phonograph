@@ -38,7 +38,6 @@ import com.koushikdutta.ion.Ion;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener, AudioManager.OnAudioFocusChangeListener {
     public static final String ACTION_TOGGLE_PLAYBACK = "com.kabouzeid.gramophone.action.TOGGLE_PLAYBACK";
@@ -66,8 +65,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         }
     };
     private MediaPlayer player;
-    private List<Song> playingQueue;
-    private List<Song> originalPlayingQueue;
+    private ArrayList<Song> playingQueue;
+    private ArrayList<Song> originalPlayingQueue;
     private int currentSongId = -1;
     private int position = -1;
     private int shuffleMode;
@@ -384,7 +383,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         playingNotificationHelper.buildNotification(playingQueue.get(position), isPlaying());
     }
 
-    private void updateWidgets(){
+    private void updateWidgets() {
         MusicPlayerWidget.updateWidgets(this, playingQueue.get(position), isPlaying());
     }
 
@@ -425,7 +424,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         return getPosition() == getPlayingQueue().size() - 1;
     }
 
-    public List<Song> getPlayingQueue() {
+    public ArrayList<Song> getPlayingQueue() {
         return playingQueue;
     }
 
@@ -468,7 +467,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         savePosition();
     }
 
-    public void openQueue(final List<Song> playingQueue, final int startPosition, final boolean startPlaying) {
+    public void openQueue(final ArrayList<Song> playingQueue, final int startPosition, final boolean startPlaying) {
         if (playingQueue != null && !playingQueue.isEmpty() && startPosition >= 0 && startPosition < playingQueue.size()) {
             originalPlayingQueue = playingQueue;
             this.playingQueue = new ArrayList<>(originalPlayingQueue);
@@ -507,7 +506,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         }
     }
 
-    public void restorePreviousState(final List<Song> originalPlayingQueue, final List<Song> playingQueue, int position) {
+    public void restorePreviousState(final ArrayList<Song> originalPlayingQueue, final ArrayList<Song> playingQueue, int position) {
         this.originalPlayingQueue = originalPlayingQueue;
         this.playingQueue = playingQueue;
         this.position = position;
@@ -765,6 +764,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public int getAudioSessionId() {
+        if (player == null)
+            return AudioEffect.ERROR_BAD_VALUE;
         return player.getAudioSessionId();
     }
 

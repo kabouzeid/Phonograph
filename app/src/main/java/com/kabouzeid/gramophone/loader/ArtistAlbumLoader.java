@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by karim on 04.01.15.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class ArtistAlbumLoader {
     public static List<Album> getArtistAlbumList(final Context context, final int artistId) {

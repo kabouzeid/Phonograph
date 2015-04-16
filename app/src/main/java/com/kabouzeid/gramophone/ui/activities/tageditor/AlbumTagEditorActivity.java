@@ -33,7 +33,6 @@ import java.util.Map;
 public class AlbumTagEditorActivity extends AbsTagEditorActivity implements TextWatcher {
     public static final String TAG = AlbumTagEditorActivity.class.getSimpleName();
 
-    private File albumArtFile;
     private Bitmap albumArtBitmap;
     private boolean deleteAlbumArt;
 
@@ -150,13 +149,9 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
         fieldKeyValueMap.put(FieldKey.GENRE, genreName.getText().toString());
         fieldKeyValueMap.put(FieldKey.YEAR, year.getText().toString());
 
-        try {
-            albumArtFile = MusicUtil.getAlbumArtFile(this, String.valueOf(getId()));
-        } catch (IOException e) {
-            Log.e(TAG, "error while creating albumArtFile", e);
-        }
+        File albumArtFile = MusicUtil.getAlbumArtFile(String.valueOf(getId()));
 
-        if (albumArtBitmap != null && albumArtFile != null) {
+        if (albumArtBitmap != null) {
             try {
                 albumArtBitmap.compress(Bitmap.CompressFormat.PNG, 0, new FileOutputStream(albumArtFile));
                 artwork = ArtworkFactory.createArtworkFromFile(albumArtFile);

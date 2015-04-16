@@ -6,18 +6,18 @@ import android.widget.ImageView;
 import java.io.Serializable;
 
 /**
- * Created by karim on 23.11.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class Song implements Serializable, SearchEntry {
 
     public int id;
-    public int albumId;
-    public int artistId;
-    public String title;
-    public String artistName;
-    public String albumName;
-    public long duration;
-    public int trackNumber;
+    public final int albumId;
+    public final int artistId;
+    public final String title;
+    public final String artistName;
+    public final String albumName;
+    public final long duration;
+    public final int trackNumber;
 
     public Song(final int id, final int albumId, final int artistId, final String title, final String artistName,
                 final String albumName, final long duration, final int trackNumber) {

@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.adapter;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,31 +9,24 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.afollestad.materialdialogs.util.DialogUtils;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.helper.AddToPlaylistDialogHelper;
-import com.kabouzeid.gramophone.helper.DeleteSongsDialogHelper;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.helper.SongDetailDialogHelper;
-import com.kabouzeid.gramophone.loader.SongFilePathLoader;
-import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
-import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
 
-import java.io.File;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
- * Created by karim on 24.01.15.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class PlayingQueueAdapter extends ArrayAdapter<Song> {
-    private Activity activity;
 
-    public PlayingQueueAdapter(Activity activity, List<Song> playList) {
+    private final ActionBarActivity activity;
+
+    public PlayingQueueAdapter(ActionBarActivity activity, ArrayList<Song> playList) {
         super(activity, R.layout.item_list_playlist_song, playList);
         this.activity = activity;
     }
@@ -52,7 +44,7 @@ public class PlayingQueueAdapter extends ArrayAdapter<Song> {
         title.setText(song.title);
         if (MusicPlayerRemote.getPosition() == position) {
             playingIndicator.setVisibility(View.VISIBLE);
-            playingIndicator.setImageDrawable(Util.getTintedDrawable(getContext().getResources(), R.drawable.ic_speaker_white_48dp, Util.resolveColor(getContext(), R.attr.themed_drawable_color)));
+            playingIndicator.setImageDrawable(Util.getTintedDrawable(getContext(), R.drawable.ic_speaker_white_48dp, DialogUtils.resolveColor(getContext(), R.attr.themed_drawable_color)));
         } else {
             playingIndicator.setVisibility(View.GONE);
         }
@@ -65,7 +57,7 @@ public class PlayingQueueAdapter extends ArrayAdapter<Song> {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        if(item.getItemId() == R.id.action_remove_from_playing_queue) {
+                        if (item.getItemId() == R.id.action_remove_from_playing_queue) {
                             MusicPlayerRemote.removeFromQueue(position);
                             notifyDataSetChanged();
                             return true;

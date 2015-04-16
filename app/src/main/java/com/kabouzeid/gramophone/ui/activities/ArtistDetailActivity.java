@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.util.DialogUtils;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
@@ -38,7 +39,7 @@ import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.model.UiPreferenceChangedEvent;
+import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
@@ -49,6 +50,7 @@ import com.koushikdutta.ion.Ion;
 import com.nineoldandroids.view.ViewHelper;
 import com.squareup.otto.Subscribe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -73,7 +75,6 @@ public class ArtistDetailActivity extends AbsFabActivity {
     private View songsBackgroundView;
     private TextView artistNameTv;
     private Toolbar toolbar;
-    private int toolbarHeight;
     private int headerOffset;
     private int titleViewHeight;
     private int artistImageViewHeight;
@@ -84,7 +85,7 @@ public class ArtistDetailActivity extends AbsFabActivity {
 
     private Spanned biography;
 
-    private SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
+    private final SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
         @Override
         public void onScrollChanged(int scrollY, boolean b, boolean b2) {
             scrollY += artistImageViewHeight + titleViewHeight;
@@ -127,7 +128,7 @@ public class ArtistDetailActivity extends AbsFabActivity {
 
         if (Util.hasLollipopSDK()) postponeEnterTransition();
         if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled())
-            getWindow().setNavigationBarColor(Util.resolveColor(this, R.attr.default_bar_color));
+            getWindow().setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
 
         getIntentExtras();
         initViews();
@@ -153,8 +154,8 @@ public class ArtistDetailActivity extends AbsFabActivity {
 
     private void setUpObservableListViewParams() {
         artistImageViewHeight = getResources().getDimensionPixelSize(R.dimen.header_image_height);
-        toolbarColor = Util.resolveColor(this, R.attr.default_bar_color);
-        toolbarHeight = Util.getActionBarSize(this);
+        toolbarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
+        int toolbarHeight = Util.getActionBarSize(this);
         titleViewHeight = getResources().getDimensionPixelSize(R.dimen.title_view_height);
         headerOffset = toolbarHeight;
         headerOffset += getResources().getDimensionPixelSize(R.dimen.statusMargin);
@@ -193,7 +194,7 @@ public class ArtistDetailActivity extends AbsFabActivity {
         songListView.setPadding(0, artistImageViewHeight + titleViewHeight, 0, 0);
         songListView.addHeaderView(songListHeader);
 
-        final List<Song> songs = ArtistSongLoader.getArtistSongList(this, artist.id);
+        final ArrayList<Song> songs = ArtistSongLoader.getArtistSongList(this, artist.id);
         ArtistSongAdapter songAdapter = new ArtistSongAdapter(this, songs);
         songListView.setAdapter(songAdapter);
 
@@ -242,6 +243,7 @@ public class ArtistDetailActivity extends AbsFabActivity {
         return new MaterialDialog.Builder(ArtistDetailActivity.this)
                 .title(artist.name)
                 .content(biography)
+                .positiveText(android.R.string.ok)
                 .build();
     }
 
@@ -297,15 +299,15 @@ public class ArtistDetailActivity extends AbsFabActivity {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void resetColors() {
-        int titleTextColor = Util.resolveColor(this, R.attr.title_text_color);
-        int defaultBarColor = Util.resolveColor(this, R.attr.default_bar_color);
+        int titleTextColor = DialogUtils.resolveColor(this, R.attr.title_text_color);
+        int defaultBarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
 
         toolbarColor = defaultBarColor;
         artistNameTv.setBackgroundColor(defaultBarColor);
         artistNameTv.setTextColor(titleTextColor);
 
         if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled())
-            getWindow().setNavigationBarColor(Util.resolveColor(this, R.attr.default_bar_color));
+            getWindow().setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
     }
 
     private void setUpToolBar() {
@@ -411,9 +413,9 @@ public class ArtistDetailActivity extends AbsFabActivity {
     }
 
     @Subscribe
-    public void onUIPreferenceChanged(UiPreferenceChangedEvent event) {
+    public void onUIPreferenceChanged(UIPreferenceChangedEvent event) {
         switch (event.getAction()) {
-            case UiPreferenceChangedEvent.COLORED_NAVIGATION_BAR_ARTIST_CHANGED:
+            case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_ARTIST_CHANGED:
                 setNavigationBarColored((boolean) event.getValue());
                 break;
         }

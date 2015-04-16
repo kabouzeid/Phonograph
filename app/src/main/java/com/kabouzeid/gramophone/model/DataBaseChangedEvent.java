@@ -1,7 +1,7 @@
 package com.kabouzeid.gramophone.model;
 
 /**
- * Created by karim on 17.03.15.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class DataBaseChangedEvent {
     public static final int PLAYLISTS_CHANGED = 0;
@@ -10,7 +10,7 @@ public class DataBaseChangedEvent {
     public static final int SONGS_CHANGED = 3;
     public static final int DATABASE_CHANGED = 4;
 
-    private int action;
+    private final int action;
 
     public DataBaseChangedEvent(int action) {
         this.action = action;

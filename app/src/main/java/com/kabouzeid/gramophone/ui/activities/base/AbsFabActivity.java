@@ -1,5 +1,7 @@
 package com.kabouzeid.gramophone.ui.activities.base;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
 import android.util.Log;
@@ -8,8 +10,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.ThemeSingleton;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.dialogs.ColorChooserDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.misc.SmallOnGestureListener;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
@@ -19,14 +23,14 @@ import com.melnykov.fab.FloatingActionButton;
 import com.squareup.otto.Subscribe;
 
 /**
- * Created by karim on 22.01.15.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public abstract class AbsFabActivity extends AbsBaseActivity {
     public static final String TAG = AbsFabActivity.class.getSimpleName();
 
     private FloatingActionButton fab;
     private PlayPauseDrawable playPauseDrawable;
-    private Object busEventListener = new Object() {
+    private final Object busEventListener = new Object() {
         @Subscribe
         public void onBusEvent(MusicRemoteEvent event) {
             onMusicRemoteEvent(event);
@@ -49,6 +53,17 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
         }
 
         getFab().setImageDrawable(playPauseDrawable);
+        final int accentColor = ThemeSingleton.get().positiveColor;
+        if (accentColor == Color.WHITE) {
+            getFab().setColorNormal(accentColor);
+            getFab().setColorPressed(ColorChooserDialog.shiftColorDown(accentColor));
+            getFab().getDrawable().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+        } else {
+            getFab().setColorNormal(accentColor);
+            getFab().setColorPressed(ColorChooserDialog.shiftColorUp(accentColor));
+            getFab().getDrawable().clearColorFilter();
+        }
+
         updateFabState();
         final GestureDetector gestureDetector = new GestureDetector(this, new SmallOnGestureListener() {
             @Override
@@ -111,9 +126,7 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
         Pair[] sharedViewsWithFab;
         if (sharedViews != null) {
             sharedViewsWithFab = new Pair[sharedViews.length + 1];
-            for (int i = 0; i < sharedViews.length; i++) {
-                sharedViewsWithFab[i] = sharedViews[i];
-            }
+            System.arraycopy(sharedViews, 0, sharedViewsWithFab, 0, sharedViews.length);
         } else {
             sharedViewsWithFab = new Pair[1];
         }
@@ -134,7 +147,7 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
         }
     }
 
-    public void onMusicRemoteEvent(MusicRemoteEvent event) {
+    protected void onMusicRemoteEvent(MusicRemoteEvent event) {
         switch (event.getAction()) {
             case MusicRemoteEvent.PLAY:
                 setFabPause();

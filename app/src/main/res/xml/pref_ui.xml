@@ -1,6 +1,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory
-        android:title="@string/pref_header_ui">
+
+    <com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory android:title="@string/pref_header_ui">
+
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:defaultValue="0"
             android:entries="@array/pref_general_theme_list_titles"
@@ -8,32 +9,54 @@
             android:key="general_theme"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
-            android:title="@string/pref_title_general_theme"/>
+            android:layout="@layout/preference_custom"
+            android:title="@string/pref_title_general_theme" />
+
+        <com.kabouzeid.gramophone.prefs.ColorChooserPreference
+            android:key="primary_color"
+            android:title="@string/primary_color"
+            android:summary="@string/primary_color_desc" />
+
+        <com.kabouzeid.gramophone.prefs.ColorChooserPreference
+            android:key="accent_color"
+            android:title="@string/accent_color"
+            android:summary="@string/accent_color_desc" />
 
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="transparent_toolbar"
-            android:title="@string/pref_title_transparent_toolbar"/>
+            android:title="@string/pref_title_transparent_toolbar"
+            android:layout="@layout/preference_custom"
+            android:widgetLayout="@layout/preference_dynamiccheckbox" />
 
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="playback_controller_card"
-            android:title="@string/pref_title_show_playback_controller_card"/>
+            android:title="@string/pref_title_show_playback_controller_card"
+            android:layout="@layout/preference_custom"
+            android:widgetLayout="@layout/preference_dynamiccheckbox" />
 
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="colored_navigation_bar_artist"
-            android:title="@string/pref_title_colored_navigation_bar_artists"/>
+            android:title="@string/pref_title_colored_navigation_bar_artists"
+            android:layout="@layout/preference_custom"
+            android:widgetLayout="@layout/preference_dynamiccheckbox" />
 
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="colored_navigation_bar_album"
-            android:title="@string/pref_title_colored_navigation_bar_albums"/>
+            android:title="@string/pref_title_colored_navigation_bar_albums"
+            android:layout="@layout/preference_custom"
+            android:widgetLayout="@layout/preference_dynamiccheckbox" />
 
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="colored_album_footers"
-            android:title="@string/pref_title_colored_album_footers"/>
-    </PreferenceCategory>
+            android:title="@string/pref_title_colored_album_footers"
+            android:layout="@layout/preference_custom"
+            android:widgetLayout="@layout/preference_dynamiccheckbox" />
+
+    </com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory>
 
 </PreferenceScreen>

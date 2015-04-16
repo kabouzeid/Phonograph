@@ -1,7 +1,7 @@
 package com.kabouzeid.gramophone.adapter;
 
-import android.app.Activity;
 import android.support.v4.util.Pair;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -24,14 +24,15 @@ import com.squareup.otto.Subscribe;
 import java.util.List;
 
 /**
- * Created by karim on 16.03.15.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHolder> {
+
     public static final String TAG = PlaylistAdapter.class.getSimpleName();
-    protected Activity activity;
+    protected final ActionBarActivity activity;
     protected List<Playlist> dataSet;
 
-    public PlaylistAdapter(Activity activity) {
+    public PlaylistAdapter(ActionBarActivity activity) {
         this.activity = activity;
         loadDataSet();
     }
@@ -57,8 +58,8 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView playlistName;
-        private ImageView menu;
+        public final TextView playlistName;
+        private final ImageView menu;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -73,7 +74,8 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
-                            return MenuItemClickHelper.handlePlaylistMenuClick(activity, dataSet.get(getAdapterPosition()), item);
+                            return MenuItemClickHelper.handlePlaylistMenuClick(
+                                    activity, dataSet.get(getAdapterPosition()), item);
                         }
                     });
                     popupMenu.show();

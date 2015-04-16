@@ -16,12 +16,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by karim on 24.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class LastFMArtistInfoUtil {
-    public static final String TAG = LastFMArtistInfoUtil.class.getSimpleName();
 
-    private static String AUTO_CORRECT = "1";
+    public static final String TAG = LastFMArtistInfoUtil.class.getSimpleName();
+    @SuppressWarnings("FieldCanBeLocal")
+    private static final String AUTO_CORRECT = "1";
 
     public static String getArtistUrl(String artist) {
         if (artist != null) {

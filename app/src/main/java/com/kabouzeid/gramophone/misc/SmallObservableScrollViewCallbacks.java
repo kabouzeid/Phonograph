@@ -4,7 +4,7 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCal
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 
 /**
- * Created by karim on 20.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class SmallObservableScrollViewCallbacks implements ObservableScrollViewCallbacks {
     @Override

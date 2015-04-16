@@ -25,10 +25,10 @@ import com.squareup.otto.Subscribe;
 import java.util.List;
 
 /**
- * Created by karim on 29.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder> {
-    protected Activity activity;
+    protected final Activity activity;
     protected List<Artist> dataSet;
 
     public ArtistAdapter(Activity activity) {
@@ -80,9 +80,9 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView artistName;
-        TextView artistInfo;
-        ImageView artistImage;
+        final TextView artistName;
+        final TextView artistInfo;
+        final ImageView artistImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -100,7 +100,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
                     )};
             if (activity instanceof AbsFabActivity)
                 artistPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(artistPairs);
-            NavigationUtil.goToArtist(activity, dataSet.get(getPosition()).id, artistPairs);
+            NavigationUtil.goToArtist(activity, dataSet.get(getAdapterPosition()).id, artistPairs);
         }
     }
 

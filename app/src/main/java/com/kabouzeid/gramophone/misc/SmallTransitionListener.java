@@ -4,7 +4,7 @@ import android.annotation.TargetApi;
 import android.transition.Transition;
 
 /**
- * Created by karim on 20.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 @TargetApi(21)
 public class SmallTransitionListener implements Transition.TransitionListener {

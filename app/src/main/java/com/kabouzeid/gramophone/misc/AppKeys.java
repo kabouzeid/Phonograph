@@ -1,7 +1,7 @@
 package com.kabouzeid.gramophone.misc;
 
 /**
- * Created by karim on 22.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public final class AppKeys {
     public static final String CL_CURRENT_ACTIVITY = "Current activity";

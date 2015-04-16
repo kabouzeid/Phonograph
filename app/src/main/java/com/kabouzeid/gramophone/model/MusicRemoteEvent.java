@@ -1,7 +1,7 @@
 package com.kabouzeid.gramophone.model;
 
 /**
- * Created by karim on 19.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class MusicRemoteEvent {
     public static final int PLAY = 0;
@@ -24,7 +24,7 @@ public class MusicRemoteEvent {
     public static final int SHUFFLE_MODE_CHANGED = 13;
     public static final int REPEAT_MODE_CHANGED = 14;
 
-    private int action;
+    private final int action;
 
     public MusicRemoteEvent(int action) {
         this.action = action;

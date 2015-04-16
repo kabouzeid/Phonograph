@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        android:title="@string/pref_header_audio">
+    <com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory android:title="@string/pref_header_audio">
 
         <Preference
             android:key="equalizer"
-            android:title="@string/equalizer"/>
+            android:title="@string/equalizer"
+            android:layout="@layout/preference_custom" />
 
-    </PreferenceCategory>
+    </com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory>
 
 </PreferenceScreen>

@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by karim on 29.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class SongLoader {
     private static final String BASE_SELECTION = MediaStore.Audio.AudioColumns.IS_MUSIC + "=1" + " AND " + MediaStore.Audio.AudioColumns.TITLE + " != ''";
 
-    public static List<Song> getAllSongs(Context context) {
+    public static ArrayList<Song> getAllSongs(Context context) {
         Cursor cursor = makeSongCursor(context);
-        List<Song> songs = new ArrayList<>();
+        ArrayList<Song> songs = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 final int id = cursor.getInt(0);
@@ -48,7 +48,7 @@ public class SongLoader {
 
     public static Cursor makeSongCursor(final Context context, final String selection, final String[] values) {
         String finalSelection = BASE_SELECTION;
-        if(selection != null){
+        if (selection != null) {
             finalSelection += " AND " + selection;
         }
 

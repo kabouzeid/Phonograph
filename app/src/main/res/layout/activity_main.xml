@@ -1,12 +1,10 @@
 <!-- A DrawerLayout is intended to be used as the top-level content view using match_parent for both width and height to consume the full space available. -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
@@ -22,8 +20,7 @@
                 android:id="@+id/pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clipToPadding="false"
-                />
+                android:clipToPadding="false" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -34,7 +31,8 @@
                     android:id="@+id/statusBar"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/statusMargin"
-                    android:background="?attr/colorPrimary"/>
+                    android:background="?attr/colorPrimary"
+                    tools:ignore="ContentDescription" />
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -48,10 +46,12 @@
                         android:layout_marginLeft="16dp"
                         android:layout_marginStart="16dp"
                         android:fontFamily="sans-serif-medium"
-                        android:gravity="left|center"
+                        android:gravity="left|start|center"
                         android:text="@string/app_name"
                         android:textColor="@color/white"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp"
+                        tools:ignore="RtlHardcoded" />
+
                 </android.support.v7.widget.Toolbar>
 
                 <com.astuetz.PagerSlidingTabStrip
@@ -63,27 +63,29 @@
                     android:background="?colorPrimary"
                     app:elevation="@dimen/toolbar_elevation"
                     android:paddingLeft="64dp"
+                    android:paddingStart="64dp"
                     android:textColor="@color/sliding_tabs_deactivated"
                     android:textColorPrimary="@color/sliding_tabs_activated"
-                    app:pstsTabPaddingLeftRight="8dp"/>
+                    app:pstsTabPaddingLeftRight="8dp"
+                    tools:ignore="NewApi,RtlSymmetry" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
-                    android:background="@drawable/shadow_down"/>
+                    android:background="@drawable/shadow_down" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|bottom"
-                android:fitsSystemWindows="true">
+                android:layout_gravity="end|right|bottom"
+                android:fitsSystemWindows="true"
+                tools:ignore="RtlHardcoded">
 
                 <com.melnykov.fab.FloatingActionButton
                     android:id="@+id/fab"
                     style="@style/PlayPauseFab"
-                    android:layout_margin="16dp"
-                    />
+                    android:layout_margin="16dp" />
 
             </LinearLayout>
 
@@ -95,7 +97,8 @@
             android:layout_width="@dimen/navigation_drawer_width"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            tools:layout="@layout/fragment_navigation_drawer"/>
+            tools:layout="@layout/fragment_navigation_drawer" />
 
     </android.support.v4.widget.DrawerLayout>
+
 </LinearLayout>

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="72dp"
     android:background="?rect_selector">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:descendantFocusability="blocksDescendants"
         android:orientation="horizontal"
         android:paddingLeft="16dp"
-        >
+        android:paddingStart="16dp"
+        tools:ignore="RtlSymmetry">
 
         <TextView
             android:id="@+id/track_number"
@@ -23,7 +23,7 @@
             android:gravity="center"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            android:textColor="?title_text_color"/>
+            android:textColor="?title_text_color" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -41,7 +41,7 @@
                 android:fontFamily="sans-serif"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="?title_text_color"/>
+                android:textColor="?title_text_color" />
 
             <TextView
                 android:id="@+id/song_info"
@@ -50,7 +50,7 @@
                 android:fontFamily="sans-serif"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="?caption_text_color"/>
+                android:textColor="?caption_text_color" />
         </LinearLayout>
 
         <ImageView
@@ -58,7 +58,7 @@
             style="@style/OverFlowButton"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"/>
+            android:layout_marginRight="2dp" />
     </LinearLayout>
 
     <View
@@ -67,5 +67,6 @@
         android:layout_height="1dp"
         android:layout_gravity="bottom"
         android:layout_marginLeft="72dp"
-        android:background="?separator_color"/>
+        android:layout_marginStart="72dp"
+        android:background="?separator_color" />
 </FrameLayout>

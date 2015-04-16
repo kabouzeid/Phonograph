@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by karim on 29.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class MusicUtil {
     public static final String TAG = MusicUtil.class.getSimpleName();
@@ -78,12 +78,11 @@ public class MusicUtil {
         contentResolver.delete(ContentUris.withAppendedId(localUri, albumId), null, null);
     }
 
-    public static File getAlbumArtFile(Context context, String name)
-            throws IOException {
-        return new File(createAlbumArtDir(context), name + System.currentTimeMillis());
+    public static File getAlbumArtFile(String name) {
+        return new File(createAlbumArtDir(), name + System.currentTimeMillis());
     }
 
-    public static File createAlbumArtDir(Context paramContext) {
+    public static File createAlbumArtDir() {
         File albumArtDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "/.albumart/");
         if (!albumArtDir.exists()) {
             albumArtDir.mkdirs();
@@ -141,7 +140,7 @@ public class MusicUtil {
                     cursor.moveToNext();
                 } catch (final SecurityException ex) {
                     cursor.moveToNext();
-                } catch (NullPointerException e){
+                } catch (NullPointerException e) {
                     Log.e("MusicUtils", "Failed to find file " + name);
                 }
             }

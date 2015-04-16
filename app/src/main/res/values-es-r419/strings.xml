@@ -37,7 +37,7 @@
     <string name="track_hint">Pista (2 for track 2 or 3004 for CD3 track 4)</string>
     <string name="album_or_artist_empty">El campo título del álbum o el artista del álbum está vacío</string>
     <string name="writing_file_number">Escribiendo archivo</string>
-    <string name="saving_changes">Guardando cambios...</string>
+    <string name="saving_changes">Guardando cambios…</string>
     <string name="label_details">Detalles</string>
     <string name="label_file_name">Nombre del archivo</string>
     <string name="label_file_path">Directorio del archivo</string>
@@ -59,8 +59,8 @@
     <string name="no_results">Sin resultados</string>
     <string name="action_re_download_artist_image">Actualizar imagen del artista</string>
     <string name="updated_artist_image_for">Imagen de artista actualizada para</string>
-    <string name="updating">Actualizando...</string>
-    <string name="loading">Cargando...</string>
+    <string name="updating">Actualizando…</string>
+    <string name="loading">Cargando…</string>
     <string name="added_title_to_playing_queue">1 título añadido a la cola de reproducción</string>
     <string name="added_titles_to_playing_queue_1">Añadido</string>
     <string name="added_titles_to_playing_queue_2">t\u00edtulos a la reproducci\u00f3n actual</string>

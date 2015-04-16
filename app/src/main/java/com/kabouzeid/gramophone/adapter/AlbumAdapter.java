@@ -11,17 +11,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kabouzeid.gramophone.App;
+import com.afollestad.materialdialogs.util.DialogUtils;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
-import com.kabouzeid.gramophone.model.UiPreferenceChangedEvent;
+import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
-import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
@@ -33,12 +32,13 @@ import com.squareup.otto.Subscribe;
 import java.util.List;
 
 /**
- * Created by karim on 24.11.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> {
+
     public static final String TAG = AlbumAdapter.class.getSimpleName();
-    private Activity activity;
-    private boolean usePalette;
+    private final Activity activity;
+    private final boolean usePalette;
     private List<Album> dataSet;
 
     @Override
@@ -100,10 +100,10 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageView image;
-        TextView title;
-        TextView artist;
-        View footer;
+        final ImageView image;
+        final TextView title;
+        final TextView artist;
+        final View footer;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -122,7 +122,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
                     )};
             if (activity instanceof AbsFabActivity)
                 albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(albumPairs);
-            NavigationUtil.goToAlbum(activity, dataSet.get(getPosition()).id, albumPairs);
+            NavigationUtil.goToAlbum(activity, dataSet.get(getAdapterPosition()).id, albumPairs);
         }
     }
 
@@ -144,7 +144,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
                 if (vibrantSwatch != null) {
                     title.setTextColor(vibrantSwatch.getTitleTextColor());
                     artist.setTextColor(vibrantSwatch.getTitleTextColor());
-                    ViewUtil.animateViewColor(footer, Util.resolveColor(activity, R.attr.default_bar_color), vibrantSwatch.getRgb());
+                    ViewUtil.animateViewColor(footer, DialogUtils.resolveColor(activity, R.attr.default_bar_color), vibrantSwatch.getRgb());
                 } else {
                     paletteBlackAndWhite(title, artist, footer);
                 }
@@ -153,29 +153,17 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
     }
 
     private void paletteBlackAndWhite(final TextView title, final TextView artist, final View footer) {
-        title.setTextColor(Util.resolveColor(activity, R.attr.title_text_color));
-        artist.setTextColor(Util.resolveColor(activity, R.attr.caption_text_color));
-        int defaultBarColor = Util.resolveColor(activity, R.attr.default_bar_color);
+        title.setTextColor(DialogUtils.resolveColor(activity, R.attr.title_text_color));
+        artist.setTextColor(DialogUtils.resolveColor(activity, R.attr.caption_text_color));
+        int defaultBarColor = DialogUtils.resolveColor(activity, R.attr.default_bar_color);
         ViewUtil.animateViewColor(footer, defaultBarColor, defaultBarColor);
     }
 
     private void resetColors(final TextView title, final TextView artist, final View footer) {
-        title.setTextColor(Util.resolveColor(activity, R.attr.title_text_color));
-        artist.setTextColor(Util.resolveColor(activity, R.attr.caption_text_color));
-        int defaultBarColor = Util.resolveColor(activity, R.attr.default_bar_color);
+        title.setTextColor(DialogUtils.resolveColor(activity, R.attr.title_text_color));
+        artist.setTextColor(DialogUtils.resolveColor(activity, R.attr.caption_text_color));
+        int defaultBarColor = DialogUtils.resolveColor(activity, R.attr.default_bar_color);
         footer.setBackgroundColor(defaultBarColor);
-    }
-
-    @Override
-    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView);
-        App.bus.unregister(this);
-    }
-
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        App.bus.register(this);
     }
 
     @Subscribe
@@ -184,16 +172,6 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
             case DataBaseChangedEvent.ALBUMS_CHANGED:
             case DataBaseChangedEvent.DATABASE_CHANGED:
                 loadDataSet();
-                notifyDataSetChanged();
-                break;
-        }
-    }
-
-    @Subscribe
-    public void onUIChangeEvent(UiPreferenceChangedEvent event) {
-        switch (event.getAction()) {
-            case UiPreferenceChangedEvent.ALBUM_OVERVIEW_PALETTE_CHANGED:
-                usePalette = (boolean) event.getValue();
                 notifyDataSetChanged();
                 break;
         }

@@ -4,7 +4,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 
 /**
- * Created by karim on 20.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class SmallOnGestureListener implements GestureDetector.OnGestureListener {
     @Override

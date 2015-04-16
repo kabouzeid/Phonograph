@@ -1,7 +1,7 @@
 package com.kabouzeid.gramophone.misc;
 
 /**
- * Created by karim on 20.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class SmallAnimatorListener implements com.nineoldandroids.animation.Animator.AnimatorListener {
     @Override

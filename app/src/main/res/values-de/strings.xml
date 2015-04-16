@@ -8,11 +8,11 @@
     <string name="action_play_next">Als nächstes spielen</string>
     <string name="action_add_to_playing_queue">Zur Wiedergabe hinzufügen</string>
     <string name="action_remove_from_playing_queue">Von aktueller Wiedergabe entfernen</string>
-    <string name="action_add_to_playlist">Zu Playlist hinzufügen...</string>
+    <string name="action_add_to_playlist">Zu Playlist hinzufügen…</string>
     <string name="action_tag_editor">Tag Editor</string>
     <string name="action_delete_from_disk">Von Gerät löschen</string>
     <string name="action_details">Details</string>
-    <string name="action_go_to">Gehe zu...</string>
+    <string name="action_go_to">Gehe zu…</string>
     <string name="albums">Alben</string>
     <string name="artists">Interpreten</string>
     <string name="genres">Genres</string>
@@ -37,7 +37,7 @@
     <string name="track_hint">Track (2 für Track 2 oder 3004 für CD 3 Track 4)</string>
     <string name="album_or_artist_empty">Das Feld \"Album Titel\" oder \"Album Interpret\" ist leer.</string>
     <string name="writing_file_number">Schreibe Datei</string>
-    <string name="saving_changes">Speichere Änderungen...</string>
+    <string name="saving_changes">Speichere Änderungen…</string>
     <string name="label_details">Details</string>
     <string name="label_file_name">Dateiname</string>
     <string name="label_file_path">Dateipfad</string>
@@ -59,8 +59,8 @@
     <string name="no_results">Keine Ergebnisse</string>
     <string name="action_re_download_artist_image">Interpret Bild aktualisieren</string>
     <string name="updated_artist_image_for">Interpret Bild aktualisiert für</string>
-    <string name="updating">Aktualisiere...</string>
-    <string name="loading">Lade...</string>
+    <string name="updating">Aktualisiere…</string>
+    <string name="loading">Lade…</string>
     <string name="added_title_to_playing_queue">1 Titel wurde der Wiedergabeliste hinzugefügt.</string>
     <string name="added_titles_to_playing_queue_1">"Es wurden "</string>
     <string name="added_titles_to_playing_queue_2">" Titel der Wiedergabeliste hinzugef\u00fcgt."</string>

@@ -1,9 +1,9 @@
 package com.kabouzeid.gramophone.model;
 
 /**
- * Created by karim on 28.03.15.
+ * @author Karim Abou Zeid (kabouzeid)
  */
-public class UiPreferenceChangedEvent {
+public class UIPreferenceChangedEvent {
     public static final int THEME_CHANGED = 0;
     public static final int ALBUM_OVERVIEW_PALETTE_CHANGED = 1;
     public static final int COLORED_NAVIGATION_BAR_ARTIST_CHANGED = 2;
@@ -11,10 +11,10 @@ public class UiPreferenceChangedEvent {
     public static final int PLAYBACK_CONTROLLER_CARD_CHANGED = 4;
     public static final int TOOLBAR_TRANSPARENT_CHANGED = 5;
 
-    private int action;
-    private Object value;
+    private final int action;
+    private final Object value;
 
-    public UiPreferenceChangedEvent(int action, Object value) {
+    public UIPreferenceChangedEvent(int action, Object value) {
         this.action = action;
         this.value = value;
     }

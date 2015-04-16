@@ -1,8 +1,8 @@
 package com.kabouzeid.gramophone.adapter;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,22 +12,23 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.util.DialogUtils;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.model.SearchEntry;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.SearchActivity;
-import com.kabouzeid.gramophone.util.Util;
 
 import java.util.List;
 
 /**
- * Created by karim on 27.02.15.
+ * @author Karim Abou Zeid (kabouzeid)
  */
-public class SearchAdapter extends ArrayAdapter<SearchEntry>{
-    private Activity activity;
+public class SearchAdapter extends ArrayAdapter<SearchEntry> {
 
-    public SearchAdapter(Activity activity, List<SearchEntry> objects) {
+    private final ActionBarActivity activity;
+
+    public SearchAdapter(ActionBarActivity activity, List<SearchEntry> objects) {
         super(activity, R.layout.item_list_search, objects);
         this.activity = activity;
     }
@@ -50,7 +51,7 @@ public class SearchAdapter extends ArrayAdapter<SearchEntry>{
             subTitle.setVisibility(View.GONE);
             imageView.setVisibility(View.GONE);
             overflowButton.setVisibility(View.GONE);
-            convertView.setBackgroundColor(Util.resolveColor(getContext(), R.attr.default_bar_color));
+            convertView.setBackgroundColor(DialogUtils.resolveColor(getContext(), R.attr.default_bar_color));
         } else if (item instanceof Song) {
             title.setTypeface(null, Typeface.NORMAL);
             subTitle.setVisibility(View.VISIBLE);

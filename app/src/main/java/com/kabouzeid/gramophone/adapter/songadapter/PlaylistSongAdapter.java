@@ -1,7 +1,7 @@
 package com.kabouzeid.gramophone.adapter.songadapter;
 
-import android.app.Activity;
 import android.support.v4.util.Pair;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -22,17 +22,19 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
 import com.koushikdutta.ion.Ion;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by karim on 27.11.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapter.ViewHolder> {
-    public static final String TAG = AlbumSongAdapter.class.getSimpleName();
-    protected Activity activity;
-    protected List<PlaylistSong> dataSet;
 
-    public PlaylistSongAdapter(Activity activity, List<PlaylistSong> objects) {
+    public static final String TAG = AlbumSongAdapter.class.getSimpleName();
+    protected final ActionBarActivity activity;
+    protected final ArrayList<PlaylistSong> dataSet;
+
+    public PlaylistSongAdapter(ActionBarActivity activity, ArrayList<PlaylistSong> objects) {
         this.activity = activity;
         dataSet = objects;
     }
@@ -72,10 +74,10 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView songTitle;
-        TextView songInfo;
-        ImageView overflowButton;
-        ImageView albumArt;
+        final TextView songTitle;
+        final TextView songInfo;
+        final ImageView overflowButton;
+        final ImageView albumArt;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -87,7 +89,8 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MusicPlayerRemote.openQueue((List<Song>) (List) dataSet, getAdapterPosition(), true);
+                    //noinspection unchecked
+                    MusicPlayerRemote.openQueue((ArrayList<Song>) (List) dataSet, getAdapterPosition(), true);
                 }
             });
         }
