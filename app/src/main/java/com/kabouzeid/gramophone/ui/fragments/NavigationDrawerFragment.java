@@ -160,7 +160,7 @@ public class NavigationDrawerFragment extends Fragment {
                     public void run() {
                         drawerLayout.closeDrawer(fragmentContainerView);
                     }
-                }, 400);
+                }, 200);
             }
         }
         if (callbacks != null)
