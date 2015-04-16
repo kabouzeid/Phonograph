@@ -8,16 +8,16 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 import com.squareup.picasso.Picasso;
 
 /**
- * Created by karim on 22.11.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class Album implements SearchEntry {
 
-    public int id;
+    public final int id;
     public int artistId;
-    public String title;
-    public String artistName;
-    public int songCount;
-    public int year;
+    public final String title;
+    public final String artistName;
+    public final int songCount;
+    public final int year;
 
     public Album(final int id, final String title, final String artistName, final int artistId,
                  final int songNumber, final int albumYear) {

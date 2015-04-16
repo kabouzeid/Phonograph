@@ -8,11 +8,11 @@
     <string name="action_play_next">Speel volgende af</string>
     <string name="action_add_to_playing_queue">Voeg toe aan afspeellijst\"</string>
     <string name="action_remove_from_playing_queue">Verwijder van afspeellijst</string>
-    <string name="action_add_to_playlist">Voeg toe aan afspeellijst...\"</string>
+    <string name="action_add_to_playlist">Voeg toe aan afspeellijst…\"</string>
     <string name="action_tag_editor">Label Bewerker\"</string>
     <string name="action_delete_from_disk">Verwijder van schijf\"</string>
     <string name="action_details">Details</string>
-    <string name="action_go_to">Ga naar...</string>
+    <string name="action_go_to">Ga naar…</string>
     <string name="albums">Albums</string>
     <string name="artists">Artiesten</string>
     <string name="genres">Genres</string>
@@ -37,7 +37,7 @@
     <string name="track_hint">Nummer (2 voor nummer 2 of 3004 voor CD3 nummer 4)</string>
     <string name="album_or_artist_empty">Album titel of album artiest tekstveld is leeg.</string>
     <string name="writing_file_number">Bestand wegschrijven</string>
-    <string name="saving_changes">Wijzigingen opslaan...</string>
+    <string name="saving_changes">Wijzigingen opslaan…</string>
     <string name="label_details">Details</string>
     <string name="label_file_name">Bestandsnaam</string>
     <string name="label_file_path">Bestandspad</string>
@@ -59,8 +59,8 @@
     <string name="no_results">Geen resultaten</string>
     <string name="action_re_download_artist_image">Vernieuw artiest afbeelding</string>
     <string name="updated_artist_image_for">Artiest afbeelding gewijzigd</string>
-    <string name="updating">Wijzigen...</string>
-    <string name="loading">Laden...</string>
+    <string name="updating">Wijzigen…</string>
+    <string name="loading">Laden…</string>
     <string name="added_title_to_playing_queue">1 titel toegevoegd aan de afspeellijst.</string>
     <string name="added_titles_to_playing_queue_1">Toegevoegd</string>
     <string name="added_titles_to_playing_queue_2">" titels naar de afspeellijst"</string>

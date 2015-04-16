@@ -8,11 +8,11 @@
     <string name="action_play_next">Проиграть следующую</string>
     <string name="action_add_to_playing_queue">Добавить в очередь воспроизведения\"</string>
     <string name="action_remove_from_playing_queue">Удалить из очереди воспроизведения</string>
-    <string name="action_add_to_playlist">Добавить в список воспроизведения...\"</string>
+    <string name="action_add_to_playlist">Добавить в список воспроизведения…\"</string>
     <string name="action_tag_editor">Редактор тэгов</string>
     <string name="action_delete_from_disk">Удалить с диска\"</string>
     <string name="action_details">Подробнее</string>
-    <string name="action_go_to">Перейти к...</string>
+    <string name="action_go_to">Перейти к…</string>
     <string name="albums">Альбомы</string>
     <string name="artists">Исполнители</string>
     <string name="genres">Жанры</string>
@@ -31,7 +31,7 @@
     <string name="year">Год</string>
     <string name="track">Трек</string>
     <string name="writing_file_number">Запись файла</string>
-    <string name="saving_changes">Сохранение изменений...</string>
+    <string name="saving_changes">Сохранение изменений…</string>
     <string name="label_details">Подробнее</string>
     <string name="label_file_name">Имя файла</string>
     <string name="label_file_path">Путь к файлу</string>
@@ -47,8 +47,8 @@
     <string name="more">ещё</string>
     <string name="no_results">Нет результатов</string>
     <string name="action_re_download_artist_image">Обновить изображение исполнителя</string>
-    <string name="updating">Обновление...</string>
-    <string name="loading">Загрузка...</string>
+    <string name="updating">Обновление…</string>
+    <string name="loading">Загрузка…</string>
     <string name="added_titles_to_playing_queue_1">Добавлено</string>
     <string name="action_delete_from_playlist">Удалить из списка воспроизведения</string>
     <string name="inserted_titles_to_playlist_1">"\u0412\u0441\u0442\u0430\u0432\u043b\u0435\u043d\u043e "</string>

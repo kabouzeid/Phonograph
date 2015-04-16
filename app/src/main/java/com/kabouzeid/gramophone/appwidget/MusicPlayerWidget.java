@@ -6,7 +6,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
 import com.kabouzeid.gramophone.R;
@@ -15,7 +14,6 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MusicControllerActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.kabouzeid.gramophone.util.Util;
 import com.squareup.picasso.Picasso;
 
 /**

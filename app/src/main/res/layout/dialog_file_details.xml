@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
-
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:ignore="NewApi,RtlSymmetry">
 
     <TextView
         android:id="@+id/file_path"
@@ -11,10 +12,10 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:paddingLeft="16dp"
+        android:paddingStart="16dp"
         android:paddingTop="16dp"
         android:textAppearance="?android:textAppearanceMedium"
-        android:textSize="16sp"/>
-
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/file_name"
@@ -22,10 +23,10 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:paddingLeft="16dp"
+        android:paddingStart="16dp"
         android:paddingTop="16dp"
         android:textAppearance="?android:textAppearanceMedium"
-        android:textSize="16sp"/>
-
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/file_size"
@@ -33,10 +34,10 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:paddingLeft="16dp"
+        android:paddingStart="16dp"
         android:paddingTop="16dp"
         android:textAppearance="?android:textAppearanceMedium"
-        android:textSize="16sp"/>
-
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/file_format"
@@ -44,10 +45,10 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:paddingLeft="16dp"
+        android:paddingStart="16dp"
         android:paddingTop="16dp"
         android:textAppearance="?android:textAppearanceMedium"
-        android:textSize="16sp"/>
-
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/track_length"
@@ -55,10 +56,10 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:paddingLeft="16dp"
+        android:paddingStart="16dp"
         android:paddingTop="16dp"
         android:textAppearance="?android:textAppearanceMedium"
-        android:textSize="16sp"/>
-
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/bitrate"
@@ -66,10 +67,10 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:paddingLeft="16dp"
+        android:paddingStart="16dp"
         android:paddingTop="16dp"
         android:textAppearance="?android:textAppearanceMedium"
-        android:textSize="16sp"/>
-
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/sampling_rate"
@@ -77,8 +78,9 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:paddingLeft="16dp"
+        android:paddingStart="16dp"
         android:paddingTop="16dp"
         android:textAppearance="?android:textAppearanceMedium"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
 
 </LinearLayout>

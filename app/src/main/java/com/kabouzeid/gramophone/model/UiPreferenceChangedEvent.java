@@ -1,7 +1,7 @@
 package com.kabouzeid.gramophone.model;
 
 /**
- * Created by karim on 28.03.15.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class UIPreferenceChangedEvent {
     public static final int THEME_CHANGED = 0;
@@ -11,8 +11,8 @@ public class UIPreferenceChangedEvent {
     public static final int PLAYBACK_CONTROLLER_CARD_CHANGED = 4;
     public static final int TOOLBAR_TRANSPARENT_CHANGED = 5;
 
-    private int action;
-    private Object value;
+    private final int action;
+    private final Object value;
 
     public UIPreferenceChangedEvent(int action, Object value) {
         this.action = action;

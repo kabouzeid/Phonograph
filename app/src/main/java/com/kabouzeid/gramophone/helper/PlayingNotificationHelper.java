@@ -1,7 +1,7 @@
 package com.kabouzeid.gramophone.helper;
 
 /**
- * Created by karim on 27.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 
 import android.app.Notification;
@@ -22,6 +22,7 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 import com.squareup.picasso.Picasso;
 
 public class PlayingNotificationHelper {
+
     public static final String TAG = PlayingNotificationHelper.class.getSimpleName();
     public static final int NOTIFICATION_ID = 1337;
 
@@ -162,8 +163,6 @@ public class PlayingNotificationHelper {
         notificationLayoutExpanded.setImageViewResource(R.id.album_art, R.drawable.default_album_art);
         notificationManager.notify(NOTIFICATION_ID, notification);
     }
-
-    ;
 
     public void killNotification() {
         service.stopForeground(true);

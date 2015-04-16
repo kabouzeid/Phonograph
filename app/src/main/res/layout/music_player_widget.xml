@@ -1,15 +1,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/app_widget_small_artwork_height"
-                android:background="#FFFFFF">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/app_widget_small_artwork_height"
+    android:background="#FFFFFF"
+    tools:ignore="ContentDescription">
 
     <ImageView
         android:src="@drawable/default_album_art"
         android:id="@+id/album_art"
         android:layout_width="@dimen/app_widget_small_artwork_height"
         android:layout_height="@dimen/app_widget_small_artwork_height"
-        android:scaleType="centerCrop"
-        />
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,15 +25,14 @@
             android:singleLine="true"
             android:textAppearance="@style/Theme.MaterialMusic.Notification.Title"
             android:layout_margin="4dp"
-            android:text="@string/nothing_playing"/>
+            android:text="@string/nothing_playing" />
 
         <LinearLayout
             android:id="@+id/media_actions"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <ImageButton
                 android:layout_weight="1"
@@ -40,8 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/button_prev"
-                android:src="@drawable/ic_skip_previous_black_36dp"
-                />
+                android:src="@drawable/ic_skip_previous_black_36dp" />
 
             <ImageButton
                 android:layout_weight="1"
@@ -49,8 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/button_toggle_play_pause"
-                android:src="@drawable/ic_play_arrow_black_36dp"
-                />
+                android:src="@drawable/ic_play_arrow_black_36dp" />
 
             <ImageButton
                 android:layout_weight="1"
@@ -58,12 +56,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/button_next"
-                android:src="@drawable/ic_skip_next_black_36dp"
-                />
+                android:src="@drawable/ic_skip_next_black_36dp" />
+
         </LinearLayout>
 
     </LinearLayout>
-
-
 
 </LinearLayout>

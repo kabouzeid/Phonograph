@@ -20,27 +20,26 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.util.InternalStorageUtil;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
- * Created by karim on 29.11.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class MusicPlayerRemote {
+
     private static final String TAG = MusicPlayerRemote.class.getSimpleName();
 
     private static int position = -1;
 
-    private static List<Song> playingQueue;
-    private static List<Song> restoredOriginalQueue;
+    private static ArrayList<Song> playingQueue;
+    private static ArrayList<Song> restoredOriginalQueue;
 
     private static Context context;
     private static MusicService musicService;
     private static Intent musicServiceIntent;
 
-    private static ServiceConnection musicConnection = new ServiceConnection() {
+    private static final ServiceConnection musicConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
@@ -72,11 +71,10 @@ public class MusicPlayerRemote {
         }
     }
 
-    public static boolean playSongAt(final int position) {
+    public static void playSongAt(final int position) {
         if (musicService != null) {
             musicService.playSongAt(position);
         }
-        return false;
     }
 
     public static void pauseSong() {
@@ -104,10 +102,7 @@ public class MusicPlayerRemote {
     }
 
     public static boolean isPlaying() {
-        if (musicService != null) {
-            return musicService.isPlaying();
-        }
-        return false;
+        return musicService != null && musicService.isPlaying();
     }
 
     public static void resumePlaying() {
@@ -127,7 +122,7 @@ public class MusicPlayerRemote {
         }
     }
 
-    public static void openQueue(final List<Song> playingQueue, final int startPosition, final boolean startPlaying) {
+    public static void openQueue(final ArrayList<Song> playingQueue, final int startPosition, final boolean startPlaying) {
         MusicPlayerRemote.playingQueue = playingQueue;
         if (musicService != null) {
             musicService.openQueue(MusicPlayerRemote.playingQueue, startPosition, startPlaying);
@@ -159,7 +154,7 @@ public class MusicPlayerRemote {
         }
     }
 
-    public static List<Song> getPlayingQueue() {
+    public static ArrayList<Song> getPlayingQueue() {
         if (musicService != null) {
             playingQueue = musicService.getPlayingQueue();
         }
@@ -174,10 +169,7 @@ public class MusicPlayerRemote {
     }
 
     public static boolean isPlayerPrepared() {
-        if (musicService != null) {
-            return musicService.isPlayerPrepared();
-        }
-        return false;
+        return musicService != null && musicService.isPlayerPrepared();
     }
 
     public static int getSongDurationMillis() {
@@ -207,20 +199,16 @@ public class MusicPlayerRemote {
         return PreferenceManager.getDefaultSharedPreferences(context).getInt(AppKeys.SP_SHUFFLE_MODE, 0);
     }
 
-    public static boolean cycleRepeatMode() {
+    public static void cycleRepeatMode() {
         if (musicService != null) {
             musicService.cycleRepeatMode();
-            return true;
         }
-        return false;
     }
 
-    public static boolean toggleShuffleMode() {
+    public static void toggleShuffleMode() {
         if (musicService != null) {
             musicService.toggleShuffle();
-            return true;
         }
-        return false;
     }
 
     public static boolean setShuffleMode(final int shuffleMode) {
@@ -242,7 +230,7 @@ public class MusicPlayerRemote {
     }
 
     public static void shuffleAllSongs(final Context context) {
-        List<Song> songs = SongLoader.getAllSongs(context);
+        ArrayList<Song> songs = SongLoader.getAllSongs(context);
         MusicPlayerRemote.openQueue(songs, new Random().nextInt(songs.size()), true);
         forceSetShuffleMode(context, MusicService.SHUFFLE_MODE_SHUFFLE);
     }
@@ -294,8 +282,8 @@ public class MusicPlayerRemote {
     @SuppressWarnings("unchecked")
     public static void restorePreviousState() {
         try {
-            List restoredQueue = (ArrayList<Song>) InternalStorageUtil.readObject(context, AppKeys.IS_PLAYING_QUEUE);
-            List restoredOriginalQueue = (ArrayList<Song>) InternalStorageUtil.readObject(context, AppKeys.IS_ORIGINAL_PLAYING_QUEUE);
+            ArrayList<Song> restoredQueue = (ArrayList<Song>) InternalStorageUtil.readObject(context, AppKeys.IS_PLAYING_QUEUE);
+            ArrayList<Song> restoredOriginalQueue = (ArrayList<Song>) InternalStorageUtil.readObject(context, AppKeys.IS_ORIGINAL_PLAYING_QUEUE);
             int restoredPosition = (int) InternalStorageUtil.readObject(context, AppKeys.IS_POSITION_IN_QUEUE);
 
             if (musicService != null) {
@@ -307,7 +295,7 @@ public class MusicPlayerRemote {
             position = restoredPosition;
 
             postToBus(MusicRemoteEvent.STATE_RESTORED);
-        } catch (IOException | ClassNotFoundException | ClassCastException e) {
+        } catch (Exception e) {
             Log.e(TAG, "error while restoring music service state", e);
             playingQueue = new ArrayList<>();
             position = -1;

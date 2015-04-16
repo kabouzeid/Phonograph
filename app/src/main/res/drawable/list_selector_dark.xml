@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:drawable="@drawable/list_item_activated_dark" android:state_activated="true"/>
-    <item android:drawable="@drawable/transparent"/>
-
+<selector android:exitFadeDuration="@android:integer/config_mediumAnimTime" xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/list_activated_dark" android:state_activated="true" />
+    <item android:drawable="@drawable/rect_selected_dark" android:state_pressed="true" />
+    <item android:drawable="@drawable/transparent" />
 </selector>

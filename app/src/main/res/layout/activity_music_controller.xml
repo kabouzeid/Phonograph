@@ -1,9 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                tools:context="com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity$PlaceholderFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity$PlaceholderFragment">
 
     <ImageView
         android:id="@+id/album_art"
@@ -13,33 +13,36 @@
         android:background="@color/black"
         android:scaleType="centerCrop"
         android:src="@drawable/default_album_art"
-        android:transitionName="@string/transition_album_cover"/>
+        android:transitionName="@string/transition_album_cover"
+        tools:ignore="UnusedAttribute" />
 
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/dummy_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/statusMargin"/>
+            android:layout_height="@dimen/statusMargin" />
+
         <View
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"/>
+            android:layout_height="?actionBarSize" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/shadow_down"
-        android:layout_alignBottom="@+id/dummy_toolbar"/>
+        android:layout_alignBottom="@+id/dummy_toolbar" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/footer"
         android:background="@drawable/shadow_up"
-        android:layout_alignTop="@+id/progress_container"/>
+        android:layout_alignTop="@+id/progress_container" />
 
     <LinearLayout
         android:id="@+id/progress_container"
@@ -55,12 +58,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:fontFamily="sans-serif-medium"
-            android:gravity="bottom|left"
+            android:gravity="bottom|left|start"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            tools:ignore="RtlHardcoded" />
 
         <TextView
             android:id="@+id/song_total_time"
@@ -68,11 +72,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:fontFamily="sans-serif"
-            android:gravity="bottom|right"
+            android:gravity="bottom|right|end"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="@color/white"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            tools:ignore="RtlHardcoded" />
 
     </LinearLayout>
 
@@ -87,7 +92,8 @@
         android:paddingLeft="72dp"
         android:paddingRight="72dp"
         android:paddingTop="16dp"
-        android:transitionName="@string/transition_album_text">
+        android:transitionName="@string/transition_album_text"
+        tools:ignore="UnusedAttribute">
 
         <TextView
             android:id="@+id/song_title"
@@ -96,7 +102,7 @@
             android:fontFamily="sans-serif-medium"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="?attr/title_text_color"/>
+            android:textColor="?attr/title_text_color" />
 
         <TextView
             android:id="@+id/song_artist"
@@ -105,7 +111,7 @@
             android:fontFamily="sans-serif"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textColor="?attr/caption_text_color"/>
+            android:textColor="?attr/caption_text_color" />
 
     </LinearLayout>
 
@@ -116,7 +122,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="16dp"
-        android:background="?music_controller_container_color">
+        android:background="?music_controller_container_color"
+        tools:ignore="ContentDescription">
 
         <ImageButton
             android:id="@+id/prev_button"
@@ -124,11 +131,13 @@
             android:layout_height="72dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="-8dp"
+            android:layout_marginEnd="-8dp"
             android:layout_toLeftOf="@+id/fab"
+            android:layout_toStartOf="@+id/fab"
             android:background="?round_selector"
             android:padding="22dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_skip_previous_white_48dp"/>
+            android:src="@drawable/ic_skip_previous_white_48dp" />
 
         <ImageButton
             android:id="@+id/next_button"
@@ -136,40 +145,46 @@
             android:layout_height="72dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="-8dp"
+            android:layout_marginStart="-8dp"
             android:layout_toRightOf="@+id/fab"
+            android:layout_toEndOf="@+id/fab"
             android:background="?round_selector"
             android:padding="22dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_skip_next_white_48dp"/>
+            android:src="@drawable/ic_skip_next_white_48dp" />
 
         <ImageButton
             android:id="@+id/repeat_button"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:background="?round_selector"
             android:padding="22dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_repeat_grey600_48dp"/>
+            android:src="@drawable/ic_repeat_grey600_48dp" />
 
         <ImageButton
             android:id="@+id/shuffle_button"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             android:background="?round_selector"
             android:padding="22dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_shuffle_grey600_48dp"/>
+            android:src="@drawable/ic_shuffle_grey600_48dp" />
 
         <com.melnykov.fab.FloatingActionButton
             android:id="@+id/fab"
             style="@style/PlayPauseFab"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true" />
 
     </RelativeLayout>
 
@@ -177,7 +192,8 @@
         android:id="@+id/progress_slider"
         style="@style/MusicProgressSlider"
         android:layout_above="@+id/footer"
-        android:elevation="2dp"/>
+        android:elevation="2dp"
+        tools:ignore="UnusedAttribute" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -189,12 +205,14 @@
             android:id="@+id/statusBar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/statusMargin"
-            android:background="@android:color/transparent"/>
+            android:background="@android:color/transparent"
+            tools:ignore="ContentDescription" />
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             style="@style/Toolbar"
-            android:background="@android:color/transparent"/>
+            android:background="@android:color/transparent" />
+
     </LinearLayout>
 
 </RelativeLayout>

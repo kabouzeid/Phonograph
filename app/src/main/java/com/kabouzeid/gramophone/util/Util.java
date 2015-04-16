@@ -4,18 +4,12 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Build;
-import android.provider.MediaStore;
 import android.support.annotation.DrawableRes;
+import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
@@ -25,31 +19,30 @@ import android.view.inputmethod.InputMethodManager;
 import com.kabouzeid.gramophone.R;
 
 /**
- * Created by karim on 12.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class Util {
-    private static int albumArtSize = 600;
 
-    public static int resolveDrawable(Context context, int drawable) {
-        TypedArray a = context.obtainStyledAttributes(new int[]{drawable});
-        int resId = a.getResourceId(0, 0);
-        a.recycle();
-        return resId;
-    }
+//    public static int resolveDrawable(Context context, int drawable) {
+//        TypedArray a = context.obtainStyledAttributes(new int[]{drawable});
+//        int resId = a.getResourceId(0, 0);
+//        a.recycle();
+//        return resId;
+//    }
 
-    public static int resolveColor(Context context, int color) {
-        TypedArray a = context.obtainStyledAttributes(new int[]{color});
-        int resId = a.getColor(0, 0);
-        a.recycle();
-        return resId;
-    }
+//    public static int resolveColor(Context context, int color) {
+//        TypedArray a = context.obtainStyledAttributes(new int[]{color});
+//        int resId = a.getColor(0, 0);
+//        a.recycle();
+//        return resId;
+//    }
 
-    public static boolean isWindowTranslucent(Context context) {
-        TypedArray a = context.obtainStyledAttributes(new int[]{android.R.attr.windowTranslucentStatus});
-        boolean result = a.getBoolean(0, false);
-        a.recycle();
-        return result;
-    }
+//    public static boolean isWindowTranslucent(Context context) {
+//        TypedArray a = context.obtainStyledAttributes(new int[]{android.R.attr.windowTranslucentStatus});
+//        boolean result = a.getBoolean(0, false);
+//        a.recycle();
+//        return result;
+//    }
 
     public static int getActionBarSize(Context context) {
         TypedValue typedValue = new TypedValue();
@@ -113,44 +106,43 @@ public class Util {
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
     }
 
-    public static final boolean isOnline(final Context context) {
-        if (context == null) {
-            return false;
-        }
-
-        boolean state = false;
-        final boolean onlyOnWifi = PreferenceUtils.getInstance(context).autoDownloadOnlyOnWifi();
-
-        /* Monitor network connections */
-        final ConnectivityManager connectivityManager = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        /* Wi-Fi connection */
-        final NetworkInfo wifiNetwork = connectivityManager
-                .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        if (wifiNetwork != null) {
-            state = wifiNetwork.isConnectedOrConnecting();
-        }
-
-        /* Mobile data connection */
-        final NetworkInfo mbobileNetwork = connectivityManager
-                .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        if (mbobileNetwork != null) {
-            if (!onlyOnWifi) {
-                state = mbobileNetwork.isConnectedOrConnecting();
-            }
-        }
-
-        /* Other networks */
-        final NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-        if (activeNetwork != null) {
-            if (!onlyOnWifi) {
-                state = activeNetwork.isConnectedOrConnecting();
-            }
-        }
-
-        return state;
-    }
+//    public static boolean isOnline(final Context context) {
+//        if (context == null)
+//            return false;
+//
+//        boolean state = false;
+//        final boolean onlyOnWifi = PreferenceUtils.getInstance(context).autoDownloadOnlyOnWifi();
+//
+//        /* Monitor network connections */
+//        final ConnectivityManager connectivityManager = (ConnectivityManager) context
+//                .getSystemService(Context.CONNECTIVITY_SERVICE);
+//
+//        /* Wi-Fi connection */
+//        final NetworkInfo wifiNetwork = connectivityManager
+//                .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+//        if (wifiNetwork != null) {
+//            state = wifiNetwork.isConnectedOrConnecting();
+//        }
+//
+//        /* Mobile data connection */
+//        final NetworkInfo mbobileNetwork = connectivityManager
+//                .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+//        if (mbobileNetwork != null) {
+//            if (!onlyOnWifi) {
+//                state = mbobileNetwork.isConnectedOrConnecting();
+//            }
+//        }
+//
+//        /* Other networks */
+//        final NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+//        if (activeNetwork != null) {
+//            if (!onlyOnWifi) {
+//                state = activeNetwork.isConnectedOrConnecting();
+//            }
+//        }
+//
+//        return state;
+//    }
 
     public static String getFileSizeString(long sizeInBytes) {
         long fileSizeInKB = sizeInBytes / 1024;
@@ -158,22 +150,23 @@ public class Util {
         return fileSizeInMB + " MB";
     }
 
-    public static String getFilePathFromContentProviderUri(Context context, Uri uri) {
-        String path = "";
-        String[] projection = {MediaStore.MediaColumns.DATA};
-        Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
-        if (cursor == null) return null;
-        int column_index = cursor.getColumnIndexOrThrow(projection[0]);
-        if (cursor.moveToFirst()) {
-            path = cursor.getString(column_index);
-        }
-        cursor.close();
-        return path;
-    }
-
-    private static Bitmap getScaledBitmap(final Bitmap bitmap) {
-        return Bitmap.createScaledBitmap(bitmap, albumArtSize, albumArtSize, false);
-    }
+//    public static String getFilePathFromContentProviderUri(Context context, Uri uri) {
+//        String path = "";
+//        String[] projection = {MediaStore.MediaColumns.DATA};
+//        Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
+//        if (cursor == null) return null;
+//        int column_index = cursor.getColumnIndexOrThrow(projection[0]);
+//        if (cursor.moveToFirst()) {
+//            path = cursor.getString(column_index);
+//        }
+//        cursor.close();
+//        return path;
+//    }
+//
+//    private static Bitmap getScaledBitmap(final Bitmap bitmap) {
+//        int albumArtSize = 600;
+//        return Bitmap.createScaledBitmap(bitmap, albumArtSize, albumArtSize, false);
+//    }
 
     public static void hideSoftKeyboard(Activity activity) {
         if (activity != null) {
@@ -201,8 +194,8 @@ public class Util {
         return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
     }
 
-    public static Drawable getTintedDrawable(Resources res, @DrawableRes int drawableResId, int color) {
-        Drawable drawable = res.getDrawable(drawableResId);
+    public static Drawable getTintedDrawable(Context context, @DrawableRes int drawableResId, int color) {
+        Drawable drawable = ContextCompat.getDrawable(context, drawableResId);
         if (drawable != null) {
             drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
         }

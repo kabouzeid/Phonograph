@@ -1,8 +1,8 @@
 package com.kabouzeid.gramophone.model;
 
 public class Playlist {
-    public int id;
-    public String name;
+    public final int id;
+    public final String name;
 
     public Playlist(final int id, final String name) {
         this.id = id;

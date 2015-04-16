@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="64dp"
-             android:background="?rect_selector">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:background="?rect_selector">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:paddingLeft="16dp">
+        android:paddingLeft="16dp"
+        android:paddingStart="16dp">
 
         <ImageView
             android:tint="?themed_drawable_color"
@@ -20,7 +21,7 @@
             android:gravity="center"
             android:padding="8dp"
             android:src="@drawable/ic_queue_music_white_24dp"
-            />
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/playlist_name"
@@ -33,13 +34,15 @@
             android:fontFamily="sans-serif"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            android:textColor="?title_text_color"/>
+            android:textColor="?title_text_color" />
 
         <ImageView
             android:id="@+id/menu"
             style="@style/OverFlowButton"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="2dp"/>
+            android:layout_marginRight="2dp"
+            android:layout_marginEnd="2dp"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 
@@ -49,5 +52,7 @@
         android:layout_height="1dp"
         android:layout_gravity="bottom"
         android:layout_marginLeft="72dp"
-        android:background="?separator_color"/>
+        android:layout_marginStart="72dp"
+        android:background="?separator_color" />
+
 </FrameLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="72dp"
     android:background="?rect_selector">
@@ -10,7 +10,8 @@
         android:layout_height="match_parent"
         android:descendantFocusability="blocksDescendants"
         android:orientation="horizontal"
-        android:paddingLeft="16dp">
+        android:paddingLeft="16dp"
+        android:paddingStart="16dp">
 
         <com.kabouzeid.gramophone.ui.widget.SquareImageView
             android:id="@+id/album_art"
@@ -18,7 +19,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:gravity="center"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -36,7 +37,7 @@
                 android:fontFamily="sans-serif"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="?title_text_color"/>
+                android:textColor="?title_text_color" />
 
             <TextView
                 android:id="@+id/song_info"
@@ -45,14 +46,17 @@
                 android:fontFamily="sans-serif"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="?caption_text_color"/>
+                android:textColor="?caption_text_color" />
         </LinearLayout>
 
         <ImageView
             android:id="@+id/menu"
             style="@style/OverFlowButton"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="2dp"/>
+            android:layout_marginRight="2dp"
+            android:layout_marginEnd="2dp"
+            tools:ignore="ContentDescription" />
+
     </LinearLayout>
 
     <View
@@ -61,7 +65,7 @@
         android:layout_height="1dp"
         android:layout_gravity="bottom"
         android:background="?separator_color"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <View
         android:id="@+id/short_separator"
@@ -69,5 +73,7 @@
         android:layout_height="1dp"
         android:layout_gravity="bottom"
         android:layout_marginLeft="72dp"
-        android:background="?separator_color"/>
+        android:layout_marginStart="72dp"
+        android:background="?separator_color" />
+
 </FrameLayout>

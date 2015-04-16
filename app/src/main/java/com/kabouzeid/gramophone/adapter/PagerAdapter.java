@@ -29,7 +29,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
 
     private int mCurrentPage;
 
-    private String[] titles;
+    private final String[] titles;
 
     public PagerAdapter(final Context context, final FragmentManager fragmentManager) {
         super(fragmentManager);
@@ -68,16 +68,15 @@ public class PagerAdapter extends FragmentPagerAdapter {
         if (mWeakFragment != null) {
             mWeakFragment.clear();
         }
-        mFragmentArray.put(position, new WeakReference<Fragment>(mFragment));
+        mFragmentArray.put(position, new WeakReference<>(mFragment));
         return mFragment;
     }
 
     @Override
     public Fragment getItem(final int position) {
         final Holder mCurrentHolder = mHolderList.get(position);
-        final Fragment mFragment = Fragment.instantiate(mContext,
+        return Fragment.instantiate(mContext,
                 mCurrentHolder.mClassName, mCurrentHolder.mParams);
-        return mFragment;
     }
 
     @Override
@@ -114,7 +113,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
         ARTIST(ArtistViewFragment.class),
         PLAYLIST(PlaylistViewFragment.class);
 
-        private Class<? extends Fragment> mFragmentClass;
+        private final Class<? extends Fragment> mFragmentClass;
 
         MusicFragments(final Class<? extends Fragment> fragmentClass) {
             mFragmentClass = fragmentClass;

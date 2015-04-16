@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by karim on 16.03.15.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class PlaylistsUtil {
     public static final String MUSIC_ONLY_SELECTION = MediaStore.Audio.AudioColumns.IS_MUSIC + "=1"
@@ -57,7 +57,7 @@ public class PlaylistsUtil {
         context.getContentResolver().delete(uri, null, null);
     }
 
-    public static void deletePlaylist(final Context context, final int playlistId) {
+    public static void deletePlaylist(final Context context, final long playlistId) {
         final Uri uri = MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI;
         String where = MediaStore.Audio.Playlists._ID + "=?";
         String[] whereVal = {String.valueOf(playlistId)};
@@ -147,7 +147,6 @@ public class PlaylistsUtil {
         Cursor c = context.getContentResolver().query(
                 MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),
                 new String[]{BaseColumns._ID}, MUSIC_ONLY_SELECTION, null, null);
-
         if (c != null) {
             int count = 0;
             if (c.moveToFirst()) {
@@ -156,7 +155,6 @@ public class PlaylistsUtil {
             c.close();
             return count;
         }
-
         return 0;
     }
 
@@ -165,7 +163,7 @@ public class PlaylistsUtil {
                 playlistId, from, to);
     }
 
-    public static void renamePlaylist(final Context context, final int id, final String newName) {
+    public static void renamePlaylist(final Context context, final long id, final String newName) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(MediaStore.Audio.PlaylistsColumns.NAME, newName);
         context.getContentResolver().update(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,
@@ -175,7 +173,7 @@ public class PlaylistsUtil {
         App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
     }
 
-    public static String getNameForPlaylist(final Context context, final int id) {
+    public static String getNameForPlaylist(final Context context, final long id) {
         Cursor cursor = context.getContentResolver().query(
                 MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,
                 new String[]{MediaStore.Audio.PlaylistsColumns.NAME},

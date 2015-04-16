@@ -1,9 +1,10 @@
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="104dp"
     android:layout_height="148dp"
     android:layout_marginRight="8dp"
+    android:layout_marginEnd="8dp"
     app:elevation="3dp"
     android:foreground="?rect_selector">
 
@@ -18,7 +19,8 @@
             android:layout_width="104dp"
             android:layout_height="104dp"
             android:scaleType="centerCrop"
-            android:transitionName="@string/transition_album_cover"/>
+            android:transitionName="@string/transition_album_cover"
+            tools:ignore="UnusedAttribute" />
 
         <LinearLayout
             android:id="@+id/footer"
@@ -33,7 +35,8 @@
                 android:orientation="vertical"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:transitionName="@string/transition_album_text">
+                android:transitionName="@string/transition_album_text"
+                tools:ignore="UnusedAttribute">
 
                 <TextView
                     android:id="@+id/album_title"
@@ -42,8 +45,7 @@
                     android:singleLine="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     android:textColor="?title_text_color"
-                    android:textSize="14sp"
-                    />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/album_year"
@@ -52,11 +54,11 @@
                     android:singleLine="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="?caption_text_color"
-                    android:textSize="12sp"
-                    />
-            </LinearLayout>
-        </LinearLayout>
+                    android:textSize="12sp" />
 
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 

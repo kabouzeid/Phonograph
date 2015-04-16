@@ -11,7 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by karim on 01.01.15.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class LastFMAlbumImageUrlLoader {
     public static final String TAG = LastFMAlbumImageUrlLoader.class.getSimpleName();
@@ -50,9 +50,9 @@ public class LastFMAlbumImageUrlLoader {
         }
     }
 
-    public static interface AlbumImageUrlLoaderCallback {
-        public void onAlbumImageUrlLoaded(String url);
+    public interface AlbumImageUrlLoaderCallback {
+        void onAlbumImageUrlLoaded(String url);
 
-        public void onError();
+        void onError();
     }
 }

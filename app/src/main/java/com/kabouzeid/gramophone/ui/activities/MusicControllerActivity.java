@@ -3,7 +3,6 @@ package com.kabouzeid.gramophone.ui.activities;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,11 +19,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.ThemeSingleton;
+import com.afollestad.materialdialogs.internal.MDTintHelper;
+import com.afollestad.materialdialogs.util.DialogUtils;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.helper.AddToPlaylistDialogHelper;
+import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
+import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.helper.SongDetailDialogHelper;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistImageUrlLoader;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
@@ -66,9 +68,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     private ImageButton repeatButton;
     private ImageButton shuffleButton;
     private View mediaControllerContainer;
-
     private int lastFooterColor = -1;
-
     private boolean killThreads = false;
 
     @Override
@@ -128,11 +128,13 @@ public class MusicControllerActivity extends AbsFabActivity {
             if (Util.hasLollipopSDK()) {
                 mediaControllerContainer.setElevation(getResources().getDimensionPixelSize(R.dimen.cardview_default_elevation));
             }
-            mediaControllerContainer.setBackgroundColor(Util.resolveColor(this, R.attr.music_controller_container_color));
+            mediaControllerContainer.setBackgroundColor(
+                    DialogUtils.resolveColor(this, R.attr.music_controller_container_color));
         } else {
             if (Util.hasLollipopSDK() && !Util.isInPortraitMode(this)) {
                 mediaControllerContainer.setElevation(getResources().getDimensionPixelSize(R.dimen.cardview_default_elevation));
-                mediaControllerContainer.setBackgroundColor(Util.resolveColor(this, R.attr.music_controller_container_color));
+                mediaControllerContainer.setBackgroundColor(
+                        DialogUtils.resolveColor(this, R.attr.music_controller_container_color));
             } else {
                 mediaControllerContainer.setBackground(null);
             }
@@ -140,6 +142,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     private void setUpProgressSlider() {
+        MDTintHelper.setTint(progressSlider, ThemeSingleton.get().positiveColor);
         progressSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -159,8 +162,10 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     private void setUpPrevNext() {
-        nextButton.setImageDrawable(Util.getTintedDrawable(getResources(), R.drawable.ic_skip_next_white_48dp, Util.resolveColor(this, R.attr.themed_drawable_color)));
-        prevButton.setImageDrawable(Util.getTintedDrawable(getResources(), R.drawable.ic_skip_previous_white_48dp, Util.resolveColor(this, R.attr.themed_drawable_color)));
+        nextButton.setImageDrawable(Util.getTintedDrawable(this,
+                R.drawable.ic_skip_next_white_48dp, DialogUtils.resolveColor(this, R.attr.themed_drawable_color)));
+        prevButton.setImageDrawable(Util.getTintedDrawable(this,
+                R.drawable.ic_skip_previous_white_48dp, DialogUtils.resolveColor(this, R.attr.themed_drawable_color)));
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,10 +193,12 @@ public class MusicControllerActivity extends AbsFabActivity {
     private void updateShuffleState() {
         switch (MusicPlayerRemote.getShuffleMode()) {
             case MusicService.SHUFFLE_MODE_SHUFFLE:
-                shuffleButton.setImageDrawable(Util.getTintedDrawable(getResources(), R.drawable.ic_shuffle_white_48dp, Util.resolveColor(this, R.attr.themed_drawable_activated_color)));
+                shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_48dp,
+                        ThemeSingleton.get().positiveColor));
                 break;
             default:
-                shuffleButton.setImageDrawable(Util.getTintedDrawable(getResources(), R.drawable.ic_shuffle_white_48dp, Util.resolveColor(this, R.attr.themed_drawable_color)));
+                shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_48dp,
+                        DialogUtils.resolveColor(this, R.attr.themed_drawable_color)));
                 break;
         }
     }
@@ -209,13 +216,16 @@ public class MusicControllerActivity extends AbsFabActivity {
     private void updateRepeatState() {
         switch (MusicPlayerRemote.getRepeatMode()) {
             case MusicService.REPEAT_MODE_NONE:
-                repeatButton.setImageDrawable(Util.getTintedDrawable(getResources(), R.drawable.ic_repeat_white_48dp, Util.resolveColor(this, R.attr.themed_drawable_color)));
+                repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_white_48dp,
+                        DialogUtils.resolveColor(this, R.attr.themed_drawable_color)));
                 break;
             case MusicService.REPEAT_MODE_ALL:
-                repeatButton.setImageDrawable(Util.getTintedDrawable(getResources(), R.drawable.ic_repeat_white_48dp, Util.resolveColor(this, R.attr.themed_drawable_activated_color)));
+                repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_white_48dp,
+                        ThemeSingleton.get().positiveColor));
                 break;
             default:
-                repeatButton.setImageDrawable(Util.getTintedDrawable(getResources(), R.drawable.ic_repeat_one_white_48dp, Util.resolveColor(this, R.attr.themed_drawable_activated_color)));
+                repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_one_white_48dp,
+                        ThemeSingleton.get().positiveColor));
                 break;
         }
     }
@@ -294,9 +304,9 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     private void setStandardColors() {
-        int songTitleTextColor = Util.resolveColor(this, R.attr.title_text_color);
-        int artistNameTextColor = Util.resolveColor(this, R.attr.caption_text_color);
-        int defaultBarColor = Util.resolveColor(this, R.attr.default_bar_color);
+        int songTitleTextColor = DialogUtils.resolveColor(this, R.attr.title_text_color);
+        int artistNameTextColor = DialogUtils.resolveColor(this, R.attr.caption_text_color);
+        int defaultBarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
 
         animateColorChange(defaultBarColor);
 
@@ -353,7 +363,8 @@ public class MusicControllerActivity extends AbsFabActivity {
                         Thread.sleep(1);
                     } catch (InterruptedException e) {
                         return;
-                    } catch (Exception e) {
+                    } catch (Exception e2) {
+                        e2.printStackTrace();
                     }
                     final int finalTotal = total;
                     final int finalCurrentPosition = currentPosition;
@@ -427,7 +438,7 @@ public class MusicControllerActivity extends AbsFabActivity {
                 Toast.makeText(this, "This feature is not available yet", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.action_add_to_playlist:
-                AddToPlaylistDialogHelper.getDialog(this, song).show();
+                AddToPlaylistDialog.create(song).show(getSupportFragmentManager(), "ADD_PLAYLIST");
                 return true;
             case android.R.id.home:
                 super.onBackPressed();
@@ -443,7 +454,7 @@ public class MusicControllerActivity extends AbsFabActivity {
             case R.id.action_details:
                 String songFilePath = SongFilePathLoader.getSongFilePath(this, song.id);
                 File songFile = new File(songFilePath);
-                SongDetailDialogHelper.getDialog(this, songFile).show();
+                SongDetailDialog.create(songFile).show(getSupportFragmentManager(), "SONG_DETAIL");
                 return true;
             case R.id.action_go_to_album:
                 NavigationUtil.goToAlbum(this, song.albumId, getSharedViewsWithFab(null));

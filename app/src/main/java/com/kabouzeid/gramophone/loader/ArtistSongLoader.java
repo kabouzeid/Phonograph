@@ -9,15 +9,15 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Created by karim on 01.01.15.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class ArtistSongLoader {
-    public static List<Song> getArtistSongList(final Context context, final int artistId) {
+
+    public static ArrayList<Song> getArtistSongList(final Context context, final int artistId) {
         Cursor cursor = makeArtistSongCursor(context, artistId);
-        List<Song> songs = new ArrayList<>();
+        ArrayList<Song> songs = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 final int id = cursor.getInt(0);
@@ -40,10 +40,6 @@ public class ArtistSongLoader {
     }
 
     public static Cursor makeArtistSongCursor(final Context context, final int artistId) {
-        final StringBuilder selection = new StringBuilder();
-        selection.append(MediaStore.Audio.AudioColumns.IS_MUSIC + "=1");
-        selection.append(" AND " + MediaStore.Audio.AudioColumns.TITLE + " != ''");
-        selection.append(" AND " + MediaStore.Audio.AudioColumns.ARTIST_ID + "=" + artistId);
         return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 new String[]{
                         /* 0 */
@@ -60,6 +56,9 @@ public class ArtistSongLoader {
                         MediaStore.Audio.AudioColumns.TRACK,
                         /* 6 */
                         MediaStore.Audio.AudioColumns.ALBUM_ID
-                }, selection.toString(), null, PreferenceUtils.getInstance(context).getArtistSongSortOrder());
+                }, (MediaStore.Audio.AudioColumns.IS_MUSIC + "=1") + " AND " +
+                        MediaStore.Audio.AudioColumns.TITLE + " != ''" + " AND " +
+                        MediaStore.Audio.AudioColumns.ARTIST_ID + "=" + artistId, null,
+                PreferenceUtils.getInstance(context).getArtistSongSortOrder());
     }
 }

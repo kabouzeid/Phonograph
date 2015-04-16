@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.media.audiofx.AudioEffect;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -12,23 +13,46 @@ import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.afollestad.materialdialogs.util.DialogUtils;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.dialogs.ColorChooserDialog;
 import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
+import com.kabouzeid.gramophone.prefs.ColorChooserPreference;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtils;
 
-public class SettingsActivity extends AbsBaseActivity {
+public class SettingsActivity extends AbsBaseActivity implements ColorChooserDialog.ColorCallback {
     public static final String TAG = SettingsActivity.class.getSimpleName();
+
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimary());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            getWindow().setStatusBarColor(PreferenceUtils.getInstance(this).getThemeColorPrimaryDarker());
+        setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
+
+        if (savedInstanceState == null)
+            getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
+    }
+
+    @Override
+    public void onColorSelection(int title, int color) {
+        if (title == R.string.primary_color) {
+            PreferenceUtils.getInstance(this).setThemeColorPrimary(color);
+            App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.THEME_CHANGED, color));
+        } else if (title == R.string.accent_color) {
+            PreferenceUtils.getInstance(this).setThemeColorAccent(color);
+            App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.THEME_CHANGED, color));
+        }
+        recreate();
     }
 
     public static class SettingsFragment extends PreferenceFragment {
@@ -58,6 +82,30 @@ public class SettingsActivity extends AbsBaseActivity {
                 public boolean onPreferenceChange(Preference preference, Object o) {
                     setSummary(generalTheme, o);
                     App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.THEME_CHANGED, o));
+                    return true;
+                }
+            });
+
+            ColorChooserPreference primaryColor = (ColorChooserPreference) findPreference("primary_color");
+            primaryColor.setColor(PreferenceUtils.getInstance(getActivity()).getThemeColorPrimary(),
+                    DialogUtils.resolveColor(getActivity(), android.R.attr.textColorPrimary));
+            primaryColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    new ColorChooserDialog().show(getActivity(), preference.getTitleRes(),
+                            PreferenceUtils.getInstance(getActivity()).getThemeColorPrimary());
+                    return true;
+                }
+            });
+
+            ColorChooserPreference accentColor = (ColorChooserPreference) findPreference("accent_color");
+            accentColor.setColor(PreferenceUtils.getInstance(getActivity()).getThemeColorAccent(),
+                    DialogUtils.resolveColor(getActivity(), android.R.attr.textColorPrimary));
+            accentColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    new ColorChooserDialog().show(getActivity(), preference.getTitleRes(),
+                            PreferenceUtils.getInstance(getActivity()).getThemeColorAccent());
                     return true;
                 }
             });

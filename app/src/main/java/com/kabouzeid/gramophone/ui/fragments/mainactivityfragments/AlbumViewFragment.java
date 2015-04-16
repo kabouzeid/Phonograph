@@ -2,7 +2,6 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.AlbumAdapter;
@@ -10,7 +9,7 @@ import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 
 /**
- * Created by karim on 22.11.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class AlbumViewFragment extends AbsMainActivityRecyclerViewFragment {
     public static final String TAG = AlbumViewFragment.class.getSimpleName();

@@ -1,12 +1,13 @@
 package com.kabouzeid.gramophone.interfaces;
 
 /**
- * Created by karim on 23.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public interface KabViewsDisableAble {
-    public void enableViews();
 
-    public void disableViews();
+    void enableViews();
 
-    public boolean areViewsEnabled();
+    void disableViews();
+
+    boolean areViewsEnabled();
 }

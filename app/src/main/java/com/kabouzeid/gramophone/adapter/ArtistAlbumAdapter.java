@@ -19,7 +19,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 /**
- * Created by karim on 24.11.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class ArtistAlbumAdapter extends RecyclerView.Adapter<ArtistAlbumAdapter.ViewHolder> {
     public static final String TAG = AlbumAdapter.class.getSimpleName();
@@ -28,9 +28,9 @@ public class ArtistAlbumAdapter extends RecyclerView.Adapter<ArtistAlbumAdapter.
     private static final int TYPE_MIDDLE = 2;
     private static final int TYPE_LAST = 3;
 
-    private Activity activity;
-    private List<Album> dataSet;
-    private int listMargin;
+    private final Activity activity;
+    private final List<Album> dataSet;
+    private final int listMargin;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -72,9 +72,9 @@ public class ArtistAlbumAdapter extends RecyclerView.Adapter<ArtistAlbumAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageView image;
-        TextView title;
-        TextView year;
+        final ImageView image;
+        final TextView title;
+        final TextView year;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -92,7 +92,7 @@ public class ArtistAlbumAdapter extends RecyclerView.Adapter<ArtistAlbumAdapter.
                     )};
             if (activity instanceof AbsFabActivity)
                 albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(albumPairs);
-            NavigationUtil.goToAlbum(activity, dataSet.get(getPosition()).id, albumPairs);
+            NavigationUtil.goToAlbum(activity, dataSet.get(getAdapterPosition()).id, albumPairs);
         }
     }
 

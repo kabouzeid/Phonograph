@@ -7,34 +7,34 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.NavigationDrawerItemAdapter;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.NavigationDrawerItem;
-import com.nhaarman.listviewanimations.appearance.simple.AlphaInAnimationAdapter;
 
 import java.util.ArrayList;
 
 public class NavigationDrawerFragment extends Fragment {
+
     public static final int NAVIGATION_DRAWER_HEADER = -1;
-    private static final String TAG = NavigationDrawerFragment.class.getSimpleName();
+    public static final int ABOUT_INDEX = 4;
+    public static final int SETTINGS_INDEX = 5;
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
+
     public View fragmentRootView;
-    private App app;
     private NavigationDrawerCallbacks callbacks;
     private NavigationDrawerItemAdapter drawerAdapter;
     private DrawerLayout drawerLayout;
-    private ListView drawerListView;
+    private RecyclerView drawerRecyclerView;
     private View fragmentContainerView;
 
     private Button headerButton;
@@ -91,7 +91,6 @@ public class NavigationDrawerFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        app = (App) getActivity().getApplicationContext();
         userLearnedDrawer = PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean(AppKeys.SP_USER_LEARNED_DRAWER, false);
         if (savedInstanceState != null) {
             setItemChecked(savedInstanceState.getInt(STATE_SELECTED_POSITION));
@@ -101,8 +100,7 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
     }
 
@@ -115,7 +113,7 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     private void initViews() {
-        drawerListView = (ListView) fragmentRootView.findViewById(R.id.navigation_drawer_list);
+        drawerRecyclerView = (RecyclerView) fragmentRootView.findViewById(R.id.navigation_drawer_list);
         final View drawerHeader = fragmentRootView.findViewById(R.id.header);
         headerButton = (Button) drawerHeader.findViewById(R.id.header_clickable);
         albumArt = (ImageView) drawerHeader.findViewById(R.id.album_art);
@@ -139,23 +137,22 @@ public class NavigationDrawerFragment extends Fragment {
         navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.albums), R.drawable.ic_album_white_24dp));
         navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.artists), R.drawable.ic_person_white_24dp));
         navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.playlists), R.drawable.ic_queue_music_white_24dp));
+        navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.action_about), R.drawable.ic_drawer_about));
+        navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.action_settings), R.drawable.ic_drawer_settings));
 
-        drawerAdapter = new NavigationDrawerItemAdapter(getActivity(), R.id.navigation_drawer, navigationDrawerItems);
-
-        final AlphaInAnimationAdapter animationAdapter = new AlphaInAnimationAdapter(drawerAdapter);
-        animationAdapter.setAbsListView(drawerListView);
-
-        drawerListView.setAdapter(animationAdapter);
-        drawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        drawerAdapter = new NavigationDrawerItemAdapter(getActivity(), navigationDrawerItems, new NavigationDrawerItemAdapter.Callback() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectItem(position);
+            public void onItemSelected(int index) {
+                selectItem(index);
             }
         });
+        drawerRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        drawerRecyclerView.setAdapter(drawerAdapter);
     }
 
     private void selectItem(final int position) {
-        if (position != NAVIGATION_DRAWER_HEADER) {
+        if (position != NAVIGATION_DRAWER_HEADER &&
+                position != ABOUT_INDEX && position != SETTINGS_INDEX) {
             setItemChecked(position);
             if (drawerLayout != null) {
                 new Handler().postDelayed(new Runnable() {
@@ -165,11 +162,9 @@ public class NavigationDrawerFragment extends Fragment {
                     }
                 }, 400);
             }
-
         }
-        if (callbacks != null) {
+        if (callbacks != null)
             callbacks.onNavigationDrawerItemSelected(position);
-        }
     }
 
     @Override
@@ -191,7 +186,7 @@ public class NavigationDrawerFragment extends Fragment {
         }
     }
 
-    public static interface NavigationDrawerCallbacks {
+    public interface NavigationDrawerCallbacks {
         void onNavigationDrawerItemSelected(int position);
     }
 }

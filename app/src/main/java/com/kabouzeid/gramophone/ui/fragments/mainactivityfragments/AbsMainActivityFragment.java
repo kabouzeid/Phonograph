@@ -10,7 +10,7 @@ import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.util.Util;
 
 /**
- * Created by karim on 27.02.15.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public abstract class AbsMainActivityFragment extends Fragment implements KabViewsDisableAble {
     private boolean areViewsEnabled;

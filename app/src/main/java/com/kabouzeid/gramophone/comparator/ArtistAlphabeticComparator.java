@@ -5,7 +5,7 @@ import com.kabouzeid.gramophone.model.Artist;
 import java.util.Comparator;
 
 /**
- * Created by karim on 29.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class ArtistAlphabeticComparator implements Comparator<Artist> {
     @Override

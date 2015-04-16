@@ -13,7 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by karim on 01.01.15.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class LastFMArtistBiographyLoader {
     public static final String TAG = LastFMArtistBiographyLoader.class.getSimpleName();
@@ -55,7 +55,7 @@ public class LastFMArtistBiographyLoader {
         app.addToVolleyRequestQueue(artistInfoJSONRequest);
     }
 
-    public static interface ArtistBioLoaderCallback {
-        public void onArtistBioLoaded(String bio);
+    public interface ArtistBioLoaderCallback {
+        void onArtistBioLoaded(String bio);
     }
 }

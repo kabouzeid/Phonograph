@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by karim on 29.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class ArtistLoader {
 
@@ -37,11 +37,11 @@ public class ArtistLoader {
         return artists;
     }
 
-    public static final Cursor makeArtistCursor(final Context context) {
+    public static Cursor makeArtistCursor(final Context context) {
         return makeArtistCursor(context, null, null);
     }
 
-    public static final Cursor makeArtistCursor(final Context context, final String selection, final String[] values) {
+    public static Cursor makeArtistCursor(final Context context, final String selection, final String[] values) {
         return context.getContentResolver().query(MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI,
                 new String[]{
                         /* 0 */

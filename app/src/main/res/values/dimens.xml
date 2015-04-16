@@ -1,14 +1,9 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="default_item_margin">16dp</dimen>
-    <dimen name="list_top_margin">8dp</dimen>
 
     <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
          https://developer.android.com/design/patterns/navigation-drawer.html -->
-    <dimen name="navigation_drawer_textsize">14sp</dimen>
     <dimen name="navigation_drawer_image_height">140dp</dimen>
     <dimen name="navigation_drawer_width">260dp</dimen>
 
@@ -24,17 +19,6 @@
     <dimen name="notification_big_icon_width">64.0dip</dimen>
     <dimen name="notification_info_container_padding_left">8.0dip</dimen>
     <dimen name="notification_info_container_padding_bottom">4.0dip</dimen>
-    <dimen name="notification_action_padding">8.0dip</dimen>
-    <dimen name="notification_action_height">48.0dip</dimen>
-    <dimen name="notification_action_width">48.0dip</dimen>
-
-    <!-- Notification template expanded -->
-    <dimen name="notification_expanded_height">128.0dip</dimen>
-    <dimen name="notification_expanded_buttons_divider_padding">12.0dip</dimen>
-    <dimen name="notification_expanded_button_height">48.0dip</dimen>
-    <dimen name="notification_expanded_button_padding">10.0dip</dimen>
-    <dimen name="notification_expanded_content_padding_top">8.0dip</dimen>
-    <dimen name="notification_expanded_collapse_padding">8.0dip</dimen>
 
     <dimen name="tab_height">48dp</dimen>
 
@@ -44,7 +28,6 @@
 Refer to App Widget Documentation for margin information
 http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     -->
-    <dimen name="widget_margin">8dp</dimen>
     <dimen name="app_widget_small_artwork_height">64dp</dimen>
 
     <dimen name="pause_bar_width">5dp</dimen>
@@ -53,4 +36,9 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
 
     <dimen name="fab_icon_bound_width">32dp</dimen>
     <dimen name="fab_icon_bound_height">36dp</dimen>
+
+    <!-- Color Chooser Dialog -->
+    <dimen name="circle_view_border">1dp</dimen>
+    <dimen name="circle_view_check">24dp</dimen>
+
 </resources>

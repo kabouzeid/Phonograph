@@ -12,7 +12,7 @@
     <string name="action_tag_editor">Editor Info Melodie</string>
     <string name="action_delete_from_disk">Șterge</string>
     <string name="action_details">Detalii</string>
-    <string name="action_go_to">Du-te la...</string>
+    <string name="action_go_to">Du-te la…</string>
     <string name="albums">Albume</string>
     <string name="artists">Artiști</string>
     <string name="genres">Genuri</string>
@@ -37,7 +37,7 @@
     <string name="track_hint">Număr (2 pentru melodia a doua sau 3004 pentru CD3 melodia 4)</string>
     <string name="album_or_artist_empty">Campul titlului albumului sau artistul albumului este gol.</string>
     <string name="writing_file_number">Scriere fișier</string>
-    <string name="saving_changes">Salvare schimbări...</string>
+    <string name="saving_changes">Salvare schimbări…</string>
     <string name="label_details">Detalii</string>
     <string name="label_file_name">Nume fișier</string>
     <string name="label_file_path">Locație fișier</string>
@@ -57,8 +57,8 @@
     <string name="no_results">Niciun rezultat</string>
     <string name="action_re_download_artist_image">Actualizează imagine artist</string>
     <string name="updated_artist_image_for">Acatualizează imagine artist pentru</string>
-    <string name="updating">Actualizare...</string>
-    <string name="loading">Incărcare...</string>
+    <string name="updating">Actualizare…</string>
+    <string name="loading">Incărcare…</string>
     <string name="added_title_to_playing_queue">Adăugat 1 melodie la lista de redare.</string>
     <string name="added_titles_to_playing_queue_1">Adăugat</string>
     <string name="added_titles_to_playing_queue_2">melodii la lista de redare.</string>

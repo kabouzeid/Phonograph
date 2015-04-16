@@ -8,13 +8,13 @@ import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistThumbnailUrlLoader;
 import com.squareup.picasso.Picasso;
 
 /**
- * Created by karim on 29.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class Artist implements SearchEntry {
-    public int id;
-    public String name;
-    public int albumCount;
-    public int songCount;
+    public final int id;
+    public final String name;
+    public final int albumCount;
+    public final int songCount;
 
     public Artist(final int id, final String name, final int albumCount, final int songCount) {
         this.id = id;

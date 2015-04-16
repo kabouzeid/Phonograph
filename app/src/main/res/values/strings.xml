@@ -13,15 +13,10 @@
     <string name="action_tag_editor">Tag Editor</string>
     <string name="action_delete_from_disk">Delete from disk</string>
     <string name="action_details">Details</string>
-    <string name="action_go_to">Go to…</string>
     <string name="albums">Albums</string>
     <string name="artists">Artists</string>
-    <string name="genres">Genres</string>
     <string name="songs">Songs</string>
     <string name="playlists">Playlists</string>
-    <string name="unknown_artist">Unknown Artist</string>
-    <string name="unknown_album">Unknown Album</string>
-    <string name="untitled_song">Untitled Song</string>
     <string name="nothing_playing">Nothing is playing</string>
     <string name="unplayable_file">Sorry - an error occurred while attempting to play this song</string>
     <string name="biography_unavailable">Sorry, we were not able to find a matching biography for this artist.</string>
@@ -29,7 +24,6 @@
     <string name="audio_focus_denied">We were not able to gain audio focus.</string>
     <string name="title_activity_tag_editor">Tag editor</string>
     <string name="tag_editor">Tag editor</string>
-    <string name="song">Song</string>
     <string name="album">Album</string>
     <string name="artist">Artist</string>
     <string name="genre">Genre</string>
@@ -49,24 +43,17 @@
     <string name="label_track_length">Length</string>
     <string name="label_bit_rate">Bitrate</string>
     <string name="label_sampling_rate">Sampling rate</string>
-    <string name="ok">OK</string>
     <string name="action_go_to_artist">Go to artist</string>
     <string name="action_go_to_album">Go to album</string>
     <string name="label_current_playing_queue">Playing queue</string>
-    <string name="close">Close</string>
     <string name="save_as_playlist">Save as playlist</string>
     <string name="credits_3">Icon by</string>
     <string name="credits_1">Gramophone is a completely free material designed music player by</string>
     <string name="title_activity_search">Search</string>
-    <string name="more">more</string>
     <string name="no_results">No results</string>
     <string name="action_re_download_artist_image">Update artist image</string>
-    <string name="updated_artist_image_for">Updated artist image for</string>
     <string name="updating">Updating…</string>
-    <string name="loading">Loading…</string>
     <string name="added_title_to_playing_queue">Added 1 title to the playing queue.</string>
-    <string name="added_titles_to_playing_queue_1">Added\u0020</string>
-    <string name="added_titles_to_playing_queue_2">\u0020titles to the playing queue.</string>
     <string name="title_activity_playlist_detail">Playlist Activity</string>
     <string name="action_delete_from_playlist">Delete from playlist</string>
     <string name="inserted_titles_to_playlist_1">Added\u0020</string>
@@ -74,7 +61,6 @@
     <string name="action_new_playlist">New playlist</string>
     <string name="action_grid_columns">Grid columns</string>
     <string name="action_grid_columns_land">Grid columns (Land)</string>
-    <string name="cancel">Cancel</string>
     <string name="created_playlist">Created playlist\u0020</string>
     <string name="deleted_playlist">Deleted playlist\u0020</string>
     <string name="create_playlist_failed">Could not create playlist\u0020</string>
@@ -85,7 +71,6 @@
     <string name="delete_warning">"Warning: This operation can not be undone."</string>
     <string name="shuffle_all">Shuffle all</string>
     <string name="last_opened">Last opened</string>
-    <string name="title_setting_start_page">Start page</string>
     <string name="light_theme_name">Light</string>
     <string name="dark_theme_name">Dark</string>
     <string name="equalizer">Equalizer</string>
@@ -105,5 +90,12 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="delete">delete</string>
+
+    <string name="select">Select</string>
+    <string name="default_str">Default</string>
+    <string name="primary_color">Primary Color</string>
+    <string name="accent_color">Accent Color</string>
+    <string name="primary_color_desc">The primary theme color, defaults to indigo.</string>
+    <string name="accent_color_desc">The accent theme color, defaults to pink.</string>
 
 </resources>

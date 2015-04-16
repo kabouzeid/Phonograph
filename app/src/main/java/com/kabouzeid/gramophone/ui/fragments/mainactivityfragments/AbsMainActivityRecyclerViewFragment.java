@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.kabouzeid.gramophone.R;
 
 /**
- * Created by karim on 30.03.15.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivityFragment {
     public static final String TAG = AbsMainActivityRecyclerViewFragment.class.getSimpleName();

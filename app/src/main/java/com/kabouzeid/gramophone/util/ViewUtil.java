@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 /**
- * Created by karim on 06.12.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class ViewUtil {
     public final static int DEFAULT_COLOR_ANIMATION_DURATION = 1000;
@@ -89,6 +89,7 @@ public class ViewUtil {
             @Override
             public void onGlobalLayout() {
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                    //noinspection deprecation
                     view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 } else {
                     view.getViewTreeObserver().removeOnGlobalLayoutListener(this);

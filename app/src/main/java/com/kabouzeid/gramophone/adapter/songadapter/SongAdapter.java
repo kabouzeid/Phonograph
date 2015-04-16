@@ -1,9 +1,8 @@
 package com.kabouzeid.gramophone.adapter.songadapter;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v4.util.Pair;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -13,41 +12,35 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.ThemeSingleton;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.helper.AddToPlaylistDialogHelper;
-import com.kabouzeid.gramophone.helper.DeleteSongsDialogHelper;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.helper.SongDetailDialogHelper;
-import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.loader.SongLoader;
-import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
-import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.util.Util;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
- * Created by karim on 27.11.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
+
     public static final String TAG = AlbumSongAdapter.class.getSimpleName();
     private static final int SHUFFLE_BUTTON = 0;
     private static final int SONG = 1;
 
-    protected Activity activity;
-    protected List<Song> dataSet;
+    protected final ActionBarActivity activity;
+    protected ArrayList<Song> dataSet;
 
-    public SongAdapter(Activity activity) {
+    public SongAdapter(ActionBarActivity activity) {
         this.activity = activity;
         loadDataSet();
     }
@@ -80,15 +73,14 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                     .placeholder(R.drawable.default_album_art)
                     .into(holder.albumArt);
         } else {
-            int accentColor = Util.resolveColor(activity, R.attr.colorAccent);
             holder.songTitle.setText(activity.getResources().getString(R.string.shuffle_all).toUpperCase());
-            holder.songTitle.setTextColor(accentColor);
+            holder.songTitle.setTextColor(ThemeSingleton.get().positiveColor);
             holder.songTitle.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
             holder.songInfo.setVisibility(View.GONE);
             holder.overflowButton.setVisibility(View.GONE);
             final int padding = activity.getResources().getDimensionPixelSize(R.dimen.default_item_margin) / 2;
             holder.albumArt.setPadding(padding, padding, padding, padding);
-            holder.albumArt.setColorFilter(accentColor);
+            holder.albumArt.setColorFilter(ThemeSingleton.get().positiveColor);
             holder.albumArt.setImageResource(R.drawable.ic_shuffle_white_48dp);
             holder.separator.setVisibility(View.VISIBLE);
             holder.short_separator.setVisibility(View.GONE);
@@ -101,12 +93,12 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView songTitle;
-        TextView songInfo;
-        ImageView overflowButton;
-        ImageView albumArt;
-        View separator;
-        View short_separator;
+        final TextView songTitle;
+        final TextView songInfo;
+        final ImageView overflowButton;
+        final ImageView albumArt;
+        final View separator;
+        final View short_separator;
 
         public ViewHolder(View itemView) {
             super(itemView);

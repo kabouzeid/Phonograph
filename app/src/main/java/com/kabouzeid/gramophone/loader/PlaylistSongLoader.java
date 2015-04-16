@@ -8,12 +8,11 @@ import android.provider.MediaStore.Audio.AudioColumns;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PlaylistSongLoader {
 
-    public static List<PlaylistSong> getPlaylistSongList(final Context context, final int playlistID) {
-        List<PlaylistSong> songs = new ArrayList<>();
+    public static ArrayList<PlaylistSong> getPlaylistSongList(final Context context, final int playlistID) {
+        ArrayList<PlaylistSong> songs = new ArrayList<>();
         Cursor cursor = makePlaylistSongCursor(context, playlistID);
 
         if (cursor != null && cursor.moveToFirst()) {

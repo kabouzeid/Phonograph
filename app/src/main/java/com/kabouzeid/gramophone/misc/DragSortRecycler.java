@@ -71,13 +71,13 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements Rec
 
 
     public interface OnItemMovedListener {
-        public void onItemMoved(int from, int to);
+        void onItemMoved(int from, int to);
     }
 
     public interface OnDragStateChangedListener {
-        public void onDragStart();
+        void onDragStart();
 
-        public void onDragStop();
+        void onDragStop();
     }
 
     private void debugLog(String log) {
@@ -135,15 +135,14 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements Rec
 
         debugLog("View top = " + view.getTop());
         if (selectedDragItemPos != -1) {
-            int itemPos = rv.getChildPosition(view);
+            int itemPos = rv.getChildAdapterPosition(view);
             debugLog("itemPos =" + itemPos);
 
             if (!canDragOver(itemPos)) {
                 return;
             }
 
-            //Movement of finger
-            float totalMovement = fingerY - fingerAnchorY;
+//            float totalMovement = fingerY - fingerAnchorY;
 
             if (itemPos == selectedDragItemPos) {
                 view.setVisibility(View.INVISIBLE);
@@ -211,7 +210,7 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements Rec
             if (view.getVisibility() != View.VISIBLE)
                 continue;
 
-            int itemPos = rv.getChildPosition(view);
+            int itemPos = rv.getChildAdapterPosition(view);
 
             if (itemPos == selectedDragItemPos) //Don't check against itself!
                 continue;
@@ -306,7 +305,7 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements Rec
                 fingerOffsetInViewY = fingerAnchorY - itemView.getTop();
                 fingerY = fingerAnchorY;
 
-                selectedDragItemPos = rv.getChildPosition(itemView);
+                selectedDragItemPos = rv.getChildAdapterPosition(itemView);
                 debugLog("selectedDragItemPos = " + selectedDragItemPos);
 
                 return true;
@@ -381,7 +380,7 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements Rec
     }
 
 
-    Paint bgColor = new Paint();
+    final Paint bgColor = new Paint();
 
     @Override
     public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
@@ -393,12 +392,7 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements Rec
         }
     }
 
-    RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-        }
-
+    final RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
@@ -407,14 +401,9 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements Rec
         }
     };
 
-    /**
-     * @param position
-     * @return True if we can drag the item over this position, False if not.
-     */
     protected boolean canDragOver(int position) {
         return true;
     }
-
 
     private BitmapDrawable createFloatingBitmap(View v) {
         floatingItemStatingBounds = new Rect(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());

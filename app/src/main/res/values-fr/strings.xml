@@ -8,11 +8,11 @@
     <string name="action_play_next">Lire ensuite</string>
     <string name="action_add_to_playing_queue">Ajouter à la file de lecture</string>
     <string name="action_remove_from_playing_queue">Retirer de la file de lecture</string>
-    <string name="action_add_to_playlist">Ajouter à une playlist...</string>
+    <string name="action_add_to_playlist">Ajouter à une playlist…</string>
     <string name="action_tag_editor">Editeur d\'infos</string>
     <string name="action_delete_from_disk">Supprimer de la mémoire</string>
     <string name="action_details">Détails</string>
-    <string name="action_go_to">Aller à...</string>
+    <string name="action_go_to">Aller à…</string>
     <string name="albums">Albums</string>
     <string name="artists">Artistes</string>
     <string name="genres">Genres</string>
@@ -37,7 +37,7 @@
     <string name="track_hint">Piste (2 pour piste 2 ou 3004 pour CD3 piste 4)</string>
     <string name="album_or_artist_empty">Veuillez indiquer le titre et l\'artiste de l\'album.</string>
     <string name="writing_file_number">Fichier en cours d\'écriture</string>
-    <string name="saving_changes">Sauvegarde des changements...</string>
+    <string name="saving_changes">Sauvegarde des changements…</string>
     <string name="label_details">Détails</string>
     <string name="label_file_name">Nom du fichier</string>
     <string name="label_file_path">Chemin du fichier</string>
@@ -58,7 +58,7 @@
     <string name="action_re_download_artist_image">Actualiser l\'image de l\'artiste</string>
     <string name="updated_artist_image_for">Image de l\'artiste actualisée pour</string>
     <string name="updating">Actualisation</string>
-    <string name="loading">Chargement...</string>
+    <string name="loading">Chargement…</string>
     <string name="added_title_to_playing_queue">1 titre ajouté à la file de lecture.</string>
     <string name="added_titles_to_playing_queue_1">Ajouté</string>
     <string name="added_titles_to_playing_queue_2">" titres ajout\u00e9s \u00e0 la file de lecture"</string>

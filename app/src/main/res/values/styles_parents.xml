@@ -2,6 +2,8 @@
 <resources>
 
     <style name="Theme.MaterialMusic.Base" parent="Theme.AppCompat.NoActionBar">
+        <item name="md_dark_theme">true</item>
+
         <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
 
@@ -15,29 +17,34 @@
         <item name="title_text_color">?android:attr/textColorPrimary</item>
         <item name="caption_text_color">?android:attr/textColorSecondary</item>
 
-        <item name="music_controller_container_color">@color/materialmusic_dark_music_controller_container_color</item>
-        <item name="navigation_drawer_background_color">@color/materialmusic_dark_navigation_drawer_background_color</item>
+        <item name="music_controller_container_color">
+            @color/materialmusic_dark_music_controller_container_color
+        </item>
+        <item name="navigation_drawer_background_color">
+            @color/materialmusic_dark_navigation_drawer_background_color
+        </item>
 
         <item name="list_selector">@drawable/list_selector_dark</item>
         <item name="round_selector">@drawable/round_selector_dark</item>
         <item name="rect_selector">@drawable/rect_selector_dark</item>
         <item name="separator_color">@color/materialmusic_dark_separator_color</item>
 
+        <item name="inset_divider">@color/md_divider_white</item>
+        <item name="nav_drawer_icon_color">#fff</item>
+
         <item name="themed_drawable_color">@color/materialmusic_dark_themed_drawable_color</item>
-        <item name="themed_drawable_activated_color">@color/materialmusic_dark_themed_drawable_activated_color</item>
 
         <item name="default_bar_color">@color/materialmusic_dark_default_bar_color</item>
         <item name="card_color">@color/materialmusic_dark_default_bar_color</item>
 
         <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat</item>
 
-        <item name="md_dark_theme">true</item>
-
     </style>
 
     <style name="Theme.MaterialMusic.Base.Light" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
+        <item name="md_dark_theme">false</item>
 
         <item name="colorPrimary">@color/materialmusic_color</item>
         <item name="colorPrimaryDark">@color/materialmusic_color_darker</item>
@@ -49,23 +56,28 @@
         <item name="title_text_color">?android:attr/textColorPrimary</item>
         <item name="caption_text_color">?android:attr/textColorSecondary</item>
 
-        <item name="music_controller_container_color">@color/materialmusic_music_controller_container_color</item>
-        <item name="navigation_drawer_background_color">@color/materialmusic_navigation_drawer_background_color</item>
+        <item name="music_controller_container_color">
+            @color/materialmusic_music_controller_container_color
+        </item>
+        <item name="navigation_drawer_background_color">
+            @color/materialmusic_navigation_drawer_background_color
+        </item>
 
         <item name="list_selector">@drawable/list_selector</item>
         <item name="round_selector">@drawable/round_selector</item>
         <item name="rect_selector">@drawable/rect_selector</item>
         <item name="separator_color">@color/materialmusic_separator_color</item>
 
+        <item name="inset_divider">@color/md_divider_black</item>
+        <item name="nav_drawer_icon_color">#000</item>
+
         <item name="themed_drawable_color">@color/materialmusic_themed_drawable_color</item>
-        <item name="themed_drawable_activated_color">@color/materialmusic_themed_drawable_activated_color</item>
 
         <item name="default_bar_color">@color/materialmusic_default_bar_color</item>
         <item name="card_color">@color/white</item>
 
         <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
 
-        <item name="md_dark_theme">false</item>
     </style>
 
     <style name="PlayPauseFabParent">

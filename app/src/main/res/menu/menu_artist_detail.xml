@@ -35,4 +35,5 @@
         android:orderInCategory="99"
         android:title="@string/equalizer"
         app:showAsAction="never"/>
+
 </menu>

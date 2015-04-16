@@ -3,7 +3,6 @@
     <item
         android:id="@+id/action_rename_playlist"
         android:title="@string/rename_playlist"/>
-
     <item
         android:id="@+id/action_delete_playlist"
         android:title="@string/delete_playlist"/>

@@ -8,11 +8,11 @@
     <string name="action_play_next">下一首</string>
     <string name="action_add_to_playing_queue">加入播放队列“</string>
     <string name="action_remove_from_playing_queue">从播放队列移除</string>
-    <string name="action_add_to_playlist">加入播放列表...\"</string>
+    <string name="action_add_to_playlist">加入播放列表…\"</string>
     <string name="action_tag_editor">音乐标签编辑器</string>
     <string name="action_delete_from_disk">从储存中删除</string>
     <string name="action_details">详情</string>
-    <string name="action_go_to">打开...</string>
+    <string name="action_go_to">打开…</string>
     <string name="albums">专辑</string>
     <string name="artists">艺术家</string>
     <string name="genres">流派</string>

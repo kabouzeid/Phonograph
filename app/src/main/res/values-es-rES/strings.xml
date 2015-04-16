@@ -8,11 +8,11 @@
     <string name="action_play_next">Reproducir siguiente</string>
     <string name="action_add_to_playing_queue">Añadir a cola de reproducción</string>
     <string name="action_remove_from_playing_queue">Quitar de la cola</string>
-    <string name="action_add_to_playlist">Añadir a la lista...</string>
+    <string name="action_add_to_playlist">Añadir a la lista…</string>
     <string name="action_tag_editor">Editor de etiquetas</string>
     <string name="action_delete_from_disk">Borrar del disco</string>
     <string name="action_details">Detalles</string>
-    <string name="action_go_to">Ir a...</string>
+    <string name="action_go_to">Ir a…</string>
     <string name="albums">Álbumes</string>
     <string name="artists">Artistas</string>
     <string name="genres">Géneros</string>
@@ -60,8 +60,8 @@
     <string name="no_results">Sin resultados</string>
     <string name="action_re_download_artist_image">Actualizar imagen del artista</string>
     <string name="updated_artist_image_for">Imagen del artista actualizada de</string>
-    <string name="updating">Actualizando...</string>
-    <string name="loading">Cargando...</string>
+    <string name="updating">Actualizando…</string>
+    <string name="loading">Cargando…</string>
     <string name="added_title_to_playing_queue">Añadida una canción a la cola de reproducción.</string>
     <string name="added_titles_to_playing_queue_1">Añadido</string>
     <string name="added_titles_to_playing_queue_2">canciones a la cola de reproducci\u00f3n.</string>

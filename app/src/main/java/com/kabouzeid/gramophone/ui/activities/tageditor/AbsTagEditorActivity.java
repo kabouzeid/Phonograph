@@ -17,6 +17,7 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.util.DialogUtils;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
@@ -48,10 +49,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by karim on 18.01.15.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public abstract class AbsTagEditorActivity extends AbsBaseActivity {
-    public static final String TAG = AbsTagEditorActivity.class.getSimpleName();
+
+    private static final String TAG = AbsTagEditorActivity.class.getSimpleName();
     private static final int REQUEST_CODE_SELECT_IMAGE = 1337;
 
     private int id;
@@ -64,7 +66,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     private Toolbar toolBar;
     private ImageView image;
     private View header;
-    private SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
+    private final SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
         @Override
         public void onScrollChanged(int scrollY, boolean b, boolean b2) {
             float alpha;
@@ -168,7 +170,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
     protected abstract void deleteImage();
 
-    protected void setUpFab() {
+    private void setUpFab() {
         ViewHelper.setScaleX(fab, 0);
         ViewHelper.setScaleY(fab, 0);
         fab.setEnabled(false);
@@ -183,7 +185,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     protected abstract void save();
 
     private void restoreStandardColors() {
-        final int vibrantColor = Util.resolveColor(this, R.attr.colorPrimary);
+        final int vibrantColor = DialogUtils.resolveColor(this, R.attr.colorPrimary);
         paletteColorPrimary = vibrantColor;
         observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -199,7 +201,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         }
     }
 
-    protected void setUpToolBar() {
+    private void setUpToolBar() {
         setSupportActionBar(toolBar);
         getSupportActionBar().setTitle(getResources().getString(R.string.tag_editor));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -270,7 +272,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
             Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
                 @Override
                 public void onGenerated(Palette palette) {
-                    final int vibrantColor = palette.getVibrantColor(Util.resolveColor(AbsTagEditorActivity.this, R.attr.default_bar_color));
+                    final int vibrantColor = palette.getVibrantColor(DialogUtils.resolveColor(AbsTagEditorActivity.this, R.attr.default_bar_color));
                     paletteColorPrimary = vibrantColor;
                     observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

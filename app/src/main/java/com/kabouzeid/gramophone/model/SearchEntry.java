@@ -4,12 +4,12 @@ import android.content.Context;
 import android.widget.ImageView;
 
 /**
- * Created by karim on 27.02.15.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public interface SearchEntry {
-    public String getTitle();
+    String getTitle();
 
-    public String getSubTitle();
+    String getSubTitle();
 
-    public void loadImage(Context context, ImageView imageView);
+    void loadImage(Context context, ImageView imageView);
 }

@@ -1,8 +1,6 @@
 package com.kabouzeid.gramophone.adapter.songadapter;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.support.v4.util.Pair;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -13,32 +11,23 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.helper.AddToPlaylistDialogHelper;
-import com.kabouzeid.gramophone.helper.DeleteSongsDialogHelper;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.helper.SongDetailDialogHelper;
-import com.kabouzeid.gramophone.loader.SongFilePathLoader;
-import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
-import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.kabouzeid.gramophone.util.NavigationUtil;
 
-import java.io.File;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
- * Created by karim on 27.11.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class AlbumSongAdapter extends RecyclerView.Adapter<AlbumSongAdapter.ViewHolder> {
+
     public static final String TAG = AlbumSongAdapter.class.getSimpleName();
+    protected final ActionBarActivity activity;
+    protected final ArrayList<Song> dataSet;
 
-    protected Activity activity;
-    protected List<Song> dataSet;
-
-    public AlbumSongAdapter(Activity activity, List<Song> objects) {
+    public AlbumSongAdapter(ActionBarActivity activity, ArrayList<Song> objects) {
         this.activity = activity;
         dataSet = objects;
     }
@@ -66,10 +55,10 @@ public class AlbumSongAdapter extends RecyclerView.Adapter<AlbumSongAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView songTitle;
-        TextView trackNumber;
-        TextView artistName;
-        ImageView overflowButton;
+        final TextView songTitle;
+        final TextView trackNumber;
+        final TextView artistName;
+        final ImageView overflowButton;
 
         public ViewHolder(View itemView) {
             super(itemView);

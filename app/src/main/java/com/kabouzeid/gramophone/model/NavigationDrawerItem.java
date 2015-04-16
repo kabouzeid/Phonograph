@@ -1,11 +1,12 @@
 package com.kabouzeid.gramophone.model;
 
 /**
- * Created by karim on 23.11.14.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class NavigationDrawerItem {
-    public String title;
-    public int imageRes;
+
+    public final String title;
+    public final int imageRes;
 
     public NavigationDrawerItem(String title, int imageRes) {
         this.title = title;

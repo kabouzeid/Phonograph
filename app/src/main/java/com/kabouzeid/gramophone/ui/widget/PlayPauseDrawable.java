@@ -13,7 +13,6 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.util.Property;
 import android.view.animation.DecelerateInterpolator;
@@ -45,8 +44,8 @@ public class PlayPauseDrawable extends Drawable {
 
     private float width;
     private float height;
-    private float fallBackWidth;
-    private float fallBackHeight;
+    private final float fallBackWidth;
+    private final float fallBackHeight;
 
     private float progress;
     private boolean isPlay;

@@ -1,5 +1,5 @@
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/default_album_art"/>
+                android:src="@drawable/default_album_art" />
 
             <LinearLayout
                 android:id="@+id/header"
@@ -39,12 +39,12 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
-                    android:hint="Album"
+                    android:hint="@string/album"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
                     android:singleLine="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
@@ -67,7 +67,7 @@
                         android:fontFamily="sans-serif"
                         android:singleLine="true"
                         android:text="@string/album_artist"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
                     <EditText
                         android:id="@+id/album_artist"
@@ -79,7 +79,7 @@
                         android:hint="@string/album_artist"
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:textColor="?attr/title_text_color"/>
+                        android:textColor="?attr/title_text_color" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -93,7 +93,7 @@
                         android:fontFamily="sans-serif"
                         android:singleLine="true"
                         android:text="@string/genre"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
                     <EditText
                         android:id="@+id/genre"
@@ -105,7 +105,7 @@
                         android:hint="@string/genre"
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:textColor="?attr/title_text_color"/>
+                        android:textColor="?attr/title_text_color" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -119,7 +119,7 @@
                         android:fontFamily="sans-serif"
                         android:singleLine="true"
                         android:text="@string/year"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
                     <EditText
                         android:id="@+id/year"
@@ -132,7 +132,7 @@
                         android:inputType="numberDecimal"
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:textColor="?attr/title_text_color"/>
+                        android:textColor="?attr/title_text_color" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -146,16 +146,17 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/Toolbar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="#00000000"/>
+        android:gravity="start|left|top"
+        android:background="#00000000"
+        tools:ignore="RtlHardcoded" />
 
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/fab"
         style="@style/PlayPauseFab"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="bottom|right|end"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_done_white_24dp"/>
+        android:src="@drawable/ic_done_white_24dp"
+        tools:ignore="RtlHardcoded" />
 
 </FrameLayout>
 

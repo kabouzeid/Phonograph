@@ -10,7 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by karim on 01.01.15.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class LastFMArtistThumbnailUrlLoader {
     public static final String TAG = LastFMArtistThumbnailUrlLoader.class.getSimpleName();
@@ -42,7 +42,7 @@ public class LastFMArtistThumbnailUrlLoader {
         }
     }
 
-    public static interface ArtistThumbnailUrlLoaderCallback {
-        public void onArtistThumbnailUrlLoaded(String url);
+    public interface ArtistThumbnailUrlLoaderCallback {
+        void onArtistThumbnailUrlLoaded(String url);
     }
 }

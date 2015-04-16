@@ -1,5 +1,5 @@
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,7 +11,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             style="@style/Toolbar"
-            android:background="?colorPrimary"/>
+            android:background="?colorPrimary" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -20,20 +20,21 @@
             android:clipToPadding="false"
             android:divider="@null"
             android:dividerHeight="0px"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:fitsSystemWindows="true">
+        android:layout_gravity="right|bottom|end"
+        android:fitsSystemWindows="true"
+        tools:ignore="RtlHardcoded">
 
         <com.melnykov.fab.FloatingActionButton
             android:id="@+id/fab"
             style="@style/PlayPauseFab"
-            android:layout_margin="16dp"
-            />
+            android:layout_margin="16dp" />
 
     </LinearLayout>
-</FrameLayout>
+
+</merge>

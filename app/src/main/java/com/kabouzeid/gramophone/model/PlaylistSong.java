@@ -1,7 +1,7 @@
 package com.kabouzeid.gramophone.model;
 
 public class PlaylistSong extends Song {
-    public int playlistId;
+    public final int playlistId;
     public int idInPlayList;
 
     public PlaylistSong(final int id, final int albumId, final int artistId, final String title, final String artistName,

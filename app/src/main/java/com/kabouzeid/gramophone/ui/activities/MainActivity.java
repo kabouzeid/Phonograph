@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
@@ -17,11 +18,12 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 
+import com.afollestad.materialdialogs.ThemeSingleton;
 import com.astuetz.PagerSlidingTabStrip;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PagerAdapter;
-import com.kabouzeid.gramophone.helper.AboutDeveloperDialogHelper;
-import com.kabouzeid.gramophone.helper.CreatePlaylistDialogHelper;
+import com.kabouzeid.gramophone.dialogs.AboutDialog;
+import com.kabouzeid.gramophone.dialogs.CreatePlaylistDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
@@ -44,6 +46,7 @@ import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -95,8 +98,7 @@ public class MainActivity extends AbsFabActivity
 
         navigationDrawerFragment.setItemChecked(startPosition);
 
-        final int accentColor = Util.resolveColor(MainActivity.this, R.attr.colorAccent);
-        slidingTabLayout.setIndicatorColor(accentColor);
+        slidingTabLayout.setIndicatorColor(ThemeSingleton.get().positiveColor);
         slidingTabLayout.setViewPager(viewPager);
 
         slidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -137,7 +139,7 @@ public class MainActivity extends AbsFabActivity
 
     private void setToolBarTransparent(boolean transparent) {
         float alpha = transparent ? 0.97f : 1f;
-        final int colorPrimary = Util.resolveColor(this, R.attr.colorPrimary);
+        final int colorPrimary = PreferenceUtils.getInstance(this).getThemeColorPrimary();
         ViewUtil.setBackgroundAlpha(toolbar, alpha, colorPrimary);
         ViewUtil.setBackgroundAlpha(statusBar, alpha, colorPrimary);
         ViewUtil.setBackgroundAlpha(slidingTabLayout, alpha, colorPrimary);
@@ -222,6 +224,22 @@ public class MainActivity extends AbsFabActivity
                             getResources().getString(R.string.transition_album_cover)
                     )
             }));
+        } else if (position == NavigationDrawerFragment.ABOUT_INDEX) {
+            drawerLayout.closeDrawers();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    new AboutDialog().show(getSupportFragmentManager(), "ABOUT_DIALOG");
+                }
+            }, 200);
+        } else if (position == NavigationDrawerFragment.SETTINGS_INDEX) {
+            drawerLayout.closeDrawers();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+                }
+            }, 200);
         } else {
             if (viewPager != null) {
                 viewPager.setCurrentItem(position, true);
@@ -267,16 +285,10 @@ public class MainActivity extends AbsFabActivity
                 MusicPlayerRemote.shuffleAllSongs(this);
                 return true;
             case R.id.action_new_playlist:
-                CreatePlaylistDialogHelper.getDialog(this).show();
+                CreatePlaylistDialog.create().show(getSupportFragmentManager(), "CREATE_PLAYLIST");
                 return true;
             case R.id.action_search:
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
-                return true;
-            case R.id.action_settings:
-                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-                return true;
-            case R.id.action_about:
-                AboutDeveloperDialogHelper.getDialog(this).show();
                 return true;
             case R.id.action_current_playing:
                 NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithFab(null));
@@ -319,9 +331,9 @@ public class MainActivity extends AbsFabActivity
         PreferenceUtils.getInstance(MainActivity.this).setLastStartPage(currentPage);
     }
 
-    private boolean handlePlaybackIntent(Intent intent) {
+    private void handlePlaybackIntent(Intent intent) {
         if (intent == null) {
-            return false;
+            return;
         }
 
         Uri uri = intent.getData();
@@ -335,7 +347,8 @@ public class MainActivity extends AbsFabActivity
             final int id = (int) parseIdFromIntent(intent, "playlistId", "playlist");
             if (id >= 0) {
                 int position = intent.getIntExtra("position", 0);
-                MusicPlayerRemote.openQueue((List<Song>) (List<? extends Song>) PlaylistSongLoader.getPlaylistSongList(this, id), position, true);
+                //noinspection unchecked
+                MusicPlayerRemote.openQueue((ArrayList<Song>) (List<? extends Song>) PlaylistSongLoader.getPlaylistSongList(this, id), position, true);
                 handled = true;
             }
         } else if (MediaStore.Audio.Albums.CONTENT_TYPE.equals(mimeType)) {
@@ -356,7 +369,6 @@ public class MainActivity extends AbsFabActivity
         if (handled) {
             setIntent(new Intent());
         }
-        return handled;
     }
 
     private long parseIdFromIntent(Intent intent, String longKey,

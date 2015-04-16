@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by karim on 11.01.15.
+ * @author Karim Abou Zeid (kabouzeid)
  */
 public class SongFilePathLoader {
     public static final String TAG = SongFilePathLoader.class.getSimpleName();
@@ -46,11 +46,11 @@ public class SongFilePathLoader {
         }
     }
 
-    public static final Cursor makeSongFilePathCursor(final Context context) {
+    public static Cursor makeSongFilePathCursor(final Context context) {
         return makeSongFilePathCursor(context, null);
     }
 
-    public static final Cursor makeSongFilePathCursor(final Context context, String selection) {
+    public static Cursor makeSongFilePathCursor(final Context context, String selection) {
         return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 new String[]{
                         /* 0 */

@@ -4,6 +4,4 @@
     <string name="transition_fab">fab_transition</string>
     <string name="transition_album_text">album_text_transition</string>
     <string name="transition_artist_image">artist_image_transition</string>
-    <string name="transition_artist_text">artist_text_transition</string>
-    <string name="DEV_TAG">kabouzeid</string>
 </resources>
