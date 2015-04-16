@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.media.audiofx.AudioEffect;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -34,13 +33,21 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         setContentView(R.layout.activity_preferences);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimary());
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            getWindow().setStatusBarColor(PreferenceUtils.getInstance(this).getThemeColorPrimaryDarker());
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null)
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
+    }
+
+    @Override
+    protected boolean shouldColorStatusBar() {
+        return true;
+    }
+
+    @Override
+    protected boolean shouldColorNavBar() {
+        return true;
     }
 
     @Override

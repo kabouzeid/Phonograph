@@ -48,8 +48,8 @@ import com.squareup.otto.Subscribe;
 import java.io.File;
 
 public class MusicControllerActivity extends AbsFabActivity {
-    public static final String TAG = MusicControllerActivity.class.getSimpleName();
 
+    public static final String TAG = MusicControllerActivity.class.getSimpleName();
     private static final int DEFAULT_DELAY = 350;
     private static final int DEFAULT_ANIMATION_TIME = 1000;
 
@@ -88,7 +88,19 @@ public class MusicControllerActivity extends AbsFabActivity {
 
         prepareViewsForOpenAnimation();
 
-        setUpToolBar();
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportActionBar().setTitle(null);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    protected boolean shouldColorStatusBar() {
+        return false; // let other code handle this below
+    }
+
+    @Override
+    protected boolean shouldColorNavBar() {
+        return false; // let other code handle this below
     }
 
     private void moveSeekBarIntoPlace() {
@@ -233,12 +245,6 @@ public class MusicControllerActivity extends AbsFabActivity {
     private void prepareViewsForOpenAnimation() {
         footer.setPivotY(0);
         footer.setScaleY(0);
-    }
-
-    private void setUpToolBar() {
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-        getSupportActionBar().setTitle(null);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

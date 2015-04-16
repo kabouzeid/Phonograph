@@ -52,8 +52,8 @@ import java.util.List;
 
 public class MainActivity extends AbsFabActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, KabViewsDisableAble {
-    public static final String TAG = MainActivity.class.getSimpleName();
 
+    public static final String TAG = MainActivity.class.getSimpleName();
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private NavigationDrawerFragment navigationDrawerFragment;
@@ -79,6 +79,16 @@ public class MainActivity extends AbsFabActivity
         setUpViewPager();
 
         handlePlaybackIntent(getIntent());
+    }
+
+    @Override
+    protected boolean shouldColorStatusBar() {
+        return false;
+    }
+
+    @Override
+    protected boolean shouldColorNavBar() {
+        return false;
     }
 
     private void setUpViewPager() {

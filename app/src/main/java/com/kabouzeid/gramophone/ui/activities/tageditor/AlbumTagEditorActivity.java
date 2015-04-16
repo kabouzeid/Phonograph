@@ -31,8 +31,8 @@ import java.util.List;
 import java.util.Map;
 
 public class AlbumTagEditorActivity extends AbsTagEditorActivity implements TextWatcher {
-    public static final String TAG = AlbumTagEditorActivity.class.getSimpleName();
 
+    public static final String TAG = AlbumTagEditorActivity.class.getSimpleName();
     private Bitmap albumArtBitmap;
     private boolean deleteAlbumArt;
 

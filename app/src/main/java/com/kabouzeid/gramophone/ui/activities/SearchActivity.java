@@ -36,8 +36,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchActivity extends AbsBaseActivity {
-    public static final String TAG = SearchActivity.class.getSimpleName();
 
+    public static final String TAG = SearchActivity.class.getSimpleName();
     private ListView listView;
     private SearchView searchView;
 
@@ -48,13 +48,6 @@ public class SearchActivity extends AbsBaseActivity {
         setTitle(null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
-        final int primary = PreferenceUtils.getInstance(this).getThemeColorPrimary();
-        final int primaryDark = PreferenceUtils.getInstance(this).getThemeColorPrimaryDarker();
-        if (Util.hasLollipopSDK()) {
-            getWindow().setStatusBarColor(primaryDark);
-            getWindow().setNavigationBarColor(primaryDark);
-        }
 
         listView = (ListView) findViewById(R.id.list);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -99,9 +92,19 @@ public class SearchActivity extends AbsBaseActivity {
         });
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(primary);
+        toolbar.setBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimary());
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    protected boolean shouldColorStatusBar() {
+        return true;
+    }
+
+    @Override
+    protected boolean shouldColorNavBar() {
+        return true;
     }
 
     @Override

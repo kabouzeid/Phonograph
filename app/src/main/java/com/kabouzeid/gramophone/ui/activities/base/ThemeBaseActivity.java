@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.ui.activities.base;
 
+import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -17,9 +18,9 @@ import com.kabouzeid.gramophone.util.Util;
  */
 public abstract class ThemeBaseActivity extends ActionBarActivity implements KabViewsDisableAble {
 
-    private boolean mLastDarkTheme;
-    private int mLastPrimary;
-    private int mLastAccent;
+//    private boolean mLastDarkTheme;
+//    private int mLastPrimary;
+//    private int mLastAccent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,40 +29,50 @@ public abstract class ThemeBaseActivity extends ActionBarActivity implements Kab
         setupTheme();
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setupTheme() {
+        // Apply colors to system UI if necessary
+        final int primaryDark = PreferenceUtils.getInstance(this).getThemeColorPrimaryDarker();
+        if (Util.hasLollipopSDK()) {
+            if (shouldColorStatusBar())
+                getWindow().setStatusBarColor(primaryDark);
+            if (shouldColorNavBar())
+                getWindow().setNavigationBarColor(primaryDark);
+        }
+
         // Persist current values so the Activity knows if they change
-        mLastDarkTheme = PreferenceUtils.getInstance(this).getGeneralTheme() == 1;
-        mLastPrimary = PreferenceUtils.getInstance(this).getThemeColorPrimary();
-        mLastAccent = PreferenceUtils.getInstance(this).getThemeColorAccent();
+//        mLastDarkTheme = PreferenceUtils.getInstance(this).getGeneralTheme() == 1;
+//        mLastPrimary = PreferenceUtils.getInstance(this).getThemeColorPrimary();
+//        mLastAccent = PreferenceUtils.getInstance(this).getThemeColorAccent();
 
         // Accent colors in dialogs, and any dynamic views that pull from this singleton
-        ThemeSingleton.get().positiveColor = mLastAccent;
+        ThemeSingleton.get().positiveColor = PreferenceUtils.getInstance(this).getThemeColorAccent();
         ThemeSingleton.get().negativeColor = ThemeSingleton.get().positiveColor;
         ThemeSingleton.get().neutralColor = ThemeSingleton.get().positiveColor;
         ThemeSingleton.get().widgetColor = ThemeSingleton.get().positiveColor;
         // Dark theme
-        ThemeSingleton.get().darkTheme = mLastDarkTheme;
+        ThemeSingleton.get().darkTheme = PreferenceUtils.getInstance(this).getGeneralTheme() == 1;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // Sets color of entry in the system recents page
             ActivityManager.TaskDescription td = new ActivityManager.TaskDescription(
                     getString(R.string.app_name),
                     BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher),
-                    mLastPrimary);
+                    PreferenceUtils.getInstance(this).getThemeColorPrimary());
             setTaskDescription(td);
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (mLastDarkTheme != (PreferenceUtils.getInstance(this).getGeneralTheme() == 1) ||
-                mLastPrimary != PreferenceUtils.getInstance(this).getThemeColorPrimary() ||
-                mLastAccent != PreferenceUtils.getInstance(this).getThemeColorAccent()) {
-            // Theme colors changed, recreate the Activity
-            recreate();
-        }
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        if (mLastDarkTheme != (PreferenceUtils.getInstance(this).getGeneralTheme() == 1) ||
+//                mLastPrimary != PreferenceUtils.getInstance(this).getThemeColorPrimary() ||
+//                mLastAccent != PreferenceUtils.getInstance(this).getThemeColorAccent()) {
+//            // Theme colors changed, recreate the Activity
+//            recreate();
+//        }
+//    }
 
     protected void setUpTranslucence(boolean statusBarTranslucent, boolean navigationBarTranslucent) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -73,4 +84,8 @@ public abstract class ThemeBaseActivity extends ActionBarActivity implements Kab
             }
         }
     }
+
+    protected abstract boolean shouldColorStatusBar();
+
+    protected abstract boolean shouldColorNavBar();
 }

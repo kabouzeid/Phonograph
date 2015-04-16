@@ -33,7 +33,7 @@
                 android:paddingRight="16dp"
                 android:paddingTop="8dp">
 
-                <EditText
+                <com.kabouzeid.gramophone.views.DynamicEditText
                     android:id="@+id/title1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
                     android:textColor="@color/white" />
 
-                <EditText
+                <com.kabouzeid.gramophone.views.DynamicEditText
                     android:id="@+id/title2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                         android:text="@string/artist"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-                    <EditText
+                    <com.kabouzeid.gramophone.views.DynamicEditText
                         android:id="@+id/artist"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
                         android:text="@string/genre"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-                    <EditText
+                    <com.kabouzeid.gramophone.views.DynamicEditText
                         android:id="@+id/genre"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
                         android:text="@string/year"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-                    <EditText
+                    <com.kabouzeid.gramophone.views.DynamicEditText
                         android:id="@+id/year"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -161,7 +161,7 @@
                         android:text="@string/track"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-                    <EditText
+                    <com.kabouzeid.gramophone.views.DynamicEditText
                         android:id="@+id/track_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -186,7 +186,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/Toolbar"
-        android:layout_gravity="start|left|top"
+        android:layout_gravity="start|left"
         android:background="#00000000"
         tools:ignore="RtlHardcoded" />
 
