@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Map;
 
 public class SongTagEditorActivity extends AbsTagEditorActivity implements TextWatcher {
-    public static final String TAG = SongTagEditorActivity.class.getSimpleName();
 
+    public static final String TAG = SongTagEditorActivity.class.getSimpleName();
     private EditText songTitle;
     private EditText albumTitle;
     private EditText artistName;

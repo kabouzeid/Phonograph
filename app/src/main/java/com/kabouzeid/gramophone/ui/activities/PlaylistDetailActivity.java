@@ -21,7 +21,6 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
-import com.kabouzeid.gramophone.util.Util;
 
 import java.util.ArrayList;
 
@@ -36,13 +35,6 @@ public class PlaylistDetailActivity extends AbsFabActivity {
         setUpTranslucence(false, false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_detail);
-
-        final int primary = PreferenceUtils.getInstance(this).getThemeColorPrimary();
-        final int primaryDark = PreferenceUtils.getInstance(this).getThemeColorPrimaryDarker();
-        if (Util.hasLollipopSDK()) {
-            getWindow().setStatusBarColor(primaryDark);
-            getWindow().setNavigationBarColor(primaryDark);
-        }
 
         getIntentExtras();
 
@@ -70,10 +62,20 @@ public class PlaylistDetailActivity extends AbsFabActivity {
         recyclerView.setOnScrollListener(dragSortRecycler.getScrollListener());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(primary);
+        toolbar.setBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimary());
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(playlist.name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    protected boolean shouldColorStatusBar() {
+        return true;
+    }
+
+    @Override
+    protected boolean shouldColorNavBar() {
+        return true;
     }
 
     private void getIntentExtras() {

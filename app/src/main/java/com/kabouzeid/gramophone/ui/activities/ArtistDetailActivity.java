@@ -54,20 +54,14 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-*
-* A lot of hackery is done in this activity. Changing things may will brake the whole activity.
-*
-* Should be kinda stable ONLY AS IT IS!!!
-*
-* */
-
+/**
+ * A lot of hackery is done in this activity. Changing things may will brake the whole activity.
+ * <p/>
+ * Should be kinda stable ONLY AS IT IS!!!
+ */
 public class ArtistDetailActivity extends AbsFabActivity {
+
     public static final String TAG = ArtistDetailActivity.class.getSimpleName();
-
-    public static final String ARG_ARTIST_ID = "com.kabouzeid.gramophone.artist.id";
-    public static final String ARG_ARTIST_NAME = "com.kabouzeid.gramophone.artist.name";
-
     private Artist artist;
 
     private ObservableListView songListView;
@@ -83,7 +77,6 @@ public class ArtistDetailActivity extends AbsFabActivity {
 
     private View songListHeader;
     private RecyclerView albumRecyclerView;
-
     private Spanned biography;
 
     private final SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
@@ -134,11 +127,24 @@ public class ArtistDetailActivity extends AbsFabActivity {
         getIntentExtras();
         initViews();
         setUpObservableListViewParams();
-        setUpToolBar();
         setUpViews();
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (Util.hasLollipopSDK()) fixLollipopTransitionImageWrongSize();
         if (Util.hasLollipopSDK()) startPostponedEnterTransition();
+    }
+
+    @Override
+    protected boolean shouldColorStatusBar() {
+        return false;
+    }
+
+    @Override
+    protected boolean shouldColorNavBar() {
+        return false;
     }
 
     private void initViews() {
@@ -297,12 +303,6 @@ public class ArtistDetailActivity extends AbsFabActivity {
 
         if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled())
             getWindow().setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
-    }
-
-    private void setUpToolBar() {
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(null);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void getIntentExtras() {

@@ -45,14 +45,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-/*
-*
-* A lot of hackery is done in this activity. Changing things may will brake the whole activity.
-*
-* Should be kinda stable ONLY AS IT IS!!!
-*
-* */
-
+/**
+ * A lot of hackery is done in this activity. Changing things may will brake the whole activity.
+ * <p/>
+ * Should be kinda stable ONLY AS IT IS!!!
+ */
 public class AlbumDetailActivity extends AbsFabActivity {
 
     public static final String TAG = AlbumDetailActivity.class.getSimpleName();
@@ -128,6 +125,16 @@ public class AlbumDetailActivity extends AbsFabActivity {
         setUpViews();
 
         if (Util.hasLollipopSDK()) startPostponedEnterTransition();
+    }
+
+    @Override
+    protected boolean shouldColorStatusBar() {
+        return false;
+    }
+
+    @Override
+    protected boolean shouldColorNavBar() {
+        return false;
     }
 
     @Override

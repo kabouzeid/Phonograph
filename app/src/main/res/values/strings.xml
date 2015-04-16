@@ -97,5 +97,13 @@
     <string name="accent_color">Accent Color</string>
     <string name="primary_color_desc">The primary theme color, defaults to indigo.</string>
     <string name="accent_color_desc">The accent theme color, defaults to pink.</string>
+    <string name="update_image">Update Image</string>
+
+    <string-array name="update_albumcover_options">
+        <item>Download from LastFM</item>
+        <item>Pick from Local Storage</item>
+        <item>Web Search</item>
+        <item>Delete</item>
+    </string-array>
 
 </resources>

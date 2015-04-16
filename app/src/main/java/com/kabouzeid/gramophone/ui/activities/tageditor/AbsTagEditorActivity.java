@@ -95,7 +95,20 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
         initViews();
         setUpViews();
-        setUpToolBar();
+
+        setSupportActionBar(toolBar);
+        getSupportActionBar().setTitle(getResources().getString(R.string.tag_editor));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    protected boolean shouldColorStatusBar() {
+        return false;
+    }
+
+    @Override
+    protected boolean shouldColorNavBar() {
+        return false;
     }
 
     private void initViews() {
@@ -129,8 +142,8 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
             @Override
             public void onClick(View v) {
                 new MaterialDialog.Builder(AbsTagEditorActivity.this)
-                        .title("Update image")
-                        .items(new CharSequence[]{"Download from LastFM", "Pick from internal storage", "Web search", "Delete"})
+                        .title(R.string.update_image)
+                        .items(R.array.update_albumcover_options)
                         .itemsCallback(new MaterialDialog.ListCallback() {
                             @Override
                             public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
@@ -149,9 +162,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                                         break;
                                 }
                             }
-                        })
-                        .build()
-                        .show();
+                        }).show();
             }
         });
     }
@@ -199,12 +210,6 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         if (intentExtras != null) {
             id = intentExtras.getInt(AppKeys.E_ID);
         }
-    }
-
-    private void setUpToolBar() {
-        setSupportActionBar(toolBar);
-        getSupportActionBar().setTitle(getResources().getString(R.string.tag_editor));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     protected abstract int getContentViewResId();
