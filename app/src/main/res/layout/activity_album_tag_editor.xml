@@ -1,9 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:focusable="true"
+             android:focusableInTouchMode="true">
 
     <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
         android:id="@+id/observableScrollView"
@@ -54,6 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/header"
+                android:background="?android:attr/colorBackground"
                 android:orientation="vertical"
                 android:padding="16dp">
 
@@ -151,8 +152,8 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/Toolbar"
-        android:gravity="start|left"
         android:background="#00000000"
+        android:gravity="start|left"
         tools:ignore="RtlHardcoded" />
 
     <com.melnykov.fab.FloatingActionButton
