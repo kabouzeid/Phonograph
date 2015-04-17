@@ -51,7 +51,7 @@ public abstract class ThemeBaseActivity extends ActionBarActivity implements Kab
         ThemeSingleton.get().neutralColor = ThemeSingleton.get().positiveColor;
         ThemeSingleton.get().widgetColor = ThemeSingleton.get().positiveColor;
         // Dark theme
-        ThemeSingleton.get().darkTheme = PreferenceUtils.getInstance(this).getGeneralTheme() == 1;
+        ThemeSingleton.get().darkTheme = PreferenceUtils.getInstance(this).getGeneralTheme() == R.style.Theme_MaterialMusic;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // Sets color of entry in the system recents page

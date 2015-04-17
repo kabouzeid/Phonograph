@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/action_current_playing"
-        android:icon="@drawable/ic_play_circle_outline_white_24dp"
+        android:icon="@drawable/ic_play_circle_fill_white_24dp"
         android:title="@string/action_current_playing"
         app:showAsAction="ifRoom"/>
 
