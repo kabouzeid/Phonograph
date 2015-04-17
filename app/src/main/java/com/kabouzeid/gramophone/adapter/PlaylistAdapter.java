@@ -11,15 +11,12 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
-import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
@@ -37,7 +34,7 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
         loadDataSet();
     }
 
-    private void loadDataSet() {
+    public void loadDataSet() {
         dataSet = PlaylistLoader.getAllPlaylists(activity);
     }
 
@@ -87,31 +84,8 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
         public void onClick(View view) {
             Pair[] sharedViews = null;
             if (activity instanceof AbsFabActivity)
-                sharedViews = ((AbsFabActivity) activity).getSharedViewsWithFab(sharedViews);
+                sharedViews = ((AbsFabActivity) activity).getSharedViewsWithFab(null);
             NavigationUtil.goToPlaylist(activity, dataSet.get(getAdapterPosition()).id, sharedViews);
-        }
-    }
-
-    @Override
-    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView);
-        App.bus.unregister(this);
-    }
-
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        App.bus.register(this);
-    }
-
-    @Subscribe
-    public void onDataBaseEvent(DataBaseChangedEvent event) {
-        switch (event.getAction()) {
-            case DataBaseChangedEvent.PLAYLISTS_CHANGED:
-            case DataBaseChangedEvent.DATABASE_CHANGED:
-                loadDataSet();
-                notifyDataSetChanged();
-                break;
         }
     }
 }

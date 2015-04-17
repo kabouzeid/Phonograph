@@ -12,8 +12,10 @@ import com.kabouzeid.gramophone.R;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivityFragment {
+
     public static final String TAG = AbsMainActivityRecyclerViewFragment.class.getSimpleName();
     private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,7 +32,12 @@ public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivit
     private void setUpRecyclerView() {
         recyclerView.setLayoutManager(createLayoutManager());
         recyclerView.setPadding(0, getTopPadding(), 0, getBottomPadding());
-        recyclerView.setAdapter(createAdapter());
+        mAdapter = createAdapter();
+        recyclerView.setAdapter(mAdapter);
+    }
+
+    public RecyclerView.Adapter getAdapter() {
+        return mAdapter;
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.text.InputType;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
@@ -43,7 +44,10 @@ public class CreatePlaylistDialog extends DialogFragment {
                 .title(R.string.action_new_playlist)
                 .positiveText(android.R.string.ok)
                 .negativeText(android.R.string.cancel)
-                .input(null, null, new MaterialDialog.InputCallback() {
+                .inputType(InputType.TYPE_CLASS_TEXT |
+                        InputType.TYPE_TEXT_VARIATION_PERSON_NAME |
+                        InputType.TYPE_TEXT_FLAG_CAP_WORDS)
+                .input(R.string.playlist_name, 0, new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(MaterialDialog materialDialog, CharSequence charSequence) {
                         if (getActivity() == null)

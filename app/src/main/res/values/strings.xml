@@ -100,6 +100,7 @@
     <string name="update_image">Update Image</string>
     <string name="playlist_empty_text">This playlist is empty</string>
     <string name="no_playlists">No playlists</string>
+    <string name="playlist_name">Playlist name</string>
 
     <string-array name="update_albumcover_options">
         <item>Download from LastFM</item>

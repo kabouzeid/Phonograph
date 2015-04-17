@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.text.InputType;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
@@ -30,7 +31,10 @@ public class RenamePlaylistDialog extends DialogFragment {
                 .title(R.string.rename_playlist)
                 .positiveText(android.R.string.ok)
                 .negativeText(android.R.string.cancel)
-                .input(null, PlaylistsUtil.getNameForPlaylist(getActivity(), playlistId), new MaterialDialog.InputCallback() {
+                .inputType(InputType.TYPE_CLASS_TEXT |
+                        InputType.TYPE_TEXT_VARIATION_PERSON_NAME |
+                        InputType.TYPE_TEXT_FLAG_CAP_WORDS)
+                .input(getString(R.string.playlist_name), PlaylistsUtil.getNameForPlaylist(getActivity(), playlistId), new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(MaterialDialog materialDialog, CharSequence charSequence) {
                         if (!charSequence.toString().trim().equals("")) {
