@@ -93,5 +93,19 @@
     <string name="rename_action">重命名</string>
     <string name="select">选择</string>
     <string name="default_str">默认</string>
+    <string name="primary_color">主色调（Primary颜色）</string>
+    <string name="accent_color">强调色（Accent 颜色）</string>
+    <string name="primary_color_desc">主题的主色调，默认为靛蓝色。</string>
+    <string name="accent_color_desc">主题的强调色，默认为粉色。</string>
+    <string name="update_image">更新图像</string>
+    <string name="playlist_empty_text">播放列表是空的</string>
+    <string name="no_playlists">没有播放列表</string>
+    <string name="playlist_name">播放列表名称</string>
     <string name="song">歌曲</string>
+    <string-array name="update_albumcover_options">
+        <item>从LastFM下载</item>
+        <item>从本地储存中选取</item>
+        <item>网络搜索</item>
+        <item>删除</item>
+    </string-array>
 </resources>

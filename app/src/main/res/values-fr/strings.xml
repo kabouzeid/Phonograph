@@ -52,8 +52,13 @@
     <string name="updating">Actualisation</string>
     <string name="added_title_to_playing_queue">1 titre ajouté à la file de lecture.</string>
     <string name="action_delete_from_playlist">Supprimer de la playlist</string>
+    <string name="new_playlist_action">Nouvelle playlist...</string>
     <string name="action_grid_columns">Nombre de colonnes</string>
     <string name="action_grid_columns_land">Nombre de colonnes (paysage)</string>
+    <string name="inserted_x_songs_into_playlist">%1$d pistes ajoutées à la playlist.</string>
+    <string name="created_playlist_x">La playlist %1$s a été créee</string>
+    <string name="deleted_playlist_x">Playlist %1$s supprimée</string>
+    <string name="couldnot_create_playlist_x">Impossible de créer la playlist %1$s</string>
     <string name="delete_warning">"Attention : Cette action ne peut être annulée"</string>
     <string name="shuffle_all">Aléatoire</string>
     <string name="last_opened">Ouvert dernièrement</string>
@@ -73,5 +78,17 @@
     <string name="no_audio_id">Pas d\'audio, veuillez lire une piste puis réessayer</string>
     <string name="navigation_drawer_open">Ouvrir le volet de navigation</string>
     <string name="navigation_drawer_close">Fermer le volet de navigation</string>
+    <string name="primary_color_desc">La couleur principale du thème, par défaut indigo</string>
+    <string name="accent_color_desc">La couleur accent du thème, par défaut rose</string>
+    <string name="update_image">Actualiser l\'image</string>
+    <string name="playlist_empty_text">La playlist est vide</string>
+    <string name="no_playlists">Pas de playlists</string>
+    <string name="playlist_name">Nom de la playlist</string>
     <string name="song">Titre</string>
+    <string-array name="update_albumcover_options">
+        <item>Télécharger depuis LastFM</item>
+        <item>Choisir à partir du stockage du téléphone</item>
+        <item>Recherche Internet</item>
+        <item>Supprimer</item>
+    </string-array>
 </resources>

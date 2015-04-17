@@ -52,8 +52,13 @@
     <string name="updating">Actualizare...</string>
     <string name="added_title_to_playing_queue">Adăugat 1 melodie la lista de redare.</string>
     <string name="action_delete_from_playlist">Şterge din playlist</string>
+    <string name="new_playlist_action">Playlist nou...</string>
     <string name="action_grid_columns">Rânduri pe grid</string>
     <string name="action_grid_columns_land">Rânduri pe grid (Orizontal)</string>
+    <string name="inserted_x_songs_into_playlist">Inserate %1$d melodii in playlist</string>
+    <string name="created_playlist_x">Creat playlistul %1$s</string>
+    <string name="deleted_playlist_x">Șters playlistul %1$s</string>
+    <string name="couldnot_create_playlist_x">Nu a putut fi creat playlistul %1$s</string>
     <string name="delete_warning">"Atenţie: Această operaţie nu poate fi revocată."</string>
     <string name="shuffle_all">Amestecă toate</string>
     <string name="last_opened">Ultimul deschis</string>
