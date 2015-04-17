@@ -42,4 +42,6 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="circle_view_check">24dp</dimen>
     <dimen name="empty_text_size">20sp</dimen>
 
+    <dimen name="seek_bar_margin_left_right">-17dp</dimen>
+
 </resources>

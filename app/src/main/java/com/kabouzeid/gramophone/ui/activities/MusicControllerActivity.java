@@ -106,7 +106,8 @@ public class MusicControllerActivity extends AbsFabActivity {
     private void moveSeekBarIntoPlace() {
         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) progressSlider.getLayoutParams();
         progressSlider.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        lp.setMargins(0, 0, 0, -(progressSlider.getMeasuredHeight() / 2));
+        final int seekBarMarginLeftRight = getResources().getDimensionPixelSize(R.dimen.seek_bar_margin_left_right);
+        lp.setMargins(seekBarMarginLeftRight, 0, seekBarMarginLeftRight, -(progressSlider.getMeasuredHeight() / 2));
         progressSlider.setLayoutParams(lp);
     }
 

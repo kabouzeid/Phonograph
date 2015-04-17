@@ -35,10 +35,7 @@
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 
-    <style name="MusicProgressSlider" parent="MusicProgressSliderParent">
-        <item name="android:progressDrawable">@drawable/slider_progress</item>
-        <item name="android:thumb">@drawable/slider_thumb</item>
-    </style>
+    <style name="MusicProgressSlider" parent="MusicProgressSliderParent" />
 
     <style name="Toolbar">
         <item name="android:layout_width">match_parent</item>
