@@ -21,6 +21,7 @@ import com.afollestad.materialdialogs.util.DialogUtils;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.dialogs.ColorChooserDialog;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
@@ -201,7 +202,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         paletteColorPrimary = vibrantColor;
         observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(vibrantColor);
+            getWindow().setStatusBarColor(ColorChooserDialog.shiftColorDown(vibrantColor));
             getWindow().setNavigationBarColor(vibrantColor);
         }
     }
@@ -345,7 +346,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                     MusicUtil.deleteAlbumArt(AbsTagEditorActivity.this, getId());
                     Ion.getDefault(AbsTagEditorActivity.this).getBitmapCache().clear();
                     Ion.getDefault(AbsTagEditorActivity.this).getCache().clear();
-                } else if (artwork != null){
+                } else if (artwork != null) {
                     Ion.getDefault(AbsTagEditorActivity.this).getBitmapCache().clear();
                     Ion.getDefault(AbsTagEditorActivity.this).getCache().clear();
                 }
