@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.ui.activities.tageditor;
 
+import android.annotation.TargetApi;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -27,6 +28,7 @@ import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.koushikdutta.ion.Ion;
@@ -240,12 +242,23 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     protected void setNoImageMode() {
         isInNoImageMode = true;
         image.setVisibility(View.GONE);
         image.setEnabled(false);
         scrollView.setPadding(0, Util.getActionBarSize(this), 0, 0);
         observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
+
+        int primary = getIntent().getIntExtra(AppKeys.E_PALETTE,
+                PreferenceUtils.getInstance(this).getThemeColorPrimary());
+        toolBar.setBackgroundColor(primary);
+        header.setBackgroundColor(primary);
+        if (Util.hasLollipopSDK()) {
+            int primaryDark = ColorChooserDialog.shiftColorDown(primary);
+            getWindow().setStatusBarColor(primaryDark);
+            getWindow().setNavigationBarColor(primaryDark);
+        }
     }
 
     protected void dataChanged() {

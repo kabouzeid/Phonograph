@@ -29,6 +29,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.ArtistAlbumAdapter;
 import com.kabouzeid.gramophone.adapter.songadapter.ArtistSongAdapter;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistBiographyLoader;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistImageUrlLoader;
 import com.kabouzeid.gramophone.loader.ArtistAlbumLoader;
@@ -58,7 +59,7 @@ import java.util.List;
  * <p/>
  * Should be kinda stable ONLY AS IT IS!!!
  */
-public class ArtistDetailActivity extends AbsFabActivity {
+public class ArtistDetailActivity extends AbsFabActivity implements PaletteColorHolder {
 
     public static final String TAG = ArtistDetailActivity.class.getSimpleName();
     private Artist artist;
@@ -301,6 +302,11 @@ public class ArtistDetailActivity extends AbsFabActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public int getPaletteColor() {
+        return toolbarColor;
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

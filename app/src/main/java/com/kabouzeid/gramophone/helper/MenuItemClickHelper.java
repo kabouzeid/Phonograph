@@ -11,6 +11,7 @@ import com.kabouzeid.gramophone.dialogs.DeletePlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
 import com.kabouzeid.gramophone.dialogs.RenamePlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
+import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.Playlist;
@@ -43,6 +44,8 @@ public class MenuItemClickHelper {
             case R.id.action_tag_editor:
                 Intent intent = new Intent(activity, SongTagEditorActivity.class);
                 intent.putExtra(AppKeys.E_ID, song.id);
+                if (activity instanceof PaletteColorHolder)
+                    intent.putExtra(AppKeys.E_PALETTE, ((PaletteColorHolder) activity).getPaletteColor());
                 activity.startActivity(intent);
                 return true;
             case R.id.action_details:
