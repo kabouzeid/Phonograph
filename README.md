@@ -1,2 +1,2 @@
-# gramophone
-material designed android music player
+# Gramophone
+A material designed music player for Android
