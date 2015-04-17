@@ -40,6 +40,7 @@
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
                     android:hint="@string/album"
+                    android:inputType="text|textCapWords"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
                     android:singleLine="true"
@@ -77,6 +78,7 @@
                         android:fontFamily="sans-serif"
                         android:gravity="center_vertical"
                         android:hint="@string/album_artist"
+                        android:inputType="text|textCapWords"
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="?attr/title_text_color" />
@@ -104,6 +106,7 @@
                         android:fontFamily="sans-serif"
                         android:gravity="center_vertical"
                         android:hint="@string/genre"
+                        android:inputType="text|textCapWords"
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="?attr/title_text_color" />
@@ -131,7 +134,7 @@
                         android:fontFamily="sans-serif"
                         android:gravity="center_vertical"
                         android:hint="@string/year"
-                        android:inputType="numberDecimal"
+                        android:inputType="text|number"
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="?attr/title_text_color" />
