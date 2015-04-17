@@ -137,8 +137,8 @@ public class NavigationDrawerFragment extends Fragment {
         navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.albums), R.drawable.ic_album_white_24dp));
         navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.artists), R.drawable.ic_person_white_24dp));
         navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.playlists), R.drawable.ic_queue_music_white_24dp));
-        navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.action_about), R.drawable.ic_drawer_about));
-        navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.action_settings), R.drawable.ic_drawer_settings));
+        navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.action_about), R.drawable.ic_help_white_24dp));
+        navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.action_settings), R.drawable.ic_settings_white_24dp));
 
         drawerAdapter = new NavigationDrawerItemAdapter(getActivity(), navigationDrawerItems, new NavigationDrawerItemAdapter.Callback() {
             @Override
