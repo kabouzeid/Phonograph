@@ -57,10 +57,12 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
         if (accentColor == Color.WHITE) {
             getFab().setColorNormal(accentColor);
             getFab().setColorPressed(ColorChooserDialog.shiftColorDown(accentColor));
+            getFab().setColorRipple(ColorChooserDialog.shiftColorUp(accentColor));
             getFab().getDrawable().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
         } else {
             getFab().setColorNormal(accentColor);
             getFab().setColorPressed(ColorChooserDialog.shiftColorUp(accentColor));
+            getFab().setColorRipple(ColorChooserDialog.shiftColorDown(accentColor));
             getFab().getDrawable().clearColorFilter();
         }
 
@@ -122,6 +124,10 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
         updateControllerState();
     }
 
+    protected void updateControllerState() {
+        updateFabState();
+    }
+
     public Pair[] getSharedViewsWithFab(Pair[] sharedViews) {
         Pair[] sharedViewsWithFab;
         if (sharedViews != null) {
@@ -132,10 +138,6 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
         }
         sharedViewsWithFab[sharedViewsWithFab.length - 1] = Pair.create((View) getFab(), getString(R.string.transition_fab));
         return sharedViewsWithFab;
-    }
-
-    protected void updateControllerState() {
-        updateFabState();
     }
 
     @Override

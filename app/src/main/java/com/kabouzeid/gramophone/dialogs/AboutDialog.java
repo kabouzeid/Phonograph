@@ -27,14 +27,7 @@ public class AboutDialog extends DialogFragment {
                                 getActivity().getResources().getText(R.string.credits_3),
                                 getActivity().getResources().getText(R.string.credits_4))
                 )
-                .positiveText(getActivity().getResources().getString(android.R.string.ok))
-                .callback(new MaterialDialog.ButtonCallback() {
-                    @Override
-                    public void onPositive(MaterialDialog dialog) {
-                        super.onPositive(dialog);
-                        dialog.dismiss();
-                    }
-                })
+                .positiveText(android.R.string.ok)
                 .build();
     }
 

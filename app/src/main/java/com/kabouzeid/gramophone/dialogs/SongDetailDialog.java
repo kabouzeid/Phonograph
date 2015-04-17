@@ -53,12 +53,6 @@ public class SongDetailDialog extends DialogFragment {
                 .customView(R.layout.dialog_file_details, true)
                 .title(context.getResources().getString(R.string.label_details))
                 .positiveText(android.R.string.ok)
-                .callback(new MaterialDialog.ButtonCallback() {
-                    @Override
-                    public void onPositive(MaterialDialog dialog) {
-                        dialog.dismiss();
-                    }
-                })
                 .build();
 
         View dialogView = dialog.getCustomView();

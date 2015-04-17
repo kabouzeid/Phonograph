@@ -52,7 +52,7 @@ public class CreatePlaylistDialog extends DialogFragment {
                     public void onInput(MaterialDialog materialDialog, CharSequence charSequence) {
                         if (getActivity() == null)
                             return;
-                        if (!charSequence.toString().trim().equals("")) {
+                        if (!charSequence.toString().trim().isEmpty()) {
                             final int playlistId = PlaylistsUtil.createPlaylist(getActivity(), charSequence.toString());
                             if (playlistId != -1 && getActivity() != null) {
                                 //noinspection unchecked

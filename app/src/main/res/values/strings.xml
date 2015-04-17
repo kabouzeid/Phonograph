@@ -67,12 +67,18 @@
     <string name="delete_playlist_x"><![CDATA[
         Do you want to delete the playlist <b>%1$s</b>?
     ]]></string>
+    <string name="delete_song_x"><![CDATA[
+        Do you want to delete the song <b>%1$s</b>?
+    ]]></string>
+    <string name="delete_x_songs"><![CDATA[
+        Do you want to delete <b>%1$d</b> songs?
+    ]]></string>
+    <string name="delete_song_title">Delete Song</string>
+    <string name="delete_songs_title">Delete Songs</string>
     <string name="rename_playlist_title">Rename Playlist</string>
     <string name="delete_playlist_title">Delete Playlist</string>
     <string name="add_playlist_title">Add to Playlist</string>
     <string name="new_playlist_title">New Playlist</string>
-    <string name="delete_songs_1">Delete\u0020</string>
-    <string name="delete_songs_2">\u0020songs?</string>
 
     <string name="delete_warning">"Warning: This operation can not be undone."</string>
     <string name="shuffle_all">Shuffle all</string>
@@ -108,6 +114,7 @@
     <string name="playlist_empty_text">This playlist is empty</string>
     <string name="no_playlists">No playlists</string>
     <string name="playlist_name">Playlist name</string>
+    <string name="song">Song</string>
 
     <string-array name="update_albumcover_options">
         <item>Download from LastFM</item>

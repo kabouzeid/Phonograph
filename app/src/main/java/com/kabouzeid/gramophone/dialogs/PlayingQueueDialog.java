@@ -39,7 +39,7 @@ public class PlayingQueueDialog extends DialogFragment {
         MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
                 .title(getActivity().getResources().getString(R.string.label_current_playing_queue))
                 .customView(R.layout.dialog_playlist, false)
-                .positiveText(getActivity().getResources().getString(R.string.save_as_playlist))
+                .positiveText(R.string.save_as_playlist)
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
@@ -71,6 +71,13 @@ public class PlayingQueueDialog extends DialogFragment {
             public void drop(int from, int to) {
                 MusicPlayerRemote.moveSong(from, to);
                 playingQueueAdapter.notifyDataSetChanged();
+            }
+        });
+        dragSortListView.post(new Runnable() {
+            @Override
+            public void run() {
+                dragSortListView.requestFocus();
+                dragSortListView.setSelection(MusicPlayerRemote.getPosition());
             }
         });
         return dialog;

@@ -64,12 +64,14 @@
             android:id="@+id/statusBar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/statusMargin"
-            android:background="@android:color/transparent" />
+            android:background="@android:color/transparent"
+            tools:ignore="ContentDescription" />
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             style="@style/Toolbar"
             android:background="@android:color/transparent" />
+
     </LinearLayout>
 
     <com.melnykov.fab.FloatingActionButton

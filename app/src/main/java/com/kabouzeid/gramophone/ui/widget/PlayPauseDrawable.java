@@ -142,10 +142,6 @@ public class PlayPauseDrawable extends Drawable {
         return anim;
     }
 
-    public boolean isPlay() {
-        return isPlaySet;
-    }
-
     private void setProgress(float progress) {
         this.progress = progress;
         invalidateSelf();

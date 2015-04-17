@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeletePlaylistDialog;
+import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
 import com.kabouzeid.gramophone.dialogs.RenamePlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
@@ -28,7 +29,7 @@ public class MenuItemClickHelper {
     public static boolean handleSongMenuClick(ActionBarActivity activity, Song song, MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_delete_from_disk:
-                DeleteSongsDialogHelper.getDialog(activity, song).show();
+                DeleteSongsDialog.create(song).show(activity.getSupportFragmentManager(), "DELETE_SONGS");
                 return true;
             case R.id.action_add_to_playlist:
                 AddToPlaylistDialog.create(song).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");

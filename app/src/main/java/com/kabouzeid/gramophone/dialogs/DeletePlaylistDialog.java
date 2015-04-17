@@ -42,12 +42,6 @@ public class DeletePlaylistDialog extends DialogFragment {
                         long playlistId = getArguments().getLong("playlist_id");
                         PlaylistsUtil.deletePlaylist(getActivity(), playlistId);
                     }
-
-                    @Override
-                    public void onNegative(MaterialDialog dialog) {
-                        super.onNegative(dialog);
-                        dialog.dismiss();
-                    }
                 }).build();
     }
 }
