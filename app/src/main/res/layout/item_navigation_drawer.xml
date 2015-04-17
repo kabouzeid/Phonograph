@@ -20,7 +20,10 @@
         android:background="?list_selector"
         android:minHeight="48dp"
         android:orientation="horizontal"
-        android:padding="16dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:clickable="true"
         android:focusable="true">
 
