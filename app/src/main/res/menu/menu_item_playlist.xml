@@ -5,5 +5,5 @@
         android:title="@string/rename_playlist_title"/>
     <item
         android:id="@+id/action_delete_playlist"
-        android:title="@string/delete_playlist_x"/>
+        android:title="@string/delete_playlist_title"/>
 </menu>
