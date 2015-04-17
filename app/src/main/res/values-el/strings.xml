@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">"Ρυθμίσεις "</string>
+    <string name="action_about">Για εμάς</string>
+    <string name="action_current_playing">Παίζει τώρα</string>
+    <string name="action_playing_queue">Σειρά τραγουδιών</string>
+    <string name="action_search">Αναζήτηση</string>
+    <string name="action_play_next">Παίζει στη συνέχεια</string>
+    <string name="action_add_to_playing_queue">Προσθήκη στη σειρά τραγουδιών</string>
+    <string name="action_remove_from_playing_queue">Διαγραφή από την σειρά τραγουδιών</string>
+    <string name="action_add_to_playlist">Προσθήκη στην λίστα</string>
+    <string name="action_tag_editor">Επεξεργασία ετικετών</string>
+    <string name="action_delete_from_disk">Διαγραφή απο τον δίσκο</string>
+    <string name="action_details">Πληροφορίες</string>
+    <string name="albums">Λευκώματα</string>
+    <string name="artists">Καλλιτέχνες</string>
+    <string name="songs">Τραγούδια</string>
+    <string name="playlists">Λίστες</string>
+    <string name="nothing_playing">Δεν παίζει τίποτα</string>
+    <string name="unplayable_file">Συγνώμη - Υπήρξε σφάλμα όταν έπαιξε το τραγούδι</string>
+    <string name="biography_unavailable">Συγνώμη, δεν μπορούμε βιογραφία που να ταιριάζει με αυτόν τον καλλιτέχνη</string>
+    <string name="biography">Βιογραφία</string>
+    <string name="audio_focus_denied">Δεν μπορούμε να πάρουμε συγκέντρωση του ήχου</string>
+    <string name="tag_editor">Επεξεργασία ετικετών</string>
+    <string name="album">Λεύκωμα</string>
+    <string name="artist">Καλλιτέχνης</string>
+    <string name="genre">Είδος</string>
+    <string name="album_artist">Καλλιτέχνης λευκώματος</string>
+    <string name="year">Έτος</string>
+    <string name="track">Κομάτι</string>
+    <string name="album_or_artist_empty">Το πεδιο τιτλος του άλμπουμ ή ο καλλιτέχνης του άλμπουμ είναι άδειο</string>
+    <string name="song">Τραγούδι</string>
+</resources>

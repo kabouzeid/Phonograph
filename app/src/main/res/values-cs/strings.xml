@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_settings">Nastavení</string>
+    <string name="action_settings">"Nastavení"</string>
     <string name="action_about">O aplikaci</string>
     <string name="action_current_playing">Právě hraje</string>
     <string name="action_playing_queue">Fronta</string>
@@ -18,7 +18,7 @@
     <string name="playlists">Playlisty</string>
     <string name="nothing_playing">Nic nehraje</string>
     <string name="unplayable_file">Omlouváme se, při pokusu přehrát tuto skladbu došlo k chybě</string>
-    <string name="biography_unavailable">Omlouváme se, k tomuto interpretovi nemůžeme sehnat biografii.</string>
+    <string name="biography_unavailable">Omlouváme se, k tomuto interpretovi nemůžeme sehnat doplňující informace.</string>
     <string name="biography">Biografie</string>
     <string name="tag_editor">Editor Tagů</string>
     <string name="album">Album</string>
@@ -48,7 +48,7 @@
     <string name="updating">Aktualizace...</string>
     <string name="added_title_to_playing_queue">Přidána 1 skladba do fronty.</string>
     <string name="action_delete_from_playlist">Vymazat z playlistu</string>
-    <string name="new_playlist_action">Nový playlist</string>
+    <string name="new_playlist_action">Nový playlist...</string>
     <string name="inserted_x_songs_into_playlist">Přidáno %1$d skladeb do tohoto playlistu</string>
     <string name="created_playlist_x">Vytvořen playlist %1$s</string>
     <string name="deleted_playlist_x">Playlist %1$s smazán</string>
@@ -56,7 +56,7 @@
     <string name="delete_song_x"><![CDATA[ Chcete vymazat skladbu <b>%1$s</b> ? ]]></string>
     <string name="delete_x_songs"><![CDATA[Opravdu chcete smazat <b>%1$d</b> skladeb?]]></string>
     <string name="delete_song_title">Vymazat skladbu</string>
-    <string name="delete_songs_title">Vymazat skladby</string>
+    <string name="delete_songs_title">Smazat skladby</string>
     <string name="rename_playlist_title">Přejmenovat playlist</string>
     <string name="delete_playlist_title">Smazat playlist</string>
     <string name="add_playlist_title">Přidat do playlistu</string>
@@ -73,6 +73,10 @@
     <string name="pref_header_general">Všeobecné</string>
     <string name="pref_title_set_default_start_page">Zvolit výchozí obrazovku</string>
     <string name="title_activity_settings">Nastavení</string>
+    <string name="pref_title_transparent_toolbar">Průhledné záhlaví</string>
+    <string name="pref_title_colored_navigation_bar_artists">Barevné záhlaví interpretů</string>
+    <string name="pref_title_colored_navigation_bar_albums">Barevné záhlaví alb</string>
+    <string name="pref_title_colored_album_footers">Barevné zápatí alb</string>
     <string name="no_equalizer">Ekvalizér nenalezen</string>
     <string name="delete_action">Smazat</string>
     <string name="rename_action">Přejmenovat</string>
@@ -80,6 +84,8 @@
     <string name="default_str">Výchozí</string>
     <string name="primary_color">Hlavní barva</string>
     <string name="accent_color">Vedlejší barva</string>
+    <string name="primary_color_desc">Hlavní barva motivu (výchozí: modrá).</string>
+    <string name="accent_color_desc">Vedlejší barva motivu (výchozí: růžová).</string>
     <string name="update_image">Aktualizovat obrázek</string>
     <string name="playlist_empty_text">Tento playlist je prázdný</string>
     <string name="no_playlists">Žádný playlist</string>
@@ -88,6 +94,7 @@
     <string-array name="update_albumcover_options">
         <item>Staženo z LastFM</item>
         <item>Zvolit ze souborů</item>
+        <item>Najít na webu</item>
         <item>Smazat</item>
     </string-array>
 </resources>

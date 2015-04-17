@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_settings">Ajustes</string>
+    <string name="action_settings">"Ajustes"</string>
     <string name="action_about">Acerca de</string>
     <string name="action_current_playing">Reproduciendo</string>
     <string name="action_playing_queue">Cola de reproducción</string>
@@ -47,14 +47,30 @@
     <string name="action_go_to_album">Ir al álbum</string>
     <string name="label_current_playing_queue">Cola de reproducción</string>
     <string name="save_as_playlist">Guardar como lista de reproducción</string>
+    <string name="credits_3">Icono creado por</string>
+    <string name="credits_1">Gramophone es un reproductor de música siguiendo las pautas de Material Design, completamente gratuito y creado por</string>
     <string name="title_activity_search">SearchActivity</string>
     <string name="no_results">Sin resultados</string>
     <string name="action_re_download_artist_image">Actualizar imagen del artista</string>
     <string name="updating">Actualizando...</string>
     <string name="added_title_to_playing_queue">Añadida una canción a la cola de reproducción.</string>
     <string name="action_delete_from_playlist">Borrar de la lista de reproducción</string>
+    <string name="new_playlist_action">Nueva lista de reproducción...</string>
     <string name="action_grid_columns">Columnas</string>
     <string name="action_grid_columns_land">Columnas (apaisado)</string>
+    <string name="inserted_x_songs_into_playlist">Añadidas %1$d canciones a la lista de reproducción.</string>
+    <string name="created_playlist_x">Creada lista de reproducción %1$s</string>
+    <string name="deleted_playlist_x">Borrada lista de reproducción %1$s</string>
+    <string name="couldnot_create_playlist_x">No se pudo crear lista de reproducción %1$s</string>
+    <string name="delete_playlist_x"><![CDATA[¿Quiere borrar la lista de reproducción <b>%1$s</b>?]]></string>
+    <string name="delete_song_x"><![CDATA[¿Quiere borrar la canción <b>%1$s</b>?]]></string>
+    <string name="delete_x_songs"><![CDATA[Quiere borrar las <b>%1$d</b> canciones?]]></string>
+    <string name="delete_song_title">Borrar canción</string>
+    <string name="delete_songs_title">Borrar canciones</string>
+    <string name="rename_playlist_title">Cambiar nombre de lista</string>
+    <string name="delete_playlist_title">Borrar lista</string>
+    <string name="add_playlist_title">"Añadir a lista "</string>
+    <string name="new_playlist_title">Nueva lista de reproducción</string>
     <string name="delete_warning">"Advertencia: Esta operación es irreversible."</string>
     <string name="shuffle_all">Aleatorio</string>
     <string name="last_opened">Abierto recientemente</string>
@@ -76,5 +92,23 @@
     <string name="no_audio_id">No se identificó audio, intenta reproducir nuevamente</string>
     <string name="navigation_drawer_open">Abrir cajón de navegación</string>
     <string name="navigation_drawer_close">Cerrar cajón de navegación</string>
+    <string name="delete_action">Borrar</string>
+    <string name="rename_action">Cambiar nombre</string>
+    <string name="select">Seleccionar</string>
+    <string name="default_str">Por defecto</string>
+    <string name="primary_color">Color principal</string>
+    <string name="accent_color">Color secundario</string>
+    <string name="primary_color_desc">El color principal por defecto es azul índigo.</string>
+    <string name="accent_color_desc">El color secundario por defecto es rosa.</string>
+    <string name="update_image">Actualizar imagen</string>
+    <string name="playlist_empty_text">Esta lista está vacía.</string>
+    <string name="no_playlists">Sin listas de reproducción.</string>
+    <string name="playlist_name">Nombre de lista</string>
     <string name="song">Canción</string>
+    <string-array name="update_albumcover_options">
+        <item>Descargar de LastFM</item>
+        <item>Seleccionar de almacenamiento local</item>
+        <item>Búsqueda en Internet</item>
+        <item>Borrar</item>
+    </string-array>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_settings">Ustawienia</string>
+    <string name="action_settings">"Ustawienia"</string>
     <string name="action_about">O aplikacji</string>
     <string name="action_current_playing">Obecnie gra</string>
     <string name="action_playing_queue">Kolejka odtwarzania</string>
@@ -54,8 +54,22 @@
     <string name="updating">Aktualizowanie...</string>
     <string name="added_title_to_playing_queue">Dodano 1 tytuł do kolejki odtwarzania</string>
     <string name="action_delete_from_playlist">Usuń z listy odtwarzania</string>
+    <string name="new_playlist_action">Nowa lista odtwarzania...</string>
     <string name="action_grid_columns">Siatka kolumn</string>
     <string name="action_grid_columns_land">Siatka kolumn (poziomo)</string>
+    <string name="inserted_x_songs_into_playlist">Dodano %1$d utworów do listy odtwarzania</string>
+    <string name="created_playlist_x">Utworzono listę odtwarzania %1$s</string>
+    <string name="deleted_playlist_x">Usunięto listę odtwarzania %1$s</string>
+    <string name="couldnot_create_playlist_x">Nie można utworzyć listy odtwarzania %1$s</string>
+    <string name="delete_playlist_x"><![CDATA[ Czy chcesz usunąć listę odtwarzania <b>%1$s</b>? ]]></string>
+    <string name="delete_song_x"><![CDATA[ Czy chcesz usunąć utwór <b>%1$s</b>? ]]></string>
+    <string name="delete_x_songs"><![CDATA[ Czy chcesz usunąć  <b>%1$d</b> utworów? ]]></string>
+    <string name="delete_song_title">Usuwanie utworu</string>
+    <string name="delete_songs_title">Usuwanie utworów</string>
+    <string name="rename_playlist_title">Zmiana nazwy listy odtwarzania</string>
+    <string name="delete_playlist_title">Usuwanie listy odtwarzania</string>
+    <string name="add_playlist_title">Dodaj do listy odtwarzania</string>
+    <string name="new_playlist_title">Nowa lista odtwarzania</string>
     <string name="delete_warning">"Ostrzeżenie: Ta operacja nie może być cofnięta."</string>
     <string name="shuffle_all">Wszystkie losowo</string>
     <string name="last_opened">Ostatnio otwarte</string>
@@ -77,5 +91,23 @@
     <string name="no_audio_id">Brak ID dźwięku, puść coś i spróbuj ponownie.</string>
     <string name="navigation_drawer_open">Otwórz pasek nawigacji</string>
     <string name="navigation_drawer_close">Zamknij pasek nawigacji</string>
+    <string name="delete_action">Usuń</string>
+    <string name="rename_action">Zmień nazwę</string>
+    <string name="select">Wybierz</string>
+    <string name="default_str">Domyślny</string>
+    <string name="primary_color">Kolor podstawowy</string>
+    <string name="accent_color">Kolor akcentów</string>
+    <string name="primary_color_desc">Podstawowy kolor motywu, domyślnie indygo.</string>
+    <string name="accent_color_desc">Kolor akcentów motywu, domyślnie różowy.</string>
+    <string name="update_image">Zmiana obrazu</string>
+    <string name="playlist_empty_text">Lista odtwarzania jest pusta</string>
+    <string name="no_playlists">Brak list odtwarzania</string>
+    <string name="playlist_name">Nazwa listy odtwarzania</string>
     <string name="song">Utwór</string>
+    <string-array name="update_albumcover_options">
+        <item>Pobierz z LastFM</item>
+        <item>Wybierz z pamięci lokalnej</item>
+        <item>Wyszukaj w sieci</item>
+        <item>Usuń</item>
+    </string-array>
 </resources>

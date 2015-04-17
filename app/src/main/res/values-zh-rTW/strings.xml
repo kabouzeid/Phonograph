@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_settings">設定</string>
+    <string name="action_settings">"設定"</string>
     <string name="action_about">關於</string>
     <string name="action_current_playing">現在播放</string>
     <string name="action_playing_queue">播放列表</string>

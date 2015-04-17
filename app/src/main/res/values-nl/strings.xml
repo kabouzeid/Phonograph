@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_settings">Instellingen</string>
+    <string name="action_settings">"Instellingen"</string>
     <string name="action_about">Over</string>
     <string name="action_current_playing">Momenteel spelend</string>
     <string name="action_playing_queue">Afspeelwachtrij</string>

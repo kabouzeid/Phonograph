@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_settings">Paramètres</string>
+    <string name="action_settings">"Paramètres"</string>
     <string name="action_about">À propos</string>
     <string name="action_current_playing">Lecture en cours</string>
     <string name="action_playing_queue">File de lecture</string>
