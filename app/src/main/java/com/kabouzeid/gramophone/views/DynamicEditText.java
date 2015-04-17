@@ -1,7 +1,7 @@
 package com.kabouzeid.gramophone.views;
 
 import android.content.Context;
-import android.support.v7.internal.widget.TintCheckBox;
+import android.support.v7.internal.widget.TintEditText;
 import android.util.AttributeSet;
 
 import com.afollestad.materialdialogs.ThemeSingleton;
@@ -10,7 +10,7 @@ import com.afollestad.materialdialogs.internal.MDTintHelper;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class DynamicEditText extends TintCheckBox {
+public class DynamicEditText extends TintEditText {
 
     public DynamicEditText(Context context) {
         super(context);

@@ -40,5 +40,6 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <!-- Color Chooser Dialog -->
     <dimen name="circle_view_border">1dp</dimen>
     <dimen name="circle_view_check">24dp</dimen>
+    <dimen name="empty_text_size">20sp</dimen>
 
 </resources>

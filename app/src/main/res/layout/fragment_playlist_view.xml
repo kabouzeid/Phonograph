@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     android:id="@+id/fragment_song_view"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -14,4 +14,14 @@
         android:divider="@null"
         android:scrollbars="vertical" />
 
-</LinearLayout>
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/empty_text_size"
+        android:textColor="?android:textColorSecondary"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/no_playlists"
+        android:layout_gravity="center" />
+
+</FrameLayout>

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.songadapter.PlaylistSongAdapter;
@@ -43,6 +44,10 @@ public class PlaylistDetailActivity extends AbsFabActivity {
         final PlaylistSongAdapter adapter = new PlaylistSongAdapter(this, songs);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(adapter);
+
+        findViewById(android.R.id.empty).setVisibility(
+                songs.size() == 0 ? View.VISIBLE : View.GONE
+        );
 
         DragSortRecycler dragSortRecycler = new DragSortRecycler();
         dragSortRecycler.setViewHandleId(R.id.album_art);

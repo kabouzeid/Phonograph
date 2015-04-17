@@ -60,8 +60,4 @@ public abstract class AbsMainActivityFragment extends Fragment implements KabVie
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
     }
-
-    protected MainActivity getMainActivity() {
-        return (MainActivity) getActivity();
-    }
 }

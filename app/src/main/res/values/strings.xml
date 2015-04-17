@@ -98,6 +98,8 @@
     <string name="primary_color_desc">The primary theme color, defaults to indigo.</string>
     <string name="accent_color_desc">The accent theme color, defaults to pink.</string>
     <string name="update_image">Update Image</string>
+    <string name="playlist_empty_text">This playlist is empty</string>
+    <string name="no_playlists">No playlists</string>
 
     <string-array name="update_albumcover_options">
         <item>Download from LastFM</item>
