@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.ui.activities;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -44,6 +45,7 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
+import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
@@ -189,9 +191,17 @@ public class MainActivity extends AbsFabActivity
                 Ion.with(this)
                         .load(MusicUtil.getAlbumArtUri(song.albumId).toString())
                         .withBitmap()
-                        .resize(navigationDrawerFragment.getAlbumArtImageView().getWidth(), navigationDrawerFragment.getAlbumArtImageView().getHeight())
-                        .centerCrop()
-                        .intoImageView(navigationDrawerFragment.getAlbumArtImageView());
+                        .smartSize(false)
+                        .asBitmap()
+                        .setCallback(new FutureCallback<Bitmap>() {
+                            @Override
+                            public void onCompleted(Exception e, Bitmap result) {
+                                if (result != null)
+                                    navigationDrawerFragment.getAlbumArtImageView().setImageBitmap(result);
+                                else
+                                    navigationDrawerFragment.getAlbumArtImageView().setImageResource(R.drawable.default_album_art);
+                            }
+                        });
                 navigationDrawerFragment.getSongTitle().setText(song.title);
                 navigationDrawerFragment.getSongArtist().setText(song.artistName);
             }

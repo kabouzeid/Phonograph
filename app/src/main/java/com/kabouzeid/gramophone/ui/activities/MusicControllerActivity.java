@@ -280,8 +280,7 @@ public class MusicControllerActivity extends AbsFabActivity {
                 Ion.with(MusicControllerActivity.this)
                         .load(MusicUtil.getAlbumArtUri(song.albumId).toString())
                         .withBitmap()
-                        .resize(albumArt.getWidth(), albumArt.getHeight())
-                        .centerCrop()
+                        .smartSize(false)
                         .asBitmap()
                         .setCallback(new FutureCallback<Bitmap>() {
                             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
