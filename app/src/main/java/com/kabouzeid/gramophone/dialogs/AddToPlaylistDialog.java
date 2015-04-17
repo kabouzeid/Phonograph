@@ -40,11 +40,12 @@ public class AddToPlaylistDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final List<Playlist> playlists = PlaylistLoader.getAllPlaylists(getActivity());
         CharSequence[] playlistNames = new CharSequence[playlists.size() + 1];
-        playlistNames[0] = getActivity().getResources().getString(R.string.action_new_playlist);
+        playlistNames[0] = getActivity().getResources().getString(R.string.new_playlist_action);
         for (int i = 1; i < playlistNames.length; i++) {
             playlistNames[i] = playlists.get(i - 1).name;
         }
         return new MaterialDialog.Builder(getActivity())
+                .title(R.string.add_playlist_title)
                 .items(playlistNames)
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override

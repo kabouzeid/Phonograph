@@ -56,18 +56,24 @@
     <string name="added_title_to_playing_queue">Added 1 title to the playing queue.</string>
     <string name="title_activity_playlist_detail">Playlist Activity</string>
     <string name="action_delete_from_playlist">Delete from playlist</string>
-    <string name="inserted_titles_to_playlist_1">Added\u0020</string>
-    <string name="inserted_titles_to_playlist_2">\u0020titles to playlist.</string>
-    <string name="action_new_playlist">New playlist</string>
+    <string name="new_playlist_action">New playlist…</string>
     <string name="action_grid_columns">Grid columns</string>
     <string name="action_grid_columns_land">Grid columns (Land)</string>
-    <string name="created_playlist">Created playlist\u0020</string>
-    <string name="deleted_playlist">Deleted playlist\u0020</string>
-    <string name="create_playlist_failed">Could not create playlist\u0020</string>
-    <string name="delete_playlist">Delete playlist\u0020</string>
-    <string name="rename_playlist">Rename playlist\u0020</string>
+
+    <string name="inserted_x_songs_into_playlist">Inserted %1$d songs into this playlist.</string>
+    <string name="created_playlist_x">Created playlist %1$s</string>
+    <string name="deleted_playlist_x">Deleted playlist %1$s</string>
+    <string name="couldnot_create_playlist_x">Could not create playlist %1$s</string>
+    <string name="delete_playlist_x"><![CDATA[
+        Do you want to delete the playlist <b>%1$s</b>?
+    ]]></string>
+    <string name="rename_playlist_title">Rename Playlist</string>
+    <string name="delete_playlist_title">Delete Playlist</string>
+    <string name="add_playlist_title">Add to Playlist</string>
+    <string name="new_playlist_title">New Playlist</string>
     <string name="delete_songs_1">Delete\u0020</string>
     <string name="delete_songs_2">\u0020songs?</string>
+
     <string name="delete_warning">"Warning: This operation can not be undone."</string>
     <string name="shuffle_all">Shuffle all</string>
     <string name="last_opened">Last opened</string>
@@ -89,7 +95,8 @@
     <string name="no_audio_id">No audio id, play something and try again.</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="delete">delete</string>
+    <string name="delete_action">Delete</string>
+    <string name="rename_action">Rename</string>
 
     <string name="select">Select</string>
     <string name="default_str">Default</string>

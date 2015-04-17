@@ -27,7 +27,7 @@ public class DeleteSongsDialogHelper {
         return new MaterialDialog.Builder(context)
                 .title(title)
                 .content(context.getResources().getString(R.string.delete_warning))
-                .positiveText(context.getResources().getString(R.string.delete))
+                .positiveText(context.getResources().getString(R.string.delete_action))
                 .negativeText(context.getResources().getString(android.R.string.cancel))
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override

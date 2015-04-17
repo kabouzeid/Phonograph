@@ -2,7 +2,9 @@ package com.kabouzeid.gramophone.dialogs;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.text.Html;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
@@ -21,14 +23,16 @@ public class DeletePlaylistDialog extends DialogFragment {
         return dialog;
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         long playlistId = getArguments().getLong("playlist_id");
         return new MaterialDialog.Builder(getActivity())
-                .title(getActivity().getResources().getString(R.string.delete_playlist) +
-                        PlaylistsUtil.getNameForPlaylist(getActivity(), playlistId))
-                .positiveText(getActivity().getResources().getString(android.R.string.ok))
-                .negativeText(getActivity().getResources().getString(android.R.string.cancel))
+                .title(R.string.delete_playlist_title)
+                .content(Html.fromHtml(getString(R.string.delete_playlist_x,
+                        PlaylistsUtil.getNameForPlaylist(getActivity(), playlistId))))
+                .positiveText(R.string.delete_action)
+                .negativeText(android.R.string.cancel)
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {

@@ -41,14 +41,16 @@ public class PlaylistsUtil {
                         values);
                 cursor.close();
                 if (uri != null) {
-                    Toast.makeText(context, context.getResources().getString(R.string.created_playlist) + name, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getResources().getString(
+                            R.string.created_playlist_x, name), Toast.LENGTH_SHORT).show();
                     App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
                     return Integer.parseInt(uri.getLastPathSegment());
                 }
             }
             cursor.close();
         }
-        Toast.makeText(context, context.getResources().getString(R.string.create_playlist_failed) + name, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, context.getResources().getString(
+                R.string.couldnot_create_playlist_x, name), Toast.LENGTH_SHORT).show();
         return -1;
     }
 
@@ -62,7 +64,8 @@ public class PlaylistsUtil {
         String where = MediaStore.Audio.Playlists._ID + "=?";
         String[] whereVal = {String.valueOf(playlistId)};
         context.getContentResolver().delete(uri, where, whereVal);
-        Toast.makeText(context, context.getResources().getString(R.string.deleted_playlist) + getNameForPlaylist(context, playlistId), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, context.getResources().getString(R.string.deleted_playlist_x,
+                getNameForPlaylist(context, playlistId)), Toast.LENGTH_SHORT).show();
         App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
     }
 
@@ -95,11 +98,11 @@ public class PlaylistsUtil {
         }
 
         int numinserted = 0;
-        for (int offSet = 0; offSet < size; offSet += 1000) {
+        for (int offSet = 0; offSet < size; offSet += 1000)
             numinserted += resolver.bulkInsert(uri, makeInsertItems(songs, offSet, 1000, base));
-        }
 
-        Toast.makeText(context, context.getResources().getString(R.string.inserted_titles_to_playlist_1) + numinserted + context.getResources().getString(R.string.inserted_titles_to_playlist_2), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, context.getResources().getString(
+                R.string.inserted_x_songs_into_playlist, numinserted), Toast.LENGTH_SHORT).show();
         App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
     }
 
