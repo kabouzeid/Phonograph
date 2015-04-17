@@ -2,7 +2,9 @@ package com.kabouzeid.gramophone.ui.activities;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
@@ -19,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.ThemeSingleton;
-import com.afollestad.materialdialogs.internal.MDTintHelper;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
@@ -154,8 +155,21 @@ public class MusicControllerActivity extends AbsFabActivity {
         }
     }
 
+    private static void setTint(SeekBar seekBar, int color) {
+        ColorStateList s1 = ColorStateList.valueOf(color);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            seekBar.setThumbTintList(s1);
+            seekBar.setProgressTintList(s1);
+        } else {
+            seekBar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+                seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+
+        }
+    }
+
     private void setUpProgressSlider() {
-        MDTintHelper.setTint(progressSlider, ThemeSingleton.get().positiveColor);
+        setTint(progressSlider, ThemeSingleton.get().positiveColor);
         progressSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
