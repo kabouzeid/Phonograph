@@ -120,9 +120,11 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
 
         App.bus.register(this);
 
-        if (Util.hasLollipopSDK()) postponeEnterTransition();
-        if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled())
-            getWindow().setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
+        if (Util.hasLollipopSDK()) {
+            postponeEnterTransition();
+            if (PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled())
+                getWindow().setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
+        }
 
         getIntentExtras();
         initViews();
