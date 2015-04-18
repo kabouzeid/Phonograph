@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
+        <View
             android:id="@+id/statusBar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/statusMargin"
