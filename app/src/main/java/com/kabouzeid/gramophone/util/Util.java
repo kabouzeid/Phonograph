@@ -34,12 +34,12 @@ public class Util {
 //        return resId;
 //    }
 
-//    public static int resolveColor(Context context, int color) {
-//        TypedArray a = context.obtainStyledAttributes(new int[]{color});
-//        int resId = a.getColor(0, 0);
-//        a.recycle();
-//        return resId;
-//    }
+    public static int resolveColor(Context context, int color) {
+        TypedArray a = context.obtainStyledAttributes(new int[]{color});
+        int resId = a.getColor(0, 0);
+        a.recycle();
+        return resId;
+    }
 
 //    public static boolean isWindowTranslucent(Context context) {
 //        TypedArray a = context.obtainStyledAttributes(new int[]{android.R.attr.windowTranslucentStatus});

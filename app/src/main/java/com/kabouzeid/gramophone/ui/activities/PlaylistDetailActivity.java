@@ -81,7 +81,7 @@ public class PlaylistDetailActivity extends AbsFabActivity {
 
     @Override
     protected boolean shouldColorNavBar() {
-        return true;
+        return PreferenceUtils.getInstance(this).coloredNavigationBarPlaylistEnabled();
     }
 
     private void getIntentExtras() {

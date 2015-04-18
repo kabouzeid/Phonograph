@@ -38,24 +38,18 @@
 
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="colored_navigation_bar_artist"
-            android:title="@string/pref_title_colored_navigation_bar_artists"
-            android:layout="@layout/preference_custom"
-            android:widgetLayout="@layout/preference_dynamiccheckbox" />
-
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="colored_navigation_bar_album"
-            android:title="@string/pref_title_colored_navigation_bar_albums"
-            android:layout="@layout/preference_custom"
-            android:widgetLayout="@layout/preference_dynamiccheckbox" />
-
-        <CheckBoxPreference
-            android:defaultValue="true"
             android:key="colored_album_footers"
             android:title="@string/pref_title_colored_album_footers"
             android:layout="@layout/preference_custom"
             android:widgetLayout="@layout/preference_dynamiccheckbox" />
+
+        <com.afollestad.materialdialogs.prefs.MaterialMultiSelectListPreference
+            android:key="colored_navigation_bar"
+            android:entries="@array/pref_navigation_bar_color_titles"
+            android:entryValues="@array/pref_navigation_bar_color_values"
+            android:title="@string/pref_title_navigation_bar"
+            android:summary="@string/pref_summary_navigation_bar"
+            android:layout="@layout/preference_custom" />
 
     </com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory>
 

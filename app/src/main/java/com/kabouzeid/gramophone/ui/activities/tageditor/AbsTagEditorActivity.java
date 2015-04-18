@@ -199,12 +199,13 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
     protected abstract void save();
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void restoreStandardColors() {
         final int vibrantColor = PreferenceUtils.getInstance(this).getThemeColorPrimary();
         paletteColorPrimary = vibrantColor;
         observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
         setStatusBarColor(ColorChooserDialog.shiftColorDown(vibrantColor), false);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarTagEditorEnabled())
             getWindow().setNavigationBarColor(vibrantColor);
     }
 
@@ -256,7 +257,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
         int primaryDark = ColorChooserDialog.shiftColorDown(paletteColorPrimary);
         setStatusBarColor(primaryDark, false);
-        if (Util.hasLollipopSDK())
+        if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarTagEditorEnabled())
             getWindow().setNavigationBarColor(primaryDark);
     }
 
@@ -295,7 +296,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                     paletteColorPrimary = vibrantColor;
                     observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
                     setStatusBarColor(ColorChooserDialog.shiftColorDown(vibrantColor), false);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(AbsTagEditorActivity.this).coloredNavigationBarTagEditorEnabled())
                         getWindow().setNavigationBarColor(vibrantColor);
                 }
             });

@@ -25,4 +25,22 @@
         <item>1</item>
     </string-array>
 
+    <string-array name="pref_navigation_bar_color_titles">
+        <item>@string/pref_title_colored_navigation_bar_albums</item>
+        <item>@string/pref_title_colored_navigation_bar_artists</item>
+        <item>@string/pref_title_colored_navigation_bar_playlists</item>
+        <item>@string/pref_title_colored_navigation_bar_current_playing</item>
+        <item>@string/pref_title_colored_navigation_bar_tag_editor</item>
+        <item>@string/pref_title_colored_navigation_bar_other_screens</item>
+    </string-array>
+
+    <string-array name="pref_navigation_bar_color_values">
+        <item>colored_navigation_bar_album</item>
+        <item>colored_navigation_bar_artist</item>
+        <item>colored_navigation_bar_playlist</item>
+        <item>colored_navigation_bar_current_playing</item>
+        <item>colored_navigation_bar_tag_editor</item>
+        <item>colored_navigation_bar_other_screens</item>
+    </string-array>
+
 </resources>
