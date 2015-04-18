@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.util.DialogUtils;
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.model.Album;
@@ -38,7 +39,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
 
     public static final String TAG = AlbumAdapter.class.getSimpleName();
     private final Activity activity;
-    private final boolean usePalette;
+    private boolean usePalette;
     private List<Album> dataSet;
 
     @Override
@@ -75,9 +76,9 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
                         .setCallback(new FutureCallback<ImageViewBitmapInfo>() {
                             @Override
                             public void onCompleted(Exception e, ImageViewBitmapInfo result) {
-                                if(result != null){
+                                if (result != null) {
                                     BitmapInfo info = result.getBitmapInfo();
-                                    if(info != null){
+                                    if (info != null) {
                                         Bitmap bitmap = info.bitmap;
                                         if (bitmap != null) {
                                             if (usePalette)
@@ -166,12 +167,34 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
         footer.setBackgroundColor(defaultBarColor);
     }
 
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        App.bus.unregister(this);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        App.bus.register(this);
+    }
+
     @Subscribe
     public void onDataBaseEvent(DataBaseChangedEvent event) {
         switch (event.getAction()) {
             case DataBaseChangedEvent.ALBUMS_CHANGED:
             case DataBaseChangedEvent.DATABASE_CHANGED:
                 loadDataSet();
+                notifyDataSetChanged();
+                break;
+        }
+    }
+
+    @Subscribe
+    public void onUIChangeEvent(UIPreferenceChangedEvent event) {
+        switch (event.getAction()) {
+            case UIPreferenceChangedEvent.ALBUM_OVERVIEW_PALETTE_CHANGED:
+                usePalette = (boolean) event.getValue();
                 notifyDataSetChanged();
                 break;
         }
