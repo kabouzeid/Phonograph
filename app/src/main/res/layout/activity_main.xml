@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="@dimen/main_toolbar_paddingtop">
+            android:paddingTop="@dimen/main_toolbar_padding_top">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
