@@ -65,6 +65,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     private int titleViewHeight;
     private int albumArtViewHeight;
     private int toolbarColor;
+
     private final SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
         @Override
         public void onScrollChanged(int scrollY, boolean b, boolean b2) {
@@ -105,9 +106,11 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
 
         App.bus.register(this);
 
-        if (Util.hasLollipopSDK()) postponeEnterTransition();
-        if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarAlbumEnabled())
-            getWindow().setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
+        if (Util.hasLollipopSDK()) {
+            postponeEnterTransition();
+            if (PreferenceUtils.getInstance(this).coloredNavigationBarAlbumEnabled())
+                getWindow().setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
+        }
 
         Bundle intentExtras = getIntent().getExtras();
         int albumId = -1;
@@ -123,6 +126,11 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         setUpObservableListViewParams();
         setUpToolBar();
         setUpViews();
+    }
+
+    @Override
+    protected boolean translucentStatusBarOnLollipop() {
+        return true;
     }
 
     @Override
@@ -155,7 +163,8 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         int toolbarHeight = Util.getActionBarSize(this);
         titleViewHeight = getResources().getDimensionPixelSize(R.dimen.title_view_height);
         headerOffset = toolbarHeight;
-        headerOffset += getResources().getDimensionPixelSize(R.dimen.statusMargin);
+        if (Util.hasKitKatSDK())
+            headerOffset += getResources().getDimensionPixelSize(R.dimen.statusMargin);
     }
 
     private void setUpViews() {

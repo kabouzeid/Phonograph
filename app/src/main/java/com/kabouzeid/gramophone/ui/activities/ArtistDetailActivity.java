@@ -133,8 +133,15 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         getSupportActionBar().setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if (Util.hasLollipopSDK()) fixLollipopTransitionImageWrongSize();
-        if (Util.hasLollipopSDK()) startPostponedEnterTransition();
+        if (Util.hasLollipopSDK()) {
+            fixLollipopTransitionImageWrongSize();
+            startPostponedEnterTransition();
+        }
+    }
+
+    @Override
+    protected boolean translucentStatusBarOnLollipop() {
+        return true;
     }
 
     @Override
@@ -165,7 +172,8 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         int toolbarHeight = Util.getActionBarSize(this);
         titleViewHeight = getResources().getDimensionPixelSize(R.dimen.title_view_height);
         headerOffset = toolbarHeight;
-        headerOffset += getResources().getDimensionPixelSize(R.dimen.statusMargin);
+        if (Util.hasKitKatSDK())
+            headerOffset += getResources().getDimensionPixelSize(R.dimen.statusMargin);
     }
 
     @Override
