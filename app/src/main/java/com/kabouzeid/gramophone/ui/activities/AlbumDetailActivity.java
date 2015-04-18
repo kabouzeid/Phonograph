@@ -22,7 +22,6 @@ import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.songadapter.AlbumSongAdapter;
 import com.kabouzeid.gramophone.comparator.SongTrackNumberComparator;
-import com.kabouzeid.gramophone.dialogs.ColorChooserDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
@@ -57,6 +56,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     private Album album;
 
     private ObservableRecyclerView recyclerView;
+    private View statusBar;
     private ImageView albumArtImageView;
     private View songsBackgroundView;
     private TextView albumTitleView;
@@ -82,10 +82,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
             // Change alpha of overlay
             float alpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
             ViewUtil.setBackgroundAlpha(toolbar, alpha, toolbarColor);
-            // Status bar color is a darker shade of the toolbar color with equal opacity
-            int a = Math.min(255, Math.max(0, (int) (alpha * 255))) << 24;
-            int rgb = 0x00ffffff & ColorChooserDialog.shiftColorDown(toolbarColor);
-            setStatusBarColor(a + rgb, true);
+            ViewUtil.setBackgroundAlpha(statusBar, alpha, toolbarColor);
 
             // Translate name text
             int maxTitleTranslationY = albumArtViewHeight;
@@ -157,7 +154,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         recyclerView = (ObservableRecyclerView) findViewById(R.id.list);
         albumTitleView = (TextView) findViewById(R.id.album_title);
         songsBackgroundView = findViewById(R.id.list_background);
-//        statusBar = findViewById(R.id.statusBar);
+        statusBar = findViewById(R.id.statusBar);
     }
 
     private void setUpObservableListViewParams() {

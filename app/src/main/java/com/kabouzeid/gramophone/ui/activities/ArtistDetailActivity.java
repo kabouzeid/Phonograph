@@ -28,7 +28,6 @@ import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.ArtistAlbumAdapter;
 import com.kabouzeid.gramophone.adapter.songadapter.ArtistSongAdapter;
-import com.kabouzeid.gramophone.dialogs.ColorChooserDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistBiographyLoader;
@@ -66,6 +65,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     private Artist artist;
 
     private ObservableListView songListView;
+    private View statusBar;
     private ImageView artistImage;
     private View songsBackgroundView;
     private TextView artistNameTv;
@@ -95,10 +95,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
             // Change alpha of overlay
             float alpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
             ViewUtil.setBackgroundAlpha(toolbar, alpha, toolbarColor);
-            // Status bar color is a darker shade of the toolbar color with equal opacity
-            int a = Math.min(255, Math.max(0, (int) (alpha * 255))) << 24;
-            int rgb = 0x00ffffff & ColorChooserDialog.shiftColorDown(toolbarColor);
-            setStatusBarColor(a + rgb, true);
+            ViewUtil.setBackgroundAlpha(statusBar, alpha, toolbarColor);
 
             // Translate name text
             int maxTitleTranslationY = artistImageViewHeight;
@@ -163,7 +160,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         songListView = (ObservableListView) findViewById(R.id.list);
         artistNameTv = (TextView) findViewById(R.id.artist_name);
         songsBackgroundView = findViewById(R.id.list_background);
-//        statusBar = findViewById(R.id.statusBar);
+        statusBar = findViewById(R.id.statusBar);
 
         songListHeader = LayoutInflater.from(this).inflate(R.layout.artist_detail_header, songListView, false);
         albumRecyclerView = (RecyclerView) songListHeader.findViewById(R.id.recycler_view);
