@@ -21,7 +21,6 @@ import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.songadapter.AlbumSongAdapter;
-import com.kabouzeid.gramophone.comparator.SongTrackNumberComparator;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
@@ -250,7 +249,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     }
 
     private void setUpSongsAdapter() {
-        final ArrayList<Song> songs = AlbumSongLoader.getAlbumSongList(this, album.id, new SongTrackNumberComparator());
+        final ArrayList<Song> songs = AlbumSongLoader.getAlbumSongList(this, album.id);
         final AlbumSongAdapter albumSongAdapter = new AlbumSongAdapter(this, songs);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(albumSongAdapter);
