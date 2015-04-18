@@ -6,12 +6,15 @@ import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Audio.PlaylistsColumns;
 
+import com.kabouzeid.gramophone.comparator.PlaylistAlphabeticComparator;
 import com.kabouzeid.gramophone.model.Playlist;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PlaylistLoader {
+
     public static Playlist getPlaylist(final Context context, final int playlistId) {
         Playlist playlist = new Playlist();
         Cursor cursor = makePlaylistCursor(context, BaseColumns._ID + "=?", new String[]{String.valueOf(playlistId)});
@@ -21,9 +24,8 @@ public class PlaylistLoader {
             final String name = cursor.getString(1);
             playlist = new Playlist(id, name);
         }
-        if (cursor != null) {
+        if (cursor != null)
             cursor.close();
-        }
         return playlist;
     }
 
@@ -39,9 +41,9 @@ public class PlaylistLoader {
                 playlists.add(playlist);
             } while (cursor.moveToNext());
         }
-        if (cursor != null) {
+        if (cursor != null)
             cursor.close();
-        }
+        Collections.sort(playlists, new PlaylistAlphabeticComparator());
         return playlists;
     }
 

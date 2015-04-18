@@ -7,7 +7,7 @@ import java.util.Comparator;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-class AlbumAlphabeticComparator implements Comparator<Album> {
+public class AlbumAlphabeticComparator implements Comparator<Album> {
     @Override
     public int compare(Album lhs, Album rhs) {
         return lhs.title.trim().compareToIgnoreCase(rhs.title.trim());

@@ -5,10 +5,12 @@ import android.database.Cursor;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
 
+import com.kabouzeid.gramophone.comparator.ArtistAlphabeticComparator;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,10 +32,9 @@ public class ArtistLoader {
                 artists.add(artist);
             } while (cursor.moveToNext());
         }
-
-        if (cursor != null) {
+        if (cursor != null)
             cursor.close();
-        }
+        Collections.sort(artists, new ArtistAlphabeticComparator());
         return artists;
     }
 

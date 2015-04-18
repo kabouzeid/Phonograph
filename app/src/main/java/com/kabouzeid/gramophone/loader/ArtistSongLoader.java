@@ -5,10 +5,12 @@ import android.database.Cursor;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
 
+import com.kabouzeid.gramophone.comparator.SongAlphabeticComparator;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -32,10 +34,9 @@ public class ArtistSongLoader {
                 songs.add(song);
             } while (cursor.moveToNext());
         }
-
-        if (cursor != null) {
+        if (cursor != null)
             cursor.close();
-        }
+        Collections.sort(songs, new SongAlphabeticComparator());
         return songs;
     }
 

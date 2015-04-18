@@ -5,16 +5,19 @@ import android.database.Cursor;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
 
+import com.kabouzeid.gramophone.comparator.AlbumAlphabeticComparator;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class ArtistAlbumLoader {
+
     public static List<Album> getArtistAlbumList(final Context context, final int artistId) {
         Cursor cursor = makeArtistAlbumCursor(context, artistId);
         List<Album> albums = new ArrayList<>();
@@ -30,10 +33,9 @@ public class ArtistAlbumLoader {
                 albums.add(album);
             } while (cursor.moveToNext());
         }
-
-        if (cursor != null) {
+        if (cursor != null)
             cursor.close();
-        }
+        Collections.sort(albums, new AlbumAlphabeticComparator());
         return albums;
     }
 
