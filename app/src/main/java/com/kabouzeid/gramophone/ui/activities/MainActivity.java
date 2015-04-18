@@ -159,7 +159,7 @@ public class MainActivity extends AbsFabActivity
     }
 
     private void setToolBarTransparent(boolean transparent) {
-        float alpha = transparent ? 0.97f : 1f;
+        float alpha = transparent ? 0.9f : 1f;
         final int colorPrimary = PreferenceUtils.getInstance(this).getThemeColorPrimary();
         ViewUtil.setBackgroundAlpha(toolbar, alpha, colorPrimary);
         ViewUtil.setBackgroundAlpha(slidingTabLayout, alpha, colorPrimary);
