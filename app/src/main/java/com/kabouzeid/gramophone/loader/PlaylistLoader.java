@@ -6,11 +6,9 @@ import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Audio.PlaylistsColumns;
 
-import com.kabouzeid.gramophone.comparator.PlaylistAlphabeticComparator;
 import com.kabouzeid.gramophone.model.Playlist;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class PlaylistLoader {
@@ -43,7 +41,6 @@ public class PlaylistLoader {
         }
         if (cursor != null)
             cursor.close();
-        Collections.sort(playlists, new PlaylistAlphabeticComparator());
         return playlists;
     }
 

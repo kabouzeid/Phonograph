@@ -5,12 +5,10 @@ import android.database.Cursor;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
 
-import com.kabouzeid.gramophone.comparator.AlbumAlphabeticComparator;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -37,7 +35,6 @@ public class AlbumLoader {
         if (cursor != null) {
             cursor.close();
         }
-        Collections.sort(albums, new AlbumAlphabeticComparator());
         return albums;
     }
 
@@ -102,7 +99,6 @@ public class AlbumLoader {
         if (cursor != null) {
             cursor.close();
         }
-        Collections.sort(albums, new AlbumAlphabeticComparator());
         return albums;
     }
 }

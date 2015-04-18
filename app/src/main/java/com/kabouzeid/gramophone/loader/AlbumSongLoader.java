@@ -5,13 +5,10 @@ import android.database.Cursor;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
 
-import com.kabouzeid.gramophone.comparator.SongAlphabeticComparator;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -19,10 +16,6 @@ import java.util.Comparator;
 public class AlbumSongLoader {
 
     public static ArrayList<Song> getAlbumSongList(final Context context, final int albumId) {
-        return getAlbumSongList(context, albumId, null);
-    }
-
-    public static ArrayList<Song> getAlbumSongList(final Context context, final int albumId, Comparator<Song> comparator) {
         Cursor cursor = makeAlbumSongCursor(context, albumId);
         ArrayList<Song> songs = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
@@ -41,9 +34,6 @@ public class AlbumSongLoader {
         }
         if (cursor != null)
             cursor.close();
-        if (comparator == null)
-            comparator = new SongAlphabeticComparator();
-        Collections.sort(songs, comparator);
         return songs;
     }
 
