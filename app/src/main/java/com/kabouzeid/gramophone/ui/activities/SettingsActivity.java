@@ -21,6 +21,9 @@ import com.kabouzeid.gramophone.prefs.ColorChooserPreference;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.Util;
+
+import java.util.Set;
 
 public class SettingsActivity extends AbsBaseActivity implements ColorChooserDialog.ColorCallback {
     public static final String TAG = SettingsActivity.class.getSimpleName();
@@ -29,7 +32,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusBarTranslucent(false);
+        setStatusBarTranslucent(!Util.hasLollipopSDK());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -48,7 +51,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
     @Override
     protected boolean shouldColorNavBar() {
-        return true;
+        return PreferenceUtils.getInstance(this).coloredNavigationBarOtherScreensEnabled();
     }
 
     @Override
@@ -134,26 +137,18 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 }
             });
 
-            findPreference("colored_navigation_bar_artist").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object o) {
-                    App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_ARTIST_CHANGED, o));
-                    return true;
-                }
-            });
-
-            findPreference("colored_navigation_bar_album").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object o) {
-                    App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_ALBUM_CHANGED, o));
-                    return true;
-                }
-            });
-
             findPreference("playback_controller_card").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object o) {
                     App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.PLAYBACK_CONTROLLER_CARD_CHANGED, o));
+                    return true;
+                }
+            });
+
+            findPreference("colored_navigation_bar").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object o) {
+                    App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_CHANGED, o));
                     return true;
                 }
             });
@@ -198,6 +193,23 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 equalizer.setEnabled(false);
                 equalizer.setSummary(getResources().getString(R.string.no_equalizer));
             }
+        }
+    }
+
+    @Override
+    protected void onUIPreferenceChangedEvent(UIPreferenceChangedEvent event) {
+        super.onUIPreferenceChangedEvent(event);
+        switch (event.getAction()) {
+            case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_OTHER_SCREENS_CHANGED:
+                setShouldColorNavBar((boolean) event.getValue());
+                break;
+            case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_CHANGED:
+                try {
+                    setShouldColorNavBar(((Set) event.getValue()).contains(PreferenceUtils.COLORED_NAVIGATION_BAR_OTHER_SCREENS));
+                } catch (NullPointerException ignored) {
+                    setShouldColorNavBar(false);
+                }
+                break;
         }
     }
 

@@ -23,9 +23,13 @@ public final class PreferenceUtils {
     public static final String ONLY_ON_WIFI = "auto_download_artist_images";
     //    public static final String DOWNLOAD_MISSING_ARTIST_IMAGES = "auto_download_artist_images";
     public static final String COLORED_ALBUM_FOOTERS = "colored_album_footers";
+    public static final String COLORED_NAVIGATION_BAR = "colored_navigation_bar";
     public static final String COLORED_NAVIGATION_BAR_ALBUM = "colored_navigation_bar_album";
     public static final String COLORED_NAVIGATION_BAR_ARTIST = "colored_navigation_bar_artist";
-    public static final String COLORED_NAVIGATION_BAR_CURRENT_PLAYING = "colored_navigation_bar_current_playing_enabled";
+    public static final String COLORED_NAVIGATION_BAR_CURRENT_PLAYING = "colored_navigation_bar_current_playing";
+    public static final String COLORED_NAVIGATION_BAR_PLAYIST = "colored_navigation_bar_playlist";
+    public static final String COLORED_NAVIGATION_BAR_TAG_EDITOR = "colored_navigation_bar_tag_editor";
+    public static final String COLORED_NAVIGATION_BAR_OTHER_SCREENS = "colored_navigation_bar_other_screens";
     public static final String PLAYBACK_CONTROLLER_BOX = "playback_controller_card";
     public static final String TRANSPARENT_TOOLBAR = "transparent_toolbar";
     public static final String ALBUM_GRID_COLUMNS = "album_grid_columns";
@@ -81,30 +85,6 @@ public final class PreferenceUtils {
         mPreferences.edit().putInt("accent_color", color).commit();
     }
 
-//    public void setGeneralTheme(int appTheme) {
-//        int value = -1;
-//        switch (appTheme) {
-//            case R.style.Theme_MaterialMusic_Light:
-//                value = 0;
-//                break;
-//            case R.style.Theme_MaterialMusic:
-//                value = 1;
-//                break;
-//        }
-//        if (value != 0 && value != 1) {
-//            return;
-//        }
-//        final SharedPreferences.Editor editor = mPreferences.edit();
-//        editor.putString(GENERAL_THEME, String.valueOf(value));
-//        editor.apply();
-//    }
-//
-//    public void setDefaultStartPage(final int value) {
-//        final SharedPreferences.Editor editor = mPreferences.edit();
-//        editor.putString(DEFAULT_START_PAGE, String.valueOf(value));
-//        editor.apply();
-//    }
-
     public final int getDefaultStartPage() {
         return Integer.parseInt(mPreferences.getString(DEFAULT_START_PAGE, "-1"));
     }
@@ -119,91 +99,69 @@ public final class PreferenceUtils {
         return mPreferences.getInt(LAST_START_PAGE, DEFAULT_PAGE);
     }
 
-    public final boolean autoDownloadOnlyOnWifi() {
-        return mPreferences.getBoolean(ONLY_ON_WIFI, false);
-    }
-
-//    public void setAutoDownloadOnlyOnWifi(final boolean value) {
-//        final SharedPreferences.Editor editor = mPreferences.edit();
-//        editor.putBoolean(ONLY_ON_WIFI, value);
-//        editor.apply();
+//    public final boolean autoDownloadOnlyOnWifi() {
+//        return mPreferences.getBoolean(ONLY_ON_WIFI, false);
 //    }
 
     public final boolean coloredAlbumFootersEnabled() {
         return mPreferences.getBoolean(COLORED_ALBUM_FOOTERS, true);
     }
 
-//    public void setColoredAlbumFootersEnabled(final boolean value) {
-//        final SharedPreferences.Editor editor = mPreferences.edit();
-//        editor.putBoolean(COLORED_ALBUM_FOOTERS, value);
-//        editor.apply();
-//    }
-
     public final boolean coloredNavigationBarAlbumEnabled() {
-        return mPreferences.getBoolean(COLORED_NAVIGATION_BAR_ALBUM, true);
+        return coloredNavigationBarFor(COLORED_NAVIGATION_BAR_ALBUM);
     }
-
-    /*public void setColoredNavigationBarAlbumEnabled(final boolean value) {
-        final SharedPreferences.Editor editor = mPreferences.edit();
-        editor.putBoolean(COLORED_NAVIGATION_BAR_ALBUM, value);
-        editor.apply();
-    }*/
 
     public final boolean coloredNavigationBarArtistEnabled() {
-        return mPreferences.getBoolean(COLORED_NAVIGATION_BAR_ARTIST, true);
+        return coloredNavigationBarFor(COLORED_NAVIGATION_BAR_ARTIST);
     }
-
-//    public void setColoredNavigationBarArtistEnabled(final boolean value) {
-//        final SharedPreferences.Editor editor = mPreferences.edit();
-//        editor.putBoolean(COLORED_NAVIGATION_BAR_ARTIST, value);
-//        editor.apply();
-//    }
 
     public final boolean coloredNavigationBarCurrentPlayingEnabled() {
-        return mPreferences.getBoolean(COLORED_NAVIGATION_BAR_CURRENT_PLAYING, true);
+        return coloredNavigationBarFor(COLORED_NAVIGATION_BAR_CURRENT_PLAYING);
     }
 
-//    public void setColoredNavigationBarCurrentPlayingEnabled(final boolean value) {
-//        final SharedPreferences.Editor editor = mPreferences.edit();
-//        editor.putBoolean(COLORED_NAVIGATION_BAR_CURRENT_PLAYING, value);
-//        editor.apply();
-//    }
+    public final boolean coloredNavigationBarPlaylistEnabled() {
+        return coloredNavigationBarFor(COLORED_NAVIGATION_BAR_PLAYIST);
+    }
+
+    public final boolean coloredNavigationBarTagEditorEnabled() {
+        return coloredNavigationBarFor(COLORED_NAVIGATION_BAR_TAG_EDITOR);
+    }
+
+    public final boolean coloredNavigationBarOtherScreensEnabled() {
+        return coloredNavigationBarFor(COLORED_NAVIGATION_BAR_OTHER_SCREENS);
+    }
+
+    private final boolean coloredNavigationBarFor(String key) {
+        try {
+            return mPreferences.getStringSet(COLORED_NAVIGATION_BAR, null).contains(key);
+        } catch (NullPointerException e) {
+            return false;
+        }
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    private void setColoredNavigationBarOtherScreens(boolean coloredNavbar) {
+        mPreferences.edit().putBoolean(COLORED_NAVIGATION_BAR_OTHER_SCREENS, coloredNavbar).commit();
+    }
 
     public final boolean playbackControllerBoxEnabled() {
         return mPreferences.getBoolean(PLAYBACK_CONTROLLER_BOX, false);
     }
 
-//    public void setPlaybackControllerBoxEnabled(final boolean value) {
-//        final SharedPreferences.Editor editor = mPreferences.edit();
-//        editor.putBoolean(PLAYBACK_CONTROLLER_BOX, value);
-//        editor.apply();
-//    }
-
     public final boolean transparentToolbar() {
         return mPreferences.getBoolean(TRANSPARENT_TOOLBAR, false);
     }
-
-//    public void setTransparentToolbar(final boolean value) {
-//        final SharedPreferences.Editor editor = mPreferences.edit();
-//        editor.putBoolean(TRANSPARENT_TOOLBAR, value);
-//        editor.apply();
-//    }
 
 //    public final boolean downloadMissingArtistImages() {
 //        return mPreferences.getBoolean(DOWNLOAD_MISSING_ARTIST_IMAGES, true);
 //    }
 //
-//    public void setDownloadMissingArtistImages(final boolean value) {
+
+//    private void setSortOrder(final String key, final String value) {
 //        final SharedPreferences.Editor editor = mPreferences.edit();
-//        editor.putBoolean(DOWNLOAD_MISSING_ARTIST_IMAGES, value);
+//        editor.putString(key, value);
 //        editor.apply();
 //    }
-
-    private void setSortOrder(final String key, final String value) {
-        final SharedPreferences.Editor editor = mPreferences.edit();
-        editor.putString(key, value);
-        editor.apply();
-    }
 
     //    public void setArtistSortOrder(final String value) {
 //        setSortOrder(ARTIST_SORT_ORDER, value);

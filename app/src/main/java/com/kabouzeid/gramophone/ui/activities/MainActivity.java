@@ -58,6 +58,7 @@ import com.koushikdutta.ion.Ion;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 public class MainActivity extends AbsFabActivity
@@ -99,7 +100,7 @@ public class MainActivity extends AbsFabActivity
 
     @Override
     protected boolean shouldColorNavBar() {
-        return false;
+        return PreferenceUtils.getInstance(this).coloredNavigationBarOtherScreensEnabled();
     }
 
     private void setUpViewPager() {
@@ -354,6 +355,16 @@ public class MainActivity extends AbsFabActivity
         switch (event.getAction()) {
             case UIPreferenceChangedEvent.TOOLBAR_TRANSPARENT_CHANGED:
                 setToolBarTransparent((boolean) event.getValue());
+                break;
+            case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_OTHER_SCREENS_CHANGED:
+                setShouldColorNavBar((boolean) event.getValue());
+                break;
+            case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_CHANGED:
+                try {
+                    setShouldColorNavBar(((Set) event.getValue()).contains(PreferenceUtils.COLORED_NAVIGATION_BAR_OTHER_SCREENS));
+                } catch (NullPointerException ignored) {
+                    setShouldColorNavBar(false);
+                }
                 break;
         }
     }

@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.ui.activities.base;
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -20,13 +21,13 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 /**
  * READ!
- *
+ * <p/>
  * Instructions:
- *
+ * <p/>
  * KitKat or Lollipop solid statusBar with the right color (primaryDark):
  * - shouldColorStatusBar return true OR return false and call setStatusBarColor() in the activity with a custom color
  * - setStatusBarTranslucent(!Util.hasLollipopSDK())
- *
+ * <p/>
  * KitKat or Lollipop translucent statusBar (not the color is too dark on Lollipop and KitKat only does fading but MUCH better performance the setStatusBarColor in onScrollCallback)
  * - shouldColorStatusBar return false DO NOT return true and do not call setStatusBarColor() in this case at all here
  * - setStatusBarTranslucent(true)
@@ -49,13 +50,8 @@ public abstract class ThemeBaseActivity extends ActionBarActivity implements Kab
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setupTheme() {
         // Apply colors to system UI if necessary
-        final int primaryDark = PreferenceUtils.getInstance(this).getThemeColorPrimaryDarker();
-        if (Util.hasLollipopSDK()) {
-            if (shouldColorNavBar())
-                getWindow().setNavigationBarColor(primaryDark);
-        }
-
-        if (shouldColorStatusBar()) setStatusBarColor(primaryDark, false);
+        setShouldColorNavBar(shouldColorNavBar());
+        setShouldColorStatusBar(shouldColorStatusBar());
 
         // Persist current values so the Activity knows if they change
 //        mLastDarkTheme = PreferenceUtils.getInstance(this).getGeneralTheme() == 1;
@@ -108,6 +104,33 @@ public abstract class ThemeBaseActivity extends ActionBarActivity implements Kab
             SystemBarTintManager tintManager = new SystemBarTintManager(this);
             tintManager.setStatusBarTintEnabled(true);
             tintManager.setStatusBarTintColor(color);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    protected final void setShouldColorNavBar(boolean shouldColorNavBar) {
+        if (Util.hasLollipopSDK()) {
+            if (shouldColorNavBar) {
+                final int primaryDark = PreferenceUtils.getInstance(this).getThemeColorPrimaryDarker();
+                getWindow().setNavigationBarColor(primaryDark);
+            } else {
+                getWindow().setNavigationBarColor(Color.BLACK);
+            }
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    protected final void setShouldColorStatusBar(boolean shouldColorStatusBar) {
+        if (shouldColorStatusBar) {
+            final int primaryDark = PreferenceUtils.getInstance(this).getThemeColorPrimaryDarker();
+            setStatusBarColor(primaryDark, false);
+        } else {
+            if (Util.hasLollipopSDK()) {
+                getWindow().setStatusBarColor(Util.resolveColor(this, android.R.attr.statusBarColor));
+            } else {
+                SystemBarTintManager tintManager = new SystemBarTintManager(this);
+                tintManager.setStatusBarTintEnabled(false);
+            }
         }
     }
 }
