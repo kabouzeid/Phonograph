@@ -75,21 +75,10 @@ public abstract class ThemeBaseActivity extends ActionBarActivity implements Kab
 //        }
 //    }
 
-    protected void setUpTranslucence(boolean statusBarTranslucent, boolean navigationBarTranslucent) {
+    protected void setStatusBarTranslucent(boolean statusBarTranslucent) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (translucentStatusBarOnLollipop() || Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 Util.setStatusBarTranslucent(getWindow(), statusBarTranslucent);
-            }
-            if (Util.isInPortraitMode(this) || Util.isTablet(this)) {
-                Util.setNavBarTranslucent(getWindow(), navigationBarTranslucent);
-            } else {
-                Util.setNavBarTranslucent(getWindow(), false);
-            }
         }
-    }
-
-    protected boolean translucentStatusBarOnLollipop() {
-        return false;
     }
 
     protected abstract boolean shouldColorStatusBar();

@@ -44,7 +44,7 @@ public class SearchActivity extends AbsBaseActivity {
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setUpTranslucence(false, false);
+        setStatusBarTranslucent(false);
         setTitle(null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);

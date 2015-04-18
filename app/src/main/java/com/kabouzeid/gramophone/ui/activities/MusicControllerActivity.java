@@ -74,7 +74,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setUpTranslucence(true, false);
+        setStatusBarTranslucent(true);
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_music_controller);
@@ -92,11 +92,6 @@ public class MusicControllerActivity extends AbsFabActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    @Override
-    protected boolean translucentStatusBarOnLollipop() {
-        return true;
     }
 
     @Override

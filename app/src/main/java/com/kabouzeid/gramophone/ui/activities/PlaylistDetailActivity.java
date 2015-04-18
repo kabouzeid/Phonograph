@@ -33,7 +33,7 @@ public class PlaylistDetailActivity extends AbsFabActivity {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setUpTranslucence(false, false);
+        setStatusBarTranslucent(false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_detail);
 

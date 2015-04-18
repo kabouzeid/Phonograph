@@ -114,7 +114,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setUpTranslucence(true, false);
+        setStatusBarTranslucent(true);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist_detail);
 
@@ -137,11 +137,6 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
             fixLollipopTransitionImageWrongSize();
             startPostponedEnterTransition();
         }
-    }
-
-    @Override
-    protected boolean translucentStatusBarOnLollipop() {
-        return true;
     }
 
     @Override

@@ -100,7 +100,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setUpTranslucence(true, false);
+        setStatusBarTranslucent(true);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_detail);
 
@@ -126,11 +126,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         setUpObservableListViewParams();
         setUpToolBar();
         setUpViews();
-    }
-
-    @Override
-    protected boolean translucentStatusBarOnLollipop() {
-        return true;
     }
 
     @Override

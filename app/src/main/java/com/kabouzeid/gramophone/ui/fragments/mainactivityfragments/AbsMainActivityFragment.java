@@ -1,12 +1,10 @@
 package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
-import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.util.Util;
 
 /**
@@ -28,11 +26,6 @@ public abstract class AbsMainActivityFragment extends Fragment implements KabVie
     }
 
     protected int getBottomPadding() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (Util.isInPortraitMode(getActivity()) || Util.isTablet(getActivity())) {
-                return Util.getNavigationBarHeight(getActivity());
-            }
-        }
         return 0;
     }
 

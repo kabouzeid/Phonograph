@@ -77,7 +77,7 @@ public class MainActivity extends AbsFabActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setUpTranslucence(true, true);
+        setStatusBarTranslucent(!Util.hasLollipopSDK());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

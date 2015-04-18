@@ -76,22 +76,22 @@ public class Util {
         return result;
     }
 
-    @TargetApi(19)
-    public static void setNavBarTranslucent(Window window, boolean translucent) {
-        if (translucent) {
-            window.setFlags(
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            return;
-        }
-
-        final WindowManager.LayoutParams attrs = window
-                .getAttributes();
-        attrs.flags &= (~WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        window.setAttributes(attrs);
-        window.clearFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-    }
+//    @TargetApi(19)
+//    public static void setNavBarTranslucent(Window window, boolean translucent) {
+//        if (translucent) {
+//            window.setFlags(
+//                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
+//                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//            return;
+//        }
+//
+//        final WindowManager.LayoutParams attrs = window
+//                .getAttributes();
+//        attrs.flags &= (~WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//        window.setAttributes(attrs);
+//        window.clearFlags(
+//                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+//    }
 
     @TargetApi(19)
     public static void setStatusBarTranslucent(Window window, boolean translucent) {

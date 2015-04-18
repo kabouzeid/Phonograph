@@ -89,7 +89,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setUpTranslucence(false, false);
+        setStatusBarTranslucent(false);
         super.onCreate(savedInstanceState);
         setContentView(getContentViewResId());
 
