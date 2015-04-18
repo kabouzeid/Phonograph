@@ -200,7 +200,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     protected abstract void save();
 
     private void restoreStandardColors() {
-        final int vibrantColor = DialogUtils.resolveColor(this, R.attr.colorPrimary);
+        final int vibrantColor = PreferenceUtils.getInstance(this).getThemeColorPrimary();
         paletteColorPrimary = vibrantColor;
         observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
         setStatusBarColor(ColorChooserDialog.shiftColorDown(vibrantColor), false);
@@ -249,12 +249,12 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         scrollView.setPadding(0, Util.getActionBarSize(this), 0, 0);
         observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
 
-        int primary = getIntent().getIntExtra(AppKeys.E_PALETTE,
+        paletteColorPrimary = getIntent().getIntExtra(AppKeys.E_PALETTE,
                 PreferenceUtils.getInstance(this).getThemeColorPrimary());
-        toolBar.setBackgroundColor(primary);
-        header.setBackgroundColor(primary);
+        toolBar.setBackgroundColor(paletteColorPrimary);
+        header.setBackgroundColor(paletteColorPrimary);
 
-        int primaryDark = ColorChooserDialog.shiftColorDown(primary);
+        int primaryDark = ColorChooserDialog.shiftColorDown(paletteColorPrimary);
         setStatusBarColor(primaryDark, false);
         if (Util.hasLollipopSDK())
             getWindow().setNavigationBarColor(primaryDark);
