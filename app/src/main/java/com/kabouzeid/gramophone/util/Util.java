@@ -9,6 +9,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
@@ -17,6 +18,9 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import com.kabouzeid.gramophone.R;
+
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -200,5 +204,24 @@ public class Util {
             drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
         }
         return drawable;
+    }
+
+    /**
+     * Returns a string representation of {@param set}. Used only for debugging purposes.
+     */
+    @NonNull
+    public static String setToString(@NonNull Set<String> set) {
+        Iterator<String> i = set.iterator();
+        if (!i.hasNext()) {
+            return "[]";
+        }
+        StringBuilder sb = new StringBuilder().append('[');
+        while (true) {
+            sb.append(i.next());
+            if (!i.hasNext()) {
+                return sb.append(']').toString();
+            }
+            sb.append(", ");
+        }
     }
 }

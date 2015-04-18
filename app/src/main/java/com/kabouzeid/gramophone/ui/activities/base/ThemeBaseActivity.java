@@ -76,7 +76,10 @@ public abstract class ThemeBaseActivity extends ActionBarActivity implements Kab
 
     protected void setUpTranslucence(boolean statusBarTranslucent, boolean navigationBarTranslucent) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Util.setStatusBarTranslucent(getWindow(), statusBarTranslucent);
+            if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                // Not needed on Lollipop
+                Util.setStatusBarTranslucent(getWindow(), statusBarTranslucent);
+            }
             if (Util.isInPortraitMode(this) || Util.isTablet(this)) {
                 Util.setNavBarTranslucent(getWindow(), navigationBarTranslucent);
             } else {

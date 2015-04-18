@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.MaterialMusic" parent="Theme.MaterialMusic.Base" />
 
@@ -43,7 +43,8 @@
         <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="android:minHeight">@dimen/abc_action_bar_default_height_material</item>
         <item name="popupTheme">?toolbarPopupTheme</item>
-        <item name="elevation">@dimen/toolbar_elevation</item>
+        <item name="android:elevation" tools:ignore="NewApi">@dimen/toolbar_elevation</item>
+        <item name="android:transitionName" tools:ignore="NewApi">toolbar</item>
     </style>
 
 </resources>

@@ -36,4 +36,7 @@
 
     <!--notification-->
     <drawable name="notification_template_divider_media">#29ffffff</drawable>
+
+    <color name="scrim_inset_color">#40000000</color>
+
 </resources>

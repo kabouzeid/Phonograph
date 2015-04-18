@@ -296,7 +296,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                     paletteColorPrimary = vibrantColor;
                     observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        getWindow().setStatusBarColor(vibrantColor);
+                        getWindow().setStatusBarColor(ColorChooserDialog.shiftColorDown(vibrantColor));
                         getWindow().setNavigationBarColor(vibrantColor);
                     }
                 }

@@ -1,104 +1,103 @@
-<!-- A DrawerLayout is intended to be used as the top-level content view using match_parent for both width and height to consume the full space available. -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:fitsSystemWindows="true"
+    tools:context=".DrawerActivity">
 
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".DrawerActivity">
+        android:layout_height="match_parent">
 
-        <FrameLayout
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:clipToPadding="false" />
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/pager"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/Toolbar"
+                android:background="?colorPrimary">
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="left|start|center"
+                    android:text="@string/app_name"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    tools:ignore="RtlHardcoded" />
+
+            </android.support.v7.widget.Toolbar>
+
+            <com.astuetz.PagerSlidingTabStrip
+                app:pstsTabBackground="?selectableItemBackground"
+                app:pstsIndicatorHeight="3dp"
+                android:id="@+id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false" />
+                android:layout_height="@dimen/tab_height"
+                android:background="?colorPrimary"
+                android:elevation="@dimen/toolbar_elevation"
+                android:paddingLeft="64dp"
+                android:paddingStart="64dp"
+                android:textColor="@color/sliding_tabs_deactivated"
+                android:textColorPrimary="@color/sliding_tabs_activated"
+                app:pstsTabPaddingLeftRight="8dp"
+                tools:ignore="NewApi,RtlSymmetry,UnusedAttribute"
+                android:transitionName="sliding_tabs" />
 
-            <LinearLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="5dp"
+                android:background="@drawable/shadow_down" />
 
-                <ImageView
-                    android:id="@+id/statusBar"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/statusMargin"
-                    android:background="?attr/colorPrimary"
-                    tools:ignore="ContentDescription" />
+        </LinearLayout>
 
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    style="@style/Toolbar"
-                    android:background="?colorPrimary">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|right|bottom"
+            android:fitsSystemWindows="true"
+            tools:ignore="RtlHardcoded">
 
-                    <TextView
-                        android:id="@+id/toolbar_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginStart="16dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:gravity="left|start|center"
-                        android:text="@string/app_name"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        tools:ignore="RtlHardcoded" />
+            <com.melnykov.fab.FloatingActionButton
+                android:id="@+id/fab"
+                style="@style/PlayPauseFab"
+                android:layout_margin="16dp" />
 
-                </android.support.v7.widget.Toolbar>
+        </LinearLayout>
 
-                <com.astuetz.PagerSlidingTabStrip
-                    app:pstsTabBackground="?selectableItemBackground"
-                    app:pstsIndicatorHeight="3dp"
-                    android:id="@+id/tabs"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/tab_height"
-                    android:background="?colorPrimary"
-                    app:elevation="@dimen/toolbar_elevation"
-                    android:paddingLeft="64dp"
-                    android:paddingStart="64dp"
-                    android:textColor="@color/sliding_tabs_deactivated"
-                    android:textColorPrimary="@color/sliding_tabs_activated"
-                    app:pstsTabPaddingLeftRight="8dp"
-                    tools:ignore="NewApi,RtlSymmetry" />
+    </FrameLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp"
-                    android:background="@drawable/shadow_down" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|right|bottom"
-                android:fitsSystemWindows="true"
-                tools:ignore="RtlHardcoded">
-
-                <com.melnykov.fab.FloatingActionButton
-                    android:id="@+id/fab"
-                    style="@style/PlayPauseFab"
-                    android:layout_margin="16dp" />
-
-            </LinearLayout>
-
-        </FrameLayout>
+    <com.kabouzeid.gramophone.views.ScrimInsetsFrameLayout
+        android:id="@+id/nav_drawer_frame"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:insetForeground="@color/scrim_inset_color"
+        android:clickable="true">
 
         <fragment
             android:id="@+id/navigation_drawer"
             android:name="com.kabouzeid.gramophone.ui.fragments.NavigationDrawerFragment"
-            android:layout_width="@dimen/navigation_drawer_width"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
-            tools:layout="@layout/fragment_navigation_drawer" />
+            tools:layout="@layout/fragment_navigation_drawer"
+            android:tag="NAV_DRAWER" />
 
-    </android.support.v4.widget.DrawerLayout>
+    </com.kabouzeid.gramophone.views.ScrimInsetsFrameLayout>
 
-</LinearLayout>
+</android.support.v4.widget.DrawerLayout>

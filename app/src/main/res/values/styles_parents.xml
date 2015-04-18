@@ -7,13 +7,6 @@
         <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
 
-        <item name="colorPrimary">@color/materialmusic_dark_color</item>
-        <item name="colorPrimaryDark">@color/materialmusic_dark_color_darker</item>
-        <item name="colorAccent">@color/materialmusic_accent_color</item>
-
-        <item name="fab_colorNormal">@color/materialmusic_accent_color</item>
-        <item name="fab_colorPressed">@color/materialmusic_accent_color</item>
-
         <item name="title_text_color">?android:attr/textColorPrimary</item>
         <item name="caption_text_color">?android:attr/textColorSecondary</item>
 
@@ -45,13 +38,6 @@
         <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
         <item name="md_dark_theme">false</item>
-
-        <item name="colorPrimary">@color/materialmusic_color</item>
-        <item name="colorPrimaryDark">@color/materialmusic_color_darker</item>
-        <item name="colorAccent">@color/materialmusic_accent_color</item>
-
-        <item name="fab_colorNormal">@color/materialmusic_accent_color</item>
-        <item name="fab_colorPressed">@color/materialmusic_accent_color</item>
 
         <item name="title_text_color">?android:attr/textColorPrimary</item>
         <item name="caption_text_color">?android:attr/textColorSecondary</item>

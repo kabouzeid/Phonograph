@@ -65,15 +65,14 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     private Artist artist;
 
     private ObservableListView songListView;
-    private View statusBar;
     private ImageView artistImage;
     private View songsBackgroundView;
     private TextView artistNameTv;
-    private Toolbar toolbar;
     private int headerOffset;
     private int titleViewHeight;
     private int artistImageViewHeight;
     private int toolbarColor;
+    public Toolbar toolbar;
 
     private View songListHeader;
     private RecyclerView albumRecyclerView;
@@ -95,7 +94,6 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
             // Change alpha of overlay
             float alpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
             ViewUtil.setBackgroundAlpha(toolbar, alpha, toolbarColor);
-            ViewUtil.setBackgroundAlpha(statusBar, alpha, toolbarColor);
 
             // Translate name text
             int maxTitleTranslationY = artistImageViewHeight;
@@ -109,7 +107,6 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
             ViewHelper.setTranslationY(getFab(), fabTranslationY);
         }
     };
-
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -148,12 +145,11 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     }
 
     private void initViews() {
-        artistImage = (ImageView) findViewById(R.id.artist_image);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        artistImage = (ImageView) findViewById(R.id.artist_image);
         songListView = (ObservableListView) findViewById(R.id.list);
         artistNameTv = (TextView) findViewById(R.id.artist_name);
         songsBackgroundView = findViewById(R.id.list_background);
-        statusBar = findViewById(R.id.statusBar);
 
         songListHeader = LayoutInflater.from(this).inflate(R.layout.artist_detail_header, songListView, false);
         albumRecyclerView = (RecyclerView) songListHeader.findViewById(R.id.recycler_view);
@@ -165,7 +161,8 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         int toolbarHeight = Util.getActionBarSize(this);
         titleViewHeight = getResources().getDimensionPixelSize(R.dimen.title_view_height);
         headerOffset = toolbarHeight;
-        headerOffset += getResources().getDimensionPixelSize(R.dimen.statusMargin);
+        if (Util.hasKitKatSDK() && !Util.hasLollipopSDK())
+            headerOffset += getResources().getDimensionPixelSize(R.dimen.statusMargin);
     }
 
     @Override

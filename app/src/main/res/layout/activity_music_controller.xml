@@ -14,7 +14,7 @@
         android:scaleType="centerCrop"
         android:src="@drawable/default_album_art"
         android:transitionName="@string/transition_album_cover"
-        tools:ignore="UnusedAttribute" />
+        tools:ignore="ContentDescription,UnusedAttribute" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -29,6 +29,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize" />
+
     </LinearLayout>
 
     <View
@@ -93,6 +94,7 @@
         android:paddingRight="72dp"
         android:paddingTop="16dp"
         android:transitionName="@string/transition_album_text"
+        android:elevation="@dimen/toolbar_elevation"
         tools:ignore="UnusedAttribute">
 
         <TextView
@@ -123,7 +125,8 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="16dp"
         android:background="?music_controller_container_color"
-        tools:ignore="ContentDescription">
+        android:elevation="@dimen/toolbar_elevation"
+        tools:ignore="ContentDescription,UnusedAttribute">
 
         <ImageButton
             android:id="@+id/prev_button"
@@ -195,24 +198,9 @@
         android:elevation="2dp"
         tools:ignore="UnusedAttribute" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/statusBar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/statusMargin"
-            android:background="@android:color/transparent"
-            tools:ignore="ContentDescription" />
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            style="@style/Toolbar"
-            android:background="@android:color/transparent" />
-
-    </LinearLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Toolbar"
+        android:background="@android:color/transparent" />
 
 </RelativeLayout>

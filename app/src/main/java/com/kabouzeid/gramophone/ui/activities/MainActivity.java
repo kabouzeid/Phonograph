@@ -17,12 +17,14 @@ import android.support.v7.internal.view.menu.MenuPopupHelper;
 import android.support.v7.widget.ActionMenuPresenter;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
-import android.view.View;
+import android.widget.FrameLayout;
 
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.astuetz.PagerSlidingTabStrip;
@@ -62,11 +64,12 @@ public class MainActivity extends AbsFabActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, KabViewsDisableAble {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+    private static final boolean DEBUG = true;
+
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private NavigationDrawerFragment navigationDrawerFragment;
     private Toolbar toolbar;
-    private View statusBar;
     private PagerAdapter pagerAdapter;
     private ViewPager viewPager;
     private PagerSlidingTabStrip slidingTabLayout;
@@ -149,7 +152,6 @@ public class MainActivity extends AbsFabActivity
     private void setUpToolBar() {
         setTitle(getResources().getString(R.string.app_name));
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        statusBar = findViewById(R.id.statusBar);
         setToolBarTransparent(PreferenceUtils.getInstance(this).transparentToolbar());
         setSupportActionBar(toolbar);
         setUpDrawerToggle();
@@ -159,7 +161,6 @@ public class MainActivity extends AbsFabActivity
         float alpha = transparent ? 0.97f : 1f;
         final int colorPrimary = PreferenceUtils.getInstance(this).getThemeColorPrimary();
         ViewUtil.setBackgroundAlpha(toolbar, alpha, colorPrimary);
-        ViewUtil.setBackgroundAlpha(statusBar, alpha, colorPrimary);
         ViewUtil.setBackgroundAlpha(slidingTabLayout, alpha, colorPrimary);
     }
 
@@ -170,6 +171,20 @@ public class MainActivity extends AbsFabActivity
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close
         );
+
+        drawerLayout.setStatusBarBackgroundColor(PreferenceUtils
+                .getInstance(this).getThemeColorPrimaryDarker());
+        FrameLayout navDrawerFrame = (FrameLayout) findViewById(R.id.nav_drawer_frame);
+        int navDrawerMargin = getResources().getDimensionPixelSize(R.dimen.nav_drawer_margin);
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        int navDrawerWidthLimit = getResources().getDimensionPixelSize(R.dimen.nav_drawer_width_limit);
+        int navDrawerWidth = displayMetrics.widthPixels - navDrawerMargin;
+        if (navDrawerWidth > navDrawerWidthLimit) {
+            navDrawerWidth = navDrawerWidthLimit;
+        }
+        navDrawerFrame.setLayoutParams(new DrawerLayout.LayoutParams(navDrawerWidth,
+                DrawerLayout.LayoutParams.MATCH_PARENT, Gravity.START));
+
         drawerLayout.post(new Runnable() {
             @Override
             public void run() {
