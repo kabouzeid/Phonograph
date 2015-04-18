@@ -56,15 +56,15 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     private Album album;
 
     private ObservableRecyclerView recyclerView;
+    private View statusBar;
     private ImageView albumArtImageView;
     private View songsBackgroundView;
     private TextView albumTitleView;
+    private Toolbar toolbar;
     private int headerOffset;
     private int titleViewHeight;
     private int albumArtViewHeight;
     private int toolbarColor;
-    public Toolbar toolbar;
-
     private final SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
         @Override
         public void onScrollChanged(int scrollY, boolean b, boolean b2) {
@@ -81,6 +81,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
             // Change alpha of overlay
             float alpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
             ViewUtil.setBackgroundAlpha(toolbar, alpha, toolbarColor);
+            ViewUtil.setBackgroundAlpha(statusBar, alpha, toolbarColor);
 
             // Translate name text
             int maxTitleTranslationY = albumArtViewHeight;
@@ -120,11 +121,8 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
 
         initViews();
         setUpObservableListViewParams();
+        setUpToolBar();
         setUpViews();
-
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(null);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -143,11 +141,12 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     }
 
     private void initViews() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         albumArtImageView = (ImageView) findViewById(R.id.album_art);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         recyclerView = (ObservableRecyclerView) findViewById(R.id.list);
         albumTitleView = (TextView) findViewById(R.id.album_title);
         songsBackgroundView = findViewById(R.id.list_background);
+        statusBar = findViewById(R.id.statusBar);
     }
 
     private void setUpObservableListViewParams() {
@@ -156,8 +155,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         int toolbarHeight = Util.getActionBarSize(this);
         titleViewHeight = getResources().getDimensionPixelSize(R.dimen.title_view_height);
         headerOffset = toolbarHeight;
-        if (Util.hasKitKatSDK() && !Util.hasLollipopSDK())
-            headerOffset += getResources().getDimensionPixelSize(R.dimen.statusMargin);
+        headerOffset += getResources().getDimensionPixelSize(R.dimen.statusMargin);
     }
 
     private void setUpViews() {
@@ -239,6 +237,12 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                 recyclerView.scrollBy(0, -1);
             }
         });
+    }
+
+    private void setUpToolBar() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void setUpSongsAdapter() {
