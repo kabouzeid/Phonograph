@@ -47,7 +47,7 @@ public class CreatePlaylistDialog extends DialogFragment {
                 .inputType(InputType.TYPE_CLASS_TEXT |
                         InputType.TYPE_TEXT_VARIATION_PERSON_NAME |
                         InputType.TYPE_TEXT_FLAG_CAP_WORDS)
-                .input(R.string.playlist_name, 0, new MaterialDialog.InputCallback() {
+                .input(R.string.playlist_name, 0, false, new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(MaterialDialog materialDialog, CharSequence charSequence) {
                         if (getActivity() == null)
