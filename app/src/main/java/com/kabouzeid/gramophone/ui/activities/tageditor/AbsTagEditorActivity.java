@@ -89,7 +89,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusBarTranslucent(false);
+        setStatusBarTranslucent(!Util.hasLollipopSDK());
         super.onCreate(savedInstanceState);
         setContentView(getContentViewResId());
 

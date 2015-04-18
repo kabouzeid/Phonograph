@@ -17,6 +17,22 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 /**
  * @author Aidan Follestad (afollestad)
  */
+
+/**
+ * READ!
+ *
+ * Instructions:
+ *
+ * KitKat or Lollipop solid statusBar with the right color (primaryDark):
+ * - shouldColorStatusBar return true OR return false and call setStatusBarColor() in the activity with a custom color
+ * - setStatusBarTranslucent(!Util.hasLollipopSDK())
+ *
+ * KitKat or Lollipop translucent statusBar (not the color is too dark on Lollipop and KitKat only does fading but MUCH better performance the setStatusBarColor in onScrollCallback)
+ * - shouldColorStatusBar return false DO NOT return true and do not call setStatusBarColor() in this case at all here
+ * - setStatusBarTranslucent(true)
+ * - use a view below the statusBar to color it
+ */
+
 public abstract class ThemeBaseActivity extends ActionBarActivity implements KabViewsDisableAble {
 
 //    private boolean mLastDarkTheme;
@@ -39,7 +55,7 @@ public abstract class ThemeBaseActivity extends ActionBarActivity implements Kab
                 getWindow().setNavigationBarColor(primaryDark);
         }
 
-        setStatusBarColor(primaryDark, false);
+        if (shouldColorStatusBar()) setStatusBarColor(primaryDark, false);
 
         // Persist current values so the Activity knows if they change
 //        mLastDarkTheme = PreferenceUtils.getInstance(this).getGeneralTheme() == 1;
@@ -77,7 +93,7 @@ public abstract class ThemeBaseActivity extends ActionBarActivity implements Kab
 
     protected void setStatusBarTranslucent(boolean statusBarTranslucent) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                Util.setStatusBarTranslucent(getWindow(), statusBarTranslucent);
+            Util.setStatusBarTranslucent(getWindow(), statusBarTranslucent);
         }
     }
 
