@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="statusMargin">25dp</dimen>
-
     <dimen name="navigation_drawer_image_height">165dp</dimen>
+    <dimen name="main_toolbar_paddingtop">0dp</dimen>
 </resources>

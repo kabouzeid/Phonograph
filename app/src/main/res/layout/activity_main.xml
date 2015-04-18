@@ -15,12 +15,14 @@
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false" />
+            android:clipToPadding="false"
+            android:fitsSystemWindows="true" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="@dimen/main_toolbar_paddingtop">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -69,8 +71,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|right|bottom"
-            android:fitsSystemWindows="true"
-            tools:ignore="RtlHardcoded">
+            tools:ignore="RtlHardcoded"
+            android:fitsSystemWindows="true">
 
             <com.melnykov.fab.FloatingActionButton
                 android:id="@+id/fab"
