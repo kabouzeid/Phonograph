@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.media.audiofx.AudioEffect;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -145,13 +146,19 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 }
             });
 
-            findPreference("colored_navigation_bar").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object o) {
-                    App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_CHANGED, o));
-                    return true;
-                }
-            });
+            Preference colorNavBar = findPreference("colored_navigation_bar");
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                colorNavBar.setEnabled(false);
+                colorNavBar.setSummary(R.string.pref_only_lollipop);
+            } else {
+                colorNavBar.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object o) {
+                        App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_CHANGED, o));
+                        return true;
+                    }
+                });
+            }
 
             equalizer = findPreference("equalizer");
             resolveEqualizer();
