@@ -205,23 +205,4 @@ public class Util {
         }
         return drawable;
     }
-
-    /**
-     * Returns a string representation of {@param set}. Used only for debugging purposes.
-     */
-    @NonNull
-    public static String setToString(@NonNull Set<String> set) {
-        Iterator<String> i = set.iterator();
-        if (!i.hasNext()) {
-            return "[]";
-        }
-        StringBuilder sb = new StringBuilder().append('[');
-        while (true) {
-            sb.append(i.next());
-            if (!i.hasNext()) {
-                return sb.append(']').toString();
-            }
-            sb.append(", ");
-        }
-    }
 }

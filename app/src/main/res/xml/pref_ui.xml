@@ -48,7 +48,7 @@
             android:entries="@array/pref_navigation_bar_color_titles"
             android:entryValues="@array/pref_navigation_bar_color_values"
             android:title="@string/pref_title_navigation_bar"
-            android:summary="@string/pref_summary_navigation_bar"
+            android:summary="@string/pref_summary_colored_navigation_bar"
             android:layout="@layout/preference_custom" />
 
     </com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory>

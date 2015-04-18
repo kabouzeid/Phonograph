@@ -65,7 +65,6 @@ public class MainActivity extends AbsFabActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, KabViewsDisableAble {
 
     public static final String TAG = MainActivity.class.getSimpleName();
-    private static final boolean DEBUG = true;
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;

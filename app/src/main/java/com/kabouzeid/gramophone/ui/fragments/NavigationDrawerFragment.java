@@ -8,6 +8,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +61,7 @@ public class NavigationDrawerFragment extends Fragment {
 
 
         if (!userLearnedDrawer && !fromSavedInstanceState) {
-            this.drawerLayout.openDrawer(fragmentContainerView);
+            this.drawerLayout.openDrawer(Gravity.START);
             userLearnedDrawer = true;
             PreferenceManager.getDefaultSharedPreferences(getActivity()).edit().putBoolean(AppKeys.SP_USER_LEARNED_DRAWER, true).apply();
         }

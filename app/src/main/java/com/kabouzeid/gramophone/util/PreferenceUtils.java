@@ -8,6 +8,9 @@ import android.preference.PreferenceManager;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.ColorChooserDialog;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public final class PreferenceUtils {
 
     public static final int DEFAULT_PAGE = 1;
@@ -131,18 +134,30 @@ public final class PreferenceUtils {
         return coloredNavigationBarFor(COLORED_NAVIGATION_BAR_OTHER_SCREENS);
     }
 
-    private final boolean coloredNavigationBarFor(String key) {
+    @SuppressLint("CommitPrefEdits")
+    private boolean coloredNavigationBarFor(String key) {
+        Set<String> defaultVals = new HashSet<>();
+        defaultVals.add(COLORED_NAVIGATION_BAR_ALBUM);
+        defaultVals.add(COLORED_NAVIGATION_BAR_ARTIST);
+        defaultVals.add(COLORED_NAVIGATION_BAR_CURRENT_PLAYING);
+        defaultVals.add(COLORED_NAVIGATION_BAR_PLAYIST);
+        defaultVals.add(COLORED_NAVIGATION_BAR_TAG_EDITOR);
+        defaultVals.add(COLORED_NAVIGATION_BAR_OTHER_SCREENS);
+
+        if (!mPreferences.contains(COLORED_NAVIGATION_BAR))
+            mPreferences.edit().putStringSet(COLORED_NAVIGATION_BAR, defaultVals).commit();
+
         try {
-            return mPreferences.getStringSet(COLORED_NAVIGATION_BAR, null).contains(key);
+            return mPreferences.getStringSet(COLORED_NAVIGATION_BAR, defaultVals).contains(key);
         } catch (NullPointerException e) {
             return false;
         }
     }
 
-    @SuppressLint("CommitPrefEdits")
-    private void setColoredNavigationBarOtherScreens(boolean coloredNavbar) {
-        mPreferences.edit().putBoolean(COLORED_NAVIGATION_BAR_OTHER_SCREENS, coloredNavbar).commit();
-    }
+//    @SuppressLint("CommitPrefEdits")
+//    private void setColoredNavigationBarOtherScreens(boolean coloredNavbar) {
+//        mPreferences.edit().putBoolean(COLORED_NAVIGATION_BAR_OTHER_SCREENS, coloredNavbar).commit();
+//    }
 
     public final boolean playbackControllerBoxEnabled() {
         return mPreferences.getBoolean(PLAYBACK_CONTROLLER_BOX, false);
