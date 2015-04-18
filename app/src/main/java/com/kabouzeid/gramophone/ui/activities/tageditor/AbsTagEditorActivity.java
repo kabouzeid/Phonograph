@@ -203,10 +203,9 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         final int vibrantColor = DialogUtils.resolveColor(this, R.attr.colorPrimary);
         paletteColorPrimary = vibrantColor;
         observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(ColorChooserDialog.shiftColorDown(vibrantColor));
+        setStatusBarColor(ColorChooserDialog.shiftColorDown(vibrantColor), false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             getWindow().setNavigationBarColor(vibrantColor);
-        }
     }
 
     private void getIntentExtras() {
@@ -254,11 +253,11 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                 PreferenceUtils.getInstance(this).getThemeColorPrimary());
         toolBar.setBackgroundColor(primary);
         header.setBackgroundColor(primary);
-        if (Util.hasLollipopSDK()) {
-            int primaryDark = ColorChooserDialog.shiftColorDown(primary);
-            getWindow().setStatusBarColor(primaryDark);
+
+        int primaryDark = ColorChooserDialog.shiftColorDown(primary);
+        setStatusBarColor(primaryDark, false);
+        if (Util.hasLollipopSDK())
             getWindow().setNavigationBarColor(primaryDark);
-        }
     }
 
     protected void dataChanged() {
@@ -295,10 +294,9 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                     final int vibrantColor = palette.getVibrantColor(DialogUtils.resolveColor(AbsTagEditorActivity.this, R.attr.default_bar_color));
                     paletteColorPrimary = vibrantColor;
                     observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        getWindow().setStatusBarColor(ColorChooserDialog.shiftColorDown(vibrantColor));
+                    setStatusBarColor(ColorChooserDialog.shiftColorDown(vibrantColor), false);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                         getWindow().setNavigationBarColor(vibrantColor);
-                    }
                 }
             });
         } else {

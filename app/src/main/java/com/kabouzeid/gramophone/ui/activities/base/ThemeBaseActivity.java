@@ -12,6 +12,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -34,11 +35,11 @@ public abstract class ThemeBaseActivity extends ActionBarActivity implements Kab
         // Apply colors to system UI if necessary
         final int primaryDark = PreferenceUtils.getInstance(this).getThemeColorPrimaryDarker();
         if (Util.hasLollipopSDK()) {
-            if (shouldColorStatusBar())
-                getWindow().setStatusBarColor(primaryDark);
             if (shouldColorNavBar())
                 getWindow().setNavigationBarColor(primaryDark);
         }
+
+        setStatusBarColor(primaryDark, false);
 
         // Persist current values so the Activity knows if they change
 //        mLastDarkTheme = PreferenceUtils.getInstance(this).getGeneralTheme() == 1;
@@ -94,4 +95,14 @@ public abstract class ThemeBaseActivity extends ActionBarActivity implements Kab
     protected abstract boolean shouldColorStatusBar();
 
     protected abstract boolean shouldColorNavBar();
+
+    protected final void setStatusBarColor(int color, boolean forceSystemBarTint) {
+        if (!forceSystemBarTint && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(color);
+        } else {
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintColor(color);
+        }
+    }
 }

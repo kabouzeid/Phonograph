@@ -95,6 +95,11 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     @Override
+    protected boolean translucentStatusBarOnLollipop() {
+        return true;
+    }
+
+    @Override
     protected boolean shouldColorStatusBar() {
         return false; // let other code handle this below
     }
