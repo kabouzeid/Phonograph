@@ -3,14 +3,21 @@ package com.kabouzeid.gramophone.util;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.os.Build;
+import android.support.v7.internal.view.menu.ListMenuItemView;
+import android.support.v7.internal.view.menu.MenuPopupHelper;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.PathInterpolator;
+import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.RadioButton;
+
+import com.afollestad.materialdialogs.ThemeSingleton;
+import com.afollestad.materialdialogs.internal.MDTintHelper;
+
+import java.lang.reflect.Field;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -99,15 +106,62 @@ public class ViewUtil {
         });
     }
 
-    public static void animateTextViewMaxLines(TextView text, int maxLines) {
-        try {
-            ObjectAnimator animation = ObjectAnimator.ofInt(text, "maxLines", maxLines);
-            animation.setInterpolator(new AccelerateInterpolator());
-            animation.setDuration(200);
-            animation.start();
-        } catch (Exception e) {
-            // Some devices crash at runtime when using the ObjectAnimator
-            text.setMaxLines(maxLines);
+//    public static void animateTextViewMaxLines(TextView text, int maxLines) {
+//        try {
+//            ObjectAnimator animation = ObjectAnimator.ofInt(text, "maxLines", maxLines);
+//            animation.setInterpolator(new AccelerateInterpolator());
+//            animation.setDuration(200);
+//            animation.start();
+//        } catch (Exception e) {
+//            // Some devices crash at runtime when using the ObjectAnimator
+//            text.setMaxLines(maxLines);
+//        }
+//    }
+
+    public static void setCheckBoxTintForMenu(MenuPopupHelper menuPopupHelper) {
+        if (menuPopupHelper != null) {
+            final ListView listView = menuPopupHelper.getPopup().getListView();
+            listView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    try {
+                        Field checkboxField = ListMenuItemView.class.getDeclaredField("mCheckBox");
+                        checkboxField.setAccessible(true);
+                        Field radioButtonField = ListMenuItemView.class.getDeclaredField("mRadioButton");
+                        radioButtonField.setAccessible(true);
+
+                        for (int i = 0; i < listView.getChildCount(); i++) {
+                            View v = listView.getChildAt(i);
+                            if (!(v instanceof ListMenuItemView)) continue;
+                            ListMenuItemView iv = (ListMenuItemView) v;
+
+                            CheckBox check = (CheckBox) checkboxField.get(iv);
+                            if (check != null) {
+                                MDTintHelper.setTint(check, ThemeSingleton.get().positiveColor);
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                    check.setBackground(null);
+                                }
+                            }
+
+                            RadioButton radioButton = (RadioButton) radioButtonField.get(iv);
+                            if (radioButton != null) {
+                                MDTintHelper.setTint(radioButton, ThemeSingleton.get().positiveColor);
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                    radioButton.setBackground(null);
+                                }
+                            }
+                        }
+                    } catch (Throwable e) {
+                        e.printStackTrace();
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        listView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    } else {
+                        //noinspection deprecation
+                        listView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    }
+                }
+            });
         }
     }
 }

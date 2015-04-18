@@ -50,7 +50,7 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.2.1@aar') {
         transitive = true;
     }
-    compile 'com.afollestad:material-dialogs:0.7.2.2'
+    compile 'com.afollestad:material-dialogs:0.7.2.3'
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.android.support:recyclerview-v7:22.0.0'
     compile 'com.android.support:gridlayout-v7:22.0.0'

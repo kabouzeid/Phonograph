@@ -7,13 +7,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.internal.view.menu.MenuPopupHelper;
+import android.support.v7.widget.ActionMenuPresenter;
+import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -48,6 +53,7 @@ import com.kabouzeid.gramophone.util.ViewUtil;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -489,5 +495,46 @@ public class MainActivity extends AbsFabActivity
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(@NonNull KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_MENU && event.getAction() == KeyEvent.ACTION_UP) {
+            if (toolbar != null)
+                toolbar.showOverflowMenu();
+            return true;
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
+    @Override
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        toolbar.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Field f1 = Toolbar.class.getDeclaredField("mMenuView");
+                    f1.setAccessible(true);
+                    ActionMenuView actionMenuView = (ActionMenuView) f1.get(toolbar);
+
+                    Field f2 = ActionMenuView.class.getDeclaredField("mPresenter");
+                    f2.setAccessible(true);
+                    ActionMenuPresenter presenter = (ActionMenuPresenter) f2.get(actionMenuView);
+
+                    Field f3 = presenter.getClass().getDeclaredField("mOverflowPopup");
+                    f3.setAccessible(true);
+                    MenuPopupHelper overflowMenuPopupHelper = (MenuPopupHelper) f3.get(presenter);
+                    ViewUtil.setCheckBoxTintForMenu(overflowMenuPopupHelper);
+
+                    Field f4 = presenter.getClass().getDeclaredField("mActionButtonPopup");
+                    f4.setAccessible(true);
+                    MenuPopupHelper subMenuPopupHelper = (MenuPopupHelper) f4.get(presenter);
+                    ViewUtil.setCheckBoxTintForMenu(subMenuPopupHelper);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        return super.onMenuOpened(featureId, menu);
     }
 }
