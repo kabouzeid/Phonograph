@@ -94,7 +94,7 @@ public class MainActivity extends AbsFabActivity
 
     @Override
     protected boolean shouldColorStatusBar() {
-        return true;
+        return !Util.hasLollipopSDK();
     }
 
     @Override
