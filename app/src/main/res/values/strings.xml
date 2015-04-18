@@ -122,6 +122,8 @@
     <string name="playlist_name">Playlist name</string>
     <string name="song">Song</string>
     <string name="pref_only_lollipop">Only available on Lollipop.</string>
+    <string name="pref_summary_transparent_toolbar">Content scrolling underneath the toolbar is visible.</string>
+    <string name="pref_summary_colored_album_footers">Album footers in the grid are colored with the album cover\'s palette.</string>
 
     <string-array name="update_albumcover_options">
         <item>Download from LastFM</item>
