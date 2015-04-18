@@ -51,7 +51,7 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     public boolean isDrawerOpen() {
-        return drawerLayout != null && drawerLayout.isDrawerOpen(fragmentContainerView);
+        return drawerLayout != null && drawerLayout.isDrawerOpen(Gravity.START);
     }
 
     public void setUp(int fragmentId, final DrawerLayout drawerLayout) {
