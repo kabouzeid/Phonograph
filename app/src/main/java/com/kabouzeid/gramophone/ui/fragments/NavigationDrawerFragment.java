@@ -3,7 +3,6 @@ package com.kabouzeid.gramophone.ui.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -154,14 +153,8 @@ public class NavigationDrawerFragment extends Fragment {
         if (position != NAVIGATION_DRAWER_HEADER &&
                 position != ABOUT_INDEX && position != SETTINGS_INDEX) {
             setItemChecked(position);
-            if (drawerLayout != null) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        drawerLayout.closeDrawers();
-                    }
-                }, 200);
-            }
+            if (drawerLayout != null)
+                drawerLayout.closeDrawers();
         }
         if (callbacks != null)
             callbacks.onNavigationDrawerItemSelected(position);

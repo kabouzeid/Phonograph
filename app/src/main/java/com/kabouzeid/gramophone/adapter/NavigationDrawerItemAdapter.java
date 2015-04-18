@@ -73,11 +73,9 @@ public class NavigationDrawerItemAdapter extends RecyclerView.Adapter<Navigation
     }
 
     public void setChecked(int position) {
-        int oldPosition = currentChecked;
+//        int oldPosition = currentChecked;
         currentChecked = position;
-        if (oldPosition != -1)
-            notifyItemChanged(oldPosition);
-        notifyItemChanged(position);
+        notifyDataSetChanged();
     }
 
     @Override
