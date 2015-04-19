@@ -95,8 +95,15 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         setContentView(getContentViewResId());
 
         getIntentExtras();
-        headerVariableSpace = getResources().getDimensionPixelSize(R.dimen.tagEditorHeaderVariableSpace);
+
         songPaths = getSongPaths();
+        if (songPaths.isEmpty()) {
+            finish();
+            return;
+        }
+
+        headerVariableSpace = getResources().getDimensionPixelSize(R.dimen.tagEditorHeaderVariableSpace);
+
 
         initViews();
         setUpViews();

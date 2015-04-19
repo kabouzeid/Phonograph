@@ -231,8 +231,10 @@ public class MusicPlayerRemote {
 
     public static void shuffleAllSongs(final Context context) {
         ArrayList<Song> songs = SongLoader.getAllSongs(context);
-        MusicPlayerRemote.openQueue(songs, new Random().nextInt(songs.size()), true);
-        forceSetShuffleMode(context, MusicService.SHUFFLE_MODE_SHUFFLE);
+        if (!songs.isEmpty()) {
+            MusicPlayerRemote.openQueue(songs, new Random().nextInt(songs.size()), true);
+            forceSetShuffleMode(context, MusicService.SHUFFLE_MODE_SHUFFLE);
+        }
     }
 
     public static void playNext(Song song) {

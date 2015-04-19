@@ -290,27 +290,31 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             isPlayerPrepared = false;
             player.reset();
             player.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
-            try {
-                Uri trackUri = getCurrentPositionTrackUri();
-                player.setDataSource(getApplicationContext(), trackUri);
-                player.prepareAsync();
-            } catch (Exception e) {
-                Log.e("MUSIC SERVICE", "Error setting data source", e);
-                player.reset();
-                player = null;
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.unplayable_file), Toast.LENGTH_SHORT).show();
-                notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STOP);
+            if (position != -1) {
+                try {
+                    Uri trackUri = getCurrentPositionTrackUri();
+                    player.setDataSource(getApplicationContext(), trackUri);
+                    player.prepareAsync();
+                } catch (Exception e) {
+                    player.reset();
+                    player = null;
+
+                    notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STOP);
+                    playingNotificationHelper.updatePlayState(false);
+                    MusicPlayerWidget.updateWidgetsPlayState(this, false);
+                    remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
+
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.unplayable_file), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                currentSongId = playingQueue.get(getPosition()).id;
+                updateNotification();
+                updateWidgets();
+                updateRemoteControlClient();
+            } else {
                 playingNotificationHelper.updatePlayState(false);
                 MusicPlayerWidget.updateWidgetsPlayState(this, false);
-                remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
-                updateNotification();
-                updateRemoteControlClient();
-                return;
             }
-            currentSongId = playingQueue.get(getPosition()).id;
-            updateNotification();
-            updateWidgets();
-            updateRemoteControlClient();
         }
         notifyOnMusicRemoteEventListeners(MusicRemoteEvent.TRACK_CHANGED);
     }
