@@ -1,9 +1,12 @@
 package com.kabouzeid.gramophone.ui.activities;
 
+import android.annotation.TargetApi;
+import android.app.SharedElementCallback;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -24,6 +27,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.view.View;
+import android.view.Window;
 import android.widget.FrameLayout;
 
 import com.afollestad.materialdialogs.ThemeSingleton;
@@ -58,9 +63,10 @@ import com.koushikdutta.ion.Ion;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-
+@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class MainActivity extends AbsFabActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, KabViewsDisableAble {
 
@@ -74,12 +80,57 @@ public class MainActivity extends AbsFabActivity
     private ViewPager viewPager;
     private PagerSlidingTabStrip slidingTabLayout;
     private int currentPage = -1;
+    private boolean mIsReentering;
+
+    public void setReentering(boolean reentering) {
+        this.mIsReentering = reentering;
+    }
+
+    private final SharedElementCallback mCallback = new SharedElementCallback() {
+        @Override
+        public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
+            if (!mIsReentering) {
+                View navigationBar = findViewById(android.R.id.navigationBarBackground);
+//                View statusBxar = findViewById(android.R.id.statusBarBackground);
+                View toolbarFrame = findViewById(R.id.toolbarFrame);
+//                if (statusBar != null) {
+//                    names.add(statusBar.getTransitionName());
+//                    sharedElements.put(statusBar.getTransitionName(), statusBar);
+//                }
+
+                if (navigationBar != null) {
+                    names.add(navigationBar.getTransitionName());
+                    sharedElements.put(navigationBar.getTransitionName(), navigationBar);
+                }
+                if (toolbarFrame != null) {
+                    names.add(toolbarFrame.getTransitionName());
+                    sharedElements.put(toolbarFrame.getTransitionName(), toolbarFrame);
+                }
+            } else {
+                names.remove(Window.NAVIGATION_BAR_BACKGROUND_TRANSITION_NAME);
+                sharedElements.remove(Window.NAVIGATION_BAR_BACKGROUND_TRANSITION_NAME);
+                names.remove(Window.STATUS_BAR_BACKGROUND_TRANSITION_NAME);
+                sharedElements.remove(Window.STATUS_BAR_BACKGROUND_TRANSITION_NAME);
+                names.remove("toolbar");
+                sharedElements.remove("toolbar");
+            }
+        }
+    };
+
+    @Override
+    public void onActivityReenter(int requestCode, Intent data) {
+        super.onActivityReenter(requestCode, data);
+        mIsReentering = true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setStatusBarTranslucent(!Util.hasLollipopSDK());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (Util.hasLollipopSDK())
+            setExitSharedElementCallback(mCallback);
 
         initViews();
         navigationDrawerFragment.setUp(
@@ -439,13 +490,13 @@ public class MainActivity extends AbsFabActivity
         return id;
     }
 
-    private boolean isArtistPage() {
-        return viewPager.getCurrentItem() == PagerAdapter.MusicFragments.ARTIST.ordinal();
-    }
-
-    public ArtistViewFragment getArtistFragment() {
-        return (ArtistViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.ARTIST.ordinal());
-    }
+//    private boolean isArtistPage() {
+//        return viewPager.getCurrentItem() == PagerAdapter.MusicFragments.ARTIST.ordinal();
+//    }
+//
+//    public ArtistViewFragment getArtistFragment() {
+//        return (ArtistViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.ARTIST.ordinal());
+//    }
 
     private boolean isAlbumPage() {
         return viewPager.getCurrentItem() == PagerAdapter.MusicFragments.ALBUM.ordinal();
@@ -455,21 +506,21 @@ public class MainActivity extends AbsFabActivity
         return (AlbumViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.ALBUM.ordinal());
     }
 
-    private boolean isSongPage() {
-        return viewPager.getCurrentItem() == PagerAdapter.MusicFragments.SONG.ordinal();
-    }
-
-    public SongViewFragment getSongFragment() {
-        return (SongViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.SONG.ordinal());
-    }
+//    private boolean isSongPage() {
+//        return viewPager.getCurrentItem() == PagerAdapter.MusicFragments.SONG.ordinal();
+//    }
+//
+//    public SongViewFragment getSongFragment() {
+//        return (SongViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.SONG.ordinal());
+//    }
 
     private boolean isPlaylistPage() {
         return viewPager.getCurrentItem() == PagerAdapter.MusicFragments.PLAYLIST.ordinal();
     }
 
-    public PlaylistViewFragment getPlaylistFragment() {
-        return (PlaylistViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.PLAYLIST.ordinal());
-    }
+//    public PlaylistViewFragment getPlaylistFragment() {
+//        return (PlaylistViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.PLAYLIST.ordinal());
+//    }
 
     private void setUpGridMenu(Menu menu) {
         boolean isPortrait = Util.isInPortraitMode(this);

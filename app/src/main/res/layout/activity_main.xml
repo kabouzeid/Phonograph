@@ -19,14 +19,18 @@
             android:fitsSystemWindows="true" />
 
         <LinearLayout
+            android:id="@+id/toolbarFrame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="@dimen/main_toolbar_padding_top">
+            android:paddingTop="@dimen/main_toolbar_padding_top"
+            android:transitionName="toolbar"
+            tools:ignore="UnusedAttribute">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 style="@style/Toolbar"
+                android:transitionName=""
                 android:background="?colorPrimary">
 
                 <TextView
