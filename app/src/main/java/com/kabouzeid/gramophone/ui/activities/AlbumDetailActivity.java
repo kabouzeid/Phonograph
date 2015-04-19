@@ -189,6 +189,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                                     applyPalette(result);
                                 } else {
                                     albumArtImageView.setImageResource(R.drawable.default_album_art);
+                                    resetColors();
                                 }
                                 if (Util.hasLollipopSDK()) startPostponedEnterTransition();
                             }
@@ -210,9 +211,24 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                     notifyTaskColorChange(toolbarColor);
                     if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(AlbumDetailActivity.this).coloredNavigationBarAlbumEnabled())
                         getWindow().setNavigationBarColor(toolbarColor);
+                } else {
+                    resetColors();
                 }
             }
         });
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void resetColors() {
+        int titleTextColor = DialogUtils.resolveColor(this, R.attr.title_text_color);
+        int defaultBarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
+
+        toolbarColor = defaultBarColor;
+        albumTitleView.setBackgroundColor(defaultBarColor);
+        albumTitleView.setTextColor(titleTextColor);
+
+        if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled())
+            getWindow().setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
     }
 
     @Override

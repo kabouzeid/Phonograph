@@ -126,6 +126,7 @@
     <string name="pref_summary_colored_album_footers">Album footers in the grid are colored with the album cover\'s palette.</string>
     <string name="failed_download_albumart">Unable to download the art for this album.</string>
     <string name="search_hint">Search your library…</string>
+    <string name="rescanning_changed_files">Rescanning changed files</string>
 
     <string-array name="update_album_cover_options">
         <item>Download from Last.fm</item>

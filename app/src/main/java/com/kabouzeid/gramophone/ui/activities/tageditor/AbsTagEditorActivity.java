@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.ui.activities.tageditor;
 import android.annotation.TargetApi;
 import android.app.SearchManager;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
@@ -320,11 +321,15 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         Util.hideSoftKeyboard(this);
         final String writingFileStr = getResources().getString(R.string.writing_file_number);
         final String savingStr = getResources().getString(R.string.saving_changes);
+        final String rescanningStr = getResources().getString(R.string.rescanning_changed_files);
+        //TODO dialog currently disappears on orientation change and using DialogFragment causes an exception for some reason
         final MaterialDialog progressDialog = new MaterialDialog.Builder(AbsTagEditorActivity.this)
                 .title(savingStr)
                 .cancelable(false)
                 .progress(true, 0)
                 .build();
+        if (Build.VERSION.SDK_INT >= 18)
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         progressDialog.show();
         new Thread(new Runnable() {
             @Override
@@ -369,13 +374,24 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                     Ion.getDefault(AbsTagEditorActivity.this).getBitmapCache().clear();
                     Ion.getDefault(AbsTagEditorActivity.this).getCache().clear();
                 }
-                progressDialog.dismiss();
-                rescanMedia();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.setContent(rescanningStr);
+                    }
+                });
+                rescanMediaAndQuitOnFinish(new OnScannedAllListener() {
+                    @Override
+                    public void onScannedAll() {
+                        progressDialog.dismiss();
+                        finish();
+                    }
+                });
             }
         }).start();
     }
 
-    private void rescanMedia() {
+    private void rescanMediaAndQuitOnFinish(final OnScannedAllListener listener) {
         String[] toBeScanned = new String[songPaths.size()];
         toBeScanned = songPaths.toArray(toBeScanned);
         final int toBeScannedLength = toBeScanned.length;
@@ -390,7 +406,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                         if (i == 0 || i == toBeScannedLength - 1) {
                             App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.DATABASE_CHANGED));
                             if (i == toBeScannedLength - 1)
-                                finish();
+                                listener.onScannedAll();
                         }
                         i++;
                     }
@@ -504,5 +520,9 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         } catch (NullPointerException ignored) {
         }
         return null;
+    }
+
+    private interface OnScannedAllListener {
+        void onScannedAll();
     }
 }
