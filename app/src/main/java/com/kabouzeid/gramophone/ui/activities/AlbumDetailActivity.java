@@ -207,11 +207,17 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                     toolbarColor = swatch.getRgb();
                     albumTitleView.setBackgroundColor(toolbarColor);
                     albumTitleView.setTextColor(swatch.getTitleTextColor());
+                    notifyTaskColorChange(toolbarColor);
                     if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(AlbumDetailActivity.this).coloredNavigationBarAlbumEnabled())
                         getWindow().setNavigationBarColor(toolbarColor);
                 }
             }
         });
+    }
+
+    @Override
+    protected boolean overrideTaskColor() {
+        return true;
     }
 
     @Override

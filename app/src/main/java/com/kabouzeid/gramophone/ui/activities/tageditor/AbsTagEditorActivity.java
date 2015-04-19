@@ -290,12 +290,14 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     private void applyPalette(final Bitmap bitmap) {
         if (bitmap != null) {
             Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
+                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onGenerated(Palette palette) {
                     final int vibrantColor = palette.getVibrantColor(DialogUtils.resolveColor(AbsTagEditorActivity.this, R.attr.default_bar_color));
                     paletteColorPrimary = vibrantColor;
                     observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
                     setStatusBarColor(ColorChooserDialog.shiftColorDown(vibrantColor), false);
+                    notifyTaskColorChange(paletteColorPrimary);
                     if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(AbsTagEditorActivity.this).coloredNavigationBarTagEditorEnabled())
                         getWindow().setNavigationBarColor(vibrantColor);
                 }
@@ -303,6 +305,11 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         } else {
             restoreStandardColors();
         }
+    }
+
+    @Override
+    protected boolean overrideTaskColor() {
+        return true;
     }
 
     protected void writeValuesToFiles(final Map<FieldKey, String> fieldKeyValueMap) {

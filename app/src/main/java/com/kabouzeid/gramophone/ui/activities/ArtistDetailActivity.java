@@ -302,6 +302,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                     toolbarColor = swatch.getRgb();
                     artistNameTv.setBackgroundColor(swatch.getRgb());
                     artistNameTv.setTextColor(swatch.getTitleTextColor());
+                    notifyTaskColorChange(toolbarColor);
                     if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(ArtistDetailActivity.this).coloredNavigationBarArtistEnabled())
                         getWindow().setNavigationBarColor(swatch.getRgb());
                 } else {
@@ -309,6 +310,11 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                 }
             }
         });
+    }
+
+    @Override
+    protected boolean overrideTaskColor() {
+        return true;
     }
 
     @Override

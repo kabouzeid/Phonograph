@@ -66,12 +66,22 @@ public abstract class ThemeBaseActivity extends ActionBarActivity implements Kab
         // Dark theme
         ThemeSingleton.get().darkTheme = PreferenceUtils.getInstance(this).getGeneralTheme() == R.style.Theme_MaterialMusic;
 
+        if (!overrideTaskColor()) {
+            notifyTaskColorChange(PreferenceUtils.getInstance(this).getThemeColorPrimary());
+        }
+    }
+
+    protected boolean overrideTaskColor() {
+        return false;
+    }
+
+    protected void notifyTaskColorChange(int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // Sets color of entry in the system recents page
             ActivityManager.TaskDescription td = new ActivityManager.TaskDescription(
                     getString(R.string.app_name),
                     BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher),
-                    PreferenceUtils.getInstance(this).getThemeColorPrimary());
+                    color);
             setTaskDescription(td);
         }
     }

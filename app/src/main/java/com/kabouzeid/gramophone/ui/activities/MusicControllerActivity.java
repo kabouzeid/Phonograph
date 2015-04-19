@@ -288,6 +288,11 @@ public class MusicControllerActivity extends AbsFabActivity {
         songArtist.setText(song.artistName);
     }
 
+    @Override
+    protected boolean overrideTaskColor() {
+        return true;
+    }
+
     private void setUpAlbumArtAndApplyPalette() {
         albumArt.post(new Runnable() {
             @Override
@@ -323,6 +328,7 @@ public class MusicControllerActivity extends AbsFabActivity {
                     animateColorChange(swatch.getRgb());
                     songTitle.setTextColor(swatch.getTitleTextColor());
                     songArtist.setTextColor(swatch.getBodyTextColor());
+                    notifyTaskColorChange(swatch.getRgb());
                 } else {
                     resetColors();
                 }
