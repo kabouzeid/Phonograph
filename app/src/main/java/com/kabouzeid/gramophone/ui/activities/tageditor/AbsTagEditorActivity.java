@@ -382,13 +382,14 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                     public void run() {
                         if (i == 0 || i == toBeScannedLength - 1) {
                             App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.DATABASE_CHANGED));
+                            if (i == toBeScannedLength - 1)
+                                finish();
                         }
                         i++;
                     }
                 });
             }
         });
-        finish();
     }
 
     protected int getId() {
