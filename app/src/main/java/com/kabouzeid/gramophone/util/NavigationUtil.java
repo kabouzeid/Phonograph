@@ -61,7 +61,7 @@ public class NavigationUtil {
                 @SuppressWarnings("unchecked") ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
                         sharedViews
                 );
-                ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
+                ActivityCompat.startActivityForResult(activity, intent, 1001, optionsCompat.toBundle());
             } else {
                 activity.startActivity(intent);
             }

@@ -314,8 +314,10 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == TAG_EDITOR_REQUEST)
+        if (requestCode == TAG_EDITOR_REQUEST) {
             setUpAlbumArtAndApplyPalette();
+            setResult(RESULT_OK);
+        }
     }
 
     @Subscribe

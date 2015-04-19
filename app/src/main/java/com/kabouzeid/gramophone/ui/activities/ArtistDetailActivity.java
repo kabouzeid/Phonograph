@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
@@ -78,6 +79,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     private View songListHeader;
     private RecyclerView albumRecyclerView;
     private Spanned biography;
+    private ArtistAlbumAdapter albumAdapter;
 
     private final SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
         @Override
@@ -234,7 +236,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     private void setUpAlbumRecyclerView() {
         albumRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         List<Album> albums = ArtistAlbumLoader.getArtistAlbumList(this, artist.id);
-        ArtistAlbumAdapter albumAdapter = new ArtistAlbumAdapter(this, albums);
+        albumAdapter = new ArtistAlbumAdapter(this, albums);
         albumRecyclerView.setAdapter(albumAdapter);
     }
 
@@ -307,6 +309,13 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                 }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK)
+            albumAdapter.notifyDataSetChanged();
     }
 
     @Override
