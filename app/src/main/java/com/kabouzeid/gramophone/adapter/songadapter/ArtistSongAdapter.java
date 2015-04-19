@@ -1,7 +1,5 @@
 package com.kabouzeid.gramophone.adapter.songadapter;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.v4.util.Pair;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;

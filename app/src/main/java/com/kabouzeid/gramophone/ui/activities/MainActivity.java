@@ -49,9 +49,6 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.fragments.NavigationDrawerFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AlbumViewFragment;
-import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.ArtistViewFragment;
-import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.PlaylistViewFragment;
-import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.SongViewFragment;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
@@ -187,7 +184,6 @@ public class MainActivity extends AbsFabActivity
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
     }

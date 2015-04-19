@@ -17,9 +17,9 @@ public final class AppKeys {
 
     public static final String E_ALBUM = "com.kabouzeid.gramophone.ALBUM";
     public static final String E_ARTIST = "com.kabouzeid.gramophone.ARTIST";
-//    public static final String E_SONG = "com.kabouzeid.gramophone.SONG";
+    //    public static final String E_SONG = "com.kabouzeid.gramophone.SONG";
     public static final String E_PLAYLIST = "com.kabouzeid.gramophone.PLAYLIST";
-//    public static final String E_TAG_EDIT_MODE = "com.kabouzeid.gramophone.TAG_EDIT_MODE";
+    //    public static final String E_TAG_EDIT_MODE = "com.kabouzeid.gramophone.TAG_EDIT_MODE";
     public static final String E_ID = "com.kabouzeid.gramophone.ID";
     public static final String E_PALETTE = "com.kabouzeid.gramophone.PALETTE";
 }
