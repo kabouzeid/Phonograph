@@ -52,6 +52,7 @@ import java.util.ArrayList;
 public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorHolder {
 
     public static final String TAG = AlbumDetailActivity.class.getSimpleName();
+    private static final int TAG_EDITOR_REQUEST = 2001;
     private Album album;
 
     private ObservableRecyclerView recyclerView;
@@ -300,7 +301,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
             case R.id.action_tag_editor:
                 Intent intent = new Intent(this, AlbumTagEditorActivity.class);
                 intent.putExtra(AppKeys.E_ID, album.id);
-                startActivity(intent);
+                startActivityForResult(intent, TAG_EDITOR_REQUEST);
                 return true;
             case R.id.action_go_to_artist:
                 Pair[] artistPairs = getSharedViewsWithFab(null);
@@ -308,6 +309,13 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == TAG_EDITOR_REQUEST)
+            setUpAlbumArtAndApplyPalette();
     }
 
     @Subscribe

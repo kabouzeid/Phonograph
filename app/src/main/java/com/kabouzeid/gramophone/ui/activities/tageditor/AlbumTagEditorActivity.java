@@ -103,13 +103,15 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
                                 .setCallback(new FutureCallback<Bitmap>() {
                                     @Override
                                     public void onCompleted(Exception e, Bitmap result) {
-                                        if(result != null) {
+                                        if (result != null) {
                                             albumArtBitmap = result;
                                             setImageBitmap(albumArtBitmap);
                                             deleteAlbumArt = false;
                                             dataChanged();
+                                            setResult(RESULT_OK);
                                         } else {
-                                            //TODO Toast failed message
+                                            Toast.makeText(AlbumTagEditorActivity.this,
+                                                    R.string.failed_download_albumart, Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
@@ -117,7 +119,8 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
                     @Override
                     public void onError() {
-                        //TODO Toast failed message
+                        Toast.makeText(AlbumTagEditorActivity.this,
+                                R.string.failed_download_albumart, Toast.LENGTH_SHORT).show();
                     }
                 }
         );
@@ -194,6 +197,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
                             setImageBitmap(albumArtBitmap);
                             deleteAlbumArt = false;
                             dataChanged();
+                            setResult(RESULT_OK);
                         }
                     }
                 });
