@@ -2,7 +2,6 @@
 <resources>
     <string name="action_settings">"Setări"</string>
     <string name="action_about">Despre</string>
-    <string name="action_currently_playing">În redare</string>
     <string name="action_playing_queue">Lista de melodii</string>
     <string name="action_search">Căutare</string>
     <string name="action_play_next">Redă urmator</string>
@@ -59,6 +58,15 @@
     <string name="created_playlist_x">Creat playlistul %1$s</string>
     <string name="deleted_playlist_x">Șters playlistul %1$s</string>
     <string name="couldnot_create_playlist_x">Nu a putut fi creat playlistul %1$s</string>
+    <string name="delete_playlist_x"><![CDATA[Vrei să ștergi playlistul <b> %1$s </b>]]></string>
+    <string name="delete_song_x"><![CDATA[Vrei să ștergi melodia <b> %1$s </b> ?]]></string>
+    <string name="delete_x_songs"><![CDATA[Vrei să ștergi <b> %1$d </b> melodii ?]]></string>
+    <string name="delete_song_title">Șterge Melodie</string>
+    <string name="delete_songs_title">Șterge Melodii</string>
+    <string name="rename_playlist_title">Redenumire Playlist</string>
+    <string name="delete_playlist_title">Șterge Playlist</string>
+    <string name="add_playlist_title">Adaugă la Playlist</string>
+    <string name="new_playlist_title">Playlist Nou</string>
     <string name="delete_warning">"Atenţie: Această operaţie nu poate fi revocată."</string>
     <string name="shuffle_all">Amestecă toate</string>
     <string name="last_opened">Ultimul deschis</string>
@@ -69,16 +77,27 @@
     <string name="pref_title_general_theme">Temă generală</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">General</string>
+    <string name="pref_title_navigation_bar">Bară de navigare colorată</string>
     <string name="pref_title_set_default_start_page">Alege pagina de pornire predefinită</string>
     <string name="title_activity_settings">Setări</string>
     <string name="pref_title_transparent_toolbar">Bară semi-transparentă</string>
     <string name="pref_title_show_playback_controller_card">Cardul de redare</string>
     <string name="pref_title_colored_navigation_bar_artists">Bară de navigare artist colorată</string>
     <string name="pref_title_colored_navigation_bar_albums">Bară de navigare album colorată</string>
+    <string name="pref_title_colored_navigation_bar_current_playing">Vederea de redare curentă</string>
+    <string name="pref_title_colored_navigation_bar_playlists">Vedere playlist</string>
+    <string name="pref_title_colored_navigation_bar_tag_editor">Editor info</string>
+    <string name="pref_title_colored_navigation_bar_other_screens">Oriunde altundeva</string>
     <string name="pref_title_colored_album_footers">Bară detalii album colorată</string>
     <string name="no_equalizer">Niciun egalizator găsit</string>
     <string name="no_audio_id">Nicio identificare audio, redă ceva şi încearcă din nou.</string>
     <string name="navigation_drawer_open">Deschide sertarul de navigație</string>
     <string name="navigation_drawer_close">Închide sertarul de navigație</string>
+    <string name="delete_action">Șterge</string>
+    <string name="rename_action">Redenumește</string>
+    <string name="select">Selectează</string>
+    <string name="default_str">Implicit</string>
+    <string name="primary_color">Culoare Primară</string>
+    <string name="accent_color">Culoare de accent</string>
     <string name="song">Melodie</string>
 </resources>

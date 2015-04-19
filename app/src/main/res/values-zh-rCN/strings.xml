@@ -2,7 +2,6 @@
 <resources>
     <string name="action_settings">"设置"</string>
     <string name="action_about">关于</string>
-    <string name="action_currently_playing">正在播放</string>
     <string name="action_playing_queue">播放队列</string>
     <string name="action_search">搜索</string>
     <string name="action_play_next">下一首</string>
@@ -78,12 +77,18 @@
     <string name="pref_title_general_theme">全局主题</string>
     <string name="pref_header_audio">声音</string>
     <string name="pref_header_general">通用</string>
+    <string name="pref_summary_colored_navigation_bar">设置在哪些界面应用变色导航栏</string>
+    <string name="pref_title_navigation_bar">变色导航栏</string>
     <string name="pref_title_set_default_start_page">设置默认起始页</string>
     <string name="title_activity_settings">设置</string>
     <string name="pref_title_transparent_toolbar">半透明工具栏</string>
     <string name="pref_title_show_playback_controller_card">卡片式播放控制面板</string>
     <string name="pref_title_colored_navigation_bar_artists">在艺术家界面使用变色导航栏</string>
     <string name="pref_title_colored_navigation_bar_albums">在专辑详情界面使用变色导航栏</string>
+    <string name="pref_title_colored_navigation_bar_current_playing">正在播放视图</string>
+    <string name="pref_title_colored_navigation_bar_playlists">播放列表视图</string>
+    <string name="pref_title_colored_navigation_bar_tag_editor">音乐标签编辑器</string>
+    <string name="pref_title_colored_navigation_bar_other_screens">其他任何地方</string>
     <string name="pref_title_colored_album_footers">使用变色的专辑标签</string>
     <string name="no_equalizer">没有找到均衡器</string>
     <string name="no_audio_id">没有音频ID，请播放曲目并重试。</string>
@@ -102,10 +107,7 @@
     <string name="no_playlists">没有播放列表</string>
     <string name="playlist_name">播放列表名称</string>
     <string name="song">歌曲</string>
-    <string-array name="update_albumcover_options">
-        <item>从LastFM下载</item>
-        <item>从本地储存中选取</item>
-        <item>网络搜索</item>
-        <item>删除</item>
-    </string-array>
+    <string name="pref_only_lollipop">仅适用于 Lollipop</string>
+    <string name="pref_summary_transparent_toolbar">滚动页面时使工具栏之后的内容可见。</string>
+    <string name="pref_summary_colored_album_footers">专辑队列视图中专辑页脚会根据专辑封面的色调进行变色。</string>
 </resources>

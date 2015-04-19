@@ -2,7 +2,6 @@
 <resources>
     <string name="action_settings">"Nastavení"</string>
     <string name="action_about">O aplikaci</string>
-    <string name="action_currently_playing">Právě hraje</string>
     <string name="action_playing_queue">Fronta</string>
     <string name="action_search">Hledat</string>
     <string name="action_play_next">Další skladba</string>
@@ -20,6 +19,7 @@
     <string name="unplayable_file">Omlouváme se, při pokusu přehrát tuto skladbu došlo k chybě</string>
     <string name="biography_unavailable">Omlouváme se, k tomuto interpretovi nemůžeme sehnat doplňující informace.</string>
     <string name="biography">Biografie</string>
+    <string name="audio_focus_denied">Nebylo možné získat ohnisko zvuku.</string>
     <string name="tag_editor">Editor Tagů</string>
     <string name="album">Album</string>
     <string name="artist">Interpret</string>
@@ -27,6 +27,9 @@
     <string name="album_artist">Interpret alba</string>
     <string name="year">Rok</string>
     <string name="track">Skladba</string>
+    <string name="track_hint">Stopa (2 pro stopu 2; 3004 pro stopu 4 na CD3)</string>
+    <string name="album_or_artist_empty">Název alba nebo interpreta je prázdný.</string>
+    <string name="writing_file_number">Zapisování souboru</string>
     <string name="saving_changes">Ukládání změn...</string>
     <string name="label_details">Podrobnosti</string>
     <string name="label_file_name">Název souboru</string>
@@ -49,11 +52,14 @@
     <string name="added_title_to_playing_queue">Přidána 1 skladba do fronty.</string>
     <string name="action_delete_from_playlist">Vymazat z playlistu</string>
     <string name="new_playlist_action">Nový playlist...</string>
+    <string name="action_grid_columns">Počet sloupců mřížky</string>
+    <string name="action_grid_columns_land">Počet sloupců mřížky (Horizontálně)</string>
     <string name="inserted_x_songs_into_playlist">Přidáno %1$d skladeb do tohoto playlistu</string>
     <string name="created_playlist_x">Vytvořen playlist %1$s</string>
     <string name="deleted_playlist_x">Playlist %1$s smazán</string>
-    <string name="delete_playlist_x"><![CDATA[ Opravdu chcete vymazat playlist <b>%1$s</b> ? ]]></string>
-    <string name="delete_song_x"><![CDATA[ Chcete vymazat skladbu <b>%1$s</b> ? ]]></string>
+    <string name="couldnot_create_playlist_x">Playlist %1$s nelze vytvořit</string>
+    <string name="delete_playlist_x"><![CDATA[Opravdu chcete vymazat playlist <b>%1$s</b> ?]]></string>
+    <string name="delete_song_x"><![CDATA[ Chcete smazat skladbu <b>%1$s</b> ? ]]></string>
     <string name="delete_x_songs"><![CDATA[Opravdu chcete smazat <b>%1$d</b> skladeb?]]></string>
     <string name="delete_song_title">Vymazat skladbu</string>
     <string name="delete_songs_title">Smazat skladby</string>
@@ -64,20 +70,30 @@
     <string name="delete_warning">"Varování: Tato operace nemůže být vrácena"</string>
     <string name="shuffle_all">Přehrát náhodně</string>
     <string name="last_opened">Naposledy otevřené</string>
-    <string name="light_theme_name">Světlé</string>
-    <string name="dark_theme_name">Tmavé</string>
+    <string name="light_theme_name">Světlý</string>
+    <string name="dark_theme_name">Tmavý</string>
     <string name="equalizer">Ekvalizér</string>
     <string name="pref_header_ui">Prostředí</string>
     <string name="pref_title_general_theme">Motiv</string>
     <string name="pref_header_audio">Zvuk</string>
     <string name="pref_header_general">Všeobecné</string>
+    <string name="pref_summary_colored_navigation_bar">Zvolte, kde se má zobrazovat barevné záhlaví.</string>
+    <string name="pref_title_navigation_bar">Barevné záhlaví</string>
     <string name="pref_title_set_default_start_page">Zvolit výchozí obrazovku</string>
     <string name="title_activity_settings">Nastavení</string>
     <string name="pref_title_transparent_toolbar">Průhledné záhlaví</string>
+    <string name="pref_title_show_playback_controller_card">Karta řadiče přehrávání</string>
     <string name="pref_title_colored_navigation_bar_artists">Barevné záhlaví interpretů</string>
     <string name="pref_title_colored_navigation_bar_albums">Barevné záhlaví alb</string>
+    <string name="pref_title_colored_navigation_bar_current_playing">Zobrazení \"Právě hraje\"</string>
+    <string name="pref_title_colored_navigation_bar_playlists">Zobrazení playlistu</string>
+    <string name="pref_title_colored_navigation_bar_tag_editor">Editor tagů</string>
+    <string name="pref_title_colored_navigation_bar_other_screens">Všude jinde</string>
     <string name="pref_title_colored_album_footers">Barevné zápatí alb</string>
     <string name="no_equalizer">Ekvalizér nenalezen</string>
+    <string name="no_audio_id">Neznámé ID hudby, přehrajte něco jiného a zkuste to znovu.</string>
+    <string name="navigation_drawer_open">Otevřít navigační záložku</string>
+    <string name="navigation_drawer_close">Zavřít navigační záložku</string>
     <string name="delete_action">Smazat</string>
     <string name="rename_action">Přejmenovat</string>
     <string name="select">Vybrat</string>
@@ -86,15 +102,12 @@
     <string name="accent_color">Vedlejší barva</string>
     <string name="primary_color_desc">Hlavní barva motivu (výchozí: modrá).</string>
     <string name="accent_color_desc">Vedlejší barva motivu (výchozí: růžová).</string>
-    <string name="update_image">Aktualizovat obrázek</string>
+    <string name="update_image">Změnit obrázek</string>
     <string name="playlist_empty_text">Tento playlist je prázdný</string>
     <string name="no_playlists">Žádný playlist</string>
     <string name="playlist_name">Jméno playlistu</string>
     <string name="song">Skladba</string>
-    <string-array name="update_albumcover_options">
-        <item>Staženo z LastFM</item>
-        <item>Zvolit ze souborů</item>
-        <item>Najít na webu</item>
-        <item>Smazat</item>
-    </string-array>
+    <string name="pref_only_lollipop">Dostupné pouze ve verzi Lollipop.</string>
+    <string name="pref_summary_transparent_toolbar">Permanentní zobrazení záhlaví (při scrollování).</string>
+    <string name="pref_summary_colored_album_footers">Názvy alb v mřížce jsou obarvena podle jejich obalu.</string>
 </resources>

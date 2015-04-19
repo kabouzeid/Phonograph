@@ -45,10 +45,10 @@
     <string name="label_current_playing_queue">Wiedergabeliste</string>
     <string name="save_as_playlist">Als Playlist speichern</string>
     <string name="credits_3">Icon von</string>
-    <string name="credits_1">Gramophone ist ein komplett kostenloser Musik Player im Material Design von</string>
+    <string name="credits_1">Gramophone ist ein komplett kostenloser Musik Player im Material Design gemacht von</string>
     <string name="title_activity_search">Suche</string>
     <string name="no_results">Keine Ergebnisse</string>
-    <string name="action_re_download_artist_image">Interpret Bild aktualisieren</string>
+    <string name="action_re_download_artist_image">Interpretenbild aktualisieren</string>
     <string name="updating">Aktualisiere...</string>
     <string name="added_title_to_playing_queue">1 Titel wurde der Wiedergabeliste hinzugefügt.</string>
     <string name="action_delete_from_playlist">Aus Playlist entfernen</string>
@@ -78,12 +78,18 @@
     <string name="pref_title_general_theme">Generelles Design</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">Generell</string>
-    <string name="pref_title_set_default_start_page">Setze die standart Startseite</string>
+    <string name="pref_summary_colored_navigation_bar">Setze wo die Navigationsleiste gefärbt werden soll</string>
+    <string name="pref_title_navigation_bar">Gefärbte Navigationsleiste</string>
+    <string name="pref_title_set_default_start_page">Setze die standard Startseite</string>
     <string name="title_activity_settings">Einstellungen</string>
     <string name="pref_title_transparent_toolbar">Halbtransparente Toolbar</string>
     <string name="pref_title_show_playback_controller_card">Mediencontroller Karten Hintergrund</string>
-    <string name="pref_title_colored_navigation_bar_artists">Farbige Navigations Leiste der Interpreten</string>
-    <string name="pref_title_colored_navigation_bar_albums">Farbige Navigations Leiste der Alben</string>
+    <string name="pref_title_colored_navigation_bar_artists">Interpreten Ansicht</string>
+    <string name="pref_title_colored_navigation_bar_albums">Album Ansicht</string>
+    <string name="pref_title_colored_navigation_bar_current_playing">Aktuelle Wiedergabe Ansicht</string>
+    <string name="pref_title_colored_navigation_bar_playlists">Playlist Ansicht</string>
+    <string name="pref_title_colored_navigation_bar_tag_editor">Tag Editor</string>
+    <string name="pref_title_colored_navigation_bar_other_screens">Überall sonst</string>
     <string name="pref_title_colored_album_footers">Farbige Balken unter den Alben</string>
     <string name="no_equalizer">Es wurde kein Equalizer gefunden</string>
     <string name="no_audio_id">Keine Audio ID gefunden, gib ein anderes Lied wieder und versuch es nochmal.</string>
@@ -92,7 +98,7 @@
     <string name="delete_action">Löschen</string>
     <string name="rename_action">Umbenennen</string>
     <string name="select">Auswählen</string>
-    <string name="default_str">Standart</string>
+    <string name="default_str">Standard</string>
     <string name="primary_color">Primäre Farbe</string>
     <string name="accent_color">Akzent Farbe</string>
     <string name="primary_color_desc">Die primäre Design Farbe, standard ist indigo.</string>
@@ -102,10 +108,16 @@
     <string name="no_playlists">Keine Playlists</string>
     <string name="playlist_name">Playlist Name</string>
     <string name="song">Titel</string>
-    <string-array name="update_albumcover_options">
-        <item>Von LastFM herunterladen</item>
+    <string name="pref_only_lollipop">Nur auf Android Lollipop verfügbar</string>
+    <string name="pref_summary_transparent_toolbar">Ob der Inhalt unter der Toolbar sichtbar sein soll.</string>
+    <string name="pref_summary_colored_album_footers">Die Titel der Alben im Raster passend zu ihrer Cover Farbe färben.</string>
+    <string name="failed_download_albumart">Das Cover für dieses Album konnte nicht heruntergeladen werden.</string>
+    <string name="search_hint">Durchsuche deine Mediathek</string>
+    <string name="rescanning_changed_files">Geänderte Dateien werden erneut gescannt</string>
+    <string-array name="update_album_cover_options">
+        <item>Von Last.fm herunterladen</item>
         <item>Aus lokalem Speicher wählen</item>
-        <item>Internet Suche</item>
-        <item>Löschen</item>
+        <item>Web suche</item>
+        <item>Cover entfernen</item>
     </string-array>
 </resources>

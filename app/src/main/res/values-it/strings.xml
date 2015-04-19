@@ -2,7 +2,6 @@
 <resources>
     <string name="action_settings">"Impostazioni"</string>
     <string name="action_about">Informazioni</string>
-    <string name="action_currently_playing">In riproduzione</string>
     <string name="action_playing_queue">Canzoni in coda</string>
     <string name="action_search">Cerca</string>
     <string name="action_play_next">Riproduci successiva</string>

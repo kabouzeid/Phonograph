@@ -49,7 +49,7 @@
     <string name="save_as_playlist">Guardar como lista de reproducción</string>
     <string name="credits_3">Icono creado por</string>
     <string name="credits_1">Gramophone es un reproductor de música siguiendo las pautas de Material Design, completamente gratuito y creado por</string>
-    <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_search">Buscar</string>
     <string name="no_results">Sin resultados</string>
     <string name="action_re_download_artist_image">Actualizar imagen del artista</string>
     <string name="updating">Actualizando...</string>
@@ -81,12 +81,18 @@
     <string name="pref_title_general_theme">Tema general</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">General</string>
-    <string name="pref_title_set_default_start_page">Seleccionar pagina de inicio</string>
+    <string name="pref_summary_colored_navigation_bar">Establecer dónde colorear la barra de navegación.</string>
+    <string name="pref_title_navigation_bar">Barra de navegación coloreada</string>
+    <string name="pref_title_set_default_start_page">Seleccionar página de inicio</string>
     <string name="title_activity_settings">Ajustes</string>
     <string name="pref_title_transparent_toolbar">"Barra de acción semitransparente "</string>
     <string name="pref_title_show_playback_controller_card">Tarjeta de fondo en controles de reproducción</string>
-    <string name="pref_title_colored_navigation_bar_artists">Barra de navegación coloreada en vista de artista</string>
-    <string name="pref_title_colored_navigation_bar_albums">Barra de navegación coloreada en vista de álbum</string>
+    <string name="pref_title_colored_navigation_bar_artists">Vista de artista</string>
+    <string name="pref_title_colored_navigation_bar_albums">Vista de álbum</string>
+    <string name="pref_title_colored_navigation_bar_current_playing">Vista de reproduciendo</string>
+    <string name="pref_title_colored_navigation_bar_playlists">Vista de lista de reproducción</string>
+    <string name="pref_title_colored_navigation_bar_tag_editor">Editor de etiquetas</string>
+    <string name="pref_title_colored_navigation_bar_other_screens">En el resto de sitios</string>
     <string name="pref_title_colored_album_footers">Pie de álbum coloreado</string>
     <string name="no_equalizer">No se encontró ecualizador</string>
     <string name="no_audio_id">No se identificó audio, intenta reproducir nuevamente</string>
@@ -105,10 +111,16 @@
     <string name="no_playlists">Sin listas de reproducción.</string>
     <string name="playlist_name">Nombre de lista</string>
     <string name="song">Canción</string>
-    <string-array name="update_albumcover_options">
-        <item>Descargar de LastFM</item>
-        <item>Seleccionar de almacenamiento local</item>
-        <item>Búsqueda en Internet</item>
-        <item>Borrar</item>
+    <string name="pref_only_lollipop">Sólo disponible en Lollipop.</string>
+    <string name="pref_summary_transparent_toolbar">El contenido desplazado por detrás de la barra de herramientas es visible.</string>
+    <string name="pref_summary_colored_album_footers">Los pies de álbum de la cuadrícula están coloreados con las paletas de colores de sus respectivas portadas.</string>
+    <string name="failed_download_albumart">No se puede descargar la portada del álbum.</string>
+    <string name="search_hint">Buscar en librería...</string>
+    <string name="rescanning_changed_files">Reescaneando archivos modificados</string>
+    <string-array name="update_album_cover_options">
+        <item>Descargar de Last.fm</item>
+        <item>Escoger de disco duro</item>
+        <item>Búsqueda de Internet</item>
+        <item>Borrar portada</item>
     </string-array>
 </resources>
