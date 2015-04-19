@@ -66,12 +66,12 @@ public abstract class ThemeBaseActivity extends ActionBarActivity implements Kab
         // Dark theme
         ThemeSingleton.get().darkTheme = PreferenceUtils.getInstance(this).getGeneralTheme() == R.style.Theme_MaterialMusic;
 
-        if (!overrideTaskColor()) {
+        if (!overridesTaskColor()) {
             notifyTaskColorChange(PreferenceUtils.getInstance(this).getThemeColorPrimary());
         }
     }
 
-    protected boolean overrideTaskColor() {
+    protected boolean overridesTaskColor() {
         return false;
     }
 

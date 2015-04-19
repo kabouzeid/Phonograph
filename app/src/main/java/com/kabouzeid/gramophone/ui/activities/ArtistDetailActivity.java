@@ -302,9 +302,9 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                     toolbarColor = swatch.getRgb();
                     artistNameTv.setBackgroundColor(swatch.getRgb());
                     artistNameTv.setTextColor(swatch.getTitleTextColor());
-                    notifyTaskColorChange(toolbarColor);
                     if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(ArtistDetailActivity.this).coloredNavigationBarArtistEnabled())
                         getWindow().setNavigationBarColor(swatch.getRgb());
+                    notifyTaskColorChange(toolbarColor);
                 } else {
                     resetColors();
                 }
@@ -313,7 +313,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     }
 
     @Override
-    protected boolean overrideTaskColor() {
+    protected boolean overridesTaskColor() {
         return true;
     }
 
@@ -340,6 +340,8 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
 
         if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled())
             getWindow().setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
+
+        notifyTaskColorChange(toolbarColor);
     }
 
     private void getIntentExtras() {

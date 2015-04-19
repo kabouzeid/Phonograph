@@ -202,12 +202,13 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void restoreStandardColors() {
-        final int vibrantColor = PreferenceUtils.getInstance(this).getThemeColorPrimary();
-        paletteColorPrimary = vibrantColor;
+        final int primaryColor = PreferenceUtils.getInstance(this).getThemeColorPrimary();
+        paletteColorPrimary = primaryColor;
         observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
-        setStatusBarColor(ColorChooserDialog.shiftColorDown(vibrantColor), false);
+        setStatusBarColor(ColorChooserDialog.shiftColorDown(primaryColor), false);
         if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarTagEditorEnabled())
-            getWindow().setNavigationBarColor(vibrantColor);
+            getWindow().setNavigationBarColor(primaryColor);
+        notifyTaskColorChange(primaryColor);
     }
 
     private void getIntentExtras() {
@@ -298,9 +299,9 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                     paletteColorPrimary = vibrantColor;
                     observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
                     setStatusBarColor(ColorChooserDialog.shiftColorDown(vibrantColor), false);
-                    notifyTaskColorChange(paletteColorPrimary);
                     if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(AbsTagEditorActivity.this).coloredNavigationBarTagEditorEnabled())
                         getWindow().setNavigationBarColor(vibrantColor);
+                    notifyTaskColorChange(vibrantColor);
                 }
             });
         } else {
@@ -309,7 +310,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     }
 
     @Override
-    protected boolean overrideTaskColor() {
+    protected boolean overridesTaskColor() {
         return true;
     }
 

@@ -289,7 +289,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     @Override
-    protected boolean overrideTaskColor() {
+    protected boolean overridesTaskColor() {
         return true;
     }
 
@@ -325,10 +325,11 @@ public class MusicControllerActivity extends AbsFabActivity {
             public void onGenerated(Palette palette) {
                 Palette.Swatch swatch = palette.getVibrantSwatch();
                 if (swatch != null) {
-                    animateColorChange(swatch.getRgb());
+                    final int swatchRgb = swatch.getRgb();
+                    animateColorChange(swatchRgb);
                     songTitle.setTextColor(swatch.getTitleTextColor());
                     songArtist.setTextColor(swatch.getBodyTextColor());
-                    notifyTaskColorChange(swatch.getRgb());
+                    notifyTaskColorChange(swatchRgb);
                 } else {
                     resetColors();
                 }
@@ -337,14 +338,16 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     private void resetColors() {
-        int songTitleTextColor = DialogUtils.resolveColor(this, R.attr.title_text_color);
-        int artistNameTextColor = DialogUtils.resolveColor(this, R.attr.caption_text_color);
-        int defaultBarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
+        final int songTitleTextColor = DialogUtils.resolveColor(this, R.attr.title_text_color);
+        final int artistNameTextColor = DialogUtils.resolveColor(this, R.attr.caption_text_color);
+        final int defaultBarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
 
         animateColorChange(defaultBarColor);
 
         songTitle.setTextColor(songTitleTextColor);
         songArtist.setTextColor(artistNameTextColor);
+
+        notifyTaskColorChange(defaultBarColor);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

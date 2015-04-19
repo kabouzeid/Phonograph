@@ -208,9 +208,9 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                     toolbarColor = swatch.getRgb();
                     albumTitleView.setBackgroundColor(toolbarColor);
                     albumTitleView.setTextColor(swatch.getTitleTextColor());
-                    notifyTaskColorChange(toolbarColor);
                     if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(AlbumDetailActivity.this).coloredNavigationBarAlbumEnabled())
                         getWindow().setNavigationBarColor(toolbarColor);
+                    notifyTaskColorChange(toolbarColor);
                 } else {
                     resetColors();
                 }
@@ -229,10 +229,12 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
 
         if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled())
             getWindow().setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
+
+        notifyTaskColorChange(toolbarColor);
     }
 
     @Override
-    protected boolean overrideTaskColor() {
+    protected boolean overridesTaskColor() {
         return true;
     }
 
