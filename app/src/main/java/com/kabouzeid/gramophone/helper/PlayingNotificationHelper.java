@@ -155,6 +155,7 @@ public class PlayingNotificationHelper {
         if (albumArtTask != null) albumArtTask.cancel();
         albumArtTask = Ion.with(service)
                 .load(MusicUtil.getAlbumArtUri(song.albumId).toString())
+                .noCache()
                 .asBitmap()
                 .setCallback(new FutureCallback<Bitmap>() {
                     @Override

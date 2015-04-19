@@ -62,6 +62,7 @@ public class MusicPlayerWidget extends AppWidgetProvider {
         if (albumArtTask != null) albumArtTask.cancel();
         albumArtTask = Ion.with(context)
                 .load(MusicUtil.getAlbumArtUri(song.albumId).toString())
+                .noCache()
                 .asBitmap()
                 .setCallback(new FutureCallback<Bitmap>() {
                     @Override

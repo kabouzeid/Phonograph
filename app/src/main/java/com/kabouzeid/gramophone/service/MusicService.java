@@ -354,6 +354,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         if (remoteControlClientAlbumArtTask != null) remoteControlClientAlbumArtTask.cancel();
         remoteControlClientAlbumArtTask = Ion.with(this)
                 .load(MusicUtil.getAlbumArtUri(song.albumId).toString())
+                .noCache()
                 .asBitmap()
                 .setCallback(new FutureCallback<Bitmap>() {
                     @Override

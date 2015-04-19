@@ -271,8 +271,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                         Ion.with(ArtistDetailActivity.this)
                                 .load(url)
                                 .withBitmap()
-                                .resize(artistImage.getWidth(), artistImage.getHeight())
-                                .centerCrop()
+                                .smartSize(false)
                                 .asBitmap()
                                 .setCallback(new FutureCallback<Bitmap>() {
                                     @Override

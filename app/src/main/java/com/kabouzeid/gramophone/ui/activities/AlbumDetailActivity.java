@@ -175,10 +175,8 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
             public void run() {
                 Ion.with(AlbumDetailActivity.this)
                         .load(MusicUtil.getAlbumArtUri(album.id).toString())
-                        .noCache()
                         .withBitmap()
-                        .resize(albumArtImageView.getWidth(), albumArtImageView.getHeight())
-                        .centerCrop()
+                        .smartSize(false)
                         .asBitmap()
                         .setCallback(new FutureCallback<Bitmap>() {
                             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
