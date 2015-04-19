@@ -17,7 +17,6 @@ import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity;
 import com.kabouzeid.gramophone.ui.activities.ArtistDetailActivity;
-import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.ui.activities.MusicControllerActivity;
 import com.kabouzeid.gramophone.ui.activities.PlaylistDetailActivity;
 
@@ -29,8 +28,6 @@ public class NavigationUtil {
     public static void goToArtist(final Activity activity, final int artistId, final Pair[] sharedViews) {
         if (activity instanceof ArtistDetailActivity)
             return;
-        else if (activity instanceof MainActivity)
-            ((MainActivity) activity).setReentering(false);
         if ((activity instanceof KabViewsDisableAble && ((KabViewsDisableAble) activity).areViewsEnabled()) || !(activity instanceof KabViewsDisableAble)) {
             if (activity instanceof KabViewsDisableAble)
                 ((KabViewsDisableAble) activity).disableViews();
@@ -50,8 +47,6 @@ public class NavigationUtil {
     public static void goToAlbum(final Activity activity, final int albumId, final Pair[] sharedViews) {
         if (activity instanceof AlbumDetailActivity)
             return;
-        else if (activity instanceof MainActivity)
-            ((MainActivity) activity).setReentering(false);
         if ((activity instanceof KabViewsDisableAble && ((KabViewsDisableAble) activity).areViewsEnabled()) || !(activity instanceof KabViewsDisableAble)) {
             if (activity instanceof KabViewsDisableAble)
                 ((KabViewsDisableAble) activity).disableViews();

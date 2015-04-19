@@ -2,10 +2,10 @@
 <resources>
 
     <style name="Theme.MaterialMusic.Base" parent="Theme.AppCompat.NoActionBar">
-        <item name="md_dark_theme">true</item>
-
         <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
+
+        <item name="md_dark_theme">true</item>
 
         <item name="title_text_color">?android:attr/textColorPrimary</item>
         <item name="caption_text_color">?android:attr/textColorSecondary</item>
@@ -31,12 +31,12 @@
         <item name="card_color">@color/materialmusic_dark_default_bar_color</item>
 
         <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat</item>
-
     </style>
 
     <style name="Theme.MaterialMusic.Base.Light" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
+
         <item name="md_dark_theme">false</item>
 
         <item name="title_text_color">?android:attr/textColorPrimary</item>
@@ -63,7 +63,6 @@
         <item name="card_color">@color/white</item>
 
         <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
-
     </style>
 
     <style name="PlayPauseFabParent">
