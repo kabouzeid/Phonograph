@@ -147,7 +147,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
             public void onClick(View v) {
                 new MaterialDialog.Builder(AbsTagEditorActivity.this)
                         .title(R.string.update_image)
-                        .items(R.array.update_albumcover_options)
+                        .items(R.array.update_album_cover_options)
                         .itemsCallback(new MaterialDialog.ListCallback() {
                             @Override
                             public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
