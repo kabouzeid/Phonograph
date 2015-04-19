@@ -2,7 +2,7 @@
 <resources>
     <string name="action_settings">"Configuración"</string>
     <string name="action_about">Acerca de</string>
-    <string name="action_current_playing">Reproduciendo ahora</string>
+    <string name="action_currently_playing">Reproduciendo ahora</string>
     <string name="action_playing_queue">Reproducción actual</string>
     <string name="action_search">Buscar</string>
     <string name="action_play_next">"Siguiente "</string>

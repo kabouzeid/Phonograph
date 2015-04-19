@@ -3,7 +3,11 @@ package com.kabouzeid.gramophone.ui.activities;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
@@ -17,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.afollestad.materialdialogs.ThemeSingleton;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.SearchAdapter;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -132,6 +137,17 @@ public class SearchActivity extends AbsBaseActivity {
         searchView = (SearchView) MenuItemCompat.getActionView(search);
         searchView.setIconified(false);
         searchView.setIconifiedByDefault(false);
+        searchView.setQueryHint(getString(R.string.search_hint));
+
+        View searchViewPlate = searchView.findViewById(android.support.v7.appcompat.R.id.search_plate);
+        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.abc_textfield_search_activated_mtrl_alpha);
+        drawable.setColorFilter(ThemeSingleton.get().widgetColor, PorterDuff.Mode.SRC_IN);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            searchViewPlate.setBackground(drawable);
+        } else {
+            //noinspection deprecation
+            searchViewPlate.setBackgroundDrawable(drawable);
+        }
 
         ActionBar.LayoutParams params = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
         searchView.setLayoutParams(params);

@@ -2,7 +2,7 @@
 <resources>
     <string name="action_settings">"Ustawienia"</string>
     <string name="action_about">O aplikacji</string>
-    <string name="action_current_playing">Obecnie gra</string>
+    <string name="action_currently_playing">Obecnie gra</string>
     <string name="action_playing_queue">Kolejka odtwarzania</string>
     <string name="action_search">Szukaj</string>
     <string name="action_play_next">Odtwarzaj następny</string>

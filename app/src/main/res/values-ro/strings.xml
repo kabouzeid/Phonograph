@@ -2,7 +2,7 @@
 <resources>
     <string name="action_settings">"Setări"</string>
     <string name="action_about">Despre</string>
-    <string name="action_current_playing">În redare</string>
+    <string name="action_currently_playing">În redare</string>
     <string name="action_playing_queue">Lista de melodii</string>
     <string name="action_search">Căutare</string>
     <string name="action_play_next">Redă urmator</string>

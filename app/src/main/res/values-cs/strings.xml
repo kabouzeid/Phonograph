@@ -2,7 +2,7 @@
 <resources>
     <string name="action_settings">"Nastavení"</string>
     <string name="action_about">O aplikaci</string>
-    <string name="action_current_playing">Právě hraje</string>
+    <string name="action_currently_playing">Právě hraje</string>
     <string name="action_playing_queue">Fronta</string>
     <string name="action_search">Hledat</string>
     <string name="action_play_next">Další skladba</string>

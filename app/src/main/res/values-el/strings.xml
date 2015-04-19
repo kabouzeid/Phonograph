@@ -2,7 +2,7 @@
 <resources>
     <string name="action_settings">"Ρυθμίσεις "</string>
     <string name="action_about">Για εμάς</string>
-    <string name="action_current_playing">Παίζει τώρα</string>
+    <string name="action_currently_playing">Παίζει τώρα</string>
     <string name="action_playing_queue">Σειρά τραγουδιών</string>
     <string name="action_search">Αναζήτηση</string>
     <string name="action_play_next">Παίζει στη συνέχεια</string>

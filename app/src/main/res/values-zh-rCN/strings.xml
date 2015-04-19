@@ -2,7 +2,7 @@
 <resources>
     <string name="action_settings">"设置"</string>
     <string name="action_about">关于</string>
-    <string name="action_current_playing">正在播放</string>
+    <string name="action_currently_playing">正在播放</string>
     <string name="action_playing_queue">播放队列</string>
     <string name="action_search">搜索</string>
     <string name="action_play_next">下一首</string>

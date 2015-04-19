@@ -2,7 +2,7 @@
 <resources>
     <string name="action_settings">"Paramètres"</string>
     <string name="action_about">À propos</string>
-    <string name="action_current_playing">Lecture en cours</string>
+    <string name="action_currently_playing">Lecture en cours</string>
     <string name="action_playing_queue">File de lecture</string>
     <string name="action_search">Rechercher</string>
     <string name="action_play_next">Lire ensuite</string>

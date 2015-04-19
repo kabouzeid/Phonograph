@@ -2,7 +2,7 @@
 <resources>
     <string name="action_settings">"Настройки"</string>
     <string name="action_about">О программе</string>
-    <string name="action_current_playing">Сейчас играет</string>
+    <string name="action_currently_playing">Сейчас играет</string>
     <string name="action_playing_queue">Очередь воспроизведения</string>
     <string name="action_search">Поиск</string>
     <string name="action_play_next">Проиграть следующую</string>
