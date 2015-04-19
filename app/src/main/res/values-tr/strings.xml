@@ -111,4 +111,12 @@
     <string name="pref_only_lollipop">Sadece Lollipop için</string>
     <string name="pref_summary_transparent_toolbar">Araç çubuğunun altına kaydırılan içerik görünüyor.</string>
     <string name="pref_summary_colored_album_footers">Izgara içindeki albüm alt bilgisi albüm arkaplanı paletiyle renklendirildi.</string>
+    <string name="failed_download_albumart">Bu albüm için kapak indirilemiyor.</string>
+    <string name="rescanning_changed_files">Değiştirilen dosyalatı yeniden tara</string>
+    <string-array name="update_album_cover_options">
+        <item>Last.FM den indir</item>
+        <item>Pick from Local Storage</item>
+        <item>Web\'te ara</item>
+        <item>Albüm Kapağını Kaldır</item>
+    </string-array>
 </resources>

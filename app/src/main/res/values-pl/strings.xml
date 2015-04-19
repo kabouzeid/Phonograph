@@ -2,6 +2,7 @@
 <resources>
     <string name="action_settings">"Ustawienia"</string>
     <string name="action_about">O aplikacji</string>
+    <string name="action_currently_playing">Teraz gra</string>
     <string name="action_playing_queue">Kolejka odtwarzania</string>
     <string name="action_search">Szukaj</string>
     <string name="action_play_next">Odtwarzaj następny</string>
@@ -112,4 +113,13 @@
     <string name="pref_only_lollipop">Dostępne tylko w androidzie Lollipop</string>
     <string name="pref_summary_transparent_toolbar">Zawartości przewijana poniżej paska narzędzi jest widoczna</string>
     <string name="pref_summary_colored_album_footers">Stopki albumu w siatce są w tonacji okładki albumu</string>
+    <string name="failed_download_albumart">Nie można pobrać okładki dla tego albumu</string>
+    <string name="search_hint">Przeszukuje bibliotekę...</string>
+    <string name="rescanning_changed_files">Ponowne skanowanie zmienionych plików</string>
+    <string-array name="update_album_cover_options">
+        <item>Pobierz z Last.fm</item>
+        <item>Wybierz z pamięci lokalnej</item>
+        <item>Szukaj w sieci</item>
+        <item>Usuń okładkę</item>
+    </string-array>
 </resources>

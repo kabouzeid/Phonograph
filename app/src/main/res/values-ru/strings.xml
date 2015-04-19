@@ -112,4 +112,12 @@
     <string name="pref_summary_transparent_toolbar">Прокручиваемое содержимое под панелью инструментов - видимо.</string>
     <string name="pref_summary_colored_album_footers">Панели альбомов в сетке окрашены цветом из палитры обложки альбома.</string>
     <string name="failed_download_albumart">Невозможно загрузить обложку для этого альбома.</string>
+    <string name="search_hint">Поиск библиотеки...</string>
+    <string name="rescanning_changed_files">Повторное сканирование изменённых файлов</string>
+    <string-array name="update_album_cover_options">
+        <item>Скачать с Last.fm</item>
+        <item>Выбрать из локального хранилища</item>
+        <item>Поиск в интернете</item>
+        <item>Удалить обложку</item>
+    </string-array>
 </resources>
