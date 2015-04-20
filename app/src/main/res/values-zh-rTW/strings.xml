@@ -2,14 +2,15 @@
 <resources>
     <string name="action_settings">"設定"</string>
     <string name="action_about">關於</string>
+    <string name="action_currently_playing">正在播放</string>
     <string name="action_playing_queue">播放佇列</string>
     <string name="action_search">搜尋</string>
-    <string name="action_play_next">下一首</string>
+    <string name="action_play_next">稍後播放</string>
     <string name="action_add_to_playing_queue">加入佇列</string>
     <string name="action_remove_from_playing_queue">從播放佇列移除</string>
     <string name="action_add_to_playlist">加入音樂清單…</string>
     <string name="action_tag_editor">編輯音樂標籤</string>
-    <string name="action_delete_from_disk">從本儲存裝置刪除</string>
+    <string name="action_delete_from_disk">從本裝置刪除</string>
     <string name="action_details">詳細資訊</string>
     <string name="albums">專輯</string>
     <string name="artists">歌手</string>
@@ -39,8 +40,8 @@
     <string name="label_track_length">長度</string>
     <string name="label_bit_rate">位元率</string>
     <string name="label_sampling_rate">取樣率</string>
-    <string name="action_go_to_artist">前往該歌手</string>
-    <string name="action_go_to_album">前往該專輯</string>
+    <string name="action_go_to_artist">前往該歌手頁面</string>
+    <string name="action_go_to_album">前往該專輯頁面</string>
     <string name="label_current_playing_queue">播放佇列</string>
     <string name="save_as_playlist">儲存為音樂清單</string>
     <string name="credits_3">圖示設計者為</string>
@@ -52,8 +53,8 @@
     <string name="added_title_to_playing_queue">這歌曲已加入播放佇列</string>
     <string name="action_delete_from_playlist">從音樂清單移除</string>
     <string name="new_playlist_action">新增音樂清單</string>
-    <string name="action_grid_columns">專輯列數</string>
-    <string name="action_grid_columns_land">專輯列數（橫向）</string>
+    <string name="action_grid_columns">專輯網格列數</string>
+    <string name="action_grid_columns_land">專輯網格列數（橫向）</string>
     <string name="inserted_x_songs_into_playlist">%1$d首歌曲已加入該音樂清單</string>
     <string name="created_playlist_x">已新增音樂清單%1$s</string>
     <string name="deleted_playlist_x">已刪除音樂清單%1$s</string>
@@ -83,15 +84,14 @@
     <string name="title_activity_settings">設定</string>
     <string name="pref_title_transparent_toolbar">半透明工具列</string>
     <string name="pref_title_show_playback_controller_card">卡片式播放控制面板</string>
-    <string name="pref_title_colored_navigation_bar_artists">在歌手頁面使用變色導航列</string>
-    <string name="pref_title_colored_navigation_bar_albums">在專輯頁面使用變色導航列</string>
-    <string name="pref_title_colored_navigation_bar_current_playing">正在播放視窗</string>
-    <string name="pref_title_colored_navigation_bar_playlists">音樂清單</string>
+    <string name="pref_title_colored_navigation_bar_artists">歌手頁面</string>
+    <string name="pref_title_colored_navigation_bar_albums">專輯頁面</string>
+    <string name="pref_title_colored_navigation_bar_current_playing">播放頁面</string>
+    <string name="pref_title_colored_navigation_bar_playlists">音樂清單頁面</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">編輯音樂標籤</string>
     <string name="pref_title_colored_navigation_bar_other_screens">其他任何地方</string>
     <string name="pref_title_colored_album_footers">使用變色的專輯標籤</string>
     <string name="no_equalizer">沒有找到均衡器</string>
-    <string name="no_audio_ID">沒有音訊ID，請重新嘗試播放歌曲。</string>
     <string name="navigation_drawer_open">打開側選單</string>
     <string name="navigation_drawer_close">關閉側選單</string>
     <string name="delete_action">刪除</string>
@@ -108,5 +108,14 @@
     <string name="playlist_name">音樂清單名稱</string>
     <string name="song">歌曲</string>
     <string name="pref_only_lollipop">只適用於Lollipop。</string>
-    <string name="pref_summary_transparent_toolbar">當滾動頁面時，可看到工具列下方的內容。</string>
+    <string name="pref_summary_transparent_toolbar">當滾動頁面時，可看到工具列下層的內容。</string>
+    <string name="pref_summary_colored_album_footers">在專輯頁面中的專輯標籤會隨其封面顏色而改變。</string>
+    <string name="failed_download_albumart">無法下載此專輯資訊。</string>
+    <string name="search_hint">正在掃描…</string>
+    <string-array name="update_album_cover_options">
+        <item>從Last.fm下載</item>
+        <item>從本儲存裝置選取</item>
+        <item>網路搜尋</item>
+        <item>刪除封面</item>
+    </string-array>
 </resources>

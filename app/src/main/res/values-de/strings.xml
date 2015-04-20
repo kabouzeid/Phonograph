@@ -92,7 +92,7 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Überall sonst</string>
     <string name="pref_title_colored_album_footers">Farbige Balken unter den Alben</string>
     <string name="no_equalizer">Es wurde kein Equalizer gefunden</string>
-    <string name="no_audio_ID">Keine Audio ID gefunden, gib ein anderes Lied wieder und versuch es nochmal.</string>
+    <string name="no_audio_ID">Keine Audio ID, spiele etwas ab und versuche es erneut.</string>
     <string name="navigation_drawer_open">Öffne Navigation Drawer</string>
     <string name="navigation_drawer_close">Schließe Navigation Drawer</string>
     <string name="delete_action">Löschen</string>
@@ -113,7 +113,7 @@
     <string name="pref_summary_colored_album_footers">Die Titel der Alben im Raster passend zu ihrer Cover Farbe färben.</string>
     <string name="failed_download_albumart">Das Cover für dieses Album konnte nicht heruntergeladen werden.</string>
     <string name="search_hint">Durchsuche deine Mediathek</string>
-    <string name="rescanning_media">Geänderte Dateien werden erneut gescannt</string>
+    <string name="rescanning_media">Medien werden erneut eingescannt...</string>
     <string-array name="update_album_cover_options">
         <item>Von Last.fm herunterladen</item>
         <item>Aus lokalem Speicher wählen</item>

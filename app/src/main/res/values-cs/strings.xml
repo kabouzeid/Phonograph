@@ -2,6 +2,7 @@
 <resources>
     <string name="action_settings">"Nastavení"</string>
     <string name="action_about">O aplikaci</string>
+    <string name="action_currently_playing">Přehrávač</string>
     <string name="action_playing_queue">Fronta</string>
     <string name="action_search">Hledat</string>
     <string name="action_play_next">Další skladba</string>
@@ -91,7 +92,6 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Všude jinde</string>
     <string name="pref_title_colored_album_footers">Barevné zápatí alb</string>
     <string name="no_equalizer">Ekvalizér nenalezen</string>
-    <string name="no_audio_ID">Neznámé ID hudby, přehrajte něco jiného a zkuste to znovu.</string>
     <string name="navigation_drawer_open">Otevřít navigační záložku</string>
     <string name="navigation_drawer_close">Zavřít navigační záložku</string>
     <string name="delete_action">Smazat</string>
@@ -110,4 +110,12 @@
     <string name="pref_only_lollipop">Dostupné pouze ve verzi Lollipop.</string>
     <string name="pref_summary_transparent_toolbar">Permanentní zobrazení záhlaví (při scrollování).</string>
     <string name="pref_summary_colored_album_footers">Názvy alb v mřížce jsou obarvena podle jejich obalu.</string>
+    <string name="failed_download_albumart">Není možné stáhnout obal tohoto alba.</string>
+    <string name="search_hint">Vyhledat zvukové soubory...</string>
+    <string-array name="update_album_cover_options">
+        <item>Stáhnout z Last.fm</item>
+        <item>Zvolit ze souborů</item>
+        <item>Najít na webu</item>
+        <item>Odstranit obal alba</item>
+    </string-array>
 </resources>

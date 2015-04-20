@@ -2,6 +2,7 @@
 <resources>
     <string name="action_settings">"Paramètres"</string>
     <string name="action_about">À propos</string>
+    <string name="action_currently_playing">Lecture actuelle</string>
     <string name="action_playing_queue">File de lecture</string>
     <string name="action_search">Rechercher</string>
     <string name="action_play_next">Lire ensuite</string>
@@ -77,9 +78,9 @@
     <string name="pref_title_general_theme">Thème général</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">Général</string>
-    <string name="pref_summary_colored_navigation_bar">Définir quand la barre navigation doit être colorée.</string>
+    <string name="pref_summary_colored_navigation_bar">Dans quelle vue la barre navigation doit être colorée.</string>
     <string name="pref_title_navigation_bar">Barre de navigation colorée</string>
-    <string name="pref_title_set_default_start_page">Définir la page d\'accueil</string>
+    <string name="pref_title_set_default_start_page">Page d\'accueil par défaut</string>
     <string name="title_activity_settings">Paramètres</string>
     <string name="pref_title_transparent_toolbar">Barre d\'outils semi-transparente</string>
     <string name="pref_title_show_playback_controller_card">Carte de contrôle du lecteur</string>
@@ -91,7 +92,6 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Partout ailleurs</string>
     <string name="pref_title_colored_album_footers">Bas d\'album coloré</string>
     <string name="no_equalizer">Aucun égaliseur trouvé</string>
-    <string name="no_audio_ID">Aucun audio, veuillez lire un titre puis réessayer</string>
     <string name="navigation_drawer_open">Ouvrir le volet de navigation</string>
     <string name="navigation_drawer_close">Fermer le volet de navigation</string>
     <string name="delete_action">Supprimer</string>
@@ -110,4 +110,12 @@
     <string name="pref_only_lollipop">Uniquement disponible sur Lollipop.</string>
     <string name="pref_summary_transparent_toolbar">Le contenu qui défile en dessous de la barre d\'outils est visible.</string>
     <string name="pref_summary_colored_album_footers">Les bas d\'album dans la grille sont colorés avec la palette de la couverture.</string>
+    <string name="failed_download_albumart">Impossible de télécharger la pochette pour cet album.</string>
+    <string name="search_hint">Recherche votre bibliothèque...</string>
+    <string-array name="update_album_cover_options">
+        <item>Télécharger depuis Last.fm</item>
+        <item>Choisir depuis le stockage interne</item>
+        <item>Recherche internet</item>
+        <item>Supprimer la couverture</item>
+    </string-array>
 </resources>

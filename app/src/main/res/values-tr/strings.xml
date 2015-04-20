@@ -92,7 +92,6 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Başka her yer</string>
     <string name="pref_title_colored_album_footers">Renkli albüm alt bilgileri</string>
     <string name="no_equalizer">Hiçbir ekolayzer bulunamadı</string>
-    <string name="no_audio_ID">Hiçbir ses kimliği bulunamadı, bir şarkı çalın ve tekrar deneyin.</string>
     <string name="navigation_drawer_open">Gezinti çekmecesini aç</string>
     <string name="navigation_drawer_close">Gezinti çekmecesini kapat</string>
     <string name="delete_action">Sil</string>
@@ -112,11 +111,11 @@
     <string name="pref_summary_transparent_toolbar">Araç çubuğunun altına kaydırılan içerik görünüyor.</string>
     <string name="pref_summary_colored_album_footers">Izgara içindeki albüm alt bilgisi albüm arkaplanı paletiyle renklendirildi.</string>
     <string name="failed_download_albumart">Bu albüm için kapak indirilemiyor.</string>
-    <string name="rescanning_media">Değiştirilen dosyalatı yeniden tara</string>
+    <string name="search_hint">Kütüphaneniz taranıyor...</string>
     <string-array name="update_album_cover_options">
         <item>Last.FM den indir</item>
-        <item>Pick from Local Storage</item>
-        <item>Web\'te ara</item>
+        <item>Yerel Depolamayı Seç</item>
+        <item>Albüm Kapağını Kaldır</item>
         <item>Albüm Kapağını Kaldır</item>
     </string-array>
 </resources>

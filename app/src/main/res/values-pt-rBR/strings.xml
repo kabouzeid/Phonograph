@@ -2,14 +2,15 @@
 <resources>
     <string name="action_settings">"Configurações"</string>
     <string name="action_about">Sobre</string>
+    <string name="action_currently_playing">Em execução</string>
     <string name="action_playing_queue">Fila de execução</string>
     <string name="action_search">Pesquisar</string>
-    <string name="action_play_next">Reproduzir a seguir</string>
+    <string name="action_play_next">Tocar próxima</string>
     <string name="action_add_to_playing_queue">Adicionar à fila</string>
     <string name="action_remove_from_playing_queue">Remover da fila atual</string>
     <string name="action_add_to_playlist">Adicionar à playlist...</string>
     <string name="action_tag_editor">Editor de tags</string>
-    <string name="action_delete_from_disk">Excluir do dispositivo</string>
+    <string name="action_delete_from_disk">Apagar</string>
     <string name="action_details">Detalhes</string>
     <string name="albums">Álbuns</string>
     <string name="artists">Artistas</string>
@@ -19,7 +20,7 @@
     <string name="unplayable_file">Desculpe - ocorreu um erro ao tentar reproduzir esta faixa</string>
     <string name="biography_unavailable">Desculpe, não conseguimos encontrar a biografia deste artista.</string>
     <string name="biography">Biografia</string>
-    <string name="audio_focus_denied">Não fomos capazes de obter o foco do áudio.</string>
+    <string name="audio_focus_denied">Não conseguimos obter o foco do áudio.</string>
     <string name="tag_editor">Editor de tags</string>
     <string name="album">Álbum</string>
     <string name="artist">Artista</string>
@@ -51,7 +52,7 @@
     <string name="updating">Atualizando...</string>
     <string name="added_title_to_playing_queue">"1 título adicionado à fila de reprodução.  "</string>
     <string name="action_delete_from_playlist">Excluir da lista</string>
-    <string name="new_playlist_action">Nova playlist...</string>
+    <string name="new_playlist_action">Nova lista de reprodução...</string>
     <string name="action_grid_columns">Colunas da grade</string>
     <string name="action_grid_columns_land">Colunas da grade (Horizontal)</string>
     <string name="inserted_x_songs_into_playlist">%1$d faixas foram inseridas nesta playlist.</string>
@@ -68,30 +69,29 @@
     <string name="add_playlist_title">Adicionar à Playlist</string>
     <string name="new_playlist_title">Nova Playlist</string>
     <string name="delete_warning">"Aviso: Esta operação não pode ser desfeita."</string>
-    <string name="shuffle_all">Misturar todas</string>
+    <string name="shuffle_all">Embaralhar todas</string>
     <string name="last_opened">Última executada</string>
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Escuro</string>
     <string name="equalizer">Equalizador</string>
-    <string name="pref_header_ui">INTERFACE</string>
+    <string name="pref_header_ui">Interface</string>
     <string name="pref_title_general_theme">Tema geral</string>
     <string name="pref_header_audio">Áudio</string>
     <string name="pref_header_general">Geral</string>
-    <string name="pref_summary_colored_navigation_bar">Definir onde a barra de navegação deve ser colorido.</string>
+    <string name="pref_summary_colored_navigation_bar">Em quais telas a barra de navegação deve ser colorida.</string>
     <string name="pref_title_navigation_bar">Barra de navegação colorida</string>
-    <string name="pref_title_set_default_start_page">Definir página inicial</string>
+    <string name="pref_title_set_default_start_page">Página inicial padrão</string>
     <string name="title_activity_settings">Configurações</string>
     <string name="pref_title_transparent_toolbar">Barra de ferramentas semi-transparente</string>
     <string name="pref_title_show_playback_controller_card">Controles estilo cartão</string>
     <string name="pref_title_colored_navigation_bar_artists">Visualização por artistas</string>
     <string name="pref_title_colored_navigation_bar_albums">Visualização por álbuns</string>
-    <string name="pref_title_colored_navigation_bar_current_playing">Vista da execução atual</string>
+    <string name="pref_title_colored_navigation_bar_current_playing">Vista em execução</string>
     <string name="pref_title_colored_navigation_bar_playlists">Vista da playlist</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">Editor de tags</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Todos os outros lugares</string>
     <string name="pref_title_colored_album_footers">Colorir rodapés de álbuns</string>
     <string name="no_equalizer">Nenhum equalizador encontrado</string>
-    <string name="no_audio_ID">Sem id de áudio, reproduza alguma coisa e tente novamente.</string>
     <string name="navigation_drawer_open">Abrir gaveta de navegação</string>
     <string name="navigation_drawer_close">Fechar gaveta de navegação</string>
     <string name="delete_action">Excluir</string>
@@ -108,6 +108,14 @@
     <string name="playlist_name">Nome da playlist</string>
     <string name="song">Música</string>
     <string name="pref_only_lollipop">Apenas disponível no Lollipop.</string>
-    <string name="pref_summary_transparent_toolbar">Scrolling conteúdo debaixo da barra de ferramentas é visível.</string>
-    <string name="pref_summary_colored_album_footers">Rodapés álbum na grade são coloridos com as capas dos álbuns paleta.</string>
+    <string name="pref_summary_transparent_toolbar">Conteúdo rolando abaixo da barra de ferramentas é visível.</string>
+    <string name="pref_summary_colored_album_footers">Rodapés de álbum na grade são coloridos com as paletas correspondentes.</string>
+    <string name="failed_download_albumart">Não foi possível fazer o download da arte para este álbum.</string>
+    <string name="search_hint">Pesquisar na sua biblioteca...</string>
+    <string-array name="update_album_cover_options">
+        <item>Baixar da Last.fm</item>
+        <item>Escolher do Armazenamento Local</item>
+        <item>Pesquisar na Internet</item>
+        <item>Remover Arte do Album</item>
+    </string-array>
 </resources>

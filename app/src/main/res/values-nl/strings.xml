@@ -78,21 +78,20 @@
     <string name="pref_title_general_theme">Standaard thema</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">Algemeen</string>
-    <string name="pref_summary_colored_navigation_bar">Selecteer waar de navigatiebalk gekleurd moet zijn.</string>
+    <string name="pref_summary_colored_navigation_bar">In welke weergaven moet de navigatiebalk gekleurd zijn.</string>
     <string name="pref_title_navigation_bar">Gekleurde navigatiebalk</string>
-    <string name="pref_title_set_default_start_page">Instellen als startpagina</string>
+    <string name="pref_title_set_default_start_page">Standaard startpagina</string>
     <string name="title_activity_settings">Instellingen</string>
     <string name="pref_title_transparent_toolbar">Semi-transparante werkbalk</string>
     <string name="pref_title_show_playback_controller_card">Afspeelknoppen kaart</string>
     <string name="pref_title_colored_navigation_bar_artists">Artiesten weergave</string>
     <string name="pref_title_colored_navigation_bar_albums">Album weergave</string>
-    <string name="pref_title_colored_navigation_bar_current_playing">Huidige speelweergave</string>
+    <string name="pref_title_colored_navigation_bar_current_playing">Afspeelweergave</string>
     <string name="pref_title_colored_navigation_bar_playlists">Afspeellijst weergave</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">Label bewerker</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Overal elders</string>
     <string name="pref_title_colored_album_footers">Gekleurde album footers</string>
     <string name="no_equalizer">Geen equalizer gevonden</string>
-    <string name="no_audio_ID">Geen audio ID, speel iets af en probeer het nogmaals.</string>
     <string name="navigation_drawer_open">Open navigatiebalk</string>
     <string name="navigation_drawer_close">Sluit navigatiebalk</string>
     <string name="delete_action">Verwijderen</string>
@@ -100,9 +99,9 @@
     <string name="select">Selecteer</string>
     <string name="default_str">Standaard</string>
     <string name="primary_color">Primaire kleur</string>
-    <string name="accent_color">Accent kleur</string>
-    <string name="primary_color_desc">De primaire themakleur is standaard indigo.</string>
-    <string name="accent_color_desc">De accent themakleur is standaard roze.</string>
+    <string name="accent_color">Accentkleur</string>
+    <string name="primary_color_desc">De primaire kleur is standaard indigo.</string>
+    <string name="accent_color_desc">De accentkleur is standaard roze.</string>
     <string name="update_image">Afbeelding bijwerken</string>
     <string name="playlist_empty_text">Deze afspeellijst is leeg</string>
     <string name="no_playlists">Geen afspeellijsten</string>
@@ -113,7 +112,6 @@
     <string name="pref_summary_colored_album_footers">"Album footers in het raster worden gekleurd met het palet van de albumhoes. "</string>
     <string name="failed_download_albumart">"Het lukt niet om de albumhoes te downloaden. "</string>
     <string name="search_hint">Zoek in je bibliotheek...</string>
-    <string name="rescanning_media">Opnieuw scannen van gewijzigde bestanden</string>
     <string-array name="update_album_cover_options">
         <item>Downloaden van Last.fm</item>
         <item>Kies vanuit lokale opslag</item>

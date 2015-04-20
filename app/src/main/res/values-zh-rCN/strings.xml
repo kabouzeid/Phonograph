@@ -2,14 +2,15 @@
 <resources>
     <string name="action_settings">"设置"</string>
     <string name="action_about">关于</string>
-    <string name="action_playing_queue">播放队列</string>
+    <string name="action_currently_playing">正在播放</string>
+    <string name="action_playing_queue">播放列表</string>
     <string name="action_search">搜索</string>
     <string name="action_play_next">下一首</string>
-    <string name="action_add_to_playing_queue">加入播放队列</string>
-    <string name="action_remove_from_playing_queue">从播放队列移除</string>
+    <string name="action_add_to_playing_queue">加入播放列表</string>
+    <string name="action_remove_from_playing_queue">从播放列表移除</string>
     <string name="action_add_to_playlist">加入播放列表</string>
     <string name="action_tag_editor">音乐标签编辑器</string>
-    <string name="action_delete_from_disk">从储存中删除</string>
+    <string name="action_delete_from_disk">从sd卡上删除</string>
     <string name="action_details">详情</string>
     <string name="albums">专辑</string>
     <string name="artists">艺术家</string>
@@ -43,8 +44,8 @@
     <string name="action_go_to_album">打开专辑</string>
     <string name="label_current_playing_queue">播放队列</string>
     <string name="save_as_playlist">保存为播放列表</string>
-    <string name="credits_3">图标设计者是</string>
-    <string name="credits_1">留声机是一个完全免费并采用质感设计的音乐播放器，开发者是</string>
+    <string name="credits_3">图标设计师：</string>
+    <string name="credits_1">Gramophone 是一个完全免费并采用质感设计的音乐播放器，开发者是</string>
     <string name="title_activity_search">搜索</string>
     <string name="no_results">没有找到结果</string>
     <string name="action_re_download_artist_image">更新歌手图片</string>
@@ -70,8 +71,8 @@
     <string name="delete_warning">"警告：该操作无法撤销。"</string>
     <string name="shuffle_all">随机播放全部曲目</string>
     <string name="last_opened">最后打开</string>
-    <string name="light_theme_name">Light</string>
-    <string name="dark_theme_name">Dark</string>
+    <string name="light_theme_name">浅色</string>
+    <string name="dark_theme_name">暗色</string>
     <string name="equalizer">均衡器</string>
     <string name="pref_header_ui">界面</string>
     <string name="pref_title_general_theme">全局主题</string>
@@ -91,7 +92,6 @@
     <string name="pref_title_colored_navigation_bar_other_screens">其他任何地方</string>
     <string name="pref_title_colored_album_footers">使用变色的专辑标签</string>
     <string name="no_equalizer">没有找到均衡器</string>
-    <string name="no_audio_ID">没有音频ID，请播放曲目并重试。</string>
     <string name="navigation_drawer_open">弹出导航抽屉</string>
     <string name="navigation_drawer_close">关闭导航抽屉</string>
     <string name="delete_action">删除</string>
@@ -110,4 +110,12 @@
     <string name="pref_only_lollipop">仅适用于 Lollipop</string>
     <string name="pref_summary_transparent_toolbar">滚动页面时使工具栏之后的内容可见。</string>
     <string name="pref_summary_colored_album_footers">专辑队列视图中专辑页脚会根据专辑封面的色调进行变色。</string>
+    <string name="failed_download_albumart">专辑信息下载失败</string>
+    <string name="search_hint">正在扫描</string>
+    <string-array name="update_album_cover_options">
+        <item>Download from Last.fm</item>
+        <item>Pick from Local Storage</item>
+        <item>通过网络搜索</item>
+        <item>删除封面</item>
+    </string-array>
 </resources>

@@ -2,6 +2,7 @@
 <resources>
     <string name="action_settings">"Ρυθμίσεις "</string>
     <string name="action_about">Σχετικά με εμάς</string>
+    <string name="action_currently_playing">Παίζει τώρα</string>
     <string name="action_playing_queue">Σειρά τραγουδιών</string>
     <string name="action_search">Αναζήτηση</string>
     <string name="action_play_next">Αναπαραγωγή επόμενου</string>
@@ -16,8 +17,8 @@
     <string name="songs">Τραγούδια</string>
     <string name="playlists">Λίστες</string>
     <string name="nothing_playing">Δεν παίζει τίποτα</string>
-    <string name="unplayable_file">Συγγνώμη - Υπήρξε σφάλμα όταν έπαιξε το τραγούδι</string>
-    <string name="biography_unavailable">Συγγνώμη, δεν μπορούμε βιογραφία που να ταιριάζει με αυτόν τον καλλιτέχνη</string>
+    <string name="unplayable_file">Συγγνώμη - Υπήρξε σφάλμα στην προσπάθεια αναπαραγωγής</string>
+    <string name="biography_unavailable">Συγγνώμη, δεν μπορούμε τη βιογραφία αυτού του καλλιτέχνη</string>
     <string name="biography">Βιογραφία</string>
     <string name="audio_focus_denied">Δεν μπορούμε να πάρουμε συγκέντρωση του ήχου</string>
     <string name="tag_editor">Επεξεργασία ετικετών</string>
@@ -86,10 +87,11 @@
     <string name="select">Επιλογή</string>
     <string name="default_str">Προεπιλογή</string>
     <string name="primary_color">Πρωτεύον χρώμα</string>
-    <string name="primary_color_desc">Το πρωτεύον χρώμα θέματος, η προεπιλογή είναι λουλακί</string>
+    <string name="primary_color_desc">Το πρωτεύον χρώμα θέματος, η προεπιλογή είναι λουλακί.</string>
     <string name="update_image">Ανανέωση εικόνας</string>
     <string name="playlist_empty_text">Αυτή η λίστα είναι άδεια</string>
     <string name="no_playlists">Καμία λίστα</string>
     <string name="playlist_name">Όνομα λίστας</string>
     <string name="song">Τραγούδι</string>
+    <string name="pref_only_lollipop">Διαθέσιμο μόνο στο Lollipop.</string>
 </resources>

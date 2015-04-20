@@ -94,7 +94,6 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Wszędzie</string>
     <string name="pref_title_colored_album_footers">Kolorowe stopki albumu</string>
     <string name="no_equalizer">Nie znaleziono korektora</string>
-    <string name="no_audio_ID">Brak ID dźwięku, puść coś i spróbuj ponownie</string>
     <string name="navigation_drawer_open">Otwórz pasek nawigacji</string>
     <string name="navigation_drawer_close">Zamknij pasek nawigacji</string>
     <string name="delete_action">Usuń</string>
@@ -115,7 +114,6 @@
     <string name="pref_summary_colored_album_footers">Stopki albumu w siatce są w tonacji okładki albumu</string>
     <string name="failed_download_albumart">Nie można pobrać okładki dla tego albumu</string>
     <string name="search_hint">Przeszukuje bibliotekę...</string>
-    <string name="rescanning_media">Ponowne skanowanie zmienionych plików</string>
     <string-array name="update_album_cover_options">
         <item>Pobierz z Last.fm</item>
         <item>Wybierz z pamięci lokalnej</item>
