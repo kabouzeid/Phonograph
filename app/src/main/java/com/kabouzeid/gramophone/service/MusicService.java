@@ -644,7 +644,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public void resumePlaying() {
         if (!isPlaying()) {
             if (requestFocus()) {
-                if (isPlayerPrepared) {
+                if (isPlayerPrepared()) {
                     player.start();
                     playingNotificationHelper.updatePlayState(isPlaying());
                     MusicPlayerWidget.updateWidgetsPlayState(this, isPlaying());
@@ -669,7 +669,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     public void back(boolean force) {
         if (position != -1) {
-            if (getSongProgressMillis() > 2000) {
+            if (isPlayerPrepared() && getSongProgressMillis() > 2000) {
                 seekTo(0);
             } else {
                 playPreviousSong(force);
