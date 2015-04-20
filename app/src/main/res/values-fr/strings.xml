@@ -91,7 +91,7 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Partout ailleurs</string>
     <string name="pref_title_colored_album_footers">Bas d\'album coloré</string>
     <string name="no_equalizer">Aucun égaliseur trouvé</string>
-    <string name="no_audio_id">Aucun audio, veuillez lire un titre puis réessayer</string>
+    <string name="no_audio_ID">Aucun audio, veuillez lire un titre puis réessayer</string>
     <string name="navigation_drawer_open">Ouvrir le volet de navigation</string>
     <string name="navigation_drawer_close">Fermer le volet de navigation</string>
     <string name="delete_action">Supprimer</string>

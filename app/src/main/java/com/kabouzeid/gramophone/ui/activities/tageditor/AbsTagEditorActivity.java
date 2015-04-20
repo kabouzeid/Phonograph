@@ -328,11 +328,9 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     protected void writeValuesToFiles(final Map<FieldKey, String> fieldKeyValueMap, final Artwork artwork, final boolean deleteArtwork) {
         Util.hideSoftKeyboard(this);
         final String writingFileStr = getResources().getString(R.string.writing_file_number);
-        final String savingStr = getResources().getString(R.string.saving_changes);
-        final String rescanningStr = getResources().getString(R.string.rescanning_changed_files);
         //TODO dialog currently disappears on orientation change and using DialogFragment causes an exception for some reason
         final MaterialDialog progressDialog = new MaterialDialog.Builder(AbsTagEditorActivity.this)
-                .title(savingStr)
+                .title(R.string.saving_changes)
                 .cancelable(false)
                 .progress(true, 0)
                 .build();
@@ -385,7 +383,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        progressDialog.setContent(rescanningStr);
+                        progressDialog.setContent(getString(R.string.rescanning_media));
                     }
                 });
                 rescanMediaAndQuitOnFinish(new OnScannedAllListener() {

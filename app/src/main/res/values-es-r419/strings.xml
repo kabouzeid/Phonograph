@@ -85,7 +85,7 @@
     <string name="pref_title_colored_navigation_bar_albums">Barra de navegación de Vista del Álbum coloreada</string>
     <string name="pref_title_colored_album_footers">Pie de álbum coloreado</string>
     <string name="no_equalizer">No se encontró ningún ecualizador</string>
-    <string name="no_audio_id">Sin id de audio, toca algo e intenta nuevamente</string>
+    <string name="no_audio_ID">Sin id de audio, toca algo e intenta nuevamente</string>
     <string name="navigation_drawer_open">Abrir cajón de navegación</string>
     <string name="navigation_drawer_close">"Cerrar la barra de navegación "</string>
     <string name="delete_action">Borrar</string>

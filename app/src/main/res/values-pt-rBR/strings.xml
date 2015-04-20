@@ -91,7 +91,7 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Todos os outros lugares</string>
     <string name="pref_title_colored_album_footers">Colorir rodapés de álbuns</string>
     <string name="no_equalizer">Nenhum equalizador encontrado</string>
-    <string name="no_audio_id">Sem id de áudio, reproduza alguma coisa e tente novamente.</string>
+    <string name="no_audio_ID">Sem id de áudio, reproduza alguma coisa e tente novamente.</string>
     <string name="navigation_drawer_open">Abrir gaveta de navegação</string>
     <string name="navigation_drawer_close">Fechar gaveta de navegação</string>
     <string name="delete_action">Excluir</string>

@@ -104,7 +104,7 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Everywhere else</string>
     <string name="pref_title_colored_album_footers">Colored album footers</string>
     <string name="no_equalizer">No equalizer found</string>
-    <string name="no_audio_id">No audio id, play something and try again.</string>
+    <string name="no_audio_ID">No audio ID, play something and try again.</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="delete_action">Delete</string>
@@ -126,7 +126,7 @@
     <string name="pref_summary_colored_album_footers">Album footers in the grid are colored with the album cover\'s palette.</string>
     <string name="failed_download_albumart">Unable to download the art for this album.</string>
     <string name="search_hint">Search your library…</string>
-    <string name="rescanning_changed_files">Rescanning changed files</string>
+    <string name="rescanning_media">Rescanning media…</string>
 
     <string-array name="update_album_cover_options">
         <item>Download from Last.fm</item>

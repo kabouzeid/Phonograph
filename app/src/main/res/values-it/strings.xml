@@ -69,7 +69,7 @@
     <string name="pref_title_colored_navigation_bar_albums">Barra navigazione album colorata</string>
     <string name="pref_title_colored_album_footers">Piè di pagina album colorati</string>
     <string name="no_equalizer">Nessun equalizzatore trovato</string>
-    <string name="no_audio_id">Nessun audio id, riproduci qualcosa e riprova</string>
+    <string name="no_audio_ID">Nessun audio id, riproduci qualcosa e riprova</string>
     <string name="navigation_drawer_open">Apri la barra di navigazione</string>
     <string name="navigation_drawer_close">Chiudi la barra di navigazione</string>
     <string name="song">Canzone</string>

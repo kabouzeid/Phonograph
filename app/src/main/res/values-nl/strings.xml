@@ -92,7 +92,7 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Overal elders</string>
     <string name="pref_title_colored_album_footers">Gekleurde album footers</string>
     <string name="no_equalizer">Geen equalizer gevonden</string>
-    <string name="no_audio_id">Geen audio ID, speel iets af en probeer het nogmaals.</string>
+    <string name="no_audio_ID">Geen audio ID, speel iets af en probeer het nogmaals.</string>
     <string name="navigation_drawer_open">Open navigatiebalk</string>
     <string name="navigation_drawer_close">Sluit navigatiebalk</string>
     <string name="delete_action">Verwijderen</string>
@@ -113,7 +113,7 @@
     <string name="pref_summary_colored_album_footers">"Album footers in het raster worden gekleurd met het palet van de albumhoes. "</string>
     <string name="failed_download_albumart">"Het lukt niet om de albumhoes te downloaden. "</string>
     <string name="search_hint">Zoek in je bibliotheek...</string>
-    <string name="rescanning_changed_files">Opnieuw scannen van gewijzigde bestanden</string>
+    <string name="rescanning_media">Opnieuw scannen van gewijzigde bestanden</string>
     <string-array name="update_album_cover_options">
         <item>Downloaden van Last.fm</item>
         <item>Kies vanuit lokale opslag</item>

@@ -116,7 +116,7 @@ public class NavigationUtil {
     public static void openEqualizer(final Activity activity) {
         final int sessionId = MusicPlayerRemote.getAudioSessionId();
         if (sessionId == AudioEffect.ERROR_BAD_VALUE) {
-            Toast.makeText(activity, activity.getResources().getString(R.string.no_audio_id), Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, activity.getResources().getString(R.string.no_audio_ID), Toast.LENGTH_LONG).show();
         } else {
             try {
                 final Intent effects = new Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL);

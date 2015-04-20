@@ -90,7 +90,7 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Oriunde altundeva</string>
     <string name="pref_title_colored_album_footers">Bară detalii album colorată</string>
     <string name="no_equalizer">Niciun egalizator găsit</string>
-    <string name="no_audio_id">Nicio identificare audio, redă ceva şi încearcă din nou.</string>
+    <string name="no_audio_ID">Nicio identificare audio, redă ceva şi încearcă din nou.</string>
     <string name="navigation_drawer_open">Deschide sertarul de navigație</string>
     <string name="navigation_drawer_close">Închide sertarul de navigație</string>
     <string name="delete_action">Șterge</string>

@@ -91,7 +91,7 @@
     <string name="pref_title_colored_navigation_bar_other_screens">其他任何地方</string>
     <string name="pref_title_colored_album_footers">使用变色的专辑标签</string>
     <string name="no_equalizer">没有找到均衡器</string>
-    <string name="no_audio_id">没有音频ID，请播放曲目并重试。</string>
+    <string name="no_audio_ID">没有音频ID，请播放曲目并重试。</string>
     <string name="navigation_drawer_open">弹出导航抽屉</string>
     <string name="navigation_drawer_close">关闭导航抽屉</string>
     <string name="delete_action">删除</string>

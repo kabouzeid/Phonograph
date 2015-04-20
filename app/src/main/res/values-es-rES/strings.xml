@@ -95,7 +95,7 @@
     <string name="pref_title_colored_navigation_bar_other_screens">En el resto de sitios</string>
     <string name="pref_title_colored_album_footers">Pie de álbum coloreado</string>
     <string name="no_equalizer">No se encontró ecualizador</string>
-    <string name="no_audio_id">No se identificó audio, intenta reproducir nuevamente</string>
+    <string name="no_audio_ID">No se identificó audio, intenta reproducir nuevamente</string>
     <string name="navigation_drawer_open">Abrir cajón de navegación</string>
     <string name="navigation_drawer_close">Cerrar cajón de navegación</string>
     <string name="delete_action">Borrar</string>
@@ -116,7 +116,7 @@
     <string name="pref_summary_colored_album_footers">Los pies de álbum de la cuadrícula están coloreados con las paletas de colores de sus respectivas portadas.</string>
     <string name="failed_download_albumart">No se puede descargar la portada del álbum.</string>
     <string name="search_hint">Buscar en librería...</string>
-    <string name="rescanning_changed_files">Reescaneando archivos modificados</string>
+    <string name="rescanning_media">Reescaneando archivos modificados</string>
     <string-array name="update_album_cover_options">
         <item>Descargar de Last.fm</item>
         <item>Escoger de disco duro</item>
