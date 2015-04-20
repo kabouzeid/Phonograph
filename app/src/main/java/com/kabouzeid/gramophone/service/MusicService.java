@@ -80,6 +80,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private AudioManager audioManager;
     private RemoteControlClient remoteControlClient;
     private Future remoteControlClientAlbumArtTask;
+    private PowerManager.WakeLock wakeLock;
 
     public MusicService() {
     }
@@ -94,6 +95,10 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
         shuffleMode = PreferenceManager.getDefaultSharedPreferences(this).getInt(AppKeys.SP_SHUFFLE_MODE, 0);
         repeatMode = PreferenceManager.getDefaultSharedPreferences(this).getInt(AppKeys.SP_REPEAT_MODE, 0);
+
+        final PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
+        wakeLock.setReferenceCounted(false);
 
         registerEverything();
     }
@@ -269,6 +274,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
             notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STOP);
         } else {
+            acquireWakeLock(30000);
             playNextSong(false);
         }
     }
@@ -289,7 +295,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             registerEverything();
             isPlayerPrepared = false;
             player.reset();
-            player.setWakeMode(getApplicationContext(), PowerManager.PARTIAL_WAKE_LOCK);
             if (position != -1) {
                 try {
                     Uri trackUri = getCurrentPositionTrackUri();
@@ -470,6 +475,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PLAYING);
         notifyOnMusicRemoteEventListeners(MusicRemoteEvent.PLAY);
         savePosition();
+        releaseWakeLock();
     }
 
     public void openQueue(final ArrayList<Song> playingQueue, final int startPosition, final boolean startPlaying) {
@@ -772,6 +778,16 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         if (player == null)
             return AudioEffect.ERROR_BAD_VALUE;
         return player.getAudioSessionId();
+    }
+
+    private void releaseWakeLock() {
+        if (wakeLock.isHeld()) {
+            wakeLock.release();
+        }
+    }
+
+    private void acquireWakeLock(long milli) {
+        wakeLock.acquire(milli);
     }
 
     public class MusicBinder extends Binder {
