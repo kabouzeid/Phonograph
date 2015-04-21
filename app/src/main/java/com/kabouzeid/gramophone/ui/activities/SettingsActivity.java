@@ -29,16 +29,15 @@ import java.util.Set;
 public class SettingsActivity extends AbsBaseActivity implements ColorChooserDialog.ColorCallback {
     public static final String TAG = SettingsActivity.class.getSimpleName();
 
-    private Toolbar mToolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setStatusBarTranslucent(!Util.hasLollipopSDK());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimary());
-        setSupportActionBar(mToolbar);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimary());
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null)

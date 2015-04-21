@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.kabouzeid.gramophone.R;
@@ -34,7 +35,7 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
  * - use a view below the statusBar to color it
  */
 
-public abstract class ThemeBaseActivity extends ActionBarActivity implements KabViewsDisableAble {
+public abstract class ThemeBaseActivity extends AppCompatActivity implements KabViewsDisableAble {
 
 //    private boolean mLastDarkTheme;
 //    private int mLastPrimary;
