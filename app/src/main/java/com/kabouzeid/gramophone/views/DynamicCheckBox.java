@@ -1,7 +1,8 @@
 package com.kabouzeid.gramophone.views;
 
 import android.content.Context;
-import android.support.v7.internal.widget.TintCheckBox;
+
+import android.support.v7.widget.AppCompatCheckBox;
 import android.util.AttributeSet;
 
 import com.afollestad.materialdialogs.ThemeSingleton;
@@ -10,7 +11,7 @@ import com.afollestad.materialdialogs.internal.MDTintHelper;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class DynamicCheckBox extends TintCheckBox {
+public class DynamicCheckBox extends AppCompatCheckBox {
 
     public DynamicCheckBox(Context context) {
         super(context);

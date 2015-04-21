@@ -1,4 +1,4 @@
-package com.afollestad.cabinet.views;
+package com.kabouzeid.gramophone.views;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,8 +12,7 @@ import android.graphics.PorterDuffColorFilter;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-import com.afollestad.cabinet.R;
-
+import com.kabouzeid.gramophone.R;
 
 public class CircleView extends FrameLayout {
     
