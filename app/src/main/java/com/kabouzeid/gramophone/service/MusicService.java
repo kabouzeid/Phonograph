@@ -298,6 +298,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             if (position != -1) {
                 try {
                     Uri trackUri = getCurrentPositionTrackUri();
+                    player.setAudioStreamType(AudioManager.STREAM_MUSIC);
                     player.setDataSource(getApplicationContext(), trackUri);
                     player.prepareAsync();
                 } catch (Exception e) {
