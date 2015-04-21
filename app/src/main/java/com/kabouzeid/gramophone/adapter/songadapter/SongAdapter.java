@@ -2,7 +2,7 @@ package com.kabouzeid.gramophone.adapter.songadapter;
 
 import android.graphics.Typeface;
 import android.support.v4.util.Pair;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -37,10 +37,10 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     private static final int SHUFFLE_BUTTON = 0;
     private static final int SONG = 1;
 
-    protected final ActionBarActivity activity;
+    protected final AppCompatActivity activity;
     protected ArrayList<Song> dataSet;
 
-    public SongAdapter(ActionBarActivity activity) {
+    public SongAdapter(AppCompatActivity activity) {
         this.activity = activity;
         loadDataSet();
     }

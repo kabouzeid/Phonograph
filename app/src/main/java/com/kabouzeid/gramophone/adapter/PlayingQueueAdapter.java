@@ -1,6 +1,6 @@
 package com.kabouzeid.gramophone.adapter;
 
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,9 +24,9 @@ import java.util.ArrayList;
  */
 public class PlayingQueueAdapter extends ArrayAdapter<Song> {
 
-    private final ActionBarActivity activity;
+    private final AppCompatActivity activity;
 
-    public PlayingQueueAdapter(ActionBarActivity activity, ArrayList<Song> playList) {
+    public PlayingQueueAdapter(AppCompatActivity activity, ArrayList<Song> playList) {
         super(activity, R.layout.item_list_playlist_song, playList);
         this.activity = activity;
     }

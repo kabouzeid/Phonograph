@@ -7,7 +7,7 @@ import android.media.audiofx.AudioEffect;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
@@ -104,7 +104,7 @@ public class NavigationUtil {
         }
     }
 
-    public static void openPlayingQueueDialog(final ActionBarActivity activity) {
+    public static void openPlayingQueueDialog(final AppCompatActivity activity) {
         PlayingQueueDialog dialog = PlayingQueueDialog.create();
         if (dialog != null) {
             dialog.show(activity.getSupportFragmentManager(), "PLAY_QUEUE");

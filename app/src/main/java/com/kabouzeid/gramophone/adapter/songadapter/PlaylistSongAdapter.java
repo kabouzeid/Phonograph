@@ -1,7 +1,7 @@
 package com.kabouzeid.gramophone.adapter.songadapter;
 
 import android.support.v4.util.Pair;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -31,10 +31,10 @@ import java.util.List;
 public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapter.ViewHolder> {
 
     public static final String TAG = AlbumSongAdapter.class.getSimpleName();
-    protected final ActionBarActivity activity;
+    protected final AppCompatActivity activity;
     protected final ArrayList<PlaylistSong> dataSet;
 
-    public PlaylistSongAdapter(ActionBarActivity activity, ArrayList<PlaylistSong> objects) {
+    public PlaylistSongAdapter(AppCompatActivity activity, ArrayList<PlaylistSong> objects) {
         this.activity = activity;
         dataSet = objects;
     }

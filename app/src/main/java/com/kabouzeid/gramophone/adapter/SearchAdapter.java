@@ -2,7 +2,7 @@ package com.kabouzeid.gramophone.adapter;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,9 +26,9 @@ import java.util.List;
  */
 public class SearchAdapter extends ArrayAdapter<SearchEntry> {
 
-    private final ActionBarActivity activity;
+    private final AppCompatActivity activity;
 
-    public SearchAdapter(ActionBarActivity activity, List<SearchEntry> objects) {
+    public SearchAdapter(AppCompatActivity activity, List<SearchEntry> objects) {
         super(activity, R.layout.item_list_search, objects);
         this.activity = activity;
     }

@@ -1,7 +1,7 @@
 package com.kabouzeid.gramophone.adapter;
 
 import android.support.v4.util.Pair;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -26,10 +26,10 @@ import java.util.List;
 public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHolder> {
 
     public static final String TAG = PlaylistAdapter.class.getSimpleName();
-    protected final ActionBarActivity activity;
+    protected final AppCompatActivity activity;
     protected List<Playlist> dataSet;
 
-    public PlaylistAdapter(ActionBarActivity activity) {
+    public PlaylistAdapter(AppCompatActivity activity) {
         this.activity = activity;
         loadDataSet();
     }

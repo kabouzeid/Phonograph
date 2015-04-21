@@ -4,7 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -57,7 +57,7 @@ public class PlayingQueueDialog extends DialogFragment {
         final ArrayList<Song> playingQueue = (ArrayList<Song>) getArguments().getSerializable("queue");
         final DragSortListView dragSortListView = (DragSortListView) dialog.getCustomView().findViewById(R.id.dragSortListView);
         final PlayingQueueAdapter playingQueueAdapter =
-                new PlayingQueueAdapter((ActionBarActivity) getActivity(), playingQueue);
+                new PlayingQueueAdapter((AppCompatActivity) getActivity(), playingQueue);
         dragSortListView.setAdapter(playingQueueAdapter);
         dragSortListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

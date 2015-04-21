@@ -1,7 +1,7 @@
 package com.kabouzeid.gramophone.adapter.songadapter;
 
 import android.support.v4.util.Pair;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,9 +26,9 @@ import java.util.List;
  */
 public class ArtistSongAdapter extends ArrayAdapter<Song> {
 
-    private final ActionBarActivity activity;
+    private final AppCompatActivity activity;
 
-    public ArtistSongAdapter(ActionBarActivity activity, List<Song> songs) {
+    public ArtistSongAdapter(AppCompatActivity activity, List<Song> songs) {
         super(activity, R.layout.item_list_song, songs);
         this.activity = activity;
     }

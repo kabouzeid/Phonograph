@@ -2,7 +2,7 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -41,7 +41,7 @@ public class PlaylistViewFragment extends AbsMainActivityRecyclerViewFragment {
 
     @Override
     protected RecyclerView.Adapter createAdapter() {
-        PlaylistAdapter adapter = new PlaylistAdapter((ActionBarActivity) getActivity());
+        PlaylistAdapter adapter = new PlaylistAdapter((AppCompatActivity) getActivity());
         View v = getView();
         if (v != null) {
             v.findViewById(android.R.id.empty).setVisibility(

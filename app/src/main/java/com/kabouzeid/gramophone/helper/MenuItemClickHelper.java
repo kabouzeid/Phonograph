@@ -2,7 +2,7 @@ package com.kabouzeid.gramophone.helper;
 
 import android.content.Intent;
 import android.support.v4.util.Pair;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.kabouzeid.gramophone.R;
@@ -27,7 +27,7 @@ import java.io.File;
  */
 public class MenuItemClickHelper {
 
-    public static boolean handleSongMenuClick(ActionBarActivity activity, Song song, MenuItem item) {
+    public static boolean handleSongMenuClick(AppCompatActivity activity, Song song, MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_delete_from_disk:
                 DeleteSongsDialog.create(song).show(activity.getSupportFragmentManager(), "DELETE_SONGS");
@@ -69,7 +69,7 @@ public class MenuItemClickHelper {
         return false;
     }
 
-    public static boolean handlePlaylistMenuClick(ActionBarActivity activity, Playlist playlist, MenuItem item) {
+    public static boolean handlePlaylistMenuClick(AppCompatActivity activity, Playlist playlist, MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_rename_playlist:
                 RenamePlaylistDialog.create(playlist.id).show(activity.getSupportFragmentManager(), "RENAME_PLAYLIST");
