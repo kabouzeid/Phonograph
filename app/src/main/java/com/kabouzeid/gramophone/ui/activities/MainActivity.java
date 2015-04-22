@@ -73,7 +73,7 @@ public class MainActivity extends AbsFabActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusBarTranslucent(!Util.hasLollipopSDK());
+        setStatusBarTranslucent(!Util.isAtLeastLollipop());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -90,7 +90,7 @@ public class MainActivity extends AbsFabActivity
 
     @Override
     protected boolean shouldColorStatusBar() {
-        return !Util.hasLollipopSDK();
+        return !Util.isAtLeastLollipop();
     }
 
     @Override

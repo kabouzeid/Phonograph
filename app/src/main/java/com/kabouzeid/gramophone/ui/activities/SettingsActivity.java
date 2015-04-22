@@ -31,7 +31,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusBarTranslucent(!Util.hasLollipopSDK());
+        setStatusBarTranslucent(!Util.isAtLeastLollipop());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
 

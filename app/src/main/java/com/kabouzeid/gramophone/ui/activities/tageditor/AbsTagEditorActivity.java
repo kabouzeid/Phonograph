@@ -90,7 +90,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusBarTranslucent(!Util.hasLollipopSDK());
+        setStatusBarTranslucent(!Util.isAtLeastLollipop());
         super.onCreate(savedInstanceState);
         setContentView(getContentViewResId());
 
@@ -213,7 +213,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         paletteColorPrimary = primaryColor;
         observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
         setStatusBarColor(ColorChooserDialog.shiftColorDown(primaryColor), false);
-        if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarTagEditorEnabled())
+        if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarTagEditorEnabled())
             getWindow().setNavigationBarColor(primaryColor);
         notifyTaskColorChange(primaryColor);
     }
@@ -266,7 +266,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
         int primaryDark = ColorChooserDialog.shiftColorDown(paletteColorPrimary);
         setStatusBarColor(primaryDark, false);
-        if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarTagEditorEnabled())
+        if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarTagEditorEnabled())
             getWindow().setNavigationBarColor(primaryDark);
     }
 
@@ -310,7 +310,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                             paletteColorPrimary = vibrantColor;
                             observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
                             setStatusBarColor(ColorChooserDialog.shiftColorDown(vibrantColor), false);
-                            if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(AbsTagEditorActivity.this).coloredNavigationBarTagEditorEnabled())
+                            if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(AbsTagEditorActivity.this).coloredNavigationBarTagEditorEnabled())
                                 getWindow().setNavigationBarColor(vibrantColor);
                             notifyTaskColorChange(vibrantColor);
                         } else {

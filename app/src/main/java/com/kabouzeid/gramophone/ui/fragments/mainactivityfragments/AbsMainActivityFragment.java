@@ -17,7 +17,7 @@ public abstract class AbsMainActivityFragment extends Fragment implements KabVie
         final int norm = Util.getActionBarSize(getActivity()) +
                 getResources().getDimensionPixelSize(R.dimen.tab_height) +
                 getResources().getDimensionPixelSize(R.dimen.list_padding_vertical);
-        if (Util.hasKitKatSDK() && !Util.hasLollipopSDK()) {
+        if (Util.isAtLeastKitKat() && !Util.isAtLeastLollipop()) {
             if (Util.isInPortraitMode(getActivity()) || Util.isTablet(getActivity())) {
                 return norm + Util.getStatusBarHeight(getActivity());
             }

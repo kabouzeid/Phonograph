@@ -34,7 +34,7 @@ public class PlaylistDetailActivity extends AbsFabActivity {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusBarTranslucent(!Util.hasLollipopSDK());
+        setStatusBarTranslucent(!Util.isAtLeastLollipop());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_detail);
 

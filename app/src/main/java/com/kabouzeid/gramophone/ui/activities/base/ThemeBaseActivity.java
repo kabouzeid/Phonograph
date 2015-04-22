@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatActivity;
 
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.kabouzeid.gramophone.R;
@@ -27,7 +26,7 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
  * <p/>
  * KitKat or Lollipop solid statusBar with the right color (primaryDark):
  * - shouldColorStatusBar return true OR return false and call setStatusBarColor() in the activity with a custom color
- * - setStatusBarTranslucent(!Util.hasLollipopSDK())
+ * - setStatusBarTranslucent(!Util.isAtLeastLollipop())
  * <p/>
  * KitKat or Lollipop translucent statusBar (not the color is too dark on Lollipop and KitKat only does fading but MUCH better performance the setStatusBarColor in onScrollCallback)
  * - shouldColorStatusBar return false DO NOT return true and do not call setStatusBarColor() in this case at all here
@@ -108,8 +107,9 @@ public abstract class ThemeBaseActivity extends AppCompatActivity implements Kab
 
     protected abstract boolean shouldColorNavBar();
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     protected final void setStatusBarColor(int color, boolean forceSystemBarTint) {
-        if (!forceSystemBarTint && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (!forceSystemBarTint && Util.isAtLeastLollipop()) {
             getWindow().setStatusBarColor(color);
         } else {
             SystemBarTintManager tintManager = new SystemBarTintManager(this);
@@ -120,7 +120,7 @@ public abstract class ThemeBaseActivity extends AppCompatActivity implements Kab
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     protected final void setShouldColorNavBar(boolean shouldColorNavBar) {
-        if (Util.hasLollipopSDK()) {
+        if (Util.isAtLeastLollipop()) {
             if (shouldColorNavBar) {
                 final int primaryDark = PreferenceUtils.getInstance(this).getThemeColorPrimaryDarker();
                 getWindow().setNavigationBarColor(primaryDark);
@@ -136,7 +136,7 @@ public abstract class ThemeBaseActivity extends AppCompatActivity implements Kab
             final int primaryDark = PreferenceUtils.getInstance(this).getThemeColorPrimaryDarker();
             setStatusBarColor(primaryDark, false);
         } else {
-            if (Util.hasLollipopSDK()) {
+            if (Util.isAtLeastLollipop()) {
                 getWindow().setStatusBarColor(Util.resolveColor(this, android.R.attr.statusBarColor));
             } else {
                 SystemBarTintManager tintManager = new SystemBarTintManager(this);

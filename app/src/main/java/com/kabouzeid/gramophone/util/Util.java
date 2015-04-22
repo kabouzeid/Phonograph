@@ -178,11 +178,11 @@ public class Util {
         }
     }
 
-    public static boolean hasLollipopSDK() {
+    public static boolean isAtLeastLollipop() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     }
 
-    public static boolean hasKitKatSDK() {
+    public static boolean isAtLeastKitKat() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
     }
 

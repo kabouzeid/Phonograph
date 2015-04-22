@@ -139,13 +139,13 @@ public class MusicControllerActivity extends AbsFabActivity {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setUpBox(boolean boxEnabled) {
         if (boxEnabled) {
-            if (Util.hasLollipopSDK()) {
+            if (Util.isAtLeastLollipop()) {
                 mediaControllerContainer.setElevation(getResources().getDimensionPixelSize(R.dimen.cardview_default_elevation));
             }
             mediaControllerContainer.setBackgroundColor(
                     DialogUtils.resolveColor(this, R.attr.music_controller_container_color));
         } else {
-            if (Util.hasLollipopSDK() && !Util.isInPortraitMode(this)) {
+            if (Util.isAtLeastLollipop() && !Util.isInPortraitMode(this)) {
                 mediaControllerContainer.setElevation(getResources().getDimensionPixelSize(R.dimen.cardview_default_elevation));
                 mediaControllerContainer.setBackgroundColor(
                         DialogUtils.resolveColor(this, R.attr.music_controller_container_color));
@@ -358,7 +358,7 @@ public class MusicControllerActivity extends AbsFabActivity {
         } else {
             footer.setBackgroundColor(newColor);
         }
-        if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(this).coloredNavigationBarCurrentPlayingEnabled())
+        if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarCurrentPlayingEnabled())
             getWindow().setNavigationBarColor(newColor);
         lastFooterColor = newColor;
     }
