@@ -1,8 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity$PlaceholderFragment">
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity$PlaceholderFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -82,8 +82,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:background="?default_bar_color"
-                android:orientation="vertical"
                 android:elevation="@dimen/toolbar_elevation"
+                android:orientation="vertical"
                 tools:ignore="UnusedAttribute">
 
                 <LinearLayout
@@ -149,8 +149,8 @@
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="-4dp"
                     android:layout_marginEnd="-4dp"
+                    android:layout_marginRight="-4dp"
                     android:layout_toLeftOf="@+id/fab"
                     android:layout_toStartOf="@+id/fab"
                     android:background="?round_selector"
@@ -165,8 +165,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="-4dp"
                     android:layout_marginStart="-4dp"
-                    android:layout_toRightOf="@+id/fab"
                     android:layout_toEndOf="@+id/fab"
+                    android:layout_toRightOf="@+id/fab"
                     android:background="?round_selector"
                     android:padding="14dp"
                     android:scaleType="fitCenter"
@@ -190,11 +190,11 @@
                     android:id="@+id/shuffle_button"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="8dp"
                     android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
                     android:background="?round_selector"
                     android:padding="14dp"
                     android:scaleType="fitCenter"
@@ -220,6 +220,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/Toolbar"
+        android:layout_marginTop="@dimen/statusMargin"
         android:background="@android:color/transparent" />
 
 </FrameLayout>
