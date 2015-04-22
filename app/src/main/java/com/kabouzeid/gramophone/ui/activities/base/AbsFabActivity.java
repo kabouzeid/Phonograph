@@ -17,8 +17,8 @@ import com.kabouzeid.gramophone.dialogs.ColorChooserDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.misc.SmallOnGestureListener;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
-import com.kabouzeid.gramophone.ui.widget.PlayPauseDrawable;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.views.PlayPauseDrawable;
 import com.melnykov.fab.FloatingActionButton;
 import com.squareup.otto.Subscribe;
 

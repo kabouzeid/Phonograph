@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.ui.widget;
+package com.kabouzeid.gramophone.views;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

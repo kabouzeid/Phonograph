@@ -13,7 +13,7 @@
         android:paddingLeft="16dp"
         android:paddingStart="16dp">
 
-        <com.kabouzeid.gramophone.ui.widget.SquareImageView
+        <com.kabouzeid.gramophone.views.SquareImageView
             android:id="@+id/album_art"
             android:layout_width="40dp"
             android:layout_height="40dp"
