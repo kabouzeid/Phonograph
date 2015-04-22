@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -28,7 +29,6 @@ public class SearchActivity extends AbsBaseActivity {
     public static final String TAG = SearchActivity.class.getSimpleName();
     private RecyclerView recyclerView;
     private SearchView searchView;
-    private SearchAdapter searchAdapter;
 
     @SuppressLint("NewApi")
     @Override
@@ -39,7 +39,8 @@ public class SearchActivity extends AbsBaseActivity {
         setContentView(R.layout.activity_search);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        searchAdapter = new SearchAdapter(this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        SearchAdapter searchAdapter = new SearchAdapter(this);
         recyclerView.setAdapter(searchAdapter);
 
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
@@ -56,6 +57,7 @@ public class SearchActivity extends AbsBaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimary());
         setSupportActionBar(toolbar);
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
