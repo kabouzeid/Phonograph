@@ -9,14 +9,15 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.lastfm.album.LastFMAlbumImageUrlLoader;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.images.Artwork;
@@ -94,17 +95,22 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
         LastFMAlbumImageUrlLoader.loadAlbumImageUrl(this, albumTitleStr, albumArtistNameStr, new LastFMAlbumImageUrlLoader.AlbumImageUrlLoaderCallback() {
                     @Override
                     public void onAlbumImageUrlLoaded(String url) {
-                        Ion.with(AlbumTagEditorActivity.this)
+                        Glide.with(AlbumTagEditorActivity.this)
                                 .load(url)
-                                .withBitmap()
-                                .resize(500, 500)
-                                .centerCrop()
                                 .asBitmap()
-                                .setCallback(new FutureCallback<Bitmap>() {
+                                .centerCrop()
+                                .listener(new RequestListener<String, Bitmap>() {
                                     @Override
-                                    public void onCompleted(Exception e, Bitmap result) {
-                                        if (result != null) {
-                                            albumArtBitmap = result;
+                                    public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                                        Toast.makeText(AlbumTagEditorActivity.this,
+                                                R.string.failed_download_albumart, Toast.LENGTH_SHORT).show();
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                        if (resource != null) {
+                                            albumArtBitmap = resource;
                                             setImageBitmap(albumArtBitmap);
                                             deleteAlbumArt = false;
                                             dataChanged();
@@ -113,8 +119,10 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
                                             Toast.makeText(AlbumTagEditorActivity.this,
                                                     R.string.failed_download_albumart, Toast.LENGTH_SHORT).show();
                                         }
+                                        return false;
                                     }
-                                });
+                                })
+                                .into(500, 500);
                     }
 
                     @Override
@@ -183,24 +191,29 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
     @Override
     protected void loadImageFromFile(final Uri selectedFileUri) {
-        Ion.with(this)
-                .load(selectedFileUri.toString())
-                .withBitmap()
-                .resize(500, 500)
-                .centerCrop()
+        Glide.with(this)
+                .load(selectedFileUri)
                 .asBitmap()
-                .setCallback(new FutureCallback<Bitmap>() {
+                .centerCrop()
+                .listener(new RequestListener<Uri, Bitmap>() {
                     @Override
-                    public void onCompleted(Exception e, Bitmap result) {
-                        if (result != null) {
-                            albumArtBitmap = result;
+                    public boolean onException(Exception e, Uri model, Target<Bitmap> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Bitmap resource, Uri model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        if (resource != null) {
+                            albumArtBitmap = resource;
                             setImageBitmap(albumArtBitmap);
                             deleteAlbumArt = false;
                             dataChanged();
                             setResult(RESULT_OK);
                         }
+                        return false;
                     }
-                });
+                })
+                .into(500, 500);
     }
 
     @Override

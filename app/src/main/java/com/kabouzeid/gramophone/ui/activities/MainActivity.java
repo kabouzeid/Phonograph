@@ -2,7 +2,6 @@ package com.kabouzeid.gramophone.ui.activities;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,6 +27,7 @@ import android.widget.FrameLayout;
 
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.astuetz.PagerSlidingTabStrip;
+import com.bumptech.glide.Glide;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PagerAdapter;
 import com.kabouzeid.gramophone.dialogs.AboutDialog;
@@ -49,8 +49,6 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -204,22 +202,13 @@ public class MainActivity extends AbsFabActivity
         if (navigationDrawerFragment != null) {
             Song song = MusicPlayerRemote.getCurrentSong();
             if (song.id != -1) {
-                Ion.with(this)
-                        .load(MusicUtil.getAlbumArtUri(song.albumId).toString())
-                        .withBitmap()
-                        .smartSize(false)
-                        .asBitmap()
-                        .setCallback(new FutureCallback<Bitmap>() {
-                            @Override
-                            public void onCompleted(Exception e, Bitmap result) {
-                                if (result != null)
-                                    navigationDrawerFragment.getAlbumArtImageView().setImageBitmap(result);
-                                else
-                                    navigationDrawerFragment.getAlbumArtImageView().setImageResource(R.drawable.default_album_art);
-                            }
-                        });
                 navigationDrawerFragment.getSongTitle().setText(song.title);
                 navigationDrawerFragment.getSongArtist().setText(song.artistName);
+                Glide.with(this)
+                        .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
+                        .error(R.drawable.default_album_art)
+                        .placeholder(R.drawable.default_album_art)
+                        .into(navigationDrawerFragment.getAlbumArtImageView());
             }
         }
     }

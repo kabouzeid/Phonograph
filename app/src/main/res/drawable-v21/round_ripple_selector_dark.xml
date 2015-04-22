@@ -1,5 +1,5 @@
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="?android:colorControlHighlight">
+        android:color="?android:colorControlHighlight">
 
     <item android:drawable="@drawable/round_selector_dark" />
 

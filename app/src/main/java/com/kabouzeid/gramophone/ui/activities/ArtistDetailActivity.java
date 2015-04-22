@@ -24,6 +24,11 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.util.DialogUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
@@ -47,8 +52,6 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 import com.nineoldandroids.view.ViewHelper;
 import com.squareup.otto.Subscribe;
 
@@ -265,51 +268,50 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         LastFMArtistImageUrlLoader.loadArtistImageUrl(this, artist.name, forceDownload, new LastFMArtistImageUrlLoader.ArtistImageUrlLoaderCallback() {
             @Override
             public void onArtistImageUrlLoaded(final String url) {
-                artistImage.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Ion.with(ArtistDetailActivity.this)
-                                .load(url)
-                                .withBitmap()
-                                .smartSize(false)
-                                .asBitmap()
-                                .setCallback(new FutureCallback<Bitmap>() {
-                                    @Override
-                                    public void onCompleted(Exception e, Bitmap result) {
-                                        if (result != null) {
-                                            artistImage.setImageBitmap(result);
-                                            applyPalette(result);
-                                        } else {
-                                            artistImage.setImageResource(R.drawable.default_artist_image);
-                                            resetColors();
-                                        }
-                                    }
-                                });
-                    }
-                });
+                Glide.with(ArtistDetailActivity.this)
+                        .load(url)
+                        .error(R.drawable.default_artist_image)
+                        .listener(new RequestListener<String, GlideDrawable>() {
+                            @Override
+                            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                                applyPalette(null);
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                applyPalette(((GlideBitmapDrawable) resource).getBitmap());
+                                return false;
+                            }
+                        })
+                        .into(artistImage);
             }
         });
     }
 
     private void applyPalette(Bitmap bitmap) {
-        Palette.from(bitmap)
-                .generate(new Palette.PaletteAsyncListener() {
-                    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-                    @Override
-                    public void onGenerated(Palette palette) {
-                        final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
-                        if (vibrantSwatch != null) {
-                            toolbarColor = vibrantSwatch.getRgb();
-                            artistNameTv.setBackgroundColor(vibrantSwatch.getRgb());
-                            artistNameTv.setTextColor(vibrantSwatch.getTitleTextColor());
-                            if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(ArtistDetailActivity.this).coloredNavigationBarArtistEnabled())
-                                getWindow().setNavigationBarColor(vibrantSwatch.getRgb());
-                            notifyTaskColorChange(toolbarColor);
-                        } else {
-                            resetColors();
+        if (bitmap != null) {
+            Palette.from(bitmap)
+                    .generate(new Palette.PaletteAsyncListener() {
+                        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                        @Override
+                        public void onGenerated(Palette palette) {
+                            final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
+                            if (vibrantSwatch != null) {
+                                toolbarColor = vibrantSwatch.getRgb();
+                                artistNameTv.setBackgroundColor(vibrantSwatch.getRgb());
+                                artistNameTv.setTextColor(vibrantSwatch.getTitleTextColor());
+                                if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(ArtistDetailActivity.this).coloredNavigationBarArtistEnabled())
+                                    getWindow().setNavigationBarColor(vibrantSwatch.getRgb());
+                                notifyTaskColorChange(toolbarColor);
+                            } else {
+                                resetColors();
+                            }
                         }
-                    }
-                });
+                    });
+        } else {
+            resetColors();
+        }
     }
 
     @Override

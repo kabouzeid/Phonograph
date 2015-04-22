@@ -13,13 +13,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.App;
+import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.loader.SongLoader;
+import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -36,14 +37,8 @@ public class MusicUtil {
         return ContentUris.withAppendedId(sArtworkUri, album_id);
     }
 
-    public static boolean hasAlbumArt(final Context context, int album_id) {
-        try {
-            context.getContentResolver().openFileDescriptor(getAlbumArtUri(album_id), "r");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+    public static String getArtistInfoString(Context context, Artist artist) {
+        return artist.songCount + " " + context.getResources().getString(R.string.songs) + " | " + artist.albumCount + " " + context.getResources().getString(R.string.albums);
     }
 
     public static String getReadableDurationString(long songDurationMillis) {

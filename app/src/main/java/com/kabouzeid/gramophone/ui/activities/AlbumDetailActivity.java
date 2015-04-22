@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
@@ -17,6 +18,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.util.DialogUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
@@ -37,8 +43,6 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 import com.nineoldandroids.view.ViewHelper;
 import com.squareup.otto.Subscribe;
 
@@ -170,51 +174,54 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     }
 
     private void setUpAlbumArtAndApplyPalette() {
-        albumArtImageView.post(new Runnable() {
-            @Override
-            public void run() {
-                Ion.with(AlbumDetailActivity.this)
-                        .load(MusicUtil.getAlbumArtUri(album.id).toString())
-                        .withBitmap()
-                        .smartSize(false)
-                        .asBitmap()
-                        .setCallback(new FutureCallback<Bitmap>() {
-                            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-                            @Override
-                            public void onCompleted(Exception e, Bitmap result) {
-                                if (result != null) {
-                                    albumArtImageView.setImageBitmap(result);
-                                    applyPalette(result);
-                                } else {
-                                    albumArtImageView.setImageResource(R.drawable.default_album_art);
-                                    resetColors();
-                                }
-                                if (Util.isAtLeastLollipop()) startPostponedEnterTransition();
-                            }
-                        });
-            }
-        });
+        Glide.with(AlbumDetailActivity.this)
+                .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.id))
+                .error(R.drawable.default_album_art)
+                .listener(new RequestListener<Uri, GlideDrawable>() {
+                    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                    @Override
+                    public boolean onException(Exception e, Uri model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        applyPalette(null);
+                        if (Util.isAtLeastLollipop()) startPostponedEnterTransition();
+                        return false;
+                    }
+
+                    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, Uri model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        applyPalette(((GlideBitmapDrawable) resource).getBitmap());
+                        if (Util.isAtLeastLollipop()) startPostponedEnterTransition();
+                        // workaround for glide not working well with shared element, dont remove this redundant looking call!
+                        albumArtImageView.setImageDrawable(resource);
+                        return false;
+                    }
+                })
+                .into(albumArtImageView);
     }
 
     private void applyPalette(Bitmap bitmap) {
-        Palette.from(bitmap)
-                .generate(new Palette.PaletteAsyncListener() {
-                    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-                    @Override
-                    public void onGenerated(Palette palette) {
-                        final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
-                        if (vibrantSwatch != null) {
-                            toolbarColor = vibrantSwatch.getRgb();
-                            albumTitleView.setBackgroundColor(toolbarColor);
-                            albumTitleView.setTextColor(vibrantSwatch.getTitleTextColor());
-                            if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(AlbumDetailActivity.this).coloredNavigationBarAlbumEnabled())
-                                getWindow().setNavigationBarColor(toolbarColor);
-                            notifyTaskColorChange(toolbarColor);
-                        } else {
-                            resetColors();
+        if (bitmap != null) {
+            Palette.from(bitmap)
+                    .generate(new Palette.PaletteAsyncListener() {
+                        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                        @Override
+                        public void onGenerated(Palette palette) {
+                            final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
+                            if (vibrantSwatch != null) {
+                                toolbarColor = vibrantSwatch.getRgb();
+                                albumTitleView.setBackgroundColor(toolbarColor);
+                                albumTitleView.setTextColor(vibrantSwatch.getTitleTextColor());
+                                if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(AlbumDetailActivity.this).coloredNavigationBarAlbumEnabled())
+                                    getWindow().setNavigationBarColor(toolbarColor);
+                                notifyTaskColorChange(toolbarColor);
+                            } else {
+                                resetColors();
+                            }
                         }
-                    }
-                });
+                    });
+        } else {
+            resetColors();
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

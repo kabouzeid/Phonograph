@@ -24,8 +24,8 @@
 
     <ImageView
         android:id="@+id/album_art"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
+        android:layout_width="@dimen/notification_albumart_size"
+        android:layout_height="@dimen/notification_albumart_size"
         android:scaleType="centerCrop" />
 
     <ImageButton

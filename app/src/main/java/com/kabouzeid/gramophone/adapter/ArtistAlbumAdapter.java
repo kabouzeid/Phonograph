@@ -9,12 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.Request;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.koushikdutta.ion.Ion;
 
 import java.util.List;
 
@@ -45,16 +46,24 @@ public class ArtistAlbumAdapter extends RecyclerView.Adapter<ArtistAlbumAdapter.
     }
 
     @Override
+    public void onViewRecycled(ViewHolder holder) {
+        super.onViewRecycled(holder);
+        Object tag = holder.albumArt.getTag();
+        if (tag instanceof Request) {
+            ((Request) tag).clear();
+        }
+    }
+
+    @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Album album = dataSet.get(position);
 
-        Ion.with(activity)
-                .load(MusicUtil.getAlbumArtUri(album.id).toString())
-                .withBitmap()
-                .resize(holder.albumArt.getWidth(), holder.albumArt.getHeight())
-                .centerCrop()
-                .error(R.drawable.default_album_art)
-                .intoImageView(holder.albumArt);
+        holder.albumArt.setTag(Glide.with(activity)
+                        .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.id))
+                        .error(R.drawable.default_album_art)
+                        .into(holder.albumArt)
+                        .getRequest()
+        );
 
         holder.title.setText(album.title);
         holder.year.setText(String.valueOf(album.year));

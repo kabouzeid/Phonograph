@@ -12,17 +12,19 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MusicControllerActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.koushikdutta.async.future.Future;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
 public class PlayingNotificationHelper {
 
@@ -37,7 +39,8 @@ public class PlayingNotificationHelper {
     private RemoteViews notificationLayout;
     private RemoteViews notificationLayoutExpanded;
 
-    private Future albumArtTask;
+    private Request albumArtRequest;
+    private Song currentSong;
 
     public PlayingNotificationHelper(final MusicService service) {
         this.service = service;
@@ -46,6 +49,7 @@ public class PlayingNotificationHelper {
     }
 
     public void buildNotification(final Song song, final boolean isPlaying) {
+        currentSong = song;
         notificationLayout = new RemoteViews(service.getPackageName(),
                 R.layout.notification_playing);
         notificationLayoutExpanded = new RemoteViews(service.getPackageName(),
@@ -61,9 +65,9 @@ public class PlayingNotificationHelper {
                 .build();
         notification.bigContentView = notificationLayoutExpanded;
 
-        setUpCollapsedLayout(song);
-        setUpExpandedLayout(song);
-        loadAlbumArt(song);
+        setUpCollapsedLayout();
+        setUpExpandedLayout();
+        loadAlbumArt();
         setUpPlaybackActions(isPlaying);
         setUpExpandedPlaybackActions(isPlaying);
 
@@ -140,41 +144,55 @@ public class PlayingNotificationHelper {
         return null;
     }
 
-    private void setUpCollapsedLayout(final Song song) {
-        notificationLayout.setTextViewText(R.id.song_title, song.title);
-        notificationLayout.setTextViewText(R.id.song_artist, song.artistName);
+    private void setUpCollapsedLayout() {
+        if (currentSong != null) {
+            notificationLayout.setTextViewText(R.id.song_title, currentSong.title);
+            notificationLayout.setTextViewText(R.id.song_artist, currentSong.artistName);
+        }
     }
 
-    private void setUpExpandedLayout(final Song song) {
-        notificationLayoutExpanded.setTextViewText(R.id.song_title, song.title);
-        notificationLayoutExpanded.setTextViewText(R.id.song_artist, song.artistName);
-        notificationLayoutExpanded.setTextViewText(R.id.album_title, song.albumName);
+    private void setUpExpandedLayout() {
+        if (currentSong != null) {
+            notificationLayoutExpanded.setTextViewText(R.id.song_title, currentSong.title);
+            notificationLayoutExpanded.setTextViewText(R.id.song_artist, currentSong.artistName);
+            notificationLayoutExpanded.setTextViewText(R.id.album_title, currentSong.albumName);
+        }
     }
 
-    private void loadAlbumArt(final Song song) {
-        if (albumArtTask != null) albumArtTask.cancel();
-        albumArtTask = Ion.with(service)
-                .load(MusicUtil.getAlbumArtUri(song.albumId).toString())
-                .noCache()
-                .asBitmap()
-                .setCallback(new FutureCallback<Bitmap>() {
-                    @Override
-                    public void onCompleted(Exception e, Bitmap result) {
-                        if (result != null) setAlbumArt(result);
-                        else resetAlbumArt();
-                    }
-                });
-    }
+    private void loadAlbumArt() {
+        if (currentSong != null) {
+            if (albumArtRequest != null) albumArtRequest.clear();
+            final int notificationAlbumArtSize = service.getResources().getDimensionPixelSize(R.dimen.notification_albumart_size);
+            albumArtRequest = Glide.with(service)
+                    .loadFromMediaStore(MusicUtil.getAlbumArtUri(currentSong.albumId))
+                    .asBitmap()
+                    .skipMemoryCache(true)
+                    .listener(new RequestListener<Uri, Bitmap>() {
+                        @Override
+                        public boolean onException(Exception e, Uri model, Target<Bitmap> target, boolean isFirstResource) {
+                            setAlbumArt(null);
+                            return false;
+                        }
 
-    private void resetAlbumArt() {
-        notificationLayout.setImageViewResource(R.id.album_art, R.drawable.default_album_art);
-        notificationLayoutExpanded.setImageViewResource(R.id.album_art, R.drawable.default_album_art);
-        notificationManager.notify(NOTIFICATION_ID, notification);
+                        @Override
+                        public boolean onResourceReady(Bitmap resource, Uri model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                            setAlbumArt(resource);
+                            return false;
+                        }
+                    })
+                    .into(notificationAlbumArtSize, notificationAlbumArtSize)
+                    .getRequest();
+        }
     }
 
     private void setAlbumArt(Bitmap albumArt) {
-        notificationLayout.setImageViewBitmap(R.id.album_art, albumArt);
-        notificationLayoutExpanded.setImageViewBitmap(R.id.album_art, albumArt);
+        if (albumArt != null) {
+            notificationLayout.setImageViewBitmap(R.id.album_art, albumArt);
+            notificationLayoutExpanded.setImageViewBitmap(R.id.album_art, albumArt);
+        } else {
+            notificationLayout.setImageViewResource(R.id.album_art, R.drawable.default_album_art);
+            notificationLayoutExpanded.setImageViewResource(R.id.album_art, R.drawable.default_album_art);
+        }
         notificationManager.notify(NOTIFICATION_ID, notification);
     }
 

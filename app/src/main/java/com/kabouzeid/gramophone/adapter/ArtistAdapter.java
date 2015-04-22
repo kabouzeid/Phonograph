@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.adapter;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistThumbnailUrlLoader;
@@ -17,9 +17,8 @@ import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
+import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
@@ -51,25 +50,16 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
         final Artist artist = dataSet.get(position);
 
         holder.artistName.setText(artist.name);
-        holder.artistInfo.setText(artist.getSubTitle());
+        holder.artistInfo.setText(MusicUtil.getArtistInfoString(activity, artist));
         holder.artistImage.setImageResource(R.drawable.default_artist_image);
 
         LastFMArtistThumbnailUrlLoader.loadArtistThumbnailUrl(activity, artist.name, false, new LastFMArtistThumbnailUrlLoader.ArtistThumbnailUrlLoaderCallback() {
             @Override
             public void onArtistThumbnailUrlLoaded(final String url) {
-                Ion.with(activity)
+                Glide.with(activity)
                         .load(url)
-                        .asBitmap()
-                        .setCallback(new FutureCallback<Bitmap>() {
-                            @Override
-                            public void onCompleted(Exception e, Bitmap result) {
-                                if (result != null)
-                                    holder.artistImage.setImageBitmap(result);
-                                else {
-                                    holder.artistImage.setImageResource(R.drawable.default_artist_image);
-                                }
-                            }
-                        });
+                        .error(R.drawable.default_artist_image)
+                        .into(holder.artistImage);
             }
         });
     }

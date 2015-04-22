@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.Request;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -20,7 +22,6 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
-import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,10 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
     @Override
     public void onViewRecycled(ViewHolder holder) {
         super.onViewRecycled(holder);
+        Object tag = holder.albumArt.getTag();
+        if (tag instanceof Request) {
+            ((Request) tag).clear();
+        }
     }
 
     @Override
@@ -56,15 +61,12 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
 
         holder.songTitle.setText(song.title);
         holder.songInfo.setText(song.artistName);
-
         holder.albumArt.setTag(
-                Ion.with(activity)
-                        .load(MusicUtil.getAlbumArtUri(song.albumId).toString())
-                        .withBitmap()
-                        .resize(holder.albumArt.getWidth(), holder.albumArt.getHeight())
-                        .centerCrop()
+                Glide.with(activity)
+                        .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
                         .error(R.drawable.default_album_art)
-                        .intoImageView(holder.albumArt)
+                        .into(holder.albumArt)
+                        .getRequest()
         );
     }
 

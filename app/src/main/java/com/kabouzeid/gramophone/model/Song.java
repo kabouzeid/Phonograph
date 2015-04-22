@@ -1,14 +1,11 @@
 package com.kabouzeid.gramophone.model;
 
-import android.content.Context;
-import android.widget.ImageView;
-
 import java.io.Serializable;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class Song implements Serializable, SearchEntry {
+public class Song implements Serializable {
 
     public int id;
     public final int albumId;
@@ -40,20 +37,5 @@ public class Song implements Serializable, SearchEntry {
         this.albumName = "";
         this.duration = -1;
         this.trackNumber = -1;
-    }
-
-    @Override
-    public String getTitle() {
-        return title;
-    }
-
-    @Override
-    public String getSubTitle() {
-        return artistName;
-    }
-
-    @Override
-    public void loadImage(Context context, ImageView imageView) {
-
     }
 }

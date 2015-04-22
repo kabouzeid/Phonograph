@@ -7,21 +7,23 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.widget.RemoteViews;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MusicControllerActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.koushikdutta.async.future.Future;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
 public class MusicPlayerWidget extends AppWidgetProvider {
     private static RemoteViews widgetLayout;
-    private static Future albumArtTask;
+    private static Request albumArtRequest;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -59,27 +61,35 @@ public class MusicPlayerWidget extends AppWidgetProvider {
     }
 
     private static void loadAlbumArt(final Context context, final Song song) {
-        if (albumArtTask != null) albumArtTask.cancel();
-        albumArtTask = Ion.with(context)
-                .load(MusicUtil.getAlbumArtUri(song.albumId).toString())
-                .noCache()
+        if (albumArtRequest != null) albumArtRequest.clear();
+        final int notificationAlbumArtSize = context.getResources().getDimensionPixelSize(R.dimen.app_widget_small_artwork_height);
+        albumArtRequest = Glide.with(context)
+                .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
                 .asBitmap()
-                .setCallback(new FutureCallback<Bitmap>() {
+                .skipMemoryCache(true)
+                .listener(new RequestListener<Uri, Bitmap>() {
                     @Override
-                    public void onCompleted(Exception e, Bitmap result) {
-                        if (result != null) setAlbumArt(context, result);
-                        else resetAlbumArt(context);
+                    public boolean onException(Exception e, Uri model, Target<Bitmap> target, boolean isFirstResource) {
+                        setAlbumArt(context, null);
+                        return false;
                     }
-                });
-    }
 
-    private static void resetAlbumArt(final Context context) {
-        widgetLayout.setImageViewResource(R.id.album_art, R.drawable.default_album_art);
-        updateWidgets(context);
+                    @Override
+                    public boolean onResourceReady(Bitmap resource, Uri model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        setAlbumArt(context, resource);
+                        return false;
+                    }
+                })
+                .into(notificationAlbumArtSize, notificationAlbumArtSize)
+                .getRequest();
     }
 
     private static void setAlbumArt(final Context context, final Bitmap albumArt) {
-        widgetLayout.setImageViewBitmap(R.id.album_art, albumArt);
+        if (albumArt != null) {
+            widgetLayout.setImageViewBitmap(R.id.album_art, albumArt);
+        } else {
+            widgetLayout.setImageViewResource(R.id.album_art, R.drawable.default_album_art);
+        }
         updateWidgets(context);
     }
 

@@ -13,6 +13,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.ThemeSingleton;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.Request;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
@@ -23,7 +25,6 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.koushikdutta.ion.Ion;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -56,6 +57,15 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     }
 
     @Override
+    public void onViewRecycled(ViewHolder holder) {
+        super.onViewRecycled(holder);
+        Object tag = holder.albumArt.getTag();
+        if (tag instanceof Request) {
+            ((Request) tag).clear();
+        }
+    }
+
+    @Override
     public int getItemViewType(int position) {
         return position == 0 ? SHUFFLE_BUTTON : SONG;
     }
@@ -67,14 +77,13 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
             holder.songTitle.setText(song.title);
             holder.songInfo.setText(song.artistName);
-
-            Ion.with(activity)
-                    .load(MusicUtil.getAlbumArtUri(song.albumId).toString())
-                    .withBitmap()
-                    .resize(holder.albumArt.getWidth(), holder.albumArt.getHeight())
-                    .centerCrop()
-                    .error(R.drawable.default_album_art)
-                    .intoImageView(holder.albumArt);
+            holder.albumArt.setTag(
+                    Glide.with(activity)
+                            .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
+                            .error(R.drawable.default_album_art)
+                            .into(holder.albumArt)
+                            .getRequest()
+            );
         } else {
             holder.songTitle.setText(activity.getResources().getString(R.string.shuffle_all).toUpperCase());
             holder.songTitle.setTextColor(ThemeSingleton.get().positiveColor);

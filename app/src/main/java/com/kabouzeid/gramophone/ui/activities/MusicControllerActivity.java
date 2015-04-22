@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
@@ -22,6 +23,11 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.afollestad.materialdialogs.util.DialogUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
@@ -41,8 +47,6 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.squareup.otto.Subscribe;
 
@@ -56,7 +60,7 @@ public class MusicControllerActivity extends AbsFabActivity {
 
     private Song song;
     private ImageView albumArt;
-    private ImageView artistArt;
+    private ImageView artistImage;
     private TextView songTitle;
     private TextView songArtist;
     private TextView currentSongProgress;
@@ -118,7 +122,7 @@ public class MusicControllerActivity extends AbsFabActivity {
         repeatButton = (ImageButton) findViewById(R.id.repeat_button);
         shuffleButton = (ImageButton) findViewById(R.id.shuffle_button);
         albumArt = (ImageView) findViewById(R.id.album_art);
-        artistArt = (ImageView) findViewById(R.id.artist_image);
+        artistImage = (ImageView) findViewById(R.id.artist_image);
         songTitle = (TextView) findViewById(R.id.song_title);
         songArtist = (TextView) findViewById(R.id.song_artist);
         currentSongProgress = (TextView) findViewById(R.id.song_current_progress);
@@ -294,48 +298,47 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     private void setUpAlbumArtAndApplyPalette() {
-        albumArt.post(new Runnable() {
-            @Override
-            public void run() {
-                Ion.with(MusicControllerActivity.this)
-                        .load(MusicUtil.getAlbumArtUri(song.albumId).toString())
-                        .withBitmap()
-                        .smartSize(false)
-                        .asBitmap()
-                        .setCallback(new FutureCallback<Bitmap>() {
-                            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-                            @Override
-                            public void onCompleted(Exception e, Bitmap result) {
-                                if (result != null) {
-                                    albumArt.setImageBitmap(result);
-                                    applyPalette(result);
-                                } else {
-                                    albumArt.setImageResource(R.drawable.default_album_art);
-                                    resetColors();
-                                }
-                            }
-                        });
-            }
-        });
+        Glide.with(this)
+                .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
+                .error(R.drawable.default_album_art)
+                .placeholder(R.drawable.default_album_art)
+                .listener(new RequestListener<Uri, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, Uri model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        applyPalette(null);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, Uri model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        applyPalette(((GlideBitmapDrawable) resource).getBitmap());
+                        return false;
+                    }
+                })
+                .into(albumArt);
     }
 
     private void applyPalette(Bitmap bitmap) {
-        Palette.from(bitmap)
-                .generate(new Palette.PaletteAsyncListener() {
-                    @Override
-                    public void onGenerated(Palette palette) {
-                        final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
-                        if (vibrantSwatch != null) {
-                            final int swatchRgb = vibrantSwatch.getRgb();
-                            animateColorChange(swatchRgb);
-                            songTitle.setTextColor(vibrantSwatch.getTitleTextColor());
-                            songArtist.setTextColor(vibrantSwatch.getBodyTextColor());
-                            notifyTaskColorChange(swatchRgb);
-                        } else {
-                            resetColors();
+        if (bitmap != null) {
+            Palette.from(bitmap)
+                    .generate(new Palette.PaletteAsyncListener() {
+                        @Override
+                        public void onGenerated(Palette palette) {
+                            final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
+                            if (vibrantSwatch != null) {
+                                final int swatchRgb = vibrantSwatch.getRgb();
+                                animateColorChange(swatchRgb);
+                                songTitle.setTextColor(vibrantSwatch.getTitleTextColor());
+                                songArtist.setTextColor(vibrantSwatch.getBodyTextColor());
+                                notifyTaskColorChange(swatchRgb);
+                            } else {
+                                resetColors();
+                            }
                         }
-                    }
-                });
+                    });
+        } else {
+            resetColors();
+        }
     }
 
     private void resetColors() {
@@ -364,14 +367,15 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     private void setUpArtistArt() {
-        if (artistArt != null) {
-            artistArt.setImageResource(R.drawable.default_artist_image);
+        if (artistImage != null) {
+            artistImage.setImageResource(R.drawable.default_artist_image);
             LastFMArtistImageUrlLoader.loadArtistImageUrl(this, song.artistName, false, new LastFMArtistImageUrlLoader.ArtistImageUrlLoaderCallback() {
                 @Override
                 public void onArtistImageUrlLoaded(String url) {
-                    Ion.with(artistArt)
+                    Glide.with(MusicControllerActivity.this)
+                            .load(url)
                             .error(R.drawable.default_artist_image)
-                            .load(url);
+                            .into(artistImage);
                 }
             });
         }

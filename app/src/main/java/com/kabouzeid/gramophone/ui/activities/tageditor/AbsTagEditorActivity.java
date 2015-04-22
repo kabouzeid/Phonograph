@@ -32,7 +32,6 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.koushikdutta.ion.Ion;
 import com.melnykov.fab.FloatingActionButton;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
@@ -378,11 +377,9 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                 }
                 if (deleteArtwork) {
                     MusicUtil.deleteAlbumArt(AbsTagEditorActivity.this, getId());
-                    Ion.getDefault(AbsTagEditorActivity.this).getBitmapCache().clear();
-                    Ion.getDefault(AbsTagEditorActivity.this).getCache().clear();
+                    //Glide.get(AbsTagEditorActivity.this).clearMemory();
                 } else if (artwork != null) {
-                    Ion.getDefault(AbsTagEditorActivity.this).getBitmapCache().clear();
-                    Ion.getDefault(AbsTagEditorActivity.this).getCache().clear();
+                    //Glide.get(AbsTagEditorActivity.this).clearMemory();
                 }
                 runOnUiThread(new Runnable() {
                     @Override

@@ -11,13 +11,13 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.koushikdutta.ion.Ion;
 
 import java.util.List;
 
@@ -47,13 +47,10 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> {
         songTitle.setText(song.title);
         songInfo.setText(song.albumName);
 
-        Ion.with(activity)
-                .load(MusicUtil.getAlbumArtUri(song.albumId).toString())
-                .withBitmap()
-                .resize(albumArt.getWidth(), albumArt.getHeight())
-                .centerCrop()
+        Glide.with(activity)
+                .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
                 .error(R.drawable.default_album_art)
-                .intoImageView(albumArt);
+                .into(albumArt);
 
         final ImageView overflowButton = (ImageView) convertView.findViewById(R.id.menu);
         overflowButton.setOnClickListener(new View.OnClickListener() {

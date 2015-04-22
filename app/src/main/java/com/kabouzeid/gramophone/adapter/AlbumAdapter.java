@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.adapter;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v4.util.Pair;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.util.DialogUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
@@ -23,11 +30,6 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.koushikdutta.async.future.Future;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.ImageViewBitmapInfo;
-import com.koushikdutta.ion.Ion;
-import com.koushikdutta.ion.bitmap.BitmapInfo;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
@@ -51,9 +53,9 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
     @Override
     public void onViewRecycled(ViewHolder holder) {
         super.onViewRecycled(holder);
-        Object tag = holder.image.getTag();
-        if (tag instanceof Future) {
-            ((Future) tag).cancel();
+        Object tag = holder.albumArt.getTag();
+        if (tag instanceof Request) {
+            ((Request) tag).clear();
         }
     }
 
@@ -63,35 +65,30 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
 
         resetColors(holder.title, holder.artist, holder.footer);
 
+
         holder.title.setText(album.title);
         holder.artist.setText(album.artistName);
-        holder.image.setTag(
-                Ion.with(activity)
-                        .load(MusicUtil.getAlbumArtUri(album.id).toString())
-                        .withBitmap()
-                        .resize(holder.image.getWidth(), holder.image.getHeight())
-                        .centerCrop()
-                        .intoImageView(holder.image)
-                        .withBitmapInfo()
-                        .setCallback(new FutureCallback<ImageViewBitmapInfo>() {
+        holder.albumArt.setTag(
+                Glide.with(activity)
+                        .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.id))
+                        .error(R.drawable.default_album_art)
+                        .listener(new RequestListener<Uri, GlideDrawable>() {
                             @Override
-                            public void onCompleted(Exception e, ImageViewBitmapInfo result) {
-                                if (result != null) {
-                                    BitmapInfo info = result.getBitmapInfo();
-                                    if (info != null) {
-                                        Bitmap bitmap = info.bitmap;
-                                        if (bitmap != null) {
-                                            if (usePalette)
-                                                applyPalette(bitmap, holder.title, holder.artist, holder.footer);
-                                            return;
-                                        }
-                                    }
-                                }
-                                holder.image.setImageResource(R.drawable.default_album_art);
+                            public boolean onException(Exception e, Uri model, Target<GlideDrawable> target, boolean isFirstResource) {
                                 if (usePalette)
-                                    paletteBlackAndWhite(holder.title, holder.artist, holder.footer);
+                                    applyPalette(null, holder.title, holder.artist, holder.footer);
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(GlideDrawable resource, Uri model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                if (usePalette)
+                                    applyPalette(((GlideBitmapDrawable) resource).getBitmap(), holder.title, holder.artist, holder.footer);
+                                return false;
                             }
                         })
+                        .into(holder.albumArt)
+                        .getRequest()
         );
     }
 
@@ -101,14 +98,14 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        final ImageView image;
+        final ImageView albumArt;
         final TextView title;
         final TextView artist;
         final View footer;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            image = (ImageView) itemView.findViewById(R.id.album_art);
+            albumArt = (ImageView) itemView.findViewById(R.id.album_art);
             title = (TextView) itemView.findViewById(R.id.album_title);
             artist = (TextView) itemView.findViewById(R.id.album_interpret);
             footer = itemView.findViewById(R.id.footer);
@@ -118,7 +115,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
         @Override
         public void onClick(View v) {
             Pair[] albumPairs = new Pair[]{
-                    Pair.create(image,
+                    Pair.create(albumArt,
                             activity.getResources().getString(R.string.transition_album_cover)
                     )};
             if (activity instanceof AbsFabActivity)
@@ -138,20 +135,24 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
     }
 
     private void applyPalette(Bitmap bitmap, final TextView title, final TextView artist, final View footer) {
-        Palette.from(bitmap)
-                .generate(new Palette.PaletteAsyncListener() {
-                    @Override
-                    public void onGenerated(Palette palette) {
-                        final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
-                        if (vibrantSwatch != null) {
-                            title.setTextColor(vibrantSwatch.getTitleTextColor());
-                            artist.setTextColor(vibrantSwatch.getTitleTextColor());
-                            ViewUtil.animateViewColor(footer, DialogUtils.resolveColor(activity, R.attr.default_bar_color), vibrantSwatch.getRgb());
-                        } else {
-                            paletteBlackAndWhite(title, artist, footer);
+        if (bitmap != null) {
+            Palette.from(bitmap)
+                    .generate(new Palette.PaletteAsyncListener() {
+                        @Override
+                        public void onGenerated(Palette palette) {
+                            final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
+                            if (vibrantSwatch != null) {
+                                title.setTextColor(vibrantSwatch.getTitleTextColor());
+                                artist.setTextColor(vibrantSwatch.getTitleTextColor());
+                                ViewUtil.animateViewColor(footer, DialogUtils.resolveColor(activity, R.attr.default_bar_color), vibrantSwatch.getRgb());
+                            } else {
+                                paletteBlackAndWhite(title, artist, footer);
+                            }
                         }
-                    }
-                });
+                    });
+        } else {
+            paletteBlackAndWhite(title, artist, footer);
+        }
     }
 
     private void paletteBlackAndWhite(final TextView title, final TextView artist, final View footer) {

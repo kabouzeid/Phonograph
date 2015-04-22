@@ -1,16 +1,9 @@
 package com.kabouzeid.gramophone.model;
 
-import android.content.Context;
-import android.widget.ImageView;
-
-import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistThumbnailUrlLoader;
-import com.koushikdutta.ion.Ion;
-
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class Artist implements SearchEntry {
+public class Artist {
     public final int id;
     public final String name;
     public final int albumCount;
@@ -28,37 +21,5 @@ public class Artist implements SearchEntry {
         name = "";
         songCount = -1;
         albumCount = -1;
-    }
-
-    @Override
-    public String getTitle() {
-        return name;
-    }
-
-    @Override
-    public String getSubTitle() {
-        return songCount + " Songs | " + albumCount + " Albums";
-    }
-
-    @Override
-    public void loadImage(final Context context, final ImageView imageView) {
-        imageView.setImageResource(R.drawable.default_artist_image);
-        LastFMArtistThumbnailUrlLoader.loadArtistThumbnailUrl(context, name, false, new LastFMArtistThumbnailUrlLoader.ArtistThumbnailUrlLoaderCallback() {
-            @Override
-            public void onArtistThumbnailUrlLoaded(final String url) {
-                imageView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Ion.with(context)
-                                .load(url)
-                                .withBitmap()
-                                .resize(imageView.getWidth(), imageView.getHeight())
-                                .centerCrop()
-                                .error(R.drawable.default_artist_image)
-                                .intoImageView(imageView);
-                    }
-                });
-            }
-        });
     }
 }
