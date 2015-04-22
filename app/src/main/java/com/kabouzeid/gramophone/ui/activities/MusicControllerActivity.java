@@ -320,21 +320,22 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     private void applyPalette(Bitmap bitmap) {
-        Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
-            @Override
-            public void onGenerated(Palette palette) {
-                Palette.Swatch swatch = palette.getVibrantSwatch();
-                if (swatch != null) {
-                    final int swatchRgb = swatch.getRgb();
-                    animateColorChange(swatchRgb);
-                    songTitle.setTextColor(swatch.getTitleTextColor());
-                    songArtist.setTextColor(swatch.getBodyTextColor());
-                    notifyTaskColorChange(swatchRgb);
-                } else {
-                    resetColors();
-                }
-            }
-        });
+        Palette.from(bitmap)
+                .generate(new Palette.PaletteAsyncListener() {
+                    @Override
+                    public void onGenerated(Palette palette) {
+                        final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
+                        if (vibrantSwatch != null) {
+                            final int swatchRgb = vibrantSwatch.getRgb();
+                            animateColorChange(swatchRgb);
+                            songTitle.setTextColor(vibrantSwatch.getTitleTextColor());
+                            songArtist.setTextColor(vibrantSwatch.getBodyTextColor());
+                            notifyTaskColorChange(swatchRgb);
+                        } else {
+                            resetColors();
+                        }
+                    }
+                });
     }
 
     private void resetColors() {

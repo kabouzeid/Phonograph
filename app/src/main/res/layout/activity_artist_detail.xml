@@ -1,7 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/artist_image"
@@ -38,6 +38,7 @@
             android:layout_height="@dimen/title_view_height"
             android:height="@dimen/title_view_height"
             android:background="?default_bar_color"
+            android:clickable="true"
             android:elevation="@dimen/toolbar_elevation"
             android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"

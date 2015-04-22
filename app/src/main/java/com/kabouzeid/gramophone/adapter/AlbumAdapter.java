@@ -138,19 +138,20 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
     }
 
     private void applyPalette(Bitmap bitmap, final TextView title, final TextView artist, final View footer) {
-        Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
-            @Override
-            public void onGenerated(Palette palette) {
-                final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
-                if (vibrantSwatch != null) {
-                    title.setTextColor(vibrantSwatch.getTitleTextColor());
-                    artist.setTextColor(vibrantSwatch.getTitleTextColor());
-                    ViewUtil.animateViewColor(footer, DialogUtils.resolveColor(activity, R.attr.default_bar_color), vibrantSwatch.getRgb());
-                } else {
-                    paletteBlackAndWhite(title, artist, footer);
-                }
-            }
-        });
+        Palette.from(bitmap)
+                .generate(new Palette.PaletteAsyncListener() {
+                    @Override
+                    public void onGenerated(Palette palette) {
+                        final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
+                        if (vibrantSwatch != null) {
+                            title.setTextColor(vibrantSwatch.getTitleTextColor());
+                            artist.setTextColor(vibrantSwatch.getTitleTextColor());
+                            ViewUtil.animateViewColor(footer, DialogUtils.resolveColor(activity, R.attr.default_bar_color), vibrantSwatch.getRgb());
+                        } else {
+                            paletteBlackAndWhite(title, artist, footer);
+                        }
+                    }
+                });
     }
 
     private void paletteBlackAndWhite(final TextView title, final TextView artist, final View footer) {

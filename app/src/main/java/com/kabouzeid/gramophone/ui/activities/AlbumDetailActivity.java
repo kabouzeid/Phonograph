@@ -197,23 +197,24 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     }
 
     private void applyPalette(Bitmap bitmap) {
-        Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
-            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void onGenerated(Palette palette) {
-                Palette.Swatch swatch = palette.getVibrantSwatch();
-                if (swatch != null) {
-                    toolbarColor = swatch.getRgb();
-                    albumTitleView.setBackgroundColor(toolbarColor);
-                    albumTitleView.setTextColor(swatch.getTitleTextColor());
-                    if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(AlbumDetailActivity.this).coloredNavigationBarAlbumEnabled())
-                        getWindow().setNavigationBarColor(toolbarColor);
-                    notifyTaskColorChange(toolbarColor);
-                } else {
-                    resetColors();
-                }
-            }
-        });
+        Palette.from(bitmap)
+                .generate(new Palette.PaletteAsyncListener() {
+                    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                    @Override
+                    public void onGenerated(Palette palette) {
+                        final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
+                        if (vibrantSwatch != null) {
+                            toolbarColor = vibrantSwatch.getRgb();
+                            albumTitleView.setBackgroundColor(toolbarColor);
+                            albumTitleView.setTextColor(vibrantSwatch.getTitleTextColor());
+                            if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(AlbumDetailActivity.this).coloredNavigationBarAlbumEnabled())
+                                getWindow().setNavigationBarColor(toolbarColor);
+                            notifyTaskColorChange(toolbarColor);
+                        } else {
+                            resetColors();
+                        }
+                    }
+                });
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

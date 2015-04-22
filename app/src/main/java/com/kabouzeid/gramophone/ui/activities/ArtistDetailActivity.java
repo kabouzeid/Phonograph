@@ -292,23 +292,24 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     }
 
     private void applyPalette(Bitmap bitmap) {
-        Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
-            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void onGenerated(Palette palette) {
-                Palette.Swatch swatch = palette.getVibrantSwatch();
-                if (swatch != null) {
-                    toolbarColor = swatch.getRgb();
-                    artistNameTv.setBackgroundColor(swatch.getRgb());
-                    artistNameTv.setTextColor(swatch.getTitleTextColor());
-                    if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(ArtistDetailActivity.this).coloredNavigationBarArtistEnabled())
-                        getWindow().setNavigationBarColor(swatch.getRgb());
-                    notifyTaskColorChange(toolbarColor);
-                } else {
-                    resetColors();
-                }
-            }
-        });
+        Palette.from(bitmap)
+                .generate(new Palette.PaletteAsyncListener() {
+                    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                    @Override
+                    public void onGenerated(Palette palette) {
+                        final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
+                        if (vibrantSwatch != null) {
+                            toolbarColor = vibrantSwatch.getRgb();
+                            artistNameTv.setBackgroundColor(vibrantSwatch.getRgb());
+                            artistNameTv.setTextColor(vibrantSwatch.getTitleTextColor());
+                            if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(ArtistDetailActivity.this).coloredNavigationBarArtistEnabled())
+                                getWindow().setNavigationBarColor(vibrantSwatch.getRgb());
+                            notifyTaskColorChange(toolbarColor);
+                        } else {
+                            resetColors();
+                        }
+                    }
+                });
     }
 
     @Override

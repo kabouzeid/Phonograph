@@ -132,7 +132,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     }
 
     private void setUpViews() {
-        restoreStandardColors();
+        resetColors();
         setUpScrollView();
         setUpFab();
         setUpImageView();
@@ -208,7 +208,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     protected abstract void save();
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void restoreStandardColors() {
+    private void resetColors() {
         final int primaryColor = PreferenceUtils.getInstance(this).getThemeColorPrimary();
         paletteColorPrimary = primaryColor;
         observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
@@ -293,27 +293,31 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         if (bitmap != null) {
             image.setImageBitmap(bitmap);
             applyPalette(bitmap);
+        } else {
+            resetColors();
         }
     }
 
     private void applyPalette(final Bitmap bitmap) {
-        if (bitmap != null) {
-            Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
-                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-                @Override
-                public void onGenerated(Palette palette) {
-                    final int vibrantColor = palette.getVibrantColor(DialogUtils.resolveColor(AbsTagEditorActivity.this, R.attr.default_bar_color));
-                    paletteColorPrimary = vibrantColor;
-                    observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
-                    setStatusBarColor(ColorChooserDialog.shiftColorDown(vibrantColor), false);
-                    if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(AbsTagEditorActivity.this).coloredNavigationBarTagEditorEnabled())
-                        getWindow().setNavigationBarColor(vibrantColor);
-                    notifyTaskColorChange(vibrantColor);
-                }
-            });
-        } else {
-            restoreStandardColors();
-        }
+        Palette.from(bitmap)
+                .generate(new Palette.PaletteAsyncListener() {
+                    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                    @Override
+                    public void onGenerated(Palette palette) {
+                        final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
+                        if (vibrantSwatch != null) {
+                            final int vibrantColor = palette.getVibrantColor(DialogUtils.resolveColor(AbsTagEditorActivity.this, R.attr.default_bar_color));
+                            paletteColorPrimary = vibrantColor;
+                            observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
+                            setStatusBarColor(ColorChooserDialog.shiftColorDown(vibrantColor), false);
+                            if (Util.hasLollipopSDK() && PreferenceUtils.getInstance(AbsTagEditorActivity.this).coloredNavigationBarTagEditorEnabled())
+                                getWindow().setNavigationBarColor(vibrantColor);
+                            notifyTaskColorChange(vibrantColor);
+                        } else {
+                            resetColors();
+                        }
+                    }
+                });
     }
 
     @Override
