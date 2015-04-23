@@ -1,6 +1,9 @@
 package com.kabouzeid.gramophone.model;
 
 public class PlaylistSong extends Song {
+
+    private static final long serialVersionUID = 1098600801627571043L;
+
     public final int playlistId;
     public int idInPlayList;
 
