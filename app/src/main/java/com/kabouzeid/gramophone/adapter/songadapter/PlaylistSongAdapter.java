@@ -12,8 +12,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.Request;
+import com.bumptech.glide.signature.StringSignature;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -65,7 +65,7 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
         holder.albumArt.setTag(
                 Glide.with(activity)
                         .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .signature(new StringSignature(String.valueOf(song.dateModified)))
                         .error(R.drawable.default_album_art)
                         .placeholder(R.drawable.default_album_art)
                         .into(holder.albumArt)

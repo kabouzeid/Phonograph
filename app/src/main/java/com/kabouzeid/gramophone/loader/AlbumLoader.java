@@ -27,8 +27,9 @@ public class AlbumLoader {
                 final int artistId = cursor.getInt(3);
                 final int songCount = cursor.getInt(4);
                 final int year = cursor.getInt(5);
+                final String albumArtPath = cursor.getString(6);
 
-                final Album album = new Album(id, albumName, artist, artistId, songCount, year);
+                final Album album = new Album(id, albumName, artist, artistId, songCount, year, albumArtPath);
                 albums.add(album);
             } while (cursor.moveToNext());
         }
@@ -56,7 +57,9 @@ public class AlbumLoader {
                         /* 4 */
                         MediaStore.Audio.AlbumColumns.NUMBER_OF_SONGS,
                         /* 5 */
-                        MediaStore.Audio.AlbumColumns.FIRST_YEAR
+                        MediaStore.Audio.AlbumColumns.FIRST_YEAR,
+                        /* 6 */
+                        MediaStore.Audio.AlbumColumns.ALBUM_ART
                 }, selection, values, PreferenceUtils.getInstance(context).getAlbumSortOrder());
     }
 
@@ -70,8 +73,9 @@ public class AlbumLoader {
             final int artistId = cursor.getInt(3);
             final int songCount = cursor.getInt(4);
             final int year = cursor.getInt(5);
+            final String albumArtPath = cursor.getString(6);
 
-            album = new Album(id, albumName, artist, artistId, songCount, year);
+            album = new Album(id, albumName, artist, artistId, songCount, year, albumArtPath);
         }
 
         if (cursor != null) {
@@ -91,8 +95,9 @@ public class AlbumLoader {
                 final int artistId = cursor.getInt(3);
                 final int songCount = cursor.getInt(4);
                 final int year = cursor.getInt(5);
+                final String albumArtPath = cursor.getString(6);
 
-                final Album album = new Album(id, albumName, artist, artistId, songCount, year);
+                final Album album = new Album(id, albumName, artist, artistId, songCount, year, albumArtPath);
                 albums.add(album);
             } while (cursor.moveToNext());
         }

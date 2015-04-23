@@ -26,8 +26,9 @@ public class ArtistAlbumLoader {
                 final String artist = cursor.getString(2);
                 final int songCount = cursor.getInt(3);
                 final int year = cursor.getInt(4);
+                final String albumArtPath = cursor.getString(5);
 
-                final Album album = new Album(id, albumName, artist, artistId, songCount, year);
+                final Album album = new Album(id, albumName, artist, artistId, songCount, year, albumArtPath);
                 albums.add(album);
             } while (cursor.moveToNext());
         }
@@ -49,7 +50,9 @@ public class ArtistAlbumLoader {
                         /* 3 */
                         MediaStore.Audio.AlbumColumns.NUMBER_OF_SONGS,
                         /* 4 */
-                        MediaStore.Audio.AlbumColumns.FIRST_YEAR
+                        MediaStore.Audio.AlbumColumns.FIRST_YEAR,
+                        /* 5 */
+                        MediaStore.Audio.AlbumColumns.ALBUM_ART
                 }, null, null, PreferenceUtils.getInstance(context).getArtistAlbumSortOrder());
     }
 }
