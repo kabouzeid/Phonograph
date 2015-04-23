@@ -20,6 +20,7 @@ import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.util.DialogUtils;
+import com.bumptech.glide.Glide;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
@@ -375,16 +376,18 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                         Log.e(TAG, "Error while writing audio file.", e);
                     }
                 }
-                if (deleteArtwork) {
-                    MusicUtil.deleteAlbumArt(AbsTagEditorActivity.this, getId());
-                    //Glide.get(AbsTagEditorActivity.this).clearMemory();
-                } else if (artwork != null) {
-                    //Glide.get(AbsTagEditorActivity.this).clearMemory();
-                }
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         progressDialog.setContent(getString(R.string.rescanning_media));
+                        if (deleteArtwork) {
+                            MusicUtil.deleteAlbumArt(AbsTagEditorActivity.this, getId());
+                            Glide.get(AbsTagEditorActivity.this).clearMemory();
+                            Glide.get(AbsTagEditorActivity.this).getBitmapPool().clearMemory();
+                        } else if (artwork != null) {
+                            Glide.get(AbsTagEditorActivity.this).clearMemory();
+                            Glide.get(AbsTagEditorActivity.this).getBitmapPool().clearMemory();
+                        }
                     }
                 });
                 rescanMediaAndQuitOnFinish(new OnScannedAllListener() {
