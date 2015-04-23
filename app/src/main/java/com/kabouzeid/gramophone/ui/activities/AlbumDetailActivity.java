@@ -24,6 +24,7 @@ import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.signature.StringSignature;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
@@ -178,6 +179,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         Glide.with(AlbumDetailActivity.this)
                 .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.id))
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .signature(new StringSignature(album.albumArtPath))
                 .error(R.drawable.default_album_art)
                 .listener(new RequestListener<Uri, GlideDrawable>() {
                     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

@@ -8,8 +8,8 @@ import java.io.Serializable;
 public class Song implements Serializable {
 
     private static final long serialVersionUID = 3720703366054566981L;
-
-    public int id;
+    
+    public final int id;
     public final int albumId;
     public final int artistId;
     public final String title;
@@ -17,9 +17,10 @@ public class Song implements Serializable {
     public final String albumName;
     public final long duration;
     public final int trackNumber;
+    public final long dateModified; //used as cache key
 
     public Song(final int id, final int albumId, final int artistId, final String title, final String artistName,
-                final String albumName, final long duration, final int trackNumber) {
+                final String albumName, final long duration, final int trackNumber, final long dateModified) {
         this.id = id;
         this.albumId = albumId;
         this.artistId = artistId;
@@ -28,6 +29,7 @@ public class Song implements Serializable {
         this.albumName = albumName;
         this.duration = duration;
         this.trackNumber = trackNumber;
+        this.dateModified = dateModified;
     }
 
     public Song() {
@@ -39,5 +41,6 @@ public class Song implements Serializable {
         this.albumName = "";
         this.duration = -1;
         this.trackNumber = -1;
+        this.dateModified = -1;
     }
 }
