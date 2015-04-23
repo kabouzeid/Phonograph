@@ -160,7 +160,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
         fieldKeyValueMap.put(FieldKey.GENRE, genreName.getText().toString());
         fieldKeyValueMap.put(FieldKey.YEAR, year.getText().toString());
 
-        File albumArtFile = MusicUtil.getAlbumArtFile(String.valueOf(getId()));
+        File albumArtFile = MusicUtil.createAlbumArtFile(String.valueOf(getId()));
 
         if (albumArtBitmap != null) {
             try {

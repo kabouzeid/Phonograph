@@ -12,6 +12,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.model.Song;
@@ -49,7 +50,9 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> {
 
         Glide.with(activity)
                 .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .error(R.drawable.default_album_art)
+                .placeholder(R.drawable.default_album_art)
                 .into(albumArt);
 
         final ImageView overflowButton = (ImageView) convertView.findViewById(R.id.menu);

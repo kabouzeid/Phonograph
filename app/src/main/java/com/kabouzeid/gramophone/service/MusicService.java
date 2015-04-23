@@ -23,6 +23,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
@@ -362,6 +363,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         remoteControlClientAlbumArtRequest = Glide.with(this)
                 .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
                 .asBitmap()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .listener(new RequestListener<Uri, Bitmap>() {
                     @Override

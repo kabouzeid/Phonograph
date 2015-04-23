@@ -73,7 +73,7 @@ public class MusicUtil {
         contentResolver.delete(ContentUris.withAppendedId(localUri, albumId), null, null);
     }
 
-    public static File getAlbumArtFile(String name) {
+    public static File createAlbumArtFile(String name) {
         return new File(createAlbumArtDir(), name + System.currentTimeMillis());
     }
 

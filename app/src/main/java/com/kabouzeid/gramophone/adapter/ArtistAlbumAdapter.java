@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.Request;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.model.Album;
@@ -60,7 +61,9 @@ public class ArtistAlbumAdapter extends RecyclerView.Adapter<ArtistAlbumAdapter.
 
         holder.albumArt.setTag(Glide.with(activity)
                         .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.id))
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .error(R.drawable.default_album_art)
+                        .placeholder(R.drawable.default_album_art)
                         .into(holder.albumArt)
                         .getRequest()
         );

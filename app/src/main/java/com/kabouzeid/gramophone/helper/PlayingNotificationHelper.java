@@ -17,6 +17,7 @@ import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
@@ -166,6 +167,7 @@ public class PlayingNotificationHelper {
             albumArtRequest = Glide.with(service)
                     .loadFromMediaStore(MusicUtil.getAlbumArtUri(currentSong.albumId))
                     .asBitmap()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .listener(new RequestListener<Uri, Bitmap>() {
                         @Override
