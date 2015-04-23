@@ -28,6 +28,10 @@ import android.widget.FrameLayout;
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.astuetz.PagerSlidingTabStrip;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.signature.StringSignature;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PagerAdapter;
@@ -69,6 +73,8 @@ public class MainActivity extends AbsFabActivity
     private ViewPager viewPager;
     private PagerSlidingTabStrip slidingTabLayout;
     private int currentPage = -1;
+    private int navigationDrawerImageWidth = -1;
+    private int navigationDrawerImageHeight = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +84,9 @@ public class MainActivity extends AbsFabActivity
 
         initViews();
         navigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
                 drawerLayout
         );
+        setUpDrawerLayout();
         setUpToolBar();
         setUpViewPager();
 
@@ -165,9 +171,19 @@ public class MainActivity extends AbsFabActivity
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_close
         );
+        drawerLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                drawerToggle.syncState();
+            }
+        });
+        drawerLayout.setDrawerListener(drawerToggle);
+    }
 
+    private void setUpDrawerLayout() {
         drawerLayout.setStatusBarBackgroundColor(PreferenceUtils
                 .getInstance(this).getThemeColorPrimaryDarker());
+
         FrameLayout navDrawerFrame = (FrameLayout) findViewById(R.id.nav_drawer_frame);
         int navDrawerMargin = getResources().getDimensionPixelSize(R.dimen.nav_drawer_margin);
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
@@ -179,13 +195,8 @@ public class MainActivity extends AbsFabActivity
         navDrawerFrame.setLayoutParams(new DrawerLayout.LayoutParams(navDrawerWidth,
                 DrawerLayout.LayoutParams.MATCH_PARENT, Gravity.START));
 
-        drawerLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                drawerToggle.syncState();
-            }
-        });
-        drawerLayout.setDrawerListener(drawerToggle);
+        navigationDrawerImageWidth = navDrawerWidth;
+        navigationDrawerImageHeight = getResources().getDimensionPixelSize(R.dimen.navigation_drawer_image_height);
     }
 
     @Override
@@ -207,10 +218,23 @@ public class MainActivity extends AbsFabActivity
                 navigationDrawerFragment.getSongArtist().setText(song.artistName);
                 Glide.with(this)
                         .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .signature(new StringSignature(String.valueOf(song.dateModified)))
-                        .error(R.drawable.default_album_art)
-                        .placeholder(R.drawable.default_album_art)
-                        .into(navigationDrawerFragment.getAlbumArtImageView());
+                        .listener(new RequestListener<Uri, GlideDrawable>() {
+                            @Override
+                            public boolean onException(Exception e, Uri model, Target<GlideDrawable> target, boolean isFirstResource) {
+                                navigationDrawerFragment.getAlbumArtImageView().setImageResource(R.drawable.default_album_art);
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(GlideDrawable resource, Uri model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                navigationDrawerFragment.getAlbumArtImageView().setImageDrawable(resource);
+                                return false;
+                            }
+                        })
+                        .into(navigationDrawerImageWidth, navigationDrawerImageHeight);
             }
         }
     }

@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
@@ -301,6 +302,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     private void setUpAlbumArtAndApplyPalette() {
         Glide.with(this)
                 .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .signature(new StringSignature(String.valueOf(song.dateModified)))
                 .error(R.drawable.default_album_art)
                 .placeholder(R.drawable.default_album_art)

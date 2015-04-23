@@ -35,7 +35,6 @@ public class NavigationDrawerFragment extends Fragment {
     private NavigationDrawerItemAdapter drawerAdapter;
     private DrawerLayout drawerLayout;
     private RecyclerView drawerRecyclerView;
-    private View fragmentContainerView;
 
     private Button headerButton;
     private ImageView albumArt;
@@ -54,11 +53,9 @@ public class NavigationDrawerFragment extends Fragment {
         return drawerLayout != null && drawerLayout.isDrawerOpen(Gravity.START);
     }
 
-    public void setUp(int fragmentId, final DrawerLayout drawerLayout) {
-        fragmentContainerView = getActivity().findViewById(fragmentId);
+    public void setUp(final DrawerLayout drawerLayout) {
         this.drawerLayout = drawerLayout;
         this.drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-
 
         if (!userLearnedDrawer && !fromSavedInstanceState) {
             this.drawerLayout.openDrawer(Gravity.START);

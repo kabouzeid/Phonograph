@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
@@ -177,6 +178,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     private void setUpAlbumArtAndApplyPalette() {
         Glide.with(AlbumDetailActivity.this)
                 .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.id))
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .signature(new StringSignature(album.albumArtPath))
                 .error(R.drawable.default_album_art)
                 .listener(new RequestListener<Uri, GlideDrawable>() {
