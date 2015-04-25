@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.Request;
 import com.bumptech.glide.signature.StringSignature;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
@@ -49,30 +48,18 @@ public class PlaylistSongAdapter extends RecyclerView.Adapter<PlaylistSongAdapte
     }
 
     @Override
-    public void onViewRecycled(ViewHolder holder) {
-        super.onViewRecycled(holder);
-        Object tag = holder.albumArt.getTag();
-        if (tag instanceof Request) {
-            ((Request) tag).clear();
-        }
-    }
-
-    @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Song song = dataSet.get(position);
 
         holder.songTitle.setText(song.title);
         holder.songInfo.setText(song.artistName);
-        holder.albumArt.setTag(
-                Glide.with(activity)
-                        .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .signature(new StringSignature(String.valueOf(song.dateModified)))
-                        .error(R.drawable.default_album_art)
-                        .placeholder(R.drawable.default_album_art)
-                        .into(holder.albumArt)
-                        .getRequest()
-        );
+        Glide.with(activity)
+                .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .signature(new StringSignature(String.valueOf(song.dateModified)))
+                .error(R.drawable.default_album_art)
+                .placeholder(R.drawable.default_album_art)
+                .into(holder.albumArt);
     }
 
     @Override

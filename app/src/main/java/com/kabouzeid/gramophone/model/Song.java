@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Song implements Serializable {
 
     private static final long serialVersionUID = 3720703366054566981L;
-    
+
     public final int id;
     public final int albumId;
     public final int artistId;

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:background="?rect_selector">
+             android:foreground="?rect_selector">
 
     <LinearLayout
         android:layout_width="match_parent"

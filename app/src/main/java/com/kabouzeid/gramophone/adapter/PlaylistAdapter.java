@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -56,12 +55,12 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView playlistName;
-        private final ImageView menu;
+        private final View menu;
 
         public ViewHolder(View itemView) {
             super(itemView);
             playlistName = (TextView) itemView.findViewById(R.id.playlist_name);
-            menu = (ImageView) itemView.findViewById(R.id.menu);
+            menu = itemView.findViewById(R.id.menu);
             itemView.setOnClickListener(this);
             menu.setOnClickListener(new View.OnClickListener() {
                 @Override

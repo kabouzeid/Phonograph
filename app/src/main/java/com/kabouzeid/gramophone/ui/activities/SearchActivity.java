@@ -29,6 +29,7 @@ public class SearchActivity extends AbsBaseActivity {
     public static final String TAG = SearchActivity.class.getSimpleName();
     private RecyclerView recyclerView;
     private SearchView searchView;
+    private SearchAdapter searchAdapter;
 
     @SuppressLint("NewApi")
     @Override
@@ -40,7 +41,7 @@ public class SearchActivity extends AbsBaseActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        SearchAdapter searchAdapter = new SearchAdapter(this);
+        searchAdapter = new SearchAdapter(this);
         recyclerView.setAdapter(searchAdapter);
 
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
@@ -151,6 +152,7 @@ public class SearchActivity extends AbsBaseActivity {
     }
 
     private void search(String query) {
-
+        if (searchAdapter != null)
+            searchAdapter.search(query);
     }
 }

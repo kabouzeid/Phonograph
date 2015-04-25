@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.Request;
 import com.bumptech.glide.signature.StringSignature;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
@@ -59,15 +58,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     }
 
     @Override
-    public void onViewRecycled(ViewHolder holder) {
-        super.onViewRecycled(holder);
-        Object tag = holder.albumArt.getTag();
-        if (tag instanceof Request) {
-            ((Request) tag).clear();
-        }
-    }
-
-    @Override
     public int getItemViewType(int position) {
         return position == 0 ? SHUFFLE_BUTTON : SONG;
     }
@@ -79,16 +69,13 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
             holder.songTitle.setText(song.title);
             holder.songInfo.setText(song.artistName);
-            holder.albumArt.setTag(
-                    Glide.with(activity)
-                            .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
-                            .diskCacheStrategy(DiskCacheStrategy.NONE)
-                            .signature(new StringSignature(String.valueOf(song.dateModified)))
-                            .error(R.drawable.default_album_art)
-                            .placeholder(R.drawable.default_album_art)
-                            .into(holder.albumArt)
-                            .getRequest()
-            );
+            Glide.with(activity)
+                    .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .signature(new StringSignature(String.valueOf(song.dateModified)))
+                    .error(R.drawable.default_album_art)
+                    .placeholder(R.drawable.default_album_art)
+                    .into(holder.albumArt);
         } else {
             holder.songTitle.setText(activity.getResources().getString(R.string.shuffle_all).toUpperCase());
             holder.songTitle.setTextColor(ThemeSingleton.get().positiveColor);

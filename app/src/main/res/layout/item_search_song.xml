@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="72dp"
-             android:foreground="?rect_selector">
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="72dp"
+             android:background="?card_color"
+             android:elevation="2dp"
+             android:foreground="?rect_selector"
+             tools:ignore="UnusedAttribute">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/artist_image"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:scaleType="centerCrop" />
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:descendantFocusability="blocksDescendants"
+                  android:orientation="horizontal"
+                  android:paddingLeft="16dp"
+                  android:paddingStart="16dp"
+                  tools:ignore="RtlSymmetry">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -29,7 +27,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/artist_name"
+                android:id="@+id/song_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
@@ -38,7 +36,7 @@
                 android:textColor="?title_text_color" />
 
             <TextView
-                android:id="@+id/artist_info"
+                android:id="@+id/song_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
@@ -47,15 +45,18 @@
                 android:textColor="?caption_text_color" />
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/menu"
+            style="@style/OverFlowButton"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp" />
     </LinearLayout>
 
     <View
-        android:id="@+id/short_separator"
+        android:id="@+id/separator"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_gravity="bottom"
-        android:layout_marginLeft="72dp"
-        android:layout_marginStart="72dp"
         android:background="?separator_color" />
-
 </FrameLayout>
