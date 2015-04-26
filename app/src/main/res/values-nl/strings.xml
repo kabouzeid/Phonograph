@@ -5,7 +5,7 @@
     <string name="action_currently_playing">Momenteel spelend</string>
     <string name="action_playing_queue">Afspeelwachtrij</string>
     <string name="action_search">Zoeken</string>
-    <string name="action_play_next">Speel af als volgende</string>
+    <string name="action_play_next">Afspelen als volgende</string>
     <string name="action_add_to_playing_queue">Toevoegen aan wachtrij</string>
     <string name="action_remove_from_playing_queue">Verwijderen uit wachtrij</string>
     <string name="action_add_to_playlist">Toevoegen aan afspeellijst...</string>
@@ -28,7 +28,7 @@
     <string name="album_artist">Album artiest</string>
     <string name="year">Jaar</string>
     <string name="track">Nummer</string>
-    <string name="track_hint">Nummer (2 voor nummer 2, of 3004 voor CD3 nummer 4)</string>
+    <string name="track_hint">"Nummer (2 voor nummer 2, of 3004 voor CD3 nummer 4)"</string>
     <string name="album_or_artist_empty">Album titel of album artiest tekstveld is leeg.</string>
     <string name="writing_file_number">Bestand wegschrijven</string>
     <string name="saving_changes">Wijzigingen opslaan...</string>
@@ -45,12 +45,12 @@
     <string name="label_current_playing_queue">Afspeelwachtrij</string>
     <string name="save_as_playlist">Opslaan als afspeellijst</string>
     <string name="credits_3">Icoon door</string>
-    <string name="credits_1">Gramophone is een volledig gratis muziekspeler in material design door</string>
+    <string name="credits_1">"Phonograph is een volledig gratis muziekspeler in material design door"</string>
     <string name="title_activity_search">Zoeken</string>
     <string name="no_results">Geen resultaten</string>
     <string name="action_re_download_artist_image">Artiest afbeelding bijwerken</string>
     <string name="updating">Bijwerken...</string>
-    <string name="added_title_to_playing_queue">1 titel toegevoegd aan de afspeelwachtrij.</string>
+    <string name="added_title_to_playing_queue">"1 titel toegevoegd aan de afspeelwachtrij."</string>
     <string name="action_delete_from_playlist">Verwijderen uit afspeellijst</string>
     <string name="new_playlist_action">Nieuwe afspeellijst...</string>
     <string name="action_grid_columns">Rasterkolommen</string>
@@ -66,7 +66,7 @@
     <string name="delete_songs_title">Verwijder nummers</string>
     <string name="rename_playlist_title">Hernoem afspeellijst</string>
     <string name="delete_playlist_title">Verwijder afspeellijst</string>
-    <string name="add_playlist_title">Toevoegen aan afspeellijst</string>
+    <string name="add_playlist_title">"Toevoegen aan afspeellijst"</string>
     <string name="new_playlist_title">Nieuwe afspeellijst</string>
     <string name="delete_warning">"Waarschuwing: Deze handeling kan niet ongedaan gemaakt worden."</string>
     <string name="shuffle_all">Shuffle alles</string>
@@ -75,16 +75,16 @@
     <string name="dark_theme_name">Donker</string>
     <string name="equalizer">Equalizer</string>
     <string name="pref_header_ui">Uiterlijk</string>
-    <string name="pref_title_general_theme">Standaard thema</string>
+    <string name="pref_title_general_theme">Algemeen thema</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">Algemeen</string>
     <string name="pref_summary_colored_navigation_bar">In welke weergaven moet de navigatiebalk gekleurd zijn.</string>
     <string name="pref_title_navigation_bar">Gekleurde navigatiebalk</string>
-    <string name="pref_title_set_default_start_page">Standaard startpagina</string>
+    <string name="pref_title_set_default_start_page">Startpagina</string>
     <string name="title_activity_settings">Instellingen</string>
-    <string name="pref_title_transparent_toolbar">Semi-transparante werkbalk</string>
+    <string name="pref_title_transparent_toolbar">"Semi-transparante werkbalk"</string>
     <string name="pref_title_show_playback_controller_card">Afspeelknoppen kaart</string>
-    <string name="pref_title_colored_navigation_bar_artists">Artiesten weergave</string>
+    <string name="pref_title_colored_navigation_bar_artists">Artiest weergave</string>
     <string name="pref_title_colored_navigation_bar_albums">Album weergave</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Afspeelweergave</string>
     <string name="pref_title_colored_navigation_bar_playlists">Afspeellijst weergave</string>
@@ -92,8 +92,9 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Overal elders</string>
     <string name="pref_title_colored_album_footers">Gekleurde album footers</string>
     <string name="no_equalizer">Geen equalizer gevonden</string>
+    <string name="no_audio_ID">"Geen audio ID, speel iets af en probeer opnieuw. "</string>
     <string name="navigation_drawer_open">Open navigatiebalk</string>
-    <string name="navigation_drawer_close">Sluit navigatiebalk</string>
+    <string name="navigation_drawer_close">"Sluit navigatiebalk"</string>
     <string name="delete_action">Verwijderen</string>
     <string name="rename_action">Hernoemen</string>
     <string name="select">Selecteer</string>
@@ -112,6 +113,7 @@
     <string name="pref_summary_colored_album_footers">"Album footers in het raster worden gekleurd met het palet van de albumhoes. "</string>
     <string name="failed_download_albumart">"Het lukt niet om de albumhoes te downloaden. "</string>
     <string name="search_hint">Zoek in je bibliotheek...</string>
+    <string name="rescanning_media">Media herscannen...</string>
     <string-array name="update_album_cover_options">
         <item>Downloaden van Last.fm</item>
         <item>Kies vanuit lokale opslag</item>

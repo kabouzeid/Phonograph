@@ -28,7 +28,7 @@
     <string name="album_artist">Альбом исполнителя</string>
     <string name="year">Год</string>
     <string name="track">Трек</string>
-    <string name="track_hint">Трек ( 2 для трека 2 или 3004 для трека 4 CD3)</string>
+    <string name="track_hint">"Трек ( 2 для трека 2 или 3004 для трека 4 CD3)"</string>
     <string name="album_or_artist_empty">Поля название альбома или альбом исполнителя пусты</string>
     <string name="writing_file_number">Запись файла</string>
     <string name="saving_changes">Сохранение изменений...</string>
@@ -45,12 +45,12 @@
     <string name="label_current_playing_queue">Очередь воспроизведения</string>
     <string name="save_as_playlist">Сохранить как список воспроизведения</string>
     <string name="credits_3">Дизайн иконки</string>
-    <string name="credits_1">Gramophone - полностью бесплатный музыкальный плеер в материальном стиле, созданный</string>
+    <string name="credits_1">"Phonograph - полностью бесплатный музыкальный плеер в материальном стиле, созданный"</string>
     <string name="title_activity_search">Поиск</string>
     <string name="no_results">Нет результатов</string>
     <string name="action_re_download_artist_image">Обновить изображение исполнителя</string>
     <string name="updating">Обновление...</string>
-    <string name="added_title_to_playing_queue">Добавлена 1 композиция в очередь воспроизведения</string>
+    <string name="added_title_to_playing_queue">"Добавлена 1 композиция в очередь воспроизведения"</string>
     <string name="action_delete_from_playlist">Удалить из списка воспроизведения</string>
     <string name="new_playlist_action">Новый список воспроизведения...</string>
     <string name="action_grid_columns">Столбцы сетки</string>
@@ -66,7 +66,7 @@
     <string name="delete_songs_title">Удалить песни</string>
     <string name="rename_playlist_title">Переименовать список воспроизведения</string>
     <string name="delete_playlist_title">Удалить список воспроизведения</string>
-    <string name="add_playlist_title">Добавить в список воспроизведения</string>
+    <string name="add_playlist_title">"Добавить в список воспроизведения"</string>
     <string name="new_playlist_title">Новый список воспроизведения</string>
     <string name="delete_warning">"Внимание ! Эта операция необратима."</string>
     <string name="shuffle_all">Перемешать всё</string>
@@ -82,7 +82,7 @@
     <string name="pref_title_navigation_bar">Цветная панель управления</string>
     <string name="pref_title_set_default_start_page">Установить начальную страницу</string>
     <string name="title_activity_settings">Настройки</string>
-    <string name="pref_title_transparent_toolbar">Полупрозрачная панель инструментов</string>
+    <string name="pref_title_transparent_toolbar">"Полупрозрачная панель инструментов"</string>
     <string name="pref_title_show_playback_controller_card">Карточка управления воспроизведением</string>
     <string name="pref_title_colored_navigation_bar_artists">Цветная панель управления ( вид исполнителя )</string>
     <string name="pref_title_colored_navigation_bar_albums">Цветная панель управления ( вид альбома )</string>
@@ -92,8 +92,9 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Во всех остальных</string>
     <string name="pref_title_colored_album_footers">Цветная панель названия альбома</string>
     <string name="no_equalizer">Эквалайзер не найден</string>
+    <string name="no_audio_ID">"Нет аудио, воспроизведите что-нибудь и попробуйте ещё раз."</string>
     <string name="navigation_drawer_open">Открыть панель навигации</string>
-    <string name="navigation_drawer_close">Закрыть панель навигации</string>
+    <string name="navigation_drawer_close">"Закрыть панель навигации"</string>
     <string name="delete_action">Удалить</string>
     <string name="rename_action">Переименовать</string>
     <string name="select">Выбрать</string>
@@ -107,11 +108,12 @@
     <string name="no_playlists">Нет списков воспроизведения</string>
     <string name="playlist_name">Имя списка воспроизведения</string>
     <string name="song">Песня</string>
-    <string name="pref_only_lollipop">Доступно только для Lollipop.</string>
+    <string name="pref_only_lollipop">"Доступно только для Lollipop."</string>
     <string name="pref_summary_transparent_toolbar">Прокручиваемое содержимое под панелью инструментов - видимо.</string>
-    <string name="pref_summary_colored_album_footers">Панели альбомов в сетке окрашены цветом из палитры обложки альбома.</string>
-    <string name="failed_download_albumart">Невозможно загрузить обложку для этого альбома.</string>
+    <string name="pref_summary_colored_album_footers">"Панели альбомов в сетке окрашены цветом из палитры обложки альбома."</string>
+    <string name="failed_download_albumart">"Невозможно загрузить обложку для этого альбома."</string>
     <string name="search_hint">Поиск библиотеки...</string>
+    <string name="rescanning_media">Повторное сканирование медиа...</string>
     <string-array name="update_album_cover_options">
         <item>Скачать с Last.fm</item>
         <item>Выбрать из локального хранилища</item>

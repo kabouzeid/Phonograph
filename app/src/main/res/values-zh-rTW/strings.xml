@@ -28,7 +28,7 @@
     <string name="album_artist">專輯創作者</string>
     <string name="year">年代</string>
     <string name="track">音軌</string>
-    <string name="track_hint">音軌（用2表示第2首歌&amp;3004表示CD3的第3首歌）</string>
+    <string name="track_hint">"音軌（用2表示第2首歌&amp;3004表示CD3的第3首歌）"</string>
     <string name="album_or_artist_empty">專輯名稱或專輯創作者欄是空的。</string>
     <string name="writing_file_number">正在寫入檔案</string>
     <string name="saving_changes">正在儲存變更…</string>
@@ -45,12 +45,12 @@
     <string name="label_current_playing_queue">播放佇列</string>
     <string name="save_as_playlist">儲存為音樂清單</string>
     <string name="credits_3">圖示設計者為</string>
-    <string name="credits_1">Gramophone是一個完全免費且遵從Material Design的音樂播放器，開發者為</string>
+    <string name="credits_1">"Gramophone是一個完全免費且遵從Material Design的音樂播放器，開發者為"</string>
     <string name="title_activity_search">搜尋</string>
     <string name="no_results">無搜尋結果</string>
     <string name="action_re_download_artist_image">更新歌手圖片</string>
     <string name="updating">更新中…</string>
-    <string name="added_title_to_playing_queue">這歌曲已加入播放佇列</string>
+    <string name="added_title_to_playing_queue">"這歌曲已加入播放佇列"</string>
     <string name="action_delete_from_playlist">從音樂清單移除</string>
     <string name="new_playlist_action">新增音樂清單</string>
     <string name="action_grid_columns">專輯網格列數</string>
@@ -66,7 +66,7 @@
     <string name="delete_songs_title">移除歌曲</string>
     <string name="rename_playlist_title">重新命名音樂清單</string>
     <string name="delete_playlist_title">刪除音樂清單</string>
-    <string name="add_playlist_title">加入音樂清單</string>
+    <string name="add_playlist_title">"加入音樂清單"</string>
     <string name="new_playlist_title">新增音樂清單</string>
     <string name="delete_warning">"警告：這個操作無法被撤銷！"</string>
     <string name="shuffle_all">隨機播放全部歌曲</string>
@@ -82,7 +82,7 @@
     <string name="pref_title_navigation_bar">變色導航列</string>
     <string name="pref_title_set_default_start_page">設定預設起始頁</string>
     <string name="title_activity_settings">設定</string>
-    <string name="pref_title_transparent_toolbar">半透明工具列</string>
+    <string name="pref_title_transparent_toolbar">"半透明工具列"</string>
     <string name="pref_title_show_playback_controller_card">卡片式播放控制面板</string>
     <string name="pref_title_colored_navigation_bar_artists">歌手頁面</string>
     <string name="pref_title_colored_navigation_bar_albums">專輯頁面</string>
@@ -92,8 +92,9 @@
     <string name="pref_title_colored_navigation_bar_other_screens">其他任何地方</string>
     <string name="pref_title_colored_album_footers">使用變色的專輯標籤</string>
     <string name="no_equalizer">沒有找到均衡器</string>
+    <string name="no_audio_ID">"沒有音訊ID，請播放並重試。"</string>
     <string name="navigation_drawer_open">打開側選單</string>
-    <string name="navigation_drawer_close">關閉側選單</string>
+    <string name="navigation_drawer_close">"關閉側選單"</string>
     <string name="delete_action">刪除</string>
     <string name="rename_action">重新命名</string>
     <string name="select">選取</string>
@@ -107,11 +108,12 @@
     <string name="no_playlists">無音樂清單</string>
     <string name="playlist_name">音樂清單名稱</string>
     <string name="song">歌曲</string>
-    <string name="pref_only_lollipop">只適用於Lollipop。</string>
+    <string name="pref_only_lollipop">"只適用於Lollipop。"</string>
     <string name="pref_summary_transparent_toolbar">當滾動頁面時，可看到工具列下層的內容。</string>
-    <string name="pref_summary_colored_album_footers">在專輯頁面中的專輯標籤會隨其封面顏色而改變。</string>
-    <string name="failed_download_albumart">無法下載此專輯資訊。</string>
+    <string name="pref_summary_colored_album_footers">"在專輯頁面中的專輯標籤會隨其封面顏色而改變。"</string>
+    <string name="failed_download_albumart">"無法下載此專輯資訊。"</string>
     <string name="search_hint">正在掃描…</string>
+    <string name="rescanning_media">正在重新掃描媒體庫…</string>
     <string-array name="update_album_cover_options">
         <item>從Last.fm下載</item>
         <item>從本儲存裝置選取</item>

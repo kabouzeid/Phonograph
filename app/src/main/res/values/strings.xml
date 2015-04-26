@@ -48,7 +48,7 @@
     <string name="label_current_playing_queue">Playing queue</string>
     <string name="save_as_playlist">Save as playlist</string>
     <string name="credits_3">Icon by</string>
-    <string name="credits_1">Gramophone is a completely free material designed music player by</string>
+    <string name="credits_1">Phonograph is a completely free material designed music player by</string>
     <string name="title_activity_search">Search</string>
     <string name="no_results">No results</string>
     <string name="action_re_download_artist_image">Update artist image</string>

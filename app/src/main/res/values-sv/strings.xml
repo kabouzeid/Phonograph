@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">"Inställningar"</string>
+    <string name="action_about">Information</string>
+    <string name="action_currently_playing">Spelas just nu</string>
+    <string name="action_playing_queue">Uppspelningskö</string>
+    <string name="action_search">Sök</string>
+    <string name="action_play_next">Spela som nästa</string>
+    <string name="action_add_to_playing_queue">Lägg till i uppspelningskön</string>
+    <string name="action_remove_from_playing_queue">Ta bort från uppspelningskön</string>
+    <string name="action_add_to_playlist">Lägg till spellista</string>
+    <string name="action_tag_editor">Tagredigering</string>
+    <string name="action_delete_from_disk">Radera från skiva</string>
+    <string name="action_details">Detaljer</string>
+    <string name="albums">Album</string>
+    <string name="artists">Artister</string>
+    <string name="songs">Låtar</string>
+    <string name="playlists">Spellista</string>
+    <string name="nothing_playing">Ingenting att spela</string>
+    <string name="unplayable_file">Ursäkta - ett problem uppstod vid spelningen av denna låt</string>
+    <string name="biography_unavailable">Ursäkta, vi kunde inte hitta biografin för den här artisten</string>
+    <string name="biography">Biografi</string>
+    <string name="audio_focus_denied">Vi kunde inte hitta ljudfokus</string>
+    <string name="tag_editor">Tagredigering</string>
+    <string name="album">Album</string>
+    <string name="artist">Artister</string>
+    <string name="genre">Genre</string>
+    <string name="album_artist">Album artist</string>
+    <string name="year">År</string>
+    <string name="track">Låt</string>
+    <string name="track_hint">"Låt"</string>
+</resources>

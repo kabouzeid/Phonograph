@@ -2,7 +2,7 @@
 <resources>
     <string name="action_settings">"Paramètres"</string>
     <string name="action_about">À propos</string>
-    <string name="action_currently_playing">Lecture actuelle</string>
+    <string name="action_currently_playing">Lecture en cours</string>
     <string name="action_playing_queue">File de lecture</string>
     <string name="action_search">Rechercher</string>
     <string name="action_play_next">Lire ensuite</string>
@@ -28,7 +28,7 @@
     <string name="album_artist">Artiste de l\'album</string>
     <string name="year">Année</string>
     <string name="track">Piste</string>
-    <string name="track_hint">Piste (2 pour piste 2 ou 3004 pour CD3 piste 4)</string>
+    <string name="track_hint">"Piste (2 pour piste 2 ou 3004 pour CD3 piste 4)"</string>
     <string name="album_or_artist_empty">Veuillez indiquer le nom et l\'artiste de l\'album.</string>
     <string name="writing_file_number">Fichier en cours d\'écriture</string>
     <string name="saving_changes">Sauvegarde des changements...</string>
@@ -45,12 +45,12 @@
     <string name="label_current_playing_queue">File de lecture</string>
     <string name="save_as_playlist">Sauvegarder</string>
     <string name="credits_3">Icône par</string>
-    <string name="credits_1">Gramophone est un lecteur de musique avec un Material Design et entièrement gratuit créé par</string>
+    <string name="credits_1">"Phonograph est un lecteur de musique avec un Material Design et entièrement gratuit créé par"</string>
     <string name="title_activity_search">Rechercher</string>
     <string name="no_results">Aucun résultat</string>
     <string name="action_re_download_artist_image">Actualiser l\'image de l\'artiste</string>
     <string name="updating">Actualisation...</string>
-    <string name="added_title_to_playing_queue">1 titre ajouté à la file de lecture.</string>
+    <string name="added_title_to_playing_queue">"1 titre ajouté à la file de lecture."</string>
     <string name="action_delete_from_playlist">Supprimer de la playlist</string>
     <string name="new_playlist_action">Nouvelle playlist...</string>
     <string name="action_grid_columns">Nombre de colonnes</string>
@@ -66,7 +66,7 @@
     <string name="delete_songs_title">Supprimer les titres</string>
     <string name="rename_playlist_title">Renommer la playlist</string>
     <string name="delete_playlist_title">Supprimer la playlist</string>
-    <string name="add_playlist_title">Ajouter à la playlist</string>
+    <string name="add_playlist_title">"Ajouter à la playlist"</string>
     <string name="new_playlist_title">Nouvelle playlist</string>
     <string name="delete_warning">"Attention : Cette action ne peut être annulée"</string>
     <string name="shuffle_all">Aléatoire</string>
@@ -82,7 +82,7 @@
     <string name="pref_title_navigation_bar">Barre de navigation colorée</string>
     <string name="pref_title_set_default_start_page">Page d\'accueil par défaut</string>
     <string name="title_activity_settings">Paramètres</string>
-    <string name="pref_title_transparent_toolbar">Barre d\'outils semi-transparente</string>
+    <string name="pref_title_transparent_toolbar">"Barre d\'outils semi-transparente"</string>
     <string name="pref_title_show_playback_controller_card">Carte de contrôle du lecteur</string>
     <string name="pref_title_colored_navigation_bar_artists">Vue artiste</string>
     <string name="pref_title_colored_navigation_bar_albums">Vue album</string>
@@ -93,7 +93,7 @@
     <string name="pref_title_colored_album_footers">Bas d\'album coloré</string>
     <string name="no_equalizer">Aucun égaliseur trouvé</string>
     <string name="navigation_drawer_open">Ouvrir le volet de navigation</string>
-    <string name="navigation_drawer_close">Fermer le volet de navigation</string>
+    <string name="navigation_drawer_close">"Fermer le volet de navigation"</string>
     <string name="delete_action">Supprimer</string>
     <string name="rename_action">Renommer</string>
     <string name="select">Sélectionner</string>
@@ -107,10 +107,10 @@
     <string name="no_playlists">Aucune playlist</string>
     <string name="playlist_name">Nom de la playlist</string>
     <string name="song">Titre</string>
-    <string name="pref_only_lollipop">Uniquement disponible sur Lollipop.</string>
+    <string name="pref_only_lollipop">"Uniquement disponible sur Lollipop."</string>
     <string name="pref_summary_transparent_toolbar">Le contenu qui défile en dessous de la barre d\'outils est visible.</string>
-    <string name="pref_summary_colored_album_footers">Les bas d\'album dans la grille sont colorés avec la palette de la couverture.</string>
-    <string name="failed_download_albumart">Impossible de télécharger la pochette pour cet album.</string>
+    <string name="pref_summary_colored_album_footers">"Les bas d\'album dans la grille sont colorés avec la palette de la couverture."</string>
+    <string name="failed_download_albumart">"Impossible de télécharger la pochette pour cet album."</string>
     <string name="search_hint">Recherche votre bibliothèque...</string>
     <string-array name="update_album_cover_options">
         <item>Télécharger depuis Last.fm</item>

@@ -27,7 +27,7 @@
     <string name="album_artist">Artistul albumului</string>
     <string name="year">An</string>
     <string name="track">Număr</string>
-    <string name="track_hint">Număr (2 pentru melodia a doua sau 3004 pentru CD3 melodia 4)</string>
+    <string name="track_hint">"Număr (2 pentru melodia a doua sau 3004 pentru CD3 melodia 4)"</string>
     <string name="album_or_artist_empty">Campul titlului albumului sau artistul albumului este gol.</string>
     <string name="writing_file_number">Scriere fișier</string>
     <string name="saving_changes">Salvare schimbări...</string>
@@ -44,12 +44,12 @@
     <string name="label_current_playing_queue">Lista de redare</string>
     <string name="save_as_playlist">Salvează ca și playlist</string>
     <string name="credits_3">Iconița de</string>
-    <string name="credits_1">Gramophone este o aplicație complet gratuită bazată pe Material Design făcută de</string>
+    <string name="credits_1">"Phonograph este o aplicație complet gratuită bazată pe Material Design făcută de"</string>
     <string name="title_activity_search">ActivitateaDeCăutare</string>
     <string name="no_results">Niciun rezultat</string>
     <string name="action_re_download_artist_image">Actualizează imagine artist</string>
     <string name="updating">Actualizare...</string>
-    <string name="added_title_to_playing_queue">Adăugat 1 melodie la lista de redare.</string>
+    <string name="added_title_to_playing_queue">"Adăugat 1 melodie la lista de redare."</string>
     <string name="action_delete_from_playlist">Şterge din playlist</string>
     <string name="new_playlist_action">Playlist nou...</string>
     <string name="action_grid_columns">Rânduri pe grid</string>
@@ -65,7 +65,7 @@
     <string name="delete_songs_title">Șterge Melodii</string>
     <string name="rename_playlist_title">Redenumire Playlist</string>
     <string name="delete_playlist_title">Șterge Playlist</string>
-    <string name="add_playlist_title">Adaugă la Playlist</string>
+    <string name="add_playlist_title">"Adaugă la Playlist"</string>
     <string name="new_playlist_title">Playlist Nou</string>
     <string name="delete_warning">"Atenţie: Această operaţie nu poate fi revocată."</string>
     <string name="shuffle_all">Amestecă toate</string>
@@ -80,7 +80,7 @@
     <string name="pref_title_navigation_bar">Bară de navigare colorată</string>
     <string name="pref_title_set_default_start_page">Alege pagina de pornire predefinită</string>
     <string name="title_activity_settings">Setări</string>
-    <string name="pref_title_transparent_toolbar">Bară semi-transparentă</string>
+    <string name="pref_title_transparent_toolbar">"Bară semi-transparentă"</string>
     <string name="pref_title_show_playback_controller_card">Cardul de redare</string>
     <string name="pref_title_colored_navigation_bar_artists">Bară de navigare artist colorată</string>
     <string name="pref_title_colored_navigation_bar_albums">Bară de navigare album colorată</string>
@@ -91,7 +91,7 @@
     <string name="pref_title_colored_album_footers">Bară detalii album colorată</string>
     <string name="no_equalizer">Niciun egalizator găsit</string>
     <string name="navigation_drawer_open">Deschide sertarul de navigație</string>
-    <string name="navigation_drawer_close">Închide sertarul de navigație</string>
+    <string name="navigation_drawer_close">"Închide sertarul de navigație"</string>
     <string name="delete_action">Șterge</string>
     <string name="rename_action">Redenumește</string>
     <string name="select">Selectează</string>

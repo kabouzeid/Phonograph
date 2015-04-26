@@ -28,7 +28,7 @@
     <string name="album_artist">Interpret alba</string>
     <string name="year">Rok</string>
     <string name="track">Skladba</string>
-    <string name="track_hint">Stopa (2 pro stopu 2; 3004 pro stopu 4 na CD3)</string>
+    <string name="track_hint">"Stopa (2 pro stopu 2; 3004 pro stopu 4 na CD3)"</string>
     <string name="album_or_artist_empty">Název alba nebo interpreta je prázdný.</string>
     <string name="writing_file_number">Zapisování souboru</string>
     <string name="saving_changes">Ukládání změn...</string>
@@ -45,12 +45,12 @@
     <string name="label_current_playing_queue">Fronta</string>
     <string name="save_as_playlist">Uložit jako playlist...</string>
     <string name="credits_3">Ikonu vytvořil</string>
-    <string name="credits_1">Gramophone je hudební přehrávač, který je úplně zdarma a založen na material designu od</string>
+    <string name="credits_1">"Phonograph je hudební přehrávač, který je úplně zdarma a založen na material designu od"</string>
     <string name="title_activity_search">Hledat</string>
     <string name="no_results">Žádné výsledky</string>
     <string name="action_re_download_artist_image">Změnit obrázek umělce</string>
     <string name="updating">Aktualizace...</string>
-    <string name="added_title_to_playing_queue">Přidána 1 skladba do fronty.</string>
+    <string name="added_title_to_playing_queue">"Přidána 1 skladba do fronty."</string>
     <string name="action_delete_from_playlist">Vymazat z playlistu</string>
     <string name="new_playlist_action">Nový playlist...</string>
     <string name="action_grid_columns">Počet sloupců mřížky</string>
@@ -66,7 +66,7 @@
     <string name="delete_songs_title">Smazat skladby</string>
     <string name="rename_playlist_title">Přejmenovat playlist</string>
     <string name="delete_playlist_title">Smazat playlist</string>
-    <string name="add_playlist_title">Přidat do playlistu</string>
+    <string name="add_playlist_title">"Přidat do playlistu"</string>
     <string name="new_playlist_title">Nový playlist</string>
     <string name="delete_warning">"Varování: Tato operace nemůže být vrácena"</string>
     <string name="shuffle_all">Přehrát náhodně</string>
@@ -82,7 +82,7 @@
     <string name="pref_title_navigation_bar">Barevné záhlaví</string>
     <string name="pref_title_set_default_start_page">Zvolit výchozí obrazovku</string>
     <string name="title_activity_settings">Nastavení</string>
-    <string name="pref_title_transparent_toolbar">Průhledné záhlaví</string>
+    <string name="pref_title_transparent_toolbar">"Průhledné záhlaví"</string>
     <string name="pref_title_show_playback_controller_card">Karta řadiče přehrávání</string>
     <string name="pref_title_colored_navigation_bar_artists">Barevné záhlaví interpretů</string>
     <string name="pref_title_colored_navigation_bar_albums">Barevné záhlaví alb</string>
@@ -92,8 +92,9 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Všude jinde</string>
     <string name="pref_title_colored_album_footers">Barevné zápatí alb</string>
     <string name="no_equalizer">Ekvalizér nenalezen</string>
+    <string name="no_audio_ID">"Neznámé ID hudby, přehrajte něco jiného a zkuste to znovu."</string>
     <string name="navigation_drawer_open">Otevřít navigační záložku</string>
-    <string name="navigation_drawer_close">Zavřít navigační záložku</string>
+    <string name="navigation_drawer_close">"Zavřít navigační záložku"</string>
     <string name="delete_action">Smazat</string>
     <string name="rename_action">Přejmenovat</string>
     <string name="select">Vybrat</string>
@@ -107,11 +108,12 @@
     <string name="no_playlists">Žádný playlist</string>
     <string name="playlist_name">Jméno playlistu</string>
     <string name="song">Skladba</string>
-    <string name="pref_only_lollipop">Dostupné pouze ve verzi Lollipop.</string>
+    <string name="pref_only_lollipop">"Dostupné pouze ve verzi Lollipop."</string>
     <string name="pref_summary_transparent_toolbar">Permanentní zobrazení záhlaví (při scrollování).</string>
-    <string name="pref_summary_colored_album_footers">Názvy alb v mřížce jsou obarvena podle jejich obalu.</string>
-    <string name="failed_download_albumart">Není možné stáhnout obal tohoto alba.</string>
+    <string name="pref_summary_colored_album_footers">"Názvy alb v mřížce jsou obarvena podle jejich obalu."</string>
+    <string name="failed_download_albumart">"Není možné stáhnout obal tohoto alba."</string>
     <string name="search_hint">Vyhledat zvukové soubory...</string>
+    <string name="rescanning_media">Kontrola médií...</string>
     <string-array name="update_album_cover_options">
         <item>Stáhnout z Last.fm</item>
         <item>Zvolit ze souborů</item>

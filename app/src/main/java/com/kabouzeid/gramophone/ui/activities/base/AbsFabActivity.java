@@ -17,6 +17,7 @@ import com.kabouzeid.gramophone.dialogs.ColorChooserDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.misc.SmallOnGestureListener;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
+import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.views.PlayPauseDrawable;
 import com.melnykov.fab.FloatingActionButton;
@@ -95,6 +96,19 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
             public boolean onTouch(View view, MotionEvent event) {
                 gestureDetector.onTouchEvent(event);
                 return false;
+            }
+        });
+
+        getFab().setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                final Song song = MusicPlayerRemote.getCurrentSong();
+                if (song.id != -1) {
+                    Toast.makeText(AbsFabActivity.this, song.title + " - " + song.artistName, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(AbsFabActivity.this, getResources().getString(R.string.nothing_playing), Toast.LENGTH_SHORT).show();
+                }
+                return true;
             }
         });
     }

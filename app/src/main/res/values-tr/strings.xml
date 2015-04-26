@@ -28,7 +28,7 @@
     <string name="album_artist">Albüm sanatçısı</string>
     <string name="year">Yıl</string>
     <string name="track">Parça</string>
-    <string name="track_hint">Parça (2. parça için 2 yada CD3 4.parça için 3004)</string>
+    <string name="track_hint">"Parça (2. parça için 2 yada CD3 4.parça için 3004)"</string>
     <string name="album_or_artist_empty">Albüm başlığı veya albüm sanatçısı metin alanı boş.</string>
     <string name="writing_file_number">Dosya yazılıyor</string>
     <string name="saving_changes">Değişiklikler kaydediliyor...</string>
@@ -45,12 +45,12 @@
     <string name="label_current_playing_queue">Çalma sırası</string>
     <string name="save_as_playlist">Çalma listesi olarak kaydet</string>
     <string name="credits_3">Simge tasarımı</string>
-    <string name="credits_1">Gramophone tamamen ücretsiz material tasarımlı müzik çalar</string>
+    <string name="credits_1">"Phonograph tamamen ücretsiz material tasarımlı müzik çalar. Yapan"</string>
     <string name="title_activity_search">Ara</string>
     <string name="no_results">Sonuç bulunamadı</string>
     <string name="action_re_download_artist_image">Sanatçı resmini güncelle</string>
     <string name="updating">Güncelleniyor...</string>
-    <string name="added_title_to_playing_queue">Çalma sırasına 1 başlık eklendi</string>
+    <string name="added_title_to_playing_queue">"Çalma sırasına 1 başlık eklendi"</string>
     <string name="action_delete_from_playlist">Çalma listesinden sil</string>
     <string name="new_playlist_action">Yeni çalma listesi</string>
     <string name="action_grid_columns">Izgara sütunları</string>
@@ -66,7 +66,7 @@
     <string name="delete_songs_title">Şarkıları Sil</string>
     <string name="rename_playlist_title">Çalma Listesini Yeniden Adlandır</string>
     <string name="delete_playlist_title">Çalma Listesini Sil</string>
-    <string name="add_playlist_title">Çalma Listesine Ekle</string>
+    <string name="add_playlist_title">"Çalma Listesine Ekle"</string>
     <string name="new_playlist_title">Yeni Çalma Listesi</string>
     <string name="delete_warning">"Uyarı: Bu işlem geri alınamaz."</string>
     <string name="shuffle_all">Hepsini karıştır</string>
@@ -80,9 +80,9 @@
     <string name="pref_header_general">Genel</string>
     <string name="pref_summary_colored_navigation_bar">Boyanması gereken gezinti çubuğunu ayarla</string>
     <string name="pref_title_navigation_bar">Renkli gezinti çubuğu</string>
-    <string name="pref_title_set_default_start_page">Başlangıç sayfasını ayarla</string>
+    <string name="pref_title_set_default_start_page">Başlangıç sayfası</string>
     <string name="title_activity_settings">Ayarlar</string>
-    <string name="pref_title_transparent_toolbar">Yarı şeffaf araç çubuğu</string>
+    <string name="pref_title_transparent_toolbar">"Yarı şeffaf araç çubuğu"</string>
     <string name="pref_title_show_playback_controller_card">Oynatma kontrolörü kartı</string>
     <string name="pref_title_colored_navigation_bar_artists">Sanatçı görünümü</string>
     <string name="pref_title_colored_navigation_bar_albums">Albüm görünümü</string>
@@ -92,8 +92,9 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Başka her yer</string>
     <string name="pref_title_colored_album_footers">Renkli albüm alt bilgileri</string>
     <string name="no_equalizer">Hiçbir ekolayzer bulunamadı</string>
+    <string name="no_audio_ID">"Hiçbir ses kimliği yok, bir şarkı çalın ve tekrar deneyin."</string>
     <string name="navigation_drawer_open">Gezinti çekmecesini aç</string>
-    <string name="navigation_drawer_close">Gezinti çekmecesini kapat</string>
+    <string name="navigation_drawer_close">"Gezinti çekmecesini kapat"</string>
     <string name="delete_action">Sil</string>
     <string name="rename_action">Yeniden adlandır</string>
     <string name="select">Seç</string>
@@ -107,11 +108,12 @@
     <string name="no_playlists">Çalma listesi yok</string>
     <string name="playlist_name">Oynatma Listesi adı</string>
     <string name="song">Şarkı</string>
-    <string name="pref_only_lollipop">Sadece Lollipop için</string>
+    <string name="pref_only_lollipop">"Sadece Lollipop için"</string>
     <string name="pref_summary_transparent_toolbar">Araç çubuğunun altına kaydırılan içerik görünüyor.</string>
-    <string name="pref_summary_colored_album_footers">Izgara içindeki albüm alt bilgisi albüm arkaplanı paletiyle renklendirildi.</string>
-    <string name="failed_download_albumart">Bu albüm için kapak indirilemiyor.</string>
+    <string name="pref_summary_colored_album_footers">"Izgara içindeki albüm alt bilgisi albüm arkaplanı paletiyle renklendirildi."</string>
+    <string name="failed_download_albumart">"Bu albüm için kapak indirilemiyor."</string>
     <string name="search_hint">Kütüphaneniz taranıyor...</string>
+    <string name="rescanning_media">Medyayı yeniden tara</string>
     <string-array name="update_album_cover_options">
         <item>Last.FM den indir</item>
         <item>Yerel Depolamayı Seç</item>

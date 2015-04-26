@@ -2,6 +2,7 @@
 <resources>
     <string name="action_settings">"الإعدادات"</string>
     <string name="action_about">عنّا</string>
+    <string name="action_currently_playing">يتم التشغيل حالياً</string>
     <string name="action_playing_queue">قائمة الانتظار</string>
     <string name="action_search">بحث</string>
     <string name="action_play_next">استمع لاحقاً</string>
@@ -27,10 +28,10 @@
     <string name="album_artist">فنان الألبوم</string>
     <string name="year">السنة</string>
     <string name="track">الموسيقى</string>
-    <string name="track_hint">الموسيقى (٢ للموسيقى ٢ أو ٣٠٠٤ للموسيقى ٤)</string>
+    <string name="track_hint">"الموسيقى (٢ للموسيقى ٢ أو ٣٠٠٤ للموسيقى ٤)"</string>
     <string name="album_or_artist_empty">حقل نص اسم الألبوم أو اسم الفنان فارغ</string>
     <string name="writing_file_number">تتم كتابة الملف</string>
-    <string name="saving_changes">حفظ التغييرات...</string>
+    <string name="saving_changes">يتم حفظ التغييرات...</string>
     <string name="label_details">التفاصيل</string>
     <string name="label_file_name">اسم الملف</string>
     <string name="label_file_path">مسار الملف</string>
@@ -49,7 +50,7 @@
     <string name="no_results">لا توجد نتائج</string>
     <string name="action_re_download_artist_image">تحديث صورة الفنان</string>
     <string name="updating">يتم التحديث...</string>
-    <string name="added_title_to_playing_queue">تمت الإضافة إلى قائمة الانتظار</string>
+    <string name="added_title_to_playing_queue">"تمت الإضافة إلى قائمة الانتظار"</string>
     <string name="action_delete_from_playlist">حذف من قائمة التشغيل</string>
     <string name="new_playlist_action">قائمة تشغيل جديدة...</string>
     <string name="action_grid_columns">عدد قوائم الشبكة</string>
@@ -68,10 +69,10 @@
     <string name="delete_songs_title">حذف الأغاني</string>
     <string name="rename_playlist_title">إعادة تسمية قائمة التشغيل</string>
     <string name="delete_playlist_title">حذف قائمة التشغيل</string>
-    <string name="add_playlist_title">إضافة إلى قائمة التشغيل</string>
+    <string name="add_playlist_title">"إضافة إلى قائمة التشغيل"</string>
     <string name="new_playlist_title">قائمة تشغيل جديدة</string>
     <string name="delete_warning">"تحذير: لا يمكن التراجع هذه العملية."</string>
-    <string name="shuffle_all">الوضع العشوائي</string>
+    <string name="shuffle_all">عشوائي</string>
     <string name="last_opened">آخر ما تم فتحه</string>
     <string name="light_theme_name">فاتح</string>
     <string name="dark_theme_name">داكن</string>
@@ -80,8 +81,16 @@
     <string name="pref_title_general_theme">السمة الأساسية</string>
     <string name="pref_header_audio">الصوت</string>
     <string name="pref_header_general">عام</string>
+    <string name="pref_summary_colored_navigation_bar">في أي مشهد يتم تلوين شريط التنقل</string>
+    <string name="pref_title_navigation_bar">شريط تنقل ملون</string>
     <string name="pref_title_set_default_start_page">ضبط صفحة البدء</string>
     <string name="title_activity_settings">الإعدادات</string>
-    <string name="pref_title_transparent_toolbar">شريط الأدوات شبه شفاف</string>
+    <string name="pref_title_transparent_toolbar">"شريط الأدوات شبه شفاف"</string>
     <string name="pref_title_show_playback_controller_card">تحكم كرت التشغيل</string>
+    <string name="pref_title_colored_navigation_bar_artists">مشهد الفنان</string>
+    <string name="pref_title_colored_navigation_bar_albums">مشهد الألبوم</string>
+    <string name="pref_title_colored_navigation_bar_current_playing">مشهد التشغيل</string>
+    <string name="pref_title_colored_navigation_bar_playlists">مشهد قائمة التشغيل</string>
+    <string name="pref_title_colored_navigation_bar_tag_editor">تعديل معلومات الموسيقى</string>
+    <string name="pref_title_colored_navigation_bar_other_screens">في أي مكان</string>
 </resources>

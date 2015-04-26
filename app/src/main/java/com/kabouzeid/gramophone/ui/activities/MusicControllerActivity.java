@@ -101,6 +101,12 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        getFab().setOnLongClickListener(null);
+    }
+
+    @Override
     protected boolean shouldColorStatusBar() {
         return false; // let other code handle this below
     }

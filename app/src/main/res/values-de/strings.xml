@@ -28,7 +28,7 @@
     <string name="album_artist">Album Interpret</string>
     <string name="year">Jahr</string>
     <string name="track">Track</string>
-    <string name="track_hint">Track (2 für Track 2 oder 3004 für CD 3 Track 4)</string>
+    <string name="track_hint">"Track (2 für Track 2 oder 3004 für CD 3 Track 4)"</string>
     <string name="album_or_artist_empty">Das Feld \"Album Titel\" oder \"Album Interpret\" ist leer.</string>
     <string name="writing_file_number">Schreibe Datei</string>
     <string name="saving_changes">Speichere Änderungen...</string>
@@ -45,12 +45,12 @@
     <string name="label_current_playing_queue">Wiedergabeliste</string>
     <string name="save_as_playlist">Als Playlist speichern</string>
     <string name="credits_3">Icon von</string>
-    <string name="credits_1">Gramophone ist ein komplett kostenloser Musik Player im Material Design gemacht von</string>
+    <string name="credits_1">"Phonograph ist ein komplett kostenloser Musik Player im Material Design gemacht von"</string>
     <string name="title_activity_search">Suche</string>
     <string name="no_results">Keine Ergebnisse</string>
     <string name="action_re_download_artist_image">Interpretenbild aktualisieren</string>
     <string name="updating">Aktualisiere...</string>
-    <string name="added_title_to_playing_queue">1 Titel wurde der Wiedergabeliste hinzugefügt.</string>
+    <string name="added_title_to_playing_queue">"1 Titel wurde der Wiedergabeliste hinzugefügt."</string>
     <string name="action_delete_from_playlist">Aus Playlist entfernen</string>
     <string name="new_playlist_action">Neue Playlist…</string>
     <string name="action_grid_columns">Rastergröße</string>
@@ -66,7 +66,7 @@
     <string name="delete_songs_title">Lösche Titel</string>
     <string name="rename_playlist_title">Playlist umbenennen</string>
     <string name="delete_playlist_title">Lösche Playlist</string>
-    <string name="add_playlist_title">Zur Playlist hinzufügen</string>
+    <string name="add_playlist_title">"Zur Playlist hinzufügen"</string>
     <string name="new_playlist_title">Neue Playlist</string>
     <string name="delete_warning">"Achtung: Diese Operation kann nicht rückgängig gemacht werden."</string>
     <string name="shuffle_all">Alle zufällig wiedergeben</string>
@@ -82,7 +82,7 @@
     <string name="pref_title_navigation_bar">Gefärbte Navigationsleiste</string>
     <string name="pref_title_set_default_start_page">Startseite</string>
     <string name="title_activity_settings">Einstellungen</string>
-    <string name="pref_title_transparent_toolbar">Halbtransparente Toolbar</string>
+    <string name="pref_title_transparent_toolbar">"Halbtransparente Toolbar"</string>
     <string name="pref_title_show_playback_controller_card">Mediencontroller Karten Hintergrund</string>
     <string name="pref_title_colored_navigation_bar_artists">Interpreten Ansicht</string>
     <string name="pref_title_colored_navigation_bar_albums">Album Ansicht</string>
@@ -92,9 +92,9 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Überall sonst</string>
     <string name="pref_title_colored_album_footers">Farbige Balken unter den Alben</string>
     <string name="no_equalizer">Es wurde kein Equalizer gefunden</string>
-    <string name="no_audio_ID">Keine Audio ID, spiele etwas ab und versuche es erneut.</string>
+    <string name="no_audio_ID">"Keine Audio ID, spiele etwas ab und versuche es erneut."</string>
     <string name="navigation_drawer_open">Öffne Navigation Drawer</string>
-    <string name="navigation_drawer_close">Schließe Navigation Drawer</string>
+    <string name="navigation_drawer_close">"Schließe Navigation Drawer"</string>
     <string name="delete_action">Löschen</string>
     <string name="rename_action">Umbenennen</string>
     <string name="select">Auswählen</string>
@@ -108,10 +108,10 @@
     <string name="no_playlists">Keine Playlists</string>
     <string name="playlist_name">Playlist Name</string>
     <string name="song">Titel</string>
-    <string name="pref_only_lollipop">Nur auf Android Lollipop verfügbar</string>
+    <string name="pref_only_lollipop">"Nur auf Android Lollipop verfügbar"</string>
     <string name="pref_summary_transparent_toolbar">Ob der Inhalt unter der Toolbar sichtbar sein soll.</string>
-    <string name="pref_summary_colored_album_footers">Die Titel der Alben im Raster passend zu ihrer Cover Farbe färben.</string>
-    <string name="failed_download_albumart">Das Cover für dieses Album konnte nicht heruntergeladen werden.</string>
+    <string name="pref_summary_colored_album_footers">"Die Titel der Alben im Raster passend zu ihrer Cover Farbe färben."</string>
+    <string name="failed_download_albumart">"Das Cover für dieses Album konnte nicht heruntergeladen werden."</string>
     <string name="search_hint">Durchsuche deine Mediathek</string>
     <string name="rescanning_media">Medien werden erneut eingescannt...</string>
     <string-array name="update_album_cover_options">
