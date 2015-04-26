@@ -145,12 +145,6 @@ public class SearchActivity extends AbsBaseActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
-    }
-
     private void search(String query) {
         if (searchAdapter != null)
             searchAdapter.search(query);

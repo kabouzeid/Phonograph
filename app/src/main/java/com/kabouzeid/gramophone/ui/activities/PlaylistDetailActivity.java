@@ -114,8 +114,6 @@ public class PlaylistDetailActivity extends AbsFabActivity {
             case android.R.id.home:
                 super.onBackPressed();
                 return true;
-            case R.id.action_settings:
-                return true;
             case R.id.action_current_playing:
                 NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithFab(null));
                 return true;

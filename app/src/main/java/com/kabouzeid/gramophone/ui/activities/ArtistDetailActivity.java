@@ -388,9 +388,6 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                 Toast.makeText(ArtistDetailActivity.this, getResources().getString(R.string.updating), Toast.LENGTH_SHORT).show();
                 setUpArtistImageAndApplyPalette(true);
                 return true;
-            case R.id.action_settings:
-                Toast.makeText(this, "This feature is not available yet", Toast.LENGTH_SHORT).show();
-                return true;
             case R.id.action_current_playing:
                 NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithFab(null));
                 return true;
