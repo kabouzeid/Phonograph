@@ -92,6 +92,7 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Partout ailleurs</string>
     <string name="pref_title_colored_album_footers">Bas d\'album coloré</string>
     <string name="no_equalizer">Aucun égaliseur trouvé</string>
+    <string name="no_audio_ID">"Aucun ID audio, jouez quelque chose et réessayez."</string>
     <string name="navigation_drawer_open">Ouvrir le volet de navigation</string>
     <string name="navigation_drawer_close">"Fermer le volet de navigation"</string>
     <string name="delete_action">Supprimer</string>
@@ -112,6 +113,7 @@
     <string name="pref_summary_colored_album_footers">"Les bas d\'album dans la grille sont colorés avec la palette de la couverture."</string>
     <string name="failed_download_albumart">"Impossible de télécharger la pochette pour cet album."</string>
     <string name="search_hint">Recherche votre bibliothèque...</string>
+    <string name="rescanning_media">Réanalyse des médias…</string>
     <string-array name="update_album_cover_options">
         <item>Télécharger depuis Last.fm</item>
         <item>Choisir depuis le stockage interne</item>

@@ -117,7 +117,7 @@
     <string-array name="update_album_cover_options">
         <item>Last.FM den indir</item>
         <item>Yerel Depolamayı Seç</item>
-        <item>Albüm Kapağını Kaldır</item>
+        <item>Web\'de ara</item>
         <item>Albüm Kapağını Kaldır</item>
     </string-array>
 </resources>

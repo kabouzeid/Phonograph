@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_settings">"الإعدادات"</string>
-    <string name="action_about">عنّا</string>
+    <string name="action_about">عنى</string>
     <string name="action_currently_playing">يتم التشغيل حالياً</string>
     <string name="action_playing_queue">قائمة الانتظار</string>
     <string name="action_search">بحث</string>
@@ -18,7 +18,7 @@
     <string name="playlists">قوائم التشغيل</string>
     <string name="nothing_playing">لا شيء قيد التشغيل</string>
     <string name="unplayable_file">عذراً، حصل خطأ أثناء محاولة تشغيل الأغنية</string>
-    <string name="biography_unavailable">عذراً، لم يتم العثور على سيرة ذاتية مطابقة للفنان</string>
+    <string name="biography_unavailable">عذراً، لم يتم العثور على سيرة ذاتية مطابقة لهذا الفنان</string>
     <string name="biography">سيرة ذاتية</string>
     <string name="audio_focus_denied">لم يتم منح التطبيق إذن Audio focus</string>
     <string name="tag_editor">تعديل معلومات الموسيقى</string>

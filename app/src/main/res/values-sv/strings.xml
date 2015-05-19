@@ -29,4 +29,90 @@
     <string name="year">År</string>
     <string name="track">Låt</string>
     <string name="track_hint">"Låt"</string>
+    <string name="album_or_artist_empty">Textfältet för albumtitel eller artist är tomt.</string>
+    <string name="writing_file_number">Skriver till fil</string>
+    <string name="saving_changes">Sparar ändringar ...</string>
+    <string name="label_details">Detaljer</string>
+    <string name="label_file_name">Filnamn</string>
+    <string name="label_file_path">Sökväg</string>
+    <string name="label_file_size">Storlek</string>
+    <string name="label_file_format">Format</string>
+    <string name="label_track_length">Längd</string>
+    <string name="label_bit_rate">Bithastighet</string>
+    <string name="label_sampling_rate">Samplingsfrekvens</string>
+    <string name="action_go_to_artist">Gå till artist</string>
+    <string name="action_go_to_album">Gå till album</string>
+    <string name="label_current_playing_queue">Spelar kö</string>
+    <string name="save_as_playlist">Spara som spellista</string>
+    <string name="credits_3">Ikon av</string>
+    <string name="credits_1">"Phonograph är en helt gratis musikspelare med Material Design av"</string>
+    <string name="title_activity_search">Sök</string>
+    <string name="no_results">Inga resultat</string>
+    <string name="action_re_download_artist_image">Uppdatera artistbild</string>
+    <string name="updating">Uppdaterar ...</string>
+    <string name="added_title_to_playing_queue">"Lagt till 1 titel till spellistan."</string>
+    <string name="action_delete_from_playlist">Radera från spellista</string>
+    <string name="new_playlist_action">Ny spellista ...</string>
+    <string name="created_playlist_x">Spellista %1$s skapad</string>
+    <string name="deleted_playlist_x">Spellista %1$s raderad</string>
+    <string name="couldnot_create_playlist_x">Kunde inte skapa spellistan %1$s</string>
+    <string name="delete_playlist_x"><![CDATA[
+Vill du radera spellistan <b>%1$s</b>?
+    ]]></string>
+    <string name="delete_song_x"><![CDATA[
+Vill du radera låten <b>%1$s</b>?
+    ]]></string>
+    <string name="delete_x_songs"><![CDATA[
+Vill du radera <b>%1$d</b> låtar?
+    ]]></string>
+    <string name="delete_song_title">Radera låt</string>
+    <string name="delete_songs_title">Radera låtar</string>
+    <string name="rename_playlist_title">Döp om spellista</string>
+    <string name="delete_playlist_title">Radera spellista</string>
+    <string name="add_playlist_title">"Lägg till i spellista"</string>
+    <string name="new_playlist_title">Ny spellista</string>
+    <string name="delete_warning">"Varning: denna process kan inte ångras."</string>
+    <string name="shuffle_all">Slumpa alla</string>
+    <string name="last_opened">Senast öppnad</string>
+    <string name="light_theme_name">Ljus</string>
+    <string name="dark_theme_name">Mörk</string>
+    <string name="equalizer">Equalizer</string>
+    <string name="pref_header_ui">UI</string>
+    <string name="pref_title_general_theme">Allmänt tema</string>
+    <string name="pref_header_audio">Ljud</string>
+    <string name="pref_header_general">Allmänt</string>
+    <string name="pref_summary_colored_navigation_bar">I vilken vy navigeringslisten skall vara färgad</string>
+    <string name="pref_title_navigation_bar">Färgad navigeringslist</string>
+    <string name="pref_title_set_default_start_page">Startsida</string>
+    <string name="title_activity_settings">Inställningar</string>
+    <string name="pref_title_transparent_toolbar">"Semitransparent verktygsfält"</string>
+    <string name="pref_title_colored_navigation_bar_artists">Artistvy</string>
+    <string name="pref_title_colored_navigation_bar_albums">Albumvy</string>
+    <string name="pref_title_colored_navigation_bar_current_playing">Spelarvy</string>
+    <string name="pref_title_colored_navigation_bar_playlists">Spellistevy</string>
+    <string name="pref_title_colored_navigation_bar_tag_editor">Etikettredigerare</string>
+    <string name="pref_title_colored_navigation_bar_other_screens">Överallt</string>
+    <string name="pref_title_colored_album_footers">Färgade albumsidfötter</string>
+    <string name="no_equalizer">Hittar ingen equalizer</string>
+    <string name="no_audio_ID">"Inget ljud-ID, spela något annat och försök igen."</string>
+    <string name="delete_action">Radera</string>
+    <string name="rename_action">Döp om</string>
+    <string name="select">Välj</string>
+    <string name="default_str">Standard</string>
+    <string name="primary_color">Grundfärg</string>
+    <string name="update_image">Uppdatera bild</string>
+    <string name="playlist_empty_text">Spellistan är tom</string>
+    <string name="no_playlists">Inga spellistor</string>
+    <string name="playlist_name">Spellistans namn</string>
+    <string name="song">Låt</string>
+    <string name="pref_only_lollipop">"Enbart tillgänglig för Lollipop."</string>
+    <string name="failed_download_albumart">"Kan inte ladda ner bild för detta album."</string>
+    <string name="search_hint">Sök i ditt bibliotek ...</string>
+    <string name="rescanning_media">Återskannar media ...</string>
+    <string-array name="update_album_cover_options">
+        <item>Ladda ner från Last.fm</item>
+        <item>Välj från lokal lagring</item>
+        <item>Weksök</item>
+        <item>Ta bort omslag</item>
+    </string-array>
 </resources>

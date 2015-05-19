@@ -15,7 +15,7 @@
     <string name="albums">Álbuns</string>
     <string name="artists">Artistas</string>
     <string name="songs">Músicas</string>
-    <string name="playlists">Listas</string>
+    <string name="playlists">Playlists</string>
     <string name="nothing_playing">Nada em execução</string>
     <string name="unplayable_file">Desculpe - ocorreu um erro ao tentar reproduzir esta faixa</string>
     <string name="biography_unavailable">Desculpe, não conseguimos encontrar a biografia deste artista.</string>
@@ -34,15 +34,15 @@
     <string name="saving_changes">Salvando alterações...</string>
     <string name="label_details">Detalhes</string>
     <string name="label_file_name">Nome do arquivo</string>
-    <string name="label_file_path">Caminho do arquivo</string>
+    <string name="label_file_path">Endereço do arquivo</string>
     <string name="label_file_size">Tamanho</string>
     <string name="label_file_format">Formato</string>
     <string name="label_track_length">Duração</string>
     <string name="label_bit_rate">Taxa de bits</string>
     <string name="label_sampling_rate">Taxa de amostragem</string>
-    <string name="action_go_to_artist">Ir para o artista</string>
+    <string name="action_go_to_artist">Ir para artista</string>
     <string name="action_go_to_album">Ir para o álbum</string>
-    <string name="label_current_playing_queue">Fila de execução</string>
+    <string name="label_current_playing_queue">Lista de reprodução</string>
     <string name="save_as_playlist">Salvar como playlist</string>
     <string name="credits_3">Ícone por</string>
     <string name="credits_1">"O Phonograph é um player de música completamente grátis com Material Design feito por"</string>
@@ -50,8 +50,8 @@
     <string name="no_results">Sem resultados</string>
     <string name="action_re_download_artist_image">Atualizar imagem do artista</string>
     <string name="updating">Atualizando...</string>
-    <string name="added_title_to_playing_queue">"1 título adicionado à fila de reprodução.  "</string>
-    <string name="action_delete_from_playlist">Excluir da lista</string>
+    <string name="added_title_to_playing_queue">"1 título adicionado à lista de reprodução"</string>
+    <string name="action_delete_from_playlist">Excluir da playlist</string>
     <string name="new_playlist_action">Nova playlist...</string>
     <string name="action_grid_columns">Colunas da grade</string>
     <string name="action_grid_columns_land">Colunas da grade (Horizontal)</string>
@@ -70,7 +70,7 @@
     <string name="new_playlist_title">Nova Playlist</string>
     <string name="delete_warning">"Aviso: Esta operação não pode ser desfeita."</string>
     <string name="shuffle_all">Misturar todas</string>
-    <string name="last_opened">Última executada</string>
+    <string name="last_opened">Última aberta</string>
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Escuro</string>
     <string name="equalizer">Equalizador</string>
@@ -78,7 +78,7 @@
     <string name="pref_title_general_theme">Tema geral</string>
     <string name="pref_header_audio">Áudio</string>
     <string name="pref_header_general">Geral</string>
-    <string name="pref_summary_colored_navigation_bar">Em quais telas a barra de navegação deve ser colorida.</string>
+    <string name="pref_summary_colored_navigation_bar">"Definir onde a barra de navegação deve ser colorida. "</string>
     <string name="pref_title_navigation_bar">Barra de navegação colorida</string>
     <string name="pref_title_set_default_start_page">Página inicial</string>
     <string name="title_activity_settings">Configurações</string>
@@ -90,7 +90,7 @@
     <string name="pref_title_colored_navigation_bar_playlists">Vista da playlist</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">Editor de tags</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Todos os outros lugares</string>
-    <string name="pref_title_colored_album_footers">Colorir rodapés de álbuns</string>
+    <string name="pref_title_colored_album_footers">Rodapés de álbuns coloridos</string>
     <string name="no_equalizer">Nenhum equalizador encontrado</string>
     <string name="no_audio_ID">"Sem identificação de áudio, reproduza algo e tente novamente."</string>
     <string name="navigation_drawer_open">Abrir gaveta de navegação</string>
@@ -102,7 +102,7 @@
     <string name="primary_color">Cor Primária</string>
     <string name="accent_color">Cor dos Detalhes</string>
     <string name="primary_color_desc">A cor primária do tema, o padrão é azul-índigo.</string>
-    <string name="accent_color_desc">A cor dos detalhes, o padrão é rosa.</string>
+    <string name="accent_color_desc">A cor dos detalhes do tema, o padrão é rosa.</string>
     <string name="update_image">Atualizar Imagem</string>
     <string name="playlist_empty_text">Esta lista está vazia</string>
     <string name="no_playlists">Nenhuma playlist</string>
@@ -115,7 +115,7 @@
     <string name="search_hint">Pesquisar na sua biblioteca...</string>
     <string name="rescanning_media">Verificando mídia novamente...</string>
     <string-array name="update_album_cover_options">
-        <item>Baixar da Last.fm</item>
+        <item>Baixar do Last.fm</item>
         <item>Escolher do Armazenamento Local</item>
         <item>Pesquisar na Internet</item>
         <item>Remover Arte do Album</item>
