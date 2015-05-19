@@ -90,7 +90,7 @@ public class NavigationDrawerItemAdapter extends RecyclerView.Adapter<Navigation
 
         holder.title.setText(item.title);
         holder.icon.setImageResource(item.imageRes);
-        holder.divider.setVisibility(position == NavigationDrawerFragment.ABOUT_INDEX ?
+        holder.divider.setVisibility(position == NavigationDrawerFragment.SETTINGS_INDEX ?
                 View.VISIBLE : View.GONE);
 
         final boolean selected = position == currentChecked;

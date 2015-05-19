@@ -26,8 +26,8 @@ import java.util.ArrayList;
 public class NavigationDrawerFragment extends Fragment {
 
     public static final int NAVIGATION_DRAWER_HEADER = -1;
-    public static final int ABOUT_INDEX = 4;
-    public static final int SETTINGS_INDEX = 5;
+    public static final int ABOUT_INDEX = 5;
+    public static final int SETTINGS_INDEX = 4;
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
 
     public View fragmentRootView;
@@ -134,8 +134,8 @@ public class NavigationDrawerFragment extends Fragment {
         navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.albums), R.drawable.ic_album_white_24dp));
         navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.artists), R.drawable.ic_person_white_24dp));
         navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.playlists), R.drawable.ic_queue_music_white_24dp));
-        navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.action_about), R.drawable.ic_help_white_24dp));
         navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.action_settings), R.drawable.ic_settings_white_24dp));
+        navigationDrawerItems.add(new NavigationDrawerItem(getString(R.string.action_about), R.drawable.ic_help_white_24dp));
 
         drawerAdapter = new NavigationDrawerItemAdapter(getActivity(), navigationDrawerItems, new NavigationDrawerItemAdapter.Callback() {
             @Override
