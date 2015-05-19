@@ -20,13 +20,9 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.Request;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appwidget.MusicPlayerWidget;
@@ -37,6 +33,12 @@ import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.InternalStorageUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.assist.ViewScaleType;
+import com.nostra13.universalimageloader.core.imageaware.NonViewAware;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -81,8 +83,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private PlayingNotificationHelper playingNotificationHelper;
     private AudioManager audioManager;
     private RemoteControlClient remoteControlClient;
-    private Request remoteControlClientAlbumArtRequest;
     private PowerManager.WakeLock wakeLock;
+    private String currentAlbumArtUri;
 
     public MusicService() {
     }
@@ -358,28 +360,20 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 .putString(MediaMetadataRetriever.METADATA_KEY_TITLE, song.title)
                 .putLong(MediaMetadataRetriever.METADATA_KEY_DURATION, song.duration)
                 .apply();
+        currentAlbumArtUri = MusicUtil.getAlbumArtUri(song.albumId).toString();
+        ImageLoader.getInstance().displayImage(currentAlbumArtUri, new NonViewAware(new ImageSize(-1, -1), ViewScaleType.CROP), new SimpleImageLoadingListener() {
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                if (currentAlbumArtUri.equals(imageUri))
+                    updateRemoteControlClientBitmap(loadedImage);
+            }
 
-        if (remoteControlClientAlbumArtRequest != null) remoteControlClientAlbumArtRequest.clear();
-        remoteControlClientAlbumArtRequest = Glide.with(this)
-                .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
-                .asBitmap()
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
-                .listener(new RequestListener<Uri, Bitmap>() {
-                    @Override
-                    public boolean onException(Exception e, Uri model, Target<Bitmap> target, boolean isFirstResource) {
-                        updateRemoteControlClientBitmap(null);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Bitmap resource, Uri model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        updateRemoteControlClientBitmap(resource);
-                        return false;
-                    }
-                })
-                .into(-1, -1)
-                .getRequest();
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                if (currentAlbumArtUri.equals(imageUri))
+                    updateRemoteControlClientBitmap(null);
+            }
+        });
     }
 
     private void updateRemoteControlClientBitmap(final Bitmap albumArt) {

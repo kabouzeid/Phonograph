@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistThumbnailUrlLoader;
@@ -19,6 +18,8 @@ import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
@@ -51,16 +52,20 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
 
         holder.artistName.setText(artist.name);
         holder.artistInfo.setText(MusicUtil.getArtistInfoString(activity, artist));
-        holder.artistImage.setImageResource(R.drawable.default_artist_image);
+        holder.artistImage.setImageDrawable(null);
 
         LastFMArtistThumbnailUrlLoader.loadArtistThumbnailUrl(activity, artist.name, false, new LastFMArtistThumbnailUrlLoader.ArtistThumbnailUrlLoaderCallback() {
             @Override
             public void onArtistThumbnailUrlLoaded(final String url) {
-                Glide.with(activity)
-                        .load(url)
-                        .error(R.drawable.default_artist_image)
-                        .placeholder(R.drawable.default_artist_image)
-                        .into(holder.artistImage);
+                ImageLoader.getInstance().displayImage(url,
+                        holder.artistImage,
+                        new DisplayImageOptions.Builder()
+                                .cacheInMemory(true)
+                                .cacheOnDisk(true)
+                                .showImageOnFail(R.drawable.default_artist_image)
+                                .resetViewBeforeLoading(true)
+                                .build()
+                );
             }
         });
     }

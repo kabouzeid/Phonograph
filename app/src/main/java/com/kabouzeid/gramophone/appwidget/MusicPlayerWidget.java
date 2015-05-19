@@ -7,24 +7,25 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
+import android.view.View;
 import android.widget.RemoteViews;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.Request;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MusicControllerActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.assist.ViewScaleType;
+import com.nostra13.universalimageloader.core.imageaware.NonViewAware;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 public class MusicPlayerWidget extends AppWidgetProvider {
     private static RemoteViews widgetLayout;
-    private static Request albumArtRequest;
+    private static String currentAlbumArtUri;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -62,28 +63,22 @@ public class MusicPlayerWidget extends AppWidgetProvider {
     }
 
     private static void loadAlbumArt(final Context context, final Song song) {
-        if (albumArtRequest != null) albumArtRequest.clear();
-        final int notificationAlbumArtSize = context.getResources().getDimensionPixelSize(R.dimen.app_widget_small_artwork_height);
-        albumArtRequest = Glide.with(context)
-                .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
-                .asBitmap()
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
-                .listener(new RequestListener<Uri, Bitmap>() {
-                    @Override
-                    public boolean onException(Exception e, Uri model, Target<Bitmap> target, boolean isFirstResource) {
-                        setAlbumArt(context, null);
-                        return false;
-                    }
+        if (song != null) {
+            currentAlbumArtUri = MusicUtil.getAlbumArtUri(song.albumId).toString();
+            ImageLoader.getInstance().displayImage(currentAlbumArtUri, new NonViewAware(new ImageSize(-1, -1), ViewScaleType.CROP), new SimpleImageLoadingListener() {
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    if (currentAlbumArtUri.equals(imageUri))
+                        setAlbumArt(context, loadedImage);
+                }
 
-                    @Override
-                    public boolean onResourceReady(Bitmap resource, Uri model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        setAlbumArt(context, resource);
-                        return false;
-                    }
-                })
-                .into(notificationAlbumArtSize, notificationAlbumArtSize)
-                .getRequest();
+                @Override
+                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    if (currentAlbumArtUri.equals(imageUri))
+                        setAlbumArt(context, null);
+                }
+            });
+        }
     }
 
     private static void setAlbumArt(final Context context, final Bitmap albumArt) {

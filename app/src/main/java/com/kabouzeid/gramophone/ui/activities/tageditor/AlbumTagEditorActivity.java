@@ -6,18 +6,20 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.lastfm.album.LastFMAlbumImageUrlLoader;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.images.Artwork;
@@ -95,34 +97,24 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
         LastFMAlbumImageUrlLoader.loadAlbumImageUrl(this, albumTitleStr, albumArtistNameStr, new LastFMAlbumImageUrlLoader.AlbumImageUrlLoaderCallback() {
                     @Override
                     public void onAlbumImageUrlLoaded(String url) {
-                        Glide.with(AlbumTagEditorActivity.this)
-                                .load(url)
-                                .asBitmap()
-                                .centerCrop()
-                                .listener(new RequestListener<String, Bitmap>() {
+                        ImageLoader.getInstance().loadImage(url,
+                                new ImageSize(500, 500),
+                                new SimpleImageLoadingListener() {
                                     @Override
-                                    public boolean onException(Exception e, String model, Target<Bitmap> target, boolean isFirstResource) {
+                                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                                         Toast.makeText(AlbumTagEditorActivity.this,
                                                 R.string.failed_download_albumart, Toast.LENGTH_SHORT).show();
-                                        return false;
                                     }
 
                                     @Override
-                                    public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                                        if (resource != null) {
-                                            albumArtBitmap = resource;
-                                            setImageBitmap(albumArtBitmap);
-                                            deleteAlbumArt = false;
-                                            dataChanged();
-                                            setResult(RESULT_OK);
-                                        } else {
-                                            Toast.makeText(AlbumTagEditorActivity.this,
-                                                    R.string.failed_download_albumart, Toast.LENGTH_SHORT).show();
-                                        }
-                                        return false;
+                                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                                        albumArtBitmap = loadedImage;
+                                        setImageBitmap(albumArtBitmap);
+                                        deleteAlbumArt = false;
+                                        dataChanged();
+                                        setResult(RESULT_OK);
                                     }
-                                })
-                                .into(500, 500);
+                                });
                     }
 
                     @Override
@@ -191,29 +183,24 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
     @Override
     protected void loadImageFromFile(final Uri selectedFileUri) {
-        Glide.with(this)
-                .load(selectedFileUri)
-                .asBitmap()
-                .centerCrop()
-                .listener(new RequestListener<Uri, Bitmap>() {
+        ImageLoader.getInstance().loadImage(selectedFileUri.toString(),
+                new ImageSize(500, 500),
+                new SimpleImageLoadingListener() {
                     @Override
-                    public boolean onException(Exception e, Uri model, Target<Bitmap> target, boolean isFirstResource) {
-                        return false;
+                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                        Toast.makeText(AlbumTagEditorActivity.this,
+                                R.string.failed_download_albumart, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
-                    public boolean onResourceReady(Bitmap resource, Uri model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        if (resource != null) {
-                            albumArtBitmap = resource;
-                            setImageBitmap(albumArtBitmap);
-                            deleteAlbumArt = false;
-                            dataChanged();
-                            setResult(RESULT_OK);
-                        }
-                        return false;
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        albumArtBitmap = loadedImage;
+                        setImageBitmap(albumArtBitmap);
+                        deleteAlbumArt = false;
+                        dataChanged();
+                        setResult(RESULT_OK);
                     }
-                })
-                .into(500, 500);
+                });
     }
 
     @Override

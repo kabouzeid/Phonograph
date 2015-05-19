@@ -11,15 +11,14 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.signature.StringSignature;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -49,13 +48,15 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> {
         songTitle.setText(song.title);
         songInfo.setText(song.albumName);
 
-        Glide.with(activity)
-                .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .signature(new StringSignature(String.valueOf(song.dateModified)))
-                .error(R.drawable.default_album_art)
-                .placeholder(R.drawable.default_album_art)
-                .into(albumArt);
+        ImageLoader.getInstance().displayImage(
+                MusicUtil.getAlbumArtUri(song.albumId).toString(),
+                albumArt,
+                new DisplayImageOptions.Builder()
+                        .cacheInMemory(true)
+                        .showImageOnFail(R.drawable.default_album_art)
+                        .resetViewBeforeLoading(true)
+                        .build()
+        );
 
         final ImageView overflowButton = (ImageView) convertView.findViewById(R.id.menu);
         overflowButton.setOnClickListener(new View.OnClickListener() {

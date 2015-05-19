@@ -9,14 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.signature.StringSignature;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -49,13 +48,16 @@ public class ArtistAlbumAdapter extends RecyclerView.Adapter<ArtistAlbumAdapter.
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Album album = dataSet.get(position);
-        Glide.with(activity)
-                .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.id))
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .signature(new StringSignature(album.albumArtPath))
-                .error(R.drawable.default_album_art)
-                .placeholder(R.drawable.default_album_art)
-                .into(holder.albumArt);
+
+        ImageLoader.getInstance().displayImage(
+                MusicUtil.getAlbumArtUri(album.id).toString(),
+                holder.albumArt,
+                new DisplayImageOptions.Builder()
+                        .cacheInMemory(true)
+                        .showImageOnFail(R.drawable.default_album_art)
+                        .resetViewBeforeLoading(true)
+                        .build()
+        );
 
         holder.title.setText(album.title);
         holder.year.setText(String.valueOf(album.year));

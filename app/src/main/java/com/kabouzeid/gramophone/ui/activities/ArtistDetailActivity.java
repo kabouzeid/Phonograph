@@ -24,11 +24,6 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.util.DialogUtils;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
@@ -53,6 +48,10 @@ import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nineoldandroids.view.ViewHelper;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -268,23 +267,26 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         LastFMArtistImageUrlLoader.loadArtistImageUrl(this, artist.name, forceDownload, new LastFMArtistImageUrlLoader.ArtistImageUrlLoaderCallback() {
             @Override
             public void onArtistImageUrlLoaded(final String url) {
-                Glide.with(ArtistDetailActivity.this)
-                        .load(url)
-                        .error(R.drawable.default_artist_image)
-                        .listener(new RequestListener<String, GlideDrawable>() {
+                ImageLoader.getInstance().displayImage(url,
+                        artistImage,
+                        new DisplayImageOptions.Builder()
+                                .cacheInMemory(true)
+                                .cacheOnDisk(true)
+                                .showImageOnFail(R.drawable.default_artist_image)
+                                .resetViewBeforeLoading(true)
+                                .build(),
+                        new SimpleImageLoadingListener() {
                             @Override
-                            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                                 applyPalette(null);
-                                return false;
                             }
 
                             @Override
-                            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                                applyPalette(((GlideBitmapDrawable) resource).getBitmap());
-                                return false;
+                            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                                applyPalette(loadedImage);
                             }
-                        })
-                        .into(artistImage);
+                        }
+                );
             }
         });
     }

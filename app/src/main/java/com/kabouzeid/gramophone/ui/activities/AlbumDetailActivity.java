@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
@@ -18,13 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.util.DialogUtils;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.signature.StringSignature;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
@@ -46,6 +38,10 @@ import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nineoldandroids.view.ViewHelper;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -176,31 +172,30 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     }
 
     private void setUpAlbumArtAndApplyPalette() {
-        Glide.with(AlbumDetailActivity.this)
-                .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.id))
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .signature(new StringSignature(album.albumArtPath))
-                .error(R.drawable.default_album_art)
-                .listener(new RequestListener<Uri, GlideDrawable>() {
+        ImageLoader.getInstance().displayImage(
+                MusicUtil.getAlbumArtUri(album.id).toString(),
+                albumArtImageView,
+                new DisplayImageOptions.Builder()
+                        .cacheInMemory(true)
+                        .showImageOnFail(R.drawable.default_album_art)
+                        .resetViewBeforeLoading(true)
+                        .build(),
+                new SimpleImageLoadingListener() {
                     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                     @Override
-                    public boolean onException(Exception e, Uri model, Target<GlideDrawable> target, boolean isFirstResource) {
+                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                         applyPalette(null);
                         if (Util.isAtLeastLollipop()) startPostponedEnterTransition();
-                        return false;
                     }
 
                     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                     @Override
-                    public boolean onResourceReady(GlideDrawable resource, Uri model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        applyPalette(((GlideBitmapDrawable) resource).getBitmap());
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        applyPalette(loadedImage);
                         if (Util.isAtLeastLollipop()) startPostponedEnterTransition();
-                        // workaround for glide not working well with shared element, dont remove this redundant looking call!
-                        albumArtImageView.setImageDrawable(resource);
-                        return false;
                     }
-                })
-                .into(albumArtImageView);
+                }
+        );
     }
 
     private void applyPalette(Bitmap bitmap) {

@@ -27,12 +27,6 @@ import android.widget.FrameLayout;
 
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.astuetz.PagerSlidingTabStrip;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.signature.StringSignature;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PagerAdapter;
 import com.kabouzeid.gramophone.dialogs.AboutDialog;
@@ -54,6 +48,8 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -73,8 +69,6 @@ public class MainActivity extends AbsFabActivity
     private ViewPager viewPager;
     private PagerSlidingTabStrip slidingTabLayout;
     private int currentPage = -1;
-    private int navigationDrawerImageWidth = -1;
-    private int navigationDrawerImageHeight = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,9 +188,6 @@ public class MainActivity extends AbsFabActivity
         }
         navDrawerFrame.setLayoutParams(new DrawerLayout.LayoutParams(navDrawerWidth,
                 DrawerLayout.LayoutParams.MATCH_PARENT, Gravity.START));
-
-        navigationDrawerImageWidth = navDrawerWidth;
-        navigationDrawerImageHeight = getResources().getDimensionPixelSize(R.dimen.navigation_drawer_image_height);
     }
 
     @Override
@@ -216,25 +207,15 @@ public class MainActivity extends AbsFabActivity
             if (song.id != -1) {
                 navigationDrawerFragment.getSongTitle().setText(song.title);
                 navigationDrawerFragment.getSongArtist().setText(song.artistName);
-                Glide.with(this)
-                        .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
-                        .centerCrop()
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .signature(new StringSignature(String.valueOf(song.dateModified)))
-                        .listener(new RequestListener<Uri, GlideDrawable>() {
-                            @Override
-                            public boolean onException(Exception e, Uri model, Target<GlideDrawable> target, boolean isFirstResource) {
-                                navigationDrawerFragment.getAlbumArtImageView().setImageResource(R.drawable.default_album_art);
-                                return false;
-                            }
-
-                            @Override
-                            public boolean onResourceReady(GlideDrawable resource, Uri model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                                navigationDrawerFragment.getAlbumArtImageView().setImageDrawable(resource);
-                                return false;
-                            }
-                        })
-                        .into(navigationDrawerImageWidth, navigationDrawerImageHeight);
+                ImageLoader.getInstance().displayImage(
+                        MusicUtil.getAlbumArtUri(song.albumId).toString(),
+                        navigationDrawerFragment.getAlbumArtImageView(),
+                        new DisplayImageOptions.Builder()
+                                .cacheInMemory(true)
+                                .showImageOnFail(R.drawable.default_album_art)
+                                .resetViewBeforeLoading(true)
+                                .build()
+                );
             }
         }
     }

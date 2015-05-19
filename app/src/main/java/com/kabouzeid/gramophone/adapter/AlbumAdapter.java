@@ -2,7 +2,6 @@ package com.kabouzeid.gramophone.adapter;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.support.v4.util.Pair;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
@@ -13,13 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.util.DialogUtils;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.signature.StringSignature;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
@@ -31,6 +23,10 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.ViewUtil;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
@@ -59,28 +55,27 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
 
         holder.title.setText(album.title);
         holder.artist.setText(album.artistName);
-        Glide.with(activity)
-                .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.id))
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .signature(new StringSignature(album.albumArtPath))
-                .error(R.drawable.default_album_art)
-                .placeholder(R.drawable.default_album_art)
-                .listener(new RequestListener<Uri, GlideDrawable>() {
+
+        ImageLoader.getInstance().displayImage(
+                MusicUtil.getAlbumArtUri(album.id).toString(),
+                holder.albumArt,
+                new DisplayImageOptions.Builder()
+                        .cacheInMemory(true)
+                        .showImageOnFail(R.drawable.default_album_art)
+                        .resetViewBeforeLoading(true)
+                        .build(),
+                new SimpleImageLoadingListener() {
                     @Override
-                    public boolean onException(Exception e, Uri model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        if (usePalette)
-                            applyPalette(null, holder.title, holder.artist, holder.footer);
-                        return false;
+                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                        paletteBlackAndWhite(holder.title, holder.artist, holder.footer);
                     }
 
                     @Override
-                    public boolean onResourceReady(GlideDrawable resource, Uri model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        if (usePalette)
-                            applyPalette(((GlideBitmapDrawable) resource).getBitmap(), holder.title, holder.artist, holder.footer);
-                        return false;
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        applyPalette(loadedImage, holder.title, holder.artist, holder.footer);
                     }
-                })
-                .into(holder.albumArt);
+                }
+        );
     }
 
     @Override

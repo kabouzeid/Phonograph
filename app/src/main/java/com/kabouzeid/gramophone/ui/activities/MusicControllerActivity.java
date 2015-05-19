@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
@@ -22,13 +21,6 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.afollestad.materialdialogs.util.DialogUtils;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.signature.StringSignature;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
@@ -49,6 +41,10 @@ import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nineoldandroids.view.ViewPropertyAnimator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.squareup.otto.Subscribe;
 
 import java.io.File;
@@ -305,26 +301,26 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     private void setUpAlbumArtAndApplyPalette() {
-        Glide.with(this)
-                .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .signature(new StringSignature(String.valueOf(song.dateModified)))
-                .error(R.drawable.default_album_art)
-                .placeholder(R.drawable.default_album_art)
-                .listener(new RequestListener<Uri, GlideDrawable>() {
+        ImageLoader.getInstance().displayImage(
+                MusicUtil.getAlbumArtUri(song.albumId).toString(),
+                albumArt,
+                new DisplayImageOptions.Builder()
+                        .cacheInMemory(true)
+                        .showImageOnFail(R.drawable.default_album_art)
+                        .resetViewBeforeLoading(true)
+                        .build(),
+                new SimpleImageLoadingListener() {
                     @Override
-                    public boolean onException(Exception e, Uri model, Target<GlideDrawable> target, boolean isFirstResource) {
+                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                         applyPalette(null);
-                        return false;
                     }
 
                     @Override
-                    public boolean onResourceReady(GlideDrawable resource, Uri model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        applyPalette(((GlideBitmapDrawable) resource).getBitmap());
-                        return false;
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        applyPalette(loadedImage);
                     }
-                })
-                .into(albumArt);
+                }
+        );
     }
 
     private void applyPalette(Bitmap bitmap) {
@@ -381,10 +377,15 @@ public class MusicControllerActivity extends AbsFabActivity {
             LastFMArtistImageUrlLoader.loadArtistImageUrl(this, song.artistName, false, new LastFMArtistImageUrlLoader.ArtistImageUrlLoaderCallback() {
                 @Override
                 public void onArtistImageUrlLoaded(String url) {
-                    Glide.with(MusicControllerActivity.this)
-                            .load(url)
-                            .error(R.drawable.default_artist_image)
-                            .into(artistImage);
+                    ImageLoader.getInstance().displayImage(url,
+                            artistImage,
+                            new DisplayImageOptions.Builder()
+                                    .cacheInMemory(true)
+                                    .cacheOnDisk(true)
+                                    .showImageOnFail(R.drawable.default_artist_image)
+                                    .resetViewBeforeLoading(true)
+                                    .build()
+                    );
                 }
             });
         }

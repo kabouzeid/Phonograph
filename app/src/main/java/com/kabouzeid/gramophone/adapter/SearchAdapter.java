@@ -11,9 +11,6 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.signature.StringSignature;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -26,6 +23,8 @@ import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -100,13 +99,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 final Album album = (Album) results.get(position);
                 holder.title.setText(album.title);
                 holder.subTitle.setText(album.artistName);
-                Glide.with(activity)
-                        .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.id))
-                        .error(R.drawable.default_album_art)
-                        .placeholder(R.drawable.default_album_art)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .signature(new StringSignature(album.albumArtPath))
-                        .into(holder.image);
+                ImageLoader.getInstance().displayImage(
+                        MusicUtil.getAlbumArtUri(album.id).toString(),
+                        holder.image,
+                        new DisplayImageOptions.Builder()
+                                .cacheInMemory(true)
+                                .showImageOnFail(R.drawable.default_album_art)
+                                .resetViewBeforeLoading(true)
+                                .build()
+                );
                 break;
             case ARTIST:
                 final Artist artist = (Artist) results.get(position);
@@ -116,11 +117,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 LastFMArtistThumbnailUrlLoader.loadArtistThumbnailUrl(activity, artist.name, false, new LastFMArtistThumbnailUrlLoader.ArtistThumbnailUrlLoaderCallback() {
                     @Override
                     public void onArtistThumbnailUrlLoaded(final String url) {
-                        Glide.with(activity)
-                                .load(url)
-                                .error(R.drawable.default_artist_image)
-                                .placeholder(R.drawable.default_artist_image)
-                                .into(holder.image);
+                        ImageLoader.getInstance().displayImage(url,
+                                holder.image,
+                                new DisplayImageOptions.Builder()
+                                        .cacheInMemory(true)
+                                        .cacheOnDisk(true)
+                                        .showImageOnFail(R.drawable.default_artist_image)
+                                        .resetViewBeforeLoading(true)
+                                        .build()
+                        );
                     }
                 });
                 break;

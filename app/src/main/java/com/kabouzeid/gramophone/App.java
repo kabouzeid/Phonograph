@@ -7,6 +7,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.crashlytics.android.Crashlytics;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.squareup.otto.Bus;
 import com.squareup.otto.ThreadEnforcer;
 
@@ -26,7 +28,8 @@ public class App extends Application {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
         MusicPlayerRemote.init(this);
-        //Picasso.with(this).setIndicatorsEnabled(true);// debug only
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
+        ImageLoader.getInstance().init(config);
     }
 
     public void addToVolleyRequestQueue(Request request) {
