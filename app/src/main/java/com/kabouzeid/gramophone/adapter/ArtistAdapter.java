@@ -52,7 +52,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
 
         holder.artistName.setText(artist.name);
         holder.artistInfo.setText(MusicUtil.getArtistInfoString(activity, artist));
-        holder.artistImage.setImageDrawable(null);
+        holder.artistImage.setImageResource(R.drawable.default_artist_image);
 
         LastFMArtistThumbnailUrlLoader.loadArtistThumbnailUrl(activity, artist.name, false, new LastFMArtistThumbnailUrlLoader.ArtistThumbnailUrlLoaderCallback() {
             @Override
@@ -62,8 +62,6 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
                         new DisplayImageOptions.Builder()
                                 .cacheInMemory(true)
                                 .cacheOnDisk(true)
-                                .showImageOnFail(R.drawable.default_artist_image)
-                                .resetViewBeforeLoading(true)
                                 .build()
                 );
             }
