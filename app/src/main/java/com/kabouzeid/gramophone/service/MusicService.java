@@ -52,6 +52,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public static final String ACTION_SKIP = "com.kabouzeid.gramophone.action.SKIP";
     public static final String ACTION_REWIND = "com.kabouzeid.gramophone.action.REWIND";
     public static final String ACTION_QUIT = "com.kabouzeid.gramophone.action.QUIT";
+    public static final String META_CHANGED = "com.android.music.metachanged";
+    public static final String PLAYSTATE_CHANGED = "com.android.music.playstatechanged";
     public static final int SHUFFLE_MODE_NONE = 0;
     public static final int SHUFFLE_MODE_SHUFFLE = 1;
     public static final int REPEAT_MODE_NONE = 0;
@@ -227,6 +229,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         MusicPlayerWidget.updateWidgetsPlayState(this, isPlaying());
         remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
         notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STOP);
+        notifyChange(PLAYSTATE_CHANGED);
     }
 
     public boolean isPlaying() {
@@ -277,6 +280,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             MusicPlayerWidget.updateWidgetsPlayState(this, isPlaying());
             remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
             notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STOP);
+            notifyChange(PLAYSTATE_CHANGED);
         } else {
             acquireWakeLock(30000);
             playNextSong(false);
@@ -313,6 +317,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                     playingNotificationHelper.updatePlayState(false);
                     MusicPlayerWidget.updateWidgetsPlayState(this, false);
                     remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
+                    notifyChange(PLAYSTATE_CHANGED);
 
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.unplayable_file), Toast.LENGTH_SHORT).show();
                     return;
@@ -321,9 +326,11 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 updateNotification();
                 updateWidgets();
                 updateRemoteControlClient();
+                notifyChange(META_CHANGED);
             } else {
                 playingNotificationHelper.updatePlayState(false);
                 MusicPlayerWidget.updateWidgetsPlayState(this, false);
+                notifyChange(PLAYSTATE_CHANGED);
             }
         }
         notifyOnMusicRemoteEventListeners(MusicRemoteEvent.TRACK_CHANGED);
@@ -481,6 +488,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         MusicPlayerWidget.updateWidgetsPlayState(this, isPlaying());
         remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PLAYING);
         notifyOnMusicRemoteEventListeners(MusicRemoteEvent.PLAY);
+        notifyChange(PLAYSTATE_CHANGED);
         savePosition();
         releaseWakeLock();
     }
@@ -645,6 +653,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             MusicPlayerWidget.updateWidgetsPlayState(this, isPlaying());
             remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PAUSED);
             notifyOnMusicRemoteEventListeners(MusicRemoteEvent.PAUSE);
+            notifyChange(PLAYSTATE_CHANGED);
         }
     }
 
@@ -657,6 +666,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                     MusicPlayerWidget.updateWidgetsPlayState(this, isPlaying());
                     remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PLAYING);
                     notifyOnMusicRemoteEventListeners(MusicRemoteEvent.RESUME);
+                    notifyChange(PLAYSTATE_CHANGED);
                 } else {
                     playSong();
                 }
@@ -779,6 +789,18 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 notifyOnMusicRemoteEventListeners(MusicRemoteEvent.SHUFFLE_MODE_CHANGED);
                 break;
         }
+    }
+
+    private void notifyChange(final String what) {
+        //to let other apps know whats playing. i.E. last.fm (scrobbling) or musixmatch
+        final Song currentSong = playingQueue.get(getPosition());
+        final Intent intent = new Intent(what);
+        intent.putExtra("id", currentSong.id);
+        intent.putExtra("artist", currentSong.artistName);
+        intent.putExtra("album", currentSong.albumName);
+        intent.putExtra("track", currentSong.title);
+        intent.putExtra("playing", isPlaying());
+        sendStickyBroadcast(intent);
     }
 
     public int getAudioSessionId() {
