@@ -104,9 +104,11 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         final ImageView albumArt;
         final View separator;
         final View short_separator;
+        final View view;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            view = itemView;
             songTitle = (TextView) itemView.findViewById(R.id.song_title);
             songInfo = (TextView) itemView.findViewById(R.id.song_info);
             albumArt = (ImageView) itemView.findViewById(R.id.album_art);

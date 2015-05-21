@@ -1,7 +1,8 @@
-<ripple
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="?android:colorControlHighlight">
+
     <item
         android:id="@android:id/mask"
         android:drawable="@drawable/round_ripple_selector_mask" />
+
 </ripple>

@@ -17,7 +17,6 @@
             @color/materialmusic_dark_navigation_drawer_background_color
         </item>
 
-        <item name="list_selector">@drawable/list_selector_dark</item>
         <item name="round_selector">@drawable/round_selector_dark</item>
         <item name="rect_selector">@drawable/rect_selector_dark</item>
         <item name="separator_color">@color/materialmusic_dark_separator_color</item>
@@ -49,7 +48,6 @@
             @color/materialmusic_navigation_drawer_background_color
         </item>
 
-        <item name="list_selector">@drawable/list_selector</item>
         <item name="round_selector">@drawable/round_selector</item>
         <item name="rect_selector">@drawable/rect_selector</item>
         <item name="separator_color">@color/materialmusic_separator_color</item>

@@ -1,4 +1,7 @@
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:exitFadeDuration="@android:integer/config_shortAnimTime">
+
     <item android:state_pressed="true" android:drawable="@drawable/round_selected_dark" />
     <item android:drawable="@android:color/transparent" />
+
 </selector>
