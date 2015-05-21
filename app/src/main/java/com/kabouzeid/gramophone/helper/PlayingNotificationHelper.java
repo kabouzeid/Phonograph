@@ -167,7 +167,8 @@ public class PlayingNotificationHelper {
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                 if (currentAlbumArtUri.equals(imageUri))
-                    setAlbumArt(loadedImage);
+                    // copy() prevents the original bitmap in the memory cache from being recycled by the remote views
+                    setAlbumArt(loadedImage.copy(loadedImage.getConfig(), true));
             }
 
             @Override

@@ -69,7 +69,8 @@ public class MusicPlayerWidget extends AppWidgetProvider {
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                     if (currentAlbumArtUri.equals(imageUri))
-                        setAlbumArt(context, loadedImage);
+                        // copy() prevents the original bitmap in the memory cache from being recycled by the remote views
+                        setAlbumArt(context, loadedImage.copy(loadedImage.getConfig(), true));
                 }
 
                 @Override

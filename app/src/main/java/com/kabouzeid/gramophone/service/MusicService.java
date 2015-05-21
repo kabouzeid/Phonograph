@@ -372,7 +372,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                 if (currentAlbumArtUri.equals(imageUri))
-                    updateRemoteControlClientBitmap(loadedImage);
+                    // copy() prevents the original bitmap in the memory cache from being recycled by the remote control client
+                    updateRemoteControlClientBitmap(loadedImage.copy(loadedImage.getConfig(), true));
             }
 
             @Override
@@ -793,12 +794,15 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     private void notifyChange(final String what) {
         //to let other apps know whats playing. i.E. last.fm (scrobbling) or musixmatch
-        final Song currentSong = playingQueue.get(getPosition());
         final Intent intent = new Intent(what);
-        intent.putExtra("id", currentSong.id);
-        intent.putExtra("artist", currentSong.artistName);
-        intent.putExtra("album", currentSong.albumName);
-        intent.putExtra("track", currentSong.title);
+        final int position = getPosition();
+        if(position >= 0) {
+            final Song currentSong = playingQueue.get(position);
+            intent.putExtra("id", currentSong.id);
+            intent.putExtra("artist", currentSong.artistName);
+            intent.putExtra("album", currentSong.albumName);
+            intent.putExtra("track", currentSong.title);
+        }
         intent.putExtra("playing", isPlaying());
         sendStickyBroadcast(intent);
     }
