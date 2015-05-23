@@ -796,7 +796,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         //to let other apps know whats playing. i.E. last.fm (scrobbling) or musixmatch
         final Intent intent = new Intent(what);
         final int position = getPosition();
-        if(position >= 0) {
+        if (position >= 0 && !playingQueue.isEmpty()) {
             final Song currentSong = playingQueue.get(position);
             intent.putExtra("id", currentSong.id);
             intent.putExtra("artist", currentSong.artistName);
