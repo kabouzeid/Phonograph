@@ -48,5 +48,5 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="list_padding_vertical">2dp</dimen>
 
     <dimen name="notification_albumart_size">128dp</dimen>
-    <dimen name="playlist_list_bottom_offset">86dp</dimen>
+    <dimen name="bottom_offset_fab_activity">86dp</dimen>
 </resources>

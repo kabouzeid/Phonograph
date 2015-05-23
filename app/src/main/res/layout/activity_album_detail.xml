@@ -74,12 +74,18 @@
 
     </LinearLayout>
 
-    <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/fab"
-        style="@style/PlayPauseFab"
-        android:layout_gravity="right|end"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        tools:ignore="RtlHardcoded" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|right|bottom"
+        android:fitsSystemWindows="true"
+        tools:ignore="RtlHardcoded">
+
+        <com.melnykov.fab.FloatingActionButton
+            android:id="@+id/fab"
+            style="@style/PlayPauseFab"
+            android:layout_margin="16dp" />
+
+    </LinearLayout>
 
 </FrameLayout>

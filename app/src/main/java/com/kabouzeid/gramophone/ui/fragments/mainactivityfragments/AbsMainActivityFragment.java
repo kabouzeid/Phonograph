@@ -26,7 +26,7 @@ public abstract class AbsMainActivityFragment extends Fragment implements KabVie
     }
 
     protected int getBottomPadding() {
-        return 0;
+        return getResources().getDimensionPixelSize(R.dimen.bottom_offset_fab_activity);
     }
 
     @Override

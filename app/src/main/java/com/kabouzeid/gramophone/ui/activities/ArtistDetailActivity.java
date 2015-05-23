@@ -77,6 +77,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     private int titleViewHeight;
     private int artistImageViewHeight;
     private int toolbarColor;
+    private int bottomOffset;
 
     private View songListHeader;
     private RecyclerView albumRecyclerView;
@@ -107,10 +108,6 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
             titleTranslationY = Math.max(headerOffset, titleTranslationY);
 
             ViewHelper.setTranslationY(artistNameTv, titleTranslationY);
-
-            // Translate FAB
-            int fabTranslationY = titleTranslationY + titleViewHeight - (getFab().getHeight() / 2);
-            ViewHelper.setTranslationY(getFab(), fabTranslationY);
         }
     };
 
@@ -168,6 +165,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     }
 
     private void setUpObservableListViewParams() {
+        bottomOffset = getResources().getDimensionPixelSize(R.dimen.bottom_offset_fab_activity);
         artistImageViewHeight = getResources().getDimensionPixelSize(R.dimen.header_image_height);
         toolbarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
         int toolbarHeight = Util.getActionBarSize(this);
@@ -207,7 +205,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
 
     private void setUpSongListView() {
         songListView.setScrollViewCallbacks(observableScrollViewCallbacks);
-        songListView.setPadding(0, artistImageViewHeight + titleViewHeight, 0, 0);
+        songListView.setPadding(0, artistImageViewHeight + titleViewHeight, 0, bottomOffset);
         songListView.addHeaderView(songListHeader);
 
         final ArrayList<Song> songs = ArtistSongLoader.getArtistSongList(this, artist.id);
