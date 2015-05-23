@@ -21,7 +21,7 @@
             android:clipToPadding="false"
             android:divider="@null"
             android:dividerHeight="0px"
-            android:paddingBottom="@dimen/playlist_list_bottom_offset"
+            android:paddingBottom="@dimen/bottom_offset_fab_activity"
             android:scrollbars="vertical" />
 
     </LinearLayout>

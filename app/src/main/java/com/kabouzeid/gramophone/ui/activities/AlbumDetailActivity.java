@@ -67,6 +67,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     private int titleViewHeight;
     private int albumArtViewHeight;
     private int toolbarColor;
+    private int bottomOffset;
 
     private final SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
         @Override
@@ -92,10 +93,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
             titleTranslationY = Math.max(headerOffset, titleTranslationY);
 
             ViewHelper.setTranslationY(albumTitleView, titleTranslationY);
-
-            // Translate FAB
-            int fabTranslationY = titleTranslationY + titleViewHeight - (getFab().getHeight() / 2);
-            ViewHelper.setTranslationY(getFab(), fabTranslationY);
         }
     };
 
@@ -155,6 +152,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     }
 
     private void setUpObservableListViewParams() {
+        bottomOffset = getResources().getDimensionPixelSize(R.dimen.bottom_offset_fab_activity);
         albumArtViewHeight = getResources().getDimensionPixelSize(R.dimen.header_image_height);
         toolbarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
         int toolbarHeight = Util.getActionBarSize(this);
@@ -259,7 +257,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
 
     private void setUpListView() {
         recyclerView.setScrollViewCallbacks(observableScrollViewCallbacks);
-        recyclerView.setPadding(0, albumArtViewHeight + titleViewHeight, 0, 0);
+        recyclerView.setPadding(0, albumArtViewHeight + titleViewHeight, 0, bottomOffset);
         final View contentView = getWindow().getDecorView().findViewById(android.R.id.content);
         contentView.post(new Runnable() {
             @Override
