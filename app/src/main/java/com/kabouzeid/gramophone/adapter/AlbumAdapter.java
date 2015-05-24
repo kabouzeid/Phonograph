@@ -67,12 +67,14 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
                 new SimpleImageLoadingListener() {
                     @Override
                     public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                        paletteBlackAndWhite(holder.title, holder.artist, holder.footer);
+                        if (usePalette)
+                            paletteBlackAndWhite(holder.title, holder.artist, holder.footer);
                     }
 
                     @Override
                     public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                        applyPalette(loadedImage, holder.title, holder.artist, holder.footer);
+                        if (usePalette)
+                            applyPalette(loadedImage, holder.title, holder.artist, holder.footer);
                     }
                 }
         );
