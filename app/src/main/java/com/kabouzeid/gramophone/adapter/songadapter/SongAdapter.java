@@ -12,11 +12,16 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.adapter.AbsMultiSelectAdapter;
+import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
+import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
@@ -28,12 +33,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
+public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, Song> implements MaterialCab.Callback {
 
     public static final String TAG = AlbumSongAdapter.class.getSimpleName();
     private static final int SHUFFLE_BUTTON = 0;
@@ -41,11 +45,10 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
 
     protected final AppCompatActivity activity;
     protected ArrayList<Song> dataSet;
-    private HashSet<Integer> checked;
 
-    public SongAdapter(AppCompatActivity activity) {
+    public SongAdapter(AppCompatActivity activity, CabHolder cabHolder) {
+        super(cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
-        checked = new HashSet<>();
         loadDataSet();
     }
 
@@ -80,7 +83,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                             .resetViewBeforeLoading(true)
                             .build()
             );
-            holder.view.setActivated(checked.contains(song.id));
+            holder.view.setActivated(isChecked(song));
         } else {
             holder.songTitle.setText(activity.getResources().getString(R.string.shuffle_all).toUpperCase());
             holder.songTitle.setTextColor(ThemeSingleton.get().positiveColor);
@@ -99,6 +102,26 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return dataSet.size() + 1;
+    }
+
+    @Override
+    protected Song getIdentifier(int position) {
+        return dataSet.get(position - 1);
+    }
+
+    @Override
+    protected void onMultipleItemAction(MenuItem menuItem, ArrayList<Song> selection) {
+        switch (menuItem.getItemId()) {
+            case R.id.action_delete_from_disk:
+                DeleteSongsDialog.create(selection).show(activity.getSupportFragmentManager(), "DELETE_SONGS");
+                break;
+            case R.id.action_add_to_playlist:
+                AddToPlaylistDialog.create(selection).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");
+                break;
+            case R.id.action_add_to_current_playing:
+                MusicPlayerRemote.enqueue(selection);
+                break;
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
@@ -152,6 +175,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         public void onClick(View v) {
             if (getItemViewType() == SHUFFLE_BUTTON) {
                 MusicPlayerRemote.shuffleAllSongs(activity);
+            } else if (isInQuickSelectMode()) {
+                toggleChecked(getAdapterPosition());
             } else {
                 MusicPlayerRemote.openQueue(dataSet, getAdapterPosition() - 1, true);
             }
@@ -164,11 +189,6 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         }
     }
 
-    private void toggleChecked(final int position) {
-        final int id = dataSet.get(position - 1).id;
-        if (!checked.add(id)) checked.remove(id);
-        notifyItemChanged(position);
-    }
 
     @Override
     public void onDetachedFromRecyclerView(RecyclerView recyclerView) {

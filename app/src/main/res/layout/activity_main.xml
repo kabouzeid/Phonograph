@@ -20,15 +20,22 @@
             android:fitsSystemWindows="true" />
 
         <LinearLayout
+            android:elevation="@dimen/toolbar_elevation"
             android:id="@+id/toolbarFrame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="@dimen/main_toolbar_padding_top">
+            android:paddingTop="@dimen/main_toolbar_padding_top"
+            tools:ignore="UnusedAttribute">
 
-            <android.support.v7.widget.Toolbar
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 style="@style/Toolbar"
+                android:elevation="0dp"
                 android:background="?colorPrimary">
 
                 <TextView
@@ -46,12 +53,19 @@
 
             </android.support.v7.widget.Toolbar>
 
+                <ViewStub
+                    android:id="@+id/cab_stub"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize" />
+
+            </FrameLayout>
+
             <com.astuetz.PagerSlidingTabStrip
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tab_height"
                 android:background="?colorPrimary"
-                android:elevation="@dimen/toolbar_elevation"
+                android:elevation="0dp"
                 android:paddingLeft="64dp"
                 android:paddingStart="64dp"
                 android:textColor="@color/sliding_tabs_deactivated"

@@ -8,8 +8,8 @@ public class PlaylistSong extends Song {
     public final int idInPlayList;
 
     public PlaylistSong(final int id, final int albumId, final int artistId, final String title, final String artistName,
-                        final String albumName, final long duration, final int trackNumber, final int playlistId, final int idInPlayList, final long dateModified) {
-        super(id, albumId, artistId, title, artistName, albumName, duration, trackNumber, dateModified);
+                        final String albumName, final long duration, final int trackNumber, final int playlistId, final int idInPlayList) {
+        super(id, albumId, artistId, title, artistName, albumName, duration, trackNumber);
         this.playlistId = playlistId;
         this.idInPlayList = idInPlayList;
     }

@@ -26,6 +26,6 @@ public class SongViewFragment extends AbsMainActivityRecyclerViewFragment {
 
     @Override
     protected RecyclerView.Adapter createAdapter() {
-        return new SongAdapter((AppCompatActivity) getActivity());
+        return new SongAdapter((AppCompatActivity) getActivity(), getMainActivity());
     }
 }

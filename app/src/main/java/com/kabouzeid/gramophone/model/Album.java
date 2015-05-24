@@ -11,17 +11,15 @@ public class Album {
     public final String artistName;
     public final int songCount;
     public final int year;
-    public final String albumArtPath; //used as cache key
 
     public Album(final int id, final String title, final String artistName, final int artistId,
-                 final int songNumber, final int albumYear, final String albumArtPath) {
+                 final int songNumber, final int albumYear) {
         this.id = id;
         this.title = title;
         this.artistName = artistName;
         this.artistId = artistId;
         songCount = songNumber;
         year = albumYear;
-        this.albumArtPath = albumArtPath != null ? albumArtPath : "";
     }
 
     public Album() {
@@ -31,6 +29,5 @@ public class Album {
         this.artistId = -1;
         songCount = -1;
         year = -1;
-        this.albumArtPath = "";
     }
 }

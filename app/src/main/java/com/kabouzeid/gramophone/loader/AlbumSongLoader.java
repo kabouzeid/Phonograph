@@ -27,9 +27,8 @@ public class AlbumSongLoader {
                 final long duration = cursor.getLong(4);
                 final int trackNumber = cursor.getInt(5);
                 final int artistId = cursor.getInt(6);
-                final long dateModified = cursor.getInt(7);
 
-                final Song song = new Song(id, albumId, artistId, songName, artist, album, duration, trackNumber, dateModified);
+                final Song song = new Song(id, albumId, artistId, songName, artist, album, duration, trackNumber);
                 songs.add(song);
             } while (cursor.moveToNext());
         }
@@ -54,9 +53,7 @@ public class AlbumSongLoader {
                         /* 5 */
                         MediaStore.Audio.AudioColumns.TRACK,
                         /* 6 */
-                        MediaStore.Audio.AudioColumns.ARTIST_ID,
-                        /* 7 */
-                        MediaStore.Audio.AudioColumns.DATE_MODIFIED
+                        MediaStore.Audio.AudioColumns.ARTIST_ID
                 }, (MediaStore.Audio.AudioColumns.IS_MUSIC + "=1") + " AND " +
                         MediaStore.Audio.AudioColumns.TITLE + " != ''" + " AND " +
                         MediaStore.Audio.AudioColumns.ALBUM_ID + "=" + albumId, null,

@@ -12,9 +12,9 @@
     <string name="action_tag_editor">Modifica tag</string>
     <string name="action_delete_from_disk">Elimina</string>
     <string name="action_details">Dettagli</string>
-    <string name="albums">album</string>
+    <string name="albums">Album</string>
     <string name="artists">Artisti</string>
-    <string name="songs">brani</string>
+    <string name="songs">Brani</string>
     <string name="playlists">Playlist</string>
     <string name="nothing_playing">Niente in riproduzione</string>
     <string name="unplayable_file">Spiacenti - si è verificato un errore nel tentativo di riprodurre questa canzone</string>
@@ -52,7 +52,6 @@
     <string name="no_results">Nessun risultato</string>
     <string name="action_re_download_artist_image">Aggiorna immagine artista</string>
     <string name="updating">Aggiornamento...</string>
-    <string name="added_title_to_playing_queue">"Un brano aggiunto alla coda."</string>
     <string name="title_activity_playlist_detail">DettagliAttivitàPlaylist</string>
     <string name="action_delete_from_playlist">Elimina dalla playlist</string>
     <string name="new_playlist_action">Nuova playlist...</string>
@@ -123,4 +122,5 @@
         <item>Cerca nel web</item>
         <item>Rimuovi copertina</item>
     </string-array>
+    <string name="added_title_to_playing_queue">"Un brano aggiunto alla coda."</string>
 </resources>

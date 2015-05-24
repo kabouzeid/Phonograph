@@ -49,7 +49,6 @@
     <string name="no_results">Niciun rezultat</string>
     <string name="action_re_download_artist_image">Actualizează imagine artist</string>
     <string name="updating">Actualizare...</string>
-    <string name="added_title_to_playing_queue">"Adăugat 1 melodie la lista de redare."</string>
     <string name="action_delete_from_playlist">Şterge din playlist</string>
     <string name="new_playlist_action">Playlist nou...</string>
     <string name="action_grid_columns">Rânduri pe grid</string>
@@ -99,4 +98,5 @@
     <string name="primary_color">Culoare Primară</string>
     <string name="accent_color">Culoare de accent</string>
     <string name="song">Melodie</string>
+    <string name="added_title_to_playing_queue">"Adăugat 1 melodie la lista de redare."</string>
 </resources>

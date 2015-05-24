@@ -50,7 +50,6 @@
     <string name="no_results">没有找到结果</string>
     <string name="action_re_download_artist_image">更新歌手图片</string>
     <string name="updating">正在更新…</string>
-    <string name="added_title_to_playing_queue">"该曲目已加入播放队列"</string>
     <string name="action_delete_from_playlist">从播放列表中删除</string>
     <string name="new_playlist_action">新建播放列表</string>
     <string name="action_grid_columns">专辑列数</string>
@@ -120,4 +119,5 @@
         <item>通过网络搜索</item>
         <item>删除封面</item>
     </string-array>
+    <string name="added_title_to_playing_queue">"该曲目已加入播放队列"</string>
 </resources>

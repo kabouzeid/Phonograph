@@ -50,7 +50,6 @@
     <string name="no_results">無搜尋結果</string>
     <string name="action_re_download_artist_image">更新歌手圖片</string>
     <string name="updating">更新中…</string>
-    <string name="added_title_to_playing_queue">"這歌曲已加入播放佇列"</string>
     <string name="action_delete_from_playlist">從音樂清單移除</string>
     <string name="new_playlist_action">新增音樂清單</string>
     <string name="action_grid_columns">專輯網格列數</string>
@@ -120,4 +119,5 @@
         <item>網路搜尋</item>
         <item>刪除封面</item>
     </string-array>
+    <string name="added_title_to_playing_queue">"這歌曲已加入播放佇列"</string>
 </resources>

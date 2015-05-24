@@ -3,11 +3,11 @@
     <string name="action_settings">"Paramètres"</string>
     <string name="action_about">À propos</string>
     <string name="action_currently_playing">Lecture en cours</string>
-    <string name="action_playing_queue">File de lecture</string>
+    <string name="action_playing_queue">Liste de lecture</string>
     <string name="action_search">Rechercher</string>
-    <string name="action_play_next">Lire ensuite</string>
-    <string name="action_add_to_playing_queue">Ajouter à la file de lecture</string>
-    <string name="action_remove_from_playing_queue">Retirer de la file de lecture</string>
+    <string name="action_play_next">Prochaine lecture</string>
+    <string name="action_add_to_playing_queue">Ajouter à la liste de lecture</string>
+    <string name="action_remove_from_playing_queue">Retirer de la liste de lecture</string>
     <string name="action_add_to_playlist">Ajouter à une playlist...</string>
     <string name="action_tag_editor">Éditeur d\'infos</string>
     <string name="action_delete_from_disk">Supprimer de l\'appareil</string>
@@ -31,10 +31,10 @@
     <string name="track_hint">"Piste (2 pour piste 2 ou 3004 pour CD3 piste 4)"</string>
     <string name="album_or_artist_empty">Veuillez indiquer le nom et l\'artiste de l\'album.</string>
     <string name="writing_file_number">Fichier en cours d\'écriture</string>
-    <string name="saving_changes">Sauvegarde des changements...</string>
+    <string name="saving_changes">Sauvegarde en cours...</string>
     <string name="label_details">Détails</string>
     <string name="label_file_name">Nom du fichier</string>
-    <string name="label_file_path">Chemin du fichier</string>
+    <string name="label_file_path">Location du fichier</string>
     <string name="label_file_size">Taille</string>
     <string name="label_file_format">Format</string>
     <string name="label_track_length">Durée</string>
@@ -45,12 +45,11 @@
     <string name="label_current_playing_queue">File de lecture</string>
     <string name="save_as_playlist">Sauvegarder</string>
     <string name="credits_3">Icône par</string>
-    <string name="credits_1">"Phonograph est un lecteur de musique avec un Material Design et entièrement gratuit créé par"</string>
+    <string name="credits_1">"Phonograph est un lecteur de musique entièrement gratuit avec le concept de Material Design créé par"</string>
     <string name="title_activity_search">Rechercher</string>
     <string name="no_results">Aucun résultat</string>
     <string name="action_re_download_artist_image">Actualiser l\'image de l\'artiste</string>
     <string name="updating">Actualisation...</string>
-    <string name="added_title_to_playing_queue">"1 titre ajouté à la file de lecture."</string>
     <string name="action_delete_from_playlist">Supprimer de la playlist</string>
     <string name="new_playlist_action">Nouvelle playlist...</string>
     <string name="action_grid_columns">Nombre de colonnes</string>
@@ -120,4 +119,5 @@
         <item>Recherche internet</item>
         <item>Supprimer la couverture</item>
     </string-array>
+    <string name="added_title_to_playing_queue">"1 titre ajouté à la file de lecture."</string>
 </resources>

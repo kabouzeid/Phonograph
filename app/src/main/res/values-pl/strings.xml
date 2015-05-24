@@ -52,7 +52,6 @@
     <string name="no_results">Brak wyników</string>
     <string name="action_re_download_artist_image">Zaktualizuj zdjęcie wykonawcy</string>
     <string name="updating">Aktualizowanie...</string>
-    <string name="added_title_to_playing_queue">"Dodano 1 tytuł do kolejki odtwarzania"</string>
     <string name="action_delete_from_playlist">Usuń z listy odtwarzania</string>
     <string name="new_playlist_action">Nowa lista odtwarzania...</string>
     <string name="action_grid_columns">Siatka kolumn</string>
@@ -122,4 +121,5 @@
         <item>Szukaj w sieci</item>
         <item>Usuń okładkę</item>
     </string-array>
+    <string name="added_title_to_playing_queue">"Dodano 1 tytuł do kolejki odtwarzania"</string>
 </resources>

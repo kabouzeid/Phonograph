@@ -53,7 +53,8 @@
     <string name="no_results">No results</string>
     <string name="action_re_download_artist_image">Update artist image</string>
     <string name="updating">Updating…</string>
-    <string name="added_title_to_playing_queue">Added 1 title to the playing queue.</string>
+    <string name="added_title_to_playing_queue">"Added 1 title to the playing queue."</string>
+    <string name="added_x_titles_to_playing_queue">Added %1$d titles to the playing queue.</string>
     <string name="title_activity_playlist_detail">Playlist Activity</string>
     <string name="action_delete_from_playlist">Delete from playlist</string>
     <string name="new_playlist_action">New playlist…</string>
