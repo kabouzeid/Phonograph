@@ -27,11 +27,9 @@ public abstract class AbsMultiSelectAdapter<VH extends RecyclerView.ViewHolder, 
     protected void toggleChecked(final int position) {
         if (cabHolder != null) {
             openCabIfNecessary();
-            if (position > 0) {
-                I identifier = getIdentifier(position);
-                if (!checked.remove(identifier)) checked.add(identifier);
-                notifyItemChanged(position);
-            }
+            I identifier = getIdentifier(position);
+            if (!checked.remove(identifier)) checked.add(identifier);
+            notifyItemChanged(position);
             if (checked.isEmpty()) cab.finish();
         }
     }

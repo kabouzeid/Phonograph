@@ -559,7 +559,7 @@ public class MainActivity extends AbsFabActivity
 
     @Override
     public MaterialCab openCab(final int menu, final MaterialCab.Callback callback) {
-        if (cab != null) cab.finish();
+        if (cab != null && cab.isActive()) cab.finish();
         cab = new MaterialCab(this, R.id.cab_stub)
                 .setMenu(menu)
                 .setBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimary())

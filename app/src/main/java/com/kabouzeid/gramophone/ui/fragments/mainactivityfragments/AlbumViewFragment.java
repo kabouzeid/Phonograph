@@ -30,7 +30,7 @@ public class AlbumViewFragment extends AbsMainActivityRecyclerViewFragment {
 
     @Override
     protected RecyclerView.Adapter createAdapter() {
-        return new AlbumAdapter(getActivity());
+        return new AlbumAdapter(getMainActivity(), getMainActivity());
     }
 
     public void setColumns(int columns) {

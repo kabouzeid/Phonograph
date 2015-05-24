@@ -184,7 +184,8 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
 
         @Override
         public boolean onLongClick(View view) {
-            toggleChecked(getAdapterPosition());
+            if (getItemViewType() == SONG)
+                toggleChecked(getAdapterPosition());
             return true;
         }
     }

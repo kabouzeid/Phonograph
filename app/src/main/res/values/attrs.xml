@@ -18,6 +18,7 @@
     <attr name="drawable_color_enabled" format="color" />
 
     <attr name="themed_drawable_color" format="color" />
+    <attr name="check_mark_color" format="color" />
 
     <attr name="default_bar_color" format="color" />
     <attr name="card_color" format="color" />
