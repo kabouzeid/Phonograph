@@ -67,10 +67,21 @@
             android:layout_height="@dimen/statusMargin"
             android:background="@android:color/transparent" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            style="@style/Toolbar"
-            android:background="@android:color/transparent" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/Toolbar"
+                android:background="@android:color/transparent" />
+
+            <ViewStub
+                android:id="@+id/cab_stub"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+        </FrameLayout>
 
     </LinearLayout>
 
