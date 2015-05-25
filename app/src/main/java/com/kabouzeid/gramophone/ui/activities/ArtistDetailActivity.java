@@ -41,6 +41,7 @@ import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
+import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
@@ -56,7 +57,6 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A lot of hackery is done in this activity. Changing things may will brake the whole activity.
@@ -86,6 +86,9 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     private RecyclerView albumRecyclerView;
     private Spanned biography;
     private ArtistAlbumAdapter albumAdapter;
+    private ArtistSongAdapter songAdapter;
+    private ArrayList<Song> songs;
+    private ArrayList<Album> albums;
 
     private final SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
         @Override
@@ -211,8 +214,8 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         songListView.setPadding(0, artistImageViewHeight + titleViewHeight, 0, bottomOffset);
         songListView.addHeaderView(songListHeader);
 
-        final ArrayList<Song> songs = ArtistSongLoader.getArtistSongList(this, artist.id);
-        ArtistSongAdapter songAdapter = new ArtistSongAdapter(this, songs, this);
+        songs = ArtistSongLoader.getArtistSongList(this, artist.id);
+        songAdapter = new ArtistSongAdapter(this, songs, this);
         songListView.setAdapter(songAdapter);
 
         final View contentView = getWindow().getDecorView().findViewById(android.R.id.content);
@@ -227,7 +230,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
 
     private void setUpAlbumRecyclerView() {
         albumRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        List<Album> albums = ArtistAlbumLoader.getArtistAlbumList(this, artist.id);
+        albums = ArtistAlbumLoader.getArtistAlbumList(this, artist.id);
         albumAdapter = new ArtistAlbumAdapter(this, albums, this);
         albumRecyclerView.setAdapter(albumAdapter);
     }
@@ -429,6 +432,22 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
 
             }
         });
+    }
+
+    @Subscribe
+    public void onDataBaseEvent(DataBaseChangedEvent event) {
+        switch (event.getAction()) {
+            case DataBaseChangedEvent.SONGS_CHANGED:
+            case DataBaseChangedEvent.ALBUMS_CHANGED:
+            case DataBaseChangedEvent.ARTISTS_CHANGED:
+            case DataBaseChangedEvent.DATABASE_CHANGED:
+                songs = ArtistSongLoader.getArtistSongList(this, artist.id);
+                songAdapter.updateDataSet(songs);
+                albums = ArtistAlbumLoader.getArtistAlbumList(this, artist.id);
+                albumAdapter.updateDataSet(albums);
+                if (songs.size() < 1) finish();
+                break;
+        }
     }
 
     @Subscribe

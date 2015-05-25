@@ -30,12 +30,17 @@ public class AlbumSongAdapter extends AbsMultiSelectAdapter<AlbumSongAdapter.Vie
 
     public static final String TAG = AlbumSongAdapter.class.getSimpleName();
     protected final AppCompatActivity activity;
-    protected final ArrayList<Song> dataSet;
+    protected ArrayList<Song> dataSet;
 
     public AlbumSongAdapter(AppCompatActivity activity, ArrayList<Song> objects, @Nullable CabHolder cabHolder) {
         super(cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         dataSet = objects;
+    }
+
+    public void updateDataSet(ArrayList<Song> objects){
+        dataSet = objects;
+        notifyDataSetChanged();
     }
 
     @Override

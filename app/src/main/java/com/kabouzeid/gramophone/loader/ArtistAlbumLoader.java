@@ -9,16 +9,15 @@ import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class ArtistAlbumLoader {
 
-    public static List<Album> getArtistAlbumList(final Context context, final int artistId) {
+    public static ArrayList<Album> getArtistAlbumList(final Context context, final int artistId) {
         Cursor cursor = makeArtistAlbumCursor(context, artistId);
-        List<Album> albums = new ArrayList<>();
+        ArrayList<Album> albums = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 final int id = cursor.getInt(0);

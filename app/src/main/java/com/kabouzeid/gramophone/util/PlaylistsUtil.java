@@ -146,20 +146,20 @@ public class PlaylistsUtil {
         App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
     }
 
-//    public static void removeFromPlaylist(final Context context, final List<PlaylistSong> songs) {
-//        Uri uri = MediaStore.Audio.Playlists.Members.getContentUri(
-//                "external", songs.get(0).playlistId);
-//        String selectionArgs[] = new String[songs.size()];
-//        for (int i = 0; i < selectionArgs.length; i++) {
-//            selectionArgs[i] = String.valueOf(songs.get(i).idInPlayList);
-//        }
-//        String selection = MediaStore.Audio.Playlists.Members._ID + " in (";
-//        for (String selectionArg : selectionArgs) selection += "?, ";
-//        selection = selection.substring(0, selection.length() - 2) + ")";
-//
-//        context.getContentResolver().delete(uri, selection, selectionArgs);
-//        App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
-//    }
+    public static void removeFromPlaylist(final Context context, final List<PlaylistSong> songs) {
+        Uri uri = MediaStore.Audio.Playlists.Members.getContentUri(
+                "external", songs.get(0).playlistId);
+        String selectionArgs[] = new String[songs.size()];
+        for (int i = 0; i < selectionArgs.length; i++) {
+            selectionArgs[i] = String.valueOf(songs.get(i).idInPlayList);
+        }
+        String selection = MediaStore.Audio.Playlists.Members._ID + " in (";
+        for (String selectionArg : selectionArgs) selection += "?, ";
+        selection = selection.substring(0, selection.length() - 2) + ")";
+
+        context.getContentResolver().delete(uri, selection, selectionArgs);
+        App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
+    }
 //
 //    public static int getSongCountForPlaylist(final Context context, final long playlistId) {
 //        Cursor c = context.getContentResolver().query(

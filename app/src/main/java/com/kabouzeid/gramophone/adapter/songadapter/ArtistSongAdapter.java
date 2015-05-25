@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.afollestad.materialcab.MaterialCab;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
+import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
@@ -45,6 +47,11 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
         this.cabHolder = cabHolder;
         checked = new ArrayList<>();
         dataSet = songs;
+    }
+
+    public void updateDataSet(ArrayList<Song> objects) {
+        dataSet = objects;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -119,8 +126,18 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
         return convertView;
     }
 
-    private void onMultipleItemAction(MenuItem menuItem, ArrayList<Song> songs) {
-
+    private void onMultipleItemAction(MenuItem menuItem, ArrayList<Song> selection) {
+        switch (menuItem.getItemId()) {
+            case R.id.action_delete_from_disk:
+                DeleteSongsDialog.create(selection).show(activity.getSupportFragmentManager(), "DELETE_SONGS");
+                break;
+            case R.id.action_add_to_playlist:
+                AddToPlaylistDialog.create(selection).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");
+                break;
+            case R.id.action_add_to_current_playing:
+                MusicPlayerRemote.enqueue(selection);
+                break;
+        }
     }
 
     protected void toggleChecked(Song song) {

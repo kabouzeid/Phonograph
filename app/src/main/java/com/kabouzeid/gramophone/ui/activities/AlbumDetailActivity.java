@@ -30,6 +30,7 @@ import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.model.Album;
+import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
@@ -60,6 +61,8 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     private Album album;
 
     private ObservableRecyclerView recyclerView;
+    private AlbumSongAdapter adapter;
+    private ArrayList<Song> songs;
     private View statusBar;
     private ImageView albumArtImageView;
     private View songsBackgroundView;
@@ -281,10 +284,10 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     }
 
     private void setUpSongsAdapter() {
-        final ArrayList<Song> songs = AlbumSongLoader.getAlbumSongList(this, album.id);
-        final AlbumSongAdapter albumSongAdapter = new AlbumSongAdapter(this, songs, this);
+        songs = AlbumSongLoader.getAlbumSongList(this, album.id);
+        adapter = new AlbumSongAdapter(this, songs, this);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
-        recyclerView.setAdapter(albumSongAdapter);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -345,6 +348,19 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         if (requestCode == TAG_EDITOR_REQUEST) {
             setUpAlbumArtAndApplyPalette();
             setResult(RESULT_OK);
+        }
+    }
+
+    @Subscribe
+    public void onDataBaseEvent(DataBaseChangedEvent event) {
+        switch (event.getAction()) {
+            case DataBaseChangedEvent.SONGS_CHANGED:
+            case DataBaseChangedEvent.ALBUMS_CHANGED:
+            case DataBaseChangedEvent.DATABASE_CHANGED:
+                songs = AlbumSongLoader.getAlbumSongList(this, album.id);
+                adapter.updateDataSet(songs);
+                if (songs.size() < 1) finish();
+                break;
         }
     }
 

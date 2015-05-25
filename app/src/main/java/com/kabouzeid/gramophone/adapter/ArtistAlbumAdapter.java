@@ -39,8 +39,20 @@ public class ArtistAlbumAdapter extends AbsMultiSelectAdapter<ArtistAlbumAdapter
     private static final int TYPE_LAST = 3;
 
     private final AppCompatActivity activity;
-    private final List<Album> dataSet;
+    private ArrayList<Album> dataSet;
     private final int listMargin;
+
+    public ArtistAlbumAdapter(AppCompatActivity activity, ArrayList<Album> objects, @Nullable CabHolder cabHolder) {
+        super(cabHolder, R.menu.menu_media_selection);
+        this.activity = activity;
+        dataSet = objects;
+        listMargin = activity.getResources().getDimensionPixelSize(R.dimen.default_item_margin);
+    }
+
+    public void updateDataSet(ArrayList<Album> objects) {
+        dataSet = objects;
+        notifyDataSetChanged();
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -151,12 +163,5 @@ public class ArtistAlbumAdapter extends AbsMultiSelectAdapter<ArtistAlbumAdapter
             toggleChecked(getAdapterPosition());
             return true;
         }
-    }
-
-    public ArtistAlbumAdapter(AppCompatActivity activity, List<Album> objects, @Nullable CabHolder cabHolder) {
-        super(cabHolder, R.menu.menu_media_selection);
-        this.activity = activity;
-        dataSet = objects;
-        listMargin = activity.getResources().getDimensionPixelSize(R.dimen.default_item_margin);
     }
 }
