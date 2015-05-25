@@ -19,4 +19,22 @@ public class PlaylistSong extends Song {
         playlistId = -1;
         idInPlayList = -1;
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + playlistId;
+        result = prime * result + idInPlayList;
+        return result;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (super.equals(obj)) {
+            final PlaylistSong other = (PlaylistSong) obj;
+            return playlistId == other.playlistId && idInPlayList == other.idInPlayList;
+        }
+        return false;
+    }
 }
