@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
+import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.util.Util;
 
 /**
@@ -27,6 +28,10 @@ public abstract class AbsMainActivityFragment extends Fragment implements KabVie
 
     protected int getBottomPadding() {
         return getResources().getDimensionPixelSize(R.dimen.bottom_offset_fab_activity);
+    }
+
+    protected MainActivity getMainActivity() {
+        return (MainActivity) getActivity();
     }
 
     @Override

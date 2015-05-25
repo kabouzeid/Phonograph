@@ -9,16 +9,15 @@ import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class ArtistAlbumLoader {
 
-    public static List<Album> getArtistAlbumList(final Context context, final int artistId) {
+    public static ArrayList<Album> getArtistAlbumList(final Context context, final int artistId) {
         Cursor cursor = makeArtistAlbumCursor(context, artistId);
-        List<Album> albums = new ArrayList<>();
+        ArrayList<Album> albums = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 final int id = cursor.getInt(0);
@@ -26,9 +25,8 @@ public class ArtistAlbumLoader {
                 final String artist = cursor.getString(2);
                 final int songCount = cursor.getInt(3);
                 final int year = cursor.getInt(4);
-                final String albumArtPath = cursor.getString(5);
 
-                final Album album = new Album(id, albumName, artist, artistId, songCount, year, albumArtPath);
+                final Album album = new Album(id, albumName, artist, artistId, songCount, year);
                 albums.add(album);
             } while (cursor.moveToNext());
         }
@@ -51,8 +49,6 @@ public class ArtistAlbumLoader {
                         MediaStore.Audio.AlbumColumns.NUMBER_OF_SONGS,
                         /* 4 */
                         MediaStore.Audio.AlbumColumns.FIRST_YEAR,
-                        /* 5 */
-                        MediaStore.Audio.AlbumColumns.ALBUM_ART
                 }, null, null, PreferenceUtils.getInstance(context).getArtistAlbumSortOrder());
     }
 }

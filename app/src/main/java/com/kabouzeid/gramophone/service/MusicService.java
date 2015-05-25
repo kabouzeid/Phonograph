@@ -42,6 +42,7 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener, AudioManager.OnAudioFocusChangeListener {
     public static final String ACTION_TOGGLE_PLAYBACK = "com.kabouzeid.gramophone.action.TOGGLE_PLAYBACK";
@@ -549,6 +550,18 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public void addSong(Song song) {
         playingQueue.add(song);
         originalPlayingQueue.add(song);
+        saveState();
+    }
+
+    public void addSongs(int position, List<Song> songs) {
+        playingQueue.addAll(position, songs);
+        originalPlayingQueue.addAll(position, songs);
+        saveState();
+    }
+
+    public void addSongs(List<Song> songs) {
+        playingQueue.addAll(songs);
+        originalPlayingQueue.addAll(songs);
         saveState();
     }
 

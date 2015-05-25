@@ -50,7 +50,6 @@
     <string name="no_results">Sonuç bulunamadı</string>
     <string name="action_re_download_artist_image">Sanatçı resmini güncelle</string>
     <string name="updating">Güncelleniyor...</string>
-    <string name="added_title_to_playing_queue">"Çalma sırasına 1 başlık eklendi"</string>
     <string name="action_delete_from_playlist">Çalma listesinden sil</string>
     <string name="new_playlist_action">Yeni çalma listesi</string>
     <string name="action_grid_columns">Izgara sütunları</string>
@@ -120,4 +119,5 @@
         <item>Web\'de ara</item>
         <item>Albüm Kapağını Kaldır</item>
     </string-array>
+    <string name="added_title_to_playing_queue">"Çalma sırasına 1 başlık eklendi"</string>
 </resources>

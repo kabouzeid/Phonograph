@@ -16,18 +16,21 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.songadapter.AlbumSongAdapter;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.model.Album;
+import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
@@ -51,22 +54,26 @@ import java.util.ArrayList;
  * <p/>
  * Should be kinda stable ONLY AS IT IS!!!
  */
-public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorHolder {
+public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorHolder, CabHolder {
 
     public static final String TAG = AlbumDetailActivity.class.getSimpleName();
     private static final int TAG_EDITOR_REQUEST = 2001;
     private Album album;
 
     private ObservableRecyclerView recyclerView;
+    private AlbumSongAdapter adapter;
+    private ArrayList<Song> songs;
     private View statusBar;
     private ImageView albumArtImageView;
     private View songsBackgroundView;
     private TextView albumTitleView;
     private Toolbar toolbar;
+    private MaterialCab cab;
     private int headerOffset;
     private int titleViewHeight;
     private int albumArtViewHeight;
     private int toolbarColor;
+    private float toolbarAlpha;
     private int bottomOffset;
 
     private final SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
@@ -83,9 +90,9 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
             ViewHelper.setTranslationY(songsBackgroundView, Math.max(0, -scrollY + albumArtViewHeight));
 
             // Change alpha of overlay
-            float alpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
-            ViewUtil.setBackgroundAlpha(toolbar, alpha, toolbarColor);
-            ViewUtil.setBackgroundAlpha(statusBar, alpha, toolbarColor);
+            toolbarAlpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
+            ViewUtil.setBackgroundAlpha(toolbar, toolbarAlpha, toolbarColor);
+            ViewUtil.setBackgroundAlpha(statusBar, cab != null && cab.isActive() ? 1 : toolbarAlpha, toolbarColor);
 
             // Translate name text
             int maxTitleTranslationY = albumArtViewHeight;
@@ -277,10 +284,10 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     }
 
     private void setUpSongsAdapter() {
-        final ArrayList<Song> songs = AlbumSongLoader.getAlbumSongList(this, album.id);
-        final AlbumSongAdapter albumSongAdapter = new AlbumSongAdapter(this, songs);
+        songs = AlbumSongLoader.getAlbumSongList(this, album.id);
+        adapter = new AlbumSongAdapter(this, songs, this);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
-        recyclerView.setAdapter(albumSongAdapter);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -345,6 +352,19 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     }
 
     @Subscribe
+    public void onDataBaseEvent(DataBaseChangedEvent event) {
+        switch (event.getAction()) {
+            case DataBaseChangedEvent.SONGS_CHANGED:
+            case DataBaseChangedEvent.ALBUMS_CHANGED:
+            case DataBaseChangedEvent.DATABASE_CHANGED:
+                songs = AlbumSongLoader.getAlbumSongList(this, album.id);
+                adapter.updateDataSet(songs);
+                if (songs.size() < 1) finish();
+                break;
+        }
+    }
+
+    @Subscribe
     public void onUIPreferenceChanged(UIPreferenceChangedEvent event) {
         switch (event.getAction()) {
             case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_ALBUM_CHANGED:
@@ -357,5 +377,32 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     protected void onDestroy() {
         super.onDestroy();
         App.bus.unregister(this);
+    }
+
+    @Override
+    public MaterialCab openCab(int menuRes, final MaterialCab.Callback callback) {
+        if (cab != null && cab.isActive()) cab.finish();
+        cab = new MaterialCab(this, R.id.cab_stub)
+                .setMenu(menuRes)
+                .setBackgroundColor(getPaletteColor())
+                .start(new MaterialCab.Callback() {
+                    @Override
+                    public boolean onCabCreated(MaterialCab materialCab, Menu menu) {
+                        ViewUtil.setBackgroundAlpha(statusBar, 1, toolbarColor);
+                        return callback.onCabCreated(materialCab, menu);
+                    }
+
+                    @Override
+                    public boolean onCabItemClicked(MenuItem menuItem) {
+                        return callback.onCabItemClicked(menuItem);
+                    }
+
+                    @Override
+                    public boolean onCabFinished(MaterialCab materialCab) {
+                        ViewUtil.setBackgroundAlpha(statusBar, toolbarAlpha, toolbarColor);
+                        return callback.onCabFinished(materialCab);
+                    }
+                });
+        return cab;
     }
 }

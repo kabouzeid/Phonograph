@@ -50,7 +50,6 @@
     <string name="no_results">Geen resultaten</string>
     <string name="action_re_download_artist_image">Artiest afbeelding bijwerken</string>
     <string name="updating">Bijwerken...</string>
-    <string name="added_title_to_playing_queue">"1 titel toegevoegd aan de afspeelwachtrij."</string>
     <string name="action_delete_from_playlist">Verwijderen uit afspeellijst</string>
     <string name="new_playlist_action">Nieuwe afspeellijst...</string>
     <string name="action_grid_columns">Rasterkolommen</string>
@@ -120,4 +119,5 @@
         <item>Zoeken op internet</item>
         <item>Verwijder hoes</item>
     </string-array>
+    <string name="added_title_to_playing_queue">"1 titel toegevoegd aan de afspeelwachtrij."</string>
 </resources>

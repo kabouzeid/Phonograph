@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.widget.FrameLayout;
 
+import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.astuetz.PagerSlidingTabStrip;
 import com.kabouzeid.gramophone.R;
@@ -32,6 +33,7 @@ import com.kabouzeid.gramophone.adapter.PagerAdapter;
 import com.kabouzeid.gramophone.dialogs.AboutDialog;
 import com.kabouzeid.gramophone.dialogs.CreatePlaylistDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
@@ -57,7 +59,7 @@ import java.util.List;
 import java.util.Set;
 
 public class MainActivity extends AbsFabActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, KabViewsDisableAble {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, KabViewsDisableAble, CabHolder {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -69,6 +71,7 @@ public class MainActivity extends AbsFabActivity
     private ViewPager viewPager;
     private PagerSlidingTabStrip slidingTabLayout;
     private int currentPage = -1;
+    private MaterialCab cab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -552,5 +555,15 @@ public class MainActivity extends AbsFabActivity
             }
         });
         return super.onMenuOpened(featureId, menu);
+    }
+
+    @Override
+    public MaterialCab openCab(final int menu, final MaterialCab.Callback callback) {
+        if (cab != null && cab.isActive()) cab.finish();
+        cab = new MaterialCab(this, R.id.cab_stub)
+                .setMenu(menu)
+                .setBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimary())
+                .start(callback);
+        return cab;
     }
 }

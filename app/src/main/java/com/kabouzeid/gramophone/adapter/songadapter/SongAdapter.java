@@ -12,11 +12,16 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.adapter.AbsMultiSelectAdapter;
+import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
+import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
@@ -32,7 +37,7 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
+public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, Song> implements MaterialCab.Callback {
 
     public static final String TAG = AlbumSongAdapter.class.getSimpleName();
     private static final int SHUFFLE_BUTTON = 0;
@@ -41,7 +46,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
     protected final AppCompatActivity activity;
     protected ArrayList<Song> dataSet;
 
-    public SongAdapter(AppCompatActivity activity) {
+    public SongAdapter(AppCompatActivity activity, CabHolder cabHolder) {
+        super(cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         loadDataSet();
     }
@@ -77,6 +83,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
                             .resetViewBeforeLoading(true)
                             .build()
             );
+            holder.view.setActivated(isChecked(song));
         } else {
             holder.songTitle.setText(activity.getResources().getString(R.string.shuffle_all).toUpperCase());
             holder.songTitle.setTextColor(ThemeSingleton.get().positiveColor);
@@ -97,7 +104,27 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
         return dataSet.size() + 1;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    @Override
+    protected Song getIdentifier(int position) {
+        return dataSet.get(position - 1);
+    }
+
+    @Override
+    protected void onMultipleItemAction(MenuItem menuItem, ArrayList<Song> selection) {
+        switch (menuItem.getItemId()) {
+            case R.id.action_delete_from_disk:
+                DeleteSongsDialog.create(selection).show(activity.getSupportFragmentManager(), "DELETE_SONGS");
+                break;
+            case R.id.action_add_to_playlist:
+                AddToPlaylistDialog.create(selection).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");
+                break;
+            case R.id.action_add_to_current_playing:
+                MusicPlayerRemote.enqueue(selection);
+                break;
+        }
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         final TextView songTitle;
         final TextView songInfo;
         final ImageView overflowButton;
@@ -115,44 +142,54 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.ViewHolder> {
             overflowButton = (ImageView) itemView.findViewById(R.id.menu);
             separator = itemView.findViewById(R.id.separator);
             short_separator = itemView.findViewById(R.id.short_separator);
-
-            overflowButton.setOnClickListener(this);
-            itemView.setOnClickListener(new View.OnClickListener() {
+            view.setOnClickListener(this);
+            view.setOnLongClickListener(this);
+            overflowButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    if (getItemViewType() == SHUFFLE_BUTTON) {
-                        MusicPlayerRemote.shuffleAllSongs(activity);
-                    } else {
-                        MusicPlayerRemote.openQueue(dataSet, getAdapterPosition() - 1, true);
-                    }
+                public void onClick(View view) {
+                    PopupMenu popupMenu = new PopupMenu(activity, view);
+                    popupMenu.inflate(R.menu.menu_item_song);
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            final int position = getAdapterPosition() - 1;
+                            switch (item.getItemId()) {
+                                case R.id.action_go_to_album:
+                                    Pair[] albumPairs = new Pair[]{
+                                            Pair.create(albumArt, activity.getResources().getString(R.string.transition_album_cover))
+                                    };
+                                    if (activity instanceof AbsFabActivity)
+                                        albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(albumPairs);
+                                    NavigationUtil.goToAlbum(activity, dataSet.get(position).albumId, albumPairs);
+                                    return true;
+                            }
+                            return MenuItemClickHelper.handleSongMenuClick(activity, dataSet.get(position), item);
+                        }
+                    });
+                    popupMenu.show();
                 }
             });
         }
 
         @Override
         public void onClick(View v) {
-            PopupMenu popupMenu = new PopupMenu(activity, v);
-            popupMenu.inflate(R.menu.menu_item_song);
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    final int position = getAdapterPosition() - 1;
-                    switch (item.getItemId()) {
-                        case R.id.action_go_to_album:
-                            Pair[] albumPairs = new Pair[]{
-                                    Pair.create(albumArt, activity.getResources().getString(R.string.transition_album_cover))
-                            };
-                            if (activity instanceof AbsFabActivity)
-                                albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(albumPairs);
-                            NavigationUtil.goToAlbum(activity, dataSet.get(position).albumId, albumPairs);
-                            return true;
-                    }
-                    return MenuItemClickHelper.handleSongMenuClick(activity, dataSet.get(position), item);
-                }
-            });
-            popupMenu.show();
+            if (getItemViewType() == SHUFFLE_BUTTON) {
+                MusicPlayerRemote.shuffleAllSongs(activity);
+            } else if (isInQuickSelectMode()) {
+                toggleChecked(getAdapterPosition());
+            } else {
+                MusicPlayerRemote.openQueue(dataSet, getAdapterPosition() - 1, true);
+            }
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            if (getItemViewType() == SONG)
+                toggleChecked(getAdapterPosition());
+            return true;
         }
     }
+
 
     @Override
     public void onDetachedFromRecyclerView(RecyclerView recyclerView) {

@@ -1,5 +1,7 @@
 package com.kabouzeid.gramophone.model;
 
+import android.text.TextUtils;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -11,17 +13,15 @@ public class Album {
     public final String artistName;
     public final int songCount;
     public final int year;
-    public final String albumArtPath; //used as cache key
 
     public Album(final int id, final String title, final String artistName, final int artistId,
-                 final int songNumber, final int albumYear, final String albumArtPath) {
+                 final int songNumber, final int albumYear) {
         this.id = id;
         this.title = title;
         this.artistName = artistName;
         this.artistId = artistId;
         songCount = songNumber;
         year = albumYear;
-        this.albumArtPath = albumArtPath != null ? albumArtPath : "";
     }
 
     public Album() {
@@ -31,6 +31,49 @@ public class Album {
         this.artistId = -1;
         songCount = -1;
         year = -1;
-        this.albumArtPath = "";
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + id;
+        result = prime * result + (title == null ? 0 : title.hashCode());
+        result = prime * result + (artistName == null ? 0 : artistName.hashCode());
+        result = prime * result + songCount;
+        result = prime * result + year;
+        return result;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Album other = (Album) obj;
+        if (id != other.id) {
+            return false;
+        }
+        if (!TextUtils.equals(title, other.title)) {
+            return false;
+        }
+        if (!TextUtils.equals(artistName, other.artistName)) {
+            return false;
+        }
+        if (songCount != other.songCount) {
+            return false;
+        }
+        return year == other.year;
+    }
+
+    @Override
+    public String toString() {
+        return title;
     }
 }

@@ -17,11 +17,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
@@ -30,6 +30,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.ArtistAlbumAdapter;
 import com.kabouzeid.gramophone.adapter.songadapter.ArtistSongAdapter;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistBiographyLoader;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistImageUrlLoader;
@@ -40,6 +41,7 @@ import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
+import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
@@ -55,14 +57,13 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A lot of hackery is done in this activity. Changing things may will brake the whole activity.
  * <p/>
  * Should be kinda stable ONLY AS IT IS!!!
  */
-public class ArtistDetailActivity extends AbsFabActivity implements PaletteColorHolder {
+public class ArtistDetailActivity extends AbsFabActivity implements PaletteColorHolder, CabHolder {
 
     public static final String TAG = ArtistDetailActivity.class.getSimpleName();
     private Artist artist;
@@ -73,16 +74,21 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     private View songsBackgroundView;
     private TextView artistNameTv;
     private Toolbar toolbar;
+    private MaterialCab cab;
     private int headerOffset;
     private int titleViewHeight;
     private int artistImageViewHeight;
     private int toolbarColor;
+    private float toolbarAlpha;
     private int bottomOffset;
 
     private View songListHeader;
     private RecyclerView albumRecyclerView;
     private Spanned biography;
     private ArtistAlbumAdapter albumAdapter;
+    private ArtistSongAdapter songAdapter;
+    private ArrayList<Song> songs;
+    private ArrayList<Album> albums;
 
     private final SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
         @Override
@@ -98,9 +104,9 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
             ViewHelper.setTranslationY(songsBackgroundView, Math.max(0, -scrollY + artistImageViewHeight));
 
             // Change alpha of overlay
-            float alpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
-            ViewUtil.setBackgroundAlpha(toolbar, alpha, toolbarColor);
-            ViewUtil.setBackgroundAlpha(statusBar, alpha, toolbarColor);
+            toolbarAlpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
+            ViewUtil.setBackgroundAlpha(toolbar, toolbarAlpha, toolbarColor);
+            ViewUtil.setBackgroundAlpha(statusBar, cab != null && cab.isActive() ? 1 : toolbarAlpha, toolbarColor);
 
             // Translate name text
             int maxTitleTranslationY = artistImageViewHeight;
@@ -208,8 +214,8 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         songListView.setPadding(0, artistImageViewHeight + titleViewHeight, 0, bottomOffset);
         songListView.addHeaderView(songListHeader);
 
-        final ArrayList<Song> songs = ArtistSongLoader.getArtistSongList(this, artist.id);
-        ArtistSongAdapter songAdapter = new ArtistSongAdapter(this, songs);
+        songs = ArtistSongLoader.getArtistSongList(this, artist.id);
+        songAdapter = new ArtistSongAdapter(this, songs, this);
         songListView.setAdapter(songAdapter);
 
         final View contentView = getWindow().getDecorView().findViewById(android.R.id.content);
@@ -220,23 +226,12 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                 observableScrollViewCallbacks.onScrollChanged(-(artistImageViewHeight + titleViewHeight), false, false);
             }
         });
-
-        songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // header view has position 0
-                if (position == 0) {
-                    return;
-                }
-                MusicPlayerRemote.openQueue(songs, position - 1, true);
-            }
-        });
     }
 
     private void setUpAlbumRecyclerView() {
         albumRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        List<Album> albums = ArtistAlbumLoader.getArtistAlbumList(this, artist.id);
-        albumAdapter = new ArtistAlbumAdapter(this, albums);
+        albums = ArtistAlbumLoader.getArtistAlbumList(this, artist.id);
+        albumAdapter = new ArtistAlbumAdapter(this, albums, this);
         albumRecyclerView.setAdapter(albumAdapter);
     }
 
@@ -440,6 +435,22 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     }
 
     @Subscribe
+    public void onDataBaseEvent(DataBaseChangedEvent event) {
+        switch (event.getAction()) {
+            case DataBaseChangedEvent.SONGS_CHANGED:
+            case DataBaseChangedEvent.ALBUMS_CHANGED:
+            case DataBaseChangedEvent.ARTISTS_CHANGED:
+            case DataBaseChangedEvent.DATABASE_CHANGED:
+                songs = ArtistSongLoader.getArtistSongList(this, artist.id);
+                songAdapter.updateDataSet(songs);
+                albums = ArtistAlbumLoader.getArtistAlbumList(this, artist.id);
+                albumAdapter.updateDataSet(albums);
+                if (songs.size() < 1) finish();
+                break;
+        }
+    }
+
+    @Subscribe
     public void onUIPreferenceChanged(UIPreferenceChangedEvent event) {
         switch (event.getAction()) {
             case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_ARTIST_CHANGED:
@@ -452,5 +463,32 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     protected void onDestroy() {
         super.onDestroy();
         App.bus.unregister(this);
+    }
+
+    @Override
+    public MaterialCab openCab(int menuRes, final MaterialCab.Callback callback) {
+        if (cab != null && cab.isActive()) cab.finish();
+        cab = new MaterialCab(this, R.id.cab_stub)
+                .setMenu(menuRes)
+                .setBackgroundColor(getPaletteColor())
+                .start(new MaterialCab.Callback() {
+                    @Override
+                    public boolean onCabCreated(MaterialCab materialCab, Menu menu) {
+                        ViewUtil.setBackgroundAlpha(statusBar, 1, toolbarColor);
+                        return callback.onCabCreated(materialCab, menu);
+                    }
+
+                    @Override
+                    public boolean onCabItemClicked(MenuItem menuItem) {
+                        return callback.onCabItemClicked(menuItem);
+                    }
+
+                    @Override
+                    public boolean onCabFinished(MaterialCab materialCab) {
+                        ViewUtil.setBackgroundAlpha(statusBar, toolbarAlpha, toolbarColor);
+                        return callback.onCabFinished(materialCab);
+                    }
+                });
+        return cab;
     }
 }

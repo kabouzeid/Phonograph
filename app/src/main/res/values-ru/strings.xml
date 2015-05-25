@@ -50,7 +50,6 @@
     <string name="no_results">Нет результатов</string>
     <string name="action_re_download_artist_image">Обновить изображение исполнителя</string>
     <string name="updating">Обновление...</string>
-    <string name="added_title_to_playing_queue">"Добавлена 1 композиция в очередь воспроизведения"</string>
     <string name="action_delete_from_playlist">Удалить из списка воспроизведения</string>
     <string name="new_playlist_action">Новый список воспроизведения...</string>
     <string name="action_grid_columns">Столбцы сетки</string>
@@ -120,4 +119,5 @@
         <item>Поиск в интернете</item>
         <item>Удалить обложку</item>
     </string-array>
+    <string name="added_title_to_playing_queue">"Добавлена 1 композиция в очередь воспроизведения"</string>
 </resources>

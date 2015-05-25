@@ -25,6 +25,7 @@
         <item name="nav_drawer_icon_color">#fff</item>
 
         <item name="themed_drawable_color">@color/materialmusic_dark_themed_drawable_color</item>
+        <item name="check_mark_color">@color/grey_900</item>
 
         <item name="default_bar_color">@color/materialmusic_dark_default_bar_color</item>
         <item name="card_color">@color/materialmusic_dark_default_bar_color</item>
@@ -56,6 +57,7 @@
         <item name="nav_drawer_icon_color">#000</item>
 
         <item name="themed_drawable_color">@color/materialmusic_themed_drawable_color</item>
+        <item name="check_mark_color">@color/white</item>
 
         <item name="default_bar_color">@color/materialmusic_default_bar_color</item>
         <item name="card_color">@color/white</item>

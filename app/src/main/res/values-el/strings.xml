@@ -50,7 +50,6 @@
     <string name="no_results">Κανένα αποτέλεσμα</string>
     <string name="action_re_download_artist_image">Ανανέωση εικόνας καλλιτέχνη</string>
     <string name="updating">Γίνεται ανανέωση...</string>
-    <string name="added_title_to_playing_queue">"Προστέθηκε ένας τίτλος στη σειρά αναπαραγωγής"</string>
     <string name="action_delete_from_playlist">Διαγραφή από τη λίστα αναπαραγωγής</string>
     <string name="new_playlist_action">Νέα λίστα αναπαραγωγής...</string>
     <string name="action_grid_columns">Στήλες πλέγματος</string>
@@ -120,4 +119,5 @@
         <item>Αναζήτηση στο διαδίκτυο</item>
         <item>Διαγραφή εξώφυλλου</item>
     </string-array>
+    <string name="added_title_to_playing_queue">"Προστέθηκε ένας τίτλος στη σειρά αναπαραγωγής"</string>
 </resources>

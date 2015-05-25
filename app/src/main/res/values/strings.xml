@@ -53,7 +53,8 @@
     <string name="no_results">No results</string>
     <string name="action_re_download_artist_image">Update artist image</string>
     <string name="updating">Updating…</string>
-    <string name="added_title_to_playing_queue">Added 1 title to the playing queue.</string>
+    <string name="added_title_to_playing_queue">"Added 1 title to the playing queue."</string>
+    <string name="added_x_titles_to_playing_queue">Added %1$d titles to the playing queue.</string>
     <string name="title_activity_playlist_detail">Playlist Activity</string>
     <string name="action_delete_from_playlist">Delete from playlist</string>
     <string name="new_playlist_action">New playlist…</string>
@@ -67,16 +68,28 @@
     <string name="delete_playlist_x"><![CDATA[
         Do you want to delete the playlist <b>%1$s</b>?
     ]]></string>
+    <string name="delete_x_playlists"><![CDATA[
+        Do you want to delete <b>%1$d</b> playlists?
+    ]]></string>
     <string name="delete_song_x"><![CDATA[
         Do you want to delete the song <b>%1$s</b>?
     ]]></string>
     <string name="delete_x_songs"><![CDATA[
         Do you want to delete <b>%1$d</b> songs?
     ]]></string>
+    <string name="delete_song_x_from_playlist"><![CDATA[
+        Do you want to delete the song <b>%1$s</b> from the playlist?
+    ]]></string>
+    <string name="delete_x_songs_from_playlist"><![CDATA[
+        Do you want to delete <b>%1$d</b> songs from the playlist?
+    ]]></string>
     <string name="delete_song_title">Delete Song</string>
     <string name="delete_songs_title">Delete Songs</string>
+    <string name="delete_song_from_playlist_title">Delete Song from Playlist</string>
+    <string name="delete_songs_from_playlist_title">Delete Songs from Playlist</string>
     <string name="rename_playlist_title">Rename Playlist</string>
     <string name="delete_playlist_title">Delete Playlist</string>
+    <string name="delete_playlists_title">Delete Playlists</string>
     <string name="add_playlist_title">Add to Playlist</string>
     <string name="new_playlist_title">New Playlist</string>
 

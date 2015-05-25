@@ -21,6 +21,7 @@ import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.util.InternalStorageUtil;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -248,6 +249,14 @@ public class MusicPlayerRemote {
         if (musicService != null) {
             musicService.addSong(song);
             Toast.makeText(musicService, musicService.getResources().getString(R.string.added_title_to_playing_queue), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public static void enqueue(List<Song> songs) {
+        if (musicService != null) {
+            musicService.addSongs(songs);
+            final String toast = songs.size() == 1 ? musicService.getResources().getString(R.string.added_title_to_playing_queue) : musicService.getResources().getString(R.string.added_x_titles_to_playing_queue, songs.size());
+            Toast.makeText(musicService, toast, Toast.LENGTH_SHORT).show();
         }
     }
 
