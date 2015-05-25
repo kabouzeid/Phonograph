@@ -17,11 +17,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
@@ -30,6 +30,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.ArtistAlbumAdapter;
 import com.kabouzeid.gramophone.adapter.songadapter.ArtistSongAdapter;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistBiographyLoader;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistImageUrlLoader;
@@ -62,7 +63,7 @@ import java.util.List;
  * <p/>
  * Should be kinda stable ONLY AS IT IS!!!
  */
-public class ArtistDetailActivity extends AbsFabActivity implements PaletteColorHolder {
+public class ArtistDetailActivity extends AbsFabActivity implements PaletteColorHolder, CabHolder {
 
     public static final String TAG = ArtistDetailActivity.class.getSimpleName();
     private Artist artist;
@@ -73,10 +74,12 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     private View songsBackgroundView;
     private TextView artistNameTv;
     private Toolbar toolbar;
+    private MaterialCab cab;
     private int headerOffset;
     private int titleViewHeight;
     private int artistImageViewHeight;
     private int toolbarColor;
+    private float toolbarAlpha;
     private int bottomOffset;
 
     private View songListHeader;
@@ -98,9 +101,9 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
             ViewHelper.setTranslationY(songsBackgroundView, Math.max(0, -scrollY + artistImageViewHeight));
 
             // Change alpha of overlay
-            float alpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
-            ViewUtil.setBackgroundAlpha(toolbar, alpha, toolbarColor);
-            ViewUtil.setBackgroundAlpha(statusBar, alpha, toolbarColor);
+            toolbarAlpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
+            ViewUtil.setBackgroundAlpha(toolbar, toolbarAlpha, toolbarColor);
+            ViewUtil.setBackgroundAlpha(statusBar, cab != null && cab.isActive() ? 1 : toolbarAlpha, toolbarColor);
 
             // Translate name text
             int maxTitleTranslationY = artistImageViewHeight;
@@ -209,7 +212,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         songListView.addHeaderView(songListHeader);
 
         final ArrayList<Song> songs = ArtistSongLoader.getArtistSongList(this, artist.id);
-        ArtistSongAdapter songAdapter = new ArtistSongAdapter(this, songs);
+        ArtistSongAdapter songAdapter = new ArtistSongAdapter(this, songs, this);
         songListView.setAdapter(songAdapter);
 
         final View contentView = getWindow().getDecorView().findViewById(android.R.id.content);
@@ -220,23 +223,12 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                 observableScrollViewCallbacks.onScrollChanged(-(artistImageViewHeight + titleViewHeight), false, false);
             }
         });
-
-        songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // header view has position 0
-                if (position == 0) {
-                    return;
-                }
-                MusicPlayerRemote.openQueue(songs, position - 1, true);
-            }
-        });
     }
 
     private void setUpAlbumRecyclerView() {
         albumRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         List<Album> albums = ArtistAlbumLoader.getArtistAlbumList(this, artist.id);
-        albumAdapter = new ArtistAlbumAdapter(this, albums);
+        albumAdapter = new ArtistAlbumAdapter(this, albums, this);
         albumRecyclerView.setAdapter(albumAdapter);
     }
 
@@ -452,5 +444,32 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     protected void onDestroy() {
         super.onDestroy();
         App.bus.unregister(this);
+    }
+
+    @Override
+    public MaterialCab openCab(int menuRes, final MaterialCab.Callback callback) {
+        if (cab != null && cab.isActive()) cab.finish();
+        cab = new MaterialCab(this, R.id.cab_stub)
+                .setMenu(menuRes)
+                .setBackgroundColor(getPaletteColor())
+                .start(new MaterialCab.Callback() {
+                    @Override
+                    public boolean onCabCreated(MaterialCab materialCab, Menu menu) {
+                        ViewUtil.setBackgroundAlpha(statusBar, 1, toolbarColor);
+                        return callback.onCabCreated(materialCab, menu);
+                    }
+
+                    @Override
+                    public boolean onCabItemClicked(MenuItem menuItem) {
+                        return callback.onCabItemClicked(menuItem);
+                    }
+
+                    @Override
+                    public boolean onCabFinished(MaterialCab materialCab) {
+                        ViewUtil.setBackgroundAlpha(statusBar, toolbarAlpha, toolbarColor);
+                        return callback.onCabFinished(materialCab);
+                    }
+                });
+        return cab;
     }
 }
