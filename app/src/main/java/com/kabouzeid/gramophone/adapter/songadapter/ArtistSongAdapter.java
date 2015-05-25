@@ -51,7 +51,8 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
 
     public void updateDataSet(ArrayList<Song> objects) {
         dataSet = objects;
-        notifyDataSetChanged();
+        clear();
+        addAll(dataSet);
     }
 
     @Override
