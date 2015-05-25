@@ -12,9 +12,11 @@ import android.widget.Toast;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
+import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,13 +61,26 @@ public class PlaylistsUtil {
 //        context.getContentResolver().delete(uri, null, null);
 //    }
 
-    public static void deletePlaylist(final Context context, final long playlistId) {
+    public static void deletePlaylists(final Context context, final long playlistId) {
         final Uri uri = MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI;
         String where = MediaStore.Audio.Playlists._ID + "=?";
         String[] whereVal = {String.valueOf(playlistId)};
         context.getContentResolver().delete(uri, where, whereVal);
-        Toast.makeText(context, context.getResources().getString(R.string.deleted_playlist_x,
-                getNameForPlaylist(context, playlistId)), Toast.LENGTH_SHORT).show();
+        App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
+    }
+
+    public static void deletePlaylists(final Context context, final ArrayList<Playlist> playlists) {
+        final Uri uri = MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI;
+        final StringBuilder selection = new StringBuilder();
+        selection.append(MediaStore.Audio.Playlists._ID + " IN (");
+        for (int i = 0; i < playlists.size(); i++) {
+            selection.append(playlists.get(i).id);
+            if (i < playlists.size() - 1) {
+                selection.append(",");
+            }
+        }
+        selection.append(")");
+        context.getContentResolver().delete(uri, selection.toString(), null);
         App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
     }
 

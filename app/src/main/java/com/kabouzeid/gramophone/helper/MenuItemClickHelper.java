@@ -75,7 +75,7 @@ public class MenuItemClickHelper {
                 RenamePlaylistDialog.create(playlist.id).show(activity.getSupportFragmentManager(), "RENAME_PLAYLIST");
                 return true;
             case R.id.action_delete_playlist:
-                DeletePlaylistDialog.create(playlist.id).show(activity.getSupportFragmentManager(), "DELETE_PLAYLIST");
+                DeletePlaylistDialog.create(playlist).show(activity.getSupportFragmentManager(), "DELETE_PLAYLIST");
                 return true;
         }
         return false;

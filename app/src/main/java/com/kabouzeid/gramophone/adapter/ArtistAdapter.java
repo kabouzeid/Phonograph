@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.adapter;
 
+import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -39,7 +40,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     protected final AppCompatActivity activity;
     protected List<Artist> dataSet;
 
-    public ArtistAdapter(AppCompatActivity activity, CabHolder cabHolder) {
+    public ArtistAdapter(AppCompatActivity activity, @Nullable CabHolder cabHolder) {
         super(cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         loadDataSet();

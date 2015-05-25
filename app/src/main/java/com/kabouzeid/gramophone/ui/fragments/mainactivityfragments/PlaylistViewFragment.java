@@ -40,7 +40,7 @@ public class PlaylistViewFragment extends AbsMainActivityRecyclerViewFragment {
 
     @Override
     protected RecyclerView.Adapter createAdapter() {
-        PlaylistAdapter adapter = new PlaylistAdapter(getMainActivity());
+        PlaylistAdapter adapter = new PlaylistAdapter(getMainActivity(), getMainActivity());
         View v = getView();
         if (v != null) {
             v.findViewById(android.R.id.empty).setVisibility(

@@ -36,7 +36,7 @@ public class DeleteSongsDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         //noinspection unchecked
-        ArrayList<Song> songs = (ArrayList<Song>) getArguments().getSerializable("songs");
+        final ArrayList<Song> songs = (ArrayList<Song>) getArguments().getSerializable("songs");
         int title;
         CharSequence content;
         if (songs.size() > 1) {
@@ -57,8 +57,6 @@ public class DeleteSongsDialog extends DialogFragment {
                         super.onPositive(dialog);
                         if (getActivity() == null)
                             return;
-                        //noinspection unchecked
-                        ArrayList<Song> songs = (ArrayList<Song>) getArguments().getSerializable("songs");
                         MusicUtil.deleteTracks(getActivity(), songs);
                     }
                 }).build();

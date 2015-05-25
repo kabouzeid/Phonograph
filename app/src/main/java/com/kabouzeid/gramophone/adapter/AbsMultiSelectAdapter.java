@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.adapter;
 
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +19,7 @@ public abstract class AbsMultiSelectAdapter<VH extends RecyclerView.ViewHolder, 
     private ArrayList<I> checked;
     private int menuRes;
 
-    public AbsMultiSelectAdapter(CabHolder cabHolder, int menuRes) {
+    public AbsMultiSelectAdapter(@Nullable CabHolder cabHolder, int menuRes) {
         this.cabHolder = cabHolder;
         checked = new ArrayList<>();
         this.menuRes = menuRes;
@@ -40,8 +41,10 @@ public abstract class AbsMultiSelectAdapter<VH extends RecyclerView.ViewHolder, 
     }
 
     private void openCabIfNecessary() {
-        if (cab == null || !cab.isActive()) {
-            cab = cabHolder.openCab(menuRes, this);
+        if (cabHolder != null) {
+            if (cab == null || !cab.isActive()) {
+                cab = cabHolder.openCab(menuRes, this);
+            }
         }
     }
 

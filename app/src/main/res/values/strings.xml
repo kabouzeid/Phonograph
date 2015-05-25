@@ -68,6 +68,9 @@
     <string name="delete_playlist_x"><![CDATA[
         Do you want to delete the playlist <b>%1$s</b>?
     ]]></string>
+    <string name="delete_x_playlists"><![CDATA[
+        Do you want to delete <b>%1$d</b> playlists?
+    ]]></string>
     <string name="delete_song_x"><![CDATA[
         Do you want to delete the song <b>%1$s</b>?
     ]]></string>
@@ -78,6 +81,7 @@
     <string name="delete_songs_title">Delete Songs</string>
     <string name="rename_playlist_title">Rename Playlist</string>
     <string name="delete_playlist_title">Delete Playlist</string>
+    <string name="delete_playlists_title">Delete Playlists</string>
     <string name="add_playlist_title">Add to Playlist</string>
     <string name="new_playlist_title">New Playlist</string>
 

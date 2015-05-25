@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.adapter;
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
@@ -184,7 +185,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
         }
     }
 
-    public AlbumAdapter(AppCompatActivity activity, CabHolder cabHolder) {
+    public AlbumAdapter(AppCompatActivity activity, @Nullable CabHolder cabHolder) {
         super(cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         usePalette = PreferenceUtils.getInstance(activity).coloredAlbumFootersEnabled();
