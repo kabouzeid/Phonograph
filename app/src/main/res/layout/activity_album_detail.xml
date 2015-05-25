@@ -3,14 +3,20 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/album_art"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/header_image_height"
-        android:scaleType="centerCrop"
-        android:src="@drawable/default_album_art"
-        android:transitionName="@string/transition_album_cover"
-        tools:ignore="ContentDescription,UnusedAttribute" />
+        android:layout_height="@dimen/header_image_height">
+
+        <com.kabouzeid.gramophone.views.SquareFitImageView
+            android:id="@+id/album_art"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_album_art"
+            android:transitionName="@string/transition_album_cover"
+            tools:ignore="ContentDescription,UnusedAttribute" />
+    </FrameLayout>
 
     <View
         android:id="@+id/list_background"
