@@ -15,15 +15,10 @@ public abstract class AbsMainActivityFragment extends Fragment implements KabVie
     private boolean areViewsEnabled;
 
     protected int getTopPadding() {
-        final int norm = Util.getActionBarSize(getActivity()) +
+        return Util.getActionBarSize(getActivity()) +
+                Util.getStatusBarHeight(getActivity()) +
                 getResources().getDimensionPixelSize(R.dimen.tab_height) +
                 getResources().getDimensionPixelSize(R.dimen.list_padding_vertical);
-        if (Util.isAtLeastKitKat() && !Util.isAtLeastLollipop()) {
-            if (Util.isInPortraitMode(getActivity()) || Util.isTablet(getActivity())) {
-                return norm + Util.getStatusBarHeight(getActivity());
-            }
-        }
-        return norm;
     }
 
     protected int getBottomPadding() {

@@ -113,7 +113,7 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
         });
     }
 
-    private void updateFabState() {
+    protected void updateFabState() {
         if (MusicPlayerRemote.isPlaying()) {
             playPauseDrawable.setPause();
         } else {
@@ -135,10 +135,6 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        updateControllerState();
-    }
-
-    protected void updateControllerState() {
         updateFabState();
     }
 
@@ -189,5 +185,9 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
 
     private void setFabPause() {
         playPauseDrawable.animatedPause();
+    }
+
+    private void setFabColor() {
+
     }
 }

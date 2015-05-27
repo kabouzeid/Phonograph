@@ -23,6 +23,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.afollestad.materialcab.MaterialCab;
@@ -72,10 +73,10 @@ public class MainActivity extends AbsFabActivity
     private PagerSlidingTabStrip slidingTabLayout;
     private int currentPage = -1;
     private MaterialCab cab;
+    private View statusBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusBarTranslucent(!Util.isAtLeastLollipop());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -92,12 +93,17 @@ public class MainActivity extends AbsFabActivity
 
     @Override
     protected boolean shouldColorStatusBar() {
-        return !Util.isAtLeastLollipop();
+        return false;
     }
 
     @Override
     protected boolean shouldColorNavBar() {
         return PreferenceUtils.getInstance(this).coloredNavigationBarOtherScreensEnabled();
+    }
+
+    @Override
+    protected boolean shouldSetStatusBarTranslucent() {
+        return true;
     }
 
     private void setUpViewPager() {
@@ -144,6 +150,7 @@ public class MainActivity extends AbsFabActivity
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
+        statusBar = findViewById(R.id.status_bar);
     }
 
     private void setUpToolBar() {
@@ -159,6 +166,7 @@ public class MainActivity extends AbsFabActivity
         final int colorPrimary = PreferenceUtils.getInstance(this).getThemeColorPrimary();
         ViewUtil.setBackgroundAlpha(toolbar, alpha, colorPrimary);
         ViewUtil.setBackgroundAlpha(slidingTabLayout, alpha, colorPrimary);
+        ViewUtil.setBackgroundAlpha(statusBar, alpha, colorPrimary);
     }
 
     private void setUpDrawerToggle() {
@@ -178,9 +186,6 @@ public class MainActivity extends AbsFabActivity
     }
 
     private void setUpDrawerLayout() {
-        drawerLayout.setStatusBarBackgroundColor(PreferenceUtils
-                .getInstance(this).getThemeColorPrimaryDarker());
-
         FrameLayout navDrawerFrame = (FrameLayout) findViewById(R.id.nav_drawer_frame);
         int navDrawerMargin = getResources().getDimensionPixelSize(R.dimen.nav_drawer_margin);
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
@@ -364,11 +369,9 @@ public class MainActivity extends AbsFabActivity
 
     @Override
     public void onBackPressed() {
-        if (navigationDrawerFragment.isDrawerOpen()) {
-            drawerLayout.closeDrawers();
-            return;
-        }
-        super.onBackPressed();
+        if (navigationDrawerFragment.isDrawerOpen()) drawerLayout.closeDrawers();
+        else if (cab != null && cab.isActive()) cab.finish();
+        else super.onBackPressed();
     }
 
     @Override

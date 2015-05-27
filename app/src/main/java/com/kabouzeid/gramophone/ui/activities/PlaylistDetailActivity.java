@@ -26,7 +26,6 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
-import com.kabouzeid.gramophone.util.Util;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -42,7 +41,6 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusBarTranslucent(!Util.isAtLeastLollipop());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_detail);
 
@@ -92,6 +90,11 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
     @Override
     protected boolean shouldColorNavBar() {
         return PreferenceUtils.getInstance(this).coloredNavigationBarPlaylistEnabled();
+    }
+
+    @Override
+    protected boolean shouldSetStatusBarTranslucent() {
+        return true;
     }
 
     private void getIntentExtras() {
@@ -162,5 +165,11 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
                 );
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (cab != null && cab.isActive()) cab.finish();
+        else super.onBackPressed();
     }
 }

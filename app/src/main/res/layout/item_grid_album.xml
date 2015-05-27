@@ -18,7 +18,7 @@
             android:orientation="vertical"
             tools:ignore="UnusedAttribute,UselessParent">
 
-            <com.kabouzeid.gramophone.views.SquareImageView
+            <com.kabouzeid.gramophone.views.WidthFitSquareImageView
                 android:id="@+id/album_art"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

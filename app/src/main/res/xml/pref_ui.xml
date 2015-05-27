@@ -31,13 +31,6 @@
             android:widgetLayout="@layout/preference_dynamiccheckbox" />
 
         <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="playback_controller_card"
-            android:title="@string/pref_title_show_playback_controller_card"
-            android:layout="@layout/preference_custom"
-            android:widgetLayout="@layout/preference_dynamiccheckbox" />
-
-        <CheckBoxPreference
             android:defaultValue="true"
             android:key="colored_album_footers"
             android:title="@string/pref_title_colored_album_footers"

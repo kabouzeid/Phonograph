@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingTop="@dimen/main_toolbar_padding_top">
+        android:paddingTop="@dimen/status_bar_padding">
 
         <FrameLayout
             android:layout_width="match_parent"

@@ -1,8 +1,10 @@
 package com.kabouzeid.gramophone.ui.activities;
 
+import android.animation.Animator;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +19,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +34,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.ArtistAlbumAdapter;
 import com.kabouzeid.gramophone.adapter.songadapter.ArtistSongAdapter;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.helper.bitmapblur.StackBlurManager;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistBiographyLoader;
@@ -39,6 +44,7 @@ import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
+import com.kabouzeid.gramophone.misc.SmallTransitionListener;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
@@ -71,6 +77,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     private ObservableListView songListView;
     private View statusBar;
     private ImageView artistImage;
+    private ImageView artistImageBackground;
     private View songsBackgroundView;
     private TextView artistNameTv;
     private Toolbar toolbar;
@@ -121,7 +128,6 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusBarTranslucent(true);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist_detail);
 
@@ -130,7 +136,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         if (Util.isAtLeastLollipop()) {
             postponeEnterTransition();
             if (PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled())
-                getWindow().setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
+                setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
         }
 
         getIntentExtras();
@@ -146,6 +152,29 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
             fixLollipopTransitionImageWrongSize();
             startPostponedEnterTransition();
         }
+
+        if (Util.isAtLeastLollipop()) {
+            getWindow().getEnterTransition().addListener(new SmallTransitionListener() {
+                @Override
+                public void onTransitionStart(Transition transition) {
+                    artistImageBackground.setVisibility(View.INVISIBLE);
+                }
+
+                @Override
+                public void onTransitionEnd(Transition transition) {
+                    int cx = (artistImageBackground.getLeft() + artistImageBackground.getRight()) / 2;
+                    int cy = (artistImageBackground.getTop() + artistImageBackground.getBottom()) / 2;
+                    int finalRadius = Math.max(artistImageBackground.getWidth(), artistImageBackground.getHeight());
+
+                    Animator animator = ViewAnimationUtils.createCircularReveal(artistImageBackground, cx, cy, artistImage.getWidth() / 2, finalRadius);
+                    animator.setInterpolator(new DecelerateInterpolator());
+                    animator.setDuration(1000);
+                    animator.start();
+
+                    artistImageBackground.setVisibility(View.VISIBLE);
+                }
+            });
+        }
     }
 
     @Override
@@ -158,13 +187,19 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         return false;
     }
 
+    @Override
+    protected boolean shouldSetStatusBarTranslucent() {
+        return true;
+    }
+
     private void initViews() {
         artistImage = (ImageView) findViewById(R.id.artist_image);
+        artistImageBackground = (ImageView) findViewById(R.id.artist_image_background);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         songListView = (ObservableListView) findViewById(R.id.list);
         artistNameTv = (TextView) findViewById(R.id.artist_name);
         songsBackgroundView = findViewById(R.id.list_background);
-        statusBar = findViewById(R.id.statusBar);
+        statusBar = findViewById(R.id.status_bar);
 
         songListHeader = LayoutInflater.from(this).inflate(R.layout.artist_detail_header, songListView, false);
         albumRecyclerView = (RecyclerView) songListHeader.findViewById(R.id.recycler_view);
@@ -178,7 +213,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         titleViewHeight = getResources().getDimensionPixelSize(R.dimen.title_view_height);
         headerOffset = toolbarHeight;
         if (Util.isAtLeastKitKat())
-            headerOffset += getResources().getDimensionPixelSize(R.dimen.statusMargin);
+            headerOffset += getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
     }
 
     @Override
@@ -203,9 +238,9 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setNavigationBarColored(boolean colored) {
         if (colored) {
-            if (Util.isAtLeastLollipop()) getWindow().setNavigationBarColor(toolbarColor);
+            setNavigationBarColor(toolbarColor);
         } else {
-            if (Util.isAtLeastLollipop()) getWindow().setNavigationBarColor(Color.BLACK);
+            setNavigationBarColor(Color.BLACK);
         }
     }
 
@@ -257,6 +292,8 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     }
 
     private void setUpArtistImageAndApplyPalette(final boolean forceDownload) {
+        final StackBlurManager defaultArtistImageBlurManager = new StackBlurManager(BitmapFactory.decodeResource(getResources(), R.drawable.default_artist_image));
+        artistImageBackground.setImageBitmap(defaultArtistImageBlurManager.process(10));
         LastFMArtistImageUrlLoader.loadArtistImageUrl(this, artist.name, forceDownload, new LastFMArtistImageUrlLoader.ArtistImageUrlLoaderCallback() {
             @Override
             public void onArtistImageUrlLoaded(final String url) {
@@ -272,11 +309,13 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                             @Override
                             public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                                 applyPalette(null);
+                                artistImageBackground.setImageBitmap(defaultArtistImageBlurManager.returnBlurredImage());
                             }
 
                             @Override
                             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                                 applyPalette(loadedImage);
+                                artistImageBackground.setImageBitmap(new StackBlurManager(loadedImage).process(10));
                             }
                         }
                 );
@@ -297,7 +336,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                                 artistNameTv.setBackgroundColor(vibrantSwatch.getRgb());
                                 artistNameTv.setTextColor(vibrantSwatch.getTitleTextColor());
                                 if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(ArtistDetailActivity.this).coloredNavigationBarArtistEnabled())
-                                    getWindow().setNavigationBarColor(vibrantSwatch.getRgb());
+                                    setNavigationBarColor(vibrantSwatch.getRgb());
                                 notifyTaskColorChange(toolbarColor);
                             } else {
                                 resetColors();
@@ -336,7 +375,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         artistNameTv.setTextColor(titleTextColor);
 
         if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled())
-            getWindow().setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
+            setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
 
         notifyTaskColorChange(toolbarColor);
     }
@@ -490,5 +529,11 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                     }
                 });
         return cab;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (cab != null && cab.isActive()) cab.finish();
+        else super.onBackPressed();
     }
 }

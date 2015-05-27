@@ -15,7 +15,7 @@
     <color name="materialmusic_music_controller_container_color">@color/grey_300</color>
     <color name="materialmusic_navigation_drawer_background_color">#fff</color>
     <color name="materialmusic_separator_color">#0C000000</color>
-    <color name="materialmusic_default_bar_color">@color/grey_300</color>
+    <color name="materialmusic_default_bar_color">@color/grey_500</color>
     <color name="materialmusic_themed_drawable_color">#8A000000</color>
     <color name="list_item_selector_activated">#D0D0D0</color>
 

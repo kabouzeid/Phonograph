@@ -1,8 +1,10 @@
 package com.kabouzeid.gramophone.ui.activities;
 
+import android.animation.Animator;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,9 +12,12 @@ import android.support.v4.util.Pair;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,12 +28,14 @@ import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.songadapter.AlbumSongAdapter;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.helper.bitmapblur.StackBlurManager;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
+import com.kabouzeid.gramophone.misc.SmallTransitionListener;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
@@ -65,6 +72,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     private ArrayList<Song> songs;
     private View statusBar;
     private ImageView albumArtImageView;
+    private ImageView albumArtBackground;
     private View songsBackgroundView;
     private TextView albumTitleView;
     private Toolbar toolbar;
@@ -106,7 +114,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusBarTranslucent(true);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_detail);
 
@@ -115,7 +122,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         if (Util.isAtLeastLollipop()) {
             postponeEnterTransition();
             if (PreferenceUtils.getInstance(this).coloredNavigationBarAlbumEnabled())
-                getWindow().setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
+                setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
         }
 
         Bundle intentExtras = getIntent().getExtras();
@@ -132,6 +139,29 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         setUpObservableListViewParams();
         setUpToolBar();
         setUpViews();
+
+        if (Util.isAtLeastLollipop()) {
+            getWindow().getEnterTransition().addListener(new SmallTransitionListener() {
+                @Override
+                public void onTransitionStart(Transition transition) {
+                    albumArtBackground.setVisibility(View.INVISIBLE);
+                }
+
+                @Override
+                public void onTransitionEnd(Transition transition) {
+                    int cx = (albumArtBackground.getLeft() + albumArtBackground.getRight()) / 2;
+                    int cy = (albumArtBackground.getTop() + albumArtBackground.getBottom()) / 2;
+                    int finalRadius = Math.max(albumArtBackground.getWidth(), albumArtBackground.getHeight());
+
+                    Animator animator = ViewAnimationUtils.createCircularReveal(albumArtBackground, cx, cy, albumArtImageView.getWidth() / 2, finalRadius);
+                    animator.setInterpolator(new DecelerateInterpolator());
+                    animator.setDuration(1000);
+                    animator.start();
+
+                    albumArtBackground.setVisibility(View.VISIBLE);
+                }
+            });
+        }
     }
 
     @Override
@@ -145,17 +175,23 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     }
 
     @Override
+    protected boolean shouldSetStatusBarTranslucent() {
+        return true;
+    }
+
+    @Override
     public String getTag() {
         return TAG;
     }
 
     private void initViews() {
         albumArtImageView = (ImageView) findViewById(R.id.album_art);
+        albumArtBackground = (ImageView) findViewById(R.id.album_art_background);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         recyclerView = (ObservableRecyclerView) findViewById(R.id.list);
         albumTitleView = (TextView) findViewById(R.id.album_title);
         songsBackgroundView = findViewById(R.id.list_background);
-        statusBar = findViewById(R.id.statusBar);
+        statusBar = findViewById(R.id.status_bar);
     }
 
     private void setUpObservableListViewParams() {
@@ -166,7 +202,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         titleViewHeight = getResources().getDimensionPixelSize(R.dimen.title_view_height);
         headerOffset = toolbarHeight;
         if (Util.isAtLeastKitKat())
-            headerOffset += getResources().getDimensionPixelSize(R.dimen.statusMargin);
+            headerOffset += getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
     }
 
     private void setUpViews() {
@@ -190,6 +226,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                     @Override
                     public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                         applyPalette(null);
+                        albumArtBackground.setImageBitmap(new StackBlurManager(BitmapFactory.decodeResource(getResources(), R.drawable.default_album_art)).process(10));
                         if (Util.isAtLeastLollipop()) startPostponedEnterTransition();
                     }
 
@@ -197,6 +234,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                     @Override
                     public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                         applyPalette(loadedImage);
+                        albumArtBackground.setImageBitmap(new StackBlurManager(loadedImage).process(10));
                         if (Util.isAtLeastLollipop()) startPostponedEnterTransition();
                     }
                 }
@@ -216,7 +254,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                                 albumTitleView.setBackgroundColor(toolbarColor);
                                 albumTitleView.setTextColor(vibrantSwatch.getTitleTextColor());
                                 if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(AlbumDetailActivity.this).coloredNavigationBarAlbumEnabled())
-                                    getWindow().setNavigationBarColor(toolbarColor);
+                                    setNavigationBarColor(toolbarColor);
                                 notifyTaskColorChange(toolbarColor);
                             } else {
                                 resetColors();
@@ -238,7 +276,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         albumTitleView.setTextColor(titleTextColor);
 
         if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled())
-            getWindow().setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
+            setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
 
         notifyTaskColorChange(toolbarColor);
     }
@@ -256,9 +294,9 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setNavigationBarColored(boolean colored) {
         if (colored) {
-            if (Util.isAtLeastLollipop()) getWindow().setNavigationBarColor(toolbarColor);
+            setNavigationBarColor(toolbarColor);
         } else {
-            if (Util.isAtLeastLollipop()) getWindow().setNavigationBarColor(Color.BLACK);
+            setNavigationBarColor(Color.BLACK);
         }
     }
 
@@ -404,5 +442,11 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                     }
                 });
         return cab;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (cab != null && cab.isActive()) cab.finish();
+        else super.onBackPressed();
     }
 }

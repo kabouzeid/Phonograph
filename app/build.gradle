@@ -1,14 +1,17 @@
 buildscript {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
+        mavenCentral()
     }
 
     dependencies {
         classpath 'io.fabric.tools:gradle:1.18.0'
+        classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
     }
 }
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
+apply plugin: 'com.jakewharton.hugo'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }

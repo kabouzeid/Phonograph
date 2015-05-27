@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.kabouzeid.gramophone.views.SquareImageView
+            <com.kabouzeid.gramophone.views.WidthFitSquareImageView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

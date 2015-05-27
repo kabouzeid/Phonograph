@@ -22,7 +22,6 @@ import com.kabouzeid.gramophone.prefs.ColorChooserPreference;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
-import com.kabouzeid.gramophone.util.Util;
 
 import java.util.Set;
 
@@ -31,7 +30,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusBarTranslucent(!Util.isAtLeastLollipop());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
 
@@ -52,6 +50,11 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
     @Override
     protected boolean shouldColorNavBar() {
         return PreferenceUtils.getInstance(this).coloredNavigationBarOtherScreensEnabled();
+    }
+
+    @Override
+    protected boolean shouldSetStatusBarTranslucent() {
+        return true;
     }
 
     @Override
@@ -133,14 +136,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object o) {
                     App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.ALBUM_OVERVIEW_PALETTE_CHANGED, o));
-                    return true;
-                }
-            });
-
-            findPreference("playback_controller_card").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object o) {
-                    App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.PLAYBACK_CONTROLLER_CARD_CHANGED, o));
                     return true;
                 }
             });

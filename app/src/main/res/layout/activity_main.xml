@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".DrawerActivity">
 
     <FrameLayout
@@ -15,43 +14,31 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:fitsSystemWindows="true" />
+            android:layout_height="match_parent" />
 
         <LinearLayout
-            android:elevation="@dimen/toolbar_elevation"
-            android:id="@+id/toolbarFrame"
+            android:id="@+id/toolbar_frame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="@dimen/toolbar_elevation"
             android:orientation="vertical"
-            android:paddingTop="@dimen/main_toolbar_padding_top"
             tools:ignore="UnusedAttribute">
+
+            <View
+                android:id="@+id/status_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/status_bar_padding" />
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                style="@style/Toolbar"
-                android:elevation="0dp"
-                android:background="?colorPrimary">
+                    android:id="@+id/toolbar"
+                    style="@style/Toolbar"
+                    android:elevation="0dp">
 
-                <TextView
-                    android:id="@+id/toolbar_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:gravity="left|start|center"
-                    android:text="@string/app_name"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    tools:ignore="RtlHardcoded" />
-
-            </android.support.v7.widget.Toolbar>
+                </android.support.v7.widget.Toolbar>
 
                 <ViewStub
                     android:id="@+id/cab_stub"
@@ -87,7 +74,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|right|bottom"
-            android:fitsSystemWindows="true"
             tools:ignore="RtlHardcoded">
 
             <com.melnykov.fab.FloatingActionButton
@@ -99,14 +85,12 @@
 
     </FrameLayout>
 
-    <com.kabouzeid.gramophone.views.ScrimInsetsFrameLayout
+    <FrameLayout
         android:id="@+id/nav_drawer_frame"
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:clickable="true"
-        android:fitsSystemWindows="true"
-        app:insetForeground="@color/scrim_inset_color">
+        android:clickable="true">
 
         <fragment
             android:id="@+id/navigation_drawer"
@@ -116,6 +100,6 @@
             android:tag="NAV_DRAWER"
             tools:layout="@layout/fragment_navigation_drawer" />
 
-    </com.kabouzeid.gramophone.views.ScrimInsetsFrameLayout>
+    </FrameLayout>
 
 </android.support.v4.widget.DrawerLayout>
