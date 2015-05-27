@@ -50,6 +50,8 @@
     <string name="no_results">没有找到结果</string>
     <string name="action_re_download_artist_image">更新歌手图片</string>
     <string name="updating">正在更新…</string>
+    <string name="added_title_to_playing_queue">"该曲目已加入播放队列"</string>
+    <string name="added_x_titles_to_playing_queue">%1$d首曲目已加入播放队列</string>
     <string name="action_delete_from_playlist">从播放列表中删除</string>
     <string name="new_playlist_action">新建播放列表</string>
     <string name="action_grid_columns">专辑列数</string>
@@ -58,13 +60,29 @@
     <string name="created_playlist_x">播放列表%1$s已创建</string>
     <string name="deleted_playlist_x">%1$s播放列表已删除</string>
     <string name="couldnot_create_playlist_x">创建播放列表%1$s失败</string>
-    <string name="delete_playlist_x"><![CDATA[确认要删除以下播放列表：<b>%1$s</b>？]]></string>
+    <string name="delete_playlist_x"><![CDATA[
+确认要删除此播放列表：<b>%1$s</b>？
+    ]]></string>
+    <string name="delete_x_playlists"><![CDATA[
+确认要删除以下<b>%1$d</b>个播放列表？
+    ]]></string>
     <string name="delete_song_x"><![CDATA[确认要删除这首歌：<b>%1$s</b>？]]></string>
-    <string name="delete_x_songs"><![CDATA[确认要删除以下歌曲：<b>%1$d</b>？]]></string>
+    <string name="delete_x_songs"><![CDATA[
+确认要删除以下<b>%1$d</b>首歌曲？
+    ]]></string>
+    <string name="delete_song_x_from_playlist"><![CDATA[
+确认要从播放列表中删除这首歌：<b>%1$s</b>？
+    ]]></string>
+    <string name="delete_x_songs_from_playlist"><![CDATA[
+确认要从播放列表中删除以下<b>%1$d</b>首歌曲？
+    ]]></string>
     <string name="delete_song_title">删除歌曲</string>
     <string name="delete_songs_title">删除歌曲</string>
+    <string name="delete_song_from_playlist_title">从播放列表删除</string>
+    <string name="delete_songs_from_playlist_title">从播放列表删除</string>
     <string name="rename_playlist_title">重命名播放列表</string>
     <string name="delete_playlist_title">删除播放列表</string>
+    <string name="delete_playlists_title">删除播放列表</string>
     <string name="add_playlist_title">"添加到播放列表"</string>
     <string name="new_playlist_title">新建播放列表</string>
     <string name="delete_warning">"警告：该操作无法撤销。"</string>
@@ -82,7 +100,6 @@
     <string name="pref_title_set_default_start_page">设置默认起始页</string>
     <string name="title_activity_settings">设置</string>
     <string name="pref_title_transparent_toolbar">"半透明工具栏"</string>
-    <string name="pref_title_show_playback_controller_card">卡片式播放控制面板</string>
     <string name="pref_title_colored_navigation_bar_artists">在艺术家界面使用变色导航栏</string>
     <string name="pref_title_colored_navigation_bar_albums">在专辑详情界面使用变色导航栏</string>
     <string name="pref_title_colored_navigation_bar_current_playing">正在播放视图</string>
@@ -119,5 +136,4 @@
         <item>通过网络搜索</item>
         <item>删除封面</item>
     </string-array>
-    <string name="added_title_to_playing_queue">"该曲目已加入播放队列"</string>
 </resources>

@@ -5,7 +5,7 @@
     <string name="action_currently_playing">Şu anda çalınan</string>
     <string name="action_playing_queue">Çalma Sırası</string>
     <string name="action_search">Ara</string>
-    <string name="action_play_next">Sonraki parça</string>
+    <string name="action_play_next">Sonraki şarkı</string>
     <string name="action_add_to_playing_queue">Çalma sırasına ekle</string>
     <string name="action_remove_from_playing_queue">Çalma sırasından çıkar</string>
     <string name="action_add_to_playlist">Çalma listesine ekle</string>
@@ -14,10 +14,10 @@
     <string name="action_details">Detaylar</string>
     <string name="albums">Albümler</string>
     <string name="artists">Sanatçılar</string>
-    <string name="songs">Parçalar</string>
+    <string name="songs">Şarkılar</string>
     <string name="playlists">Çalma listeleri</string>
-    <string name="nothing_playing">Şu anda çalınan parça yok</string>
-    <string name="unplayable_file">Üzgünüm - Parça oynatılırken bir hata oluştu</string>
+    <string name="nothing_playing">Şu anda çalınan şarkı yok</string>
+    <string name="unplayable_file">Üzgünüm - Şarkı oynatılırken bir hata oluştu</string>
     <string name="biography_unavailable">Üzgünüm, bu sanatçı ile ilgili hiçbir biyografi yazısı bulamadık.</string>
     <string name="biography">Biyografi</string>
     <string name="audio_focus_denied">Sizlere ses odağı kazandırmak mümkün değildi.</string>
@@ -27,8 +27,8 @@
     <string name="genre">Tür</string>
     <string name="album_artist">Albüm sanatçısı</string>
     <string name="year">Yıl</string>
-    <string name="track">Parça</string>
-    <string name="track_hint">"Parça (2. parça için 2 yada CD3 4.parça için 3004)"</string>
+    <string name="track">Şarkı</string>
+    <string name="track_hint">"Şarkı (2. şarkı için 2 yada CD3 4. şarkı için 3004)"</string>
     <string name="album_or_artist_empty">Albüm başlığı veya albüm sanatçısı metin alanı boş.</string>
     <string name="writing_file_number">Dosya yazılıyor</string>
     <string name="saving_changes">Değişiklikler kaydediliyor...</string>
@@ -50,6 +50,8 @@
     <string name="no_results">Sonuç bulunamadı</string>
     <string name="action_re_download_artist_image">Sanatçı resmini güncelle</string>
     <string name="updating">Güncelleniyor...</string>
+    <string name="added_title_to_playing_queue">"Çalma kuyruğuna 1 başlık eklendi"</string>
+    <string name="added_x_titles_to_playing_queue">Çalma kuyruğuna %1$d başlıkları eklendi.</string>
     <string name="action_delete_from_playlist">Çalma listesinden sil</string>
     <string name="new_playlist_action">Yeni çalma listesi</string>
     <string name="action_grid_columns">Izgara sütunları</string>
@@ -59,12 +61,19 @@
     <string name="deleted_playlist_x">Çalma listesi %1$s silindi</string>
     <string name="couldnot_create_playlist_x">Çalma listesi %1$s oluşturulamadı</string>
     <string name="delete_playlist_x"><![CDATA[ Çalma listesi <b>%1$s</b>\'yi silmek istiyor musunuz ? ]]></string>
+    <string name="delete_x_playlists"><![CDATA[<b>%1$d</b> oynatma listelerini silmek istiyor musunuz?]]></string>
     <string name="delete_song_x"><![CDATA[ <b>%1$s</b> şarkısını silmek istiyor musunuz? ]]></string>
     <string name="delete_x_songs"><![CDATA[ <b>%1$d</b> bu şarkıları silmek istiyor musunuz? ]]></string>
+    <string name="delete_song_x_from_playlist"><![CDATA[Çalma listesinden <b>%1$s</b> şarkısını silmek istiyor musunuz?]]></string>
+    <string name="delete_x_songs_from_playlist"><![CDATA[Çalma listesinden <b>%1$d</b> şarkılarını silmek istiyor musunuz?
+]]></string>
     <string name="delete_song_title">Şarkıyı Sil</string>
     <string name="delete_songs_title">Şarkıları Sil</string>
+    <string name="delete_song_from_playlist_title">Çalma listesinden şarkı sil</string>
+    <string name="delete_songs_from_playlist_title">Çalma listesinden şarkıları sil</string>
     <string name="rename_playlist_title">Çalma Listesini Yeniden Adlandır</string>
     <string name="delete_playlist_title">Çalma Listesini Sil</string>
+    <string name="delete_playlists_title">Çalma listelerini sil</string>
     <string name="add_playlist_title">"Çalma Listesine Ekle"</string>
     <string name="new_playlist_title">Yeni Çalma Listesi</string>
     <string name="delete_warning">"Uyarı: Bu işlem geri alınamaz."</string>
@@ -72,7 +81,7 @@
     <string name="last_opened">Son dinlenenler</string>
     <string name="light_theme_name">Açık</string>
     <string name="dark_theme_name">Koyu</string>
-    <string name="equalizer">Ekolayzer</string>
+    <string name="equalizer">Ekolayzır</string>
     <string name="pref_header_ui">Kullanıcı Arayüzü</string>
     <string name="pref_title_general_theme">Genel tema</string>
     <string name="pref_header_audio">Ses</string>
@@ -82,7 +91,6 @@
     <string name="pref_title_set_default_start_page">Başlangıç sayfası</string>
     <string name="title_activity_settings">Ayarlar</string>
     <string name="pref_title_transparent_toolbar">"Yarı şeffaf araç çubuğu"</string>
-    <string name="pref_title_show_playback_controller_card">Oynatma kontrolörü kartı</string>
     <string name="pref_title_colored_navigation_bar_artists">Sanatçı görünümü</string>
     <string name="pref_title_colored_navigation_bar_albums">Albüm görünümü</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Şimdi çalınan görünümü</string>
@@ -90,7 +98,7 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Etiket düxenleyici</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Başka her yer</string>
     <string name="pref_title_colored_album_footers">Renkli albüm alt bilgileri</string>
-    <string name="no_equalizer">Hiçbir ekolayzer bulunamadı</string>
+    <string name="no_equalizer">Hiç ekolayzır bulunamadı</string>
     <string name="no_audio_ID">"Hiçbir ses kimliği yok, bir şarkı çalın ve tekrar deneyin."</string>
     <string name="navigation_drawer_open">Gezinti çekmecesini aç</string>
     <string name="navigation_drawer_close">"Gezinti çekmecesini kapat"</string>
@@ -115,9 +123,8 @@
     <string name="rescanning_media">Medyayı yeniden tara</string>
     <string-array name="update_album_cover_options">
         <item>Last.FM den indir</item>
-        <item>Yerel Depolamayı Seç</item>
+        <item>Varolandan Seç</item>
         <item>Web\'de ara</item>
         <item>Albüm Kapağını Kaldır</item>
     </string-array>
-    <string name="added_title_to_playing_queue">"Çalma sırasına 1 başlık eklendi"</string>
 </resources>

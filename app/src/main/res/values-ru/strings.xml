@@ -50,6 +50,7 @@
     <string name="no_results">Нет результатов</string>
     <string name="action_re_download_artist_image">Обновить изображение исполнителя</string>
     <string name="updating">Обновление...</string>
+    <string name="added_title_to_playing_queue">"Добавлена 1 композиция в очередь воспроизведения"</string>
     <string name="action_delete_from_playlist">Удалить из списка воспроизведения</string>
     <string name="new_playlist_action">Новый список воспроизведения...</string>
     <string name="action_grid_columns">Столбцы сетки</string>
@@ -82,7 +83,6 @@
     <string name="pref_title_set_default_start_page">Установить начальную страницу</string>
     <string name="title_activity_settings">Настройки</string>
     <string name="pref_title_transparent_toolbar">"Полупрозрачная панель инструментов"</string>
-    <string name="pref_title_show_playback_controller_card">Карточка управления воспроизведением</string>
     <string name="pref_title_colored_navigation_bar_artists">Цветная панель управления ( вид исполнителя )</string>
     <string name="pref_title_colored_navigation_bar_albums">Цветная панель управления ( вид альбома )</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Вид сейчас воспроизводится</string>
@@ -119,5 +119,4 @@
         <item>Поиск в интернете</item>
         <item>Удалить обложку</item>
     </string-array>
-    <string name="added_title_to_playing_queue">"Добавлена 1 композиция в очередь воспроизведения"</string>
 </resources>

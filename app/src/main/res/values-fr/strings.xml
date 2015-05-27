@@ -34,7 +34,7 @@
     <string name="saving_changes">Sauvegarde en cours...</string>
     <string name="label_details">Détails</string>
     <string name="label_file_name">Nom du fichier</string>
-    <string name="label_file_path">Location du fichier</string>
+    <string name="label_file_path">Chemin du fichier</string>
     <string name="label_file_size">Taille</string>
     <string name="label_file_format">Format</string>
     <string name="label_track_length">Durée</string>
@@ -50,6 +50,8 @@
     <string name="no_results">Aucun résultat</string>
     <string name="action_re_download_artist_image">Actualiser l\'image de l\'artiste</string>
     <string name="updating">Actualisation...</string>
+    <string name="added_title_to_playing_queue">"1 titre ajouté à la file de lecture."</string>
+    <string name="added_x_titles_to_playing_queue">%1$d titres ajoutés à la file de lecture.</string>
     <string name="action_delete_from_playlist">Supprimer de la playlist</string>
     <string name="new_playlist_action">Nouvelle playlist...</string>
     <string name="action_grid_columns">Nombre de colonnes</string>
@@ -82,7 +84,6 @@
     <string name="pref_title_set_default_start_page">Page d\'accueil par défaut</string>
     <string name="title_activity_settings">Paramètres</string>
     <string name="pref_title_transparent_toolbar">"Barre d\'outils semi-transparente"</string>
-    <string name="pref_title_show_playback_controller_card">Carte de contrôle du lecteur</string>
     <string name="pref_title_colored_navigation_bar_artists">Vue artiste</string>
     <string name="pref_title_colored_navigation_bar_albums">Vue album</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Vue lecture en cours</string>
@@ -111,7 +112,7 @@
     <string name="pref_summary_transparent_toolbar">Le contenu qui défile en dessous de la barre d\'outils est visible.</string>
     <string name="pref_summary_colored_album_footers">"Les bas d\'album dans la grille sont colorés avec la palette de la couverture."</string>
     <string name="failed_download_albumart">"Impossible de télécharger la pochette pour cet album."</string>
-    <string name="search_hint">Recherche votre bibliothèque...</string>
+    <string name="search_hint">Rechercher votre bibliothèque...</string>
     <string name="rescanning_media">Réanalyse des médias…</string>
     <string-array name="update_album_cover_options">
         <item>Télécharger depuis Last.fm</item>
@@ -119,5 +120,4 @@
         <item>Recherche internet</item>
         <item>Supprimer la couverture</item>
     </string-array>
-    <string name="added_title_to_playing_queue">"1 titre ajouté à la file de lecture."</string>
 </resources>

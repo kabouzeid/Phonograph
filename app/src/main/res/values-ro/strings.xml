@@ -49,6 +49,7 @@
     <string name="no_results">Niciun rezultat</string>
     <string name="action_re_download_artist_image">Actualizează imagine artist</string>
     <string name="updating">Actualizare...</string>
+    <string name="added_title_to_playing_queue">"Adăugat 1 melodie la lista de redare."</string>
     <string name="action_delete_from_playlist">Şterge din playlist</string>
     <string name="new_playlist_action">Playlist nou...</string>
     <string name="action_grid_columns">Rânduri pe grid</string>
@@ -80,7 +81,6 @@
     <string name="pref_title_set_default_start_page">Alege pagina de pornire predefinită</string>
     <string name="title_activity_settings">Setări</string>
     <string name="pref_title_transparent_toolbar">"Bară semi-transparentă"</string>
-    <string name="pref_title_show_playback_controller_card">Cardul de redare</string>
     <string name="pref_title_colored_navigation_bar_artists">Bară de navigare artist colorată</string>
     <string name="pref_title_colored_navigation_bar_albums">Bară de navigare album colorată</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Vederea de redare curentă</string>
@@ -98,5 +98,4 @@
     <string name="primary_color">Culoare Primară</string>
     <string name="accent_color">Culoare de accent</string>
     <string name="song">Melodie</string>
-    <string name="added_title_to_playing_queue">"Adăugat 1 melodie la lista de redare."</string>
 </resources>

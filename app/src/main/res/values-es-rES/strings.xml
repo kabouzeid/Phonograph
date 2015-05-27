@@ -3,13 +3,13 @@
     <string name="action_settings">"Ajustes"</string>
     <string name="action_about">Acerca de</string>
     <string name="action_currently_playing">Reproduciendo</string>
-    <string name="action_playing_queue">En cola</string>
+    <string name="action_playing_queue">Cola de reproducción</string>
     <string name="action_search">Buscar</string>
     <string name="action_play_next">Siguiente</string>
-    <string name="action_add_to_playing_queue">Añadir a la cola</string>
-    <string name="action_remove_from_playing_queue">Eliminar de la cola</string>
+    <string name="action_add_to_playing_queue">Añadir a cola de reproducción</string>
+    <string name="action_remove_from_playing_queue">Quitar de la cola de reproducción</string>
     <string name="action_add_to_playlist">Añadir a lista de reproducción...</string>
-    <string name="action_tag_editor">Editor de tags</string>
+    <string name="action_tag_editor">Editor de etiquetas</string>
     <string name="action_delete_from_disk">Borrar del disco</string>
     <string name="action_details">Detalles</string>
     <string name="albums">Álbumes</string>
@@ -21,6 +21,7 @@
     <string name="biography_unavailable">Lo sentimos, no encontramos una biografía correspondiente a éste artista</string>
     <string name="biography">Biografía</string>
     <string name="audio_focus_denied">No podemos encontrar el foco de audio</string>
+    <string name="title_activity_tag_editor">Editor de etiquetas activo</string>
     <string name="tag_editor">Editor de etiquetas</string>
     <string name="album">Álbum</string>
     <string name="artist">Artista</string>
@@ -32,12 +33,13 @@
     <string name="album_or_artist_empty">El campo título del álbum o el artista del álbum está vacío</string>
     <string name="writing_file_number">Escribiendo archivo</string>
     <string name="saving_changes">Guardando cambios...</string>
+    <string name="title_activity_album_tag_editor">Editor de las etiquetas del álbum activo</string>
     <string name="label_details">Detalles</string>
     <string name="label_file_name">Nombre del archivo</string>
     <string name="label_file_path">Ubicación del archivo</string>
     <string name="label_file_size">Tamaño</string>
     <string name="label_file_format">Formato</string>
-    <string name="label_track_length">Longitud</string>
+    <string name="label_track_length">Duración</string>
     <string name="label_bit_rate">Velocidad de Bits</string>
     <string name="label_sampling_rate">Frecuencia de muestreo</string>
     <string name="action_go_to_artist">Ir al artista</string>
@@ -50,6 +52,7 @@
     <string name="no_results">Sin resultados</string>
     <string name="action_re_download_artist_image">Actualizar imagen del artista</string>
     <string name="updating">Actualizando...</string>
+    <string name="added_title_to_playing_queue">"1 título añadido a la cola de reproducción"</string>
     <string name="action_delete_from_playlist">Borrar de la lista de reproducción</string>
     <string name="new_playlist_action">Nueva lista de reproducción...</string>
     <string name="action_grid_columns">Columnas de la cuadrícula</string>
@@ -75,12 +78,13 @@
     <string name="equalizer">Ecualizador</string>
     <string name="pref_header_ui">Interfaz</string>
     <string name="pref_title_general_theme">Tema general</string>
+    <string name="pref_header_audio">Audio</string>
+    <string name="pref_header_general">General</string>
     <string name="pref_summary_colored_navigation_bar">Selecciona en qué secciones la barra debe tener color</string>
     <string name="pref_title_navigation_bar">Color en la barra de navegación</string>
     <string name="pref_title_set_default_start_page">Establecer como página de inicio</string>
     <string name="title_activity_settings">Ajustes</string>
     <string name="pref_title_transparent_toolbar">"Barra de herramientas semi-transparente"</string>
-    <string name="pref_title_show_playback_controller_card">Controles de reproducción en tarjeta</string>
     <string name="pref_title_colored_navigation_bar_artists">Barra de navegación en Vista del Artista coloreada</string>
     <string name="pref_title_colored_navigation_bar_albums">Barra de navegación de Vista del Álbum coloreada</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Ver reproducción</string>
@@ -107,7 +111,7 @@
     <string name="song">Canción</string>
     <string name="pref_only_lollipop">"Solamente disponible en Lollipop"</string>
     <string name="pref_summary_transparent_toolbar">Contenido visible debajo de la barra de herramientas.</string>
-    <string name="pref_summary_colored_album_footers">"El color pie del álbum en la cuadrícula se basa en la paleta de colores de la tapa del álvum."</string>
+    <string name="pref_summary_colored_album_footers">"El color pie del álbum en la cuadrícula se basa en la paleta de colores de la tapa del álbum."</string>
     <string name="failed_download_albumart">"Imposible descargar portada del álbum"</string>
     <string name="search_hint">Buscar en librería...</string>
     <string name="rescanning_media">Escaneando contenido...</string>
@@ -117,5 +121,4 @@
         <item>Busqueda Web</item>
         <item>Eliminar Carátula</item>
     </string-array>
-    <string name="added_title_to_playing_queue">"1 título añadido a la cola de reproducción"</string>
 </resources>

@@ -50,6 +50,7 @@
     <string name="no_results">Inga resultat</string>
     <string name="action_re_download_artist_image">Uppdatera artistbild</string>
     <string name="updating">Uppdaterar ...</string>
+    <string name="added_title_to_playing_queue">"Lagt till 1 titel till spellistan."</string>
     <string name="action_delete_from_playlist">Radera från spellista</string>
     <string name="new_playlist_action">Ny spellista ...</string>
     <string name="created_playlist_x">Spellista %1$s skapad</string>
@@ -114,5 +115,4 @@ Vill du radera <b>%1$d</b> låtar?
         <item>Weksök</item>
         <item>Ta bort omslag</item>
     </string-array>
-    <string name="added_title_to_playing_queue">"Lagt till 1 titel till spellistan."</string>
 </resources>

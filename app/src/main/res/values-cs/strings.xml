@@ -50,6 +50,7 @@
     <string name="no_results">Žádné výsledky</string>
     <string name="action_re_download_artist_image">Změnit obrázek umělce</string>
     <string name="updating">Aktualizace...</string>
+    <string name="added_title_to_playing_queue">"Přidána 1 skladba do fronty."</string>
     <string name="action_delete_from_playlist">Vymazat z playlistu</string>
     <string name="new_playlist_action">Nový playlist...</string>
     <string name="action_grid_columns">Počet sloupců mřížky</string>
@@ -82,7 +83,6 @@
     <string name="pref_title_set_default_start_page">Zvolit výchozí obrazovku</string>
     <string name="title_activity_settings">Nastavení</string>
     <string name="pref_title_transparent_toolbar">"Průhledné záhlaví"</string>
-    <string name="pref_title_show_playback_controller_card">Karta řadiče přehrávání</string>
     <string name="pref_title_colored_navigation_bar_artists">Barevné záhlaví interpretů</string>
     <string name="pref_title_colored_navigation_bar_albums">Barevné záhlaví alb</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Zobrazení \"Právě hraje\"</string>
@@ -119,5 +119,4 @@
         <item>Najít na webu</item>
         <item>Odstranit obal alba</item>
     </string-array>
-    <string name="added_title_to_playing_queue">"Přidána 1 skladba do fronty."</string>
 </resources>

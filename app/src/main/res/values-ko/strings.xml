@@ -30,14 +30,14 @@
     <string name="track">트렉</string>
     <string name="track_hint">"트렉 (트렉2는 2, CD3 트렉4는 3004 등으로 표기)"</string>
     <string name="album_or_artist_empty">앨범 제목이나 앨범 아티스트 란이 비었습니다.</string>
-    <string name="writing_file_number">파일에 정보 기록 중</string>
+    <string name="writing_file_number">파일에 정보 기록 중...</string>
     <string name="saving_changes">변경사항 저장 중...</string>
     <string name="label_details">세부정보</string>
     <string name="label_file_name">파일 이름</string>
     <string name="label_file_path">파일 경로</string>
     <string name="label_file_size">크기</string>
     <string name="label_file_format">파일 형식</string>
-    <string name="label_track_length">길이(재생 시간)</string>
+    <string name="label_track_length">재생 시간</string>
     <string name="label_bit_rate">비트레이트</string>
     <string name="label_sampling_rate">샘플링 빈도</string>
     <string name="action_go_to_artist">아티스트로 가기</string>
@@ -50,10 +50,12 @@
     <string name="no_results">결과 없음</string>
     <string name="action_re_download_artist_image">아티스트 이미지 변경</string>
     <string name="updating">변경 중...</string>
+    <string name="added_title_to_playing_queue">"재생 대기열에 1개의 음악을 추가했습니다."</string>
+    <string name="added_x_titles_to_playing_queue">%1$d개의 타이틀을 재생 대기열에 추가했습니다.</string>
     <string name="action_delete_from_playlist">재생목록에서 삭제</string>
     <string name="new_playlist_action">새로운 재생목록...</string>
-    <string name="action_grid_columns">가로세로 격자</string>
-    <string name="action_grid_columns_land">가로세로 격자 (가로모드일 때)</string>
+    <string name="action_grid_columns">가로 격자</string>
+    <string name="action_grid_columns_land">가로 격자 (가로모드일 때)</string>
     <string name="inserted_x_songs_into_playlist">이 재생목록에 %1$d개의 음악을 추가했습니다.</string>
     <string name="created_playlist_x">재생 목록 \'%1$s\'을 만들었습니다.</string>
     <string name="deleted_playlist_x">재생목록 \'%1$s\'을 삭제했습니다.</string>
@@ -82,7 +84,6 @@
     <string name="pref_title_set_default_start_page">시작 화면</string>
     <string name="title_activity_settings">설정</string>
     <string name="pref_title_transparent_toolbar">"반투명 툴바"</string>
-    <string name="pref_title_show_playback_controller_card">컨트롤 부분을 카드로 표시</string>
     <string name="pref_title_colored_navigation_bar_artists">아티스트 화면에서</string>
     <string name="pref_title_colored_navigation_bar_albums">앨범 화면에서</string>
     <string name="pref_title_colored_navigation_bar_current_playing">지금 재생 중 화면에서</string>
@@ -101,14 +102,14 @@
     <string name="default_str">기본</string>
     <string name="primary_color">주 색상</string>
     <string name="accent_color">보조 색상 (엑센트)</string>
-    <string name="primary_color_desc">테마의 주 색상입니다. 기본은 인디고색 입니다.</string>
+    <string name="primary_color_desc">테마의 주 색상입니다. 기본은 인디고색입니다.</string>
     <string name="accent_color_desc">테마의 엑센트 색입니다. 기본은 분홍색입니다.</string>
     <string name="update_image">이미지 변경</string>
     <string name="playlist_empty_text">이 재생목록은 비었습니다.</string>
     <string name="no_playlists">재생목록이 없습니다.</string>
     <string name="playlist_name">재생목록 이름</string>
     <string name="song">노래</string>
-    <string name="pref_only_lollipop">"안드로이드 롤리팝(5.0)에서만 가능합니다."</string>
+    <string name="pref_only_lollipop">"안드로이드 롤리팝에서만 가능합니다."</string>
     <string name="pref_summary_transparent_toolbar">툴바 아래 내용이 보이게 합니다.</string>
     <string name="pref_summary_colored_album_footers">"앨범 커버의 색상에 맞추어 앨범 카드가 색칠됩니다."</string>
     <string name="failed_download_albumart">"이 앨범의 앨범 커버를 다운로드할 수 없습니다."</string>
@@ -120,5 +121,4 @@
         <item>인터넷 검색</item>
         <item>커버 없애기</item>
     </string-array>
-    <string name="added_title_to_playing_queue">"재생 대기열에 1개의 음악을 추가했습니다."</string>
 </resources>
