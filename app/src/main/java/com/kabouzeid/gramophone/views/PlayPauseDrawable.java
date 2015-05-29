@@ -44,8 +44,6 @@ public class PlayPauseDrawable extends Drawable {
 
     private float width;
     private float height;
-    private final float fallBackWidth;
-    private final float fallBackHeight;
 
     private float progress;
     private boolean isPlay;
@@ -61,8 +59,6 @@ public class PlayPauseDrawable extends Drawable {
         pauseBarWidth = res.getDimensionPixelSize(R.dimen.pause_bar_width);
         pauseBarHeight = res.getDimensionPixelSize(R.dimen.pause_bar_height);
         pauseBarDistance = res.getDimensionPixelSize(R.dimen.pause_bar_distance);
-        fallBackWidth = res.getDimensionPixelSize(R.dimen.fab_icon_bound_width);
-        fallBackHeight = res.getDimensionPixelSize(R.dimen.fab_icon_bound_height);
     }
 
     @Override
@@ -71,9 +67,6 @@ public class PlayPauseDrawable extends Drawable {
         if (bounds.width() > 0 && bounds.height() > 0) {
             width = bounds.width();
             height = bounds.height();
-        } else {
-            width = fallBackWidth;
-            height = fallBackHeight;
         }
     }
 

@@ -8,17 +8,18 @@ import android.widget.ImageView;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class SquareIfPlaceLeftRightImageView extends ImageView {
+public class SquareIfPlaceImageView extends ImageView {
+    private boolean forceSquare = false;
 
-    public SquareIfPlaceLeftRightImageView(Context context) {
+    public SquareIfPlaceImageView(Context context) {
         super(context);
     }
 
-    public SquareIfPlaceLeftRightImageView(Context context, AttributeSet attrs) {
+    public SquareIfPlaceImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SquareIfPlaceLeftRightImageView(Context context, AttributeSet attrs, int defStyle) {
+    public SquareIfPlaceImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
@@ -27,9 +28,17 @@ public class SquareIfPlaceLeftRightImageView extends ImageView {
         final int small = Math.min(widthMeasureSpec, heightMeasureSpec);
         final int large = Math.max(widthMeasureSpec, heightMeasureSpec);
 
-        if (View.MeasureSpec.getSize(large) > View.MeasureSpec.getSize(small) * 1.5)
+        if (forceSquare) super.onMeasure(small, small);
+        else if (View.MeasureSpec.getSize(large) > View.MeasureSpec.getSize(small) * 1.5)
             super.onMeasure(small, small);
         else super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    public void forceSquare(boolean force) {
+        if (forceSquare != force) {
+            forceSquare = force;
+            invalidate();
+        }
     }
 
 }

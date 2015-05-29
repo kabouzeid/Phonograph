@@ -36,6 +36,8 @@ public final class PreferenceUtils {
     public static final String TRANSPARENT_TOOLBAR = "transparent_toolbar";
     public static final String ALBUM_GRID_COLUMNS = "album_grid_columns";
     public static final String ALBUM_GRID_COLUMNS_LAND = "album_grid_columns_land";
+    public static final String OPAQUE_TOOLBAR_NOW_PLAYING = "opaque_toolbar_now_playing";
+    public static final String FORCE_SQUARE_ALBUM_ART = "force_square_album_art";
 
     private static PreferenceUtils sInstance;
 
@@ -79,7 +81,7 @@ public final class PreferenceUtils {
     }
 
     public int getThemeColorAccent() {
-        return mPreferences.getInt("accent_color", mContext.getResources().getColor(R.color.pink_500));
+        return mPreferences.getInt("accent_color", mContext.getResources().getColor(R.color.pink_A200));
     }
 
     @SuppressLint("CommitPrefEdits")
@@ -161,6 +163,14 @@ public final class PreferenceUtils {
 
     public final boolean transparentToolbar() {
         return mPreferences.getBoolean(TRANSPARENT_TOOLBAR, false);
+    }
+
+    public final boolean opaqueToolbarNowPlaying() {
+        return mPreferences.getBoolean(OPAQUE_TOOLBAR_NOW_PLAYING, false);
+    }
+
+    public final boolean forceAlbumArtSquared() {
+        return mPreferences.getBoolean(FORCE_SQUARE_ALBUM_ART, false);
     }
 
 //    public final boolean downloadMissingArtistImages() {

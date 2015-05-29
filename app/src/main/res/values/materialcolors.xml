@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?><!-- https://gist.github.com/kalehv/bae765c756e94455ed88 -->
 <resources>
 
-    <color name="pink_500">#e91e63</color>
-    <color name="pink_600">#d81b60</color>
+    <color name="pink_A200">#ff4081</color>
 
     <color name="indigo_500">#3f51b5</color>
-    <color name="indigo_600">#3949ab</color>
 
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>

@@ -7,17 +7,17 @@ import android.widget.ImageView;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class HeightAndWidthFitSquarePlaceLeftRightImageView extends ImageView {
+public class HeightWidthFitSquareImageView extends ImageView {
 
-    public HeightAndWidthFitSquarePlaceLeftRightImageView(Context context) {
+    public HeightWidthFitSquareImageView(Context context) {
         super(context);
     }
 
-    public HeightAndWidthFitSquarePlaceLeftRightImageView(Context context, AttributeSet attrs) {
+    public HeightWidthFitSquareImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public HeightAndWidthFitSquarePlaceLeftRightImageView(Context context, AttributeSet attrs, int defStyle) {
+    public HeightWidthFitSquareImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

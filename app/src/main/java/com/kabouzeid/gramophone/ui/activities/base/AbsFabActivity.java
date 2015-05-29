@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.ui.activities.base;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.util.Pair;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -13,14 +14,12 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.dialogs.ColorChooserDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.misc.SmallOnGestureListener;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.views.PlayPauseDrawable;
-import com.melnykov.fab.FloatingActionButton;
 import com.squareup.otto.Subscribe;
 
 /**
@@ -55,15 +54,10 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
 
         getFab().setImageDrawable(playPauseDrawable);
         final int accentColor = ThemeSingleton.get().positiveColor;
+        getFab().setRippleColor(accentColor);
         if (accentColor == Color.WHITE) {
-            getFab().setColorNormal(accentColor);
-            getFab().setColorPressed(ColorChooserDialog.shiftColorDown(accentColor));
-            getFab().setColorRipple(ColorChooserDialog.shiftColorUp(accentColor));
             getFab().getDrawable().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
         } else {
-            getFab().setColorNormal(accentColor);
-            getFab().setColorPressed(ColorChooserDialog.shiftColorUp(accentColor));
-            getFab().setColorRipple(ColorChooserDialog.shiftColorDown(accentColor));
             getFab().getDrawable().clearColorFilter();
         }
 

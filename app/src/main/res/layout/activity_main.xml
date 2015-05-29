@@ -70,18 +70,12 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|right|bottom"
-            tools:ignore="RtlHardcoded">
 
-            <com.melnykov.fab.FloatingActionButton
-                android:id="@+id/fab"
-                style="@style/PlayPauseFab"
-                android:layout_margin="16dp" />
-
-        </LinearLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:layout_margin="16dp"
+            android:id="@+id/fab"
+            style="@style/PlayPauseFab"
+            android:layout_gravity="end|bottom" />
 
     </FrameLayout>
 

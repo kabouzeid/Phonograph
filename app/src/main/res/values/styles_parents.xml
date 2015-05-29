@@ -66,7 +66,6 @@
     </style>
 
     <style name="PlayPauseFabParent">
-        <item name="elevation">8dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
@@ -81,7 +80,9 @@
 
 
     <style name="MusicProgressSliderParent">
-        <item name="android:layout_width">fill_parent</item>
+        <item name="android:progressDrawable">@android:color/transparent</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:thumb">@drawable/slider_thumb</item>
     </style>
 </resources>

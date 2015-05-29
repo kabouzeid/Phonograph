@@ -1,7 +1,6 @@
 <resources>
 
     <array name="colors_primary">
-        <item>#3F51B5</item>
         <item>#9E9E9E</item>
         <item>#424242</item>
         <item>#1C1C1C</item>
@@ -13,6 +12,7 @@
         <item>#E91E63</item>
         <item>#9C27B0</item>
         <item>#5E35B1</item>
+        <item>#3F51B5</item>
         <item>#1976D2</item>
         <item>#03A9F4</item>
         <item>#00BCD4</item>
@@ -33,6 +33,7 @@
         <item>#795548</item>
         <item>#D32F2F</item>
         <item>#E91E63</item>
+        <item>#FF4081</item>
         <item>#9C27B0</item>
         <item>#5E35B1</item>
         <item>#1976D2</item>

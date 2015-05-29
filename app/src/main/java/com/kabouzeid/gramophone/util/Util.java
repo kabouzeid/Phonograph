@@ -8,6 +8,7 @@ import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
@@ -200,5 +201,9 @@ public class Util {
             drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
         }
         return drawable;
+    }
+
+    public static int getColorWithoutAlpha(@ColorInt int color) {
+        return color | 0xFF000000;
     }
 }

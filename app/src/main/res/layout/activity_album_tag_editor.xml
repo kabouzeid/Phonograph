@@ -159,7 +159,7 @@
         android:gravity="start|left"
         tools:ignore="RtlHardcoded" />
 
-    <com.melnykov.fab.FloatingActionButton
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         style="@style/PlayPauseFab"
         android:layout_gravity="bottom|right|end"

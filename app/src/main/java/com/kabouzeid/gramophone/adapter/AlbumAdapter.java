@@ -204,9 +204,9 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
                         public void onGenerated(Palette palette) {
                             final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
                             if (vibrantSwatch != null) {
-                                title.setTextColor(vibrantSwatch.getTitleTextColor());
-                                artist.setTextColor(vibrantSwatch.getTitleTextColor());
-                                ViewUtil.animateViewColor(footer, DialogUtils.resolveColor(activity, R.attr.default_bar_color), vibrantSwatch.getRgb());
+                                title.setTextColor(Util.getColorWithoutAlpha(vibrantSwatch.getTitleTextColor()));
+                                artist.setTextColor(Util.getColorWithoutAlpha(vibrantSwatch.getTitleTextColor()));
+                                ViewUtil.animateViewColor(footer, footer.getDrawingCacheBackgroundColor(), vibrantSwatch.getRgb());
                             } else {
                                 paletteBlackAndWhite(title, artist, footer);
                             }
@@ -218,8 +218,8 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     }
 
     private void paletteBlackAndWhite(final TextView title, final TextView artist, final View footer) {
-        title.setTextColor(DialogUtils.resolveColor(activity, R.attr.title_text_color));
-        artist.setTextColor(DialogUtils.resolveColor(activity, R.attr.caption_text_color));
+        title.setTextColor(Util.getColorWithoutAlpha(DialogUtils.resolveColor(activity, R.attr.title_text_color)));
+        artist.setTextColor(Util.getColorWithoutAlpha(DialogUtils.resolveColor(activity, R.attr.caption_text_color)));
         int defaultBarColor = DialogUtils.resolveColor(activity, R.attr.default_bar_color);
         ViewUtil.animateViewColor(footer, defaultBarColor, defaultBarColor);
     }
