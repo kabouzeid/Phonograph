@@ -40,21 +40,10 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
         if (savedInstanceState == null)
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
-    }
 
-    @Override
-    protected boolean shouldColorStatusBar() {
-        return true;
-    }
-
-    @Override
-    protected boolean shouldColorNavBar() {
-        return PreferenceUtils.getInstance(this).coloredNavigationBarOtherScreensEnabled();
-    }
-
-    @Override
-    protected boolean shouldSetStatusBarTranslucent() {
-        return true;
+        if (PreferenceUtils.getInstance(this).coloredNavigationBarOtherScreensEnabled())
+            setNavigationBarThemeColor();
+        setStatusBarThemeColor();
     }
 
     @Override
@@ -202,13 +191,16 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         super.onUIPreferenceChangedEvent(event);
         switch (event.getAction()) {
             case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_OTHER_SCREENS_CHANGED:
-                setShouldColorNavBar((boolean) event.getValue());
+                if ((boolean) event.getValue()) setNavigationBarThemeColor();
+                else resetNavigationBarColor();
                 break;
             case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_CHANGED:
                 try {
-                    setShouldColorNavBar(((Set) event.getValue()).contains(PreferenceUtils.COLORED_NAVIGATION_BAR_OTHER_SCREENS));
+                    if (((Set) event.getValue()).contains(PreferenceUtils.COLORED_NAVIGATION_BAR_OTHER_SCREENS))
+                        setNavigationBarThemeColor();
+                    else resetNavigationBarColor();
                 } catch (NullPointerException ignored) {
-                    setShouldColorNavBar(false);
+                    resetNavigationBarColor();
                 }
                 break;
         }

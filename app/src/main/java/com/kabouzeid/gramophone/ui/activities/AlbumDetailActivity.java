@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.animation.Animator;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -111,7 +110,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         }
     };
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,7 +117,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
 
         App.bus.register(this);
 
-        if (Util.isAtLeastLollipop()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             postponeEnterTransition();
             if (PreferenceUtils.getInstance(this).coloredNavigationBarAlbumEnabled())
                 setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
@@ -140,7 +138,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         setUpToolBar();
         setUpViews();
 
-        if (Util.isAtLeastLollipop()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().getEnterTransition().addListener(new SmallTransitionListener() {
                 @Override
                 public void onTransitionStart(Transition transition) {
@@ -162,21 +160,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                 }
             });
         }
-    }
-
-    @Override
-    protected boolean shouldColorStatusBar() {
-        return false;
-    }
-
-    @Override
-    protected boolean shouldColorNavBar() {
-        return false;
-    }
-
-    @Override
-    protected boolean shouldSetStatusBarTranslucent() {
-        return true;
     }
 
     @Override
@@ -222,20 +205,22 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                         .resetViewBeforeLoading(true)
                         .build(),
                 new SimpleImageLoadingListener() {
-                    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
                     @Override
                     public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                         applyPalette(null);
                         albumArtBackground.setImageBitmap(new StackBlurManager(BitmapFactory.decodeResource(getResources(), R.drawable.default_album_art)).process(10));
-                        if (Util.isAtLeastLollipop()) startPostponedEnterTransition();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                            startPostponedEnterTransition();
                     }
 
-                    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
                     @Override
                     public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                         applyPalette(loadedImage);
                         albumArtBackground.setImageBitmap(new StackBlurManager(loadedImage).process(10));
-                        if (Util.isAtLeastLollipop()) startPostponedEnterTransition();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                            startPostponedEnterTransition();
                     }
                 }
         );
@@ -245,7 +230,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         if (bitmap != null) {
             Palette.from(bitmap)
                     .generate(new Palette.PaletteAsyncListener() {
-                        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
                         @Override
                         public void onGenerated(Palette palette) {
                             final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
@@ -266,7 +251,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     private void resetColors() {
         int titleTextColor = DialogUtils.resolveColor(this, R.attr.title_text_color);
         int defaultBarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
@@ -291,7 +276,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         return toolbarColor;
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     private void setNavigationBarColored(boolean colored) {
         if (colored) {
             setNavigationBarColor(toolbarColor);

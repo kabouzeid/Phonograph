@@ -1,6 +1,5 @@
 package com.kabouzeid.gramophone.adapter;
 
-import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -151,9 +150,9 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
             view.setOnLongClickListener(this);
 
             // fixes the ripple starts at the right position
-            if (Util.isAtLeastLollipop()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 view.setOnTouchListener(new View.OnTouchListener() {
-                    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
                     @Override
                     public boolean onTouch(View view, MotionEvent motionEvent) {
                         ((FrameLayout) view.findViewById(R.id.content)).getForeground().setHotspot(motionEvent.getX(), motionEvent.getY());

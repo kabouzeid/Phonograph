@@ -59,21 +59,9 @@ public class SearchActivity extends AbsBaseActivity {
         setSupportActionBar(toolbar);
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
 
-    @Override
-    protected boolean shouldColorStatusBar() {
-        return true;
-    }
-
-    @Override
-    protected boolean shouldColorNavBar() {
-        return true;
-    }
-
-    @Override
-    protected boolean shouldSetStatusBarTranslucent() {
-        return true;
+        setNavigationBarThemeColor();
+        setStatusBarThemeColor();
     }
 
     @Override

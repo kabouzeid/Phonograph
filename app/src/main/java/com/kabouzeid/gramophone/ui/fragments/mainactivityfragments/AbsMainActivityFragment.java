@@ -16,7 +16,6 @@ public abstract class AbsMainActivityFragment extends Fragment implements KabVie
 
     protected int getTopPadding() {
         return Util.getActionBarSize(getActivity()) +
-                Util.getStatusBarHeight(getActivity()) +
                 getResources().getDimensionPixelSize(R.dimen.tab_height) +
                 getResources().getDimensionPixelSize(R.dimen.list_padding_vertical);
     }

@@ -12,7 +12,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,7 +35,7 @@ public class NavigationDrawerFragment extends Fragment {
     private DrawerLayout drawerLayout;
     private RecyclerView drawerRecyclerView;
 
-    private Button headerButton;
+    private View headerButton;
     private ImageView albumArt;
     private TextView songTitle;
     private TextView songArtist;
@@ -98,7 +97,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        return inflater.inflate(R.layout.navigation_drawer_header, container, false);
     }
 
     @Override
@@ -110,12 +109,12 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     private void initViews() {
-        drawerRecyclerView = (RecyclerView) fragmentRootView.findViewById(R.id.navigation_drawer_list);
-        final View drawerHeader = fragmentRootView.findViewById(R.id.header);
-        headerButton = (Button) drawerHeader.findViewById(R.id.header_clickable);
-        albumArt = (ImageView) drawerHeader.findViewById(R.id.album_art);
-        songTitle = (TextView) drawerHeader.findViewById(R.id.song_title);
-        songArtist = (TextView) drawerHeader.findViewById(R.id.song_artist);
+//        drawerRecyclerView = (RecyclerView) fragmentRootView.findViewById(R.id.navigation_drawer_list);
+//        final View drawerHeader = fragmentRootView.findViewById(R.id.header);
+//        headerButton = (View) drawerHeader.findViewById(R.id.header_clickable);
+//        albumArt = (ImageView) drawerHeader.findViewById(R.id.album_art);
+//        songTitle = (TextView) drawerHeader.findViewById(R.id.song_title);
+//        songArtist = (TextView) drawerHeader.findViewById(R.id.song_artist);
     }
 
     private void setUpViews() {

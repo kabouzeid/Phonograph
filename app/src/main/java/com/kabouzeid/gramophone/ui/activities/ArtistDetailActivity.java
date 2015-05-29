@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.animation.Animator;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -125,7 +124,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     };
 
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,7 +132,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
 
         App.bus.register(this);
 
-        if (Util.isAtLeastLollipop()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             postponeEnterTransition();
             if (PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled())
                 setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
@@ -148,12 +147,12 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         getSupportActionBar().setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if (Util.isAtLeastLollipop()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             fixLollipopTransitionImageWrongSize();
             startPostponedEnterTransition();
         }
 
-        if (Util.isAtLeastLollipop()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().getEnterTransition().addListener(new SmallTransitionListener() {
                 @Override
                 public void onTransitionStart(Transition transition) {
@@ -175,21 +174,6 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                 }
             });
         }
-    }
-
-    @Override
-    protected boolean shouldColorStatusBar() {
-        return false;
-    }
-
-    @Override
-    protected boolean shouldColorNavBar() {
-        return false;
-    }
-
-    @Override
-    protected boolean shouldSetStatusBarTranslucent() {
-        return true;
     }
 
     private void initViews() {
@@ -235,7 +219,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         loadBiography();
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     private void setNavigationBarColored(boolean colored) {
         if (colored) {
             setNavigationBarColor(toolbarColor);
@@ -327,7 +311,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         if (bitmap != null) {
             Palette.from(bitmap)
                     .generate(new Palette.PaletteAsyncListener() {
-                        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
                         @Override
                         public void onGenerated(Palette palette) {
                             final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
@@ -365,7 +349,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         return toolbarColor;
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     private void resetColors() {
         int titleTextColor = DialogUtils.resolveColor(this, R.attr.title_text_color);
         int defaultBarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
@@ -443,7 +427,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         toolbar.setEnabled(false);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     private void fixLollipopTransitionImageWrongSize() {
         getWindow().getSharedElementEnterTransition().addListener(new Transition.TransitionListener() {
             @Override

@@ -1,4 +1,5 @@
 <android.support.v4.widget.DrawerLayout
+    android:fitsSystemWindows="true"
     android:id="@+id/drawer_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -23,11 +24,6 @@
             android:elevation="@dimen/toolbar_elevation"
             android:orientation="vertical"
             tools:ignore="UnusedAttribute">
-
-            <View
-                android:id="@+id/status_bar"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/status_bar_padding" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -79,21 +75,12 @@
 
     </FrameLayout>
 
-    <FrameLayout
-        android:id="@+id/nav_drawer_frame"
-        android:layout_width="1dp"
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
         android:layout_height="match_parent"
+        android:layout_width="wrap_content"
         android:layout_gravity="start"
-        android:clickable="true">
-
-        <fragment
-            android:id="@+id/navigation_drawer"
-            android:name="com.kabouzeid.gramophone.ui.fragments.NavigationDrawerFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:tag="NAV_DRAWER"
-            tools:layout="@layout/fragment_navigation_drawer" />
-
-    </FrameLayout>
+        android:fitsSystemWindows="true"
+        app:menu="@menu/menu_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

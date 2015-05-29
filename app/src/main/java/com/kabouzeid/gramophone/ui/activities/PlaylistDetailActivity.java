@@ -1,7 +1,5 @@
 package com.kabouzeid.gramophone.ui.activities;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,7 +36,7 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
     private PlaylistSongAdapter adapter;
     private ArrayList<PlaylistSong> songs;
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,22 +77,10 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
         getSupportActionBar().setTitle(playlist.name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        if (PreferenceUtils.getInstance(this).coloredNavigationBarPlaylistEnabled())
+            setNavigationBarThemeColor();
+
         App.bus.register(this);
-    }
-
-    @Override
-    protected boolean shouldColorStatusBar() {
-        return true;
-    }
-
-    @Override
-    protected boolean shouldColorNavBar() {
-        return PreferenceUtils.getInstance(this).coloredNavigationBarPlaylistEnabled();
-    }
-
-    @Override
-    protected boolean shouldSetStatusBarTranslucent() {
-        return true;
     }
 
     private void getIntentExtras() {

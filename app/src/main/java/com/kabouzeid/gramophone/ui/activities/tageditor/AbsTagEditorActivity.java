@@ -1,6 +1,5 @@
 package com.kabouzeid.gramophone.ui.activities.tageditor;
 
-import android.annotation.TargetApi;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -113,21 +112,6 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    @Override
-    protected boolean shouldColorStatusBar() {
-        return false;
-    }
-
-    @Override
-    protected boolean shouldColorNavBar() {
-        return false;
-    }
-
-    @Override
-    protected boolean shouldSetStatusBarTranslucent() {
-        return true;
-    }
-
     private void initViews() {
         fab = (FloatingActionButton) findViewById(R.id.fab);
         scrollView = (ObservableScrollView) findViewById(R.id.observableScrollView);
@@ -213,7 +197,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
     protected abstract void save();
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     private void resetColors() {
         final int primaryColor = PreferenceUtils.getInstance(this).getThemeColorPrimary();
         paletteColorPrimary = primaryColor;
@@ -257,7 +241,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     protected void setNoImageMode() {
         isInNoImageMode = true;
         image.setVisibility(View.GONE);
@@ -306,7 +290,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     private void applyPalette(final Bitmap bitmap) {
         Palette.from(bitmap)
                 .generate(new Palette.PaletteAsyncListener() {
-                    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
                     @Override
                     public void onGenerated(Palette palette) {
                         final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();

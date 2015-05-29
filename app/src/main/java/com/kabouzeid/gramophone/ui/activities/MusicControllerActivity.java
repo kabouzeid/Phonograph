@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.animation.Animator;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -79,7 +78,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     private boolean opaqueToolBar = PreferenceUtils.getInstance(this).opaqueToolbarNowPlaying();
     private boolean forceSquareAlbumArt = PreferenceUtils.getInstance(this).forceAlbumArtSquared();
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +99,7 @@ public class MusicControllerActivity extends AbsFabActivity {
         getSupportActionBar().setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if (Util.isAtLeastLollipop()) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().getEnterTransition().addListener(new SmallTransitionListener() {
                 @Override
                 public void onTransitionStart(Transition transition) {
@@ -130,20 +129,6 @@ public class MusicControllerActivity extends AbsFabActivity {
         getFab().setOnLongClickListener(null);
     }
 
-    @Override
-    protected boolean shouldColorStatusBar() {
-        return false; // let other code handle this below
-    }
-
-    @Override
-    protected boolean shouldColorNavBar() {
-        return false; // let other code handle this below
-    }
-
-    @Override
-    protected boolean shouldSetStatusBarTranslucent() {
-        return true;
-    }
 
     private void moveSeekBarIntoPlace() {
 //        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) progressSlider.getLayoutParams();
@@ -360,7 +345,7 @@ public class MusicControllerActivity extends AbsFabActivity {
         notifyTaskColorChange(defaultBarColor);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     private void animateColorChange(final int newColor) {
         if (lastFooterColor != -1 && lastFooterColor != newColor) {
             ViewUtil.animateViewColor(footer, lastFooterColor, newColor, COLOR_TRANSITION_TIME);
