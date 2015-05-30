@@ -5,6 +5,7 @@
 
 
     <FrameLayout
+        android:background="?android:colorBackground"
         android:layout_width="match_parent"
         android:layout_height="@dimen/header_image_height">
 
@@ -74,11 +75,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <View
-            android:id="@+id/status_bar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/status_bar_padding"
-            android:background="@android:color/transparent" />
+        <include layout="@layout/status_bar" />
 
         <FrameLayout
             android:layout_width="match_parent"

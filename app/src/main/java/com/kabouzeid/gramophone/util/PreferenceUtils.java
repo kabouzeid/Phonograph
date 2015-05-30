@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.dialogs.ColorChooserDialog;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -33,7 +32,6 @@ public final class PreferenceUtils {
     public static final String COLORED_NAVIGATION_BAR_PLAYIST = "colored_navigation_bar_playlist";
     public static final String COLORED_NAVIGATION_BAR_TAG_EDITOR = "colored_navigation_bar_tag_editor";
     public static final String COLORED_NAVIGATION_BAR_OTHER_SCREENS = "colored_navigation_bar_other_screens";
-    public static final String TRANSPARENT_TOOLBAR = "transparent_toolbar";
     public static final String ALBUM_GRID_COLUMNS = "album_grid_columns";
     public static final String ALBUM_GRID_COLUMNS_LAND = "album_grid_columns_land";
     public static final String OPAQUE_TOOLBAR_NOW_PLAYING = "opaque_toolbar_now_playing";
@@ -72,7 +70,7 @@ public final class PreferenceUtils {
     }
 
     public int getThemeColorPrimaryDarker() {
-        return ColorChooserDialog.shiftColorDown(getThemeColorPrimary());
+        return Util.shiftColorDown(getThemeColorPrimary());
     }
 
     @SuppressLint("CommitPrefEdits")
@@ -160,10 +158,6 @@ public final class PreferenceUtils {
 //    private void setColoredNavigationBarOtherScreens(boolean coloredNavbar) {
 //        mPreferences.edit().putBoolean(COLORED_NAVIGATION_BAR_OTHER_SCREENS, coloredNavbar).commit();
 //    }
-
-    public final boolean transparentToolbar() {
-        return mPreferences.getBoolean(TRANSPARENT_TOOLBAR, false);
-    }
 
     public final boolean opaqueToolbarNowPlaying() {
         return mPreferences.getBoolean(OPAQUE_TOOLBAR_NOW_PLAYING, false);

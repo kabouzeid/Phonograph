@@ -113,14 +113,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 }
             });
 
-            findPreference("transparent_toolbar").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object o) {
-                    App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.TOOLBAR_TRANSPARENT_CHANGED, o));
-                    return true;
-                }
-            });
-
             findPreference("colored_album_footers").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object o) {

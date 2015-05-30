@@ -28,7 +28,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 29
-        versionName "0.9.13b DEV"
+        versionName "0.9.13b DEV-2"
     }
 
     compileOptions {
@@ -75,6 +75,5 @@ dependencies {
 
     compile 'com.afollestad:material-dialogs:0.7.4.2'
     compile 'com.afollestad:material-cab:0.1.2'
-    compile 'com.jpardogo.materialtabstrip:library:1.0.9'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
 }

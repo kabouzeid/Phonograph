@@ -3,8 +3,10 @@ package com.kabouzeid.gramophone.util;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -107,6 +109,12 @@ public class Util {
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
     }
 
+    public static void setAllowDrawUnderStatusBar(Window window) {
+        window.getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+    }
+
 //    public static boolean isOnline(final Context context) {
 //        if (context == null)
 //            return false;
@@ -203,7 +211,31 @@ public class Util {
         return drawable;
     }
 
-    public static int getColorWithoutAlpha(@ColorInt int color) {
+    public static int getOpaqueColor(@ColorInt int color) {
         return color | 0xFF000000;
+    }
+
+    public static int getColorWithAlpha(float alpha, int baseColor) {
+        int a = Math.min(255, Math.max(0, (int) (alpha * 255))) << 24;
+        int rgb = 0x00ffffff & baseColor;
+        return a + rgb;
+    }
+
+    @SuppressWarnings("ResourceType")
+    public static int shiftColorDown(int color) {
+        int alpha = Color.alpha(color);
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        hsv[2] *= 0.9f; // value component
+        return (alpha << 24) + (0x00ffffff & Color.HSVToColor(hsv));
+    }
+
+    public static ColorStateList getEmptyColorStateList(int color) {
+        return new ColorStateList(
+                new int[][]{
+                        new int[]{}
+                },
+                new int[]{color}
+        );
     }
 }

@@ -1,38 +1,33 @@
 <android.support.v4.widget.DrawerLayout
-    android:fitsSystemWindows="true"
     android:id="@+id/drawer_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".DrawerActivity">
 
-    <FrameLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <LinearLayout
+        <android.support.design.widget.AppBarLayout
             android:id="@+id/toolbar_frame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="@dimen/toolbar_elevation"
-            android:orientation="vertical"
-            tools:ignore="UnusedAttribute">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <FrameLayout
+                app:layout_scrollFlags="scroll|enterAlways"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     style="@style/Toolbar"
-                    android:elevation="0dp">
+                    android:elevation="0dp"
+                    tools:ignore="UnusedAttribute">
 
                 </android.support.v7.widget.Toolbar>
 
@@ -43,42 +38,35 @@
 
             </FrameLayout>
 
-            <com.astuetz.PagerSlidingTabStrip
+            <android.support.design.widget.TabLayout
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tab_height"
                 android:background="?colorPrimary"
-                android:elevation="0dp"
-                android:paddingLeft="64dp"
-                android:paddingStart="64dp"
-                android:textColor="@color/sliding_tabs_deactivated"
-                android:textColorPrimary="@color/sliding_tabs_activated"
-                android:transitionName="sliding_tabs"
-                app:pstsIndicatorHeight="3dp"
-                app:pstsTabBackground="?selectableItemBackground"
-                app:pstsTabPaddingLeftRight="8dp"
-                tools:ignore="NewApi,RtlSymmetry,UnusedAttribute" />
+                app:tabContentStart="72dp"
+                app:tabIndicatorColor="#00000000"
+                app:tabMode="scrollable" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="@drawable/shadow_down" />
+        </android.support.design.widget.AppBarLayout>
 
-        </LinearLayout>
-
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <android.support.design.widget.FloatingActionButton
-            android:layout_margin="16dp"
             android:id="@+id/fab"
             style="@style/PlayPauseFab"
-            android:layout_gravity="end|bottom" />
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp" />
 
-    </FrameLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
-        android:layout_height="match_parent"
         android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:menu="@menu/menu_drawer" />

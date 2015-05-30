@@ -81,6 +81,7 @@ public class MusicControllerActivity extends AbsFabActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setStatusBarTransparent();
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_music_controller);
@@ -218,7 +219,7 @@ public class MusicControllerActivity extends AbsFabActivity {
         switch (MusicPlayerRemote.getShuffleMode()) {
             case MusicService.SHUFFLE_MODE_SHUFFLE:
                 shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_48dp,
-                        ThemeSingleton.get().positiveColor));
+                        getThemeColorAccent() == Color.WHITE ? Color.BLACK : getThemeColorAccent()));
                 break;
             default:
                 shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_48dp,
@@ -245,11 +246,11 @@ public class MusicControllerActivity extends AbsFabActivity {
                 break;
             case MusicService.REPEAT_MODE_ALL:
                 repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_white_48dp,
-                        ThemeSingleton.get().positiveColor));
+                        getThemeColorAccent() == Color.WHITE ? Color.BLACK : getThemeColorAccent()));
                 break;
             default:
                 repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_one_white_48dp,
-                        ThemeSingleton.get().positiveColor));
+                        getThemeColorAccent() == Color.WHITE ? Color.BLACK : getThemeColorAccent()));
                 break;
         }
     }
@@ -320,7 +321,7 @@ public class MusicControllerActivity extends AbsFabActivity {
                             if (vibrantSwatch != null) {
                                 final int swatchRgb = vibrantSwatch.getRgb();
                                 animateColorChange(swatchRgb);
-                                animateTextColorChange(Util.getColorWithoutAlpha(vibrantSwatch.getTitleTextColor()));
+                                animateTextColorChange(Util.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
                                 notifyTaskColorChange(swatchRgb);
                             } else {
                                 resetColors();
@@ -333,7 +334,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     private void resetColors() {
-        final int textColor = Util.getColorWithoutAlpha(DialogUtils.resolveColor(this, R.attr.title_text_color));
+        final int textColor = Util.getOpaqueColor(DialogUtils.resolveColor(this, R.attr.title_text_color));
         final int defaultBarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
 
         animateColorChange(defaultBarColor);
@@ -360,7 +361,7 @@ public class MusicControllerActivity extends AbsFabActivity {
             else toolbar.setBackgroundColor(Color.TRANSPARENT);
         }
 
-        setTint(progressSlider, PreferenceUtils.getInstance(this).getThemeColorAccent());
+        setTint(progressSlider, !ThemeSingleton.get().darkTheme && getThemeColorAccent() == Color.WHITE ? Color.BLACK : getThemeColorAccent());
         if (opaqueToolBar) setStatusBarColor(newColor);
         else setStatusBarColor(Color.TRANSPARENT);
 

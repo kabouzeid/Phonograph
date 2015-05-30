@@ -79,6 +79,7 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
 
         if (PreferenceUtils.getInstance(this).coloredNavigationBarPlaylistEnabled())
             setNavigationBarThemeColor();
+        setStatusBarThemeColor();
 
         App.bus.register(this);
     }

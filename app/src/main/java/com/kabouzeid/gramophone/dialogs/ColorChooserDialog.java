@@ -21,9 +21,8 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.ThemeSingleton;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.views.CircleView;
+import com.kabouzeid.gramophone.views.ColorView;
 
 /**
  * @author Aidan Follestad (afollestad)
@@ -95,7 +94,10 @@ public class ColorChooserDialog extends DialogFragment implements View.OnClickLi
             mColors[i] = ta.getColor(i, 0);
         ta.recycle();
         mGrid = (GridView) dialog.getCustomView();
-        invalidateGrid();
+        if (mGrid != null) {
+            mGrid.setNumColumns(primary ? 7 : 4);
+            invalidateGrid();
+        }
         return dialog;
     }
 
@@ -130,13 +132,12 @@ public class ColorChooserDialog extends DialogFragment implements View.OnClickLi
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null)
                 convertView = LayoutInflater.from(getActivity()).inflate(R.layout.griditem_color_chooser, parent, false);
-            final boolean dark = ThemeSingleton.get().darkTheme;
-            CircleView child = (CircleView) convertView;
-            child.setActivated(getArguments().getInt("preselect") == mColors[position]);
-            child.setBackgroundColor(mColors[position]);
-            child.setBorderColor(dark ? Color.WHITE : Color.BLACK);
-            child.setTag(position);
-            child.setOnClickListener(this);
+
+            final ColorView colorView = (ColorView) convertView;
+            colorView.setActivated(getArguments().getInt("preselect") == mColors[position]);
+            colorView.setBackgroundColor(mColors[position]);
+            colorView.setTag(position);
+            colorView.setOnClickListener(this);
 
             Drawable selector = createSelector(mColors[position]);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -147,9 +148,9 @@ public class ColorChooserDialog extends DialogFragment implements View.OnClickLi
                         shiftColorDown(mColors[position])
                 };
                 ColorStateList rippleColors = new ColorStateList(states, colors);
-                child.setForeground(new RippleDrawable(rippleColors, selector, null));
+                colorView.setForeground(new RippleDrawable(rippleColors, selector, null));
             } else {
-                child.setForeground(selector);
+                colorView.setForeground(selector);
             }
             return convertView;
         }
@@ -162,17 +163,11 @@ public class ColorChooserDialog extends DialogFragment implements View.OnClickLi
         }
     }
 
-    public static int shiftColorDown(int color) {
+    @SuppressWarnings("ResourceType")
+    private static int shiftColorDown(int color) {
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
         hsv[2] *= 0.9f; // value component
-        return Color.HSVToColor(hsv);
-    }
-
-    public static int shiftColorUp(int color) {
-        float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv);
-        hsv[2] *= 1.1f; // value component
         return Color.HSVToColor(hsv);
     }
 

@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -30,7 +31,6 @@ import android.widget.TextView;
 
 import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.ThemeSingleton;
-import com.astuetz.PagerSlidingTabStrip;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PagerAdapter;
 import com.kabouzeid.gramophone.dialogs.AboutDialog;
@@ -70,7 +70,7 @@ public class MainActivity extends AbsFabActivity
     private Toolbar toolbar;
     private PagerAdapter pagerAdapter;
     private ViewPager viewPager;
-    private PagerSlidingTabStrip slidingTabLayout;
+    private TabLayout tabLayout;
     private int currentPage = -1;
     private MaterialCab cab;
     private NavigationView navigationView;
@@ -105,34 +105,34 @@ public class MainActivity extends AbsFabActivity
         int startPosition = PreferenceUtils.getInstance(this).getDefaultStartPage();
         startPosition = startPosition == -1 ? PreferenceUtils.getInstance(this).getLastStartPage() : startPosition;
         currentPage = startPosition;
-        viewPager.setCurrentItem(startPosition);
 
         navigationView.getMenu().getItem(startPosition).setChecked(true);
 
-        slidingTabLayout.setIndicatorColor(ThemeSingleton.get().positiveColor);
-        slidingTabLayout.setViewPager(viewPager);
-
-        slidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        tabLayout.setupWithViewPager(viewPager);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
 
             @Override
-            public void onPageSelected(final int position) {
+            public void onPageSelected(int position) {
                 navigationView.getMenu().getItem(position).setChecked(true);
                 currentPage = position;
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
+
             }
         });
+
+        viewPager.setCurrentItem(startPosition);
     }
 
     private void initViews() {
         viewPager = (ViewPager) findViewById(R.id.pager);
-        slidingTabLayout = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
     }
@@ -140,16 +140,15 @@ public class MainActivity extends AbsFabActivity
     private void setUpToolBar() {
         setTitle(getResources().getString(R.string.app_name));
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setToolBarTransparent(PreferenceUtils.getInstance(this).transparentToolbar());
+        setToolBarColor();
         setSupportActionBar(toolbar);
         setUpDrawerToggle();
     }
 
-    private void setToolBarTransparent(boolean transparent) {
-        float alpha = transparent ? 0.9f : 1f;
-        final int colorPrimary = PreferenceUtils.getInstance(this).getThemeColorPrimary();
-        ViewUtil.setBackgroundAlpha(toolbar, alpha, colorPrimary);
-        ViewUtil.setBackgroundAlpha(slidingTabLayout, alpha, colorPrimary);
+    private void setToolBarColor() {
+        final int colorPrimary = getThemeColorPrimary();
+        toolbar.setBackgroundColor(colorPrimary);
+        tabLayout.setBackgroundColor(colorPrimary);
     }
 
     private void setUpNavigationView() {
@@ -163,7 +162,7 @@ public class MainActivity extends AbsFabActivity
                 new int[]{
                         // 0,
                         colorAccent,
-                        Color.argb(222, 0, 0, 0)
+                        ThemeSingleton.get().darkTheme ? Color.argb(222, 255, 255, 255) : Color.argb(222, 0, 0, 0)
                 }
         ));
         navigationView.setItemIconTintList(new ColorStateList(
@@ -175,7 +174,7 @@ public class MainActivity extends AbsFabActivity
                 new int[]{
                         // 0,
                         colorAccent,
-                        Color.argb(138, 0, 0, 0)
+                        ThemeSingleton.get().darkTheme ? Color.argb(138, 255, 255, 255) : Color.argb(138, 0, 0, 0)
                 }
         ));
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -369,9 +368,6 @@ public class MainActivity extends AbsFabActivity
     public void onUIPreferenceChangedEvent(UIPreferenceChangedEvent event) {
         super.onUIPreferenceChangedEvent(event);
         switch (event.getAction()) {
-            case UIPreferenceChangedEvent.TOOLBAR_TRANSPARENT_CHANGED:
-                setToolBarTransparent((boolean) event.getValue());
-                break;
             case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_OTHER_SCREENS_CHANGED:
                 if ((boolean) event.getValue()) setNavigationBarThemeColor();
                 else resetNavigationBarColor();

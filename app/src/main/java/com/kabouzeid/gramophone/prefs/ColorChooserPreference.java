@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.views.CircleView;
+import com.kabouzeid.gramophone.views.ColorView;
 
 public class ColorChooserPreference extends Preference {
 
@@ -43,11 +43,10 @@ public class ColorChooserPreference extends Preference {
 
     private void invalidateColor() {
         if (mView != null) {
-            CircleView circle = (CircleView) mView.findViewById(R.id.circle);
+            ColorView circle = (ColorView) mView.findViewById(R.id.circle);
             if (this.color != 0) {
                 circle.setVisibility(View.VISIBLE);
                 circle.setBackgroundColor(color);
-                circle.setBorderColor(border);
             } else {
                 circle.setVisibility(View.GONE);
             }

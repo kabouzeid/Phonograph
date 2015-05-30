@@ -8,6 +8,7 @@
     <!-- BOTTOM-->
 
     <LinearLayout
+        android:background="?android:colorBackground"
         android:id="@+id/footer_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -200,16 +201,18 @@
 
     <!-- TOOLBAR-->
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/toolbar_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/status_bar_padding">
+        android:orientation="vertical">
+
+        <include layout="@layout/status_bar" />
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             style="@style/Toolbar"
             android:background="#00000000" />
-    </FrameLayout>
+    </LinearLayout>
 
 </RelativeLayout>

@@ -69,7 +69,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     private ObservableRecyclerView recyclerView;
     private AlbumSongAdapter adapter;
     private ArrayList<Song> songs;
-    private View statusBar;
     private ImageView albumArtImageView;
     private ImageView albumArtBackground;
     private View songsBackgroundView;
@@ -99,7 +98,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
             // Change alpha of overlay
             toolbarAlpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
             ViewUtil.setBackgroundAlpha(toolbar, toolbarAlpha, toolbarColor);
-            ViewUtil.setBackgroundAlpha(statusBar, cab != null && cab.isActive() ? 1 : toolbarAlpha, toolbarColor);
+            setStatusBarColor(Util.getColorWithAlpha(cab != null && cab.isActive() ? 1 : toolbarAlpha, toolbarColor));
 
             // Translate name text
             int maxTitleTranslationY = albumArtViewHeight;
@@ -112,6 +111,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setStatusBarTransparent();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_detail);
 
@@ -174,7 +174,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         recyclerView = (ObservableRecyclerView) findViewById(R.id.list);
         albumTitleView = (TextView) findViewById(R.id.album_title);
         songsBackgroundView = findViewById(R.id.list_background);
-        statusBar = findViewById(R.id.status_bar);
+//        statusBar = findViewById(R.id.status_bar);
     }
 
     private void setUpObservableListViewParams() {
@@ -237,7 +237,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                             if (vibrantSwatch != null) {
                                 toolbarColor = vibrantSwatch.getRgb();
                                 albumTitleView.setBackgroundColor(toolbarColor);
-                                albumTitleView.setTextColor(vibrantSwatch.getTitleTextColor());
+                                albumTitleView.setTextColor(Util.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
                                 if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(AlbumDetailActivity.this).coloredNavigationBarAlbumEnabled())
                                     setNavigationBarColor(toolbarColor);
                                 notifyTaskColorChange(toolbarColor);
@@ -411,7 +411,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                 .start(new MaterialCab.Callback() {
                     @Override
                     public boolean onCabCreated(MaterialCab materialCab, Menu menu) {
-                        ViewUtil.setBackgroundAlpha(statusBar, 1, toolbarColor);
+                        setStatusBarColor(Util.getOpaqueColor(toolbarColor));
                         return callback.onCabCreated(materialCab, menu);
                     }
 
@@ -422,7 +422,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
 
                     @Override
                     public boolean onCabFinished(MaterialCab materialCab) {
-                        ViewUtil.setBackgroundAlpha(statusBar, toolbarAlpha, toolbarColor);
+                        setStatusBarColor(Util.getColorWithAlpha(toolbarAlpha, toolbarColor));
                         return callback.onCabFinished(materialCab);
                     }
                 });

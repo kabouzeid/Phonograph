@@ -24,7 +24,6 @@ import com.afollestad.materialdialogs.util.DialogUtils;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.dialogs.ColorChooserDialog;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
@@ -255,8 +254,8 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         header.setBackgroundColor(paletteColorPrimary);
 
         setStatusBarColor(paletteColorPrimary);
-        if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarTagEditorEnabled())
-            setNavigationBarColor(ColorChooserDialog.shiftColorDown(paletteColorPrimary));
+        if (PreferenceUtils.getInstance(this).coloredNavigationBarTagEditorEnabled())
+            setNavigationBarColor(paletteColorPrimary);
     }
 
     protected void dataChanged() {

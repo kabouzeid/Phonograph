@@ -5,7 +5,6 @@
         <item name="rect_selector">@drawable/rect_ripple_selector_dark</item>
 
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
     <style name="Theme.MaterialMusic.Light" parent="Theme.MaterialMusic.Base.Light">
@@ -13,7 +12,6 @@
         <item name="rect_selector">@drawable/rect_ripple_selector</item>
 
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
     <style name="Theme.MaterialMusic.Notification" parent="@android:style/TextAppearance.Material.Notification" />

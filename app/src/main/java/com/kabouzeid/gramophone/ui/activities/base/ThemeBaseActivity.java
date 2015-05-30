@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.kabouzeid.gramophone.R;
@@ -17,6 +18,9 @@ import com.kabouzeid.gramophone.util.Util;
  */
 
 public abstract class ThemeBaseActivity extends AppCompatActivity implements KabViewsDisableAble {
+    private int colorPrimary;
+    private int colorPrimaryDarker;
+    private int colorAccent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +31,11 @@ public abstract class ThemeBaseActivity extends AppCompatActivity implements Kab
 
 
     private void setupTheme() {
-        ThemeSingleton.get().positiveColor = PreferenceUtils.getInstance(this).getThemeColorAccent();
+        colorPrimary = PreferenceUtils.getInstance(this).getThemeColorPrimary();
+        colorPrimaryDarker = Util.shiftColorDown(colorPrimary);
+        colorAccent = PreferenceUtils.getInstance(this).getThemeColorAccent();
+
+        ThemeSingleton.get().positiveColor = colorAccent;
         ThemeSingleton.get().negativeColor = ThemeSingleton.get().positiveColor;
         ThemeSingleton.get().neutralColor = ThemeSingleton.get().positiveColor;
         ThemeSingleton.get().widgetColor = ThemeSingleton.get().positiveColor;
@@ -49,27 +57,45 @@ public abstract class ThemeBaseActivity extends AppCompatActivity implements Kab
         }
     }
 
-    protected void setStatusBarTranslucent(boolean statusBarTranslucent) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-            Util.setStatusBarTranslucent(getWindow(), statusBarTranslucent);
+    public int getThemeColorPrimary() {
+        return colorPrimary;
+    }
+
+    public int getThemeColorPrimaryDarker() {
+        return colorPrimaryDarker;
+    }
+
+    public int getThemeColorAccent() {
+        return colorAccent;
+    }
+
+    protected void setStatusBarTransparent() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            Util.setAllowDrawUnderStatusBar(getWindow());
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+            Util.setStatusBarTranslucent(getWindow(), true);
     }
 
     protected final void setNavigationBarColor(int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            getWindow().setNavigationBarColor(color);
+            getWindow().setNavigationBarColor(Util.shiftColorDown(color));
     }
 
     protected final void setStatusBarColor(int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            getWindow().setStatusBarColor(color);
+            getWindow().setStatusBarColor(Util.shiftColorDown(color));
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            final View statusBar = getWindow().getDecorView().getRootView().findViewById(R.id.status_bar);
+            if (statusBar != null) statusBar.setBackgroundColor(color);
+        }
     }
 
     protected final void setNavigationBarThemeColor() {
-        setNavigationBarColor(PreferenceUtils.getInstance(this).getThemeColorPrimaryDarker());
+        setNavigationBarColor(colorPrimary);
     }
 
     protected final void setStatusBarThemeColor() {
-        setStatusBarColor(PreferenceUtils.getInstance(this).getThemeColorPrimaryDarker());
+        setStatusBarColor(colorPrimary);
     }
 
     protected final void resetNavigationBarColor() {

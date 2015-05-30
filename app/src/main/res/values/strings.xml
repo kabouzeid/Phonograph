@@ -107,7 +107,6 @@
     <string name="pref_title_navigation_bar">Colored navigation bar</string>
     <string name="pref_title_set_default_start_page">Start page</string>
     <string name="title_activity_settings">Settings</string>
-    <string name="pref_title_transparent_toolbar">Semi-Transparent toolbar</string>
     <string name="pref_title_colored_navigation_bar_artists">Artist view</string>
     <string name="pref_title_colored_navigation_bar_albums">Album view</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Playing view</string>
@@ -136,7 +135,6 @@
     <string name="playlist_name">Playlist name</string>
     <string name="song">Song</string>
     <string name="pref_only_lollipop">Only available on Lollipop.</string>
-    <string name="pref_summary_transparent_toolbar">Content scrolling underneath the toolbar is visible.</string>
     <string name="pref_summary_colored_album_footers">Album footers in the grid are colored with the album cover\'s palette.</string>
     <string name="pref_summary_force_square_album_art">Album art in the now playing view is forced to be squared.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">The toolbar in the now playing view is opaque and no longer covers the album art.</string>

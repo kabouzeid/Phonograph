@@ -19,6 +19,7 @@ import com.kabouzeid.gramophone.misc.SmallOnGestureListener;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.views.PlayPauseDrawable;
 import com.squareup.otto.Subscribe;
 
@@ -54,7 +55,7 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
 
         getFab().setImageDrawable(playPauseDrawable);
         final int accentColor = ThemeSingleton.get().positiveColor;
-        getFab().setRippleColor(accentColor);
+        getFab().setBackgroundTintList(Util.getEmptyColorStateList(accentColor));
         if (accentColor == Color.WHITE) {
             getFab().getDrawable().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
         } else {

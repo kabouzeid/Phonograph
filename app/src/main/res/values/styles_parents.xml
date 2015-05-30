@@ -2,6 +2,9 @@
 <resources>
 
     <style name="Theme.MaterialMusic.Base" parent="Theme.AppCompat.NoActionBar">
+        <!-- FIX FOR DESIGN LIB 22.2.0 NAVDRAWER ITEM FONT-->
+        <item name="textAppearanceListItem">@style/TextAppearance.AppCompat.Body2</item>
+
         <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
 
@@ -13,16 +16,10 @@
         <item name="music_controller_container_color">
             @color/materialmusic_dark_music_controller_container_color
         </item>
-        <item name="navigation_drawer_background_color">
-            @color/materialmusic_dark_navigation_drawer_background_color
-        </item>
 
         <item name="round_selector">@drawable/round_selector_dark</item>
         <item name="rect_selector">@drawable/rect_selector_dark</item>
         <item name="separator_color">@color/materialmusic_dark_separator_color</item>
-
-        <item name="inset_divider">@color/md_divider_white</item>
-        <item name="nav_drawer_icon_color">#fff</item>
 
         <item name="themed_drawable_color">@color/materialmusic_dark_themed_drawable_color</item>
         <item name="check_mark_color">@color/grey_900</item>
@@ -34,6 +31,9 @@
     </style>
 
     <style name="Theme.MaterialMusic.Base.Light" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- FIX FOR DESIGN LIB 22.2.0 NAVDRAWER ITEM FONT-->
+        <item name="textAppearanceListItem">@style/TextAppearance.AppCompat.Body2</item>
+
         <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
 
@@ -45,16 +45,10 @@
         <item name="music_controller_container_color">
             @color/materialmusic_music_controller_container_color
         </item>
-        <item name="navigation_drawer_background_color">
-            @color/materialmusic_navigation_drawer_background_color
-        </item>
 
         <item name="round_selector">@drawable/round_selector</item>
         <item name="rect_selector">@drawable/rect_selector</item>
         <item name="separator_color">@color/materialmusic_separator_color</item>
-
-        <item name="inset_divider">@color/md_divider_black</item>
-        <item name="nav_drawer_icon_color">#000</item>
 
         <item name="themed_drawable_color">@color/materialmusic_themed_drawable_color</item>
         <item name="check_mark_color">@color/white</item>
