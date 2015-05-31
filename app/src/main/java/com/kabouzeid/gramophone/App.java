@@ -9,6 +9,7 @@ import com.crashlytics.android.Crashlytics;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.utils.L;
 import com.squareup.otto.Bus;
 import com.squareup.otto.ThreadEnforcer;
 
@@ -32,6 +33,7 @@ public class App extends Application {
         MusicPlayerRemote.init(this);
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
         ImageLoader.getInstance().init(config);
+        L.writeLogs(false); // turns off UILs annoying LogCat output
         TagOptionSingleton.getInstance().isAndroid();
     }
 

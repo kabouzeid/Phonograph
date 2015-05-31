@@ -44,7 +44,7 @@
                 android:layout_height="@dimen/tab_height"
                 android:background="?colorPrimary"
                 app:tabContentStart="72dp"
-                app:tabIndicatorColor="#00000000"
+                app:tabIndicatorColor="@color/white"
                 app:tabMode="scrollable" />
 
         </android.support.design.widget.AppBarLayout>

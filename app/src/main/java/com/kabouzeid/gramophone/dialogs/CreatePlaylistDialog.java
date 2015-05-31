@@ -42,7 +42,7 @@ public class CreatePlaylistDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return new MaterialDialog.Builder(getActivity())
                 .title(R.string.new_playlist_title)
-                .positiveText(android.R.string.ok)
+                .positiveText(R.string.create_action)
                 .negativeText(android.R.string.cancel)
                 .inputType(InputType.TYPE_CLASS_TEXT |
                         InputType.TYPE_TEXT_VARIATION_PERSON_NAME |
