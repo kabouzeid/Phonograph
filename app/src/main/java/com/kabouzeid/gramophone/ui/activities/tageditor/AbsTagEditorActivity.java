@@ -32,8 +32,6 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.nineoldandroids.view.ViewHelper;
-import com.nineoldandroids.view.ViewPropertyAnimator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.jaudiotagger.audio.AudioFile;
@@ -77,12 +75,12 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
             if (!isInNoImageMode) {
                 alpha = 1 - (float) Math.max(0, headerVariableSpace - scrollY) / headerVariableSpace;
             } else {
-                ViewHelper.setTranslationY(header, scrollY);
+                header.setTranslationY(scrollY);
                 alpha = 1;
             }
             ViewUtil.setBackgroundAlpha(toolBar, alpha, paletteColorPrimary);
             ViewUtil.setBackgroundAlpha(header, alpha, paletteColorPrimary);
-            ViewHelper.setTranslationY(image, scrollY / 2);
+            image.setTranslationY(scrollY / 2);
         }
     };
     private List<String> songPaths;
@@ -182,8 +180,8 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     protected abstract void deleteImage();
 
     private void setUpFab() {
-        ViewHelper.setScaleX(fab, 0);
-        ViewHelper.setScaleY(fab, 0);
+        fab.setScaleX(0);
+        fab.setScaleY(0);
         fab.setEnabled(false);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -263,7 +261,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     }
 
     private void showFab() {
-        ViewPropertyAnimator.animate(fab)
+        fab.animate()
                 .setDuration(500)
                 .setInterpolator(new OvershootInterpolator())
                 .scaleX(1)

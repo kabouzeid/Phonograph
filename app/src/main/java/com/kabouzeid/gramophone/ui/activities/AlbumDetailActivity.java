@@ -46,7 +46,6 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.nineoldandroids.view.ViewHelper;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -90,10 +89,10 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
             float flexibleRange = albumArtViewHeight - headerOffset;
 
             // Translate album cover
-            ViewHelper.setTranslationY(albumArtImageView, Math.max(-albumArtViewHeight, -scrollY / 2));
+            albumArtImageView.setTranslationY(Math.max(-albumArtViewHeight, -scrollY / 2));
 
             // Translate list background
-            ViewHelper.setTranslationY(songsBackgroundView, Math.max(0, -scrollY + albumArtViewHeight));
+            songsBackgroundView.setTranslationY(Math.max(0, -scrollY + albumArtViewHeight));
 
             // Change alpha of overlay
             toolbarAlpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
@@ -105,7 +104,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
             int titleTranslationY = maxTitleTranslationY - scrollY;
             titleTranslationY = Math.max(headerOffset, titleTranslationY);
 
-            ViewHelper.setTranslationY(albumTitleView, titleTranslationY);
+            albumTitleView.setTranslationY(titleTranslationY);
         }
     };
 

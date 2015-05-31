@@ -12,6 +12,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.squareup.otto.Bus;
 import com.squareup.otto.ThreadEnforcer;
 
+import org.jaudiotagger.tag.TagOptionSingleton;
+
 import io.fabric.sdk.android.Fabric;
 
 /**
@@ -30,6 +32,7 @@ public class App extends Application {
         MusicPlayerRemote.init(this);
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
         ImageLoader.getInstance().init(config);
+        TagOptionSingleton.getInstance().isAndroid();
     }
 
     public void addToVolleyRequestQueue(Request request) {
