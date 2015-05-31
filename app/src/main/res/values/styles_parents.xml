@@ -28,6 +28,9 @@
         <item name="card_color">@color/materialmusic_dark_default_bar_color</item>
 
         <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat</item>
+
+        <!-- FOR EVERYWHERE WE CANT OVERRIDE THE ACCENT COLOR-->
+        <item name="colorAccent">@color/white</item>
     </style>
 
     <style name="Theme.MaterialMusic.Base.Light" parent="Theme.AppCompat.Light.NoActionBar">
@@ -57,6 +60,9 @@
         <item name="card_color">@color/white</item>
 
         <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+
+        <!-- FOR EVERYWHERE WE CANT OVERRIDE THE ACCENT COLOR-->
+        <item name="colorAccent">@color/black</item>
     </style>
 
     <style name="PlayPauseFabParent">

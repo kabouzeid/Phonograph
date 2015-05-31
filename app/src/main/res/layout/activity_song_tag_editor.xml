@@ -36,33 +36,40 @@
                 android:paddingTop="8dp"
                 tools:ignore="UnusedAttribute">
 
-                <com.kabouzeid.gramophone.views.DynamicEditText
-                    android:id="@+id/title1"
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:gravity="center_vertical"
-                    android:hint="@string/song"
-                    android:inputType="text|textCapWords"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="8dp"
-                    android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textColor="@color/white" />
+                    android:layout_height="wrap_content">
 
-                <com.kabouzeid.gramophone.views.DynamicEditText
-                    android:id="@+id/title2"
+                    <com.kabouzeid.gramophone.views.DynamicEditText
+                        android:id="@+id/title1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center_vertical"
+                        android:hint="@string/song"
+                        android:inputType="text|textCapWords"
+                        android:singleLine="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="@color/white" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:gravity="center_vertical"
-                    android:hint="@string/album"
-                    android:inputType="text|textCapWords"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="8dp"
-                    android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textColor="@color/white" />
+                    android:layout_height="wrap_content">
+
+                    <com.kabouzeid.gramophone.views.DynamicEditText
+                        android:id="@+id/title2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center_vertical"
+                        android:hint="@string/album"
+                        android:inputType="text|textCapWords"
+                        android:singleLine="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="@color/white" />
+                </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
 
@@ -75,18 +82,11 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif"
-                        android:singleLine="true"
-                        android:text="@string/artist"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
 
                     <com.kabouzeid.gramophone.views.DynamicEditText
                         android:id="@+id/artist"
@@ -98,23 +98,15 @@
                         android:hint="@string/artist"
                         android:inputType="text|textCapWords"
                         android:singleLine="true"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="?attr/title_text_color" />
-                </LinearLayout>
 
-                <LinearLayout
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif"
-                        android:inputType="text|textCapWords"
-                        android:singleLine="true"
-                        android:text="@string/genre"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                    android:layout_height="wrap_content"
+                    >
 
                     <com.kabouzeid.gramophone.views.DynamicEditText
                         android:id="@+id/genre"
@@ -125,22 +117,16 @@
                         android:gravity="center_vertical"
                         android:hint="@string/genre"
                         android:singleLine="true"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+
                         android:textColor="?attr/title_text_color" />
-                </LinearLayout>
 
-                <LinearLayout
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif"
-                        android:singleLine="true"
-                        android:text="@string/year"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                    android:layout_height="wrap_content"
+                    >
 
                     <com.kabouzeid.gramophone.views.DynamicEditText
                         android:id="@+id/year"
@@ -152,22 +138,16 @@
                         android:hint="@string/year"
                         android:inputType="text|number"
                         android:singleLine="true"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+
                         android:textColor="?attr/title_text_color" />
-                </LinearLayout>
 
-                <LinearLayout
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="64dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif"
-                        android:singleLine="true"
-                        android:text="@string/track"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                    android:layout_height="wrap_content"
+                    >
 
                     <com.kabouzeid.gramophone.views.DynamicEditText
                         android:id="@+id/track_number"
@@ -179,12 +159,11 @@
                         android:hint="@string/track_hint"
                         android:inputType="text|number"
                         android:singleLine="true"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="?attr/title_text_color" />
-                </LinearLayout>
+
+                </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
-
 
         </RelativeLayout>
 

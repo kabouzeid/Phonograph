@@ -201,7 +201,7 @@ public final class PreferenceUtils {
 
     public final String getArtistAlbumSortOrder() {
         return mPreferences.getString(ARTIST_ALBUM_SORT_ORDER,
-                SortOrder.ArtistAlbumSortOrder.ALBUM_A_Z);
+                SortOrder.ArtistAlbumSortOrder.ALBUM_YEAR);
     }
 
 //    public void setAlbumSortOrder(final String value) {
