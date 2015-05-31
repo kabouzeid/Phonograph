@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
-import com.kabouzeid.gramophone.util.Util;
+import com.kabouzeid.gramophone.ui.activities.MainActivity;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -14,19 +14,15 @@ public abstract class AbsMainActivityFragment extends Fragment implements KabVie
     private boolean areViewsEnabled;
 
     protected int getTopPadding() {
-        final int norm = Util.getActionBarSize(getActivity()) +
-                getResources().getDimensionPixelSize(R.dimen.tab_height) +
-                getResources().getDimensionPixelSize(R.dimen.list_padding_vertical);
-        if (Util.isAtLeastKitKat() && !Util.isAtLeastLollipop()) {
-            if (Util.isInPortraitMode(getActivity()) || Util.isTablet(getActivity())) {
-                return norm + Util.getStatusBarHeight(getActivity());
-            }
-        }
-        return norm;
+        return getResources().getDimensionPixelSize(R.dimen.list_padding_vertical);
     }
 
     protected int getBottomPadding() {
-        return 0;
+        return getResources().getDimensionPixelSize(R.dimen.bottom_offset_fab_activity);
+    }
+
+    protected MainActivity getMainActivity() {
+        return (MainActivity) getActivity();
     }
 
     @Override

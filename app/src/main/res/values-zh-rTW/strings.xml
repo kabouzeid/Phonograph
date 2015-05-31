@@ -83,7 +83,6 @@
     <string name="pref_title_set_default_start_page">設定預設起始頁</string>
     <string name="title_activity_settings">設定</string>
     <string name="pref_title_transparent_toolbar">"半透明工具列"</string>
-    <string name="pref_title_show_playback_controller_card">卡片式播放控制面板</string>
     <string name="pref_title_colored_navigation_bar_artists">歌手頁面</string>
     <string name="pref_title_colored_navigation_bar_albums">專輯頁面</string>
     <string name="pref_title_colored_navigation_bar_current_playing">播放頁面</string>

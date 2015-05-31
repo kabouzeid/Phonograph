@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.adapter.songadapter;
 
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,8 +12,12 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.adapter.AbsMultiSelectAdapter;
+import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
+import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
 
@@ -21,15 +26,21 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class AlbumSongAdapter extends RecyclerView.Adapter<AlbumSongAdapter.ViewHolder> {
+public class AlbumSongAdapter extends AbsMultiSelectAdapter<AlbumSongAdapter.ViewHolder, Song> {
 
     public static final String TAG = AlbumSongAdapter.class.getSimpleName();
     protected final AppCompatActivity activity;
-    protected final ArrayList<Song> dataSet;
+    protected ArrayList<Song> dataSet;
 
-    public AlbumSongAdapter(AppCompatActivity activity, ArrayList<Song> objects) {
+    public AlbumSongAdapter(AppCompatActivity activity, ArrayList<Song> objects, @Nullable CabHolder cabHolder) {
+        super(cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         dataSet = objects;
+    }
+
+    public void updateDataSet(ArrayList<Song> objects){
+        dataSet = objects;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -47,6 +58,7 @@ public class AlbumSongAdapter extends RecyclerView.Adapter<AlbumSongAdapter.View
         holder.trackNumber.setText(trackNumberString);
         holder.songTitle.setText(song.title);
         holder.artistName.setText(MusicUtil.getReadableDurationString(song.duration));
+        holder.view.setActivated(isChecked(song));
     }
 
     @Override
@@ -54,38 +66,71 @@ public class AlbumSongAdapter extends RecyclerView.Adapter<AlbumSongAdapter.View
         return dataSet.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    @Override
+    protected Song getIdentifier(int position) {
+        return dataSet.get(position);
+    }
+
+    @Override
+    protected void onMultipleItemAction(MenuItem menuItem, ArrayList<Song> selection) {
+        switch (menuItem.getItemId()) {
+            case R.id.action_delete_from_disk:
+                DeleteSongsDialog.create(selection).show(activity.getSupportFragmentManager(), "DELETE_SONGS");
+                break;
+            case R.id.action_add_to_playlist:
+                AddToPlaylistDialog.create(selection).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");
+                break;
+            case R.id.action_add_to_current_playing:
+                MusicPlayerRemote.enqueue(selection);
+                break;
+        }
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         final TextView songTitle;
         final TextView trackNumber;
         final TextView artistName;
         final ImageView overflowButton;
+        final View view;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            view = itemView;
             songTitle = (TextView) itemView.findViewById(R.id.song_title);
             trackNumber = (TextView) itemView.findViewById(R.id.track_number);
             artistName = (TextView) itemView.findViewById(R.id.song_info);
             overflowButton = (ImageView) itemView.findViewById(R.id.menu);
-            overflowButton.setOnClickListener(this);
-            itemView.setOnClickListener(new View.OnClickListener() {
+            view.setOnClickListener(this);
+            view.setOnLongClickListener(this);
+            overflowButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MusicPlayerRemote.openQueue(dataSet, getAdapterPosition(), true);
+                    PopupMenu popupMenu = new PopupMenu(activity, v);
+                    popupMenu.inflate(R.menu.menu_item_song);
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            return MenuItemClickHelper.handleSongMenuClick(activity, dataSet.get(getAdapterPosition()), item);
+                        }
+                    });
+                    popupMenu.show();
                 }
             });
         }
 
         @Override
         public void onClick(View v) {
-            PopupMenu popupMenu = new PopupMenu(activity, v);
-            popupMenu.inflate(R.menu.menu_item_song);
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    return MenuItemClickHelper.handleSongMenuClick(activity, dataSet.get(getAdapterPosition()), item);
-                }
-            });
-            popupMenu.show();
+            if (isInQuickSelectMode()) {
+                toggleChecked(getAdapterPosition());
+            } else {
+                MusicPlayerRemote.openQueue(dataSet, getAdapterPosition(), true);
+            }
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            toggleChecked(getAdapterPosition());
+            return true;
         }
     }
 }

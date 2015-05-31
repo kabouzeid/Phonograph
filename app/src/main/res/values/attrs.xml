@@ -2,30 +2,21 @@
 <resources>
     <attr name="title_text_color" format="color" />
     <attr name="caption_text_color" format="color" />
-    <attr name="nav_drawer_icon_color" format="color" />
 
     <attr name="music_controller_container_color" format="color" />
-    <attr name="navigation_drawer_background_color" format="color" />
-    <attr name="inset_divider" format="color" />
 
-    <attr name="list_selector" format="reference" />
     <attr name="round_selector" format="reference" />
     <attr name="rect_selector" format="reference" />
 
     <attr name="separator_color" format="color" />
 
-    <attr name="drawable_color" format="color" />
-    <attr name="drawable_color_enabled" format="color" />
-
     <attr name="themed_drawable_color" format="color" />
+
+    <attr name="check_mark_color" format="color" />
 
     <attr name="default_bar_color" format="color" />
     <attr name="card_color" format="color" />
 
     <attr name="toolbarPopupTheme" format="reference" />
-
-    <declare-styleable name="ScrimInsetsView">
-        <attr name="insetForeground" format="reference|color" />
-    </declare-styleable>
 
 </resources>

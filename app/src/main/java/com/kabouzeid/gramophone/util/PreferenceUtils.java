@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.dialogs.ColorChooserDialog;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +22,7 @@ public final class PreferenceUtils {
     public static final String ALBUM_SORT_ORDER = "album_sort_order";
     public static final String ALBUM_SONG_SORT_ORDER = "album_song_sort_order";
     public static final String SONG_SORT_ORDER = "song_sort_order";
-    public static final String ONLY_ON_WIFI = "auto_download_artist_images";
+    //    public static final String ONLY_ON_WIFI = "auto_download_artist_images";
     //    public static final String DOWNLOAD_MISSING_ARTIST_IMAGES = "auto_download_artist_images";
     public static final String COLORED_ALBUM_FOOTERS = "colored_album_footers";
     public static final String COLORED_NAVIGATION_BAR = "colored_navigation_bar";
@@ -33,10 +32,10 @@ public final class PreferenceUtils {
     public static final String COLORED_NAVIGATION_BAR_PLAYIST = "colored_navigation_bar_playlist";
     public static final String COLORED_NAVIGATION_BAR_TAG_EDITOR = "colored_navigation_bar_tag_editor";
     public static final String COLORED_NAVIGATION_BAR_OTHER_SCREENS = "colored_navigation_bar_other_screens";
-    public static final String PLAYBACK_CONTROLLER_BOX = "playback_controller_card";
-    public static final String TRANSPARENT_TOOLBAR = "transparent_toolbar";
     public static final String ALBUM_GRID_COLUMNS = "album_grid_columns";
     public static final String ALBUM_GRID_COLUMNS_LAND = "album_grid_columns_land";
+    public static final String OPAQUE_TOOLBAR_NOW_PLAYING = "opaque_toolbar_now_playing";
+    public static final String FORCE_SQUARE_ALBUM_ART = "force_square_album_art";
 
     private static PreferenceUtils sInstance;
 
@@ -71,7 +70,7 @@ public final class PreferenceUtils {
     }
 
     public int getThemeColorPrimaryDarker() {
-        return ColorChooserDialog.shiftColorDown(getThemeColorPrimary());
+        return Util.shiftColorDown(getThemeColorPrimary());
     }
 
     @SuppressLint("CommitPrefEdits")
@@ -80,7 +79,7 @@ public final class PreferenceUtils {
     }
 
     public int getThemeColorAccent() {
-        return mPreferences.getInt("accent_color", mContext.getResources().getColor(R.color.pink_500));
+        return mPreferences.getInt("accent_color", mContext.getResources().getColor(R.color.pink_A200));
     }
 
     @SuppressLint("CommitPrefEdits")
@@ -136,7 +135,7 @@ public final class PreferenceUtils {
 
     @SuppressLint("CommitPrefEdits")
     private boolean coloredNavigationBarFor(String key) {
-        Set<String> defaultVals = new HashSet<>();
+        final Set<String> defaultVals = new HashSet<>();
         defaultVals.add(COLORED_NAVIGATION_BAR_ALBUM);
         defaultVals.add(COLORED_NAVIGATION_BAR_ARTIST);
         defaultVals.add(COLORED_NAVIGATION_BAR_CURRENT_PLAYING);
@@ -148,6 +147,7 @@ public final class PreferenceUtils {
             mPreferences.edit().putStringSet(COLORED_NAVIGATION_BAR, defaultVals).commit();
 
         try {
+            //noinspection ConstantConditions
             return mPreferences.getStringSet(COLORED_NAVIGATION_BAR, defaultVals).contains(key);
         } catch (NullPointerException e) {
             return false;
@@ -159,12 +159,12 @@ public final class PreferenceUtils {
 //        mPreferences.edit().putBoolean(COLORED_NAVIGATION_BAR_OTHER_SCREENS, coloredNavbar).commit();
 //    }
 
-    public final boolean playbackControllerBoxEnabled() {
-        return mPreferences.getBoolean(PLAYBACK_CONTROLLER_BOX, false);
+    public final boolean opaqueToolbarNowPlaying() {
+        return mPreferences.getBoolean(OPAQUE_TOOLBAR_NOW_PLAYING, false);
     }
 
-    public final boolean transparentToolbar() {
-        return mPreferences.getBoolean(TRANSPARENT_TOOLBAR, false);
+    public final boolean forceAlbumArtSquared() {
+        return mPreferences.getBoolean(FORCE_SQUARE_ALBUM_ART, false);
     }
 
 //    public final boolean downloadMissingArtistImages() {

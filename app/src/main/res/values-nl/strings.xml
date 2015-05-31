@@ -51,6 +51,7 @@
     <string name="action_re_download_artist_image">Artiest afbeelding bijwerken</string>
     <string name="updating">Bijwerken...</string>
     <string name="added_title_to_playing_queue">"1 titel toegevoegd aan de afspeelwachtrij."</string>
+    <string name="added_x_titles_to_playing_queue">%1$d titels toegevoegd aan de afspeellijst.</string>
     <string name="action_delete_from_playlist">Verwijderen uit afspeellijst</string>
     <string name="new_playlist_action">Nieuwe afspeellijst...</string>
     <string name="action_grid_columns">Rasterkolommen</string>
@@ -60,8 +61,10 @@
     <string name="deleted_playlist_x">Afspeellijst %1$s verwijderd</string>
     <string name="couldnot_create_playlist_x">Kon afspeellijst %1$s niet aanmaken</string>
     <string name="delete_playlist_x"><![CDATA[Wil je de afspeellijst <b>%1$s</b> verwijderen?]]></string>
+    <string name="delete_x_playlists"><![CDATA[Wil je <b>%1$d</b> afspeellijsten verwijderen?]]></string>
     <string name="delete_song_x"><![CDATA[Wil je het nummer <b>%1$s</b> verwijderen?]]></string>
     <string name="delete_x_songs"><![CDATA[Wil je <b>%1$d</b> nummers verwijderen?]]></string>
+    <string name="delete_song_x_from_playlist"><![CDATA[Wil je het nummer <b>%1$s</b> verwijderen van de afspeellijst?]]></string>
     <string name="delete_song_title">Verwijder nummer</string>
     <string name="delete_songs_title">Verwijder nummers</string>
     <string name="rename_playlist_title">Hernoem afspeellijst</string>
@@ -83,7 +86,6 @@
     <string name="pref_title_set_default_start_page">Startpagina</string>
     <string name="title_activity_settings">Instellingen</string>
     <string name="pref_title_transparent_toolbar">"Semi-transparante werkbalk"</string>
-    <string name="pref_title_show_playback_controller_card">Afspeelknoppen kaart</string>
     <string name="pref_title_colored_navigation_bar_artists">Artiest weergave</string>
     <string name="pref_title_colored_navigation_bar_albums">Album weergave</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Afspeelweergave</string>

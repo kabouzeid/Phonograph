@@ -24,16 +24,17 @@
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="transparent_toolbar"
-            android:title="@string/pref_title_transparent_toolbar"
-            android:summary="@string/pref_summary_transparent_toolbar"
+            android:key="opaque_toolbar_now_playing"
+            android:title="@string/pref_title_opaque_toolbar_now_playing"
+            android:summary="@string/pref_summary_opaque_toolbar_now_playing"
             android:layout="@layout/preference_custom"
             android:widgetLayout="@layout/preference_dynamiccheckbox" />
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="playback_controller_card"
-            android:title="@string/pref_title_show_playback_controller_card"
+            android:key="force_square_album_art"
+            android:title="@string/pref_title_force_square_album_art"
+            android:summary="@string/pref_summary_force_square_album_art"
             android:layout="@layout/preference_custom"
             android:widgetLayout="@layout/preference_dynamiccheckbox" />
 

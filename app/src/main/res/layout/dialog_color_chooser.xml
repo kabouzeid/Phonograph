@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:columnWidth="56dp"
-    android:numColumns="auto_fit"
+          android:numColumns="7"
     android:verticalSpacing="4dp"
     android:horizontalSpacing="4dp"
     android:padding="16dp"

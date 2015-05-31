@@ -1,12 +1,16 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -16,22 +20,23 @@ import android.support.v7.internal.view.menu.MenuPopupHelper;
 import android.support.v7.widget.ActionMenuPresenter;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
-import android.widget.FrameLayout;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.ThemeSingleton;
-import com.astuetz.PagerSlidingTabStrip;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PagerAdapter;
 import com.kabouzeid.gramophone.dialogs.AboutDialog;
 import com.kabouzeid.gramophone.dialogs.CreatePlaylistDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
@@ -40,7 +45,6 @@ import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
-import com.kabouzeid.gramophone.ui.fragments.NavigationDrawerFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AlbumViewFragment;
 import com.kabouzeid.gramophone.util.MusicUtil;
@@ -57,44 +61,35 @@ import java.util.List;
 import java.util.Set;
 
 public class MainActivity extends AbsFabActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, KabViewsDisableAble {
+        implements KabViewsDisableAble, CabHolder, View.OnClickListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
-    private NavigationDrawerFragment navigationDrawerFragment;
     private Toolbar toolbar;
     private PagerAdapter pagerAdapter;
     private ViewPager viewPager;
-    private PagerSlidingTabStrip slidingTabLayout;
+    private TabLayout tabLayout;
     private int currentPage = -1;
+    private MaterialCab cab;
+    private NavigationView navigationView;
+    private View navigationDrawerHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusBarTranslucent(!Util.isAtLeastLollipop());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         initViews();
-        navigationDrawerFragment.setUp(
-                drawerLayout
-        );
         setUpDrawerLayout();
         setUpToolBar();
         setUpViewPager();
 
+        if (PreferenceUtils.getInstance(this).coloredNavigationBarOtherScreensEnabled())
+            setNavigationBarThemeColor();
+
         handlePlaybackIntent(getIntent());
-    }
-
-    @Override
-    protected boolean shouldColorStatusBar() {
-        return !Util.isAtLeastLollipop();
-    }
-
-    @Override
-    protected boolean shouldColorNavBar() {
-        return PreferenceUtils.getInstance(this).coloredNavigationBarOtherScreensEnabled();
     }
 
     private void setUpViewPager() {
@@ -110,52 +105,119 @@ public class MainActivity extends AbsFabActivity
         int startPosition = PreferenceUtils.getInstance(this).getDefaultStartPage();
         startPosition = startPosition == -1 ? PreferenceUtils.getInstance(this).getLastStartPage() : startPosition;
         currentPage = startPosition;
-        viewPager.setCurrentItem(startPosition);
 
-        navigationDrawerFragment.setItemChecked(startPosition);
+        navigationView.getMenu().getItem(startPosition).setChecked(true);
 
-        slidingTabLayout.setIndicatorColor(ThemeSingleton.get().positiveColor);
-        slidingTabLayout.setViewPager(viewPager);
-
-        slidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        tabLayout.setupWithViewPager(viewPager);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
 
             @Override
-            public void onPageSelected(final int position) {
-                navigationDrawerFragment.setItemChecked(position);
+            public void onPageSelected(int position) {
+                navigationView.getMenu().getItem(position).setChecked(true);
                 currentPage = position;
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
+
             }
         });
+
+        viewPager.setCurrentItem(startPosition);
     }
 
     private void initViews() {
         viewPager = (ViewPager) findViewById(R.id.pager);
-        slidingTabLayout = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationDrawerFragment = (NavigationDrawerFragment)
-                getFragmentManager().findFragmentById(R.id.navigation_drawer);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
     }
 
     private void setUpToolBar() {
         setTitle(getResources().getString(R.string.app_name));
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setToolBarTransparent(PreferenceUtils.getInstance(this).transparentToolbar());
+        setToolBarColor();
         setSupportActionBar(toolbar);
         setUpDrawerToggle();
     }
 
-    private void setToolBarTransparent(boolean transparent) {
-        float alpha = transparent ? 0.9f : 1f;
-        final int colorPrimary = PreferenceUtils.getInstance(this).getThemeColorPrimary();
-        ViewUtil.setBackgroundAlpha(toolbar, alpha, colorPrimary);
-        ViewUtil.setBackgroundAlpha(slidingTabLayout, alpha, colorPrimary);
+    private void setToolBarColor() {
+        final int colorPrimary = getThemeColorPrimary();
+        toolbar.setBackgroundColor(colorPrimary);
+        tabLayout.setBackgroundColor(colorPrimary);
+    }
+
+    private void setUpNavigationView() {
+        final int colorAccent = ThemeSingleton.get().positiveColor;
+        navigationView.setItemTextColor(new ColorStateList(
+                new int[][]{
+                        //{-android.R.attr.state_enabled}, // disabled
+                        {android.R.attr.state_checked}, // checked
+                        {} // default
+                },
+                new int[]{
+                        // 0,
+                        colorAccent,
+                        ThemeSingleton.get().darkTheme ? Color.argb(222, 255, 255, 255) : Color.argb(222, 0, 0, 0)
+                }
+        ));
+        navigationView.setItemIconTintList(new ColorStateList(
+                new int[][]{
+                        //{-android.R.attr.state_enabled}, // disabled
+                        {android.R.attr.state_checked}, // checked
+                        {} // default
+                },
+                new int[]{
+                        // 0,
+                        colorAccent,
+                        ThemeSingleton.get().darkTheme ? Color.argb(138, 255, 255, 255) : Color.argb(138, 0, 0, 0)
+                }
+        ));
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                drawerLayout.closeDrawers();
+                switch (menuItem.getItemId()) {
+                    case R.id.nav_songs:
+                        menuItem.setChecked(true);
+                        viewPager.setCurrentItem(PagerAdapter.MusicFragments.SONG.ordinal(), true);
+                        break;
+                    case R.id.nav_albums:
+                        menuItem.setChecked(true);
+                        viewPager.setCurrentItem(PagerAdapter.MusicFragments.ALBUM.ordinal(), true);
+                        break;
+                    case R.id.nav_artists:
+                        menuItem.setChecked(true);
+                        viewPager.setCurrentItem(PagerAdapter.MusicFragments.ARTIST.ordinal(), true);
+                        break;
+                    case R.id.nav_playlists:
+                        menuItem.setChecked(true);
+                        viewPager.setCurrentItem(PagerAdapter.MusicFragments.PLAYLIST.ordinal(), true);
+                        break;
+                    case R.id.nav_settings:
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+                            }
+                        }, 200);
+                        break;
+                    case R.id.nav_about:
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                new AboutDialog().show(getSupportFragmentManager(), "ABOUT_DIALOG");
+                            }
+                        }, 200);
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     private void setUpDrawerToggle() {
@@ -175,19 +237,8 @@ public class MainActivity extends AbsFabActivity
     }
 
     private void setUpDrawerLayout() {
-        drawerLayout.setStatusBarBackgroundColor(PreferenceUtils
-                .getInstance(this).getThemeColorPrimaryDarker());
-
-        FrameLayout navDrawerFrame = (FrameLayout) findViewById(R.id.nav_drawer_frame);
-        int navDrawerMargin = getResources().getDimensionPixelSize(R.dimen.nav_drawer_margin);
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        int navDrawerWidthLimit = getResources().getDimensionPixelSize(R.dimen.nav_drawer_width_limit);
-        int navDrawerWidth = displayMetrics.widthPixels - navDrawerMargin;
-        if (navDrawerWidth > navDrawerWidthLimit) {
-            navDrawerWidth = navDrawerWidthLimit;
-        }
-        navDrawerFrame.setLayoutParams(new DrawerLayout.LayoutParams(navDrawerWidth,
-                DrawerLayout.LayoutParams.MATCH_PARENT, Gravity.START));
+        drawerLayout.setStatusBarBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimaryDarker());
+        setUpNavigationView();
     }
 
     @Override
@@ -202,21 +253,26 @@ public class MainActivity extends AbsFabActivity
     }
 
     private void updateNavigationDrawerHeader() {
-        if (navigationDrawerFragment != null) {
-            Song song = MusicPlayerRemote.getCurrentSong();
-            if (song.id != -1) {
-                navigationDrawerFragment.getSongTitle().setText(song.title);
-                navigationDrawerFragment.getSongArtist().setText(song.artistName);
-                ImageLoader.getInstance().displayImage(
-                        MusicUtil.getAlbumArtUri(song.albumId).toString(),
-                        navigationDrawerFragment.getAlbumArtImageView(),
-                        new DisplayImageOptions.Builder()
-                                .cacheInMemory(true)
-                                .showImageOnFail(R.drawable.default_album_art)
-                                .resetViewBeforeLoading(true)
-                                .build()
-                );
+        Song song = MusicPlayerRemote.getCurrentSong();
+        if (song.id != -1) {
+            if (navigationDrawerHeader == null) {
+                navigationDrawerHeader = navigationView.inflateHeaderView(R.layout.navigation_drawer_header);
+                navigationDrawerHeader.setOnClickListener(this);
             }
+            ((TextView) navigationDrawerHeader.findViewById(R.id.song_title)).setText(song.title);
+            ((TextView) navigationDrawerHeader.findViewById(R.id.song_artist)).setText(song.artistName);
+            ImageLoader.getInstance().displayImage(
+                    MusicUtil.getAlbumArtUri(song.albumId).toString(),
+                    ((ImageView) navigationDrawerHeader.findViewById(R.id.album_art)),
+                    new DisplayImageOptions.Builder()
+                            .cacheInMemory(true)
+                            .showImageOnFail(R.drawable.default_album_art)
+                            .resetViewBeforeLoading(true)
+                            .build()
+            );
+        } else {
+            navigationView.removeHeaderView(navigationDrawerHeader);
+            navigationDrawerHeader = null;
         }
     }
 
@@ -246,37 +302,6 @@ public class MainActivity extends AbsFabActivity
         super.onMusicRemoteEvent(event);
         if (event.getAction() == MusicRemoteEvent.STATE_RESTORED || event.getAction() == MusicRemoteEvent.TRACK_CHANGED) {
             updateNavigationDrawerHeader();
-        }
-    }
-
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-        if (position == NavigationDrawerFragment.NAVIGATION_DRAWER_HEADER) {
-            NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithFab(new Pair[]{
-                    Pair.create(navigationDrawerFragment.getAlbumArtImageView(),
-                            getResources().getString(R.string.transition_album_cover)
-                    )
-            }));
-        } else if (position == NavigationDrawerFragment.ABOUT_INDEX) {
-            drawerLayout.closeDrawers();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    new AboutDialog().show(getSupportFragmentManager(), "ABOUT_DIALOG");
-                }
-            }, 200);
-        } else if (position == NavigationDrawerFragment.SETTINGS_INDEX) {
-            drawerLayout.closeDrawers();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-                }
-            }, 200);
-        } else {
-            if (viewPager != null) {
-                viewPager.setCurrentItem(position, true);
-            }
         }
     }
 
@@ -343,17 +368,17 @@ public class MainActivity extends AbsFabActivity
     public void onUIPreferenceChangedEvent(UIPreferenceChangedEvent event) {
         super.onUIPreferenceChangedEvent(event);
         switch (event.getAction()) {
-            case UIPreferenceChangedEvent.TOOLBAR_TRANSPARENT_CHANGED:
-                setToolBarTransparent((boolean) event.getValue());
-                break;
             case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_OTHER_SCREENS_CHANGED:
-                setShouldColorNavBar((boolean) event.getValue());
+                if ((boolean) event.getValue()) setNavigationBarThemeColor();
+                else resetNavigationBarColor();
                 break;
             case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_CHANGED:
                 try {
-                    setShouldColorNavBar(((Set) event.getValue()).contains(PreferenceUtils.COLORED_NAVIGATION_BAR_OTHER_SCREENS));
+                    if (((Set) event.getValue()).contains(PreferenceUtils.COLORED_NAVIGATION_BAR_OTHER_SCREENS))
+                        setNavigationBarThemeColor();
+                    else resetNavigationBarColor();
                 } catch (NullPointerException ignored) {
-                    setShouldColorNavBar(false);
+                    resetNavigationBarColor();
                 }
                 break;
         }
@@ -361,11 +386,9 @@ public class MainActivity extends AbsFabActivity
 
     @Override
     public void onBackPressed() {
-        if (navigationDrawerFragment.isDrawerOpen()) {
-            drawerLayout.closeDrawers();
-            return;
-        }
-        super.onBackPressed();
+        if (drawerLayout.isDrawerOpen(navigationView)) drawerLayout.closeDrawers();
+        else if (cab != null && cab.isActive()) cab.finish();
+        else super.onBackPressed();
     }
 
     @Override
@@ -552,5 +575,26 @@ public class MainActivity extends AbsFabActivity
             }
         });
         return super.onMenuOpened(featureId, menu);
+    }
+
+    @Override
+    public MaterialCab openCab(final int menu, final MaterialCab.Callback callback) {
+        if (cab != null && cab.isActive()) cab.finish();
+        cab = new MaterialCab(this, R.id.cab_stub)
+                .setMenu(menu)
+                .setBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimary())
+                .start(callback);
+        return cab;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == navigationDrawerHeader) {
+            NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithFab(new Pair[]{
+                    Pair.create(((ImageView) navigationDrawerHeader.findViewById(R.id.album_art)),
+                            getResources().getString(R.string.transition_album_cover)
+                    )
+            }));
+        }
     }
 }

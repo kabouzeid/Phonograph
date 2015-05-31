@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_settings">"الإعدادات"</string>
-    <string name="action_about">عنى</string>
-    <string name="action_currently_playing">يتم التشغيل حالياً</string>
-    <string name="action_playing_queue">قائمة الانتظار</string>
+    <string name="action_about">"   عن التطبيق
+"</string>
+    <string name="action_currently_playing">الإستماع الآن</string>
+    <string name="action_playing_queue">قائمة الإنتظار</string>
     <string name="action_search">بحث</string>
     <string name="action_play_next">استمع لاحقاً</string>
-    <string name="action_add_to_playing_queue">أضف إلى قائمة الانتظار</string>
+    <string name="action_add_to_playing_queue">أضف إلى قائمة الإنتظار</string>
     <string name="action_remove_from_playing_queue">أزل من قائمة الانتظار</string>
     <string name="action_add_to_playlist">أضف إلى قائمة تشغيل...</string>
-    <string name="action_tag_editor">تعديل معلومات الموسيقى</string>
-    <string name="action_delete_from_disk">حذف</string>
+    <string name="action_tag_editor">تعديل معلومات الملف</string>
+    <string name="action_delete_from_disk">حذف نهائي</string>
     <string name="action_details">التفاصيل</string>
     <string name="albums">الألبومات</string>
     <string name="artists">الفنانون</string>
@@ -27,25 +28,25 @@
     <string name="genre">النوع</string>
     <string name="album_artist">فنان الألبوم</string>
     <string name="year">السنة</string>
-    <string name="track">الموسيقى</string>
+    <string name="track">"المقطع "</string>
     <string name="track_hint">"الموسيقى (٢ للموسيقى ٢ أو ٣٠٠٤ للموسيقى ٤)"</string>
     <string name="album_or_artist_empty">حقل نص اسم الألبوم أو اسم الفنان فارغ</string>
     <string name="writing_file_number">تتم كتابة الملف</string>
     <string name="saving_changes">يتم حفظ التغييرات...</string>
     <string name="label_details">التفاصيل</string>
-    <string name="label_file_name">اسم الملف</string>
+    <string name="label_file_name">إسم الملف</string>
     <string name="label_file_path">مسار الملف</string>
     <string name="label_file_size">الحجم</string>
-    <string name="label_file_format">التنسيق</string>
+    <string name="label_file_format">نوع الملف</string>
     <string name="label_track_length">الطول</string>
     <string name="label_bit_rate">معدل البت</string>
     <string name="label_sampling_rate">معدل أخذ العينات</string>
-    <string name="action_go_to_artist">اذهب إلى الفنان</string>
-    <string name="action_go_to_album">اذهب إلى الألبوم</string>
-    <string name="label_current_playing_queue">قائمة الانتظار</string>
+    <string name="action_go_to_artist">إذهب إلى الفنان</string>
+    <string name="action_go_to_album">إذهب إلى الألبوم</string>
+    <string name="label_current_playing_queue">قائمة الإنتظار</string>
     <string name="save_as_playlist">حفظ كقائمة تشغيل</string>
-    <string name="credits_3">الأيقونة من</string>
-    <string name="credits_1">"مشغل الموسيقى فونقراف هو برنامج مجاني بشكلٍ كامل بتصميم أنيق من "</string>
+    <string name="credits_3">الأيقونة من تصميم</string>
+    <string name="credits_1">"مشغل الموسيقى فونقراف هو برنامج مجاني بشكلٍ كامل بتصميم أنيق من تصميم"</string>
     <string name="title_activity_search">بحث</string>
     <string name="no_results">لا توجد نتائج</string>
     <string name="action_re_download_artist_image">تحديث صورة الفنان</string>
@@ -71,14 +72,14 @@
     <string name="delete_playlist_title">حذف قائمة التشغيل</string>
     <string name="add_playlist_title">"إضافة إلى قائمة التشغيل"</string>
     <string name="new_playlist_title">قائمة تشغيل جديدة</string>
-    <string name="delete_warning">"تحذير: لا يمكن التراجع هذه العملية."</string>
+    <string name="delete_warning">"تحذير: لا يمكن التراجع عن هذه العملية."</string>
     <string name="shuffle_all">عشوائي</string>
     <string name="last_opened">آخر ما تم فتحه</string>
     <string name="light_theme_name">فاتح</string>
     <string name="dark_theme_name">داكن</string>
     <string name="equalizer">المعادل</string>
     <string name="pref_header_ui">واجهة المستخدم</string>
-    <string name="pref_title_general_theme">السمة الأساسية</string>
+    <string name="pref_title_general_theme">الثيم العام</string>
     <string name="pref_header_audio">الصوت</string>
     <string name="pref_header_general">عام</string>
     <string name="pref_summary_colored_navigation_bar">في أي مشهد يتم تلوين شريط التنقل</string>
@@ -86,11 +87,40 @@
     <string name="pref_title_set_default_start_page">ضبط صفحة البدء</string>
     <string name="title_activity_settings">الإعدادات</string>
     <string name="pref_title_transparent_toolbar">"شريط الأدوات شبه شفاف"</string>
-    <string name="pref_title_show_playback_controller_card">تحكم كرت التشغيل</string>
     <string name="pref_title_colored_navigation_bar_artists">مشهد الفنان</string>
     <string name="pref_title_colored_navigation_bar_albums">مشهد الألبوم</string>
     <string name="pref_title_colored_navigation_bar_current_playing">مشهد التشغيل</string>
     <string name="pref_title_colored_navigation_bar_playlists">مشهد قائمة التشغيل</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">تعديل معلومات الموسيقى</string>
     <string name="pref_title_colored_navigation_bar_other_screens">في أي مكان</string>
+    <string name="pref_title_colored_album_footers">الهوامش السفلية للألبومات  ملونة</string>
+    <string name="no_equalizer">لا يوجد معدل صوت</string>
+    <string name="no_audio_ID">"لا يوجد audio id, شغل شيئا وحاول مرة أخرى."</string>
+    <string name="navigation_drawer_open">إفتح قائمة التصفح الجانبية</string>
+    <string name="navigation_drawer_close">"إغلاق قائمة التصفح الجانبية"</string>
+    <string name="delete_action">حذف</string>
+    <string name="rename_action">إعادة التسمية</string>
+    <string name="select">إختيار</string>
+    <string name="default_str">إفتراضي</string>
+    <string name="primary_color">اللون الأساسي</string>
+    <string name="accent_color">اللون الثانوي</string>
+    <string name="primary_color_desc">تحديد الأزرق النيلي كلون ثيم اساسي.</string>
+    <string name="accent_color_desc">تحديد الوردي كلون ثانوي.</string>
+    <string name="update_image">تحديث الصورة</string>
+    <string name="playlist_empty_text">قائمة التشغيل فارغة</string>
+    <string name="no_playlists">لا توجد قوائم تشغيل</string>
+    <string name="playlist_name">إسم قائمة الشغيل</string>
+    <string name="song">الأغنية</string>
+    <string name="pref_only_lollipop">"متوفر في نظام التشغيل Lollipop."</string>
+    <string name="pref_summary_transparent_toolbar">جعل المحتوى الذي يمر تحت شريط الأدوات مرئيا.</string>
+    <string name="pref_summary_colored_album_footers">"تلوين الهوامش السفلية للألبومات بلون غلاف الألبوم."</string>
+    <string name="failed_download_albumart">"تعذر تحميل صور هذا الألبوم."</string>
+    <string name="search_hint">البحث في المكتبة...</string>
+    <string name="rescanning_media">إعادة تفحص الملفات...</string>
+    <string-array name="update_album_cover_options">
+        <item>تحميل من last.fm</item>
+        <item>اختيار من ذاكرة التخزين الداخلية</item>
+        <item>بحث في الإنترنات</item>
+        <item>حذف الغلاف</item>
+    </string-array>
 </resources>

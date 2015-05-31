@@ -22,7 +22,6 @@ import com.kabouzeid.gramophone.prefs.ColorChooserPreference;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
-import com.kabouzeid.gramophone.util.Util;
 
 import java.util.Set;
 
@@ -31,7 +30,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusBarTranslucent(!Util.isAtLeastLollipop());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
 
@@ -42,16 +40,10 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
         if (savedInstanceState == null)
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
-    }
 
-    @Override
-    protected boolean shouldColorStatusBar() {
-        return true;
-    }
-
-    @Override
-    protected boolean shouldColorNavBar() {
-        return PreferenceUtils.getInstance(this).coloredNavigationBarOtherScreensEnabled();
+        if (PreferenceUtils.getInstance(this).coloredNavigationBarOtherScreensEnabled())
+            setNavigationBarThemeColor();
+        setStatusBarThemeColor();
     }
 
     @Override
@@ -121,26 +113,10 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 }
             });
 
-            findPreference("transparent_toolbar").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object o) {
-                    App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.TOOLBAR_TRANSPARENT_CHANGED, o));
-                    return true;
-                }
-            });
-
             findPreference("colored_album_footers").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object o) {
                     App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.ALBUM_OVERVIEW_PALETTE_CHANGED, o));
-                    return true;
-                }
-            });
-
-            findPreference("playback_controller_card").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object o) {
-                    App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.PLAYBACK_CONTROLLER_CARD_CHANGED, o));
                     return true;
                 }
             });
@@ -207,13 +183,16 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         super.onUIPreferenceChangedEvent(event);
         switch (event.getAction()) {
             case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_OTHER_SCREENS_CHANGED:
-                setShouldColorNavBar((boolean) event.getValue());
+                if ((boolean) event.getValue()) setNavigationBarThemeColor();
+                else resetNavigationBarColor();
                 break;
             case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_CHANGED:
                 try {
-                    setShouldColorNavBar(((Set) event.getValue()).contains(PreferenceUtils.COLORED_NAVIGATION_BAR_OTHER_SCREENS));
+                    if (((Set) event.getValue()).contains(PreferenceUtils.COLORED_NAVIGATION_BAR_OTHER_SCREENS))
+                        setNavigationBarThemeColor();
+                    else resetNavigationBarColor();
                 } catch (NullPointerException ignored) {
-                    setShouldColorNavBar(false);
+                    resetNavigationBarColor();
                 }
                 break;
         }

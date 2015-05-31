@@ -51,6 +51,7 @@
     <string name="action_re_download_artist_image">Interpretenbild aktualisieren</string>
     <string name="updating">Aktualisiere...</string>
     <string name="added_title_to_playing_queue">"1 Titel wurde der Wiedergabeliste hinzugefügt."</string>
+    <string name="added_x_titles_to_playing_queue">%1$d Titel wurden der Wiedergabeliste hinzugefügt.</string>
     <string name="action_delete_from_playlist">Aus Playlist entfernen</string>
     <string name="new_playlist_action">Neue Playlist…</string>
     <string name="action_grid_columns">Rastergröße</string>
@@ -83,7 +84,6 @@
     <string name="pref_title_set_default_start_page">Startseite</string>
     <string name="title_activity_settings">Einstellungen</string>
     <string name="pref_title_transparent_toolbar">"Halbtransparente Toolbar"</string>
-    <string name="pref_title_show_playback_controller_card">Mediencontroller Karten Hintergrund</string>
     <string name="pref_title_colored_navigation_bar_artists">Interpreten Ansicht</string>
     <string name="pref_title_colored_navigation_bar_albums">Album Ansicht</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Wiedergabe Ansicht</string>

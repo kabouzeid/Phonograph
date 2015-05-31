@@ -19,7 +19,7 @@
     <style name="Theme.MaterialMusic.Notification.Title" parent="@android:style/TextAppearance.Material.Notification.Title" />
 
     <style name="PlayPauseFab" parent="PlayPauseFabParent">
-        <item name="android:elevation">8dp</item>
+        <item name="borderWidth">0dp</item>
         <item name="android:transitionName">@string/transition_fab</item>
     </style>
 

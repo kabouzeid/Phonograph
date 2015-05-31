@@ -81,7 +81,6 @@
     <string name="pref_title_set_default_start_page">Alege pagina de pornire predefinită</string>
     <string name="title_activity_settings">Setări</string>
     <string name="pref_title_transparent_toolbar">"Bară semi-transparentă"</string>
-    <string name="pref_title_show_playback_controller_card">Cardul de redare</string>
     <string name="pref_title_colored_navigation_bar_artists">Bară de navigare artist colorată</string>
     <string name="pref_title_colored_navigation_bar_albums">Bară de navigare album colorată</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Vederea de redare curentă</string>

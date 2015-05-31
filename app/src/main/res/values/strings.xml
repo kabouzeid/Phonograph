@@ -53,7 +53,8 @@
     <string name="no_results">No results</string>
     <string name="action_re_download_artist_image">Update artist image</string>
     <string name="updating">Updating…</string>
-    <string name="added_title_to_playing_queue">Added 1 title to the playing queue.</string>
+    <string name="added_title_to_playing_queue">"Added 1 title to the playing queue."</string>
+    <string name="added_x_titles_to_playing_queue">Added %1$d titles to the playing queue.</string>
     <string name="title_activity_playlist_detail">Playlist Activity</string>
     <string name="action_delete_from_playlist">Delete from playlist</string>
     <string name="new_playlist_action">New playlist…</string>
@@ -67,16 +68,28 @@
     <string name="delete_playlist_x"><![CDATA[
         Do you want to delete the playlist <b>%1$s</b>?
     ]]></string>
+    <string name="delete_x_playlists"><![CDATA[
+        Do you want to delete <b>%1$d</b> playlists?
+    ]]></string>
     <string name="delete_song_x"><![CDATA[
         Do you want to delete the song <b>%1$s</b>?
     ]]></string>
     <string name="delete_x_songs"><![CDATA[
         Do you want to delete <b>%1$d</b> songs?
     ]]></string>
+    <string name="delete_song_x_from_playlist"><![CDATA[
+        Do you want to delete the song <b>%1$s</b> from the playlist?
+    ]]></string>
+    <string name="delete_x_songs_from_playlist"><![CDATA[
+        Do you want to delete <b>%1$d</b> songs from the playlist?
+    ]]></string>
     <string name="delete_song_title">Delete Song</string>
     <string name="delete_songs_title">Delete Songs</string>
+    <string name="delete_song_from_playlist_title">Delete Song from Playlist</string>
+    <string name="delete_songs_from_playlist_title">Delete Songs from Playlist</string>
     <string name="rename_playlist_title">Rename Playlist</string>
     <string name="delete_playlist_title">Delete Playlist</string>
+    <string name="delete_playlists_title">Delete Playlists</string>
     <string name="add_playlist_title">Add to Playlist</string>
     <string name="new_playlist_title">New Playlist</string>
 
@@ -94,8 +107,6 @@
     <string name="pref_title_navigation_bar">Colored navigation bar</string>
     <string name="pref_title_set_default_start_page">Start page</string>
     <string name="title_activity_settings">Settings</string>
-    <string name="pref_title_transparent_toolbar">Semi-Transparent toolbar</string>
-    <string name="pref_title_show_playback_controller_card">Playback controller card</string>
     <string name="pref_title_colored_navigation_bar_artists">Artist view</string>
     <string name="pref_title_colored_navigation_bar_albums">Album view</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Playing view</string>
@@ -103,6 +114,8 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Tag editor</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Everywhere else</string>
     <string name="pref_title_colored_album_footers">Colored album footers</string>
+    <string name="pref_title_force_square_album_art">Force square album art</string>
+    <string name="pref_title_opaque_toolbar_now_playing">Opaque toolbar now playing</string>
     <string name="no_equalizer">No equalizer found</string>
     <string name="no_audio_ID">No audio ID, play something and try again.</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -122,11 +135,13 @@
     <string name="playlist_name">Playlist name</string>
     <string name="song">Song</string>
     <string name="pref_only_lollipop">Only available on Lollipop.</string>
-    <string name="pref_summary_transparent_toolbar">Content scrolling underneath the toolbar is visible.</string>
     <string name="pref_summary_colored_album_footers">Album footers in the grid are colored with the album cover\'s palette.</string>
+    <string name="pref_summary_force_square_album_art">Album art in the now playing view is forced to be squared.</string>
+    <string name="pref_summary_opaque_toolbar_now_playing">The toolbar in the now playing view is opaque and no longer covers the album art.</string>
     <string name="failed_download_albumart">Unable to download the art for this album.</string>
     <string name="search_hint">Search your library…</string>
     <string name="rescanning_media">Rescanning media…</string>
+    <string name="other">Other</string>
 
     <string-array name="update_album_cover_options">
         <item>Download from Last.fm</item>

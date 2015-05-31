@@ -1,14 +1,17 @@
 buildscript {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
+        mavenCentral()
     }
 
     dependencies {
         classpath 'io.fabric.tools:gradle:1.18.0'
+        classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
     }
 }
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
+apply plugin: 'com.jakewharton.hugo'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
@@ -18,14 +21,14 @@ repositories {
 
 android {
     compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    buildToolsVersion "23.0.0 rc1"
 
     defaultConfig {
         applicationId "com.kabouzeid.gramophone"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 24
-        versionName "0.9.9.4b"
+        versionCode 29
+        versionName "0.9.13b DEV-2"
     }
 
     compileOptions {
@@ -52,12 +55,13 @@ dependencies {
         transitive = true;
     }
 
-    compile 'com.android.support:appcompat-v7:22.1.1@aar'
-    compile 'com.android.support:recyclerview-v7:22.1.1@aar'
-    compile 'com.android.support:gridlayout-v7:22.1.1@aar'
-    compile 'com.android.support:palette-v7:22.1.1@aar'
-    compile 'com.android.support:support-v13:22.1.1@aar'
-    compile 'com.android.support:cardview-v7:22.1.1@aar'
+    compile 'com.android.support:appcompat-v7:22.2.0@aar'
+    compile 'com.android.support:recyclerview-v7:22.2.0@aar'
+    compile 'com.android.support:gridlayout-v7:22.2.0@aar'
+    compile 'com.android.support:palette-v7:22.2.0@aar'
+    compile 'com.android.support:support-v13:22.2.0@aar'
+    compile 'com.android.support:cardview-v7:22.2.0@aar'
+    compile 'com.android.support:design:22.2.0@aar'
 
     compile 'com.github.ksoichiro:android-observablescrollview:1.5.1'
     compile 'asia.ivity.android:drag-sort-listview:1.0'
@@ -69,8 +73,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:1.3.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
 
-    compile 'com.afollestad:material-dialogs:0.7.5.0'
-    compile 'com.jpardogo.materialtabstrip:library:1.0.9'
+    compile 'com.afollestad:material-dialogs:0.7.4.2'
+    compile 'com.afollestad:material-cab:0.1.2'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
-    compile 'com.melnykov:floatingactionbutton:1.3.0'
 }

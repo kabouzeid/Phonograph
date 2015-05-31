@@ -42,6 +42,7 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener, AudioManager.OnAudioFocusChangeListener {
     public static final String ACTION_TOGGLE_PLAYBACK = "com.kabouzeid.gramophone.action.TOGGLE_PLAYBACK";
@@ -552,6 +553,18 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         saveState();
     }
 
+    public void addSongs(int position, List<Song> songs) {
+        playingQueue.addAll(position, songs);
+        originalPlayingQueue.addAll(position, songs);
+        saveState();
+    }
+
+    public void addSongs(List<Song> songs) {
+        playingQueue.addAll(songs);
+        originalPlayingQueue.addAll(songs);
+        saveState();
+    }
+
     public void removeSong(int position) {
         if (getShuffleMode() == SHUFFLE_MODE_NONE) {
             playingQueue.remove(position);
@@ -796,7 +809,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         //to let other apps know whats playing. i.E. last.fm (scrobbling) or musixmatch
         final Intent intent = new Intent(what);
         final int position = getPosition();
-        if(position >= 0) {
+        if (position >= 0 && !playingQueue.isEmpty()) {
             final Song currentSong = playingQueue.get(position);
             intent.putExtra("id", currentSong.id);
             intent.putExtra("artist", currentSong.artistName);

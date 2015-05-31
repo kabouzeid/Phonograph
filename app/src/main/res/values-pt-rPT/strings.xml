@@ -66,7 +66,6 @@
     <string name="pref_title_set_default_start_page">Selecionar página inicial</string>
     <string name="title_activity_settings">Configurações</string>
     <string name="pref_title_transparent_toolbar">"Barra de ferramentas Semi-Transparente"</string>
-    <string name="pref_title_show_playback_controller_card">Cartão de controle de reprodução</string>
     <string name="pref_title_colored_navigation_bar_artists">Barra de navegação colorida na visualização do artista</string>
     <string name="pref_title_colored_navigation_bar_albums">Barra de navegação colorida na visualização do álbum</string>
     <string name="pref_title_colored_album_footers">Rodapés coloridos do álbum</string>

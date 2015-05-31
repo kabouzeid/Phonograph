@@ -8,7 +8,7 @@
     android:paddingLeft="16dp"
     android:paddingStart="16dp">
 
-    <com.kabouzeid.gramophone.views.SquareImageView
+    <com.kabouzeid.gramophone.views.WidthFitSquareImageView
         android:id="@+id/image"
         android:layout_width="40dp"
         android:layout_height="40dp"

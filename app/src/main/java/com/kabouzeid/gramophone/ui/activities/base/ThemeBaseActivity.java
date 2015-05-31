@@ -1,44 +1,26 @@
 package com.kabouzeid.gramophone.ui.activities.base;
 
-import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 /**
- * @author Aidan Follestad (afollestad)
- */
-
-/**
- * READ!
- * <p/>
- * Instructions:
- * <p/>
- * KitKat or Lollipop solid statusBar with the right color (primaryDark):
- * - shouldColorStatusBar return true OR return false and call setStatusBarColor() in the activity with a custom color
- * - setStatusBarTranslucent(!Util.isAtLeastLollipop())
- * <p/>
- * KitKat or Lollipop translucent statusBar (not the color is too dark on Lollipop and KitKat only does fading but MUCH better performance the setStatusBarColor in onScrollCallback)
- * - shouldColorStatusBar return false DO NOT return true and do not call setStatusBarColor() in this case at all here
- * - setStatusBarTranslucent(true)
- * - use a view below the statusBar to color it
+ * @author Aidan Follestad (afollestad), Karim Abou Zeid (kabouzeid)
  */
 
 public abstract class ThemeBaseActivity extends AppCompatActivity implements KabViewsDisableAble {
-
-//    private boolean mLastDarkTheme;
-//    private int mLastPrimary;
-//    private int mLastAccent;
+    private int colorPrimary;
+    private int colorPrimaryDarker;
+    private int colorAccent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,32 +29,21 @@ public abstract class ThemeBaseActivity extends AppCompatActivity implements Kab
         setupTheme();
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     private void setupTheme() {
-        // Apply colors to system UI if necessary
-        setShouldColorNavBar(shouldColorNavBar());
-        setShouldColorStatusBar(shouldColorStatusBar());
+        colorPrimary = PreferenceUtils.getInstance(this).getThemeColorPrimary();
+        colorPrimaryDarker = Util.shiftColorDown(colorPrimary);
+        colorAccent = PreferenceUtils.getInstance(this).getThemeColorAccent();
 
-        // Persist current values so the Activity knows if they change
-//        mLastDarkTheme = PreferenceUtils.getInstance(this).getGeneralTheme() == 1;
-//        mLastPrimary = PreferenceUtils.getInstance(this).getThemeColorPrimary();
-//        mLastAccent = PreferenceUtils.getInstance(this).getThemeColorAccent();
-
-        // Accent colors in dialogs, and any dynamic views that pull from this singleton
-        ThemeSingleton.get().positiveColor = PreferenceUtils.getInstance(this).getThemeColorAccent();
+        ThemeSingleton.get().positiveColor = colorAccent;
         ThemeSingleton.get().negativeColor = ThemeSingleton.get().positiveColor;
         ThemeSingleton.get().neutralColor = ThemeSingleton.get().positiveColor;
         ThemeSingleton.get().widgetColor = ThemeSingleton.get().positiveColor;
-        // Dark theme
         ThemeSingleton.get().darkTheme = PreferenceUtils.getInstance(this).getGeneralTheme() == R.style.Theme_MaterialMusic;
 
         if (!overridesTaskColor()) {
             notifyTaskColorChange(PreferenceUtils.getInstance(this).getThemeColorPrimary());
         }
-    }
-
-    protected boolean overridesTaskColor() {
-        return false;
     }
 
     protected void notifyTaskColorChange(int color) {
@@ -86,62 +57,58 @@ public abstract class ThemeBaseActivity extends AppCompatActivity implements Kab
         }
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        if (mLastDarkTheme != (PreferenceUtils.getInstance(this).getGeneralTheme() == 1) ||
-//                mLastPrimary != PreferenceUtils.getInstance(this).getThemeColorPrimary() ||
-//                mLastAccent != PreferenceUtils.getInstance(this).getThemeColorAccent()) {
-//            // Theme colors changed, recreate the Activity
-//            recreate();
-//        }
-//    }
+    public int getThemeColorPrimary() {
+        return colorPrimary;
+    }
 
-    protected void setStatusBarTranslucent(boolean statusBarTranslucent) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Util.setStatusBarTranslucent(getWindow(), statusBarTranslucent);
+    public int getThemeColorPrimaryDarker() {
+        return colorPrimaryDarker;
+    }
+
+    public int getThemeColorAccent() {
+        return colorAccent;
+    }
+
+    protected void setStatusBarTransparent() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            Util.setAllowDrawUnderStatusBar(getWindow());
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+            Util.setStatusBarTranslucent(getWindow(), true);
+    }
+
+    protected final void setNavigationBarColor(int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            getWindow().setNavigationBarColor(Util.shiftColorDown(color));
+    }
+
+    protected final void setStatusBarColor(int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            getWindow().setStatusBarColor(Util.shiftColorDown(color));
+        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            final View statusBar = getWindow().getDecorView().getRootView().findViewById(R.id.status_bar);
+            if (statusBar != null) statusBar.setBackgroundColor(color);
         }
     }
 
-    protected abstract boolean shouldColorStatusBar();
-
-    protected abstract boolean shouldColorNavBar();
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    protected final void setStatusBarColor(int color, boolean forceSystemBarTint) {
-        if (!forceSystemBarTint && Util.isAtLeastLollipop()) {
-            getWindow().setStatusBarColor(color);
-        } else {
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintColor(color);
-        }
+    protected final void setNavigationBarThemeColor() {
+        setNavigationBarColor(colorPrimary);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    protected final void setShouldColorNavBar(boolean shouldColorNavBar) {
-        if (Util.isAtLeastLollipop()) {
-            if (shouldColorNavBar) {
-                final int primaryDark = PreferenceUtils.getInstance(this).getThemeColorPrimaryDarker();
-                getWindow().setNavigationBarColor(primaryDark);
-            } else {
-                getWindow().setNavigationBarColor(Color.BLACK);
-            }
-        }
+    protected final void setStatusBarThemeColor() {
+        setStatusBarColor(colorPrimary);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    protected final void setShouldColorStatusBar(boolean shouldColorStatusBar) {
-        if (shouldColorStatusBar) {
-            final int primaryDark = PreferenceUtils.getInstance(this).getThemeColorPrimaryDarker();
-            setStatusBarColor(primaryDark, false);
-        } else {
-            if (Util.isAtLeastLollipop()) {
-                getWindow().setStatusBarColor(Util.resolveColor(this, android.R.attr.statusBarColor));
-            } else {
-                SystemBarTintManager tintManager = new SystemBarTintManager(this);
-                tintManager.setStatusBarTintEnabled(false);
-            }
-        }
+    protected final void resetNavigationBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            setNavigationBarColor(Util.resolveColor(this, android.R.attr.navigationBarColor));
+    }
+
+    protected final void resetStatusBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            setStatusBarColor(Util.resolveColor(this, android.R.attr.statusBarColor));
+    }
+
+    protected boolean overridesTaskColor() {
+        return false;
     }
 }

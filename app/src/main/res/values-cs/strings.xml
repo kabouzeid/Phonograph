@@ -83,7 +83,6 @@
     <string name="pref_title_set_default_start_page">Zvolit výchozí obrazovku</string>
     <string name="title_activity_settings">Nastavení</string>
     <string name="pref_title_transparent_toolbar">"Průhledné záhlaví"</string>
-    <string name="pref_title_show_playback_controller_card">Karta řadiče přehrávání</string>
     <string name="pref_title_colored_navigation_bar_artists">Barevné záhlaví interpretů</string>
     <string name="pref_title_colored_navigation_bar_albums">Barevné záhlaví alb</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Zobrazení \"Právě hraje\"</string>

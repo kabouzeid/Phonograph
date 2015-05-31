@@ -1,6 +1,5 @@
 package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -26,6 +25,6 @@ public class SongViewFragment extends AbsMainActivityRecyclerViewFragment {
 
     @Override
     protected RecyclerView.Adapter createAdapter() {
-        return new SongAdapter((AppCompatActivity) getActivity());
+        return new SongAdapter(getMainActivity(), getMainActivity());
     }
 }

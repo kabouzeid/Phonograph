@@ -26,9 +26,8 @@ public class PlaylistSongLoader {
                 final int albumId = cursor.getInt(6);
                 final int artistId = cursor.getInt(7);
                 final int idInPlaylist = cursor.getInt(8);
-                final long dateModified = cursor.getInt(9);
 
-                final PlaylistSong song = new PlaylistSong(id, albumId, artistId, songName, artist, album, duration, trackNumber, playlistID, idInPlaylist, dateModified);
+                final PlaylistSong song = new PlaylistSong(id, albumId, artistId, songName, artist, album, duration, trackNumber, playlistID, idInPlaylist);
 
                 songs.add(song);
             } while (cursor.moveToNext());
@@ -60,9 +59,7 @@ public class PlaylistSongLoader {
                         /* 7 */
                         AudioColumns.ARTIST_ID,
                         /* 8 */
-                        MediaStore.Audio.Playlists.Members._ID,
-                        /* 9 */
-                        MediaStore.Audio.AudioColumns.DATE_MODIFIED
+                        MediaStore.Audio.Playlists.Members._ID
                 }, (AudioColumns.IS_MUSIC + "=1") + " AND " + AudioColumns.TITLE + " != ''", null,
                 MediaStore.Audio.Playlists.Members.DEFAULT_SORT_ORDER);
     }

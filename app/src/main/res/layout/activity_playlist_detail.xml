@@ -1,18 +1,27 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingTop="@dimen/main_toolbar_padding_top">
+        android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            style="@style/Toolbar"
-            android:background="?colorPrimary" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/Toolbar"
+                android:background="@android:color/transparent" />
+
+            <ViewStub
+                android:id="@+id/cab_stub"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+        </FrameLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -21,7 +30,7 @@
             android:clipToPadding="false"
             android:divider="@null"
             android:dividerHeight="0px"
-            android:paddingBottom="@dimen/playlist_list_bottom_offset"
+            android:paddingBottom="@dimen/bottom_offset_fab_activity"
             android:scrollbars="vertical" />
 
     </LinearLayout>
@@ -36,18 +45,10 @@
         android:textColor="?android:textColorSecondary"
         android:textSize="@dimen/empty_text_size" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom|end"
-        android:fitsSystemWindows="true"
-        tools:ignore="RtlHardcoded">
-
-        <com.melnykov.fab.FloatingActionButton
-            android:id="@+id/fab"
-            style="@style/PlayPauseFab"
-            android:layout_margin="16dp" />
-
-    </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        style="@style/PlayPauseFab"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp" />
 
 </FrameLayout>

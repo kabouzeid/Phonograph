@@ -13,11 +13,14 @@ import android.widget.CheckBox;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.afollestad.materialdialogs.internal.MDTintHelper;
 
 import java.lang.reflect.Field;
+
+import hugo.weaving.DebugLog;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -75,6 +78,22 @@ public class ViewUtil {
 
     public static void animateViewColor(final View v, final int startColor, final int endColor, final int duration) {
         ObjectAnimator animator = ObjectAnimator.ofObject(v, "backgroundColor",
+                new ArgbEvaluator(), startColor, endColor);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            animator.setInterpolator(new PathInterpolator(0.4f, 0f, 1f, 1f));
+        }
+        animator.setDuration(duration);
+        animator.start();
+    }
+
+    @DebugLog
+    public static void animateTextColor(final TextView v, final int startColor, final int endColor) {
+        animateTextColor(v, startColor, endColor, DEFAULT_COLOR_ANIMATION_DURATION);
+    }
+
+    public static void animateTextColor(final TextView v, final int startColor, final int endColor, final int duration) {
+        ObjectAnimator animator = ObjectAnimator.ofObject(v, "textColor",
                 new ArgbEvaluator(), startColor, endColor);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

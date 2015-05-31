@@ -10,11 +10,11 @@
     <string name="action_remove_from_playing_queue">Rimuovi dalla coda</string>
     <string name="action_add_to_playlist">Aggiungi alla playlist</string>
     <string name="action_tag_editor">Modifica tag</string>
-    <string name="action_delete_from_disk">Elimina</string>
+    <string name="action_delete_from_disk">Elimina dal dispositivo</string>
     <string name="action_details">Dettagli</string>
-    <string name="albums">album</string>
+    <string name="albums">Album</string>
     <string name="artists">Artisti</string>
-    <string name="songs">brani</string>
+    <string name="songs">Brani</string>
     <string name="playlists">Playlist</string>
     <string name="nothing_playing">Niente in riproduzione</string>
     <string name="unplayable_file">Spiacenti - si è verificato un errore nel tentativo di riprodurre questa canzone</string>
@@ -44,7 +44,7 @@
     <string name="label_sampling_rate">Frequenza di campionamento</string>
     <string name="action_go_to_artist">Vai all\'artista</string>
     <string name="action_go_to_album">Vai all\'album</string>
-    <string name="label_current_playing_queue">Riproduci coda</string>
+    <string name="label_current_playing_queue">Coda di riproduzione</string>
     <string name="save_as_playlist">Salva come playlist</string>
     <string name="credits_3">Icona disegnata da</string>
     <string name="credits_1">"Phonograph è un lettore musicale in material design completamente gratuito scritto da"</string>
@@ -86,7 +86,6 @@
     <string name="pref_title_set_default_start_page">Pagina iniziale</string>
     <string name="title_activity_settings">Impostazioni</string>
     <string name="pref_title_transparent_toolbar">"Barra degli strumenti semitrasparente"</string>
-    <string name="pref_title_show_playback_controller_card">Controlli di riproduzione in stile card</string>
     <string name="pref_title_colored_navigation_bar_artists">Schermata Artista</string>
     <string name="pref_title_colored_navigation_bar_albums">Schermata Album</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Schermata In riproduzione</string>

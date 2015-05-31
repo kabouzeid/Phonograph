@@ -34,7 +34,6 @@ public class SearchActivity extends AbsBaseActivity {
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusBarTranslucent(false);
         setTitle(null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
@@ -60,16 +59,9 @@ public class SearchActivity extends AbsBaseActivity {
         setSupportActionBar(toolbar);
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
 
-    @Override
-    protected boolean shouldColorStatusBar() {
-        return true;
-    }
-
-    @Override
-    protected boolean shouldColorNavBar() {
-        return true;
+        setNavigationBarThemeColor();
+        setStatusBarThemeColor();
     }
 
     @Override

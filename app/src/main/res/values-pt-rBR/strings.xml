@@ -51,6 +51,7 @@
     <string name="action_re_download_artist_image">Atualizar imagem do artista</string>
     <string name="updating">Atualizando...</string>
     <string name="added_title_to_playing_queue">"1 título adicionado à lista de reprodução"</string>
+    <string name="added_x_titles_to_playing_queue">%1$d faixas adicionadas à lista de reprodução.</string>
     <string name="action_delete_from_playlist">Excluir da playlist</string>
     <string name="new_playlist_action">Nova playlist...</string>
     <string name="action_grid_columns">Colunas da grade</string>
@@ -60,12 +61,24 @@
     <string name="deleted_playlist_x">A playlist %1$s foi excluída</string>
     <string name="couldnot_create_playlist_x">Não foi possível criar a playlist %1$s</string>
     <string name="delete_playlist_x"><![CDATA[ Deseja excluir a playlist <b>%1$s</b>? ]]></string>
+    <string name="delete_x_playlists"><![CDATA[
+ Deseja excluir <b>%1$d</b> playlists? 
+    ]]></string>
     <string name="delete_song_x"><![CDATA[ Deseja excluir a faixa <b>%1$s</b>? ]]></string>
     <string name="delete_x_songs"><![CDATA[ Deseja excluir <b>%1$d</b> faixas? ]]></string>
+    <string name="delete_song_x_from_playlist"><![CDATA[
+ Deseja excluir a música <b>%1$s</b> da playlist? 
+    ]]></string>
+    <string name="delete_x_songs_from_playlist"><![CDATA[
+ Deseja excluir <b>%1$d</b> músicas da playlist? 
+    ]]></string>
     <string name="delete_song_title">Excluir Faixa</string>
     <string name="delete_songs_title">Excluir Faixas</string>
+    <string name="delete_song_from_playlist_title">Deletar música da Playlist</string>
+    <string name="delete_songs_from_playlist_title">Deletar músicas da Playlist</string>
     <string name="rename_playlist_title">Renomear Playlist</string>
     <string name="delete_playlist_title">Excluir Playlist</string>
+    <string name="delete_playlists_title">Apagar Playlists</string>
     <string name="add_playlist_title">"Adicionar à Playlist"</string>
     <string name="new_playlist_title">Nova Playlist</string>
     <string name="delete_warning">"Aviso: Esta operação não pode ser desfeita."</string>
@@ -83,7 +96,6 @@
     <string name="pref_title_set_default_start_page">Página inicial</string>
     <string name="title_activity_settings">Configurações</string>
     <string name="pref_title_transparent_toolbar">"Barra de ferramentas semi-transparente"</string>
-    <string name="pref_title_show_playback_controller_card">Controles estilo cartão</string>
     <string name="pref_title_colored_navigation_bar_artists">Visualização por artistas</string>
     <string name="pref_title_colored_navigation_bar_albums">Visualização por álbuns</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Vista em execução</string>

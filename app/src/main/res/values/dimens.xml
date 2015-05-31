@@ -4,7 +4,7 @@
 
     <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
          https://developer.android.com/design/patterns/navigation-drawer.html -->
-    <dimen name="navigation_drawer_image_height">140dp</dimen>
+    <dimen name="navigation_drawer_header_height">140dp</dimen>
     <dimen name="nav_drawer_width_limit">320dp</dimen>
     <dimen name="nav_drawer_margin">56dp</dimen>
 
@@ -12,9 +12,10 @@
     <dimen name="toolbar_elevation">2dp</dimen>
 
     <dimen name="header_image_height">360dp</dimen>
+    <dimen name="progress_container_height">20dp</dimen>
+    <dimen name="media_controller_container_height">120dp</dimen>
 
-    <dimen name="statusMargin">0dp</dimen>
-    <dimen name="main_toolbar_padding_top">0dp</dimen>
+    <dimen name="status_bar_padding">0dp</dimen>
 
     <!-- Notification template -->
     <dimen name="notification_big_icon_height">64.0dip</dimen>
@@ -48,5 +49,5 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="list_padding_vertical">2dp</dimen>
 
     <dimen name="notification_albumart_size">128dp</dimen>
-    <dimen name="playlist_list_bottom_offset">86dp</dimen>
+    <dimen name="bottom_offset_fab_activity">86dp</dimen>
 </resources>

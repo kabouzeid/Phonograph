@@ -1,7 +1,5 @@
 package com.kabouzeid.gramophone.ui.activities.base;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 
 import com.crashlytics.android.Crashlytics;
@@ -65,7 +63,7 @@ public abstract class AbsBaseActivity extends ThemeBaseActivity implements KabVi
         return areViewsEnabled;
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     protected void onUIPreferenceChangedEvent(UIPreferenceChangedEvent event) {
         switch (event.getAction()) {
             case UIPreferenceChangedEvent.THEME_CHANGED:

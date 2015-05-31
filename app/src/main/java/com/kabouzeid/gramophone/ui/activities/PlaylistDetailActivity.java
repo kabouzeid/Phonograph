@@ -1,7 +1,5 @@
 package com.kabouzeid.gramophone.ui.activities;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,39 +8,45 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.afollestad.materialcab.MaterialCab;
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.songadapter.PlaylistSongAdapter;
+import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.misc.DragSortRecycler;
+import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
-import com.kabouzeid.gramophone.util.Util;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
-public class PlaylistDetailActivity extends AbsFabActivity {
+public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder {
 
     public static final String TAG = PlaylistDetailActivity.class.getSimpleName();
     private Playlist playlist;
+    private MaterialCab cab;
+    private PlaylistSongAdapter adapter;
+    private ArrayList<PlaylistSong> songs;
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusBarTranslucent(!Util.isAtLeastLollipop());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_detail);
 
         getIntentExtras();
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        final ArrayList<PlaylistSong> songs = PlaylistSongLoader.getPlaylistSongList(this, playlist.id);
-        final PlaylistSongAdapter adapter = new PlaylistSongAdapter(this, songs);
+        songs = PlaylistSongLoader.getPlaylistSongList(this, playlist.id);
+        adapter = new PlaylistSongAdapter(this, songs, this);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(adapter);
 
@@ -72,16 +76,12 @@ public class PlaylistDetailActivity extends AbsFabActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(playlist.name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
 
-    @Override
-    protected boolean shouldColorStatusBar() {
-        return true;
-    }
+        if (PreferenceUtils.getInstance(this).coloredNavigationBarPlaylistEnabled())
+            setNavigationBarThemeColor();
+        setStatusBarThemeColor();
 
-    @Override
-    protected boolean shouldColorNavBar() {
-        return PreferenceUtils.getInstance(this).coloredNavigationBarPlaylistEnabled();
+        App.bus.register(this);
     }
 
     private void getIntentExtras() {
@@ -122,5 +122,41 @@ public class PlaylistDetailActivity extends AbsFabActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public MaterialCab openCab(final int menu, final MaterialCab.Callback callback) {
+        if (cab != null && cab.isActive()) cab.finish();
+        cab = new MaterialCab(this, R.id.cab_stub)
+                .setMenu(menu)
+                .setBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimary())
+                .start(callback);
+        return cab;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.bus.unregister(this);
+    }
+
+    @Subscribe
+    public void onDataBaseEvent(DataBaseChangedEvent event) {
+        switch (event.getAction()) {
+            case DataBaseChangedEvent.PLAYLISTS_CHANGED:
+            case DataBaseChangedEvent.DATABASE_CHANGED:
+                songs = PlaylistSongLoader.getPlaylistSongList(this, playlist.id);
+                adapter.updateDataSet(songs);
+                findViewById(android.R.id.empty).setVisibility(
+                        songs.size() == 0 ? View.VISIBLE : View.GONE
+                );
+                break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (cab != null && cab.isActive()) cab.finish();
+        else super.onBackPressed();
     }
 }

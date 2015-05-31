@@ -1,17 +1,21 @@
 package com.kabouzeid.gramophone.ui.activities;
 
-import android.annotation.TargetApi;
+import android.animation.Animator;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -21,17 +25,16 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.afollestad.materialdialogs.util.DialogUtils;
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistImageUrlLoader;
+import com.kabouzeid.gramophone.helper.bitmapblur.StackBlurManager;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
+import com.kabouzeid.gramophone.misc.SmallTransitionListener;
 import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
@@ -40,24 +43,22 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.nineoldandroids.view.ViewPropertyAnimator;
+import com.kabouzeid.gramophone.views.SquareIfPlaceImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.squareup.otto.Subscribe;
 
 import java.io.File;
 
 public class MusicControllerActivity extends AbsFabActivity {
 
     public static final String TAG = MusicControllerActivity.class.getSimpleName();
-    private static final int DEFAULT_DELAY = 350;
-    private static final int DEFAULT_ANIMATION_TIME = 1000;
+    private static final int COLOR_TRANSITION_TIME = 400;
 
     private Song song;
-    private ImageView albumArt;
-    private ImageView artistImage;
+    private SquareIfPlaceImageView albumArt;
+    private ImageView albumArtBackground;
     private TextView songTitle;
     private TextView songArtist;
     private TextView currentSongProgress;
@@ -69,30 +70,58 @@ public class MusicControllerActivity extends AbsFabActivity {
     private ImageButton repeatButton;
     private ImageButton shuffleButton;
     private View mediaControllerContainer;
+    private Toolbar toolbar;
     private int lastFooterColor = -1;
+    private int lastTextColor = -2;
     private boolean killThreads = false;
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private boolean opaqueToolBar = PreferenceUtils.getInstance(this).opaqueToolbarNowPlaying();
+    private boolean forceSquareAlbumArt = PreferenceUtils.getInstance(this).forceAlbumArtSquared();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusBarTranslucent(true);
+        setStatusBarTransparent();
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_music_controller);
 
-        App.bus.register(this);
-
         initViews();
+        albumArtBackground.setAlpha(0.7f);
 
         moveSeekBarIntoPlace();
 
         setUpMusicControllers();
 
-        prepareViewsForOpenAnimation();
+        albumArt.forceSquare(forceSquareAlbumArt);
+        setToolbarOpaque(opaqueToolBar);
 
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().getEnterTransition().addListener(new SmallTransitionListener() {
+                @Override
+                public void onTransitionStart(Transition transition) {
+                    mediaControllerContainer.setVisibility(View.INVISIBLE);
+                }
+
+                @Override
+                public void onTransitionEnd(Transition transition) {
+                    int cx = (getFab().getLeft() + getFab().getRight()) / 2;
+                    int cy = (getFab().getTop() + getFab().getBottom()) / 2;
+                    int finalRadius = Math.max(mediaControllerContainer.getWidth(), mediaControllerContainer.getHeight());
+
+                    Animator animator = ViewAnimationUtils.createCircularReveal(mediaControllerContainer, cx, cy, getFab().getWidth() / 2, finalRadius);
+                    animator.setInterpolator(new DecelerateInterpolator());
+                    animator.setDuration(1000);
+                    animator.start();
+
+                    mediaControllerContainer.setVisibility(View.VISIBLE);
+                }
+            });
+        }
     }
 
     @Override
@@ -101,22 +130,13 @@ public class MusicControllerActivity extends AbsFabActivity {
         getFab().setOnLongClickListener(null);
     }
 
-    @Override
-    protected boolean shouldColorStatusBar() {
-        return false; // let other code handle this below
-    }
-
-    @Override
-    protected boolean shouldColorNavBar() {
-        return false; // let other code handle this below
-    }
 
     private void moveSeekBarIntoPlace() {
-        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) progressSlider.getLayoutParams();
-        progressSlider.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        final int seekBarMarginLeftRight = getResources().getDimensionPixelSize(R.dimen.seek_bar_margin_left_right);
-        lp.setMargins(seekBarMarginLeftRight, 0, seekBarMarginLeftRight, -(progressSlider.getMeasuredHeight() / 2));
-        progressSlider.setLayoutParams(lp);
+//        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) progressSlider.getLayoutParams();
+//        progressSlider.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+//        final int seekBarMarginLeftRight = getResources().getDimensionPixelSize(R.dimen.seek_bar_margin_left_right);
+//        lp.setMargins(seekBarMarginLeftRight, 0, seekBarMarginLeftRight, -(progressSlider.getMeasuredHeight() / 2));
+//        progressSlider.setLayoutParams(lp);
     }
 
     private void initViews() {
@@ -124,8 +144,8 @@ public class MusicControllerActivity extends AbsFabActivity {
         prevButton = (ImageButton) findViewById(R.id.prev_button);
         repeatButton = (ImageButton) findViewById(R.id.repeat_button);
         shuffleButton = (ImageButton) findViewById(R.id.shuffle_button);
-        albumArt = (ImageView) findViewById(R.id.album_art);
-        artistImage = (ImageView) findViewById(R.id.artist_image);
+        albumArt = (SquareIfPlaceImageView) findViewById(R.id.album_art);
+        albumArtBackground = (ImageView) findViewById(R.id.album_art_background);
         songTitle = (TextView) findViewById(R.id.song_title);
         songArtist = (TextView) findViewById(R.id.song_artist);
         currentSongProgress = (TextView) findViewById(R.id.song_current_progress);
@@ -133,6 +153,7 @@ public class MusicControllerActivity extends AbsFabActivity {
         footer = findViewById(R.id.footer);
         progressSlider = (SeekBar) findViewById(R.id.progress_slider);
         mediaControllerContainer = findViewById(R.id.media_controller_container);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
     }
 
     private void setUpMusicControllers() {
@@ -140,43 +161,13 @@ public class MusicControllerActivity extends AbsFabActivity {
         setUpRepeatButton();
         setUpShuffleButton();
         setUpProgressSlider();
-        setUpBox(PreferenceUtils.getInstance(this).playbackControllerBoxEnabled());
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void setUpBox(boolean boxEnabled) {
-        if (boxEnabled) {
-            if (Util.isAtLeastLollipop()) {
-                mediaControllerContainer.setElevation(getResources().getDimensionPixelSize(R.dimen.cardview_default_elevation));
-            }
-            mediaControllerContainer.setBackgroundColor(
-                    DialogUtils.resolveColor(this, R.attr.music_controller_container_color));
-        } else {
-            if (Util.isAtLeastLollipop() && !Util.isInPortraitMode(this)) {
-                mediaControllerContainer.setElevation(getResources().getDimensionPixelSize(R.dimen.cardview_default_elevation));
-                mediaControllerContainer.setBackgroundColor(
-                        DialogUtils.resolveColor(this, R.attr.music_controller_container_color));
-            } else {
-                mediaControllerContainer.setBackground(null);
-            }
-        }
     }
 
     private static void setTint(SeekBar seekBar, int color) {
-        ColorStateList s1 = ColorStateList.valueOf(color);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            seekBar.setThumbTintList(s1);
-            seekBar.setProgressTintList(s1);
-        } else {
-            seekBar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-                seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-
-        }
+        seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
 
     private void setUpProgressSlider() {
-        setTint(progressSlider, ThemeSingleton.get().positiveColor);
         progressSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -228,7 +219,7 @@ public class MusicControllerActivity extends AbsFabActivity {
         switch (MusicPlayerRemote.getShuffleMode()) {
             case MusicService.SHUFFLE_MODE_SHUFFLE:
                 shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_48dp,
-                        ThemeSingleton.get().positiveColor));
+                        getThemeColorAccent() == Color.WHITE ? Color.BLACK : getThemeColorAccent()));
                 break;
             default:
                 shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_48dp,
@@ -255,19 +246,15 @@ public class MusicControllerActivity extends AbsFabActivity {
                 break;
             case MusicService.REPEAT_MODE_ALL:
                 repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_white_48dp,
-                        ThemeSingleton.get().positiveColor));
+                        getThemeColorAccent() == Color.WHITE ? Color.BLACK : getThemeColorAccent()));
                 break;
             default:
                 repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_one_white_48dp,
-                        ThemeSingleton.get().positiveColor));
+                        getThemeColorAccent() == Color.WHITE ? Color.BLACK : getThemeColorAccent()));
                 break;
         }
     }
 
-    private void prepareViewsForOpenAnimation() {
-        footer.setPivotY(0);
-        footer.setScaleY(0);
-    }
 
     @Override
     public String getTag() {
@@ -277,6 +264,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        updateControllerState();
         startMusicControllerStateUpdateThread();
         updateCurrentSong();
     }
@@ -284,7 +272,6 @@ public class MusicControllerActivity extends AbsFabActivity {
     private void updateCurrentSong() {
         getCurrentSong();
         setHeadersText();
-        setUpArtistArt();
         setUpAlbumArtAndApplyPalette();
         totalSongDuration.setText(MusicUtil.getReadableDurationString(song.duration));
         currentSongProgress.setText(MusicUtil.getReadableDurationString(-1));
@@ -307,17 +294,18 @@ public class MusicControllerActivity extends AbsFabActivity {
                 new DisplayImageOptions.Builder()
                         .cacheInMemory(true)
                         .showImageOnFail(R.drawable.default_album_art)
-                        .resetViewBeforeLoading(true)
                         .build(),
                 new SimpleImageLoadingListener() {
                     @Override
                     public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                         applyPalette(null);
+                        albumArtBackground.setImageBitmap(new StackBlurManager(BitmapFactory.decodeResource(getResources(), R.drawable.default_album_art)).process(10));
                     }
 
                     @Override
                     public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                         applyPalette(loadedImage);
+                        albumArtBackground.setImageBitmap(new StackBlurManager(loadedImage).process(10));
                     }
                 }
         );
@@ -333,8 +321,7 @@ public class MusicControllerActivity extends AbsFabActivity {
                             if (vibrantSwatch != null) {
                                 final int swatchRgb = vibrantSwatch.getRgb();
                                 animateColorChange(swatchRgb);
-                                songTitle.setTextColor(vibrantSwatch.getTitleTextColor());
-                                songArtist.setTextColor(vibrantSwatch.getBodyTextColor());
+                                animateTextColorChange(Util.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
                                 notifyTaskColorChange(swatchRgb);
                             } else {
                                 resetColors();
@@ -347,48 +334,51 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     private void resetColors() {
-        final int songTitleTextColor = DialogUtils.resolveColor(this, R.attr.title_text_color);
-        final int artistNameTextColor = DialogUtils.resolveColor(this, R.attr.caption_text_color);
+        final int textColor = Util.getOpaqueColor(DialogUtils.resolveColor(this, R.attr.title_text_color));
         final int defaultBarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
 
         animateColorChange(defaultBarColor);
+        animateTextColorChange(textColor);
 
-        songTitle.setTextColor(songTitleTextColor);
-        songArtist.setTextColor(artistNameTextColor);
+        currentSongProgress.setTextColor(DialogUtils.resolveColor(MusicControllerActivity.this, R.attr.themed_drawable_color));
+        totalSongDuration.setTextColor(DialogUtils.resolveColor(MusicControllerActivity.this, R.attr.themed_drawable_color));
 
         notifyTaskColorChange(defaultBarColor);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     private void animateColorChange(final int newColor) {
         if (lastFooterColor != -1 && lastFooterColor != newColor) {
-            ViewUtil.animateViewColor(footer, lastFooterColor, newColor, 300);
+            ViewUtil.animateViewColor(footer, lastFooterColor, newColor, COLOR_TRANSITION_TIME);
+
+            if (opaqueToolBar)
+                ViewUtil.animateViewColor(toolbar, lastFooterColor, newColor, COLOR_TRANSITION_TIME);
+            else toolbar.setBackgroundColor(Color.TRANSPARENT);
         } else {
             footer.setBackgroundColor(newColor);
+
+            if (opaqueToolBar) toolbar.setBackgroundColor(newColor);
+            else toolbar.setBackgroundColor(Color.TRANSPARENT);
         }
+
+        setTint(progressSlider, !ThemeSingleton.get().darkTheme && getThemeColorAccent() == Color.WHITE ? Color.BLACK : getThemeColorAccent());
+        if (opaqueToolBar) setStatusBarColor(newColor);
+        else setStatusBarColor(Color.TRANSPARENT);
+
         if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarCurrentPlayingEnabled())
-            getWindow().setNavigationBarColor(newColor);
+            setNavigationBarColor(newColor);
         lastFooterColor = newColor;
     }
 
-    private void setUpArtistArt() {
-        if (artistImage != null) {
-            artistImage.setImageResource(R.drawable.default_artist_image);
-            LastFMArtistImageUrlLoader.loadArtistImageUrl(this, song.artistName, false, new LastFMArtistImageUrlLoader.ArtistImageUrlLoaderCallback() {
-                @Override
-                public void onArtistImageUrlLoaded(String url) {
-                    ImageLoader.getInstance().displayImage(url,
-                            artistImage,
-                            new DisplayImageOptions.Builder()
-                                    .cacheInMemory(true)
-                                    .cacheOnDisk(true)
-                                    .showImageOnFail(R.drawable.default_artist_image)
-                                    .resetViewBeforeLoading(true)
-                                    .build()
-                    );
-                }
-            });
+    private void animateTextColorChange(final int newColor) {
+        if (lastTextColor != -2 && lastTextColor != newColor) {
+            ViewUtil.animateTextColor(songTitle, lastTextColor, newColor, COLOR_TRANSITION_TIME);
+            ViewUtil.animateTextColor(songArtist, lastTextColor, newColor, COLOR_TRANSITION_TIME);
+        } else {
+            songTitle.setTextColor(newColor);
+            songArtist.setTextColor(newColor);
         }
+        lastTextColor = newColor;
     }
 
     private void getCurrentSong() {
@@ -430,9 +420,8 @@ public class MusicControllerActivity extends AbsFabActivity {
         }).start();
     }
 
-    @Override
     protected void updateControllerState() {
-        super.updateControllerState();
+        updateFabState();
         updateRepeatState();
         updateShuffleState();
     }
@@ -457,14 +446,6 @@ public class MusicControllerActivity extends AbsFabActivity {
     protected void onPause() {
         super.onPause();
         killThreads = true;
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            animateActivityOpened(DEFAULT_DELAY);
-        }
     }
 
     @Override
@@ -513,28 +494,16 @@ public class MusicControllerActivity extends AbsFabActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void animateActivityOpened(int startDelay) {
-        ViewPropertyAnimator.animate(footer)
-                .scaleX(1)
-                .scaleY(1)
-                .setInterpolator(new DecelerateInterpolator(4))
-                .setDuration(DEFAULT_ANIMATION_TIME)
-                .setStartDelay(startDelay)
-                .start();
-    }
-
-    @Subscribe
-    public void onUIPrefsChanged(UIPreferenceChangedEvent event) {
-        switch (event.getAction()) {
-            case UIPreferenceChangedEvent.PLAYBACK_CONTROLLER_CARD_CHANGED:
-                setUpBox((boolean) event.getValue());
-                break;
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        App.bus.unregister(this);
+    private void setToolbarOpaque(boolean toolbarOpaque) {
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) findViewById(R.id.album_art_frame).getLayoutParams();
+        if (!toolbarOpaque) {
+            if (Build.VERSION.SDK_INT > 16) {
+                params.removeRule(RelativeLayout.BELOW);
+            } else {
+                params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT);
+                params.addRule(RelativeLayout.ABOVE, R.id.footer_frame);
+            }
+        } else params.addRule(RelativeLayout.BELOW, R.id.toolbar_frame);
     }
 }

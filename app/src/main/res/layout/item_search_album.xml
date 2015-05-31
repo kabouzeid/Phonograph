@@ -16,7 +16,7 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
 
-        <com.kabouzeid.gramophone.views.SquareImageView
+        <com.kabouzeid.gramophone.views.WidthFitSquareImageView
             android:id="@+id/album_art"
             android:layout_width="40dp"
             android:layout_height="40dp"

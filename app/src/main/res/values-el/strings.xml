@@ -83,7 +83,6 @@
     <string name="pref_title_set_default_start_page">Αρχική σελίδα</string>
     <string name="title_activity_settings">Ρυθμίσεις</string>
     <string name="pref_title_transparent_toolbar">"Ημι-διαφανής μπάρα εργαλείων"</string>
-    <string name="pref_title_show_playback_controller_card">Κάρτα διαχείρισης αναπαραγωγής</string>
     <string name="pref_title_colored_navigation_bar_artists">Προβολή καλλιτέχνη</string>
     <string name="pref_title_colored_navigation_bar_albums">Προβολή δίσκου</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Προβολή αναπαραγωγής</string>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="rectangle">
     <size
-        android:height="12dp"
-        android:width="12dp"/>
+        android:height="20dp"
+        android:width="3dp" />
     <solid
-        android:color="@color/materialmusic_accent_color"/>
+        android:color="@color/black" />
 </shape>

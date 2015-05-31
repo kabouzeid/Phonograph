@@ -22,6 +22,6 @@ public class ArtistViewFragment extends AbsMainActivityRecyclerViewFragment {
 
     @Override
     protected RecyclerView.Adapter createAdapter() {
-        return new ArtistAdapter(getActivity());
+        return new ArtistAdapter(getMainActivity(), getMainActivity());
     }
 }

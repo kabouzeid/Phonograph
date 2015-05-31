@@ -1,9 +1,11 @@
 package com.kabouzeid.gramophone.adapter;
 
-import android.app.Activity;
+import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,10 +13,16 @@ import android.widget.TextView;
 
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
+import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistThumbnailUrlLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
+import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
+import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -22,16 +30,18 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.otto.Subscribe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder> {
-    protected final Activity activity;
+public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolder, Artist> {
+    protected final AppCompatActivity activity;
     protected List<Artist> dataSet;
 
-    public ArtistAdapter(Activity activity) {
+    public ArtistAdapter(AppCompatActivity activity, @Nullable CabHolder cabHolder) {
+        super(cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         loadDataSet();
     }
@@ -53,6 +63,7 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
         holder.artistName.setText(artist.name);
         holder.artistInfo.setText(MusicUtil.getArtistInfoString(activity, artist));
         holder.artistImage.setImageResource(R.drawable.default_artist_image);
+        holder.view.setActivated(isChecked(artist));
 
         LastFMArtistThumbnailUrlLoader.loadArtistThumbnailUrl(activity, artist.name, false, new LastFMArtistThumbnailUrlLoader.ArtistThumbnailUrlLoaderCallback() {
             @Override
@@ -73,28 +84,69 @@ public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ViewHolder
         return dataSet.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    @Override
+    protected Artist getIdentifier(int position) {
+        return dataSet.get(position);
+    }
+
+    @Override
+    protected void onMultipleItemAction(MenuItem menuItem, ArrayList<Artist> selection) {
+        switch (menuItem.getItemId()) {
+            case R.id.action_delete_from_disk:
+                DeleteSongsDialog.create(getSongList(selection)).show(activity.getSupportFragmentManager(), "DELETE_SONGS");
+                break;
+            case R.id.action_add_to_playlist:
+                AddToPlaylistDialog.create(getSongList(selection)).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");
+                break;
+            case R.id.action_add_to_current_playing:
+                MusicPlayerRemote.enqueue(getSongList(selection));
+                break;
+        }
+    }
+
+    private ArrayList<Song> getSongList(List<Artist> artists) {
+        final ArrayList<Song> songs = new ArrayList<>();
+        for (Artist artist : artists) {
+            songs.addAll(ArtistSongLoader.getArtistSongList(activity, artist.id));
+        }
+        return songs;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         final TextView artistName;
         final TextView artistInfo;
         final ImageView artistImage;
+        final View view;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            view = itemView;
             artistName = (TextView) itemView.findViewById(R.id.artist_name);
             artistInfo = (TextView) itemView.findViewById(R.id.artist_info);
             artistImage = (ImageView) itemView.findViewById(R.id.artist_image);
-            itemView.setOnClickListener(this);
+            view.setOnClickListener(this);
+            view.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            Pair[] artistPairs = new Pair[]{
-                    Pair.create(artistImage,
-                            activity.getResources().getString(R.string.transition_artist_image)
-                    )};
-            if (activity instanceof AbsFabActivity)
-                artistPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(artistPairs);
-            NavigationUtil.goToArtist(activity, dataSet.get(getAdapterPosition()).id, artistPairs);
+            if (isInQuickSelectMode()) {
+                toggleChecked(getAdapterPosition());
+            } else {
+                Pair[] artistPairs = new Pair[]{
+                        Pair.create(artistImage,
+                                activity.getResources().getString(R.string.transition_artist_image)
+                        )};
+                if (activity instanceof AbsFabActivity)
+                    artistPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(artistPairs);
+                NavigationUtil.goToArtist(activity, dataSet.get(getAdapterPosition()).id, artistPairs);
+            }
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            toggleChecked(getAdapterPosition());
+            return true;
         }
     }
 

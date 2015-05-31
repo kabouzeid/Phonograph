@@ -13,8 +13,9 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.util.Util;
 
-public class CircleView extends FrameLayout {
+public class ColorView extends FrameLayout {
 
     private final Bitmap mCheck;
     private final Paint paint;
@@ -22,19 +23,19 @@ public class CircleView extends FrameLayout {
     private Paint paintCheck;
     private final int borderWidth;
 
-    public CircleView(Context context) {
+    public ColorView(Context context) {
         this(context, null, 0);
     }
 
-    public CircleView(Context context, AttributeSet attrs) {
+    public ColorView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CircleView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ColorView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         final int checkSize = (int) context.getResources().getDimension(R.dimen.circle_view_check);
         mCheck = getResizedBitmap(BitmapFactory.decodeResource(context.getResources(),
-                R.drawable.ic_check_white_24dp), checkSize, checkSize);
+                R.drawable.ic_checkbox_marked_circle_outline_white_24dp), checkSize, checkSize);
         borderWidth = (int) getResources().getDimension(R.dimen.circle_view_border);
 
         paint = new Paint();
@@ -42,7 +43,6 @@ public class CircleView extends FrameLayout {
 
         paintBorder = new Paint();
         paintBorder.setAntiAlias(true);
-        paintBorder.setColor(Color.BLACK);
 
         setWillNotDraw(false);
     }
@@ -64,12 +64,7 @@ public class CircleView extends FrameLayout {
     @Override
     public void setBackgroundColor(int color) {
         paint.setColor(color);
-        requestLayout();
-        invalidate();
-    }
-
-    public void setBorderColor(int color) {
-        paintBorder.setColor(color);
+        paintBorder.setColor(Util.shiftColorDown(color));
         requestLayout();
         invalidate();
     }
