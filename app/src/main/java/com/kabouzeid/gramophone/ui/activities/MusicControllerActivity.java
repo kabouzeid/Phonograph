@@ -28,6 +28,7 @@ import com.afollestad.materialdialogs.util.DialogUtils;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
+import com.kabouzeid.gramophone.dialogs.SongShareDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.bitmapblur.StackBlurManager;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
@@ -458,6 +459,9 @@ public class MusicControllerActivity extends AbsFabActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case R.id.action_share:
+                SongShareDialog.create(song.id).show(getSupportFragmentManager(), "SHARE_SONG");
+                return true;
             case R.id.action_equalizer:
                 NavigationUtil.openEqualizer(this);
                 return true;

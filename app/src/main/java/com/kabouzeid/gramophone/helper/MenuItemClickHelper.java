@@ -18,6 +18,7 @@ import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
+import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 
 import java.io.File;
@@ -29,6 +30,12 @@ public class MenuItemClickHelper {
 
     public static boolean handleSongMenuClick(AppCompatActivity activity, Song song, MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_set_as_ringtone:
+                MusicUtil.setRingtone(activity, song.id);
+                return true;
+            case R.id.action_share:
+                activity.startActivity(Intent.createChooser(MusicUtil.createShareSongFileIntent(activity, song.id), null));
+                return true;
             case R.id.action_delete_from_disk:
                 DeleteSongsDialog.create(song).show(activity.getSupportFragmentManager(), "DELETE_SONGS");
                 return true;
@@ -42,11 +49,11 @@ public class MenuItemClickHelper {
                 MusicPlayerRemote.enqueue(song);
                 return true;
             case R.id.action_tag_editor:
-                Intent intent = new Intent(activity, SongTagEditorActivity.class);
-                intent.putExtra(AppKeys.E_ID, song.id);
+                Intent tagEditorIntent = new Intent(activity, SongTagEditorActivity.class);
+                tagEditorIntent.putExtra(AppKeys.E_ID, song.id);
                 if (activity instanceof PaletteColorHolder)
-                    intent.putExtra(AppKeys.E_PALETTE, ((PaletteColorHolder) activity).getPaletteColor());
-                activity.startActivity(intent);
+                    tagEditorIntent.putExtra(AppKeys.E_PALETTE, ((PaletteColorHolder) activity).getPaletteColor());
+                activity.startActivity(tagEditorIntent);
                 return true;
             case R.id.action_details:
                 String songFilePath = SongFilePathLoader.getSongFilePath(activity, song.id);

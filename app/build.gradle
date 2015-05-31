@@ -28,7 +28,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 29
-        versionName "0.9.13b DEV-2"
+        versionName "0.9.13b DEV-3"
     }
 
     compileOptions {

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="what_do_you_want_to_share">What do you want to share?</string>
+    <string name="currently_listening_to_x_by_x">Currently listening to %1$s by %2$s</string>
+    <string name="the_audio_file">The audio file</string>
+    <string name="do_you_want_to_set_x_as_ringtone">Do you want to set %1$s as your ringtone?</string>
+    <string name="x_has_been_set_as_ringtone">%1$s has been set as your ringtone.</string>
+    <string name="action_set_as_ringtone">Set as ringtone</string>
     <string name="action_share">Share</string>
     <string name="action_settings">Settings</string>
     <string name="action_about">About</string>
@@ -19,7 +25,7 @@
     <string name="songs">Songs</string>
     <string name="playlists">Playlists</string>
     <string name="nothing_playing">Nothing is playing</string>
-    <string name="unplayable_file">Sorry - an error occurred while attempting to play this song</string>
+    <string name="unplayable_file">Sorry - an error occurred while attempting to play this song.</string>
     <string name="biography_unavailable">Sorry, we were not able to find a matching biography for this artist.</string>
     <string name="biography">Biography</string>
     <string name="audio_focus_denied">We were not able to gain audio focus.</string>

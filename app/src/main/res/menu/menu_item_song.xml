@@ -22,12 +22,20 @@
         android:title="@string/action_go_to_artist"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_share"
+        android:title="@string/action_share"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_tag_editor"
         android:title="@string/action_tag_editor"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_details"
         android:title="@string/action_details"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_set_as_ringtone"
+        android:title="@string/action_set_as_ringtone"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_delete_from_disk"
