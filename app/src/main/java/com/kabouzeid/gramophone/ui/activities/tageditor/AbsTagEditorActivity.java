@@ -79,7 +79,6 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                 alpha = 1;
             }
             ViewUtil.setBackgroundAlpha(toolBar, alpha, paletteColorPrimary);
-            ViewUtil.setBackgroundAlpha(header, alpha, paletteColorPrimary);
             image.setTranslationY(scrollY / 2);
         }
     };
@@ -126,12 +125,6 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
     private void setUpScrollView() {
         scrollView.setScrollViewCallbacks(observableScrollViewCallbacks);
-        scrollView.post(new Runnable() {
-            @Override
-            public void run() {
-                scrollView.scrollVerticallyTo(headerVariableSpace / 2);
-            }
-        });
     }
 
     private void setUpImageView() {
@@ -199,10 +192,11 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         final int primaryColor = PreferenceUtils.getInstance(this).getThemeColorPrimary();
         paletteColorPrimary = primaryColor;
         observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
-        setStatusBarColor(primaryColor);
+        setStatusBarColor(paletteColorPrimary);
         if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarTagEditorEnabled())
-            setNavigationBarColor(primaryColor);
-        notifyTaskColorChange(primaryColor);
+            setNavigationBarColor(paletteColorPrimary);
+        header.setBackgroundColor(paletteColorPrimary);
+        notifyTaskColorChange(paletteColorPrimary);
     }
 
     private void getIntentExtras() {
@@ -287,7 +281,6 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     private void applyPalette(final Bitmap bitmap) {
         Palette.from(bitmap)
                 .generate(new Palette.PaletteAsyncListener() {
-
                     @Override
                     public void onGenerated(Palette palette) {
                         final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
@@ -295,10 +288,11 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                             final int vibrantColor = palette.getVibrantColor(DialogUtils.resolveColor(AbsTagEditorActivity.this, R.attr.default_bar_color));
                             paletteColorPrimary = vibrantColor;
                             observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
-                            setStatusBarColor(vibrantColor);
+                            setStatusBarColor(paletteColorPrimary);
                             if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(AbsTagEditorActivity.this).coloredNavigationBarTagEditorEnabled())
-                                setNavigationBarColor(vibrantColor);
-                            notifyTaskColorChange(vibrantColor);
+                                setNavigationBarColor(paletteColorPrimary);
+                            header.setBackgroundColor(paletteColorPrimary);
+                            notifyTaskColorChange(paletteColorPrimary);
                         } else {
                             resetColors();
                         }
@@ -318,7 +312,6 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     protected void writeValuesToFiles(final Map<FieldKey, String> fieldKeyValueMap, final Artwork artwork, final boolean deleteArtwork) {
         Util.hideSoftKeyboard(this);
         final String writingFileStr = getResources().getString(R.string.writing_file_number);
-        //TODO dialog currently disappears on orientation change and using DialogFragment causes an exception for some reason
         final MaterialDialog progressDialog = new MaterialDialog.Builder(AbsTagEditorActivity.this)
                 .title(R.string.saving_changes)
                 .cancelable(false)

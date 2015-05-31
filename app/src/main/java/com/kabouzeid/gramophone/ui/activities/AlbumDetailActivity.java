@@ -173,7 +173,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         recyclerView = (ObservableRecyclerView) findViewById(R.id.list);
         albumTitleView = (TextView) findViewById(R.id.album_title);
         songsBackgroundView = findViewById(R.id.list_background);
-//        statusBar = findViewById(R.id.status_bar);
     }
 
     private void setUpObservableListViewParams() {
@@ -301,6 +300,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
 
     private void setUpToolBar() {
         setSupportActionBar(toolbar);
+        //noinspection ConstantConditions
         getSupportActionBar().setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
