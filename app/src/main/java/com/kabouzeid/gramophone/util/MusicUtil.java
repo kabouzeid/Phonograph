@@ -47,7 +47,7 @@ public class MusicUtil {
     public static Intent createShareSongFileIntent(final Context context, int songId) {
         return new Intent()
                 .setAction(Intent.ACTION_SEND)
-                .putExtra(Intent.EXTRA_STREAM, Uri.parse(SongFilePathLoader.getSongFilePath(context, songId)))
+                .putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + SongFilePathLoader.getSongFilePath(context, songId)))
                 .setType("audio/*");
     }
 

@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.kabouzeid.gramophone.views.DynamicEditText
+                    <EditText
                         android:id="@+id/title1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.kabouzeid.gramophone.views.DynamicEditText
+                    <EditText
                         android:id="@+id/title2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     >
 
-                    <com.kabouzeid.gramophone.views.DynamicEditText
+                    <EditText
                         android:id="@+id/artist"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content"
                     >
 
-                    <com.kabouzeid.gramophone.views.DynamicEditText
+                    <EditText
                         android:id="@+id/genre"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -128,7 +128,7 @@
                     android:layout_height="wrap_content"
                     >
 
-                    <com.kabouzeid.gramophone.views.DynamicEditText
+                    <EditText
                         android:id="@+id/year"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -149,7 +149,7 @@
                     android:layout_height="wrap_content"
                     >
 
-                    <com.kabouzeid.gramophone.views.DynamicEditText
+                    <EditText
                         android:id="@+id/track_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
