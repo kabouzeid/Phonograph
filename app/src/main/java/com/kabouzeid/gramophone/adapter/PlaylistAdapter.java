@@ -18,6 +18,8 @@ import com.kabouzeid.gramophone.dialogs.DeletePlaylistDialog;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
+import com.kabouzeid.gramophone.interfaces.OnUpdatedListener;
+import com.kabouzeid.gramophone.interfaces.SelfUpdating;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
@@ -33,11 +35,12 @@ import java.util.List;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewHolder, Playlist> {
+public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewHolder, Playlist> implements SelfUpdating {
 
     public static final String TAG = PlaylistAdapter.class.getSimpleName();
     protected final AppCompatActivity activity;
     protected List<Playlist> dataSet;
+    private OnUpdatedListener listener;
 
     public PlaylistAdapter(AppCompatActivity activity, @Nullable CabHolder cabHolder) {
         super(cabHolder, R.menu.menu_playlists_selection);
@@ -47,6 +50,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
 
     public void loadDataSet() {
         dataSet = PlaylistLoader.getAllPlaylists(activity);
+        if (listener != null) listener.onUpdated(this);
     }
 
     @Override
@@ -93,6 +97,11 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
             songs.addAll(PlaylistSongLoader.getPlaylistSongList(activity, playlist.id));
         }
         return songs;
+    }
+
+    @Override
+    public void setOnUpdatedListener(OnUpdatedListener listener) {
+        this.listener = listener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {

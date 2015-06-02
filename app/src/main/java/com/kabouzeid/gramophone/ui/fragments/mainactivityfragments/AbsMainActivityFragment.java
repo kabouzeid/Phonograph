@@ -3,7 +3,6 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
 
@@ -12,14 +11,6 @@ import com.kabouzeid.gramophone.ui.activities.MainActivity;
  */
 public abstract class AbsMainActivityFragment extends Fragment implements KabViewsDisableAble {
     private boolean areViewsEnabled;
-
-    protected int getTopPadding() {
-        return getResources().getDimensionPixelSize(R.dimen.list_padding_vertical);
-    }
-
-    protected int getBottomPadding() {
-        return getResources().getDimensionPixelSize(R.dimen.bottom_offset_fab_activity);
-    }
 
     protected MainActivity getMainActivity() {
         return (MainActivity) getActivity();

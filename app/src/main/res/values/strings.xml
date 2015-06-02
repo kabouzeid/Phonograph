@@ -140,6 +140,10 @@
     <string name="update_image">Update Image</string>
     <string name="playlist_empty_text">This playlist is empty</string>
     <string name="no_playlists">No playlists</string>
+    <string name="no_albums">No albums</string>
+    <string name="no_songs">No songs</string>
+    <string name="no_artists">No artists</string>
+    <string name="nothing_here">Nothing here</string>
     <string name="playlist_name">Playlist name</string>
     <string name="song">Song</string>
     <string name="pref_only_lollipop">Only available on Lollipop.</string>

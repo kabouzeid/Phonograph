@@ -17,6 +17,8 @@ import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
+import com.kabouzeid.gramophone.interfaces.OnUpdatedListener;
+import com.kabouzeid.gramophone.interfaces.SelfUpdating;
 import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistThumbnailUrlLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
@@ -36,9 +38,10 @@ import java.util.List;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolder, Artist> {
+public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolder, Artist> implements SelfUpdating {
     protected final AppCompatActivity activity;
     protected List<Artist> dataSet;
+    private OnUpdatedListener listener;
 
     public ArtistAdapter(AppCompatActivity activity, @Nullable CabHolder cabHolder) {
         super(cabHolder, R.menu.menu_media_selection);
@@ -48,6 +51,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
 
     private void loadDataSet() {
         dataSet = ArtistLoader.getAllArtists(activity);
+        if (listener != null) listener.onUpdated(this);
     }
 
     @Override
@@ -110,6 +114,11 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
             songs.addAll(ArtistSongLoader.getArtistSongList(activity, artist.id));
         }
         return songs;
+    }
+
+    @Override
+    public void setOnUpdatedListener(OnUpdatedListener listener) {
+        this.listener = listener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {

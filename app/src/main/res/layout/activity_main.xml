@@ -1,8 +1,8 @@
 <android.support.v4.widget.DrawerLayout
-    android:id="@+id/drawer_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -19,9 +19,9 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <FrameLayout
-                app:layout_scrollFlags="scroll|enterAlways"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|enterAlways">
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -59,7 +59,7 @@
             android:id="@+id/fab"
             style="@style/PlayPauseFab"
             android:layout_gravity="end|bottom"
-            android:layout_margin="16dp" />
+            android:layout_margin="@dimen/fab_margin" />
 
     </android.support.design.widget.CoordinatorLayout>
 

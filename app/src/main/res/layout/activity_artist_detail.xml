@@ -1,13 +1,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <FrameLayout
-        android:background="?android:colorBackground"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/header_image_height">
+        android:layout_height="@dimen/header_image_height"
+        android:background="?android:colorBackground">
 
         <ImageView
             android:id="@+id/artist_image_background"
@@ -99,6 +99,6 @@
         android:id="@+id/fab"
         style="@style/PlayPauseFab"
         android:layout_gravity="end|right|bottom"
-        android:layout_margin="16dp" />
+        android:layout_margin="@dimen/fab_margin" />
 
 </FrameLayout>

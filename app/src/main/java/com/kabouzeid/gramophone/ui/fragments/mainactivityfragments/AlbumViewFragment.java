@@ -17,11 +17,6 @@ public class AlbumViewFragment extends AbsMainActivityRecyclerViewFragment {
     private GridLayoutManager layoutManager;
 
     @Override
-    protected int getLayoutResId() {
-        return R.layout.fragment_album_view;
-    }
-
-    @Override
     protected RecyclerView.LayoutManager createLayoutManager() {
         int columns = Util.isInPortraitMode(getActivity()) ? PreferenceUtils.getInstance(getActivity()).getAlbumGridColumns() : PreferenceUtils.getInstance(getActivity()).getAlbumGridColumnsLand();
         layoutManager = new GridLayoutManager(getActivity(), columns);
@@ -31,6 +26,11 @@ public class AlbumViewFragment extends AbsMainActivityRecyclerViewFragment {
     @Override
     protected RecyclerView.Adapter createAdapter() {
         return new AlbumAdapter(getMainActivity(), getMainActivity());
+    }
+
+    @Override
+    protected int getEmptyMessage() {
+        return R.string.no_albums;
     }
 
     public void setColumns(int columns) {

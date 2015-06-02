@@ -22,6 +22,8 @@ import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
+import com.kabouzeid.gramophone.interfaces.OnUpdatedListener;
+import com.kabouzeid.gramophone.interfaces.SelfUpdating;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
@@ -37,7 +39,7 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, Song> implements MaterialCab.Callback {
+public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, Song> implements MaterialCab.Callback, SelfUpdating {
 
     public static final String TAG = AlbumSongAdapter.class.getSimpleName();
     private static final int SHUFFLE_BUTTON = 0;
@@ -45,6 +47,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
 
     protected final AppCompatActivity activity;
     protected ArrayList<Song> dataSet;
+    private OnUpdatedListener listener;
 
     public SongAdapter(AppCompatActivity activity, CabHolder cabHolder) {
         super(cabHolder, R.menu.menu_media_selection);
@@ -54,6 +57,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
 
     private void loadDataSet() {
         dataSet = SongLoader.getAllSongs(activity);
+        if (listener != null) listener.onUpdated(this);
     }
 
     @Override
@@ -101,7 +105,8 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
 
     @Override
     public int getItemCount() {
-        return dataSet.size() + 1;
+        final int dataSetSize = dataSet.size();
+        return dataSetSize > 0 ? dataSetSize + 1 : 0;
     }
 
     @Override
@@ -122,6 +127,11 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
                 MusicPlayerRemote.enqueue(selection);
                 break;
         }
+    }
+
+    @Override
+    public void setOnUpdatedListener(OnUpdatedListener listener) {
+        this.listener = listener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {

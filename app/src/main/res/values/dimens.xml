@@ -50,4 +50,12 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
 
     <dimen name="notification_albumart_size">128dp</dimen>
     <dimen name="bottom_offset_fab_activity">86dp</dimen>
+
+    <dimen name="min_scrollhandle_height">48dp</dimen>
+    <dimen name="scrollbar_width">8dp</dimen>
+    <dimen name="scrollbar_inset">40dp</dimen>
+
+    <!-- ONLY 0dp WHILE THERE IS THE BUG IN DESIGN SUPPORT LIBRARY 22.2.0-->
+    <dimen name="fab_margin">0dp</dimen>
+    <dimen name="tmp_no_fab_margin">-16dp</dimen>
 </resources>

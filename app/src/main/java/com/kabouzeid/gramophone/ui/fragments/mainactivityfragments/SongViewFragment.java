@@ -14,11 +14,6 @@ public class SongViewFragment extends AbsMainActivityRecyclerViewFragment {
     public static final String TAG = SongViewFragment.class.getSimpleName();
 
     @Override
-    protected int getLayoutResId() {
-        return R.layout.fragment_songview;
-    }
-
-    @Override
     protected RecyclerView.LayoutManager createLayoutManager() {
         return new GridLayoutManager(getActivity(), 1);
     }
@@ -26,5 +21,10 @@ public class SongViewFragment extends AbsMainActivityRecyclerViewFragment {
     @Override
     protected RecyclerView.Adapter createAdapter() {
         return new SongAdapter(getMainActivity(), getMainActivity());
+    }
+
+    @Override
+    protected int getEmptyMessage() {
+        return R.string.no_songs;
     }
 }
