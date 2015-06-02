@@ -85,7 +85,6 @@ Vill du radera <b>%1$d</b> låtar?
     <string name="pref_title_navigation_bar">Färgad navigeringslist</string>
     <string name="pref_title_set_default_start_page">Startsida</string>
     <string name="title_activity_settings">Inställningar</string>
-    <string name="pref_title_transparent_toolbar">"Semitransparent verktygsfält"</string>
     <string name="pref_title_colored_navigation_bar_artists">Artistvy</string>
     <string name="pref_title_colored_navigation_bar_albums">Albumvy</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Spelarvy</string>

@@ -86,7 +86,6 @@
     <string name="pref_title_navigation_bar">شريط تنقل ملون</string>
     <string name="pref_title_set_default_start_page">ضبط صفحة البدء</string>
     <string name="title_activity_settings">الإعدادات</string>
-    <string name="pref_title_transparent_toolbar">"شريط الأدوات شبه شفاف"</string>
     <string name="pref_title_colored_navigation_bar_artists">مشهد الفنان</string>
     <string name="pref_title_colored_navigation_bar_albums">مشهد الألبوم</string>
     <string name="pref_title_colored_navigation_bar_current_playing">مشهد التشغيل</string>
@@ -112,7 +111,6 @@
     <string name="playlist_name">إسم قائمة الشغيل</string>
     <string name="song">الأغنية</string>
     <string name="pref_only_lollipop">"متوفر في نظام التشغيل Lollipop."</string>
-    <string name="pref_summary_transparent_toolbar">جعل المحتوى الذي يمر تحت شريط الأدوات مرئيا.</string>
     <string name="pref_summary_colored_album_footers">"تلوين الهوامش السفلية للألبومات بلون غلاف الألبوم."</string>
     <string name="failed_download_albumart">"تعذر تحميل صور هذا الألبوم."</string>
     <string name="search_hint">البحث في المكتبة...</string>

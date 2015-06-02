@@ -83,7 +83,6 @@
     <string name="pref_title_navigation_bar">하단바 색깔</string>
     <string name="pref_title_set_default_start_page">시작 화면</string>
     <string name="title_activity_settings">설정</string>
-    <string name="pref_title_transparent_toolbar">"반투명 툴바"</string>
     <string name="pref_title_colored_navigation_bar_artists">아티스트 화면에서</string>
     <string name="pref_title_colored_navigation_bar_albums">앨범 화면에서</string>
     <string name="pref_title_colored_navigation_bar_current_playing">지금 재생 중 화면에서</string>
@@ -110,7 +109,6 @@
     <string name="playlist_name">재생목록 이름</string>
     <string name="song">노래</string>
     <string name="pref_only_lollipop">"안드로이드 롤리팝에서만 가능합니다."</string>
-    <string name="pref_summary_transparent_toolbar">툴바 아래 내용이 보이게 합니다.</string>
     <string name="pref_summary_colored_album_footers">"앨범 커버의 색상에 맞추어 앨범 카드가 색칠됩니다."</string>
     <string name="failed_download_albumart">"이 앨범의 앨범 커버를 다운로드할 수 없습니다."</string>
     <string name="search_hint">저장소 검색...</string>

@@ -83,7 +83,6 @@
     <string name="pref_title_navigation_bar">Barre de navigation colorée</string>
     <string name="pref_title_set_default_start_page">Page d\'accueil par défaut</string>
     <string name="title_activity_settings">Paramètres</string>
-    <string name="pref_title_transparent_toolbar">"Barre d\'outils semi-transparente"</string>
     <string name="pref_title_colored_navigation_bar_artists">Vue artiste</string>
     <string name="pref_title_colored_navigation_bar_albums">Vue album</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Vue lecture en cours</string>
@@ -109,7 +108,6 @@
     <string name="playlist_name">Nom de la playlist</string>
     <string name="song">Titre</string>
     <string name="pref_only_lollipop">"Uniquement disponible sur Lollipop."</string>
-    <string name="pref_summary_transparent_toolbar">Le contenu qui défile en dessous de la barre d\'outils est visible.</string>
     <string name="pref_summary_colored_album_footers">"Les bas d\'album dans la grille sont colorés avec la palette de la couverture."</string>
     <string name="failed_download_albumart">"Impossible de télécharger la pochette pour cet album."</string>
     <string name="search_hint">Rechercher votre bibliothèque...</string>

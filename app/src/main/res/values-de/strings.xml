@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="what_do_you_want_to_share">Was willst du teilen?</string>
+    <string name="currently_listening_to_x_by_x">Höre gerade %1$s von %2$s</string>
+    <string name="the_audio_file">Die Audiodatei</string>
+    <string name="do_you_want_to_set_x_as_ringtone">Willst du %1$s als deinen Klingelton verwenden?</string>
+    <string name="action_set_as_ringtone">Als Klingelton verwenden</string>
+    <string name="action_share">Teilen</string>
     <string name="action_settings">"Einstellungen"</string>
     <string name="action_about">Über</string>
     <string name="action_currently_playing">Aktuelle Wiedergabe</string>
@@ -17,10 +23,11 @@
     <string name="songs">Titel</string>
     <string name="playlists">Playlists</string>
     <string name="nothing_playing">Keine Wiedergabe</string>
-    <string name="unplayable_file">Sorry - es gab einen Fehler bei dem Versuch, diesen Song abzuspielen</string>
+    <string name="unplayable_file">Sorry - es gab einen Fehler bei dem Versuch, diesen Song abzuspielen.</string>
     <string name="biography_unavailable">Sorry, es konnte keine passende Biografie für diesen Interpreten gefunden werden.</string>
     <string name="biography">Biografie</string>
     <string name="audio_focus_denied">Wir konnten keinen Audiofokus erlangen.</string>
+    <string name="title_activity_tag_editor">Tag Editor</string>
     <string name="tag_editor">Tags bearbeiten</string>
     <string name="album">Album</string>
     <string name="artist">Interpret</string>
@@ -32,6 +39,7 @@
     <string name="album_or_artist_empty">Das Feld \"Album Titel\" oder \"Album Interpret\" ist leer.</string>
     <string name="writing_file_number">Schreibe Datei</string>
     <string name="saving_changes">Speichere Änderungen...</string>
+    <string name="title_activity_album_tag_editor">Album Tag Editor</string>
     <string name="label_details">Details</string>
     <string name="label_file_name">Dateiname</string>
     <string name="label_file_path">Dateipfad</string>
@@ -83,7 +91,6 @@
     <string name="pref_title_navigation_bar">Gefärbte Navigationsleiste</string>
     <string name="pref_title_set_default_start_page">Startseite</string>
     <string name="title_activity_settings">Einstellungen</string>
-    <string name="pref_title_transparent_toolbar">"Halbtransparente Toolbar"</string>
     <string name="pref_title_colored_navigation_bar_artists">Interpreten Ansicht</string>
     <string name="pref_title_colored_navigation_bar_albums">Album Ansicht</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Wiedergabe Ansicht</string>
@@ -109,7 +116,6 @@
     <string name="playlist_name">Playlist Name</string>
     <string name="song">Titel</string>
     <string name="pref_only_lollipop">"Nur auf Android Lollipop verfügbar"</string>
-    <string name="pref_summary_transparent_toolbar">Ob der Inhalt unter der Toolbar sichtbar sein soll.</string>
     <string name="pref_summary_colored_album_footers">"Die Titel der Alben im Raster passend zu ihrer Cover Farbe färben."</string>
     <string name="failed_download_albumart">"Das Cover für dieses Album konnte nicht heruntergeladen werden."</string>
     <string name="search_hint">Durchsuche deine Mediathek</string>

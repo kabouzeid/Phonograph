@@ -82,7 +82,6 @@
     <string name="pref_title_navigation_bar">Barevné záhlaví</string>
     <string name="pref_title_set_default_start_page">Zvolit výchozí obrazovku</string>
     <string name="title_activity_settings">Nastavení</string>
-    <string name="pref_title_transparent_toolbar">"Průhledné záhlaví"</string>
     <string name="pref_title_colored_navigation_bar_artists">Barevné záhlaví interpretů</string>
     <string name="pref_title_colored_navigation_bar_albums">Barevné záhlaví alb</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Zobrazení \"Právě hraje\"</string>
@@ -108,7 +107,6 @@
     <string name="playlist_name">Jméno playlistu</string>
     <string name="song">Skladba</string>
     <string name="pref_only_lollipop">"Dostupné pouze ve verzi Lollipop."</string>
-    <string name="pref_summary_transparent_toolbar">Permanentní zobrazení záhlaví (při scrollování).</string>
     <string name="pref_summary_colored_album_footers">"Názvy alb v mřížce jsou obarvena podle jejich obalu."</string>
     <string name="failed_download_albumart">"Není možné stáhnout obal tohoto alba."</string>
     <string name="search_hint">Vyhledat zvukové soubory...</string>

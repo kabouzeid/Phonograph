@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_settings">"Ρυθμίσεις "</string>
-    <string name="action_about">Σχετικά με εμάς</string>
+    <string name="action_about">"Σχετικά "</string>
     <string name="action_currently_playing">Παίζει τώρα</string>
     <string name="action_playing_queue">Σειρά τραγουδιών</string>
     <string name="action_search">Αναζήτηση</string>
@@ -21,6 +21,7 @@
     <string name="biography_unavailable">Συγγνώμη, δεν βρήκαμε τη βιογραφία αυτού του καλλιτέχνη</string>
     <string name="biography">Βιογραφία</string>
     <string name="audio_focus_denied">Δεν μπορούμε να φέρουμε τον ήχο στο προσκήνιο.</string>
+    <string name="title_activity_tag_editor">Επεξεργασία ετικετών</string>
     <string name="tag_editor">Επεξεργασία ετικετών</string>
     <string name="album">Δίσκος</string>
     <string name="artist">Καλλιτέχνης</string>
@@ -32,6 +33,7 @@
     <string name="album_or_artist_empty">Το πεδιο \"τίτλος του δίσκου\" ή \"καλλιτέχνης του δίσκου\" είναι άδειο</string>
     <string name="writing_file_number">Γίνεται εγγραφή</string>
     <string name="saving_changes">Γίνεται αποθήκευση αλλαγών...</string>
+    <string name="title_activity_album_tag_editor">Επεξεργασία ετικετών δίσκου</string>
     <string name="label_details">Λεπτομέρειες</string>
     <string name="label_file_name">Όνομα αρχείου</string>
     <string name="label_file_path">Διαδρομή αρχείου</string>
@@ -51,6 +53,8 @@
     <string name="action_re_download_artist_image">Ανανέωση εικόνας καλλιτέχνη</string>
     <string name="updating">Γίνεται ανανέωση...</string>
     <string name="added_title_to_playing_queue">"Προστέθηκε ένας τίτλος στη σειρά αναπαραγωγής"</string>
+    <string name="added_x_titles_to_playing_queue">Προστέθηκαν %1$d εικονίδια στην σειρά αναπαραγωγής</string>
+    <string name="title_activity_playlist_detail">Δραστηριότητα λίστας</string>
     <string name="action_delete_from_playlist">Διαγραφή από τη λίστα αναπαραγωγής</string>
     <string name="new_playlist_action">Νέα λίστα αναπαραγωγής...</string>
     <string name="action_grid_columns">Στήλες πλέγματος</string>
@@ -60,12 +64,24 @@
     <string name="deleted_playlist_x">Διεγράφη η λίστα αναπαραγωγής %1$s</string>
     <string name="couldnot_create_playlist_x">Δεν μπόρεσε να δημιουργηθεί η λίστα αναπαραγωγής %1$s</string>
     <string name="delete_playlist_x"><![CDATA[Θέλετε να διαγράψετε τη λίστα αναπαραγωγής <b>%1$s</b>;]]></string>
+    <string name="delete_x_playlists"><![CDATA[
+        Θα θέλατε να διαγράψετε <b>%1$d</b> λίστες αναπαραγωγής; 
+    ]]></string>
     <string name="delete_song_x"><![CDATA[Θέλετε να διαγράψετε το τραγούδι <b>%1$s</b>;]]></string>
     <string name="delete_x_songs"><![CDATA[Θέλετε να διαγράψετε <b>%1$d</b> τραγούδια;]]></string>
+    <string name="delete_song_x_from_playlist"><![CDATA[
+        Θα θέλατε να διαγράψετε το κομμάτι  <b>%1$s</b> από τη λίστα αναπαραγωγής; 
+    ]]></string>
+    <string name="delete_x_songs_from_playlist"><![CDATA[
+        Θα θέλατε να διαγράψετε <b>%1$d</b> κομμάτια από τη λίστα αναπαραγωγής;
+    ]]></string>
     <string name="delete_song_title">Διαγραφή τραγουδιού</string>
     <string name="delete_songs_title">Διαγραφή τραγουδιών</string>
+    <string name="delete_song_from_playlist_title">Διαγραφή τραγουδιού από τη λίστα αναπαραγωγής</string>
+    <string name="delete_songs_from_playlist_title">Διαγραφή τραγουδιών από τη λίστα αναπαραγωγής</string>
     <string name="rename_playlist_title">Μετονομασία λίστας αναπαραγωγής</string>
     <string name="delete_playlist_title">Διαγραφή λίστας αναπαραγωγής</string>
+    <string name="delete_playlists_title">Διαγραφή λιστών αναπαραγωγής</string>
     <string name="add_playlist_title">"Προσθήκη στη λίστα αναπαραγωγής"</string>
     <string name="new_playlist_title">Νέα λίστα αναπαραγωγής</string>
     <string name="delete_warning">"Προσοχή: Αυτή η ενέργεια δε μπορεί να αναιρεθεί."</string>
@@ -82,7 +98,6 @@
     <string name="pref_title_navigation_bar">Έγχρωμη μπάρα πλοήγησης</string>
     <string name="pref_title_set_default_start_page">Αρχική σελίδα</string>
     <string name="title_activity_settings">Ρυθμίσεις</string>
-    <string name="pref_title_transparent_toolbar">"Ημι-διαφανής μπάρα εργαλείων"</string>
     <string name="pref_title_colored_navigation_bar_artists">Προβολή καλλιτέχνη</string>
     <string name="pref_title_colored_navigation_bar_albums">Προβολή δίσκου</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Προβολή αναπαραγωγής</string>
@@ -90,8 +105,8 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Επεξεργασία ετικετών</string>
     <string name="pref_title_colored_navigation_bar_other_screens">σε όλα τα υπόλοιπα</string>
     <string name="pref_title_colored_album_footers">Έγχρωμα υποσέλιδα δίσκων</string>
-    <string name="no_equalizer">Δε βρέθηκε εξισωτής</string>
-    <string name="no_audio_ID">"Δε βρέθηκε ήχος, αναπαράξτε κάτι ξανά."</string>
+    <string name="no_equalizer">Δε βρέθηκε ισοσταθμιστής</string>
+    <string name="no_audio_ID">"Δε βρέθηκε ήχος, αναπαράξτε κάτι και δοκιμάστε ξανά."</string>
     <string name="navigation_drawer_open">Άνοιγμα συρταριού πλόηγησης</string>
     <string name="navigation_drawer_close">"Κλείσιμο συρταριού πλόηγησης"</string>
     <string name="delete_action">Διαγραφή</string>
@@ -99,16 +114,15 @@
     <string name="select">Επιλογή</string>
     <string name="default_str">Προεπιλογή</string>
     <string name="primary_color">Πρωτεύον χρώμα</string>
-    <string name="accent_color">Χρώμα προφοράς</string>
-    <string name="primary_color_desc">Το πρωτεύον χρώμα θέματος, η προεπιλογή είναι λουλακί.</string>
-    <string name="accent_color_desc">Το χρώμα της προφοράς του θέματος, η προεπιλογή είναι ροζ.</string>
+    <string name="accent_color">Χρώμα χαρακτήρων</string>
+    <string name="primary_color_desc">Το πρωτεύον χρώμα θέματος είναι λουλακί.</string>
+    <string name="accent_color_desc">Το χρώμα των χαρακτήρων του θέματος είναι ροζ.</string>
     <string name="update_image">Ανανέωση εικόνας</string>
     <string name="playlist_empty_text">Αυτή η λίστα είναι άδεια</string>
     <string name="no_playlists">Καμία λίστα</string>
     <string name="playlist_name">Όνομα λίστας</string>
     <string name="song">Τραγούδι</string>
-    <string name="pref_only_lollipop">"Διαθέσιμο μόνο στο Lollipop."</string>
-    <string name="pref_summary_transparent_toolbar">Η κύλιση περιεχομένου κάτω από τη μπάρα εργαλείων είναι εμφανής.</string>
+    <string name="pref_only_lollipop">"Διαθέσιμο μόνο σε Lollipop."</string>
     <string name="pref_summary_colored_album_footers">"Το υποσέλιδο των δίσκων στο πλέγμα χρωματίζεται με βάση την παλέττα του εξώφυλλου του δίσκου."</string>
     <string name="failed_download_albumart">"Αδυναμία λήψης εξώφυλλου γι αυτό το δίσκο."</string>
     <string name="search_hint">Αναζήτηση στη βιβλιοθήκη...</string>

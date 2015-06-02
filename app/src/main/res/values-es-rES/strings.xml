@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="what_do_you_want_to_share">¿Qué quieres compartir?</string>
+    <string name="currently_listening_to_x_by_x">Escuchando %1$s de %2$s</string>
+    <string name="the_audio_file">El archivo de audio</string>
+    <string name="do_you_want_to_set_x_as_ringtone">¿Quieres establecer %1$s como politono?</string>
+    <string name="x_has_been_set_as_ringtone">%1$s ha sido establecido como politono.</string>
+    <string name="action_set_as_ringtone">Establecer como tono de llamada</string>
+    <string name="action_share">Compartir</string>
     <string name="action_settings">"Ajustes"</string>
     <string name="action_about">Acerca de</string>
     <string name="action_currently_playing">Reproduciendo</string>
@@ -17,7 +24,7 @@
     <string name="songs">Canciones</string>
     <string name="playlists">Listas de reproducción</string>
     <string name="nothing_playing">Nada se está reproduciendo</string>
-    <string name="unplayable_file">Disculpe, ha ocurrido un error intentando reproducir esta canción</string>
+    <string name="unplayable_file">Disculpe, ha ocurrido un error intentando reproducir esta canción.</string>
     <string name="biography_unavailable">Lo sentimos, no encontramos una biografía correspondiente a éste artista</string>
     <string name="biography">Biografía</string>
     <string name="audio_focus_denied">No podemos encontrar el foco de audio</string>
@@ -53,6 +60,8 @@
     <string name="action_re_download_artist_image">Actualizar imagen del artista</string>
     <string name="updating">Actualizando...</string>
     <string name="added_title_to_playing_queue">"1 título añadido a la cola de reproducción"</string>
+    <string name="added_x_titles_to_playing_queue">%1$d título(s) añadido(s) a la cola de reproducción</string>
+    <string name="title_activity_playlist_detail">Actividad de la lista de reproducción</string>
     <string name="action_delete_from_playlist">Borrar de la lista de reproducción</string>
     <string name="new_playlist_action">Nueva lista de reproducción...</string>
     <string name="action_grid_columns">Columnas de la cuadrícula</string>
@@ -62,12 +71,24 @@
     <string name="deleted_playlist_x">Lista de reproducción %1$s borrada</string>
     <string name="couldnot_create_playlist_x">No se puede crear la lista de reproducción %1$s</string>
     <string name="delete_playlist_x"><![CDATA[¿Seguro que quiere borrar la lista de reproducción <b>%1$s</b>?]]></string>
+    <string name="delete_x_playlists"><![CDATA[
+ ¿Quieres eliminar la lista de reproducción <b>%1$d</b> ? 
+    ]]></string>
     <string name="delete_song_x"><![CDATA[¿Seguro que deseas eliminar la canción <b>%1$s</b>?]]></string>
     <string name="delete_x_songs"><![CDATA[¿Seguro que desea borrar <b>%1$d</b> canciones?]]></string>
+    <string name="delete_song_x_from_playlist"><![CDATA[
+¿Quiere eliminar la canción <b>%1$s</b> de la lista de reproducción?
+    ]]></string>
+    <string name="delete_x_songs_from_playlist"><![CDATA[
+ ¿Quiere eliminar las canciónes <b>%1$d</b> de la lista de reproducción? 
+    ]]></string>
     <string name="delete_song_title">Borrar canción</string>
     <string name="delete_songs_title">Borrar canciones</string>
+    <string name="delete_song_from_playlist_title">Eliminar canción de la lista de reproducción</string>
+    <string name="delete_songs_from_playlist_title">Eliminar canciones de la lista de reproducción</string>
     <string name="rename_playlist_title">Renombrar lista de reproducción</string>
     <string name="delete_playlist_title">Borrar lista de reproducción</string>
+    <string name="delete_playlists_title">Eliminar listas de reproducción</string>
     <string name="add_playlist_title">"Agregar a la lista de reproducción"</string>
     <string name="new_playlist_title">Nueva lista de reproducción</string>
     <string name="delete_warning">"Advertencia: Esta operación no se puede deshacer"</string>
@@ -84,7 +105,6 @@
     <string name="pref_title_navigation_bar">Color en la barra de navegación</string>
     <string name="pref_title_set_default_start_page">Establecer como página de inicio</string>
     <string name="title_activity_settings">Ajustes</string>
-    <string name="pref_title_transparent_toolbar">"Barra de herramientas semi-transparente"</string>
     <string name="pref_title_colored_navigation_bar_artists">Barra de navegación en Vista del Artista coloreada</string>
     <string name="pref_title_colored_navigation_bar_albums">Barra de navegación de Vista del Álbum coloreada</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Ver reproducción</string>
@@ -92,12 +112,15 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Editor de etiquetas</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Cualquier lugar</string>
     <string name="pref_title_colored_album_footers">Pie de álbum coloreado</string>
+    <string name="pref_title_force_square_album_art">Forzar portada de álbum a cuadrado</string>
+    <string name="pref_title_opaque_toolbar_now_playing">Barra de reproduciendo opaca</string>
     <string name="no_equalizer">No se encontró ningún ecualizador</string>
     <string name="no_audio_ID">"No se encontró el ID de audio. Intenta otra vez."</string>
     <string name="navigation_drawer_open">Abrir barra de navegación</string>
     <string name="navigation_drawer_close">"Cerrar la barra de navegación "</string>
     <string name="delete_action">Borrar</string>
     <string name="rename_action">Renombrar</string>
+    <string name="create_action">Crear</string>
     <string name="select">Seleccionar</string>
     <string name="default_str">Por defecto</string>
     <string name="primary_color">Color Primario</string>
@@ -110,11 +133,13 @@
     <string name="playlist_name">Nombre de la lista de reproducción</string>
     <string name="song">Canción</string>
     <string name="pref_only_lollipop">"Solamente disponible en Lollipop"</string>
-    <string name="pref_summary_transparent_toolbar">Contenido visible debajo de la barra de herramientas.</string>
     <string name="pref_summary_colored_album_footers">"El color pie del álbum en la cuadrícula se basa en la paleta de colores de la tapa del álbum."</string>
+    <string name="pref_summary_force_square_album_art">La portada del álbum en reproduciendo es forzada a ser cuadrada.</string>
+    <string name="pref_summary_opaque_toolbar_now_playing">La barra en reproduciendo es opaca y no tapa la portada del álbum.</string>
     <string name="failed_download_albumart">"Imposible descargar portada del álbum"</string>
     <string name="search_hint">Buscar en librería...</string>
     <string name="rescanning_media">Escaneando contenido...</string>
+    <string name="other">Otro</string>
     <string-array name="update_album_cover_options">
         <item>Descargar de Last.fm</item>
         <item>Seleccionar de Almacenamiento Interno</item>

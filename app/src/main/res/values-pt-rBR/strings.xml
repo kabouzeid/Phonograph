@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="what_do_you_want_to_share">O que você quer compartilhar?</string>
+    <string name="currently_listening_to_x_by_x">Atualmente ouvindo %1$s por %2$s</string>
+    <string name="the_audio_file">O arquivo de áudio</string>
+    <string name="do_you_want_to_set_x_as_ringtone">Deseja definir %1$s como seu toque?</string>
+    <string name="x_has_been_set_as_ringtone">A faixa %1$s foi definida como seu toque.</string>
+    <string name="action_set_as_ringtone">Definir como toque</string>
+    <string name="action_share">Compartilhar</string>
     <string name="action_settings">"Configurações"</string>
     <string name="action_about">Sobre</string>
     <string name="action_currently_playing">Em execução</string>
@@ -15,12 +22,13 @@
     <string name="albums">Álbuns</string>
     <string name="artists">Artistas</string>
     <string name="songs">Músicas</string>
-    <string name="playlists">Playlists</string>
+    <string name="playlists">Listas de Reprodução</string>
     <string name="nothing_playing">Nada em execução</string>
     <string name="unplayable_file">Desculpe - ocorreu um erro ao tentar reproduzir esta faixa</string>
     <string name="biography_unavailable">Desculpe, não conseguimos encontrar a biografia deste artista.</string>
     <string name="biography">Biografia</string>
     <string name="audio_focus_denied">Não conseguimos obter o foco do áudio.</string>
+    <string name="title_activity_tag_editor">Editor de tags</string>
     <string name="tag_editor">Editor de tags</string>
     <string name="album">Álbum</string>
     <string name="artist">Artista</string>
@@ -32,6 +40,7 @@
     <string name="album_or_artist_empty">O campo de título ou artista do álbum está vazio.</string>
     <string name="writing_file_number">Gravando no arquivo</string>
     <string name="saving_changes">Salvando alterações...</string>
+    <string name="title_activity_album_tag_editor">Editor de Tags de Álbum</string>
     <string name="label_details">Detalhes</string>
     <string name="label_file_name">Nome do arquivo</string>
     <string name="label_file_path">Endereço do arquivo</string>
@@ -52,6 +61,7 @@
     <string name="updating">Atualizando...</string>
     <string name="added_title_to_playing_queue">"1 título adicionado à lista de reprodução"</string>
     <string name="added_x_titles_to_playing_queue">%1$d faixas adicionadas à lista de reprodução.</string>
+    <string name="title_activity_playlist_detail">Atividade da Lista de Reprodução</string>
     <string name="action_delete_from_playlist">Excluir da playlist</string>
     <string name="new_playlist_action">Nova playlist...</string>
     <string name="action_grid_columns">Colunas da grade</string>
@@ -95,7 +105,6 @@
     <string name="pref_title_navigation_bar">Barra de navegação colorida</string>
     <string name="pref_title_set_default_start_page">Página inicial</string>
     <string name="title_activity_settings">Configurações</string>
-    <string name="pref_title_transparent_toolbar">"Barra de ferramentas semi-transparente"</string>
     <string name="pref_title_colored_navigation_bar_artists">Visualização por artistas</string>
     <string name="pref_title_colored_navigation_bar_albums">Visualização por álbuns</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Vista em execução</string>
@@ -103,12 +112,15 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Editor de tags</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Todos os outros lugares</string>
     <string name="pref_title_colored_album_footers">Rodapés de álbuns coloridos</string>
+    <string name="pref_title_force_square_album_art">Forçar a capa do álbum quadrada</string>
+    <string name="pref_title_opaque_toolbar_now_playing">Barra de ações opaca na reprodução</string>
     <string name="no_equalizer">Nenhum equalizador encontrado</string>
     <string name="no_audio_ID">"Sem identificação de áudio, reproduza algo e tente novamente."</string>
     <string name="navigation_drawer_open">Abrir gaveta de navegação</string>
     <string name="navigation_drawer_close">"Fechar gaveta de navegação"</string>
     <string name="delete_action">Excluir</string>
     <string name="rename_action">Renomear</string>
+    <string name="create_action">Criar</string>
     <string name="select">Selecionar</string>
     <string name="default_str">Padrão</string>
     <string name="primary_color">Cor Primária</string>
@@ -121,11 +133,13 @@
     <string name="playlist_name">Nome da playlist</string>
     <string name="song">Música</string>
     <string name="pref_only_lollipop">"Apenas disponível no Lollipop."</string>
-    <string name="pref_summary_transparent_toolbar">Conteúdo rolando abaixo da barra de ferramentas é visível.</string>
     <string name="pref_summary_colored_album_footers">"Rodapés de álbum na grade são coloridos com as paletas correspondentes."</string>
+    <string name="pref_summary_force_square_album_art">A arte do álbum na tela \"Em execução\" está forçada a ser quadrada.</string>
+    <string name="pref_summary_opaque_toolbar_now_playing">A barra de ações está opaca e não cobre mais a capa do álbum.</string>
     <string name="failed_download_albumart">"Não foi possível fazer o download da arte para este álbum."</string>
     <string name="search_hint">Pesquisar na sua biblioteca...</string>
     <string name="rescanning_media">Verificando mídia novamente...</string>
+    <string name="other">Outro</string>
     <string-array name="update_album_cover_options">
         <item>Baixar do Last.fm</item>
         <item>Escolher do Armazenamento Local</item>

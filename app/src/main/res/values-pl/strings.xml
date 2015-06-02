@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="what_do_you_want_to_share">Co chcesz udostępnić?</string>
+    <string name="currently_listening_to_x_by_x">Obecnie słuchany utwór %1$s autorstwa %2$s</string>
+    <string name="the_audio_file">Plik audio</string>
+    <string name="do_you_want_to_set_x_as_ringtone">Czy chcesz ustawić %1$s jako dzwonek?</string>
+    <string name="x_has_been_set_as_ringtone">%1$s ustawiono jako dzwonek</string>
+    <string name="action_set_as_ringtone">Ustaw jako dzwonek</string>
+    <string name="action_share">Udostępnij</string>
     <string name="action_settings">"Ustawienia"</string>
     <string name="action_about">O aplikacji</string>
     <string name="action_currently_playing">Teraz gra</string>
@@ -17,7 +24,7 @@
     <string name="songs">Utwory</string>
     <string name="playlists">Listy odtwarzania</string>
     <string name="nothing_playing">Nic nie gra</string>
-    <string name="unplayable_file">Niestety - wystąpił błąd przy próbie zagrania tej piosenki</string>
+    <string name="unplayable_file">Niestety - wystąpił błąd przy próbie odtworzenia tego utworu</string>
     <string name="biography_unavailable">Niestety nie byliśmy w stanie znaleźć pasującej biografii dla tego wykonawcy</string>
     <string name="biography">Biografia</string>
     <string name="audio_focus_denied">We were not able to gain audio focus</string>
@@ -54,6 +61,7 @@
     <string name="updating">Aktualizowanie...</string>
     <string name="added_title_to_playing_queue">"Dodano 1 tytuł do kolejki odtwarzania"</string>
     <string name="added_x_titles_to_playing_queue">Dodano %1$d tytuły do kolejki odtwarzania</string>
+    <string name="title_activity_playlist_detail">Aktywność list odtwarzania</string>
     <string name="action_delete_from_playlist">Usuń z listy odtwarzania</string>
     <string name="new_playlist_action">Nowa lista odtwarzania...</string>
     <string name="action_grid_columns">Siatka kolumn</string>
@@ -91,7 +99,6 @@
     <string name="pref_title_navigation_bar">Kolorowy pasek nawigacyjny</string>
     <string name="pref_title_set_default_start_page">Strona startowa</string>
     <string name="title_activity_settings">Ustawienia</string>
-    <string name="pref_title_transparent_toolbar">"Przeźroczystość belki nawigacyjnej"</string>
     <string name="pref_title_colored_navigation_bar_artists">Widok wykonawcy</string>
     <string name="pref_title_colored_navigation_bar_albums">Widok albumu</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Widok aktualnie granych</string>
@@ -99,12 +106,15 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Edytor tagów</string>
     <string name="pref_title_colored_navigation_bar_other_screens">W każdym innym miejscu</string>
     <string name="pref_title_colored_album_footers">Kolorowa stopka albumu</string>
+    <string name="pref_title_force_square_album_art">Wymuś kadrowanie okładek</string>
+    <string name="pref_title_opaque_toolbar_now_playing">Nieprzeźroczystość paska narzędzi na ekranie \'\'Obecnie Grane\'\'</string>
     <string name="no_equalizer">Nie znaleziono korektora</string>
     <string name="no_audio_ID">"Brak ID dźwięku, puść coś i spróbuj ponownie"</string>
     <string name="navigation_drawer_open">Otwórz pasek nawigacji</string>
     <string name="navigation_drawer_close">"Zamknij pasek nawigacji"</string>
     <string name="delete_action">Usuń</string>
     <string name="rename_action">Zmień</string>
+    <string name="create_action">Utwórz</string>
     <string name="select">Wybierz</string>
     <string name="default_str">Domyślny</string>
     <string name="primary_color">Kolor podstawowy</string>
@@ -117,11 +127,13 @@
     <string name="playlist_name">Nazwa listy odtwarzania</string>
     <string name="song">Utwór</string>
     <string name="pref_only_lollipop">"Dostępne tylko w androidzie Lollipop"</string>
-    <string name="pref_summary_transparent_toolbar">Zawartości przewijana poniżej belki jest na niej widoczna</string>
     <string name="pref_summary_colored_album_footers">"Stopki albumów w widoku siatki mają tonacje okładek"</string>
+    <string name="pref_summary_force_square_album_art">Wymuszono kadrowanie okładek na ekranie \'\'Obecnie Grane\'\'</string>
+    <string name="pref_summary_opaque_toolbar_now_playing">Pasek narzędzi na ekranie \'\'Obecnie Grane\'\' jest nieprzeźroczysty i nie zasłania już okładki</string>
     <string name="failed_download_albumart">"Nie można pobrać okładki dla tego albumu"</string>
     <string name="search_hint">Szukaj w bibliotece...</string>
     <string name="rescanning_media">Ponowny skan nośnika...</string>
+    <string name="other">Inne</string>
     <string-array name="update_album_cover_options">
         <item>Pobierz z Last.fm</item>
         <item>Wybierz z pamięci lokalnej</item>

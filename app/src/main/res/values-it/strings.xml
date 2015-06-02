@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="what_do_you_want_to_share">Cosa vuoi condividere?</string>
+    <string name="currently_listening_to_x_by_x">Sto ascoltando %1$s di %2$s</string>
+    <string name="the_audio_file">Il file audio</string>
+    <string name="do_you_want_to_set_x_as_ringtone">Vuoi impostare %1$s come suoneria?</string>
+    <string name="x_has_been_set_as_ringtone">%1$s è stato impostato come suoneria.</string>
+    <string name="action_set_as_ringtone">Imposta come suoneria</string>
+    <string name="action_share">Condividi</string>
     <string name="action_settings">"Impostazioni"</string>
     <string name="action_about">Informazioni</string>
     <string name="action_currently_playing">In riproduzione</string>
@@ -21,7 +28,7 @@
     <string name="biography_unavailable">Spiacenti, impossibile trovare una biografia corrispondente a questo artista.</string>
     <string name="biography">Biografia</string>
     <string name="audio_focus_denied">Impossibile ottenere focus audio.</string>
-    <string name="title_activity_tag_editor">AttivitàModificaTag</string>
+    <string name="title_activity_tag_editor">Modifica tag</string>
     <string name="tag_editor">Modifica tag</string>
     <string name="album">Album</string>
     <string name="artist">Artista</string>
@@ -29,11 +36,11 @@
     <string name="album_artist">Artista album</string>
     <string name="year">Anno</string>
     <string name="track">Traccia</string>
-    <string name="track_hint">"Traccia (2 per 2 o 3004 per CD3 traccia 4)"</string>
+    <string name="track_hint">"Traccia (2 per traccia 2, o 3004 per CD3 traccia 4)"</string>
     <string name="album_or_artist_empty">Il campo \"Album\" o \"Artista album\" è vuoto.</string>
     <string name="writing_file_number">Scrittura file in corso</string>
     <string name="saving_changes">Salvataggio modifiche in corso...</string>
-    <string name="title_activity_album_tag_editor">AttivitàModificaTagAlbum</string>
+    <string name="title_activity_album_tag_editor">Modifica tag album</string>
     <string name="label_details">Dettagli</string>
     <string name="label_file_name">Nome file</string>
     <string name="label_file_path">Percorso file</string>
@@ -47,13 +54,14 @@
     <string name="label_current_playing_queue">Coda di riproduzione</string>
     <string name="save_as_playlist">Salva come playlist</string>
     <string name="credits_3">Icona disegnata da</string>
-    <string name="credits_1">"Phonograph è un lettore musicale in material design completamente gratuito scritto da"</string>
+    <string name="credits_1">"Phonograph è un lettore musicale in material design completamente gratuito realizzato da"</string>
     <string name="title_activity_search">Cerca</string>
     <string name="no_results">Nessun risultato</string>
     <string name="action_re_download_artist_image">Aggiorna immagine artista</string>
     <string name="updating">Aggiornamento...</string>
     <string name="added_title_to_playing_queue">"Un brano aggiunto alla coda."</string>
-    <string name="title_activity_playlist_detail">DettagliAttivitàPlaylist</string>
+    <string name="added_x_titles_to_playing_queue">%1$d titoli aggiunti alla coda.</string>
+    <string name="title_activity_playlist_detail">Attività playlist</string>
     <string name="action_delete_from_playlist">Elimina dalla playlist</string>
     <string name="new_playlist_action">Nuova playlist...</string>
     <string name="action_grid_columns">Colonne griglia</string>
@@ -63,12 +71,24 @@
     <string name="deleted_playlist_x">Playlist %1$s eliminata</string>
     <string name="couldnot_create_playlist_x">Impossibile creare playlist %1$s</string>
     <string name="delete_playlist_x"><![CDATA[        Vuoi eliminare la playlist <b>%1$s</b>? ]]></string>
+    <string name="delete_x_playlists"><![CDATA[
+        Vuoi eliminare <b>%1$d</b> playlist? 
+    ]]></string>
     <string name="delete_song_x"><![CDATA[        Vuoi eliminare il brano <b>%1$s</b>? ]]></string>
     <string name="delete_x_songs"><![CDATA[        Vuoi eliminare <b>%1$d</b> brani? ]]></string>
+    <string name="delete_song_x_from_playlist"><![CDATA[
+        Vuoi eliminare il brano <b>%1$s</b> dalla playlist? 
+    ]]></string>
+    <string name="delete_x_songs_from_playlist"><![CDATA[
+        Vuoi eliminare <b>%1$d</b> brani dalla playlist? 
+    ]]></string>
     <string name="delete_song_title">Elimina brano</string>
     <string name="delete_songs_title">Elimina brani</string>
+    <string name="delete_song_from_playlist_title">Elimina brano dalla playlist</string>
+    <string name="delete_songs_from_playlist_title">Elimina brani dalla playlist</string>
     <string name="rename_playlist_title">Rinomina playlist</string>
     <string name="delete_playlist_title">Elimina playlist</string>
+    <string name="delete_playlists_title">Elimina playlist</string>
     <string name="add_playlist_title">"Aggiungi alla playlist"</string>
     <string name="new_playlist_title">Nuova playlist</string>
     <string name="delete_warning">"Attenzione: questa operazione non può essere annullata."</string>
@@ -85,20 +105,22 @@
     <string name="pref_title_navigation_bar">Barra di navigazione colorata</string>
     <string name="pref_title_set_default_start_page">Pagina iniziale</string>
     <string name="title_activity_settings">Impostazioni</string>
-    <string name="pref_title_transparent_toolbar">"Barra degli strumenti semitrasparente"</string>
     <string name="pref_title_colored_navigation_bar_artists">Schermata Artista</string>
     <string name="pref_title_colored_navigation_bar_albums">Schermata Album</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Schermata In riproduzione</string>
-    <string name="pref_title_colored_navigation_bar_playlists">Schermata playlist</string>
+    <string name="pref_title_colored_navigation_bar_playlists">Schermata Playlist</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">Modifica tag</string>
     <string name="pref_title_colored_navigation_bar_other_screens">In tutte le altre schermate</string>
     <string name="pref_title_colored_album_footers">Riquadri album colorati</string>
+    <string name="pref_title_force_square_album_art">Copertina in proporzioni quadrate</string>
+    <string name="pref_title_opaque_toolbar_now_playing">Toolbar di riproduzione opaca</string>
     <string name="no_equalizer">Nessun equalizzatore trovato</string>
     <string name="no_audio_ID">"Nessun ID audio, riproduci qualcosa e prova di nuovo."</string>
     <string name="navigation_drawer_open">Apri il pannello di navigazione</string>
     <string name="navigation_drawer_close">"Chiudi il pannello di navigazione"</string>
     <string name="delete_action">Elimina</string>
     <string name="rename_action">Rinomina</string>
+    <string name="create_action">Crea</string>
     <string name="select">Seleziona</string>
     <string name="default_str">Predefinito</string>
     <string name="primary_color">Colore principale</string>
@@ -111,11 +133,13 @@
     <string name="playlist_name">Nome playlist</string>
     <string name="song">Brano</string>
     <string name="pref_only_lollipop">"Disponibile solo su Lollipop."</string>
-    <string name="pref_summary_transparent_toolbar">Lo scorrimento dei contenuti è visibile al di sotto della barra degli strumenti.</string>
     <string name="pref_summary_colored_album_footers">"I riquadri degli album nella griglia sono colorati secondo la gamma colori della copertina."</string>
+    <string name="pref_summary_force_square_album_art">La copertina nella schermata In riproduzione è sempre visualizzata con proporzioni quadrate.</string>
+    <string name="pref_summary_opaque_toolbar_now_playing">La toolbar nella schermata In riproduzione è opaca e non copre la copertina.</string>
     <string name="failed_download_albumart">"Impossibile scaricare la copertina per quest\'album."</string>
     <string name="search_hint">Cerca nella tua libreria...</string>
     <string name="rescanning_media">Nuova scannerizzazione media in corso...</string>
+    <string name="other">Altro</string>
     <string-array name="update_album_cover_options">
         <item>Scarica da Last.fm</item>
         <item>Scegli da archivio locale</item>

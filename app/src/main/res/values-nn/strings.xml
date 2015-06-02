@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">"Innstillingar"</string>
+    <string name="action_about">Om</string>
+    <string name="action_currently_playing">Spelar no</string>
+    <string name="action_playing_queue">Songkø</string>
+    <string name="action_search">Søk</string>
+    <string name="action_play_next">Spel som neste</string>
+    <string name="action_add_to_playing_queue">Legg til i køen</string>
+    <string name="action_remove_from_playing_queue">Fjern frå køen</string>
+    <string name="action_add_to_playlist">Legg til i speleliste...</string>
+    <string name="action_tag_editor">Tag Editor</string>
+    <string name="action_delete_from_disk">Slett frå disk</string>
+    <string name="action_details">Detaljar</string>
+    <string name="albums">Album</string>
+    <string name="artists">Artistar</string>
+    <string name="songs">Songar</string>
+    <string name="playlists">Spelelister</string>
+    <string name="nothing_playing">Ingenting speler</string>
+    <string name="unplayable_file">Orsak - ein feil oppstod medan spelaren prøvde å spele denne songen</string>
+    <string name="biography_unavailable">Orsak, vi fann ingen passande biografi for denne artisten.</string>
+    <string name="biography">Biografi</string>
+    <string name="audio_focus_denied">We were not able to gain audio focus.</string>
+    <string name="title_activity_tag_editor">Tag editor</string>
+    <string name="tag_editor">Tag editor</string>
+    <string name="album">Album</string>
+    <string name="artist">Artist</string>
+    <string name="genre">Genre</string>
+    <string name="album_artist">Albumartist</string>
+    <string name="year">År</string>
+    <string name="track">Spor</string>
+    <string name="track_hint">"Spor (2 for spor 2 eller 3004 for CD3 spor 4)"</string>
+    <string name="album_or_artist_empty">Tekstfeltet for albumtittel eller albumartist er tomt.</string>
+    <string name="writing_file_number">Skriv til fil</string>
+    <string name="saving_changes">Lagrar endringar...</string>
+    <string name="title_activity_album_tag_editor">Album Tag Editor</string>
+    <string name="label_details">Detaljar</string>
+    <string name="label_file_name">Filnamn</string>
+    <string name="label_file_path">Sti til fil</string>
+    <string name="label_file_size">Storleik</string>
+    <string name="label_file_format">Format</string>
+    <string name="label_track_length">Lengd</string>
+    <string name="label_bit_rate">Bitrate</string>
+    <string name="label_sampling_rate">Samplingsfrekvens</string>
+    <string name="action_go_to_artist">Gå til artist</string>
+    <string name="action_go_to_album">Gå til album</string>
+    <string name="label_current_playing_queue">Songkø</string>
+    <string name="save_as_playlist">Lagre som speleliste</string>
+    <string name="credits_3">Ikon av</string>
+    <string name="credits_1">"Phonograph er ein gratis musikkspelar i material design av"</string>
+    <string name="title_activity_search">Søk</string>
+    <string name="no_results">Ingen resultat</string>
+    <string name="action_re_download_artist_image">Oppdater artistbilete</string>
+    <string name="updating">Oppdaterer...</string>
+    <string name="added_title_to_playing_queue">"La 1 tittel til songkøen."</string>
+    <string name="added_x_titles_to_playing_queue">La %1$d titlar til songkøen.</string>
+    <string name="title_activity_playlist_detail">Spelelisteaktivitet</string>
+    <string name="action_delete_from_playlist">Fjern frå speleliste</string>
+    <string name="new_playlist_action">Ny speleliste...</string>
+    <string name="action_grid_columns">Rutenettkolonnar</string>
+    <string name="action_grid_columns_land">Rutenettkolonnar (land)</string>
+    <string name="inserted_x_songs_into_playlist">Satte inn %1$d songar i denne spelelista.</string>
+    <string name="created_playlist_x">Oppretta speleliste %1$s</string>
+    <string name="deleted_playlist_x">Sletta speleliste %1$s</string>
+    <string name="couldnot_create_playlist_x">Kunne ikkje opprette speleliste %1$s</string>
+    <string name="delete_playlist_x"><![CDATA[
+        Ynskjer du å slette spelelista <b>%1$s</b>? 
+    ]]></string>
+    <string name="delete_x_playlists"><![CDATA[
+        Ynskjer du å slette spelelistene <b>%1$d</b>? 
+    ]]></string>
+    <string name="delete_song_x"><![CDATA[
+        Ynskjer du å slette songen <b>%1$s</b>? 
+    ]]></string>
+    <string name="delete_x_songs"><![CDATA[
+        Ynskjer du å slette <b>%1$d</b> songar? 
+    ]]></string>
+    <string name="delete_song_x_from_playlist"><![CDATA[
+        Ynskjer du å slette songen <b>%1$s</b> frå spelelista? 
+    ]]></string>
+    <string name="delete_x_songs_from_playlist"><![CDATA[
+        Ynskjer du å slette <b>%1$d</b> songar frår spelelista? 
+    ]]></string>
+    <string name="delete_song_title">Slett song</string>
+    <string name="delete_songs_title">Slett songar</string>
+    <string name="delete_song_from_playlist_title">Slett song frå speleliste</string>
+    <string name="delete_songs_from_playlist_title">Slett songar frå speleliste</string>
+    <string name="rename_playlist_title">Gje nytt namn til speleliste</string>
+    <string name="delete_playlist_title">Slett speleliste</string>
+    <string name="delete_playlists_title">Slett spelelister</string>
+    <string name="add_playlist_title">"Legg til i speleliste"</string>
+    <string name="new_playlist_title">Ny speleliste</string>
+    <string name="delete_warning">"Åtvaring: Denne operasjonen kan ikkje gjerast om."</string>
+    <string name="shuffle_all">Spel alle i tilfeldig rekkjefylgje</string>
+    <string name="last_opened">Sist opna</string>
+    <string name="light_theme_name">Lys</string>
+    <string name="dark_theme_name">Mørk</string>
+    <string name="equalizer">Equalizer</string>
+    <string name="pref_header_ui">Brukargrensesnitt</string>
+    <string name="pref_title_general_theme">Generelt tema</string>
+    <string name="pref_header_audio">Audio</string>
+    <string name="pref_header_general">Generelt</string>
+    <string name="pref_title_navigation_bar">Farga navigasjonslinje</string>
+    <string name="pref_title_set_default_start_page">Startside</string>
+    <string name="title_activity_settings">Innstillingar</string>
+    <string name="pref_title_colored_navigation_bar_artists">Artistvising</string>
+    <string name="pref_title_colored_navigation_bar_albums">Albumvising</string>
+    <string name="pref_title_colored_navigation_bar_current_playing">Spelevising</string>
+    <string name="pref_title_colored_navigation_bar_playlists">Spelelistevising</string>
+    <string name="pref_title_colored_navigation_bar_other_screens">Alle andre stader</string>
+    <string name="no_equalizer">Ingen equalizer funne</string>
+    <string name="no_audio_ID">"Ingen audio-ID, spel noko og prøv igjen"</string>
+    <string name="navigation_drawer_open">Opne navigasjonsskuff</string>
+    <string name="navigation_drawer_close">"Steng navigasjonsskuff"</string>
+    <string name="delete_action">Slett</string>
+    <string name="rename_action">Gje nytt namn</string>
+    <string name="select">Vel</string>
+    <string name="default_str">Standard</string>
+    <string name="primary_color">Primærfarge</string>
+    <string name="accent_color">Fokusfarge</string>
+    <string name="primary_color_desc">Primær temafarge, standard er indigo.</string>
+    <string name="accent_color_desc">Fokustemafarge, standard er rosa.</string>
+    <string name="update_image">Oppdater bilete</string>
+    <string name="playlist_empty_text">Spelelista er tom</string>
+    <string name="no_playlists">Ingen spelelister</string>
+    <string name="playlist_name">Spelelistenamn</string>
+    <string name="song">Song</string>
+    <string name="pref_only_lollipop">"Berre tilgjengeleg på Lollipop."</string>
+    <string name="failed_download_albumart">"Ikkje i stand til å laste ned omslagsbilete til dette albumet."</string>
+    <string name="search_hint">Søk i biblioteket...</string>
+    <string name="rescanning_media">Skanner media på nytt...</string>
+    <string-array name="update_album_cover_options">
+        <item>Last ned frå Last.fm</item>
+        <item>Vel frå lokal lagring</item>
+        <item>Nettsøk</item>
+        <item>Fjern omslagsbilete</item>
+    </string-array>
+</resources>

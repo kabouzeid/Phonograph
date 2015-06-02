@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="what_do_you_want_to_share">Ne paylaşmak istersin?</string>
+    <string name="currently_listening_to_x_by_x">Şu anda %2$s nın %1$s parçası çalıyor</string>
+    <string name="the_audio_file">Ses dosyası</string>
+    <string name="do_you_want_to_set_x_as_ringtone">%1$s yı zil sesi olarak ayarlamak ister misiniz?</string>
+    <string name="x_has_been_set_as_ringtone">%1$s zil sesi olarak ayarlandı.</string>
+    <string name="action_set_as_ringtone">Zil sesi olarak ayarla.</string>
+    <string name="action_share">Paylaş</string>
     <string name="action_settings">"Ayarlar"</string>
     <string name="action_about">Hakkında</string>
     <string name="action_currently_playing">Şu anda çalınan</string>
@@ -17,10 +24,11 @@
     <string name="songs">Şarkılar</string>
     <string name="playlists">Çalma listeleri</string>
     <string name="nothing_playing">Şu anda çalınan şarkı yok</string>
-    <string name="unplayable_file">Üzgünüm - Şarkı oynatılırken bir hata oluştu</string>
+    <string name="unplayable_file">Üzgünüm - Bu şarkı oynatılırken bir hata oluştu</string>
     <string name="biography_unavailable">Üzgünüm, bu sanatçı ile ilgili hiçbir biyografi yazısı bulamadık.</string>
     <string name="biography">Biyografi</string>
     <string name="audio_focus_denied">Sizlere ses odağı kazandırmak mümkün değildi.</string>
+    <string name="title_activity_tag_editor">Etiket düzenleyicisi</string>
     <string name="tag_editor">Etiket düzenleyici</string>
     <string name="album">Albüm</string>
     <string name="artist">Sanatçı</string>
@@ -32,6 +40,7 @@
     <string name="album_or_artist_empty">Albüm başlığı veya albüm sanatçısı metin alanı boş.</string>
     <string name="writing_file_number">Dosya yazılıyor</string>
     <string name="saving_changes">Değişiklikler kaydediliyor...</string>
+    <string name="title_activity_album_tag_editor">Albüm etiket düzenleyicisi</string>
     <string name="label_details">Ayrıntılar</string>
     <string name="label_file_name">Dosya adı</string>
     <string name="label_file_path">Dosya yolu</string>
@@ -52,6 +61,7 @@
     <string name="updating">Güncelleniyor...</string>
     <string name="added_title_to_playing_queue">"Çalma kuyruğuna 1 başlık eklendi"</string>
     <string name="added_x_titles_to_playing_queue">Çalma kuyruğuna %1$d başlıkları eklendi.</string>
+    <string name="title_activity_playlist_detail">Çalma listesi etkinliği</string>
     <string name="action_delete_from_playlist">Çalma listesinden sil</string>
     <string name="new_playlist_action">Yeni çalma listesi</string>
     <string name="action_grid_columns">Izgara sütunları</string>
@@ -90,7 +100,6 @@
     <string name="pref_title_navigation_bar">Renkli gezinti çubuğu</string>
     <string name="pref_title_set_default_start_page">Başlangıç sayfası</string>
     <string name="title_activity_settings">Ayarlar</string>
-    <string name="pref_title_transparent_toolbar">"Yarı şeffaf araç çubuğu"</string>
     <string name="pref_title_colored_navigation_bar_artists">Sanatçı görünümü</string>
     <string name="pref_title_colored_navigation_bar_albums">Albüm görünümü</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Şimdi çalınan görünümü</string>
@@ -98,12 +107,15 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Etiket düxenleyici</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Başka her yer</string>
     <string name="pref_title_colored_album_footers">Renkli albüm alt bilgileri</string>
+    <string name="pref_title_force_square_album_art">Kare albüm kapağına zorla</string>
+    <string name="pref_title_opaque_toolbar_now_playing">Opak şimdi çalınan araç çubuğu</string>
     <string name="no_equalizer">Hiç ekolayzır bulunamadı</string>
     <string name="no_audio_ID">"Hiçbir ses kimliği yok, bir şarkı çalın ve tekrar deneyin."</string>
     <string name="navigation_drawer_open">Gezinti çekmecesini aç</string>
     <string name="navigation_drawer_close">"Gezinti çekmecesini kapat"</string>
     <string name="delete_action">Sil</string>
     <string name="rename_action">Yeniden adlandır</string>
+    <string name="create_action">Oluştur</string>
     <string name="select">Seç</string>
     <string name="default_str">Varsayılan</string>
     <string name="primary_color">Ana Renk</string>
@@ -116,11 +128,13 @@
     <string name="playlist_name">Oynatma Listesi adı</string>
     <string name="song">Şarkı</string>
     <string name="pref_only_lollipop">"Sadece Lollipop için"</string>
-    <string name="pref_summary_transparent_toolbar">Araç çubuğunun altına kaydırılan içerik görünüyor.</string>
     <string name="pref_summary_colored_album_footers">"Izgara içindeki albüm alt bilgisi albüm arkaplanı paletiyle renklendirildi."</string>
+    <string name="pref_summary_force_square_album_art">Şu anda çalınan albüm kapağı görüntüsü kare olmaya zorlandı.</string>
+    <string name="pref_summary_opaque_toolbar_now_playing">Şimdi çalınandaki araç çubuğu opak ve artık albüm kapağı var.</string>
     <string name="failed_download_albumart">"Bu albüm için kapak indirilemiyor."</string>
     <string name="search_hint">Kütüphaneniz taranıyor...</string>
     <string name="rescanning_media">Medyayı yeniden tara</string>
+    <string name="other">diğer</string>
     <string-array name="update_album_cover_options">
         <item>Last.FM den indir</item>
         <item>Varolandan Seç</item>

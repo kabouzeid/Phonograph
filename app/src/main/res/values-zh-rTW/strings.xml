@@ -21,6 +21,7 @@
     <string name="biography_unavailable">對不起，無法找到與這位歌手相符的個人簡介</string>
     <string name="biography">個人簡介</string>
     <string name="audio_focus_denied">無法獲得音訊焦點</string>
+    <string name="title_activity_tag_editor">編輯音樂標籤</string>
     <string name="tag_editor">編輯音樂標籤</string>
     <string name="album">專輯</string>
     <string name="artist">歌手</string>
@@ -32,6 +33,7 @@
     <string name="album_or_artist_empty">專輯名稱或專輯創作者欄是空的。</string>
     <string name="writing_file_number">正在寫入檔案</string>
     <string name="saving_changes">正在儲存變更…</string>
+    <string name="title_activity_album_tag_editor">編輯專輯標籤</string>
     <string name="label_details">詳細資訊</string>
     <string name="label_file_name">檔案名稱</string>
     <string name="label_file_path">檔案路徑</string>
@@ -51,6 +53,8 @@
     <string name="action_re_download_artist_image">更新歌手圖片</string>
     <string name="updating">更新中…</string>
     <string name="added_title_to_playing_queue">"這歌曲已加入播放佇列"</string>
+    <string name="added_x_titles_to_playing_queue">已增加%1$d首歌曲到播放佇列</string>
+    <string name="title_activity_playlist_detail">音樂清單活動</string>
     <string name="action_delete_from_playlist">從音樂清單移除</string>
     <string name="new_playlist_action">新增音樂清單</string>
     <string name="action_grid_columns">專輯網格列數</string>
@@ -59,13 +63,29 @@
     <string name="created_playlist_x">已新增音樂清單%1$s</string>
     <string name="deleted_playlist_x">已刪除音樂清單%1$s</string>
     <string name="couldnot_create_playlist_x">無法建立音樂清單%1$s</string>
-    <string name="delete_playlist_x"><![CDATA[你想刪除這個音樂清單： <b>%1$s</b>嗎？]]></string>
-    <string name="delete_song_x"><![CDATA[你想移除這首歌曲： <b>%1$s</b>嗎？]]></string>
+    <string name="delete_playlist_x"><![CDATA[
+你想刪除這個音樂清單： <b>%1$s</b>嗎？
+    ]]></string>
+    <string name="delete_x_playlists"><![CDATA[
+你想要刪除以下清單：<b>%1$d</b>嗎？
+    ]]></string>
+    <string name="delete_song_x"><![CDATA[
+你想移除這首歌曲： <b>%1$s</b>嗎？
+    ]]></string>
     <string name="delete_x_songs"><![CDATA[你想要移除以下歌曲： <b>%1$d</b>嗎？]]></string>
+    <string name="delete_song_x_from_playlist"><![CDATA[
+你想要將這首歌曲：<b>%1$s</b>從音樂清單移除嗎？
+    ]]></string>
+    <string name="delete_x_songs_from_playlist"><![CDATA[
+你想要將以下歌曲：<b>%1$d</b>從音樂清單移除嗎？
+    ]]></string>
     <string name="delete_song_title">移除歌曲</string>
     <string name="delete_songs_title">移除歌曲</string>
+    <string name="delete_song_from_playlist_title">將歌曲從音樂清單移除</string>
+    <string name="delete_songs_from_playlist_title">將歌曲從音樂清單移除</string>
     <string name="rename_playlist_title">重新命名音樂清單</string>
     <string name="delete_playlist_title">刪除音樂清單</string>
+    <string name="delete_playlists_title">刪除音樂清單</string>
     <string name="add_playlist_title">"加入音樂清單"</string>
     <string name="new_playlist_title">新增音樂清單</string>
     <string name="delete_warning">"警告：這個操作無法被撤銷！"</string>
@@ -82,7 +102,6 @@
     <string name="pref_title_navigation_bar">變色導航列</string>
     <string name="pref_title_set_default_start_page">設定預設起始頁</string>
     <string name="title_activity_settings">設定</string>
-    <string name="pref_title_transparent_toolbar">"半透明工具列"</string>
     <string name="pref_title_colored_navigation_bar_artists">歌手頁面</string>
     <string name="pref_title_colored_navigation_bar_albums">專輯頁面</string>
     <string name="pref_title_colored_navigation_bar_current_playing">播放頁面</string>
@@ -108,7 +127,6 @@
     <string name="playlist_name">音樂清單名稱</string>
     <string name="song">歌曲</string>
     <string name="pref_only_lollipop">"只適用於Lollipop。"</string>
-    <string name="pref_summary_transparent_toolbar">當滾動頁面時，可看到工具列下層的內容。</string>
     <string name="pref_summary_colored_album_footers">"在專輯頁面中的專輯標籤會隨其封面顏色而改變。"</string>
     <string name="failed_download_albumart">"無法下載此專輯資訊。"</string>
     <string name="search_hint">正在掃描…</string>

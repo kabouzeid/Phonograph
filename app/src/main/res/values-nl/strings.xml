@@ -21,6 +21,7 @@
     <string name="biography_unavailable">Sorry, het is ons niet gelukt om een passende biografie te vinden voor deze artiest.</string>
     <string name="biography">Biografie</string>
     <string name="audio_focus_denied">Het is niet gelukt om audio focus te krijgen.</string>
+    <string name="title_activity_tag_editor">Label bewerker</string>
     <string name="tag_editor">Label bewerker</string>
     <string name="album">Album</string>
     <string name="artist">Artiest</string>
@@ -32,6 +33,7 @@
     <string name="album_or_artist_empty">Album titel of album artiest tekstveld is leeg.</string>
     <string name="writing_file_number">Bestand wegschrijven</string>
     <string name="saving_changes">Wijzigingen opslaan...</string>
+    <string name="title_activity_album_tag_editor">Album label bewerker</string>
     <string name="label_details">Details</string>
     <string name="label_file_name">Bestandsnaam</string>
     <string name="label_file_path">Bestandspad</string>
@@ -52,6 +54,7 @@
     <string name="updating">Bijwerken...</string>
     <string name="added_title_to_playing_queue">"1 titel toegevoegd aan de afspeelwachtrij."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titels toegevoegd aan de afspeellijst.</string>
+    <string name="title_activity_playlist_detail">"Afspeellijst activiteit "</string>
     <string name="action_delete_from_playlist">Verwijderen uit afspeellijst</string>
     <string name="new_playlist_action">Nieuwe afspeellijst...</string>
     <string name="action_grid_columns">Rasterkolommen</string>
@@ -65,10 +68,16 @@
     <string name="delete_song_x"><![CDATA[Wil je het nummer <b>%1$s</b> verwijderen?]]></string>
     <string name="delete_x_songs"><![CDATA[Wil je <b>%1$d</b> nummers verwijderen?]]></string>
     <string name="delete_song_x_from_playlist"><![CDATA[Wil je het nummer <b>%1$s</b> verwijderen van de afspeellijst?]]></string>
+    <string name="delete_x_songs_from_playlist"><![CDATA[
+Wil je <b>%1$d</b> nummers verwijderen uit de afspeellijst?
+    ]]></string>
     <string name="delete_song_title">Verwijder nummer</string>
     <string name="delete_songs_title">Verwijder nummers</string>
+    <string name="delete_song_from_playlist_title">Verwijder nummer uit afspeellijst</string>
+    <string name="delete_songs_from_playlist_title">Verwijder nummers uit afspeellijst</string>
     <string name="rename_playlist_title">Hernoem afspeellijst</string>
     <string name="delete_playlist_title">Verwijder afspeellijst</string>
+    <string name="delete_playlists_title">Verwijder afspeellijst</string>
     <string name="add_playlist_title">"Toevoegen aan afspeellijst"</string>
     <string name="new_playlist_title">Nieuwe afspeellijst</string>
     <string name="delete_warning">"Waarschuwing: Deze handeling kan niet ongedaan gemaakt worden."</string>
@@ -85,7 +94,6 @@
     <string name="pref_title_navigation_bar">Gekleurde navigatiebalk</string>
     <string name="pref_title_set_default_start_page">Startpagina</string>
     <string name="title_activity_settings">Instellingen</string>
-    <string name="pref_title_transparent_toolbar">"Semi-transparante werkbalk"</string>
     <string name="pref_title_colored_navigation_bar_artists">Artiest weergave</string>
     <string name="pref_title_colored_navigation_bar_albums">Album weergave</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Afspeelweergave</string>
@@ -111,7 +119,6 @@
     <string name="playlist_name">Afspeellijstnaam</string>
     <string name="song">Nummer</string>
     <string name="pref_only_lollipop">"Alleen beschikbaar op Lollipop. "</string>
-    <string name="pref_summary_transparent_toolbar">Inhoud scrollend onder de werkbalk is zichtbaar.</string>
     <string name="pref_summary_colored_album_footers">"Album footers in het raster worden gekleurd met het palet van de albumhoes. "</string>
     <string name="failed_download_albumart">"Het lukt niet om de albumhoes te downloaden. "</string>
     <string name="search_hint">Zoek in je bibliotheek...</string>
