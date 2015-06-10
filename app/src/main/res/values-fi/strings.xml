@@ -52,7 +52,7 @@
     <string name="updating">Päivitetään...</string>
     <string name="added_title_to_playing_queue">"Kappale lisätty jonoon"</string>
     <string name="added_x_titles_to_playing_queue">{%1$d} kappaletta lisättiin jonoon</string>
-    <string name="action_delete_from_playlist">Poista soittolistalta</string>
+    <string name="action_remove_from_playlist">Poista soittolistalta</string>
     <string name="new_playlist_action">Uusi soittolista</string>
     <string name="action_grid_columns">Ruudukon sarakkeet</string>
     <string name="action_grid_columns_land">Ruudukon sarakkeet (Vaaka)</string>

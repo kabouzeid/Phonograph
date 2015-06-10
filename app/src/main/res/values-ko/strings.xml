@@ -52,7 +52,7 @@
     <string name="updating">변경 중...</string>
     <string name="added_title_to_playing_queue">"재생 대기열에 1개의 음악을 추가했습니다."</string>
     <string name="added_x_titles_to_playing_queue">%1$d개의 타이틀을 재생 대기열에 추가했습니다.</string>
-    <string name="action_delete_from_playlist">재생목록에서 삭제</string>
+    <string name="action_remove_from_playlist">재생목록에서 삭제</string>
     <string name="new_playlist_action">새로운 재생목록...</string>
     <string name="action_grid_columns">가로 격자</string>
     <string name="action_grid_columns_land">가로 격자 (가로모드일 때)</string>

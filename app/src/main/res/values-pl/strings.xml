@@ -62,7 +62,7 @@
     <string name="added_title_to_playing_queue">"Dodano 1 tytuł do kolejki odtwarzania"</string>
     <string name="added_x_titles_to_playing_queue">Dodano %1$d tytuły do kolejki odtwarzania</string>
     <string name="title_activity_playlist_detail">Aktywność list odtwarzania</string>
-    <string name="action_delete_from_playlist">Usuń z listy odtwarzania</string>
+    <string name="action_remove_from_playlist">Usuń z listy odtwarzania</string>
     <string name="new_playlist_action">Nowa lista odtwarzania...</string>
     <string name="action_grid_columns">Siatka kolumn</string>
     <string name="action_grid_columns_land">Siatka kolumn (poziomo)</string>
@@ -74,12 +74,12 @@
     <string name="delete_x_playlists"><![CDATA[Czy chcesz usunąć <b>%1$d</b> listy odtwarzania? ]]></string>
     <string name="delete_song_x"><![CDATA[ Czy chcesz usunąć utwór <b>%1$s</b>? ]]></string>
     <string name="delete_x_songs"><![CDATA[ Czy chcesz usunąć  <b>%1$d</b> utworów? ]]></string>
-    <string name="delete_song_x_from_playlist"><![CDATA[Czy chcesz usunąć utwór <b>%1$s</b> z listy odtwarzania? ]]></string>
-    <string name="delete_x_songs_from_playlist"><![CDATA[Czy chcesz usunąć <b>%1$d</b> utworów z listy odtwarzania? ]]></string>
+    <string name="remove_song_x_from_playlist"><![CDATA[Czy chcesz usunąć utwór <b>%1$s</b> z listy odtwarzania? ]]></string>
+    <string name="remove_x_songs_from_playlist"><![CDATA[Czy chcesz usunąć <b>%1$d</b> utworów z listy odtwarzania? ]]></string>
     <string name="delete_song_title">Usuwanie utworu</string>
     <string name="delete_songs_title">Usuń utwory</string>
-    <string name="delete_song_from_playlist_title">Usuń utwór z listy odtwarzania</string>
-    <string name="delete_songs_from_playlist_title">Usuń utwory z listy odtwarzania</string>
+    <string name="remove_song_from_playlist_title">Usuń utwór z listy odtwarzania</string>
+    <string name="remove_songs_from_playlist_title">Usuń utwory z listy odtwarzania</string>
     <string name="rename_playlist_title">Zmień nazwę listy odtwarzania</string>
     <string name="delete_playlist_title">Usuń listę odtwarzania</string>
     <string name="delete_playlists_title">Usuń listy odtwarzania</string>

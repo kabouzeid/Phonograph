@@ -43,7 +43,7 @@ public class ArtistAlbumAdapter extends AbsMultiSelectAdapter<ArtistAlbumAdapter
     private final int listMargin;
 
     public ArtistAlbumAdapter(AppCompatActivity activity, ArrayList<Album> objects, @Nullable CabHolder cabHolder) {
-        super(cabHolder, R.menu.menu_media_selection);
+        super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         dataSet = objects;
         listMargin = activity.getResources().getDimensionPixelSize(R.dimen.default_item_margin);

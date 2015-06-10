@@ -55,7 +55,7 @@
     <string name="added_title_to_playing_queue">"Προστέθηκε ένας τίτλος στη σειρά αναπαραγωγής"</string>
     <string name="added_x_titles_to_playing_queue">Προστέθηκαν %1$d εικονίδια στην σειρά αναπαραγωγής</string>
     <string name="title_activity_playlist_detail">Δραστηριότητα λίστας</string>
-    <string name="action_delete_from_playlist">Διαγραφή από τη λίστα αναπαραγωγής</string>
+    <string name="action_remove_from_playlist">Διαγραφή από τη λίστα αναπαραγωγής</string>
     <string name="new_playlist_action">Νέα λίστα αναπαραγωγής...</string>
     <string name="action_grid_columns">Στήλες πλέγματος</string>
     <string name="action_grid_columns_land">Στήλες πλέγματος</string>
@@ -69,16 +69,16 @@
     ]]></string>
     <string name="delete_song_x"><![CDATA[Θέλετε να διαγράψετε το τραγούδι <b>%1$s</b>;]]></string>
     <string name="delete_x_songs"><![CDATA[Θέλετε να διαγράψετε <b>%1$d</b> τραγούδια;]]></string>
-    <string name="delete_song_x_from_playlist"><![CDATA[
+    <string name="remove_song_x_from_playlist"><![CDATA[
         Θα θέλατε να διαγράψετε το κομμάτι  <b>%1$s</b> από τη λίστα αναπαραγωγής; 
     ]]></string>
-    <string name="delete_x_songs_from_playlist"><![CDATA[
+    <string name="remove_x_songs_from_playlist"><![CDATA[
         Θα θέλατε να διαγράψετε <b>%1$d</b> κομμάτια από τη λίστα αναπαραγωγής;
     ]]></string>
     <string name="delete_song_title">Διαγραφή τραγουδιού</string>
     <string name="delete_songs_title">Διαγραφή τραγουδιών</string>
-    <string name="delete_song_from_playlist_title">Διαγραφή τραγουδιού από τη λίστα αναπαραγωγής</string>
-    <string name="delete_songs_from_playlist_title">Διαγραφή τραγουδιών από τη λίστα αναπαραγωγής</string>
+    <string name="remove_song_from_playlist_title">Διαγραφή τραγουδιού από τη λίστα αναπαραγωγής</string>
+    <string name="remove_songs_from_playlist_title">Διαγραφή τραγουδιών από τη λίστα αναπαραγωγής</string>
     <string name="rename_playlist_title">Μετονομασία λίστας αναπαραγωγής</string>
     <string name="delete_playlist_title">Διαγραφή λίστας αναπαραγωγής</string>
     <string name="delete_playlists_title">Διαγραφή λιστών αναπαραγωγής</string>

@@ -72,9 +72,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 results.addAll(albums);
             }
         }
-        if (results.isEmpty()) {
-            results.add(activity.getResources().getString(R.string.no_results).toUpperCase());
-        }
         notifyDataSetChanged();
     }
 

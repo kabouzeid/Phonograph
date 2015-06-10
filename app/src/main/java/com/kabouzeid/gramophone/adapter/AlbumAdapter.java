@@ -23,8 +23,6 @@ import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
-import com.kabouzeid.gramophone.interfaces.OnUpdatedListener;
-import com.kabouzeid.gramophone.interfaces.SelfUpdating;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.model.Album;
@@ -49,13 +47,12 @@ import java.util.List;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder, Album> implements SelfUpdating {
+public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder, Album> {
 
     public static final String TAG = AlbumAdapter.class.getSimpleName();
     private final AppCompatActivity activity;
     private boolean usePalette;
     private List<Album> dataSet;
-    private OnUpdatedListener listener;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -133,11 +130,6 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
         return songs;
     }
 
-    @Override
-    public void setOnUpdatedListener(OnUpdatedListener listener) {
-        this.listener = listener;
-    }
-
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         final ImageView albumArt;
         final TextView title;
@@ -193,7 +185,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     }
 
     public AlbumAdapter(AppCompatActivity activity, @Nullable CabHolder cabHolder) {
-        super(cabHolder, R.menu.menu_media_selection);
+        super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         usePalette = PreferenceUtils.getInstance(activity).coloredAlbumFootersEnabled();
         loadDataSet();
@@ -201,7 +193,6 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
 
     private void loadDataSet() {
         dataSet = AlbumLoader.getAllAlbums(activity);
-        if (listener != null) listener.onUpdated(this);
     }
 
     private void applyPalette(Bitmap bitmap, final TextView title, final TextView artist, final View footer) {

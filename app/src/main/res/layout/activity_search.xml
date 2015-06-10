@@ -7,23 +7,27 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/Toolbar"
-        android:background="?colorPrimary"
         app:elevation="@dimen/toolbar_elevation" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:background="@drawable/shadow_down" />
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical" />
+
+        <TextView
+            android:id="@android:id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/empty_text_size"
+            android:textColor="?android:textColorSecondary"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/no_results"
+            android:layout_gravity="center" />
 
     </FrameLayout>
 

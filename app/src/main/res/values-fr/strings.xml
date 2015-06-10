@@ -52,7 +52,7 @@
     <string name="updating">Actualisation...</string>
     <string name="added_title_to_playing_queue">"1 titre ajouté à la file de lecture."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titres ajoutés à la file de lecture.</string>
-    <string name="action_delete_from_playlist">Supprimer de la playlist</string>
+    <string name="action_remove_from_playlist">Supprimer de la playlist</string>
     <string name="new_playlist_action">Nouvelle playlist...</string>
     <string name="action_grid_columns">Nombre de colonnes</string>
     <string name="action_grid_columns_land">Nombre de colonnes (paysage)</string>

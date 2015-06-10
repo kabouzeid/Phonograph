@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.AppBarLayout.OnOffsetChangedListener;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.util.Pair;
@@ -67,6 +69,7 @@ public class MainActivity extends AbsFabActivity
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
+    private AppBarLayout appBar;
     private Toolbar toolbar;
     private PagerAdapter pagerAdapter;
     private ViewPager viewPager;
@@ -83,7 +86,7 @@ public class MainActivity extends AbsFabActivity
 
         initViews();
         setUpDrawerLayout();
-        setUpToolBar();
+        setUpToolbar();
         setUpViewPager();
 
         if (PreferenceUtils.getInstance(this).coloredNavigationBarOtherScreensEnabled())
@@ -135,20 +138,19 @@ public class MainActivity extends AbsFabActivity
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        appBar = (AppBarLayout) findViewById(R.id.appbar);
     }
 
-    private void setUpToolBar() {
+    private void setUpToolbar() {
         setTitle(getResources().getString(R.string.app_name));
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setToolBarColor();
+        setAppBarColor();
         setSupportActionBar(toolbar);
         setUpDrawerToggle();
     }
 
-    private void setToolBarColor() {
-        final int colorPrimary = getThemeColorPrimary();
-        toolbar.setBackgroundColor(colorPrimary);
-        tabLayout.setBackgroundColor(colorPrimary);
+    private void setAppBarColor() {
+        appBar.setBackgroundColor(getThemeColorPrimary());
     }
 
     private void setUpNavigationView() {
@@ -596,5 +598,17 @@ public class MainActivity extends AbsFabActivity
                     )
             }));
         }
+    }
+
+    public void addOnAppBarOffsetChangedListener(OnOffsetChangedListener onOffsetChangedListener) {
+        appBar.addOnOffsetChangedListener(onOffsetChangedListener);
+    }
+
+    public void removeOnAppBArOffsetChangedListener(OnOffsetChangedListener onOffsetChangedListener) {
+        appBar.removeOnOffsetChangedListener(onOffsetChangedListener);
+    }
+
+    public int getTotalAppBarScrollingRange() {
+        return appBar.getTotalScrollRange();
     }
 }

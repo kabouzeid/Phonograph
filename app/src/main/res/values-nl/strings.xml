@@ -55,7 +55,7 @@
     <string name="added_title_to_playing_queue">"1 titel toegevoegd aan de afspeelwachtrij."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titels toegevoegd aan de afspeellijst.</string>
     <string name="title_activity_playlist_detail">"Afspeellijst activiteit "</string>
-    <string name="action_delete_from_playlist">Verwijderen uit afspeellijst</string>
+    <string name="action_remove_from_playlist">Verwijderen uit afspeellijst</string>
     <string name="new_playlist_action">Nieuwe afspeellijst...</string>
     <string name="action_grid_columns">Rasterkolommen</string>
     <string name="action_grid_columns_land">Rasterkolommen (Land)</string>
@@ -67,14 +67,14 @@
     <string name="delete_x_playlists"><![CDATA[Wil je <b>%1$d</b> afspeellijsten verwijderen?]]></string>
     <string name="delete_song_x"><![CDATA[Wil je het nummer <b>%1$s</b> verwijderen?]]></string>
     <string name="delete_x_songs"><![CDATA[Wil je <b>%1$d</b> nummers verwijderen?]]></string>
-    <string name="delete_song_x_from_playlist"><![CDATA[Wil je het nummer <b>%1$s</b> verwijderen van de afspeellijst?]]></string>
-    <string name="delete_x_songs_from_playlist"><![CDATA[
+    <string name="remove_song_x_from_playlist"><![CDATA[Wil je het nummer <b>%1$s</b> verwijderen van de afspeellijst?]]></string>
+    <string name="remove_x_songs_from_playlist"><![CDATA[
 Wil je <b>%1$d</b> nummers verwijderen uit de afspeellijst?
     ]]></string>
     <string name="delete_song_title">Verwijder nummer</string>
     <string name="delete_songs_title">Verwijder nummers</string>
-    <string name="delete_song_from_playlist_title">Verwijder nummer uit afspeellijst</string>
-    <string name="delete_songs_from_playlist_title">Verwijder nummers uit afspeellijst</string>
+    <string name="remove_song_from_playlist_title">Verwijder nummer uit afspeellijst</string>
+    <string name="remove_songs_from_playlist_title">Verwijder nummers uit afspeellijst</string>
     <string name="rename_playlist_title">Hernoem afspeellijst</string>
     <string name="delete_playlist_title">Verwijder afspeellijst</string>
     <string name="delete_playlists_title">Verwijder afspeellijst</string>

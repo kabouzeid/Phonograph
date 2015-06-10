@@ -1,11 +1,13 @@
 package com.kabouzeid.gramophone.adapter;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.afollestad.materialcab.MaterialCab;
+import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 
 import java.util.ArrayList;
@@ -18,11 +20,13 @@ public abstract class AbsMultiSelectAdapter<VH extends RecyclerView.ViewHolder, 
     private MaterialCab cab;
     private ArrayList<I> checked;
     private int menuRes;
+    private final Context context;
 
-    public AbsMultiSelectAdapter(@Nullable CabHolder cabHolder, int menuRes) {
+    public AbsMultiSelectAdapter(Context context, @Nullable CabHolder cabHolder, int menuRes) {
         this.cabHolder = cabHolder;
         checked = new ArrayList<>();
         this.menuRes = menuRes;
+        this.context = context;
     }
 
     protected void toggleChecked(final int position) {
@@ -36,7 +40,7 @@ public abstract class AbsMultiSelectAdapter<VH extends RecyclerView.ViewHolder, 
             final int size = checked.size();
             if (size <= 0) cab.finish();
             else if (size == 1) cab.setTitle(checked.get(0).toString());
-            else if (size > 1) cab.setTitle(String.valueOf(size));
+            else if (size > 1) cab.setTitle(context.getString(R.string.x_selected, size));
         }
     }
 

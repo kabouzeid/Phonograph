@@ -91,11 +91,11 @@ public class FastScroller extends FrameLayout {
                 if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
                     mHandle.setPressed(true);
 
-                    mInitialBarHeight = mBar.getHeight();
+                    mInitialBarHeight = getBarHeight();
                     mLastPressedYAdjustedToInitial = event.getY() + mHandle.getY() + mBar.getY();
                 } else if (event.getActionMasked() == MotionEvent.ACTION_MOVE) {
                     float newHandlePressedY = event.getY() + mHandle.getY() + mBar.getY();
-                    int barHeight = mBar.getHeight();
+                    int barHeight = getBarHeight();
                     float newHandlePressedYAdjustedToInitial =
                             newHandlePressedY + (mInitialBarHeight - barHeight);
 
@@ -218,7 +218,7 @@ public class FastScroller extends FrameLayout {
         int verticalScrollRange = mRecyclerView.computeVerticalScrollRange()
                 + mRecyclerView.getPaddingBottom();
 
-        int barHeight = mBar.getHeight();
+        int barHeight = getBarHeight();
         float ratio = (float) scrollOffset / (verticalScrollRange - barHeight);
 
         int calculatedHandleHeight = (int) ((float) barHeight / verticalScrollRange * barHeight);
@@ -244,5 +244,9 @@ public class FastScroller extends FrameLayout {
                 t.printStackTrace();
             }
         }
+    }
+
+    private int getBarHeight() {
+        return mBar.getHeight();
     }
 }

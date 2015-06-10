@@ -55,7 +55,7 @@
     <string name="added_title_to_playing_queue">"Добавлена 1 композиция в очередь воспроизведения"</string>
     <string name="added_x_titles_to_playing_queue">Добавлено %1$d композиций в очередь воспроизведения</string>
     <string name="title_activity_playlist_detail">Активность списка воспроизведения</string>
-    <string name="action_delete_from_playlist">Удалить из списка воспроизведения</string>
+    <string name="action_remove_from_playlist">Удалить из списка воспроизведения</string>
     <string name="new_playlist_action">Новый список воспроизведения...</string>
     <string name="action_grid_columns">Столбцы сетки</string>
     <string name="action_grid_columns_land">Столбцы сетки (ландшафт)</string>
@@ -69,16 +69,16 @@
     ]]></string>
     <string name="delete_song_x"><![CDATA[ Вы хотите удалить песню <b>%1$s</b>? ]]></string>
     <string name="delete_x_songs"><![CDATA[ Вы хотите удалить <b>%1$d</b> песни? ]]></string>
-    <string name="delete_song_x_from_playlist"><![CDATA[
+    <string name="remove_song_x_from_playlist"><![CDATA[
         Вы хотите удалить песню <b>%1$s</b> из списка воспроизведения ? 
     ]]></string>
-    <string name="delete_x_songs_from_playlist"><![CDATA[
+    <string name="remove_x_songs_from_playlist"><![CDATA[
         Вы хотите удалить песни <b>%1$d</b> из списка воспроизведения ? 
     ]]></string>
     <string name="delete_song_title">Удалить песню</string>
     <string name="delete_songs_title">Удалить песни</string>
-    <string name="delete_song_from_playlist_title">Удалить песню из списка воспроизведения</string>
-    <string name="delete_songs_from_playlist_title">Удалить песни из списка воспроизведения</string>
+    <string name="remove_song_from_playlist_title">Удалить песню из списка воспроизведения</string>
+    <string name="remove_songs_from_playlist_title">Удалить песни из списка воспроизведения</string>
     <string name="rename_playlist_title">Переименовать список воспроизведения</string>
     <string name="delete_playlist_title">Удалить список воспроизведения</string>
     <string name="delete_playlists_title">Удалить списки воспроизведения</string>

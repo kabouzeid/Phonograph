@@ -63,7 +63,7 @@
     <string name="added_title_to_playing_queue">"Added 1 title to the playing queue."</string>
     <string name="added_x_titles_to_playing_queue">Added %1$d titles to the playing queue.</string>
     <string name="title_activity_playlist_detail">Playlist Activity</string>
-    <string name="action_delete_from_playlist">Delete from playlist</string>
+    <string name="action_remove_from_playlist">Remove from playlist</string>
     <string name="new_playlist_action">New playlist…</string>
     <string name="action_grid_columns">Grid columns</string>
     <string name="action_grid_columns_land">Grid columns (Land)</string>
@@ -84,16 +84,16 @@
     <string name="delete_x_songs"><![CDATA[
         Do you want to delete <b>%1$d</b> songs?
     ]]></string>
-    <string name="delete_song_x_from_playlist"><![CDATA[
-        Do you want to delete the song <b>%1$s</b> from the playlist?
+    <string name="remove_song_x_from_playlist"><![CDATA[
+        Do you want to remove the song <b>%1$s</b> from the playlist?
     ]]></string>
-    <string name="delete_x_songs_from_playlist"><![CDATA[
-        Do you want to delete <b>%1$d</b> songs from the playlist?
+    <string name="remove_x_songs_from_playlist"><![CDATA[
+        Do you want to remove <b>%1$d</b> songs from the playlist?
     ]]></string>
     <string name="delete_song_title">Delete Song</string>
     <string name="delete_songs_title">Delete Songs</string>
-    <string name="delete_song_from_playlist_title">Delete Song from Playlist</string>
-    <string name="delete_songs_from_playlist_title">Delete Songs from Playlist</string>
+    <string name="remove_song_from_playlist_title">Remove Song from Playlist</string>
+    <string name="remove_songs_from_playlist_title">Remove Songs from Playlist</string>
     <string name="rename_playlist_title">Rename Playlist</string>
     <string name="delete_playlist_title">Delete Playlist</string>
     <string name="delete_playlists_title">Delete Playlists</string>
@@ -128,9 +128,11 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="delete_action">Delete</string>
+    <string name="remove_action">Remove</string>
     <string name="rename_action">Rename</string>
     <string name="create_action">Create</string>
 
+    <string name="x_selected">%1$d selected</string>
     <string name="select">Select</string>
     <string name="default_str">Default</string>
     <string name="primary_color">Primary Color</string>

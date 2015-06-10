@@ -29,6 +29,7 @@ public class SearchActivity extends AbsBaseActivity {
     private RecyclerView recyclerView;
     private SearchView searchView;
     private SearchAdapter searchAdapter;
+    private View noResults;
 
     @SuppressLint("NewApi")
     @Override
@@ -37,6 +38,7 @@ public class SearchActivity extends AbsBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        noResults = findViewById(android.R.id.empty);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         searchAdapter = new SearchAdapter(this);
@@ -132,7 +134,9 @@ public class SearchActivity extends AbsBaseActivity {
     }
 
     private void search(String query) {
-        if (searchAdapter != null)
+        if (searchAdapter != null) {
             searchAdapter.search(query);
+            noResults.setVisibility(searchAdapter.getItemCount() < 1 ? View.VISIBLE : View.GONE);
+        }
     }
 }

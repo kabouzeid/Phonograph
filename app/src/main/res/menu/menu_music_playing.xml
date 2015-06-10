@@ -10,9 +10,8 @@
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_share"
-        android:icon="@drawable/ic_share_white_24dp"
         android:title="@string/action_share"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_shuffle_all"
         android:title="@string/shuffle_all"

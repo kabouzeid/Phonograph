@@ -51,7 +51,7 @@
     <string name="action_re_download_artist_image">Uppdatera artistbild</string>
     <string name="updating">Uppdaterar ...</string>
     <string name="added_title_to_playing_queue">"Lagt till 1 titel till spellistan."</string>
-    <string name="action_delete_from_playlist">Radera från spellista</string>
+    <string name="action_remove_from_playlist">Radera från spellista</string>
     <string name="new_playlist_action">Ny spellista ...</string>
     <string name="created_playlist_x">Spellista %1$s skapad</string>
     <string name="deleted_playlist_x">Spellista %1$s raderad</string>

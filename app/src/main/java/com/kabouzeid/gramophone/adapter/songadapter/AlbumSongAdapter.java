@@ -33,7 +33,7 @@ public class AlbumSongAdapter extends AbsMultiSelectAdapter<AlbumSongAdapter.Vie
     protected ArrayList<Song> dataSet;
 
     public AlbumSongAdapter(AppCompatActivity activity, ArrayList<Song> objects, @Nullable CabHolder cabHolder) {
-        super(cabHolder, R.menu.menu_media_selection);
+        super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         dataSet = objects;
     }

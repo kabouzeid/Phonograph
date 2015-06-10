@@ -16,16 +16,16 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class DeleteFromPlaylistDialog extends DialogFragment {
+public class RemoveFromPlaylistDialog extends DialogFragment {
 
-    public static DeleteFromPlaylistDialog create(PlaylistSong song) {
+    public static RemoveFromPlaylistDialog create(PlaylistSong song) {
         ArrayList<PlaylistSong> list = new ArrayList<>();
         list.add(song);
         return create(list);
     }
 
-    public static DeleteFromPlaylistDialog create(ArrayList<PlaylistSong> songs) {
-        DeleteFromPlaylistDialog dialog = new DeleteFromPlaylistDialog();
+    public static RemoveFromPlaylistDialog create(ArrayList<PlaylistSong> songs) {
+        RemoveFromPlaylistDialog dialog = new RemoveFromPlaylistDialog();
         Bundle args = new Bundle();
         args.putSerializable("songs", songs);
         dialog.setArguments(args);
@@ -40,16 +40,16 @@ public class DeleteFromPlaylistDialog extends DialogFragment {
         int title;
         CharSequence content;
         if (songs.size() > 1) {
-            title = R.string.delete_songs_from_playlist_title;
-            content = Html.fromHtml(getString(R.string.delete_x_songs_from_playlist, songs.size()));
+            title = R.string.remove_songs_from_playlist_title;
+            content = Html.fromHtml(getString(R.string.remove_x_songs_from_playlist, songs.size()));
         } else {
-            title = R.string.delete_song_from_playlist_title;
-            content = Html.fromHtml(getString(R.string.delete_song_x_from_playlist, songs.get(0).title));
+            title = R.string.remove_song_from_playlist_title;
+            content = Html.fromHtml(getString(R.string.remove_song_x_from_playlist, songs.get(0).title));
         }
         return new MaterialDialog.Builder(getActivity())
                 .title(title)
                 .content(content)
-                .positiveText(R.string.delete_action)
+                .positiveText(R.string.remove_action)
                 .negativeText(android.R.string.cancel)
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override

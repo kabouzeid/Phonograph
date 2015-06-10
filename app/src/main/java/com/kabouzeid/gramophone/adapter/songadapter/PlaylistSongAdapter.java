@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.AbsMultiSelectAdapter;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
-import com.kabouzeid.gramophone.dialogs.DeleteFromPlaylistDialog;
+import com.kabouzeid.gramophone.dialogs.RemoveFromPlaylistDialog;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
@@ -40,7 +40,7 @@ public class PlaylistSongAdapter extends AbsMultiSelectAdapter<PlaylistSongAdapt
     protected ArrayList<PlaylistSong> dataSet;
 
     public PlaylistSongAdapter(AppCompatActivity activity, ArrayList<PlaylistSong> objects, @Nullable CabHolder cabHolder) {
-        super(cabHolder, R.menu.menu_playlists_songs_selection);
+        super(activity, cabHolder, R.menu.menu_playlists_songs_selection);
         this.activity = activity;
         dataSet = objects;
     }
@@ -88,7 +88,7 @@ public class PlaylistSongAdapter extends AbsMultiSelectAdapter<PlaylistSongAdapt
     protected void onMultipleItemAction(MenuItem menuItem, ArrayList<PlaylistSong> selection) {
         switch (menuItem.getItemId()) {
             case R.id.action_delete_from_playlist:
-                DeleteFromPlaylistDialog.create(selection).show(activity.getSupportFragmentManager(), "DELETE_FROM_PLAYLIST");
+                RemoveFromPlaylistDialog.create(selection).show(activity.getSupportFragmentManager(), "DELETE_FROM_PLAYLIST");
                 break;
             case R.id.action_add_to_playlist:
                 //noinspection unchecked
@@ -127,7 +127,7 @@ public class PlaylistSongAdapter extends AbsMultiSelectAdapter<PlaylistSongAdapt
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.action_delete_from_playlist:
-                                    DeleteFromPlaylistDialog.create(dataSet.get(getAdapterPosition())).show(activity.getSupportFragmentManager(), "DELETE_FROM_PLAYLIST");
+                                    RemoveFromPlaylistDialog.create(dataSet.get(getAdapterPosition())).show(activity.getSupportFragmentManager(), "DELETE_FROM_PLAYLIST");
                                     return true;
                                 case R.id.action_go_to_album:
                                     Pair[] albumPairs = new Pair[]{

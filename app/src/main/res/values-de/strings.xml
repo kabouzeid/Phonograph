@@ -60,7 +60,7 @@
     <string name="updating">Aktualisiere...</string>
     <string name="added_title_to_playing_queue">"1 Titel wurde der Wiedergabeliste hinzugefügt."</string>
     <string name="added_x_titles_to_playing_queue">%1$d Titel wurden der Wiedergabeliste hinzugefügt.</string>
-    <string name="action_delete_from_playlist">Aus Playlist entfernen</string>
+    <string name="action_remove_from_playlist">Aus Playlist entfernen</string>
     <string name="new_playlist_action">Neue Playlist…</string>
     <string name="action_grid_columns">Rastergröße</string>
     <string name="action_grid_columns_land">Rastergröße (Land)</string>
