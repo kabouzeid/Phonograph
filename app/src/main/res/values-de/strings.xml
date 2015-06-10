@@ -117,9 +117,9 @@ Willst du <b>%1$d</b> Titel aus der Playlist entfernen?
     <string name="navigation_drawer_open">Öffne Navigation Drawer</string>
     <string name="navigation_drawer_close">"Schließe Navigation Drawer"</string>
     <string name="delete_action">Löschen</string>
-    <string name="remove_action">Entferne</string>
+    <string name="remove_action">Entfernen</string>
     <string name="rename_action">Umbenennen</string>
-    <string name="create_action">Erstelle</string>
+    <string name="create_action">Erstellen</string>
     <string name="x_selected">%1$d ausgewählt</string>
     <string name="select">Auswählen</string>
     <string name="default_str">Standard</string>
