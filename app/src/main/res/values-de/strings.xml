@@ -4,6 +4,7 @@
     <string name="currently_listening_to_x_by_x">Höre gerade %1$s von %2$s</string>
     <string name="the_audio_file">Die Audiodatei</string>
     <string name="do_you_want_to_set_x_as_ringtone">Willst du %1$s als deinen Klingelton verwenden?</string>
+    <string name="x_has_been_set_as_ringtone">%1$s wird jetzt als dein Klingelton verwendet.</string>
     <string name="action_set_as_ringtone">Als Klingelton verwenden</string>
     <string name="action_share">Teilen</string>
     <string name="action_settings">"Einstellungen"</string>
@@ -69,12 +70,24 @@
     <string name="deleted_playlist_x">Playlist %1$s gelöscht</string>
     <string name="couldnot_create_playlist_x">Playlist %1$s konnte nicht erstellt werden</string>
     <string name="delete_playlist_x"><![CDATA[Willst du die Playlist <b>%1$s</b> löschen?]]></string>
+    <string name="delete_x_playlists"><![CDATA[
+Willst du <b>%1$d</b> Playlists löschen?
+    ]]></string>
     <string name="delete_song_x"><![CDATA[Willst du den Titel <b>%1$s</b> löschen?]]></string>
     <string name="delete_x_songs"><![CDATA[Willst du <b>%1$d</b> Titel löschen?]]></string>
+    <string name="remove_song_x_from_playlist"><![CDATA[
+Willst du den Titel <b>%1$s</b> aus der Playlist entfernen?
+    ]]></string>
+    <string name="remove_x_songs_from_playlist"><![CDATA[
+Willst du <b>%1$d</b> Titel aus der Playlist entfernen?
+    ]]></string>
     <string name="delete_song_title">Lösche Titel</string>
     <string name="delete_songs_title">Lösche Titel</string>
+    <string name="remove_song_from_playlist_title">Entferne Titel von Playlist</string>
+    <string name="remove_songs_from_playlist_title">Entferne Titel von Playlist</string>
     <string name="rename_playlist_title">Playlist umbenennen</string>
     <string name="delete_playlist_title">Lösche Playlist</string>
+    <string name="delete_playlists_title">Lösche Playlists</string>
     <string name="add_playlist_title">"Zur Playlist hinzufügen"</string>
     <string name="new_playlist_title">Neue Playlist</string>
     <string name="delete_warning">"Achtung: Diese Operation kann nicht rückgängig gemacht werden."</string>
@@ -98,12 +111,16 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Tag Editor</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Überall sonst</string>
     <string name="pref_title_colored_album_footers">Farbige Balken unter den Alben</string>
+    <string name="pref_title_force_square_album_art">Quadratisches Album Cover erzwingen</string>
     <string name="no_equalizer">Es wurde kein Equalizer gefunden</string>
     <string name="no_audio_ID">"Keine Audio ID, spiele etwas ab und versuche es erneut."</string>
     <string name="navigation_drawer_open">Öffne Navigation Drawer</string>
     <string name="navigation_drawer_close">"Schließe Navigation Drawer"</string>
     <string name="delete_action">Löschen</string>
+    <string name="remove_action">Entferne</string>
     <string name="rename_action">Umbenennen</string>
+    <string name="create_action">Erstelle</string>
+    <string name="x_selected">%1$d ausgewählt</string>
     <string name="select">Auswählen</string>
     <string name="default_str">Standard</string>
     <string name="primary_color">Primäre Farbe</string>
@@ -113,13 +130,19 @@
     <string name="update_image">Bild aktualisieren</string>
     <string name="playlist_empty_text">Die Playlist ist leer</string>
     <string name="no_playlists">Keine Playlists</string>
+    <string name="no_albums">Keine Alben</string>
+    <string name="no_songs">Keine Songs</string>
+    <string name="no_artists">Keine Interpreten</string>
+    <string name="empty">Leer</string>
     <string name="playlist_name">Playlist Name</string>
     <string name="song">Titel</string>
     <string name="pref_only_lollipop">"Nur auf Android Lollipop verfügbar"</string>
     <string name="pref_summary_colored_album_footers">"Die Titel der Alben im Raster passend zu ihrer Cover Farbe färben."</string>
+    <string name="pref_summary_force_square_album_art">Das Album Cover in der now playing Ansicht wird gezwungen quadratisch zu sein</string>
     <string name="failed_download_albumart">"Das Cover für dieses Album konnte nicht heruntergeladen werden."</string>
     <string name="search_hint">Durchsuche deine Mediathek</string>
     <string name="rescanning_media">Medien werden erneut eingescannt...</string>
+    <string name="other">Andere</string>
     <string-array name="update_album_cover_options">
         <item>Von Last.fm herunterladen</item>
         <item>Aus lokalem Speicher wählen</item>

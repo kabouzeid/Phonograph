@@ -19,7 +19,7 @@
         android:textSize="@dimen/empty_text_size"
         android:textColor="?android:textColorSecondary"
         android:fontFamily="sans-serif-light"
-        android:text="@string/nothing_here"
+        android:text="@string/empty"
         android:layout_gravity="center" />
 
     <com.kabouzeid.gramophone.views.FastScroller

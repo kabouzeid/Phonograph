@@ -62,7 +62,6 @@
     <string name="added_title_to_playing_queue">"Çalma kuyruğuna 1 başlık eklendi"</string>
     <string name="added_x_titles_to_playing_queue">Çalma kuyruğuna %1$d başlıkları eklendi.</string>
     <string name="title_activity_playlist_detail">Çalma listesi etkinliği</string>
-    <string name="action_remove_from_playlist">Çalma listesinden sil</string>
     <string name="new_playlist_action">Yeni çalma listesi</string>
     <string name="action_grid_columns">Izgara sütunları</string>
     <string name="action_grid_columns_land">Izgara sütunları (Manzara)</string>
@@ -74,13 +73,8 @@
     <string name="delete_x_playlists"><![CDATA[<b>%1$d</b> oynatma listelerini silmek istiyor musunuz?]]></string>
     <string name="delete_song_x"><![CDATA[ <b>%1$s</b> şarkısını silmek istiyor musunuz? ]]></string>
     <string name="delete_x_songs"><![CDATA[ <b>%1$d</b> bu şarkıları silmek istiyor musunuz? ]]></string>
-    <string name="remove_song_x_from_playlist"><![CDATA[Çalma listesinden <b>%1$s</b> şarkısını silmek istiyor musunuz?]]></string>
-    <string name="remove_x_songs_from_playlist"><![CDATA[Çalma listesinden <b>%1$d</b> şarkılarını silmek istiyor musunuz?
-]]></string>
     <string name="delete_song_title">Şarkıyı Sil</string>
     <string name="delete_songs_title">Şarkıları Sil</string>
-    <string name="remove_song_from_playlist_title">Çalma listesinden şarkı sil</string>
-    <string name="remove_songs_from_playlist_title">Çalma listesinden şarkıları sil</string>
     <string name="rename_playlist_title">Çalma Listesini Yeniden Adlandır</string>
     <string name="delete_playlist_title">Çalma Listesini Sil</string>
     <string name="delete_playlists_title">Çalma listelerini sil</string>

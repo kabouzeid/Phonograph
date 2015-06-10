@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="what_do_you_want_to_share">Wat wil je delen?</string>
+    <string name="currently_listening_to_x_by_x">Je luistert naar %1$s door %2$s</string>
+    <string name="the_audio_file">Het audiobestand</string>
+    <string name="do_you_want_to_set_x_as_ringtone">Wil je %1$s als beltoon instellen?</string>
+    <string name="x_has_been_set_as_ringtone">%1$s is ingesteld als beltoon.</string>
+    <string name="action_set_as_ringtone">Instellen als beltoon</string>
+    <string name="action_share">Delen</string>
     <string name="action_settings">"Instellingen"</string>
     <string name="action_about">Over</string>
     <string name="action_currently_playing">Momenteel spelend</string>
@@ -17,7 +24,7 @@
     <string name="songs">Nummers</string>
     <string name="playlists">Afspeellijsten</string>
     <string name="nothing_playing">Niets wordt afgespeeld</string>
-    <string name="unplayable_file">Sorry, er is een probleem ontstaan tijdens het afspelen van dit nummer.</string>
+    <string name="unplayable_file">Sorry - er is een probleem ontstaan tijdens het afspelen van dit nummer.</string>
     <string name="biography_unavailable">Sorry, het is ons niet gelukt om een passende biografie te vinden voor deze artiest.</string>
     <string name="biography">Biografie</string>
     <string name="audio_focus_denied">Het is niet gelukt om audio focus te krijgen.</string>
@@ -55,7 +62,6 @@
     <string name="added_title_to_playing_queue">"1 titel toegevoegd aan de afspeelwachtrij."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titels toegevoegd aan de afspeellijst.</string>
     <string name="title_activity_playlist_detail">"Afspeellijst activiteit "</string>
-    <string name="action_remove_from_playlist">Verwijderen uit afspeellijst</string>
     <string name="new_playlist_action">Nieuwe afspeellijst...</string>
     <string name="action_grid_columns">Rasterkolommen</string>
     <string name="action_grid_columns_land">Rasterkolommen (Land)</string>
@@ -67,14 +73,8 @@
     <string name="delete_x_playlists"><![CDATA[Wil je <b>%1$d</b> afspeellijsten verwijderen?]]></string>
     <string name="delete_song_x"><![CDATA[Wil je het nummer <b>%1$s</b> verwijderen?]]></string>
     <string name="delete_x_songs"><![CDATA[Wil je <b>%1$d</b> nummers verwijderen?]]></string>
-    <string name="remove_song_x_from_playlist"><![CDATA[Wil je het nummer <b>%1$s</b> verwijderen van de afspeellijst?]]></string>
-    <string name="remove_x_songs_from_playlist"><![CDATA[
-Wil je <b>%1$d</b> nummers verwijderen uit de afspeellijst?
-    ]]></string>
     <string name="delete_song_title">Verwijder nummer</string>
     <string name="delete_songs_title">Verwijder nummers</string>
-    <string name="remove_song_from_playlist_title">Verwijder nummer uit afspeellijst</string>
-    <string name="remove_songs_from_playlist_title">Verwijder nummers uit afspeellijst</string>
     <string name="rename_playlist_title">Hernoem afspeellijst</string>
     <string name="delete_playlist_title">Verwijder afspeellijst</string>
     <string name="delete_playlists_title">Verwijder afspeellijst</string>
@@ -101,12 +101,15 @@ Wil je <b>%1$d</b> nummers verwijderen uit de afspeellijst?
     <string name="pref_title_colored_navigation_bar_tag_editor">Label bewerker</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Overal elders</string>
     <string name="pref_title_colored_album_footers">Gekleurde album footers</string>
+    <string name="pref_title_force_square_album_art">Forceer vierkante albumhoes</string>
+    <string name="pref_title_opaque_toolbar_now_playing">Ondoorzichtige werkbalk in afspeelscherm</string>
     <string name="no_equalizer">Geen equalizer gevonden</string>
     <string name="no_audio_ID">"Geen audio ID, speel iets af en probeer opnieuw. "</string>
     <string name="navigation_drawer_open">Open navigatiebalk</string>
     <string name="navigation_drawer_close">"Sluit navigatiebalk"</string>
     <string name="delete_action">Verwijderen</string>
     <string name="rename_action">Hernoemen</string>
+    <string name="create_action">Aanmaken</string>
     <string name="select">Selecteer</string>
     <string name="default_str">Standaard</string>
     <string name="primary_color">Primaire kleur</string>
@@ -120,9 +123,12 @@ Wil je <b>%1$d</b> nummers verwijderen uit de afspeellijst?
     <string name="song">Nummer</string>
     <string name="pref_only_lollipop">"Alleen beschikbaar op Lollipop. "</string>
     <string name="pref_summary_colored_album_footers">"Album footers in het raster worden gekleurd met het palet van de albumhoes. "</string>
+    <string name="pref_summary_force_square_album_art">Albumhoes in het afspeelscherm is geforceerd vierkant.</string>
+    <string name="pref_summary_opaque_toolbar_now_playing">De werkbalk in het afspeelscherm is ondoorzichtig en bedekt niet langer de albumhoes.</string>
     <string name="failed_download_albumart">"Het lukt niet om de albumhoes te downloaden. "</string>
     <string name="search_hint">Zoek in je bibliotheek...</string>
     <string name="rescanning_media">Media herscannen...</string>
+    <string name="other">Andere</string>
     <string-array name="update_album_cover_options">
         <item>Downloaden van Last.fm</item>
         <item>Kies vanuit lokale opslag</item>

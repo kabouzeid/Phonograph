@@ -62,7 +62,6 @@
     <string name="added_title_to_playing_queue">"该曲目已加入播放队列"</string>
     <string name="added_x_titles_to_playing_queue">%1$d首曲目已加入播放队列</string>
     <string name="title_activity_playlist_detail">播放列表操作</string>
-    <string name="action_remove_from_playlist">从播放列表中删除</string>
     <string name="new_playlist_action">新建播放列表</string>
     <string name="action_grid_columns">专辑列数</string>
     <string name="action_grid_columns_land">专辑列数（横屏）</string>
@@ -80,16 +79,8 @@
     <string name="delete_x_songs"><![CDATA[
 确认要删除以下<b>%1$d</b>首歌曲？
     ]]></string>
-    <string name="remove_song_x_from_playlist"><![CDATA[
-确认要从播放列表中删除这首歌：<b>%1$s</b>？
-    ]]></string>
-    <string name="remove_x_songs_from_playlist"><![CDATA[
-确认要从播放列表中删除以下<b>%1$d</b>首歌曲？
-    ]]></string>
     <string name="delete_song_title">删除歌曲</string>
     <string name="delete_songs_title">删除歌曲</string>
-    <string name="remove_song_from_playlist_title">从播放列表删除</string>
-    <string name="remove_songs_from_playlist_title">从播放列表删除</string>
     <string name="rename_playlist_title">重命名播放列表</string>
     <string name="delete_playlist_title">删除播放列表</string>
     <string name="delete_playlists_title">删除播放列表</string>

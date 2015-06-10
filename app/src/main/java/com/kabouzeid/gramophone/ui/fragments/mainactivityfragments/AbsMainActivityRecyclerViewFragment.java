@@ -102,7 +102,7 @@ public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivit
 
     @StringRes
     protected int getEmptyMessage() {
-        return R.string.nothing_here;
+        return R.string.empty;
     }
 
     protected abstract RecyclerView.LayoutManager createLayoutManager();

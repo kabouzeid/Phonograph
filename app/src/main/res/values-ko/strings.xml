@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="what_do_you_want_to_share">무엇을 공유하고 싶으십니까?</string>
+    <string name="currently_listening_to_x_by_x">현재 %1$s 에서 %2$s 까지 재생 중</string>
+    <string name="the_audio_file">음악 파일</string>
+    <string name="do_you_want_to_set_x_as_ringtone">%1$s을(를) 전화 벨소리로 설정하시겠습니까?</string>
+    <string name="x_has_been_set_as_ringtone">%1$s을(를) 전화 벨소리로 설정하였습니다.</string>
+    <string name="action_set_as_ringtone">전화 벨소리로 설</string>
+    <string name="action_share">공유</string>
     <string name="action_settings">"설정"</string>
     <string name="action_about">정보</string>
     <string name="action_currently_playing">지금 재생 중</string>
@@ -17,10 +24,11 @@
     <string name="songs">노래</string>
     <string name="playlists">재생목록</string>
     <string name="nothing_playing">재생 중인 곡이 없습니다.</string>
-    <string name="unplayable_file">음악을 재생하려던 중 오류가 발생했습니다.</string>
+    <string name="unplayable_file">노래를 재생하려던 중 오류가 발생했습니다.</string>
     <string name="biography_unavailable">이 아티스트와 일치하는 정보를 찾을 수 없습니다.</string>
     <string name="biography">정보</string>
     <string name="audio_focus_denied">Audio focus 권한을 얻을 수 없습니다.</string>
+    <string name="title_activity_tag_editor">테그 편집기</string>
     <string name="tag_editor">테그 편집기</string>
     <string name="album">앨범</string>
     <string name="artist">아티스트</string>
@@ -32,6 +40,7 @@
     <string name="album_or_artist_empty">앨범 제목이나 앨범 아티스트 란이 비었습니다.</string>
     <string name="writing_file_number">파일에 정보 기록 중...</string>
     <string name="saving_changes">변경사항 저장 중...</string>
+    <string name="title_activity_album_tag_editor">앨범 테크 편집기</string>
     <string name="label_details">세부정보</string>
     <string name="label_file_name">파일 이름</string>
     <string name="label_file_path">파일 경로</string>
@@ -52,7 +61,7 @@
     <string name="updating">변경 중...</string>
     <string name="added_title_to_playing_queue">"재생 대기열에 1개의 음악을 추가했습니다."</string>
     <string name="added_x_titles_to_playing_queue">%1$d개의 타이틀을 재생 대기열에 추가했습니다.</string>
-    <string name="action_remove_from_playlist">재생목록에서 삭제</string>
+    <string name="action_remove_from_playlist">재생목록에서 제거</string>
     <string name="new_playlist_action">새로운 재생목록...</string>
     <string name="action_grid_columns">가로 격자</string>
     <string name="action_grid_columns_land">가로 격자 (가로모드일 때)</string>
@@ -61,12 +70,18 @@
     <string name="deleted_playlist_x">재생목록 \'%1$s\'을 삭제했습니다.</string>
     <string name="couldnot_create_playlist_x">재생목록 \'%1$s\'을(를) 만들 수 없습니다.</string>
     <string name="delete_playlist_x"><![CDATA[재생목록 <b>%1$s</b>을(를) 삭제하시겠습니까?]]></string>
+    <string name="delete_x_playlists"><![CDATA[재생목록 <b>%1$d</b>을(를) 삭제하시겠습니까?]]></string>
     <string name="delete_song_x"><![CDATA[노래 <b>%1$s</b>을(를) 삭제하시겠습니까?]]></string>
-    <string name="delete_x_songs"><![CDATA[<b>%1$d</b>개의 음악을 삭제하시겠습니까?]]></string>
+    <string name="delete_x_songs"><![CDATA[<b>%1$d</b>개의 노래를 삭제하시겠습니까?]]></string>
+    <string name="remove_song_x_from_playlist"><![CDATA[노래 <b>%1$s</b>을(를) 재생목록에서 삭제하시겠습니까?]]></string>
+    <string name="remove_x_songs_from_playlist"><![CDATA[노래 <b>%1$d</b>을(를) 재생목록에서 삭제하시겠습니까?]]></string>
     <string name="delete_song_title">노래 삭제</string>
     <string name="delete_songs_title">노래 삭제</string>
+    <string name="remove_song_from_playlist_title">재생목록에서 노래 삭제</string>
+    <string name="remove_songs_from_playlist_title">재생목록에서 노래 삭제</string>
     <string name="rename_playlist_title">재생목록 이름 변경</string>
     <string name="delete_playlist_title">재생목록 삭제</string>
+    <string name="delete_playlists_title">재생목록 삭제</string>
     <string name="add_playlist_title">"재생목록에 추가"</string>
     <string name="new_playlist_title">새로운 재생목록</string>
     <string name="delete_warning">"경고 : 이 작업은 되돌릴 수 없습니다."</string>
@@ -90,13 +105,18 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">테그 편집기 화면에서</string>
     <string name="pref_title_colored_navigation_bar_other_screens">기타 다른 모든 곳에서</string>
     <string name="pref_title_colored_album_footers">색칠된 앨범 카드</string>
+    <string name="pref_title_force_square_album_art">강제로 정사각형 앨범아트 적용</string>
+    <string name="pref_title_opaque_toolbar_now_playing">불투명한 지금 재생 중 툴바</string>
     <string name="no_equalizer">설치된 이퀄라이저가 없습니다.</string>
     <string name="no_audio_ID">"오디오 ID가 없습니다.
 아무 것이나 재생하시고 다시 시도해 주십시오."</string>
     <string name="navigation_drawer_open">네비게이션 서랍 열기</string>
     <string name="navigation_drawer_close">"네비게이션 서랍 닫기"</string>
     <string name="delete_action">삭제</string>
+    <string name="remove_action">제거</string>
     <string name="rename_action">이름 변경</string>
+    <string name="create_action">만들기</string>
+    <string name="x_selected">%1$d 선택됨</string>
     <string name="select">선택</string>
     <string name="default_str">기본</string>
     <string name="primary_color">주 색상</string>
@@ -106,13 +126,20 @@
     <string name="update_image">이미지 변경</string>
     <string name="playlist_empty_text">이 재생목록은 비었습니다.</string>
     <string name="no_playlists">재생목록이 없습니다.</string>
+    <string name="no_albums">앨범이 없습니다.</string>
+    <string name="no_songs">노래가 없습니다.</string>
+    <string name="no_artists">아티스트가 없습니다.</string>
+    <string name="empty">없음</string>
     <string name="playlist_name">재생목록 이름</string>
     <string name="song">노래</string>
     <string name="pref_only_lollipop">"안드로이드 롤리팝에서만 가능합니다."</string>
     <string name="pref_summary_colored_album_footers">"앨범 커버의 색상에 맞추어 앨범 카드가 색칠됩니다."</string>
+    <string name="pref_summary_force_square_album_art">지금 재생 중 화면의 앨범 아트 이미지가 강제로 정사각형으로 보이게 합니다.</string>
+    <string name="pref_summary_opaque_toolbar_now_playing">지금 재생 중 화면의 툴바를 투명하게 해 앨범 아트를 가리지 않게 합니다.</string>
     <string name="failed_download_albumart">"이 앨범의 앨범 커버를 다운로드할 수 없습니다."</string>
     <string name="search_hint">저장소 검색...</string>
     <string name="rescanning_media">미디어 재스캐닝 중...</string>
+    <string name="other">기타</string>
     <string-array name="update_album_cover_options">
         <item>Last.fm에서 다운로드</item>
         <item>저장소에서 고르기</item>

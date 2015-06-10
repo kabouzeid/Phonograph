@@ -62,7 +62,6 @@
     <string name="added_title_to_playing_queue">"Un brano aggiunto alla coda."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titoli aggiunti alla coda.</string>
     <string name="title_activity_playlist_detail">Attività playlist</string>
-    <string name="action_remove_from_playlist">Elimina dalla playlist</string>
     <string name="new_playlist_action">Nuova playlist...</string>
     <string name="action_grid_columns">Colonne griglia</string>
     <string name="action_grid_columns_land">Colonne griglia (schermo orizzontale)</string>
@@ -76,16 +75,8 @@
     ]]></string>
     <string name="delete_song_x"><![CDATA[        Vuoi eliminare il brano <b>%1$s</b>? ]]></string>
     <string name="delete_x_songs"><![CDATA[        Vuoi eliminare <b>%1$d</b> brani? ]]></string>
-    <string name="remove_song_x_from_playlist"><![CDATA[
-        Vuoi eliminare il brano <b>%1$s</b> dalla playlist? 
-    ]]></string>
-    <string name="remove_x_songs_from_playlist"><![CDATA[
-        Vuoi eliminare <b>%1$d</b> brani dalla playlist? 
-    ]]></string>
     <string name="delete_song_title">Elimina brano</string>
     <string name="delete_songs_title">Elimina brani</string>
-    <string name="remove_song_from_playlist_title">Elimina brano dalla playlist</string>
-    <string name="remove_songs_from_playlist_title">Elimina brani dalla playlist</string>
     <string name="rename_playlist_title">Rinomina playlist</string>
     <string name="delete_playlist_title">Elimina playlist</string>
     <string name="delete_playlists_title">Elimina playlist</string>

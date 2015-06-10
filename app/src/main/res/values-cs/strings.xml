@@ -51,7 +51,6 @@
     <string name="action_re_download_artist_image">Změnit obrázek umělce</string>
     <string name="updating">Aktualizace...</string>
     <string name="added_title_to_playing_queue">"Přidána 1 skladba do fronty."</string>
-    <string name="action_remove_from_playlist">Vymazat z playlistu</string>
     <string name="new_playlist_action">Nový playlist...</string>
     <string name="action_grid_columns">Počet sloupců mřížky</string>
     <string name="action_grid_columns_land">Počet sloupců mřížky (Horizontálně)</string>

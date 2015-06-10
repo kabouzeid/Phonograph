@@ -50,7 +50,6 @@
     <string name="action_re_download_artist_image">Atualizar imagem do artista</string>
     <string name="updating">Atualizando...</string>
     <string name="added_title_to_playing_queue">"Adicionada uma música para a fila atual de músicas."</string>
-    <string name="action_remove_from_playlist">Apagar da playlist</string>
     <string name="action_grid_columns">Colunas da grade</string>
     <string name="action_grid_columns_land">Colunas da grade (Paisagem)</string>
     <string name="delete_warning">"Aviso: Esta operação não pode ser desfeita."</string>

@@ -55,7 +55,6 @@
     <string name="added_title_to_playing_queue">"La 1 tittel til songkøen."</string>
     <string name="added_x_titles_to_playing_queue">La %1$d titlar til songkøen.</string>
     <string name="title_activity_playlist_detail">Spelelisteaktivitet</string>
-    <string name="action_remove_from_playlist">Fjern frå speleliste</string>
     <string name="new_playlist_action">Ny speleliste...</string>
     <string name="action_grid_columns">Rutenettkolonnar</string>
     <string name="action_grid_columns_land">Rutenettkolonnar (land)</string>
@@ -75,16 +74,8 @@
     <string name="delete_x_songs"><![CDATA[
         Ynskjer du å slette <b>%1$d</b> songar? 
     ]]></string>
-    <string name="remove_song_x_from_playlist"><![CDATA[
-        Ynskjer du å slette songen <b>%1$s</b> frå spelelista? 
-    ]]></string>
-    <string name="remove_x_songs_from_playlist"><![CDATA[
-        Ynskjer du å slette <b>%1$d</b> songar frår spelelista? 
-    ]]></string>
     <string name="delete_song_title">Slett song</string>
     <string name="delete_songs_title">Slett songar</string>
-    <string name="remove_song_from_playlist_title">Slett song frå speleliste</string>
-    <string name="remove_songs_from_playlist_title">Slett songar frå speleliste</string>
     <string name="rename_playlist_title">Gje nytt namn til speleliste</string>
     <string name="delete_playlist_title">Slett speleliste</string>
     <string name="delete_playlists_title">Slett spelelister</string>

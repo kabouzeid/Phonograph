@@ -52,7 +52,6 @@
     <string name="action_re_download_artist_image">تحديث صورة الفنان</string>
     <string name="updating">يتم التحديث...</string>
     <string name="added_title_to_playing_queue">"تمت الإضافة إلى قائمة الانتظار"</string>
-    <string name="action_remove_from_playlist">حذف من قائمة التشغيل</string>
     <string name="new_playlist_action">قائمة تشغيل جديدة...</string>
     <string name="action_grid_columns">عدد قوائم الشبكة</string>
     <string name="action_grid_columns_land">قائمة شبكية (أرضية)</string>

@@ -62,7 +62,6 @@
     <string name="added_title_to_playing_queue">"1 título añadido a la cola de reproducción"</string>
     <string name="added_x_titles_to_playing_queue">%1$d título(s) añadido(s) a la cola de reproducción</string>
     <string name="title_activity_playlist_detail">Actividad de la lista de reproducción</string>
-    <string name="action_remove_from_playlist">Borrar de la lista de reproducción</string>
     <string name="new_playlist_action">Nueva lista de reproducción...</string>
     <string name="action_grid_columns">Columnas de la cuadrícula</string>
     <string name="action_grid_columns_land">Columnas de la cuadrícula (apaisado)</string>
@@ -76,16 +75,8 @@
     ]]></string>
     <string name="delete_song_x"><![CDATA[¿Seguro que deseas eliminar la canción <b>%1$s</b>?]]></string>
     <string name="delete_x_songs"><![CDATA[¿Seguro que desea borrar <b>%1$d</b> canciones?]]></string>
-    <string name="remove_song_x_from_playlist"><![CDATA[
-¿Quiere eliminar la canción <b>%1$s</b> de la lista de reproducción?
-    ]]></string>
-    <string name="remove_x_songs_from_playlist"><![CDATA[
- ¿Quiere eliminar las canciónes <b>%1$d</b> de la lista de reproducción? 
-    ]]></string>
     <string name="delete_song_title">Borrar canción</string>
     <string name="delete_songs_title">Borrar canciones</string>
-    <string name="remove_song_from_playlist_title">Eliminar canción de la lista de reproducción</string>
-    <string name="remove_songs_from_playlist_title">Eliminar canciones de la lista de reproducción</string>
     <string name="rename_playlist_title">Renombrar lista de reproducción</string>
     <string name="delete_playlist_title">Borrar lista de reproducción</string>
     <string name="delete_playlists_title">Eliminar listas de reproducción</string>

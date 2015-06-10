@@ -62,7 +62,6 @@
     <string name="added_title_to_playing_queue">"1 título adicionado à lista de reprodução"</string>
     <string name="added_x_titles_to_playing_queue">%1$d faixas adicionadas à lista de reprodução.</string>
     <string name="title_activity_playlist_detail">Atividade da Lista de Reprodução</string>
-    <string name="action_remove_from_playlist">Excluir da playlist</string>
     <string name="new_playlist_action">Nova playlist...</string>
     <string name="action_grid_columns">Colunas da grade</string>
     <string name="action_grid_columns_land">Colunas da grade (Horizontal)</string>
@@ -76,16 +75,8 @@
     ]]></string>
     <string name="delete_song_x"><![CDATA[ Deseja excluir a faixa <b>%1$s</b>? ]]></string>
     <string name="delete_x_songs"><![CDATA[ Deseja excluir <b>%1$d</b> faixas? ]]></string>
-    <string name="remove_song_x_from_playlist"><![CDATA[
- Deseja excluir a música <b>%1$s</b> da playlist? 
-    ]]></string>
-    <string name="remove_x_songs_from_playlist"><![CDATA[
- Deseja excluir <b>%1$d</b> músicas da playlist? 
-    ]]></string>
     <string name="delete_song_title">Excluir Faixa</string>
     <string name="delete_songs_title">Excluir Faixas</string>
-    <string name="remove_song_from_playlist_title">Deletar música da Playlist</string>
-    <string name="remove_songs_from_playlist_title">Deletar músicas da Playlist</string>
     <string name="rename_playlist_title">Renomear Playlist</string>
     <string name="delete_playlist_title">Excluir Playlist</string>
     <string name="delete_playlists_title">Apagar Playlists</string>

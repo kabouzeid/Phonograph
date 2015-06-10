@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="what_do_you_want_to_share">What do you want to share?</string>
     <string name="currently_listening_to_x_by_x">Currently listening to %1$s by %2$s</string>
     <string name="the_audio_file">The audio file</string>
@@ -8,7 +7,7 @@
     <string name="x_has_been_set_as_ringtone">%1$s has been set as your ringtone.</string>
     <string name="action_set_as_ringtone">Set as ringtone</string>
     <string name="action_share">Share</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">"Settings"</string>
     <string name="action_about">About</string>
     <string name="action_currently_playing">Currently playing</string>
     <string name="action_playing_queue">Playing queue</string>
@@ -37,7 +36,7 @@
     <string name="album_artist">Album artist</string>
     <string name="year">Year</string>
     <string name="track">Track</string>
-    <string name="track_hint">Track (2 for track 2 or 3004 for CD3 track 4)</string>
+    <string name="track_hint">"Track (2 for track 2 or 3004 for CD3 track 4)"</string>
     <string name="album_or_artist_empty">The album title or the album artist text field is empty.</string>
     <string name="writing_file_number">Writing file</string>
     <string name="saving_changes">Saving changes…</string>
@@ -55,7 +54,7 @@
     <string name="label_current_playing_queue">Playing queue</string>
     <string name="save_as_playlist">Save as playlist</string>
     <string name="credits_3">Icon by</string>
-    <string name="credits_1">Phonograph is a completely free material designed music player by</string>
+    <string name="credits_1">"Phonograph is a completely free material designed music player by"</string>
     <string name="title_activity_search">Search</string>
     <string name="no_results">No results</string>
     <string name="action_re_download_artist_image">Update artist image</string>
@@ -67,29 +66,16 @@
     <string name="new_playlist_action">New playlist…</string>
     <string name="action_grid_columns">Grid columns</string>
     <string name="action_grid_columns_land">Grid columns (Land)</string>
-
     <string name="inserted_x_songs_into_playlist">Inserted %1$d songs into this playlist.</string>
     <string name="created_playlist_x">Created playlist %1$s</string>
     <string name="deleted_playlist_x">Deleted playlist %1$s</string>
     <string name="couldnot_create_playlist_x">Could not create playlist %1$s</string>
-    <string name="delete_playlist_x"><![CDATA[
-        Do you want to delete the playlist <b>%1$s</b>?
-    ]]></string>
-    <string name="delete_x_playlists"><![CDATA[
-        Do you want to delete <b>%1$d</b> playlists?
-    ]]></string>
-    <string name="delete_song_x"><![CDATA[
-        Do you want to delete the song <b>%1$s</b>?
-    ]]></string>
-    <string name="delete_x_songs"><![CDATA[
-        Do you want to delete <b>%1$d</b> songs?
-    ]]></string>
-    <string name="remove_song_x_from_playlist"><![CDATA[
-        Do you want to remove the song <b>%1$s</b> from the playlist?
-    ]]></string>
-    <string name="remove_x_songs_from_playlist"><![CDATA[
-        Do you want to remove <b>%1$d</b> songs from the playlist?
-    ]]></string>
+    <string name="delete_playlist_x"><![CDATA[Do you want to delete the playlist <b>%1$s</b>?]]></string>
+    <string name="delete_x_playlists"><![CDATA[Do you want to delete <b>%1$d</b> playlists?]]></string>
+    <string name="delete_song_x"><![CDATA[Do you want to delete the song <b>%1$s</b>?]]></string>
+    <string name="delete_x_songs"><![CDATA[Do you want to delete <b>%1$d</b> songs?]]></string>
+    <string name="remove_song_x_from_playlist"><![CDATA[Do you want to remove the song <b>%1$s</b> from the playlist?]]></string>
+    <string name="remove_x_songs_from_playlist"><![CDATA[Do you want to remove <b>%1$d</b> songs from the playlist?]]></string>
     <string name="delete_song_title">Delete Song</string>
     <string name="delete_songs_title">Delete Songs</string>
     <string name="remove_song_from_playlist_title">Remove Song from Playlist</string>
@@ -97,9 +83,8 @@
     <string name="rename_playlist_title">Rename Playlist</string>
     <string name="delete_playlist_title">Delete Playlist</string>
     <string name="delete_playlists_title">Delete Playlists</string>
-    <string name="add_playlist_title">Add to Playlist</string>
+    <string name="add_playlist_title">"Add to Playlist"</string>
     <string name="new_playlist_title">New Playlist</string>
-
     <string name="delete_warning">"Warning: This operation can not be undone."</string>
     <string name="shuffle_all">Shuffle all</string>
     <string name="last_opened">Last opened</string>
@@ -124,14 +109,13 @@
     <string name="pref_title_force_square_album_art">Force square album art</string>
     <string name="pref_title_opaque_toolbar_now_playing">Opaque toolbar now playing</string>
     <string name="no_equalizer">No equalizer found</string>
-    <string name="no_audio_ID">No audio ID, play something and try again.</string>
+    <string name="no_audio_ID">"No audio ID, play something and try again."</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_close">"Close navigation drawer"</string>
     <string name="delete_action">Delete</string>
     <string name="remove_action">Remove</string>
     <string name="rename_action">Rename</string>
     <string name="create_action">Create</string>
-
     <string name="x_selected">%1$d selected</string>
     <string name="select">Select</string>
     <string name="default_str">Default</string>
@@ -145,23 +129,21 @@
     <string name="no_albums">No albums</string>
     <string name="no_songs">No songs</string>
     <string name="no_artists">No artists</string>
-    <string name="nothing_here">Nothing here</string>
+    <string name="empty">Empty</string>
     <string name="playlist_name">Playlist name</string>
     <string name="song">Song</string>
-    <string name="pref_only_lollipop">Only available on Lollipop.</string>
-    <string name="pref_summary_colored_album_footers">Album footers in the grid are colored with the album cover\'s palette.</string>
+    <string name="pref_only_lollipop">"Only available on Lollipop."</string>
+    <string name="pref_summary_colored_album_footers">"Album footers in the grid are colored with the album cover\'s palette."</string>
     <string name="pref_summary_force_square_album_art">Album art in the now playing view is forced to be squared.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">The toolbar in the now playing view is opaque and no longer covers the album art.</string>
-    <string name="failed_download_albumart">Unable to download the art for this album.</string>
+    <string name="failed_download_albumart">"Unable to download the art for this album."</string>
     <string name="search_hint">Search your library…</string>
     <string name="rescanning_media">Rescanning media…</string>
     <string name="other">Other</string>
-
     <string-array name="update_album_cover_options">
         <item>Download from Last.fm</item>
         <item>Pick from Local Storage</item>
         <item>Web Search</item>
         <item>Remove Cover</item>
     </string-array>
-
 </resources>
