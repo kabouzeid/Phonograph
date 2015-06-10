@@ -70,6 +70,8 @@
 
     </LinearLayout>
 
+    <include layout="@layout/shadow_statusbar_actionbar" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

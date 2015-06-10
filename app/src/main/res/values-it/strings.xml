@@ -88,7 +88,6 @@
     <string name="light_theme_name">Chiaro</string>
     <string name="dark_theme_name">Scuro</string>
     <string name="equalizer">Equalizzatore</string>
-    <string name="pref_header_ui">Interfaccia</string>
     <string name="pref_title_general_theme">Tema</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">Generali</string>

@@ -81,7 +81,6 @@
     <string name="light_theme_name">Ανοιχτό</string>
     <string name="dark_theme_name">Σκούρο</string>
     <string name="equalizer">Εξισωτής</string>
-    <string name="pref_header_ui">Γραφικό περιβάλλον</string>
     <string name="pref_title_general_theme">Γενικό θέμα</string>
     <string name="pref_header_audio">Ήχος</string>
     <string name="pref_header_general">Γενικά</string>

@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.ui.activities;
 
 import android.animation.Animator;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -9,8 +10,10 @@ import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.transition.Transition;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,31 +74,44 @@ public class MusicControllerActivity extends AbsFabActivity {
     private ImageButton repeatButton;
     private ImageButton shuffleButton;
     private View mediaControllerContainer;
+    private CardView playbackControllerCard;
     private Toolbar toolbar;
     private int lastFooterColor = -1;
     private int lastTextColor = -2;
     private boolean killThreads = false;
 
-    private boolean opaqueToolBar = PreferenceUtils.getInstance(this).opaqueToolbarNowPlaying();
-    private boolean forceSquareAlbumArt = PreferenceUtils.getInstance(this).forceAlbumArtSquared();
-
+    private final boolean opaqueStatusBar = PreferenceUtils.getInstance(this).opaqueStatusbarNowPlaying();
+    private final boolean opaqueToolBar = opaqueStatusBar && PreferenceUtils.getInstance(this).opaqueToolbarNowPlaying();
+    private final boolean forceSquareAlbumArt = PreferenceUtils.getInstance(this).forceAlbumArtSquared();
+    private final boolean smallerTitleBox = PreferenceUtils.getInstance(this).smallerTitileBoxNowPlaying();
+    private final boolean traditionalProgressSlider = PreferenceUtils.getInstance(this).traditionalProgressSliderNowPlaying();
+    private final boolean showPlaybackControllerCard = PreferenceUtils.getInstance(this).playbackControllerCardNowPlaying();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setStatusBarTransparent();
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_music_controller);
+        setContentView(traditionalProgressSlider ? R.layout.activity_music_controller_traditional_progress_slider : R.layout.activity_music_controller);
 
         initViews();
-        albumArtBackground.setAlpha(0.7f);
-
         moveSeekBarIntoPlace();
-
+        adjustTitleBoxSize();
+        setUpPlaybackControllerCard();
         setUpMusicControllers();
 
+        albumArtBackground.setAlpha(0.7f);
         albumArt.forceSquare(forceSquareAlbumArt);
-        setToolbarOpaque(opaqueToolBar);
+
+        if (opaqueStatusBar) {
+            if (opaqueToolBar) {
+                alignAlbumArtToToolbar();
+            } else {
+                alignAlbumArtToStatusBar();
+            }
+        } else {
+            alignAlbumArtToTop();
+        }
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
@@ -133,11 +149,29 @@ public class MusicControllerActivity extends AbsFabActivity {
 
 
     private void moveSeekBarIntoPlace() {
-//        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) progressSlider.getLayoutParams();
-//        progressSlider.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-//        final int seekBarMarginLeftRight = getResources().getDimensionPixelSize(R.dimen.seek_bar_margin_left_right);
-//        lp.setMargins(seekBarMarginLeftRight, 0, seekBarMarginLeftRight, -(progressSlider.getMeasuredHeight() / 2));
-//        progressSlider.setLayoutParams(lp);
+        if (traditionalProgressSlider) {
+            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) progressSlider.getLayoutParams();
+            progressSlider.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+            final int seekBarMarginLeftRight = getResources().getDimensionPixelSize(R.dimen.seek_bar_margin_left_right);
+            lp.setMargins(seekBarMarginLeftRight, 0, seekBarMarginLeftRight, -(progressSlider.getMeasuredHeight() / 2));
+            progressSlider.setLayoutParams(lp);
+        }
+    }
+
+    private void adjustTitleBoxSize() {
+        int paddingTopBottom = smallerTitleBox ? getResources().getDimensionPixelSize(R.dimen.title_box_padding_small) : getResources().getDimensionPixelSize(R.dimen.title_box_padding_large);
+        footer.setPadding(footer.getPaddingLeft(), paddingTopBottom, footer.getPaddingRight(), paddingTopBottom);
+
+        songTitle.setPadding(songTitle.getPaddingLeft(), songTitle.getPaddingTop(), songTitle.getPaddingRight(), smallerTitleBox ? getResources().getDimensionPixelSize(R.dimen.title_box_text_spacing_small) : getResources().getDimensionPixelSize(R.dimen.title_box_text_spacing_large));
+        songArtist.setPadding(songArtist.getPaddingLeft(), smallerTitleBox ? getResources().getDimensionPixelSize(R.dimen.title_box_text_spacing_small) : getResources().getDimensionPixelSize(R.dimen.title_box_text_spacing_large), songArtist.getPaddingRight(), songArtist.getPaddingBottom());
+
+        songTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallerTitleBox ? getResources().getDimensionPixelSize(R.dimen.title_box_title_text_size_small) : getResources().getDimensionPixelSize(R.dimen.title_box_title_text_size_large));
+        songArtist.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallerTitleBox ? getResources().getDimensionPixelSize(R.dimen.title_box_caption_text_size_small) : getResources().getDimensionPixelSize(R.dimen.title_box_caption_text_size_large));
+    }
+
+    private void setUpPlaybackControllerCard(){
+        playbackControllerCard.setVisibility(showPlaybackControllerCard ? View.VISIBLE : View.GONE);
+        mediaControllerContainer.setBackgroundColor(showPlaybackControllerCard ? Color.TRANSPARENT : Util.resolveColor(this, R.attr.music_controller_container_color));
     }
 
     private void initViews() {
@@ -155,6 +189,7 @@ public class MusicControllerActivity extends AbsFabActivity {
         progressSlider = (SeekBar) findViewById(R.id.progress_slider);
         mediaControllerContainer = findViewById(R.id.media_controller_container);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        playbackControllerCard = (CardView) findViewById(R.id.playback_controller_card);
     }
 
     private void setUpMusicControllers() {
@@ -164,8 +199,16 @@ public class MusicControllerActivity extends AbsFabActivity {
         setUpProgressSlider();
     }
 
-    private static void setTint(SeekBar seekBar, int color) {
-        seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+    private void setTint(SeekBar seekBar, int color) {
+        ColorStateList s1 = ColorStateList.valueOf(color);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            seekBar.setThumbTintList(s1);
+            if (traditionalProgressSlider) seekBar.setProgressTintList(s1);
+        } else {
+            seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            if (traditionalProgressSlider)
+                seekBar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+        }
     }
 
     private void setUpProgressSlider() {
@@ -341,9 +384,6 @@ public class MusicControllerActivity extends AbsFabActivity {
         animateColorChange(defaultBarColor);
         animateTextColorChange(textColor);
 
-        currentSongProgress.setTextColor(DialogUtils.resolveColor(MusicControllerActivity.this, R.attr.themed_drawable_color));
-        totalSongDuration.setTextColor(DialogUtils.resolveColor(MusicControllerActivity.this, R.attr.themed_drawable_color));
-
         notifyTaskColorChange(defaultBarColor);
     }
 
@@ -363,7 +403,7 @@ public class MusicControllerActivity extends AbsFabActivity {
         }
 
         setTint(progressSlider, !ThemeSingleton.get().darkTheme && getThemeColorAccent() == Color.WHITE ? Color.BLACK : getThemeColorAccent());
-        if (opaqueToolBar) setStatusBarColor(newColor);
+        if (opaqueStatusBar) setStatusBarColor(newColor);
         else setStatusBarColor(Color.TRANSPARENT);
 
         if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarCurrentPlayingEnabled())
@@ -498,16 +538,24 @@ public class MusicControllerActivity extends AbsFabActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setToolbarOpaque(boolean toolbarOpaque) {
+    private void alignAlbumArtToTop() {
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) findViewById(R.id.album_art_frame).getLayoutParams();
-        if (!toolbarOpaque) {
-            if (Build.VERSION.SDK_INT > 16) {
-                params.removeRule(RelativeLayout.BELOW);
-            } else {
-                params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT);
-                params.addRule(RelativeLayout.ABOVE, R.id.footer_frame);
-            }
-        } else params.addRule(RelativeLayout.BELOW, R.id.toolbar_frame);
+        if (Build.VERSION.SDK_INT > 16) {
+            params.removeRule(RelativeLayout.BELOW);
+        } else {
+            params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT);
+            params.addRule(RelativeLayout.ABOVE, R.id.footer_frame);
+        }
+    }
+
+    private void alignAlbumArtToToolbar() {
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) findViewById(R.id.album_art_frame).getLayoutParams();
+        params.addRule(RelativeLayout.BELOW, R.id.toolbar);
+    }
+
+    private void alignAlbumArtToStatusBar() {
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) findViewById(R.id.album_art_frame).getLayoutParams();
+        params.addRule(RelativeLayout.BELOW, R.id.status_bar);
     }
 }

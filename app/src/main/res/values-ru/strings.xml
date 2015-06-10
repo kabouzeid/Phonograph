@@ -81,7 +81,6 @@
     <string name="light_theme_name">Светлая</string>
     <string name="dark_theme_name">Тёмная</string>
     <string name="equalizer">Эквалайзер</string>
-    <string name="pref_header_ui">Пользовательский интерфейс</string>
     <string name="pref_title_general_theme">Общая тема</string>
     <string name="pref_header_audio">Аудио</string>
     <string name="pref_header_general">Общее</string>

@@ -4,5 +4,5 @@
     <dimen name="navigation_drawer_header_height">165dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="tmp_no_fab_margin">0dp</dimen>
+    <dimen name="tmp_now_playing_skip_rewind_margin">-8dp</dimen>
 </resources>

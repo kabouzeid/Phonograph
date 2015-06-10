@@ -65,7 +65,8 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_general);
-            addPreferencesFromResource(R.xml.pref_ui);
+            addPreferencesFromResource(R.xml.pref_colors);
+            addPreferencesFromResource(R.xml.pref_now_playing_screen);
             addPreferencesFromResource(R.xml.pref_audio);
 
             final Preference defaultStartPage = findPreference("default_start_page");

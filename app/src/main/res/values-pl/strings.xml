@@ -62,6 +62,7 @@
     <string name="added_title_to_playing_queue">"Dodano 1 tytuł do kolejki odtwarzania"</string>
     <string name="added_x_titles_to_playing_queue">Dodano %1$d tytuły do kolejki odtwarzania</string>
     <string name="title_activity_playlist_detail">Aktywność list odtwarzania</string>
+    <string name="action_remove_from_playlist">Usuń z listy odtwarzania</string>
     <string name="new_playlist_action">Nowa lista odtwarzania...</string>
     <string name="action_grid_columns">Siatka kolumn</string>
     <string name="action_grid_columns_land">Siatka kolumn (poziomo)</string>
@@ -69,12 +70,16 @@
     <string name="created_playlist_x">Utworzono listę odtwarzania %1$s</string>
     <string name="deleted_playlist_x">Usunięto listę odtwarzania %1$s</string>
     <string name="couldnot_create_playlist_x">Nie można utworzyć listy odtwarzania %1$s</string>
-    <string name="delete_playlist_x"><![CDATA[ Czy chcesz usunąć listę odtwarzania <b>%1$s</b>? ]]></string>
-    <string name="delete_x_playlists"><![CDATA[Czy chcesz usunąć <b>%1$d</b> listy odtwarzania? ]]></string>
+    <string name="delete_playlist_x"><![CDATA[Czy chcesz usunąć listę odtwarzania <b>%1$s</b>?]]></string>
+    <string name="delete_x_playlists"><![CDATA[Czy chcesz usunąć <b>%1$d</b> listy odtwarzania?]]></string>
     <string name="delete_song_x"><![CDATA[ Czy chcesz usunąć utwór <b>%1$s</b>? ]]></string>
     <string name="delete_x_songs"><![CDATA[ Czy chcesz usunąć  <b>%1$d</b> utworów? ]]></string>
+    <string name="remove_song_x_from_playlist"><![CDATA[Czy chcesz usunąć <b>%1$s</b> z listy odtwarzania?]]></string>
+    <string name="remove_x_songs_from_playlist"><![CDATA[Czy chcesz usunąć <b>%1$d</b> z listy odtwarzania?]]></string>
     <string name="delete_song_title">Usuwanie utworu</string>
     <string name="delete_songs_title">Usuń utwory</string>
+    <string name="remove_song_from_playlist_title">Usuń utwór z listy odtwarzania</string>
+    <string name="remove_songs_from_playlist_title">Usuń utwory z listy odtwarzania</string>
     <string name="rename_playlist_title">Zmień nazwę listy odtwarzania</string>
     <string name="delete_playlist_title">Usuń listę odtwarzania</string>
     <string name="delete_playlists_title">Usuń listy odtwarzania</string>
@@ -86,7 +91,6 @@
     <string name="light_theme_name">Jasny</string>
     <string name="dark_theme_name">Ciemny</string>
     <string name="equalizer">Korektor</string>
-    <string name="pref_header_ui">Wygląd</string>
     <string name="pref_title_general_theme">Styl tła motywu</string>
     <string name="pref_header_audio">Dźwięk</string>
     <string name="pref_header_general">Ogólne</string>
@@ -108,8 +112,10 @@
     <string name="navigation_drawer_open">Otwórz pasek nawigacji</string>
     <string name="navigation_drawer_close">"Zamknij pasek nawigacji"</string>
     <string name="delete_action">Usuń</string>
+    <string name="remove_action">Usuń</string>
     <string name="rename_action">Zmień</string>
     <string name="create_action">Utwórz</string>
+    <string name="x_selected">%1$d zaznaczono</string>
     <string name="select">Wybierz</string>
     <string name="default_str">Domyślny</string>
     <string name="primary_color">Kolor podstawowy</string>
@@ -119,6 +125,10 @@
     <string name="update_image">Zmiana obrazu</string>
     <string name="playlist_empty_text">Lista odtwarzania jest pusta</string>
     <string name="no_playlists">Brak list odtwarzania</string>
+    <string name="no_albums">Brak albumów</string>
+    <string name="no_songs">Brak utworów</string>
+    <string name="no_artists">Brak wykonawców</string>
+    <string name="empty">Pusty</string>
     <string name="playlist_name">Nazwa listy odtwarzania</string>
     <string name="song">Utwór</string>
     <string name="pref_only_lollipop">"Dostępne tylko w androidzie Lollipop"</string>

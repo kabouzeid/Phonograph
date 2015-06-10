@@ -5,11 +5,11 @@
     android:layout_height="148dp"
     android:layout_marginRight="8dp"
     android:layout_marginEnd="8dp"
+    app:cardBackgroundColor="?default_bar_color"
     app:elevation="3dp"
     android:foreground="?rect_selector">
 
     <LinearLayout
-        android:background="?default_bar_color"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">

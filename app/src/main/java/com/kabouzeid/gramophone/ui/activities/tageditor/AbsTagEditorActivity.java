@@ -87,7 +87,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getContentViewResId());
+        setContentView(getContentViewLayout());
 
         getIntentExtras();
 
@@ -206,7 +206,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         }
     }
 
-    protected abstract int getContentViewResId();
+    protected abstract int getContentViewLayout();
 
     protected abstract List<String> getSongPaths();
 

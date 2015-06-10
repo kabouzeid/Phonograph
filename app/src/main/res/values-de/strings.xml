@@ -96,7 +96,8 @@ Willst du <b>%1$d</b> Titel aus der Playlist entfernen?
     <string name="light_theme_name">Hell</string>
     <string name="dark_theme_name">Dunkel</string>
     <string name="equalizer">Equalizer</string>
-    <string name="pref_header_ui">Oberfläche</string>
+    <string name="pref_header_colors">Farben</string>
+    <string name="pref_header_now_playing_screen">Now Playing Ansicht</string>
     <string name="pref_title_general_theme">Generelles Design</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">Generell</string>
@@ -112,6 +113,11 @@ Willst du <b>%1$d</b> Titel aus der Playlist entfernen?
     <string name="pref_title_colored_navigation_bar_other_screens">Überall sonst</string>
     <string name="pref_title_colored_album_footers">Farbige Balken unter den Alben</string>
     <string name="pref_title_force_square_album_art">Quadratisches Album Cover erzwingen</string>
+    <string name="pref_title_opaque_toolbar_now_playing">Undurchsichtige Toolbar</string>
+    <string name="pref_title_opaque_statusbar_now_playing">Undurchsichtige Statusbar</string>
+    <string name="pref_title_smaller_title_box_now_playing">Kleinere Titel Box</string>
+    <string name="pref_title_traditional_progress_slider_now_playing">Traditioneller Progress Slider</string>
+    <string name="pref_title_playback_controller_card_now_playing">Zeige Karte unter wiedergabe Bedienelementen</string>
     <string name="no_equalizer">Es wurde kein Equalizer gefunden</string>
     <string name="no_audio_ID">"Keine Audio ID, spiele etwas ab und versuche es erneut."</string>
     <string name="navigation_drawer_open">Öffne Navigation Drawer</string>
@@ -139,6 +145,11 @@ Willst du <b>%1$d</b> Titel aus der Playlist entfernen?
     <string name="pref_only_lollipop">"Nur auf Android Lollipop verfügbar"</string>
     <string name="pref_summary_colored_album_footers">"Die Titel der Alben im Raster passend zu ihrer Cover Farbe färben."</string>
     <string name="pref_summary_force_square_album_art">Das Album Cover in der now playing Ansicht wird gezwungen quadratisch zu sein</string>
+    <string name="pref_summary_opaque_toolbar_now_playing">Die Toolbar ist undurchsichtig und bedeckt nicht das Album Cover.</string>
+    <string name="pref_summary_opaque_statusbar_now_playing">Die Statusbar ist undurchsichtig und bedeckt nicht das Album Cover.</string>
+    <string name="pref_summary_smaller_title_box_now_playing">Die Box unter dem Album Cover wo der Song Titel und Interpret ist ist kleiner.</string>
+    <string name="pref_summary_traditional_progress_slider_now_playing">Benutzt den normalen Progress Slider anstatt der kleinen Leiste unter dem Album Cover.</string>
+    <string name="pref_summary_playback_controller_card_now_playing">Zeigt eine Karte unter den wiedergabe Bedienelementen (play/pause etc.).</string>
     <string name="failed_download_albumart">"Das Cover für dieses Album konnte nicht heruntergeladen werden."</string>
     <string name="search_hint">Durchsuche deine Mediathek</string>
     <string name="rescanning_media">Medien werden erneut eingescannt...</string>

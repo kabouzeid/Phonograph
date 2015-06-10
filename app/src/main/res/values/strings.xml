@@ -91,7 +91,8 @@
     <string name="light_theme_name">Light</string>
     <string name="dark_theme_name">Dark</string>
     <string name="equalizer">Equalizer</string>
-    <string name="pref_header_ui">UI</string>
+    <string name="pref_header_colors">Colors</string>
+    <string name="pref_header_now_playing_screen">Now playing screen</string>
     <string name="pref_title_general_theme">General theme</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">General</string>
@@ -107,7 +108,11 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Everywhere else</string>
     <string name="pref_title_colored_album_footers">Colored album footers</string>
     <string name="pref_title_force_square_album_art">Force square album art</string>
-    <string name="pref_title_opaque_toolbar_now_playing">Opaque toolbar now playing</string>
+    <string name="pref_title_opaque_toolbar_now_playing">Opaque toolbar</string>
+    <string name="pref_title_opaque_statusbar_now_playing">Opaque statusbar</string>
+    <string name="pref_title_smaller_title_box_now_playing">Smaller title box</string>
+    <string name="pref_title_traditional_progress_slider_now_playing">Traditional progress slider</string>
+    <string name="pref_title_playback_controller_card_now_playing">Show card below playback controllers</string>
     <string name="no_equalizer">No equalizer found</string>
     <string name="no_audio_ID">"No audio ID, play something and try again."</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -135,7 +140,11 @@
     <string name="pref_only_lollipop">"Only available on Lollipop."</string>
     <string name="pref_summary_colored_album_footers">"Album footers in the grid are colored with the album cover\'s palette."</string>
     <string name="pref_summary_force_square_album_art">Album art in the now playing view is forced to be squared.</string>
-    <string name="pref_summary_opaque_toolbar_now_playing">The toolbar in the now playing view is opaque and no longer covers the album art.</string>
+    <string name="pref_summary_opaque_toolbar_now_playing">The toolbar is opaque and do not cover the album art.</string>
+    <string name="pref_summary_opaque_statusbar_now_playing">The statusbar is opaque and do not cover the album art.</string>
+    <string name="pref_summary_smaller_title_box_now_playing">The box below the album art where the song title and artist goes is smaller.</string>
+    <string name="pref_summary_traditional_progress_slider_now_playing">Uses the normal progress slider instead of the small bar below the album art.</string>
+    <string name="pref_summary_playback_controller_card_now_playing">Displays a card below the playback controller buttons (play/pause etc.).</string>
     <string name="failed_download_albumart">"Unable to download the art for this album."</string>
     <string name="search_hint">Search your library…</string>
     <string name="rescanning_media">Rescanning media…</string>

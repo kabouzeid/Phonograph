@@ -92,7 +92,6 @@
     <string name="light_theme_name">明亮</string>
     <string name="dark_theme_name">暗沉</string>
     <string name="equalizer">均衡器</string>
-    <string name="pref_header_ui">使用者介面</string>
     <string name="pref_title_general_theme">主題</string>
     <string name="pref_header_audio">音訊</string>
     <string name="pref_header_general">通用</string>

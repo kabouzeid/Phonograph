@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="what_do_you_want_to_share">Qu\'est-ce que vous voulez partager ?</string>
-    <string name="currently_listening_to_x_by_x">Vous écoutez %1$ss de %2$s</string>
+    <string name="what_do_you_want_to_share">Que voulez-vous partager ?</string>
+    <string name="currently_listening_to_x_by_x">En train d\'écouter %1$ss de %2$s</string>
     <string name="the_audio_file">Le fichier audio</string>
-    <string name="do_you_want_to_set_x_as_ringtone">Voulez-vous définir %1$ss comme sonnerie?</string>
-    <string name="x_has_been_set_as_ringtone">%1$s a été défini comme sonnerie.</string>
+    <string name="do_you_want_to_set_x_as_ringtone">Voulez-vous définir %1$ss en tant que sonnerie ?</string>
+    <string name="x_has_been_set_as_ringtone">%1$s a été définie comme sonnerie.</string>
     <string name="action_set_as_ringtone">Définir comme sonnerie</string>
     <string name="action_share">Partager</string>
     <string name="action_settings">"Paramètres"</string>
@@ -54,7 +54,7 @@
     <string name="label_current_playing_queue">File de lecture</string>
     <string name="save_as_playlist">Sauvegarder</string>
     <string name="credits_3">Icône par</string>
-    <string name="credits_1">"Phonograph est un lecteur de musique entièrement gratuit avec le concept de Material Design créé par"</string>
+    <string name="credits_1">"Phonograph est un lecteur de musique entièrement gratuit suivant le concept du Material Design. Phonograph vous est apporté par"</string>
     <string name="title_activity_search">Rechercher</string>
     <string name="no_results">Aucun résultat</string>
     <string name="action_re_download_artist_image">Actualiser l\'image de l\'artiste</string>
@@ -69,30 +69,31 @@
     <string name="created_playlist_x">La playlist %1$s a été créée.</string>
     <string name="deleted_playlist_x">Playlist %1$s supprimée.</string>
     <string name="couldnot_create_playlist_x">Impossible de créer la playlist %1$s.</string>
-    <string name="delete_playlist_x"><![CDATA[ Voulez-vous supprimer la playlist <b>%1$s</b> ? ]]></string>
+    <string name="delete_playlist_x"><![CDATA[Voulez-vous supprimer la playlist <b>%1$s</b> ?]]></string>
     <string name="delete_x_playlists"><![CDATA[Voulez-vous supprimer les playlists <b>%1$d</b> ?]]></string>
-    <string name="delete_song_x"><![CDATA[ Voulez-vous supprimer le titre <b>%1$s</b> ? ]]></string>
-    <string name="delete_x_songs"><![CDATA[ Voulez-vous supprimer <b>%1$d</b> titres ? ]]></string>
+    <string name="delete_song_x"><![CDATA[Voulez-vous supprimer <b>%1$s</b> ?]]></string>
+    <string name="delete_x_songs"><![CDATA[Voulez-vous supprimer <b>%1$d</b> titres ?]]></string>
     <string name="remove_song_x_from_playlist"><![CDATA[Voulez-vous retirer <b>%1$s</b> de la playlist?]]></string>
     <string name="remove_x_songs_from_playlist"><![CDATA[Voulez-vous retirer <b>%1$d</b> titres de la playlist?]]></string>
     <string name="delete_song_title">Supprimer le titre</string>
     <string name="delete_songs_title">Supprimer les titres</string>
     <string name="remove_song_from_playlist_title">Retirer de la playlist</string>
+    <string name="remove_songs_from_playlist_title">Retirer les titres de la playlist</string>
     <string name="rename_playlist_title">Renommer la playlist</string>
     <string name="delete_playlist_title">Supprimer la playlist</string>
+    <string name="delete_playlists_title">Supprimer les playlists</string>
     <string name="add_playlist_title">"Ajouter à la playlist"</string>
     <string name="new_playlist_title">Nouvelle playlist</string>
     <string name="delete_warning">"Attention : Cette action ne peut être annulée"</string>
     <string name="shuffle_all">Aléatoire</string>
-    <string name="last_opened">Récents</string>
+    <string name="last_opened">Récemment ouverts</string>
     <string name="light_theme_name">Clair</string>
     <string name="dark_theme_name">Sombre</string>
     <string name="equalizer">Égaliseur</string>
-    <string name="pref_header_ui">Interface</string>
     <string name="pref_title_general_theme">Thème général</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">Général</string>
-    <string name="pref_summary_colored_navigation_bar">Dans quelle vue la barre navigation doit être colorée.</string>
+    <string name="pref_summary_colored_navigation_bar">Dans quelles vues la barre navigation doit être colorée.</string>
     <string name="pref_title_navigation_bar">Barre de navigation colorée</string>
     <string name="pref_title_set_default_start_page">Page d\'accueil par défaut</string>
     <string name="title_activity_settings">Paramètres</string>
@@ -103,34 +104,44 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Éditeur d\'infos</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Partout ailleurs</string>
     <string name="pref_title_colored_album_footers">Bas d\'album coloré</string>
+    <string name="pref_title_force_square_album_art">Vignette carrée</string>
+    <string name="pref_title_opaque_toolbar_now_playing">Barre d\'outil opaque</string>
     <string name="no_equalizer">Aucun égaliseur trouvé</string>
     <string name="no_audio_ID">"Aucun ID audio, jouez quelque chose et réessayez."</string>
     <string name="navigation_drawer_open">Ouvrir le volet de navigation</string>
     <string name="navigation_drawer_close">"Fermer le volet de navigation"</string>
     <string name="delete_action">Supprimer</string>
+    <string name="remove_action">Retirer</string>
     <string name="rename_action">Renommer</string>
     <string name="create_action">Créer</string>
+    <string name="x_selected">%1$d séléctionné(s)</string>
     <string name="select">Sélectionner</string>
     <string name="default_str">Par défaut</string>
-    <string name="primary_color">Couleur primaire</string>
+    <string name="primary_color">Couleur principale</string>
     <string name="accent_color">Couleur secondaire</string>
-    <string name="primary_color_desc">La couleur primaire du thème (indigo par défaut)</string>
+    <string name="primary_color_desc">La couleur principale du thème (indigo par défaut)</string>
     <string name="accent_color_desc">La couleur secondaire du thème (rose par défaut)</string>
     <string name="update_image">Actualiser l\'image</string>
     <string name="playlist_empty_text">La playlist est vide</string>
     <string name="no_playlists">Aucune playlist</string>
+    <string name="no_albums">Aucun album</string>
+    <string name="no_songs">Aucun titre</string>
+    <string name="no_artists">Aucun artiste</string>
+    <string name="empty">Vide</string>
     <string name="playlist_name">Nom de la playlist</string>
     <string name="song">Titre</string>
     <string name="pref_only_lollipop">"Uniquement disponible sur Lollipop."</string>
-    <string name="pref_summary_colored_album_footers">"Les bas d\'album dans la grille sont colorés avec la palette de la couverture."</string>
-    <string name="failed_download_albumart">"Impossible de télécharger la pochette pour cet album."</string>
+    <string name="pref_summary_colored_album_footers">"Les bas d\'album dans la grille sont colorés avec la palette de la vignette."</string>
+    <string name="pref_summary_force_square_album_art">La vignette de l\'album dans l\'écran de lecture en cours est forcée à rester carrée.</string>
+    <string name="pref_summary_opaque_toolbar_now_playing">La barre d\'outil dans l\'écran de lecture en cours est opaque et recouvre maintenant l\'album.</string>
+    <string name="failed_download_albumart">"Impossible de télécharger la vignette pour cet album."</string>
     <string name="search_hint">Rechercher votre bibliothèque...</string>
     <string name="rescanning_media">Réanalyse des médias…</string>
     <string name="other">Autre</string>
     <string-array name="update_album_cover_options">
         <item>Télécharger depuis Last.fm</item>
-        <item>Choisir depuis le stockage interne</item>
+        <item>Choisir sur l\'appareil</item>
         <item>Recherche internet</item>
-        <item>Supprimer la couverture</item>
+        <item>Supprimer la vignette</item>
     </string-array>
 </resources>

@@ -72,7 +72,6 @@
     <string name="light_theme_name">Light (Alb)</string>
     <string name="dark_theme_name">Dark (Negru)</string>
     <string name="equalizer">Egalizator</string>
-    <string name="pref_header_ui">Interfaţă</string>
     <string name="pref_title_general_theme">Temă generală</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">General</string>

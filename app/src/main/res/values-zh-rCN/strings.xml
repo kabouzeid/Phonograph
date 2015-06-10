@@ -62,6 +62,7 @@
     <string name="added_title_to_playing_queue">"该曲目已加入播放队列"</string>
     <string name="added_x_titles_to_playing_queue">%1$d首曲目已加入播放队列</string>
     <string name="title_activity_playlist_detail">播放列表操作</string>
+    <string name="action_remove_from_playlist">从播放列表移除</string>
     <string name="new_playlist_action">新建播放列表</string>
     <string name="action_grid_columns">专辑列数</string>
     <string name="action_grid_columns_land">专辑列数（横屏）</string>
@@ -79,8 +80,12 @@
     <string name="delete_x_songs"><![CDATA[
 确认要删除以下<b>%1$d</b>首歌曲？
     ]]></string>
+    <string name="remove_song_x_from_playlist"><![CDATA[你想从播放列表中移除<b>%1$s</b>吗？]]></string>
+    <string name="remove_x_songs_from_playlist"><![CDATA[你想从播放列表中移除这<b>%1$d</b>首歌曲吗？]]></string>
     <string name="delete_song_title">删除歌曲</string>
     <string name="delete_songs_title">删除歌曲</string>
+    <string name="remove_song_from_playlist_title">从播放列表移除歌曲</string>
+    <string name="remove_songs_from_playlist_title">从播放列表移除歌曲</string>
     <string name="rename_playlist_title">重命名播放列表</string>
     <string name="delete_playlist_title">删除播放列表</string>
     <string name="delete_playlists_title">删除播放列表</string>
@@ -92,7 +97,6 @@
     <string name="light_theme_name">浅色</string>
     <string name="dark_theme_name">暗色</string>
     <string name="equalizer">均衡器</string>
-    <string name="pref_header_ui">界面</string>
     <string name="pref_title_general_theme">全局主题</string>
     <string name="pref_header_audio">声音</string>
     <string name="pref_header_general">通用</string>
@@ -114,8 +118,10 @@
     <string name="navigation_drawer_open">弹出导航抽屉</string>
     <string name="navigation_drawer_close">"关闭导航抽屉"</string>
     <string name="delete_action">删除</string>
+    <string name="remove_action">移除</string>
     <string name="rename_action">重命名</string>
     <string name="create_action">创建</string>
+    <string name="x_selected">已选择%1$d</string>
     <string name="select">选择</string>
     <string name="default_str">默认</string>
     <string name="primary_color">主色调（Primary颜色）</string>
@@ -125,6 +131,10 @@
     <string name="update_image">更新图像</string>
     <string name="playlist_empty_text">播放列表是空的</string>
     <string name="no_playlists">没有播放列表</string>
+    <string name="no_albums">没有专辑</string>
+    <string name="no_songs">没有曲目</string>
+    <string name="no_artists">没有艺术家</string>
+    <string name="empty">空</string>
     <string name="playlist_name">播放列表名称</string>
     <string name="song">歌曲</string>
     <string name="pref_only_lollipop">"仅适用于 Lollipop"</string>

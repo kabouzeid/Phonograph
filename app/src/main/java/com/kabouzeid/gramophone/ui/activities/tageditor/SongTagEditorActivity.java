@@ -101,7 +101,7 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
     }
 
     @Override
-    protected int getContentViewResId() {
+    protected int getContentViewLayout() {
         return R.layout.activity_song_tag_editor;
     }
 

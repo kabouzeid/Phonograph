@@ -167,7 +167,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
     }
 
     @Override
-    protected int getContentViewResId() {
+    protected int getContentViewLayout() {
         return R.layout.activity_album_tag_editor;
     }
 

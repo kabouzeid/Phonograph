@@ -35,7 +35,11 @@ public final class PreferenceUtils {
     public static final String ALBUM_GRID_COLUMNS = "album_grid_columns";
     public static final String ALBUM_GRID_COLUMNS_LAND = "album_grid_columns_land";
     public static final String OPAQUE_TOOLBAR_NOW_PLAYING = "opaque_toolbar_now_playing";
+    public static final String OPAQUE_STATUSBAR_NOW_PLAYING = "opaque_statusbar_now_playing";
     public static final String FORCE_SQUARE_ALBUM_ART = "force_square_album_art";
+    public static final String SMALLER_TITLE_BOX_NOW_PLAYING = "smaller_title_box_now_playing";
+    public static final String TRADITIONAL_PROGRESS_SLIDER_NOW_PLAYING = "traditional_progress_slider_now_playing";
+    public static final String PLAYBACK_CONTROLLER_CARD_NOW_PLAYING = "playback_controller_card_now_playing";
 
     private static PreferenceUtils sInstance;
 
@@ -159,12 +163,28 @@ public final class PreferenceUtils {
 //        mPreferences.edit().putBoolean(COLORED_NAVIGATION_BAR_OTHER_SCREENS, coloredNavbar).commit();
 //    }
 
+    public final boolean opaqueStatusbarNowPlaying() {
+        return mPreferences.getBoolean(OPAQUE_STATUSBAR_NOW_PLAYING, false);
+    }
+
     public final boolean opaqueToolbarNowPlaying() {
         return mPreferences.getBoolean(OPAQUE_TOOLBAR_NOW_PLAYING, false);
     }
 
     public final boolean forceAlbumArtSquared() {
         return mPreferences.getBoolean(FORCE_SQUARE_ALBUM_ART, false);
+    }
+
+    public final boolean playbackControllerCardNowPlaying() {
+        return mPreferences.getBoolean(PLAYBACK_CONTROLLER_CARD_NOW_PLAYING, false);
+    }
+
+    public final boolean smallerTitileBoxNowPlaying() {
+        return mPreferences.getBoolean(SMALLER_TITLE_BOX_NOW_PLAYING, false);
+    }
+
+    public final boolean traditionalProgressSliderNowPlaying() {
+        return mPreferences.getBoolean(TRADITIONAL_PROGRESS_SLIDER_NOW_PLAYING, false);
     }
 
 //    public final boolean downloadMissingArtistImages() {

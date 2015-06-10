@@ -1,6 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory android:title="@string/pref_header_ui">
+    <com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory android:title="@string/pref_header_colors">
 
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:defaultValue="0"
@@ -23,28 +23,12 @@
             android:summary="@string/accent_color_desc" />
 
         <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="opaque_toolbar_now_playing"
-            android:title="@string/pref_title_opaque_toolbar_now_playing"
-            android:summary="@string/pref_summary_opaque_toolbar_now_playing"
-            android:layout="@layout/preference_custom"
-            android:widgetLayout="@layout/preference_dynamiccheckbox" />
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="force_square_album_art"
-            android:title="@string/pref_title_force_square_album_art"
-            android:summary="@string/pref_summary_force_square_album_art"
-            android:layout="@layout/preference_custom"
-            android:widgetLayout="@layout/preference_dynamiccheckbox" />
-
-        <CheckBoxPreference
             android:defaultValue="true"
             android:key="colored_album_footers"
             android:title="@string/pref_title_colored_album_footers"
             android:summary="@string/pref_summary_colored_album_footers"
             android:layout="@layout/preference_custom"
-            android:widgetLayout="@layout/preference_dynamiccheckbox" />
+            android:widgetLayout="@layout/preference_dynamic_checkbox" />
 
         <com.afollestad.materialdialogs.prefs.MaterialMultiSelectListPreference
             android:key="colored_navigation_bar"

@@ -90,7 +90,6 @@
     <string name="light_theme_name">밝은 테마</string>
     <string name="dark_theme_name">어두운 테마</string>
     <string name="equalizer">이퀄라이저</string>
-    <string name="pref_header_ui">UI</string>
     <string name="pref_title_general_theme">전체적인 테마</string>
     <string name="pref_header_audio">오디오</string>
     <string name="pref_header_general">일반</string>
