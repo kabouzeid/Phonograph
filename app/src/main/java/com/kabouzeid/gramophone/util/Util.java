@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
@@ -33,8 +34,8 @@ public class Util {
 //        return resId;
 //    }
 
-    public static int resolveColor(Context context, int color) {
-        TypedArray a = context.obtainStyledAttributes(new int[]{color});
+    public static int resolveColor(Context context, @AttrRes int colorAttr) {
+        TypedArray a = context.obtainStyledAttributes(new int[]{colorAttr});
         int resId = a.getColor(0, 0);
         a.recycle();
         return resId;

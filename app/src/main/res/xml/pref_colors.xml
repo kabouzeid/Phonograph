@@ -9,7 +9,6 @@
             android:key="general_theme"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
-            android:layout="@layout/preference_custom"
             android:title="@string/pref_title_general_theme" />
 
         <com.kabouzeid.gramophone.prefs.ColorChooserPreference
@@ -27,7 +26,6 @@
             android:key="colored_album_footers"
             android:title="@string/pref_title_colored_album_footers"
             android:summary="@string/pref_summary_colored_album_footers"
-            android:layout="@layout/preference_custom"
             android:widgetLayout="@layout/preference_dynamic_checkbox" />
 
         <com.afollestad.materialdialogs.prefs.MaterialMultiSelectListPreference
@@ -35,8 +33,7 @@
             android:entries="@array/pref_navigation_bar_color_titles"
             android:entryValues="@array/pref_navigation_bar_color_values"
             android:title="@string/pref_title_navigation_bar"
-            android:summary="@string/pref_summary_colored_navigation_bar"
-            android:layout="@layout/preference_custom" />
+            android:summary="@string/pref_summary_colored_navigation_bar" />
 
     </com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory>
 

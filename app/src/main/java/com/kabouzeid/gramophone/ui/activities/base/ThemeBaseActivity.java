@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.ui.activities.base;
 
 import android.app.ActivityManager;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +20,8 @@ public abstract class ThemeBaseActivity extends AppCompatActivity implements Kab
     private int colorPrimary;
     private int colorPrimaryDarker;
     private int colorAccent;
+
+    private ActivityManager.TaskDescription taskDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +50,13 @@ public abstract class ThemeBaseActivity extends AppCompatActivity implements Kab
     protected void notifyTaskColorChange(int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // Sets color of entry in the system recents page
-            ActivityManager.TaskDescription td = new ActivityManager.TaskDescription(
-                    getString(R.string.app_name),
-                    BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher),
-                    color);
-            setTaskDescription(td);
+            if (taskDescription == null || taskDescription.getPrimaryColor() != color) {
+                taskDescription = new ActivityManager.TaskDescription(
+                        null,
+                        null,
+                        color);
+                setTaskDescription(taskDescription);
+            }
         }
     }
 

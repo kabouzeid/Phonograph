@@ -25,7 +25,7 @@ public class ColorChooserPreference extends Preference {
 
     public ColorChooserPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setLayoutResource(R.layout.preference_custom);
+        setLayoutResource(R.layout.preference_color_chooser);
     }
 
     @Override

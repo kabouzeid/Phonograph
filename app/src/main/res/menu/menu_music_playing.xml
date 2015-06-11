@@ -9,10 +9,6 @@
         android:title="@string/action_playing_queue"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/action_share"
-        android:title="@string/action_share"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_shuffle_all"
         android:title="@string/shuffle_all"
         app:showAsAction="never"/>
@@ -28,6 +24,10 @@
         android:id="@+id/action_go_to_artist"
         android:title="@string/action_go_to_artist"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_share"
+        android:title="@string/action_share"
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_tag_editor"
         android:title="@string/action_tag_editor"

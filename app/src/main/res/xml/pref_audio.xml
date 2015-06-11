@@ -5,8 +5,7 @@
 
         <Preference
             android:key="equalizer"
-            android:title="@string/equalizer"
-            android:layout="@layout/preference_custom" />
+            android:title="@string/equalizer" />
 
     </com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory>
 

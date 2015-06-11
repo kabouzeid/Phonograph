@@ -9,7 +9,6 @@
             android:key="default_start_page"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
-            android:layout="@layout/preference_custom"
             android:title="@string/pref_title_set_default_start_page" />
 
     </com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory>

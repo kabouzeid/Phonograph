@@ -78,7 +78,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     private Toolbar toolbar;
     private int lastFooterColor = -1;
     private int lastTextColor = -2;
-    private boolean killThreads = false;
+    private Thread progressViewsUpdateThread;
 
     private final boolean opaqueStatusBar = PreferenceUtils.getInstance(this).opaqueStatusbarNowPlaying();
     private final boolean opaqueToolBar = opaqueStatusBar && PreferenceUtils.getInstance(this).opaqueToolbarNowPlaying();
@@ -169,7 +169,7 @@ public class MusicControllerActivity extends AbsFabActivity {
         songArtist.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallerTitleBox ? getResources().getDimensionPixelSize(R.dimen.title_box_caption_text_size_small) : getResources().getDimensionPixelSize(R.dimen.title_box_caption_text_size_large));
     }
 
-    private void setUpPlaybackControllerCard(){
+    private void setUpPlaybackControllerCard() {
         playbackControllerCard.setVisibility(showPlaybackControllerCard ? View.VISIBLE : View.GONE);
         mediaControllerContainer.setBackgroundColor(showPlaybackControllerCard ? Color.TRANSPARENT : Util.resolveColor(this, R.attr.music_controller_container_color));
     }
@@ -309,7 +309,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     protected void onResume() {
         super.onResume();
         updateControllerState();
-        startMusicControllerStateUpdateThread();
+        startProgressViewsUpdateThread();
         updateCurrentSong();
     }
 
@@ -429,36 +429,37 @@ public class MusicControllerActivity extends AbsFabActivity {
         }
     }
 
-    private void startMusicControllerStateUpdateThread() {
-        killThreads = false;
-        new Thread(new Runnable() {
+    private void startProgressViewsUpdateThread() {
+        if (progressViewsUpdateThread != null) progressViewsUpdateThread.interrupt();
+        progressViewsUpdateThread = new Thread(new Runnable() {
+            int totalMillis = 0;
+            int progressMillis = 0;
+
             @Override
             public void run() {
-                int currentPosition = 0;
-                int total = 0;
-                while (!killThreads) {
-                    try {
-                        total = MusicPlayerRemote.getSongDurationMillis();
-                        currentPosition = MusicPlayerRemote.getSongProgressMillis();
-                        Thread.sleep(1);
-                    } catch (InterruptedException e) {
-                        return;
-                    } catch (Exception e2) {
-                        e2.printStackTrace();
+                try {
+                    while (!Thread.currentThread().isInterrupted()) {
+                        totalMillis = MusicPlayerRemote.getSongDurationMillis();
+                        progressMillis = MusicPlayerRemote.getSongProgressMillis();
+
+                        runOnUiThread(updateProgressViews);
+
+                        Thread.sleep(100);
                     }
-                    final int finalTotal = total;
-                    final int finalCurrentPosition = currentPosition;
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressSlider.setMax(finalTotal);
-                            progressSlider.setProgress(finalCurrentPosition);
-                            currentSongProgress.setText(MusicUtil.getReadableDurationString(finalCurrentPosition));
-                        }
-                    });
+                } catch (InterruptedException ignored) {
                 }
             }
-        }).start();
+
+            private Runnable updateProgressViews = new Runnable() {
+                @Override
+                public void run() {
+                    progressSlider.setMax(totalMillis);
+                    progressSlider.setProgress(progressMillis);
+                    currentSongProgress.setText(MusicUtil.getReadableDurationString(progressMillis));
+                }
+            };
+        });
+        progressViewsUpdateThread.start();
     }
 
     protected void updateControllerState() {
@@ -486,7 +487,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        killThreads = true;
+        if(progressViewsUpdateThread != null) progressViewsUpdateThread.interrupt();
     }
 
     @Override
