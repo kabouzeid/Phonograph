@@ -1,9 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.kabouzeid.gramophone.ui.activities.MusicControllerActivity">
 
     <!-- BOTTOM-->
@@ -15,6 +15,52 @@
         android:layout_alignParentBottom="true"
         android:background="?android:colorBackground"
         android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/progress_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/progress_container_height"
+            android:background="?music_controller_container_color"
+            android:elevation="@dimen/toolbar_elevation"
+            tools:ignore="UnusedAttribute">
+
+            <TextView
+                android:id="@+id/song_current_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center_vertical|left|end"
+                android:paddingLeft="8dp"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="?themed_drawable_color"
+                android:textSize="10sp"
+                tools:ignore="RtlHardcoded,RtlSymmetry,SmallSp" />
+
+            <TextView
+                android:id="@+id/song_total_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center_vertical|right|end"
+                android:paddingRight="8dp"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="?themed_drawable_color"
+                android:textSize="10sp"
+                tools:ignore="RtlHardcoded,RtlSymmetry,SmallSp" />
+
+            <SeekBar
+                android:id="@+id/progress_slider"
+                style="@style/MusicProgressSlider"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/song_total_time"
+                android:layout_toRightOf="@id/song_current_progress"
+                tools:ignore="RtlHardcoded,UnusedAttribute" />
+
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/footer"
@@ -160,53 +206,7 @@
             android:src="@drawable/default_album_art"
             android:transitionName="@string/transition_album_cover"
             tools:ignore="ContentDescription,UnusedAttribute" />
-
-        <RelativeLayout
-            android:id="@+id/progress_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@drawable/shadow_up">
-
-            <TextView
-                android:id="@+id/song_current_progress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center_vertical|left|end"
-                android:padding="16dp"
-                android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                tools:ignore="RtlHardcoded,RtlSymmetry,SmallSp" />
-
-            <TextView
-                android:id="@+id/song_total_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center_vertical|right|end"
-                android:padding="16dp"
-                android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                tools:ignore="RtlHardcoded,RtlSymmetry,SmallSp" />
-
-        </RelativeLayout>
     </FrameLayout>
-
-    <!-- PROGRESS SLIDER-->
-
-    <SeekBar
-        android:id="@+id/progress_slider"
-        style="@style/TraditionalMusicProgressSlider"
-        android:layout_above="@+id/footer_frame"
-        android:elevation="2dp"
-        tools:ignore="UnusedAttribute" />
 
     <!-- TOOLBAR-->
 

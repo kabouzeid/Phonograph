@@ -110,8 +110,8 @@
     <string name="pref_title_force_square_album_art">Force square album art</string>
     <string name="pref_title_opaque_toolbar_now_playing">Opaque toolbar</string>
     <string name="pref_title_opaque_statusbar_now_playing">Opaque statusbar</string>
-    <string name="pref_title_smaller_title_box_now_playing">Smaller title box</string>
-    <string name="pref_title_traditional_progress_slider_now_playing">Traditional progress slider</string>
+    <string name="pref_title_larger_title_box_now_playing">Larger title box</string>
+    <string name="pref_title_alternative_progress_slider_now_playing">Alternative progress slider</string>
     <string name="pref_title_playback_controller_card_now_playing">Show card below playback controllers</string>
     <string name="no_equalizer">No equalizer found</string>
     <string name="no_audio_ID">"No audio ID, play something and try again."</string>
@@ -142,8 +142,8 @@
     <string name="pref_summary_force_square_album_art">Album art in the now playing view is forced to be squared.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">The toolbar is opaque and do not cover the album art.</string>
     <string name="pref_summary_opaque_statusbar_now_playing">The statusbar is opaque and do not cover the album art.</string>
-    <string name="pref_summary_smaller_title_box_now_playing">The box below the album art where the song title and artist goes is smaller.</string>
-    <string name="pref_summary_traditional_progress_slider_now_playing">Uses the normal progress slider instead of the small bar below the album art.</string>
+    <string name="pref_summary_larger_title_box_now_playing">The box below the album art where the song title and artist goes is larger in its height.</string>
+    <string name="pref_summary_alternative_progress_slider_now_playing">Uses a progressbar which do not cover the album art instead of the normal progress slider.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Displays a card below the playback controller buttons (play/pause etc.).</string>
     <string name="failed_download_albumart">"Unable to download the art for this album."</string>
     <string name="search_hint">Search your library…</string>

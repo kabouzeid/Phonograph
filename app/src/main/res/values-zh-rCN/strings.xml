@@ -97,6 +97,8 @@
     <string name="light_theme_name">浅色</string>
     <string name="dark_theme_name">暗色</string>
     <string name="equalizer">均衡器</string>
+    <string name="pref_header_colors">色彩</string>
+    <string name="pref_header_now_playing_screen">正在播放界面</string>
     <string name="pref_title_general_theme">全局主题</string>
     <string name="pref_header_audio">声音</string>
     <string name="pref_header_general">通用</string>
@@ -113,6 +115,8 @@
     <string name="pref_title_colored_album_footers">使用变色的专辑标签</string>
     <string name="pref_title_force_square_album_art">强制使用方形专辑封面</string>
     <string name="pref_title_opaque_toolbar_now_playing">正在播放界面使用不透明工具栏</string>
+    <string name="pref_title_opaque_statusbar_now_playing">不透明状态栏</string>
+    <string name="pref_title_playback_controller_card_now_playing">显示播放控制按钮后的卡片背景</string>
     <string name="no_equalizer">没有找到均衡器</string>
     <string name="no_audio_ID">"没有音频ID，请播放并重试。"</string>
     <string name="navigation_drawer_open">弹出导航抽屉</string>
@@ -141,6 +145,8 @@
     <string name="pref_summary_colored_album_footers">"专辑队列视图中专辑页脚会根据专辑封面的色调进行变色。"</string>
     <string name="pref_summary_force_square_album_art">在正在播放界中强制使用方形专辑封面</string>
     <string name="pref_summary_opaque_toolbar_now_playing">使正在播放界面的工具栏不透明并且并遮盖住部分专辑封面</string>
+    <string name="pref_summary_opaque_statusbar_now_playing">状态栏不透明并且不会遮挡专辑封面</string>
+    <string name="pref_summary_playback_controller_card_now_playing">在播放控制按钮（播放/暂停等）下方显示卡片背景</string>
     <string name="failed_download_albumart">"专辑信息下载失败"</string>
     <string name="search_hint">正在扫描</string>
     <string name="rescanning_media">正在重新扫描媒体库…</string>

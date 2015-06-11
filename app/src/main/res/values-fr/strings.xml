@@ -90,6 +90,8 @@
     <string name="light_theme_name">Clair</string>
     <string name="dark_theme_name">Sombre</string>
     <string name="equalizer">Égaliseur</string>
+    <string name="pref_header_colors">Couleurs</string>
+    <string name="pref_header_now_playing_screen">Écran de lecture en cours</string>
     <string name="pref_title_general_theme">Thème général</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">Général</string>
@@ -106,6 +108,8 @@
     <string name="pref_title_colored_album_footers">Bas d\'album coloré</string>
     <string name="pref_title_force_square_album_art">Vignette carrée</string>
     <string name="pref_title_opaque_toolbar_now_playing">Barre d\'outil opaque</string>
+    <string name="pref_title_opaque_statusbar_now_playing">Barre de statut opaque</string>
+    <string name="pref_title_playback_controller_card_now_playing">Afficher le rectangle sous les boutons de lecture</string>
     <string name="no_equalizer">Aucun égaliseur trouvé</string>
     <string name="no_audio_ID">"Aucun ID audio, jouez quelque chose et réessayez."</string>
     <string name="navigation_drawer_open">Ouvrir le volet de navigation</string>
@@ -134,6 +138,7 @@
     <string name="pref_summary_colored_album_footers">"Les bas d\'album dans la grille sont colorés avec la palette de la vignette."</string>
     <string name="pref_summary_force_square_album_art">La vignette de l\'album dans l\'écran de lecture en cours est forcée à rester carrée.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">La barre d\'outil dans l\'écran de lecture en cours est opaque et recouvre maintenant l\'album.</string>
+    <string name="pref_summary_opaque_statusbar_now_playing">La barre de statut est opaque et recouvre la vignette.</string>
     <string name="failed_download_albumart">"Impossible de télécharger la vignette pour cet album."</string>
     <string name="search_hint">Rechercher votre bibliothèque...</string>
     <string name="rescanning_media">Réanalyse des médias…</string>

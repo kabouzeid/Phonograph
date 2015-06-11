@@ -6,6 +6,7 @@
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="opaque_statusbar_now_playing"
+            android:layout="@layout/preference_custom"
             android:summary="@string/pref_summary_opaque_statusbar_now_playing"
             android:title="@string/pref_title_opaque_statusbar_now_playing"
             android:widgetLayout="@layout/preference_dynamic_checkbox" />
@@ -14,6 +15,7 @@
             android:defaultValue="false"
             android:dependency="opaque_statusbar_now_playing"
             android:key="opaque_toolbar_now_playing"
+            android:layout="@layout/preference_custom"
             android:summary="@string/pref_summary_opaque_toolbar_now_playing"
             android:title="@string/pref_title_opaque_toolbar_now_playing"
             android:widgetLayout="@layout/preference_dynamic_checkbox" />
@@ -21,27 +23,31 @@
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="force_square_album_art"
+            android:layout="@layout/preference_custom"
             android:summary="@string/pref_summary_force_square_album_art"
             android:title="@string/pref_title_force_square_album_art"
             android:widgetLayout="@layout/preference_dynamic_checkbox" />
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="smaller_title_box_now_playing"
-            android:summary="@string/pref_summary_smaller_title_box_now_playing"
-            android:title="@string/pref_title_smaller_title_box_now_playing"
+            android:key="larger_title_box_now_playing"
+            android:layout="@layout/preference_custom"
+            android:summary="@string/pref_summary_larger_title_box_now_playing"
+            android:title="@string/pref_title_larger_title_box_now_playing"
             android:widgetLayout="@layout/preference_dynamic_checkbox" />
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:key="traditional_progress_slider_now_playing"
-            android:summary="@string/pref_summary_traditional_progress_slider_now_playing"
-            android:title="@string/pref_title_traditional_progress_slider_now_playing"
+            android:key="alternative_progress_slider_now_playing"
+            android:layout="@layout/preference_custom"
+            android:summary="@string/pref_summary_alternative_progress_slider_now_playing"
+            android:title="@string/pref_title_alternative_progress_slider_now_playing"
             android:widgetLayout="@layout/preference_dynamic_checkbox" />
 
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="playback_controller_card_now_playing"
+            android:layout="@layout/preference_custom"
             android:summary="@string/pref_summary_playback_controller_card_now_playing"
             android:title="@string/pref_title_playback_controller_card_now_playing"
             android:widgetLayout="@layout/preference_dynamic_checkbox" />

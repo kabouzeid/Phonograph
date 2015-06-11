@@ -22,6 +22,7 @@
             android:summary="@string/accent_color_desc" />
 
         <CheckBoxPreference
+            android:layout="@layout/preference_custom"
             android:defaultValue="true"
             android:key="colored_album_footers"
             android:title="@string/pref_title_colored_album_footers"
