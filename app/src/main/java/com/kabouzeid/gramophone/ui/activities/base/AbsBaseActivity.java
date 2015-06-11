@@ -12,7 +12,7 @@ import com.squareup.otto.Subscribe;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class AbsBaseActivity extends ThemeBaseActivity implements KabViewsDisableAble {
+public abstract class AbsBaseActivity extends AbsThemeActivity implements KabViewsDisableAble {
 
     private App app;
     private boolean areViewsEnabled;

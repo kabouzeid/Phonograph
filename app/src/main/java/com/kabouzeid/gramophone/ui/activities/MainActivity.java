@@ -43,7 +43,6 @@ import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
-import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
@@ -300,11 +299,9 @@ public class MainActivity extends AbsFabActivity
     }
 
     @Override
-    public void onMusicRemoteEvent(MusicRemoteEvent event) {
-        super.onMusicRemoteEvent(event);
-        if (event.getAction() == MusicRemoteEvent.STATE_RESTORED || event.getAction() == MusicRemoteEvent.TRACK_CHANGED) {
-            updateNavigationDrawerHeader();
-        }
+    public void onPlayingMetaChanged() {
+        super.onPlayingMetaChanged();
+        updateNavigationDrawerHeader();
     }
 
     @Override

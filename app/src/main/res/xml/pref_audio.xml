@@ -3,6 +3,14 @@
 
     <com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory android:title="@string/pref_header_audio">
 
+        <CheckBoxPreference
+            android:layout="@layout/preference_custom"
+            android:defaultValue="true"
+            android:key="fade_play_pause"
+            android:title="@string/pref_title_fade_play_pause"
+            android:summary="@string/pref_summary_fade_play_pause"
+            android:widgetLayout="@layout/preference_dynamic_checkbox" />
+
         <Preference
             android:key="equalizer"
             android:title="@string/equalizer" />

@@ -11,11 +11,9 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
-import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.util.InternalStorageUtil;
@@ -46,13 +44,11 @@ public class MusicPlayerRemote {
             MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
             musicService = binder.getService();
             musicService.restorePreviousState(restoredOriginalQueue, playingQueue, position);
-            postToBus(MusicRemoteEvent.SERVICE_CONNECTED);
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
             musicService = null;
-            postToBus(MusicRemoteEvent.SERVICE_DISCONNECTED);
         }
     };
 
@@ -278,11 +274,6 @@ public class MusicPlayerRemote {
         }
     }
 
-    private static void postToBus(int event) {
-        MusicRemoteEvent musicRemoteEvent = new MusicRemoteEvent(event);
-        App.bus.post(musicRemoteEvent);
-    }
-
     public static int getAudioSessionId() {
         if (musicService != null) {
             return musicService.getAudioSessionId();
@@ -304,8 +295,6 @@ public class MusicPlayerRemote {
             playingQueue = restoredQueue;
             MusicPlayerRemote.restoredOriginalQueue = restoredOriginalQueue;
             position = restoredPosition;
-
-            postToBus(MusicRemoteEvent.STATE_RESTORED);
         } catch (Exception e) {
             Log.e(TAG, "error while restoring music service state", e);
             playingQueue = new ArrayList<>();

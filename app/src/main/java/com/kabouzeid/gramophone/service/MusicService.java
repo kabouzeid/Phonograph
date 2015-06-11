@@ -16,23 +16,26 @@ import android.media.RemoteControlClient;
 import android.media.audiofx.AudioEffect;
 import android.net.Uri;
 import android.os.Binder;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.IBinder;
+import android.os.Looper;
+import android.os.Message;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appwidget.MusicPlayerWidget;
 import com.kabouzeid.gramophone.helper.PlayingNotificationHelper;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.misc.AppKeys;
-import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.InternalStorageUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
@@ -41,10 +44,14 @@ import com.nostra13.universalimageloader.core.imageaware.NonViewAware;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MusicService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener, AudioManager.OnAudioFocusChangeListener {
+    public static final String PHONOGRAPH_PACKAGE_NAME = "com.kabouzeid.gramophone";
+    public static final String MUSIC_PACKAGE_NAME = "com.android.music";
+
     public static final String ACTION_TOGGLE_PLAYBACK = "com.kabouzeid.gramophone.action.TOGGLE_PLAYBACK";
     public static final String ACTION_PLAY = "com.kabouzeid.gramophone.action.PLAY";
     public static final String ACTION_RESUME = "com.kabouzeid.gramophone.action.RESUME";
@@ -53,8 +60,18 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public static final String ACTION_SKIP = "com.kabouzeid.gramophone.action.SKIP";
     public static final String ACTION_REWIND = "com.kabouzeid.gramophone.action.REWIND";
     public static final String ACTION_QUIT = "com.kabouzeid.gramophone.action.QUIT";
-    public static final String META_CHANGED = "com.android.music.metachanged";
-    public static final String PLAYSTATE_CHANGED = "com.android.music.playstatechanged";
+
+    public static final String META_CHANGED = "com.kabouzeid.gramophone.metachanged";
+    public static final String PLAYSTATE_CHANGED = "com.kabouzeid.gramophone.playstatechanged";
+    public static final String REPEATMODE_CHANGED = "com.kabouzeid.gramophone.repeatmodechanged";
+    public static final String SHUFFLEMODE_CHANGED = "com.kabouzeid.gramophone.shufflemodechanged";
+
+    private static final int FOCUSCHANGE = 5;
+    private static final int DUCK = 6;
+    private static final int UNDUCK = 7;
+    private static final int FADEDOWNANDPAUSE = 8;
+    private static final int FADEUPANDRESUME = 9;
+
     public static final int SHUFFLE_MODE_NONE = 0;
     public static final int SHUFFLE_MODE_SHUFFLE = 1;
     public static final int REPEAT_MODE_NONE = 0;
@@ -88,6 +105,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private RemoteControlClient remoteControlClient;
     private PowerManager.WakeLock wakeLock;
     private String currentAlbumArtUri;
+    private MusicPlayerHandler playerHandler;
+
+    private boolean fadingDown = false;
 
     public MusicService() {
     }
@@ -106,6 +126,11 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         final PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
         wakeLock.setReferenceCounted(false);
+
+        final HandlerThread thread = new HandlerThread("MusicPlayerHandler",
+                android.os.Process.THREAD_PRIORITY_BACKGROUND);
+        thread.start();
+        playerHandler = new MusicPlayerHandler(this, thread.getLooper());
 
         registerEverything();
     }
@@ -226,20 +251,11 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             player.release();
             player = null;
         }
-        playingNotificationHelper.updatePlayState(isPlaying());
-        MusicPlayerWidget.updateWidgetsPlayState(this, isPlaying());
-        remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
-        notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STOP);
         notifyChange(PLAYSTATE_CHANGED);
     }
 
     public boolean isPlaying() {
-        return player != null && isPlayerPrepared && player.isPlaying();
-    }
-
-    private void notifyOnMusicRemoteEventListeners(int event) {
-        MusicRemoteEvent musicRemoteEvent = new MusicRemoteEvent(event);
-        App.bus.post(musicRemoteEvent);
+        return player != null && isPlayerPrepared && !fadingDown && player.isPlaying();
     }
 
     public void saveQueues() {
@@ -274,13 +290,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        notifyOnMusicRemoteEventListeners(MusicRemoteEvent.SONG_COMPLETED);
         if (isLastTrack() && getRepeatMode() == REPEAT_MODE_NONE) {
-            notifyOnMusicRemoteEventListeners(MusicRemoteEvent.QUEUE_COMPLETED);
-            playingNotificationHelper.updatePlayState(isPlaying());
-            MusicPlayerWidget.updateWidgetsPlayState(this, isPlaying());
-            remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
-            notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STOP);
             notifyChange(PLAYSTATE_CHANGED);
         } else {
             acquireWakeLock(30000);
@@ -293,7 +303,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             if (isPlayerPrepared) {
                 setPosition(getNextPosition(force));
                 playSong();
-                notifyOnMusicRemoteEventListeners(MusicRemoteEvent.NEXT);
             }
         }
     }
@@ -313,28 +322,17 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 } catch (Exception e) {
                     player.reset();
                     player = null;
-
-                    notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STOP);
-                    playingNotificationHelper.updatePlayState(false);
-                    MusicPlayerWidget.updateWidgetsPlayState(this, false);
-                    remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_STOPPED);
                     notifyChange(PLAYSTATE_CHANGED);
 
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.unplayable_file), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 currentSongId = playingQueue.get(getPosition()).id;
-                updateNotification();
-                updateWidgets();
-                updateRemoteControlClient();
                 notifyChange(META_CHANGED);
             } else {
-                playingNotificationHelper.updatePlayState(false);
-                MusicPlayerWidget.updateWidgetsPlayState(this, false);
                 notifyChange(PLAYSTATE_CHANGED);
             }
         }
-        notifyOnMusicRemoteEventListeners(MusicRemoteEvent.TRACK_CHANGED);
     }
 
     private void openAudioEffectSession() {
@@ -467,7 +465,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 PreferenceManager.getDefaultSharedPreferences(this).edit()
                         .putInt(AppKeys.SP_REPEAT_MODE, repeatMode)
                         .apply();
-                notifyOnMusicRemoteEventListeners(MusicRemoteEvent.REPEAT_MODE_CHANGED);
+                notifyChange(REPEATMODE_CHANGED);
                 break;
         }
     }
@@ -477,20 +475,15 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         isPlayerPrepared = false;
         player.reset();
         player = null;
-        notifyOnMusicRemoteEventListeners(MusicRemoteEvent.STOP);
+        notifyChange(PLAYSTATE_CHANGED);
         return false;
     }
 
     @Override
     public void onPrepared(MediaPlayer mp) {
-        player.start();
         isPlayerPrepared = true;
         openAudioEffectSession();
-        playingNotificationHelper.updatePlayState(isPlaying());
-        MusicPlayerWidget.updateWidgetsPlayState(this, isPlaying());
-        remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PLAYING);
-        notifyOnMusicRemoteEventListeners(MusicRemoteEvent.PLAY);
-        notifyChange(PLAYSTATE_CHANGED);
+        resumePlaying();
         savePosition();
         releaseWakeLock();
     }
@@ -661,25 +654,38 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public void pausePlaying() {
+        if (PreferenceUtils.getInstance(this).fadePlayPauseAndInterruptions()) {
+            playerHandler.removeMessages(FADEUPANDRESUME);
+            playerHandler.sendEmptyMessage(FADEDOWNANDPAUSE);
+        } else {
+            pause();
+        }
+    }
+
+    private void pause() {
+        fadingDown = false;
         if (isPlaying()) {
             player.pause();
-            playingNotificationHelper.updatePlayState(isPlaying());
-            MusicPlayerWidget.updateWidgetsPlayState(this, isPlaying());
-            remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PAUSED);
-            notifyOnMusicRemoteEventListeners(MusicRemoteEvent.PAUSE);
             notifyChange(PLAYSTATE_CHANGED);
         }
     }
 
     public void resumePlaying() {
+        if (PreferenceUtils.getInstance(this).fadePlayPauseAndInterruptions()) {
+            playerHandler.removeMessages(FADEDOWNANDPAUSE);
+            playerHandler.sendEmptyMessage(FADEUPANDRESUME);
+        } else {
+            player.setVolume(1f, 1f);
+            resume();
+        }
+    }
+
+    private void resume() {
+        fadingDown = false;
         if (!isPlaying()) {
             if (requestFocus()) {
                 if (isPlayerPrepared()) {
                     player.start();
-                    playingNotificationHelper.updatePlayState(isPlaying());
-                    MusicPlayerWidget.updateWidgetsPlayState(this, isPlaying());
-                    remoteControlClient.setPlaybackState(RemoteControlClient.PLAYSTATE_PLAYING);
-                    notifyOnMusicRemoteEventListeners(MusicRemoteEvent.RESUME);
                     notifyChange(PLAYSTATE_CHANGED);
                 } else {
                     playSong();
@@ -694,7 +700,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         if (position != -1) {
             setPosition(getPreviousPosition(force));
             playSong();
-            notifyOnMusicRemoteEventListeners(MusicRemoteEvent.PREV);
         }
     }
 
@@ -788,7 +793,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 this.shuffleMode = shuffleMode;
                 ShuffleHelper.makeShuffleList(this.playingQueue, getPosition());
                 setPosition(0);
-                notifyOnMusicRemoteEventListeners(MusicRemoteEvent.SHUFFLE_MODE_CHANGED);
                 break;
             case SHUFFLE_MODE_NONE:
                 this.shuffleMode = shuffleMode;
@@ -800,24 +804,39 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                     }
                 }
                 setPosition(newPosition);
-                notifyOnMusicRemoteEventListeners(MusicRemoteEvent.SHUFFLE_MODE_CHANGED);
                 break;
         }
+        notifyChange(SHUFFLEMODE_CHANGED);
     }
 
     private void notifyChange(final String what) {
-        //to let other apps know whats playing. i.E. last.fm (scrobbling) or musixmatch
-        final Intent intent = new Intent(what);
+        final Intent internalIntent = new Intent(what);
         final int position = getPosition();
         if (position >= 0 && !playingQueue.isEmpty()) {
             final Song currentSong = playingQueue.get(position);
-            intent.putExtra("id", currentSong.id);
-            intent.putExtra("artist", currentSong.artistName);
-            intent.putExtra("album", currentSong.albumName);
-            intent.putExtra("track", currentSong.title);
+            internalIntent.putExtra("id", currentSong.id);
+            internalIntent.putExtra("artist", currentSong.artistName);
+            internalIntent.putExtra("album", currentSong.albumName);
+            internalIntent.putExtra("track", currentSong.title);
         }
-        intent.putExtra("playing", isPlaying());
-        sendStickyBroadcast(intent);
+        internalIntent.putExtra("playing", isPlaying());
+        sendStickyBroadcast(internalIntent);
+
+        //to let other apps know whats playing. i.E. last.fm (scrobbling) or musixmatch
+        final Intent publicMusicIntent = new Intent(internalIntent);
+        publicMusicIntent.setAction(what.replace(PHONOGRAPH_PACKAGE_NAME, MUSIC_PACKAGE_NAME));
+        sendStickyBroadcast(publicMusicIntent);
+
+        if (what.equals(PLAYSTATE_CHANGED)) {
+            final boolean isPlaying = isPlaying();
+            playingNotificationHelper.updatePlayState(isPlaying);
+            MusicPlayerWidget.updateWidgetsPlayState(this, isPlaying);
+            remoteControlClient.setPlaybackState(isPlaying ? RemoteControlClient.PLAYSTATE_PLAYING : RemoteControlClient.PLAYSTATE_PAUSED);
+        } else if (what.equals(META_CHANGED)) {
+            updateNotification();
+            updateWidgets();
+            updateRemoteControlClient();
+        }
     }
 
     public int getAudioSessionId() {
@@ -839,6 +858,115 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public class MusicBinder extends Binder {
         public MusicService getService() {
             return MusicService.this;
+        }
+    }
+
+    private static final class MusicPlayerHandler extends Handler {
+        private final WeakReference<MusicService> mService;
+        private float currentDuckVolume = 1.0f;
+        private float currentPlayPauseFadeVolume = 1.0f;
+
+        public MusicPlayerHandler(final MusicService service, final Looper looper) {
+            super(looper);
+            mService = new WeakReference<>(service);
+        }
+
+        @Override
+        public void handleMessage(final Message msg) {
+            final MusicService service = mService.get();
+            if (service == null) {
+                return;
+            }
+
+            switch (msg.what) {
+                case DUCK:
+                    currentDuckVolume -= .05f;
+                    if (currentDuckVolume > .2f) {
+                        sendEmptyMessageDelayed(DUCK, 10);
+                    } else {
+                        currentDuckVolume = .2f;
+                    }
+                    service.player.setVolume(currentDuckVolume, currentDuckVolume);
+                    break;
+
+                case UNDUCK:
+                    currentDuckVolume += .05f;
+                    if (currentDuckVolume < 1.0f) {
+                        sendEmptyMessageDelayed(UNDUCK, 10);
+                    } else {
+                        currentDuckVolume = 1.0f;
+                    }
+                    service.player.setVolume(currentDuckVolume, currentDuckVolume);
+                    break;
+
+                case FADEDOWNANDPAUSE:
+                    if (!service.fadingDown) {
+                        service.fadingDown = true;
+                        service.notifyChange(PLAYSTATE_CHANGED);
+                    }
+                    service.fadingDown = true;
+                    currentPlayPauseFadeVolume -= .1f;
+                    if (currentPlayPauseFadeVolume > 0f) {
+                        sendEmptyMessageDelayed(FADEDOWNANDPAUSE, 10);
+                    } else {
+                        currentPlayPauseFadeVolume = 0f;
+                        service.fadingDown = false;
+                        service.pause();
+                    }
+                    service.player.setVolume(currentPlayPauseFadeVolume, currentPlayPauseFadeVolume);
+                    break;
+
+                case FADEUPANDRESUME:
+                    service.resume();
+                    currentPlayPauseFadeVolume += .1f;
+                    if (currentPlayPauseFadeVolume < 1.0f) {
+                        sendEmptyMessageDelayed(FADEUPANDRESUME, 10);
+                    } else {
+                        currentPlayPauseFadeVolume = 1.0f;
+                    }
+                    service.player.setVolume(currentPlayPauseFadeVolume, currentPlayPauseFadeVolume);
+                    break;
+
+                case FOCUSCHANGE:
+                    switch (msg.arg1) {
+                        case AudioManager.AUDIOFOCUS_GAIN:
+                            if (!service.isPlaying()) {
+                                if (service.wasPlayingBeforeFocusLoss) {
+                                    service.resumePlaying();
+                                    service.wasPlayingBeforeFocusLoss = false;
+                                }
+                            }
+                            removeMessages(DUCK);
+                            sendEmptyMessage(UNDUCK);
+                            break;
+
+                        case AudioManager.AUDIOFOCUS_LOSS:
+                            // Lost focus for an unbounded amount of time: stop playback and release media player
+                            service.wasPlayingBeforeFocusLoss = false;
+                            service.pausePlaying();
+                            service.unregisterEverything();
+                            break;
+
+                        case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
+                            // Lost focus for a short time, but we have to stop
+                            // playback. We don't release the media player because playback
+                            // is likely to resume
+                            service.wasPlayingBeforeFocusLoss = service.isPlaying();
+                            service.pausePlaying();
+                            break;
+
+                        case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
+                            // Lost focus for a short time, but it's ok to keep playing
+                            // at an attenuated level
+                            if (!service.isPlayerPrepared()) {
+                                service.setUpMediaPlayerIfNeeded();
+                            }
+                            removeMessages(UNDUCK);
+                            sendEmptyMessage(DUCK);
+                            break;
+                    }
+                    break;
+            }
         }
     }
 }

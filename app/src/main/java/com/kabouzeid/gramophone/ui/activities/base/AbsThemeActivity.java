@@ -16,7 +16,7 @@ import com.kabouzeid.gramophone.util.Util;
  * @author Aidan Follestad (afollestad), Karim Abou Zeid (kabouzeid)
  */
 
-public abstract class ThemeBaseActivity extends AppCompatActivity implements KabViewsDisableAble {
+public abstract class AbsThemeActivity extends AppCompatActivity implements KabViewsDisableAble {
     private int colorPrimary;
     private int colorPrimaryDarker;
     private int colorAccent;

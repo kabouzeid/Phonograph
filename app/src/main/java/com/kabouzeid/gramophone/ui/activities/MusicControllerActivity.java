@@ -37,7 +37,6 @@ import com.kabouzeid.gramophone.helper.bitmapblur.StackBlurManager;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.misc.SmallTransitionListener;
-import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
@@ -469,19 +468,21 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     @Override
-    public void onMusicRemoteEvent(MusicRemoteEvent event) {
-        super.onMusicRemoteEvent(event);
-        switch (event.getAction()) {
-            case MusicRemoteEvent.TRACK_CHANGED:
-                updateCurrentSong();
-                break;
-            case MusicRemoteEvent.REPEAT_MODE_CHANGED:
-                updateRepeatState();
-                break;
-            case MusicRemoteEvent.SHUFFLE_MODE_CHANGED:
-                updateShuffleState();
-                break;
-        }
+    public void onPlayingMetaChanged() {
+        super.onPlayingMetaChanged();
+        updateCurrentSong();
+    }
+
+    @Override
+    public void onRepeatModeChanged() {
+        super.onRepeatModeChanged();
+        updateRepeatState();
+    }
+
+    @Override
+    public void onShuffleModeChanged() {
+        super.onShuffleModeChanged();
+        updateShuffleState();
     }
 
     @Override

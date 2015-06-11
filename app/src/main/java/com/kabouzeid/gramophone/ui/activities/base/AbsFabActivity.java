@@ -12,39 +12,28 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.ThemeSingleton;
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.misc.SmallOnGestureListener;
-import com.kabouzeid.gramophone.model.MusicRemoteEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.views.PlayPauseDrawable;
-import com.squareup.otto.Subscribe;
+
+import hugo.weaving.DebugLog;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class AbsFabActivity extends AbsBaseActivity {
+public abstract class AbsFabActivity extends AbsPlaybackStatusActivity {
     public static final String TAG = AbsFabActivity.class.getSimpleName();
 
     private FloatingActionButton fab;
     private PlayPauseDrawable playPauseDrawable;
-    private final Object busEventListener = new Object() {
-        @Subscribe
-        public void onBusEvent(MusicRemoteEvent event) {
-            onMusicRemoteEvent(event);
-        }
-    };
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        try {
-            App.bus.register(busEventListener);
-        } catch (Exception ignored) {
-        }
         setUpFab();
     }
 
@@ -116,6 +105,14 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
         }
     }
 
+    protected void animateUpdateFabState() {
+        if (MusicPlayerRemote.isPlaying()) {
+            setFabPause();
+        } else {
+            setFabPlay();
+        }
+    }
+
     protected FloatingActionButton getFab() {
         if (fab == null) {
             fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -145,33 +142,11 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
         return sharedViewsWithFab;
     }
 
+    @DebugLog
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        try {
-            App.bus.unregister(busEventListener);
-        } catch (Exception ignored) {
-        }
-    }
-
-    protected void onMusicRemoteEvent(MusicRemoteEvent event) {
-        switch (event.getAction()) {
-            case MusicRemoteEvent.PLAY:
-                setFabPause();
-                break;
-            case MusicRemoteEvent.PAUSE:
-                setFabPlay();
-                break;
-            case MusicRemoteEvent.RESUME:
-                setFabPause();
-                break;
-            case MusicRemoteEvent.STOP:
-                setFabPlay();
-                break;
-            case MusicRemoteEvent.QUEUE_COMPLETED:
-                setFabPlay();
-                break;
-        }
+    public void onPlayStateChanged() {
+        super.onPlayStateChanged();
+        animateUpdateFabState();
     }
 
     private void setFabPlay() {
@@ -180,9 +155,5 @@ public abstract class AbsFabActivity extends AbsBaseActivity {
 
     private void setFabPause() {
         playPauseDrawable.animatedPause();
-    }
-
-    private void setFabColor() {
-
     }
 }
