@@ -20,8 +20,6 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.views.PlayPauseDrawable;
 
-import hugo.weaving.DebugLog;
-
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -142,7 +140,6 @@ public abstract class AbsFabActivity extends AbsPlaybackStatusActivity {
         return sharedViewsWithFab;
     }
 
-    @DebugLog
     @Override
     public void onPlayStateChanged() {
         super.onPlayStateChanged();
