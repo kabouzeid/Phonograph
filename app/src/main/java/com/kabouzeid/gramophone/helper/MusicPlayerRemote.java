@@ -76,7 +76,7 @@ public class MusicPlayerRemote {
 
     public static void pauseSong() {
         if (musicService != null) {
-            musicService.pausePlaying();
+            musicService.pausePlaying(false);
         }
     }
 
@@ -104,7 +104,7 @@ public class MusicPlayerRemote {
 
     public static void resumePlaying() {
         if (musicService != null) {
-            musicService.resumePlaying();
+            musicService.resumePlaying(false);
         }
     }
 

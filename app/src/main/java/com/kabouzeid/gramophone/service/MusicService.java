@@ -48,7 +48,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MusicService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener, AudioManager.OnAudioFocusChangeListener {
+public class MusicService extends Service implements MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
     public static final String PHONOGRAPH_PACKAGE_NAME = "com.kabouzeid.gramophone";
     public static final String MUSIC_PACKAGE_NAME = "com.android.music";
 
@@ -79,15 +79,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public static final int REPEAT_MODE_THIS = 2;
     private static final String TAG = MusicService.class.getSimpleName();
     private final IBinder musicBind = new MusicBinder();
-    private final BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().compareTo(AudioManager.ACTION_AUDIO_BECOMING_NOISY) == 0) {
-                wasPlayingBeforeFocusLoss = false;
-                pausePlaying();
-            }
-        }
-    };
+
     private MediaPlayer player;
     private ArrayList<Song> playingQueue;
     private ArrayList<Song> originalPlayingQueue;
@@ -106,11 +98,24 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private PowerManager.WakeLock wakeLock;
     private String currentAlbumArtUri;
     private MusicPlayerHandler playerHandler;
-
     private boolean fadingDown = false;
 
-    public MusicService() {
-    }
+    private final BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().compareTo(AudioManager.ACTION_AUDIO_BECOMING_NOISY) == 0) {
+                wasPlayingBeforeFocusLoss = false;
+                pausePlaying(true);
+            }
+        }
+    };
+
+    private final AudioManager.OnAudioFocusChangeListener audioFocusListener = new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(final int focusChange) {
+            playerHandler.obtainMessage(FOCUSCHANGE, focusChange, 0).sendToTarget();
+        }
+    };
 
     @Override
     public void onCreate() {
@@ -139,7 +144,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         if (!thingsRegistered) {
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
-            registerReceiver(receiver, intentFilter);
+            registerReceiver(becomingNoisyReceiver, intentFilter);
             getAudioManager().registerMediaButtonEventReceiver(new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class));
             initRemoteControlClient();
             thingsRegistered = true;
@@ -175,19 +180,19 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 switch (action) {
                     case ACTION_TOGGLE_PLAYBACK:
                         if (isPlaying()) {
-                            pausePlaying();
+                            pausePlaying(false);
                         } else {
-                            resumePlaying();
+                            resumePlaying(false);
                         }
                         break;
                     case ACTION_PAUSE:
-                        pausePlaying();
+                        pausePlaying(false);
                         break;
                     case ACTION_PLAY:
                         playSong();
                         break;
                     case ACTION_RESUME:
-                        resumePlaying();
+                        resumePlaying(false);
                         break;
                     case ACTION_REWIND:
                         back(true);
@@ -228,10 +233,10 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
     private void unregisterEverything() {
         if (thingsRegistered) {
-            unregisterReceiver(receiver);
+            unregisterReceiver(becomingNoisyReceiver);
             getAudioManager().unregisterRemoteControlClient(remoteControlClient);
             getAudioManager().unregisterMediaButtonEventReceiver(new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class));
-            getAudioManager().abandonAudioFocus(this);
+            getAudioManager().abandonAudioFocus(audioFocusListener);
             thingsRegistered = false;
         }
     }
@@ -355,7 +360,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     private boolean requestFocus() {
-        return (getAudioManager().requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED);
+        return (getAudioManager().requestAudioFocus(audioFocusListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED);
     }
 
     private void updateRemoteControlClient() {
@@ -483,7 +488,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public void onPrepared(MediaPlayer mp) {
         isPlayerPrepared = true;
         openAudioEffectSession();
-        resumePlaying();
+        resumePlaying(false);
         savePosition();
         releaseWakeLock();
     }
@@ -603,47 +608,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         return currentSongId;
     }
 
-    @Override
-    public void onAudioFocusChange(int focusChange) {
-        switch (focusChange) {
-            case AudioManager.AUDIOFOCUS_GAIN:
-                // resume playback
-                registerEverything();
-                setUpMediaPlayerIfNeeded();
-                player.setVolume(1.0f, 1.0f);
-                if (wasPlayingBeforeFocusLoss) {
-                    resumePlaying();
-                }
-                updateRemoteControlClient();
-                break;
-
-            case AudioManager.AUDIOFOCUS_LOSS:
-                // Lost focus for an unbounded amount of time: stop playback and release media player
-                //TODO maybe also release player (stopPlaying()) but then the current position in the song is 0 again
-                wasPlayingBeforeFocusLoss = false;
-                pausePlaying();
-                unregisterEverything();
-                break;
-
-            case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
-                // Lost focus for a short time, but we have to stop
-                // playback. We don't release the media player because playback
-                // is likely to resume
-                wasPlayingBeforeFocusLoss = isPlaying();
-                pausePlaying();
-                break;
-
-            case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
-                // Lost focus for a short time, but it's ok to keep playing
-                // at an attenuated level
-                if (!isPlayerPrepared()) {
-                    setUpMediaPlayerIfNeeded();
-                }
-                player.setVolume(0.2f, 0.2f);
-                break;
-        }
-    }
-
     public void playSongAt(final int position) {
         if (position < getPlayingQueue().size() && position >= 0) {
             setPosition(position);
@@ -653,8 +617,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         }
     }
 
-    public void pausePlaying() {
-        if (PreferenceUtils.getInstance(this).fadePlayPauseAndInterruptions()) {
+    public void pausePlaying(boolean forceNoFading) {
+        if (!forceNoFading && PreferenceUtils.getInstance(this).fadePlayPauseAndInterruptions()) {
             playerHandler.removeMessages(FADEUPANDRESUME);
             playerHandler.sendEmptyMessage(FADEDOWNANDPAUSE);
         } else {
@@ -670,8 +634,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         }
     }
 
-    public void resumePlaying() {
-        if (PreferenceUtils.getInstance(this).fadePlayPauseAndInterruptions()) {
+    public void resumePlaying(boolean forceNoFading) {
+        if (!forceNoFading && PreferenceUtils.getInstance(this).fadePlayPauseAndInterruptions()) {
             playerHandler.removeMessages(FADEDOWNANDPAUSE);
             playerHandler.sendEmptyMessage(FADEUPANDRESUME);
         } else {
@@ -911,7 +875,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                     } else {
                         currentPlayPauseFadeVolume = 0f;
                         service.fadingDown = false;
-                        service.pause();
+                        service.pausePlaying(true);
                     }
                     service.player.setVolume(currentPlayPauseFadeVolume, currentPlayPauseFadeVolume);
                     break;
@@ -930,11 +894,10 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                 case FOCUSCHANGE:
                     switch (msg.arg1) {
                         case AudioManager.AUDIOFOCUS_GAIN:
-                            if (!service.isPlaying()) {
-                                if (service.wasPlayingBeforeFocusLoss) {
-                                    service.resumePlaying();
-                                    service.wasPlayingBeforeFocusLoss = false;
-                                }
+                            service.registerEverything();
+                            if (!service.isPlaying() && service.wasPlayingBeforeFocusLoss) {
+                                service.resumePlaying(false);
+                                service.wasPlayingBeforeFocusLoss = false;
                             }
                             removeMessages(DUCK);
                             sendEmptyMessage(UNDUCK);
@@ -943,7 +906,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                         case AudioManager.AUDIOFOCUS_LOSS:
                             // Lost focus for an unbounded amount of time: stop playback and release media player
                             service.wasPlayingBeforeFocusLoss = false;
-                            service.pausePlaying();
+                            service.pausePlaying(true);
                             service.unregisterEverything();
                             break;
 
@@ -952,7 +915,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                             // playback. We don't release the media player because playback
                             // is likely to resume
                             service.wasPlayingBeforeFocusLoss = service.isPlaying();
-                            service.pausePlaying();
+                            service.pausePlaying(false);
                             break;
 
                         case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
