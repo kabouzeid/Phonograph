@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.crashlytics.android.Crashlytics;
 import com.kabouzeid.gramophone.App;
+import com.kabouzeid.gramophone.BuildConfig;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
@@ -25,7 +26,7 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Crashlytics.setString(AppKeys.CL_CURRENT_ACTIVITY, getTag());
+        if (!BuildConfig.DEBUG) Crashlytics.setString(AppKeys.CL_CURRENT_ACTIVITY, getTag());
         super.onCreate(savedInstanceState);
         try {
             App.bus.register(uiPreferenceChangeListener);

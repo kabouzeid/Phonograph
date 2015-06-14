@@ -29,7 +29,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Fabric.with(this, new Crashlytics.Builder().disabled(BuildConfig.DEBUG).build());
+        if (!BuildConfig.DEBUG) Fabric.with(this, new Crashlytics());
         MusicPlayerRemote.init(this);
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
         ImageLoader.getInstance().init(config);
