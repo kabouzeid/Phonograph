@@ -10,10 +10,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
-import android.media.MediaMetadataRetriever;
+import android.media.MediaMetadata;
 import android.media.MediaPlayer;
-import android.media.RemoteControlClient;
 import android.media.audiofx.AudioEffect;
+import android.media.session.PlaybackState;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.Handler;
@@ -22,7 +22,11 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.PowerManager;
+import android.os.Process;
 import android.preference.PreferenceManager;
+import android.support.v4.media.MediaMetadataCompat;
+import android.support.v4.media.session.MediaSessionCompat;
+import android.support.v4.media.session.PlaybackStateCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -65,6 +69,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public static final String PLAYSTATE_CHANGED = "com.kabouzeid.gramophone.playstatechanged";
     public static final String REPEATMODE_CHANGED = "com.kabouzeid.gramophone.repeatmodechanged";
     public static final String SHUFFLEMODE_CHANGED = "com.kabouzeid.gramophone.shufflemodechanged";
+    public static final String POSITION_CHANGED = "com.kabouzeid.phonograph.positionchanged";
 
     private static final int FOCUSCHANGE = 5;
     private static final int DUCK = 6;
@@ -88,23 +93,23 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private int shuffleMode;
     private int repeatMode;
     private boolean isPlayerPrepared;
-    private boolean wasPlayingBeforeFocusLoss;
+    private boolean pausedByTransientLossOfFocus;
     private boolean thingsRegistered;
     private boolean saveQueuesAgain;
     private boolean isSavingQueues;
     private PlayingNotificationHelper playingNotificationHelper;
     private AudioManager audioManager;
-    private RemoteControlClient remoteControlClient;
+    private MediaSessionCompat mSession;
     private PowerManager.WakeLock wakeLock;
     private String currentAlbumArtUri;
     private MusicPlayerHandler playerHandler;
     private boolean fadingDown = false;
+    private HandlerThread handlerThread;
 
     private final BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().compareTo(AudioManager.ACTION_AUDIO_BECOMING_NOISY) == 0) {
-                wasPlayingBeforeFocusLoss = false;
                 pausePlaying(true);
             }
         }
@@ -132,12 +137,55 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
         wakeLock.setReferenceCounted(false);
 
-        final HandlerThread thread = new HandlerThread("MusicPlayerHandler",
-                android.os.Process.THREAD_PRIORITY_BACKGROUND);
-        thread.start();
-        playerHandler = new MusicPlayerHandler(this, thread.getLooper());
+        handlerThread = new HandlerThread("MusicPlayerHandler",
+                Process.THREAD_PRIORITY_BACKGROUND);
+        handlerThread.start();
+        playerHandler = new MusicPlayerHandler(this, handlerThread.getLooper());
 
         registerEverything();
+
+        setUpMediaSession();
+    }
+
+    private void setUpMediaSession() {
+        Intent mediaButtonIntent = new Intent(Intent.ACTION_MEDIA_BUTTON);
+        mediaButtonIntent.setComponent(new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class));
+        PendingIntent mediaPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, mediaButtonIntent, 0);
+
+        mSession = new MediaSessionCompat(this, "Phonograph", new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class), mediaPendingIntent);
+        mSession.setCallback(new MediaSessionCompat.Callback() {
+            @Override
+            public void onPause() {
+                pausePlaying(false);
+            }
+
+            @Override
+            public void onPlay() {
+                resumePlaying(false);
+            }
+
+            @Override
+            public void onSeekTo(long pos) {
+                //TODO
+                //seek(pos);
+            }
+
+            @Override
+            public void onSkipToNext() {
+                playNextSong(true);
+            }
+
+            @Override
+            public void onSkipToPrevious() {
+                playPreviousSong(true);
+            }
+
+            @Override
+            public void onStop() {
+                stopPlaying();
+            }
+        });
+        mSession.setFlags(MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
     }
 
     private void registerEverything() {
@@ -145,8 +193,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
             registerReceiver(becomingNoisyReceiver, intentFilter);
-            getAudioManager().registerMediaButtonEventReceiver(new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class));
-            initRemoteControlClient();
             thingsRegistered = true;
         }
     }
@@ -159,16 +205,16 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     private void initRemoteControlClient() {
-        Intent mediaButtonIntent = new Intent(Intent.ACTION_MEDIA_BUTTON);
-        mediaButtonIntent.setComponent(new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class));
-        PendingIntent mediaPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, mediaButtonIntent, 0);
-        remoteControlClient = new RemoteControlClient(mediaPendingIntent);
-        remoteControlClient.setTransportControlFlags(
-                RemoteControlClient.FLAG_KEY_MEDIA_PLAY |
-                        RemoteControlClient.FLAG_KEY_MEDIA_PAUSE |
-                        RemoteControlClient.FLAG_KEY_MEDIA_NEXT |
-                        RemoteControlClient.FLAG_KEY_MEDIA_PREVIOUS);
-        getAudioManager().registerRemoteControlClient(remoteControlClient);
+//        Intent mediaButtonIntent = new Intent(Intent.ACTION_MEDIA_BUTTON);
+//        mediaButtonIntent.setComponent(new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class));
+//        PendingIntent mediaPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, mediaButtonIntent, 0);
+//        remoteControlClient = new RemoteControlClient(mediaPendingIntent);
+//        remoteControlClient.setTransportControlFlags(
+//                RemoteControlClient.FLAG_KEY_MEDIA_PLAY |
+//                        RemoteControlClient.FLAG_KEY_MEDIA_PAUSE |
+//                        RemoteControlClient.FLAG_KEY_MEDIA_NEXT |
+//                        RemoteControlClient.FLAG_KEY_MEDIA_PREVIOUS);
+//        getAudioManager().registerRemoteControlClient(remoteControlClient);
     }
 
     @Override
@@ -216,6 +262,10 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     public void onDestroy() {
         closeAudioEffectSession();
         unregisterEverything();
+
+        playerHandler.removeCallbacksAndMessages(null);
+        handlerThread.quitSafely();
+
         killEverythingAndReleaseResources();
     }
 
@@ -234,8 +284,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     private void unregisterEverything() {
         if (thingsRegistered) {
             unregisterReceiver(becomingNoisyReceiver);
-            getAudioManager().unregisterRemoteControlClient(remoteControlClient);
-            getAudioManager().unregisterMediaButtonEventReceiver(new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class));
             getAudioManager().abandonAudioFocus(audioFocusListener);
             thingsRegistered = false;
         }
@@ -250,12 +298,15 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public void stopPlaying() {
+        pausedByTransientLossOfFocus = false;
         isPlayerPrepared = false;
         if (player != null) {
             player.stop();
             player.release();
             player = null;
         }
+        mSession.setActive(false);
+        mSession.release();
         notifyChange(PLAYSTATE_CHANGED);
     }
 
@@ -363,36 +414,64 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         return (getAudioManager().requestAudioFocus(audioFocusListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED);
     }
 
-    private void updateRemoteControlClient() {
+    private void updateMediaSession(final String what) {
         final Song song = playingQueue.get(getPosition());
-        remoteControlClient
-                .editMetadata(false)
-                .putString(MediaMetadataRetriever.METADATA_KEY_ARTIST, song.artistName)
-                .putString(MediaMetadataRetriever.METADATA_KEY_TITLE, song.title)
-                .putLong(MediaMetadataRetriever.METADATA_KEY_DURATION, song.duration)
-                .apply();
+
+        int playState = isPlaying()
+                ? PlaybackState.STATE_PLAYING
+                : PlaybackState.STATE_PAUSED;
+
+        if (what.equals(PLAYSTATE_CHANGED) || what.equals(POSITION_CHANGED)) {
+            mSession.setPlaybackState(new PlaybackStateCompat.Builder()
+                    .setState(playState, getSongProgressMillis(), 1.0f).build());
+        } else if (what.equals(META_CHANGED)) {
+            mSession.setMetadata(new MediaMetadataCompat.Builder()
+                    .putString(MediaMetadata.METADATA_KEY_ARTIST, song.artistName)
+                    .putString(MediaMetadata.METADATA_KEY_ALBUM, song.albumName)
+                    .putString(MediaMetadata.METADATA_KEY_TITLE, song.title)
+                    .putLong(MediaMetadata.METADATA_KEY_DURATION, song.duration)
+                    .putLong(MediaMetadata.METADATA_KEY_TRACK_NUMBER, getPosition() + 1)
+                    .putLong(MediaMetadata.METADATA_KEY_NUM_TRACKS, getPlayingQueue().size())
+                    .build());
+
+            mSession.setPlaybackState(new PlaybackStateCompat.Builder()
+                    .setState(playState, getSongProgressMillis(), 1.0f).build());
+        }
+
         currentAlbumArtUri = MusicUtil.getAlbumArtUri(song.albumId).toString();
         ImageLoader.getInstance().displayImage(currentAlbumArtUri, new NonViewAware(new ImageSize(-1, -1), ViewScaleType.CROP), new SimpleImageLoadingListener() {
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                if (currentAlbumArtUri.equals(imageUri))
-                    // copy() prevents the original bitmap in the memory cache from being recycled by the remote control client
-                    updateRemoteControlClientBitmap(loadedImage.copy(loadedImage.getConfig(), true));
+                if (currentAlbumArtUri.equals(imageUri)) {
+                    Bitmap albumArt = loadedImage;
+                    if (albumArt != null) {
+                        // RemoteControlClient wants to recycle the bitmaps thrown at it, so we need
+                        // to make sure not to hand out our cache copy
+                        Bitmap.Config config = albumArt.getConfig();
+                        if (config == null) {
+                            config = Bitmap.Config.ARGB_8888;
+                        }
+                        albumArt = albumArt.copy(config, false);
+                        updateMediaSessionBitmap(albumArt.copy(albumArt.getConfig(), true));
+                    }
+                }
             }
 
             @Override
             public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                 if (currentAlbumArtUri.equals(imageUri))
-                    updateRemoteControlClientBitmap(null);
+                    updateMediaSessionBitmap(null);
             }
         });
     }
 
-    private void updateRemoteControlClientBitmap(final Bitmap albumArt) {
-        remoteControlClient
-                .editMetadata(false)
-                .putBitmap(RemoteControlClient.MetadataEditor.BITMAP_KEY_ARTWORK, albumArt)
-                .apply();
+    private void updateMediaSessionBitmap(final Bitmap albumArt) {
+        MediaMetadataCompat current = mSession.getController().getMetadata();
+        if (current == null) current = new MediaMetadataCompat.Builder().build();
+
+        mSession.setMetadata(new MediaMetadataCompat.Builder(current)
+                .putBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART, albumArt)
+                .build());
     }
 
     private void setUpMediaPlayerIfNeeded() {
@@ -618,6 +697,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public void pausePlaying(boolean forceNoFading) {
+        pausedByTransientLossOfFocus = false;
         if (!forceNoFading && PreferenceUtils.getInstance(this).fadePlayPauseAndInterruptions()) {
             playerHandler.removeMessages(FADEUPANDRESUME);
             playerHandler.sendEmptyMessage(FADEDOWNANDPAUSE);
@@ -635,6 +715,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public void resumePlaying(boolean forceNoFading) {
+        mSession.setActive(true);
         if (!forceNoFading && PreferenceUtils.getInstance(this).fadePlayPauseAndInterruptions()) {
             playerHandler.removeMessages(FADEDOWNANDPAUSE);
             playerHandler.sendEmptyMessage(FADEUPANDRESUME);
@@ -774,6 +855,11 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     private void notifyChange(final String what) {
+        updateMediaSession(what);
+        if (what.equals(POSITION_CHANGED)) {
+            return;
+        }
+
         final Intent internalIntent = new Intent(what);
         final int position = getPosition();
         if (position >= 0 && !playingQueue.isEmpty()) {
@@ -795,11 +881,9 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             final boolean isPlaying = isPlaying();
             playingNotificationHelper.updatePlayState(isPlaying);
             MusicPlayerWidget.updateWidgetsPlayState(this, isPlaying);
-            remoteControlClient.setPlaybackState(isPlaying ? RemoteControlClient.PLAYSTATE_PLAYING : RemoteControlClient.PLAYSTATE_PAUSED);
         } else if (what.equals(META_CHANGED)) {
             updateNotification();
             updateWidgets();
-            updateRemoteControlClient();
         }
     }
 
@@ -895,9 +979,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                     switch (msg.arg1) {
                         case AudioManager.AUDIOFOCUS_GAIN:
                             service.registerEverything();
-                            if (!service.isPlaying() && service.wasPlayingBeforeFocusLoss) {
+                            if (!service.isPlaying() && service.pausedByTransientLossOfFocus) {
                                 service.resumePlaying(false);
-                                service.wasPlayingBeforeFocusLoss = false;
                             }
                             removeMessages(DUCK);
                             sendEmptyMessage(UNDUCK);
@@ -905,7 +988,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
 
                         case AudioManager.AUDIOFOCUS_LOSS:
                             // Lost focus for an unbounded amount of time: stop playback and release media player
-                            service.wasPlayingBeforeFocusLoss = false;
                             service.pausePlaying(true);
                             service.unregisterEverything();
                             break;
@@ -914,8 +996,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                             // Lost focus for a short time, but we have to stop
                             // playback. We don't release the media player because playback
                             // is likely to resume
-                            service.wasPlayingBeforeFocusLoss = service.isPlaying();
                             service.pausePlaying(false);
+                            service.pausedByTransientLossOfFocus = service.isPlaying();
                             break;
 
                         case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
