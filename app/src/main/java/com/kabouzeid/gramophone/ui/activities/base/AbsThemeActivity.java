@@ -87,7 +87,8 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
     protected final void setStatusBarColor(int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             getWindow().setStatusBarColor(Util.shiftColorDown(color));
-        else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        // also do this on Lollipop in case the user modified the statusbar height
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             final View statusBar = getWindow().getDecorView().getRootView().findViewById(R.id.status_bar);
             if (statusBar != null) statusBar.setBackgroundColor(color);
         }
