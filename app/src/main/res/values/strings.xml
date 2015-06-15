@@ -107,6 +107,7 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Tag editor</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Everywhere else</string>
     <string name="pref_title_colored_album_footers">Colored album footers</string>
+    <string name="pref_title_colored_notification">Colored notification</string>
     <string name="pref_title_fade_play_pause">Fade play/pause</string>
     <string name="pref_title_force_square_album_art">Force square album art</string>
     <string name="pref_title_opaque_toolbar_now_playing">Opaque toolbar</string>
@@ -139,7 +140,8 @@
     <string name="playlist_name">Playlist name</string>
     <string name="song">Song</string>
     <string name="pref_only_lollipop">"Only available on Lollipop."</string>
-    <string name="pref_summary_colored_album_footers">"Album footers in the grid are colored with the album cover\'s palette."</string>
+    <string name="pref_summary_colored_album_footers">"Album footers in the grid are colored with the album cover\'s vibrant color."</string>
+    <string name="pref_summary_colored_notification">"The notification is colored with the album cover\'s vibrant color."</string>
     <string name="pref_summary_fade_play_pause">"Fades the song in/out on play/pause."</string>
     <string name="pref_summary_force_square_album_art">Album art in the now playing view is forced to be squared.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">The toolbar is opaque and do not cover the album art.</string>

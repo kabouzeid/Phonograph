@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.views;
 
 import android.content.Context;
-
 import android.support.v7.widget.AppCompatCheckBox;
 import android.util.AttributeSet;
 

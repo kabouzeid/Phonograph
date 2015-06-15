@@ -12,14 +12,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v7.app.NotificationCompat;
+import android.support.v7.graphics.Palette;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MusicControllerActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class PlayingNotificationHelper {
@@ -39,6 +42,9 @@ public class PlayingNotificationHelper {
         if (albumArt == null) {
             albumArt = BitmapFactory.decodeResource(context.getResources(), R.drawable.default_album_art);
         }
+        int notificationColor = PreferenceUtils.getInstance(context).coloredNotification() ?
+                Palette.from(albumArt).generate().getVibrantColor(Color.TRANSPARENT) :
+                Color.TRANSPARENT;
 
         return new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_notification)
@@ -65,6 +71,7 @@ public class PlayingNotificationHelper {
                         retrievePlaybackAction(context, 1))
 
                 .setOnlyAlertOnce(true)
+                .setColor(notificationColor)
                 .build();
     }
 
@@ -100,22 +107,4 @@ public class PlayingNotificationHelper {
         }
         return null;
     }
-
-//    private void loadAlbumArt() {
-//        currentAlbumArtUri = MusicUtil.getAlbumArtUri(currentSong.albumId).toString();
-//        ImageLoader.getInstance().displayImage(currentAlbumArtUri, new NonViewAware(new ImageSize(-1, -1), ViewScaleType.CROP), new SimpleImageLoadingListener() {
-//            @Override
-//            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-//                if (currentAlbumArtUri.equals(imageUri))
-//                    // copy() prevents the original bitmap in the memory cache from being recycled by the remote views
-//                    setAlbumArt(loadedImage.copy(loadedImage.getConfig(), true));
-//            }
-//
-//            @Override
-//            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-//                if (currentAlbumArtUri.equals(imageUri))
-//                    setAlbumArt(null);
-//            }
-//        });
-//    }
 }

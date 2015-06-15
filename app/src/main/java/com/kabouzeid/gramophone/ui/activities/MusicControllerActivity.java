@@ -417,7 +417,7 @@ public class MusicControllerActivity extends AbsFabActivity {
         if (opaqueStatusBar) setStatusBarColor(newColor);
         else setStatusBarColor(Color.TRANSPARENT);
 
-        if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarCurrentPlayingEnabled())
+        if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarCurrentPlaying())
             setNavigationBarColor(newColor);
         lastFooterColor = newColor;
     }

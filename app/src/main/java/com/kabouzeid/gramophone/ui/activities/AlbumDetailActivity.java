@@ -118,7 +118,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             postponeEnterTransition();
-            if (PreferenceUtils.getInstance(this).coloredNavigationBarAlbumEnabled())
+            if (PreferenceUtils.getInstance(this).coloredNavigationBarAlbum())
                 setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
         }
 
@@ -236,7 +236,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                                 toolbarColor = vibrantSwatch.getRgb();
                                 albumTitleView.setBackgroundColor(toolbarColor);
                                 albumTitleView.setTextColor(Util.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
-                                if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(AlbumDetailActivity.this).coloredNavigationBarAlbumEnabled())
+                                if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(AlbumDetailActivity.this).coloredNavigationBarAlbum())
                                     setNavigationBarColor(toolbarColor);
                                 notifyTaskColorChange(toolbarColor);
                             } else {
@@ -258,7 +258,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         albumTitleView.setBackgroundColor(defaultBarColor);
         albumTitleView.setTextColor(titleTextColor);
 
-        if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled())
+        if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarArtist())
             setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
 
         notifyTaskColorChange(toolbarColor);

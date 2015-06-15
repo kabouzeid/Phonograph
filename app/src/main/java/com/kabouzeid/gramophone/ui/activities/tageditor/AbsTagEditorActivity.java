@@ -193,7 +193,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         paletteColorPrimary = primaryColor;
         observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
         setStatusBarColor(paletteColorPrimary);
-        if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarTagEditorEnabled())
+        if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarTagEditor())
             setNavigationBarColor(paletteColorPrimary);
         header.setBackgroundColor(paletteColorPrimary);
         notifyTaskColorChange(paletteColorPrimary);
@@ -246,7 +246,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         header.setBackgroundColor(paletteColorPrimary);
 
         setStatusBarColor(paletteColorPrimary);
-        if (PreferenceUtils.getInstance(this).coloredNavigationBarTagEditorEnabled())
+        if (PreferenceUtils.getInstance(this).coloredNavigationBarTagEditor())
             setNavigationBarColor(paletteColorPrimary);
     }
 
@@ -289,7 +289,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                             paletteColorPrimary = vibrantColor;
                             observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
                             setStatusBarColor(paletteColorPrimary);
-                            if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(AbsTagEditorActivity.this).coloredNavigationBarTagEditorEnabled())
+                            if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(AbsTagEditorActivity.this).coloredNavigationBarTagEditor())
                                 setNavigationBarColor(paletteColorPrimary);
                             header.setBackgroundColor(paletteColorPrimary);
                             notifyTaskColorChange(paletteColorPrimary);

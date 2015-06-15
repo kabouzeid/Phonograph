@@ -88,7 +88,7 @@ public class MainActivity extends AbsFabActivity
         setUpToolbar();
         setUpViewPager();
 
-        if (PreferenceUtils.getInstance(this).coloredNavigationBarOtherScreensEnabled())
+        if (PreferenceUtils.getInstance(this).coloredNavigationBarOtherScreens())
             setNavigationBarThemeColor();
 
         handlePlaybackIntent(getIntent());

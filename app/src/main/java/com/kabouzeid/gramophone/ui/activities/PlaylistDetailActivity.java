@@ -77,7 +77,7 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
         getSupportActionBar().setTitle(playlist.name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if (PreferenceUtils.getInstance(this).coloredNavigationBarPlaylistEnabled())
+        if (PreferenceUtils.getInstance(this).coloredNavigationBarPlaylist())
             setNavigationBarThemeColor();
         setStatusBarThemeColor();
 

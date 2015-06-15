@@ -12,6 +12,7 @@
             android:widgetLayout="@layout/preference_dynamic_checkbox" />
 
         <Preference
+            android:layout="@layout/preference_custom"
             android:key="equalizer"
             android:title="@string/equalizer" />
 

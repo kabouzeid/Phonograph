@@ -41,6 +41,7 @@ public final class PreferenceUtils {
     public static final String ALTERNATIVE_PROGRESS_SLIDER_NOW_PLAYING = "alternative_progress_slider_now_playing";
     public static final String PLAYBACK_CONTROLLER_CARD_NOW_PLAYING = "playback_controller_card_now_playing";
     public static final String FADE_PLAY_PAUSE = "fade_play_pause";
+    public static final String COLORED_NOTIFICATION = "colored_notification";
 
     private static PreferenceUtils sInstance;
 
@@ -110,31 +111,35 @@ public final class PreferenceUtils {
 //        return mPreferences.getBoolean(ONLY_ON_WIFI, false);
 //    }
 
-    public final boolean coloredAlbumFootersEnabled() {
+    public final boolean coloredAlbumFooters() {
         return mPreferences.getBoolean(COLORED_ALBUM_FOOTERS, true);
     }
 
-    public final boolean coloredNavigationBarAlbumEnabled() {
+    public final boolean coloredNotification() {
+        return mPreferences.getBoolean(COLORED_NOTIFICATION, true);
+    }
+
+    public final boolean coloredNavigationBarAlbum() {
         return coloredNavigationBarFor(COLORED_NAVIGATION_BAR_ALBUM);
     }
 
-    public final boolean coloredNavigationBarArtistEnabled() {
+    public final boolean coloredNavigationBarArtist() {
         return coloredNavigationBarFor(COLORED_NAVIGATION_BAR_ARTIST);
     }
 
-    public final boolean coloredNavigationBarCurrentPlayingEnabled() {
+    public final boolean coloredNavigationBarCurrentPlaying() {
         return coloredNavigationBarFor(COLORED_NAVIGATION_BAR_CURRENT_PLAYING);
     }
 
-    public final boolean coloredNavigationBarPlaylistEnabled() {
+    public final boolean coloredNavigationBarPlaylist() {
         return coloredNavigationBarFor(COLORED_NAVIGATION_BAR_PLAYIST);
     }
 
-    public final boolean coloredNavigationBarTagEditorEnabled() {
+    public final boolean coloredNavigationBarTagEditor() {
         return coloredNavigationBarFor(COLORED_NAVIGATION_BAR_TAG_EDITOR);
     }
 
-    public final boolean coloredNavigationBarOtherScreensEnabled() {
+    public final boolean coloredNavigationBarOtherScreens() {
         return coloredNavigationBarFor(COLORED_NAVIGATION_BAR_OTHER_SCREENS);
     }
 

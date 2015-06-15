@@ -3,6 +3,7 @@
     <com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory android:title="@string/pref_header_colors">
 
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:layout="@layout/preference_custom"
             android:defaultValue="0"
             android:entries="@array/pref_general_theme_list_titles"
             android:entryValues="@array/pref_general_theme_list_values"
@@ -29,7 +30,16 @@
             android:summary="@string/pref_summary_colored_album_footers"
             android:widgetLayout="@layout/preference_dynamic_checkbox" />
 
+        <CheckBoxPreference
+            android:layout="@layout/preference_custom"
+            android:defaultValue="true"
+            android:key="colored_notification"
+            android:title="@string/pref_title_colored_notification"
+            android:summary="@string/pref_summary_colored_notification"
+            android:widgetLayout="@layout/preference_dynamic_checkbox" />
+
         <com.afollestad.materialdialogs.prefs.MaterialMultiSelectListPreference
+            android:layout="@layout/preference_custom"
             android:key="colored_navigation_bar"
             android:entries="@array/pref_navigation_bar_color_titles"
             android:entryValues="@array/pref_navigation_bar_color_values"

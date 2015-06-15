@@ -187,7 +187,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     public AlbumAdapter(AppCompatActivity activity, @Nullable CabHolder cabHolder) {
         super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
-        usePalette = PreferenceUtils.getInstance(activity).coloredAlbumFootersEnabled();
+        usePalette = PreferenceUtils.getInstance(activity).coloredAlbumFooters();
         loadDataSet();
     }
 

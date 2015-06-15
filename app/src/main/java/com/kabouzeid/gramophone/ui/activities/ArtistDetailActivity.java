@@ -132,7 +132,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             postponeEnterTransition();
-            if (PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled())
+            if (PreferenceUtils.getInstance(this).coloredNavigationBarArtist())
                 setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
         }
 
@@ -317,7 +317,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                                 toolbarColor = vibrantSwatch.getRgb();
                                 artistNameTv.setBackgroundColor(vibrantSwatch.getRgb());
                                 artistNameTv.setTextColor(Util.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
-                                if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(ArtistDetailActivity.this).coloredNavigationBarArtistEnabled())
+                                if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(ArtistDetailActivity.this).coloredNavigationBarArtist())
                                     setNavigationBarColor(vibrantSwatch.getRgb());
                                 notifyTaskColorChange(toolbarColor);
                             } else {
@@ -356,7 +356,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         artistNameTv.setBackgroundColor(defaultBarColor);
         artistNameTv.setTextColor(titleTextColor);
 
-        if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarArtistEnabled())
+        if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarArtist())
             setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
 
         notifyTaskColorChange(toolbarColor);

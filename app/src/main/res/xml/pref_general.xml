@@ -3,6 +3,7 @@
     <com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory android:title="@string/pref_header_general">
 
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:layout="@layout/preference_custom"
             android:defaultValue="-1"
             android:entries="@array/pref_start_page_list_titles"
             android:entryValues="@array/pref_start_page_list_values"

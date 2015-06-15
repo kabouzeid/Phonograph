@@ -41,7 +41,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         if (savedInstanceState == null)
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
 
-        if (PreferenceUtils.getInstance(this).coloredNavigationBarOtherScreensEnabled())
+        if (PreferenceUtils.getInstance(this).coloredNavigationBarOtherScreens())
             setNavigationBarThemeColor();
         setStatusBarThemeColor();
     }
@@ -134,6 +134,13 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                         return true;
                     }
                 });
+            }
+
+            Preference coloredNotification = findPreference("colored_notification");
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                coloredNotification.setEnabled(false);
+                coloredNotification.setWidgetLayoutResource(0);
+                coloredNotification.setSummary(R.string.pref_only_lollipop);
             }
 
             equalizer = findPreference("equalizer");
