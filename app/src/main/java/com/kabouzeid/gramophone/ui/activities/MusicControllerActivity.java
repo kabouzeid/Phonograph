@@ -79,17 +79,20 @@ public class MusicControllerActivity extends AbsFabActivity {
     private int lastTextColor = -2;
     private Thread progressViewsUpdateThread;
 
-    private final boolean opaqueStatusBar = PreferenceUtils.getInstance(this).opaqueStatusbarNowPlaying();
-    private final boolean opaqueToolBar = opaqueStatusBar && PreferenceUtils.getInstance(this).opaqueToolbarNowPlaying();
-    private final boolean forceSquareAlbumArt = PreferenceUtils.getInstance(this).forceAlbumArtSquared();
-    private final boolean largerTitleBox = PreferenceUtils.getInstance(this).largerTitleBoxNowPlaying();
-    private final boolean alternativeProgressSlider = PreferenceUtils.getInstance(this).alternativeProgressSliderNowPlaying();
-    private final boolean showPlaybackControllerCard = PreferenceUtils.getInstance(this).playbackControllerCardNowPlaying();
+    private boolean opaqueStatusBar;
+    private boolean opaqueToolBar;
+    private boolean forceSquareAlbumArt;
+    private boolean largerTitleBox;
+    private boolean alternativeProgressSlider;
+    private boolean showPlaybackControllerCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setStatusBarTransparent();
+
         super.onCreate(savedInstanceState);
+
+        initAppeareanceVars();
 
         setContentView(alternativeProgressSlider ? R.layout.activity_music_controller_alternative_progress_slider : R.layout.activity_music_controller);
 
@@ -138,6 +141,15 @@ public class MusicControllerActivity extends AbsFabActivity {
                 }
             });
         }
+    }
+
+    private void initAppeareanceVars() {
+        opaqueStatusBar = PreferenceUtils.getInstance(this).opaqueStatusbarNowPlaying();
+        opaqueToolBar = opaqueStatusBar && PreferenceUtils.getInstance(this).opaqueToolbarNowPlaying();
+        forceSquareAlbumArt = PreferenceUtils.getInstance(this).forceAlbumArtSquared();
+        largerTitleBox = PreferenceUtils.getInstance(this).largerTitleBoxNowPlaying();
+        alternativeProgressSlider = PreferenceUtils.getInstance(this).alternativeProgressSliderNowPlaying();
+        showPlaybackControllerCard = PreferenceUtils.getInstance(this).playbackControllerCardNowPlaying();
     }
 
     @Override

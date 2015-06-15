@@ -24,10 +24,10 @@
     <string name="songs">Songs</string>
     <string name="playlists">Playlists</string>
     <string name="nothing_playing">Nothing is playing</string>
-    <string name="unplayable_file">Sorry - an error occurred while attempting to play this song.</string>
-    <string name="biography_unavailable">Sorry, we were not able to find a matching biography for this artist.</string>
+    <string name="unplayable_file">An error occurred while attempting to play this song.</string>
+    <string name="biography_unavailable">We were not able to find a matching biography for this artist.</string>
     <string name="biography">Biography</string>
-    <string name="audio_focus_denied">We were not able to gain audio focus.</string>
+    <string name="audio_focus_denied">No audio focus.</string>
     <string name="title_activity_tag_editor">Tag editor</string>
     <string name="tag_editor">Tag editor</string>
     <string name="album">Album</string>

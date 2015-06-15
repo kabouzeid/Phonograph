@@ -110,6 +110,8 @@
     <string name="pref_title_force_square_album_art">Kadrowanie okładek</string>
     <string name="pref_title_opaque_toolbar_now_playing">Nieprzeźroczystość paska narzędzi</string>
     <string name="pref_title_opaque_statusbar_now_playing">Nieprzeźroczystość paska stanu</string>
+    <string name="pref_title_larger_title_box_now_playing">Większe pole tytułu</string>
+    <string name="pref_title_alternative_progress_slider_now_playing">Alternatywny pasek postępu</string>
     <string name="pref_title_playback_controller_card_now_playing">Wyświetlanie karty pod przyciskami odtwarzania</string>
     <string name="no_equalizer">Nie znaleziono korektora</string>
     <string name="no_audio_ID">"Brak ID dźwięku, puść coś i spróbuj ponownie"</string>
@@ -140,6 +142,8 @@
     <string name="pref_summary_force_square_album_art">Zaznacz, a wymuszone zostanie kadrowanie okładek na ekranie \'\'Obecnie Grane\'\'</string>
     <string name="pref_summary_opaque_toolbar_now_playing">Zaznacz, a pasek narzędzi będzie nieprzeźroczysty i nie zasłoni już okładki</string>
     <string name="pref_summary_opaque_statusbar_now_playing">Zaznacz, a pasek stanu będzie nieprzeźroczysty i nie zasłoni już okładki albumu</string>
+    <string name="pref_summary_larger_title_box_now_playing">Zaznacz, a pole nazwy utworu i wykonawcy pod okładką albumu będzie większe</string>
+    <string name="pref_summary_alternative_progress_slider_now_playing">Zaznacz, a w odróżnieniu od domyślnego suwaka, pasek postępu nie zasłoni okładki albumu</string>
     <string name="pref_summary_playback_controller_card_now_playing">Zaznacz, a pod przyciskami sterującymi odtwarzaczem (odtwarzanie/pauza, itp.) zostanie wyświetlona karta</string>
     <string name="failed_download_albumart">"Nie można pobrać okładki dla tego albumu"</string>
     <string name="search_hint">Szukaj w bibliotece...</string>

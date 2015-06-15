@@ -111,6 +111,7 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().compareTo(AudioManager.ACTION_AUDIO_BECOMING_NOISY) == 0) {
                 pausePlaying(true);
+                pausePlaying(false);
             }
         }
     };
@@ -311,7 +312,14 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public boolean isPlaying() {
-        return player != null && isPlayerPrepared && !fadingDown && player.isPlaying();
+        return isPlaying(false);
+    }
+
+    private boolean isPlaying(boolean alsoIfIsFadingDown) {
+        if (!alsoIfIsFadingDown)
+            return player != null && isPlayerPrepared && player.isPlaying() && !fadingDown;
+        else
+            return player != null && isPlayerPrepared && player.isPlaying();
     }
 
     public void saveQueues() {
@@ -707,8 +715,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     private void pause() {
-        fadingDown = false;
-        if (isPlaying()) {
+        playerHandler.removeMessages(FADEUPANDRESUME);
+        if (isPlaying(true)) {
             player.pause();
             notifyChange(PLAYSTATE_CHANGED);
         }
@@ -720,14 +728,14 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
             playerHandler.removeMessages(FADEDOWNANDPAUSE);
             playerHandler.sendEmptyMessage(FADEUPANDRESUME);
         } else {
-            player.setVolume(1f, 1f);
+            if (player != null) player.setVolume(1f, 1f);
             resume();
         }
     }
 
     private void resume() {
-        fadingDown = false;
-        if (!isPlaying()) {
+        playerHandler.removeMessages(FADEDOWNANDPAUSE);
+        if (!isPlaying(true)) {
             if (requestFocus()) {
                 if (isPlayerPrepared()) {
                     player.start();
@@ -934,7 +942,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                     } else {
                         currentDuckVolume = .2f;
                     }
-                    service.player.setVolume(currentDuckVolume, currentDuckVolume);
+                    if (service.player != null)
+                        service.player.setVolume(currentDuckVolume, currentDuckVolume);
                     break;
 
                 case UNDUCK:
@@ -944,7 +953,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                     } else {
                         currentDuckVolume = 1.0f;
                     }
-                    service.player.setVolume(currentDuckVolume, currentDuckVolume);
+                    if (service.player != null)
+                        service.player.setVolume(currentDuckVolume, currentDuckVolume);
                     break;
 
                 case FADEDOWNANDPAUSE:
@@ -952,7 +962,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                         service.fadingDown = true;
                         service.notifyChange(PLAYSTATE_CHANGED);
                     }
-                    service.fadingDown = true;
                     currentPlayPauseFadeVolume -= .1f;
                     if (currentPlayPauseFadeVolume > 0f) {
                         sendEmptyMessageDelayed(FADEDOWNANDPAUSE, 10);
@@ -961,10 +970,15 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                         service.fadingDown = false;
                         service.pausePlaying(true);
                     }
-                    service.player.setVolume(currentPlayPauseFadeVolume, currentPlayPauseFadeVolume);
+                    if (service.player != null)
+                        service.player.setVolume(currentPlayPauseFadeVolume, currentPlayPauseFadeVolume);
                     break;
 
                 case FADEUPANDRESUME:
+                    if (service.fadingDown) {
+                        service.fadingDown = false;
+                        service.notifyChange(PLAYSTATE_CHANGED);
+                    }
                     service.resume();
                     currentPlayPauseFadeVolume += .1f;
                     if (currentPlayPauseFadeVolume < 1.0f) {
@@ -972,7 +986,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                     } else {
                         currentPlayPauseFadeVolume = 1.0f;
                     }
-                    service.player.setVolume(currentPlayPauseFadeVolume, currentPlayPauseFadeVolume);
+                    if (service.player != null)
+                        service.player.setVolume(currentPlayPauseFadeVolume, currentPlayPauseFadeVolume);
                     break;
 
                 case FOCUSCHANGE:
@@ -1003,9 +1018,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                         case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
                             // Lost focus for a short time, but it's ok to keep playing
                             // at an attenuated level
-                            if (!service.isPlayerPrepared()) {
-                                service.setUpMediaPlayerIfNeeded();
-                            }
                             removeMessages(UNDUCK);
                             sendEmptyMessage(DUCK);
                             break;

@@ -15,14 +15,14 @@
     <string name="action_play_next">Als nächstes spielen</string>
     <string name="action_add_to_playing_queue">Zur Wiedergabeliste</string>
     <string name="action_remove_from_playing_queue">Von Wiedergabeliste entfernen</string>
-    <string name="action_add_to_playlist">Zu Playlist hinzufügen...</string>
+    <string name="action_add_to_playlist">Zur Wiedergabeliste hinzufügen...</string>
     <string name="action_tag_editor">Tags ändern...</string>
     <string name="action_delete_from_disk">Löschen</string>
     <string name="action_details">Details</string>
     <string name="albums">Alben</string>
     <string name="artists">Interpreten</string>
     <string name="songs">Titel</string>
-    <string name="playlists">Playlists</string>
+    <string name="playlists">Wiedergabelisten</string>
     <string name="nothing_playing">Keine Wiedergabe</string>
     <string name="unplayable_file">Sorry - der Song kann nicht abgespielt werden.</string>
     <string name="biography_unavailable">Sorry, es konnte keine passende Biografie für diesen Interpreten gefunden werden.</string>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">¿Qué quieres compartir?</string>
-    <string name="currently_listening_to_x_by_x">Escuchando %1$s de %2$s</string>
+    <string name="currently_listening_to_x_by_x">Reproduciendo %1$s de %2$s</string>
     <string name="the_audio_file">El archivo de audio</string>
-    <string name="do_you_want_to_set_x_as_ringtone">Quiere establecer %1$s como tono de llamada?</string>
+    <string name="do_you_want_to_set_x_as_ringtone">¿Quieres establecer %1$s como tono de llamada?</string>
     <string name="x_has_been_set_as_ringtone">%1$s ha sido establecido como tono de llamada</string>
     <string name="action_set_as_ringtone">Establecer como tono de llamada</string>
     <string name="action_share">Compartir</string>
@@ -24,11 +24,11 @@
     <string name="songs">Canciones</string>
     <string name="playlists">Listas de reproducción</string>
     <string name="nothing_playing">Nada se está reproduciendo</string>
-    <string name="unplayable_file">Disculpe, ha ocurrido un error intentando reproducir esta canción.</string>
+    <string name="unplayable_file">Lo sentimos - Ha ocurrido un error al reproducir esta canción</string>
     <string name="biography_unavailable">Lo sentimos, no encontramos una biografía correspondiente a éste artista</string>
     <string name="biography">Biografía</string>
     <string name="audio_focus_denied">No podemos encontrar el foco de audio</string>
-    <string name="title_activity_tag_editor">Editor de etiquetas activo</string>
+    <string name="title_activity_tag_editor">Editor de etiquetas</string>
     <string name="tag_editor">Editor de etiquetas</string>
     <string name="album">Álbum</string>
     <string name="artist">Artista</string>
@@ -37,7 +37,7 @@
     <string name="year">Año</string>
     <string name="track">Canción</string>
     <string name="track_hint">"Pista (2 para pista 2 ó 3004 para CD3 pista 4)"</string>
-    <string name="album_or_artist_empty">El campo título del álbum o el artista del álbum está vacío</string>
+    <string name="album_or_artist_empty">El título del álbum o el campo de artista del álbum está vacío.</string>
     <string name="writing_file_number">Escribiendo archivo</string>
     <string name="saving_changes">Guardando cambios...</string>
     <string name="title_activity_album_tag_editor">Editor de etiquetas del album</string>
@@ -66,7 +66,7 @@
     <string name="new_playlist_action">Nueva lista de reproducción...</string>
     <string name="action_grid_columns">Columnas de la cuadrícula</string>
     <string name="action_grid_columns_land">Columnas de la cuadrícula (apaisado)</string>
-    <string name="inserted_x_songs_into_playlist">Insertar %1$d canciones a la lista de reproducción</string>
+    <string name="inserted_x_songs_into_playlist">%1$d canciones añadidas a la lista de reproducción</string>
     <string name="created_playlist_x">Lista de reproducción %1$s creada</string>
     <string name="deleted_playlist_x">Lista de reproducción %1$s borrada</string>
     <string name="couldnot_create_playlist_x">No se puede crear la lista de reproducción %1$s</string>
