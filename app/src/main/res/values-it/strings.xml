@@ -109,6 +109,7 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Modifica tag</string>
     <string name="pref_title_colored_navigation_bar_other_screens">In tutte le altre schermate</string>
     <string name="pref_title_colored_album_footers">Riquadri album colorati</string>
+    <string name="pref_title_fade_play_pause">Dissolvenza su play/pausa</string>
     <string name="pref_title_force_square_album_art">Copertina in proporzioni quadrate</string>
     <string name="pref_title_opaque_toolbar_now_playing">Toolbar di riproduzione opaca</string>
     <string name="pref_title_opaque_statusbar_now_playing">Status bar opaca</string>
@@ -141,6 +142,7 @@
     <string name="song">Brano</string>
     <string name="pref_only_lollipop">"Disponibile solo su Lollipop."</string>
     <string name="pref_summary_colored_album_footers">"I riquadri degli album nella griglia sono colorati secondo la gamma colori della copertina."</string>
+    <string name="pref_summary_fade_play_pause">"Applica una dissolvenza in entrata/in uscita sul brano su play/pausa"</string>
     <string name="pref_summary_force_square_album_art">La copertina nella schermata In riproduzione è sempre visualizzata con proporzioni quadrate.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">La toolbar nella schermata In riproduzione è opaca e non copre la copertina.</string>
     <string name="pref_summary_opaque_statusbar_now_playing">La status bar è opaca e non copre la copertina.</string>

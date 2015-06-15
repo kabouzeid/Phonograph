@@ -22,7 +22,7 @@
     <string name="albums">Álbuns</string>
     <string name="artists">Artistas</string>
     <string name="songs">Músicas</string>
-    <string name="playlists">Listas de Reprodução</string>
+    <string name="playlists">Playlists</string>
     <string name="nothing_playing">Nada em execução</string>
     <string name="unplayable_file">Desculpe - ocorreu um erro ao tentar reproduzir esta faixa</string>
     <string name="biography_unavailable">Desculpe, não conseguimos encontrar a biografia deste artista.</string>
@@ -71,17 +71,15 @@
     <string name="deleted_playlist_x">A playlist %1$s foi excluída</string>
     <string name="couldnot_create_playlist_x">Não foi possível criar a playlist %1$s</string>
     <string name="delete_playlist_x"><![CDATA[ Deseja excluir a playlist <b>%1$s</b>? ]]></string>
-    <string name="delete_x_playlists"><![CDATA[
- Deseja excluir <b>%1$d</b> playlists? 
-    ]]></string>
+    <string name="delete_x_playlists"><![CDATA[ Deseja excluir <b>%1$d</b> playlists? ]]></string>
     <string name="delete_song_x"><![CDATA[ Deseja excluir a faixa <b>%1$s</b>? ]]></string>
     <string name="delete_x_songs"><![CDATA[ Deseja excluir <b>%1$d</b> faixas? ]]></string>
     <string name="remove_song_x_from_playlist"><![CDATA[Você deseja remover a musica <b>%1$s</b> da playlist?]]></string>
     <string name="remove_x_songs_from_playlist"><![CDATA[Você deseja remover <b>%1$d</b> musicas da playlist?]]></string>
-    <string name="delete_song_title">Excluir Faixa</string>
-    <string name="delete_songs_title">Excluir Faixas</string>
-    <string name="remove_song_from_playlist_title">Remover musica da playlist</string>
-    <string name="remove_songs_from_playlist_title">Remover musicas da playlist</string>
+    <string name="delete_song_title">Deletar Musica</string>
+    <string name="delete_songs_title">Excluir Musicas</string>
+    <string name="remove_song_from_playlist_title">Remover Musica da Playlist</string>
+    <string name="remove_songs_from_playlist_title">Remover Musicas da Playlist</string>
     <string name="rename_playlist_title">Renomear Playlist</string>
     <string name="delete_playlist_title">Excluir Playlist</string>
     <string name="delete_playlists_title">Apagar Playlists</string>
@@ -98,7 +96,7 @@
     <string name="pref_title_general_theme">Tema geral</string>
     <string name="pref_header_audio">Áudio</string>
     <string name="pref_header_general">Geral</string>
-    <string name="pref_summary_colored_navigation_bar">"Definir onde a barra de navegação deve ser colorida. "</string>
+    <string name="pref_summary_colored_navigation_bar">Definir onde a barra de navegação deve ser colorida.</string>
     <string name="pref_title_navigation_bar">Barra de navegação colorida</string>
     <string name="pref_title_set_default_start_page">Página inicial</string>
     <string name="title_activity_settings">Configurações</string>
@@ -109,9 +107,10 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Editor de tags</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Todos os outros lugares</string>
     <string name="pref_title_colored_album_footers">Rodapés de álbuns coloridos</string>
+    <string name="pref_title_fade_play_pause">Diminuir tocar/pausar</string>
     <string name="pref_title_force_square_album_art">Forçar a capa do álbum quadrada</string>
-    <string name="pref_title_opaque_toolbar_now_playing">Barra de ações opaca na reprodução</string>
-    <string name="pref_title_opaque_statusbar_now_playing">Barra de Status opaca</string>
+    <string name="pref_title_opaque_toolbar_now_playing">Barra de ações opaca</string>
+    <string name="pref_title_opaque_statusbar_now_playing">Barra de status opaca</string>
     <string name="pref_title_larger_title_box_now_playing">Caixa de titulo maior</string>
     <string name="pref_title_alternative_progress_slider_now_playing">Barra de progresso alternativo</string>
     <string name="pref_title_playback_controller_card_now_playing">Mostrar cartão abaixo dos controles de reprodução</string>
@@ -128,7 +127,7 @@
     <string name="default_str">Padrão</string>
     <string name="primary_color">Cor Primária</string>
     <string name="accent_color">Cor dos Detalhes</string>
-    <string name="primary_color_desc">A cor primária do tema, o padrão é azul-índigo.</string>
+    <string name="primary_color_desc">A cor do tema principal, o padrão é índigo.</string>
     <string name="accent_color_desc">A cor dos detalhes do tema, o padrão é rosa.</string>
     <string name="update_image">Atualizar Imagem</string>
     <string name="playlist_empty_text">Esta lista está vazia</string>
@@ -141,12 +140,13 @@
     <string name="song">Música</string>
     <string name="pref_only_lollipop">"Apenas disponível no Lollipop."</string>
     <string name="pref_summary_colored_album_footers">"Rodapés de álbum na grade são coloridos com as paletas correspondentes."</string>
-    <string name="pref_summary_force_square_album_art">A arte do álbum na tela \"Em execução\" está forçada a ser quadrada.</string>
+    <string name="pref_summary_fade_play_pause">"Diminuir musica na entrada/saída no tocar/pausar."</string>
+    <string name="pref_summary_force_square_album_art">A arte do álbum na tela de execução agora é forçado a ser quadrado.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">A barra de ações está opaca e não cobre mais a capa do álbum.</string>
     <string name="pref_summary_opaque_statusbar_now_playing">A Barra de status é opaca e não cobre a capa do álbum.</string>
     <string name="pref_summary_larger_title_box_now_playing">A caixa embaixo da capa do álbum onde o titulo da musica e o artista são mostrados é mais largo na sua altura.</string>
-    <string name="pref_summary_alternative_progress_slider_now_playing">"Usa uma barra de progresso que não cobre a capa do álbum substituindo a barra padrão. "</string>
-    <string name="pref_summary_playback_controller_card_now_playing">Mostra um cartão abaixo dos controles de reprodução (Tocar/Pausar etc.)</string>
+    <string name="pref_summary_alternative_progress_slider_now_playing">Usa uma barra de progresso que não cobre a capa do álbum substituindo a barra padrão.</string>
+    <string name="pref_summary_playback_controller_card_now_playing">Mostra um cartão abaixo dos controles de reprodução (tocar/pausar etc.)</string>
     <string name="failed_download_albumart">"Não foi possível fazer o download da arte para este álbum."</string>
     <string name="search_hint">Pesquisar na sua biblioteca...</string>
     <string name="rescanning_media">Verificando mídia novamente...</string>
@@ -154,7 +154,7 @@
     <string-array name="update_album_cover_options">
         <item>Baixar do Last.fm</item>
         <item>Escolher do Armazenamento Local</item>
-        <item>Pesquisar na Internet</item>
+        <item>Pesquisa na Internet</item>
         <item>Remover Arte do Album</item>
     </string-array>
 </resources>

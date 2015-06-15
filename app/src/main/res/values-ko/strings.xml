@@ -2,10 +2,10 @@
 <resources>
     <string name="what_do_you_want_to_share">무엇을 공유하고 싶으십니까?</string>
     <string name="currently_listening_to_x_by_x">현재 %1$s 에서 %2$s 까지 재생 중</string>
-    <string name="the_audio_file">음악 파일</string>
+    <string name="the_audio_file">노래 파일</string>
     <string name="do_you_want_to_set_x_as_ringtone">%1$s을(를) 전화 벨소리로 설정하시겠습니까?</string>
     <string name="x_has_been_set_as_ringtone">%1$s을(를) 전화 벨소리로 설정하였습니다.</string>
-    <string name="action_set_as_ringtone">전화 벨소리로 설</string>
+    <string name="action_set_as_ringtone">전화 벨소리로 설정</string>
     <string name="action_share">공유</string>
     <string name="action_settings">"설정"</string>
     <string name="action_about">정보</string>
@@ -23,8 +23,8 @@
     <string name="artists">아티스트</string>
     <string name="songs">노래</string>
     <string name="playlists">재생목록</string>
-    <string name="nothing_playing">재생 중인 곡이 없습니다.</string>
-    <string name="unplayable_file">노래를 재생하려던 중 오류가 발생했습니다.</string>
+    <string name="nothing_playing">재생 중인 노래가 없습니다.</string>
+    <string name="unplayable_file">이 노래를 재생하려던 중 오류가 발생했습니다.</string>
     <string name="biography_unavailable">이 아티스트와 일치하는 정보를 찾을 수 없습니다.</string>
     <string name="biography">정보</string>
     <string name="audio_focus_denied">Audio focus 권한을 얻을 수 없습니다.</string>
@@ -106,6 +106,7 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">테그 편집기 화면에서</string>
     <string name="pref_title_colored_navigation_bar_other_screens">기타 다른 모든 곳에서</string>
     <string name="pref_title_colored_album_footers">색칠된 앨범 카드</string>
+    <string name="pref_title_fade_play_pause">재생/일시정지 시 페이드 효과</string>
     <string name="pref_title_force_square_album_art">강제로 정사각형 앨범아트 적용</string>
     <string name="pref_title_opaque_toolbar_now_playing">불투명한 지금 재생 중 툴바</string>
     <string name="pref_title_opaque_statusbar_now_playing">불투명한 상단바</string>
@@ -139,6 +140,7 @@
     <string name="song">노래</string>
     <string name="pref_only_lollipop">"안드로이드 롤리팝에서만 가능합니다."</string>
     <string name="pref_summary_colored_album_footers">"앨범 커버의 색상에 맞추어 앨범 카드가 색칠됩니다."</string>
+    <string name="pref_summary_fade_play_pause">"재생/일시정시 시 페이드 인/아웃 효과를 줍니다."</string>
     <string name="pref_summary_force_square_album_art">지금 재생 중 화면의 앨범 아트 이미지가 강제로 정사각형으로 보이게 합니다.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">지금 재생 중 화면 상단의 툴바를 불투명하게 하고, 앨범 아트를 가리지 않게 합니다.</string>
     <string name="pref_summary_opaque_statusbar_now_playing">상단바를 불투명하게 하고 앨범 아트를 가리지 않게 합니다.</string>
