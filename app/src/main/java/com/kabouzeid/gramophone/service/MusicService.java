@@ -261,7 +261,14 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     public boolean isPlaying() {
-        return player != null && isPlayerPrepared && !fadingDown && player.isPlaying();
+        return isPlaying(false);
+    }
+
+    private boolean isPlaying(boolean alsoIfIsFadingDown) {
+        if (!alsoIfIsFadingDown)
+            return player != null && isPlayerPrepared && player.isPlaying() && !fadingDown;
+        else
+            return player != null && isPlayerPrepared && player.isPlaying();
     }
 
     public void saveQueues() {
@@ -628,8 +635,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     private void pause() {
-        fadingDown = false;
-        if (isPlaying()) {
+        playerHandler.removeMessages(FADEUPANDRESUME);
+        if (isPlaying(true)) {
             player.pause();
             notifyChange(PLAYSTATE_CHANGED);
         }
@@ -646,8 +653,8 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
     }
 
     private void resume() {
-        fadingDown = false;
-        if (!isPlaying()) {
+        playerHandler.removeMessages(FADEDOWNANDPAUSE);
+        if (!isPlaying(true)) {
             if (requestFocus()) {
                 if (isPlayerPrepared()) {
                     player.start();
@@ -871,7 +878,6 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                         service.fadingDown = true;
                         service.notifyChange(PLAYSTATE_CHANGED);
                     }
-                    service.fadingDown = true;
                     currentPlayPauseFadeVolume -= .1f;
                     if (currentPlayPauseFadeVolume > 0f) {
                         sendEmptyMessageDelayed(FADEDOWNANDPAUSE, 10);
@@ -885,6 +891,10 @@ public class MusicService extends Service implements MediaPlayer.OnPreparedListe
                     break;
 
                 case FADEUPANDRESUME:
+                    if (service.fadingDown) {
+                        service.fadingDown = false;
+                        service.notifyChange(PLAYSTATE_CHANGED);
+                    }
                     service.resume();
                     currentPlayPauseFadeVolume += .1f;
                     if (currentPlayPauseFadeVolume < 1.0f) {

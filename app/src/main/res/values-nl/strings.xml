@@ -91,6 +91,8 @@
     <string name="light_theme_name">Licht</string>
     <string name="dark_theme_name">Donker</string>
     <string name="equalizer">Equalizer</string>
+    <string name="pref_header_colors">Kleuren</string>
+    <string name="pref_header_now_playing_screen">Afspeelscherm</string>
     <string name="pref_title_general_theme">Algemeen thema</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">Algemeen</string>
@@ -106,7 +108,11 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Overal elders</string>
     <string name="pref_title_colored_album_footers">Gekleurde album footers</string>
     <string name="pref_title_force_square_album_art">Forceer vierkante albumhoes</string>
-    <string name="pref_title_opaque_toolbar_now_playing">Ondoorzichtige werkbalk in afspeelscherm</string>
+    <string name="pref_title_opaque_toolbar_now_playing">Ondoorzichtige werkbalk</string>
+    <string name="pref_title_opaque_statusbar_now_playing">Ondoorzichtige statusbalk</string>
+    <string name="pref_title_larger_title_box_now_playing">Grotere titelkader</string>
+    <string name="pref_title_alternative_progress_slider_now_playing">Alternatieve progressiebalk</string>
+    <string name="pref_title_playback_controller_card_now_playing">Toon kaart onder de afspeelknoppen</string>
     <string name="no_equalizer">Geen equalizer gevonden</string>
     <string name="no_audio_ID">"Geen audio ID, speel iets af en probeer opnieuw. "</string>
     <string name="navigation_drawer_open">Open navigatiebalk</string>
@@ -134,11 +140,15 @@
     <string name="pref_only_lollipop">"Alleen beschikbaar op Lollipop. "</string>
     <string name="pref_summary_colored_album_footers">"Album footers in het raster worden gekleurd met het palet van de albumhoes. "</string>
     <string name="pref_summary_force_square_album_art">Albumhoes in het afspeelscherm is geforceerd vierkant.</string>
-    <string name="pref_summary_opaque_toolbar_now_playing">De werkbalk in het afspeelscherm is ondoorzichtig en bedekt niet langer de albumhoes.</string>
+    <string name="pref_summary_opaque_toolbar_now_playing">De werkbalk is ondoorzichtig en bedekt de albumhoes niet.</string>
+    <string name="pref_summary_opaque_statusbar_now_playing">De statusbalk is ondoorzichtig en bedekt de albumhoes niet.</string>
+    <string name="pref_summary_larger_title_box_now_playing">De kader onder de albumhoes, waar de artiest en titel wordt getoond, is groter.</string>
+    <string name="pref_summary_alternative_progress_slider_now_playing">Gebruikt een progressiebalk die de albumhoes niet bedekt, in plaats van de normale progressiecirkel.</string>
+    <string name="pref_summary_playback_controller_card_now_playing">Weergeeft een kaart onder de bedieningsknoppen (afspelen/pauze etc.)</string>
     <string name="failed_download_albumart">"Het lukt niet om de albumhoes te downloaden. "</string>
     <string name="search_hint">Zoek in je bibliotheek...</string>
     <string name="rescanning_media">Media herscannen...</string>
-    <string name="other">Andere</string>
+    <string name="other">Anders</string>
     <string-array name="update_album_cover_options">
         <item>Downloaden van Last.fm</item>
         <item>Kies vanuit lokale opslag</item>
