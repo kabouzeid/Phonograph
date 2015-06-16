@@ -9,7 +9,6 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -18,12 +17,26 @@ public class SongLoader {
     private static final String BASE_SELECTION = MediaStore.Audio.AudioColumns.IS_MUSIC + "=1" + " AND " + MediaStore.Audio.AudioColumns.TITLE + " != ''";
 
     public static ArrayList<Song> getAllSongs(Context context) {
-        Cursor cursor = makeSongCursor(context);
+        Cursor cursor = makeSongCursor(context, null, null);
+        return getSongs(cursor);
+    }
+
+    public static ArrayList<Song> getSongs(final Context context, final String query) {
+        Cursor cursor = makeSongCursor(context, MediaStore.Audio.AudioColumns.TITLE + " LIKE ?", new String[]{"%" + query + "%"});
+        return getSongs(cursor);
+    }
+
+    public static Song getSong(final Context context, final int queryId) {
+        Cursor cursor = makeSongCursor(context, MediaStore.Audio.AudioColumns._ID + "=?", new String[]{String.valueOf(queryId)});
+        return getSong(cursor);
+    }
+
+    public static ArrayList<Song> getSongs(final Cursor cursor) {
         ArrayList<Song> songs = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                final int id = cursor.getInt(0);
                 final String songName = cursor.getString(1);
+                final int id = cursor.getInt(0);
                 final String artist = cursor.getString(2);
                 final String album = cursor.getString(3);
                 final long duration = cursor.getLong(4);
@@ -35,19 +48,35 @@ public class SongLoader {
                 songs.add(song);
             } while (cursor.moveToNext());
         }
+
         if (cursor != null)
             cursor.close();
         return songs;
     }
 
-    public static Cursor makeSongCursor(final Context context) {
-        return makeSongCursor(context, MediaStore.Audio.AudioColumns.IS_MUSIC + "=?", new String[]{"1"});
+    public static Song getSong(Cursor cursor) {
+        Song song = new Song();
+        if (cursor != null && cursor.moveToFirst()) {
+            final int id = cursor.getInt(0);
+            final String songName = cursor.getString(1);
+            final String artist = cursor.getString(2);
+            final String album = cursor.getString(3);
+            final long duration = cursor.getLong(4);
+            final int trackNumber = cursor.getInt(5);
+            final int artistId = cursor.getInt(6);
+            final int albumId = cursor.getInt(7);
+            song = new Song(id, albumId, artistId, songName, artist, album, duration, trackNumber);
+        }
+        if (cursor != null) {
+            cursor.close();
+        }
+        return song;
     }
 
     public static Cursor makeSongCursor(final Context context, final String selection, final String[] values) {
-        String finalSelection = BASE_SELECTION;
-        if (selection != null) {
-            finalSelection += " AND " + selection;
+        String baseSelection = BASE_SELECTION;
+        if (selection != null && !selection.trim().equals("")) {
+            baseSelection += " AND " + selection;
         }
 
         return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
@@ -68,50 +97,6 @@ public class SongLoader {
                         MediaStore.Audio.AudioColumns.ARTIST_ID,
                         /* 7 */
                         MediaStore.Audio.AudioColumns.ALBUM_ID
-                }, finalSelection, values, PreferenceUtils.getInstance(context).getSongSortOrder());
-    }
-
-    public static List<Song> getSongs(final Context context, final String query) {
-        Cursor cursor = makeSongCursor(context, MediaStore.Audio.AudioColumns.TITLE + " LIKE ?", new String[]{"%" + query + "%"});
-        List<Song> songs = new ArrayList<>();
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                final String songName = cursor.getString(1);
-                final int id = cursor.getInt(0);
-                final String artist = cursor.getString(2);
-                final String album = cursor.getString(3);
-                final long duration = cursor.getLong(4);
-                final int trackNumber = cursor.getInt(5);
-                final int artistId = cursor.getInt(6);
-                final int albumId = cursor.getInt(7);
-
-                final Song song = new Song(id, albumId, artistId, songName, artist, album, duration, trackNumber);
-                songs.add(song);
-            } while (cursor.moveToNext());
-        }
-
-        if (cursor != null)
-            cursor.close();
-        return songs;
-    }
-
-    public static Song getSong(final Context context, final int queryId) {
-        Cursor cursor = makeSongCursor(context, MediaStore.Audio.AudioColumns._ID + "=?", new String[]{String.valueOf(queryId)});
-        Song song = null;
-        if (cursor != null && cursor.moveToFirst()) {
-            final int id = cursor.getInt(0);
-            final String songName = cursor.getString(1);
-            final String artist = cursor.getString(2);
-            final String album = cursor.getString(3);
-            final long duration = cursor.getLong(4);
-            final int trackNumber = cursor.getInt(5);
-            final int artistId = cursor.getInt(6);
-            final int albumId = cursor.getInt(7);
-            song = new Song(id, albumId, artistId, songName, artist, album, duration, trackNumber);
-        }
-        if (cursor != null) {
-            cursor.close();
-        }
-        return song;
+                }, baseSelection, values, PreferenceUtils.getInstance(context).getSongSortOrder());
     }
 }

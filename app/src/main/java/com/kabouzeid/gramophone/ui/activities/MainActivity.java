@@ -38,6 +38,7 @@ import com.kabouzeid.gramophone.adapter.PagerAdapter;
 import com.kabouzeid.gramophone.dialogs.AboutDialog;
 import com.kabouzeid.gramophone.dialogs.CreatePlaylistDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.helper.SearchQueryHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
@@ -405,6 +406,10 @@ public class MainActivity extends AbsFabActivity
         String mimeType = intent.getType();
         boolean handled = false;
 
+        if (intent.getAction() != null
+                && intent.getAction().equals(MediaStore.INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH)) {
+            MusicPlayerRemote.openQueue(SearchQueryHelper.getSongs(this, intent.getExtras()), 0, true);
+        }
         if (uri != null && uri.toString().length() > 0) {
             MusicPlayerRemote.playFile(uri);
             handled = true;

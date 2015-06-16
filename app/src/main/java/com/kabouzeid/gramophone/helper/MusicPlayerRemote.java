@@ -30,6 +30,7 @@ public class MusicPlayerRemote {
     private static final String TAG = MusicPlayerRemote.class.getSimpleName();
 
     private static int position = -1;
+    private static boolean startAfterConnected = false;
 
     private static ArrayList<Song> playingQueue;
     private static ArrayList<Song> restoredOriginalQueue;
@@ -44,6 +45,7 @@ public class MusicPlayerRemote {
             MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
             musicService = binder.getService();
             musicService.restorePreviousState(restoredOriginalQueue, playingQueue, position);
+            if(startAfterConnected) resumePlaying();
         }
 
         @Override
@@ -121,6 +123,8 @@ public class MusicPlayerRemote {
 
     public static void openQueue(final ArrayList<Song> playingQueue, final int startPosition, final boolean startPlaying) {
         MusicPlayerRemote.playingQueue = playingQueue;
+        position = startPosition;
+        startAfterConnected = startPlaying;
         if (musicService != null) {
             musicService.openQueue(MusicPlayerRemote.playingQueue, startPosition, startPlaying);
         }

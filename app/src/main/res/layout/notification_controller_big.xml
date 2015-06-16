@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (C) 2014 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License
+  -->
+
+<!-- Layout to be used with only max 3 actions. It has a much larger picture at the left side-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="128dp"
+    android:background="@color/default_notification_color">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:scaleType="centerCrop"
+        tools:ignore="ContentDescription" />
+
+    <ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/action_quit"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:src="@drawable/ic_close_white_24dp"
+        tools:ignore="ContentDescription" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@id/icon"
+        android:layout_toLeftOf="@id/action_quit"
+        android:layout_toRightOf="@id/icon"
+        android:layout_toStartOf="@id/action_quit"
+        android:minHeight="@dimen/notification_large_icon_height"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="marquee"
+            android:fadingEdge="horizontal"
+            android:singleLine="true"
+            android:textAppearance="@style/Theme.MaterialMusic.Notification.Title"
+            android:textColor="@color/abc_primary_text_material_dark" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-1dp"
+            android:layout_marginTop="-1dp"
+            android:layout_weight="1"
+            android:ellipsize="marquee"
+            android:fadingEdge="horizontal"
+            android:singleLine="true"
+            android:textAppearance="@style/Theme.MaterialMusic.Notification"
+            android:textColor="@color/abc_secondary_text_material_dark" />
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:ellipsize="marquee"
+            android:fadingEdge="horizontal"
+            android:singleLine="true"
+            android:textAppearance="@style/Theme.MaterialMusic.Notification"
+            android:textColor="@color/abc_secondary_text_material_dark" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/media_actions"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@id/icon"
+        android:layout_toRightOf="@id/icon"
+        android:layoutDirection="ltr"
+        android:orientation="horizontal"
+        tools:ignore="UnusedAttribute">
+        <!-- media buttons will be added here -->
+        <ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/action_prev"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:src="@drawable/ic_skip_previous_white_36dp"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/action_play_pause"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:src="@drawable/ic_play_arrow_white_36dp"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/action_next"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:src="@drawable/ic_skip_next_white_36dp"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/action_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/media_actions"
+        android:layout_toEndOf="@id/icon"
+        android:layout_toRightOf="@id/icon"
+        android:background="@drawable/notification_template_divider_media"
+        tools:ignore="ContentDescription" />
+</RelativeLayout>

@@ -24,6 +24,8 @@
     <color name="sliding_tabs_activated">#FFFFFF</color>
     <color name="sliding_tabs_deactivated">#99FFFFFF</color>
 
+    <color name="default_notification_color">@color/grey_800</color>
+
     <!--notification-->
     <drawable name="notification_template_divider_media">#29ffffff</drawable>
 

@@ -17,12 +17,26 @@ import java.util.List;
 public class AlbumLoader {
 
     public static List<Album> getAllAlbums(Context context) {
-        Cursor cursor = makeAlbumCursor(context);
+        Cursor cursor = makeAlbumCursor(context, null, null);
+        return getAlbums(cursor);
+    }
+
+    public static List<Album> getAlbums(Context context, String query) {
+        Cursor cursor = makeAlbumCursor(context, MediaStore.Audio.AlbumColumns.ALBUM + " LIKE ?", new String[]{"%" + query + "%"});
+        return getAlbums(cursor);
+    }
+
+    public static Album getAlbum(Context context, int albumId) {
+        Cursor cursor = makeAlbumCursor(context, BaseColumns._ID + "=?", new String[]{String.valueOf(albumId)});
+        return getAlbum(cursor);
+    }
+
+    public static List<Album> getAlbums(Cursor cursor) {
         List<Album> albums = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                final int id = cursor.getInt(0);
                 final String albumName = cursor.getString(1);
+                final int id = cursor.getInt(0);
                 final String artist = cursor.getString(2);
                 final int artistId = cursor.getInt(3);
                 final int songCount = cursor.getInt(4);
@@ -38,30 +52,7 @@ public class AlbumLoader {
         return albums;
     }
 
-    public static Cursor makeAlbumCursor(final Context context) {
-        return makeAlbumCursor(context, null, null);
-    }
-
-    public static Cursor makeAlbumCursor(final Context context, final String selection, final String[] values) {
-        return context.getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
-                new String[]{
-                        /* 0 */
-                        BaseColumns._ID,
-                        /* 1 */
-                        MediaStore.Audio.AlbumColumns.ALBUM,
-                        /* 2 */
-                        MediaStore.Audio.AlbumColumns.ARTIST,
-                        /* 3 */
-                        MediaStore.Audio.Media.ARTIST_ID,
-                        /* 4 */
-                        MediaStore.Audio.AlbumColumns.NUMBER_OF_SONGS,
-                        /* 5 */
-                        MediaStore.Audio.AlbumColumns.FIRST_YEAR,
-                }, selection, values, PreferenceUtils.getInstance(context).getAlbumSortOrder());
-    }
-
-    public static Album getAlbum(Context context, int albumId) {
-        Cursor cursor = makeAlbumCursor(context, BaseColumns._ID + "=?", new String[]{String.valueOf(albumId)});
+    public static Album getAlbum(Cursor cursor) {
         Album album = new Album();
         if (cursor != null && cursor.moveToFirst()) {
             final int id = cursor.getInt(0);
@@ -80,25 +71,21 @@ public class AlbumLoader {
         return album;
     }
 
-    public static List<Album> getAlbums(Context context, String query) {
-        Cursor cursor = makeAlbumCursor(context, MediaStore.Audio.AlbumColumns.ALBUM + " LIKE ?", new String[]{"%" + query + "%"});
-        List<Album> albums = new ArrayList<>();
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                final String albumName = cursor.getString(1);
-                final int id = cursor.getInt(0);
-                final String artist = cursor.getString(2);
-                final int artistId = cursor.getInt(3);
-                final int songCount = cursor.getInt(4);
-                final int year = cursor.getInt(5);
-
-                final Album album = new Album(id, albumName, artist, artistId, songCount, year);
-                albums.add(album);
-            } while (cursor.moveToNext());
-        }
-        if (cursor != null) {
-            cursor.close();
-        }
-        return albums;
+    public static Cursor makeAlbumCursor(final Context context, final String selection, final String[] values) {
+        return context.getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
+                new String[]{
+                        /* 0 */
+                        BaseColumns._ID,
+                        /* 1 */
+                        MediaStore.Audio.AlbumColumns.ALBUM,
+                        /* 2 */
+                        MediaStore.Audio.AlbumColumns.ARTIST,
+                        /* 3 */
+                        MediaStore.Audio.Media.ARTIST_ID,
+                        /* 4 */
+                        MediaStore.Audio.AlbumColumns.NUMBER_OF_SONGS,
+                        /* 5 */
+                        MediaStore.Audio.AlbumColumns.FIRST_YEAR,
+                }, selection, values, PreferenceUtils.getInstance(context).getAlbumSortOrder());
     }
 }
