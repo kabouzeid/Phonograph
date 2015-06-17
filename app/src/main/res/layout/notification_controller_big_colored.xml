@@ -45,8 +45,10 @@
         tools:ignore="ContentDescription" />
 
     <LinearLayout
+        android:id="@+id/text_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="64dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
@@ -98,7 +100,7 @@
         android:id="@+id/media_actions"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/text_container"
         android:layout_marginEnd="12dp"
         android:layout_marginStart="12dp"
         android:layout_toEndOf="@id/icon"
