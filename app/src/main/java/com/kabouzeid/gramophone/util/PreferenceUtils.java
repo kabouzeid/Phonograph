@@ -116,7 +116,7 @@ public final class PreferenceUtils {
     }
 
     public final boolean coloredNotification() {
-        return mPreferences.getBoolean(COLORED_NOTIFICATION, true);
+        return mPreferences.getBoolean(COLORED_NOTIFICATION, false);
     }
 
     public final boolean coloredNavigationBarAlbum() {

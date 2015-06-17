@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="notification_buttons_tint">#de000000</color>
+    <color name="notification_default_content_color">#de000000</color>
+    <color name="notification_default_secondary_content_color">#aa000000</color>
 
     <!--must be solid colors so the ripple will not be semi transparent. Note: the color have no effect on the ripple-->
     <!--<color name="button_selected">#FFFFFFFF</color>-->

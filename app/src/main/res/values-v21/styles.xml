@@ -24,7 +24,7 @@
 
     <style name="NotificationButton" parent="NotificationButtonParent">
         <item name="android:background">@drawable/notification_selector</item>
-        <item name="android:tint">@color/notification_buttons_tint</item>
+        <item name="android:tint">@color/notification_default_content_color</item>
     </style>
 
     <style name="MusicProgressSlider" parent="MusicProgressSliderParent">

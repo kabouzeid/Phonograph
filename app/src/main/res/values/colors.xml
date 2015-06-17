@@ -24,7 +24,9 @@
     <color name="sliding_tabs_activated">#FFFFFF</color>
     <color name="sliding_tabs_deactivated">#99FFFFFF</color>
 
-    <color name="default_notification_color">@color/grey_800</color>
+    <color name="default_notification_color">@android:color/transparent</color>
+    <color name="notification_default_content_color">#deFFFFFF</color>
+    <color name="notification_default_secondary_content_color">#aaFFFFFF</color>
 
     <!--notification-->
     <drawable name="notification_template_divider_media">#29ffffff</drawable>

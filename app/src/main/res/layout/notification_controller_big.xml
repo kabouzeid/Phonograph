@@ -36,9 +36,12 @@
         android:layout_height="36dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginLeft="2dp"
+        android:layout_marginEnd="2dp"
         android:layout_marginRight="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/notification_selector"
         android:src="@drawable/ic_close_white_24dp"
+        android:tint="@color/notification_default_content_color"
         tools:ignore="ContentDescription" />
 
     <LinearLayout
@@ -63,7 +66,7 @@
             android:fadingEdge="horizontal"
             android:singleLine="true"
             android:textAppearance="@style/Theme.MaterialMusic.Notification.Title"
-            android:textColor="@color/abc_primary_text_material_dark" />
+            android:textColor="@color/notification_default_content_color" />
 
         <TextView
             android:id="@+id/text"
@@ -76,7 +79,7 @@
             android:fadingEdge="horizontal"
             android:singleLine="true"
             android:textAppearance="@style/Theme.MaterialMusic.Notification"
-            android:textColor="@color/abc_secondary_text_material_dark" />
+            android:textColor="@color/notification_default_secondary_content_color" />
 
         <TextView
             android:id="@+id/text2"
@@ -88,7 +91,7 @@
             android:fadingEdge="horizontal"
             android:singleLine="true"
             android:textAppearance="@style/Theme.MaterialMusic.Notification"
-            android:textColor="@color/abc_secondary_text_material_dark" />
+            android:textColor="@color/notification_default_secondary_content_color" />
     </LinearLayout>
 
     <LinearLayout
@@ -112,8 +115,10 @@
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:layout_weight="1"
+            android:background="@drawable/notification_selector"
             android:gravity="center"
             android:src="@drawable/ic_skip_previous_white_36dp"
+            android:tint="@color/notification_default_content_color"
             tools:ignore="ContentDescription" />
 
         <ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
@@ -124,8 +129,10 @@
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:layout_weight="1"
+            android:background="@drawable/notification_selector"
             android:gravity="center"
             android:src="@drawable/ic_play_arrow_white_36dp"
+            android:tint="@color/notification_default_content_color"
             tools:ignore="ContentDescription" />
 
         <ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
@@ -136,18 +143,10 @@
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:layout_weight="1"
+            android:background="@drawable/notification_selector"
             android:gravity="center"
             android:src="@drawable/ic_skip_next_white_36dp"
+            android:tint="@color/notification_default_content_color"
             tools:ignore="ContentDescription" />
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/action_divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@id/media_actions"
-        android:layout_toEndOf="@id/icon"
-        android:layout_toRightOf="@id/icon"
-        android:background="@drawable/notification_template_divider_media"
-        tools:ignore="ContentDescription" />
 </RelativeLayout>
