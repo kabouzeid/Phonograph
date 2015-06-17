@@ -17,6 +17,7 @@ import com.afollestad.materialdialogs.util.DialogUtils;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.ColorChooserDialog;
+import com.kabouzeid.gramophone.helper.PlayingNotificationHelper;
 import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.prefs.ColorChooserPreference;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
@@ -137,11 +138,13 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             }
 
             Preference coloredNotification = findPreference("colored_notification");
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                coloredNotification.setEnabled(false);
-                coloredNotification.setWidgetLayoutResource(0);
-                coloredNotification.setSummary(R.string.pref_only_lollipop);
-            }
+            coloredNotification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    getActivity().sendBroadcast(new Intent(PlayingNotificationHelper.ACTION_NOTIFICATION_COLOR_PREFERENCE_CHANGED).putExtra(PlayingNotificationHelper.EXTRA_NOTIFICATION_COLORED, (boolean) newValue));
+                    return true;
+                }
+            });
 
             equalizer = findPreference("equalizer");
             resolveEqualizer();

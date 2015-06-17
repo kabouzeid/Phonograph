@@ -13,6 +13,7 @@ public class UIPreferenceChangedEvent {
     public static final int COLORED_NAVIGATION_BAR_CURRENT_PLAYING_CHANGED = 6;
     public static final int COLORED_NAVIGATION_BAR_CHANGED = 10;
     public static final int COLORED_NAVIGATION_BAR_OTHER_SCREENS_CHANGED = 7;
+    public static final int COLORED_NOTIFICATION_CHANGED = 11;
 
     private final int action;
     private final Object value;

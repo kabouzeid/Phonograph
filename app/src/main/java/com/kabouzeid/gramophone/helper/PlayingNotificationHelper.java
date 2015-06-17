@@ -8,9 +8,11 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.graphics.Palette;
@@ -34,6 +36,8 @@ public class PlayingNotificationHelper {
 
     public static final String TAG = PlayingNotificationHelper.class.getSimpleName();
     public static final int NOTIFICATION_ID = 1337;
+    public static final String ACTION_NOTIFICATION_COLOR_PREFERENCE_CHANGED = "com.kabouzeid.gramophone.NOTIFICATION_COLOR_PREFERENCE_CHANGED";
+    public static final String EXTRA_NOTIFICATION_COLORED = "com.kabouzeid.gramophone.EXTRA_NOTIFICATION_COLORED";
 
     private final MusicService service;
 
@@ -44,20 +48,53 @@ public class PlayingNotificationHelper {
     private RemoteViews notificationLayoutExpanded;
 
     private Song currentSong;
+    private boolean isPlaying;
     private String currentAlbumArtUri;
+
+    private boolean isColored;
+    private boolean isReceiverRegistered;
+    private boolean isNotificationShown;
+
+    final IntentFilter intentFilter;
 
     public PlayingNotificationHelper(final MusicService service) {
         this.service = service;
         notificationManager = (NotificationManager) service
                 .getSystemService(Context.NOTIFICATION_SERVICE);
+
+        intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_NOTIFICATION_COLOR_PREFERENCE_CHANGED);
     }
 
+    private BroadcastReceiver notificationColorPreferenceChangedReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(ACTION_NOTIFICATION_COLOR_PREFERENCE_CHANGED)) {
+                boolean isColored = intent.getBooleanExtra(EXTRA_NOTIFICATION_COLORED, false);
+                if (isNotificationShown && PlayingNotificationHelper.this.isColored != isColored) {
+                    buildNotification(currentSong, isPlaying, isColored);
+                }
+            }
+        }
+    };
+
     public void buildNotification(final Song song, final boolean isPlaying) {
+        buildNotification(song, isPlaying, PreferenceUtils.getInstance(service).coloredNotification());
+    }
+
+    private void buildNotification(final Song song, final boolean isPlaying, final boolean isColored) {
+        this.isColored = isColored;
         currentSong = song;
+        this.isPlaying = isPlaying;
+        if (!isReceiverRegistered)
+            service.registerReceiver(notificationColorPreferenceChangedReceiver, intentFilter);
+        isReceiverRegistered = true;
+        isNotificationShown = true;
+
         notificationLayout = new RemoteViews(service.getPackageName(),
-                R.layout.notification_controller);
+                isColored ? R.layout.notification_controller_colored : R.layout.notification_controller);
         notificationLayoutExpanded = new RemoteViews(service.getPackageName(),
-                R.layout.notification_controller_big);
+                isColored ? R.layout.notification_controller_big_colored : R.layout.notification_controller_big);
 
         notification = new NotificationCompat.Builder(service)
                 .setSmallIcon(R.drawable.ic_notification)
@@ -73,8 +110,8 @@ public class PlayingNotificationHelper {
         setUpCollapsedLayout();
         setUpExpandedLayout();
         loadAlbumArt();
-        setUpPlaybackActions(isPlaying);
-        setUpExpandedPlaybackActions(isPlaying);
+        setUpPlaybackActions();
+        setUpExpandedPlaybackActions();
 
         service.startForeground(NOTIFICATION_ID, notification);
     }
@@ -87,7 +124,7 @@ public class PlayingNotificationHelper {
         return taskStackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
-    private void setUpExpandedPlaybackActions(boolean isPlaying) {
+    private void setUpExpandedPlaybackActions() {
         notificationLayoutExpanded.setOnClickPendingIntent(R.id.action_play_pause,
                 retrievePlaybackActions(1));
 
@@ -104,7 +141,7 @@ public class PlayingNotificationHelper {
                 isPlaying ? R.drawable.ic_pause_white_36dp : R.drawable.ic_play_arrow_white_36dp);
     }
 
-    private void setUpPlaybackActions(boolean isPlaying) {
+    private void setUpPlaybackActions() {
         notificationLayout.setOnClickPendingIntent(R.id.action_play_pause,
                 retrievePlaybackActions(1));
 
@@ -183,12 +220,14 @@ public class PlayingNotificationHelper {
     }
 
     private void setAlbumArt(Bitmap albumArt) {
-        int defaultColor = service.getResources().getColor(R.color.default_notification_color);
+        int defaultColor = isColored ?
+                service.getResources().getColor(R.color.default_colored_notification_color) :
+                service.getResources().getColor(R.color.default_notification_color);
         int newColor = defaultColor;
         if (albumArt != null) {
             notificationLayout.setImageViewBitmap(R.id.icon, albumArt);
             notificationLayoutExpanded.setImageViewBitmap(R.id.icon, albumArt);
-            if (PreferenceUtils.getInstance(service).coloredNotification())
+            if (isColored)
                 newColor = Palette.from(albumArt).generate().getVibrantColor(defaultColor);
         } else {
             notificationLayout.setImageViewResource(R.id.icon, R.drawable.default_album_art);
@@ -201,11 +240,17 @@ public class PlayingNotificationHelper {
     }
 
     public void killNotification() {
+        if (isReceiverRegistered)
+            service.unregisterReceiver(notificationColorPreferenceChangedReceiver);
+        isReceiverRegistered = false;
         service.stopForeground(true);
         notification = null;
+        isNotificationShown = false;
     }
 
     public void updatePlayState(final boolean isPlaying) {
+        this.isPlaying = isPlaying;
+
         if (notification == null || notificationManager == null) {
             return;
         }
