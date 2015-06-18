@@ -24,10 +24,10 @@
     <string name="songs">Nummers</string>
     <string name="playlists">Afspeellijsten</string>
     <string name="nothing_playing">Niets wordt afgespeeld</string>
-    <string name="unplayable_file">Sorry - er is een probleem ontstaan tijdens het afspelen van dit nummer.</string>
-    <string name="biography_unavailable">Sorry, het is ons niet gelukt om een passende biografie te vinden voor deze artiest.</string>
+    <string name="unplayable_file">Er is een fout opgetreden bij het afspelen van dit nummer.</string>
+    <string name="biography_unavailable">Het is niet gelukt een passende biografie te vinden voor deze artiest.</string>
     <string name="biography">Biografie</string>
-    <string name="audio_focus_denied">Het is niet gelukt om audio focus te krijgen.</string>
+    <string name="audio_focus_denied">Geen audio focus.</string>
     <string name="title_activity_tag_editor">Label bewerker</string>
     <string name="tag_editor">Label bewerker</string>
     <string name="album">Album</string>
@@ -107,6 +107,8 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Label bewerker</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Overal elders</string>
     <string name="pref_title_colored_album_footers">Gekleurde album footers</string>
+    <string name="pref_title_colored_notification">Gekleurde notificatie</string>
+    <string name="pref_title_fade_play_pause">Faden bij afspelen/pauze</string>
     <string name="pref_title_force_square_album_art">Forceer vierkante albumhoes</string>
     <string name="pref_title_opaque_toolbar_now_playing">Ondoorzichtige werkbalk</string>
     <string name="pref_title_opaque_statusbar_now_playing">Ondoorzichtige statusbalk</string>
@@ -138,7 +140,9 @@
     <string name="playlist_name">Afspeellijstnaam</string>
     <string name="song">Nummer</string>
     <string name="pref_only_lollipop">"Alleen beschikbaar op Lollipop. "</string>
-    <string name="pref_summary_colored_album_footers">"Album footers in het raster worden gekleurd met het palet van de albumhoes. "</string>
+    <string name="pref_summary_colored_album_footers">"Album footers in het raster worden gekleurd met het palet van de albumhoes."</string>
+    <string name="pref_summary_colored_notification">"Notificatie wordt gekleurd met het palet van de albumhoes."</string>
+    <string name="pref_summary_fade_play_pause">"Nummers in- en uitfaden bij afspelen/pauze."</string>
     <string name="pref_summary_force_square_album_art">Albumhoes in het afspeelscherm is geforceerd vierkant.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">De werkbalk is ondoorzichtig en bedekt de albumhoes niet.</string>
     <string name="pref_summary_opaque_statusbar_now_playing">De statusbalk is ondoorzichtig en bedekt de albumhoes niet.</string>

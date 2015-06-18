@@ -27,7 +27,7 @@
     <string name="unplayable_file">Niestety - wystąpił błąd przy próbie odtworzenia tego utworu</string>
     <string name="biography_unavailable">Niestety nie byliśmy w stanie znaleźć pasującej biografii dla tego wykonawcy</string>
     <string name="biography">Biografia</string>
-    <string name="audio_focus_denied">We were not able to gain audio focus</string>
+    <string name="audio_focus_denied">Brak ostrości dźwięku</string>
     <string name="title_activity_tag_editor">TagEditorActivity</string>
     <string name="tag_editor">Edytor tagów</string>
     <string name="album">Album</string>
@@ -96,7 +96,7 @@
     <string name="pref_title_general_theme">Styl tła motywu</string>
     <string name="pref_header_audio">Dźwięk</string>
     <string name="pref_header_general">Ogólne</string>
-    <string name="pref_summary_colored_navigation_bar">Ustaw, w którym miejscu pasek nawigacyjny ma być kolorowy</string>
+    <string name="pref_summary_colored_navigation_bar">Ustaw w którym miejscu pasek nawigacyjny ma być kolorowy</string>
     <string name="pref_title_navigation_bar">Kolorowy pasek nawigacyjny</string>
     <string name="pref_title_set_default_start_page">Strona startowa</string>
     <string name="title_activity_settings">Ustawienia</string>
@@ -107,6 +107,8 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Edytor tagów</string>
     <string name="pref_title_colored_navigation_bar_other_screens">W każdym innym miejscu</string>
     <string name="pref_title_colored_album_footers">Kolorowa stopka albumu</string>
+    <string name="pref_title_colored_notification">Kolorowy odtwarzacz w pasku powiadomień</string>
+    <string name="pref_title_fade_play_pause">Wyciszenie podczas odtwarzania/pauzowania</string>
     <string name="pref_title_force_square_album_art">Kadrowanie okładek</string>
     <string name="pref_title_opaque_toolbar_now_playing">Nieprzeźroczystość paska narzędzi</string>
     <string name="pref_title_opaque_statusbar_now_playing">Nieprzeźroczystość paska stanu</string>
@@ -139,6 +141,8 @@
     <string name="song">Utwór</string>
     <string name="pref_only_lollipop">"Dostępne tylko w androidzie Lollipop"</string>
     <string name="pref_summary_colored_album_footers">"Stopki albumów w widoku siatki mają tonacje okładek"</string>
+    <string name="pref_summary_colored_notification">"Odtwarzacz w pasku powiadomień ma kolor okładki albumu"</string>
+    <string name="pref_summary_fade_play_pause">"Wycisza utwór po dotknięciu przycisku odtwarzaj/pauzuj"</string>
     <string name="pref_summary_force_square_album_art">Zaznacz, a wymuszone zostanie kadrowanie okładek na ekranie \'\'Obecnie Grane\'\'</string>
     <string name="pref_summary_opaque_toolbar_now_playing">Zaznacz, a pasek narzędzi będzie nieprzeźroczysty i nie zasłoni już okładki</string>
     <string name="pref_summary_opaque_statusbar_now_playing">Zaznacz, a pasek stanu będzie nieprzeźroczysty i nie zasłoni już okładki albumu</string>

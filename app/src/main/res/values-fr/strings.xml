@@ -3,7 +3,7 @@
     <string name="what_do_you_want_to_share">Que voulez-vous partager ?</string>
     <string name="currently_listening_to_x_by_x">En train d\'écouter %1$ss de %2$s</string>
     <string name="the_audio_file">Le fichier audio</string>
-    <string name="do_you_want_to_set_x_as_ringtone">Voulez-vous définir %1$ss en tant que sonnerie ?</string>
+    <string name="do_you_want_to_set_x_as_ringtone">Voulez-vous définir %1$ss comme sonnerie ?</string>
     <string name="x_has_been_set_as_ringtone">%1$s a été définie comme sonnerie.</string>
     <string name="action_set_as_ringtone">Définir comme sonnerie</string>
     <string name="action_share">Partager</string>
@@ -24,10 +24,10 @@
     <string name="songs">Titres</string>
     <string name="playlists">Playlists</string>
     <string name="nothing_playing">Aucune lecture en cours</string>
-    <string name="unplayable_file">Désolé - une erreur est survenue lors de la lecture du titre</string>
-    <string name="biography_unavailable">Désolé, nous n\'avons pas trouvé la biographie correspondant à cet artiste.</string>
+    <string name="unplayable_file">Une erreur est survenue lors de la tentative de lecture de ce titre.</string>
+    <string name="biography_unavailable">Nous n\'avons pas trouvé la biographie correspondant à cet artiste.</string>
     <string name="biography">Biographie</string>
-    <string name="audio_focus_denied">Nous n\'avons pas pu obtenir le focus audio</string>
+    <string name="audio_focus_denied">Aucun focus audio.</string>
     <string name="title_activity_tag_editor">Éditeur d\'infos</string>
     <string name="tag_editor">Éditeur d\'infos</string>
     <string name="album">Album</string>
@@ -106,6 +106,7 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Éditeur d\'infos</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Partout ailleurs</string>
     <string name="pref_title_colored_album_footers">Bas d\'album coloré</string>
+    <string name="pref_title_colored_notification">Notification colorée</string>
     <string name="pref_title_force_square_album_art">Vignette carrée</string>
     <string name="pref_title_opaque_toolbar_now_playing">Barre d\'outil opaque</string>
     <string name="pref_title_opaque_statusbar_now_playing">Barre d\'état opaque</string>

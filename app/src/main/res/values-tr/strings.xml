@@ -24,10 +24,10 @@
     <string name="songs">Şarkılar</string>
     <string name="playlists">Çalma listeleri</string>
     <string name="nothing_playing">Şu anda çalınan şarkı yok</string>
-    <string name="unplayable_file">Üzgünüm - Bu şarkı oynatılırken bir hata oluştu</string>
-    <string name="biography_unavailable">Üzgünüm, bu sanatçı ile ilgili hiçbir biyografi yazısı bulamadık.</string>
+    <string name="unplayable_file">Bu şarkı oynatılırken bir hata oluştu</string>
+    <string name="biography_unavailable">Bu sanatçı ile ilgili hiçbir biyografi yazısı bulamadık.</string>
     <string name="biography">Biyografi</string>
-    <string name="audio_focus_denied">Sizlere ses odağı kazandırmak mümkün değildi.</string>
+    <string name="audio_focus_denied">Ses odağı sağlanamıyor.</string>
     <string name="title_activity_tag_editor">Etiket düzenleyicisi</string>
     <string name="tag_editor">Etiket düzenleyici</string>
     <string name="album">Albüm</string>
@@ -107,9 +107,12 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Etiket düxenleyici</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Başka her yer</string>
     <string name="pref_title_colored_album_footers">Renkli albüm alt bilgileri</string>
+    <string name="pref_title_colored_notification">Renkli bildirim</string>
     <string name="pref_title_force_square_album_art">Kare albüm kapağına zorla</string>
     <string name="pref_title_opaque_toolbar_now_playing">Opak araç çubuğu</string>
     <string name="pref_title_opaque_statusbar_now_playing">Opak durum çubuğu</string>
+    <string name="pref_title_larger_title_box_now_playing">Büyük başlık kutucuğu</string>
+    <string name="pref_title_alternative_progress_slider_now_playing">Alternatif görev kaydırıcısı</string>
     <string name="pref_title_playback_controller_card_now_playing">Oynatma kontrolleri altında kartı göster</string>
     <string name="no_equalizer">Ekolayzer bulunamadı</string>
     <string name="no_audio_ID">"Hiçbir ses kimliği yok, bir şarkı çalın ve tekrar deneyin."</string>
@@ -136,7 +139,8 @@
     <string name="playlist_name">Çalma listesi adı</string>
     <string name="song">Şarkı</string>
     <string name="pref_only_lollipop">"Sadece Lollipop için"</string>
-    <string name="pref_summary_colored_album_footers">"Izgara içindeki albüm alt bilgisi albüm arkaplanı paletiyle renklendirildi."</string>
+    <string name="pref_summary_colored_album_footers">"Izgara içindeki albüm alt bilgisi albüm arkaplanı canlı renklerle renklendirildi."</string>
+    <string name="pref_summary_colored_notification">"Bildirimler albüm kabağının canlı rengiyle boyandı."</string>
     <string name="pref_summary_force_square_album_art">Şu anda çalınan albüm kapağı görüntüsünü kare olmaya zorlar.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">Şimdi çalınanda ki araç çubuğu opak ve artık albüm kapağı var.</string>
     <string name="pref_summary_opaque_statusbar_now_playing">Durum çubuğu opak ve albüm kapak resmi yok.</string>

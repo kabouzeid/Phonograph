@@ -2,7 +2,7 @@
 <resources>
     <string name="what_do_you_want_to_share">¿Qué quieres compartir?</string>
     <string name="currently_listening_to_x_by_x">Reproduciendo %1$s de %2$s</string>
-    <string name="the_audio_file">El archivo de audio</string>
+    <string name="the_audio_file">Archivo de audio</string>
     <string name="do_you_want_to_set_x_as_ringtone">¿Quieres establecer %1$s como tono de llamada?</string>
     <string name="x_has_been_set_as_ringtone">%1$s ha sido establecido como tono de llamada</string>
     <string name="action_set_as_ringtone">Establecer como tono de llamada</string>
@@ -93,6 +93,8 @@
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Oscuro</string>
     <string name="equalizer">Ecualizador</string>
+    <string name="pref_header_colors">Colores</string>
+    <string name="pref_header_now_playing_screen">Pantalla de reproducción actual</string>
     <string name="pref_title_general_theme">Tema general</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">General</string>
@@ -107,8 +109,13 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Editor de etiquetas</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Cualquier lugar</string>
     <string name="pref_title_colored_album_footers">Pie de álbum coloreado</string>
+    <string name="pref_title_fade_play_pause">Reproducir/Pausa Desvanecimiento</string>
     <string name="pref_title_force_square_album_art">Forzar portada de álbum a cuadrado</string>
     <string name="pref_title_opaque_toolbar_now_playing">Barra de reproduciendo opaca</string>
+    <string name="pref_title_opaque_statusbar_now_playing">Barra de estado opaca</string>
+    <string name="pref_title_larger_title_box_now_playing">Caja de título grande</string>
+    <string name="pref_title_alternative_progress_slider_now_playing">Barra de progreso alternativa</string>
+    <string name="pref_title_playback_controller_card_now_playing">Mostrar tarjeta detrás de los controles de reproducción</string>
     <string name="no_equalizer">No se encontró ningún ecualizador</string>
     <string name="no_audio_ID">"No se encontró el ID de audio. Intenta otra vez."</string>
     <string name="navigation_drawer_open">Abrir barra de navegación</string>
@@ -135,8 +142,13 @@
     <string name="song">Canción</string>
     <string name="pref_only_lollipop">"Solamente disponible en Lollipop"</string>
     <string name="pref_summary_colored_album_footers">"El color pie del álbum en la cuadrícula se basa en la paleta de colores de la tapa del álbum."</string>
+    <string name="pref_summary_fade_play_pause">"Desvanecimiento en reproducir/pausa."</string>
     <string name="pref_summary_force_square_album_art">La portada del álbum en reproduciendo es forzada a ser cuadrada.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">La barra en reproduciendo es opaca y no tapa la portada del álbum.</string>
+    <string name="pref_summary_opaque_statusbar_now_playing">La barra de estado es opaca y no cubre la tapa del álbum.</string>
+    <string name="pref_summary_larger_title_box_now_playing">la caja detrás de la tapa del álbum donde el título de la canción y el artista es mas largo que su altura.</string>
+    <string name="pref_summary_alternative_progress_slider_now_playing">Usa una barra de progreso que no cubre la tapa del álbum en vez de el deslizador normal de progreso.</string>
+    <string name="pref_summary_playback_controller_card_now_playing">Mostrar tarjeta detrás de los botones de control de reproducción (reproducir/pausa, etc).</string>
     <string name="failed_download_albumart">"Imposible descargar portada del álbum"</string>
     <string name="search_hint">Buscar en librería...</string>
     <string name="rescanning_media">Escaneando contenido...</string>

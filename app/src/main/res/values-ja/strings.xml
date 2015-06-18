@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_share">シェア</string>
+    <string name="action_settings">"設定"</string>
+    <string name="action_about">Phonographについて</string>
+</resources>
