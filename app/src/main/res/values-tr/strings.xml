@@ -108,6 +108,7 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Başka her yer</string>
     <string name="pref_title_colored_album_footers">Renkli albüm alt bilgileri</string>
     <string name="pref_title_colored_notification">Renkli bildirim</string>
+    <string name="pref_title_fade_play_pause">Soldur oynat/duraklat</string>
     <string name="pref_title_force_square_album_art">Kare albüm kapağına zorla</string>
     <string name="pref_title_opaque_toolbar_now_playing">Opak araç çubuğu</string>
     <string name="pref_title_opaque_statusbar_now_playing">Opak durum çubuğu</string>
@@ -141,9 +142,11 @@
     <string name="pref_only_lollipop">"Sadece Lollipop için"</string>
     <string name="pref_summary_colored_album_footers">"Izgara içindeki albüm alt bilgisi albüm arkaplanı canlı renklerle renklendirildi."</string>
     <string name="pref_summary_colored_notification">"Bildirimler albüm kabağının canlı rengiyle boyandı."</string>
+    <string name="pref_summary_fade_play_pause">"Oynatıp/duraklatırken şarkı içeri/dışarı kaybolur."</string>
     <string name="pref_summary_force_square_album_art">Şu anda çalınan albüm kapağı görüntüsünü kare olmaya zorlar.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">Şimdi çalınanda ki araç çubuğu opak ve artık albüm kapağı var.</string>
     <string name="pref_summary_opaque_statusbar_now_playing">Durum çubuğu opak ve albüm kapak resmi yok.</string>
+    <string name="pref_summary_larger_title_box_now_playing">Şarkı başlığı ve sanatçıya giden albüm kapağı altındaki kutusunun yüksekliğini büyültür.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Oynatma kontrol düğmelerinin altında bir kart görüntüler (oynat/duraklatma, vb).</string>
     <string name="failed_download_albumart">"Bu albüm için kapak indirilemiyor."</string>
     <string name="search_hint">Kütüphaneniz taranıyor...</string>
