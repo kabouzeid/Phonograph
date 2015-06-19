@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.animation.Animator;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -26,6 +27,7 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -59,30 +61,49 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import java.io.File;
 import java.lang.ref.WeakReference;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class MusicControllerActivity extends AbsFabActivity {
 
     public static final String TAG = MusicControllerActivity.class.getSimpleName();
     private static final int COLOR_TRANSITION_TIME = 400;
     private static final int UPDATE_PROGRESS_VIEWS = 1;
 
-    private Song song;
-    private SquareIfPlaceImageView albumArt;
-    private ImageView albumArtBackground;
-    private TextView songTitle;
-    private TextView songArtist;
-    private TextView currentSongProgress;
-    private TextView totalSongDuration;
-    private View footer;
-    private SeekBar progressSlider;
-    private ImageButton nextButton;
-    private ImageButton prevButton;
-    private ImageButton repeatButton;
-    private ImageButton shuffleButton;
-    private View mediaControllerContainer;
-    private CardView playbackControllerCard;
-    private Toolbar toolbar;
+    @InjectView(R.id.song_title)
+    TextView songTitle;
+    @InjectView(R.id.song_artist)
+    TextView songArtist;
+    @InjectView(R.id.footer)
+    LinearLayout footer;
+    @InjectView(R.id.playback_controller_card)
+    CardView playbackControllerCard;
+    @InjectView(R.id.prev_button)
+    ImageButton prevButton;
+    @InjectView(R.id.next_button)
+    ImageButton nextButton;
+    @InjectView(R.id.repeat_button)
+    ImageButton repeatButton;
+    @InjectView(R.id.shuffle_button)
+    ImageButton shuffleButton;
+    @InjectView(R.id.media_controller_container)
+    RelativeLayout mediaControllerContainer;
+    @InjectView(R.id.album_art_background)
+    ImageView albumArtBackground;
+    @InjectView(R.id.album_art)
+    SquareIfPlaceImageView albumArt;
+    @InjectView(R.id.song_current_progress)
+    TextView songCurrentProgress;
+    @InjectView(R.id.song_total_time)
+    TextView songTotalTime;
+    @InjectView(R.id.progress_slider)
+    SeekBar progressSlider;
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+
     private int lastFooterColor = -1;
     private int lastTextColor = -2;
+
     private Handler progressViewsUpdateHandler;
     private HandlerThread handlerThread;
 
@@ -93,6 +114,8 @@ public class MusicControllerActivity extends AbsFabActivity {
     private boolean alternativeProgressSlider;
     private boolean showPlaybackControllerCard;
 
+    private Song song;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setStatusBarTransparent();
@@ -102,8 +125,8 @@ public class MusicControllerActivity extends AbsFabActivity {
         initAppearanceVarsFromSharedPrefs();
 
         setContentView(alternativeProgressSlider ? R.layout.activity_music_controller_alternative_progress_slider : R.layout.activity_music_controller);
+        ButterKnife.inject(this);
 
-        initViews();
         moveSeekBarIntoPlace();
         adjustTitleBoxSize();
         setUpPlaybackControllerCard();
@@ -142,6 +165,7 @@ public class MusicControllerActivity extends AbsFabActivity {
                     mediaControllerContainer.setVisibility(View.INVISIBLE);
                 }
 
+                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onTransitionEnd(Transition transition) {
                     int cx = (getFab().getLeft() + getFab().getRight()) / 2;
@@ -223,24 +247,6 @@ public class MusicControllerActivity extends AbsFabActivity {
     private void setUpPlaybackControllerCard() {
         playbackControllerCard.setVisibility(showPlaybackControllerCard ? View.VISIBLE : View.GONE);
         mediaControllerContainer.setBackgroundColor(showPlaybackControllerCard ? Color.TRANSPARENT : Util.resolveColor(this, R.attr.music_controller_container_color));
-    }
-
-    private void initViews() {
-        nextButton = (ImageButton) findViewById(R.id.next_button);
-        prevButton = (ImageButton) findViewById(R.id.prev_button);
-        repeatButton = (ImageButton) findViewById(R.id.repeat_button);
-        shuffleButton = (ImageButton) findViewById(R.id.shuffle_button);
-        albumArt = (SquareIfPlaceImageView) findViewById(R.id.album_art);
-        albumArtBackground = (ImageView) findViewById(R.id.album_art_background);
-        songTitle = (TextView) findViewById(R.id.song_title);
-        songArtist = (TextView) findViewById(R.id.song_artist);
-        currentSongProgress = (TextView) findViewById(R.id.song_current_progress);
-        totalSongDuration = (TextView) findViewById(R.id.song_total_time);
-        footer = findViewById(R.id.footer);
-        progressSlider = (SeekBar) findViewById(R.id.progress_slider);
-        mediaControllerContainer = findViewById(R.id.media_controller_container);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        playbackControllerCard = (CardView) findViewById(R.id.playback_controller_card);
     }
 
     private void setUpMusicControllers() {
@@ -376,8 +382,8 @@ public class MusicControllerActivity extends AbsFabActivity {
         getCurrentSong();
         setHeadersText();
         setUpAlbumArtAndApplyPalette();
-        totalSongDuration.setText(MusicUtil.getReadableDurationString(song.duration));
-        currentSongProgress.setText(MusicUtil.getReadableDurationString(0));
+        songTotalTime.setText(MusicUtil.getReadableDurationString(song.duration));
+        songCurrentProgress.setText(MusicUtil.getReadableDurationString(0));
     }
 
     private void setHeadersText() {
@@ -497,8 +503,8 @@ public class MusicControllerActivity extends AbsFabActivity {
             public void run() {
                 progressSlider.setMax(totalMillis);
                 progressSlider.setProgress(progressMillis);
-                currentSongProgress.setText(MusicUtil.getReadableDurationString(progressMillis));
-                totalSongDuration.setText(MusicUtil.getReadableDurationString(totalMillis));
+                songCurrentProgress.setText(MusicUtil.getReadableDurationString(progressMillis));
+                songTotalTime.setText(MusicUtil.getReadableDurationString(totalMillis));
             }
         });
     }

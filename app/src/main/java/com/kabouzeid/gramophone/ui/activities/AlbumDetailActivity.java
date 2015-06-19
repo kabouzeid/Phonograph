@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.animation.Animator;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -54,9 +55,12 @@ import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 /**
  * A lot of hackery is done in this activity. Changing things may will brake the whole activity.
- * <p/>
+ * <p>
  * Should be kinda stable ONLY AS IT IS!!!
  */
 public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorHolder, CabHolder {
@@ -65,14 +69,22 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     private static final int TAG_EDITOR_REQUEST = 2001;
     private Album album;
 
-    private ObservableRecyclerView recyclerView;
+    @InjectView(R.id.list)
+    ObservableRecyclerView recyclerView;
+    @InjectView(R.id.album_art)
+    ImageView albumArtImageView;
+    @InjectView(R.id.album_art_background)
+    ImageView albumArtBackground;
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+    @InjectView(R.id.album_title)
+    TextView albumTitleView;
+    @InjectView(R.id.list_background)
+    View songsBackgroundView;
+
     private AlbumSongAdapter adapter;
     private ArrayList<Song> songs;
-    private ImageView albumArtImageView;
-    private ImageView albumArtBackground;
-    private View songsBackgroundView;
-    private TextView albumTitleView;
-    private Toolbar toolbar;
+
     private MaterialCab cab;
     private int headerOffset;
     private int titleViewHeight;
@@ -80,6 +92,63 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     private int toolbarColor;
     private float toolbarAlpha;
     private int bottomOffset;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        setStatusBarTransparent();
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_album_detail);
+        ButterKnife.inject(this);
+
+        App.bus.register(this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            postponeEnterTransition();
+            if (PreferenceUtils.getInstance(this).coloredNavigationBarAlbum())
+                setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
+        }
+
+        Bundle intentExtras = getIntent().getExtras();
+        int albumId = -1;
+        if (intentExtras != null) {
+            albumId = intentExtras.getInt(AppKeys.E_ALBUM);
+        }
+        album = AlbumLoader.getAlbum(this, albumId);
+        if (album.id == -1) {
+            finish();
+        }
+
+        setUpObservableListViewParams();
+        setUpToolBar();
+        setUpViews();
+        animateFabCircularRevealOnEnterTransitionEnd();
+    }
+
+    private void animateFabCircularRevealOnEnterTransitionEnd() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().getEnterTransition().addListener(new SmallTransitionListener() {
+                @Override
+                public void onTransitionStart(Transition transition) {
+                    albumArtBackground.setVisibility(View.INVISIBLE);
+                }
+
+                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onTransitionEnd(Transition transition) {
+                    int cx = (albumArtBackground.getLeft() + albumArtBackground.getRight()) / 2;
+                    int cy = (albumArtBackground.getTop() + albumArtBackground.getBottom()) / 2;
+                    int finalRadius = Math.max(albumArtBackground.getWidth(), albumArtBackground.getHeight());
+
+                    Animator animator = ViewAnimationUtils.createCircularReveal(albumArtBackground, cx, cy, albumArtImageView.getWidth() / 2, finalRadius);
+                    animator.setInterpolator(new DecelerateInterpolator());
+                    animator.setDuration(1000);
+                    animator.start();
+
+                    albumArtBackground.setVisibility(View.VISIBLE);
+                }
+            });
+        }
+    }
 
     private final SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
         @Override
@@ -109,70 +178,8 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        setStatusBarTransparent();
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_album_detail);
-
-        App.bus.register(this);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            postponeEnterTransition();
-            if (PreferenceUtils.getInstance(this).coloredNavigationBarAlbum())
-                setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
-        }
-
-        Bundle intentExtras = getIntent().getExtras();
-        int albumId = -1;
-        if (intentExtras != null) {
-            albumId = intentExtras.getInt(AppKeys.E_ALBUM);
-        }
-        album = AlbumLoader.getAlbum(this, albumId);
-        if (album.id == -1) {
-            finish();
-        }
-
-        initViews();
-        setUpObservableListViewParams();
-        setUpToolBar();
-        setUpViews();
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().getEnterTransition().addListener(new SmallTransitionListener() {
-                @Override
-                public void onTransitionStart(Transition transition) {
-                    albumArtBackground.setVisibility(View.INVISIBLE);
-                }
-
-                @Override
-                public void onTransitionEnd(Transition transition) {
-                    int cx = (albumArtBackground.getLeft() + albumArtBackground.getRight()) / 2;
-                    int cy = (albumArtBackground.getTop() + albumArtBackground.getBottom()) / 2;
-                    int finalRadius = Math.max(albumArtBackground.getWidth(), albumArtBackground.getHeight());
-
-                    Animator animator = ViewAnimationUtils.createCircularReveal(albumArtBackground, cx, cy, albumArtImageView.getWidth() / 2, finalRadius);
-                    animator.setInterpolator(new DecelerateInterpolator());
-                    animator.setDuration(1000);
-                    animator.start();
-
-                    albumArtBackground.setVisibility(View.VISIBLE);
-                }
-            });
-        }
-    }
-
-    @Override
     public String getTag() {
         return TAG;
-    }
-
-    private void initViews() {
-        albumArtImageView = (ImageView) findViewById(R.id.album_art);
-        albumArtBackground = (ImageView) findViewById(R.id.album_art_background);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        recyclerView = (ObservableRecyclerView) findViewById(R.id.list);
-        albumTitleView = (TextView) findViewById(R.id.album_title);
-        songsBackgroundView = findViewById(R.id.list_background);
     }
 
     private void setUpObservableListViewParams() {

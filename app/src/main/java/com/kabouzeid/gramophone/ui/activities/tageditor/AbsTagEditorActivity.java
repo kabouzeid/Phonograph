@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.ThemeSingleton;
@@ -50,6 +51,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.Optional;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -63,31 +68,25 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     private int paletteColorPrimary;
     private boolean isInNoImageMode;
 
-    private FloatingActionButton fab;
-    private ObservableScrollView scrollView;
-    private Toolbar toolBar;
-    private ImageView image;
-    private View header;
-    private final SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
-        @Override
-        public void onScrollChanged(int scrollY, boolean b, boolean b2) {
-            float alpha;
-            if (!isInNoImageMode) {
-                alpha = 1 - (float) Math.max(0, headerVariableSpace - scrollY) / headerVariableSpace;
-            } else {
-                header.setTranslationY(scrollY);
-                alpha = 1;
-            }
-            ViewUtil.setBackgroundAlpha(toolBar, alpha, paletteColorPrimary);
-            image.setTranslationY(scrollY / 2);
-        }
-    };
+    @InjectView(R.id.fab)
+    FloatingActionButton fab;
+    @InjectView(R.id.observableScrollView)
+    ObservableScrollView observableScrollView;
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+    @Optional
+    @InjectView(R.id.image)
+    ImageView image;
+    @InjectView(R.id.header)
+    LinearLayout header;
+
     private List<String> songPaths;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentViewLayout());
+        ButterKnife.inject(this);
 
         getIntentExtras();
 
@@ -99,21 +98,11 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
         headerVariableSpace = getResources().getDimensionPixelSize(R.dimen.tagEditorHeaderVariableSpace);
 
-
-        initViews();
         setUpViews();
 
-        setSupportActionBar(toolBar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getResources().getString(R.string.tag_editor));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    private void initViews() {
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        scrollView = (ObservableScrollView) findViewById(R.id.observableScrollView);
-        toolBar = (Toolbar) findViewById(R.id.toolbar);
-        image = (ImageView) findViewById(R.id.image);
-        header = findViewById(R.id.header);
     }
 
     private void setUpViews() {
@@ -124,8 +113,23 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     }
 
     private void setUpScrollView() {
-        scrollView.setScrollViewCallbacks(observableScrollViewCallbacks);
+        observableScrollView.setScrollViewCallbacks(observableScrollViewCallbacks);
     }
+
+    private final SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
+        @Override
+        public void onScrollChanged(int scrollY, boolean b, boolean b2) {
+            float alpha;
+            if (!isInNoImageMode) {
+                alpha = 1 - (float) Math.max(0, headerVariableSpace - scrollY) / headerVariableSpace;
+            } else {
+                header.setTranslationY(scrollY);
+                alpha = 1;
+            }
+            ViewUtil.setBackgroundAlpha(toolbar, alpha, paletteColorPrimary);
+            image.setTranslationY(scrollY / 2);
+        }
+    };
 
     private void setUpImageView() {
         loadCurrentImage();
@@ -189,9 +193,8 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
 
     private void resetColors() {
-        final int primaryColor = PreferenceUtils.getInstance(this).getThemeColorPrimary();
-        paletteColorPrimary = primaryColor;
-        observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
+        paletteColorPrimary = PreferenceUtils.getInstance(this).getThemeColorPrimary();
+        observableScrollViewCallbacks.onScrollChanged(observableScrollView.getCurrentScrollY(), false, false);
         setStatusBarColor(paletteColorPrimary);
         if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarTagEditor())
             setNavigationBarColor(paletteColorPrimary);
@@ -237,12 +240,12 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         isInNoImageMode = true;
         image.setVisibility(View.GONE);
         image.setEnabled(false);
-        scrollView.setPadding(0, Util.getActionBarSize(this), 0, 0);
-        observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
+        observableScrollView.setPadding(0, Util.getActionBarSize(this), 0, 0);
+        observableScrollViewCallbacks.onScrollChanged(observableScrollView.getCurrentScrollY(), false, false);
 
         paletteColorPrimary = getIntent().getIntExtra(AppKeys.E_PALETTE,
                 PreferenceUtils.getInstance(this).getThemeColorPrimary());
-        toolBar.setBackgroundColor(paletteColorPrimary);
+        toolbar.setBackgroundColor(paletteColorPrimary);
         header.setBackgroundColor(paletteColorPrimary);
 
         setStatusBarColor(paletteColorPrimary);
@@ -285,9 +288,8 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                     public void onGenerated(Palette palette) {
                         final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
                         if (vibrantSwatch != null) {
-                            final int vibrantColor = palette.getVibrantColor(DialogUtils.resolveColor(AbsTagEditorActivity.this, R.attr.default_bar_color));
-                            paletteColorPrimary = vibrantColor;
-                            observableScrollViewCallbacks.onScrollChanged(scrollView.getCurrentScrollY(), false, false);
+                            paletteColorPrimary = palette.getVibrantColor(DialogUtils.resolveColor(AbsTagEditorActivity.this, R.attr.default_bar_color));
+                            observableScrollViewCallbacks.onScrollChanged(observableScrollView.getCurrentScrollY(), false, false);
                             setStatusBarColor(paletteColorPrimary);
                             if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(AbsTagEditorActivity.this).coloredNavigationBarTagEditor())
                                 setNavigationBarColor(paletteColorPrimary);

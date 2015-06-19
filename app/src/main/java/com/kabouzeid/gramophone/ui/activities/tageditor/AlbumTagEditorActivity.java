@@ -33,22 +33,30 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class AlbumTagEditorActivity extends AbsTagEditorActivity implements TextWatcher {
 
     public static final String TAG = AlbumTagEditorActivity.class.getSimpleName();
+
+    @InjectView(R.id.album_title)
+    EditText albumTitle;
+    @InjectView(R.id.album_artist)
+    EditText albumArtist;
+    @InjectView(R.id.genre)
+    EditText genre;
+    @InjectView(R.id.year)
+    EditText year;
+
     private Bitmap albumArtBitmap;
     private boolean deleteAlbumArt;
-
-    private EditText albumTitle;
-    private EditText albumArtistName;
-    private EditText genreName;
-    private EditText year;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ButterKnife.inject(this);
 
-        initViews();
         setUpViews();
     }
 
@@ -57,26 +65,19 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
         return TAG;
     }
 
-    private void initViews() {
-        albumTitle = (EditText) findViewById(R.id.album_title);
-        albumArtistName = (EditText) findViewById(R.id.album_artist);
-        genreName = (EditText) findViewById(R.id.genre);
-        year = (EditText) findViewById(R.id.year);
-    }
-
     private void setUpViews() {
         fillViewsWithFileTags();
         albumTitle.addTextChangedListener(this);
-        albumArtistName.addTextChangedListener(this);
-        genreName.addTextChangedListener(this);
+        albumArtist.addTextChangedListener(this);
+        genre.addTextChangedListener(this);
         year.addTextChangedListener(this);
     }
 
 
     private void fillViewsWithFileTags() {
         albumTitle.setText(getAlbumTitle());
-        albumArtistName.setText(getAlbumArtistName());
-        genreName.setText(getGenreName());
+        albumArtist.setText(getAlbumArtistName());
+        genre.setText(getGenreName());
         year.setText(getSongYear());
     }
 
@@ -89,7 +90,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
     @Override
     protected void getImageFromLastFM() {
         String albumTitleStr = albumTitle.getText().toString();
-        String albumArtistNameStr = albumArtistName.getText().toString();
+        String albumArtistNameStr = albumArtist.getText().toString();
         if (albumArtistNameStr.trim().equals("") || albumTitleStr.trim().equals("")) {
             Toast.makeText(this, getResources().getString(R.string.album_or_artist_empty), Toast.LENGTH_SHORT).show();
             return;
@@ -130,7 +131,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
     protected void searchImageOnWeb() {
         List<String> query = new ArrayList<>();
         query.add(albumTitle.getText().toString());
-        query.add(albumArtistName.getText().toString());
+        query.add(albumArtist.getText().toString());
         searchWebFor(query);
     }
 
@@ -147,9 +148,9 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
         Map<FieldKey, String> fieldKeyValueMap = new EnumMap<>(FieldKey.class);
         fieldKeyValueMap.put(FieldKey.ALBUM, albumTitle.getText().toString());
         //android seems not to recognize album_artist field so we additionally write the normal artist field
-        fieldKeyValueMap.put(FieldKey.ARTIST, albumArtistName.getText().toString());
-        fieldKeyValueMap.put(FieldKey.ALBUM_ARTIST, albumArtistName.getText().toString());
-        fieldKeyValueMap.put(FieldKey.GENRE, genreName.getText().toString());
+        fieldKeyValueMap.put(FieldKey.ARTIST, albumArtist.getText().toString());
+        fieldKeyValueMap.put(FieldKey.ALBUM_ARTIST, albumArtist.getText().toString());
+        fieldKeyValueMap.put(FieldKey.GENRE, genre.getText().toString());
         fieldKeyValueMap.put(FieldKey.YEAR, year.getText().toString());
 
         File albumArtFile = MusicUtil.createAlbumArtFile(String.valueOf(getId()));

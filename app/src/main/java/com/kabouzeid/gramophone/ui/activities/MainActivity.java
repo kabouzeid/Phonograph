@@ -62,29 +62,39 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class MainActivity extends AbsFabActivity
         implements KabViewsDisableAble, CabHolder, View.OnClickListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    private DrawerLayout drawerLayout;
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+    @InjectView(R.id.tabs)
+    TabLayout tabs;
+    @InjectView(R.id.appbar)
+    AppBarLayout appbar;
+    @InjectView(R.id.pager)
+    ViewPager pager;
+    @InjectView(R.id.navigation_view)
+    NavigationView navigationView;
+    @InjectView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+
     private ActionBarDrawerToggle drawerToggle;
-    private AppBarLayout appBar;
-    private Toolbar toolbar;
     private PagerAdapter pagerAdapter;
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
     private int currentPage = -1;
     private MaterialCab cab;
-    private NavigationView navigationView;
     private View navigationDrawerHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.inject(this);
 
-        initViews();
         setUpDrawerLayout();
         setUpToolbar();
         setUpViewPager();
@@ -102,8 +112,8 @@ public class MainActivity extends AbsFabActivity
             pagerAdapter.add(fragment.getFragmentClass(), null);
         }
 
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.setOffscreenPageLimit(pagerAdapter.getCount() - 1);
+        pager.setAdapter(pagerAdapter);
+        pager.setOffscreenPageLimit(pagerAdapter.getCount() - 1);
 
         int startPosition = PreferenceUtils.getInstance(this).getDefaultStartPage();
         startPosition = startPosition == -1 ? PreferenceUtils.getInstance(this).getLastStartPage() : startPosition;
@@ -111,8 +121,8 @@ public class MainActivity extends AbsFabActivity
 
         navigationView.getMenu().getItem(startPosition).setChecked(true);
 
-        tabLayout.setupWithViewPager(viewPager);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        tabs.setupWithViewPager(pager);
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -130,16 +140,7 @@ public class MainActivity extends AbsFabActivity
             }
         });
 
-        viewPager.setCurrentItem(startPosition);
-    }
-
-    private void initViews() {
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        appBar = (AppBarLayout) findViewById(R.id.appbar);
+        pager.setCurrentItem(startPosition);
     }
 
     private void setUpToolbar() {
@@ -150,7 +151,7 @@ public class MainActivity extends AbsFabActivity
     }
 
     private void setAppBarColor() {
-        appBar.setBackgroundColor(getThemeColorPrimary());
+        appbar.setBackgroundColor(getThemeColorPrimary());
     }
 
     private void setUpNavigationView() {
@@ -186,19 +187,19 @@ public class MainActivity extends AbsFabActivity
                 switch (menuItem.getItemId()) {
                     case R.id.nav_songs:
                         menuItem.setChecked(true);
-                        viewPager.setCurrentItem(PagerAdapter.MusicFragments.SONG.ordinal(), true);
+                        pager.setCurrentItem(PagerAdapter.MusicFragments.SONG.ordinal(), true);
                         break;
                     case R.id.nav_albums:
                         menuItem.setChecked(true);
-                        viewPager.setCurrentItem(PagerAdapter.MusicFragments.ALBUM.ordinal(), true);
+                        pager.setCurrentItem(PagerAdapter.MusicFragments.ALBUM.ordinal(), true);
                         break;
                     case R.id.nav_artists:
                         menuItem.setChecked(true);
-                        viewPager.setCurrentItem(PagerAdapter.MusicFragments.ARTIST.ordinal(), true);
+                        pager.setCurrentItem(PagerAdapter.MusicFragments.ARTIST.ordinal(), true);
                         break;
                     case R.id.nav_playlists:
                         menuItem.setChecked(true);
-                        viewPager.setCurrentItem(PagerAdapter.MusicFragments.PLAYLIST.ordinal(), true);
+                        pager.setCurrentItem(PagerAdapter.MusicFragments.PLAYLIST.ordinal(), true);
                         break;
                     case R.id.nav_settings:
                         new Handler().postDelayed(new Runnable() {
@@ -278,7 +279,7 @@ public class MainActivity extends AbsFabActivity
         try {
             super.enableViews();
             toolbar.setEnabled(true);
-            ((AbsMainActivityFragment) pagerAdapter.getItem(viewPager.getCurrentItem())).enableViews();
+            ((AbsMainActivityFragment) pagerAdapter.getItem(pager.getCurrentItem())).enableViews();
         } catch (NullPointerException e) {
             //Log.e(TAG, "wasn't able to enable the views", e);
         }
@@ -288,7 +289,7 @@ public class MainActivity extends AbsFabActivity
     public void disableViews() {
         try {
             super.disableViews();
-            ((AbsMainActivityFragment) pagerAdapter.getItem(viewPager.getCurrentItem())).disableViews();
+            ((AbsMainActivityFragment) pagerAdapter.getItem(pager.getCurrentItem())).disableViews();
         } catch (NullPointerException e) {
             //Log.e(TAG, "wasn't able to disable the views", e);
         }
@@ -459,7 +460,7 @@ public class MainActivity extends AbsFabActivity
     }
 
 //    private boolean isArtistPage() {
-//        return viewPager.getCurrentItem() == PagerAdapter.MusicFragments.ARTIST.ordinal();
+//        return pager.getCurrentItem() == PagerAdapter.MusicFragments.ARTIST.ordinal();
 //    }
 //
 //    public ArtistViewFragment getArtistFragment() {
@@ -467,7 +468,7 @@ public class MainActivity extends AbsFabActivity
 //    }
 
     private boolean isAlbumPage() {
-        return viewPager.getCurrentItem() == PagerAdapter.MusicFragments.ALBUM.ordinal();
+        return pager.getCurrentItem() == PagerAdapter.MusicFragments.ALBUM.ordinal();
     }
 
     public AlbumViewFragment getAlbumFragment() {
@@ -475,7 +476,7 @@ public class MainActivity extends AbsFabActivity
     }
 
 //    private boolean isSongPage() {
-//        return viewPager.getCurrentItem() == PagerAdapter.MusicFragments.SONG.ordinal();
+//        return pager.getCurrentItem() == PagerAdapter.MusicFragments.SONG.ordinal();
 //    }
 //
 //    public SongViewFragment getSongFragment() {
@@ -483,7 +484,7 @@ public class MainActivity extends AbsFabActivity
 //    }
 
     private boolean isPlaylistPage() {
-        return viewPager.getCurrentItem() == PagerAdapter.MusicFragments.PLAYLIST.ordinal();
+        return pager.getCurrentItem() == PagerAdapter.MusicFragments.PLAYLIST.ordinal();
     }
 
 //    public PlaylistViewFragment getPlaylistFragment() {
@@ -604,14 +605,14 @@ public class MainActivity extends AbsFabActivity
     }
 
     public void addOnAppBarOffsetChangedListener(OnOffsetChangedListener onOffsetChangedListener) {
-        appBar.addOnOffsetChangedListener(onOffsetChangedListener);
+        appbar.addOnOffsetChangedListener(onOffsetChangedListener);
     }
 
     public void removeOnAppBArOffsetChangedListener(OnOffsetChangedListener onOffsetChangedListener) {
-        appBar.removeOnOffsetChangedListener(onOffsetChangedListener);
+        appbar.removeOnOffsetChangedListener(onOffsetChangedListener);
     }
 
     public int getTotalAppBarScrollingRange() {
-        return appBar.getTotalScrollRange();
+        return appbar.getTotalScrollRange();
     }
 }

@@ -31,11 +31,11 @@ import java.util.ArrayList;
 public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder {
 
     public static final String TAG = PlaylistDetailActivity.class.getSimpleName();
+
     private Playlist playlist;
     private MaterialCab cab;
     private PlaylistSongAdapter adapter;
     private ArrayList<PlaylistSong> songs;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

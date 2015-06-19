@@ -20,18 +20,26 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.views.PlayPauseDrawable;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.Optional;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public abstract class AbsFabActivity extends AbsPlaybackStatusActivity {
     public static final String TAG = AbsFabActivity.class.getSimpleName();
 
-    private FloatingActionButton fab;
+    @Optional
+    @InjectView(R.id.fab)
+    FloatingActionButton fab;
+
     private PlayPauseDrawable playPauseDrawable;
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+        ButterKnife.inject(this);
         setUpFab();
     }
 

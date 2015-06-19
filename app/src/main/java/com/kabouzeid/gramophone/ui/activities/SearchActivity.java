@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.SearchAdapter;
@@ -23,13 +24,23 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class SearchActivity extends AbsBaseActivity {
 
     public static final String TAG = SearchActivity.class.getSimpleName();
-    private RecyclerView recyclerView;
+    @InjectView(R.id.recycler_view)
+    RecyclerView recyclerView;
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+    @SuppressWarnings("ButterKnifeNoViewWithId")
+    @InjectView(android.R.id.empty)
+    TextView empty;
+
+
     private SearchView searchView;
     private SearchAdapter searchAdapter;
-    private View noResults;
 
     @SuppressLint("NewApi")
     @Override
@@ -37,9 +48,8 @@ public class SearchActivity extends AbsBaseActivity {
         setTitle(null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        ButterKnife.inject(this);
 
-        noResults = findViewById(android.R.id.empty);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         searchAdapter = new SearchAdapter(this);
         recyclerView.setAdapter(searchAdapter);
@@ -55,7 +65,6 @@ public class SearchActivity extends AbsBaseActivity {
             }
         });
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimary());
         setSupportActionBar(toolbar);
         //noinspection ConstantConditions
@@ -136,7 +145,7 @@ public class SearchActivity extends AbsBaseActivity {
     private void search(String query) {
         if (searchAdapter != null) {
             searchAdapter.search(query);
-            noResults.setVisibility(searchAdapter.getItemCount() < 1 ? View.VISIBLE : View.GONE);
+            empty.setVisibility(searchAdapter.getItemCount() < 1 ? View.VISIBLE : View.GONE);
         }
     }
 }

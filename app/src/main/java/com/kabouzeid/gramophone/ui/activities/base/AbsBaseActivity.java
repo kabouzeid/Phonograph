@@ -15,7 +15,6 @@ import com.squareup.otto.Subscribe;
  */
 public abstract class AbsBaseActivity extends AbsThemeActivity implements KabViewsDisableAble {
 
-    private App app;
     private boolean areViewsEnabled;
     private final Object uiPreferenceChangeListener = new Object() {
         @Subscribe
@@ -32,13 +31,6 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
             App.bus.register(uiPreferenceChangeListener);
         } catch (Exception ignored) {
         }
-    }
-
-    protected App getApp() {
-        if (app == null) {
-            app = (App) getApplicationContext();
-        }
-        return app;
     }
 
     protected abstract String getTag();
@@ -63,7 +55,6 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
     public boolean areViewsEnabled() {
         return areViewsEnabled;
     }
-
 
     protected void onUIPreferenceChangedEvent(UIPreferenceChangedEvent event) {
         switch (event.getAction()) {

@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.animation.Animator;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -54,6 +55,7 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
+import com.kabouzeid.gramophone.views.SquareIfPlaceImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -62,22 +64,34 @@ import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 /**
  * A lot of hackery is done in this activity. Changing things may will brake the whole activity.
- * <p/>
+ * <p>
  * Should be kinda stable ONLY AS IT IS!!!
  */
 public class ArtistDetailActivity extends AbsFabActivity implements PaletteColorHolder, CabHolder {
 
     public static final String TAG = ArtistDetailActivity.class.getSimpleName();
-    private Artist artist;
 
-    private ObservableListView songListView;
-    private ImageView artistImage;
-    private ImageView artistImageBackground;
-    private View songsBackgroundView;
-    private TextView artistNameTv;
-    private Toolbar toolbar;
+    @InjectView(R.id.artist_image_background)
+    ImageView artistImageBackground;
+    @InjectView(R.id.artist_image)
+    SquareIfPlaceImageView artistImage;
+    @InjectView(R.id.list_background)
+    View songListBackground;
+    @InjectView(R.id.list)
+    ObservableListView songListView;
+    @InjectView(R.id.artist_name)
+    TextView artistName;
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+
+    View songListHeader;
+    RecyclerView albumRecyclerView;
+
     private MaterialCab cab;
     private int headerOffset;
     private int titleViewHeight;
@@ -86,47 +100,19 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     private float toolbarAlpha;
     private int bottomOffset;
 
-    private View songListHeader;
-    private RecyclerView albumRecyclerView;
+    private Artist artist;
     private Spanned biography;
     private ArtistAlbumAdapter albumAdapter;
     private ArtistSongAdapter songAdapter;
     private ArrayList<Song> songs;
     private ArrayList<Album> albums;
 
-    private final SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
-        @Override
-        public void onScrollChanged(int scrollY, boolean b, boolean b2) {
-            scrollY += artistImageViewHeight + titleViewHeight;
-            super.onScrollChanged(scrollY, b, b2);
-            float flexibleRange = artistImageViewHeight - headerOffset;
-
-            // Translate album cover
-            artistImage.setTranslationY(Math.max(-artistImageViewHeight, -scrollY / 2));
-
-            // Translate list background
-            songsBackgroundView.setTranslationY(Math.max(0, -scrollY + artistImageViewHeight));
-
-            // Change alpha of overlay
-            toolbarAlpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
-            ViewUtil.setBackgroundAlpha(toolbar, toolbarAlpha, toolbarColor);
-            setStatusBarColor(Util.getColorWithAlpha(cab != null && cab.isActive() ? 1 : toolbarAlpha, toolbarColor));
-
-            // Translate name text
-            int maxTitleTranslationY = artistImageViewHeight;
-            int titleTranslationY = maxTitleTranslationY - scrollY;
-            titleTranslationY = Math.max(headerOffset, titleTranslationY);
-
-            artistNameTv.setTranslationY(titleTranslationY);
-        }
-    };
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setStatusBarTransparent();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist_detail);
+        ButterKnife.inject(this);
 
         App.bus.register(this);
 
@@ -158,6 +144,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                     artistImageBackground.setVisibility(View.INVISIBLE);
                 }
 
+                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onTransitionEnd(Transition transition) {
                     int cx = (artistImageBackground.getLeft() + artistImageBackground.getRight()) / 2;
@@ -175,17 +162,32 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         }
     }
 
-    private void initViews() {
-        artistImage = (ImageView) findViewById(R.id.artist_image);
-        artistImageBackground = (ImageView) findViewById(R.id.artist_image_background);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        songListView = (ObservableListView) findViewById(R.id.list);
-        artistNameTv = (TextView) findViewById(R.id.artist_name);
-        songsBackgroundView = findViewById(R.id.list_background);
+    private final SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
+        @Override
+        public void onScrollChanged(int scrollY, boolean b, boolean b2) {
+            scrollY += artistImageViewHeight + titleViewHeight;
+            super.onScrollChanged(scrollY, b, b2);
+            float flexibleRange = artistImageViewHeight - headerOffset;
 
-        songListHeader = LayoutInflater.from(this).inflate(R.layout.artist_detail_header, songListView, false);
-        albumRecyclerView = (RecyclerView) songListHeader.findViewById(R.id.recycler_view);
-    }
+            // Translate album cover
+            artistImage.setTranslationY(Math.max(-artistImageViewHeight, -scrollY / 2));
+
+            // Translate list background
+            songListBackground.setTranslationY(Math.max(0, -scrollY + artistImageViewHeight));
+
+            // Change alpha of overlay
+            toolbarAlpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
+            ViewUtil.setBackgroundAlpha(toolbar, toolbarAlpha, toolbarColor);
+            setStatusBarColor(Util.getColorWithAlpha(cab != null && cab.isActive() ? 1 : toolbarAlpha, toolbarColor));
+
+            // Translate name text
+            int maxTitleTranslationY = artistImageViewHeight;
+            int titleTranslationY = maxTitleTranslationY - scrollY;
+            titleTranslationY = Math.max(headerOffset, titleTranslationY);
+
+            artistName.setTranslationY(titleTranslationY);
+        }
+    };
 
     private void setUpObservableListViewParams() {
         bottomOffset = getResources().getDimensionPixelSize(R.dimen.bottom_offset_fab_activity);
@@ -198,13 +200,18 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
             headerOffset += getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
     }
 
+    private void initViews() {
+        songListHeader = LayoutInflater.from(this).inflate(R.layout.artist_detail_header, songListView, false);
+        albumRecyclerView = ButterKnife.findById(songListHeader, R.id.recycler_view);
+    }
+
     @Override
     public String getTag() {
         return TAG;
     }
 
     private void setUpViews() {
-        artistNameTv.setText(artist.name);
+        artistName.setText(artist.name);
 
         ViewUtil.addOnGlobalLayoutListener(artistImage, new Runnable() {
             @Override
@@ -239,7 +246,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         contentView.post(new Runnable() {
             @Override
             public void run() {
-                songsBackgroundView.getLayoutParams().height = contentView.getHeight();
+                songListBackground.getLayoutParams().height = contentView.getHeight();
                 observableScrollViewCallbacks.onScrollChanged(-(artistImageViewHeight + titleViewHeight), false, false);
             }
         });
@@ -315,8 +322,8 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                             final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
                             if (vibrantSwatch != null) {
                                 toolbarColor = vibrantSwatch.getRgb();
-                                artistNameTv.setBackgroundColor(vibrantSwatch.getRgb());
-                                artistNameTv.setTextColor(Util.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
+                                artistName.setBackgroundColor(vibrantSwatch.getRgb());
+                                artistName.setTextColor(Util.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
                                 if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(ArtistDetailActivity.this).coloredNavigationBarArtist())
                                     setNavigationBarColor(vibrantSwatch.getRgb());
                                 notifyTaskColorChange(toolbarColor);
@@ -353,8 +360,8 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         int defaultBarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
 
         toolbarColor = defaultBarColor;
-        artistNameTv.setBackgroundColor(defaultBarColor);
-        artistNameTv.setTextColor(titleTextColor);
+        artistName.setBackgroundColor(defaultBarColor);
+        artistName.setTextColor(titleTextColor);
 
         if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarArtist())
             setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
@@ -426,6 +433,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     }
 
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void fixLollipopTransitionImageWrongSize() {
         getWindow().getSharedElementEnterTransition().addListener(new Transition.TransitionListener() {
             @Override
