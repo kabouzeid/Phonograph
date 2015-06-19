@@ -9,6 +9,10 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Message;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -53,11 +57,13 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 
 public class MusicControllerActivity extends AbsFabActivity {
 
     public static final String TAG = MusicControllerActivity.class.getSimpleName();
     private static final int COLOR_TRANSITION_TIME = 400;
+    private static final int UPDATE_PROGRESS_VIEWS = 1;
 
     private Song song;
     private SquareIfPlaceImageView albumArt;
@@ -77,7 +83,8 @@ public class MusicControllerActivity extends AbsFabActivity {
     private Toolbar toolbar;
     private int lastFooterColor = -1;
     private int lastTextColor = -2;
-    private Thread progressViewsUpdateThread;
+    private Handler progressViewsUpdateHandler;
+    private HandlerThread handlerThread;
 
     private boolean opaqueStatusBar;
     private boolean opaqueToolBar;
@@ -92,7 +99,7 @@ public class MusicControllerActivity extends AbsFabActivity {
 
         super.onCreate(savedInstanceState);
 
-        initAppeareanceVars();
+        initAppearanceVarsFromSharedPrefs();
 
         setContentView(alternativeProgressSlider ? R.layout.activity_music_controller_alternative_progress_slider : R.layout.activity_music_controller);
 
@@ -101,10 +108,14 @@ public class MusicControllerActivity extends AbsFabActivity {
         adjustTitleBoxSize();
         setUpPlaybackControllerCard();
         setUpMusicControllers();
+        setUpAlbumArtViews();
+        setUpToolbar();
+        animateFabCircularRevealOnEnterTransitionEnd();
+    }
 
+    private void setUpAlbumArtViews() {
         albumArtBackground.setAlpha(0.7f);
         albumArt.forceSquare(forceSquareAlbumArt);
-
         if (opaqueStatusBar) {
             if (opaqueToolBar) {
                 alignAlbumArtToToolbar();
@@ -114,11 +125,16 @@ public class MusicControllerActivity extends AbsFabActivity {
         } else {
             alignAlbumArtToTop();
         }
+    }
 
+    private void setUpToolbar() {
         setSupportActionBar(toolbar);
+        //noinspection ConstantConditions
         getSupportActionBar().setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
+    private void animateFabCircularRevealOnEnterTransitionEnd() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().getEnterTransition().addListener(new SmallTransitionListener() {
                 @Override
@@ -143,7 +159,31 @@ public class MusicControllerActivity extends AbsFabActivity {
         }
     }
 
-    private void initAppeareanceVars() {
+    private void startHandler() {
+        handlerThread = new HandlerThread("MusicProgressViewUpdateHandler",
+                android.os.Process.THREAD_PRIORITY_BACKGROUND);
+        handlerThread.start();
+        progressViewsUpdateHandler = new MusicProgressViewsUpdateHandler(this, handlerThread.getLooper());
+    }
+
+    private void stopHandler() {
+        progressViewsUpdateHandler.removeCallbacksAndMessages(null);
+        if (Build.VERSION.SDK_INT >= 18) {
+            handlerThread.quitSafely();
+        } else {
+            handlerThread.quit();
+        }
+    }
+
+    private void startUpdatingProgressViews() {
+        progressViewsUpdateHandler.sendEmptyMessage(UPDATE_PROGRESS_VIEWS);
+    }
+
+    private void stopUpdatingProgressViews() {
+        progressViewsUpdateHandler.removeMessages(UPDATE_PROGRESS_VIEWS);
+    }
+
+    private void initAppearanceVarsFromSharedPrefs() {
         opaqueStatusBar = PreferenceUtils.getInstance(this).opaqueStatusbarNowPlaying();
         opaqueToolBar = opaqueStatusBar && PreferenceUtils.getInstance(this).opaqueToolbarNowPlaying();
         forceSquareAlbumArt = PreferenceUtils.getInstance(this).forceAlbumArtSquared();
@@ -320,8 +360,16 @@ public class MusicControllerActivity extends AbsFabActivity {
     protected void onResume() {
         super.onResume();
         updateControllerState();
-        startProgressViewsUpdateThread();
         updateCurrentSong();
+        startHandler();
+        startUpdatingProgressViews();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopUpdatingProgressViews();
+        stopHandler();
     }
 
     private void updateCurrentSong() {
@@ -440,38 +488,19 @@ public class MusicControllerActivity extends AbsFabActivity {
         }
     }
 
-    private void startProgressViewsUpdateThread() {
-        if (progressViewsUpdateThread != null) progressViewsUpdateThread.interrupt();
-        progressViewsUpdateThread = new Thread(new Runnable() {
-            int totalMillis = 0;
-            int progressMillis = 0;
+    private void updateProgressViews() {
+        final int totalMillis = MusicPlayerRemote.getSongDurationMillis();
+        final int progressMillis = MusicPlayerRemote.getSongProgressMillis();
 
+        runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    while (!Thread.currentThread().isInterrupted()) {
-                        totalMillis = MusicPlayerRemote.getSongDurationMillis();
-                        progressMillis = MusicPlayerRemote.getSongProgressMillis();
-
-                        runOnUiThread(updateProgressViews);
-
-                        Thread.sleep(100);
-                    }
-                } catch (InterruptedException ignored) {
-                }
+                progressSlider.setMax(totalMillis);
+                progressSlider.setProgress(progressMillis);
+                currentSongProgress.setText(MusicUtil.getReadableDurationString(progressMillis));
+                totalSongDuration.setText(MusicUtil.getReadableDurationString(totalMillis));
             }
-
-            private Runnable updateProgressViews = new Runnable() {
-                @Override
-                public void run() {
-                    progressSlider.setMax(totalMillis);
-                    progressSlider.setProgress(progressMillis);
-                    currentSongProgress.setText(MusicUtil.getReadableDurationString(progressMillis));
-                    totalSongDuration.setText(MusicUtil.getReadableDurationString(totalMillis));
-                }
-            };
         });
-        progressViewsUpdateThread.start();
     }
 
     protected void updateControllerState() {
@@ -496,12 +525,6 @@ public class MusicControllerActivity extends AbsFabActivity {
     public void onShuffleModeChanged() {
         super.onShuffleModeChanged();
         updateShuffleState();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (progressViewsUpdateThread != null) progressViewsUpdateThread.interrupt();
     }
 
     @Override
@@ -572,5 +595,23 @@ public class MusicControllerActivity extends AbsFabActivity {
     private void alignAlbumArtToStatusBar() {
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) findViewById(R.id.album_art_frame).getLayoutParams();
         params.addRule(RelativeLayout.BELOW, R.id.status_bar);
+    }
+
+    private static class MusicProgressViewsUpdateHandler extends Handler {
+        private WeakReference<MusicControllerActivity> activityReference;
+
+        public MusicProgressViewsUpdateHandler(final MusicControllerActivity activity, final Looper looper) {
+            super(looper);
+            activityReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == UPDATE_PROGRESS_VIEWS) {
+                activityReference.get().updateProgressViews();
+                sendEmptyMessageDelayed(UPDATE_PROGRESS_VIEWS, 100);
+            }
+        }
     }
 }

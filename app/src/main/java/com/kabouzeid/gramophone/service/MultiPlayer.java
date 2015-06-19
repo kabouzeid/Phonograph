@@ -16,7 +16,7 @@ import com.kabouzeid.gramophone.util.PreferenceUtils;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
-public final class MultiPlayer implements MediaPlayer.OnErrorListener,
+public class MultiPlayer implements MediaPlayer.OnErrorListener,
         MediaPlayer.OnCompletionListener {
     public static final String TAG = MultiPlayer.class.getSimpleName();
 
@@ -234,8 +234,7 @@ public final class MultiPlayer implements MediaPlayer.OnErrorListener,
      */
     @Override
     public boolean onError(final MediaPlayer mp, final int what, final int extra) {
-        Toast.makeText(mService.get().getApplicationContext(), mService.get().getResources().getString(R.string.unplayable_file), Toast.LENGTH_SHORT).show();
-        mService.get().playNextSong(true);
+        Toast.makeText(mService.get(), mService.get().getResources().getString(R.string.unplayable_file), Toast.LENGTH_SHORT).show();
         return false;
     }
 

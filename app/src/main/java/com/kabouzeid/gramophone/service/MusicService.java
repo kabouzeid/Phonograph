@@ -308,35 +308,45 @@ public class MusicService extends Service {
         playSongAt(getNextPosition(force));
     }
 
-    private void openTrackAndPrepareNextAt(int position) {
+    private boolean openTrackAndPrepareNextAt(int position) {
         synchronized (this) {
             setPosition(position);
-            openCurrent();
+            boolean prepared = openCurrent();
             prepareNext();
             notifyChange(META_CHANGED);
+            return prepared;
         }
     }
 
-    private void openCurrent() {
+    private boolean openCurrent() {
         synchronized (this) {
-            player.setDataSource(getTrackUri(getCurrentSong()));
+            try {
+                player.setDataSource(getTrackUri(getCurrentSong()));
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
         }
     }
 
-    private void prepareNext() {
+    private boolean prepareNext() {
         synchronized (this) {
-            nextPosition = getNextPosition(false);
-            player.setNextDataSource(getTrackUri(getSongAt(nextPosition)));
+            try {
+                int nextPosition = getNextPosition(false);
+                player.setNextDataSource(getTrackUri(getSongAt(nextPosition)));
+                this.nextPosition = nextPosition;
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
         }
     }
 
     private void closeAudioEffectSession() {
-        if (player != null) {
-            final Intent audioEffectsIntent = new Intent(AudioEffect.ACTION_CLOSE_AUDIO_EFFECT_CONTROL_SESSION);
-            audioEffectsIntent.putExtra(AudioEffect.EXTRA_AUDIO_SESSION, player.getAudioSessionId());
-            audioEffectsIntent.putExtra(AudioEffect.EXTRA_PACKAGE_NAME, getPackageName());
-            sendBroadcast(audioEffectsIntent);
-        }
+        final Intent audioEffectsIntent = new Intent(AudioEffect.ACTION_CLOSE_AUDIO_EFFECT_CONTROL_SESSION);
+        audioEffectsIntent.putExtra(AudioEffect.EXTRA_AUDIO_SESSION, player.getAudioSessionId());
+        audioEffectsIntent.putExtra(AudioEffect.EXTRA_PACKAGE_NAME, getPackageName());
+        sendBroadcast(audioEffectsIntent);
     }
 
     private boolean requestFocus() {
@@ -344,7 +354,7 @@ public class MusicService extends Service {
     }
 
     private void updateRemoteControlClient() {
-        final Song song = playingQueue.get(getPosition());
+        final Song song = getCurrentSong();
         remoteControlClient
                 .editMetadata(false)
                 .putString(MediaMetadataRetriever.METADATA_KEY_ARTIST, song.artistName)
@@ -580,8 +590,11 @@ public class MusicService extends Service {
     }
 
     private void playSongAtImpl(int position) {
-        openTrackAndPrepareNextAt(position);
-        play(false);
+        if (openTrackAndPrepareNextAt(position)) {
+            play(false);
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.unplayable_file), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void pause(boolean forceNoFading) {
