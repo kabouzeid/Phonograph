@@ -248,11 +248,6 @@ public class MainActivity extends AbsFabActivity
         return TAG;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        updateNavigationDrawerHeader();
-    }
 
     private void updateNavigationDrawerHeader() {
         Song song = MusicPlayerRemote.getCurrentSong();
@@ -302,6 +297,12 @@ public class MainActivity extends AbsFabActivity
     @Override
     public void onPlayingMetaChanged() {
         super.onPlayingMetaChanged();
+        updateNavigationDrawerHeader();
+    }
+
+    @Override
+    public void onServiceConnected() {
+        super.onServiceConnected();
         updateNavigationDrawerHeader();
     }
 
@@ -411,7 +412,7 @@ public class MainActivity extends AbsFabActivity
             MusicPlayerRemote.openQueue(SearchQueryHelper.getSongs(this, intent.getExtras()), 0, true);
         }
         if (uri != null && uri.toString().length() > 0) {
-            MusicPlayerRemote.playFile(uri);
+            MusicPlayerRemote.playFile(uri.toString());
             handled = true;
         } else if (MediaStore.Audio.Playlists.CONTENT_TYPE.equals(mimeType)) {
             final int id = (int) parseIdFromIntent(intent, "playlistId", "playlist");

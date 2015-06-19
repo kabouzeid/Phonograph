@@ -16,6 +16,9 @@ import com.kabouzeid.gramophone.util.PreferenceUtils;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
+/**
+ * @author Andrew Neal, Karim Abou Zeid (kabouzeid)
+ */
 public class MultiPlayer implements MediaPlayer.OnErrorListener,
         MediaPlayer.OnCompletionListener {
     public static final String TAG = MultiPlayer.class.getSimpleName();
@@ -41,13 +44,16 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
     /**
      * @param path The path of the file, or the http/rtsp URL of the stream
      *             you want to play
+     * @return True if the <code>player</code> has been prepared and is
+     * ready to play, false otherwise
      */
-    public void setDataSource(final String path) {
+    public boolean setDataSource(final String path) {
         mIsInitialized = false;
         mIsInitialized = setDataSourceImpl(mCurrentMediaPlayer, path);
         if (mIsInitialized) {
             setNextDataSource(null);
         }
+        return mIsInitialized;
     }
 
     /**
@@ -234,6 +240,10 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      */
     @Override
     public boolean onError(final MediaPlayer mp, final int what, final int extra) {
+        mIsInitialized = false;
+        mCurrentMediaPlayer.release();
+        mCurrentMediaPlayer = new MediaPlayer();
+        mCurrentMediaPlayer.setWakeMode(mService.get(), PowerManager.PARTIAL_WAKE_LOCK);
         Toast.makeText(mService.get(), mService.get().getResources().getString(R.string.unplayable_file), Toast.LENGTH_SHORT).show();
         return false;
     }

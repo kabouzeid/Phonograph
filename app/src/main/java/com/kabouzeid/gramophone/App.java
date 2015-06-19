@@ -30,10 +30,13 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         if (!BuildConfig.DEBUG) Fabric.with(this, new Crashlytics());
-        MusicPlayerRemote.init(this);
+
+        MusicPlayerRemote.startAndBindService(this);
+
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
         ImageLoader.getInstance().init(config);
         L.writeLogs(false); // turns off UILs annoying LogCat output
+
         TagOptionSingleton.getInstance().isAndroid();
     }
 
