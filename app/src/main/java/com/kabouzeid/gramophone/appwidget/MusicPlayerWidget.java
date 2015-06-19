@@ -36,11 +36,10 @@ public class MusicPlayerWidget extends AppWidgetProvider {
     }
 
     public static void updateWidgets(final Context context, final Song song, boolean isPlaying) {
+        if (song.id == -1) return;
         widgetLayout = new RemoteViews(context.getPackageName(), R.layout.music_player_widget);
         linkButtons(context, widgetLayout);
-        if (song.id != -1) {
-            widgetLayout.setTextViewText(R.id.song_title, song.title);
-        }
+        widgetLayout.setTextViewText(R.id.song_title, song.title);
         updateWidgetsPlayState(context, isPlaying);
         loadAlbumArt(context, song);
     }

@@ -45,7 +45,7 @@ public class MusicPlayerRemote {
             MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
             musicService = binder.getService();
             musicService.restorePreviousState(restoredOriginalQueue, playingQueue, position);
-            if(startAfterConnected) resumePlaying();
+            if (startAfterConnected) resumePlaying();
         }
 
         @Override
@@ -78,7 +78,7 @@ public class MusicPlayerRemote {
 
     public static void pauseSong() {
         if (musicService != null) {
-            musicService.pausePlaying(false);
+            musicService.pause(false);
         }
     }
 
@@ -101,23 +101,12 @@ public class MusicPlayerRemote {
     }
 
     public static boolean isPlaying() {
-        return musicService != null && musicService.isPlaying();
+        return musicService != null && musicService.isPlayingAndNotFadingDown();
     }
 
     public static void resumePlaying() {
         if (musicService != null) {
-            musicService.resumePlaying(false);
-        }
-    }
-
-    public static long getCurrentSongId() {
-        if (musicService != null) {
-            return musicService.getCurrentSongId();
-        }
-        try {
-            return playingQueue.get(position).id;
-        } catch (Exception e) {
-            return -1;
+            musicService.play(false);
         }
     }
 
@@ -131,12 +120,12 @@ public class MusicPlayerRemote {
     }
 
     public static Song getCurrentSong() {
-        final int position = getPosition();
-        if (position != -1) {
-            try {
-                return getPlayingQueue().get(position);
-            } catch (Exception ignored) {
-            }
+        if (musicService != null) {
+            return musicService.getCurrentSong();
+        }
+        try {
+            return getPlayingQueue().get(getPosition());
+        } catch (Exception ignored) {
         }
         return new Song();
     }
@@ -148,13 +137,6 @@ public class MusicPlayerRemote {
         return position;
     }
 
-    private static void setPosition(int position) {
-        MusicPlayerRemote.position = position;
-        if (musicService != null) {
-            musicService.setPosition(position);
-        }
-    }
-
     public static ArrayList<Song> getPlayingQueue() {
         if (musicService != null) {
             playingQueue = musicService.getPlayingQueue();
@@ -163,18 +145,14 @@ public class MusicPlayerRemote {
     }
 
     public static int getSongProgressMillis() {
-        if (isPlayerPrepared()) {
+        if (musicService != null) {
             return musicService.getSongProgressMillis();
         }
         return -1;
     }
 
-    public static boolean isPlayerPrepared() {
-        return musicService != null && musicService.isPlayerPrepared();
-    }
-
     public static int getSongDurationMillis() {
-        if (isPlayerPrepared()) {
+        if (musicService != null) {
             return musicService.getSongDurationMillis();
         }
         return -1;
@@ -182,7 +160,7 @@ public class MusicPlayerRemote {
 
     public static void seekTo(int millis) {
         if (musicService != null) {
-            musicService.seekTo(millis);
+            musicService.seek(millis);
         }
     }
 

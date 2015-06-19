@@ -11,6 +11,14 @@
             android:summary="@string/pref_summary_fade_play_pause"
             android:widgetLayout="@layout/preference_dynamic_checkbox" />
 
+        <CheckBoxPreference
+            android:layout="@layout/preference_custom"
+            android:defaultValue="true"
+            android:key="gapless_playback"
+            android:title="@string/pref_title_gapless_playback"
+            android:summary="@string/pref_summary_gapless_playback"
+            android:widgetLayout="@layout/preference_dynamic_checkbox" />
+
         <Preference
             android:layout="@layout/preference_custom"
             android:key="equalizer"

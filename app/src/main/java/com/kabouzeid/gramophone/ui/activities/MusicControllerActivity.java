@@ -329,7 +329,7 @@ public class MusicControllerActivity extends AbsFabActivity {
         setHeadersText();
         setUpAlbumArtAndApplyPalette();
         totalSongDuration.setText(MusicUtil.getReadableDurationString(song.duration));
-        currentSongProgress.setText(MusicUtil.getReadableDurationString(-1));
+        currentSongProgress.setText(MusicUtil.getReadableDurationString(0));
     }
 
     private void setHeadersText() {
@@ -467,6 +467,7 @@ public class MusicControllerActivity extends AbsFabActivity {
                     progressSlider.setMax(totalMillis);
                     progressSlider.setProgress(progressMillis);
                     currentSongProgress.setText(MusicUtil.getReadableDurationString(progressMillis));
+                    totalSongDuration.setText(MusicUtil.getReadableDurationString(totalMillis));
                 }
             };
         });

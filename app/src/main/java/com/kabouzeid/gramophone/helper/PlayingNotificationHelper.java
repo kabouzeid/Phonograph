@@ -83,6 +83,7 @@ public class PlayingNotificationHelper {
     }
 
     private void buildNotification(final Song song, final boolean isPlaying, final boolean isColored) {
+        if (song.id == -1) return;
         this.isColored = isColored;
         currentSong = song;
         this.isPlaying = isPlaying;

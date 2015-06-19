@@ -31,7 +31,7 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
                     command = MusicService.ACTION_TOGGLE_PLAYBACK;
                     break;
                 case KeyEvent.KEYCODE_MEDIA_PLAY:
-                    command = MusicService.ACTION_RESUME;
+                    command = MusicService.ACTION_PLAY;
                     break;
                 case KeyEvent.KEYCODE_MEDIA_NEXT:
                     command = MusicService.ACTION_SKIP;

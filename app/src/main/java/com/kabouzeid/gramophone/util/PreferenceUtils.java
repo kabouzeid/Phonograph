@@ -42,6 +42,7 @@ public final class PreferenceUtils {
     public static final String PLAYBACK_CONTROLLER_CARD_NOW_PLAYING = "playback_controller_card_now_playing";
     public static final String FADE_PLAY_PAUSE = "fade_play_pause";
     public static final String COLORED_NOTIFICATION = "colored_notification";
+    public static final String GAPLESS_PLAYBACK = "gapless_playback";
 
     private static PreferenceUtils sInstance;
 
@@ -193,8 +194,12 @@ public final class PreferenceUtils {
         return mPreferences.getBoolean(ALTERNATIVE_PROGRESS_SLIDER_NOW_PLAYING, false);
     }
 
-    public final boolean fadePlayPauseAndInterruptions() {
+    public final boolean fadePlayPause() {
         return mPreferences.getBoolean(FADE_PLAY_PAUSE, true);
+    }
+
+    public final boolean gaplessPlayback() {
+        return mPreferences.getBoolean(GAPLESS_PLAYBACK, true);
     }
 
 //    public final boolean downloadMissingArtistImages() {
