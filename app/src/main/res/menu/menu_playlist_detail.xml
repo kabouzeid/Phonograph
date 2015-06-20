@@ -10,6 +10,11 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/action_clear_playlist"
+        android:title="@string/action_clear_playlist"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_playing_queue"
         android:title="@string/action_playing_queue"
         app:showAsAction="never" />

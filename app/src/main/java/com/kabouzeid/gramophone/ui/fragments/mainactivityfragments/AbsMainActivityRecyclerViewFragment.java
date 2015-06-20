@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.AppBarLayout.OnOffsetChangedListener;
@@ -15,38 +16,49 @@ import android.widget.TextView;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.views.FastScroller;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.Optional;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivityFragment implements OnOffsetChangedListener {
 
     public static final String TAG = AbsMainActivityRecyclerViewFragment.class.getSimpleName();
-    private RecyclerView recyclerView;
+
+    @InjectView(R.id.recycler_view)
+    RecyclerView recyclerView;
+    @Optional
+    @InjectView(android.R.id.empty)
+    TextView empty;
+    @Optional
+    @InjectView(R.id.fast_scroller)
+    FastScroller fastScroller;
+
     private RecyclerView.Adapter mAdapter;
-    private FastScroller fastScroller;
-    private TextView empty;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main_activity_recycler_view, container, false);
+        View view = inflater.inflate(getLayoutRes(), container, false);
+        ButterKnife.inject(this, view);
+        return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        fastScroller = (FastScroller) view.findViewById(R.id.fast_scroller);
-        empty = (TextView) view.findViewById(android.R.id.empty);
-
-        fastScroller.setRecyclerView(recyclerView);
-        fastScroller.setPressedHandleColor(getMainActivity().getThemeColorPrimary());
-        fastScroller.setOnHandleTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return false;
-            }
-        });
+        if (fastScroller != null) {
+            fastScroller.setRecyclerView(recyclerView);
+            fastScroller.setPressedHandleColor(getMainActivity().getThemeColorPrimary());
+            fastScroller.setOnHandleTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return false;
+                }
+            });
+        }
 
         getMainActivity().addOnAppBarOffsetChangedListener(this);
 
@@ -75,9 +87,11 @@ public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivit
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) fastScroller.getLayoutParams();
-        params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, getMainActivity().getTotalAppBarScrollingRange() + i);
-        fastScroller.setLayoutParams(params);
+        if (fastScroller != null) {
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) fastScroller.getLayoutParams();
+            params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, getMainActivity().getTotalAppBarScrollingRange() + i);
+            fastScroller.setLayoutParams(params);
+        }
     }
 
     @Override
@@ -93,10 +107,12 @@ public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivit
     }
 
     private void showEmptyMessageIfEmpty() {
-        RecyclerView.Adapter adapter = getAdapter();
-        if (adapter != null) {
-            empty.setText(getEmptyMessage());
-            empty.setVisibility(adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+        if (empty != null) {
+            RecyclerView.Adapter adapter = getAdapter();
+            if (adapter != null) {
+                empty.setText(getEmptyMessage());
+                empty.setVisibility(adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+            }
         }
     }
 
@@ -105,7 +121,22 @@ public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivit
         return R.string.empty;
     }
 
+    @LayoutRes
+    protected int getLayoutRes() {
+        return R.layout.fragment_main_activity_recycler_view;
+    }
+
+    protected RecyclerView getRecyclerView() {
+        return recyclerView;
+    }
+
     protected abstract RecyclerView.LayoutManager createLayoutManager();
 
     protected abstract RecyclerView.Adapter createAdapter();
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.reset(this);
+    }
 }

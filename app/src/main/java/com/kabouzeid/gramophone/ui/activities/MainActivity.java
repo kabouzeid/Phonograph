@@ -59,7 +59,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import butterknife.ButterKnife;
@@ -419,8 +418,9 @@ public class MainActivity extends AbsFabActivity
             final int id = (int) parseIdFromIntent(intent, "playlistId", "playlist");
             if (id >= 0) {
                 int position = intent.getIntExtra("position", 0);
-                //noinspection unchecked
-                MusicPlayerRemote.openQueue((ArrayList<Song>) (List<? extends Song>) PlaylistSongLoader.getPlaylistSongList(this, id), position, true);
+                ArrayList<Song> songs = new ArrayList<>();
+                songs.addAll(PlaylistSongLoader.getPlaylistSongList(this, id));
+                MusicPlayerRemote.openQueue(songs, position, true);
                 handled = true;
             }
         } else if (MediaStore.Audio.Albums.CONTENT_TYPE.equals(mimeType)) {

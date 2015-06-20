@@ -43,6 +43,7 @@ public final class PreferenceUtils {
     public static final String FADE_PLAY_PAUSE = "fade_play_pause";
     public static final String COLORED_NOTIFICATION = "colored_notification";
     public static final String GAPLESS_PLAYBACK = "gapless_playback";
+    public static final String LAST_ADDED_CUTOFF_TIMESTAMP = "last_added_cutoff_timestamp";
 
     private static PreferenceUtils sInstance;
 
@@ -282,5 +283,16 @@ public final class PreferenceUtils {
 
     public final int getAlbumGridColumnsLand() {
         return mPreferences.getInt(ALBUM_GRID_COLUMNS_LAND, 3);
+    }
+
+    public long getLastAddedCutOff() {
+        return mPreferences.getLong(LAST_ADDED_CUTOFF_TIMESTAMP, 0L);
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    public void setLastAddedCutoffTimestamp(final long timestamp) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putLong(LAST_ADDED_CUTOFF_TIMESTAMP, timestamp);
+        editor.commit();
     }
 }

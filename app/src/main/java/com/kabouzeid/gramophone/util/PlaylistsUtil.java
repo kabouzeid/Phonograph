@@ -24,9 +24,6 @@ import java.util.List;
  */
 public class PlaylistsUtil {
 
-//    public static final String MUSIC_ONLY_SELECTION = MediaStore.Audio.AudioColumns.IS_MUSIC + "=1"
-//            + " AND " + MediaStore.Audio.AudioColumns.TITLE + " != ''"; //$NON-NLS-2$
-
     public static int createPlaylist(final Context context, final String name) {
         if (name != null && name.length() > 0) {
             final ContentResolver resolver = context.getContentResolver();
@@ -61,13 +58,13 @@ public class PlaylistsUtil {
 //        context.getContentResolver().delete(uri, null, null);
 //    }
 
-    public static void deletePlaylists(final Context context, final long playlistId) {
-        final Uri uri = MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI;
-        String where = MediaStore.Audio.Playlists._ID + "=?";
-        String[] whereVal = {String.valueOf(playlistId)};
-        context.getContentResolver().delete(uri, where, whereVal);
-        App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
-    }
+//    public static void deletePlaylists(final Context context, final long playlistId) {
+//        final Uri uri = MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI;
+//        String where = MediaStore.Audio.Playlists._ID + "=?";
+//        String[] whereVal = {String.valueOf(playlistId)};
+//        context.getContentResolver().delete(uri, where, whereVal);
+//        App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
+//    }
 
     public static void deletePlaylists(final Context context, final ArrayList<Playlist> playlists) {
         final Uri uri = MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI;
@@ -136,19 +133,20 @@ public class PlaylistsUtil {
         return contentValues;
     }
 
-    public static void removeFromPlaylist(final Context context, final PlaylistSong song) {
-        Uri uri = MediaStore.Audio.Playlists.Members.getContentUri(
-                "external", song.playlistId);
-        String selection = MediaStore.Audio.Playlists.Members._ID + " =?";
-        String[] selectionArgs = new String[]{String.valueOf(song.idInPlayList)};
-
-        context.getContentResolver().delete(uri, selection, selectionArgs);
-        App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
-    }
+//    public static void removeFromPlaylist(final Context context, final PlaylistSong song) {
+//        Uri uri = MediaStore.Audio.Playlists.Members.getContentUri(
+//                "external", song.playlistId);
+//        String selection = MediaStore.Audio.Playlists.Members._ID + " =?";
+//        String[] selectionArgs = new String[]{String.valueOf(song.idInPlayList)};
+//
+//        context.getContentResolver().delete(uri, selection, selectionArgs);
+//        App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
+//    }
 
     public static void removeFromPlaylist(final Context context, final List<PlaylistSong> songs) {
+        final int playlistId = songs.get(0).playlistId;
         Uri uri = MediaStore.Audio.Playlists.Members.getContentUri(
-                "external", songs.get(0).playlistId);
+                "external", playlistId);
         String selectionArgs[] = new String[songs.size()];
         for (int i = 0; i < selectionArgs.length; i++) {
             selectionArgs[i] = String.valueOf(songs.get(i).idInPlayList);

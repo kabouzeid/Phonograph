@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.helper;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +13,11 @@ import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
 import com.kabouzeid.gramophone.dialogs.RenamePlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
+import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.Playlist;
+import com.kabouzeid.gramophone.model.SmartPlaylist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
@@ -22,6 +25,7 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * @author Karim Abou Zeid (kabouzeid), Aidan Follestad (afollestad)
@@ -78,6 +82,12 @@ public class MenuItemClickHelper {
 
     public static boolean handlePlaylistMenuClick(AppCompatActivity activity, Playlist playlist, MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_play:
+                MusicPlayerRemote.openQueue(new ArrayList<>(getPlaylistSongs(activity, playlist)), 0, true);
+                return true;
+            case R.id.action_add_to_current_playing:
+                MusicPlayerRemote.enqueue(new ArrayList<>(getPlaylistSongs(activity, playlist)));
+                return true;
             case R.id.action_rename_playlist:
                 RenamePlaylistDialog.create(playlist.id).show(activity.getSupportFragmentManager(), "RENAME_PLAYLIST");
                 return true;
@@ -86,5 +96,11 @@ public class MenuItemClickHelper {
                 return true;
         }
         return false;
+    }
+
+    private static ArrayList<? extends Song> getPlaylistSongs(Activity activity, Playlist playlist) {
+        return playlist instanceof SmartPlaylist ?
+                ((SmartPlaylist) playlist).getSongs(activity) :
+                PlaylistSongLoader.getPlaylistSongList(activity, playlist.id);
     }
 }

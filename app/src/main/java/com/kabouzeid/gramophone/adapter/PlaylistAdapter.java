@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -21,7 +22,9 @@ import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
+import com.kabouzeid.gramophone.model.LastAddedPlaylist;
 import com.kabouzeid.gramophone.model.Playlist;
+import com.kabouzeid.gramophone.model.SmartPlaylist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -30,12 +33,19 @@ import com.squareup.otto.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewHolder, Playlist> {
 
     public static final String TAG = PlaylistAdapter.class.getSimpleName();
+
+    private int VIEW_TYPE_SMART = 0;
+    private int VIEW_TYPE_DEFAULT = 1;
+
     protected final AppCompatActivity activity;
     protected List<Playlist> dataSet;
 
@@ -46,12 +56,15 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
     }
 
     public void loadDataSet() {
-        dataSet = PlaylistLoader.getAllPlaylists(activity);
+        dataSet = new ArrayList<>();
+        dataSet.add(new LastAddedPlaylist(activity));
+        dataSet.addAll(PlaylistLoader.getAllPlaylists(activity));
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(activity).inflate(R.layout.item_list_playlist, parent, false);
+        int layoutRes = viewType == VIEW_TYPE_DEFAULT ? R.layout.item_list_playlist : R.layout.item_list_smart_playlist;
+        View view = LayoutInflater.from(activity).inflate(layoutRes, parent, false);
         return new ViewHolder(view);
     }
 
@@ -60,6 +73,19 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         final Playlist playlist = dataSet.get(position);
         holder.playlistName.setText(playlist.name);
         holder.view.setActivated(isChecked(playlist));
+        holder.icon.setImageResource(getIconRes(playlist));
+    }
+
+    private int getIconRes(Playlist playlist) {
+        if (playlist instanceof SmartPlaylist) {
+            return ((SmartPlaylist) playlist).iconRes;
+        }
+        return R.drawable.ic_queue_music_white_24dp;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return dataSet.get(position) instanceof SmartPlaylist ? VIEW_TYPE_SMART : VIEW_TYPE_DEFAULT;
     }
 
     @Override
@@ -90,28 +116,35 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
     private ArrayList<Song> getSongList(List<Playlist> playlists) {
         final ArrayList<Song> songs = new ArrayList<>();
         for (Playlist playlist : playlists) {
-            songs.addAll(PlaylistSongLoader.getPlaylistSongList(activity, playlist.id));
+            if (playlist instanceof SmartPlaylist) {
+                songs.addAll(((SmartPlaylist) playlist).getSongs(activity));
+            } else {
+                songs.addAll(PlaylistSongLoader.getPlaylistSongList(activity, playlist.id));
+            }
         }
         return songs;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        public final TextView playlistName;
-        private final View menu;
-        private final View view;
+        @InjectView(R.id.playlist_name)
+        TextView playlistName;
+        @InjectView(R.id.menu)
+        View menu;
+        @InjectView(R.id.playlist_icon)
+        ImageView icon;
+        View view;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            ButterKnife.inject(this, itemView);
             view = itemView;
-            playlistName = (TextView) itemView.findViewById(R.id.playlist_name);
-            menu = itemView.findViewById(R.id.menu);
             view.setOnClickListener(this);
             view.setOnLongClickListener(this);
             menu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     PopupMenu popupMenu = new PopupMenu(activity, view);
-                    popupMenu.inflate(R.menu.menu_item_playlist);
+                    popupMenu.inflate(getItemViewType() == VIEW_TYPE_SMART ? R.menu.menu_item_smart_playlist : R.menu.menu_item_playlist);
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
@@ -132,7 +165,8 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
                 Pair[] sharedViews = null;
                 if (activity instanceof AbsFabActivity)
                     sharedViews = ((AbsFabActivity) activity).getSharedViewsWithFab(null);
-                NavigationUtil.goToPlaylist(activity, dataSet.get(getAdapterPosition()).id, sharedViews);
+                Playlist playlist = dataSet.get(getAdapterPosition());
+                NavigationUtil.goToPlaylist(activity, playlist, sharedViews);
             }
         }
 

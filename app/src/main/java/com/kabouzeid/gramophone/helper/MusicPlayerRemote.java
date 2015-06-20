@@ -14,7 +14,6 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -207,7 +206,7 @@ public class MusicPlayerRemote {
         return false;
     }
 
-    public static boolean enqueue(List<Song> songs) {
+    public static boolean enqueue(ArrayList<Song> songs) {
         if (musicService != null) {
             musicService.addSongs(songs);
             final String toast = songs.size() == 1 ? musicService.getResources().getString(R.string.added_title_to_playing_queue) : musicService.getResources().getString(R.string.added_x_titles_to_playing_queue, songs.size());

@@ -3,28 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:id="@+id/smart_playlist_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
+
     <android.support.v7.widget.RecyclerView
-        android:paddingBottom="@dimen/bottom_offset_fab_activity"
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
+        android:paddingBottom="@dimen/bottom_offset_fab_activity"
         android:scrollbars="none" />
 
     <TextView
         android:id="@android:id/empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/empty_text_size"
-        android:textColor="?android:textColorSecondary"
+        android:layout_gravity="center"
         android:fontFamily="sans-serif-light"
         android:text="@string/empty"
-        android:layout_gravity="center" />
+        android:textColor="?android:textColorSecondary"
+        android:textSize="@dimen/empty_text_size" />
 
     <com.kabouzeid.gramophone.views.FastScroller
         android:id="@+id/fast_scroller"
-        android:layout_gravity="end"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_gravity="end" />
 
 </FrameLayout>

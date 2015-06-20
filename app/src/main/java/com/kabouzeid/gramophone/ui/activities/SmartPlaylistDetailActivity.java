@@ -7,75 +7,52 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.afollestad.materialcab.MaterialCab;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.songadapter.PlaylistSongAdapter;
+import com.kabouzeid.gramophone.adapter.songadapter.smartplaylist.LastAddedSongAdapter;
+import com.kabouzeid.gramophone.adapter.songadapter.smartplaylist.SmartPlaylistSongAdapter;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
-import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
-import com.kabouzeid.gramophone.misc.DragSortRecycler;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
-import com.kabouzeid.gramophone.model.Playlist;
-import com.kabouzeid.gramophone.model.PlaylistSong;
+import com.kabouzeid.gramophone.model.SmartPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.util.PlaylistsUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.squareup.otto.Subscribe;
 
-import java.util.ArrayList;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
-public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder {
+public class SmartPlaylistDetailActivity extends AbsFabActivity implements CabHolder {
 
-    public static final String TAG = PlaylistDetailActivity.class.getSimpleName();
+    public static final String TAG = SmartPlaylistDetailActivity.class.getSimpleName();
 
-    public static String EXTRA_PLAYLIST = "extra_playlist";
+    @InjectView(R.id.recycler_view)
+    RecyclerView recyclerView;
+    @InjectView(R.id.toolbar)
+    Toolbar toolbar;
+    @InjectView(android.R.id.empty)
+    TextView empty;
 
-    private Playlist playlist;
+    private SmartPlaylist playlist;
     private MaterialCab cab;
-    private PlaylistSongAdapter adapter;
-    private ArrayList<PlaylistSong> songs;
+    private SmartPlaylistSongAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_detail);
+        ButterKnife.inject(this);
 
         getIntentExtras();
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        songs = PlaylistSongLoader.getPlaylistSongList(this, playlist.id);
-        adapter = new PlaylistSongAdapter(this, songs, this);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
-        recyclerView.setAdapter(adapter);
+        setUpRecyclerView();
 
-        findViewById(android.R.id.empty).setVisibility(
-                songs.size() == 0 ? View.VISIBLE : View.GONE
-        );
+        checkIsEmpty();
 
-        DragSortRecycler dragSortRecycler = new DragSortRecycler();
-        dragSortRecycler.setViewHandleId(R.id.album_art);
-
-        dragSortRecycler.setOnItemMovedListener(new DragSortRecycler.OnItemMovedListener() {
-            @Override
-            public void onItemMoved(int from, int to) {
-                PlaylistSong song = songs.remove(from);
-                songs.add(to, song);
-                adapter.notifyDataSetChanged();
-                PlaylistsUtil.moveItem(PlaylistDetailActivity.this, playlist.id, from, to);
-            }
-        });
-
-        recyclerView.addItemDecoration(dragSortRecycler);
-        recyclerView.addOnItemTouchListener(dragSortRecycler);
-        recyclerView.setOnScrollListener(dragSortRecycler.getScrollListener());
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimary());
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(playlist.name);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setUpToolBar();
 
         if (PreferenceUtils.getInstance(this).coloredNavigationBarPlaylist())
             setNavigationBarThemeColor();
@@ -84,10 +61,25 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
         App.bus.register(this);
     }
 
+    private void setUpRecyclerView() {
+        adapter = new LastAddedSongAdapter(this, this);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void setUpToolBar() {
+        toolbar.setBackgroundColor(getThemeColorPrimary());
+        setSupportActionBar(toolbar);
+        //noinspection ConstantConditions
+        getSupportActionBar().setTitle(playlist.name);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
     private void getIntentExtras() {
         Bundle intentExtras = getIntent().getExtras();
         try {
-            playlist = (Playlist) intentExtras.getSerializable(EXTRA_PLAYLIST);
+            playlist = (SmartPlaylist) intentExtras.getSerializable(PlaylistDetailActivity.EXTRA_PLAYLIST);
         } catch (ClassCastException ignored) {
         }
         if (playlist == null) {
@@ -150,11 +142,8 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
         switch (event.getAction()) {
             case DataBaseChangedEvent.PLAYLISTS_CHANGED:
             case DataBaseChangedEvent.DATABASE_CHANGED:
-                songs = PlaylistSongLoader.getPlaylistSongList(this, playlist.id);
-                adapter.updateDataSet(songs);
-                findViewById(android.R.id.empty).setVisibility(
-                        songs.size() == 0 ? View.VISIBLE : View.GONE
-                );
+                adapter.updateDataSet();
+                checkIsEmpty();
                 break;
         }
     }
@@ -163,5 +152,11 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
     public void onBackPressed() {
         if (cab != null && cab.isActive()) cab.finish();
         else super.onBackPressed();
+    }
+
+    private void checkIsEmpty() {
+        empty.setVisibility(
+                adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE
+        );
     }
 }

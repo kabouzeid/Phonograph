@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="64dp"
-    android:background="?card_color"
-    android:elevation="2dp"
     android:foreground="?rect_selector"
     tools:ignore="UnusedAttribute">
 
@@ -48,14 +46,5 @@
             tools:ignore="ContentDescription" />
 
     </LinearLayout>
-
-    <View
-        android:id="@+id/short_separator"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="bottom"
-        android:layout_marginLeft="72dp"
-        android:layout_marginStart="72dp"
-        android:background="?separator_color" />
 
 </FrameLayout>

@@ -15,10 +15,13 @@ import com.kabouzeid.gramophone.dialogs.PlayingQueueDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.misc.AppKeys;
+import com.kabouzeid.gramophone.model.Playlist;
+import com.kabouzeid.gramophone.model.SmartPlaylist;
 import com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity;
 import com.kabouzeid.gramophone.ui.activities.ArtistDetailActivity;
 import com.kabouzeid.gramophone.ui.activities.MusicControllerActivity;
 import com.kabouzeid.gramophone.ui.activities.PlaylistDetailActivity;
+import com.kabouzeid.gramophone.ui.activities.SmartPlaylistDetailActivity;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -63,12 +66,19 @@ public class NavigationUtil {
         }
     }
 
-    public static void goToPlaylist(final Activity activity, final int playlistId, final Pair[] sharedViews) {
+    public static void goToPlaylist(final Activity activity, final Playlist playlist, final Pair[] sharedViews) {
         if ((activity instanceof KabViewsDisableAble && ((KabViewsDisableAble) activity).areViewsEnabled()) || !(activity instanceof KabViewsDisableAble)) {
             if (activity instanceof KabViewsDisableAble)
                 ((KabViewsDisableAble) activity).disableViews();
-            final Intent intent = new Intent(activity, PlaylistDetailActivity.class);
-            intent.putExtra(AppKeys.E_PLAYLIST, playlistId);
+
+            final Intent intent;
+            if (playlist instanceof SmartPlaylist) {
+                intent = new Intent(activity, SmartPlaylistDetailActivity.class);
+            } else {
+                intent = new Intent(activity, PlaylistDetailActivity.class);
+            }
+            intent.putExtra(PlaylistDetailActivity.EXTRA_PLAYLIST, playlist);
+
             if (sharedViews != null) {
                 @SuppressWarnings("unchecked") ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
                         sharedViews

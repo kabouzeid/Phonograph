@@ -29,6 +29,10 @@ public abstract class AbsMultiSelectAdapter<VH extends RecyclerView.ViewHolder, 
         this.context = context;
     }
 
+    protected void setMultiSelectMenuRes(int menuRes) {
+        this.menuRes = menuRes;
+    }
+
     protected void toggleChecked(final int position) {
         if (cabHolder != null) {
             openCabIfNecessary();
@@ -52,7 +56,7 @@ public abstract class AbsMultiSelectAdapter<VH extends RecyclerView.ViewHolder, 
         }
     }
 
-    private void uncheckAll() {
+    private void unCheckAll() {
         checked.clear();
         notifyDataSetChanged();
     }
@@ -74,13 +78,13 @@ public abstract class AbsMultiSelectAdapter<VH extends RecyclerView.ViewHolder, 
     public boolean onCabItemClicked(MenuItem menuItem) {
         onMultipleItemAction(menuItem, new ArrayList<>(checked));
         cab.finish();
-        uncheckAll();
+        unCheckAll();
         return true;
     }
 
     @Override
     public boolean onCabFinished(MaterialCab materialCab) {
-        uncheckAll();
+        unCheckAll();
         return true;
     }
 
