@@ -221,23 +221,28 @@ public class PlayingNotificationHelper {
     }
 
     private void setAlbumArt(Bitmap albumArt) {
-        int defaultColor = isColored ?
-                service.getResources().getColor(R.color.default_colored_notification_color) :
-                service.getResources().getColor(R.color.default_notification_color);
-        int newColor = defaultColor;
         if (albumArt != null) {
             notificationLayout.setImageViewBitmap(R.id.icon, albumArt);
             notificationLayoutExpanded.setImageViewBitmap(R.id.icon, albumArt);
-            if (isColored)
-                newColor = Palette.from(albumArt).generate().getVibrantColor(defaultColor);
+            if (isColored) {
+                int defaultColor = service.getResources().getColor(R.color.default_colored_notification_color);
+                int newColor = Palette.from(albumArt).generate().getVibrantColor(defaultColor);
+                setBackgroundColor(newColor);
+            }
         } else {
             notificationLayout.setImageViewResource(R.id.icon, R.drawable.default_album_art);
             notificationLayoutExpanded.setImageViewResource(R.id.icon, R.drawable.default_album_art);
+            if (isColored) {
+                int defaultColor = service.getResources().getColor(R.color.default_colored_notification_color);
+                setBackgroundColor(defaultColor);
+            }
         }
 
-        notificationLayout.setInt(R.id.root, "setBackgroundColor", newColor);
-        notificationLayoutExpanded.setInt(R.id.root, "setBackgroundColor", newColor);
         notificationManager.notify(NOTIFICATION_ID, notification);
+    }
+
+    private void setBackgroundColor(int color) {
+        notificationLayoutExpanded.setInt(R.id.root, "setBackgroundColor", color);
     }
 
     public void killNotification() {

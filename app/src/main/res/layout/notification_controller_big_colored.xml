@@ -20,7 +20,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="128dp"
-    android:background="@color/default_notification_color">
+    android:background="@color/default_colored_notification_color">
 
     <ImageView
         android:id="@+id/icon"
