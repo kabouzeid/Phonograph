@@ -67,6 +67,7 @@
     <string name="inserted_x_songs_into_playlist">Inserted %1$d songs into this playlist.</string>
     <string name="created_playlist_x">Created playlist %1$s</string>
     <string name="deleted_playlist_x">Deleted playlist %1$s</string>
+    <string name="deleted_x_songs">Deleted %1$d songs</string>
     <string name="couldnot_create_playlist_x">Could not create playlist %1$s</string>
     <string name="delete_playlist_x"><![CDATA[Do you want to delete the playlist <b>%1$s</b>?]]></string>
     <string name="clear_playlist_x"><![CDATA[Do you really want to clear the playlist <b>%1$s</b>? This cannot be undone!]]></string>

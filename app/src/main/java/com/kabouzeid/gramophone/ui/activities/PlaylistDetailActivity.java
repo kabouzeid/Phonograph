@@ -122,9 +122,6 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
             case R.id.action_playing_queue:
                 NavigationUtil.openPlayingQueueDialog(this);
                 return true;
-            case R.id.action_clear_playlist:
-                //TODO
-                return true;
         }
         return super.onOptionsItemSelected(item);
     }

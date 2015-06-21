@@ -113,9 +113,6 @@ public class SmartPlaylistDetailActivity extends AbsFabActivity implements CabHo
             case R.id.action_playing_queue:
                 NavigationUtil.openPlayingQueueDialog(this);
                 return true;
-            case R.id.action_clear_playlist:
-                playlist.clear(this);
-                return true;
         }
         return super.onOptionsItemSelected(item);
     }
