@@ -22,10 +22,12 @@ import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
-import com.kabouzeid.gramophone.model.LastAddedPlaylist;
 import com.kabouzeid.gramophone.model.Playlist;
-import com.kabouzeid.gramophone.model.SmartPlaylist;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.model.smartplaylist.LastAddedPlaylist;
+import com.kabouzeid.gramophone.model.smartplaylist.MyTopTracksPlaylist;
+import com.kabouzeid.gramophone.model.smartplaylist.RecentlyPlayedPlaylist;
+import com.kabouzeid.gramophone.model.smartplaylist.SmartPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.squareup.otto.Subscribe;
@@ -58,6 +60,8 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
     public void loadDataSet() {
         dataSet = new ArrayList<>();
         dataSet.add(new LastAddedPlaylist(activity));
+        dataSet.add(new RecentlyPlayedPlaylist(activity));
+        dataSet.add(new MyTopTracksPlaylist(activity));
         dataSet.addAll(PlaylistLoader.getAllPlaylists(activity));
     }
 

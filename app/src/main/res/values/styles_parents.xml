@@ -25,7 +25,7 @@
         <item name="check_mark_color">@color/grey_900</item>
 
         <item name="default_bar_color">@color/materialmusic_dark_default_bar_color</item>
-        <item name="card_color">@color/materialmusic_dark_default_bar_color</item>
+        <item name="card_color">@color/grey_800</item>
 
         <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat</item>
 

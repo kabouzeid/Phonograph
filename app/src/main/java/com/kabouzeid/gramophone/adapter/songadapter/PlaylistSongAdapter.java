@@ -20,13 +20,11 @@ public class PlaylistSongAdapter extends AbsPlaylistSongAdapter<PlaylistSong> {
 
     @Override
     protected void onDeleteFromPlaylist(ArrayList<PlaylistSong> songs) {
-        super.onDeleteFromPlaylist(songs);
         RemoveFromPlaylistDialog.create(songs).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");
     }
 
     @Override
     protected void onDeleteFromPlaylist(PlaylistSong song) {
-        super.onDeleteFromPlaylist(song);
         RemoveFromPlaylistDialog.create(song).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");
     }
 }

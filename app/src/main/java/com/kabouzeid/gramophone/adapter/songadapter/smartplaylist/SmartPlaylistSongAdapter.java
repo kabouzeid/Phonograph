@@ -5,8 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.kabouzeid.gramophone.adapter.songadapter.AbsPlaylistSongAdapter;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
-import com.kabouzeid.gramophone.model.SmartPlaylist;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.model.smartplaylist.SmartPlaylist;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)

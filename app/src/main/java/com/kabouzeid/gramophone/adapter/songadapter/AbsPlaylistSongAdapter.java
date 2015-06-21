@@ -136,13 +136,9 @@ public abstract class AbsPlaylistSongAdapter<S extends Song> extends AbsMultiSel
         return MenuItemClickHelper.handleSongMenuClick(activity, dataSet.get(adapterPosition), item);
     }
 
-    protected void onDeleteFromPlaylist(S song) {
+    protected abstract void onDeleteFromPlaylist(S song);
 
-    }
-
-    protected void onDeleteFromPlaylist(ArrayList<S> songs) {
-
-    }
+    protected abstract void onDeleteFromPlaylist(ArrayList<S> songs);
 
     protected void onAddToPlaylist(ArrayList<S> songs) {
         //noinspection unchecked

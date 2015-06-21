@@ -12,11 +12,10 @@ import android.widget.TextView;
 import com.afollestad.materialcab.MaterialCab;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.songadapter.smartplaylist.LastAddedSongAdapter;
 import com.kabouzeid.gramophone.adapter.songadapter.smartplaylist.SmartPlaylistSongAdapter;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
-import com.kabouzeid.gramophone.model.SmartPlaylist;
+import com.kabouzeid.gramophone.model.smartplaylist.SmartPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
@@ -62,7 +61,7 @@ public class SmartPlaylistDetailActivity extends AbsFabActivity implements CabHo
     }
 
     private void setUpRecyclerView() {
-        adapter = new LastAddedSongAdapter(this, this);
+        adapter = playlist.createAdapter(this, this);
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(adapter);
@@ -115,7 +114,7 @@ public class SmartPlaylistDetailActivity extends AbsFabActivity implements CabHo
                 NavigationUtil.openPlayingQueueDialog(this);
                 return true;
             case R.id.action_clear_playlist:
-                //TODO
+                playlist.clear(this);
                 return true;
         }
         return super.onOptionsItemSelected(item);

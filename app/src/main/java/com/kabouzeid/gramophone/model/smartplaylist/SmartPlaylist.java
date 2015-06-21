@@ -1,9 +1,15 @@
-package com.kabouzeid.gramophone.model;
+package com.kabouzeid.gramophone.model.smartplaylist;
 
 import android.content.Context;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.adapter.songadapter.smartplaylist.SmartPlaylistSongAdapter;
+import com.kabouzeid.gramophone.interfaces.CabHolder;
+import com.kabouzeid.gramophone.model.Playlist;
+import com.kabouzeid.gramophone.model.Song;
 
 import java.util.ArrayList;
 
@@ -27,6 +33,10 @@ public abstract class SmartPlaylist extends Playlist {
     }
 
     public abstract ArrayList<Song> getSongs(Context context);
+
+    public abstract SmartPlaylistSongAdapter createAdapter(AppCompatActivity activity, @Nullable CabHolder cabHolder);
+
+    public abstract void clear(Context context);
 
     @Override
     public int hashCode() {
