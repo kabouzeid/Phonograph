@@ -16,12 +16,10 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.Playlist;
-import com.kabouzeid.gramophone.model.smartplaylist.SmartPlaylist;
 import com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity;
 import com.kabouzeid.gramophone.ui.activities.ArtistDetailActivity;
 import com.kabouzeid.gramophone.ui.activities.MusicControllerActivity;
 import com.kabouzeid.gramophone.ui.activities.PlaylistDetailActivity;
-import com.kabouzeid.gramophone.ui.activities.SmartPlaylistDetailActivity;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -72,11 +70,7 @@ public class NavigationUtil {
                 ((KabViewsDisableAble) activity).disableViews();
 
             final Intent intent;
-            if (playlist instanceof SmartPlaylist) {
-                intent = new Intent(activity, SmartPlaylistDetailActivity.class);
-            } else {
-                intent = new Intent(activity, PlaylistDetailActivity.class);
-            }
+            intent = new Intent(activity, PlaylistDetailActivity.class);
             intent.putExtra(PlaylistDetailActivity.EXTRA_PLAYLIST, playlist);
 
             if (sharedViews != null) {

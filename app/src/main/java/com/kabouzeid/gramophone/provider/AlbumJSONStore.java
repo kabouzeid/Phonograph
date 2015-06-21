@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class AlbumJSONStore extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "albumJSONLastFM.db";
+    public static final String DATABASE_NAME = "albums_last_fm.db";
     private static final int VERSION = 1;
     private static AlbumJSONStore sInstance = null;
 
@@ -23,12 +23,8 @@ public class AlbumJSONStore extends SQLiteOpenHelper {
         return sInstance;
     }
 
-    public static void deleteDatabase(final Context context) {
-        context.deleteDatabase(DATABASE_NAME);
-    }
-
-    public void addAlbumJSON(final String albumAndArtistName, final String JSON) {
-        if (albumAndArtistName == null || JSON == null) {
+    public void addAlbumJSON(final String albumAndArtistName, final String json) {
+        if (albumAndArtistName == null || json == null) {
             return;
         }
 
@@ -37,34 +33,34 @@ public class AlbumJSONStore extends SQLiteOpenHelper {
 
         database.beginTransaction();
 
-        values.put(AlbumJSONColumns.ALBUMANDARTIST_NAME, albumAndArtistName.trim().toLowerCase());
-        values.put(AlbumJSONColumns.JSON, JSON);
+        values.put(AlbumJSONColumns.ALBUM_PLUS_ARTIST_NAME, albumAndArtistName.trim().toLowerCase());
+        values.put(AlbumJSONColumns.JSON_DATA, json);
 
         database.insert(AlbumJSONColumns.NAME, null, values);
         database.setTransactionSuccessful();
         database.endTransaction();
     }
 
-    public String getAlbumJSON(final String albumAndArtistName) {
+    public String getJSONData(final String albumAndArtistName) {
         if (albumAndArtistName == null) {
             return null;
         }
 
         final SQLiteDatabase database = getReadableDatabase();
         final String[] projection = new String[]{
-                AlbumJSONColumns.JSON,
-                AlbumJSONColumns.ALBUMANDARTIST_NAME
+                AlbumJSONColumns.JSON_DATA,
+                AlbumJSONColumns.ALBUM_PLUS_ARTIST_NAME
         };
-        final String selection = AlbumJSONColumns.ALBUMANDARTIST_NAME + "=?";
+        final String selection = AlbumJSONColumns.ALBUM_PLUS_ARTIST_NAME + "=?";
         final String[] having = new String[]{
                 albumAndArtistName.trim().toLowerCase()
         };
         Cursor cursor = database.query(AlbumJSONColumns.NAME, projection, selection, having, null,
                 null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
-            final String JSON = cursor.getString(cursor.getColumnIndexOrThrow(AlbumJSONColumns.JSON));
+            final String json = cursor.getString(cursor.getColumnIndexOrThrow(AlbumJSONColumns.JSON_DATA));
             cursor.close();
-            return JSON;
+            return json;
         }
         if (cursor != null) {
             cursor.close();
@@ -72,25 +68,25 @@ public class AlbumJSONStore extends SQLiteOpenHelper {
         return null;
     }
 
-    public void removeItem(final String albumAndArtistName) {
+    public void removeAlbumJSON(final String albumAndArtistName) {
         final SQLiteDatabase database = getReadableDatabase();
-        database.delete(AlbumJSONColumns.NAME, AlbumJSONColumns.ALBUMANDARTIST_NAME + " = ?", new String[]{
+        database.delete(AlbumJSONColumns.NAME, AlbumJSONColumns.ALBUM_PLUS_ARTIST_NAME + " = ?", new String[]{
                 albumAndArtistName.trim().toLowerCase()
         });
 
     }
 
     public interface AlbumJSONColumns {
-        String NAME = "AlbumJSON";
-        String ALBUMANDARTIST_NAME = "AlbumAndArtistName";
-        String JSON = "JSON";
+        String NAME = "album_json";
+        String ALBUM_PLUS_ARTIST_NAME = "album_plus_artist_name";
+        String JSON_DATA = "json_data";
     }
 
     @Override
     public void onCreate(final SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS " + AlbumJSONColumns.NAME +
-                        " (" + AlbumJSONColumns.ALBUMANDARTIST_NAME + " TEXT NOT NULL," +
-                        AlbumJSONColumns.JSON + " TEXT NOT NULL);"
+                        " (" + AlbumJSONColumns.ALBUM_PLUS_ARTIST_NAME + " TEXT NOT NULL," +
+                        AlbumJSONColumns.JSON_DATA + " TEXT NOT NULL);"
         );
     }
 

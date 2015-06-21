@@ -18,7 +18,7 @@ public class LastFMAlbumImageUrlLoader {
 
     public static void loadAlbumImageUrl(Context context, String queryAlbum, String queryArtist, final AlbumImageUrlLoaderCallback callback) {
         if (queryAlbum != null) {
-            String albumJSON = AlbumJSONStore.getInstance(context).getAlbumJSON(queryAlbum + queryArtist);
+            String albumJSON = AlbumJSONStore.getInstance(context).getJSONData(queryAlbum + queryArtist);
             if (albumJSON != null) {
                 try {
                     loadAlbumImageUrlFromJSON(new JSONObject(albumJSON), callback);

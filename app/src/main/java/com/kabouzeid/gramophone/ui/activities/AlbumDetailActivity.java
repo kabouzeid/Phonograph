@@ -438,6 +438,9 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     @Override
     public void onBackPressed() {
         if (cab != null && cab.isActive()) cab.finish();
-        else super.onBackPressed();
+        else {
+            recyclerView.stopScroll();
+            super.onBackPressed();
+        }
     }
 }

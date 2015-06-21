@@ -33,6 +33,8 @@ import com.kabouzeid.gramophone.helper.PlayingNotificationHelper;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.provider.RecentlyPlayedStore;
+import com.kabouzeid.gramophone.provider.SongPlayCountStore;
 import com.kabouzeid.gramophone.util.InternalStorageUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
@@ -110,6 +112,8 @@ public class MusicService extends Service {
     private MusicPlayerHandler playerHandler;
     private boolean isFadingDown = false;
     private HandlerThread handlerThread;
+    private RecentlyPlayedStore recentlyPlayedStore;
+    private SongPlayCountStore songPlayCountStore;
 
     private final BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
         @Override
@@ -144,6 +148,9 @@ public class MusicService extends Service {
         originalPlayingQueue = new ArrayList<>();
 
         playingNotificationHelper = new PlayingNotificationHelper(this);
+
+        recentlyPlayedStore = RecentlyPlayedStore.getInstance(this);
+        songPlayCountStore = SongPlayCountStore.getInstance(this);
 
         shuffleMode = PreferenceManager.getDefaultSharedPreferences(this).getInt(AppKeys.SP_SHUFFLE_MODE, 0);
         repeatMode = PreferenceManager.getDefaultSharedPreferences(this).getInt(AppKeys.SP_REPEAT_MODE, 0);
@@ -543,7 +550,9 @@ public class MusicService extends Service {
             this.originalPlayingQueue = restoredOriginalQueue;
             this.playingQueue = restoredQueue;
 
-            openTrackAndPrepareNextAt(restoredPosition);
+            setPosition(restoredPosition);
+            openCurrent();
+            prepareNext();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -808,6 +817,8 @@ public class MusicService extends Service {
             updateNotification();
             updateWidgets();
             updateRemoteControlClient();
+            recentlyPlayedStore.addSongId(currentSong.id);
+            songPlayCountStore.bumpSongCount(currentSong.id);
         }
     }
 

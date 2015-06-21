@@ -133,14 +133,11 @@
         </receiver>
 
         <activity
-            android:name=".ui.activities.PlaylistDetailActivity"
-            android:label="@string/title_activity_playlist_detail" />
-        <activity
             android:name=".ui.activities.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity
-            android:name=".ui.activities.SmartPlaylistDetailActivity"
-            android:label="@string/title_activity_smart_playlist_detail"></activity>
+            android:name=".ui.activities.PlaylistDetailActivity"
+            android:label="@string/title_activity_smart_playlist_detail" />
     </application>
 
 </manifest>

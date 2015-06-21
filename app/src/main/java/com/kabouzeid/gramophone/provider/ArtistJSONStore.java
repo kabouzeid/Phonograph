@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class ArtistJSONStore extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "artistJSONLastFM.db";
+    public static final String DATABASE_NAME = "artists_last_fm.db";
     private static final int VERSION = 1;
     private static ArtistJSONStore sInstance = null;
 
@@ -23,12 +23,8 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
         return sInstance;
     }
 
-    public static void deleteDatabase(final Context context) {
-        context.deleteDatabase(DATABASE_NAME);
-    }
-
-    public void addArtistJSON(final String artistName, final String JSON) {
-        if (artistName == null || JSON == null) {
+    public void addArtistJSON(final String artistName, final String json) {
+        if (artistName == null || json == null) {
             return;
         }
 
@@ -38,7 +34,7 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
         database.beginTransaction();
 
         values.put(ArtistJSONColumns.ARTIST_NAME, artistName.trim().toLowerCase());
-        values.put(ArtistJSONColumns.JSON, JSON);
+        values.put(ArtistJSONColumns.JSON_DATA, json);
 
         database.insert(ArtistJSONColumns.NAME, null, values);
         database.setTransactionSuccessful();
@@ -52,7 +48,7 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
 
         final SQLiteDatabase database = getReadableDatabase();
         final String[] projection = new String[]{
-                ArtistJSONColumns.JSON,
+                ArtistJSONColumns.JSON_DATA,
                 ArtistJSONColumns.ARTIST_NAME
         };
         final String selection = ArtistJSONColumns.ARTIST_NAME + "=?";
@@ -62,9 +58,9 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
         Cursor cursor = database.query(ArtistJSONColumns.NAME, projection, selection, having, null,
                 null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
-            final String JSON = cursor.getString(cursor.getColumnIndexOrThrow(ArtistJSONColumns.JSON));
+            final String json = cursor.getString(cursor.getColumnIndexOrThrow(ArtistJSONColumns.JSON_DATA));
             cursor.close();
-            return JSON;
+            return json;
         }
         if (cursor != null) {
             cursor.close();
@@ -72,7 +68,7 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
         return null;
     }
 
-    public void removeItem(final String artistName) {
+    public void removeArtistJSON(final String artistName) {
         final SQLiteDatabase database = getReadableDatabase();
         database.delete(ArtistJSONColumns.NAME, ArtistJSONColumns.ARTIST_NAME + "=?", new String[]{
                 artistName.trim().toLowerCase()
@@ -81,16 +77,16 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
     }
 
     public interface ArtistJSONColumns {
-        String NAME = "ArtistJSON";
-        String ARTIST_NAME = "ArtistName";
-        String JSON = "JSON";
+        String NAME = "artist_json";
+        String ARTIST_NAME = "artist_name";
+        String JSON_DATA = "json_data";
     }
 
     @Override
     public void onCreate(final SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS " + ArtistJSONColumns.NAME +
                         " (" + ArtistJSONColumns.ARTIST_NAME + " TEXT NOT NULL," +
-                        ArtistJSONColumns.JSON + " TEXT NOT NULL);"
+                        ArtistJSONColumns.JSON_DATA + " TEXT NOT NULL);"
         );
     }
 
@@ -100,6 +96,4 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + ArtistJSONColumns.NAME);
         onCreate(db);
     }
-
-
 }

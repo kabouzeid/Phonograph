@@ -69,7 +69,7 @@ import butterknife.InjectView;
 
 /**
  * A lot of hackery is done in this activity. Changing things may will brake the whole activity.
- * <p>
+ * <p/>
  * Should be kinda stable ONLY AS IT IS!!!
  */
 public class ArtistDetailActivity extends AbsFabActivity implements PaletteColorHolder, CabHolder {
@@ -423,6 +423,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         super.enableViews();
         songListView.setEnabled(true);
         toolbar.setEnabled(true);
+        albumRecyclerView.setEnabled(true);
     }
 
     @Override
@@ -430,6 +431,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         super.disableViews();
         songListView.setEnabled(false);
         toolbar.setEnabled(false);
+        albumRecyclerView.setEnabled(false);
     }
 
 
@@ -524,6 +526,9 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     @Override
     public void onBackPressed() {
         if (cab != null && cab.isActive()) cab.finish();
-        else super.onBackPressed();
+        else {
+            albumRecyclerView.stopScroll();
+            super.onBackPressed();
+        }
     }
 }

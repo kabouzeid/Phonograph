@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.AppBarLayout.OnOffsetChangedListener;
@@ -29,9 +30,11 @@ public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivit
 
     @InjectView(R.id.recycler_view)
     RecyclerView recyclerView;
+    @Nullable
     @Optional
     @InjectView(android.R.id.empty)
     TextView empty;
+    @Nullable
     @Optional
     @InjectView(R.id.fast_scroller)
     FastScroller fastScroller;

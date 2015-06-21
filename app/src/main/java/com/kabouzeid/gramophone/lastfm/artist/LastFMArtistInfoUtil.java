@@ -45,7 +45,7 @@ public class LastFMArtistInfoUtil {
         try {
             return rootJSON.getJSONObject("artist").getString("name");
         } catch (JSONException e) {
-            //Log.e(TAG, "Error while getting artist name from JSON parameter!", e);
+            //Log.e(TAG, "Error while getting artist name from JSON_DATA parameter!", e);
             return "";
         }
     }
@@ -60,7 +60,7 @@ public class LastFMArtistInfoUtil {
             }
             return images.getJSONObject(0).getString("#text");
         } catch (JSONException | NullPointerException e) {
-            //Log.e(TAG, "Error while getting artist thumbnail image from JSON parameter!", e);
+            //Log.e(TAG, "Error while getting artist thumbnail image from JSON_DATA parameter!", e);
             return "";
         }
     }
@@ -69,7 +69,7 @@ public class LastFMArtistInfoUtil {
         try {
             return rootJSON.getJSONObject("artist").getJSONArray("image");
         } catch (JSONException e) {
-            //Log.e(TAG, "Error while getting artist image array from JSON parameter!", e);
+            //Log.e(TAG, "Error while getting artist image array from JSON_DATA parameter!", e);
             return null;
         }
     }
@@ -79,7 +79,7 @@ public class LastFMArtistInfoUtil {
             JSONArray images = getArtistImageArrayFromJSON(rootJSON);
             return images.getJSONObject(images.length() - 1).getString("#text");
         } catch (JSONException | NullPointerException e) {
-            //Log.e(TAG, "Error while getting artist image from JSON parameter!", e);
+            //Log.e(TAG, "Error while getting artist image from JSON_DATA parameter!", e);
             return "";
         }
     }
@@ -88,13 +88,13 @@ public class LastFMArtistInfoUtil {
         try {
             return rootJSON.getJSONObject("artist").getJSONObject("bio").getString("content");
         } catch (JSONException e) {
-            //Log.e(TAG, "Error while getting artist biography from JSON parameter!", e);
+            //Log.e(TAG, "Error while getting artist biography from JSON_DATA parameter!", e);
             return "";
         }
     }
 
     public static void saveArtistJSONDataToCacheAndDisk(Context context, String artist, JSONObject jsonObject) {
-        ArtistJSONStore.getInstance(context).removeItem(artist);
+        ArtistJSONStore.getInstance(context).removeArtistJSON(artist);
         ArtistJSONStore.getInstance(context).addArtistJSON(artist, jsonObject.toString());
     }
 

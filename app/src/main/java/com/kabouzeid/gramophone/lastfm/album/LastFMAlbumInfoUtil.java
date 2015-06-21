@@ -45,7 +45,7 @@ public class LastFMAlbumInfoUtil {
         try {
             return rootJSON.getJSONObject("album").getString("name");
         } catch (JSONException e) {
-            //Log.e(TAG, "Error while getting album name from JSON parameter!", e);
+            //Log.e(TAG, "Error while getting album name from JSON_DATA parameter!", e);
             return "";
         }
     }
@@ -60,7 +60,7 @@ public class LastFMAlbumInfoUtil {
             }
             return images.getJSONObject(0).getString("#text");
         } catch (JSONException | NullPointerException e) {
-            //Log.e(TAG, "Error while getting album thumbnail image from JSON parameter!", e);
+            //Log.e(TAG, "Error while getting album thumbnail image from JSON_DATA parameter!", e);
             return "";
         }
     }
@@ -69,7 +69,7 @@ public class LastFMAlbumInfoUtil {
         try {
             return rootJSON.getJSONObject("album").getJSONArray("image");
         } catch (JSONException e) {
-            //Log.e(TAG, "Error while getting album image array from JSON parameter!", e);
+            //Log.e(TAG, "Error while getting album image array from JSON_DATA parameter!", e);
             return null;
         }
     }
@@ -79,7 +79,7 @@ public class LastFMAlbumInfoUtil {
             JSONArray images = getAlbumImageArrayFromJSON(rootJSON);
             return images.getJSONObject(images.length() - 1).getString("#text");
         } catch (JSONException | NullPointerException e) {
-            //Log.e(TAG, "Error while getting album image from JSON parameter!", e);
+            //Log.e(TAG, "Error while getting album image from JSON_DATA parameter!", e);
             return "";
         }
     }
