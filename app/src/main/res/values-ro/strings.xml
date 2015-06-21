@@ -45,7 +45,6 @@
     <string name="save_as_playlist">Salvează ca și playlist</string>
     <string name="credits_3">Iconița de</string>
     <string name="credits_1">"Phonograph este o aplicație complet gratuită bazată pe Material Design făcută de"</string>
-    <string name="title_activity_search">ActivitateaDeCăutare</string>
     <string name="no_results">Niciun rezultat</string>
     <string name="action_re_download_artist_image">Actualizează imagine artist</string>
     <string name="updating">Actualizare...</string>
@@ -77,7 +76,6 @@
     <string name="pref_header_general">General</string>
     <string name="pref_title_navigation_bar">Bară de navigare colorată</string>
     <string name="pref_title_set_default_start_page">Alege pagina de pornire predefinită</string>
-    <string name="title_activity_settings">Setări</string>
     <string name="pref_title_colored_navigation_bar_artists">Bară de navigare artist colorată</string>
     <string name="pref_title_colored_navigation_bar_albums">Bară de navigare album colorată</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Vederea de redare curentă</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">Que voulez-vous partager ?</string>
-    <string name="currently_listening_to_x_by_x">En train d\'écouter %1$ss de %2$s</string>
+    <string name="currently_listening_to_x_by_x">Vous écoutez %1$s de %2$s</string>
     <string name="the_audio_file">Le fichier audio</string>
     <string name="do_you_want_to_set_x_as_ringtone">Voulez-vous définir %1$ss comme sonnerie ?</string>
     <string name="x_has_been_set_as_ringtone">%1$s a été définie comme sonnerie.</string>
@@ -10,7 +10,7 @@
     <string name="action_settings">"Paramètres"</string>
     <string name="action_about">À propos</string>
     <string name="action_currently_playing">Lecture en cours</string>
-    <string name="action_playing_queue">Liste de lecture</string>
+    <string name="action_playing_queue">File de lecture</string>
     <string name="action_search">Rechercher</string>
     <string name="action_play_next">Prochaine lecture</string>
     <string name="action_add_to_playing_queue">Ajouter à la liste de lecture</string>
@@ -28,7 +28,6 @@
     <string name="biography_unavailable">Nous n\'avons pas trouvé la biographie correspondant à cet artiste.</string>
     <string name="biography">Biographie</string>
     <string name="audio_focus_denied">Aucun focus audio.</string>
-    <string name="title_activity_tag_editor">Éditeur d\'infos</string>
     <string name="tag_editor">Éditeur d\'infos</string>
     <string name="album">Album</string>
     <string name="artist">Artiste</string>
@@ -40,7 +39,6 @@
     <string name="album_or_artist_empty">Veuillez indiquer le nom et l\'artiste de l\'album.</string>
     <string name="writing_file_number">Fichier en cours d\'écriture</string>
     <string name="saving_changes">Sauvegarde en cours...</string>
-    <string name="title_activity_album_tag_editor">Éditeur d\'album</string>
     <string name="label_details">Détails</string>
     <string name="label_file_name">Nom du fichier</string>
     <string name="label_file_path">Chemin du fichier</string>
@@ -55,7 +53,6 @@
     <string name="save_as_playlist">Sauvegarder</string>
     <string name="credits_3">Icône par</string>
     <string name="credits_1">"Phonograph est un lecteur de musique entièrement gratuit suivant le concept du Material Design. Phonograph vous est apporté par"</string>
-    <string name="title_activity_search">Rechercher</string>
     <string name="no_results">Aucun résultat</string>
     <string name="action_re_download_artist_image">Actualiser l\'image de l\'artiste</string>
     <string name="updating">Actualisation...</string>
@@ -98,7 +95,6 @@
     <string name="pref_summary_colored_navigation_bar">Dans quelles vues la barre navigation doit être colorée.</string>
     <string name="pref_title_navigation_bar">Barre de navigation colorée</string>
     <string name="pref_title_set_default_start_page">Page d\'accueil par défaut</string>
-    <string name="title_activity_settings">Paramètres</string>
     <string name="pref_title_colored_navigation_bar_artists">Vue artiste</string>
     <string name="pref_title_colored_navigation_bar_albums">Vue album</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Vue lecture en cours</string>
@@ -107,6 +103,8 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Partout ailleurs</string>
     <string name="pref_title_colored_album_footers">Bas d\'album coloré</string>
     <string name="pref_title_colored_notification">Notification colorée</string>
+    <string name="pref_title_fade_play_pause">Transition lecture/pause</string>
+    <string name="pref_title_gapless_playback">Lecture sans coupure</string>
     <string name="pref_title_force_square_album_art">Vignette carrée</string>
     <string name="pref_title_opaque_toolbar_now_playing">Barre d\'outil opaque</string>
     <string name="pref_title_opaque_statusbar_now_playing">Barre d\'état opaque</string>
@@ -139,17 +137,19 @@
     <string name="song">Titre</string>
     <string name="pref_only_lollipop">"Uniquement disponible sur Lollipop."</string>
     <string name="pref_summary_colored_album_footers">"Les bas d\'album dans la grille sont colorés avec la palette de la vignette."</string>
+    <string name="pref_summary_colored_notification">"La notification est colorée en fonction de la vignette de l\'album."</string>
+    <string name="pref_summary_fade_play_pause">"Ajoute une transition fluide lors du passage lecture/pause."</string>
+    <string name="pref_summary_gapless_playback">"Élimine le silence entre deux musiques. Désactiver cette option peut résoudre les éventuels problèmes de lecture."</string>
     <string name="pref_summary_force_square_album_art">La vignette de l\'album dans l\'écran de lecture en cours est forcée à rester carrée.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">La barre d\'outil est opaque et ne recouvre pas la vignette de l\'album.</string>
     <string name="pref_summary_opaque_statusbar_now_playing">La barre d\'état est opaque et ne recouvre pas la vignette de l\'album.</string>
+    <string name="pref_summary_larger_title_box_now_playing">La boîte en dessous de la vignette de l\'album où se trouvent le titre de la musique et l\'artiste est plus large dans sa hauteur.</string>
+    <string name="pref_summary_alternative_progress_slider_now_playing">Utilise une barre de progression qui ne recouvre pas la vignette de l\'album à la place de la barre de progression normale.</string>
+    <string name="pref_summary_playback_controller_card_now_playing">Affiche une carte derrière les boutons de lecture (lecture/pause etc.)</string>
     <string name="failed_download_albumart">"Impossible de télécharger la vignette pour cet album."</string>
     <string name="search_hint">Rechercher votre bibliothèque...</string>
     <string name="rescanning_media">Réanalyse des médias…</string>
-    <string name="other">Autre</string>
-    <string-array name="update_album_cover_options">
-        <item>Télécharger depuis Last.fm</item>
-        <item>Choisir sur l\'appareil</item>
-        <item>Recherche internet</item>
-        <item>Supprimer la vignette</item>
-    </string-array>
+    <string name="favorites">Favoris</string>
+    <string name="recently_played">Écouté récemment</string>
+    <string name="my_top_tracks">Mes meilleurs titres</string>
 </resources>

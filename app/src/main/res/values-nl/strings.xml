@@ -28,7 +28,6 @@
     <string name="biography_unavailable">Het is niet gelukt een passende biografie te vinden voor deze artiest.</string>
     <string name="biography">Biografie</string>
     <string name="audio_focus_denied">Geen audio focus.</string>
-    <string name="title_activity_tag_editor">Label bewerker</string>
     <string name="tag_editor">Label bewerker</string>
     <string name="album">Album</string>
     <string name="artist">Artiest</string>
@@ -40,7 +39,6 @@
     <string name="album_or_artist_empty">Album titel of album artiest tekstveld is leeg.</string>
     <string name="writing_file_number">Bestand wegschrijven</string>
     <string name="saving_changes">Wijzigingen opslaan...</string>
-    <string name="title_activity_album_tag_editor">Album label bewerker</string>
     <string name="label_details">Details</string>
     <string name="label_file_name">Bestandsnaam</string>
     <string name="label_file_path">Bestandspad</string>
@@ -55,13 +53,11 @@
     <string name="save_as_playlist">Opslaan als afspeellijst</string>
     <string name="credits_3">Icoon door</string>
     <string name="credits_1">"Phonograph is een volledig gratis muziekspeler in material design door"</string>
-    <string name="title_activity_search">Zoeken</string>
     <string name="no_results">Geen resultaten</string>
     <string name="action_re_download_artist_image">Artiest afbeelding bijwerken</string>
     <string name="updating">Bijwerken...</string>
     <string name="added_title_to_playing_queue">"1 titel toegevoegd aan de afspeelwachtrij."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titels toegevoegd aan de afspeellijst.</string>
-    <string name="title_activity_playlist_detail">"Afspeellijst activiteit "</string>
     <string name="action_remove_from_playlist">Verwijder uit afspeellijst</string>
     <string name="new_playlist_action">Nieuwe afspeellijst...</string>
     <string name="action_grid_columns">Rasterkolommen</string>
@@ -99,7 +95,6 @@
     <string name="pref_summary_colored_navigation_bar">In welke weergaven moet de navigatiebalk gekleurd zijn.</string>
     <string name="pref_title_navigation_bar">Gekleurde navigatiebalk</string>
     <string name="pref_title_set_default_start_page">Startpagina</string>
-    <string name="title_activity_settings">Instellingen</string>
     <string name="pref_title_colored_navigation_bar_artists">Artiest weergave</string>
     <string name="pref_title_colored_navigation_bar_albums">Album weergave</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Afspeelweergave</string>
@@ -109,6 +104,7 @@
     <string name="pref_title_colored_album_footers">Gekleurde album footers</string>
     <string name="pref_title_colored_notification">Gekleurde notificatie</string>
     <string name="pref_title_fade_play_pause">Faden bij afspelen/pauze</string>
+    <string name="pref_title_gapless_playback">Afspelen zonder pauzes</string>
     <string name="pref_title_force_square_album_art">Forceer vierkante albumhoes</string>
     <string name="pref_title_opaque_toolbar_now_playing">Ondoorzichtige werkbalk</string>
     <string name="pref_title_opaque_statusbar_now_playing">Ondoorzichtige statusbalk</string>
@@ -143,20 +139,17 @@
     <string name="pref_summary_colored_album_footers">"Album footers in het raster worden gekleurd met het palet van de albumhoes."</string>
     <string name="pref_summary_colored_notification">"Notificatie wordt gekleurd met het palet van de albumhoes."</string>
     <string name="pref_summary_fade_play_pause">"Nummers in- en uitfaden bij afspelen/pauze."</string>
+    <string name="pref_summary_gapless_playback">"Verwijderd de pauze tussen twee nummers. Dit uitzetten kan afspeelfouten mogelijk verhelpen."</string>
     <string name="pref_summary_force_square_album_art">Albumhoes in het afspeelscherm is geforceerd vierkant.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">De werkbalk is ondoorzichtig en bedekt de albumhoes niet.</string>
     <string name="pref_summary_opaque_statusbar_now_playing">De statusbalk is ondoorzichtig en bedekt de albumhoes niet.</string>
-    <string name="pref_summary_larger_title_box_now_playing">De kader onder de albumhoes, waar de artiest en titel wordt getoond, is groter.</string>
+    <string name="pref_summary_larger_title_box_now_playing">De kader onder de albumhoes, waar de artiest en titel worden getoond, is groter.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Gebruikt een progressiebalk die de albumhoes niet bedekt, in plaats van de normale progressiecirkel.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Weergeeft een kaart onder de bedieningsknoppen (afspelen/pauze etc.)</string>
     <string name="failed_download_albumart">"Het lukt niet om de albumhoes te downloaden. "</string>
     <string name="search_hint">Zoek in je bibliotheek...</string>
     <string name="rescanning_media">Media herscannen...</string>
-    <string name="other">Anders</string>
-    <string-array name="update_album_cover_options">
-        <item>Downloaden van Last.fm</item>
-        <item>Kies vanuit lokale opslag</item>
-        <item>Zoeken op internet</item>
-        <item>Verwijder hoes</item>
-    </string-array>
+    <string name="favorites">Favorieten</string>
+    <string name="recently_played">Recent afgespeeld</string>
+    <string name="my_top_tracks">Mijn top nummers</string>
 </resources>

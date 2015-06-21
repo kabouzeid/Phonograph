@@ -28,7 +28,6 @@
     <string name="biography_unavailable">이 아티스트와 일치하는 정보를 찾을 수 없습니다.</string>
     <string name="biography">정보</string>
     <string name="audio_focus_denied">Audio focus 권한을 얻을 수 없습니다.</string>
-    <string name="title_activity_tag_editor">테그 편집기</string>
     <string name="tag_editor">테그 편집기</string>
     <string name="album">앨범</string>
     <string name="artist">아티스트</string>
@@ -40,7 +39,6 @@
     <string name="album_or_artist_empty">앨범 제목이나 앨범 아티스트 란이 비었습니다.</string>
     <string name="writing_file_number">파일에 정보 기록 중...</string>
     <string name="saving_changes">변경사항 저장 중...</string>
-    <string name="title_activity_album_tag_editor">앨범 테크 편집기</string>
     <string name="label_details">세부정보</string>
     <string name="label_file_name">파일 이름</string>
     <string name="label_file_path">파일 경로</string>
@@ -55,7 +53,6 @@
     <string name="save_as_playlist">재생목록으로 저장</string>
     <string name="credits_3">아이콘 제작</string>
     <string name="credits_1">"Phonograph는 완전히 무료인, 마터리얼 디자인이 적용된 음악 플레이어입니다. 제작자 :"</string>
-    <string name="title_activity_search">검색</string>
     <string name="no_results">결과 없음</string>
     <string name="action_re_download_artist_image">아티스트 이미지 변경</string>
     <string name="updating">변경 중...</string>
@@ -98,7 +95,6 @@
     <string name="pref_summary_colored_navigation_bar">어느 때에 하단바가 색깔이 있어야 하는지 선택합니다.</string>
     <string name="pref_title_navigation_bar">하단바 색깔</string>
     <string name="pref_title_set_default_start_page">시작 화면</string>
-    <string name="title_activity_settings">설정</string>
     <string name="pref_title_colored_navigation_bar_artists">아티스트 화면에서</string>
     <string name="pref_title_colored_navigation_bar_albums">앨범 화면에서</string>
     <string name="pref_title_colored_navigation_bar_current_playing">지금 재생 중 화면에서</string>
@@ -106,7 +102,9 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">테그 편집기 화면에서</string>
     <string name="pref_title_colored_navigation_bar_other_screens">기타 다른 모든 곳에서</string>
     <string name="pref_title_colored_album_footers">색칠된 앨범 카드</string>
+    <string name="pref_title_colored_notification">색칠된 알림 컨트롤</string>
     <string name="pref_title_fade_play_pause">재생/일시정지 시 페이드 효과</string>
+    <string name="pref_title_gapless_playback">끊김없이 재생</string>
     <string name="pref_title_force_square_album_art">강제로 정사각형 앨범아트 적용</string>
     <string name="pref_title_opaque_toolbar_now_playing">불투명한 지금 재생 중 툴바</string>
     <string name="pref_title_opaque_statusbar_now_playing">불투명한 상단바</string>
@@ -140,7 +138,9 @@
     <string name="song">노래</string>
     <string name="pref_only_lollipop">"안드로이드 롤리팝에서만 가능합니다."</string>
     <string name="pref_summary_colored_album_footers">"앨범 커버의 색상에 맞추어 앨범 카드가 색칠됩니다."</string>
+    <string name="pref_summary_colored_notification">"알림창에 뜨는 알림 컨트롤이 앨범 아트의 주요 색상으로 칠해집니다."</string>
     <string name="pref_summary_fade_play_pause">"재생/일시정시 시 페이드 인/아웃 효과를 줍니다."</string>
+    <string name="pref_summary_gapless_playback">"곡을 넘어갈 때 간격을 없애 끊김없이 재생합니다. 이 기능을 끄면 곡 전환 관련 문제가 해결될 수 있습니다."</string>
     <string name="pref_summary_force_square_album_art">지금 재생 중 화면의 앨범 아트 이미지가 강제로 정사각형으로 보이게 합니다.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">지금 재생 중 화면 상단의 툴바를 불투명하게 하고, 앨범 아트를 가리지 않게 합니다.</string>
     <string name="pref_summary_opaque_statusbar_now_playing">상단바를 불투명하게 하고 앨범 아트를 가리지 않게 합니다.</string>
@@ -150,11 +150,7 @@
     <string name="failed_download_albumart">"이 앨범의 앨범 커버를 다운로드할 수 없습니다."</string>
     <string name="search_hint">저장소 검색...</string>
     <string name="rescanning_media">미디어 재스캐닝 중...</string>
-    <string name="other">기타</string>
-    <string-array name="update_album_cover_options">
-        <item>Last.fm에서 다운로드</item>
-        <item>저장소에서 고르기</item>
-        <item>인터넷 검색</item>
-        <item>커버 없애기</item>
-    </string-array>
+    <string name="favorites">좋아하는 곡들</string>
+    <string name="recently_played">최근 재생됨</string>
+    <string name="my_top_tracks">내가 좋아하는 트렉</string>
 </resources>

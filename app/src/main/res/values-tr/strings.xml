@@ -28,7 +28,6 @@
     <string name="biography_unavailable">Bu sanatçı ile ilgili hiçbir biyografi yazısı bulamadık.</string>
     <string name="biography">Biyografi</string>
     <string name="audio_focus_denied">Ses odağı sağlanamıyor.</string>
-    <string name="title_activity_tag_editor">Etiket düzenleyicisi</string>
     <string name="tag_editor">Etiket düzenleyici</string>
     <string name="album">Albüm</string>
     <string name="artist">Sanatçı</string>
@@ -40,7 +39,6 @@
     <string name="album_or_artist_empty">Albüm başlığı veya albüm sanatçısı metin alanı boş.</string>
     <string name="writing_file_number">Dosya yazılıyor</string>
     <string name="saving_changes">Değişiklikler kaydediliyor...</string>
-    <string name="title_activity_album_tag_editor">Albüm etiket düzenleyicisi</string>
     <string name="label_details">Ayrıntılar</string>
     <string name="label_file_name">Dosya adı</string>
     <string name="label_file_path">Dosya yolu</string>
@@ -55,13 +53,11 @@
     <string name="save_as_playlist">Çalma listesi olarak kaydet</string>
     <string name="credits_3">Simge tasarımı</string>
     <string name="credits_1">"Phonograph tamamen ücretsiz material tasarıma sahip bir müzik çalardır. Yapan"</string>
-    <string name="title_activity_search">Ara</string>
     <string name="no_results">Sonuç bulunamadı</string>
     <string name="action_re_download_artist_image">Sanatçı resmini güncelle</string>
     <string name="updating">Güncelleniyor...</string>
     <string name="added_title_to_playing_queue">"Çalma kuyruğuna 1 başlık eklendi"</string>
     <string name="added_x_titles_to_playing_queue">Çalma kuyruğuna %1$d başlıkları eklendi.</string>
-    <string name="title_activity_playlist_detail">Çalma listesi etkinliği</string>
     <string name="action_remove_from_playlist">Çalma listesinden kaldır</string>
     <string name="new_playlist_action">Yeni çalma listesi</string>
     <string name="action_grid_columns">Izgara sütunları</string>
@@ -99,7 +95,6 @@
     <string name="pref_summary_colored_navigation_bar">Boyanması gereken gezinti çubuğunu ayarla</string>
     <string name="pref_title_navigation_bar">Renkli gezinti çubuğu</string>
     <string name="pref_title_set_default_start_page">Başlangıç sayfası</string>
-    <string name="title_activity_settings">Ayarlar</string>
     <string name="pref_title_colored_navigation_bar_artists">Sanatçı görünümü</string>
     <string name="pref_title_colored_navigation_bar_albums">Albüm görünümü</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Şuan çalınan görünümü</string>
@@ -151,11 +146,4 @@
     <string name="failed_download_albumart">"Bu albüm için kapak indirilemiyor."</string>
     <string name="search_hint">Kütüphaneniz taranıyor...</string>
     <string name="rescanning_media">Medyayı yeniden tara</string>
-    <string name="other">diğer</string>
-    <string-array name="update_album_cover_options">
-        <item>Last.FM den indir</item>
-        <item>Varolandan Seç</item>
-        <item>Web\'de ara</item>
-        <item>Albüm Kapağını Kaldır</item>
-    </string-array>
 </resources>

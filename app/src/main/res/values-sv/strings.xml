@@ -46,7 +46,6 @@
     <string name="save_as_playlist">Spara som spellista</string>
     <string name="credits_3">Ikon av</string>
     <string name="credits_1">"Phonograph är en helt gratis musikspelare med Material Design av"</string>
-    <string name="title_activity_search">Sök</string>
     <string name="no_results">Inga resultat</string>
     <string name="action_re_download_artist_image">Uppdatera artistbild</string>
     <string name="updating">Uppdaterar ...</string>
@@ -82,7 +81,6 @@ Vill du radera <b>%1$d</b> låtar?
     <string name="pref_summary_colored_navigation_bar">I vilken vy navigeringslisten skall vara färgad</string>
     <string name="pref_title_navigation_bar">Färgad navigeringslist</string>
     <string name="pref_title_set_default_start_page">Startsida</string>
-    <string name="title_activity_settings">Inställningar</string>
     <string name="pref_title_colored_navigation_bar_artists">Artistvy</string>
     <string name="pref_title_colored_navigation_bar_albums">Albumvy</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Spelarvy</string>
@@ -106,10 +104,4 @@ Vill du radera <b>%1$d</b> låtar?
     <string name="failed_download_albumart">"Kan inte ladda ner bild för detta album."</string>
     <string name="search_hint">Sök i ditt bibliotek ...</string>
     <string name="rescanning_media">Återskannar media ...</string>
-    <string-array name="update_album_cover_options">
-        <item>Ladda ner från Last.fm</item>
-        <item>Välj från lokal lagring</item>
-        <item>Weksök</item>
-        <item>Ta bort omslag</item>
-    </string-array>
 </resources>

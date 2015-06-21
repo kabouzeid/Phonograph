@@ -28,7 +28,6 @@
     <string name="biography_unavailable">Es konnte keine passende Biografie für diesen Interpreten gefunden werden.</string>
     <string name="biography">Biografie</string>
     <string name="audio_focus_denied">Kein Audiofokus.</string>
-    <string name="title_activity_tag_editor">Tags ändern</string>
     <string name="tag_editor">Tags ändern</string>
     <string name="album">Album</string>
     <string name="artist">Interpret</string>
@@ -40,7 +39,6 @@
     <string name="album_or_artist_empty">Das Feld \"Albumtitel\" oder \"Albuminterpret\" ist leer.</string>
     <string name="writing_file_number">Datei schreiben...</string>
     <string name="saving_changes">Speichere Änderungen...</string>
-    <string name="title_activity_album_tag_editor">Albumtags bearbeiten</string>
     <string name="label_details">Details</string>
     <string name="label_file_name">Dateiname</string>
     <string name="label_file_path">Dateipfad</string>
@@ -55,7 +53,6 @@
     <string name="save_as_playlist">Als Wiedergabeliste speichern</string>
     <string name="credits_3">Icon von</string>
     <string name="credits_1">"Phonograph ist ein kostenloser Musikplayer im Material Design. Gemacht von"</string>
-    <string name="title_activity_search">Suche</string>
     <string name="no_results">Keine Ergebnisse</string>
     <string name="action_re_download_artist_image">Interpretenbild aktualisieren</string>
     <string name="updating">Aktualisiere...</string>
@@ -98,7 +95,6 @@
     <string name="pref_summary_colored_navigation_bar">In welchen Ansichten die Navigationsleiste gefärbt werden soll</string>
     <string name="pref_title_navigation_bar">Farbige Navigationsleiste</string>
     <string name="pref_title_set_default_start_page">Startseite</string>
-    <string name="title_activity_settings">Einstellungen</string>
     <string name="pref_title_colored_navigation_bar_artists">Interpreten</string>
     <string name="pref_title_colored_navigation_bar_albums">Albumansicht</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Aktuelle Wiedergabe</string>
@@ -148,11 +144,4 @@
     <string name="failed_download_albumart">"Das Cover für dieses Album konnte nicht heruntergeladen werden."</string>
     <string name="search_hint">Durchsuche deine Mediathek</string>
     <string name="rescanning_media">Medien neu scannen...</string>
-    <string name="other">Andere</string>
-    <string-array name="update_album_cover_options">
-        <item>Von Last.fm herunterladen</item>
-        <item>Aus lokalem Speicher wählen</item>
-        <item>Websuche</item>
-        <item>Cover entfernen</item>
-    </string-array>
 </resources>

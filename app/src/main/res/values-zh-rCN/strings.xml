@@ -28,7 +28,6 @@
     <string name="biography_unavailable">抱歉，不能找到与该艺术家匹配的个人简介。</string>
     <string name="biography">歌手简介</string>
     <string name="audio_focus_denied">无法获取音频焦点。</string>
-    <string name="title_activity_tag_editor">标签编辑器</string>
     <string name="tag_editor">音频标签编辑器</string>
     <string name="album">专辑</string>
     <string name="artist">艺术家</string>
@@ -40,7 +39,6 @@
     <string name="album_or_artist_empty">专辑名称或专辑创作者栏为空</string>
     <string name="writing_file_number">正在写入文档</string>
     <string name="saving_changes">正在保存更改</string>
-    <string name="title_activity_album_tag_editor">专辑标签编辑器</string>
     <string name="label_details">详情</string>
     <string name="label_file_name">文件名</string>
     <string name="label_file_path">文件路径</string>
@@ -55,13 +53,11 @@
     <string name="save_as_playlist">保存为播放列表</string>
     <string name="credits_3">图标设计师：</string>
     <string name="credits_1">"Phonograph 是一个完全免费并采用质感设计的音乐播放器，开发者是"</string>
-    <string name="title_activity_search">搜索</string>
     <string name="no_results">没有找到结果</string>
     <string name="action_re_download_artist_image">更新歌手图片</string>
     <string name="updating">正在更新…</string>
     <string name="added_title_to_playing_queue">"该曲目已加入播放队列"</string>
     <string name="added_x_titles_to_playing_queue">%1$d首歌曲已加入到播放队列。</string>
-    <string name="title_activity_playlist_detail">播放列表操作</string>
     <string name="action_remove_from_playlist">从播放列表移除</string>
     <string name="new_playlist_action">新建播放列表</string>
     <string name="action_grid_columns">专辑列数</string>
@@ -105,7 +101,6 @@
     <string name="pref_summary_colored_navigation_bar">设置在哪些界面应用变色导航栏</string>
     <string name="pref_title_navigation_bar">变色导航栏</string>
     <string name="pref_title_set_default_start_page">设置默认起始页</string>
-    <string name="title_activity_settings">设置</string>
     <string name="pref_title_colored_navigation_bar_artists">在艺术家界面使用变色导航栏</string>
     <string name="pref_title_colored_navigation_bar_albums">在专辑详情界面使用变色导航栏</string>
     <string name="pref_title_colored_navigation_bar_current_playing">正在播放视图</string>
@@ -115,6 +110,7 @@
     <string name="pref_title_colored_album_footers">使用变色的专辑标签</string>
     <string name="pref_title_colored_notification">使用变色的通知栏</string>
     <string name="pref_title_fade_play_pause">淡入/出音量（播放/暂停）</string>
+    <string name="pref_title_gapless_playback">连续播放</string>
     <string name="pref_title_force_square_album_art">强制使用方形专辑封面</string>
     <string name="pref_title_opaque_toolbar_now_playing">正在播放界面使用不透明工具栏</string>
     <string name="pref_title_opaque_statusbar_now_playing">不透明状态栏</string>
@@ -149,6 +145,7 @@
     <string name="pref_summary_colored_album_footers">"专辑队列视图中专辑页脚会根据专辑封面的色调进行变色。"</string>
     <string name="pref_summary_colored_notification">"使用与专辑封面色彩相对应的通知栏消息背景"</string>
     <string name="pref_summary_fade_play_pause">"播放/暂停歌曲时使用淡入/出效果"</string>
+    <string name="pref_summary_gapless_playback">"消除两首歌曲之间的间隔。禁用该选项或许能修复某些播放问题。"</string>
     <string name="pref_summary_force_square_album_art">在正在播放界中强制使用方形专辑封面</string>
     <string name="pref_summary_opaque_toolbar_now_playing">使正在播放界面的工具栏不透明并且并遮盖住部分专辑封面</string>
     <string name="pref_summary_opaque_statusbar_now_playing">状态栏不透明并且不会遮挡专辑封面</string>
@@ -158,11 +155,7 @@
     <string name="failed_download_albumart">"专辑信息下载失败"</string>
     <string name="search_hint">正在扫描</string>
     <string name="rescanning_media">正在重新扫描媒体库…</string>
-    <string name="other">其他</string>
-    <string-array name="update_album_cover_options">
-        <item>从Last.fm下载</item>
-        <item>从本地储存中选取</item>
-        <item>通过网络搜索</item>
-        <item>删除封面</item>
-    </string-array>
+    <string name="favorites">收藏夹</string>
+    <string name="recently_played">最近播放</string>
+    <string name="my_top_tracks">最爱曲目</string>
 </resources>

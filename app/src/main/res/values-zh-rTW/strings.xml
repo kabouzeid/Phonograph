@@ -28,7 +28,6 @@
     <string name="biography_unavailable">對不起，無法找到與這位歌手相符的個人簡介</string>
     <string name="biography">個人簡介</string>
     <string name="audio_focus_denied">無法獲得音訊焦點</string>
-    <string name="title_activity_tag_editor">編輯音樂標籤</string>
     <string name="tag_editor">編輯音樂標籤</string>
     <string name="album">專輯</string>
     <string name="artist">歌手</string>
@@ -40,7 +39,6 @@
     <string name="album_or_artist_empty">專輯名稱或專輯創作者欄是空的。</string>
     <string name="writing_file_number">正在寫入檔案</string>
     <string name="saving_changes">正在儲存變更…</string>
-    <string name="title_activity_album_tag_editor">編輯專輯標籤</string>
     <string name="label_details">詳細資訊</string>
     <string name="label_file_name">檔案名稱</string>
     <string name="label_file_path">檔案路徑</string>
@@ -55,13 +53,11 @@
     <string name="save_as_playlist">儲存為音樂清單</string>
     <string name="credits_3">圖示設計者為</string>
     <string name="credits_1">"Phonograph 是一個完全免費且遵從 Material Design 的音樂播放器，開發者為"</string>
-    <string name="title_activity_search">搜尋</string>
     <string name="no_results">無搜尋結果</string>
     <string name="action_re_download_artist_image">更新歌手圖片</string>
     <string name="updating">更新中…</string>
     <string name="added_title_to_playing_queue">"這歌曲已加入播放佇列"</string>
     <string name="added_x_titles_to_playing_queue">已增加%1$d首歌曲到播放佇列</string>
-    <string name="title_activity_playlist_detail">音樂清單活動</string>
     <string name="new_playlist_action">新增音樂清單</string>
     <string name="action_grid_columns">專輯網格列數</string>
     <string name="action_grid_columns_land">專輯網格列數（橫向）</string>
@@ -98,7 +94,6 @@
     <string name="pref_summary_colored_navigation_bar">設定在哪些頁面啟用可變色的導航列</string>
     <string name="pref_title_navigation_bar">變色導航列</string>
     <string name="pref_title_set_default_start_page">設定預設起始頁</string>
-    <string name="title_activity_settings">設定</string>
     <string name="pref_title_colored_navigation_bar_artists">歌手頁面</string>
     <string name="pref_title_colored_navigation_bar_albums">專輯頁面</string>
     <string name="pref_title_colored_navigation_bar_current_playing">播放頁面</string>
@@ -133,11 +128,4 @@
     <string name="failed_download_albumart">"無法下載此專輯資訊。"</string>
     <string name="search_hint">正在掃描…</string>
     <string name="rescanning_media">正在重新掃描媒體庫…</string>
-    <string name="other">其他</string>
-    <string-array name="update_album_cover_options">
-        <item>從 Last.FM 下載</item>
-        <item>從本儲存裝置選取</item>
-        <item>網路搜尋</item>
-        <item>刪除封面</item>
-    </string-array>
 </resources>

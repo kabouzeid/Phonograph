@@ -28,7 +28,6 @@
     <string name="biography_unavailable">Desculpe, não conseguimos encontrar a biografia deste artista.</string>
     <string name="biography">Biografia</string>
     <string name="audio_focus_denied">Não conseguimos obter o foco do áudio.</string>
-    <string name="title_activity_tag_editor">Editor de tags</string>
     <string name="tag_editor">Editor de tags</string>
     <string name="album">Álbum</string>
     <string name="artist">Artista</string>
@@ -40,7 +39,6 @@
     <string name="album_or_artist_empty">O campo de título ou artista do álbum está vazio.</string>
     <string name="writing_file_number">Gravando no arquivo</string>
     <string name="saving_changes">Salvando alterações...</string>
-    <string name="title_activity_album_tag_editor">Editor de Tags de Álbum</string>
     <string name="label_details">Detalhes</string>
     <string name="label_file_name">Nome do arquivo</string>
     <string name="label_file_path">Endereço do arquivo</string>
@@ -55,13 +53,11 @@
     <string name="save_as_playlist">Salvar como playlist</string>
     <string name="credits_3">Ícone por</string>
     <string name="credits_1">"O Phonograph é um player de música completamente grátis com Material Design feito por"</string>
-    <string name="title_activity_search">Pesquisar</string>
     <string name="no_results">Sem resultados</string>
     <string name="action_re_download_artist_image">Atualizar imagem do artista</string>
     <string name="updating">Atualizando...</string>
     <string name="added_title_to_playing_queue">"1 título adicionado à lista de reprodução"</string>
     <string name="added_x_titles_to_playing_queue">%1$d faixas adicionadas à lista de reprodução.</string>
-    <string name="title_activity_playlist_detail">Atividade da Lista de Reprodução</string>
     <string name="action_remove_from_playlist">Remover da playlist</string>
     <string name="new_playlist_action">Nova playlist...</string>
     <string name="action_grid_columns">Colunas da grade</string>
@@ -99,7 +95,6 @@
     <string name="pref_summary_colored_navigation_bar">Definir onde a barra de navegação deve ser colorida.</string>
     <string name="pref_title_navigation_bar">Barra de navegação colorida</string>
     <string name="pref_title_set_default_start_page">Página inicial</string>
-    <string name="title_activity_settings">Configurações</string>
     <string name="pref_title_colored_navigation_bar_artists">Visualização por artistas</string>
     <string name="pref_title_colored_navigation_bar_albums">Visualização por álbuns</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Vista em execução</string>
@@ -109,6 +104,7 @@
     <string name="pref_title_colored_album_footers">Rodapés de álbuns coloridos</string>
     <string name="pref_title_colored_notification">Notificação colorida</string>
     <string name="pref_title_fade_play_pause">Diminuir tocar/pausar</string>
+    <string name="pref_title_gapless_playback">Reprodução continua</string>
     <string name="pref_title_force_square_album_art">Forçar a capa do álbum quadrada</string>
     <string name="pref_title_opaque_toolbar_now_playing">Barra de ações opaca</string>
     <string name="pref_title_opaque_statusbar_now_playing">Barra de status opaca</string>
@@ -143,6 +139,7 @@
     <string name="pref_summary_colored_album_footers">"Rodapés de álbum na grade são coloridos com as paletas correspondentes."</string>
     <string name="pref_summary_colored_notification">"A notificação é colorida com a cor mais vibrante do álbum."</string>
     <string name="pref_summary_fade_play_pause">"Diminuir musica na entrada/saída no tocar/pausar."</string>
+    <string name="pref_summary_gapless_playback">"Elimina a lacuna entre duas músicas. Desativar essa pode corrigir problemas de reprodução."</string>
     <string name="pref_summary_force_square_album_art">A arte do álbum na tela de execução agora é forçado a ser quadrado.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">A barra de ações está opaca e não cobre mais a capa do álbum.</string>
     <string name="pref_summary_opaque_statusbar_now_playing">A Barra de status é opaca e não cobre a capa do álbum.</string>
@@ -152,11 +149,4 @@
     <string name="failed_download_albumart">"Não foi possível fazer o download da arte para este álbum."</string>
     <string name="search_hint">Pesquisar na sua biblioteca...</string>
     <string name="rescanning_media">Verificando mídia novamente...</string>
-    <string name="other">Outro</string>
-    <string-array name="update_album_cover_options">
-        <item>Baixar do Last.fm</item>
-        <item>Escolher do Armazenamento Local</item>
-        <item>Pesquisa na Internet</item>
-        <item>Remover Arte do Album</item>
-    </string-array>
 </resources>

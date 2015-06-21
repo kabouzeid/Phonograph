@@ -21,7 +21,6 @@
     <string name="biography_unavailable">Συγγνώμη, δεν βρήκαμε τη βιογραφία αυτού του καλλιτέχνη</string>
     <string name="biography">Βιογραφία</string>
     <string name="audio_focus_denied">Δεν μπορούμε να φέρουμε τον ήχο στο προσκήνιο.</string>
-    <string name="title_activity_tag_editor">Επεξεργασία ετικετών</string>
     <string name="tag_editor">Επεξεργασία ετικετών</string>
     <string name="album">Δίσκος</string>
     <string name="artist">Καλλιτέχνης</string>
@@ -33,7 +32,6 @@
     <string name="album_or_artist_empty">Το πεδιο \"τίτλος του δίσκου\" ή \"καλλιτέχνης του δίσκου\" είναι άδειο</string>
     <string name="writing_file_number">Γίνεται εγγραφή</string>
     <string name="saving_changes">Γίνεται αποθήκευση αλλαγών...</string>
-    <string name="title_activity_album_tag_editor">Επεξεργασία ετικετών δίσκου</string>
     <string name="label_details">Λεπτομέρειες</string>
     <string name="label_file_name">Όνομα αρχείου</string>
     <string name="label_file_path">Διαδρομή αρχείου</string>
@@ -48,13 +46,11 @@
     <string name="save_as_playlist">Αποθήκευση ως λίστα</string>
     <string name="credits_3">Εικονίδιο από</string>
     <string name="credits_1">"Το Phonograph είναι μια εντελώς δωρεάν εφαρμογή βασισμένη στο material design από"</string>
-    <string name="title_activity_search">Αναζήτηση</string>
     <string name="no_results">Κανένα αποτέλεσμα</string>
     <string name="action_re_download_artist_image">Ανανέωση εικόνας καλλιτέχνη</string>
     <string name="updating">Γίνεται ανανέωση...</string>
     <string name="added_title_to_playing_queue">"Προστέθηκε ένας τίτλος στη σειρά αναπαραγωγής"</string>
     <string name="added_x_titles_to_playing_queue">Προστέθηκαν %1$d εικονίδια στην σειρά αναπαραγωγής</string>
-    <string name="title_activity_playlist_detail">Δραστηριότητα λίστας</string>
     <string name="new_playlist_action">Νέα λίστα αναπαραγωγής...</string>
     <string name="action_grid_columns">Στήλες πλέγματος</string>
     <string name="action_grid_columns_land">Στήλες πλέγματος</string>
@@ -87,7 +83,6 @@
     <string name="pref_summary_colored_navigation_bar">Σε ποιές προβολές θα χρωματίζεται η μπάρα πλοήγησης.</string>
     <string name="pref_title_navigation_bar">Έγχρωμη μπάρα πλοήγησης</string>
     <string name="pref_title_set_default_start_page">Αρχική σελίδα</string>
-    <string name="title_activity_settings">Ρυθμίσεις</string>
     <string name="pref_title_colored_navigation_bar_artists">Προβολή καλλιτέχνη</string>
     <string name="pref_title_colored_navigation_bar_albums">Προβολή δίσκου</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Προβολή αναπαραγωγής</string>
@@ -117,10 +112,4 @@
     <string name="failed_download_albumart">"Αδυναμία λήψης εξώφυλλου γι αυτό το δίσκο."</string>
     <string name="search_hint">Αναζήτηση στη βιβλιοθήκη...</string>
     <string name="rescanning_media">Σάρωση αρχείων πολυμέσων...</string>
-    <string-array name="update_album_cover_options">
-        <item>Λήψη από το Last.fm</item>
-        <item>Επιλογή από τη συσκευή</item>
-        <item>Αναζήτηση στο διαδίκτυο</item>
-        <item>Διαγραφή εξώφυλλου</item>
-    </string-array>
 </resources>

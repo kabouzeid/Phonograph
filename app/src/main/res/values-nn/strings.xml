@@ -21,7 +21,6 @@
     <string name="biography_unavailable">Orsak, vi fann ingen passande biografi for denne artisten.</string>
     <string name="biography">Biografi</string>
     <string name="audio_focus_denied">We were not able to gain audio focus.</string>
-    <string name="title_activity_tag_editor">Tag editor</string>
     <string name="tag_editor">Tag editor</string>
     <string name="album">Album</string>
     <string name="artist">Artist</string>
@@ -33,7 +32,6 @@
     <string name="album_or_artist_empty">Tekstfeltet for albumtittel eller albumartist er tomt.</string>
     <string name="writing_file_number">Skriv til fil</string>
     <string name="saving_changes">Lagrar endringar...</string>
-    <string name="title_activity_album_tag_editor">Album Tag Editor</string>
     <string name="label_details">Detaljar</string>
     <string name="label_file_name">Filnamn</string>
     <string name="label_file_path">Sti til fil</string>
@@ -48,13 +46,11 @@
     <string name="save_as_playlist">Lagre som speleliste</string>
     <string name="credits_3">Ikon av</string>
     <string name="credits_1">"Phonograph er ein gratis musikkspelar i material design av"</string>
-    <string name="title_activity_search">Søk</string>
     <string name="no_results">Ingen resultat</string>
     <string name="action_re_download_artist_image">Oppdater artistbilete</string>
     <string name="updating">Oppdaterer...</string>
     <string name="added_title_to_playing_queue">"La 1 tittel til songkøen."</string>
     <string name="added_x_titles_to_playing_queue">La %1$d titlar til songkøen.</string>
-    <string name="title_activity_playlist_detail">Spelelisteaktivitet</string>
     <string name="new_playlist_action">Ny speleliste...</string>
     <string name="action_grid_columns">Rutenettkolonnar</string>
     <string name="action_grid_columns_land">Rutenettkolonnar (land)</string>
@@ -92,7 +88,6 @@
     <string name="pref_header_general">Generelt</string>
     <string name="pref_title_navigation_bar">Farga navigasjonslinje</string>
     <string name="pref_title_set_default_start_page">Startside</string>
-    <string name="title_activity_settings">Innstillingar</string>
     <string name="pref_title_colored_navigation_bar_artists">Artistvising</string>
     <string name="pref_title_colored_navigation_bar_albums">Albumvising</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Spelevising</string>
@@ -119,10 +114,4 @@
     <string name="failed_download_albumart">"Ikkje i stand til å laste ned omslagsbilete til dette albumet."</string>
     <string name="search_hint">Søk i biblioteket...</string>
     <string name="rescanning_media">Skanner media på nytt...</string>
-    <string-array name="update_album_cover_options">
-        <item>Last ned frå Last.fm</item>
-        <item>Vel frå lokal lagring</item>
-        <item>Nettsøk</item>
-        <item>Fjern omslagsbilete</item>
-    </string-array>
 </resources>

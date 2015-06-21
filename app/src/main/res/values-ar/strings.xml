@@ -47,7 +47,6 @@
     <string name="save_as_playlist">حفظ كقائمة تشغيل</string>
     <string name="credits_3">الأيقونة من تصميم</string>
     <string name="credits_1">"مشغل الموسيقى فونقراف هو برنامج مجاني بشكلٍ كامل بتصميم أنيق من تصميم"</string>
-    <string name="title_activity_search">بحث</string>
     <string name="no_results">لا توجد نتائج</string>
     <string name="action_re_download_artist_image">تحديث صورة الفنان</string>
     <string name="updating">يتم التحديث...</string>
@@ -83,7 +82,6 @@
     <string name="pref_summary_colored_navigation_bar">في أي مشهد يتم تلوين شريط التنقل</string>
     <string name="pref_title_navigation_bar">شريط تنقل ملون</string>
     <string name="pref_title_set_default_start_page">ضبط صفحة البدء</string>
-    <string name="title_activity_settings">الإعدادات</string>
     <string name="pref_title_colored_navigation_bar_artists">مشهد الفنان</string>
     <string name="pref_title_colored_navigation_bar_albums">مشهد الألبوم</string>
     <string name="pref_title_colored_navigation_bar_current_playing">مشهد التشغيل</string>
@@ -113,10 +111,4 @@
     <string name="failed_download_albumart">"تعذر تحميل صور هذا الألبوم."</string>
     <string name="search_hint">البحث في المكتبة...</string>
     <string name="rescanning_media">إعادة تفحص الملفات...</string>
-    <string-array name="update_album_cover_options">
-        <item>تحميل من last.fm</item>
-        <item>اختيار من ذاكرة التخزين الداخلية</item>
-        <item>بحث في الإنترنات</item>
-        <item>حذف الغلاف</item>
-    </string-array>
 </resources>

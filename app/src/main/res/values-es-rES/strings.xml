@@ -28,7 +28,6 @@
     <string name="biography_unavailable">Lo sentimos, no encontramos una biografía correspondiente a éste artista</string>
     <string name="biography">Biografía</string>
     <string name="audio_focus_denied">No podemos encontrar el foco de audio</string>
-    <string name="title_activity_tag_editor">Editor de etiquetas</string>
     <string name="tag_editor">Editor de etiquetas</string>
     <string name="album">Álbum</string>
     <string name="artist">Artista</string>
@@ -40,7 +39,6 @@
     <string name="album_or_artist_empty">El título del álbum o el campo de artista del álbum está vacío.</string>
     <string name="writing_file_number">Escribiendo archivo</string>
     <string name="saving_changes">Guardando cambios...</string>
-    <string name="title_activity_album_tag_editor">Editor de etiquetas del album</string>
     <string name="label_details">Detalles</string>
     <string name="label_file_name">Nombre del archivo</string>
     <string name="label_file_path">Ubicación del archivo</string>
@@ -55,13 +53,11 @@
     <string name="save_as_playlist">Guardar como lista de reproducción</string>
     <string name="credits_3">Icono por</string>
     <string name="credits_1">"Phonograph es un reproductor de música gratuito basado en Material Design hecho por"</string>
-    <string name="title_activity_search">Buscar</string>
     <string name="no_results">Sin resultados</string>
     <string name="action_re_download_artist_image">Actualizar imagen del artista</string>
     <string name="updating">Actualizando...</string>
     <string name="added_title_to_playing_queue">"1 título añadido a la cola de reproducción"</string>
     <string name="added_x_titles_to_playing_queue">Añadir %1$d a la cola de reproducción</string>
-    <string name="title_activity_playlist_detail">Actividad de la lista de reproducción</string>
     <string name="action_remove_from_playlist">Eliminar de la lista de reproducción</string>
     <string name="new_playlist_action">Nueva lista de reproducción...</string>
     <string name="action_grid_columns">Columnas de la cuadrícula</string>
@@ -101,7 +97,6 @@
     <string name="pref_summary_colored_navigation_bar">Selecciona en qué secciones la barra debe tener color</string>
     <string name="pref_title_navigation_bar">Color en la barra de navegación</string>
     <string name="pref_title_set_default_start_page">Pagina de inicio</string>
-    <string name="title_activity_settings">Ajustes</string>
     <string name="pref_title_colored_navigation_bar_artists">Barra de navegación en Vista del Artista coloreada</string>
     <string name="pref_title_colored_navigation_bar_albums">Ver por artista</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Ver reproducción</string>
@@ -109,9 +104,11 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Editor de etiquetas</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Cualquier lugar</string>
     <string name="pref_title_colored_album_footers">Pie de álbum coloreado</string>
-    <string name="pref_title_fade_play_pause">Reproducir/Pausa Desvanecimiento</string>
+    <string name="pref_title_colored_notification">Notificación coloreada</string>
+    <string name="pref_title_fade_play_pause">"Fundido de audio en Reproducir/Pausa "</string>
+    <string name="pref_title_gapless_playback">Quitar silencio entre canciones</string>
     <string name="pref_title_force_square_album_art">Forzar portada de álbum a cuadrado</string>
-    <string name="pref_title_opaque_toolbar_now_playing">Barra de reproduciendo opaca</string>
+    <string name="pref_title_opaque_toolbar_now_playing">Barra de Reproducción Actual opaca</string>
     <string name="pref_title_opaque_statusbar_now_playing">Barra de estado opaca</string>
     <string name="pref_title_larger_title_box_now_playing">Caja de título grande</string>
     <string name="pref_title_alternative_progress_slider_now_playing">Barra de progreso alternativa</string>
@@ -142,21 +139,16 @@
     <string name="song">Canción</string>
     <string name="pref_only_lollipop">"Solamente disponible en Lollipop"</string>
     <string name="pref_summary_colored_album_footers">"El color pie del álbum en la cuadrícula se basa en la paleta de colores de la tapa del álbum."</string>
-    <string name="pref_summary_fade_play_pause">"Desvanecimiento en reproducir/pausa."</string>
+    <string name="pref_summary_colored_notification">"La notificación es coloreada basándose en la paleta de colores de la tapa del álbum."</string>
+    <string name="pref_summary_fade_play_pause">"Fundido de volumen de la canción en reproducir/pausar."</string>
+    <string name="pref_summary_gapless_playback">"Elimina el silencio entre dos canciones. Desactivando esta opción, podrían ocurrir problemas en la reproducción."</string>
     <string name="pref_summary_force_square_album_art">La portada del álbum en reproduciendo es forzada a ser cuadrada.</string>
-    <string name="pref_summary_opaque_toolbar_now_playing">La barra en reproduciendo es opaca y no tapa la portada del álbum.</string>
+    <string name="pref_summary_opaque_toolbar_now_playing">La barra en Reproducción Actual es opaca y no tapa la portada del álbum.</string>
     <string name="pref_summary_opaque_statusbar_now_playing">La barra de estado es opaca y no cubre la tapa del álbum.</string>
-    <string name="pref_summary_larger_title_box_now_playing">la caja detrás de la tapa del álbum donde el título de la canción y el artista es mas largo que su altura.</string>
-    <string name="pref_summary_alternative_progress_slider_now_playing">Usa una barra de progreso que no cubre la tapa del álbum en vez de el deslizador normal de progreso.</string>
-    <string name="pref_summary_playback_controller_card_now_playing">Mostrar tarjeta detrás de los botones de control de reproducción (reproducir/pausa, etc).</string>
+    <string name="pref_summary_larger_title_box_now_playing">La caja detrás de la tapa del álbum donde se encuentra el título de la canción y el artista es mas largo que su altura.</string>
+    <string name="pref_summary_alternative_progress_slider_now_playing">Usa una barra de progreso que no cubre la tapa del álbum en vez de la barra normal de progreso.</string>
+    <string name="pref_summary_playback_controller_card_now_playing">Mostrar tarjeta detrás de los botones de control de reproducción (reproducir/pausar, etc).</string>
     <string name="failed_download_albumart">"Imposible descargar portada del álbum"</string>
     <string name="search_hint">Buscar en librería...</string>
     <string name="rescanning_media">Escaneando contenido...</string>
-    <string name="other">Otro</string>
-    <string-array name="update_album_cover_options">
-        <item>Descargar de Last.fm</item>
-        <item>Seleccionar de Almacenamiento Interno</item>
-        <item>Busqueda Web</item>
-        <item>Eliminar Carátula</item>
-    </string-array>
 </resources>

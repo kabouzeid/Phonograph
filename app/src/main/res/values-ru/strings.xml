@@ -21,7 +21,6 @@
     <string name="biography_unavailable">Извините, биография для этого исполнителя не найдена.</string>
     <string name="biography">Биография</string>
     <string name="audio_focus_denied">Невозможно получить аудио фокус.</string>
-    <string name="title_activity_tag_editor">Редактор тэгов</string>
     <string name="tag_editor">Редактор тэгов</string>
     <string name="album">Альбом</string>
     <string name="artist">Исполнитель</string>
@@ -33,7 +32,6 @@
     <string name="album_or_artist_empty">Поля название альбома или альбом исполнителя пусты</string>
     <string name="writing_file_number">Запись файла</string>
     <string name="saving_changes">Сохранение изменений...</string>
-    <string name="title_activity_album_tag_editor">Редактор тэгов альбома</string>
     <string name="label_details">Подробнее</string>
     <string name="label_file_name">Имя файла</string>
     <string name="label_file_path">Путь к файлу</string>
@@ -48,13 +46,11 @@
     <string name="save_as_playlist">Сохранить как список воспроизведения</string>
     <string name="credits_3">Дизайн иконки</string>
     <string name="credits_1">"Phonograph - полностью бесплатный музыкальный плеер в материальном стиле, созданный"</string>
-    <string name="title_activity_search">Поиск</string>
     <string name="no_results">Нет результатов</string>
     <string name="action_re_download_artist_image">Обновить изображение исполнителя</string>
     <string name="updating">Обновление...</string>
     <string name="added_title_to_playing_queue">"Добавлена 1 композиция в очередь воспроизведения"</string>
     <string name="added_x_titles_to_playing_queue">Добавлено %1$d композиций в очередь воспроизведения</string>
-    <string name="title_activity_playlist_detail">Активность списка воспроизведения</string>
     <string name="new_playlist_action">Новый список воспроизведения...</string>
     <string name="action_grid_columns">Столбцы сетки</string>
     <string name="action_grid_columns_land">Столбцы сетки (ландшафт)</string>
@@ -87,7 +83,6 @@
     <string name="pref_summary_colored_navigation_bar">Установить, где панель навигации должна быть цветной.</string>
     <string name="pref_title_navigation_bar">Цветная панель управления</string>
     <string name="pref_title_set_default_start_page">Установить начальную страницу</string>
-    <string name="title_activity_settings">Настройки</string>
     <string name="pref_title_colored_navigation_bar_artists">Цветная панель управления ( вид исполнителя )</string>
     <string name="pref_title_colored_navigation_bar_albums">Цветная панель управления ( вид альбома )</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Вид сейчас воспроизводится</string>
@@ -117,10 +112,4 @@
     <string name="failed_download_albumart">"Невозможно загрузить обложку для этого альбома."</string>
     <string name="search_hint">Поиск библиотеки...</string>
     <string name="rescanning_media">Повторное сканирование медиа...</string>
-    <string-array name="update_album_cover_options">
-        <item>Скачать с Last.fm</item>
-        <item>Выбрать из локального хранилища</item>
-        <item>Поиск в интернете</item>
-        <item>Удалить обложку</item>
-    </string-array>
 </resources>

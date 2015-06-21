@@ -45,7 +45,6 @@
     <string name="save_as_playlist">Salvar como uma playlist</string>
     <string name="credits_3">Ícone por</string>
     <string name="credits_1">"Phonograph é um player de música completamente grátis com Material Design feito por"</string>
-    <string name="title_activity_search">Pesquisar</string>
     <string name="no_results">Nenhum resultado</string>
     <string name="action_re_download_artist_image">Atualizar imagem do artista</string>
     <string name="updating">Atualizando...</string>
@@ -62,7 +61,6 @@
     <string name="pref_header_audio">Áudio</string>
     <string name="pref_header_general">Geral</string>
     <string name="pref_title_set_default_start_page">Selecionar página inicial</string>
-    <string name="title_activity_settings">Configurações</string>
     <string name="pref_title_colored_navigation_bar_artists">Barra de navegação colorida na visualização do artista</string>
     <string name="pref_title_colored_navigation_bar_albums">Barra de navegação colorida na visualização do álbum</string>
     <string name="pref_title_colored_album_footers">Rodapés coloridos do álbum</string>

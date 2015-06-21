@@ -46,7 +46,6 @@
     <string name="save_as_playlist">Uložit jako playlist...</string>
     <string name="credits_3">Ikonu vytvořil</string>
     <string name="credits_1">"Phonograph je hudební přehrávač, který je úplně zdarma a založen na material designu od"</string>
-    <string name="title_activity_search">Hledat</string>
     <string name="no_results">Žádné výsledky</string>
     <string name="action_re_download_artist_image">Změnit obrázek umělce</string>
     <string name="updating">Aktualizace...</string>
@@ -79,7 +78,6 @@
     <string name="pref_summary_colored_navigation_bar">Zvolte, kde se má zobrazovat barevné záhlaví.</string>
     <string name="pref_title_navigation_bar">Barevné záhlaví</string>
     <string name="pref_title_set_default_start_page">Zvolit výchozí obrazovku</string>
-    <string name="title_activity_settings">Nastavení</string>
     <string name="pref_title_colored_navigation_bar_artists">Barevné záhlaví interpretů</string>
     <string name="pref_title_colored_navigation_bar_albums">Barevné záhlaví alb</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Zobrazení \"Právě hraje\"</string>
@@ -109,10 +107,4 @@
     <string name="failed_download_albumart">"Není možné stáhnout obal tohoto alba."</string>
     <string name="search_hint">Vyhledat zvukové soubory...</string>
     <string name="rescanning_media">Kontrola médií...</string>
-    <string-array name="update_album_cover_options">
-        <item>Stáhnout z Last.fm</item>
-        <item>Zvolit ze souborů</item>
-        <item>Najít na webu</item>
-        <item>Odstranit obal alba</item>
-    </string-array>
 </resources>
