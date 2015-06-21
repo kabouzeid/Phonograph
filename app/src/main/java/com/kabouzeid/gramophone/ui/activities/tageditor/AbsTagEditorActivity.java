@@ -133,12 +133,18 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
     private void setUpImageView() {
         loadCurrentImage();
+        final CharSequence[] items = new CharSequence[]{
+                getString(R.string.download_from_last_fm),
+                getString(R.string.pick_from_local_storage),
+                getString(R.string.web_search),
+                getString(R.string.remove_cover)
+        };
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new MaterialDialog.Builder(AbsTagEditorActivity.this)
                         .title(R.string.update_image)
-                        .items(R.array.update_album_cover_options)
+                        .items(items)
                         .itemsCallback(new MaterialDialog.ListCallback() {
                             @Override
                             public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {

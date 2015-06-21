@@ -159,10 +159,8 @@
     <string name="last_added">Last added</string>
     <string name="recently_played">Recently played</string>
     <string name="my_top_tracks">My top tracks</string>
-    <string-array name="update_album_cover_options">
-        <item>Download from Last.fm</item>
-        <item>Pick from Local Storage</item>
-        <item>Web Search</item>
-        <item>Remove Cover</item>
-    </string-array>
+    <string name="remove_cover">Remove cover</string>
+    <string name="download_from_last_fm">Download from last.fm</string>
+    <string name="pick_from_local_storage">Pick from local storage</string>
+    <string name="web_search">Web search</string>
 </resources>
