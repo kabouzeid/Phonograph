@@ -69,6 +69,7 @@
     <string name="deleted_playlist_x">Deleted playlist %1$s</string>
     <string name="couldnot_create_playlist_x">Could not create playlist %1$s</string>
     <string name="delete_playlist_x"><![CDATA[Do you want to delete the playlist <b>%1$s</b>?]]></string>
+    <string name="clear_playlist_x"><![CDATA[Do you really want to clear the playlist <b>%1$s</b>? This cannot be undone!]]></string>
     <string name="delete_x_playlists"><![CDATA[Do you want to delete <b>%1$d</b> playlists?]]></string>
     <string name="delete_song_x"><![CDATA[Do you want to delete the song <b>%1$s</b>?]]></string>
     <string name="delete_x_songs"><![CDATA[Do you want to delete <b>%1$d</b> songs?]]></string>
@@ -81,6 +82,7 @@
     <string name="rename_playlist_title">Rename Playlist</string>
     <string name="delete_playlist_title">Delete Playlist</string>
     <string name="delete_playlists_title">Delete Playlists</string>
+    <string name="clear_playlist_title">Clear Playlist</string>
     <string name="add_playlist_title">"Add to Playlist"</string>
     <string name="new_playlist_title">New Playlist</string>
     <string name="delete_warning">"Warning: This operation can not be undone."</string>
@@ -118,6 +120,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">"Close navigation drawer"</string>
     <string name="delete_action">Delete</string>
+    <string name="clear_action">Clear</string>
     <string name="remove_action">Remove</string>
     <string name="rename_action">Rename</string>
     <string name="create_action">Create</string>

@@ -39,6 +39,7 @@ public class DeletePlaylistDialog extends DialogFragment {
         final ArrayList<Playlist> playlists = (ArrayList<Playlist>) getArguments().getSerializable("playlists");
         int title;
         CharSequence content;
+        //noinspection ConstantConditions
         if (playlists.size() > 1) {
             title = R.string.delete_playlists_title;
             content = Html.fromHtml(getString(R.string.delete_x_playlists, playlists.size()));

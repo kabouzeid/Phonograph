@@ -15,11 +15,6 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_clear_playlist"
-        android:title="@string/action_clear_playlist"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/action_equalizer"
         android:orderInCategory="99"
         android:title="@string/equalizer"

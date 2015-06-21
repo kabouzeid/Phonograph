@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
+import com.kabouzeid.gramophone.dialogs.ClearSmartPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeletePlaylistDialog;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -106,7 +107,18 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
     protected void onMultipleItemAction(MenuItem menuItem, ArrayList<Playlist> selection) {
         switch (menuItem.getItemId()) {
             case R.id.action_delete_playlist:
-                DeletePlaylistDialog.create(selection).show(activity.getSupportFragmentManager(), "DELETE_PLAYLIST");
+                for (int i = 0; i < selection.size(); i++) {
+                    Playlist playlist = selection.get(i);
+                    if (playlist instanceof SmartPlaylist) {
+                        SmartPlaylist smartPlaylist = (SmartPlaylist) playlist;
+                        ClearSmartPlaylistDialog.create(smartPlaylist).show(activity.getSupportFragmentManager(), "CLEAR_PLAYLIST_" + smartPlaylist.name);
+                        selection.remove(playlist);
+                        i--;
+                    }
+                }
+                if (selection.size() > 0) {
+                    DeletePlaylistDialog.create(selection).show(activity.getSupportFragmentManager(), "DELETE_PLAYLIST");
+                }
                 break;
             case R.id.action_add_to_playlist:
                 AddToPlaylistDialog.create(getSongList(selection)).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");
@@ -152,6 +164,13 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
+                            if (item.getItemId() == R.id.action_clear_playlist) {
+                                Playlist playlist = dataSet.get(getAdapterPosition());
+                                if (playlist instanceof SmartPlaylist) {
+                                    ClearSmartPlaylistDialog.create((SmartPlaylist) playlist).show(activity.getSupportFragmentManager(), "CLEAR_SMART_PLAYLIST_" + playlist.name);
+                                    return true;
+                                }
+                            }
                             return MenuItemClickHelper.handlePlaylistMenuClick(
                                     activity, dataSet.get(getAdapterPosition()), item);
                         }
