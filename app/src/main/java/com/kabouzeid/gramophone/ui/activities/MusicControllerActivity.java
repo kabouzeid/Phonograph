@@ -68,7 +68,10 @@ public class MusicControllerActivity extends AbsFabActivity {
 
     public static final String TAG = MusicControllerActivity.class.getSimpleName();
     private static final int COLOR_TRANSITION_TIME = 400;
-    private static final int UPDATE_PROGRESS_VIEWS = 1;
+    private static final int FAB_CIRCULAR_REVEAL_ANIMATION_TIME = 1000;
+    private static final int PROGRESS_VIEW_UPDATE_INTERVAL = 100;
+
+    private static final int CMD_UPDATE_PROGRESS_VIEWS = 1;
 
     @InjectView(R.id.song_title)
     TextView songTitle;
@@ -174,7 +177,7 @@ public class MusicControllerActivity extends AbsFabActivity {
 
                     Animator animator = ViewAnimationUtils.createCircularReveal(mediaControllerContainer, cx, cy, getFab().getWidth() / 2, finalRadius);
                     animator.setInterpolator(new DecelerateInterpolator());
-                    animator.setDuration(1000);
+                    animator.setDuration(FAB_CIRCULAR_REVEAL_ANIMATION_TIME);
                     animator.start();
 
                     mediaControllerContainer.setVisibility(View.VISIBLE);
@@ -200,11 +203,11 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     private void startUpdatingProgressViews() {
-        progressViewsUpdateHandler.sendEmptyMessage(UPDATE_PROGRESS_VIEWS);
+        progressViewsUpdateHandler.sendEmptyMessage(CMD_UPDATE_PROGRESS_VIEWS);
     }
 
     private void stopUpdatingProgressViews() {
-        progressViewsUpdateHandler.removeMessages(UPDATE_PROGRESS_VIEWS);
+        progressViewsUpdateHandler.removeMessages(CMD_UPDATE_PROGRESS_VIEWS);
     }
 
     private void initAppearanceVarsFromSharedPrefs() {
@@ -614,9 +617,9 @@ public class MusicControllerActivity extends AbsFabActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (msg.what == UPDATE_PROGRESS_VIEWS) {
+            if (msg.what == CMD_UPDATE_PROGRESS_VIEWS) {
                 activityReference.get().updateProgressViews();
-                sendEmptyMessageDelayed(UPDATE_PROGRESS_VIEWS, 100);
+                sendEmptyMessageDelayed(CMD_UPDATE_PROGRESS_VIEWS, PROGRESS_VIEW_UPDATE_INTERVAL);
             }
         }
     }
