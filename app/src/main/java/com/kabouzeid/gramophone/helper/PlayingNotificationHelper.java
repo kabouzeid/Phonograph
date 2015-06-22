@@ -242,6 +242,7 @@ public class PlayingNotificationHelper {
     }
 
     private void setBackgroundColor(int color) {
+        notificationLayout.setInt(R.id.root, "setBackgroundColor", color);
         notificationLayoutExpanded.setInt(R.id.root, "setBackgroundColor", color);
     }
 

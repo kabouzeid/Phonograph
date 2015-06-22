@@ -26,8 +26,8 @@ android {
         applicationId "com.kabouzeid.gramophone"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 42
-        versionName "0.9.26b dev-1"
+        versionCode 43
+        versionName "0.9.27b dev-1"
     }
 
     buildTypes {
