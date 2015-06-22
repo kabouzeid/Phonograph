@@ -10,9 +10,11 @@
     <string name="action_settings">"Configurações"</string>
     <string name="action_about">Sobre</string>
     <string name="action_currently_playing">Em execução</string>
+    <string name="action_clear_playlist">Limpar playlist</string>
     <string name="action_playing_queue">Fila de execução</string>
     <string name="action_search">Pesquisar</string>
     <string name="action_play_next">Reproduzir a seguir</string>
+    <string name="action_play">Reproduzir</string>
     <string name="action_add_to_playing_queue">Adicionar à fila</string>
     <string name="action_remove_from_playing_queue">Remover da fila atual</string>
     <string name="action_add_to_playlist">Adicionar à playlist...</string>
@@ -65,8 +67,10 @@
     <string name="inserted_x_songs_into_playlist">%1$d faixas foram inseridas nesta playlist.</string>
     <string name="created_playlist_x">A playlist %1$s foi criada</string>
     <string name="deleted_playlist_x">A playlist %1$s foi excluída</string>
+    <string name="deleted_x_songs">%1$d músicas excluidas</string>
     <string name="couldnot_create_playlist_x">Não foi possível criar a playlist %1$s</string>
     <string name="delete_playlist_x"><![CDATA[ Deseja excluir a playlist <b>%1$s</b>? ]]></string>
+    <string name="clear_playlist_x"><![CDATA[Você realmente quer limpar a playlist <b>%1$s</b>? Isto não pode ser desfeito!]]></string>
     <string name="delete_x_playlists"><![CDATA[ Deseja excluir <b>%1$d</b> playlists? ]]></string>
     <string name="delete_song_x"><![CDATA[ Deseja excluir a faixa <b>%1$s</b>? ]]></string>
     <string name="delete_x_songs"><![CDATA[ Deseja excluir <b>%1$d</b> faixas? ]]></string>
@@ -79,6 +83,7 @@
     <string name="rename_playlist_title">Renomear Playlist</string>
     <string name="delete_playlist_title">Excluir Playlist</string>
     <string name="delete_playlists_title">Apagar Playlists</string>
+    <string name="clear_playlist_title">Limpar playlist</string>
     <string name="add_playlist_title">"Adicionar à Playlist"</string>
     <string name="new_playlist_title">Nova Playlist</string>
     <string name="delete_warning">"Aviso: Esta operação não pode ser desfeita."</string>
@@ -116,6 +121,7 @@
     <string name="navigation_drawer_open">Abrir gaveta de navegação</string>
     <string name="navigation_drawer_close">"Fechar gaveta de navegação"</string>
     <string name="delete_action">Excluir</string>
+    <string name="clear_action">Limpar</string>
     <string name="remove_action">Remover</string>
     <string name="rename_action">Renomear</string>
     <string name="create_action">Criar</string>
@@ -149,4 +155,12 @@
     <string name="failed_download_albumart">"Não foi possível fazer o download da arte para este álbum."</string>
     <string name="search_hint">Pesquisar na sua biblioteca...</string>
     <string name="rescanning_media">Verificando mídia novamente...</string>
+    <string name="favorites">Favoritos</string>
+    <string name="last_added">Última adicionada</string>
+    <string name="recently_played">Tocadas recentemente</string>
+    <string name="my_top_tracks">Minhas melhores faixas</string>
+    <string name="remove_cover">Remover capa</string>
+    <string name="download_from_last_fm">Baixar do last.fm</string>
+    <string name="pick_from_local_storage">Escolher do armazenamento local</string>
+    <string name="web_search">Procurar na web</string>
 </resources>

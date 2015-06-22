@@ -10,9 +10,11 @@
     <string name="action_settings">"Ustawienia"</string>
     <string name="action_about">O aplikacji</string>
     <string name="action_currently_playing">Teraz gra</string>
+    <string name="action_clear_playlist">Wyczyść listę odtwarzania</string>
     <string name="action_playing_queue">Kolejka odtwarzania</string>
     <string name="action_search">Szukaj</string>
     <string name="action_play_next">Odtwarzaj następny</string>
+    <string name="action_play">Graj</string>
     <string name="action_add_to_playing_queue">Dodaj do kolejki odtwarzania</string>
     <string name="action_remove_from_playing_queue">Usuń z kolejki odtwarzania</string>
     <string name="action_add_to_playlist">Dodaj do listy odtwarzania...</string>
@@ -65,8 +67,10 @@
     <string name="inserted_x_songs_into_playlist">Dodano %1$d utworów do listy odtwarzania</string>
     <string name="created_playlist_x">Utworzono listę odtwarzania %1$s</string>
     <string name="deleted_playlist_x">Usunięto listę odtwarzania %1$s</string>
+    <string name="deleted_x_songs">Usunięto %1$d utworów</string>
     <string name="couldnot_create_playlist_x">Nie można utworzyć listy odtwarzania %1$s</string>
     <string name="delete_playlist_x"><![CDATA[Czy chcesz usunąć listę odtwarzania <b>%1$s</b>?]]></string>
+    <string name="clear_playlist_x"><![CDATA[Czy na pewno chcesz wyczyścić listę odtwarzania <b>%1$s</b>? Operacja nie może zostać cofnięta!]]></string>
     <string name="delete_x_playlists"><![CDATA[Czy chcesz usunąć <b>%1$d</b> listy odtwarzania?]]></string>
     <string name="delete_song_x"><![CDATA[Czy chcesz usunąć utwór <b>%1$s</b>?]]></string>
     <string name="delete_x_songs"><![CDATA[Czy chcesz usunąć  <b>%1$d</b> utworów?]]></string>
@@ -79,6 +83,7 @@
     <string name="rename_playlist_title">Zmień nazwę listy odtwarzania</string>
     <string name="delete_playlist_title">Usuń listę odtwarzania</string>
     <string name="delete_playlists_title">Usuń listy odtwarzania</string>
+    <string name="clear_playlist_title">Wyczyść listę odtwarzania</string>
     <string name="add_playlist_title">"Dodaj do listy odtwarzania"</string>
     <string name="new_playlist_title">Nowa lista odtwarzania</string>
     <string name="delete_warning">"Ostrzeżenie: Ta operacja nie może być cofnięta"</string>
@@ -116,6 +121,7 @@
     <string name="navigation_drawer_open">Otwórz pasek nawigacji</string>
     <string name="navigation_drawer_close">"Zamknij pasek nawigacji"</string>
     <string name="delete_action">Usuń</string>
+    <string name="clear_action">Wyczyść</string>
     <string name="remove_action">Usuń</string>
     <string name="rename_action">Zmień</string>
     <string name="create_action">Utwórz</string>
@@ -150,6 +156,11 @@
     <string name="search_hint">Szukaj w bibliotece...</string>
     <string name="rescanning_media">Ponowny skan nośnika...</string>
     <string name="favorites">Ulubione</string>
+    <string name="last_added">Ostatnio dodane</string>
     <string name="recently_played">Ostatnio grane</string>
     <string name="my_top_tracks">Moje najlepsze utwory</string>
+    <string name="remove_cover">Usuń okładkę</string>
+    <string name="download_from_last_fm">Pobierz z last.fm</string>
+    <string name="pick_from_local_storage">Wybierz z pamięci lokalnej</string>
+    <string name="web_search">Wyszukaj w sieci</string>
 </resources>

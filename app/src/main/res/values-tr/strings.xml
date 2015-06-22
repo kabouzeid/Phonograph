@@ -10,9 +10,11 @@
     <string name="action_settings">"Ayarlar"</string>
     <string name="action_about">Hakkında</string>
     <string name="action_currently_playing">Şu anda çalınan</string>
+    <string name="action_clear_playlist">Çalma listesini temizle</string>
     <string name="action_playing_queue">Çalma Sırası</string>
     <string name="action_search">Ara</string>
     <string name="action_play_next">Sonraki şarkı</string>
+    <string name="action_play">Oynat</string>
     <string name="action_add_to_playing_queue">Çalma sırasına ekle</string>
     <string name="action_remove_from_playing_queue">Çalma sırasından çıkar</string>
     <string name="action_add_to_playlist">Çalma listesine ekle</string>
@@ -65,8 +67,10 @@
     <string name="inserted_x_songs_into_playlist">Bu çalma listesine %1$d şarkı eklenmiştir.</string>
     <string name="created_playlist_x">Çalma listesi %1$s oluşturuldu</string>
     <string name="deleted_playlist_x">Çalma listesi %1$s silindi</string>
+    <string name="deleted_x_songs">%1$d parça silindi</string>
     <string name="couldnot_create_playlist_x">Çalma listesi %1$s oluşturulamadı</string>
     <string name="delete_playlist_x"><![CDATA[<b>%1$s</b> çalma listesini silmek istiyor musunuz?]]></string>
+    <string name="clear_playlist_x"><![CDATA[<b>%1$s</b> çalma listesini temizlemek istediğinize emin misiniz? Bu geri döndürülemez!]]></string>
     <string name="delete_x_playlists"><![CDATA[<b>%1$d</b> çalma listelerini silmek istiyor musunuz?]]></string>
     <string name="delete_song_x"><![CDATA[<b>%1$s</b> şarkıyı silmek istiyor musunuz?]]></string>
     <string name="delete_x_songs"><![CDATA[<b>%1$d</b> bu şarkıları silmek istiyor musunuz?]]></string>
@@ -79,6 +83,7 @@
     <string name="rename_playlist_title">Çalma Listesini Yeniden Adlandır</string>
     <string name="delete_playlist_title">Çalma Listesini Sil</string>
     <string name="delete_playlists_title">Çalma listelerini sil</string>
+    <string name="clear_playlist_title">Çalma listesini temizle</string>
     <string name="add_playlist_title">"Çalma Listesine Ekle"</string>
     <string name="new_playlist_title">Yeni Çalma Listesi</string>
     <string name="delete_warning">"Uyarı: Bu işlem geri alınamaz."</string>
@@ -104,6 +109,7 @@
     <string name="pref_title_colored_album_footers">Renkli albüm alt bilgileri</string>
     <string name="pref_title_colored_notification">Renkli bildirim</string>
     <string name="pref_title_fade_play_pause">Soldur oynat/duraklat</string>
+    <string name="pref_title_gapless_playback">Aralıksız çalma</string>
     <string name="pref_title_force_square_album_art">Kare albüm kapağına zorla</string>
     <string name="pref_title_opaque_toolbar_now_playing">Opak araç çubuğu</string>
     <string name="pref_title_opaque_statusbar_now_playing">Opak durum çubuğu</string>
@@ -115,6 +121,7 @@
     <string name="navigation_drawer_open">Gezinti çekmecesini aç</string>
     <string name="navigation_drawer_close">"Gezinti çekmecesini kapat"</string>
     <string name="delete_action">Sil</string>
+    <string name="clear_action">Temizle</string>
     <string name="remove_action">Kaldır</string>
     <string name="rename_action">Yeniden adlandır</string>
     <string name="create_action">Oluştur</string>
@@ -138,12 +145,22 @@
     <string name="pref_summary_colored_album_footers">"Izgara içindeki albüm alt bilgisi albüm arkaplanı canlı renklerle renklendirildi."</string>
     <string name="pref_summary_colored_notification">"Bildirimler albüm kabağının canlı rengiyle boyandı."</string>
     <string name="pref_summary_fade_play_pause">"Oynatıp/duraklatırken şarkı içeri/dışarı kaybolur."</string>
+    <string name="pref_summary_gapless_playback">"İki parça arasındaki geçişi kaldırmak belki oynatma sorununuzu giderecektir."</string>
     <string name="pref_summary_force_square_album_art">Şu anda çalınan albüm kapağı görüntüsünü kare olmaya zorlar.</string>
-    <string name="pref_summary_opaque_toolbar_now_playing">Şimdi çalınanda ki araç çubuğu opak ve artık albüm kapağı var.</string>
+    <string name="pref_summary_opaque_toolbar_now_playing">Araç çubuğu opak ve albüm kapak resmi yok.</string>
     <string name="pref_summary_opaque_statusbar_now_playing">Durum çubuğu opak ve albüm kapak resmi yok.</string>
     <string name="pref_summary_larger_title_box_now_playing">Şarkı başlığı ve sanatçıya giden albüm kapağı altındaki kutusunun yüksekliğini büyültür.</string>
+    <string name="pref_summary_alternative_progress_slider_now_playing">Varsayılan ilerleme sürgüsü yerine albüm kapağı içermeyen bir ilerleme çubuğu kullanılır.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Oynatma kontrol düğmelerinin altında bir kart görüntüler (oynat/duraklatma, vb).</string>
     <string name="failed_download_albumart">"Bu albüm için kapak indirilemiyor."</string>
     <string name="search_hint">Kütüphaneniz taranıyor...</string>
     <string name="rescanning_media">Medyayı yeniden tara</string>
+    <string name="favorites">Favoriler</string>
+    <string name="last_added">Son eklenen</string>
+    <string name="recently_played">Son çalınan</string>
+    <string name="my_top_tracks">En iyi parçalarım</string>
+    <string name="remove_cover">Albüm kapağını kaldır</string>
+    <string name="download_from_last_fm">last.fm den indir</string>
+    <string name="pick_from_local_storage">Yerel hafızadan al</string>
+    <string name="web_search">Web de ara</string>
 </resources>

@@ -10,9 +10,11 @@
     <string name="action_settings">"Paramètres"</string>
     <string name="action_about">À propos</string>
     <string name="action_currently_playing">Lecture en cours</string>
+    <string name="action_clear_playlist">Effacer la playlist</string>
     <string name="action_playing_queue">File de lecture</string>
     <string name="action_search">Rechercher</string>
     <string name="action_play_next">Prochaine lecture</string>
+    <string name="action_play">Lecture</string>
     <string name="action_add_to_playing_queue">Ajouter à la liste de lecture</string>
     <string name="action_remove_from_playing_queue">Retirer de la liste de lecture</string>
     <string name="action_add_to_playlist">Ajouter à une playlist...</string>
@@ -64,9 +66,11 @@
     <string name="action_grid_columns_land">Nombre de colonnes (paysage)</string>
     <string name="inserted_x_songs_into_playlist">%1$d titres ajoutés à la playlist.</string>
     <string name="created_playlist_x">La playlist %1$s a été créée.</string>
-    <string name="deleted_playlist_x">Playlist %1$s supprimée.</string>
+    <string name="deleted_playlist_x">Playlist %1$s supprimée</string>
+    <string name="deleted_x_songs">Supprimé %1$d des chansons</string>
     <string name="couldnot_create_playlist_x">Impossible de créer la playlist %1$s.</string>
     <string name="delete_playlist_x"><![CDATA[Voulez-vous supprimer la playlist <b>%1$s</b> ?]]></string>
+    <string name="clear_playlist_x"><![CDATA[Voulez-vous vraiment effacer la playlist <b>%1$s</b> ? Ceci ne peut pas être annulé!]]></string>
     <string name="delete_x_playlists"><![CDATA[Voulez-vous supprimer les playlists <b>%1$d</b> ?]]></string>
     <string name="delete_song_x"><![CDATA[Voulez-vous supprimer <b>%1$s</b> ?]]></string>
     <string name="delete_x_songs"><![CDATA[Voulez-vous supprimer <b>%1$d</b> titres ?]]></string>
@@ -79,6 +83,7 @@
     <string name="rename_playlist_title">Renommer la playlist</string>
     <string name="delete_playlist_title">Supprimer la playlist</string>
     <string name="delete_playlists_title">Supprimer les playlists</string>
+    <string name="clear_playlist_title">Effacer La Playlist</string>
     <string name="add_playlist_title">"Ajouter à la playlist"</string>
     <string name="new_playlist_title">Nouvelle playlist</string>
     <string name="delete_warning">"Attention : Cette action ne peut être annulée"</string>
@@ -116,6 +121,7 @@
     <string name="navigation_drawer_open">Ouvrir le volet de navigation</string>
     <string name="navigation_drawer_close">"Fermer le volet de navigation"</string>
     <string name="delete_action">Supprimer</string>
+    <string name="clear_action">Effacer</string>
     <string name="remove_action">Retirer</string>
     <string name="rename_action">Renommer</string>
     <string name="create_action">Créer</string>
@@ -150,6 +156,11 @@
     <string name="search_hint">Rechercher votre bibliothèque...</string>
     <string name="rescanning_media">Réanalyse des médias…</string>
     <string name="favorites">Favoris</string>
+    <string name="last_added">Derniers ajouts</string>
     <string name="recently_played">Écouté récemment</string>
     <string name="my_top_tracks">Mes meilleurs titres</string>
+    <string name="remove_cover">Enlever la pochette</string>
+    <string name="download_from_last_fm">Télécharger depuis last.fm</string>
+    <string name="pick_from_local_storage">Sélectionner dans le téléphone</string>
+    <string name="web_search">Recherche Internet</string>
 </resources>

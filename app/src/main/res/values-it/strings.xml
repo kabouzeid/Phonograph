@@ -10,9 +10,11 @@
     <string name="action_settings">"Impostazioni"</string>
     <string name="action_about">Informazioni</string>
     <string name="action_currently_playing">In riproduzione</string>
+    <string name="action_clear_playlist">Svuota playlist</string>
     <string name="action_playing_queue">Brani in coda</string>
     <string name="action_search">Cerca</string>
     <string name="action_play_next">Riproduci successivo</string>
+    <string name="action_play">Riproduci</string>
     <string name="action_add_to_playing_queue">Aggiungi alla coda</string>
     <string name="action_remove_from_playing_queue">Rimuovi dalla coda</string>
     <string name="action_add_to_playlist">Aggiungi alla playlist</string>
@@ -65,8 +67,10 @@
     <string name="inserted_x_songs_into_playlist">%1$d brani inseriti in questa playlist.</string>
     <string name="created_playlist_x">Playlist %1$s creata</string>
     <string name="deleted_playlist_x">Playlist %1$s eliminata</string>
+    <string name="deleted_x_songs">%1$d brani eliminati</string>
     <string name="couldnot_create_playlist_x">Impossibile creare playlist %1$s</string>
     <string name="delete_playlist_x"><![CDATA[        Vuoi eliminare la playlist <b>%1$s</b>? ]]></string>
+    <string name="clear_playlist_x"><![CDATA[Vuoi davvero svuotare la playlist <b>%1$s</b>? L\'operazione non può essere annullata!]]></string>
     <string name="delete_x_playlists"><![CDATA[        Vuoi eliminare <b>%1$d</b> playlist? ]]></string>
     <string name="delete_song_x"><![CDATA[        Vuoi eliminare il brano <b>%1$s</b>? ]]></string>
     <string name="delete_x_songs"><![CDATA[        Vuoi eliminare <b>%1$d</b> brani? ]]></string>
@@ -79,6 +83,7 @@
     <string name="rename_playlist_title">Rinomina playlist</string>
     <string name="delete_playlist_title">Elimina playlist</string>
     <string name="delete_playlists_title">Elimina playlist</string>
+    <string name="clear_playlist_title">Svuota playlist</string>
     <string name="add_playlist_title">"Aggiungi alla playlist"</string>
     <string name="new_playlist_title">Nuova playlist</string>
     <string name="delete_warning">"Attenzione: questa operazione non può essere annullata."</string>
@@ -116,6 +121,7 @@
     <string name="navigation_drawer_open">Apri il pannello di navigazione</string>
     <string name="navigation_drawer_close">"Chiudi il pannello di navigazione"</string>
     <string name="delete_action">Elimina</string>
+    <string name="clear_action">Svuota</string>
     <string name="remove_action">Rimuovi</string>
     <string name="rename_action">Rinomina</string>
     <string name="create_action">Crea</string>
@@ -150,6 +156,11 @@
     <string name="search_hint">Cerca nella tua libreria...</string>
     <string name="rescanning_media">Nuova scannerizzazione media in corso...</string>
     <string name="favorites">Preferiti</string>
+    <string name="last_added">Aggiunti di recente</string>
     <string name="recently_played">Riprodotti di recente</string>
     <string name="my_top_tracks">Brani preferiti</string>
+    <string name="remove_cover">Rimuovi cover</string>
+    <string name="download_from_last_fm">Scarica da Last.fm</string>
+    <string name="pick_from_local_storage">Scegli da archiviazione locale</string>
+    <string name="web_search">Cerca sul web</string>
 </resources>
