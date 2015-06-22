@@ -9,7 +9,7 @@
     <string name="action_share">Compartir</string>
     <string name="action_settings">"Ajustes"</string>
     <string name="action_about">Acerca de</string>
-    <string name="action_currently_playing">Reproduciendo</string>
+    <string name="action_clear_playlist">Limpiar lista de reproducción</string>
     <string name="action_playing_queue">Cola de reproducción</string>
     <string name="action_search">Buscar</string>
     <string name="action_play_next">Siguiente</string>
@@ -17,7 +17,7 @@
     <string name="action_remove_from_playing_queue">Quitar de la cola de reproducción</string>
     <string name="action_add_to_playlist">Añadir a lista de reproducción...</string>
     <string name="action_tag_editor">Editor de etiquetas</string>
-    <string name="action_delete_from_disk">Borrar del disco</string>
+    <string name="action_delete_from_device">Eliminar del dispositivo</string>
     <string name="action_details">Detalles</string>
     <string name="albums">Álbumes</string>
     <string name="artists">Artistas</string>
@@ -135,7 +135,7 @@
     <string name="no_songs">No hay canciones</string>
     <string name="no_artists">No hay artistas</string>
     <string name="empty">Vacío</string>
-    <string name="playlist_name">Nombre de la lista de reproducción</string>
+    <string name="playlist_name_empty">Nombre de la lista de reproducción</string>
     <string name="song">Canción</string>
     <string name="pref_only_lollipop">"Solamente disponible en Lollipop"</string>
     <string name="pref_summary_colored_album_footers">"El color pie del álbum en la cuadrícula se basa en la paleta de colores de la tapa del álbum."</string>
@@ -148,7 +148,10 @@
     <string name="pref_summary_larger_title_box_now_playing">La caja detrás de la tapa del álbum donde se encuentra el título de la canción y el artista es mas largo que su altura.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Usa una barra de progreso que no cubre la tapa del álbum en vez de la barra normal de progreso.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Mostrar tarjeta detrás de los botones de control de reproducción (reproducir/pausar, etc).</string>
-    <string name="failed_download_albumart">"Imposible descargar portada del álbum"</string>
     <string name="search_hint">Buscar en librería...</string>
     <string name="rescanning_media">Escaneando contenido...</string>
+    <string name="favorites">Favoritos</string>
+    <string name="download_from_last_fm">Descargar desde Last.fm</string>
+    <string name="pick_from_local_storage">Seleccionar de almacenamiento interno</string>
+    <string name="web_search">Buscar en Internet</string>
 </resources>

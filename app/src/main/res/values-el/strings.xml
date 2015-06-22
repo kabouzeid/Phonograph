@@ -2,7 +2,6 @@
 <resources>
     <string name="action_settings">"Ρυθμίσεις "</string>
     <string name="action_about">"Σχετικά "</string>
-    <string name="action_currently_playing">Παίζει τώρα</string>
     <string name="action_playing_queue">Σειρά τραγουδιών</string>
     <string name="action_search">Αναζήτηση</string>
     <string name="action_play_next">Αναπαραγωγή επόμενου</string>
@@ -10,7 +9,6 @@
     <string name="action_remove_from_playing_queue">Διαγραφή από την σειρά τραγουδιών</string>
     <string name="action_add_to_playlist">Προσθήκη στην λίστα αναπαραγωγής</string>
     <string name="action_tag_editor">Επεξεργασία ετικετών</string>
-    <string name="action_delete_from_disk">Διαγραφή απο τη συσκευή</string>
     <string name="action_details">Λεπτομέρειες</string>
     <string name="albums">Δίσκοι</string>
     <string name="artists">Καλλιτέχνες</string>
@@ -105,11 +103,9 @@
     <string name="update_image">Ανανέωση εικόνας</string>
     <string name="playlist_empty_text">Αυτή η λίστα είναι άδεια</string>
     <string name="no_playlists">Καμία λίστα</string>
-    <string name="playlist_name">Όνομα λίστας</string>
     <string name="song">Τραγούδι</string>
     <string name="pref_only_lollipop">"Διαθέσιμο μόνο σε Lollipop."</string>
     <string name="pref_summary_colored_album_footers">"Το υποσέλιδο των δίσκων στο πλέγμα χρωματίζεται με βάση την παλέττα του εξώφυλλου του δίσκου."</string>
-    <string name="failed_download_albumart">"Αδυναμία λήψης εξώφυλλου γι αυτό το δίσκο."</string>
     <string name="search_hint">Αναζήτηση στη βιβλιοθήκη...</string>
     <string name="rescanning_media">Σάρωση αρχείων πολυμέσων...</string>
 </resources>

@@ -4,9 +4,9 @@
       tools:context=".DrawerActivity">
 
     <item
-        android:id="@+id/action_current_playing"
+        android:id="@+id/action_now_playing"
         android:icon="@drawable/ic_play_circle_fill_white_24dp"
-        android:title="@string/action_currently_playing"
+        android:title="@string/action_now_playing"
         app:showAsAction="always"/>
 
     <item

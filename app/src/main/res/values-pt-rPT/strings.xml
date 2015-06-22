@@ -9,7 +9,6 @@
     <string name="action_remove_from_playing_queue">Remover da fila</string>
     <string name="action_add_to_playlist">Adicionar à playlist...</string>
     <string name="action_tag_editor">Editor de tags</string>
-    <string name="action_delete_from_disk">Excluir da memória</string>
     <string name="action_details">Detalhes</string>
     <string name="albums">Álbuns</string>
     <string name="artists">Artistas</string>

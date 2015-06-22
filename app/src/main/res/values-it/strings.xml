@@ -9,7 +9,6 @@
     <string name="action_share">Condividi</string>
     <string name="action_settings">"Impostazioni"</string>
     <string name="action_about">Informazioni</string>
-    <string name="action_currently_playing">In riproduzione</string>
     <string name="action_clear_playlist">Svuota playlist</string>
     <string name="action_playing_queue">Brani in coda</string>
     <string name="action_search">Cerca</string>
@@ -19,7 +18,6 @@
     <string name="action_remove_from_playing_queue">Rimuovi dalla coda</string>
     <string name="action_add_to_playlist">Aggiungi alla playlist</string>
     <string name="action_tag_editor">Modifica tag</string>
-    <string name="action_delete_from_disk">Elimina dal dispositivo</string>
     <string name="action_details">Dettagli</string>
     <string name="albums">Album</string>
     <string name="artists">Artisti</string>
@@ -139,7 +137,6 @@
     <string name="no_songs">Nessun brano</string>
     <string name="no_artists">Nessun artista</string>
     <string name="empty">Vuoto</string>
-    <string name="playlist_name">Nome playlist</string>
     <string name="song">Brano</string>
     <string name="pref_only_lollipop">"Disponibile solo su Lollipop."</string>
     <string name="pref_summary_colored_album_footers">"I riquadri degli album nella griglia sono colorati secondo la gamma di colori della copertina."</string>
@@ -152,7 +149,6 @@
     <string name="pref_summary_larger_title_box_now_playing">Il riquadro al di sotto della copertina in cui sono visualizzati il titolo del brano e l\'artista è più grande in altezza.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Usa una barra di scorrimento che non copre la copertina invece del normale cursore.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Visualizza un contorno in stile card dietro i controlli di riproduzione (play, pausa ecc.).</string>
-    <string name="failed_download_albumart">"Impossibile scaricare la copertina per quest\'album."</string>
     <string name="search_hint">Cerca nella tua libreria...</string>
     <string name="rescanning_media">Nuova scannerizzazione media in corso...</string>
     <string name="favorites">Preferiti</string>

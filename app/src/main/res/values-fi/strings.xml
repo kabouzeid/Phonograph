@@ -2,7 +2,6 @@
 <resources>
     <string name="action_settings">"Asetukset"</string>
     <string name="action_about">Tietoja</string>
-    <string name="action_currently_playing">Toistetaan nyt</string>
     <string name="action_playing_queue">Toistojono</string>
     <string name="action_search">Etsi</string>
     <string name="action_play_next">Toista seuraavaksi</string>
@@ -10,7 +9,6 @@
     <string name="action_remove_from_playing_queue">Poista jonosta</string>
     <string name="action_add_to_playlist">Lisää soittolistaan</string>
     <string name="action_tag_editor">Tagieditori</string>
-    <string name="action_delete_from_disk">Poista levyltä</string>
     <string name="action_details">Yksityiskohdat</string>
     <string name="albums">Albumit</string>
     <string name="artists">Artistit</string>

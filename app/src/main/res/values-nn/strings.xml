@@ -2,7 +2,6 @@
 <resources>
     <string name="action_settings">"Innstillingar"</string>
     <string name="action_about">Om</string>
-    <string name="action_currently_playing">Spelar no</string>
     <string name="action_playing_queue">Songkø</string>
     <string name="action_search">Søk</string>
     <string name="action_play_next">Spel som neste</string>
@@ -10,7 +9,6 @@
     <string name="action_remove_from_playing_queue">Fjern frå køen</string>
     <string name="action_add_to_playlist">Legg til i speleliste...</string>
     <string name="action_tag_editor">Tag Editor</string>
-    <string name="action_delete_from_disk">Slett frå disk</string>
     <string name="action_details">Detaljar</string>
     <string name="albums">Album</string>
     <string name="artists">Artistar</string>
@@ -108,10 +106,8 @@
     <string name="update_image">Oppdater bilete</string>
     <string name="playlist_empty_text">Spelelista er tom</string>
     <string name="no_playlists">Ingen spelelister</string>
-    <string name="playlist_name">Spelelistenamn</string>
     <string name="song">Song</string>
     <string name="pref_only_lollipop">"Berre tilgjengeleg på Lollipop."</string>
-    <string name="failed_download_albumart">"Ikkje i stand til å laste ned omslagsbilete til dette albumet."</string>
     <string name="search_hint">Søk i biblioteket...</string>
     <string name="rescanning_media">Skanner media på nytt...</string>
 </resources>

@@ -355,7 +355,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
             case R.id.action_playing_queue:
                 NavigationUtil.openPlayingQueueDialog(this);
                 return true;
-            case R.id.action_current_playing:
+            case R.id.action_now_playing:
                 NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithFab(null));
                 return true;
             case R.id.action_tag_editor:

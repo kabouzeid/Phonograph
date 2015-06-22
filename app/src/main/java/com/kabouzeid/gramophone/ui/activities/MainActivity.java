@@ -322,6 +322,7 @@ public class MainActivity extends AbsFabActivity
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
+        //noinspection ConstantConditions
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
@@ -349,7 +350,7 @@ public class MainActivity extends AbsFabActivity
             case R.id.action_search:
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
                 return true;
-            case R.id.action_current_playing:
+            case R.id.action_now_playing:
                 NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithFab(null));
                 return true;
             case R.id.action_playing_queue:

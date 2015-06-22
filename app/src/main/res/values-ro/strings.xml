@@ -9,7 +9,6 @@
     <string name="action_remove_from_playing_queue">Șterge din lista de melodii</string>
     <string name="action_add_to_playlist">Adaugă in playlist</string>
     <string name="action_tag_editor">Editor Info Melodie</string>
-    <string name="action_delete_from_disk">Șterge</string>
     <string name="action_details">Detalii</string>
     <string name="albums">Albume</string>
     <string name="artists">Artiști</string>

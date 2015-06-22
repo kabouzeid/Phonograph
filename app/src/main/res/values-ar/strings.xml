@@ -3,7 +3,6 @@
     <string name="action_settings">"الإعدادات"</string>
     <string name="action_about">"   عن التطبيق
 "</string>
-    <string name="action_currently_playing">الإستماع الآن</string>
     <string name="action_playing_queue">قائمة الإنتظار</string>
     <string name="action_search">بحث</string>
     <string name="action_play_next">استمع لاحقاً</string>
@@ -11,7 +10,6 @@
     <string name="action_remove_from_playing_queue">أزل من قائمة الانتظار</string>
     <string name="action_add_to_playlist">أضف إلى قائمة تشغيل...</string>
     <string name="action_tag_editor">تعديل معلومات الملف</string>
-    <string name="action_delete_from_disk">حذف نهائي</string>
     <string name="action_details">التفاصيل</string>
     <string name="albums">الألبومات</string>
     <string name="artists">الفنانون</string>
@@ -104,11 +102,9 @@
     <string name="update_image">تحديث الصورة</string>
     <string name="playlist_empty_text">قائمة التشغيل فارغة</string>
     <string name="no_playlists">لا توجد قوائم تشغيل</string>
-    <string name="playlist_name">إسم قائمة الشغيل</string>
     <string name="song">الأغنية</string>
     <string name="pref_only_lollipop">"متوفر في نظام التشغيل Lollipop."</string>
     <string name="pref_summary_colored_album_footers">"تلوين الهوامش السفلية للألبومات بلون غلاف الألبوم."</string>
-    <string name="failed_download_albumart">"تعذر تحميل صور هذا الألبوم."</string>
     <string name="search_hint">البحث في المكتبة...</string>
     <string name="rescanning_media">إعادة تفحص الملفات...</string>
 </resources>

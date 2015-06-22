@@ -9,7 +9,6 @@
     <string name="action_share">Paylaş</string>
     <string name="action_settings">"Ayarlar"</string>
     <string name="action_about">Hakkında</string>
-    <string name="action_currently_playing">Şu anda çalınan</string>
     <string name="action_clear_playlist">Çalma listesini temizle</string>
     <string name="action_playing_queue">Çalma Sırası</string>
     <string name="action_search">Ara</string>
@@ -19,7 +18,6 @@
     <string name="action_remove_from_playing_queue">Çalma sırasından çıkar</string>
     <string name="action_add_to_playlist">Çalma listesine ekle</string>
     <string name="action_tag_editor">Etiket düzenleyici</string>
-    <string name="action_delete_from_disk">Bellekten sil</string>
     <string name="action_details">Detaylar</string>
     <string name="albums">Albümler</string>
     <string name="artists">Sanatçılar</string>
@@ -139,7 +137,6 @@
     <string name="no_songs">Şarkı yok</string>
     <string name="no_artists">Sanatcı yok</string>
     <string name="empty">Boş</string>
-    <string name="playlist_name">Çalma listesi adı</string>
     <string name="song">Şarkı</string>
     <string name="pref_only_lollipop">"Sadece Lollipop için"</string>
     <string name="pref_summary_colored_album_footers">"Izgara içindeki albüm alt bilgisi albüm arkaplanı canlı renklerle renklendirildi."</string>
@@ -152,7 +149,6 @@
     <string name="pref_summary_larger_title_box_now_playing">Şarkı başlığı ve sanatçıya giden albüm kapağı altındaki kutusunun yüksekliğini büyültür.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Varsayılan ilerleme sürgüsü yerine albüm kapağı içermeyen bir ilerleme çubuğu kullanılır.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Oynatma kontrol düğmelerinin altında bir kart görüntüler (oynat/duraklatma, vb).</string>
-    <string name="failed_download_albumart">"Bu albüm için kapak indirilemiyor."</string>
     <string name="search_hint">Kütüphaneniz taranıyor...</string>
     <string name="rescanning_media">Medyayı yeniden tara</string>
     <string name="favorites">Favoriler</string>

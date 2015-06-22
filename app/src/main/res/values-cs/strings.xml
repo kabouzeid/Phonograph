@@ -2,7 +2,6 @@
 <resources>
     <string name="action_settings">"Nastavení"</string>
     <string name="action_about">O aplikaci</string>
-    <string name="action_currently_playing">Přehrávač</string>
     <string name="action_playing_queue">Fronta</string>
     <string name="action_search">Hledat</string>
     <string name="action_play_next">Další skladba</string>
@@ -10,7 +9,6 @@
     <string name="action_remove_from_playing_queue">Odebrat z fronty</string>
     <string name="action_add_to_playlist">Přidat do playlistu...</string>
     <string name="action_tag_editor">Editor Tagů</string>
-    <string name="action_delete_from_disk">Smazat soubor</string>
     <string name="action_details">Podrobnosti</string>
     <string name="albums">Alba</string>
     <string name="artists">Interpreti</string>
@@ -100,11 +98,9 @@
     <string name="update_image">Změnit obrázek</string>
     <string name="playlist_empty_text">Tento playlist je prázdný</string>
     <string name="no_playlists">Žádný playlist</string>
-    <string name="playlist_name">Jméno playlistu</string>
     <string name="song">Skladba</string>
     <string name="pref_only_lollipop">"Dostupné pouze ve verzi Lollipop."</string>
     <string name="pref_summary_colored_album_footers">"Názvy alb v mřížce jsou obarvena podle jejich obalu."</string>
-    <string name="failed_download_albumart">"Není možné stáhnout obal tohoto alba."</string>
     <string name="search_hint">Vyhledat zvukové soubory...</string>
     <string name="rescanning_media">Kontrola médií...</string>
 </resources>

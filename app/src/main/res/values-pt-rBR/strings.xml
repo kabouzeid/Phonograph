@@ -9,7 +9,6 @@
     <string name="action_share">Compartilhar</string>
     <string name="action_settings">"Configurações"</string>
     <string name="action_about">Sobre</string>
-    <string name="action_currently_playing">Em execução</string>
     <string name="action_clear_playlist">Limpar playlist</string>
     <string name="action_playing_queue">Fila de execução</string>
     <string name="action_search">Pesquisar</string>
@@ -19,7 +18,6 @@
     <string name="action_remove_from_playing_queue">Remover da fila atual</string>
     <string name="action_add_to_playlist">Adicionar à playlist...</string>
     <string name="action_tag_editor">Editor de tags</string>
-    <string name="action_delete_from_disk">Apagar</string>
     <string name="action_details">Detalhes</string>
     <string name="albums">Álbuns</string>
     <string name="artists">Artistas</string>
@@ -139,7 +137,6 @@
     <string name="no_songs">Nenhuma Musica</string>
     <string name="no_artists">Nenhum Artista</string>
     <string name="empty">Vazio</string>
-    <string name="playlist_name">Nome da playlist</string>
     <string name="song">Música</string>
     <string name="pref_only_lollipop">"Apenas disponível no Lollipop."</string>
     <string name="pref_summary_colored_album_footers">"Rodapés de álbum na grade são coloridos com as paletas correspondentes."</string>
@@ -152,7 +149,6 @@
     <string name="pref_summary_larger_title_box_now_playing">A caixa embaixo da capa do álbum onde o titulo da musica e o artista são mostrados é mais largo na sua altura.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Usa uma barra de progresso que não cobre a capa do álbum substituindo a barra padrão.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Mostra um cartão abaixo dos controles de reprodução (tocar/pausar etc.)</string>
-    <string name="failed_download_albumart">"Não foi possível fazer o download da arte para este álbum."</string>
     <string name="search_hint">Pesquisar na sua biblioteca...</string>
     <string name="rescanning_media">Verificando mídia novamente...</string>
     <string name="favorites">Favoritos</string>

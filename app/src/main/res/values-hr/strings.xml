@@ -9,7 +9,6 @@
     <string name="action_share">Podijeli</string>
     <string name="action_settings">"Postavke"</string>
     <string name="action_about">O</string>
-    <string name="action_currently_playing">Trenutno se reproducira</string>
     <string name="action_playing_queue">Red čekanja</string>
     <string name="action_search">Traži</string>
     <string name="action_play_next">Reproduciraj sljedeće</string>
@@ -17,7 +16,6 @@
     <string name="action_remove_from_playing_queue">Ukloni s reda čekanja</string>
     <string name="action_add_to_playlist">Dodaj na popis pjesama...</string>
     <string name="action_tag_editor">Uređivač Tagova</string>
-    <string name="action_delete_from_disk">Obriši s lokalnog spremišta</string>
     <string name="action_details">Detalji</string>
     <string name="albums">Albumi</string>
     <string name="artists">Izvođači</string>
@@ -133,7 +131,6 @@
     <string name="no_songs">Nema pjesama</string>
     <string name="no_artists">Nema izvođača</string>
     <string name="empty">Prazno</string>
-    <string name="playlist_name">Ime popisa pjesama</string>
     <string name="song">Pjesma</string>
     <string name="pref_only_lollipop">"Dostupno samo na Lollipopu."</string>
     <string name="pref_summary_colored_album_footers">"Podnožje albuma u rešetci je obojano istaknutom bojom omota albuma."</string>
@@ -146,7 +143,6 @@
     <string name="pref_summary_larger_title_box_now_playing">Okvir ispod omota albuma gdje su prikazani naslov pjesme i izvođač je viši.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Koristi se traka napretka koja ne prekriva omot albuma umjesto uobičajenog klizača.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Prikazuje karticu ispod gumbića koji služe za kontrolu reprodukcije (pokreni/pauziraj itd.).</string>
-    <string name="failed_download_albumart">"Nije bilo moguće skinuti omot albuma."</string>
     <string name="search_hint">Pretraži fonoteku...</string>
     <string name="rescanning_media">Ponovno skeniram medijske datoteke...</string>
     <string name="favorites">Favoriti</string>

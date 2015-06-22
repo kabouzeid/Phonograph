@@ -2,7 +2,6 @@
 <resources>
     <string name="action_settings">"Настройки"</string>
     <string name="action_about">О программе</string>
-    <string name="action_currently_playing">Сейчас проигрывается</string>
     <string name="action_playing_queue">Очередь воспроизведения</string>
     <string name="action_search">Поиск</string>
     <string name="action_play_next">Проиграть следующую</string>
@@ -10,7 +9,6 @@
     <string name="action_remove_from_playing_queue">Удалить из очереди воспроизведения</string>
     <string name="action_add_to_playlist">Добавить в список воспроизведения...</string>
     <string name="action_tag_editor">Редактор тэгов</string>
-    <string name="action_delete_from_disk">Удалить с диска</string>
     <string name="action_details">Подробнее</string>
     <string name="albums">Альбомы</string>
     <string name="artists">Исполнители</string>
@@ -105,11 +103,9 @@
     <string name="update_image">Обновить изображение</string>
     <string name="playlist_empty_text">Список воспроизведения пуст</string>
     <string name="no_playlists">Нет списков воспроизведения</string>
-    <string name="playlist_name">Имя списка воспроизведения</string>
     <string name="song">Песня</string>
     <string name="pref_only_lollipop">"Доступно только для Lollipop."</string>
     <string name="pref_summary_colored_album_footers">"Панели альбомов в сетке окрашены цветом из палитры обложки альбома."</string>
-    <string name="failed_download_albumart">"Невозможно загрузить обложку для этого альбома."</string>
     <string name="search_hint">Поиск библиотеки...</string>
     <string name="rescanning_media">Повторное сканирование медиа...</string>
 </resources>

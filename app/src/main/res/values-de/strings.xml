@@ -9,8 +9,8 @@
     <string name="action_share">Teilen</string>
     <string name="action_settings">"Einstellungen"</string>
     <string name="action_about">Infos</string>
-    <string name="action_currently_playing">Aktuelle Wiedergabe</string>
-    <string name="action_clear_playlist">Titel aus der Playlist löschen</string>
+    <string name="action_now_playing">Jetzt Läuft</string>
+    <string name="action_clear_playlist">Playlist leeren</string>
     <string name="action_playing_queue">Warteschlange</string>
     <string name="action_search">Suche</string>
     <string name="action_play_next">Als nächstes spielen</string>
@@ -19,7 +19,7 @@
     <string name="action_remove_from_playing_queue">Von Warteschlange entfernen</string>
     <string name="action_add_to_playlist">Zu Wiedergabeliste hinzufügen...</string>
     <string name="action_tag_editor">Tags ändern...</string>
-    <string name="action_delete_from_disk">Löschen</string>
+    <string name="action_delete_from_device">Von Gerät Löschen</string>
     <string name="action_details">Details</string>
     <string name="albums">Alben</string>
     <string name="artists">Interpreten</string>
@@ -34,7 +34,7 @@
     <string name="album">Album</string>
     <string name="artist">Interpret</string>
     <string name="genre">Genre</string>
-    <string name="album_artist">Albuminterpret</string>
+    <string name="album_artist">Album Interpret</string>
     <string name="year">Jahr</string>
     <string name="track">Titel</string>
     <string name="track_hint">"Track (2 für Track 2 oder 3004 für CD 3 Track 4)"</string>
@@ -70,7 +70,7 @@
     <string name="deleted_x_songs">%1$d Titel gelöscht</string>
     <string name="couldnot_create_playlist_x">Wiedergabeliste %1$s konnte nicht erstellt werden</string>
     <string name="delete_playlist_x"><![CDATA[Willst du die Wiedergabeliste <b>%1$s</b> löschen?]]></string>
-    <string name="clear_playlist_x"><![CDATA[Möchtest du wirklich die Titel aus der Playlist <b>%1$s</b> löschen?]]></string>
+    <string name="clear_playlist_x"><![CDATA[Möchtest du die Playlist <b>%1$s</b> wirklich leeren?]]></string>
     <string name="delete_x_playlists"><![CDATA[Willst du <b>%1$d</b> Wiedergabelisten löschen?]]></string>
     <string name="delete_song_x"><![CDATA[Willst du den Titel <b>%1$s</b> löschen?]]></string>
     <string name="delete_x_songs"><![CDATA[Willst du <b>%1$d</b> Titel löschen?]]></string>
@@ -107,10 +107,10 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Tag-Editor</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Überall sonst</string>
     <string name="pref_title_colored_album_footers">Farbige Balken unter den Alben</string>
-    <string name="pref_title_colored_notification">Gefärbte Benachrichtigung</string>
+    <string name="pref_title_colored_notification">Farbige Benachrichtigung</string>
     <string name="pref_title_fade_play_pause">Aufbau der Musik beim spielen/stoppen</string>
-    <string name="pref_title_gapless_playback">Lückenloser Übergang</string>
-    <string name="pref_title_force_square_album_art">Quadratisches Albumcover erzwingen</string>
+    <string name="pref_title_gapless_playback">Lückenlose Wiedergabe</string>
+    <string name="pref_title_force_square_album_art">Quadratisches Album Cover erzwingen</string>
     <string name="pref_title_opaque_toolbar_now_playing">Undurchsichtige Toolbar</string>
     <string name="pref_title_opaque_statusbar_now_playing">Undurchsichtige Statusleiste</string>
     <string name="pref_title_larger_title_box_now_playing">Größere Titel Bar</string>
@@ -119,7 +119,7 @@
     <string name="no_equalizer">Keine Audioeffekte verfügbar</string>
     <string name="no_audio_ID">"Keine Audio ID, spiele etwas ab und versuche es erneut."</string>
     <string name="navigation_drawer_open">Navigationsdrawer öffnen</string>
-    <string name="navigation_drawer_close">"Navigationsdrawer schließen</string>
+    <string name="navigation_drawer_close">"Navigationsdrawer schließen"</string>
     <string name="delete_action">Löschen</string>
     <string name="clear_action">Löschen</string>
     <string name="remove_action">Entfernen</string>
@@ -139,7 +139,7 @@
     <string name="no_songs">Keine Songs</string>
     <string name="no_artists">Keine Interpreten</string>
     <string name="empty">Leer</string>
-    <string name="playlist_name">Name</string>
+    <string name="playlist_name_empty">Playlist name</string>
     <string name="song">Titel</string>
     <string name="pref_only_lollipop">"Nur auf Lollipop verfügbar"</string>
     <string name="pref_summary_colored_album_footers">"Farbe der Box unter jedem Album dem Cover anpassen"</string>
@@ -152,7 +152,7 @@
     <string name="pref_summary_larger_title_box_now_playing">Die Bar unter dem Album Cover wo sich der Titel und Interpret befinden ist höher.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Benutzt einen Balken als Progress Slider anstatt dem normalen Progress Slider.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Zeigt eine Karte hinter der Wiedergabesteuerung</string>
-    <string name="failed_download_albumart">"Das Cover für dieses Album konnte nicht heruntergeladen werden."</string>
+    <string name="failed_to_download_album_art">"Das Album Cover konnte nicht heruntergeladen werden."</string>
     <string name="search_hint">Durchsuche deine Mediathek</string>
     <string name="rescanning_media">Medien neu scannen...</string>
     <string name="favorites">Favoriten</string>
@@ -160,7 +160,7 @@
     <string name="recently_played">Zuletzt gespielt</string>
     <string name="my_top_tracks">Meine lieblings Titel</string>
     <string name="remove_cover">Titelbild entfernen</string>
-    <string name="download_from_last_fm">Herunterladen von last.fm</string>
+    <string name="download_from_last_fm">Von Last.fm herunterladen.</string>
     <string name="pick_from_local_storage">Aus lokalem Speicher wählen</string>
     <string name="web_search">Internet-Suche</string>
 </resources>

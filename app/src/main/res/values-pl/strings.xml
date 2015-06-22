@@ -9,7 +9,6 @@
     <string name="action_share">Udostępnij</string>
     <string name="action_settings">"Ustawienia"</string>
     <string name="action_about">O aplikacji</string>
-    <string name="action_currently_playing">Teraz gra</string>
     <string name="action_clear_playlist">Wyczyść listę odtwarzania</string>
     <string name="action_playing_queue">Kolejka odtwarzania</string>
     <string name="action_search">Szukaj</string>
@@ -19,7 +18,6 @@
     <string name="action_remove_from_playing_queue">Usuń z kolejki odtwarzania</string>
     <string name="action_add_to_playlist">Dodaj do listy odtwarzania...</string>
     <string name="action_tag_editor">Edytor tagów</string>
-    <string name="action_delete_from_disk">Usuń z urządzenia</string>
     <string name="action_details">Szczegóły</string>
     <string name="albums">Albumy</string>
     <string name="artists">Wykonawcy</string>
@@ -139,7 +137,6 @@
     <string name="no_songs">Brak utworów</string>
     <string name="no_artists">Brak wykonawców</string>
     <string name="empty">Pusto</string>
-    <string name="playlist_name">Nazwa listy odtwarzania</string>
     <string name="song">Utwór</string>
     <string name="pref_only_lollipop">"Dostępne tylko w androidzie Lollipop"</string>
     <string name="pref_summary_colored_album_footers">"Stopki albumów w widoku siatki mają tonacje okładek"</string>
@@ -152,7 +149,6 @@
     <string name="pref_summary_larger_title_box_now_playing">Zaznacz, a pole nazwy utworu i wykonawcy pod okładką albumu będzie większe</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Zaznacz, a w odróżnieniu od domyślnego suwaka, pasek postępu nie zasłoni okładki albumu</string>
     <string name="pref_summary_playback_controller_card_now_playing">Zaznacz, a pod przyciskami sterującymi odtwarzaczem (odtwarzanie/pauza, itp.) zostanie wyświetlona karta</string>
-    <string name="failed_download_albumart">"Nie można pobrać okładki dla tego albumu"</string>
     <string name="search_hint">Szukaj w bibliotece...</string>
     <string name="rescanning_media">Ponowny skan nośnika...</string>
     <string name="favorites">Ulubione</string>

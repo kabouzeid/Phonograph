@@ -104,7 +104,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
                                     @Override
                                     public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                                         Toast.makeText(AlbumTagEditorActivity.this,
-                                                R.string.failed_download_albumart, Toast.LENGTH_SHORT).show();
+                                                R.string.failed_to_download_album_art, Toast.LENGTH_SHORT).show();
                                     }
 
                                     @Override
@@ -121,7 +121,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
                     @Override
                     public void onError() {
                         Toast.makeText(AlbumTagEditorActivity.this,
-                                R.string.failed_download_albumart, Toast.LENGTH_SHORT).show();
+                                R.string.failed_to_download_album_art, Toast.LENGTH_SHORT).show();
                     }
                 }
         );
@@ -190,7 +190,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
                     @Override
                     public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                         Toast.makeText(AlbumTagEditorActivity.this,
-                                R.string.failed_download_albumart, Toast.LENGTH_SHORT).show();
+                                R.string.failed_to_download_album_art, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

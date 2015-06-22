@@ -94,7 +94,7 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
 
             recyclerView.addItemDecoration(dragSortRecycler);
             recyclerView.addOnItemTouchListener(dragSortRecycler);
-            recyclerView.setOnScrollListener(dragSortRecycler.getScrollListener());
+            recyclerView.addOnScrollListener(dragSortRecycler.getScrollListener());
         }
         recyclerView.setAdapter(adapter);
     }
@@ -139,7 +139,7 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
             case android.R.id.home:
                 onBackPressed();
                 return true;
-            case R.id.action_current_playing:
+            case R.id.action_now_playing:
                 NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithFab(null));
                 return true;
             case R.id.action_playing_queue:

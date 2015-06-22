@@ -9,7 +9,6 @@
     <string name="action_share">分享</string>
     <string name="action_settings">"設定"</string>
     <string name="action_about">關於</string>
-    <string name="action_currently_playing">正在播放</string>
     <string name="action_playing_queue">播放佇列</string>
     <string name="action_search">搜尋</string>
     <string name="action_play_next">稍後播放</string>
@@ -17,7 +16,6 @@
     <string name="action_remove_from_playing_queue">從播放佇列移除</string>
     <string name="action_add_to_playlist">加入音樂清單…</string>
     <string name="action_tag_editor">編輯音樂標籤</string>
-    <string name="action_delete_from_disk">從本裝置刪除</string>
     <string name="action_details">詳細資訊</string>
     <string name="albums">專輯</string>
     <string name="artists">歌手</string>
@@ -119,13 +117,11 @@
     <string name="update_image">更新圖片</string>
     <string name="playlist_empty_text">這個音樂清單是空的</string>
     <string name="no_playlists">無音樂清單</string>
-    <string name="playlist_name">音樂清單名稱</string>
     <string name="song">歌曲</string>
     <string name="pref_only_lollipop">"只適用於 Lollipop。"</string>
     <string name="pref_summary_colored_album_footers">"在專輯頁面中的專輯標籤會隨其封面顏色而改變。"</string>
     <string name="pref_summary_force_square_album_art">於正在播放介面中強制使用正方形專輯封面。</string>
     <string name="pref_summary_opaque_toolbar_now_playing">於正在播放介面中使用不透明工具欄且不再覆蓋專輯封面。</string>
-    <string name="failed_download_albumart">"無法下載此專輯資訊。"</string>
     <string name="search_hint">正在掃描…</string>
     <string name="rescanning_media">正在重新掃描媒體庫…</string>
 </resources>
