@@ -20,7 +20,7 @@
             android:layout_height="104dp"
             android:scaleType="centerCrop"
             android:transitionName="@string/transition_album_cover"
-            tools:ignore="UnusedAttribute" />
+            tools:ignore="ContentDescription,UnusedAttribute" />
 
         <LinearLayout
             android:id="@+id/footer"

@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="64dp"
-    android:background="?card_color"
     android:descendantFocusability="blocksDescendants"
-    android:elevation="2dp"
     android:orientation="horizontal"
     tools:ignore="UnusedAttribute">
 
@@ -31,6 +29,7 @@
     <ImageView
         android:id="@+id/menu"
         style="@style/OverFlowButton"
-        android:layout_gravity="center_vertical" />
+        android:layout_gravity="center_vertical"
+        tools:ignore="ContentDescription" />
 
 </LinearLayout>

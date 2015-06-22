@@ -447,7 +447,7 @@ public class MusicService extends Service {
 
     public int getNextPosition(boolean force) {
         int position = getPosition() + 1;
-        switch (repeatMode) {
+        switch (getRepeatMode()) {
             case REPEAT_MODE_ALL:
                 if (isLastTrack()) {
                     position = 0;
@@ -459,7 +459,7 @@ public class MusicService extends Service {
                         position = 0;
                     }
                 } else {
-                    position = getPosition();
+                    position -= 1;
                 }
                 break;
             default:
@@ -658,11 +658,11 @@ public class MusicService extends Service {
             playerHandler.removeMessages(FADE_DOWN_AND_PAUSE);
             playerHandler.sendEmptyMessage(FADE_UP_AND_RESUME);
         } else {
+            playImpl();
             try {
                 player.setVolume(1f);
             } catch (IllegalStateException ignored) {
             }
-            playImpl();
         }
     }
 
@@ -923,13 +923,23 @@ public class MusicService extends Service {
                     break;
 
                 case TRACK_WENT_TO_NEXT:
-                    service.setPosition(service.nextPosition);
-                    service.prepareNext();
-                    service.notifyChange(META_CHANGED);
+                    if (service.getRepeatMode() == REPEAT_MODE_NONE && service.isLastTrack()) {
+                        service.pause(true);
+                        service.seek(0);
+                    } else {
+                        service.setPosition(service.nextPosition);
+                        service.prepareNext();
+                        service.notifyChange(META_CHANGED);
+                    }
                     break;
 
                 case TRACK_ENDED:
-                    service.playNextSong(false);
+                    if (service.getRepeatMode() == REPEAT_MODE_NONE && service.isLastTrack()) {
+                        service.notifyChange(PLAYSTATE_CHANGED);
+                        service.seek(0);
+                    } else {
+                        service.playNextSong(false);
+                    }
                     break;
 
                 case RELEASE_WAKELOCK:

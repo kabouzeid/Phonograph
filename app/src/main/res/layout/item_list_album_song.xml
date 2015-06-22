@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:background="?card_color"
-    android:elevation="2dp"
     android:foreground="?rect_selector"
     tools:ignore="UnusedAttribute">
 
@@ -13,9 +11,10 @@
         android:layout_height="match_parent"
         android:descendantFocusability="blocksDescendants"
         android:orientation="horizontal"
+        android:paddingEnd="0dp"
         android:paddingLeft="16dp"
-        android:paddingStart="16dp"
-        tools:ignore="RtlSymmetry">
+        android:paddingRight="0dp"
+        android:paddingStart="16dp">
 
         <TextView
             android:id="@+id/track_number"
