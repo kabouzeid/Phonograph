@@ -117,6 +117,8 @@ public class MusicControllerActivity extends AbsFabActivity {
     private boolean alternativeProgressSlider;
     private boolean showPlaybackControllerCard;
 
+    private StackBlurManager defaultAlbumArtStackBlurManager;
+
     private Song song;
 
     @Override
@@ -137,6 +139,8 @@ public class MusicControllerActivity extends AbsFabActivity {
         setUpAlbumArtViews();
         setUpToolbar();
         animateFabCircularRevealOnEnterTransitionEnd();
+
+        updateCurrentSong();
     }
 
     private void setUpAlbumArtViews() {
@@ -411,7 +415,12 @@ public class MusicControllerActivity extends AbsFabActivity {
                     @Override
                     public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                         applyPalette(null);
-                        albumArtBackground.setImageBitmap(new StackBlurManager(BitmapFactory.decodeResource(getResources(), R.drawable.default_album_art)).process(10));
+                        // to gain some performance cache the blurred bitmap
+                        if (defaultAlbumArtStackBlurManager == null) {
+                            defaultAlbumArtStackBlurManager = new StackBlurManager(BitmapFactory.decodeResource(getResources(), R.drawable.default_album_art));
+                            defaultAlbumArtStackBlurManager.process(10);
+                        }
+                        albumArtBackground.setImageBitmap(defaultAlbumArtStackBlurManager.returnBlurredImage());
                     }
 
                     @Override
