@@ -434,7 +434,7 @@ public class MusicService extends Service {
     }
 
     private void updateNotification() {
-        playingNotificationHelper.buildNotification(getCurrentSong(), isPlayingAndNotFadingDown());
+        playingNotificationHelper.updateNotification();
     }
 
     private void updateWidgets() {
@@ -570,11 +570,11 @@ public class MusicService extends Service {
         saveState();
     }
 
-    public void addSongs(int position, List<Song> songs) {
-        playingQueue.addAll(position, songs);
-        originalPlayingQueue.addAll(position, songs);
-        saveState();
-    }
+//    public void addSongs(int position, List<Song> songs) {
+//        playingQueue.addAll(position, songs);
+//        originalPlayingQueue.addAll(position, songs);
+//        saveState();
+//    }
 
     public void addSongs(List<Song> songs) {
         playingQueue.addAll(songs);

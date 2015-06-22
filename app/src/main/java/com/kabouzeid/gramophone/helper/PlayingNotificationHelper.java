@@ -72,21 +72,25 @@ public class PlayingNotificationHelper {
             if (intent.getAction().equals(ACTION_NOTIFICATION_COLOR_PREFERENCE_CHANGED)) {
                 boolean isColored = intent.getBooleanExtra(EXTRA_NOTIFICATION_COLORED, false);
                 if (isNotificationShown && PlayingNotificationHelper.this.isColored != isColored) {
-                    buildNotification(currentSong, isPlaying, isColored);
+                    updateNotification(isColored);
                 }
             }
         }
     };
 
-    public void buildNotification(final Song song, final boolean isPlaying) {
-        buildNotification(song, isPlaying, PreferenceUtils.getInstance(service).coloredNotification());
+    public void updateNotification() {
+        updateNotification(PreferenceUtils.getInstance(service).coloredNotification());
     }
 
-    private void buildNotification(final Song song, final boolean isPlaying, final boolean isColored) {
-        if (song.id == -1) return;
+    private void updateNotification(final boolean isColored) {
+        Song song = service.getCurrentSong();
+        if (song.id == -1) {
+            service.stopForeground(true);
+            return;
+        }
         this.isColored = isColored;
         currentSong = song;
-        this.isPlaying = isPlaying;
+        this.isPlaying = service.isPlayingAndNotFadingDown();
         if (!isReceiverRegistered)
             service.registerReceiver(notificationColorPreferenceChangedReceiver, intentFilter);
         isReceiverRegistered = true;
@@ -258,8 +262,8 @@ public class PlayingNotificationHelper {
     public void updatePlayState(final boolean isPlaying) {
         this.isPlaying = isPlaying;
 
-        if (notification == null || notificationManager == null) {
-            return;
+        if (notification == null) {
+            updateNotification();
         }
         if (notificationLayout != null) {
             notificationLayout.setImageViewResource(R.id.action_play_pause,
