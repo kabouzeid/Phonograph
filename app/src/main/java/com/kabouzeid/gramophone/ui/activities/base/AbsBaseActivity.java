@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.ui.activities.base;
 
+import android.media.AudioManager;
 import android.os.Bundle;
 
 import com.crashlytics.android.Crashlytics;
@@ -31,6 +32,7 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
             App.bus.register(uiPreferenceChangeListener);
         } catch (Exception ignored) {
         }
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
     }
 
     protected abstract String getTag();
