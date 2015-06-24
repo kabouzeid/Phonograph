@@ -11,7 +11,13 @@
 
     <item
         android:id="@+id/action_playing_queue"
+        android:icon="@drawable/ic_queue_music_white_24dp"
         android:title="@string/action_playing_queue"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_shuffle_playlist"
+        android:title="@string/action_shuffle_playlist"
         app:showAsAction="never" />
 
     <item

@@ -68,7 +68,7 @@ import butterknife.InjectView;
 
 /**
  * A lot of hackery is done in this activity. Changing things may will brake the whole activity.
- * <p/>
+ * <p>
  * Should be kinda stable ONLY AS IT IS!!!
  */
 public class ArtistDetailActivity extends AbsFabActivity implements PaletteColorHolder, CabHolder {
@@ -392,8 +392,8 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
             case R.id.action_equalizer:
                 NavigationUtil.openEqualizer(this);
                 return true;
-            case R.id.action_shuffle_all:
-                MusicPlayerRemote.shuffleAllSongs(this);
+            case R.id.action_shuffle_artist:
+                MusicPlayerRemote.openAndShuffleQueue(this, songs, true);
                 return true;
             case android.R.id.home:
                 super.onBackPressed();

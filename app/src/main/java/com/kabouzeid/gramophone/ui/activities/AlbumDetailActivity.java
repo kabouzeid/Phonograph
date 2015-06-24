@@ -349,8 +349,8 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
             case R.id.action_equalizer:
                 NavigationUtil.openEqualizer(this);
                 return true;
-            case R.id.action_shuffle_all:
-                MusicPlayerRemote.shuffleAllSongs(this);
+            case R.id.action_shuffle_album:
+                MusicPlayerRemote.openAndShuffleQueue(this, songs, true);
                 return true;
             case android.R.id.home:
                 super.onBackPressed();

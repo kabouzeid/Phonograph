@@ -67,7 +67,7 @@ Vill du radera <b>%1$d</b> låtar?
     <string name="add_playlist_title">"Lägg till i spellista"</string>
     <string name="new_playlist_title">Ny spellista</string>
     <string name="delete_warning">"Varning: denna process kan inte ångras."</string>
-    <string name="shuffle_all">Slumpa alla</string>
+    <string name="action_shuffle_all">Slumpa alla</string>
     <string name="last_opened">Senast öppnad</string>
     <string name="light_theme_name">Ljus</string>
     <string name="dark_theme_name">Mörk</string>

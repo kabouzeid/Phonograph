@@ -65,7 +65,7 @@
     <string name="add_playlist_title">"Lisää Soittolistaan"</string>
     <string name="new_playlist_title">Uusi Soittolista</string>
     <string name="delete_warning">"Varoitus: Tätä toimintoa ei voida perua."</string>
-    <string name="shuffle_all">Sekoita kaikki</string>
+    <string name="action_shuffle_all">Sekoita kaikki</string>
     <string name="last_opened">Viimeksi avattu</string>
     <string name="light_theme_name">Vaalea</string>
     <string name="dark_theme_name">Tumma</string>

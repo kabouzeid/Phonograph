@@ -71,7 +71,7 @@
     <string name="add_playlist_title">"Добавить в список воспроизведения"</string>
     <string name="new_playlist_title">Новый список воспроизведения</string>
     <string name="delete_warning">"Внимание ! Эта операция необратима."</string>
-    <string name="shuffle_all">Перемешать всё</string>
+    <string name="action_shuffle_all">Перемешать всё</string>
     <string name="last_opened">Последнее открытое</string>
     <string name="light_theme_name">Светлая</string>
     <string name="dark_theme_name">Тёмная</string>

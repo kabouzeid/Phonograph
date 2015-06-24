@@ -571,7 +571,7 @@ public class MusicControllerActivity extends AbsFabActivity {
                 NavigationUtil.openEqualizer(this);
                 return true;
             case R.id.action_shuffle_all:
-                MusicPlayerRemote.shuffleAllSongs(this);
+                MusicPlayerRemote.shuffleAllSongs(this, true);
                 return true;
             case R.id.action_add_to_playlist:
                 AddToPlaylistDialog.create(song).show(getSupportFragmentManager(), "ADD_PLAYLIST");

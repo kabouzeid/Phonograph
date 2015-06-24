@@ -88,7 +88,7 @@
     <string name="add_playlist_title">"Agregar a la lista de reproducción"</string>
     <string name="new_playlist_title">Nueva lista de reproducción</string>
     <string name="delete_warning">"Advertencia: Esta operación no se puede deshacer"</string>
-    <string name="shuffle_all">Aleatorio</string>
+    <string name="action_shuffle_all">Aleatorio</string>
     <string name="last_opened">Última abierta</string>
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Oscuro</string>

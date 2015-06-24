@@ -86,7 +86,7 @@
     <string name="add_playlist_title">"Přidat do playlistu"</string>
     <string name="new_playlist_title">Nový playlist</string>
     <string name="delete_warning">"Varování: Tato operace nemůže být vrácena"</string>
-    <string name="shuffle_all">Přehrát náhodně</string>
+    <string name="action_shuffle_all">Přehrát náhodně</string>
     <string name="last_opened">Naposledy otevřené</string>
     <string name="light_theme_name">Světlý</string>
     <string name="dark_theme_name">Tmavý</string>

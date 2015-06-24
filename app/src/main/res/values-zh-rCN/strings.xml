@@ -86,7 +86,7 @@
     <string name="add_playlist_title">"添加到播放列表"</string>
     <string name="new_playlist_title">新建播放列表</string>
     <string name="delete_warning">"警告：该操作无法撤销。"</string>
-    <string name="shuffle_all">随机播放全部曲目</string>
+    <string name="action_shuffle_all">随机播放全部曲目</string>
     <string name="last_opened">最后打开</string>
     <string name="light_theme_name">浅色</string>
     <string name="dark_theme_name">暗色</string>

@@ -86,7 +86,7 @@
     <string name="add_playlist_title">"Toevoegen aan afspeellijst"</string>
     <string name="new_playlist_title">Nieuwe afspeellijst</string>
     <string name="delete_warning">"Waarschuwing: Deze handeling kan niet ongedaan gemaakt worden."</string>
-    <string name="shuffle_all">Shuffle alles</string>
+    <string name="action_shuffle_all">Shuffle alles</string>
     <string name="last_opened">Laatst geopend</string>
     <string name="light_theme_name">Licht</string>
     <string name="dark_theme_name">Donker</string>

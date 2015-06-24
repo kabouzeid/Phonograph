@@ -15,12 +15,14 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.songadapter.AbsPlaylistSongAdapter;
 import com.kabouzeid.gramophone.adapter.songadapter.PlaylistSongAdapter;
 import com.kabouzeid.gramophone.adapter.songadapter.smartplaylist.SmartPlaylistSongAdapter;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.misc.DragSortRecycler;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
+import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.smartplaylist.SmartPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -133,6 +135,9 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case R.id.action_shuffle_playlist:
+                MusicPlayerRemote.openAndShuffleQueue(this, new ArrayList<Song>(songs), true);
+                return true;
             case R.id.action_equalizer:
                 NavigationUtil.openEqualizer(this);
                 return true;

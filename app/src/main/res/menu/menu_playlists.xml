@@ -20,7 +20,7 @@
 
     <item
         android:id="@+id/action_shuffle_all"
-        android:title="@string/shuffle_all"
+        android:title="@string/action_shuffle_all"
         app:showAsAction="never" />
 
     <item

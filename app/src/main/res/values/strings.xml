@@ -89,7 +89,10 @@
     <string name="add_playlist_title">"Add to Playlist"</string>
     <string name="new_playlist_title">New Playlist</string>
     <string name="delete_warning">"Warning: This operation can not be undone."</string>
-    <string name="shuffle_all">Shuffle All</string>
+    <string name="action_shuffle_all">Shuffle All</string>
+    <string name="action_shuffle_album">Shuffle Album</string>
+    <string name="action_shuffle_artist">Shuffle Artist</string>
+    <string name="action_shuffle_playlist">Shuffle Playlist</string>
     <string name="last_opened">Last Opened</string>
     <string name="light_theme_name">Light</string>
     <string name="dark_theme_name">Dark</string>

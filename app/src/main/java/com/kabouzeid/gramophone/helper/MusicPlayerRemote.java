@@ -176,11 +176,14 @@ public class MusicPlayerRemote {
         return false;
     }
 
-    public static boolean shuffleAllSongs(final Context context) {
+    public static boolean shuffleAllSongs(final Context context, boolean startPlaying) {
+        return openAndShuffleQueue(context, SongLoader.getAllSongs(context), startPlaying);
+    }
+
+    public static boolean openAndShuffleQueue(final Context context, final ArrayList<Song> songs, boolean startPlaying) {
         if (musicService != null) {
-            ArrayList<Song> songs = SongLoader.getAllSongs(context);
             if (!songs.isEmpty()) {
-                MusicPlayerRemote.openQueue(songs, new Random().nextInt(songs.size()), true);
+                MusicPlayerRemote.openQueue(songs, new Random().nextInt(songs.size()), startPlaying);
                 setShuffleMode(MusicService.SHUFFLE_MODE_SHUFFLE);
             }
             return true;

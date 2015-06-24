@@ -85,7 +85,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
             );
             holder.view.setActivated(isChecked(song));
         } else {
-            holder.songTitle.setText(activity.getResources().getString(R.string.shuffle_all).toUpperCase());
+            holder.songTitle.setText(activity.getResources().getString(R.string.action_shuffle_all).toUpperCase());
             holder.songTitle.setTextColor(ThemeSingleton.get().positiveColor);
             holder.songTitle.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
             holder.songInfo.setVisibility(View.GONE);
@@ -175,7 +175,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
         @Override
         public void onClick(View v) {
             if (getItemViewType() == SHUFFLE_BUTTON) {
-                MusicPlayerRemote.shuffleAllSongs(activity);
+                MusicPlayerRemote.shuffleAllSongs(activity, true);
             } else if (isInQuickSelectMode()) {
                 toggleChecked(getAdapterPosition());
             } else {

@@ -86,7 +86,7 @@
     <string name="add_playlist_title">"Dodaj do listy odtwarzania"</string>
     <string name="new_playlist_title">Nowa lista odtwarzania</string>
     <string name="delete_warning">"Ostrzeżenie: Ta operacja nie może być cofnięta"</string>
-    <string name="shuffle_all">Wszystkie losowo</string>
+    <string name="action_shuffle_all">Wszystkie losowo</string>
     <string name="last_opened">Ostatnio otwarte</string>
     <string name="light_theme_name">Jasny</string>
     <string name="dark_theme_name">Ciemny</string>

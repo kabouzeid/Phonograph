@@ -13,11 +13,11 @@
         android:id="@+id/action_playing_queue"
         android:icon="@drawable/ic_queue_music_white_24dp"
         android:title="@string/action_playing_queue"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_shuffle_all"
-        android:title="@string/shuffle_all"
+        android:id="@+id/action_shuffle_artist"
+        android:title="@string/action_shuffle_artist"
         app:showAsAction="never"/>
 
     <item

@@ -69,7 +69,7 @@
     <string name="add_playlist_title">"Προσθήκη στη λίστα αναπαραγωγής"</string>
     <string name="new_playlist_title">Νέα λίστα αναπαραγωγής</string>
     <string name="delete_warning">"Προσοχή: Αυτή η ενέργεια δε μπορεί να αναιρεθεί."</string>
-    <string name="shuffle_all">Αναδιάταξη όλων</string>
+    <string name="action_shuffle_all">Αναδιάταξη όλων</string>
     <string name="last_opened">Τελευταίο άνοιγμα</string>
     <string name="light_theme_name">Ανοιχτό</string>
     <string name="dark_theme_name">Σκούρο</string>

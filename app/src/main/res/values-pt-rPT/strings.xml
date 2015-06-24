@@ -51,7 +51,7 @@
     <string name="action_grid_columns">Colunas da grade</string>
     <string name="action_grid_columns_land">Colunas da grade (Paisagem)</string>
     <string name="delete_warning">"Aviso: Esta operação não pode ser desfeita."</string>
-    <string name="shuffle_all">Todas aleatoriamente</string>
+    <string name="action_shuffle_all">Todas aleatoriamente</string>
     <string name="last_opened">Abertas recentemente</string>
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Escuro</string>

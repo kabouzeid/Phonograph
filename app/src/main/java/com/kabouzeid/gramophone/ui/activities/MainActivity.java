@@ -342,7 +342,7 @@ public class MainActivity extends AbsFabActivity
                 NavigationUtil.openEqualizer(this);
                 return true;
             case R.id.action_shuffle_all:
-                MusicPlayerRemote.shuffleAllSongs(this);
+                MusicPlayerRemote.shuffleAllSongs(this, true);
                 return true;
             case R.id.action_new_playlist:
                 CreatePlaylistDialog.create().show(getSupportFragmentManager(), "CREATE_PLAYLIST");

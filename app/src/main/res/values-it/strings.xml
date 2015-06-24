@@ -86,7 +86,7 @@
     <string name="add_playlist_title">"Aggiungi alla playlist"</string>
     <string name="new_playlist_title">Nuova playlist</string>
     <string name="delete_warning">"Attenzione: questa operazione non può essere annullata."</string>
-    <string name="shuffle_all">Casuale</string>
+    <string name="action_shuffle_all">Casuale</string>
     <string name="last_opened">Ultima aperta</string>
     <string name="light_theme_name">Chiaro</string>
     <string name="dark_theme_name">Scuro</string>
