@@ -12,6 +12,8 @@
     <string name="action_now_playing">Reproducir ahora</string>
     <string name="action_clear_playlist">Limpiar lista de reproducción</string>
     <string name="action_playing_queue">Cola de reproducción</string>
+    <string name="action_add_to_favorites">Agregar a favoritos</string>
+    <string name="action_remove_from_favorites">Eliminar de favoritos</string>
     <string name="action_search">Buscar</string>
     <string name="action_play_next">Siguiente</string>
     <string name="action_play">Reproducir</string>
@@ -68,6 +70,7 @@
     <string name="created_playlist_x">Lista de reproducción %1$s creada</string>
     <string name="deleted_playlist_x">Lista de reproducción %1$s borrada</string>
     <string name="deleted_x_songs">Borrado las canciones {%1$d}</string>
+    <string name="could_not_create_playlist">No se pudo crear la lista de reproducción</string>
     <string name="delete_playlist_x"><![CDATA[¿Seguro que quiere borrar la lista de reproducción <b>%1$s</b>?]]></string>
     <string name="clear_playlist_x"><![CDATA[Realmente quieres limpiar la lista de reproducción {<b>} {</b>} {%1$s} ? ¡Esto no se puede deshacer!]]></string>
     <string name="delete_x_playlists"><![CDATA[
@@ -88,7 +91,6 @@
     <string name="add_playlist_title">"Agregar a la lista de reproducción"</string>
     <string name="new_playlist_title">Nueva lista de reproducción</string>
     <string name="delete_warning">"Advertencia: Esta operación no se puede deshacer"</string>
-    <string name="action_shuffle_all">Aleatorio</string>
     <string name="last_opened">Última abierta</string>
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Oscuro</string>

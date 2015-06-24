@@ -86,7 +86,6 @@
     <string name="add_playlist_title">"Adicionar à Playlist"</string>
     <string name="new_playlist_title">Nova Playlist</string>
     <string name="delete_warning">"Aviso: Esta operação não pode ser desfeita."</string>
-    <string name="action_shuffle_all">Misturar todas</string>
     <string name="last_opened">Última aberta</string>
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Escuro</string>

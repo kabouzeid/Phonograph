@@ -64,7 +64,6 @@
     <string name="add_playlist_title">"Adaugă la Playlist"</string>
     <string name="new_playlist_title">Playlist Nou</string>
     <string name="delete_warning">"Atenţie: Această operaţie nu poate fi revocată."</string>
-    <string name="action_shuffle_all">Amestecă toate</string>
     <string name="last_opened">Ultimul deschis</string>
     <string name="light_theme_name">Light (Alb)</string>
     <string name="dark_theme_name">Dark (Negru)</string>

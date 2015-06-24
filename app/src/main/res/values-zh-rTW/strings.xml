@@ -80,7 +80,6 @@
     <string name="add_playlist_title">"加入音樂清單"</string>
     <string name="new_playlist_title">新增音樂清單</string>
     <string name="delete_warning">"警告：這個操作無法被撤銷！"</string>
-    <string name="action_shuffle_all">隨機播放全部歌曲</string>
     <string name="last_opened">上次開啟</string>
     <string name="light_theme_name">明亮</string>
     <string name="dark_theme_name">暗沉</string>

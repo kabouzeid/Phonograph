@@ -86,7 +86,6 @@
     <string name="add_playlist_title">"Çalma Listesine Ekle"</string>
     <string name="new_playlist_title">Yeni Çalma Listesi</string>
     <string name="delete_warning">"Uyarı: Bu işlem geri alınamaz."</string>
-    <string name="action_shuffle_all">Hepsini Karıştır</string>
     <string name="last_opened">Son Dinlenenler</string>
     <string name="light_theme_name">Açık</string>
     <string name="dark_theme_name">Koyu</string>

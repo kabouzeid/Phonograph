@@ -12,6 +12,8 @@
     <string name="action_now_playing">Jetzt Läuft</string>
     <string name="action_clear_playlist">Playlist leeren</string>
     <string name="action_playing_queue">Warteschlange</string>
+    <string name="action_add_to_favorites">Zu Favoriten hinzufügen</string>
+    <string name="action_remove_from_favorites">Von Favoriten entfernen</string>
     <string name="action_search">Suche</string>
     <string name="action_play_next">Als nächstes spielen</string>
     <string name="action_play">Abspielen</string>
@@ -68,6 +70,7 @@
     <string name="created_playlist_x">Wiedergabeliste %1$s erstellt</string>
     <string name="deleted_playlist_x">Wiedergabeliste %1$s gelöscht</string>
     <string name="deleted_x_songs">%1$d Titel gelöscht</string>
+    <string name="could_not_create_playlist">Konnte keine Wiedergabeliste erstellen</string>
     <string name="delete_playlist_x"><![CDATA[Willst du die Wiedergabeliste <b>%1$s</b> löschen?]]></string>
     <string name="clear_playlist_x"><![CDATA[Möchtest du die Playlist <b>%1$s</b> wirklich leeren?]]></string>
     <string name="delete_x_playlists"><![CDATA[Willst du <b>%1$d</b> Wiedergabelisten löschen?]]></string>
@@ -86,7 +89,6 @@
     <string name="add_playlist_title">"Zu Wiedergabeliste hinzufügen"</string>
     <string name="new_playlist_title">Neue Wiedergabeliste</string>
     <string name="delete_warning">"Warnung: Diese Aktion kann nicht rückgängig gemahct werden."</string>
-    <string name="action_shuffle_all">Zufällige Wiedergabe</string>
     <string name="last_opened">Zuletzt geöffnet</string>
     <string name="light_theme_name">Hell</string>
     <string name="dark_theme_name">Dunkel</string>

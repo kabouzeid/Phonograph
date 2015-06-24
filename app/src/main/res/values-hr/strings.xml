@@ -86,7 +86,6 @@
     <string name="add_playlist_title">"Dodaj na popis pjesama"</string>
     <string name="new_playlist_title">Novi popis pjesama</string>
     <string name="delete_warning">"Upozorenje: Ovaj postupak nije moguće poništiti."</string>
-    <string name="action_shuffle_all">Nasumična reprodukcija</string>
     <string name="last_opened">Posljednje otvoreno</string>
     <string name="light_theme_name">Svijetla</string>
     <string name="dark_theme_name">Tamna</string>

@@ -86,7 +86,6 @@
     <string name="add_playlist_title">"재생목록에 추가"</string>
     <string name="new_playlist_title">새로운 재생목록</string>
     <string name="delete_warning">"경고 : 이 작업은 되돌릴 수 없습니다."</string>
-    <string name="action_shuffle_all">모든 노래 임의 재생</string>
     <string name="last_opened">마지막으로 열었던 위치</string>
     <string name="light_theme_name">밝은 테마</string>
     <string name="dark_theme_name">어두운 테마</string>

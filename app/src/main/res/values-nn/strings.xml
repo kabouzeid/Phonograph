@@ -75,7 +75,6 @@
     <string name="add_playlist_title">"Legg til i speleliste"</string>
     <string name="new_playlist_title">Ny speleliste</string>
     <string name="delete_warning">"Åtvaring: Denne operasjonen kan ikkje gjerast om."</string>
-    <string name="action_shuffle_all">Spel alle i tilfeldig rekkjefylgje</string>
     <string name="last_opened">Sist opna</string>
     <string name="light_theme_name">Lys</string>
     <string name="dark_theme_name">Mørk</string>
