@@ -68,7 +68,7 @@
     <string name="created_playlist_x">Stvoren popis pjesama %1$s</string>
     <string name="deleted_playlist_x">Obrisan popis pjesama %1$s</string>
     <string name="deleted_x_songs">Obrisano %1$d pjesama</string>
-    <string name="couldnot_create_playlist_x">Nije bilo moguće stvoriti popis pjesama %1$s</string>
+    <string name="could_not_create_playlist">Nije bilo moguće stvoriti popis pjesama %1$s</string>
     <string name="delete_playlist_x"><![CDATA[Želite li obrisati popis pjesama <b>%1$s</b>?]]></string>
     <string name="clear_playlist_x"><![CDATA[Želite li stvarno isprazniti popis pjesama <b>%1$s</b>? Ovaj postupak se ne može poništiti!]]></string>
     <string name="delete_x_playlists"><![CDATA[Želite li obrisati popise pjesama <b>%1$d</b>?]]></string>

@@ -68,7 +68,7 @@
     <string name="created_playlist_x">Utworzono listę odtwarzania %1$s</string>
     <string name="deleted_playlist_x">Usunięto listę odtwarzania %1$s</string>
     <string name="deleted_x_songs">Usunięto %1$d utworów</string>
-    <string name="couldnot_create_playlist_x">Nie można utworzyć listy odtwarzania %1$s</string>
+    <string name="could_not_create_playlist">Nie można utworzyć listy odtwarzania %1$s</string>
     <string name="delete_playlist_x"><![CDATA[Czy chcesz usunąć listę odtwarzania <b>%1$s</b>?]]></string>
     <string name="clear_playlist_x"><![CDATA[Czy na pewno chcesz wyczyścić listę odtwarzania <b>%1$s</b>? Operacja nie może zostać cofnięta!]]></string>
     <string name="delete_x_playlists"><![CDATA[Czy chcesz usunąć <b>%1$d</b> listy odtwarzania?]]></string>

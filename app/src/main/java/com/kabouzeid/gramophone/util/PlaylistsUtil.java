@@ -25,32 +25,36 @@ import java.util.List;
 public class PlaylistsUtil {
 
     public static int createPlaylist(final Context context, final String name) {
+        int id = -1;
         if (name != null && name.length() > 0) {
-            final ContentResolver resolver = context.getContentResolver();
-            final String[] projection = new String[]{
-                    MediaStore.Audio.PlaylistsColumns.NAME
-            };
-            final String selection = MediaStore.Audio.PlaylistsColumns.NAME + " = '" + name + "'";
-            Cursor cursor = resolver.query(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,
-                    projection, selection, null, null);
-            if (cursor.getCount() <= 0) {
+            Cursor cursor = context.getContentResolver().query(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,
+                    new String[]{MediaStore.Audio.Playlists._ID}, MediaStore.Audio.PlaylistsColumns.NAME + "=?", new String[]{name}, null);
+            if (cursor == null || cursor.getCount() < 1) {
                 final ContentValues values = new ContentValues(1);
                 values.put(MediaStore.Audio.PlaylistsColumns.NAME, name);
-                final Uri uri = resolver.insert(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,
+                final Uri uri = context.getContentResolver().insert(
+                        MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,
                         values);
-                cursor.close();
                 if (uri != null) {
                     Toast.makeText(context, context.getResources().getString(
                             R.string.created_playlist_x, name), Toast.LENGTH_SHORT).show();
                     App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
-                    return Integer.parseInt(uri.getLastPathSegment());
+                    id = Integer.parseInt(uri.getLastPathSegment());
+                }
+            } else {
+                if (cursor.moveToFirst()) {
+                    id = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Playlists._ID));
                 }
             }
-            cursor.close();
+            if (cursor != null) {
+                cursor.close();
+            }
         }
-        Toast.makeText(context, context.getResources().getString(
-                R.string.couldnot_create_playlist_x, name), Toast.LENGTH_SHORT).show();
-        return -1;
+        if (id == -1) {
+            Toast.makeText(context, context.getResources().getString(
+                    R.string.could_not_create_playlist), Toast.LENGTH_SHORT).show();
+        }
+        return id;
     }
 
 //    public static void clearPlaylist(final Context context, final int playlistId) {
@@ -81,11 +85,11 @@ public class PlaylistsUtil {
         App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
     }
 
-//    public static void addToPlaylist(final Context context, final Song song, final int playlistId) {
-//        List<Song> helperList = new ArrayList<>();
-//        helperList.add(song);
-//        addToPlaylist(context, helperList, playlistId);
-//    }
+    public static void addToPlaylist(final Context context, final Song song, final int playlistId) {
+        List<Song> helperList = new ArrayList<>();
+        helperList.add(song);
+        addToPlaylist(context, helperList, playlistId);
+    }
 
     public static void addToPlaylist(final Context context, final List<Song> songs, final int playlistId) {
         final int size = songs.size();
@@ -133,15 +137,15 @@ public class PlaylistsUtil {
         return contentValues;
     }
 
-//    public static void removeFromPlaylist(final Context context, final PlaylistSong song) {
-//        Uri uri = MediaStore.Audio.Playlists.Members.getContentUri(
-//                "external", song.playlistId);
-//        String selection = MediaStore.Audio.Playlists.Members._ID + " =?";
-//        String[] selectionArgs = new String[]{String.valueOf(song.idInPlayList)};
-//
-//        context.getContentResolver().delete(uri, selection, selectionArgs);
-//        App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
-//    }
+    public static void removeFromPlaylist(final Context context, final Song song, int playlistId) {
+        Uri uri = MediaStore.Audio.Playlists.Members.getContentUri(
+                "external", playlistId);
+        String selection = MediaStore.Audio.Playlists.Members.AUDIO_ID + " =?";
+        String[] selectionArgs = new String[]{String.valueOf(song.id)};
+
+        context.getContentResolver().delete(uri, selection, selectionArgs);
+        App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
+    }
 
     public static void removeFromPlaylist(final Context context, final List<PlaylistSong> songs) {
         final int playlistId = songs.get(0).playlistId;
@@ -158,7 +162,22 @@ public class PlaylistsUtil {
         context.getContentResolver().delete(uri, selection, selectionArgs);
         App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
     }
-//
+
+    public static boolean doPlaylistContains(final Context context, final long playlistId, final int songId) {
+        if (playlistId != -1) {
+            Cursor c = context.getContentResolver().query(
+                    MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),
+                    new String[]{MediaStore.Audio.Playlists.Members.AUDIO_ID}, MediaStore.Audio.Playlists.Members.AUDIO_ID + "=?", new String[]{String.valueOf(songId)}, null);
+            int count = 0;
+            if (c != null) {
+                count = c.getCount();
+                c.close();
+            }
+            return count > 0;
+        }
+        return false;
+    }
+
 //    public static int getSongCountForPlaylist(final Context context, final long playlistId) {
 //        Cursor c = context.getContentResolver().query(
 //                MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),

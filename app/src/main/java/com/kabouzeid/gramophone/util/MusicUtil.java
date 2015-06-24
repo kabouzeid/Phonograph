@@ -17,10 +17,12 @@ import android.widget.Toast;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
+import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 
 import java.io.File;
@@ -189,5 +191,25 @@ public class MusicUtil {
         context.getContentResolver().notifyChange(Uri.parse("content://media"), null);
         Toast.makeText(context, context.getString(R.string.deleted_x_songs, songs.size()), Toast.LENGTH_SHORT).show();
         App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.DATABASE_CHANGED));
+    }
+
+    private static Playlist getFavoritesPlaylist(final Context context) {
+        return PlaylistLoader.getPlaylist(context, context.getString(R.string.favorites));
+    }
+
+    private static Playlist getOrCreateFavoritesPlaylist(final Context context) {
+        return PlaylistLoader.getPlaylist(context, PlaylistsUtil.createPlaylist(context, context.getString(R.string.favorites)));
+    }
+
+    public static boolean isFavorite(final Context context, final Song song) {
+        return PlaylistsUtil.doPlaylistContains(context, getFavoritesPlaylist(context).id, song.id);
+    }
+
+    public static void toggleFavorite(final Context context, final Song song) {
+        if (isFavorite(context, song)) {
+            PlaylistsUtil.removeFromPlaylist(context, song, getFavoritesPlaylist(context).id);
+        } else {
+            PlaylistsUtil.addToPlaylist(context, song, getOrCreateFavoritesPlaylist(context).id);
+        }
     }
 }

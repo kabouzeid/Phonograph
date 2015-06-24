@@ -55,7 +55,7 @@
     <string name="inserted_x_songs_into_playlist">تم إدراج الأغاني %1$d إلى قائمة التشغيل</string>
     <string name="created_playlist_x">تم إنشاء قائمة التشغيل %1$s</string>
     <string name="deleted_playlist_x">تم حذف قائمة التشغيل %1$s</string>
-    <string name="couldnot_create_playlist_x">لا يمكن إنشاء قائمة التشغيل %1$s</string>
+    <string name="could_not_create_playlist">لا يمكن إنشاء قائمة التشغيل %1$s</string>
     <string name="delete_playlist_x"><![CDATA[
 هل تريد حذف قائمة التشغيل <b> %1$s </b>؟]]></string>
     <string name="delete_song_x"><![CDATA[

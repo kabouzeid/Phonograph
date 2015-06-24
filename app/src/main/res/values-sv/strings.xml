@@ -51,7 +51,7 @@
     <string name="new_playlist_action">Ny spellista ...</string>
     <string name="created_playlist_x">Spellista %1$s skapad</string>
     <string name="deleted_playlist_x">Spellista %1$s raderad</string>
-    <string name="couldnot_create_playlist_x">Kunde inte skapa spellistan %1$s</string>
+    <string name="could_not_create_playlist">Kunde inte skapa spellistan %1$s</string>
     <string name="delete_playlist_x"><![CDATA[
 Vill du radera spellistan <b>%1$s</b>?
     ]]></string>

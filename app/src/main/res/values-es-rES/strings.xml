@@ -68,7 +68,7 @@
     <string name="created_playlist_x">Lista de reproducción %1$s creada</string>
     <string name="deleted_playlist_x">Lista de reproducción %1$s borrada</string>
     <string name="deleted_x_songs">Borrado las canciones {%1$d}</string>
-    <string name="couldnot_create_playlist_x">No se puede crear la lista de reproducción %1$s</string>
+    <string name="could_not_create_playlist">No se puede crear la lista de reproducción %1$s</string>
     <string name="delete_playlist_x"><![CDATA[¿Seguro que quiere borrar la lista de reproducción <b>%1$s</b>?]]></string>
     <string name="clear_playlist_x"><![CDATA[Realmente quieres limpiar la lista de reproducción {<b>} {</b>} {%1$s} ? ¡Esto no se puede deshacer!]]></string>
     <string name="delete_x_playlists"><![CDATA[

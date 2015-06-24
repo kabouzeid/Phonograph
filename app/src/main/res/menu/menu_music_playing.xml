@@ -1,29 +1,34 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context="com.kabouzeid.gramophone.ui.activities.MusicControllerActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.kabouzeid.gramophone.ui.activities.MusicControllerActivity">
 
     <item
         android:id="@+id/action_playing_queue"
         android:icon="@drawable/ic_queue_music_white_24dp"
         android:title="@string/action_playing_queue"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_toggle_favorite"
+        android:icon="@drawable/ic_favorite_outline_white_24dp"
+        android:title="@string/action_add_to_favorites"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_shuffle_all"
         android:title="@string/shuffle_all"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_add_to_playlist"
         android:title="@string/action_add_to_playlist"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_go_to_album"
         android:title="@string/action_go_to_album"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_go_to_artist"
         android:title="@string/action_go_to_artist"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_share"
         android:title="@string/action_share"
@@ -31,14 +36,14 @@
     <item
         android:id="@+id/action_tag_editor"
         android:title="@string/action_tag_editor"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_equalizer"
         android:orderInCategory="99"
         android:title="@string/equalizer"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_details"
         android:title="@string/action_details"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
 </menu>

@@ -27,6 +27,20 @@ public class PlaylistLoader {
         return playlist;
     }
 
+    public static Playlist getPlaylist(final Context context, final String playlistName) {
+        Playlist playlist = new Playlist();
+        Cursor cursor = makePlaylistCursor(context, PlaylistsColumns.NAME + "=?", new String[]{playlistName});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            final int id = cursor.getInt(0);
+            final String name = cursor.getString(1);
+            playlist = new Playlist(id, name);
+        }
+        if (cursor != null)
+            cursor.close();
+        return playlist;
+    }
+
     public static List<Playlist> getAllPlaylists(final Context context) {
         List<Playlist> playlists = new ArrayList<>();
         Cursor cursor = makePlaylistCursor(context, null, null);

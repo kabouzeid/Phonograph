@@ -68,7 +68,7 @@
     <string name="created_playlist_x">Çalma listesi %1$s oluşturuldu</string>
     <string name="deleted_playlist_x">Çalma listesi %1$s silindi</string>
     <string name="deleted_x_songs">%1$d parça silindi</string>
-    <string name="couldnot_create_playlist_x">Çalma listesi %1$s oluşturulamadı</string>
+    <string name="could_not_create_playlist">Çalma listesi %1$s oluşturulamadı</string>
     <string name="delete_playlist_x"><![CDATA[<b>%1$s</b> çalma listesini silmek istiyor musunuz?]]></string>
     <string name="clear_playlist_x"><![CDATA[<b>%1$s</b> çalma listesini temizlemek istediğinize emin misiniz? Bu geri döndürülemez!]]></string>
     <string name="delete_x_playlists"><![CDATA[<b>%1$d</b> çalma listelerini silmek istiyor musunuz?]]></string>

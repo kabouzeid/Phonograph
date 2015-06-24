@@ -55,7 +55,7 @@
     <string name="inserted_x_songs_into_playlist">{%1$d} kappaletta lisättiin tähän soittolistaan</string>
     <string name="created_playlist_x">Soittolista {%1$s} luotu</string>
     <string name="deleted_playlist_x">Soittolista {%1$s} poistettu</string>
-    <string name="couldnot_create_playlist_x">Soittolistaa {%1$s} ei voitu luoda</string>
+    <string name="could_not_create_playlist">Soittolistaa {%1$s} ei voitu luoda</string>
     <string name="delete_playlist_x"><![CDATA[Haluatko poistaa soittolistan {<b>}{%1$s}{</b>}?]]></string>
     <string name="delete_song_x"><![CDATA[Haluatko poistaa kappaleen {<b>}{%1$s}{</b>}?]]></string>
     <string name="delete_x_songs"><![CDATA[Haluatko poistaa {<b>}{%1$d}{</b>} kappaletta?]]></string>

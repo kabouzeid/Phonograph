@@ -391,6 +391,7 @@ public class MusicControllerActivity extends AbsFabActivity {
         setUpAlbumArtAndApplyPalette();
         songTotalTime.setText(MusicUtil.getReadableDurationString(song.duration));
         songCurrentProgress.setText(MusicUtil.getReadableDurationString(0));
+        invalidateOptionsMenu();
     }
 
     private void setHeadersText() {
@@ -548,6 +549,10 @@ public class MusicControllerActivity extends AbsFabActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_music_playing, menu);
+        boolean isFavorite = MusicUtil.isFavorite(this, song);
+        menu.findItem(R.id.action_toggle_favorite)
+                .setIcon(isFavorite ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_outline_white_24dp)
+                .setTitle(isFavorite ? getString(R.string.action_remove_from_favorites) : getString(R.string.action_add_to_favorites));
         return true;
     }
 
@@ -555,6 +560,10 @@ public class MusicControllerActivity extends AbsFabActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case R.id.action_toggle_favorite:
+                MusicUtil.toggleFavorite(this, song);
+                invalidateOptionsMenu();
+                return true;
             case R.id.action_share:
                 SongShareDialog.create(song.id).show(getSupportFragmentManager(), "SHARE_SONG");
                 return true;

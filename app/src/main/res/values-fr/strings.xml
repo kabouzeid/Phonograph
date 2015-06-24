@@ -68,7 +68,7 @@
     <string name="created_playlist_x">La playlist %1$s a été créée.</string>
     <string name="deleted_playlist_x">Playlist %1$s supprimée</string>
     <string name="deleted_x_songs">Supprimé %1$d des chansons</string>
-    <string name="couldnot_create_playlist_x">Impossible de créer la playlist %1$s.</string>
+    <string name="could_not_create_playlist">Impossible de créer la playlist %1$s.</string>
     <string name="delete_playlist_x"><![CDATA[Voulez-vous supprimer la playlist <b>%1$s</b> ?]]></string>
     <string name="clear_playlist_x"><![CDATA[Voulez-vous vraiment effacer la playlist <b>%1$s</b> ? Ceci ne peut pas être annulé!]]></string>
     <string name="delete_x_playlists"><![CDATA[Voulez-vous supprimer les playlists <b>%1$d</b> ?]]></string>
