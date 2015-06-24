@@ -62,7 +62,6 @@
     <string name="inserted_x_songs_into_playlist">%1$d首歌曲已加入該音樂清單</string>
     <string name="created_playlist_x">已新增音樂清單%1$s</string>
     <string name="deleted_playlist_x">已刪除音樂清單%1$s</string>
-    <string name="could_not_create_playlist">無法建立音樂清單%1$s</string>
     <string name="delete_playlist_x"><![CDATA[
 你想刪除這個音樂清單： <b>%1$s</b>嗎？
     ]]></string>

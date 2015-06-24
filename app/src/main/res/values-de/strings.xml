@@ -68,7 +68,6 @@
     <string name="created_playlist_x">Wiedergabeliste %1$s erstellt</string>
     <string name="deleted_playlist_x">Wiedergabeliste %1$s gelöscht</string>
     <string name="deleted_x_songs">%1$d Titel gelöscht</string>
-    <string name="could_not_create_playlist">Wiedergabeliste %1$s konnte nicht erstellt werden</string>
     <string name="delete_playlist_x"><![CDATA[Willst du die Wiedergabeliste <b>%1$s</b> löschen?]]></string>
     <string name="clear_playlist_x"><![CDATA[Möchtest du die Playlist <b>%1$s</b> wirklich leeren?]]></string>
     <string name="delete_x_playlists"><![CDATA[Willst du <b>%1$d</b> Wiedergabelisten löschen?]]></string>

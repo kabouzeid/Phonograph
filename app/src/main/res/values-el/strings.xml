@@ -55,7 +55,6 @@
     <string name="inserted_x_songs_into_playlist">Προστέθηκαν %1$d τραγούδια σε αυτή τη λίστα αναπαραγωγής</string>
     <string name="created_playlist_x">Δημιουργήθηκε η λίστα αναπαραγωγής %1$s</string>
     <string name="deleted_playlist_x">Διεγράφη η λίστα αναπαραγωγής %1$s</string>
-    <string name="could_not_create_playlist">Δεν μπόρεσε να δημιουργηθεί η λίστα αναπαραγωγής %1$s</string>
     <string name="delete_playlist_x"><![CDATA[Θέλετε να διαγράψετε τη λίστα αναπαραγωγής <b>%1$s</b>;]]></string>
     <string name="delete_x_playlists"><![CDATA[
         Θα θέλατε να διαγράψετε <b>%1$d</b> λίστες αναπαραγωγής; 

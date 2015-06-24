@@ -57,7 +57,6 @@
     <string name="inserted_x_songs_into_playlist">Вставлено %1$d песен в список воспроизведения.</string>
     <string name="created_playlist_x">Список воспроизведения %1$s создан</string>
     <string name="deleted_playlist_x">Список воспроизведения %1$s удалён</string>
-    <string name="could_not_create_playlist">Невозможно создать список воспроизведения %1$s</string>
     <string name="delete_playlist_x"><![CDATA[ Вы хотите удалить список воспроизведения <b>%1$s</b>? ]]></string>
     <string name="delete_x_playlists"><![CDATA[
         Вы хотите удалить списки воспроизведения <b>%1$d</b> ? 

@@ -54,7 +54,6 @@
     <string name="inserted_x_songs_into_playlist">Inserate %1$d melodii in playlist</string>
     <string name="created_playlist_x">Creat playlistul %1$s</string>
     <string name="deleted_playlist_x">Șters playlistul %1$s</string>
-    <string name="could_not_create_playlist">Nu a putut fi creat playlistul %1$s</string>
     <string name="delete_playlist_x"><![CDATA[Vrei să ștergi playlistul <b> %1$s </b>]]></string>
     <string name="delete_song_x"><![CDATA[Vrei să ștergi melodia <b> %1$s </b> ?]]></string>
     <string name="delete_x_songs"><![CDATA[Vrei să ștergi <b> %1$d </b> melodii ?]]></string>

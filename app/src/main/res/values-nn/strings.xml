@@ -55,7 +55,6 @@
     <string name="inserted_x_songs_into_playlist">Satte inn %1$d songar i denne spelelista.</string>
     <string name="created_playlist_x">Oppretta speleliste %1$s</string>
     <string name="deleted_playlist_x">Sletta speleliste %1$s</string>
-    <string name="could_not_create_playlist">Kunne ikkje opprette speleliste %1$s</string>
     <string name="delete_playlist_x"><![CDATA[
         Ynskjer du å slette spelelista <b>%1$s</b>? 
     ]]></string>

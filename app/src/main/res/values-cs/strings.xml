@@ -68,7 +68,6 @@
     <string name="created_playlist_x">Vytvořen playlist %1$s</string>
     <string name="deleted_playlist_x">Playlist %1$s smazán</string>
     <string name="deleted_x_songs">Odstraněno %1$d skladeb</string>
-    <string name="could_not_create_playlist">Playlist %1$s nelze vytvořit</string>
     <string name="delete_playlist_x"><![CDATA[Opravdu chcete vymazat playlist <b>%1$s</b> ?]]></string>
     <string name="clear_playlist_x"><![CDATA[Opravdu chcete vyčistit playlist <b>%1$s</b>? Tato operace je nevratná!]]></string>
     <string name="delete_x_playlists"><![CDATA[Chcete smazat <b>%1$d</b> playlistů?]]></string>

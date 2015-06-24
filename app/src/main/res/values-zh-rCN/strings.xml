@@ -68,7 +68,6 @@
     <string name="created_playlist_x">播放列表%1$s已创建</string>
     <string name="deleted_playlist_x">%1$s播放列表已删除</string>
     <string name="deleted_x_songs">%1$d 首歌曲已删除</string>
-    <string name="could_not_create_playlist">创建播放列表%1$s失败</string>
     <string name="delete_playlist_x"><![CDATA[确认要删除此播放列表：<b>%1$s</b>？]]></string>
     <string name="clear_playlist_x"><![CDATA[你真的想清除播放列表<b>%1$s</b>吗？该操作不可撤销！]]></string>
     <string name="delete_x_playlists"><![CDATA[确认要删除以下<b>%1$d</b>个播放列表？]]></string>
