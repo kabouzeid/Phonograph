@@ -23,7 +23,6 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.os.Process;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -33,9 +32,9 @@ import com.kabouzeid.gramophone.helper.PlayingNotificationHelper;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
 import com.kabouzeid.gramophone.provider.RecentlyPlayedStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
-import com.kabouzeid.gramophone.util.InternalStorageUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -45,7 +44,6 @@ import com.nostra13.universalimageloader.core.assist.ViewScaleType;
 import com.nostra13.universalimageloader.core.imageaware.NonViewAware;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,12 +64,15 @@ public class MusicService extends Service {
     public static final String ACTION_QUIT = "com.kabouzeid.gramophone.action.QUIT";
 
     public static final String META_CHANGED = "com.kabouzeid.gramophone.metachanged";
-    public static final String PLAYSTATE_CHANGED = "com.kabouzeid.gramophone.playstatechanged";
-    public static final String REPEATMODE_CHANGED = "com.kabouzeid.gramophone.repeatmodechanged";
-    public static final String SHUFFLEMODE_CHANGED = "com.kabouzeid.gramophone.shufflemodechanged";
+    public static final String PLAY_STATE_CHANGED = "com.kabouzeid.gramophone.playstatechanged";
+    public static final String REPEAT_MODE_CHANGED = "com.kabouzeid.gramophone.repeatmodechanged";
+    public static final String SHUFFLE_MODE_CHANGED = "com.kabouzeid.gramophone.shufflemodechanged";
 
     public static final String SETTING_GAPLESS_PLAYBACK_CHANGED = "com.kabouzeid.gramophone.SETTING_GAPLESS_PLAYBACK_CHANGED";
     public static final String SETTING_GAPLESS_PLAYBACK_CHANGED_VALUE_EXTRA = "com.kabouzeid.gramophone.SETTING_GAPLESS_PLAYBACK_CHANGED_VALUE_EXTRA";
+
+    public static final String SAVED_POSITION = "SAVED_POSITION";
+    public static final String SAVED_POSITION_IN_TRACK = "SAVED_POSITION_IN_TRACK";
 
     private static final int FOCUS_CHANGE = 5;
     private static final int DUCK = 6;
@@ -82,6 +83,7 @@ public class MusicService extends Service {
     public static final int TRACK_ENDED = 11;
     public static final int TRACK_WENT_TO_NEXT = 12;
     public static final int PLAY_SONG = 13;
+    public static final int SAVE_QUEUES = 14;
 
     public static final int SHUFFLE_MODE_NONE = 0;
     public static final int SHUFFLE_MODE_SHUFFLE = 1;
@@ -89,7 +91,6 @@ public class MusicService extends Service {
     public static final int REPEAT_MODE_ALL = 1;
     public static final int REPEAT_MODE_THIS = 2;
 
-    private static final String TAG = MusicService.class.getSimpleName();
     private final IBinder musicBind = new MusicBinder();
 
     private MultiPlayer player;
@@ -101,8 +102,6 @@ public class MusicService extends Service {
     private int repeatMode;
     private boolean pausedByTransientLossOfFocus;
     private boolean receiversAndRemoteControlClientRegistered;
-    private boolean saveQueuesAgain;
-    private boolean isSavingQueues;
     private PlayingNotificationHelper playingNotificationHelper;
     private AudioManager audioManager;
     @SuppressWarnings("deprecation")
@@ -110,10 +109,13 @@ public class MusicService extends Service {
     private PowerManager.WakeLock wakeLock;
     private String currentAlbumArtUri;
     private MusicPlayerHandler playerHandler;
+    private QueueSaveHandler queueSaveHandler;
     private boolean isFadingDown = false;
-    private HandlerThread handlerThread;
+    private HandlerThread musicPlayerHandlerThread;
+    private HandlerThread queueSaveHandlerThread;
     private RecentlyPlayedStore recentlyPlayedStore;
     private SongPlayCountStore songPlayCountStore;
+    private boolean notNotifiedMetaChangedForCurrentTrack;
 
     private final BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
         @Override
@@ -159,10 +161,15 @@ public class MusicService extends Service {
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
         wakeLock.setReferenceCounted(false);
 
-        handlerThread = new HandlerThread("MusicPlayerHandler",
+        musicPlayerHandlerThread = new HandlerThread("MusicPlayerHandler",
                 Process.THREAD_PRIORITY_BACKGROUND);
-        handlerThread.start();
-        playerHandler = new MusicPlayerHandler(this, handlerThread.getLooper());
+        musicPlayerHandlerThread.start();
+        playerHandler = new MusicPlayerHandler(this, musicPlayerHandlerThread.getLooper());
+
+        queueSaveHandlerThread = new HandlerThread("QueueSaveHandler",
+                Process.THREAD_PRIORITY_BACKGROUND);
+        queueSaveHandlerThread.start();
+        queueSaveHandler = new QueueSaveHandler(this, queueSaveHandlerThread.getLooper());
 
         player = new MultiPlayer(this);
         player.setHandler(playerHandler);
@@ -236,7 +243,7 @@ public class MusicService extends Service {
                         stop();
                         break;
                     case ACTION_QUIT:
-                        saveAndQuit();
+                        quit();
                         break;
                 }
             }
@@ -246,7 +253,7 @@ public class MusicService extends Service {
 
     @Override
     public void onDestroy() {
-        saveAndQuit();
+        quit();
         releaseResources();
         wakeLock.release();
     }
@@ -268,22 +275,26 @@ public class MusicService extends Service {
         }
     }
 
-    private void saveAndQuit() {
+    private void quit() {
         unregisterReceiversAndRemoteControlClient();
         closeAudioEffectSession();
         stop();
         playingNotificationHelper.killNotification();
-        savePosition();
-        saveQueuesImpl();
         stopSelf();
     }
 
     private void releaseResources() {
         playerHandler.removeCallbacksAndMessages(null);
         if (Build.VERSION.SDK_INT >= 18) {
-            handlerThread.quitSafely();
+            musicPlayerHandlerThread.quitSafely();
         } else {
-            handlerThread.quit();
+            musicPlayerHandlerThread.quit();
+        }
+        queueSaveHandler.removeCallbacksAndMessages(null);
+        if (Build.VERSION.SDK_INT >= 18) {
+            queueSaveHandlerThread.quitSafely();
+        } else {
+            queueSaveHandlerThread.quit();
         }
         player.release();
         player = null;
@@ -291,8 +302,9 @@ public class MusicService extends Service {
 
     public void stop() {
         pausedByTransientLossOfFocus = false;
+        savePositionInTrack();
         player.stop();
-        notifyChange(PLAYSTATE_CHANGED);
+        notifyChange(PLAY_STATE_CHANGED);
         getAudioManager().abandonAudioFocus(audioFocusListener);
     }
 
@@ -300,26 +312,27 @@ public class MusicService extends Service {
         return player.isPlaying() && !isFadingDown;
     }
 
-    public void saveQueuesImpl() {
-        try {
-            InternalStorageUtil.writeObject(MusicService.this, AppKeys.IS_PLAYING_QUEUE, playingQueue);
-            InternalStorageUtil.writeObject(MusicService.this, AppKeys.IS_ORIGINAL_PLAYING_QUEUE, originalPlayingQueue);
-        } catch (IOException e) {
-            Log.e(TAG, "error while saving music service queue state", e);
-        }
+    public void saveState() {
+        saveQueues();
+        savePosition();
+        savePositionInTrack();
     }
 
-    public void savePosition() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    InternalStorageUtil.writeObject(MusicService.this, AppKeys.IS_POSITION_IN_QUEUE, getPosition());
-                } catch (IOException e) {
-                    Log.e(TAG, "error while saving music service position state", e);
-                }
-            }
-        }).start();
+    private void saveQueues() {
+        queueSaveHandler.removeMessages(SAVE_QUEUES);
+        queueSaveHandler.sendEmptyMessage(SAVE_QUEUES);
+    }
+
+    private void saveQueuesImpl() {
+        MusicPlaybackQueueStore.getInstance(this).saveQueues(playingQueue, originalPlayingQueue);
+    }
+
+    private void savePosition() {
+        PreferenceManager.getDefaultSharedPreferences(this).edit().putInt(SAVED_POSITION, getPosition()).apply();
+    }
+
+    private void savePositionInTrack() {
+        PreferenceManager.getDefaultSharedPreferences(this).edit().putInt(SAVED_POSITION_IN_TRACK, getSongProgressMillis()).apply();
     }
 
     public int getPosition() {
@@ -340,6 +353,7 @@ public class MusicService extends Service {
             boolean prepared = openCurrent();
             if (prepared) prepareNext();
             notifyChange(META_CHANGED);
+            notNotifiedMetaChangedForCurrentTrack = false;
             return prepared;
         }
     }
@@ -494,7 +508,7 @@ public class MusicService extends Service {
                         .putInt(AppKeys.SP_REPEAT_MODE, repeatMode)
                         .apply();
                 prepareNext();
-                notifyChange(REPEATMODE_CHANGED);
+                notifyChange(REPEAT_MODE_CHANGED);
                 break;
         }
     }
@@ -516,45 +530,23 @@ public class MusicService extends Service {
         }
     }
 
-    public void saveState() {
-        saveQueuesAsync();
-        savePosition();
-    }
-
-    public void saveQueuesAsync() {
-        if (isSavingQueues) {
-            saveQueuesAgain = true;
-        } else {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    isSavingQueues = true;
-                    do {
-                        saveQueuesAgain = false;
-                        saveQueuesImpl();
-                    } while (saveQueuesAgain);
-                    isSavingQueues = false;
-                }
-            }).start();
-        }
-    }
-
     private void restoreQueueAndPosition() {
-        try {
-            @SuppressWarnings("unchecked")
-            ArrayList<Song> restoredQueue = (ArrayList<Song>) InternalStorageUtil.readObject(this, AppKeys.IS_PLAYING_QUEUE);
-            @SuppressWarnings("unchecked")
-            ArrayList<Song> restoredOriginalQueue = (ArrayList<Song>) InternalStorageUtil.readObject(this, AppKeys.IS_ORIGINAL_PLAYING_QUEUE);
-            int restoredPosition = (int) InternalStorageUtil.readObject(this, AppKeys.IS_POSITION_IN_QUEUE);
+        ArrayList<Song> restoredQueue = MusicPlaybackQueueStore.getInstance(this).getSavedPlayingQueue();
+        ArrayList<Song> restoredOriginalQueue = MusicPlaybackQueueStore.getInstance(this).getSavedOriginalPlayingQueue();
+        int restoredPosition = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_POSITION, -1);
+        int restoredPositionInTrack = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_POSITION_IN_TRACK, -1);
 
+        if (restoredQueue != null && restoredOriginalQueue != null && restoredPosition != -1) {
             this.originalPlayingQueue = restoredOriginalQueue;
             this.playingQueue = restoredQueue;
 
             setPosition(restoredPosition);
             openCurrent();
             prepareNext();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+
+            if (restoredPositionInTrack > 0) seek(restoredPositionInTrack);
+
+            notNotifiedMetaChangedForCurrentTrack = true;
         }
     }
 
@@ -569,12 +561,6 @@ public class MusicService extends Service {
         originalPlayingQueue.add(song);
         saveState();
     }
-
-//    public void addSongs(int position, List<Song> songs) {
-//        playingQueue.addAll(position, songs);
-//        originalPlayingQueue.addAll(position, songs);
-//        saveState();
-//    }
 
     public void addSongs(List<Song> songs) {
         playingQueue.addAll(songs);
@@ -649,7 +635,7 @@ public class MusicService extends Service {
         playerHandler.removeMessages(FADE_UP_AND_RESUME);
         if (player.isPlaying()) {
             player.pause();
-            notifyChange(PLAYSTATE_CHANGED);
+            notifyChange(PLAY_STATE_CHANGED);
         }
     }
 
@@ -676,7 +662,11 @@ public class MusicService extends Service {
                     } else {
                         registerReceiversAndRemoteControlClient();
                         player.start();
-                        notifyChange(PLAYSTATE_CHANGED);
+                        notifyChange(PLAY_STATE_CHANGED);
+                        if (notNotifiedMetaChangedForCurrentTrack) {
+                            notifyChange(META_CHANGED);
+                            notNotifiedMetaChangedForCurrentTrack = false;
+                        }
                     }
                 }
             } else {
@@ -734,6 +724,7 @@ public class MusicService extends Service {
 
     public void seek(int millis) {
         player.seek(millis);
+        savePositionInTrack();
     }
 
     public void cycleRepeatMode() {
@@ -786,7 +777,7 @@ public class MusicService extends Service {
                 break;
         }
         prepareNext();
-        notifyChange(SHUFFLEMODE_CHANGED);
+        notifyChange(SHUFFLE_MODE_CHANGED);
     }
 
     private void notifyChange(final String what) {
@@ -807,16 +798,21 @@ public class MusicService extends Service {
         publicMusicIntent.setAction(what.replace(PHONOGRAPH_PACKAGE_NAME, MUSIC_PACKAGE_NAME));
         sendStickyBroadcast(publicMusicIntent);
 
-        if (what.equals(PLAYSTATE_CHANGED)) {
+        if (what.equals(PLAY_STATE_CHANGED)) {
             final boolean isPlaying = isPlayingAndNotFadingDown();
             playingNotificationHelper.updatePlayState(isPlaying);
             MusicPlayerWidget.updateWidgetsPlayState(this, isPlaying);
             //noinspection deprecation
             remoteControlClient.setPlaybackState(isPlaying ? RemoteControlClient.PLAYSTATE_PLAYING : RemoteControlClient.PLAYSTATE_PAUSED);
+            if (!isPlaying && getSongProgressMillis() > 0) {
+                savePositionInTrack();
+            }
         } else if (what.equals(META_CHANGED)) {
             updateNotification();
             updateWidgets();
             updateRemoteControlClient();
+            savePosition();
+            savePositionInTrack();
             recentlyPlayedStore.addSongId(currentSong.id);
             songPlayCountStore.bumpSongCount(currentSong.id);
         }
@@ -847,6 +843,25 @@ public class MusicService extends Service {
     public class MusicBinder extends Binder {
         public MusicService getService() {
             return MusicService.this;
+        }
+    }
+
+    private static final class QueueSaveHandler extends Handler {
+        private final WeakReference<MusicService> mService;
+
+        public QueueSaveHandler(final MusicService service, final Looper looper) {
+            super(looper);
+            mService = new WeakReference<>(service);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            final MusicService service = mService.get();
+            switch (msg.what) {
+                case SAVE_QUEUES:
+                    service.saveQueuesImpl();
+                    break;
+            }
         }
     }
 
@@ -891,7 +906,7 @@ public class MusicService extends Service {
                 case FADE_DOWN_AND_PAUSE:
                     if (!service.isFadingDown) {
                         service.isFadingDown = true;
-                        service.notifyChange(PLAYSTATE_CHANGED);
+                        service.notifyChange(PLAY_STATE_CHANGED);
                     }
                     currentPlayPauseFadeVolume -= .125f;
                     if (currentPlayPauseFadeVolume > 0f) {
@@ -907,7 +922,7 @@ public class MusicService extends Service {
                 case FADE_UP_AND_RESUME:
                     if (service.isFadingDown) {
                         service.isFadingDown = false;
-                        service.notifyChange(PLAYSTATE_CHANGED);
+                        service.notifyChange(PLAY_STATE_CHANGED);
                     }
                     service.playImpl();
                     currentPlayPauseFadeVolume += .125f;
@@ -935,7 +950,7 @@ public class MusicService extends Service {
 
                 case TRACK_ENDED:
                     if (service.getRepeatMode() == REPEAT_MODE_NONE && service.isLastTrack()) {
-                        service.notifyChange(PLAYSTATE_CHANGED);
+                        service.notifyChange(PLAY_STATE_CHANGED);
                         service.seek(0);
                     } else {
                         service.playNextSong(false);

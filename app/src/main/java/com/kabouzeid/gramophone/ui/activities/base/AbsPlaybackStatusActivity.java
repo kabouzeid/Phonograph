@@ -48,9 +48,9 @@ public abstract class AbsPlaybackStatusActivity extends AbsBaseActivity {
         }
 
         final IntentFilter filter = new IntentFilter();
-        filter.addAction(MusicService.PLAYSTATE_CHANGED);
-        filter.addAction(MusicService.SHUFFLEMODE_CHANGED);
-        filter.addAction(MusicService.REPEATMODE_CHANGED);
+        filter.addAction(MusicService.PLAY_STATE_CHANGED);
+        filter.addAction(MusicService.SHUFFLE_MODE_CHANGED);
+        filter.addAction(MusicService.REPEAT_MODE_CHANGED);
         filter.addAction(MusicService.META_CHANGED);
         filter.addAction(MusicPlayerRemote.SERVICE_BOUND);
 
@@ -81,13 +81,13 @@ public abstract class AbsPlaybackStatusActivity extends AbsBaseActivity {
                 case MusicService.META_CHANGED:
                     reference.get().onPlayingMetaChanged();
                     break;
-                case MusicService.PLAYSTATE_CHANGED:
+                case MusicService.PLAY_STATE_CHANGED:
                     reference.get().onPlayStateChanged();
                     break;
-                case MusicService.REPEATMODE_CHANGED:
+                case MusicService.REPEAT_MODE_CHANGED:
                     reference.get().onRepeatModeChanged();
                     break;
-                case MusicService.SHUFFLEMODE_CHANGED:
+                case MusicService.SHUFFLE_MODE_CHANGED:
                     reference.get().onShuffleModeChanged();
                     break;
                 case MusicPlayerRemote.SERVICE_BOUND:
