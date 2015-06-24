@@ -9,6 +9,7 @@
     <string name="action_share">Partager</string>
     <string name="action_settings">"Paramètres"</string>
     <string name="action_about">À propos</string>
+    <string name="action_now_playing">Lecture En Cours</string>
     <string name="action_clear_playlist">Effacer la playlist</string>
     <string name="action_playing_queue">File de lecture</string>
     <string name="action_search">Rechercher</string>
@@ -18,6 +19,7 @@
     <string name="action_remove_from_playing_queue">Retirer de la liste de lecture</string>
     <string name="action_add_to_playlist">Ajouter à une playlist...</string>
     <string name="action_tag_editor">Éditeur d\'infos</string>
+    <string name="action_delete_from_device">Supprimer de l\'appareil</string>
     <string name="action_details">Détails</string>
     <string name="albums">Albums</string>
     <string name="artists">Artistes</string>
@@ -137,6 +139,7 @@
     <string name="no_songs">Aucun titre</string>
     <string name="no_artists">Aucun artiste</string>
     <string name="empty">Vide</string>
+    <string name="playlist_name_empty">Nom de la playlist</string>
     <string name="song">Titre</string>
     <string name="pref_only_lollipop">"Uniquement disponible sur Lollipop."</string>
     <string name="pref_summary_colored_album_footers">"Les bas d\'album dans la grille sont colorés avec la palette de la vignette."</string>
@@ -149,6 +152,7 @@
     <string name="pref_summary_larger_title_box_now_playing">La boîte en dessous de la vignette de l\'album où se trouvent le titre de la musique et l\'artiste est plus large dans sa hauteur.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Utilise une barre de progression qui ne recouvre pas la vignette de l\'album à la place de la barre de progression normale.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Affiche une carte derrière les boutons de lecture (lecture/pause etc.)</string>
+    <string name="failed_to_download_album_art">"Impossible de télécharger la pochette pour cet album."</string>
     <string name="search_hint">Rechercher votre bibliothèque...</string>
     <string name="rescanning_media">Réanalyse des médias…</string>
     <string name="favorites">Favoris</string>

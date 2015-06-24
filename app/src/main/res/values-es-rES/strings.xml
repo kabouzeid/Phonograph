@@ -9,10 +9,12 @@
     <string name="action_share">Compartir</string>
     <string name="action_settings">"Ajustes"</string>
     <string name="action_about">Acerca de</string>
+    <string name="action_now_playing">Reproducir ahora</string>
     <string name="action_clear_playlist">Limpiar lista de reproducción</string>
     <string name="action_playing_queue">Cola de reproducción</string>
     <string name="action_search">Buscar</string>
     <string name="action_play_next">Siguiente</string>
+    <string name="action_play">Reproducir</string>
     <string name="action_add_to_playing_queue">Añadir a cola de reproducción</string>
     <string name="action_remove_from_playing_queue">Quitar de la cola de reproducción</string>
     <string name="action_add_to_playlist">Añadir a lista de reproducción...</string>
@@ -65,8 +67,10 @@
     <string name="inserted_x_songs_into_playlist">%1$d canciones añadidas a la lista de reproducción</string>
     <string name="created_playlist_x">Lista de reproducción %1$s creada</string>
     <string name="deleted_playlist_x">Lista de reproducción %1$s borrada</string>
+    <string name="deleted_x_songs">Borrado las canciones {%1$d}</string>
     <string name="couldnot_create_playlist_x">No se puede crear la lista de reproducción %1$s</string>
     <string name="delete_playlist_x"><![CDATA[¿Seguro que quiere borrar la lista de reproducción <b>%1$s</b>?]]></string>
+    <string name="clear_playlist_x"><![CDATA[Realmente quieres limpiar la lista de reproducción {<b>} {</b>} {%1$s} ? ¡Esto no se puede deshacer!]]></string>
     <string name="delete_x_playlists"><![CDATA[
  ¿Quieres eliminar la lista de reproducción <b>%1$d</b> ? 
     ]]></string>
@@ -81,6 +85,7 @@
     <string name="rename_playlist_title">Renombrar lista de reproducción</string>
     <string name="delete_playlist_title">Borrar lista de reproducción</string>
     <string name="delete_playlists_title">Eliminar listas de reproducción</string>
+    <string name="clear_playlist_title">Limpiar lista de reproducción</string>
     <string name="add_playlist_title">"Agregar a la lista de reproducción"</string>
     <string name="new_playlist_title">Nueva lista de reproducción</string>
     <string name="delete_warning">"Advertencia: Esta operación no se puede deshacer"</string>
@@ -98,7 +103,7 @@
     <string name="pref_title_navigation_bar">Color en la barra de navegación</string>
     <string name="pref_title_set_default_start_page">Pagina de inicio</string>
     <string name="pref_title_colored_navigation_bar_artists">Barra de navegación en Vista del Artista coloreada</string>
-    <string name="pref_title_colored_navigation_bar_albums">Ver por artista</string>
+    <string name="pref_title_colored_navigation_bar_albums">Ver álbum</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Ver reproducción</string>
     <string name="pref_title_colored_navigation_bar_playlists">Ver lista de reproducción</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">Editor de etiquetas</string>
@@ -118,6 +123,7 @@
     <string name="navigation_drawer_open">Abrir barra de navegación</string>
     <string name="navigation_drawer_close">"Cerrar la barra de navegación "</string>
     <string name="delete_action">Borrar</string>
+    <string name="clear_action">Limpiar</string>
     <string name="remove_action">Eliminar</string>
     <string name="rename_action">Renombrar</string>
     <string name="create_action">Crear</string>
@@ -148,9 +154,14 @@
     <string name="pref_summary_larger_title_box_now_playing">La caja detrás de la tapa del álbum donde se encuentra el título de la canción y el artista es mas largo que su altura.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Usa una barra de progreso que no cubre la tapa del álbum en vez de la barra normal de progreso.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Mostrar tarjeta detrás de los botones de control de reproducción (reproducir/pausar, etc).</string>
+    <string name="failed_to_download_album_art">"No se puede descargar la técnica para éste álbum"</string>
     <string name="search_hint">Buscar en librería...</string>
     <string name="rescanning_media">Escaneando contenido...</string>
     <string name="favorites">Favoritos</string>
+    <string name="last_added">Ultima agregada</string>
+    <string name="recently_played">Reproducido recientemente</string>
+    <string name="my_top_tracks">Mis primeras pistas</string>
+    <string name="remove_cover">Remover portada</string>
     <string name="download_from_last_fm">Descargar desde Last.fm</string>
     <string name="pick_from_local_storage">Seleccionar de almacenamiento interno</string>
     <string name="web_search">Buscar en Internet</string>

@@ -9,6 +9,7 @@
     <string name="action_share">分享</string>
     <string name="action_settings">"设置"</string>
     <string name="action_about">关于</string>
+    <string name="action_now_playing">正在播放</string>
     <string name="action_clear_playlist">清除播放列表</string>
     <string name="action_playing_queue">播放列表</string>
     <string name="action_search">搜索</string>
@@ -18,6 +19,7 @@
     <string name="action_remove_from_playing_queue">从播放队列移除</string>
     <string name="action_add_to_playlist">加入播放列表</string>
     <string name="action_tag_editor">音乐标签编辑器</string>
+    <string name="action_delete_from_device">从设备中删除</string>
     <string name="action_details">详情</string>
     <string name="albums">专辑</string>
     <string name="artists">艺术家</string>
@@ -137,6 +139,7 @@
     <string name="no_songs">没有曲目</string>
     <string name="no_artists">没有艺术家</string>
     <string name="empty">空</string>
+    <string name="playlist_name_empty">播放列表名称</string>
     <string name="song">歌曲</string>
     <string name="pref_only_lollipop">"仅适用于 Lollipop"</string>
     <string name="pref_summary_colored_album_footers">"专辑队列视图中专辑页脚会根据专辑封面的色调进行变色。"</string>
@@ -149,6 +152,7 @@
     <string name="pref_summary_larger_title_box_now_playing">增加专辑封面下方用于显示歌曲名称和艺术家区域的高度</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">使用不会遮挡专辑封面的进度条替代正常的进度滑块。</string>
     <string name="pref_summary_playback_controller_card_now_playing">在播放控制按钮（播放/暂停等）下方显示卡片背景</string>
+    <string name="failed_to_download_album_art">"专辑信息下载失败"</string>
     <string name="search_hint">正在扫描</string>
     <string name="rescanning_media">正在重新扫描媒体库…</string>
     <string name="favorites">收藏夹</string>
