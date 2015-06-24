@@ -25,7 +25,6 @@ import com.afollestad.materialdialogs.util.DialogUtils;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
@@ -61,7 +60,11 @@ import butterknife.Optional;
 public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
     private static final String TAG = AbsTagEditorActivity.class.getSimpleName();
+
     private static final int REQUEST_CODE_SELECT_IMAGE = 1337;
+
+    public static final String EXTRA_ID = "extra_id";
+    public static final String EXTRA_PALETTE = "extra_palette";
 
     private int id;
     private int headerVariableSpace;
@@ -211,7 +214,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     private void getIntentExtras() {
         Bundle intentExtras = getIntent().getExtras();
         if (intentExtras != null) {
-            id = intentExtras.getInt(AppKeys.E_ID);
+            id = intentExtras.getInt(EXTRA_ID);
         }
     }
 
@@ -249,7 +252,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         observableScrollView.setPadding(0, Util.getActionBarSize(this), 0, 0);
         observableScrollViewCallbacks.onScrollChanged(observableScrollView.getCurrentScrollY(), false, false);
 
-        paletteColorPrimary = getIntent().getIntExtra(AppKeys.E_PALETTE,
+        paletteColorPrimary = getIntent().getIntExtra(EXTRA_PALETTE,
                 PreferenceUtils.getInstance(this).getThemeColorPrimary());
         toolbar.setBackgroundColor(paletteColorPrimary);
         header.setBackgroundColor(paletteColorPrimary);

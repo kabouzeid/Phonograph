@@ -30,7 +30,6 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appwidget.MusicPlayerWidget;
 import com.kabouzeid.gramophone.helper.PlayingNotificationHelper;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
-import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
 import com.kabouzeid.gramophone.provider.RecentlyPlayedStore;
@@ -71,8 +70,10 @@ public class MusicService extends Service {
     public static final String SETTING_GAPLESS_PLAYBACK_CHANGED = "com.kabouzeid.gramophone.SETTING_GAPLESS_PLAYBACK_CHANGED";
     public static final String SETTING_GAPLESS_PLAYBACK_CHANGED_VALUE_EXTRA = "com.kabouzeid.gramophone.SETTING_GAPLESS_PLAYBACK_CHANGED_VALUE_EXTRA";
 
-    public static final String SAVED_POSITION = "SAVED_POSITION";
-    public static final String SAVED_POSITION_IN_TRACK = "SAVED_POSITION_IN_TRACK";
+    public static final String SAVED_POSITION = "POSITION";
+    public static final String SAVED_POSITION_IN_TRACK = "POSITION_IN_TRACK";
+    public static final String SAVED_SHUFFLE_MODE = "SHUFFLE_MODE";
+    public static final String SAVED_REPEAT_MODE = "REPEAT_MODE";
 
     private static final int FOCUS_CHANGE = 5;
     private static final int DUCK = 6;
@@ -154,8 +155,8 @@ public class MusicService extends Service {
         recentlyPlayedStore = RecentlyPlayedStore.getInstance(this);
         songPlayCountStore = SongPlayCountStore.getInstance(this);
 
-        shuffleMode = PreferenceManager.getDefaultSharedPreferences(this).getInt(AppKeys.SP_SHUFFLE_MODE, 0);
-        repeatMode = PreferenceManager.getDefaultSharedPreferences(this).getInt(AppKeys.SP_REPEAT_MODE, 0);
+        shuffleMode = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_SHUFFLE_MODE, 0);
+        repeatMode = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_REPEAT_MODE, 0);
 
         final PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
@@ -505,7 +506,7 @@ public class MusicService extends Service {
             case REPEAT_MODE_THIS:
                 this.repeatMode = repeatMode;
                 PreferenceManager.getDefaultSharedPreferences(this).edit()
-                        .putInt(AppKeys.SP_REPEAT_MODE, repeatMode)
+                        .putInt(SAVED_REPEAT_MODE, repeatMode)
                         .apply();
                 prepareNext();
                 notifyChange(REPEAT_MODE_CHANGED);
@@ -755,7 +756,7 @@ public class MusicService extends Service {
 
     public void setShuffleMode(final int shuffleMode) {
         PreferenceManager.getDefaultSharedPreferences(this).edit()
-                .putInt(AppKeys.SP_SHUFFLE_MODE, shuffleMode)
+                .putInt(SAVED_SHUFFLE_MODE, shuffleMode)
                 .apply();
         switch (shuffleMode) {
             case SHUFFLE_MODE_SHUFFLE:

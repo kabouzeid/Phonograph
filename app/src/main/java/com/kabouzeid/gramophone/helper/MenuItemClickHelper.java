@@ -15,11 +15,11 @@ import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
-import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.smartplaylist.SmartPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
+import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -54,9 +54,9 @@ public class MenuItemClickHelper {
                 return true;
             case R.id.action_tag_editor:
                 Intent tagEditorIntent = new Intent(activity, SongTagEditorActivity.class);
-                tagEditorIntent.putExtra(AppKeys.E_ID, song.id);
+                tagEditorIntent.putExtra(AbsTagEditorActivity.EXTRA_ID, song.id);
                 if (activity instanceof PaletteColorHolder)
-                    tagEditorIntent.putExtra(AppKeys.E_PALETTE, ((PaletteColorHolder) activity).getPaletteColor());
+                    tagEditorIntent.putExtra(AbsTagEditorActivity.EXTRA_PALETTE, ((PaletteColorHolder) activity).getPaletteColor());
                 activity.startActivity(tagEditorIntent);
                 return true;
             case R.id.action_details:

@@ -14,7 +14,6 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.PlayingQueueDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
-import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity;
 import com.kabouzeid.gramophone.ui.activities.ArtistDetailActivity;
@@ -33,7 +32,7 @@ public class NavigationUtil {
             if (activity instanceof KabViewsDisableAble)
                 ((KabViewsDisableAble) activity).disableViews();
             final Intent intent = new Intent(activity, ArtistDetailActivity.class);
-            intent.putExtra(AppKeys.E_ARTIST, artistId);
+            intent.putExtra(ArtistDetailActivity.EXTRA_ARTIST_ID, artistId);
             if (sharedViews != null) {
                 @SuppressWarnings("unchecked") ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
                         sharedViews
@@ -52,7 +51,7 @@ public class NavigationUtil {
             if (activity instanceof KabViewsDisableAble)
                 ((KabViewsDisableAble) activity).disableViews();
             final Intent intent = new Intent(activity, AlbumDetailActivity.class);
-            intent.putExtra(AppKeys.E_ALBUM, albumId);
+            intent.putExtra(AlbumDetailActivity.EXTRA_ALBUM_ID, albumId);
             if (sharedViews != null) {
                 @SuppressWarnings("unchecked") ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
                         sharedViews

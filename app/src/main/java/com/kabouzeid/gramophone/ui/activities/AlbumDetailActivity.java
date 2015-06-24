@@ -33,7 +33,6 @@ import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
-import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.misc.SmallTransitionListener;
 import com.kabouzeid.gramophone.model.Album;
@@ -41,6 +40,7 @@ import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
+import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AlbumTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -60,13 +60,16 @@ import butterknife.InjectView;
 
 /**
  * A lot of hackery is done in this activity. Changing things may will brake the whole activity.
- * <p>
+ * <p/>
  * Should be kinda stable ONLY AS IT IS!!!
  */
 public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorHolder, CabHolder {
 
     public static final String TAG = AlbumDetailActivity.class.getSimpleName();
     private static final int TAG_EDITOR_REQUEST = 2001;
+
+    public static final String EXTRA_ALBUM_ID = "extra_album_id";
+
     private Album album;
 
     @InjectView(R.id.list)
@@ -111,7 +114,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         Bundle intentExtras = getIntent().getExtras();
         int albumId = -1;
         if (intentExtras != null) {
-            albumId = intentExtras.getInt(AppKeys.E_ALBUM);
+            albumId = intentExtras.getInt(EXTRA_ALBUM_ID);
         }
         album = AlbumLoader.getAlbum(this, albumId);
         if (album.id == -1) {
@@ -360,7 +363,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                 return true;
             case R.id.action_tag_editor:
                 Intent intent = new Intent(this, AlbumTagEditorActivity.class);
-                intent.putExtra(AppKeys.E_ID, album.id);
+                intent.putExtra(AbsTagEditorActivity.EXTRA_ID, album.id);
                 startActivityForResult(intent, TAG_EDITOR_REQUEST);
                 return true;
             case R.id.action_go_to_artist:

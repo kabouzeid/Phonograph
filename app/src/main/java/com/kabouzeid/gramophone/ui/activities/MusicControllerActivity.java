@@ -41,11 +41,11 @@ import com.kabouzeid.gramophone.dialogs.SongShareDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.bitmapblur.StackBlurManager;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
-import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.misc.SmallTransitionListener;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
+import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -575,7 +575,7 @@ public class MusicControllerActivity extends AbsFabActivity {
                 return true;
             case R.id.action_tag_editor:
                 Intent intent = new Intent(this, SongTagEditorActivity.class);
-                intent.putExtra(AppKeys.E_ID, song.id);
+                intent.putExtra(AbsTagEditorActivity.EXTRA_ID, song.id);
                 startActivity(intent);
                 return true;
             case R.id.action_details:

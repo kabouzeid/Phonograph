@@ -42,7 +42,6 @@ import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistImageUrlLoader;
 import com.kabouzeid.gramophone.loader.ArtistAlbumLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
-import com.kabouzeid.gramophone.misc.AppKeys;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.misc.SmallTransitionListener;
 import com.kabouzeid.gramophone.model.Album;
@@ -75,6 +74,8 @@ import butterknife.InjectView;
 public class ArtistDetailActivity extends AbsFabActivity implements PaletteColorHolder, CabHolder {
 
     public static final String TAG = ArtistDetailActivity.class.getSimpleName();
+
+    public static final String EXTRA_ARTIST_ID = "extra_artist_id";
 
     @InjectView(R.id.artist_image_background)
     ImageView artistImageBackground;
@@ -371,7 +372,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
 
     private void getIntentExtras() {
         Bundle intentExtras = getIntent().getExtras();
-        final int artistId = intentExtras.getInt(AppKeys.E_ARTIST);
+        final int artistId = intentExtras.getInt(EXTRA_ARTIST_ID);
         artist = ArtistLoader.getArtist(this, artistId);
         if (artist == null) {
             finish();
