@@ -263,7 +263,7 @@ public class PlayingNotificationHelper {
         this.isPlaying = isPlaying;
 
         if (notification == null) {
-            updateNotification();
+            return;
         }
         if (notificationLayout != null) {
             notificationLayout.setImageViewResource(R.id.action_play_pause,

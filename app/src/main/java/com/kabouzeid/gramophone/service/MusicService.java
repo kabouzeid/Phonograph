@@ -663,11 +663,11 @@ public class MusicService extends Service {
                     } else {
                         registerReceiversAndRemoteControlClient();
                         player.start();
-                        notifyChange(PLAY_STATE_CHANGED);
                         if (notNotifiedMetaChangedForCurrentTrack) {
                             notifyChange(META_CHANGED);
                             notNotifiedMetaChangedForCurrentTrack = false;
                         }
+                        notifyChange(PLAY_STATE_CHANGED);
                     }
                 }
             } else {
