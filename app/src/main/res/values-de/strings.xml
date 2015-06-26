@@ -89,6 +89,10 @@
     <string name="add_playlist_title">"Zu Wiedergabeliste hinzufügen"</string>
     <string name="new_playlist_title">Neue Wiedergabeliste</string>
     <string name="delete_warning">"Warnung: Diese Aktion kann nicht rückgängig gemahct werden."</string>
+    <string name="action_shuffle_all">Zufällige Wiedergabe</string>
+    <string name="action_shuffle_album">Album zufällig wiedergeben</string>
+    <string name="action_shuffle_artist">Interpret zufällig wiedergeben</string>
+    <string name="action_shuffle_playlist">Wiedergabeliste zufällig wiedergeben</string>
     <string name="last_opened">Zuletzt geöffnet</string>
     <string name="light_theme_name">Hell</string>
     <string name="dark_theme_name">Dunkel</string>

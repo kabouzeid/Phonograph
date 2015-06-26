@@ -9,7 +9,7 @@
     <string name="action_share">Sdílet</string>
     <string name="action_settings">"Nastavení"</string>
     <string name="action_about">O aplikaci</string>
-    <string name="action_now_playing">Přehrávač</string>
+    <string name="action_now_playing">"Přehrávání "</string>
     <string name="action_clear_playlist">Vyčistit playlist</string>
     <string name="action_playing_queue">Fronta</string>
     <string name="action_search">Hledat</string>
@@ -19,8 +19,8 @@
     <string name="action_remove_from_playing_queue">Odebrat z fronty</string>
     <string name="action_add_to_playlist">Přidat do playlistu...</string>
     <string name="action_tag_editor">Editor Tagů</string>
-    <string name="action_delete_from_device">Smazat soubor</string>
-    <string name="action_details">Podrobnosti</string>
+    <string name="action_delete_from_device">Smazat z telefonu</string>
+    <string name="action_details">Podrobné informace o skladbě</string>
     <string name="albums">Alba</string>
     <string name="artists">Interpreti</string>
     <string name="songs">Skladby</string>
@@ -117,7 +117,7 @@
     <string name="create_action">Vytvořit</string>
     <string name="x_selected">%1$d vybrána</string>
     <string name="select">Vybrat</string>
-    <string name="default_str">Výchozí</string>
+    <string name="default_str">"Původní nastavení "</string>
     <string name="primary_color">Hlavní barva</string>
     <string name="accent_color">Vedlejší barva</string>
     <string name="primary_color_desc">Hlavní barva motivu (výchozí: modrá).</string>
@@ -129,13 +129,13 @@
     <string name="no_songs">Žádně skladby</string>
     <string name="no_artists">Žádní interpreti</string>
     <string name="empty">Prázdné</string>
-    <string name="playlist_name_empty">Jméno playlistu</string>
+    <string name="playlist_name_empty">Pojmenování seznamu skladeb</string>
     <string name="song">Skladba</string>
     <string name="pref_only_lollipop">"Dostupné pouze ve verzi Lollipop."</string>
     <string name="pref_summary_colored_album_footers">"Názvy alb v mřížce jsou obarvena podle jejich obalu."</string>
     <string name="pref_summary_colored_notification">"Notifikace jsou zbarvena podle obalu alba."</string>
     <string name="pref_summary_gapless_playback">"Odstraní ticho mezi skladbami. Deaktivace může vyřešit problémy s přehráváním."</string>
-    <string name="failed_to_download_album_art">"Není možné stáhnout obal tohoto alba."</string>
+    <string name="failed_to_download_album_art">"Nebylo možné stáhnout obrázek obalu alba"</string>
     <string name="search_hint">Vyhledat zvukové soubory...</string>
     <string name="rescanning_media">Kontrola médií...</string>
     <string name="favorites">Oblíbené</string>

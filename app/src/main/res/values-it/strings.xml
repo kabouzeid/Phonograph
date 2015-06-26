@@ -12,6 +12,8 @@
     <string name="action_now_playing">In riproduzione</string>
     <string name="action_clear_playlist">Svuota playlist</string>
     <string name="action_playing_queue">Brani in coda</string>
+    <string name="action_add_to_favorites">Aggiungi ai preferiti</string>
+    <string name="action_remove_from_favorites">Rimuovi dai preferiti</string>
     <string name="action_search">Cerca</string>
     <string name="action_play_next">Riproduci successivo</string>
     <string name="action_play">Riproduci</string>
@@ -68,6 +70,7 @@
     <string name="created_playlist_x">Playlist %1$s creata</string>
     <string name="deleted_playlist_x">Playlist %1$s eliminata</string>
     <string name="deleted_x_songs">%1$d brani eliminati</string>
+    <string name="could_not_create_playlist">Impossibile creare playlist</string>
     <string name="delete_playlist_x"><![CDATA[        Vuoi eliminare la playlist <b>%1$s</b>? ]]></string>
     <string name="clear_playlist_x"><![CDATA[Vuoi davvero svuotare la playlist <b>%1$s</b>? L\'operazione non può essere annullata!]]></string>
     <string name="delete_x_playlists"><![CDATA[        Vuoi eliminare <b>%1$d</b> playlist? ]]></string>
@@ -86,6 +89,10 @@
     <string name="add_playlist_title">"Aggiungi alla playlist"</string>
     <string name="new_playlist_title">Nuova playlist</string>
     <string name="delete_warning">"Attenzione: questa operazione non può essere annullata."</string>
+    <string name="action_shuffle_all">Riproduzione casuale</string>
+    <string name="action_shuffle_album">Riproduzione casuale album</string>
+    <string name="action_shuffle_artist">Riproduzione casuale artista</string>
+    <string name="action_shuffle_playlist">Riproduzione casuale playlist</string>
     <string name="last_opened">Ultima aperta</string>
     <string name="light_theme_name">Chiaro</string>
     <string name="dark_theme_name">Scuro</string>

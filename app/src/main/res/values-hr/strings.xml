@@ -12,6 +12,8 @@
     <string name="action_now_playing">Sada se reproducira</string>
     <string name="action_clear_playlist">Isprazni popis pjesama</string>
     <string name="action_playing_queue">Red čekanja</string>
+    <string name="action_add_to_favorites">Dodaj u favorite</string>
+    <string name="action_remove_from_favorites">Ukloni iz favorita</string>
     <string name="action_search">Traži</string>
     <string name="action_play_next">Reproduciraj sljedeće</string>
     <string name="action_play">Reproduciraj</string>
@@ -68,6 +70,7 @@
     <string name="created_playlist_x">Stvoren popis pjesama %1$s</string>
     <string name="deleted_playlist_x">Obrisan popis pjesama %1$s</string>
     <string name="deleted_x_songs">Obrisano %1$d pjesama</string>
+    <string name="could_not_create_playlist">Nije moguće stvoriti popis pjesama</string>
     <string name="delete_playlist_x"><![CDATA[Želite li obrisati popis pjesama <b>%1$s</b>?]]></string>
     <string name="clear_playlist_x"><![CDATA[Želite li stvarno isprazniti popis pjesama <b>%1$s</b>? Ovaj postupak se ne može poništiti!]]></string>
     <string name="delete_x_playlists"><![CDATA[Želite li obrisati popise pjesama <b>%1$d</b>?]]></string>
@@ -86,6 +89,10 @@
     <string name="add_playlist_title">"Dodaj na popis pjesama"</string>
     <string name="new_playlist_title">Novi popis pjesama</string>
     <string name="delete_warning">"Upozorenje: Ovaj postupak nije moguće poništiti."</string>
+    <string name="action_shuffle_all">Nasumična reprodukcija svega</string>
+    <string name="action_shuffle_album">Nasumična reprodukcija albuma</string>
+    <string name="action_shuffle_artist">Nasumična reprodukcija izvođača</string>
+    <string name="action_shuffle_playlist">Nasumična reprodukcija popisa pjesama</string>
     <string name="last_opened">Posljednje otvoreno</string>
     <string name="light_theme_name">Svijetla</string>
     <string name="dark_theme_name">Tamna</string>

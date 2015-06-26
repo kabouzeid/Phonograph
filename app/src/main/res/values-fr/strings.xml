@@ -89,6 +89,10 @@
     <string name="add_playlist_title">"Ajouter à la playlist"</string>
     <string name="new_playlist_title">Nouvelle playlist</string>
     <string name="delete_warning">"Attention : Cette action ne peut être annulée"</string>
+    <string name="action_shuffle_all">Tout Aléatoire</string>
+    <string name="action_shuffle_album">Aléatoire Album</string>
+    <string name="action_shuffle_artist">Aléatoire Artiste</string>
+    <string name="action_shuffle_playlist">Aléatoire Playlist</string>
     <string name="last_opened">Récemment ouverts</string>
     <string name="light_theme_name">Clair</string>
     <string name="dark_theme_name">Sombre</string>
