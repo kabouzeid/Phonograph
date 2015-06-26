@@ -45,6 +45,10 @@ public abstract class AbsPlaylistSongAdapter<S extends Song> extends AbsMultiSel
         notifyDataSetChanged();
     }
 
+    public ArrayList<S> getDataSet(){
+        return dataSet;
+    }
+
     protected int getMultiSelectMenuRes() {
         return R.menu.menu_playlists_songs_selection;
     }

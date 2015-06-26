@@ -22,7 +22,6 @@ import com.kabouzeid.gramophone.misc.DragSortRecycler;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
-import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.smartplaylist.SmartPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -136,7 +135,8 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
         int id = item.getItemId();
         switch (id) {
             case R.id.action_shuffle_playlist:
-                MusicPlayerRemote.openAndShuffleQueue(this, new ArrayList<Song>(songs), true);
+                //noinspection unchecked
+                MusicPlayerRemote.openAndShuffleQueue(this, adapter.getDataSet(), true);
                 return true;
             case R.id.action_equalizer:
                 NavigationUtil.openEqualizer(this);
