@@ -8,10 +8,8 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.AppBarLayout.OnOffsetChangedListener;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
@@ -54,13 +52,6 @@ public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivit
 
         if (fastScroller != null) {
             fastScroller.setRecyclerView(recyclerView);
-            fastScroller.setPressedHandleColor(getMainActivity().getThemeColorPrimary());
-            fastScroller.setOnHandleTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    return false;
-                }
-            });
         }
 
         getMainActivity().addOnAppBarOffsetChangedListener(this);
@@ -91,9 +82,13 @@ public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivit
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
         if (fastScroller != null) {
-            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) fastScroller.getLayoutParams();
-            params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, getMainActivity().getTotalAppBarScrollingRange() + i);
-            fastScroller.setLayoutParams(params);
+            fastScroller.setPadding(
+                    fastScroller.getPaddingLeft(),
+                    fastScroller.getPaddingTop(),
+                    fastScroller.getPaddingRight(),
+                    getMainActivity().getTotalAppBarScrollingRange() + i
+            );
+            fastScroller.updateHandlePosition();
         }
     }
 

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="48dp"
+    android:layout_width="@dimen/scrollbar_width_plus_inset"
     android:layout_height="match_parent"
     tools:layout_gravity="end">
 
     <View
         android:id="@+id/scroll_bar"
-        android:layout_width="48dp"
+        android:layout_width="@dimen/scrollbar_width_plus_inset"
         android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:alpha="0.22352941176" />
+        android:alpha="0.3" />
 
     <View
         android:id="@+id/scroll_handle"
-        android:layout_width="48dp"
+        android:layout_width="@dimen/scrollbar_width_plus_inset"
         android:layout_height="48dp"
         android:layout_gravity="end" />
 
