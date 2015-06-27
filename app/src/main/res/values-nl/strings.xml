@@ -10,8 +10,10 @@
     <string name="action_settings">"Instellingen"</string>
     <string name="action_about">Over</string>
     <string name="action_now_playing">Nu spelend</string>
-    <string name="action_clear_playlist">Afspeellijst vrijmaken</string>
+    <string name="action_clear_playlist">Afspeellijst legen</string>
     <string name="action_playing_queue">Afspeelwachtrij</string>
+    <string name="action_add_to_favorites">Toevoegen aan favorieten</string>
+    <string name="action_remove_from_favorites">Verwijderen uit favorieten</string>
     <string name="action_search">Zoeken</string>
     <string name="action_play_next">Afspelen als volgende</string>
     <string name="action_play">Afspelen</string>
@@ -68,8 +70,9 @@
     <string name="created_playlist_x">Afspeellijst %1$s aangemaakt</string>
     <string name="deleted_playlist_x">Afspeellijst %1$s verwijderd</string>
     <string name="deleted_x_songs">%1$d nummers verwijderd</string>
+    <string name="could_not_create_playlist">Kon afspeellijst niet aanmaken</string>
     <string name="delete_playlist_x"><![CDATA[Wil je de afspeellijst <b>%1$s</b> verwijderen?]]></string>
-    <string name="clear_playlist_x"><![CDATA[Weet je zeker dat je de afspeellijst <b>%1$s</b> wilt vrijmaken? Dit kan niet ongedaan gemaakt worden!]]></string>
+    <string name="clear_playlist_x"><![CDATA[Weet je zeker dat je de afspeellijst <b>%1$s</b> wilt legen? Dit kan niet ongedaan gemaakt worden!]]></string>
     <string name="delete_x_playlists"><![CDATA[Wil je <b>%1$d</b> afspeellijsten verwijderen?]]></string>
     <string name="delete_song_x"><![CDATA[Wil je het nummer <b>%1$s</b> verwijderen?]]></string>
     <string name="delete_x_songs"><![CDATA[Wil je <b>%1$d</b> nummers verwijderen?]]></string>
@@ -82,10 +85,14 @@
     <string name="rename_playlist_title">Hernoem afspeellijst</string>
     <string name="delete_playlist_title">Verwijder afspeellijst</string>
     <string name="delete_playlists_title">Verwijder afspeellijst</string>
-    <string name="clear_playlist_title">Afspeellijst vrijmaken</string>
+    <string name="clear_playlist_title">Afspeellijst legen</string>
     <string name="add_playlist_title">"Toevoegen aan afspeellijst"</string>
     <string name="new_playlist_title">Nieuwe afspeellijst</string>
     <string name="delete_warning">"Waarschuwing: Deze handeling kan niet ongedaan gemaakt worden."</string>
+    <string name="action_shuffle_all">Shuffle alles</string>
+    <string name="action_shuffle_album">Shuffle album</string>
+    <string name="action_shuffle_artist">Shuffle artiest</string>
+    <string name="action_shuffle_playlist">Shuffle afspeellijst</string>
     <string name="last_opened">Laatst geopend</string>
     <string name="light_theme_name">Licht</string>
     <string name="dark_theme_name">Donker</string>
@@ -119,7 +126,7 @@
     <string name="navigation_drawer_open">Open navigatielade</string>
     <string name="navigation_drawer_close">"Sluit navigatielade"</string>
     <string name="delete_action">Verwijderen</string>
-    <string name="clear_action">Vrijmaken</string>
+    <string name="clear_action">Legen</string>
     <string name="remove_action">Verwijderen</string>
     <string name="rename_action">Hernoemen</string>
     <string name="create_action">Aanmaken</string>

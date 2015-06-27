@@ -91,6 +91,10 @@
     <string name="add_playlist_title">"Agregar a la lista de reproducción"</string>
     <string name="new_playlist_title">Nueva lista de reproducción</string>
     <string name="delete_warning">"Advertencia: Esta operación no se puede deshacer"</string>
+    <string name="action_shuffle_all">Reproducción aleatoria</string>
+    <string name="action_shuffle_album">Reproducción aleatoria del Álbum</string>
+    <string name="action_shuffle_artist">Reproducción aleatoria del Artista</string>
+    <string name="action_shuffle_playlist">Reproducción aleatoria de la lista de reproducción</string>
     <string name="last_opened">Última abierta</string>
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Oscuro</string>
@@ -118,7 +122,7 @@
     <string name="pref_title_opaque_statusbar_now_playing">Barra de estado opaca</string>
     <string name="pref_title_larger_title_box_now_playing">Caja de título grande</string>
     <string name="pref_title_alternative_progress_slider_now_playing">Barra de progreso alternativa</string>
-    <string name="pref_title_playback_controller_card_now_playing">Mostrar tarjeta detrás de los controles de reproducción</string>
+    <string name="pref_title_playback_controller_card_now_playing">Mostrar Tarjeta</string>
     <string name="no_equalizer">No se encontró ningún ecualizador</string>
     <string name="no_audio_ID">"No se encontró el ID de audio. Intenta otra vez."</string>
     <string name="navigation_drawer_open">Abrir barra de navegación</string>
