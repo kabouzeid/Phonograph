@@ -57,7 +57,7 @@ public class CreatePlaylistDialog extends DialogFragment {
                             if (playlistId != -1 && getActivity() != null) {
                                 //noinspection unchecked
                                 ArrayList<Song> songs = (ArrayList<Song>) getArguments().getSerializable("songs");
-                                PlaylistsUtil.addToPlaylist(getActivity(), songs, playlistId);
+                                PlaylistsUtil.addToPlaylist(getActivity(), songs, playlistId, true);
                             }
                         }
                     }

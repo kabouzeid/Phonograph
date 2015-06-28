@@ -85,13 +85,13 @@ public class PlaylistsUtil {
         App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
     }
 
-    public static void addToPlaylist(final Context context, final Song song, final int playlistId) {
+    public static void addToPlaylist(final Context context, final Song song, final int playlistId, final boolean showToastOnFinish) {
         List<Song> helperList = new ArrayList<>();
         helperList.add(song);
-        addToPlaylist(context, helperList, playlistId);
+        addToPlaylist(context, helperList, playlistId, showToastOnFinish);
     }
 
-    public static void addToPlaylist(final Context context, final List<Song> songs, final int playlistId) {
+    public static void addToPlaylist(final Context context, final List<Song> songs, final int playlistId, final boolean showToastOnFinish) {
         final int size = songs.size();
         final ContentResolver resolver = context.getContentResolver();
         final String[] projection = new String[]{
@@ -117,8 +117,10 @@ public class PlaylistsUtil {
         for (int offSet = 0; offSet < size; offSet += 1000)
             numinserted += resolver.bulkInsert(uri, makeInsertItems(songs, offSet, 1000, base));
 
-        Toast.makeText(context, context.getResources().getString(
-                R.string.inserted_x_songs_into_playlist, numinserted), Toast.LENGTH_SHORT).show();
+        if (showToastOnFinish) {
+            Toast.makeText(context, context.getResources().getString(
+                    R.string.inserted_x_songs_into_playlist, numinserted), Toast.LENGTH_SHORT).show();
+        }
         App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
     }
 

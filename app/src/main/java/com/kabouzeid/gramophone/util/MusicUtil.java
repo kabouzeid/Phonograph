@@ -209,7 +209,7 @@ public class MusicUtil {
         if (isFavorite(context, song)) {
             PlaylistsUtil.removeFromPlaylist(context, song, getFavoritesPlaylist(context).id);
         } else {
-            PlaylistsUtil.addToPlaylist(context, song, getOrCreateFavoritesPlaylist(context).id);
+            PlaylistsUtil.addToPlaylist(context, song, getOrCreateFavoritesPlaylist(context).id, false);
         }
     }
 }

@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -97,6 +98,8 @@ public class MusicControllerActivity extends AbsFabActivity {
     SquareIfPlaceImageView albumArt;
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
+    @InjectView(R.id.favorite_icon)
+    ImageView favoriteIcon;
 
     TextView songCurrentProgress;
     TextView songTotalTime;
@@ -542,6 +545,56 @@ public class MusicControllerActivity extends AbsFabActivity {
         updateShuffleState();
     }
 
+    private void animateSetFavorite() {
+        favoriteIcon.clearAnimation();
+
+        favoriteIcon.setAlpha(0f);
+        favoriteIcon.setScaleX(0f);
+        favoriteIcon.setScaleY(0f);
+        favoriteIcon.setVisibility(View.VISIBLE);
+        favoriteIcon.setPivotX(favoriteIcon.getWidth() / 2);
+        favoriteIcon.setPivotY(favoriteIcon.getHeight() / 2);
+
+        favoriteIcon.animate()
+                .setDuration(600)
+                .setInterpolator(new OvershootInterpolator())
+                .scaleX(1f)
+                .scaleY(1f)
+                .alpha(1f)
+                .setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                        favoriteIcon.setVisibility(View.INVISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                })
+                .withEndAction(new Runnable() {
+                    @Override
+                    public void run() {
+                        favoriteIcon.animate()
+                                .setDuration(300)
+                                .setInterpolator(new DecelerateInterpolator())
+                                .alpha(0f)
+                                .start();
+                    }
+                })
+                .start();
+    }
+
     @Override
     public void onPlayingMetaChanged() {
         super.onPlayingMetaChanged();
@@ -576,6 +629,9 @@ public class MusicControllerActivity extends AbsFabActivity {
         switch (id) {
             case R.id.action_toggle_favorite:
                 MusicUtil.toggleFavorite(this, song);
+                if (MusicUtil.isFavorite(this, song)) {
+                    animateSetFavorite();
+                }
                 invalidateOptionsMenu();
                 return true;
             case R.id.action_share:

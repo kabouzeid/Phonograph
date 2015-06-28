@@ -208,6 +208,14 @@
             android:transitionName="@string/transition_album_cover"
             tools:ignore="ContentDescription,UnusedAttribute" />
 
+        <ImageView
+            android:id="@+id/favorite_icon"
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_favorite_red_a400_96dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <RelativeLayout
             android:id="@+id/default_progress_container"
             android:layout_width="match_parent"

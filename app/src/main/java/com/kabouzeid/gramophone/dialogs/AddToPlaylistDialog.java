@@ -57,7 +57,7 @@ public class AddToPlaylistDialog extends DialogFragment {
                             CreatePlaylistDialog.create(songs).show(getActivity().getSupportFragmentManager(), "ADD_TO_PLAYLIST");
                         } else {
                             materialDialog.dismiss();
-                            PlaylistsUtil.addToPlaylist(getActivity(), songs, playlists.get(i - 1).id);
+                            PlaylistsUtil.addToPlaylist(getActivity(), songs, playlists.get(i - 1).id, true);
                         }
                     }
                 })
