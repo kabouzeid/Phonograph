@@ -16,6 +16,53 @@
         android:background="?android:colorBackground"
         android:orientation="vertical">
 
+        <RelativeLayout
+            android:id="@+id/alternative_progress_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/progress_container_height"
+            android:background="?music_controller_container_color"
+            android:elevation="@dimen/toolbar_elevation"
+            android:visibility="gone"
+            tools:ignore="UnusedAttribute">
+
+            <TextView
+                android:id="@+id/alternative_song_current_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center_vertical|left|end"
+                android:paddingLeft="8dp"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="?themed_drawable_color"
+                android:textSize="10sp"
+                tools:ignore="RtlHardcoded,RtlSymmetry,SmallSp" />
+
+            <TextView
+                android:id="@+id/alternative_song_total_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center_vertical|right|end"
+                android:paddingRight="8dp"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="?themed_drawable_color"
+                android:textSize="10sp"
+                tools:ignore="RtlHardcoded,RtlSymmetry,SmallSp" />
+
+            <SeekBar
+                android:id="@+id/alternative_progress_slider"
+                style="@style/MusicProgressSlider"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/alternative_song_total_time"
+                android:layout_toRightOf="@id/alternative_song_current_progress"
+                tools:ignore="RtlHardcoded,UnusedAttribute" />
+
+        </RelativeLayout>
+
         <LinearLayout
             android:id="@+id/footer"
             android:layout_width="match_parent"
@@ -58,15 +105,14 @@
             tools:ignore="ContentDescription,UnusedAttribute">
 
             <android.support.v7.widget.CardView
-                app:cardBackgroundColor="?music_controller_container_color"
                 android:id="@+id/playback_controller_card"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="16dp" />
+                android:layout_margin="16dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="?music_controller_container_color" />
 
             <ImageButton
-                android:elevation="8dp"
                 android:id="@+id/prev_button"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
@@ -76,12 +122,12 @@
                 android:layout_toLeftOf="@+id/fab"
                 android:layout_toStartOf="@+id/fab"
                 android:background="?round_selector"
+                android:elevation="8dp"
                 android:padding="22dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_skip_previous_white_48dp" />
 
             <ImageButton
-                android:elevation="8dp"
                 android:id="@+id/next_button"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
@@ -91,12 +137,12 @@
                 android:layout_toEndOf="@+id/fab"
                 android:layout_toRightOf="@+id/fab"
                 android:background="?round_selector"
+                android:elevation="8dp"
                 android:padding="22dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_skip_next_white_48dp" />
 
             <ImageButton
-                android:elevation="8dp"
                 android:id="@+id/repeat_button"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
@@ -106,12 +152,12 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginStart="24dp"
                 android:background="?round_selector"
+                android:elevation="8dp"
                 android:padding="22dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_repeat_white_48dp" />
 
             <ImageButton
-                android:elevation="8dp"
                 android:id="@+id/shuffle_button"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
@@ -121,6 +167,7 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginRight="24dp"
                 android:background="?round_selector"
+                android:elevation="8dp"
                 android:padding="22dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_shuffle_white_48dp" />
@@ -162,14 +209,14 @@
             tools:ignore="ContentDescription,UnusedAttribute" />
 
         <RelativeLayout
-            android:id="@+id/progress_container"
+            android:id="@+id/default_progress_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@drawable/shadow_up">
 
             <TextView
-                android:id="@+id/song_current_progress"
+                android:id="@+id/default_song_current_progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -183,7 +230,7 @@
                 tools:ignore="RtlHardcoded,RtlSymmetry,SmallSp" />
 
             <TextView
-                android:id="@+id/song_total_time"
+                android:id="@+id/default_song_total_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -202,7 +249,7 @@
     <!-- PROGRESS SLIDER-->
 
     <SeekBar
-        android:id="@+id/progress_slider"
+        android:id="@+id/default_progress_slider"
         style="@style/TraditionalMusicProgressSlider"
         android:layout_above="@+id/footer_frame"
         android:elevation="2dp"

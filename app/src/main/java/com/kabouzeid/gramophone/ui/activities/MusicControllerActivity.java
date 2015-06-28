@@ -95,14 +95,12 @@ public class MusicControllerActivity extends AbsFabActivity {
     ImageView albumArtBackground;
     @InjectView(R.id.album_art)
     SquareIfPlaceImageView albumArt;
-    @InjectView(R.id.song_current_progress)
-    TextView songCurrentProgress;
-    @InjectView(R.id.song_total_time)
-    TextView songTotalTime;
-    @InjectView(R.id.progress_slider)
-    SeekBar progressSlider;
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
+
+    TextView songCurrentProgress;
+    TextView songTotalTime;
+    SeekBar progressSlider;
 
     private int lastFooterColor = -1;
     private int lastTextColor = -2;
@@ -126,11 +124,11 @@ public class MusicControllerActivity extends AbsFabActivity {
         setStatusBarTransparent();
 
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_music_controller);
+        ButterKnife.inject(this);
 
         initAppearanceVarsFromSharedPrefs();
-
-        setContentView(alternativeProgressSlider ? R.layout.activity_music_controller_alternative_progress_slider : R.layout.activity_music_controller);
-        ButterKnife.inject(this);
+        initProgressSliderDependentViews();
 
         moveSeekBarIntoPlace();
         adjustTitleBoxSize();
@@ -141,6 +139,22 @@ public class MusicControllerActivity extends AbsFabActivity {
         animateFabCircularRevealOnEnterTransitionEnd();
 
         updateCurrentSong();
+    }
+
+    private void initProgressSliderDependentViews() {
+        if (alternativeProgressSlider) {
+            findViewById(R.id.default_progress_container).setVisibility(View.GONE);
+            findViewById(R.id.default_progress_slider).setVisibility(View.GONE);
+            findViewById(R.id.alternative_progress_container).setVisibility(View.VISIBLE);
+
+            songCurrentProgress = (TextView) findViewById(R.id.alternative_song_current_progress);
+            songTotalTime = (TextView) findViewById(R.id.alternative_song_total_time);
+            progressSlider = (SeekBar) findViewById(R.id.alternative_progress_slider);
+        } else {
+            songCurrentProgress = (TextView) findViewById(R.id.default_song_current_progress);
+            songTotalTime = (TextView) findViewById(R.id.default_song_total_time);
+            progressSlider = (SeekBar) findViewById(R.id.default_progress_slider);
+        }
     }
 
     private void setUpAlbumArtViews() {
