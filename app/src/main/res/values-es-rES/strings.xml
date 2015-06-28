@@ -115,7 +115,6 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Cualquier lugar</string>
     <string name="pref_title_colored_album_footers">Pie de álbum coloreado</string>
     <string name="pref_title_colored_notification">Notificación coloreada</string>
-    <string name="pref_title_fade_play_pause">"Fundido de audio en Reproducir/Pausa "</string>
     <string name="pref_title_gapless_playback">Quitar silencio entre canciones</string>
     <string name="pref_title_force_square_album_art">Forzar portada de álbum a cuadrado</string>
     <string name="pref_title_opaque_toolbar_now_playing">Barra de Reproducción Actual opaca</string>
@@ -151,7 +150,6 @@
     <string name="pref_only_lollipop">"Solamente disponible en Lollipop"</string>
     <string name="pref_summary_colored_album_footers">"El color pie del álbum en la cuadrícula se basa en la paleta de colores de la tapa del álbum."</string>
     <string name="pref_summary_colored_notification">"La notificación es coloreada basándose en la paleta de colores de la tapa del álbum."</string>
-    <string name="pref_summary_fade_play_pause">"Fundido de volumen de la canción en reproducir/pausar."</string>
     <string name="pref_summary_gapless_playback">"Elimina el silencio entre dos canciones. Desactivando esta opción, podrían ocurrir problemas en la reproducción."</string>
     <string name="pref_summary_force_square_album_art">La portada del álbum en reproduciendo es forzada a ser cuadrada.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">La barra en Reproducción Actual es opaca y no tapa la portada del álbum.</string>

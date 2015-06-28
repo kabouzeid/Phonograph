@@ -102,6 +102,7 @@
     <string name="pref_title_general_theme">Tema</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">Generali</string>
+    <string name="pref_header_lockscreen">Schermata di sblocco</string>
     <string name="pref_summary_colored_navigation_bar">In quali schermate colorare la barra di navigazione.</string>
     <string name="pref_title_navigation_bar">Barra di navigazione colorata</string>
     <string name="pref_title_set_default_start_page">Pagina iniziale</string>
@@ -112,8 +113,8 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Modifica tag</string>
     <string name="pref_title_colored_navigation_bar_other_screens">In tutte le altre schermate</string>
     <string name="pref_title_colored_album_footers">Riquadri album colorati</string>
+    <string name="pref_title_album_art_on_lockscreen">Copertina album nella schermata di sblocco</string>
     <string name="pref_title_colored_notification">Notifica colorata</string>
-    <string name="pref_title_fade_play_pause">Dissolvenza su play/pausa</string>
     <string name="pref_title_gapless_playback">Riproduzione senza intervalli</string>
     <string name="pref_title_force_square_album_art">Copertina in proporzioni quadrate</string>
     <string name="pref_title_opaque_toolbar_now_playing">Toolbar di riproduzione opaca</string>
@@ -148,8 +149,8 @@
     <string name="song">Brano</string>
     <string name="pref_only_lollipop">"Disponibile solo su Lollipop."</string>
     <string name="pref_summary_colored_album_footers">"I riquadri degli album nella griglia sono colorati secondo la gamma di colori della copertina."</string>
+    <string name="pref_summary_album_art_on_lockscreen">La copertina dell\'album è visualizzata nella schermata di sblocco. Potrebbe essere necessario un riavvio di Phonograph affinché le modifiche abbiano effetto.</string>
     <string name="pref_summary_colored_notification">"La notifica è colorata secondo la gamma di colori della copertina."</string>
-    <string name="pref_summary_fade_play_pause">"Applica una dissolvenza in entrata/in uscita sul brano su play/pausa"</string>
     <string name="pref_summary_gapless_playback">"Elimina l'intervallo tra due brani. Disabilitare quest'opzione può risolvere problemi di riproduzione."</string>
     <string name="pref_summary_force_square_album_art">La copertina nella schermata In riproduzione è sempre visualizzata con proporzioni quadrate.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">La toolbar nella schermata In riproduzione è opaca e non copre la copertina.</string>

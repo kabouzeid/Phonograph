@@ -102,6 +102,7 @@
     <string name="pref_title_general_theme">Generelles Design</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">Generell</string>
+    <string name="pref_header_lockscreen">Sperrbildschirm</string>
     <string name="pref_summary_colored_navigation_bar">In welchen Ansichten die Navigationsleiste gefärbt werden soll</string>
     <string name="pref_title_navigation_bar">Farbige Navigationsleiste</string>
     <string name="pref_title_set_default_start_page">Startseite</string>
@@ -112,8 +113,8 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Tag-Editor</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Überall sonst</string>
     <string name="pref_title_colored_album_footers">Farbige Balken unter den Alben</string>
+    <string name="pref_title_album_art_on_lockscreen">Album Cover im Sperrbildschirm anzeigen</string>
     <string name="pref_title_colored_notification">Farbige Benachrichtigung</string>
-    <string name="pref_title_fade_play_pause">Aufbau der Musik beim spielen/stoppen</string>
     <string name="pref_title_gapless_playback">Lückenlose Wiedergabe</string>
     <string name="pref_title_force_square_album_art">Quadratisches Album Cover erzwingen</string>
     <string name="pref_title_opaque_toolbar_now_playing">Undurchsichtige Toolbar</string>
@@ -148,9 +149,9 @@
     <string name="song">Titel</string>
     <string name="pref_only_lollipop">"Nur auf Lollipop verfügbar"</string>
     <string name="pref_summary_colored_album_footers">"Farbe der Box unter jedem Album dem Cover anpassen"</string>
+    <string name="pref_summary_album_art_on_lockscreen">Das Album Cover wird im Sperrbildschirm angezeigt. Möglicherweise musst du Phonograph neu starten damit die Änderungen wirksam werden.</string>
     <string name="pref_summary_colored_notification">"Die Benachrichtigung ist in der Farbe des Album Covers gefärbt."</string>
-    <string name="pref_summary_fade_play_pause">"Langsamer Aufbau der Musik wenn man den Song pausiert/spielt."</string>
-    <string name="pref_summary_gapless_playback">"Lässt die Lücke zwischen zwei Songs verschwinden. Die Deaktivierung könnte das Abspiel-Problem beheben."</string>
+    <string name="pref_summary_gapless_playback">"Nahtloser Übergang zwischen zwei Songs. Diese Einstellung kann bei einigen Geräten Wiedergabeprobleme verursachen."</string>
     <string name="pref_summary_force_square_album_art">Das Cover in der aktuellen Wiedergabe wird gezwungen, quadratisch zu sein.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">Die Toolbar ist undurchsichtig und bedeckt das Album Cover nicht.</string>
     <string name="pref_summary_opaque_statusbar_now_playing">Die Statusleiste ist undurchsichtig und bedeckt nicht das Album Cover.</string>

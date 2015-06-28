@@ -113,7 +113,6 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Partout ailleurs</string>
     <string name="pref_title_colored_album_footers">Bas d\'album coloré</string>
     <string name="pref_title_colored_notification">Notification colorée</string>
-    <string name="pref_title_fade_play_pause">Transition lecture/pause</string>
     <string name="pref_title_gapless_playback">Lecture sans coupure</string>
     <string name="pref_title_force_square_album_art">Vignette carrée</string>
     <string name="pref_title_opaque_toolbar_now_playing">Barre d\'outil opaque</string>
@@ -149,7 +148,6 @@
     <string name="pref_only_lollipop">"Uniquement disponible sur Lollipop."</string>
     <string name="pref_summary_colored_album_footers">"Les bas d\'album dans la grille sont colorés avec la palette de la vignette."</string>
     <string name="pref_summary_colored_notification">"La notification est colorée en fonction de la vignette de l\'album."</string>
-    <string name="pref_summary_fade_play_pause">"Ajoute une transition fluide lors du passage lecture/pause."</string>
     <string name="pref_summary_gapless_playback">"Élimine le silence entre deux musiques. Désactiver cette option peut résoudre les éventuels problèmes de lecture."</string>
     <string name="pref_summary_force_square_album_art">La vignette de l\'album dans l\'écran de lecture en cours est forcée à rester carrée.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">La barre d\'outil est opaque et ne recouvre pas la vignette de l\'album.</string>

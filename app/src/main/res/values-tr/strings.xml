@@ -113,7 +113,6 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Başka Her Yerde</string>
     <string name="pref_title_colored_album_footers">Albüm Alt Bilgilerini Renklendir</string>
     <string name="pref_title_colored_notification">Renkli Bildirim</string>
-    <string name="pref_title_fade_play_pause">Soldur Oynat/Duraklat</string>
     <string name="pref_title_gapless_playback">Aralıksız Çalma</string>
     <string name="pref_title_force_square_album_art">Kare Albüm Kapağına Zorla</string>
     <string name="pref_title_opaque_toolbar_now_playing">Opak Araç Çubuğu</string>
@@ -149,7 +148,6 @@
     <string name="pref_only_lollipop">"Sadece Lollipop için"</string>
     <string name="pref_summary_colored_album_footers">"Izgara içindeki albüm alt bilgisini albüm arkaplanına ait canlı renklerle renklendirir."</string>
     <string name="pref_summary_colored_notification">"Bildirimler albüm kapağının canlı renkleriyle renklenir."</string>
-    <string name="pref_summary_fade_play_pause">"Oynatıp/duraklatırken şarkı içeri/dışarı kaybolur."</string>
     <string name="pref_summary_gapless_playback">"İki parça arasındaki geçişi kaldırmak oynatma sorununuzu giderebilir."</string>
     <string name="pref_summary_force_square_album_art">Şu anda çalınan albüm kapağı görüntüsünü kare olmaya zorlar.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">Araç çubuğu opak ve albüm kapağı resmini kapsamaz.</string>

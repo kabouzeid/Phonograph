@@ -14,7 +14,7 @@
     <string name="action_play_next">稍後播放</string>
     <string name="action_add_to_playing_queue">加入佇列</string>
     <string name="action_remove_from_playing_queue">從播放佇列移除</string>
-    <string name="action_add_to_playlist">加入音樂清單…</string>
+    <string name="action_add_to_playlist">加入音樂清單</string>
     <string name="action_tag_editor">編輯音樂標籤</string>
     <string name="action_details">詳細資訊</string>
     <string name="albums">專輯</string>
@@ -22,8 +22,8 @@
     <string name="songs">歌曲</string>
     <string name="playlists">音樂清單</string>
     <string name="nothing_playing">沒有正在播放的歌曲</string>
-    <string name="unplayable_file">對不起 - 嘗試播放歌曲時發生錯誤</string>
-    <string name="biography_unavailable">對不起，無法找到與這位歌手相符的個人簡介</string>
+    <string name="unplayable_file">嘗試播放歌曲時發生錯誤</string>
+    <string name="biography_unavailable">無法找到與這位歌手相符的個人簡介</string>
     <string name="biography">個人簡介</string>
     <string name="audio_focus_denied">無法獲得音訊焦點</string>
     <string name="tag_editor">編輯音樂標籤</string>
@@ -62,15 +62,9 @@
     <string name="inserted_x_songs_into_playlist">%1$d首歌曲已加入該音樂清單</string>
     <string name="created_playlist_x">已新增音樂清單%1$s</string>
     <string name="deleted_playlist_x">已刪除音樂清單%1$s</string>
-    <string name="delete_playlist_x"><![CDATA[
-你想刪除這個音樂清單： <b>%1$s</b>嗎？
-    ]]></string>
-    <string name="delete_x_playlists"><![CDATA[
-你想要刪除以下清單：<b>%1$d</b>嗎？
-    ]]></string>
-    <string name="delete_song_x"><![CDATA[
-你想移除這首歌曲： <b>%1$s</b>嗎？
-    ]]></string>
+    <string name="delete_playlist_x"><![CDATA[你想刪除這個音樂清單： <b>%1$s</b>嗎？]]></string>
+    <string name="delete_x_playlists"><![CDATA[你想要刪除以下清單：<b>%1$d</b>嗎？]]></string>
+    <string name="delete_song_x"><![CDATA[你想移除這首歌曲： <b>%1$s</b>嗎？]]></string>
     <string name="delete_x_songs"><![CDATA[你想要移除以下歌曲： <b>%1$d</b>嗎？]]></string>
     <string name="delete_song_title">移除歌曲</string>
     <string name="delete_songs_title">移除歌曲</string>
@@ -89,7 +83,7 @@
     <string name="pref_header_general">通用</string>
     <string name="pref_summary_colored_navigation_bar">設定在哪些頁面啟用可變色的導航列</string>
     <string name="pref_title_navigation_bar">變色導航列</string>
-    <string name="pref_title_set_default_start_page">設定預設起始頁</string>
+    <string name="pref_title_set_default_start_page">起始頁</string>
     <string name="pref_title_colored_navigation_bar_artists">歌手頁面</string>
     <string name="pref_title_colored_navigation_bar_albums">專輯頁面</string>
     <string name="pref_title_colored_navigation_bar_current_playing">播放頁面</string>

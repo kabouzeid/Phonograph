@@ -102,6 +102,7 @@
     <string name="pref_title_general_theme">Algemeen thema</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">Algemeen</string>
+    <string name="pref_header_lockscreen">Vergrendelscherm</string>
     <string name="pref_summary_colored_navigation_bar">In welke weergaven moet de navigatiebalk gekleurd zijn.</string>
     <string name="pref_title_navigation_bar">Gekleurde navigatiebalk</string>
     <string name="pref_title_set_default_start_page">Startpagina</string>
@@ -112,8 +113,8 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Label bewerker</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Overal elders</string>
     <string name="pref_title_colored_album_footers">Gekleurde album voetkader</string>
+    <string name="pref_title_album_art_on_lockscreen">Albumhoes op vergrendelscherm</string>
     <string name="pref_title_colored_notification">Gekleurde notificatie</string>
-    <string name="pref_title_fade_play_pause">Faden bij afspelen/pauze</string>
     <string name="pref_title_gapless_playback">Afspelen zonder pauzes</string>
     <string name="pref_title_force_square_album_art">Forceer vierkante albumhoes</string>
     <string name="pref_title_opaque_toolbar_now_playing">Ondoorzichtige werkbalk</string>
@@ -148,8 +149,8 @@
     <string name="song">Nummer</string>
     <string name="pref_only_lollipop">"Alleen beschikbaar op Lollipop. "</string>
     <string name="pref_summary_colored_album_footers">"Album voetkaders in het raster worden gekleurd met het palet van de albumhoes."</string>
+    <string name="pref_summary_album_art_on_lockscreen">De albumhoes wordt getoond op het vergrendelscherm. Phonograph moet mogelijk worden herstart om de wijziging door te voeren.</string>
     <string name="pref_summary_colored_notification">"Notificatie wordt gekleurd met het palet van de albumhoes."</string>
-    <string name="pref_summary_fade_play_pause">"Nummers in- en uitfaden bij afspelen/pauze."</string>
     <string name="pref_summary_gapless_playback">"Verwijdert de pauzes tussen nummers. Dit uitschakelen kan afspeelfouten mogelijk verhelpen."</string>
     <string name="pref_summary_force_square_album_art">Albumhoes in het afspeelscherm is geforceerd vierkant.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">De werkbalk is ondoorzichtig en bedekt de albumhoes niet.</string>

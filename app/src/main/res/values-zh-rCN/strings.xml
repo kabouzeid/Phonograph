@@ -113,7 +113,6 @@
     <string name="pref_title_colored_navigation_bar_other_screens">其他任何地方</string>
     <string name="pref_title_colored_album_footers">使用变色的专辑标签</string>
     <string name="pref_title_colored_notification">使用变色的通知栏</string>
-    <string name="pref_title_fade_play_pause">淡入/出音量（播放/暂停）</string>
     <string name="pref_title_gapless_playback">连续播放</string>
     <string name="pref_title_force_square_album_art">强制使用方形专辑封面</string>
     <string name="pref_title_opaque_toolbar_now_playing">正在播放界面使用不透明工具栏</string>
@@ -149,7 +148,6 @@
     <string name="pref_only_lollipop">"仅适用于 Lollipop"</string>
     <string name="pref_summary_colored_album_footers">"专辑队列视图中专辑页脚会根据专辑封面的色调进行变色。"</string>
     <string name="pref_summary_colored_notification">"使用与专辑封面色彩相对应的通知栏消息背景"</string>
-    <string name="pref_summary_fade_play_pause">"播放/暂停歌曲时使用淡入/出效果"</string>
     <string name="pref_summary_gapless_playback">"消除两首歌曲之间的间隔。禁用该选项或许能修复某些播放问题。"</string>
     <string name="pref_summary_force_square_album_art">在正在播放界中强制使用方形专辑封面</string>
     <string name="pref_summary_opaque_toolbar_now_playing">使正在播放界面的工具栏不透明但不会遮住专辑封面。</string>

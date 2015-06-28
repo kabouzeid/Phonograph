@@ -113,7 +113,6 @@
     <string name="pref_title_colored_navigation_bar_other_screens">Todos os outros lugares</string>
     <string name="pref_title_colored_album_footers">Rodapés de álbuns coloridos</string>
     <string name="pref_title_colored_notification">Notificação colorida</string>
-    <string name="pref_title_fade_play_pause">Diminuir tocar/pausar</string>
     <string name="pref_title_gapless_playback">Reprodução continua</string>
     <string name="pref_title_force_square_album_art">Forçar a capa do álbum quadrada</string>
     <string name="pref_title_opaque_toolbar_now_playing">Barra de ações opaca</string>
@@ -149,7 +148,6 @@
     <string name="pref_only_lollipop">"Apenas disponível no Lollipop."</string>
     <string name="pref_summary_colored_album_footers">"Rodapés de álbum na grade são coloridos com as paletas correspondentes."</string>
     <string name="pref_summary_colored_notification">"A notificação é colorida com a cor mais vibrante do álbum."</string>
-    <string name="pref_summary_fade_play_pause">"Diminuir musica na entrada/saída no tocar/pausar."</string>
     <string name="pref_summary_gapless_playback">"Elimina a lacuna entre duas músicas. Desativar essa pode corrigir problemas de reprodução."</string>
     <string name="pref_summary_force_square_album_art">A arte do álbum na tela de execução agora é forçado a ser quadrado.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">A barra de ações está opaca e não cobre mais a capa do álbum.</string>

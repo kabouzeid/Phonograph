@@ -12,6 +12,8 @@
     <string name="action_now_playing">지금 재생 중</string>
     <string name="action_clear_playlist">재생목록 비우기</string>
     <string name="action_playing_queue">재생 대기열</string>
+    <string name="action_add_to_favorites">좋아하는 곡 목록에 추가</string>
+    <string name="action_remove_from_favorites">좋아하는 곡 목록에서 삭제</string>
     <string name="action_search">검색</string>
     <string name="action_play_next">다음 곡</string>
     <string name="action_play">재생</string>
@@ -68,6 +70,7 @@
     <string name="created_playlist_x">재생 목록 \'%1$s\'을 만들었습니다.</string>
     <string name="deleted_playlist_x">재생목록 \'%1$s\'을 삭제했습니다.</string>
     <string name="deleted_x_songs"><b>%1$d</b>개의 노래를 삭제하시겠습니까?</string>
+    <string name="could_not_create_playlist">재생목록을 만들 수 없습니다.</string>
     <string name="delete_playlist_x"><![CDATA[재생목록 <b>%1$s</b>을(를) 삭제하시겠습니까?]]></string>
     <string name="clear_playlist_x"><![CDATA[노래 <b>%1$s</b>을(를) 재생목록에서 삭제하시겠습니까?]]></string>
     <string name="delete_x_playlists"><![CDATA[재생목록 <b>%1$d</b>을(를) 삭제하시겠습니까?]]></string>
@@ -86,6 +89,10 @@
     <string name="add_playlist_title">"재생목록에 추가"</string>
     <string name="new_playlist_title">새로운 재생목록</string>
     <string name="delete_warning">"경고 : 이 작업은 되돌릴 수 없습니다."</string>
+    <string name="action_shuffle_all">모든 곡 임의 재생</string>
+    <string name="action_shuffle_album">앨범 임의 재생</string>
+    <string name="action_shuffle_artist">아티스트 임의 재생</string>
+    <string name="action_shuffle_playlist">재생목록 임의 재생</string>
     <string name="last_opened">마지막으로 열었던 위치</string>
     <string name="light_theme_name">밝은 테마</string>
     <string name="dark_theme_name">어두운 테마</string>
@@ -106,7 +113,6 @@
     <string name="pref_title_colored_navigation_bar_other_screens">기타 다른 모든 곳에서</string>
     <string name="pref_title_colored_album_footers">색칠된 앨범 카드</string>
     <string name="pref_title_colored_notification">색칠된 알림 컨트롤</string>
-    <string name="pref_title_fade_play_pause">재생/일시정지 시 페이드 효과</string>
     <string name="pref_title_gapless_playback">끊김없이 재생</string>
     <string name="pref_title_force_square_album_art">강제로 정사각형 앨범아트 적용</string>
     <string name="pref_title_opaque_toolbar_now_playing">불투명한 지금 재생 중 툴바</string>
@@ -143,7 +149,6 @@
     <string name="pref_only_lollipop">"안드로이드 롤리팝에서만 가능합니다."</string>
     <string name="pref_summary_colored_album_footers">"앨범 커버의 색상에 맞추어 앨범 카드가 색칠됩니다."</string>
     <string name="pref_summary_colored_notification">"알림창에 뜨는 알림 컨트롤이 앨범 아트의 주요 색상으로 칠해집니다."</string>
-    <string name="pref_summary_fade_play_pause">"재생/일시정시 시 페이드 인/아웃 효과를 줍니다."</string>
     <string name="pref_summary_gapless_playback">"곡을 넘어갈 때 간격을 없애 끊김없이 재생합니다. 이 기능을 끄면 곡 전환 관련 문제가 해결될 수 있습니다."</string>
     <string name="pref_summary_force_square_album_art">지금 재생 중 화면의 앨범 아트 이미지가 강제로 정사각형으로 보이게 합니다.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">지금 재생 중 화면 상단의 툴바를 불투명하게 하고, 앨범 아트를 가리지 않게 합니다.</string>
