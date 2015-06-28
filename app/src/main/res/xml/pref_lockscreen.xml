@@ -1,0 +1,15 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory android:title="@string/pref_header_lockscreen">
+
+        <CheckBoxPreference
+            android:layout="@layout/preference_custom"
+            android:defaultValue="true"
+            android:key="album_art_on_lockscreen"
+            android:title="@string/pref_title_album_art_on_lockscreen"
+            android:summary="@string/pref_summary_album_art_on_lockscreen"
+            android:widgetLayout="@layout/preference_dynamic_checkbox" />
+
+    </com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory>
+
+</PreferenceScreen>

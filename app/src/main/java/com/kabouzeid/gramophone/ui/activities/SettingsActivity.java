@@ -69,6 +69,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             addPreferencesFromResource(R.xml.pref_general);
             addPreferencesFromResource(R.xml.pref_colors);
             addPreferencesFromResource(R.xml.pref_now_playing_screen);
+            addPreferencesFromResource(R.xml.pref_lockscreen);
             addPreferencesFromResource(R.xml.pref_audio);
 
             final Preference defaultStartPage = findPreference("default_start_page");
@@ -147,11 +148,20 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 }
             });
 
+            Preference albumArtOnLockscreen = findPreference("album_art_on_lockscreen");
+            albumArtOnLockscreen.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    getActivity().sendBroadcast(new Intent(MusicService.SETTING_ALBUM_ART_ON_LOCKSCREEN_CHANGED).putExtra(MusicService.SETTING_BOOLEAN_EXTRA, (boolean) newValue));
+                    return true;
+                }
+            });
+
             Preference gaplessPlayback = findPreference("gapless_playback");
             gaplessPlayback.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    getActivity().sendBroadcast(new Intent(MusicService.SETTING_GAPLESS_PLAYBACK_CHANGED).putExtra(MusicService.SETTING_GAPLESS_PLAYBACK_CHANGED_VALUE_EXTRA, (boolean) newValue));
+                    getActivity().sendBroadcast(new Intent(MusicService.SETTING_GAPLESS_PLAYBACK_CHANGED).putExtra(MusicService.SETTING_BOOLEAN_EXTRA, (boolean) newValue));
                     return true;
                 }
             });

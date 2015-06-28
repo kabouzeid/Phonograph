@@ -68,7 +68,8 @@ public class MusicService extends Service {
     public static final String SHUFFLE_MODE_CHANGED = "com.kabouzeid.gramophone.shufflemodechanged";
 
     public static final String SETTING_GAPLESS_PLAYBACK_CHANGED = "com.kabouzeid.gramophone.SETTING_GAPLESS_PLAYBACK_CHANGED";
-    public static final String SETTING_GAPLESS_PLAYBACK_CHANGED_VALUE_EXTRA = "com.kabouzeid.gramophone.SETTING_GAPLESS_PLAYBACK_CHANGED_VALUE_EXTRA";
+    public static final String SETTING_ALBUM_ART_ON_LOCKSCREEN_CHANGED = "com.kabouzeid.gramophone.SETTING_ALBUM_ART_ON_LOCKSCREEN_CHANGED";
+    public static final String SETTING_BOOLEAN_EXTRA = "com.kabouzeid.gramophone.SETTING_BOOLEAN_EXTRA";
 
     public static final String SAVED_POSITION = "POSITION";
     public static final String SAVED_POSITION_IN_TRACK = "POSITION_IN_TRACK";
@@ -108,7 +109,6 @@ public class MusicService extends Service {
     @SuppressWarnings("deprecation")
     private RemoteControlClient remoteControlClient;
     private PowerManager.WakeLock wakeLock;
-    private String currentAlbumArtUri;
     private MusicPlayerHandler playerHandler;
     private QueueSaveHandler queueSaveHandler;
     private boolean isFadingDown = false;
@@ -128,11 +128,16 @@ public class MusicService extends Service {
         }
     };
 
-    private final BroadcastReceiver gaplessPlaybackSettingChangedReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver preferencesChangedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(SETTING_GAPLESS_PLAYBACK_CHANGED)) {
-                setGaplessPlaybackEnabled(intent.getBooleanExtra(SETTING_GAPLESS_PLAYBACK_CHANGED_VALUE_EXTRA, true));
+            switch (intent.getAction()) {
+                case SETTING_GAPLESS_PLAYBACK_CHANGED:
+                    setGaplessPlaybackEnabled(intent.getBooleanExtra(SETTING_BOOLEAN_EXTRA, true));
+                    break;
+                case SETTING_ALBUM_ART_ON_LOCKSCREEN_CHANGED:
+                    updateRemoteControlClientImpl(intent.getBooleanExtra(SETTING_BOOLEAN_EXTRA, true));
+                    break;
             }
         }
     };
@@ -183,7 +188,12 @@ public class MusicService extends Service {
     private void registerReceiversAndRemoteControlClient() {
         if (!receiversAndRemoteControlClientRegistered) {
             registerReceiver(becomingNoisyReceiver, new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY));
-            registerReceiver(gaplessPlaybackSettingChangedReceiver, new IntentFilter(SETTING_GAPLESS_PLAYBACK_CHANGED));
+
+            IntentFilter preferenceIntentFilter = new IntentFilter();
+            preferenceIntentFilter.addAction(SETTING_GAPLESS_PLAYBACK_CHANGED);
+            preferenceIntentFilter.addAction(SETTING_ALBUM_ART_ON_LOCKSCREEN_CHANGED);
+            registerReceiver(preferencesChangedReceiver, preferenceIntentFilter);
+
             //noinspection deprecation
             getAudioManager().registerMediaButtonEventReceiver(new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class));
             initRemoteControlClient();
@@ -267,7 +277,7 @@ public class MusicService extends Service {
     private void unregisterReceiversAndRemoteControlClient() {
         if (receiversAndRemoteControlClientRegistered) {
             unregisterReceiver(becomingNoisyReceiver);
-            unregisterReceiver(gaplessPlaybackSettingChangedReceiver);
+            unregisterReceiver(preferencesChangedReceiver);
             //noinspection deprecation
             getAudioManager().unregisterRemoteControlClient(remoteControlClient);
             //noinspection deprecation
@@ -394,38 +404,46 @@ public class MusicService extends Service {
     }
 
     private void updateRemoteControlClient() {
+        updateRemoteControlClientImpl(PreferenceUtils.getInstance(this).albumArtOnLockscrenn());
+    }
+
+    private void updateRemoteControlClientImpl(boolean showAlbumArt) {
         final Song song = getCurrentSong();
         remoteControlClient
-                .editMetadata(false)
+                .editMetadata(!showAlbumArt)
                 .putString(MediaMetadataRetriever.METADATA_KEY_ARTIST, song.artistName)
                 .putString(MediaMetadataRetriever.METADATA_KEY_TITLE, song.title)
                 .putLong(MediaMetadataRetriever.METADATA_KEY_DURATION, song.duration)
                 .apply();
-        currentAlbumArtUri = MusicUtil.getAlbumArtUri(song.albumId).toString();
-        ImageLoader.getInstance().displayImage(currentAlbumArtUri, new NonViewAware(new ImageSize(-1, -1), ViewScaleType.CROP), new SimpleImageLoadingListener() {
-            @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                if (currentAlbumArtUri.equals(imageUri)) {
-                    Bitmap albumArt = loadedImage;
-                    if (albumArt != null) {
-                        // RemoteControlClient wants to recycle the bitmaps thrown at it, so we need
-                        // to make sure not to hand out our cache copy
-                        Bitmap.Config config = albumArt.getConfig();
-                        if (config == null) {
-                            config = Bitmap.Config.ARGB_8888;
+        if (showAlbumArt) {
+            final String currentAlbumArtUri = MusicUtil.getAlbumArtUri(song.albumId).toString();
+            ImageLoader.getInstance().displayImage(currentAlbumArtUri, new NonViewAware(new ImageSize(-1, -1), ViewScaleType.CROP), new SimpleImageLoadingListener() {
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    if (currentAlbumArtUri.equals(imageUri)) {
+                        Bitmap albumArt = loadedImage;
+                        if (albumArt != null) {
+                            // RemoteControlClient wants to recycle the bitmaps thrown at it, so we need
+                            // to make sure not to hand out our cache copy
+                            Bitmap.Config config = albumArt.getConfig();
+                            if (config == null) {
+                                config = Bitmap.Config.ARGB_8888;
+                            }
+                            albumArt = albumArt.copy(config, false);
+                            updateRemoteControlClientBitmap(albumArt.copy(albumArt.getConfig(), true));
                         }
-                        albumArt = albumArt.copy(config, false);
-                        updateRemoteControlClientBitmap(albumArt.copy(albumArt.getConfig(), true));
                     }
                 }
-            }
 
-            @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                if (currentAlbumArtUri.equals(imageUri))
-                    updateRemoteControlClientBitmap(null);
-            }
-        });
+                @Override
+                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    if (currentAlbumArtUri.equals(imageUri))
+                        updateRemoteControlClientBitmap(null);
+                }
+            });
+        } else {
+            updateRemoteControlClientBitmap(null);
+        }
     }
 
     private void updateRemoteControlClientBitmap(final Bitmap albumArt) {

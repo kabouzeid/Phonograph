@@ -44,6 +44,7 @@ public final class PreferenceUtils {
     public static final String COLORED_NOTIFICATION = "colored_notification";
     public static final String GAPLESS_PLAYBACK = "gapless_playback";
     public static final String LAST_ADDED_CUTOFF_TIMESTAMP = "last_added_cutoff_timestamp";
+    public static final String ALBUM_ART_ON_LOCKSCREEN = "album_art_on_lockscreen";
 
     private static PreferenceUtils sInstance;
 
@@ -201,6 +202,10 @@ public final class PreferenceUtils {
 
     public final boolean gaplessPlayback() {
         return mPreferences.getBoolean(GAPLESS_PLAYBACK, true);
+    }
+
+    public final boolean albumArtOnLockscrenn() {
+        return mPreferences.getBoolean(ALBUM_ART_ON_LOCKSCREEN, true);
     }
 
 //    public final boolean downloadMissingArtistImages() {
