@@ -201,7 +201,7 @@ public final class PreferenceUtils {
     }
 
     public final boolean gaplessPlayback() {
-        return mPreferences.getBoolean(GAPLESS_PLAYBACK, true);
+        return mPreferences.getBoolean(GAPLESS_PLAYBACK, false);
     }
 
     public final boolean albumArtOnLockscrenn() {

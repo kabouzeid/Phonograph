@@ -133,7 +133,7 @@ public class MusicService extends Service {
         public void onReceive(Context context, Intent intent) {
             switch (intent.getAction()) {
                 case SETTING_GAPLESS_PLAYBACK_CHANGED:
-                    setGaplessPlaybackEnabled(intent.getBooleanExtra(SETTING_BOOLEAN_EXTRA, true));
+                    setGaplessPlaybackEnabled(intent.getBooleanExtra(SETTING_BOOLEAN_EXTRA, false));
                     break;
                 case SETTING_ALBUM_ART_ON_LOCKSCREEN_CHANGED:
                     updateRemoteControlClientImpl(intent.getBooleanExtra(SETTING_BOOLEAN_EXTRA, true));
