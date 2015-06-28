@@ -90,7 +90,7 @@ public class PlayingNotificationHelper {
         }
         this.isColored = isColored;
         currentSong = song;
-        this.isPlaying = service.isPlayingAndNotFadingDown();
+        this.isPlaying = service.isPlaying();
         if (!isReceiverRegistered)
             service.registerReceiver(notificationColorPreferenceChangedReceiver, intentFilter);
         isReceiverRegistered = true;

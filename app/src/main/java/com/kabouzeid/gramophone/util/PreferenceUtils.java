@@ -40,7 +40,6 @@ public final class PreferenceUtils {
     public static final String LARGER_TITLE_BOX_NOW_PLAYING = "larger_title_box_now_playing";
     public static final String ALTERNATIVE_PROGRESS_SLIDER_NOW_PLAYING = "alternative_progress_slider_now_playing";
     public static final String PLAYBACK_CONTROLLER_CARD_NOW_PLAYING = "playback_controller_card_now_playing";
-    public static final String FADE_PLAY_PAUSE = "fade_play_pause";
     public static final String COLORED_NOTIFICATION = "colored_notification";
     public static final String GAPLESS_PLAYBACK = "gapless_playback";
     public static final String LAST_ADDED_CUTOFF_TIMESTAMP = "last_added_cutoff_timestamp";
@@ -194,10 +193,6 @@ public final class PreferenceUtils {
 
     public final boolean alternativeProgressSliderNowPlaying() {
         return mPreferences.getBoolean(ALTERNATIVE_PROGRESS_SLIDER_NOW_PLAYING, false);
-    }
-
-    public final boolean fadePlayPause() {
-        return mPreferences.getBoolean(FADE_PLAY_PAUSE, true);
     }
 
     public final boolean gaplessPlayback() {

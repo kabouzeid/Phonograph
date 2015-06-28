@@ -115,7 +115,6 @@
     <string name="pref_title_colored_album_footers">Colored Album Footers</string>
     <string name="pref_title_album_art_on_lockscreen">Album Art on Lockscreen</string>
     <string name="pref_title_colored_notification">Colored Notification</string>
-    <string name="pref_title_fade_play_pause">Fade Play/Pause</string>
     <string name="pref_title_gapless_playback">Gapless Playback</string>
     <string name="pref_title_force_square_album_art">Force Square Album Cover</string>
     <string name="pref_title_opaque_toolbar_now_playing">Opaque Toolbar</string>
@@ -152,7 +151,6 @@
     <string name="pref_summary_colored_album_footers">"Album footers in the grid are colored with the album cover\'s vibrant color."</string>
     <string name="pref_summary_album_art_on_lockscreen">The album art is shown on the lockscreen. You might have to restart Phonograph in order for changes to take affect.</string>
     <string name="pref_summary_colored_notification">"The notification is colored with the album cover\'s vibrant color."</string>
-    <string name="pref_summary_fade_play_pause">"Fades the song in/out on play/pause."</string>
     <string name="pref_summary_gapless_playback">"Eliminates the gap between two songs. This can cause playback issues on some devices."</string>
     <string name="pref_summary_force_square_album_art">Album art in the now playing view is forced to be squared.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">The toolbar is opaque and does not cover the album art.</string>

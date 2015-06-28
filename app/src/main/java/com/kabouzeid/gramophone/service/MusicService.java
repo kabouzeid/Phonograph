@@ -79,8 +79,6 @@ public class MusicService extends Service {
     private static final int FOCUS_CHANGE = 5;
     private static final int DUCK = 6;
     private static final int UNDUCK = 7;
-    private static final int FADE_DOWN_AND_PAUSE = 8;
-    private static final int FADE_UP_AND_RESUME = 9;
     public static final int RELEASE_WAKELOCK = 10;
     public static final int TRACK_ENDED = 11;
     public static final int TRACK_WENT_TO_NEXT = 12;
@@ -111,7 +109,6 @@ public class MusicService extends Service {
     private PowerManager.WakeLock wakeLock;
     private MusicPlayerHandler playerHandler;
     private QueueSaveHandler queueSaveHandler;
-    private boolean isFadingDown = false;
     private HandlerThread musicPlayerHandlerThread;
     private HandlerThread queueSaveHandlerThread;
     private RecentlyPlayedStore recentlyPlayedStore;
@@ -122,8 +119,7 @@ public class MusicService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(AudioManager.ACTION_AUDIO_BECOMING_NOISY)) {
-                pause(true);
-                pause(false);
+                pause();
             }
         }
     };
@@ -232,17 +228,17 @@ public class MusicService extends Service {
                 String action = intent.getAction();
                 switch (action) {
                     case ACTION_TOGGLE_PLAYBACK:
-                        if (isPlayingAndNotFadingDown()) {
-                            pause(false);
+                        if (isPlaying()) {
+                            pause();
                         } else {
-                            play(false);
+                            play();
                         }
                         break;
                     case ACTION_PAUSE:
-                        pause(false);
+                        pause();
                         break;
                     case ACTION_PLAY:
-                        play(false);
+                        play();
                         break;
                     case ACTION_REWIND:
                         back(true);
@@ -319,8 +315,8 @@ public class MusicService extends Service {
         getAudioManager().abandonAudioFocus(audioFocusListener);
     }
 
-    public boolean isPlayingAndNotFadingDown() {
-        return player.isPlaying() && !isFadingDown;
+    public boolean isPlaying() {
+        return player.isPlaying();
     }
 
     public void saveState() {
@@ -471,7 +467,7 @@ public class MusicService extends Service {
     }
 
     private void updateWidgets() {
-        MusicPlayerWidget.updateWidgets(this, getCurrentSong(), isPlayingAndNotFadingDown());
+        MusicPlayerWidget.updateWidgets(this, getCurrentSong(), isPlaying());
     }
 
     private static String getTrackUri(Song song) {
@@ -634,46 +630,22 @@ public class MusicService extends Service {
 
     private void playSongAtImpl(int position) {
         if (openTrackAndPrepareNextAt(position)) {
-            play(false);
+            play();
         } else {
             Toast.makeText(this, getResources().getString(R.string.unplayable_file), Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void pause(boolean forceNoFading) {
+    public void pause() {
         pausedByTransientLossOfFocus = false;
-        if (!forceNoFading && PreferenceUtils.getInstance(this).fadePlayPause()) {
-            playerHandler.removeMessages(FADE_UP_AND_RESUME);
-            playerHandler.sendEmptyMessage(FADE_DOWN_AND_PAUSE);
-        } else {
-            pauseImpl();
-        }
-    }
-
-    private void pauseImpl() {
-        playerHandler.removeMessages(FADE_UP_AND_RESUME);
         if (player.isPlaying()) {
             player.pause();
             notifyChange(PLAY_STATE_CHANGED);
         }
     }
 
-    public void play(boolean forceNoFading) {
-        if (!forceNoFading && PreferenceUtils.getInstance(this).fadePlayPause()) {
-            playerHandler.removeMessages(FADE_DOWN_AND_PAUSE);
-            playerHandler.sendEmptyMessage(FADE_UP_AND_RESUME);
-        } else {
-            playImpl();
-            try {
-                player.setVolume(1f);
-            } catch (IllegalStateException ignored) {
-            }
-        }
-    }
-
-    private void playImpl() {
+    public void play() {
         synchronized (this) {
-            playerHandler.removeMessages(FADE_DOWN_AND_PAUSE);
             if (requestFocus()) {
                 if (!player.isPlaying()) {
                     if (!player.isInitialized()) {
@@ -809,7 +781,7 @@ public class MusicService extends Service {
             internalIntent.putExtra("album", currentSong.albumName);
             internalIntent.putExtra("track", currentSong.title);
         }
-        internalIntent.putExtra("playing", isPlayingAndNotFadingDown());
+        internalIntent.putExtra("playing", isPlaying());
         sendStickyBroadcast(internalIntent);
 
         //to let other apps know whats playing. i.E. last.fm (scrobbling) or musixmatch
@@ -818,7 +790,7 @@ public class MusicService extends Service {
         sendStickyBroadcast(publicMusicIntent);
 
         if (what.equals(PLAY_STATE_CHANGED)) {
-            final boolean isPlaying = isPlayingAndNotFadingDown();
+            final boolean isPlaying = isPlaying();
             playingNotificationHelper.updatePlayState(isPlaying);
             MusicPlayerWidget.updateWidgetsPlayState(this, isPlaying);
             //noinspection deprecation
@@ -887,7 +859,6 @@ public class MusicService extends Service {
     private static final class MusicPlayerHandler extends Handler {
         private final WeakReference<MusicService> mService;
         private float currentDuckVolume = 1.0f;
-        private float currentPlayPauseFadeVolume = 1.0f;
 
         public MusicPlayerHandler(final MusicService service, final Looper looper) {
             super(looper);
@@ -913,7 +884,7 @@ public class MusicService extends Service {
                     break;
 
                 case UNDUCK:
-                    currentDuckVolume += .05f;
+                    currentDuckVolume += .03f;
                     if (currentDuckVolume < 1.0f) {
                         sendEmptyMessageDelayed(UNDUCK, 10);
                     } else {
@@ -922,43 +893,9 @@ public class MusicService extends Service {
                     service.player.setVolume(currentDuckVolume);
                     break;
 
-                case FADE_DOWN_AND_PAUSE:
-                    if (!service.isFadingDown) {
-                        service.isFadingDown = true;
-                        service.notifyChange(PLAY_STATE_CHANGED);
-                    }
-                    currentPlayPauseFadeVolume -= .125f;
-                    if (currentPlayPauseFadeVolume > 0f) {
-                        sendEmptyMessageDelayed(FADE_DOWN_AND_PAUSE, 10);
-                    } else {
-                        currentPlayPauseFadeVolume = 0f;
-                        service.isFadingDown = false;
-                        service.pause(true);
-                    }
-                    service.player.setVolume(currentPlayPauseFadeVolume);
-                    break;
-
-                case FADE_UP_AND_RESUME:
-                    if (service.isFadingDown) {
-                        service.isFadingDown = false;
-                        service.notifyChange(PLAY_STATE_CHANGED);
-                    }
-                    service.playImpl();
-                    currentPlayPauseFadeVolume += .125f;
-                    if (currentPlayPauseFadeVolume < 1.0f) {
-                        sendEmptyMessageDelayed(FADE_UP_AND_RESUME, 10);
-                    } else {
-                        currentPlayPauseFadeVolume = 1.0f;
-                    }
-                    try {
-                        service.player.setVolume(currentPlayPauseFadeVolume);
-                    } catch (IllegalStateException ignored) {
-                    }
-                    break;
-
                 case TRACK_WENT_TO_NEXT:
                     if (service.getRepeatMode() == REPEAT_MODE_NONE && service.isLastTrack()) {
-                        service.pause(true);
+                        service.pause();
                         service.seek(0);
                     } else {
                         service.setPosition(service.nextPosition);
@@ -988,8 +925,9 @@ public class MusicService extends Service {
                     switch (msg.arg1) {
                         case AudioManager.AUDIOFOCUS_GAIN:
                             service.registerReceiversAndRemoteControlClient();
-                            if (!service.isPlayingAndNotFadingDown() && service.pausedByTransientLossOfFocus) {
-                                service.play(false);
+                            if (!service.isPlaying() && service.pausedByTransientLossOfFocus) {
+                                service.play();
+                                service.pausedByTransientLossOfFocus = false;
                             }
                             removeMessages(DUCK);
                             sendEmptyMessage(UNDUCK);
@@ -997,7 +935,7 @@ public class MusicService extends Service {
 
                         case AudioManager.AUDIOFOCUS_LOSS:
                             // Lost focus for an unbounded amount of time: stop playback and release media player
-                            service.pause(true);
+                            service.pause();
                             service.unregisterReceiversAndRemoteControlClient();
                             break;
 
@@ -1005,8 +943,9 @@ public class MusicService extends Service {
                             // Lost focus for a short time, but we have to stop
                             // playback. We don't release the media player because playback
                             // is likely to resume
-                            service.pause(false);
-                            service.pausedByTransientLossOfFocus = service.isPlayingAndNotFadingDown();
+                            boolean wasPlaying = service.isPlaying();
+                            service.pause();
+                            service.pausedByTransientLossOfFocus = wasPlaying;
                             break;
 
                         case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:

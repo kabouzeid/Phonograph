@@ -59,7 +59,7 @@ public class MusicPlayerRemote {
 
     public static void pauseSong() {
         if (musicService != null) {
-            musicService.pause(false);
+            musicService.pause();
         }
     }
 
@@ -82,12 +82,12 @@ public class MusicPlayerRemote {
     }
 
     public static boolean isPlaying() {
-        return musicService != null && musicService.isPlayingAndNotFadingDown();
+        return musicService != null && musicService.isPlaying();
     }
 
     public static void resumePlaying() {
         if (musicService != null) {
-            musicService.play(false);
+            musicService.play();
         }
     }
 
