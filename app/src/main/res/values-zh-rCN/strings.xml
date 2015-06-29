@@ -102,6 +102,7 @@
     <string name="pref_title_general_theme">全局主题</string>
     <string name="pref_header_audio">声音</string>
     <string name="pref_header_general">通用</string>
+    <string name="pref_header_lockscreen">锁屏</string>
     <string name="pref_summary_colored_navigation_bar">设置在哪些界面应用变色导航栏</string>
     <string name="pref_title_navigation_bar">变色导航栏</string>
     <string name="pref_title_set_default_start_page">设置默认起始页</string>
@@ -112,6 +113,7 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">音乐标签编辑器</string>
     <string name="pref_title_colored_navigation_bar_other_screens">其他任何地方</string>
     <string name="pref_title_colored_album_footers">使用变色的专辑标签</string>
+    <string name="pref_title_album_art_on_lockscreen">在锁屏显示专辑封面</string>
     <string name="pref_title_colored_notification">使用变色的通知栏</string>
     <string name="pref_title_gapless_playback">连续播放</string>
     <string name="pref_title_force_square_album_art">强制使用方形专辑封面</string>
@@ -147,6 +149,7 @@
     <string name="song">歌曲</string>
     <string name="pref_only_lollipop">"仅适用于 Lollipop"</string>
     <string name="pref_summary_colored_album_footers">"专辑队列视图中专辑页脚会根据专辑封面的色调进行变色。"</string>
+    <string name="pref_summary_album_art_on_lockscreen">在锁屏显示专辑封面。可能需要重启 Phonograph 才能生效。</string>
     <string name="pref_summary_colored_notification">"使用与专辑封面色彩相对应的通知栏消息背景"</string>
     <string name="pref_summary_gapless_playback">"消除两首歌曲之间的间隔。禁用该选项或许能修复某些播放问题。"</string>
     <string name="pref_summary_force_square_album_art">在正在播放界中强制使用方形专辑封面</string>

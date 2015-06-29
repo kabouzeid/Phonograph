@@ -89,6 +89,10 @@
     <string name="add_playlist_title">"Dodaj do listy odtwarzania"</string>
     <string name="new_playlist_title">Nowa lista odtwarzania</string>
     <string name="delete_warning">"Ostrzeżenie: Ta operacja nie może być cofnięta"</string>
+    <string name="action_shuffle_all">Wszystkie losowo</string>
+    <string name="action_shuffle_album">Losowy album</string>
+    <string name="action_shuffle_artist">Losowy wykonawca</string>
+    <string name="action_shuffle_playlist">Losowa lista odtwarzania</string>
     <string name="last_opened">Ostatnio otwarte</string>
     <string name="light_theme_name">Jasny</string>
     <string name="dark_theme_name">Ciemny</string>
@@ -98,6 +102,7 @@
     <string name="pref_title_general_theme">Styl tła motywu</string>
     <string name="pref_header_audio">Dźwięk</string>
     <string name="pref_header_general">Ogólne</string>
+    <string name="pref_header_lockscreen">Ekran blokady</string>
     <string name="pref_summary_colored_navigation_bar">Ustaw w którym miejscu pasek nawigacyjny ma być kolorowy</string>
     <string name="pref_title_navigation_bar">Kolorowy pasek nawigacyjny</string>
     <string name="pref_title_set_default_start_page">Strona startowa</string>
@@ -108,6 +113,7 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Edytor tagów</string>
     <string name="pref_title_colored_navigation_bar_other_screens">W każdym innym miejscu</string>
     <string name="pref_title_colored_album_footers">Kolorowa stopka albumu</string>
+    <string name="pref_title_album_art_on_lockscreen">Okładka albumu na ekranie blokady</string>
     <string name="pref_title_colored_notification">Kolorowy odtwarzacz w pasku powiadomień</string>
     <string name="pref_title_gapless_playback">Odtwarzanie bez przerw</string>
     <string name="pref_title_force_square_album_art">Kadrowanie okładek</string>
@@ -143,8 +149,9 @@
     <string name="song">Utwór</string>
     <string name="pref_only_lollipop">"Dostępne tylko w androidzie Lollipop"</string>
     <string name="pref_summary_colored_album_footers">"Stopki albumów w widoku siatki mają tonacje okładek"</string>
+    <string name="pref_summary_album_art_on_lockscreen">Okładka albumu jest wyświetlana na ekranie blokady. Może być wymagane ponowne uruchomienie odtwarzacza, by zmiany odniosły skutek</string>
     <string name="pref_summary_colored_notification">"Odtwarzacz w pasku powiadomień ma kolor okładki albumu"</string>
-    <string name="pref_summary_gapless_playback">"Eliminuje pauzę pomiędzy dwoma utworami. Wyłączenie tej funkcji może rozwiązać ewentualne problemy z odtwarzaniem"</string>
+    <string name="pref_summary_gapless_playback">"Eliminuje pauzę pomiędzy dwoma utworami. Na niektórych urządzeniach mogą wystąpić problemy z odtwarzaniem"</string>
     <string name="pref_summary_force_square_album_art">Zaznacz, a wymuszone zostanie kadrowanie okładek na ekranie \'\'Obecnie Grane\'\'</string>
     <string name="pref_summary_opaque_toolbar_now_playing">Zaznacz, a pasek narzędzi będzie nieprzeźroczysty i nie zasłoni już okładki</string>
     <string name="pref_summary_opaque_statusbar_now_playing">Zaznacz, a pasek stanu będzie nieprzeźroczysty i nie zasłoni już okładki albumu</string>
