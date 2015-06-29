@@ -435,7 +435,9 @@ public class MusicControllerActivity extends AbsFabActivity {
                         applyPalette(null);
                         // to gain some performance cache the blurred bitmap
                         if (defaultAlbumArtStackBlurManager == null) {
-                            defaultAlbumArtStackBlurManager = new StackBlurManager(BitmapFactory.decodeResource(getResources(), R.drawable.default_album_art));
+                            BitmapFactory.Options options = new BitmapFactory.Options();
+                            options.inSampleSize = 2;
+                            defaultAlbumArtStackBlurManager = new StackBlurManager(BitmapFactory.decodeResource(getResources(), R.drawable.default_album_art, options));
                             defaultAlbumArtStackBlurManager.process(10);
                         }
                         albumArtBackground.setImageBitmap(defaultAlbumArtStackBlurManager.returnBlurredImage());

@@ -27,15 +27,19 @@ package com.kabouzeid.gramophone.helper.bitmapblur;
 
 import android.graphics.Bitmap;
 
+import com.kabouzeid.gramophone.util.Util;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+// class modified by Karim Abou Zeid (kabouzeid)
 
 public class StackBlurManager {
     static final int EXECUTOR_THREADS = Runtime.getRuntime().availableProcessors();
     static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(EXECUTOR_THREADS);
 
     /**
-     * Original image
+     * Resized original image
      */
     private final Bitmap _image;
 
@@ -52,10 +56,10 @@ public class StackBlurManager {
     /**
      * Constructor method (basic initialization and construction of the pixel array)
      *
-     * @param image The image that will be analyed
+     * @param image The image that will be analysed
      */
     public StackBlurManager(Bitmap image) {
-        _image = image;
+        _image = Util.getResizedBitmap(image, 500, 500, false);
         _blurProcess = new JavaBlurProcess();
     }
 
@@ -76,14 +80,5 @@ public class StackBlurManager {
      */
     public Bitmap returnBlurredImage() {
         return _result;
-    }
-
-    /**
-     * Returns the original image as a bitmap
-     *
-     * @return the original bitmap image
-     */
-    public Bitmap getImage() {
-        return this._image;
     }
 }

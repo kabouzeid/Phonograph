@@ -68,7 +68,7 @@ import butterknife.InjectView;
 
 /**
  * A lot of hackery is done in this activity. Changing things may will brake the whole activity.
- * <p>
+ * <p/>
  * Should be kinda stable ONLY AS IT IS!!!
  */
 public class ArtistDetailActivity extends AbsFabActivity implements PaletteColorHolder, CabHolder {
@@ -282,8 +282,9 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     }
 
     private void setUpArtistImageAndApplyPalette(final boolean forceDownload) {
-        final StackBlurManager defaultArtistImageBlurManager = new StackBlurManager(BitmapFactory.decodeResource(getResources(), R.drawable.default_artist_image));
-        artistImageBackground.setImageBitmap(defaultArtistImageBlurManager.process(10));
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 2;
+        final StackBlurManager defaultArtistImageBlurManager = new StackBlurManager(BitmapFactory.decodeResource(getResources(), R.drawable.default_artist_image, options));
         LastFMArtistImageUrlLoader.loadArtistImageUrl(this, artist.name, forceDownload, new LastFMArtistImageUrlLoader.ArtistImageUrlLoaderCallback() {
             @Override
             public void onArtistImageUrlLoaded(final String url) {
@@ -299,7 +300,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                             @Override
                             public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                                 applyPalette(null);
-                                artistImageBackground.setImageBitmap(defaultArtistImageBlurManager.returnBlurredImage());
+                                artistImageBackground.setImageBitmap(defaultArtistImageBlurManager.process(10));
                             }
 
                             @Override
