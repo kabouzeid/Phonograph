@@ -155,7 +155,6 @@
     <string name="pref_summary_larger_title_box_now_playing">Okvir ispod omota albuma gdje su prikazani naslov pjesme i izvođač je viši.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Koristi se traka napretka koja ne prekriva omot albuma umjesto zadanog klizača.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Prikazuje karticu ispod gumbića koji služe za kontrolu reprodukcije (pokreni/pauziraj itd.).</string>
-    <string name="could_not_download_album_cover">"Neuspjelo skidanje omota ovog albuma."</string>
     <string name="search_hint">Pretraži fonoteku</string>
     <string name="rescanning_media">Ponovno skeniram medijske datoteke</string>
     <string name="favorites">Favoriti</string>

@@ -158,7 +158,6 @@
     <string name="pref_summary_larger_title_box_now_playing">De kader onder de albumhoes, waar de artiest en titel worden getoond, is groter.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Gebruikt een progressiebalk die de albumhoes niet bedekt, in plaats van de standaard progressiecirkel.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Weergeeft een kaart onder de bedieningsknoppen (afspelen/pauze etc.).</string>
-    <string name="could_not_download_album_cover">"Niet in staat deze albumhoes te downloaden."</string>
     <string name="search_hint">Zoek in je bibliotheek...</string>
     <string name="rescanning_media">Media herscannen...</string>
     <string name="favorites">Favorieten</string>

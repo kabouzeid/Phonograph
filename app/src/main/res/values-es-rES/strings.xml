@@ -59,6 +59,8 @@
     <string name="credits_1">"Phonograph es un reproductor de música gratuito basado en Material Design hecho por"</string>
     <string name="no_results">Sin resultados</string>
     <string name="action_re_download_artist_image">Actualizar imagen del artista</string>
+    <string name="updated_artist_image">Imagen de Artista atualizada.</string>
+    <string name="could_not_update_artist_image">No se puede subir la imagen del artista.</string>
     <string name="updating">Actualizando...</string>
     <string name="added_title_to_playing_queue">"1 título añadido a la cola de reproducción"</string>
     <string name="added_x_titles_to_playing_queue">Añadir %1$d a la cola de reproducción</string>
@@ -160,7 +162,7 @@
     <string name="pref_summary_larger_title_box_now_playing">La caja detrás de la tapa del álbum donde se encuentra el título de la canción y el artista es mas largo que su altura.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Usa una barra de progreso que no cubre la tapa del álbum en vez de la barra normal de progreso.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Mostrar tarjeta detrás de los botones de control de reproducción (reproducir/pausar, etc).</string>
-    <string name="could_not_download_album_cover">"No se puede descargar la técnica para éste álbum"</string>
+    <string name="could_not_download_album_cover">"No se puede descargar una tapa de álbum coincidente."</string>
     <string name="search_hint">Buscar en librería...</string>
     <string name="rescanning_media">Escaneando contenido...</string>
     <string name="favorites">Favoritos</string>

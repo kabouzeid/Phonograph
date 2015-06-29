@@ -155,7 +155,6 @@
     <string name="pref_summary_larger_title_box_now_playing">Şarkı başlığı ve sanatçıya giden albüm kapağı altındaki kutusunun yüksekliğini büyültür.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Varsayılan ilerleme çubuğu yerine albüm kapağına taşan ilerleme çubuğu kullanılır.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Oynatma kontrol düğmelerinin altında bir kart görüntüler (oynat/duraklat, vb.).</string>
-    <string name="could_not_download_album_cover">"Bu albüm için kapak indirilemiyor."</string>
     <string name="search_hint">Kütüphaneniz taranıyor...</string>
     <string name="rescanning_media">Medyayı yeniden tara</string>
     <string name="favorites">Favoriler</string>

@@ -155,7 +155,6 @@
     <string name="pref_summary_larger_title_box_now_playing">La boîte en dessous de la vignette de l\'album où se trouvent le titre de la musique et l\'artiste est plus large dans sa hauteur.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Utilise une barre de progression qui ne recouvre pas la vignette de l\'album à la place de la barre de progression normale.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Affiche une carte derrière les boutons de lecture (lecture/pause etc.)</string>
-    <string name="could_not_download_album_cover">"Impossible de télécharger la pochette pour cet album."</string>
     <string name="search_hint">Rechercher votre bibliothèque...</string>
     <string name="rescanning_media">Réanalyse des médias…</string>
     <string name="favorites">Favoris</string>
