@@ -59,6 +59,8 @@
     <string name="credits_1">"Phonograph is a completely free material designed music player by"</string>
     <string name="no_results">No results</string>
     <string name="action_re_download_artist_image">Update artist image</string>
+    <string name="updated_artist_image">Updated artist image.</string>
+    <string name="could_not_update_artist_image">Could not update artist image.</string>
     <string name="updating">Updating…</string>
     <string name="added_title_to_playing_queue">"Added 1 title to the playing queue."</string>
     <string name="added_x_titles_to_playing_queue">Added %1$d titles to the playing queue.</string>
@@ -158,7 +160,7 @@
     <string name="pref_summary_larger_title_box_now_playing">The box below the album art where the song title and artist goes is larger in its height.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Uses a progressbar which does not cover the album art instead of the default progress slider.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Displays a card below the playback controller buttons (play/pause etc.).</string>
-    <string name="failed_to_download_album_art">"Unable to download the art for this album."</string>
+    <string name="could_not_download_album_cover">"Could not download a matching album cover."</string>
     <string name="search_hint">Search your library…</string>
     <string name="rescanning_media">Rescanning media…</string>
     <string name="favorites">Favorites</string>

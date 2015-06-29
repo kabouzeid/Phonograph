@@ -156,7 +156,7 @@
     <string name="pref_summary_larger_title_box_now_playing">앨범 아트 밑에 있는 제목 바의 높이를 커지게 합니다.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">보통의 조절 슬라이더 대신 앨범 아트를 가리지 않는 대체 조절 슬라이더를 사용합니다.</string>
     <string name="pref_summary_playback_controller_card_now_playing">지금 재생 중 화면에서 컨트롤 부분(재생, 일시정지 등의 버튼이 있는 곳)을 카드로 표시합니다.</string>
-    <string name="failed_to_download_album_art">"이 앨범의 앨범 커버를 다운로드할 수 없습니다."</string>
+    <string name="could_not_download_album_cover">"이 앨범의 앨범 커버를 다운로드할 수 없습니다."</string>
     <string name="search_hint">저장소 검색...</string>
     <string name="rescanning_media">미디어 재스캐닝 중...</string>
     <string name="favorites">좋아하는 곡들</string>

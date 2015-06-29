@@ -17,7 +17,9 @@ import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
-import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistThumbnailUrlLoader;
+import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
+import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.ArtistInfo;
+import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.Image;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.model.Artist;
@@ -33,16 +35,22 @@ import com.squareup.otto.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolder, Artist> {
     protected final AppCompatActivity activity;
     protected List<Artist> dataSet;
+    protected final LastFMRestClient lastFMRestClient;
 
     public ArtistAdapter(AppCompatActivity activity, @Nullable CabHolder cabHolder) {
         super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
+        lastFMRestClient = new LastFMRestClient(activity);
         loadDataSet();
     }
 
@@ -62,21 +70,40 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
 
         holder.artistName.setText(artist.name);
         holder.artistInfo.setText(MusicUtil.getArtistInfoString(activity, artist));
-        holder.artistImage.setImageResource(R.drawable.default_artist_image);
         holder.view.setActivated(isChecked(artist));
 
-        LastFMArtistThumbnailUrlLoader.loadArtistThumbnailUrl(activity, artist.name, false, new LastFMArtistThumbnailUrlLoader.ArtistThumbnailUrlLoaderCallback() {
+        lastFMRestClient.getApiService().getArtistInfo(artist.name, null, new Callback<ArtistInfo>() {
             @Override
-            public void onArtistThumbnailUrlLoaded(final String url) {
-                ImageLoader.getInstance().displayImage(url,
-                        holder.artistImage,
-                        new DisplayImageOptions.Builder()
-                                .cacheInMemory(true)
-                                .cacheOnDisk(true)
-                                .build()
-                );
+            public void success(ArtistInfo artistInfo, Response response) {
+                if (artistInfo.getArtist() != null) {
+                    int thumbnailIndex = 0;
+                    List<Image> images = artistInfo.getArtist().getImage();
+                    if (images.size() > 2) {
+                        thumbnailIndex = 2;
+                    } else if (images.size() > 1) {
+                        thumbnailIndex = 1;
+                    }
+                    ImageLoader.getInstance().displayImage(images.get(thumbnailIndex).getText(),
+                            holder.artistImage,
+                            new DisplayImageOptions.Builder()
+                                    .cacheInMemory(true)
+                                    .cacheOnDisk(true)
+                                    .build()
+                    );
+                } else {
+                    setDefaultArtistImage(holder);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                setDefaultArtistImage(holder);
             }
         });
+    }
+
+    private void setDefaultArtistImage(ViewHolder holder) {
+        holder.artistImage.setImageResource(R.drawable.default_artist_image);
     }
 
     @Override

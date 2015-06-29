@@ -11,7 +11,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.lastfm.album.LastFMAlbumImageUrlLoader;
+import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
+import com.kabouzeid.gramophone.lastfm.rest.model.albuminfo.AlbumInfo;
+import com.kabouzeid.gramophone.lastfm.rest.model.albuminfo.Image;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.model.Song;
@@ -35,6 +37,9 @@ import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class AlbumTagEditorActivity extends AbsTagEditorActivity implements TextWatcher {
 
@@ -51,11 +56,14 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
     private Bitmap albumArtBitmap;
     private boolean deleteAlbumArt;
+    private LastFMRestClient lastFMRestClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.inject(this);
+
+        lastFMRestClient = new LastFMRestClient(this);
 
         setUpViews();
     }
@@ -95,36 +103,44 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
             Toast.makeText(this, getResources().getString(R.string.album_or_artist_empty), Toast.LENGTH_SHORT).show();
             return;
         }
-        LastFMAlbumImageUrlLoader.loadAlbumImageUrl(this, albumTitleStr, albumArtistNameStr, new LastFMAlbumImageUrlLoader.AlbumImageUrlLoaderCallback() {
-                    @Override
-                    public void onAlbumImageUrlLoaded(String url) {
-                        ImageLoader.getInstance().loadImage(url,
-                                new ImageSize(500, 500),
-                                new SimpleImageLoadingListener() {
-                                    @Override
-                                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                                        Toast.makeText(AlbumTagEditorActivity.this,
-                                                R.string.failed_to_download_album_art, Toast.LENGTH_SHORT).show();
-                                    }
+        lastFMRestClient.getApiService().getAlbumInfo(albumTitleStr, albumArtistNameStr, new Callback<AlbumInfo>() {
+            @Override
+            public void success(AlbumInfo albumInfo, Response response) {
+                if (albumInfo.getAlbum() != null) {
+                    List<Image> images = albumInfo.getAlbum().getImage();
+                    int lastIndexOfImages = images.size() - 1;
+                    ImageLoader.getInstance().loadImage(images.get(lastIndexOfImages).getText(),
+                            new ImageSize(500, 500),
+                            new SimpleImageLoadingListener() {
+                                @Override
+                                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                                    toastLoadingFailed();
+                                }
 
-                                    @Override
-                                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                                        albumArtBitmap = loadedImage;
-                                        setImageBitmap(albumArtBitmap);
-                                        deleteAlbumArt = false;
-                                        dataChanged();
-                                        setResult(RESULT_OK);
-                                    }
-                                });
-                    }
-
-                    @Override
-                    public void onError() {
-                        Toast.makeText(AlbumTagEditorActivity.this,
-                                R.string.failed_to_download_album_art, Toast.LENGTH_SHORT).show();
-                    }
+                                @Override
+                                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                                    albumArtBitmap = loadedImage;
+                                    setImageBitmap(albumArtBitmap);
+                                    deleteAlbumArt = false;
+                                    dataChanged();
+                                    setResult(RESULT_OK);
+                                }
+                            });
+                } else {
+                    toastLoadingFailed();
                 }
-        );
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                toastLoadingFailed();
+            }
+
+            private void toastLoadingFailed() {
+                Toast.makeText(AlbumTagEditorActivity.this,
+                        R.string.could_not_download_album_cover, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -190,7 +206,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
                     @Override
                     public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                         Toast.makeText(AlbumTagEditorActivity.this,
-                                R.string.failed_to_download_album_art, Toast.LENGTH_SHORT).show();
+                                R.string.could_not_download_album_cover, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

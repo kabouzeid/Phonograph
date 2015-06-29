@@ -37,8 +37,9 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.bitmapblur.StackBlurManager;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
-import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistBiographyLoader;
-import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistImageUrlLoader;
+import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
+import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.ArtistInfo;
+import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.Image;
 import com.kabouzeid.gramophone.loader.ArtistAlbumLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
@@ -62,9 +63,14 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import hugo.weaving.DebugLog;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * A lot of hackery is done in this activity. Changing things may will brake the whole activity.
@@ -108,6 +114,10 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     private ArrayList<Song> songs;
     private ArrayList<Album> albums;
 
+    private LastFMRestClient lastFMRestClient;
+
+    private StackBlurManager defaultArtistImageBlurManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setStatusBarTransparent();
@@ -122,6 +132,8 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
             if (PreferenceUtils.getInstance(this).coloredNavigationBarArtist())
                 setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
         }
+
+        lastFMRestClient = new LastFMRestClient(this);
 
         getIntentExtras();
         initViews();
@@ -261,14 +273,20 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     }
 
     private void loadBiography() {
-        LastFMArtistBiographyLoader.loadArtistBio(this, artist.name, new LastFMArtistBiographyLoader.ArtistBioLoaderCallback() {
+        lastFMRestClient.getApiService().getArtistInfo(artist.name, null, new Callback<ArtistInfo>() {
             @Override
-            public void onArtistBioLoaded(String bio) {
+            public void success(ArtistInfo artistInfo, Response response) {
+                String bio = artistInfo.getArtist().getBio().getContent();
                 if (bio != null && !bio.trim().equals("")) {
                     biography = Html.fromHtml(bio);
                 } else {
                     biography = null;
                 }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                biography = null;
             }
         });
     }
@@ -284,34 +302,66 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     private void setUpArtistImageAndApplyPalette(final boolean forceDownload) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 2;
-        final StackBlurManager defaultArtistImageBlurManager = new StackBlurManager(BitmapFactory.decodeResource(getResources(), R.drawable.default_artist_image, options));
-        LastFMArtistImageUrlLoader.loadArtistImageUrl(this, artist.name, forceDownload, new LastFMArtistImageUrlLoader.ArtistImageUrlLoaderCallback() {
+        if (defaultArtistImageBlurManager == null) {
+            defaultArtistImageBlurManager = new StackBlurManager(BitmapFactory.decodeResource(getResources(), R.drawable.default_artist_image, options));
+        }
+        lastFMRestClient.getApiService().getArtistInfo(artist.name, forceDownload ? "no-cache" : null, new Callback<ArtistInfo>() {
+            @DebugLog
             @Override
-            public void onArtistImageUrlLoaded(final String url) {
-                ImageLoader.getInstance().displayImage(url,
-                        artistImage,
-                        new DisplayImageOptions.Builder()
-                                .cacheInMemory(true)
-                                .cacheOnDisk(true)
-                                .showImageOnFail(R.drawable.default_artist_image)
-                                .resetViewBeforeLoading(true)
-                                .build(),
-                        new SimpleImageLoadingListener() {
-                            @Override
-                            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                                applyPalette(null);
-                                artistImageBackground.setImageBitmap(defaultArtistImageBlurManager.process(10));
-                            }
+            public void success(ArtistInfo artistInfo, Response response) {
+                if (artistInfo.getArtist() != null) {
+                    List<Image> images = artistInfo.getArtist().getImage();
+                    int lastElementIndex = images.size() - 1;
+                    ImageLoader.getInstance().displayImage(images.get(lastElementIndex).getText(),
+                            artistImage,
+                            new DisplayImageOptions.Builder()
+                                    .cacheInMemory(true)
+                                    .cacheOnDisk(true)
+                                    .showImageOnFail(R.drawable.default_artist_image)
+                                    .resetViewBeforeLoading(true)
+                                    .build(),
+                            new SimpleImageLoadingListener() {
+                                @DebugLog
+                                @Override
+                                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                                    resetPaletteAndArtistImageBackground();
+                                    toastUpdatedArtistImageIfDownloadWasForced();
+                                }
 
-                            @Override
-                            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                                applyPalette(loadedImage);
-                                artistImageBackground.setImageBitmap(new StackBlurManager(loadedImage).process(10));
+                                @DebugLog
+                                @Override
+                                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                                    applyPalette(loadedImage);
+                                    artistImageBackground.setImageBitmap(new StackBlurManager(loadedImage).process(10));
+                                    toastUpdatedArtistImageIfDownloadWasForced();
+                                }
+
+                                private void toastUpdatedArtistImageIfDownloadWasForced() {
+                                    if (forceDownload) {
+                                        Toast.makeText(ArtistDetailActivity.this, getString(R.string.updated_artist_image), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
                             }
-                        }
-                );
+                    );
+                }
+            }
+
+            @DebugLog
+            @Override
+            public void failure(RetrofitError error) {
+                if (forceDownload) {
+                    Toast.makeText(ArtistDetailActivity.this, getString(R.string.could_not_update_artist_image), Toast.LENGTH_SHORT).show();
+                } else {
+                    artistImage.setImageResource(R.drawable.default_artist_image);
+                    resetPaletteAndArtistImageBackground();
+                }
             }
         });
+    }
+
+    private void resetPaletteAndArtistImageBackground() {
+        applyPalette(null);
+        artistImageBackground.setImageBitmap(defaultArtistImageBlurManager.process(10));
     }
 
     private void applyPalette(Bitmap bitmap) {

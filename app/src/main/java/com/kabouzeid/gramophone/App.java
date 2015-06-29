@@ -2,9 +2,6 @@ package com.kabouzeid.gramophone;
 
 import android.app.Application;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.crashlytics.android.Crashlytics;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -24,8 +21,6 @@ public class App extends Application {
     public static final String TAG = App.class.getSimpleName();
     public static final Bus bus = new Bus(ThreadEnforcer.MAIN);
 
-    private RequestQueue requestQueue;
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -38,17 +33,5 @@ public class App extends Application {
         L.writeLogs(false); // turns off UILs annoying LogCat output
 
         TagOptionSingleton.getInstance().isAndroid();
-    }
-
-    public void addToVolleyRequestQueue(Request request) {
-        request.setTag(TAG);
-        getVolleyRequestQueue().add(request);
-    }
-
-    public RequestQueue getVolleyRequestQueue() {
-        if (requestQueue == null) {
-            requestQueue = Volley.newRequestQueue(this);
-        }
-        return requestQueue;
     }
 }

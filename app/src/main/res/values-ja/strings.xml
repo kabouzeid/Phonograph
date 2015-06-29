@@ -158,7 +158,7 @@
     <string name="pref_summary_larger_title_box_now_playing">アルバムアート下のタイトルとアーティスト名を大きく表示します</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">アルバムアートに被らないシークバーに変更します</string>
     <string name="pref_summary_playback_controller_card_now_playing">再生コントロールキー(l◀, ▶/ll, ▶l など)をカードの上に表示します</string>
-    <string name="failed_to_download_album_art">"アルバムアートのダウンロードに失敗しました"</string>
+    <string name="could_not_download_album_cover">"アルバムアートのダウンロードに失敗しました"</string>
     <string name="search_hint">ライブラリ内を検索…</string>
     <string name="rescanning_media">メディアの再スキャン中…</string>
     <string name="favorites">お気に入り</string>

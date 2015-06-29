@@ -135,7 +135,7 @@
     <string name="pref_summary_colored_album_footers">"Názvy alb v mřížce jsou obarvena podle jejich obalu."</string>
     <string name="pref_summary_colored_notification">"Notifikace jsou zbarvena podle obalu alba."</string>
     <string name="pref_summary_gapless_playback">"Odstraní ticho mezi skladbami. Deaktivace může vyřešit problémy s přehráváním."</string>
-    <string name="failed_to_download_album_art">"Nebylo možné stáhnout obrázek obalu alba"</string>
+    <string name="could_not_download_album_cover">"Nebylo možné stáhnout obrázek obalu alba"</string>
     <string name="search_hint">Vyhledat zvukové soubory...</string>
     <string name="rescanning_media">Kontrola médií...</string>
     <string name="favorites">Oblíbené</string>

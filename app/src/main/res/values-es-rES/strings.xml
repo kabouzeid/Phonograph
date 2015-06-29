@@ -160,7 +160,7 @@
     <string name="pref_summary_larger_title_box_now_playing">La caja detrás de la tapa del álbum donde se encuentra el título de la canción y el artista es mas largo que su altura.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Usa una barra de progreso que no cubre la tapa del álbum en vez de la barra normal de progreso.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Mostrar tarjeta detrás de los botones de control de reproducción (reproducir/pausar, etc).</string>
-    <string name="failed_to_download_album_art">"No se puede descargar la técnica para éste álbum"</string>
+    <string name="could_not_download_album_cover">"No se puede descargar la técnica para éste álbum"</string>
     <string name="search_hint">Buscar en librería...</string>
     <string name="rescanning_media">Escaneando contenido...</string>
     <string name="favorites">Favoritos</string>

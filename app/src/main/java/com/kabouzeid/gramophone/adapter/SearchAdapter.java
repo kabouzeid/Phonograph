@@ -15,7 +15,8 @@ import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.lastfm.artist.LastFMArtistThumbnailUrlLoader;
+import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
+import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.ArtistInfo;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.SongLoader;
@@ -33,6 +34,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -45,6 +50,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     private AppCompatActivity activity;
     private List results = Collections.emptyList();
     private String query;
+    private LastFMRestClient lastFMRestClient;
 
     public SearchAdapter(AppCompatActivity activity) {
         this.activity = activity;
@@ -115,19 +121,31 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 final Artist artist = (Artist) results.get(position);
                 holder.title.setText(artist.name);
                 holder.subTitle.setText(MusicUtil.getArtistInfoString(activity, artist));
-                holder.image.setImageResource(R.drawable.default_artist_image);
-                LastFMArtistThumbnailUrlLoader.loadArtistThumbnailUrl(activity, artist.name, false, new LastFMArtistThumbnailUrlLoader.ArtistThumbnailUrlLoaderCallback() {
+                lastFMRestClient.getApiService().getArtistInfo(artist.name, null, new Callback<ArtistInfo>() {
                     @Override
-                    public void onArtistThumbnailUrlLoaded(final String url) {
-                        ImageLoader.getInstance().displayImage(url,
-                                holder.image,
-                                new DisplayImageOptions.Builder()
-                                        .cacheInMemory(true)
-                                        .cacheOnDisk(true)
-                                        .showImageOnFail(R.drawable.default_artist_image)
-                                        .resetViewBeforeLoading(true)
-                                        .build()
-                        );
+                    public void success(ArtistInfo artistInfo, Response response) {
+                        if (artistInfo.getArtist() != null) {
+                            ImageLoader.getInstance().displayImage(artistInfo.getArtist().getImage().get(0).getText(),
+                                    holder.image,
+                                    new DisplayImageOptions.Builder()
+                                            .cacheInMemory(true)
+                                            .cacheOnDisk(true)
+                                            .showImageOnFail(R.drawable.default_artist_image)
+                                            .resetViewBeforeLoading(true)
+                                            .build()
+                            );
+                        } else {
+                            setDefaultArtistImage();
+                        }
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        setDefaultArtistImage();
+                    }
+
+                    private void setDefaultArtistImage() {
+                        holder.image.setImageResource(R.drawable.default_artist_image);
                     }
                 });
                 break;

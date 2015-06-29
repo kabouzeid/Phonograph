@@ -158,7 +158,7 @@
     <string name="pref_summary_larger_title_box_now_playing">Zaznacz, a pole nazwy utworu i wykonawcy pod okładką albumu będzie większe</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Zaznacz, a w odróżnieniu od domyślnego suwaka, pasek postępu nie zasłoni okładki albumu</string>
     <string name="pref_summary_playback_controller_card_now_playing">Zaznacz, a pod przyciskami sterującymi odtwarzaczem (odtwarzanie/pauza, itp.) zostanie wyświetlona karta</string>
-    <string name="failed_to_download_album_art">"Nie można pobrać okładki dla tego albumu"</string>
+    <string name="could_not_download_album_cover">"Nie można pobrać okładki dla tego albumu"</string>
     <string name="search_hint">Szukaj w bibliotece...</string>
     <string name="rescanning_media">Ponowny skan nośnika...</string>
     <string name="favorites">Ulubione</string>
