@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.adapter;
 
+import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -38,6 +39,7 @@ import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.squareup.otto.Subscribe;
 
@@ -50,6 +52,8 @@ import java.util.List;
 public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder, Album> {
 
     public static final String TAG = AlbumAdapter.class.getSimpleName();
+    private static final int FADE_IN_TIME = 500;
+
     private final AppCompatActivity activity;
     private boolean usePalette;
     private List<Album> dataSet;
@@ -80,10 +84,12 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
                         .cacheInMemory(true)
                         .showImageOnFail(R.drawable.default_album_art)
                         .resetViewBeforeLoading(true)
+                        .displayer(new FadeInBitmapDisplayer(FADE_IN_TIME))
                         .build(),
                 new SimpleImageLoadingListener() {
                     @Override
                     public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                        FadeInBitmapDisplayer.animate(view, FADE_IN_TIME);
                         if (usePalette)
                             paletteBlackAndWhite(holder.title, holder.artist, holder.footer);
                     }
@@ -153,6 +159,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 view.setOnTouchListener(new View.OnTouchListener() {
 
+                    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                     @Override
                     public boolean onTouch(View view, MotionEvent motionEvent) {
                         ((FrameLayout) view.findViewById(R.id.content)).getForeground().setHotspot(motionEvent.getX(), motionEvent.getY());
