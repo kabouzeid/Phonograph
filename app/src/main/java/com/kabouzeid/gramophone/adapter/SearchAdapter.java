@@ -17,6 +17,7 @@ import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
 import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.ArtistInfo;
+import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.Image;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.SongLoader;
@@ -47,15 +48,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     private static final int ARTIST = 2;
     private static final int SONG = 3;
 
-    private AppCompatActivity activity;
+    private final AppCompatActivity activity;
     private List results = Collections.emptyList();
     private String query;
-    private LastFMRestClient lastFMRestClient;
+    private final LastFMRestClient lastFMRestClient;
 
     public SearchAdapter(AppCompatActivity activity) {
         this.activity = activity;
+        lastFMRestClient = new LastFMRestClient(activity);
     }
 
+    @SuppressWarnings("unchecked")
     public void search(String query) {
         this.query = query;
         results = new ArrayList();
@@ -125,7 +128,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     @Override
                     public void success(ArtistInfo artistInfo, Response response) {
                         if (artistInfo.getArtist() != null) {
-                            ImageLoader.getInstance().displayImage(artistInfo.getArtist().getImage().get(0).getText(),
+                            int thumbnailIndex = 0;
+                            List<Image> images = artistInfo.getArtist().getImage();
+                            if (images.size() > 2) {
+                                thumbnailIndex = 2;
+                            } else if (images.size() > 1) {
+                                thumbnailIndex = 1;
+                            }
+                            ImageLoader.getInstance().displayImage(images.get(thumbnailIndex).getText(),
                                     holder.image,
                                     new DisplayImageOptions.Builder()
                                             .cacheInMemory(true)
