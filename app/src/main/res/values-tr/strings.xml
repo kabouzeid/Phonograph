@@ -59,6 +59,8 @@
     <string name="credits_1">"Phonograph tamamen ücretsiz material tasarıma sahip bir müzik çalardır. Yapan"</string>
     <string name="no_results">Sonuç bulunamadı</string>
     <string name="action_re_download_artist_image">Sanatçı resmini güncelle</string>
+    <string name="updated_artist_image">Güncellenmiş sanatçı resmi.</string>
+    <string name="could_not_update_artist_image">Sanatçı resmi güncellenemedi</string>
     <string name="updating">Güncelleniyor...</string>
     <string name="added_title_to_playing_queue">"Çalma kuyruğuna 1 başlık eklendi."</string>
     <string name="added_x_titles_to_playing_queue">Çalma kuyruğuna %1$d başlıkları eklendi.</string>
@@ -102,6 +104,7 @@
     <string name="pref_title_general_theme">Genel Tema</string>
     <string name="pref_header_audio">Ses</string>
     <string name="pref_header_general">Genel</string>
+    <string name="pref_header_lockscreen">Kilit ekranı</string>
     <string name="pref_summary_colored_navigation_bar">Renklendirilmesini istediğiniz gezinti çubuğunu ayarlayın</string>
     <string name="pref_title_navigation_bar">Renkli Gezinti Çubuğu</string>
     <string name="pref_title_set_default_start_page">Başlangıç Sayfası</string>
@@ -112,6 +115,7 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Etiket Düzenleyici</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Başka Her Yerde</string>
     <string name="pref_title_colored_album_footers">Albüm Alt Bilgilerini Renklendir</string>
+    <string name="pref_title_album_art_on_lockscreen">Kilit ekranındaki Albüm kapağı</string>
     <string name="pref_title_colored_notification">Renkli Bildirim</string>
     <string name="pref_title_gapless_playback">Aralıksız Çalma</string>
     <string name="pref_title_force_square_album_art">Kare Albüm Kapağına Zorla</string>
@@ -147,14 +151,16 @@
     <string name="song">Şarkı</string>
     <string name="pref_only_lollipop">"Sadece Lollipop için"</string>
     <string name="pref_summary_colored_album_footers">"Izgara içindeki albüm alt bilgisini albüm arkaplanına ait canlı renklerle renklendirir."</string>
+    <string name="pref_summary_album_art_on_lockscreen">Kilit ekranında gösterilen Albüm kapağı değişiklikleri için Phonograph\'ı her değişiklik için sırayla yeniden başlatmanız gerekebilir</string>
     <string name="pref_summary_colored_notification">"Bildirimler albüm kapağının canlı renkleriyle renklenir."</string>
-    <string name="pref_summary_gapless_playback">"İki parça arasındaki geçişi kaldırmak oynatma sorununuzu giderebilir."</string>
+    <string name="pref_summary_gapless_playback">"İki parça arasındaki geçişi kaldırmak, bazı cihazlardaki oynatma sorununuzu giderebilir."</string>
     <string name="pref_summary_force_square_album_art">Şu anda çalınan albüm kapağı görüntüsünü kare olmaya zorlar.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">Araç çubuğu opak ve albüm kapağı resmini kapsamaz.</string>
     <string name="pref_summary_opaque_statusbar_now_playing">Durum çubuğu opak ve albüm resmini kapsamaz.</string>
     <string name="pref_summary_larger_title_box_now_playing">Şarkı başlığı ve sanatçıya giden albüm kapağı altındaki kutusunun yüksekliğini büyültür.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Varsayılan ilerleme çubuğu yerine albüm kapağına taşan ilerleme çubuğu kullanılır.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Oynatma kontrol düğmelerinin altında bir kart görüntüler (oynat/duraklat, vb.).</string>
+    <string name="could_not_download_album_cover">"Eşlenen albüm kapağı indirilemedi"</string>
     <string name="search_hint">Kütüphaneniz taranıyor...</string>
     <string name="rescanning_media">Medyayı yeniden tara</string>
     <string name="favorites">Favoriler</string>

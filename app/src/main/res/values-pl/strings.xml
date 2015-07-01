@@ -59,6 +59,8 @@
     <string name="credits_1">"Phonograph to całkowicie darmowy odtwarzacz muzyczny, utrzymany w stylistyce Material Design, którego twórcą jest"</string>
     <string name="no_results">Brak wyników</string>
     <string name="action_re_download_artist_image">Zaktualizuj zdjęcie wykonawcy</string>
+    <string name="updated_artist_image">Zaktualizowano zdjęcie wykonawcy</string>
+    <string name="could_not_update_artist_image">Nie można zaktualizować zdjęcia wykonawcy</string>
     <string name="updating">Aktualizowanie...</string>
     <string name="added_title_to_playing_queue">"Dodano 1 tytuł do kolejki odtwarzania"</string>
     <string name="added_x_titles_to_playing_queue">Dodano %1$d tytuły do kolejki odtwarzania</string>
@@ -158,6 +160,7 @@
     <string name="pref_summary_larger_title_box_now_playing">Zaznacz, a pole nazwy utworu i wykonawcy pod okładką albumu będzie większe</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Zaznacz, a w odróżnieniu od domyślnego suwaka, pasek postępu nie zasłoni okładki albumu</string>
     <string name="pref_summary_playback_controller_card_now_playing">Zaznacz, a pod przyciskami sterującymi odtwarzaczem (odtwarzanie/pauza, itp.) zostanie wyświetlona karta</string>
+    <string name="could_not_download_album_cover">"Nie udało się pobrać okładki pasującej do albumu"</string>
     <string name="search_hint">Szukaj w bibliotece...</string>
     <string name="rescanning_media">Ponowny skan nośnika...</string>
     <string name="favorites">Ulubione</string>

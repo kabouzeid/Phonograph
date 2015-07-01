@@ -59,6 +59,8 @@
     <string name="credits_1">"Phonograph is een volledig gratis muziekspeler in material design door"</string>
     <string name="no_results">Geen resultaten</string>
     <string name="action_re_download_artist_image">Artiest afbeelding bijwerken</string>
+    <string name="updated_artist_image">Artiest afbeelding bijgewerkt.</string>
+    <string name="could_not_update_artist_image">Kon artiest afbeelding niet bijwerken.</string>
     <string name="updating">Bijwerken...</string>
     <string name="added_title_to_playing_queue">"1 titel toegevoegd aan de afspeelwachtrij."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titels toegevoegd aan de afspeelwachtrij.</string>
@@ -158,6 +160,7 @@
     <string name="pref_summary_larger_title_box_now_playing">De kader onder de albumhoes, waar de artiest en titel worden getoond, is groter.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Gebruikt een progressiebalk die de albumhoes niet bedekt, in plaats van de standaard progressiecirkel.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Weergeeft een kaart onder de bedieningsknoppen (afspelen/pauze etc.).</string>
+    <string name="could_not_download_album_cover">"Kon geen bijpassende albumhoes downloaden."</string>
     <string name="search_hint">Zoek in je bibliotheek...</string>
     <string name="rescanning_media">Media herscannen...</string>
     <string name="favorites">Favorieten</string>

@@ -59,6 +59,8 @@
     <string name="credits_1">"Phonograph est un lecteur de musique entièrement gratuit suivant le concept du Material Design. Phonograph vous est apporté par"</string>
     <string name="no_results">Aucun résultat</string>
     <string name="action_re_download_artist_image">Actualiser l\'image de l\'artiste</string>
+    <string name="updated_artist_image">Image de l\'artiste mise à jour.</string>
+    <string name="could_not_update_artist_image">Impossible de mettre à jour l\'image de l\'artiste.</string>
     <string name="updating">Actualisation...</string>
     <string name="added_title_to_playing_queue">"1 titre ajouté à la file de lecture."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titres ajoutés à la file de lecture.</string>
@@ -69,7 +71,7 @@
     <string name="inserted_x_songs_into_playlist">%1$d titres ajoutés à la playlist.</string>
     <string name="created_playlist_x">La playlist %1$s a été créée.</string>
     <string name="deleted_playlist_x">Playlist %1$s supprimée</string>
-    <string name="deleted_x_songs">Supprimé %1$d des chansons</string>
+    <string name="deleted_x_songs">%1$d titres supprimés</string>
     <string name="could_not_create_playlist">Impossible de créer la playlist</string>
     <string name="delete_playlist_x"><![CDATA[Voulez-vous supprimer la playlist <b>%1$s</b> ?]]></string>
     <string name="clear_playlist_x"><![CDATA[Voulez-vous vraiment effacer la playlist <b>%1$s</b> ? Ceci ne peut pas être annulé!]]></string>
@@ -102,6 +104,7 @@
     <string name="pref_title_general_theme">Thème général</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">Général</string>
+    <string name="pref_header_lockscreen">Écran de vérouillage</string>
     <string name="pref_summary_colored_navigation_bar">Dans quelles vues la barre navigation doit être colorée.</string>
     <string name="pref_title_navigation_bar">Barre de navigation colorée</string>
     <string name="pref_title_set_default_start_page">Page d\'accueil par défaut</string>
@@ -112,6 +115,7 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Éditeur d\'infos</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Partout ailleurs</string>
     <string name="pref_title_colored_album_footers">Bas d\'album coloré</string>
+    <string name="pref_title_album_art_on_lockscreen">Vignette d\'album sur l\'écran de vérouillage</string>
     <string name="pref_title_colored_notification">Notification colorée</string>
     <string name="pref_title_gapless_playback">Lecture sans coupure</string>
     <string name="pref_title_force_square_album_art">Vignette carrée</string>
@@ -147,6 +151,7 @@
     <string name="song">Titre</string>
     <string name="pref_only_lollipop">"Uniquement disponible sur Lollipop."</string>
     <string name="pref_summary_colored_album_footers">"Les bas d\'album dans la grille sont colorés avec la palette de la vignette."</string>
+    <string name="pref_summary_album_art_on_lockscreen">La vignette de l\'album s\'affiche sur l\'écran de vérouillage. Il peut être nécessaire de redémarrer Phonograph pour appliquer les changements.</string>
     <string name="pref_summary_colored_notification">"La notification est colorée en fonction de la vignette de l\'album."</string>
     <string name="pref_summary_gapless_playback">"Élimine le silence entre deux musiques. Désactiver cette option peut résoudre les éventuels problèmes de lecture."</string>
     <string name="pref_summary_force_square_album_art">La vignette de l\'album dans l\'écran de lecture en cours est forcée à rester carrée.</string>
@@ -155,14 +160,15 @@
     <string name="pref_summary_larger_title_box_now_playing">La boîte en dessous de la vignette de l\'album où se trouvent le titre de la musique et l\'artiste est plus large dans sa hauteur.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Utilise une barre de progression qui ne recouvre pas la vignette de l\'album à la place de la barre de progression normale.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Affiche une carte derrière les boutons de lecture (lecture/pause etc.)</string>
+    <string name="could_not_download_album_cover">"Impossible de télécharger la vignette correspondant à l'album."</string>
     <string name="search_hint">Rechercher votre bibliothèque...</string>
     <string name="rescanning_media">Réanalyse des médias…</string>
     <string name="favorites">Favoris</string>
     <string name="last_added">Derniers ajouts</string>
     <string name="recently_played">Écouté récemment</string>
     <string name="my_top_tracks">Mes meilleurs titres</string>
-    <string name="remove_cover">Enlever la pochette</string>
-    <string name="download_from_last_fm">Télécharger depuis last.fm</string>
-    <string name="pick_from_local_storage">Sélectionner dans le téléphone</string>
+    <string name="remove_cover">Supprimer la vignette</string>
+    <string name="download_from_last_fm">Télécharger depuis Last.fm</string>
+    <string name="pick_from_local_storage">Sélectionner sur l\'appareil</string>
     <string name="web_search">Recherche Internet</string>
 </resources>

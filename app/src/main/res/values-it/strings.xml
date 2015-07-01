@@ -59,6 +59,8 @@
     <string name="credits_1">"Phonograph è un lettore musicale in material design completamente gratuito realizzato da"</string>
     <string name="no_results">Nessun risultato</string>
     <string name="action_re_download_artist_image">Aggiorna immagine artista</string>
+    <string name="updated_artist_image">Immagine artista aggiornata.</string>
+    <string name="could_not_update_artist_image">Impossibile aggiornare l\'immagine artista.</string>
     <string name="updating">Aggiornamento...</string>
     <string name="added_title_to_playing_queue">"Un brano aggiunto alla coda."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titoli aggiunti alla coda.</string>
@@ -113,7 +115,7 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Modifica tag</string>
     <string name="pref_title_colored_navigation_bar_other_screens">In tutte le altre schermate</string>
     <string name="pref_title_colored_album_footers">Riquadri album colorati</string>
-    <string name="pref_title_album_art_on_lockscreen">Copertina album nella schermata di sblocco</string>
+    <string name="pref_title_album_art_on_lockscreen">Copertina nella schermata di sblocco</string>
     <string name="pref_title_colored_notification">Notifica colorata</string>
     <string name="pref_title_gapless_playback">Riproduzione senza intervalli</string>
     <string name="pref_title_force_square_album_art">Copertina in proporzioni quadrate</string>
@@ -121,7 +123,7 @@
     <string name="pref_title_opaque_statusbar_now_playing">Status bar opaca</string>
     <string name="pref_title_larger_title_box_now_playing">Riquadro titolo più grande</string>
     <string name="pref_title_alternative_progress_slider_now_playing">Cursore di scorrimento alternativo</string>
-    <string name="pref_title_playback_controller_card_now_playing">Mostra card dietro ai controlli di riproduzione</string>
+    <string name="pref_title_playback_controller_card_now_playing">Sfondo card per i controlli di riproduzione</string>
     <string name="no_equalizer">Nessun equalizzatore trovato</string>
     <string name="no_audio_ID">"Nessun ID audio, riproduci qualcosa e prova di nuovo."</string>
     <string name="navigation_drawer_open">Apri il pannello di navigazione</string>
@@ -157,7 +159,8 @@
     <string name="pref_summary_opaque_statusbar_now_playing">La status bar è opaca e non copre la copertina.</string>
     <string name="pref_summary_larger_title_box_now_playing">Il riquadro al di sotto della copertina in cui sono visualizzati il titolo del brano e l\'artista è più grande in altezza.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Usa una barra di scorrimento che non copre la copertina invece del normale cursore.</string>
-    <string name="pref_summary_playback_controller_card_now_playing">Visualizza un contorno in stile card dietro i controlli di riproduzione (play, pausa ecc.).</string>
+    <string name="pref_summary_playback_controller_card_now_playing">Visualizza un contorno in stile card dietro ai controlli di riproduzione (play, pausa ecc.).</string>
+    <string name="could_not_download_album_cover">"Impossibile scaricare una copertina adatta."</string>
     <string name="search_hint">Cerca nella tua libreria...</string>
     <string name="rescanning_media">Nuova scannerizzazione media in corso...</string>
     <string name="favorites">Preferiti</string>

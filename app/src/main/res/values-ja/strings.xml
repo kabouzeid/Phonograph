@@ -59,6 +59,8 @@
     <string name="credits_1">"Phonographはマテリアルデザインを採用した完全無料のミュージックプレイヤーです。　開発者:"</string>
     <string name="no_results">該当なし</string>
     <string name="action_re_download_artist_image">アーティスト画像を更新</string>
+    <string name="updated_artist_image">アーティスト画像を更新しました</string>
+    <string name="could_not_update_artist_image">アーティスト画像を更新できませんでした</string>
     <string name="updating">更新中...</string>
     <string name="added_title_to_playing_queue">"曲をキューに追加しました"</string>
     <string name="added_x_titles_to_playing_queue">%1$d曲をキューに追加しました</string>
@@ -151,13 +153,14 @@
     <string name="pref_summary_colored_album_footers">"アルバム一覧画面でタイトルの背景色をアルバムアートから抽出して使用します"</string>
     <string name="pref_summary_album_art_on_lockscreen">アルバムアートをロック画面に表示します(適用するにはアプリの再起動が必要です)</string>
     <string name="pref_summary_colored_notification">"通知バーの再生コントロールの色をアルバムアートから抽出して使用します"</string>
-    <string name="pref_summary_gapless_playback">"曲と曲の間の無音部分をスキップします(再生時に問題が生じる場合は無効にしてみて下さい)"</string>
+    <string name="pref_summary_gapless_playback">"曲と曲の間の無音部分をスキップします(再生時に問題が生じる場合は無効にして下さい)"</string>
     <string name="pref_summary_force_square_album_art">NowPlaying画面で正方形でないアルバムアートを画面の中に収めます</string>
     <string name="pref_summary_opaque_toolbar_now_playing">上部ツールバーを透過させずアルバムアートに被せません</string>
     <string name="pref_summary_opaque_statusbar_now_playing">通知バーを透過させずアルバムアートに被せません</string>
     <string name="pref_summary_larger_title_box_now_playing">アルバムアート下のタイトルとアーティスト名を大きく表示します</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">アルバムアートに被らないシークバーに変更します</string>
     <string name="pref_summary_playback_controller_card_now_playing">再生コントロールキー(l◀, ▶/ll, ▶l など)をカードの上に表示します</string>
+    <string name="could_not_download_album_cover">"最適なアルバムアートが見つかりませんでした"</string>
     <string name="search_hint">ライブラリ内を検索…</string>
     <string name="rescanning_media">メディアの再スキャン中…</string>
     <string name="favorites">お気に入り</string>

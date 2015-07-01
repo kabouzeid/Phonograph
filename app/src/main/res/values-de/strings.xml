@@ -59,6 +59,8 @@
     <string name="credits_1">"Phonograph ist ein kostenloser Musikplayer im Material Design. Gemacht von"</string>
     <string name="no_results">Keine Ergebnisse</string>
     <string name="action_re_download_artist_image">Interpretenbild aktualisieren</string>
+    <string name="updated_artist_image">Interpreten Bild aktualisieren.</string>
+    <string name="could_not_update_artist_image">Das Interpreten Bild konnte nicht aktualisiert werden.</string>
     <string name="updating">Aktualisiere...</string>
     <string name="added_title_to_playing_queue">"1 Titel wurde der Warteschlange hinzugefügt."</string>
     <string name="added_x_titles_to_playing_queue">%1$d Titel wurden der Warteschlange hinzugefügt.</string>
@@ -158,6 +160,7 @@
     <string name="pref_summary_larger_title_box_now_playing">Die Bar unter dem Album Cover wo sich der Titel und Interpret befinden ist höher.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Benutzt einen Balken als Progress Slider anstatt dem normalen Progress Slider.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Zeigt eine Karte hinter der Wiedergabesteuerung</string>
+    <string name="could_not_download_album_cover">"Es konnte kein passendes Album Cover heruntergeladen werden."</string>
     <string name="search_hint">Durchsuche deine Mediathek</string>
     <string name="rescanning_media">Medien neu scannen...</string>
     <string name="favorites">Favoriten</string>
