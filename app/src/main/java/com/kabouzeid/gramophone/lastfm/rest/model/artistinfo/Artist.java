@@ -17,15 +17,9 @@ public class Artist {
     @Expose
     private List<Image> image = new ArrayList<Image>();
     @Expose
-    private String streamable;
-    @Expose
     private String ontour;
     @Expose
     private Stats stats;
-    @Expose
-    private Similar similar;
-    @Expose
-    private Tags tags;
     @Expose
     private Bio bio;
 
@@ -86,20 +80,6 @@ public class Artist {
     }
 
     /**
-     * @return The streamable
-     */
-    public String getStreamable() {
-        return streamable;
-    }
-
-    /**
-     * @param streamable The streamable
-     */
-    public void setStreamable(String streamable) {
-        this.streamable = streamable;
-    }
-
-    /**
      * @return The ontour
      */
     public String getOntour() {
@@ -125,34 +105,6 @@ public class Artist {
      */
     public void setStats(Stats stats) {
         this.stats = stats;
-    }
-
-    /**
-     * @return The similar
-     */
-    public Similar getSimilar() {
-        return similar;
-    }
-
-    /**
-     * @param similar The similar
-     */
-    public void setSimilar(Similar similar) {
-        this.similar = similar;
-    }
-
-    /**
-     * @return The tags
-     */
-    public Tags getTags() {
-        return tags;
-    }
-
-    /**
-     * @param tags The tags
-     */
-    public void setTags(Tags tags) {
-        this.tags = tags;
     }
 
     /**

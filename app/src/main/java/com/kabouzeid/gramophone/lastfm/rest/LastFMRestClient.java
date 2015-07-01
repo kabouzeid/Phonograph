@@ -29,7 +29,6 @@ public class LastFMRestClient {
         }
 
         RestAdapter restAdapter = new RestAdapter.Builder()
-                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setEndpoint(BASE_URL)
                 .setClient(new OkClient(okHttpClient))
                 .setRequestInterceptor(new RequestInterceptor() {

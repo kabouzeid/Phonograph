@@ -51,6 +51,7 @@ import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
+import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.kabouzeid.gramophone.util.Util;
@@ -67,7 +68,6 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import hugo.weaving.DebugLog;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -276,12 +276,14 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         lastFMRestClient.getApiService().getArtistInfo(artist.name, null, new Callback<ArtistInfo>() {
             @Override
             public void success(ArtistInfo artistInfo, Response response) {
-                String bio = artistInfo.getArtist().getBio().getContent();
-                if (bio != null && !bio.trim().equals("")) {
-                    biography = Html.fromHtml(bio);
-                } else {
-                    biography = null;
+                if (artistInfo.getArtist() != null) {
+                    String bio = artistInfo.getArtist().getBio().getContent();
+                    if (bio != null && !bio.trim().equals("")) {
+                        biography = Html.fromHtml(bio);
+                        return;
+                    }
                 }
+                biography = null;
             }
 
             @Override
@@ -305,8 +307,12 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         if (defaultArtistImageBlurManager == null) {
             defaultArtistImageBlurManager = new StackBlurManager(BitmapFactory.decodeResource(getResources(), R.drawable.default_artist_image, options));
         }
+        if (MusicUtil.isArtistNameUnknown(artist.name)) {
+            artistImage.setImageResource(R.drawable.default_artist_image);
+            resetPaletteAndArtistImageBackground();
+            return;
+        }
         lastFMRestClient.getApiService().getArtistInfo(artist.name, forceDownload ? "no-cache" : null, new Callback<ArtistInfo>() {
-            @DebugLog
             @Override
             public void success(ArtistInfo artistInfo, Response response) {
                 if (artistInfo.getArtist() != null) {
@@ -318,21 +324,24 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                                     .cacheInMemory(true)
                                     .cacheOnDisk(true)
                                     .showImageOnFail(R.drawable.default_artist_image)
+                                    .showImageForEmptyUri(R.drawable.default_artist_image)
                                     .resetViewBeforeLoading(true)
                                     .build(),
                             new SimpleImageLoadingListener() {
-                                @DebugLog
                                 @Override
                                 public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                                     resetPaletteAndArtistImageBackground();
                                     toastUpdatedArtistImageIfDownloadWasForced();
                                 }
 
-                                @DebugLog
                                 @Override
                                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                                    applyPalette(loadedImage);
-                                    artistImageBackground.setImageBitmap(new StackBlurManager(loadedImage).process(10));
+                                    if (loadedImage != null) {
+                                        applyPalette(loadedImage);
+                                        artistImageBackground.setImageBitmap(new StackBlurManager(loadedImage).process(10));
+                                    } else {
+                                        resetPaletteAndArtistImageBackground();
+                                    }
                                     toastUpdatedArtistImageIfDownloadWasForced();
                                 }
 
@@ -346,7 +355,6 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                 }
             }
 
-            @DebugLog
             @Override
             public void failure(RetrofitError error) {
                 if (forceDownload) {

@@ -72,6 +72,10 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
         holder.artistInfo.setText(MusicUtil.getArtistInfoString(activity, artist));
         holder.view.setActivated(isChecked(artist));
 
+        if (MusicUtil.isArtistNameUnknown(artist.name)) {
+            holder.artistImage.setImageResource(R.drawable.default_artist_image);
+            return;
+        }
         lastFMRestClient.getApiService().getArtistInfo(artist.name, null, new Callback<ArtistInfo>() {
             @Override
             public void success(ArtistInfo artistInfo, Response response) {
@@ -88,22 +92,21 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
                             new DisplayImageOptions.Builder()
                                     .cacheInMemory(true)
                                     .cacheOnDisk(true)
+                                    .resetViewBeforeLoading(true)
+                                    .showImageOnFail(R.drawable.default_artist_image)
+                                    .showImageForEmptyUri(R.drawable.default_artist_image)
                                     .build()
                     );
                 } else {
-                    setDefaultArtistImage(holder);
+                    holder.artistImage.setImageResource(R.drawable.default_artist_image);
                 }
             }
 
             @Override
             public void failure(RetrofitError error) {
-                setDefaultArtistImage(holder);
+                holder.artistImage.setImageResource(R.drawable.default_artist_image);
             }
         });
-    }
-
-    private void setDefaultArtistImage(ViewHolder holder) {
-        holder.artistImage.setImageResource(R.drawable.default_artist_image);
     }
 
     @Override

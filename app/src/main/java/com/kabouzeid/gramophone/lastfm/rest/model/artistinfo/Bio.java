@@ -6,31 +6,15 @@ import com.google.gson.annotations.Expose;
 public class Bio {
 
     @Expose
-    private Links links;
-    @Expose
     private String published;
     @Expose
     private String summary;
     @Expose
     private String content;
     @Expose
-    private String yearformed;
+    private String placeformed;
     @Expose
-    private Formationlist formationlist;
-
-    /**
-     * @return The links
-     */
-    public Links getLinks() {
-        return links;
-    }
-
-    /**
-     * @param links The links
-     */
-    public void setLinks(Links links) {
-        this.links = links;
-    }
+    private String yearformed;
 
     /**
      * @return The published
@@ -75,6 +59,20 @@ public class Bio {
     }
 
     /**
+     * @return The placeformed
+     */
+    public String getPlaceformed() {
+        return placeformed;
+    }
+
+    /**
+     * @param placeformed The placeformed
+     */
+    public void setPlaceformed(String placeformed) {
+        this.placeformed = placeformed;
+    }
+
+    /**
      * @return The yearformed
      */
     public String getYearformed() {
@@ -86,20 +84,6 @@ public class Bio {
      */
     public void setYearformed(String yearformed) {
         this.yearformed = yearformed;
-    }
-
-    /**
-     * @return The formationlist
-     */
-    public Formationlist getFormationlist() {
-        return formationlist;
-    }
-
-    /**
-     * @param formationlist The formationlist
-     */
-    public void setFormationlist(Formationlist formationlist) {
-        this.formationlist = formationlist;
     }
 
 }

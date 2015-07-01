@@ -212,4 +212,8 @@ public class MusicUtil {
             PlaylistsUtil.addToPlaylist(context, song, getOrCreateFavoritesPlaylist(context).id, false);
         }
     }
+
+    public static boolean isArtistNameUnknown(final String artistName) {
+        return artistName.trim().toLowerCase().equals("unknown") || artistName.trim().toLowerCase().equals("<unknown>");
+    }
 }

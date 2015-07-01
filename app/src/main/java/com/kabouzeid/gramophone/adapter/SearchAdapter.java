@@ -124,6 +124,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 final Artist artist = (Artist) results.get(position);
                 holder.title.setText(artist.name);
                 holder.subTitle.setText(MusicUtil.getArtistInfoString(activity, artist));
+                if (MusicUtil.isArtistNameUnknown(artist.name)) {
+                    holder.image.setImageResource(R.drawable.default_artist_image);
+                    break;
+                }
                 lastFMRestClient.getApiService().getArtistInfo(artist.name, null, new Callback<ArtistInfo>() {
                     @Override
                     public void success(ArtistInfo artistInfo, Response response) {
@@ -140,21 +144,18 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                                     new DisplayImageOptions.Builder()
                                             .cacheInMemory(true)
                                             .cacheOnDisk(true)
-                                            .showImageOnFail(R.drawable.default_artist_image)
                                             .resetViewBeforeLoading(true)
+                                            .showImageOnFail(R.drawable.default_artist_image)
+                                            .showImageForEmptyUri(R.drawable.default_artist_image)
                                             .build()
                             );
                         } else {
-                            setDefaultArtistImage();
+                            holder.image.setImageResource(R.drawable.default_artist_image);
                         }
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        setDefaultArtistImage();
-                    }
-
-                    private void setDefaultArtistImage() {
                         holder.image.setImageResource(R.drawable.default_artist_image);
                     }
                 });

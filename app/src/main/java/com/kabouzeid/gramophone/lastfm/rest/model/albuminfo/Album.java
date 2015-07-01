@@ -27,10 +27,6 @@ public class Album {
     @Expose
     private String playcount;
     @Expose
-    private Tracks tracks;
-    @Expose
-    private Toptags toptags;
-    @Expose
     private Wiki wiki;
 
     /**
@@ -157,34 +153,6 @@ public class Album {
      */
     public void setPlaycount(String playcount) {
         this.playcount = playcount;
-    }
-
-    /**
-     * @return The tracks
-     */
-    public Tracks getTracks() {
-        return tracks;
-    }
-
-    /**
-     * @param tracks The tracks
-     */
-    public void setTracks(Tracks tracks) {
-        this.tracks = tracks;
-    }
-
-    /**
-     * @return The toptags
-     */
-    public Toptags getToptags() {
-        return toptags;
-    }
-
-    /**
-     * @param toptags The toptags
-     */
-    public void setToptags(Toptags toptags) {
-        this.toptags = toptags;
     }
 
     /**
