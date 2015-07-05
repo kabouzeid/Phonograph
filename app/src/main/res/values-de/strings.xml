@@ -59,7 +59,7 @@
     <string name="credits_1">"Phonograph ist ein kostenloser Musikplayer im Material Design. Gemacht von"</string>
     <string name="no_results">Keine Ergebnisse</string>
     <string name="action_re_download_artist_image">Interpretenbild aktualisieren</string>
-    <string name="updated_artist_image">Interpreten Bild aktualisieren.</string>
+    <string name="updated_artist_image">Interpreten Bild aktualisiert.</string>
     <string name="could_not_update_artist_image">Das Interpreten Bild konnte nicht aktualisiert werden.</string>
     <string name="updating">Aktualisiere...</string>
     <string name="added_title_to_playing_queue">"1 Titel wurde der Warteschlange hinzugefügt."</string>

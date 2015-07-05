@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="what_do_you_want_to_share">Чем вы хотите поделиться?</string>
+    <string name="the_audio_file">Аудиофайл</string>
+    <string name="do_you_want_to_set_x_as_ringtone">Вы хотите установить %1$s на звонок?</string>
+    <string name="x_has_been_set_as_ringtone">%1$s был установлен на звонок.</string>
+    <string name="action_set_as_ringtone">Установить как мелодию звонка</string>
+    <string name="action_share">Поделиться</string>
     <string name="action_settings">"Настройки"</string>
     <string name="action_about">О программе</string>
-    <string name="action_now_playing">Воспроизводиться</string>
+    <string name="action_now_playing">Сейчас играет</string>
+    <string name="action_clear_playlist">Очистить плейлист</string>
     <string name="action_playing_queue">Очередь воспроизведения</string>
+    <string name="action_add_to_favorites">Добавить в избранное</string>
+    <string name="action_remove_from_favorites">Удалить из избранного</string>
     <string name="action_search">Поиск</string>
     <string name="action_play_next">Проиграть следующую</string>
+    <string name="action_play">Воспроизведение</string>
     <string name="action_add_to_playing_queue">Добавить в очередь воспроизведения</string>
     <string name="action_remove_from_playing_queue">Удалить из очереди воспроизведения</string>
     <string name="action_add_to_playlist">Добавить в список воспроизведения...</string>
@@ -43,7 +53,7 @@
     <string name="action_go_to_artist">Перейти к исполнителю</string>
     <string name="action_go_to_album">Перейти к альбому</string>
     <string name="label_current_playing_queue">Очередь воспроизведения</string>
-    <string name="save_as_playlist">Сохранить как список воспроизведения</string>
+    <string name="save_as_playlist">Сохранить в плейлист</string>
     <string name="credits_3">Дизайн иконки</string>
     <string name="credits_1">"Phonograph - полностью бесплатный музыкальный плеер в материальном стиле, созданный"</string>
     <string name="no_results">Нет результатов</string>
@@ -58,9 +68,7 @@
     <string name="created_playlist_x">Список воспроизведения %1$s создан</string>
     <string name="deleted_playlist_x">Список воспроизведения %1$s удалён</string>
     <string name="delete_playlist_x"><![CDATA[ Вы хотите удалить список воспроизведения <b>%1$s</b>? ]]></string>
-    <string name="delete_x_playlists"><![CDATA[
-        Вы хотите удалить списки воспроизведения <b>%1$d</b> ? 
-    ]]></string>
+    <string name="delete_x_playlists"><![CDATA[Вы хотите удалить списки воспроизведения <b>%1$d</b> ? ]]></string>
     <string name="delete_song_x"><![CDATA[ Вы хотите удалить песню <b>%1$s</b>? ]]></string>
     <string name="delete_x_songs"><![CDATA[ Вы хотите удалить <b>%1$d</b> песни? ]]></string>
     <string name="delete_song_title">Удалить песню</string>

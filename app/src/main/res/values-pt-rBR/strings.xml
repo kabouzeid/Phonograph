@@ -59,6 +59,8 @@
     <string name="credits_1">"O Phonograph é um player de música completamente grátis com Material Design feito por"</string>
     <string name="no_results">Sem resultados</string>
     <string name="action_re_download_artist_image">Atualizar imagem do artista</string>
+    <string name="updated_artist_image">Imagem do artista atualizada.</string>
+    <string name="could_not_update_artist_image">Não foi possível atualizar a imagem do artista.</string>
     <string name="updating">Atualizando...</string>
     <string name="added_title_to_playing_queue">"1 título adicionado à lista de reprodução"</string>
     <string name="added_x_titles_to_playing_queue">%1$d faixas adicionadas à lista de reprodução.</string>
@@ -158,6 +160,7 @@
     <string name="pref_summary_larger_title_box_now_playing">A caixa embaixo da capa do álbum onde o titulo da musica e o artista são mostrados é mais largo na sua altura.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Usa uma barra de progresso que não cobre a capa do álbum substituindo a barra padrão.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Mostra um cartão abaixo dos controles de reprodução (tocar/pausar etc.)</string>
+    <string name="could_not_download_album_cover">"Não foi possível baixar uma capa do álbum correspondente."</string>
     <string name="search_hint">Pesquisar na sua biblioteca...</string>
     <string name="rescanning_media">Verificando mídia novamente...</string>
     <string name="favorites">Favoritos</string>

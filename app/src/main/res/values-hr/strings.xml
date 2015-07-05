@@ -59,6 +59,8 @@
     <string name="credits_1">"Phonograph je potpuno besplatna materijalno dizajnirana aplikacija za reproduciranje glazbe koju je napravio"</string>
     <string name="no_results">Nema rezultata</string>
     <string name="action_re_download_artist_image">Ažuriraj sliku izvođača</string>
+    <string name="updated_artist_image">Ažurirana slika izvođača.</string>
+    <string name="could_not_update_artist_image">Nemoguće ažurirati sliku izvođača.</string>
     <string name="updating">Ažuriram</string>
     <string name="added_title_to_playing_queue">"Pjesma dodana u red čekanja."</string>
     <string name="added_x_titles_to_playing_queue">Dodano %1$d pjesama u red čekanja.</string>
@@ -102,9 +104,10 @@
     <string name="pref_title_general_theme">Zadana tema</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">Općenito</string>
+    <string name="pref_header_lockscreen">Zaključani zaslon</string>
     <string name="pref_summary_colored_navigation_bar">U kojim prikazima bi navigacijska traka trebala biti obojena.</string>
     <string name="pref_title_navigation_bar">Obojena navigacijska traka</string>
-    <string name="pref_title_set_default_start_page">Početni ekran</string>
+    <string name="pref_title_set_default_start_page">Početni zaslon</string>
     <string name="pref_title_colored_navigation_bar_artists">Prikaz izvođača</string>
     <string name="pref_title_colored_navigation_bar_albums">Prikaz albuma</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Prikaz reprodukcije</string>
@@ -112,6 +115,7 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">Uređivač tagova</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Bilo gdje drugdje</string>
     <string name="pref_title_colored_album_footers">Obojena podnožja albuma</string>
+    <string name="pref_title_album_art_on_lockscreen">Omot Albuma na Zaključanom Zaslonu</string>
     <string name="pref_title_colored_notification">Obojene obavijesti</string>
     <string name="pref_title_gapless_playback">Reprodukcija bez prekida</string>
     <string name="pref_title_force_square_album_art">Četvrtasti omot albuma</string>
@@ -147,14 +151,16 @@
     <string name="song">Pjesma</string>
     <string name="pref_only_lollipop">"Dostupno samo na Lollipopu."</string>
     <string name="pref_summary_colored_album_footers">"Podnožje albuma u rešetci je obojeno istaknutom bojom omota albuma."</string>
+    <string name="pref_summary_album_art_on_lockscreen">Omot albuma prikazan je kad je zaslon zaključan. Možda ćete morati ponovno pokrenuti Phonograph da bi nastupile promjene.</string>
     <string name="pref_summary_colored_notification">"Obavijesti su obojene istaknutom bojom omota albuma."</string>
-    <string name="pref_summary_gapless_playback">"Uklanja prekide između dvije pjesme. Isključivanje ove mogućnosti možda će riješiti probleme pri reprodukciji."</string>
+    <string name="pref_summary_gapless_playback">"Uklanja prekide između dvije pjesme. Ovo može uzrokovati probleme s reproduciranjem na nekim uređajima."</string>
     <string name="pref_summary_force_square_album_art">Omot albuma u prikazu reprodukcije je četvrtast.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">Alatna traka je neprozirna i ne prekriva omot albuma.</string>
     <string name="pref_summary_opaque_statusbar_now_playing">Statusna traka je neprozirna i ne prekriva omot albuma.</string>
     <string name="pref_summary_larger_title_box_now_playing">Okvir ispod omota albuma gdje su prikazani naslov pjesme i izvođač je viši.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Koristi se traka napretka koja ne prekriva omot albuma umjesto zadanog klizača.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Prikazuje karticu ispod gumbića koji služe za kontrolu reprodukcije (pokreni/pauziraj itd.).</string>
+    <string name="could_not_download_album_cover">"Nemoguće skinuti odgovarajući omot albuma."</string>
     <string name="search_hint">Pretraži fonoteku</string>
     <string name="rescanning_media">Ponovno skeniram medijske datoteke</string>
     <string name="favorites">Favoriti</string>
