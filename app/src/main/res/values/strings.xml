@@ -171,5 +171,4 @@
     <string name="download_from_last_fm">Download from Last.fm</string>
     <string name="pick_from_local_storage">Pick from Local Storage</string>
     <string name="web_search">Web Search</string>
-    <string name="title_activity_settings">Settings</string>
 </resources>
