@@ -205,6 +205,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     private void applyPalette(Bitmap bitmap, final TextView title, final TextView artist, final View footer) {
         if (bitmap != null) {
             Palette.from(bitmap)
+                    .resizeBitmapSize(100)
                     .generate(new Palette.PaletteAsyncListener() {
                         @Override
                         public void onGenerated(Palette palette) {

@@ -122,14 +122,14 @@
             android:name=".ui.activities.SearchActivity"
             android:label="@string/title_activity_search" />
 
-        <receiver android:name=".appwidget.MusicPlayerWidget">
+        <receiver android:name=".appwidget.WidgetMedium">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/music_player_widget_info" />
+                android:resource="@xml/widget_medium_info" />
         </receiver>
 
         <activity

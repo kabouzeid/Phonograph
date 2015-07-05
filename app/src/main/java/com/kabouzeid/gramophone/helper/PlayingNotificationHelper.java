@@ -230,7 +230,7 @@ public class PlayingNotificationHelper {
             notificationLayoutExpanded.setImageViewBitmap(R.id.icon, albumArt);
             if (isColored) {
                 int defaultColor = service.getResources().getColor(R.color.default_colored_notification_color);
-                int newColor = Palette.from(albumArt).generate().getVibrantColor(defaultColor);
+                int newColor = Palette.from(albumArt).resizeBitmapSize(100).generate().getVibrantColor(defaultColor);
                 setBackgroundColor(newColor);
             }
         } else {

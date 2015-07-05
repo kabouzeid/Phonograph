@@ -455,6 +455,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     private void applyPalette(Bitmap bitmap) {
         if (bitmap != null) {
             Palette.from(bitmap)
+                    .resizeBitmapSize(100)
                     .generate(new Palette.PaletteAsyncListener() {
                         @Override
                         public void onGenerated(Palette palette) {

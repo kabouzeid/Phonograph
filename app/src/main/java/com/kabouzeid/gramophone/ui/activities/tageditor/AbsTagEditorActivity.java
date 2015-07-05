@@ -292,6 +292,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
     private void applyPalette(final Bitmap bitmap) {
         Palette.from(bitmap)
+                .resizeBitmapSize(100)
                 .generate(new Palette.PaletteAsyncListener() {
                     @Override
                     public void onGenerated(Palette palette) {

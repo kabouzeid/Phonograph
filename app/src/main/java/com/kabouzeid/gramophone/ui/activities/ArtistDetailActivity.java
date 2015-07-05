@@ -375,6 +375,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     private void applyPalette(Bitmap bitmap) {
         if (bitmap != null) {
             Palette.from(bitmap)
+                    .resizeBitmapSize(100)
                     .generate(new Palette.PaletteAsyncListener() {
 
                         @Override

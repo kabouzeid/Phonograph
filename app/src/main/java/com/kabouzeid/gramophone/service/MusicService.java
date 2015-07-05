@@ -27,7 +27,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.appwidget.MusicPlayerWidget;
+import com.kabouzeid.gramophone.appwidget.WidgetMedium;
 import com.kabouzeid.gramophone.helper.PlayingNotificationHelper;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.model.Song;
@@ -469,7 +469,7 @@ public class MusicService extends Service {
     }
 
     private void updateWidgets() {
-        MusicPlayerWidget.updateWidgets(this, getCurrentSong(), isPlaying());
+        WidgetMedium.updateWidgets(this, getCurrentSong(), isPlaying());
     }
 
     private static String getTrackUri(Song song) {
@@ -794,7 +794,7 @@ public class MusicService extends Service {
         if (what.equals(PLAY_STATE_CHANGED)) {
             final boolean isPlaying = isPlaying();
             playingNotificationHelper.updatePlayState(isPlaying);
-            MusicPlayerWidget.updateWidgetsPlayState(this, isPlaying);
+            WidgetMedium.updateWidgetsPlayState(this, isPlaying);
             //noinspection deprecation
             remoteControlClient.setPlaybackState(isPlaying ? RemoteControlClient.PLAYSTATE_PLAYING : RemoteControlClient.PLAYSTATE_PAUSED);
             if (!isPlaying && getSongProgressMillis() > 0) {
