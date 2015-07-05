@@ -67,15 +67,27 @@ public class MusicPlayerWidget extends AppWidgetProvider {
             ImageLoader.getInstance().displayImage(currentAlbumArtUri, new NonViewAware(new ImageSize(-1, -1), ViewScaleType.CROP), new SimpleImageLoadingListener() {
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    if (currentAlbumArtUri.equals(imageUri))
-                        // copy() prevents the original bitmap in the memory cache from being recycled by the remote views
-                        setAlbumArt(context, loadedImage.copy(loadedImage.getConfig(), true));
+                    if (currentAlbumArtUri.equals(imageUri)) {
+                        if (loadedImage != null) {
+                            // The RemoteViews might wants to recycle the bitmaps thrown at it, so we need
+                            // to make sure not to hand out our cache copy
+                            Bitmap.Config config = loadedImage.getConfig();
+                            if (config == null) {
+                                config = Bitmap.Config.ARGB_8888;
+                            }
+                            loadedImage = loadedImage.copy(config, false);
+                            setAlbumArt(context, loadedImage.copy(loadedImage.getConfig(), true));
+                        } else {
+                            setAlbumArt(context, null);
+                        }
+                    }
                 }
 
                 @Override
                 public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                    if (currentAlbumArtUri.equals(imageUri))
+                    if (currentAlbumArtUri.equals(imageUri)) {
                         setAlbumArt(context, null);
+                    }
                 }
             });
         }

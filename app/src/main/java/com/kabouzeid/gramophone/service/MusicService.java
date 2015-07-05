@@ -417,24 +417,26 @@ public class MusicService extends Service {
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                     if (currentAlbumArtUri.equals(imageUri)) {
-                        Bitmap albumArt = loadedImage;
-                        if (albumArt != null) {
+                        if (loadedImage != null) {
                             // RemoteControlClient wants to recycle the bitmaps thrown at it, so we need
                             // to make sure not to hand out our cache copy
-                            Bitmap.Config config = albumArt.getConfig();
+                            Bitmap.Config config = loadedImage.getConfig();
                             if (config == null) {
                                 config = Bitmap.Config.ARGB_8888;
                             }
-                            albumArt = albumArt.copy(config, false);
-                            updateRemoteControlClientBitmap(albumArt.copy(albumArt.getConfig(), true));
+                            loadedImage = loadedImage.copy(config, false);
+                            updateRemoteControlClientBitmap(loadedImage.copy(loadedImage.getConfig(), true));
+                        } else {
+                            updateRemoteControlClientBitmap(null);
                         }
                     }
                 }
 
                 @Override
                 public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                    if (currentAlbumArtUri.equals(imageUri))
+                    if (currentAlbumArtUri.equals(imageUri)) {
                         updateRemoteControlClientBitmap(null);
+                    }
                 }
             });
         } else {
