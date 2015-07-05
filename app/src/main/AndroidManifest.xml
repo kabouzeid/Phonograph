@@ -113,14 +113,13 @@
 
         <activity
             android:name=".ui.activities.tageditor.SongTagEditorActivity"
-            android:label="@string/title_activity_tag_editor"
             android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".ui.activities.tageditor.AlbumTagEditorActivity"
-            android:label="@string/title_activity_album_tag_editor" />
-        <activity
-            android:name=".ui.activities.SearchActivity"
-            android:label="@string/title_activity_search" />
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name=".ui.activities.SearchActivity" />
 
         <receiver android:name=".appwidget.WidgetMedium">
             <intent-filter>
@@ -135,9 +134,8 @@
         <activity
             android:name=".ui.activities.SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity
-            android:name=".ui.activities.PlaylistDetailActivity"
-            android:label="@string/title_activity_smart_playlist_detail" />
+
+        <activity android:name=".ui.activities.PlaylistDetailActivity" />
     </application>
 
 </manifest>
