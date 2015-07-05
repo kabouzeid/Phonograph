@@ -214,6 +214,6 @@ public class MusicUtil {
     }
 
     public static boolean isArtistNameUnknown(final String artistName) {
-        return artistName.trim().toLowerCase().equals("unknown") || artistName.trim().toLowerCase().equals("<unknown>");
+        return artistName != null && (artistName.trim().toLowerCase().equals("unknown") || artistName.trim().toLowerCase().equals("<unknown>"));
     }
 }
