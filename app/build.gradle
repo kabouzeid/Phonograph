@@ -23,21 +23,21 @@ android {
         debug {
             keyAlias 'phonograph-debug'
             keyPassword 'debugkey'
-            storeFile file('../phonograph-debug.keystore')
-            storePassword 'debugkeystore'
+            storeFile file('../phonograph.keystore')
+            storePassword 'kabouzeid'
         }
         release {
             keyAlias 'phonograph'
             storeFile file('../phonograph.keystore')
+            storePassword 'kabouzeid'
 
-            // "keystore.properties" file containing the keystore passwords is needed in order to sign for release
+            // "keystore.properties" file containing the release keys password is needed in order to sign the apk for release
             File propFile = project.rootProject.file('keystore.properties')
             if (propFile.exists()) {
                 Properties properties = new Properties()
                 properties.load(propFile.newDataInputStream())
 
                 keyPassword properties.getProperty('keyPassword')
-                storePassword properties.getProperty('storePassword')
             }
         }
     }
