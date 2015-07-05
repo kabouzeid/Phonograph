@@ -38,3 +38,6 @@ local.properties
 
 # Mac
 .DS_Store
+
+# Private Keys
+keystore.properties
