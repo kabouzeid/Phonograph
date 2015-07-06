@@ -25,10 +25,10 @@ import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
 import com.kabouzeid.gramophone.model.smartplaylist.LastAddedPlaylist;
 import com.kabouzeid.gramophone.model.smartplaylist.MyTopTracksPlaylist;
 import com.kabouzeid.gramophone.model.smartplaylist.RecentlyPlayedPlaylist;
-import com.kabouzeid.gramophone.model.smartplaylist.SmartPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.squareup.otto.Subscribe;
@@ -56,6 +56,12 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         super(activity, cabHolder, R.menu.menu_playlists_selection);
         this.activity = activity;
         loadDataSet();
+        setHasStableIds(true);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return dataSet.get(position).id;
     }
 
     public void loadDataSet() {
@@ -82,15 +88,15 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
     }
 
     private int getIconRes(Playlist playlist) {
-        if (playlist instanceof SmartPlaylist) {
-            return ((SmartPlaylist) playlist).iconRes;
+        if (playlist instanceof AbsSmartPlaylist) {
+            return ((AbsSmartPlaylist) playlist).iconRes;
         }
         return R.drawable.ic_queue_music_white_24dp;
     }
 
     @Override
     public int getItemViewType(int position) {
-        return dataSet.get(position) instanceof SmartPlaylist ? VIEW_TYPE_SMART : VIEW_TYPE_DEFAULT;
+        return dataSet.get(position) instanceof AbsSmartPlaylist ? VIEW_TYPE_SMART : VIEW_TYPE_DEFAULT;
     }
 
     @Override
@@ -109,9 +115,9 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
             case R.id.action_delete_playlist:
                 for (int i = 0; i < selection.size(); i++) {
                     Playlist playlist = selection.get(i);
-                    if (playlist instanceof SmartPlaylist) {
-                        SmartPlaylist smartPlaylist = (SmartPlaylist) playlist;
-                        ClearSmartPlaylistDialog.create(smartPlaylist).show(activity.getSupportFragmentManager(), "CLEAR_PLAYLIST_" + smartPlaylist.name);
+                    if (playlist instanceof AbsSmartPlaylist) {
+                        AbsSmartPlaylist absSmartPlaylist = (AbsSmartPlaylist) playlist;
+                        ClearSmartPlaylistDialog.create(absSmartPlaylist).show(activity.getSupportFragmentManager(), "CLEAR_PLAYLIST_" + absSmartPlaylist.name);
                         selection.remove(playlist);
                         i--;
                     }
@@ -132,8 +138,8 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
     private ArrayList<Song> getSongList(List<Playlist> playlists) {
         final ArrayList<Song> songs = new ArrayList<>();
         for (Playlist playlist : playlists) {
-            if (playlist instanceof SmartPlaylist) {
-                songs.addAll(((SmartPlaylist) playlist).getSongs(activity));
+            if (playlist instanceof AbsSmartPlaylist) {
+                songs.addAll(((AbsSmartPlaylist) playlist).getSongs(activity));
             } else {
                 songs.addAll(PlaylistSongLoader.getPlaylistSongList(activity, playlist.id));
             }
@@ -166,8 +172,8 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
                         public boolean onMenuItemClick(MenuItem item) {
                             if (item.getItemId() == R.id.action_clear_playlist) {
                                 Playlist playlist = dataSet.get(getAdapterPosition());
-                                if (playlist instanceof SmartPlaylist) {
-                                    ClearSmartPlaylistDialog.create((SmartPlaylist) playlist).show(activity.getSupportFragmentManager(), "CLEAR_SMART_PLAYLIST_" + playlist.name);
+                                if (playlist instanceof AbsSmartPlaylist) {
+                                    ClearSmartPlaylistDialog.create((AbsSmartPlaylist) playlist).show(activity.getSupportFragmentManager(), "CLEAR_SMART_PLAYLIST_" + playlist.name);
                                     return true;
                                 }
                             }

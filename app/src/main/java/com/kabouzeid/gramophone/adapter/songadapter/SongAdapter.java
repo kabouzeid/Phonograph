@@ -50,6 +50,12 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
         super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         loadDataSet();
+        setHasStableIds(true);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return dataSet.get(position).id;
     }
 
     private void loadDataSet() {

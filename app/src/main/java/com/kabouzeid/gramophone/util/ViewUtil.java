@@ -20,13 +20,11 @@ import com.afollestad.materialdialogs.internal.MDTintHelper;
 
 import java.lang.reflect.Field;
 
-import hugo.weaving.DebugLog;
-
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class ViewUtil {
-    public final static int DEFAULT_COLOR_ANIMATION_DURATION = 1000;
+    public final static int DEFAULT_COLOR_ANIMATION_DURATION = 500;
 
     public static void disableViews(ViewGroup layout) {
         for (int i = 0; i < layout.getChildCount(); i++) {
@@ -87,7 +85,6 @@ public class ViewUtil {
         animator.start();
     }
 
-    @DebugLog
     public static void animateTextColor(final TextView v, final int startColor, final int endColor) {
         animateTextColor(v, startColor, endColor, DEFAULT_COLOR_ANIMATION_DURATION);
     }

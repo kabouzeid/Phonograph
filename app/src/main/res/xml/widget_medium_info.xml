@@ -4,7 +4,7 @@
     android:initialLayout="@layout/widget_medium"
     android:minHeight="40dp"
     android:minWidth="250dp"
-    android:resizeMode="none"
+    android:resizeMode="horizontal"
     android:updatePeriodMillis="0"
     android:widgetCategory="home_screen|keyguard"
     tools:ignore="UnusedAttribute" />

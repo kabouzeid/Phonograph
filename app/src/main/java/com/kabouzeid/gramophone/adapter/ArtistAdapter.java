@@ -52,6 +52,12 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
         this.activity = activity;
         lastFMRestClient = new LastFMRestClient(activity);
         loadDataSet();
+        setHasStableIds(true);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return dataSet.get(position).id;
     }
 
     private void loadDataSet() {

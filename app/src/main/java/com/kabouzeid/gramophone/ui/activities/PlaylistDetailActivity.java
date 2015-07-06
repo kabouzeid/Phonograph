@@ -14,22 +14,16 @@ import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.songadapter.AbsPlaylistSongAdapter;
 import com.kabouzeid.gramophone.adapter.songadapter.PlaylistSongAdapter;
-import com.kabouzeid.gramophone.adapter.songadapter.smartplaylist.SmartPlaylistSongAdapter;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
-import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.misc.DragSortRecycler;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Playlist;
-import com.kabouzeid.gramophone.model.PlaylistSong;
-import com.kabouzeid.gramophone.model.smartplaylist.SmartPlaylist;
+import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.util.PlaylistsUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.squareup.otto.Subscribe;
-
-import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -50,7 +44,6 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
     private Playlist playlist;
     private MaterialCab cab;
     private AbsPlaylistSongAdapter adapter;
-    private ArrayList<PlaylistSong> songs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,27 +68,24 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
 
     private void setUpRecyclerView() {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
-        if (playlist instanceof SmartPlaylist) {
-            adapter = ((SmartPlaylist) playlist).createAdapter(this, this);
+        if (playlist instanceof AbsSmartPlaylist) {
+            adapter = ((AbsSmartPlaylist) playlist).createAdapter(this, this);
         } else {
-            songs = PlaylistSongLoader.getPlaylistSongList(this, playlist.id);
-            adapter = new PlaylistSongAdapter(this, songs, this);
+            adapter = new PlaylistSongAdapter(this, playlist, this);
 
             DragSortRecycler dragSortRecycler = new DragSortRecycler();
             dragSortRecycler.setViewHandleId(R.id.album_art);
             dragSortRecycler.setOnItemMovedListener(new DragSortRecycler.OnItemMovedListener() {
                 @Override
                 public void onItemMoved(int from, int to) {
-                    PlaylistSong song = songs.remove(from);
-                    songs.add(to, song);
-                    adapter.notifyDataSetChanged();
-                    PlaylistsUtil.moveItem(PlaylistDetailActivity.this, playlist.id, from, to);
+                    ((PlaylistSongAdapter) adapter).moveItem(from, to);
                 }
             });
 
             recyclerView.addItemDecoration(dragSortRecycler);
             recyclerView.addOnItemTouchListener(dragSortRecycler);
             recyclerView.addOnScrollListener(dragSortRecycler.getScrollListener());
+            recyclerView.setItemAnimator(null);
         }
         recyclerView.setAdapter(adapter);
     }
@@ -175,13 +165,7 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
         switch (event.getAction()) {
             case DataBaseChangedEvent.PLAYLISTS_CHANGED:
             case DataBaseChangedEvent.DATABASE_CHANGED:
-                if (adapter instanceof SmartPlaylistSongAdapter) {
-                    ((SmartPlaylistSongAdapter) adapter).updateDataSet();
-                } else {
-                    songs = PlaylistSongLoader.getPlaylistSongList(this, playlist.id);
-                    //noinspection unchecked
-                    adapter.updateDataSet(songs);
-                }
+                adapter.updateDataSet();
                 checkIsEmpty();
                 break;
         }

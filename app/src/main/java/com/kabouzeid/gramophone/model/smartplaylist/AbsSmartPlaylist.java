@@ -16,25 +16,27 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class SmartPlaylist extends Playlist {
+public abstract class AbsSmartPlaylist extends Playlist {
     private static final long serialVersionUID = 3013701295356403681L;
 
     @DrawableRes
     public final int iconRes;
 
-    public SmartPlaylist(final String name, final int iconRes) {
+    public AbsSmartPlaylist(final String name, final int iconRes) {
         super(-1, name);
         this.iconRes = iconRes;
     }
 
-    public SmartPlaylist() {
+    public AbsSmartPlaylist() {
         super();
         this.iconRes = R.drawable.ic_queue_music_white_24dp;
     }
 
-    public abstract ArrayList<Song> getSongs(Context context);
+    public SmartPlaylistSongAdapter createAdapter(AppCompatActivity activity, @Nullable CabHolder cabHolder) {
+        return new SmartPlaylistSongAdapter(activity, this, cabHolder);
+    }
 
-    public abstract SmartPlaylistSongAdapter createAdapter(AppCompatActivity activity, @Nullable CabHolder cabHolder);
+    public abstract ArrayList<Song> getSongs(Context context);
 
     public abstract void clear(Context context);
 
@@ -52,7 +54,7 @@ public abstract class SmartPlaylist extends Playlist {
             if (getClass() != obj.getClass()) {
                 return false;
             }
-            final SmartPlaylist other = (SmartPlaylist) obj;
+            final AbsSmartPlaylist other = (AbsSmartPlaylist) obj;
             return iconRes == other.iconRes;
         }
         return false;

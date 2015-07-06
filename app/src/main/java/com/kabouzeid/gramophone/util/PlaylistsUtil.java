@@ -195,8 +195,8 @@ public class PlaylistsUtil {
 //        return 0;
 //    }
 
-    public static void moveItem(final Context context, int playlistId, int from, int to) {
-        MediaStore.Audio.Playlists.Members.moveItem(context.getContentResolver(),
+    public static boolean moveItem(final Context context, int playlistId, int from, int to) {
+        return MediaStore.Audio.Playlists.Members.moveItem(context.getContentResolver(),
                 playlistId, from, to);
     }
 

@@ -29,10 +29,6 @@ public abstract class AbsMultiSelectAdapter<VH extends RecyclerView.ViewHolder, 
         this.context = context;
     }
 
-    protected void setMultiSelectMenuRes(int menuRes) {
-        this.menuRes = menuRes;
-    }
-
     protected void toggleChecked(final int position) {
         if (cabHolder != null) {
             openCabIfNecessary();
