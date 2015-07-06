@@ -84,7 +84,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
                         .cacheInMemory(true)
                         .showImageOnFail(R.drawable.default_album_art)
                         .resetViewBeforeLoading(true)
-                        .displayer(new FadeInBitmapDisplayer(FADE_IN_TIME))
+                        .displayer(new FadeInBitmapDisplayer(FADE_IN_TIME, true, true, false))
                         .build(),
                 new SimpleImageLoadingListener() {
                     @Override
@@ -196,6 +196,12 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
         this.activity = activity;
         usePalette = PreferenceUtils.getInstance(activity).coloredAlbumFooters();
         loadDataSet();
+        setHasStableIds(true);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return dataSet.get(position).id;
     }
 
     private void loadDataSet() {

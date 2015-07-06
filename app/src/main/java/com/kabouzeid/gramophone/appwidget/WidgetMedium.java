@@ -105,6 +105,7 @@ public class WidgetMedium extends AppWidgetProvider {
 
     private static void linkButtons(final Context context, final RemoteViews views) {
         views.setOnClickPendingIntent(R.id.album_art, retrievePlaybackActions(context, 0));
+        views.setOnClickPendingIntent(R.id.media_titles, retrievePlaybackActions(context, 0));
         views.setOnClickPendingIntent(R.id.button_toggle_play_pause, retrievePlaybackActions(context, 1));
         views.setOnClickPendingIntent(R.id.button_next, retrievePlaybackActions(context, 2));
         views.setOnClickPendingIntent(R.id.button_prev, retrievePlaybackActions(context, 3));

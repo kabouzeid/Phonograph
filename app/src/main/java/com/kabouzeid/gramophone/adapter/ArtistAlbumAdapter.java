@@ -47,6 +47,12 @@ public class ArtistAlbumAdapter extends AbsMultiSelectAdapter<ArtistAlbumAdapter
         this.activity = activity;
         dataSet = objects;
         listMargin = activity.getResources().getDimensionPixelSize(R.dimen.default_item_margin);
+        setHasStableIds(true);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return dataSet.get(position).id;
     }
 
     public void updateDataSet(ArrayList<Album> objects) {

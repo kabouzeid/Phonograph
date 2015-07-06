@@ -36,6 +36,12 @@ public class AlbumSongAdapter extends AbsMultiSelectAdapter<AlbumSongAdapter.Vie
         super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         dataSet = objects;
+        setHasStableIds(true);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return dataSet.get(position).id;
     }
 
     public void updateDataSet(ArrayList<Song> objects){

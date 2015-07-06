@@ -17,7 +17,7 @@ import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.model.smartplaylist.SmartPlaylist;
+import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
@@ -99,8 +99,8 @@ public class MenuItemClickHelper {
     }
 
     private static ArrayList<? extends Song> getPlaylistSongs(Activity activity, Playlist playlist) {
-        return playlist instanceof SmartPlaylist ?
-                ((SmartPlaylist) playlist).getSongs(activity) :
+        return playlist instanceof AbsSmartPlaylist ?
+                ((AbsSmartPlaylist) playlist).getSongs(activity) :
                 PlaylistSongLoader.getPlaylistSongList(activity, playlist.id);
     }
 }

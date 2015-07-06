@@ -8,14 +8,14 @@ import android.text.Html;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.model.smartplaylist.SmartPlaylist;
+import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class ClearSmartPlaylistDialog extends DialogFragment {
 
-    public static ClearSmartPlaylistDialog create(SmartPlaylist playlist) {
+    public static ClearSmartPlaylistDialog create(AbsSmartPlaylist playlist) {
         ClearSmartPlaylistDialog dialog = new ClearSmartPlaylistDialog();
         Bundle args = new Bundle();
         args.putSerializable("playlist", playlist);
@@ -27,7 +27,7 @@ public class ClearSmartPlaylistDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         //noinspection unchecked
-        final SmartPlaylist playlist = (SmartPlaylist) getArguments().getSerializable("playlist");
+        final AbsSmartPlaylist playlist = (AbsSmartPlaylist) getArguments().getSerializable("playlist");
         int title = R.string.clear_playlist_title;
         //noinspection ConstantConditions
         CharSequence content = Html.fromHtml(getString(R.string.clear_playlist_x, playlist.name));

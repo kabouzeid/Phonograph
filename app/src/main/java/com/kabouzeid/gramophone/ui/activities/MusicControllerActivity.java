@@ -68,7 +68,6 @@ import butterknife.InjectView;
 public class MusicControllerActivity extends AbsFabActivity {
 
     public static final String TAG = MusicControllerActivity.class.getSimpleName();
-    private static final int COLOR_TRANSITION_TIME = 400;
     private static final int FAB_CIRCULAR_REVEAL_ANIMATION_TIME = 1000;
     private static final int PROGRESS_VIEW_UPDATE_INTERVAL = 100;
 
@@ -488,10 +487,10 @@ public class MusicControllerActivity extends AbsFabActivity {
 
     private void animateColorChange(final int newColor) {
         if (lastFooterColor != -1 && lastFooterColor != newColor) {
-            ViewUtil.animateViewColor(footer, lastFooterColor, newColor, COLOR_TRANSITION_TIME);
+            ViewUtil.animateViewColor(footer, lastFooterColor, newColor);
 
             if (opaqueToolBar)
-                ViewUtil.animateViewColor(toolbar, lastFooterColor, newColor, COLOR_TRANSITION_TIME);
+                ViewUtil.animateViewColor(toolbar, lastFooterColor, newColor);
             else toolbar.setBackgroundColor(Color.TRANSPARENT);
         } else {
             footer.setBackgroundColor(newColor);
@@ -511,8 +510,8 @@ public class MusicControllerActivity extends AbsFabActivity {
 
     private void animateTextColorChange(final int newColor) {
         if (lastTextColor != -2 && lastTextColor != newColor) {
-            ViewUtil.animateTextColor(songTitle, lastTextColor, newColor, COLOR_TRANSITION_TIME);
-            ViewUtil.animateTextColor(songArtist, lastTextColor, newColor, COLOR_TRANSITION_TIME);
+            ViewUtil.animateTextColor(songTitle, lastTextColor, newColor);
+            ViewUtil.animateTextColor(songArtist, lastTextColor, newColor);
         } else {
             songTitle.setTextColor(newColor);
             songArtist.setTextColor(newColor);
