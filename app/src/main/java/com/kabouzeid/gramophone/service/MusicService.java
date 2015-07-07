@@ -731,11 +731,11 @@ public class MusicService extends Service {
     }
 
     public int getSongProgressMillis() {
-        return player.isInitialized() ? player.position() : 0;
+        return player.position();
     }
 
     public int getSongDurationMillis() {
-        return player.isInitialized() ? player.duration() : 0;
+        return player.duration();
     }
 
     public void seek(int millis) {

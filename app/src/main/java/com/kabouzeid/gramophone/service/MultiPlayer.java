@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 
 /**
@@ -26,7 +25,6 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
     private final WeakReference<MusicService> mService;
 
     private MediaPlayer mCurrentMediaPlayer = new MediaPlayer();
-
     private MediaPlayer mNextMediaPlayer;
 
     private Handler mHandler;
@@ -38,7 +36,7 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      */
     public MultiPlayer(final MusicService service) {
         mService = new WeakReference<>(service);
-        mCurrentMediaPlayer.setWakeMode(mService.get(), PowerManager.PARTIAL_WAKE_LOCK);
+        mCurrentMediaPlayer.setWakeMode(service, PowerManager.PARTIAL_WAKE_LOCK);
     }
 
     /**
@@ -64,28 +62,30 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      * ready to play, false otherwise
      */
     private boolean setDataSourceImpl(final MediaPlayer player, final String path) {
+        MusicService service = mService.get();
+        if (service == null) {
+            return false;
+        }
         try {
             player.reset();
             player.setOnPreparedListener(null);
             if (path.startsWith("content://")) {
-                player.setDataSource(mService.get(), Uri.parse(path));
+                player.setDataSource(service, Uri.parse(path));
             } else {
                 player.setDataSource(path);
             }
             player.setAudioStreamType(AudioManager.STREAM_MUSIC);
             player.prepare();
-        } catch (final IOException e) {
-            return false;
-        } catch (final IllegalArgumentException e) {
+        } catch (Exception e) {
             return false;
         }
         player.setOnCompletionListener(this);
         player.setOnErrorListener(this);
         final Intent intent = new Intent(AudioEffect.ACTION_OPEN_AUDIO_EFFECT_CONTROL_SESSION);
         intent.putExtra(AudioEffect.EXTRA_AUDIO_SESSION, getAudioSessionId());
-        intent.putExtra(AudioEffect.EXTRA_PACKAGE_NAME, mService.get().getPackageName());
+        intent.putExtra(AudioEffect.EXTRA_PACKAGE_NAME, service.getPackageName());
         intent.putExtra(AudioEffect.EXTRA_CONTENT_TYPE, AudioEffect.CONTENT_TYPE_MUSIC);
-        mService.get().sendBroadcast(intent);
+        service.sendBroadcast(intent);
         return true;
     }
 
@@ -96,6 +96,10 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      *             you want to play
      */
     public void setNextDataSource(final String path) {
+        MusicService service = mService.get();
+        if (service == null) {
+            return;
+        }
         try {
             mCurrentMediaPlayer.setNextMediaPlayer(null);
         } catch (IllegalArgumentException e) {
@@ -116,7 +120,15 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
             mNextMediaPlayer.setWakeMode(mService.get(), PowerManager.PARTIAL_WAKE_LOCK);
             mNextMediaPlayer.setAudioSessionId(getAudioSessionId());
             if (setDataSourceImpl(mNextMediaPlayer, path)) {
-                mCurrentMediaPlayer.setNextMediaPlayer(mNextMediaPlayer);
+                try {
+                    mCurrentMediaPlayer.setNextMediaPlayer(mNextMediaPlayer);
+                } catch (IllegalArgumentException | IllegalStateException e) {
+                    Log.e(TAG, "setNextDataSource: setNextMediaPlayer()", e);
+                    if (mNextMediaPlayer != null) {
+                        mNextMediaPlayer.release();
+                        mNextMediaPlayer = null;
+                    }
+                }
             } else {
                 if (mNextMediaPlayer != null) {
                     mNextMediaPlayer.release();
@@ -145,8 +157,13 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
     /**
      * Starts or resumes playback.
      */
-    public void start() {
-        mCurrentMediaPlayer.start();
+    public boolean start() {
+        try {
+            mCurrentMediaPlayer.start();
+            return true;
+        } catch (IllegalStateException e) {
+            return false;
+        }
     }
 
     /**
@@ -163,13 +180,21 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
     public void release() {
         stop();
         mCurrentMediaPlayer.release();
+        if (mNextMediaPlayer != null) {
+            mNextMediaPlayer.release();
+        }
     }
 
     /**
      * Pauses playback. Call start() to resume.
      */
-    public void pause() {
-        mCurrentMediaPlayer.pause();
+    public boolean pause() {
+        try {
+            mCurrentMediaPlayer.pause();
+            return true;
+        } catch (IllegalStateException e) {
+            return false;
+        }
     }
 
     /**
@@ -185,7 +210,11 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      * @return The duration in milliseconds
      */
     public int duration() {
-        return mCurrentMediaPlayer.getDuration();
+        try {
+            return mCurrentMediaPlayer.getDuration();
+        } catch (IllegalStateException e) {
+            return -1;
+        }
     }
 
     /**
@@ -194,7 +223,11 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      * @return The current position in milliseconds
      */
     public int position() {
-        return mCurrentMediaPlayer.getCurrentPosition();
+        try {
+            return mCurrentMediaPlayer.getCurrentPosition();
+        } catch (IllegalStateException e) {
+            return -1;
+        }
     }
 
     /**
@@ -203,18 +236,22 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      * @param whereto The offset in milliseconds from the start to seek to
      * @return The offset in milliseconds from the start to seek to
      */
-    public long seek(final long whereto) {
-        mCurrentMediaPlayer.seekTo((int) whereto);
-        return whereto;
+    public int seek(final int whereto) {
+        try {
+            mCurrentMediaPlayer.seekTo(whereto);
+            return whereto;
+        } catch (IllegalStateException e) {
+            return -1;
+        }
     }
 
-    /**
-     * Sets the volume on this player.
-     *
-     * @param vol Left and right volume scalar
-     */
-    public void setVolume(final float vol) {
-        mCurrentMediaPlayer.setVolume(vol, vol);
+    public boolean setVolume(final float vol) {
+        try {
+            mCurrentMediaPlayer.setVolume(vol, vol);
+            return true;
+        } catch (IllegalStateException e) {
+            return false;
+        }
     }
 
     /**
@@ -222,8 +259,13 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      *
      * @param sessionId The audio session ID
      */
-    public void setAudioSessionId(final int sessionId) {
-        mCurrentMediaPlayer.setAudioSessionId(sessionId);
+    public boolean setAudioSessionId(final int sessionId) {
+        try {
+            mCurrentMediaPlayer.setAudioSessionId(sessionId);
+            return true;
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            return false;
+        }
     }
 
     /**
@@ -253,6 +295,10 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      */
     @Override
     public void onCompletion(final MediaPlayer mp) {
+        MusicService service = mService.get();
+        if (service == null) {
+            return;
+        }
         if (mp == mCurrentMediaPlayer && mNextMediaPlayer != null) {
             mIsInitialized = false;
             mCurrentMediaPlayer.release();
@@ -261,7 +307,7 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
             mNextMediaPlayer = null;
             mHandler.sendEmptyMessage(MusicService.TRACK_WENT_TO_NEXT);
         } else {
-            mService.get().acquireWakeLock(30000);
+            service.acquireWakeLock(30000);
             mHandler.sendEmptyMessage(MusicService.TRACK_ENDED);
             mHandler.sendEmptyMessage(MusicService.RELEASE_WAKELOCK);
         }
