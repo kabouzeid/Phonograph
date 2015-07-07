@@ -7,7 +7,6 @@ package com.kabouzeid.gramophone.helper;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -22,7 +21,7 @@ import android.widget.RemoteViews;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
-import com.kabouzeid.gramophone.ui.activities.MusicControllerActivity;
+import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -122,11 +121,7 @@ public class PlayingNotificationHelper {
     }
 
     private PendingIntent getOpenMusicControllerPendingIntent() {
-        Intent result = new Intent(service, MusicControllerActivity.class);
-        TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(service);
-        taskStackBuilder.addParentStack(MusicControllerActivity.class);
-        taskStackBuilder.addNextIntent(result);
-        return taskStackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        return PendingIntent.getActivity(service, 0, new Intent(service, MainActivity.class), 0);
     }
 
     private void setUpExpandedPlaybackActions() {
@@ -263,7 +258,7 @@ public class PlayingNotificationHelper {
         this.isPlaying = isPlaying;
 
         if (notification == null) {
-            return;
+            updateNotification();
         }
         if (notificationLayout != null) {
             notificationLayout.setImageViewResource(R.id.action_play_pause,

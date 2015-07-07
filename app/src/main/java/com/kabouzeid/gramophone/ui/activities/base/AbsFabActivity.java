@@ -27,7 +27,7 @@ import butterknife.Optional;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class AbsFabActivity extends AbsPlaybackStatusActivity {
+public abstract class AbsFabActivity extends AbsPlaybackControlActivity {
     public static final String TAG = AbsFabActivity.class.getSimpleName();
 
     @Optional

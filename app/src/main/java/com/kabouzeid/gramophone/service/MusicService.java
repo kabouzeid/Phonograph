@@ -51,6 +51,8 @@ import java.util.List;
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal
  */
 public class MusicService extends Service {
+    public static final String TAG = MusicService.class.getSimpleName();
+
     public static final String PHONOGRAPH_PACKAGE_NAME = "com.kabouzeid.gramophone";
     public static final String MUSIC_PACKAGE_NAME = "com.android.music";
 
@@ -114,6 +116,7 @@ public class MusicService extends Service {
     private RecentlyPlayedStore recentlyPlayedStore;
     private SongPlayCountStore songPlayCountStore;
     private boolean notNotifiedMetaChangedForCurrentTrack;
+    private boolean isServiceInUse;
 
     private final BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
         @Override
@@ -250,8 +253,7 @@ public class MusicService extends Service {
                         stop();
                         break;
                     case ACTION_QUIT:
-                        quit();
-                        break;
+                        return quit();
                 }
             }
         }
@@ -267,7 +269,22 @@ public class MusicService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
+        isServiceInUse = true;
         return musicBind;
+    }
+
+    @Override
+    public void onRebind(Intent intent) {
+        isServiceInUse = true;
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        isServiceInUse = false;
+        if (!isPlaying()) {
+            stopSelf();
+        }
+        return true;
     }
 
     private void unregisterReceiversAndRemoteControlClient() {
@@ -282,12 +299,18 @@ public class MusicService extends Service {
         }
     }
 
-    private void quit() {
+    private int quit() {
         unregisterReceiversAndRemoteControlClient();
-        closeAudioEffectSession();
-        stop();
+        pause();
         playingNotificationHelper.killNotification();
-        stopSelf();
+
+        if (isServiceInUse) {
+            return START_STICKY;
+        } else {
+            closeAudioEffectSession();
+            stopSelf();
+            return START_NOT_STICKY;
+        }
     }
 
     private void releaseResources() {

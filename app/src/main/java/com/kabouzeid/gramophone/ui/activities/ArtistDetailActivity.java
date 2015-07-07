@@ -135,7 +135,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
 
         lastFMRestClient = new LastFMRestClient(this);
 
-        getIntentExtras();
+        getArtistFromIntentExtras();
         initViews();
         setUpObservableListViewParams();
         setUpViews();
@@ -430,11 +430,11 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         notifyTaskColorChange(toolbarColor);
     }
 
-    private void getIntentExtras() {
+    private void getArtistFromIntentExtras() {
         Bundle intentExtras = getIntent().getExtras();
         final int artistId = intentExtras.getInt(EXTRA_ARTIST_ID);
         artist = ArtistLoader.getArtist(this, artistId);
-        if (artist == null) {
+        if (artist.id == -1) {
             finish();
         }
     }

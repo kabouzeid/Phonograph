@@ -1,9 +1,13 @@
 package com.kabouzeid.gramophone.ui.activities.base;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.os.Bundle;
+import android.os.IBinder;
 
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.service.MusicService;
@@ -13,7 +17,8 @@ import java.lang.ref.WeakReference;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class AbsPlaybackStatusActivity extends AbsBaseActivity {
+public abstract class AbsPlaybackControlActivity extends AbsBaseActivity {
+    private MusicPlayerRemote.ServiceToken serviceToken;
     private PlaybackStatusReceiver playbackStatusReceiver;
 
     public void onPlayingMetaChanged() {
@@ -37,22 +42,31 @@ public abstract class AbsPlaybackStatusActivity extends AbsBaseActivity {
     }
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        serviceToken = MusicPlayerRemote.bindToService(this, new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                AbsPlaybackControlActivity.this.onServiceConnected();
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+
+            }
+        });
+        playbackStatusReceiver = new PlaybackStatusReceiver(this);
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
-
-        playbackStatusReceiver = new PlaybackStatusReceiver(this);
-
-        // ensures that onServiceConnected() is called even if the service is already connected and wont sent the Intent again.
-        if (MusicPlayerRemote.isServiceConnected()) {
-            onServiceConnected();
-        }
 
         final IntentFilter filter = new IntentFilter();
         filter.addAction(MusicService.PLAY_STATE_CHANGED);
         filter.addAction(MusicService.SHUFFLE_MODE_CHANGED);
         filter.addAction(MusicService.REPEAT_MODE_CHANGED);
         filter.addAction(MusicService.META_CHANGED);
-        filter.addAction(MusicPlayerRemote.SERVICE_BOUND);
 
         registerReceiver(playbackStatusReceiver, filter);
     }
@@ -66,11 +80,17 @@ public abstract class AbsPlaybackStatusActivity extends AbsBaseActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MusicPlayerRemote.unbindFromService(serviceToken);
+    }
+
     private static final class PlaybackStatusReceiver extends BroadcastReceiver {
 
-        private final WeakReference<AbsPlaybackStatusActivity> reference;
+        private final WeakReference<AbsPlaybackControlActivity> reference;
 
-        public PlaybackStatusReceiver(final AbsPlaybackStatusActivity activity) {
+        public PlaybackStatusReceiver(final AbsPlaybackControlActivity activity) {
             reference = new WeakReference<>(activity);
         }
 
@@ -89,9 +109,6 @@ public abstract class AbsPlaybackStatusActivity extends AbsBaseActivity {
                     break;
                 case MusicService.SHUFFLE_MODE_CHANGED:
                     reference.get().onShuffleModeChanged();
-                    break;
-                case MusicPlayerRemote.SERVICE_BOUND:
-                    reference.get().onServiceConnected();
                     break;
             }
         }
