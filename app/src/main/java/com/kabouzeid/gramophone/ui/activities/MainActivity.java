@@ -101,8 +101,6 @@ public class MainActivity extends AbsFabActivity
 
         if (PreferenceUtils.getInstance(this).coloredNavigationBarOtherScreens())
             setNavigationBarThemeColor();
-
-        handlePlaybackIntent(getIntent());
     }
 
     private void setUpViewPager() {
@@ -305,6 +303,7 @@ public class MainActivity extends AbsFabActivity
     public void onServiceConnected() {
         super.onServiceConnected();
         updateNavigationDrawerHeader();
+        handlePlaybackIntent(getIntent());
     }
 
     @Override
