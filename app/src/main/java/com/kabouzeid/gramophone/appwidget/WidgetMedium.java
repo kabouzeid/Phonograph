@@ -14,7 +14,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
-import com.kabouzeid.gramophone.ui.activities.MusicControllerActivity;
+import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -117,7 +117,7 @@ public class WidgetMedium extends AppWidgetProvider {
         final ComponentName serviceName = new ComponentName(context, MusicService.class);
         switch (which) {
             case 0:
-                action = new Intent(context, MusicControllerActivity.class);
+                action = new Intent(context, MainActivity.class);
                 pendingIntent = PendingIntent.getActivity(context, 0, action, 0);
                 return pendingIntent;
             case 1:

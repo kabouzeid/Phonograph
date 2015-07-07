@@ -111,16 +111,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                 setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
         }
 
-        Bundle intentExtras = getIntent().getExtras();
-        int albumId = -1;
-        if (intentExtras != null) {
-            albumId = intentExtras.getInt(EXTRA_ALBUM_ID);
-        }
-        album = AlbumLoader.getAlbum(this, albumId);
-        if (album.id == -1) {
-            finish();
-        }
-
+        getAlbumFromIntentExtras();
         setUpObservableListViewParams();
         setUpToolBar();
         setUpViews();
@@ -179,6 +170,15 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
             albumTitleView.setTranslationY(titleTranslationY);
         }
     };
+
+    private void getAlbumFromIntentExtras() {
+        Bundle intentExtras = getIntent().getExtras();
+        final int albumId = intentExtras.getInt(EXTRA_ALBUM_ID);
+        album = AlbumLoader.getAlbum(this, albumId);
+        if (album.id == -1) {
+            finish();
+        }
+    }
 
     @Override
     public String getTag() {
