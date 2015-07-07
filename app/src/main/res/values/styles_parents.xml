@@ -20,6 +20,7 @@
         <item name="round_selector">@drawable/round_selector_dark</item>
         <item name="rect_selector">@drawable/rect_selector_dark</item>
         <item name="separator_color">@color/materialmusic_dark_separator_color</item>
+        <item name="seek_arc_thumb_drawable">@drawable/traditional_slider_thumb_dark</item>
 
         <item name="themed_drawable_color">@color/materialmusic_dark_themed_drawable_color</item>
         <item name="check_mark_color">@color/grey_900</item>
@@ -52,6 +53,7 @@
         <item name="round_selector">@drawable/round_selector</item>
         <item name="rect_selector">@drawable/rect_selector</item>
         <item name="separator_color">@color/materialmusic_separator_color</item>
+        <item name="seek_arc_thumb_drawable">@drawable/traditional_slider_thumb</item>
 
         <item name="themed_drawable_color">@color/materialmusic_themed_drawable_color</item>
         <item name="check_mark_color">@color/white</item>

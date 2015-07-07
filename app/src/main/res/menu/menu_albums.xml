@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".DrawerActivity">
 
     <item
         android:id="@+id/action_now_playing"
@@ -16,13 +16,18 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/action_playing_queue"
+        android:title="@string/action_playing_queue"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_shuffle_all"
         android:title="@string/action_shuffle_all"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_playing_queue"
-        android:title="@string/action_playing_queue"
+        android:id="@+id/action_sleep_timer"
+        android:title="@string/action_sleep_timer"
         app:showAsAction="never" />
 
     <item

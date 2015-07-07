@@ -19,13 +19,18 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_playing_queue"
+        android:title="@string/action_playing_queue"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_shuffle_all"
         android:title="@string/action_shuffle_all"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_playing_queue"
-        android:title="@string/action_playing_queue"
+        android:id="@+id/action_sleep_timer"
+        android:title="@string/action_sleep_timer"
         app:showAsAction="never" />
 
     <item

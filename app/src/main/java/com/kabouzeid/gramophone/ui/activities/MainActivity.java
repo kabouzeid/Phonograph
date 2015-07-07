@@ -37,6 +37,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PagerAdapter;
 import com.kabouzeid.gramophone.dialogs.AboutDialog;
 import com.kabouzeid.gramophone.dialogs.CreatePlaylistDialog;
+import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.SearchQueryHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
@@ -338,6 +339,9 @@ public class MainActivity extends AbsFabActivity
 
         int id = item.getItemId();
         switch (id) {
+            case R.id.action_sleep_timer:
+                new SleepTimerDialog().show(getSupportFragmentManager(), "SET_SLEEP_TIMER");
+                return true;
             case R.id.action_equalizer:
                 NavigationUtil.openEqualizer(this);
                 return true;

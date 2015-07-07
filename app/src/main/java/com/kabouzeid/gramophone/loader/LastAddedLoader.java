@@ -20,7 +20,7 @@ public class LastAddedLoader {
     public static Cursor makeLastAddedCursor(final Context context) {
         long fourWeeksAgo = (System.currentTimeMillis() / 1000) - (4 * 3600 * 24 * 7);
         // possible saved timestamp caused by user "clearing" the last added playlist
-        long cutoff = PreferenceUtils.getInstance(context).getLastAddedCutOff() / 1000;
+        long cutoff = PreferenceUtils.getInstance(context).getLastAddedCutOffTimestamp() / 1000;
         if (cutoff < fourWeeksAgo) {
             cutoff = fourWeeksAgo;
         }

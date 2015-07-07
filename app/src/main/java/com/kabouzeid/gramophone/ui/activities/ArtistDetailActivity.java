@@ -33,6 +33,7 @@ import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.ArtistAlbumAdapter;
 import com.kabouzeid.gramophone.adapter.songadapter.ArtistSongAdapter;
+import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.bitmapblur.StackBlurManager;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
@@ -449,6 +450,9 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case R.id.action_sleep_timer:
+                new SleepTimerDialog().show(getSupportFragmentManager(), "SET_SLEEP_TIMER");
+                return true;
             case R.id.action_equalizer:
                 NavigationUtil.openEqualizer(this);
                 return true;
