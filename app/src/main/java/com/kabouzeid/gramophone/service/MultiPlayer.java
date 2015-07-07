@@ -210,6 +210,9 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      * @return The duration in milliseconds
      */
     public int duration() {
+        if (!mIsInitialized) {
+            return -1;
+        }
         try {
             return mCurrentMediaPlayer.getDuration();
         } catch (IllegalStateException e) {
@@ -223,6 +226,9 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      * @return The current position in milliseconds
      */
     public int position() {
+        if (!mIsInitialized) {
+            return -1;
+        }
         try {
             return mCurrentMediaPlayer.getCurrentPosition();
         } catch (IllegalStateException e) {

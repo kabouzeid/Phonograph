@@ -4,7 +4,7 @@
     <string name="currently_listening_to_x_by_x">Currently listening to %1$s by %2$s</string>
     <string name="the_audio_file">The Audio File</string>
     <string name="do_you_want_to_set_x_as_ringtone">Do you want to set %1$s as your ringtone?</string>
-    <string name="x_has_been_set_as_ringtone">%1$s has been set as your ringtone.</string>
+    <string name="x_has_been_set_as_ringtone">%1$s has been set as your ringtone</string>
     <string name="action_set_as_ringtone">Set as Ringtone</string>
     <string name="action_share">Share</string>
     <string name="action_settings">"Settings"</string>
@@ -28,8 +28,8 @@
     <string name="songs">Songs</string>
     <string name="playlists">Playlists</string>
     <string name="nothing_playing">Nothing is playing</string>
-    <string name="unplayable_file">An error occurred while attempting to play this song.</string>
-    <string name="biography_unavailable">We were not able to find a matching biography for this artist.</string>
+    <string name="unplayable_file">An error occurred while attempting to play this song</string>
+    <string name="biography_unavailable">Could not find a matching biography for this artist</string>
     <string name="biography">Biography</string>
     <string name="audio_focus_denied">No audio focus.</string>
     <string name="tag_editor">Tag Editor</string>
@@ -40,7 +40,7 @@
     <string name="year">Year</string>
     <string name="track">Track</string>
     <string name="track_hint">"Track (2 for track 2 or 3004 for CD3 track 4)"</string>
-    <string name="album_or_artist_empty">The album title or the album artist text field is empty.</string>
+    <string name="album_or_artist_empty">The album title or the album artist text field is empty</string>
     <string name="writing_file_number">Writing file</string>
     <string name="saving_changes">Saving changes…</string>
     <string name="label_details">Details</string>
@@ -62,13 +62,13 @@
     <string name="updated_artist_image">Updated artist image.</string>
     <string name="could_not_update_artist_image">Could not update artist image.</string>
     <string name="updating">Updating…</string>
-    <string name="added_title_to_playing_queue">"Added 1 title to the playing queue."</string>
-    <string name="added_x_titles_to_playing_queue">Added %1$d titles to the playing queue.</string>
+    <string name="added_title_to_playing_queue">"Added 1 title to the playing queue"</string>
+    <string name="added_x_titles_to_playing_queue">Added %1$d titles to the playing queue</string>
     <string name="action_remove_from_playlist">Remove from playlist</string>
     <string name="new_playlist_action">New playlist…</string>
     <string name="action_grid_columns">Grid columns</string>
     <string name="action_grid_columns_land">Grid columns (Land)</string>
-    <string name="inserted_x_songs_into_playlist">Inserted %1$d songs into this playlist.</string>
+    <string name="inserted_x_songs_into_playlist">Inserted %1$d songs into this playlist</string>
     <string name="created_playlist_x">Created playlist %1$s</string>
     <string name="deleted_playlist_x">Deleted playlist %1$s</string>
     <string name="deleted_x_songs">Deleted %1$d songs</string>
@@ -90,7 +90,7 @@
     <string name="clear_playlist_title">Clear Playlist</string>
     <string name="add_playlist_title">"Add to Playlist"</string>
     <string name="new_playlist_title">New Playlist</string>
-    <string name="delete_warning">"Warning: This operation can not be undone."</string>
+    <string name="delete_warning">"Warning: This operation can not be undone"</string>
     <string name="action_shuffle_all">Shuffle All</string>
     <string name="action_shuffle_album">Shuffle Album</string>
     <string name="action_shuffle_artist">Shuffle Artist</string>
@@ -171,4 +171,9 @@
     <string name="download_from_last_fm">Download from Last.fm</string>
     <string name="pick_from_local_storage">Pick from Local Storage</string>
     <string name="web_search">Web Search</string>
+    <string name="action_sleep_timer">Sleep timer</string>
+    <string name="action_set">Set</string>
+    <string name="cancel_current_timer">Cancel current timer</string>
+    <string name="sleep_timer_canceled">Sleep timer has been canceled</string>
+    <string name="sleep_timer_set">Sleep timer set for %d minutes from now</string>
 </resources>

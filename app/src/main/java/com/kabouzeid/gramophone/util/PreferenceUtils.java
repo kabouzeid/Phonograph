@@ -44,6 +44,8 @@ public final class PreferenceUtils {
     public static final String GAPLESS_PLAYBACK = "gapless_playback";
     public static final String LAST_ADDED_CUTOFF_TIMESTAMP = "last_added_cutoff_timestamp";
     public static final String ALBUM_ART_ON_LOCKSCREEN = "album_art_on_lockscreen";
+    public static final String LAST_SLEEP_TIMER_VALUE = "last_sleep_timer_value";
+    public static final String NEXT_SLEEP_TIMER_ELAPSED_REALTIME = "next_sleep_timer_elapsed_real_time";
 
     private static PreferenceUtils sInstance;
 
@@ -285,7 +287,7 @@ public final class PreferenceUtils {
         return mPreferences.getInt(ALBUM_GRID_COLUMNS_LAND, 3);
     }
 
-    public long getLastAddedCutOff() {
+    public long getLastAddedCutOffTimestamp() {
         return mPreferences.getLong(LAST_ADDED_CUTOFF_TIMESTAMP, 0L);
     }
 
@@ -294,5 +296,25 @@ public final class PreferenceUtils {
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.putLong(LAST_ADDED_CUTOFF_TIMESTAMP, timestamp);
         editor.commit();
+    }
+
+    public int getLastSleepTimerValue() {
+        return mPreferences.getInt(LAST_SLEEP_TIMER_VALUE, 30);
+    }
+
+    public void setLastSleepTimerValue(final int value) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putInt(LAST_SLEEP_TIMER_VALUE, value);
+        editor.apply();
+    }
+
+    public long getNextSleepTimerElapsedRealTime() {
+        return mPreferences.getLong(NEXT_SLEEP_TIMER_ELAPSED_REALTIME, -1);
+    }
+
+    public void setNextSleepTimerElapsedRealtime(final long value) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putLong(NEXT_SLEEP_TIMER_ELAPSED_REALTIME, value);
+        editor.apply();
     }
 }

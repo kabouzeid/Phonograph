@@ -1,35 +1,39 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context=".DrawerActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".DrawerActivity">
 
     <item
         android:id="@+id/action_now_playing"
         android:icon="@drawable/ic_play_circle_fill_white_24dp"
         android:title="@string/action_now_playing"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/abc_ic_search_api_mtrl_alpha"
         android:title="@string/action_search"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_playing_queue"
+        android:title="@string/action_playing_queue"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_shuffle_all"
         android:title="@string/action_shuffle_all"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_playing_queue"
-        android:icon="@drawable/ic_queue_music_white_24dp"
-        android:title="@string/action_playing_queue"
-        app:showAsAction="never"/>
+        android:id="@+id/action_sleep_timer"
+        android:title="@string/action_sleep_timer"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_equalizer"
         android:orderInCategory="99"
         android:title="@string/equalizer"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
 
 </menu>
