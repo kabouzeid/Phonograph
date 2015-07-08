@@ -78,7 +78,10 @@ public class PlayPauseDrawable extends Drawable {
         // The current distance between the two pause bars.
         final float barDist = lerp(pauseBarDistance, 0, progress);
         // The current width of each pause bar.
-        final float barWidth = lerp(pauseBarWidth, pauseBarHeight / 1.75f, progress);
+        float rawBarWidth = lerp(pauseBarWidth, pauseBarHeight / 1.75f, progress);
+        // We have to round the bar width when finishing the progress to prevent the gap
+        // that might occur onDraw because of a pixel is lost when casting float to int instead of rounding it.
+        final float barWidth = progress == 1 ? Math.round(rawBarWidth) : rawBarWidth;
         // The current position of the left pause bar's top left coordinate.
         final float firstBarTopLeft = lerp(0, barWidth, progress);
         // The current position of the right pause bar's top right coordinate.
