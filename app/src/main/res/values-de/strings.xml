@@ -4,7 +4,7 @@
     <string name="currently_listening_to_x_by_x">Ich höre gerade %1$s von %2$s</string>
     <string name="the_audio_file">Die Audiodatei</string>
     <string name="do_you_want_to_set_x_as_ringtone">Willst du %1$s als deinen Klingelton verwenden?</string>
-    <string name="x_has_been_set_as_ringtone">%1$s wird jetzt als Klingelton verwendet.</string>
+    <string name="x_has_been_set_as_ringtone">%1$s wird jetzt als Klingelton verwendet</string>
     <string name="action_set_as_ringtone">Als Klingelton verwenden</string>
     <string name="action_share">Teilen</string>
     <string name="action_settings">"Einstellungen"</string>
@@ -28,8 +28,8 @@
     <string name="songs">Titel</string>
     <string name="playlists">Wiedergabelisten</string>
     <string name="nothing_playing">Keine Wiedergabe</string>
-    <string name="unplayable_file">Der Song kann nicht abgespielt werden.</string>
-    <string name="biography_unavailable">Es konnte keine passende Biografie für diesen Interpreten gefunden werden.</string>
+    <string name="unplayable_file">Der Song kann nicht abgespielt werden</string>
+    <string name="biography_unavailable">Es konnte keine passende Biografie für diesen Interpreten gefunden werden</string>
     <string name="biography">Biografie</string>
     <string name="audio_focus_denied">Kein Audiofokus.</string>
     <string name="tag_editor">Tags ändern</string>
@@ -40,7 +40,7 @@
     <string name="year">Jahr</string>
     <string name="track">Titel</string>
     <string name="track_hint">"Track (2 für Track 2 oder 3004 für CD 3 Track 4)"</string>
-    <string name="album_or_artist_empty">Das Feld \"Albumtitel\" oder \"Albuminterpret\" ist leer.</string>
+    <string name="album_or_artist_empty">Das Feld \"Albumtitel\" oder \"Albuminterpret\" ist leer</string>
     <string name="writing_file_number">Datei schreiben...</string>
     <string name="saving_changes">Speichere Änderungen...</string>
     <string name="label_details">Details</string>
@@ -62,8 +62,8 @@
     <string name="updated_artist_image">Interpreten Bild aktualisiert.</string>
     <string name="could_not_update_artist_image">Das Interpreten Bild konnte nicht aktualisiert werden.</string>
     <string name="updating">Aktualisiere...</string>
-    <string name="added_title_to_playing_queue">"1 Titel wurde der Warteschlange hinzugefügt."</string>
-    <string name="added_x_titles_to_playing_queue">%1$d Titel wurden der Warteschlange hinzugefügt.</string>
+    <string name="added_title_to_playing_queue">"1 Titel wurde der Warteschlange hinzugefügt"</string>
+    <string name="added_x_titles_to_playing_queue">%1$d Titel wurden der Warteschlange hinzugefügt</string>
     <string name="action_remove_from_playlist">Aus Wiedergabeliste entfernen</string>
     <string name="new_playlist_action">Neue Wiedergabeliste…</string>
     <string name="action_grid_columns">Rastergröße</string>
@@ -90,7 +90,7 @@
     <string name="clear_playlist_title">Playlist leeren</string>
     <string name="add_playlist_title">"Zu Wiedergabeliste hinzufügen"</string>
     <string name="new_playlist_title">Neue Wiedergabeliste</string>
-    <string name="delete_warning">"Warnung: Diese Aktion kann nicht rückgängig gemacht werden."</string>
+    <string name="delete_warning">"Warnung: Diese Aktion kann nicht rückgängig gemacht werden"</string>
     <string name="action_shuffle_all">Zufällige Wiedergabe</string>
     <string name="action_shuffle_album">Album zufällig wiedergeben</string>
     <string name="action_shuffle_artist">Interpret zufällig wiedergeben</string>
@@ -171,4 +171,9 @@
     <string name="download_from_last_fm">Von Last.fm herunterladen</string>
     <string name="pick_from_local_storage">Aus lokalem Speicher wählen</string>
     <string name="web_search">Internet-Suche</string>
+    <string name="action_sleep_timer">Einschlaf Timer</string>
+    <string name="action_set">Setze</string>
+    <string name="cancel_current_timer">Aktuellen Timer abbrechen</string>
+    <string name="sleep_timer_canceled">Der Einschlaf Timer wurde abgebrochen</string>
+    <string name="sleep_timer_set">Der Einschlaf Timer wurde auf %d Minuten von jetzt gesetzt.</string>
 </resources>

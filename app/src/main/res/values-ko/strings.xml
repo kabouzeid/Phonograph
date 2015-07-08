@@ -5,7 +5,7 @@
     <string name="the_audio_file">노래 파일</string>
     <string name="do_you_want_to_set_x_as_ringtone">%1$s을(를) 전화 벨소리로 설정하시겠습니까?</string>
     <string name="x_has_been_set_as_ringtone">%1$s을(를) 전화 벨소리로 설정하였습니다.</string>
-    <string name="action_set_as_ringtone">전화 벨소리로 설정</string>
+    <string name="action_set_as_ringtone">벨소리로 설정</string>
     <string name="action_share">공유</string>
     <string name="action_settings">"설정"</string>
     <string name="action_about">정보</string>
@@ -19,7 +19,7 @@
     <string name="action_play">재생</string>
     <string name="action_add_to_playing_queue">재생 대기열에 추가</string>
     <string name="action_remove_from_playing_queue">재생 대기열에서 제거</string>
-    <string name="action_add_to_playlist">재생목록에 추가...</string>
+    <string name="action_add_to_playlist">재생목록에 추가</string>
     <string name="action_tag_editor">태그 편집기</string>
     <string name="action_delete_from_device">기기에서 삭제</string>
     <string name="action_details">세부정보</string>
@@ -49,7 +49,7 @@
     <string name="label_file_size">크기</string>
     <string name="label_file_format">파일 형식</string>
     <string name="label_track_length">재생 시간</string>
-    <string name="label_bit_rate">비트레이트</string>
+    <string name="label_bit_rate">비트 전송속도</string>
     <string name="label_sampling_rate">샘플링 빈도</string>
     <string name="action_go_to_artist">아티스트로 가기</string>
     <string name="action_go_to_album">앨범으로 가기</string>
@@ -59,6 +59,8 @@
     <string name="credits_1">"Phonograph는 완전히 무료인, 머티리얼 디자인이 적용된 음악 플레이어입니다. 제작자 :"</string>
     <string name="no_results">결과 없음</string>
     <string name="action_re_download_artist_image">아티스트 이미지 변경</string>
+    <string name="updated_artist_image">아티스트 이미지를 변경하였습니다.</string>
+    <string name="could_not_update_artist_image">아티스트 이미지를 변경할 수 없습니다.</string>
     <string name="updating">변경 중...</string>
     <string name="added_title_to_playing_queue">"재생 대기열에 1개의 음악을 추가했습니다."</string>
     <string name="added_x_titles_to_playing_queue">%1$d개의 타이틀을 재생 대기열에 추가했습니다.</string>
@@ -69,10 +71,10 @@
     <string name="inserted_x_songs_into_playlist">이 재생목록에 %1$d개의 음악을 추가했습니다.</string>
     <string name="created_playlist_x">재생 목록 \'%1$s\'을 만들었습니다.</string>
     <string name="deleted_playlist_x">재생목록 \'%1$s\'을 삭제했습니다.</string>
-    <string name="deleted_x_songs"><b>%1$d</b>개의 노래를 삭제하시겠습니까?</string>
+    <string name="deleted_x_songs"><b>%1$d</b>개의 노래를 삭제했습니다</string>
     <string name="could_not_create_playlist">재생목록을 만들 수 없습니다.</string>
     <string name="delete_playlist_x"><![CDATA[재생목록 <b>%1$s</b>을(를) 삭제하시겠습니까?]]></string>
-    <string name="clear_playlist_x"><![CDATA[노래 <b>%1$s</b>을(를) 재생목록에서 삭제하시겠습니까?]]></string>
+    <string name="clear_playlist_x"><![CDATA[재생목록 <b>%1$s</b>을(를) 비우시겠습니까?]]></string>
     <string name="delete_x_playlists"><![CDATA[재생목록 <b>%1$d</b>을(를) 삭제하시겠습니까?]]></string>
     <string name="delete_song_x"><![CDATA[노래 <b>%1$s</b>을(를) 삭제하시겠습니까?]]></string>
     <string name="delete_x_songs"><![CDATA[<b>%1$d</b>개의 노래를 삭제하시겠습니까?]]></string>
@@ -113,7 +115,7 @@
     <string name="pref_title_colored_navigation_bar_tag_editor">태그 편집기 화면에서</string>
     <string name="pref_title_colored_navigation_bar_other_screens">기타 다른 모든 곳에서</string>
     <string name="pref_title_colored_album_footers">색칠된 앨범 카드</string>
-    <string name="pref_title_album_art_on_lockscreen">잠금화면에서 앨범 아트 보이기</string>
+    <string name="pref_title_album_art_on_lockscreen">잠금화면 앨범 아트</string>
     <string name="pref_title_colored_notification">색칠된 알림 컨트롤</string>
     <string name="pref_title_gapless_playback">끊김없이 재생</string>
     <string name="pref_title_force_square_album_art">강제로 정사각형 앨범아트 적용</string>
@@ -121,7 +123,7 @@
     <string name="pref_title_opaque_statusbar_now_playing">불투명한 상단바</string>
     <string name="pref_title_larger_title_box_now_playing">더 큰 제목 바</string>
     <string name="pref_title_alternative_progress_slider_now_playing">대체 음악 조절 슬라이더</string>
-    <string name="pref_title_playback_controller_card_now_playing">컨트롤 부분을 키드로 표시</string>
+    <string name="pref_title_playback_controller_card_now_playing">컨트롤 부분을 드로 표시</string>
     <string name="no_equalizer">설치된 이퀄라이저가 없습니다.</string>
     <string name="no_audio_ID">"오디오 ID가 없습니다.
 아무 것이나 재생하시고 다시 시도해 주십시오."</string>
@@ -152,9 +154,9 @@
     <string name="pref_summary_colored_album_footers">"앨범 커버의 색상에 맞추어 앨범 카드가 색칠됩니다."</string>
     <string name="pref_summary_album_art_on_lockscreen">앨범 아트는 잠금 화면에 표시됩니다. 변경 사항을 적용하기 위해서는 Phonograph를 다시 시작해야 할 수도 있습니다.</string>
     <string name="pref_summary_colored_notification">"알림창에 뜨는 알림 컨트롤이 앨범 아트의 주요 색상으로 칠해집니다."</string>
-    <string name="pref_summary_gapless_playback">"곡을 넘어갈 때 간격을 없애 끊김없이 재생합니다. 이 기능을 끄면 곡 전환 관련 문제가 해결될 수 있습니다."</string>
+    <string name="pref_summary_gapless_playback">"곡을 넘길 때 간격을 없애 끊김없이 재생합니다. 이 기능을 끄면 곡 전환 관련 문제가 해결될 수 있습니다."</string>
     <string name="pref_summary_force_square_album_art">지금 재생 중 화면의 앨범 아트 이미지가 강제로 정사각형으로 보이게 합니다.</string>
-    <string name="pref_summary_opaque_toolbar_now_playing">지금 재생 중 화면 상단의 툴바를 불투명하게 하고, 앨범 아트를 가리지 않게 합니다.</string>
+    <string name="pref_summary_opaque_toolbar_now_playing">지금 재생 중 화면 상단의 툴바를 불투명하게 하고 앨범 아트를 가리지 않게 합니다.</string>
     <string name="pref_summary_opaque_statusbar_now_playing">상단바를 불투명하게 하고 앨범 아트를 가리지 않게 합니다.</string>
     <string name="pref_summary_larger_title_box_now_playing">앨범 아트 밑에 있는 제목 바의 높이를 커지게 합니다.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">보통의 조절 슬라이더 대신 앨범 아트를 가리지 않는 대체 조절 슬라이더를 사용합니다.</string>
@@ -169,5 +171,6 @@
     <string name="remove_cover">커버 없애기</string>
     <string name="download_from_last_fm">Last.fm에서 다운로드</string>
     <string name="pick_from_local_storage">저장소에서 고르기</string>
-    <string name="web_search">인터넷 검색</string>
+    <string name="web_search">" 검색"</string>
+    <string name="action_sleep_timer">수면 타이머</string>
 </resources>

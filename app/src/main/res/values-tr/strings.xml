@@ -4,7 +4,7 @@
     <string name="currently_listening_to_x_by_x">Şu anda %2$s nın %1$s parçası çalıyor</string>
     <string name="the_audio_file">Ses Dosyası</string>
     <string name="do_you_want_to_set_x_as_ringtone">%1$s yı zil sesi olarak ayarlamak ister misiniz?</string>
-    <string name="x_has_been_set_as_ringtone">%1$s zil sesi olarak ayarlandı.</string>
+    <string name="x_has_been_set_as_ringtone">%1$s zil sesiniz olarak ayarlandı.</string>
     <string name="action_set_as_ringtone">Zil Sesi Olarak Ayarla</string>
     <string name="action_share">Paylaş</string>
     <string name="action_settings">"Ayarlar"</string>
@@ -171,4 +171,9 @@
     <string name="download_from_last_fm">Last.fm den İndir</string>
     <string name="pick_from_local_storage">Yerel Hafızadan Al</string>
     <string name="web_search">Web de Ara</string>
+    <string name="action_sleep_timer">Uyku zamanlayıcısı</string>
+    <string name="action_set">Ayarla</string>
+    <string name="cancel_current_timer">Şu anki zamanlayıcıyı iptal et</string>
+    <string name="sleep_timer_canceled">Uyku zamanlayıcısı iptal edildi</string>
+    <string name="sleep_timer_set">Uyku zamanlayıcısı %d dakikalığına ayarlandı</string>
 </resources>

@@ -171,4 +171,5 @@
     <string name="download_from_last_fm">Pobierz z last.fm</string>
     <string name="pick_from_local_storage">Wybierz z pamięci lokalnej</string>
     <string name="web_search">Wyszukaj w sieci</string>
+    <string name="action_sleep_timer">Wyłącznik czasowy</string>
 </resources>

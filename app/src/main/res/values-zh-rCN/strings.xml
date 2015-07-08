@@ -171,4 +171,5 @@
     <string name="download_from_last_fm">从 last.fm 上下载</string>
     <string name="pick_from_local_storage">从本地储存中选取</string>
     <string name="web_search">在网络上搜索</string>
+    <string name="action_sleep_timer">睡眠定时器</string>
 </resources>
