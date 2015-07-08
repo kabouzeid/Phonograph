@@ -175,5 +175,5 @@
     <string name="action_set">Setze</string>
     <string name="cancel_current_timer">Aktuellen Timer abbrechen</string>
     <string name="sleep_timer_canceled">Der Einschlaf Timer wurde abgebrochen</string>
-    <string name="sleep_timer_set">Der Einschlaf Timer wurde auf %d Minuten von jetzt gesetzt.</string>
+    <string name="sleep_timer_set">Der Einschlaf Timer wurde auf %d Minuten von jetzt gesetzt</string>
 </resources>
