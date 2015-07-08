@@ -171,4 +171,5 @@
     <string name="download_from_last_fm">Last.fmからダウンロード</string>
     <string name="pick_from_local_storage">ローカルストレージから選択</string>
     <string name="web_search">ウェブで検索</string>
+    <string name="action_sleep_timer">スリープタイマー</string>
 </resources>

@@ -171,4 +171,5 @@
     <string name="download_from_last_fm">Scarica da Last.fm</string>
     <string name="pick_from_local_storage">Scegli da archiviazione locale</string>
     <string name="web_search">Cerca sul web</string>
+    <string name="action_sleep_timer">Timer di spegnimento</string>
 </resources>
