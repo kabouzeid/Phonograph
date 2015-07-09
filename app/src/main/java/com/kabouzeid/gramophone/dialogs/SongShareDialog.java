@@ -9,7 +9,6 @@ import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
 
@@ -17,10 +16,10 @@ import com.kabouzeid.gramophone.util.MusicUtil;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class SongShareDialog extends DialogFragment {
-    public static SongShareDialog create(final int songId) {
+    public static SongShareDialog create(final Song song) {
         final SongShareDialog dialog = new SongShareDialog();
         final Bundle args = new Bundle();
-        args.putInt("song_id", songId);
+        args.putSerializable("song", song);
         dialog.setArguments(args);
         return dialog;
     }
@@ -28,8 +27,7 @@ public class SongShareDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final int songId = getArguments().getInt("song_id");
-        final Song song = SongLoader.getSong(getActivity(), songId);
+        final Song song = (Song) getArguments().getSerializable("song");
         final String currentlyListening = getString(R.string.currently_listening_to_x_by_x, song.title, song.artistName);
         return new MaterialDialog.Builder(getActivity())
                 .title(R.string.what_do_you_want_to_share)
@@ -39,7 +37,7 @@ public class SongShareDialog extends DialogFragment {
                     public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
                         switch (i) {
                             case 0:
-                                startActivity(Intent.createChooser(MusicUtil.createShareSongFileIntent(getActivity(), songId), null));
+                                startActivity(Intent.createChooser(MusicUtil.createShareSongFileIntent(song), null));
                                 break;
                             case 1:
                                 getActivity().startActivity(

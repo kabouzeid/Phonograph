@@ -21,7 +21,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-import android.provider.MediaStore;
+import android.provider.MediaStore.Audio.AudioColumns;
 
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Song;
@@ -38,7 +38,7 @@ public class MusicPlaybackQueueStore extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "music_playback_state.db";
     public static final String PLAYING_QUEUE_TABLE_NAME = "playing_queue";
     public static final String ORIGINAL_PLAYING_QUEUE_TABLE_NAME = "original_playing_queue";
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
 
     /**
      * Constructor of <code>MusicPlaybackState</code>
@@ -65,26 +65,29 @@ public class MusicPlaybackQueueStore extends SQLiteOpenHelper {
         builder.append(BaseColumns._ID);
         builder.append(" INT NOT NULL,");
 
-        builder.append(MediaStore.Audio.AudioColumns.TITLE);
+        builder.append(AudioColumns.TITLE);
         builder.append(" STRING NOT NULL,");
 
-        builder.append(MediaStore.Audio.AudioColumns.ARTIST);
+        builder.append(AudioColumns.ARTIST);
         builder.append(" STRING NOT NULL,");
 
-        builder.append(MediaStore.Audio.AudioColumns.ALBUM);
+        builder.append(AudioColumns.ALBUM);
         builder.append(" STRING NOT NULL,");
 
-        builder.append(MediaStore.Audio.AudioColumns.DURATION);
+        builder.append(AudioColumns.DURATION);
         builder.append(" LONG NOT NULL,");
 
-        builder.append(MediaStore.Audio.AudioColumns.TRACK);
+        builder.append(AudioColumns.TRACK);
         builder.append(" INT NOT NULL,");
 
-        builder.append(MediaStore.Audio.AudioColumns.ARTIST_ID);
+        builder.append(AudioColumns.ARTIST_ID);
         builder.append(" INT NOT NULL,");
 
-        builder.append(MediaStore.Audio.AudioColumns.ALBUM_ID);
-        builder.append(" INT NOT NULL);");
+        builder.append(AudioColumns.ALBUM_ID);
+        builder.append(" INT NOT NULL,");
+
+        builder.append(AudioColumns.DATA);
+        builder.append(" STRING NOT NULL);");
 
         db.execSQL(builder.toString());
     }
@@ -92,6 +95,9 @@ public class MusicPlaybackQueueStore extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
         // not necessary yet
+        db.execSQL("DROP TABLE IF EXISTS " + PLAYING_QUEUE_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + ORIGINAL_PLAYING_QUEUE_TABLE_NAME);
+        onCreate(db);
     }
 
     @Override
@@ -145,13 +151,14 @@ public class MusicPlaybackQueueStore extends SQLiteOpenHelper {
                     ContentValues values = new ContentValues(4);
 
                     values.put(BaseColumns._ID, song.id);
-                    values.put(MediaStore.Audio.AudioColumns.TITLE, song.title);
-                    values.put(MediaStore.Audio.AudioColumns.ARTIST, song.artistName);
-                    values.put(MediaStore.Audio.AudioColumns.ALBUM, song.albumName);
-                    values.put(MediaStore.Audio.AudioColumns.DURATION, song.duration);
-                    values.put(MediaStore.Audio.AudioColumns.TRACK, song.trackNumber);
-                    values.put(MediaStore.Audio.AudioColumns.ARTIST_ID, song.artistId);
-                    values.put(MediaStore.Audio.AudioColumns.ALBUM_ID, song.albumId);
+                    values.put(AudioColumns.TITLE, song.title);
+                    values.put(AudioColumns.ARTIST, song.artistName);
+                    values.put(AudioColumns.ALBUM, song.albumName);
+                    values.put(AudioColumns.DURATION, song.duration);
+                    values.put(AudioColumns.TRACK, song.trackNumber);
+                    values.put(AudioColumns.ARTIST_ID, song.artistId);
+                    values.put(AudioColumns.ALBUM_ID, song.albumId);
+                    values.put(AudioColumns.DATA, song.data);
 
                     database.insert(tableName, null, values);
                 }

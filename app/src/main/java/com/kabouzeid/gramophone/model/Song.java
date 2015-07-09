@@ -19,9 +19,10 @@ public class Song implements Serializable {
     public final String albumName;
     public final long duration;
     public final int trackNumber;
+    public final String data;
 
     public Song(final int id, final int albumId, final int artistId, final String title, final String artistName,
-                final String albumName, final long duration, final int trackNumber) {
+                final String albumName, final long duration, final int trackNumber, final String data) {
         this.id = id;
         this.albumId = albumId;
         this.artistId = artistId;
@@ -30,6 +31,7 @@ public class Song implements Serializable {
         this.albumName = albumName;
         this.duration = duration;
         this.trackNumber = trackNumber;
+        this.data = data;
     }
 
     public Song() {
@@ -41,6 +43,7 @@ public class Song implements Serializable {
         this.albumName = "";
         this.duration = -1;
         this.trackNumber = -1;
+        this.data = "";
     }
 
     @Override

@@ -15,7 +15,6 @@ import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
 import com.kabouzeid.gramophone.lastfm.rest.model.albuminfo.AlbumInfo;
 import com.kabouzeid.gramophone.lastfm.rest.model.albuminfo.Image;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
-import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -190,12 +189,12 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
     @Override
     protected List<String> getSongPaths() {
-        List<Song> songs = AlbumSongLoader.getAlbumSongList(this, getId());
-        int[] songIds = new int[songs.size()];
-        for (int i = 0; i < songs.size(); i++) {
-            songIds[i] = songs.get(i).id;
+        ArrayList<Song> songs = AlbumSongLoader.getAlbumSongList(this, getId());
+        ArrayList<String> paths = new ArrayList<>(songs.size());
+        for (Song song : songs) {
+            paths.add(song.data);
         }
-        return SongFilePathLoader.getSongFilePaths(this, songIds);
+        return paths;
     }
 
     @Override

@@ -18,7 +18,6 @@ import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
-import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
@@ -46,10 +45,10 @@ public class MusicUtil {
         return ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, songId);
     }
 
-    public static Intent createShareSongFileIntent(final Context context, int songId) {
+    public static Intent createShareSongFileIntent(final Song song) {
         return new Intent()
                 .setAction(Intent.ACTION_SEND)
-                .putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + SongFilePathLoader.getSongFilePath(context, songId)))
+                .putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + song.data))
                 .setType("audio/*");
     }
 
@@ -80,7 +79,6 @@ public class MusicUtil {
         } finally {
             if (cursor != null) {
                 cursor.close();
-                cursor = null;
             }
         }
     }

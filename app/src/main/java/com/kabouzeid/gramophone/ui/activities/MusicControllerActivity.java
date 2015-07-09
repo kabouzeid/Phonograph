@@ -42,7 +42,6 @@ import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
 import com.kabouzeid.gramophone.dialogs.SongShareDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.bitmapblur.StackBlurManager;
-import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.misc.SmallTransitionListener;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
@@ -641,7 +640,7 @@ public class MusicControllerActivity extends AbsFabActivity {
                 invalidateOptionsMenu();
                 return true;
             case R.id.action_share:
-                SongShareDialog.create(song.id).show(getSupportFragmentManager(), "SHARE_SONG");
+                SongShareDialog.create(song).show(getSupportFragmentManager(), "SHARE_SONG");
                 return true;
             case R.id.action_equalizer:
                 NavigationUtil.openEqualizer(this);
@@ -664,8 +663,7 @@ public class MusicControllerActivity extends AbsFabActivity {
                 startActivity(intent);
                 return true;
             case R.id.action_details:
-                String songFilePath = SongFilePathLoader.getSongFilePath(this, song.id);
-                File songFile = new File(songFilePath);
+                File songFile = new File(song.data);
                 SongDetailDialog.create(songFile).show(getSupportFragmentManager(), "SONG_DETAIL");
                 return true;
             case R.id.action_go_to_album:
