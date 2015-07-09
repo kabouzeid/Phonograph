@@ -14,7 +14,6 @@ import com.kabouzeid.gramophone.dialogs.RenamePlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
-import com.kabouzeid.gramophone.loader.SongFilePathLoader;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
@@ -38,7 +37,7 @@ public class MenuItemClickHelper {
                 MusicUtil.setRingtone(activity, song.id);
                 return true;
             case R.id.action_share:
-                activity.startActivity(Intent.createChooser(MusicUtil.createShareSongFileIntent(activity, song.id), null));
+                activity.startActivity(Intent.createChooser(MusicUtil.createShareSongFileIntent(song), null));
                 return true;
             case R.id.action_delete_from_disk:
                 DeleteSongsDialog.create(song).show(activity.getSupportFragmentManager(), "DELETE_SONGS");
@@ -60,8 +59,7 @@ public class MenuItemClickHelper {
                 activity.startActivity(tagEditorIntent);
                 return true;
             case R.id.action_details:
-                String songFilePath = SongFilePathLoader.getSongFilePath(activity, song.id);
-                File songFile = new File(songFilePath);
+                File songFile = new File(song.data);
                 SongDetailDialog.create(songFile).show(activity.getSupportFragmentManager(), "SONG_DETAILS");
                 return true;
             case R.id.action_go_to_album:

@@ -11,25 +11,13 @@ import java.util.ArrayList;
 
 public class PlaylistSongLoader {
 
-    public static ArrayList<PlaylistSong> getPlaylistSongList(final Context context, final int playlistID) {
+    public static ArrayList<PlaylistSong> getPlaylistSongList(final Context context, final int playlistId) {
         ArrayList<PlaylistSong> songs = new ArrayList<>();
-        Cursor cursor = makePlaylistSongCursor(context, playlistID);
+        Cursor cursor = makePlaylistSongCursor(context, playlistId);
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                final int id = cursor.getInt(0);
-                final String songName = cursor.getString(1);
-                final String artist = cursor.getString(2);
-                final String album = cursor.getString(3);
-                final long duration = cursor.getLong(4);
-                final int trackNumber = cursor.getInt(5);
-                final int albumId = cursor.getInt(6);
-                final int artistId = cursor.getInt(7);
-                final int idInPlaylist = cursor.getInt(8);
-
-                final PlaylistSong song = new PlaylistSong(id, albumId, artistId, songName, artist, album, duration, trackNumber, playlistID, idInPlaylist);
-
-                songs.add(song);
+                songs.add(getPlaylistSongFromCursorImpl(cursor));
             } while (cursor.moveToNext());
         }
         if (cursor != null) {
@@ -38,9 +26,25 @@ public class PlaylistSongLoader {
         return songs;
     }
 
-    public static Cursor makePlaylistSongCursor(final Context context, final int playlistID) {
+    private static PlaylistSong getPlaylistSongFromCursorImpl(Cursor cursor) {
+        final int id = cursor.getInt(0);
+        final String songName = cursor.getString(1);
+        final String artist = cursor.getString(2);
+        final String album = cursor.getString(3);
+        final long duration = cursor.getLong(4);
+        final int trackNumber = cursor.getInt(5);
+        final int albumId = cursor.getInt(6);
+        final int artistId = cursor.getInt(7);
+        final String data = cursor.getString(8);
+        final int idInPlaylist = cursor.getInt(9);
+        final int playlistId = cursor.getInt(10);
+
+        return new PlaylistSong(id, albumId, artistId, songName, artist, album, duration, trackNumber, data, playlistId, idInPlaylist);
+    }
+
+    public static Cursor makePlaylistSongCursor(final Context context, final int playlistId) {
         return context.getContentResolver().query(
-                MediaStore.Audio.Playlists.Members.getContentUri("external", playlistID),
+                MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),
                 new String[]{
                         /* 0 */
                         MediaStore.Audio.Playlists.Members.AUDIO_ID,
@@ -59,8 +63,12 @@ public class PlaylistSongLoader {
                         /* 7 */
                         AudioColumns.ARTIST_ID,
                         /* 8 */
+                        AudioColumns.DATA,
+                        /* 9 */
+                        MediaStore.Audio.Playlists.Members.PLAYLIST_ID,
+                        /* 10 */
                         MediaStore.Audio.Playlists.Members._ID
-                }, (AudioColumns.IS_MUSIC + "=1") + " AND " + AudioColumns.TITLE + " != ''", null,
+                }, SongLoader.BASE_SELECTION, null,
                 MediaStore.Audio.Playlists.Members.DEFAULT_SORT_ORDER);
     }
 }

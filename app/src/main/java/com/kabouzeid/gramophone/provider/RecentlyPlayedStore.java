@@ -42,7 +42,8 @@ public class RecentlyPlayedStore extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // nothing to do here yet
+        db.execSQL("DROP TABLE IF EXISTS " + RecentStoreColumns.NAME);
+        onCreate(db);
     }
 
     @Override

@@ -7,10 +7,11 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.loader.SongFilePathLoader;
+import com.kabouzeid.gramophone.loader.SongLoader;
 
 import org.jaudiotagger.tag.FieldKey;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -107,7 +108,9 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
 
     @Override
     protected List<String> getSongPaths() {
-        return SongFilePathLoader.getSongFilePaths(this, new int[]{getId()});
+        ArrayList<String> paths = new ArrayList<>(1);
+        paths.add(SongLoader.getSong(this, getId()).data);
+        return paths;
     }
 
     @Override

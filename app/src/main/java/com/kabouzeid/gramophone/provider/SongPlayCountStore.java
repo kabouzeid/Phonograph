@@ -96,7 +96,8 @@ public class SongPlayCountStore extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
-        // No upgrade path needed yet
+        db.execSQL("DROP TABLE IF EXISTS " + SongPlayCountColumns.NAME);
+        onCreate(db);
     }
 
     @Override
