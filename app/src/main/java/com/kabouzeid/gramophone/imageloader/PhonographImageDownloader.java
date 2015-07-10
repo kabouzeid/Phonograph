@@ -15,6 +15,7 @@ import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -32,18 +33,18 @@ public class PhonographImageDownloader extends BaseImageDownloader {
 
     @Nullable
     @Override
-    protected InputStream getStreamFromOtherSource(@NonNull String imageUri, Object extra) throws IOException {
+    public InputStream getStream(@NonNull String imageUri, Object extra) throws IOException {
         if (imageUri.startsWith(SCHEME_ALBUM)) {
-            return getStreamFromAlbum(imageUri, extra);
-        } else if (imageUri.startsWith(SCHEME_SONG)) {
-            return getStreamFromSong(imageUri, extra);
-        } else {
-            return super.getStreamFromOtherSource(imageUri, extra);
+            return getStreamFromAlbum(imageUri);
         }
+        if (imageUri.startsWith(SCHEME_SONG)) {
+            return getStreamFromSong(imageUri);
+        }
+        return super.getStream(imageUri, extra);
     }
 
     @Nullable
-    protected InputStream getStreamFromAlbum(@NonNull String imageUri, Object extra) throws IOException {
+    protected InputStream getStreamFromAlbum(@NonNull String imageUri) throws IOException {
         int albumId = Integer.valueOf(imageUri.substring(SCHEME_ALBUM.length()));
 
         if (PreferenceUtils.getInstance(context).ignoreMediaStoreArtwork()) {
@@ -56,11 +57,11 @@ public class PhonographImageDownloader extends BaseImageDownloader {
             }
             return null;
         }
-        return getStream(MusicUtil.getAlbumArtUri(albumId).toString(), extra);
+        return getMediaProviderAlbumArtInputStream(albumId);
     }
 
     @Nullable
-    protected InputStream getStreamFromSong(@NonNull String imageUri, Object extra) throws IOException {
+    protected InputStream getStreamFromSong(@NonNull String imageUri) throws IOException {
         String[] data = imageUri.split("#", 2);
 
         if (PreferenceUtils.getInstance(context).ignoreMediaStoreArtwork()) {
@@ -72,7 +73,7 @@ public class PhonographImageDownloader extends BaseImageDownloader {
         }
 
         int id = Integer.valueOf(data[0].substring(SCHEME_SONG.length()));
-        return getStream(MusicUtil.getAlbumArtUri(id).toString(), extra);
+        return getMediaProviderAlbumArtInputStream(id);
     }
 
     @NonNull
@@ -80,5 +81,10 @@ public class PhonographImageDownloader extends BaseImageDownloader {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
         return new ByteArrayInputStream(bos.toByteArray());
+    }
+
+    @NonNull
+    private InputStream getMediaProviderAlbumArtInputStream(int albumId) throws FileNotFoundException {
+        return context.getContentResolver().openInputStream(MusicUtil.getAlbumArtUri(albumId));
     }
 }
