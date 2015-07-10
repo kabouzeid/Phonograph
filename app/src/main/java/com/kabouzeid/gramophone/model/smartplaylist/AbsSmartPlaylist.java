@@ -33,7 +33,7 @@ public abstract class AbsSmartPlaylist extends Playlist {
         this.iconRes = R.drawable.ic_queue_music_white_24dp;
     }
 
-    @Nullable
+    @NonNull
     public SmartPlaylistSongAdapter createAdapter(AppCompatActivity activity, @Nullable CabHolder cabHolder) {
         return new SmartPlaylistSongAdapter(activity, this, cabHolder);
     }
@@ -51,7 +51,7 @@ public abstract class AbsSmartPlaylist extends Playlist {
     }
 
     @Override
-    public boolean equals(@NonNull final Object obj) {
+    public boolean equals(@Nullable final Object obj) {
         if (super.equals(obj)) {
             if (getClass() != obj.getClass()) {
                 return false;

@@ -180,6 +180,7 @@ public class MusicControllerActivity extends AbsFabActivity {
         //noinspection ConstantConditions
         getSupportActionBar().setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close_white_24dp);
     }
 
     private void animateFabCircularRevealOnEnterTransitionEnd() {

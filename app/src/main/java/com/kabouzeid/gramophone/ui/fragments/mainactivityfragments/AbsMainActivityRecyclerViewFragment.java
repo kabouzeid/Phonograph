@@ -137,6 +137,7 @@ public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivit
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        getMainActivity().removeOnAppBarOffsetChangedListener(this);
         ButterKnife.reset(this);
     }
 }

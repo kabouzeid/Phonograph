@@ -2,7 +2,6 @@ package com.kabouzeid.gramophone.ui.activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -45,10 +44,8 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
     @InjectView(android.R.id.empty)
     TextView empty;
 
-    @Nullable
     private Playlist playlist;
     private MaterialCab cab;
-    @Nullable
     private AbsPlaylistSongAdapter adapter;
 
     @Override
@@ -111,6 +108,7 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
         } catch (ClassCastException ignored) {
         }
         if (playlist == null) {
+            playlist = new Playlist();
             finish();
         }
     }
@@ -159,6 +157,7 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
         if (cab != null && cab.isActive()) cab.finish();
         cab = new MaterialCab(this, R.id.cab_stub)
                 .setMenu(menu)
+                .setCloseDrawableRes(R.drawable.ic_close_white_24dp)
                 .setBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimary())
                 .start(callback);
         return cab;
