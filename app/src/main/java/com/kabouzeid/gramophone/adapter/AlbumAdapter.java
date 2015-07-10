@@ -78,7 +78,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
         holder.artist.setText(album.artistName);
 
         ImageLoader.getInstance().displayImage(
-                MusicUtil.getAlbumArtUri(album.id).toString(),
+                MusicUtil.getAlbumImageLoaderString(album),
                 holder.albumArt,
                 new DisplayImageOptions.Builder()
                         .cacheInMemory(true)

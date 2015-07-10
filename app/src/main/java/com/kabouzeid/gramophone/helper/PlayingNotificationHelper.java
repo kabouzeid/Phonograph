@@ -203,7 +203,7 @@ public class PlayingNotificationHelper {
     }
 
     private void loadAlbumArt() {
-        currentAlbumArtUri = MusicUtil.getAlbumArtUri(currentSong.albumId).toString();
+        currentAlbumArtUri = MusicUtil.getSongImageLoaderString(currentSong);
         ImageLoader.getInstance().displayImage(currentAlbumArtUri, new NonViewAware(new ImageSize(-1, -1), ViewScaleType.CROP), new SimpleImageLoadingListener() {
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {

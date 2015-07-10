@@ -77,7 +77,7 @@ public class SmartPlaylistSongAdapter extends AbsPlaylistSongAdapter<SmartPlayli
         holder.songTitle.setText(song.title);
         holder.songInfo.setText(song.artistName);
         ImageLoader.getInstance().displayImage(
-                MusicUtil.getAlbumArtUri(song.albumId).toString(),
+                MusicUtil.getSongImageLoaderString(song),
                 holder.albumArt,
                 new DisplayImageOptions.Builder()
                         .cacheInMemory(true)

@@ -422,7 +422,7 @@ public class MusicControllerActivity extends AbsFabActivity {
 
     private void setUpAlbumArtAndApplyPalette() {
         ImageLoader.getInstance().displayImage(
-                MusicUtil.getAlbumArtUri(song.albumId).toString(),
+                MusicUtil.getSongImageLoaderString(song),
                 albumArt,
                 new DisplayImageOptions.Builder()
                         .cacheInMemory(true)

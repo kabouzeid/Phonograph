@@ -111,7 +111,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 holder.title.setText(album.title);
                 holder.subTitle.setText(album.artistName);
                 ImageLoader.getInstance().displayImage(
-                        MusicUtil.getAlbumArtUri(album.id).toString(),
+                        MusicUtil.getAlbumImageLoaderString(album),
                         holder.image,
                         new DisplayImageOptions.Builder()
                                 .cacheInMemory(true)
