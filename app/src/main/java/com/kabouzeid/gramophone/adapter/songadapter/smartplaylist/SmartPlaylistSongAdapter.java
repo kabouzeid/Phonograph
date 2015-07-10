@@ -44,7 +44,6 @@ public class SmartPlaylistSongAdapter extends AbsPlaylistSongAdapter<SmartPlayli
     public void updateDataSet() {
         dataSet = playlist.getSongs(activity);
         notifyDataSetChanged();
-        setHasStableIds(true);
     }
 
     @Override
@@ -57,6 +56,7 @@ public class SmartPlaylistSongAdapter extends AbsPlaylistSongAdapter<SmartPlayli
         this.activity = activity;
         this.playlist = playlist;
         dataSet = playlist.getSongs(activity);
+        setHasStableIds(true);
     }
 
     @Override
