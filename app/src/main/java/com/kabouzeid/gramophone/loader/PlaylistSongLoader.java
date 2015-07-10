@@ -19,7 +19,7 @@ public class PlaylistSongLoader {
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
-                songs.add(getPlaylistSongFromCursorImpl(cursor));
+                songs.add(getPlaylistSongFromCursorImpl(cursor, playlistId));
             } while (cursor.moveToNext());
         }
         if (cursor != null) {
@@ -29,7 +29,7 @@ public class PlaylistSongLoader {
     }
 
     @NonNull
-    private static PlaylistSong getPlaylistSongFromCursorImpl(@NonNull Cursor cursor) {
+    private static PlaylistSong getPlaylistSongFromCursorImpl(@NonNull Cursor cursor, int playlistId) {
         final int id = cursor.getInt(0);
         final String songName = cursor.getString(1);
         final String artist = cursor.getString(2);
@@ -40,7 +40,6 @@ public class PlaylistSongLoader {
         final int artistId = cursor.getInt(7);
         final String data = cursor.getString(8);
         final int idInPlaylist = cursor.getInt(9);
-        final int playlistId = cursor.getInt(10);
 
         return new PlaylistSong(id, albumId, artistId, songName, artist, album, duration, trackNumber, data, playlistId, idInPlaylist);
     }
@@ -68,8 +67,6 @@ public class PlaylistSongLoader {
                         /* 8 */
                         AudioColumns.DATA,
                         /* 9 */
-                        MediaStore.Audio.Playlists.Members.PLAYLIST_ID,
-                        /* 10 */
                         MediaStore.Audio.Playlists.Members._ID
                 }, SongLoader.BASE_SELECTION, null,
                 MediaStore.Audio.Playlists.Members.DEFAULT_SORT_ORDER);
