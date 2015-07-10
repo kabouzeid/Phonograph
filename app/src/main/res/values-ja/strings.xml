@@ -172,4 +172,8 @@
     <string name="pick_from_local_storage">ローカルストレージから選択</string>
     <string name="web_search">ウェブで検索</string>
     <string name="action_sleep_timer">スリープタイマー</string>
+    <string name="action_set">セット</string>
+    <string name="cancel_current_timer">スリープタイマーを解除</string>
+    <string name="sleep_timer_canceled">スリープタイマーは解除されました</string>
+    <string name="sleep_timer_set">%d分後にスリープタイマーをセットしました</string>
 </resources>

@@ -104,6 +104,7 @@
     <string name="pref_title_general_theme">Tema geral</string>
     <string name="pref_header_audio">Áudio</string>
     <string name="pref_header_general">Geral</string>
+    <string name="pref_header_images">Imagens</string>
     <string name="pref_header_lockscreen">Bloqueio de tela</string>
     <string name="pref_summary_colored_navigation_bar">Definir onde a barra de navegação deve ser colorida.</string>
     <string name="pref_title_navigation_bar">Barra de navegação colorida</string>
@@ -117,6 +118,7 @@
     <string name="pref_title_colored_album_footers">Rodapés de álbuns coloridos</string>
     <string name="pref_title_album_art_on_lockscreen">Imagem do álbum no bloqueio de tela</string>
     <string name="pref_title_colored_notification">Notificação colorida</string>
+    <string name="pref_title_ignore_media_store_artwork">Ignorar artwork Media Store</string>
     <string name="pref_title_gapless_playback">Reprodução continua</string>
     <string name="pref_title_force_square_album_art">Forçar a capa do álbum quadrada</string>
     <string name="pref_title_opaque_toolbar_now_playing">Barra de ações opaca</string>
@@ -160,6 +162,7 @@
     <string name="pref_summary_larger_title_box_now_playing">A caixa embaixo da capa do álbum onde o titulo da musica e o artista são mostrados é mais largo na sua altura.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Usa uma barra de progresso que não cobre a capa do álbum substituindo a barra padrão.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Mostra um cartão abaixo dos controles de reprodução (tocar/pausar etc.)</string>
+    <string name="pref_summary_ignore_media_store_artwork">O Android Media Store armazena em cache sua capa do álbum embutido, mas em alguns dispositivos que parece para armazená-lo em uma resolução baixa. Ativar essa vai ignorar o Media Store, que pode aumentar a qualidade do álbum, mas faz com que tempos imagem de carregamento lento.</string>
     <string name="could_not_download_album_cover">"Não foi possível baixar uma capa do álbum correspondente."</string>
     <string name="search_hint">Pesquisar na sua biblioteca...</string>
     <string name="rescanning_media">Verificando mídia novamente...</string>
@@ -171,4 +174,9 @@
     <string name="download_from_last_fm">Baixar do last.fm</string>
     <string name="pick_from_local_storage">Escolher do armazenamento local</string>
     <string name="web_search">Procurar na web</string>
+    <string name="action_sleep_timer">Temporizador</string>
+    <string name="action_set">Definir</string>
+    <string name="cancel_current_timer">Cancelar temporizador atual</string>
+    <string name="sleep_timer_canceled">Temporizador foi cancelado</string>
+    <string name="sleep_timer_set">Temporizador definido para %d minutos a partir de agora</string>
 </resources>

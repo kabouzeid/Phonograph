@@ -172,4 +172,8 @@
     <string name="pick_from_local_storage">从本地储存中选取</string>
     <string name="web_search">在网络上搜索</string>
     <string name="action_sleep_timer">睡眠定时器</string>
+    <string name="action_set">设置</string>
+    <string name="cancel_current_timer">取消当前计时器</string>
+    <string name="sleep_timer_canceled">睡眠定时器已被取消</string>
+    <string name="sleep_timer_set">音乐将于%d分钟后停止播放</string>
 </resources>

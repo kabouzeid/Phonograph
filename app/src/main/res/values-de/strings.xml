@@ -104,6 +104,7 @@
     <string name="pref_title_general_theme">Generelles Design</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">Generell</string>
+    <string name="pref_header_images">Bilder</string>
     <string name="pref_header_lockscreen">Sperrbildschirm</string>
     <string name="pref_summary_colored_navigation_bar">In welchen Ansichten die Navigationsleiste gefärbt werden soll</string>
     <string name="pref_title_navigation_bar">Farbige Navigationsleiste</string>
@@ -117,6 +118,7 @@
     <string name="pref_title_colored_album_footers">Farbige Balken unter den Alben</string>
     <string name="pref_title_album_art_on_lockscreen">Album Cover im Sperrbildschirm anzeigen</string>
     <string name="pref_title_colored_notification">Farbige Benachrichtigung</string>
+    <string name="pref_title_ignore_media_store_artwork">Media Store Cover ignorieren</string>
     <string name="pref_title_gapless_playback">Lückenlose Wiedergabe</string>
     <string name="pref_title_force_square_album_art">Quadratisches Album Cover erzwingen</string>
     <string name="pref_title_opaque_toolbar_now_playing">Undurchsichtige Toolbar</string>
@@ -160,6 +162,7 @@
     <string name="pref_summary_larger_title_box_now_playing">Die Bar unter dem Album Cover wo sich der Titel und Interpret befinden ist höher.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Benutzt einen Balken als Progress Slider anstatt dem normalen Progress Slider.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Zeigt eine Karte hinter der Wiedergabesteuerung</string>
+    <string name="pref_summary_ignore_media_store_artwork">Der Media Store wird umgangen, was die Album Cover Qualität verbessern kann aber die Ladezeit beeinträchtigt. Nur aktivieren falls Probleme mit niedrig aufgelösten Album Covern auftreten</string>
     <string name="could_not_download_album_cover">"Es konnte kein passendes Album Cover heruntergeladen werden."</string>
     <string name="search_hint">Durchsuche deine Mediathek</string>
     <string name="rescanning_media">Medien neu scannen...</string>

@@ -38,6 +38,9 @@ android {
                 properties.load(propFile.newDataInputStream())
 
                 keyPassword properties.getProperty('keyPassword')
+            } else {
+                println 'keystore.properties not found'
+                keyPassword null
             }
         }
     }
@@ -47,8 +50,8 @@ android {
         applicationId "com.kabouzeid.gramophone"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 55
-        versionName "0.9.39b dev-1"
+        versionCode 56
+        versionName "0.9.40b dev-1"
     }
     buildTypes {
         release {

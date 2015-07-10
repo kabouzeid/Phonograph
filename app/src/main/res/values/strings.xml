@@ -162,7 +162,7 @@
     <string name="pref_summary_larger_title_box_now_playing">The box below the album art where the song title and artist goes is larger in its height.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Uses a progressbar which does not cover the album art instead of the default progress slider.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Displays a card below the playback controller buttons (play/pause etc.).</string>
-    <string name="pref_summary_ignore_media_store_artwork">The Android Media Store caches your embedded album artwork but on some devices it seems to store it at a low resolution. Enabling this will bypass the Media Store, which can increase the album art quality but causes slower image loading times.</string>
+    <string name="pref_summary_ignore_media_store_artwork">Bypass the Media Store, which can increase the album artwork quality but causes slower image loading times. Only enable this if you have problems with low resolution artworks.</string>
     <string name="could_not_download_album_cover">"Could not download a matching album cover."</string>
     <string name="search_hint">Search your library…</string>
     <string name="rescanning_media">Rescanning media…</string>
