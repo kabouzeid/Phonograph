@@ -46,7 +46,7 @@ public class PlayingNotificationHelper {
     @NonNull
     private final NotificationManager notificationManager;
     @Nullable
-    private Notification notification = null;
+    private Notification notification;
 
     private RemoteViews notificationLayout;
     private RemoteViews notificationLayoutExpanded;
@@ -59,6 +59,8 @@ public class PlayingNotificationHelper {
     private boolean isReceiverRegistered;
     private boolean isNotificationShown;
 
+    private int bigNotificationImageSize;
+
     @NonNull
     final IntentFilter intentFilter;
 
@@ -69,6 +71,8 @@ public class PlayingNotificationHelper {
 
         intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_NOTIFICATION_COLOR_PREFERENCE_CHANGED);
+
+        bigNotificationImageSize = service.getResources().getDimensionPixelSize(R.dimen.notification_big_image_size);
     }
 
     @NonNull
@@ -211,19 +215,22 @@ public class PlayingNotificationHelper {
 
     private void loadAlbumArt() {
         currentAlbumArtUri = MusicUtil.getSongImageLoaderString(currentSong);
-        ImageLoader.getInstance().displayImage(currentAlbumArtUri, new NonViewAware(new ImageSize(-1, -1), ViewScaleType.CROP), new SimpleImageLoadingListener() {
-            @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                if (currentAlbumArtUri.equals(imageUri))
-                    setAlbumArt(loadedImage);
-            }
+        ImageLoader.getInstance().displayImage(
+                currentAlbumArtUri,
+                new NonViewAware(new ImageSize(bigNotificationImageSize, bigNotificationImageSize), ViewScaleType.CROP),
+                new SimpleImageLoadingListener() {
+                    @Override
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        if (currentAlbumArtUri.equals(imageUri))
+                            setAlbumArt(loadedImage);
+                    }
 
-            @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                if (currentAlbumArtUri.equals(imageUri))
-                    setAlbumArt(null);
-            }
-        });
+                    @Override
+                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                        if (currentAlbumArtUri.equals(imageUri))
+                            setAlbumArt(null);
+                    }
+                });
     }
 
     private void setAlbumArt(@Nullable Bitmap albumArt) {
@@ -244,7 +251,9 @@ public class PlayingNotificationHelper {
             }
         }
 
-        notificationManager.notify(NOTIFICATION_ID, notification);
+        if (notification != null) {
+            notificationManager.notify(NOTIFICATION_ID, notification);
+        }
     }
 
     private void setBackgroundColor(int color) {

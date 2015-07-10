@@ -38,12 +38,14 @@ import com.kabouzeid.gramophone.provider.RecentlyPlayedStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.assist.ViewScaleType;
 import com.nostra13.universalimageloader.core.imageaware.NonViewAware;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -438,33 +440,38 @@ public class MusicService extends Service {
                 .apply();
         if (showAlbumArt) {
             final String currentAlbumArtUri = MusicUtil.getSongImageLoaderString(song);
-            ImageLoader.getInstance().displayImage(currentAlbumArtUri, new NonViewAware(new ImageSize(-1, -1), ViewScaleType.CROP), new SimpleImageLoadingListener() {
-                @Override
-                public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
-                    if (!currentAlbumArtUri.equals(imageUri)) {
-                        return;
-                    }
-                    if (loadedImage == null) {
-                        onLoadingFailed(imageUri, view, null);
-                        return;
-                    }
-                    // RemoteControlClient wants to recycle the bitmaps thrown at it, so we need
-                    // to make sure not to hand out our cache copy
-                    Bitmap.Config config = loadedImage.getConfig();
-                    if (config == null) {
-                        config = Bitmap.Config.ARGB_8888;
-                    }
-                    loadedImage = loadedImage.copy(config, false);
-                    updateRemoteControlClientBitmap(loadedImage.copy(loadedImage.getConfig(), true));
-                }
+            ImageLoader.getInstance().displayImage(
+                    currentAlbumArtUri,
+                    new NonViewAware(new ImageSize(-1, -1), ViewScaleType.CROP),
+                    new DisplayImageOptions.Builder()
+                            .postProcessor(new BitmapProcessor() {
+                                @Override
+                                public Bitmap process(Bitmap bitmap) {
+                                    // RemoteControlClient wants to recycle the bitmaps thrown at it, so we need
+                                    // to make sure not to hand out our cache copy
+                                    Bitmap.Config config = bitmap.getConfig();
+                                    if (config == null) {
+                                        config = Bitmap.Config.ARGB_8888;
+                                    }
+                                    bitmap = bitmap.copy(config, false);
+                                    return bitmap.copy(bitmap.getConfig(), true);
+                                }
+                            }).build(),
+                    new SimpleImageLoadingListener() {
+                        @Override
+                        public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
+                            if (currentAlbumArtUri.equals(imageUri)) {
+                                updateRemoteControlClientBitmap(loadedImage);
+                            }
+                        }
 
-                @Override
-                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                    if (currentAlbumArtUri.equals(imageUri)) {
-                        updateRemoteControlClientBitmap(null);
-                    }
-                }
-            });
+                        @Override
+                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                            if (currentAlbumArtUri.equals(imageUri)) {
+                                updateRemoteControlClientBitmap(null);
+                            }
+                        }
+                    });
         } else {
             updateRemoteControlClientBitmap(null);
         }
