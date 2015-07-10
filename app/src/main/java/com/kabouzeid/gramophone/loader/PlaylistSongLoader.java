@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Audio.AudioColumns;
+import android.support.annotation.NonNull;
 
 import com.kabouzeid.gramophone.model.PlaylistSong;
 
@@ -11,7 +12,8 @@ import java.util.ArrayList;
 
 public class PlaylistSongLoader {
 
-    public static ArrayList<PlaylistSong> getPlaylistSongList(final Context context, final int playlistId) {
+    @NonNull
+    public static ArrayList<PlaylistSong> getPlaylistSongList(@NonNull final Context context, final int playlistId) {
         ArrayList<PlaylistSong> songs = new ArrayList<>();
         Cursor cursor = makePlaylistSongCursor(context, playlistId);
 
@@ -26,7 +28,8 @@ public class PlaylistSongLoader {
         return songs;
     }
 
-    private static PlaylistSong getPlaylistSongFromCursorImpl(Cursor cursor) {
+    @NonNull
+    private static PlaylistSong getPlaylistSongFromCursorImpl(@NonNull Cursor cursor) {
         final int id = cursor.getInt(0);
         final String songName = cursor.getString(1);
         final String artist = cursor.getString(2);
@@ -42,7 +45,7 @@ public class PlaylistSongLoader {
         return new PlaylistSong(id, albumId, artistId, songName, artist, album, duration, trackNumber, data, playlistId, idInPlaylist);
     }
 
-    public static Cursor makePlaylistSongCursor(final Context context, final int playlistId) {
+    public static Cursor makePlaylistSongCursor(@NonNull final Context context, final int playlistId) {
         return context.getContentResolver().query(
                 MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),
                 new String[]{

@@ -31,7 +31,7 @@ public class AboutDialog extends DialogFragment {
                 .build();
     }
 
-    private static String getCurrentVersionName(final Context context) {
+    private static String getCurrentVersionName(@NonNull final Context context) {
         String versionName;
         try {
             versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;

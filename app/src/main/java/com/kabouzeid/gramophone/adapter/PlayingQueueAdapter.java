@@ -1,5 +1,7 @@
 package com.kabouzeid.gramophone.adapter;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -24,15 +26,17 @@ import java.util.ArrayList;
  */
 public class PlayingQueueAdapter extends ArrayAdapter<Song> {
 
+    @NonNull
     private final AppCompatActivity activity;
 
-    public PlayingQueueAdapter(AppCompatActivity activity, ArrayList<Song> playList) {
+    public PlayingQueueAdapter(@NonNull AppCompatActivity activity, @NonNull ArrayList<Song> playList) {
         super(activity, R.layout.item_list_playlist_song, playList);
         this.activity = activity;
     }
 
+    @Nullable
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, ViewGroup parent) {
         final Song song = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(activity).inflate(R.layout.item_list_playlist_song, parent, false);
@@ -56,7 +60,7 @@ public class PlayingQueueAdapter extends ArrayAdapter<Song> {
                 popupMenu.inflate(R.menu.menu_item_playing_queue_song);
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
-                    public boolean onMenuItemClick(MenuItem item) {
+                    public boolean onMenuItemClick(@NonNull MenuItem item) {
                         if (item.getItemId() == R.id.action_remove_from_playing_queue) {
                             MusicPlayerRemote.removeFromQueue(position);
                             notifyDataSetChanged();

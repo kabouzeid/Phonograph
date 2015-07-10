@@ -8,6 +8,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.GridLayoutManager;
@@ -181,6 +183,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         }
     }
 
+    @NonNull
     @Override
     public String getTag() {
         return TAG;
@@ -226,7 +229,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
 
 
                     @Override
-                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    public void onLoadingComplete(String imageUri, View view, @NonNull Bitmap loadedImage) {
                         applyPalette(loadedImage);
                         albumArtBackground.setImageBitmap(new StackBlurManager(loadedImage).process(10));
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -236,13 +239,13 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         );
     }
 
-    private void applyPalette(Bitmap bitmap) {
+    private void applyPalette(@Nullable Bitmap bitmap) {
         if (bitmap != null) {
             Palette.from(bitmap)
                     .resizeBitmapSize(100)
                     .generate(new Palette.PaletteAsyncListener() {
                         @Override
-                        public void onGenerated(Palette palette) {
+                        public void onGenerated(@NonNull Palette palette) {
                             final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
                             if (vibrantSwatch != null) {
                                 toolbarColor = vibrantSwatch.getRgb();
@@ -345,7 +348,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_sleep_timer:
@@ -389,7 +392,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     }
 
     @Subscribe
-    public void onDataBaseEvent(DataBaseChangedEvent event) {
+    public void onDataBaseEvent(@NonNull DataBaseChangedEvent event) {
         switch (event.getAction()) {
             case DataBaseChangedEvent.SONGS_CHANGED:
             case DataBaseChangedEvent.ALBUMS_CHANGED:
@@ -402,7 +405,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     }
 
     @Subscribe
-    public void onUIPreferenceChanged(UIPreferenceChangedEvent event) {
+    public void onUIPreferenceChanged(@NonNull UIPreferenceChangedEvent event) {
         switch (event.getAction()) {
             case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_ALBUM_CHANGED:
                 setNavigationBarColored((boolean) event.getValue());
@@ -417,7 +420,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     }
 
     @Override
-    public MaterialCab openCab(int menuRes, final MaterialCab.Callback callback) {
+    public MaterialCab openCab(int menuRes, @NonNull final MaterialCab.Callback callback) {
         if (cab != null && cab.isActive()) cab.finish();
         cab = new MaterialCab(this, R.id.cab_stub)
                 .setMenu(menuRes)

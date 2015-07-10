@@ -16,6 +16,7 @@ import com.kabouzeid.gramophone.util.MusicUtil;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class SongShareDialog extends DialogFragment {
+    @NonNull
     public static SongShareDialog create(final Song song) {
         final SongShareDialog dialog = new SongShareDialog();
         final Bundle args = new Bundle();

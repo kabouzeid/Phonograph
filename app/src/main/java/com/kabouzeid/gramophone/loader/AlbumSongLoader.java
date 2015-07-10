@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.loader;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
@@ -14,11 +15,12 @@ import java.util.ArrayList;
  */
 public class AlbumSongLoader {
 
-    public static ArrayList<Song> getAlbumSongList(final Context context, final int albumId) {
+    @NonNull
+    public static ArrayList<Song> getAlbumSongList(@NonNull final Context context, final int albumId) {
         return SongLoader.getSongs(makeAlbumSongCursor(context, albumId));
     }
 
-    public static Cursor makeAlbumSongCursor(final Context context, final int albumId) {
+    public static Cursor makeAlbumSongCursor(@NonNull final Context context, final int albumId) {
         return SongLoader.makeSongCursor(
                 context,
                 MediaStore.Audio.AudioColumns.ALBUM_ID + "=?",

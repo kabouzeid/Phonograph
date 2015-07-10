@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.adapter.songadapter;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
@@ -34,14 +35,16 @@ import java.util.ArrayList;
  */
 public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab.Callback {
 
+    @Nullable
     private final CabHolder cabHolder;
     private MaterialCab cab;
     private ArrayList<Song> dataSet;
     private ArrayList<Song> checked;
 
+    @NonNull
     private final AppCompatActivity activity;
 
-    public ArtistSongAdapter(AppCompatActivity activity, ArrayList<Song> songs, @Nullable CabHolder cabHolder) {
+    public ArtistSongAdapter(@NonNull AppCompatActivity activity, @NonNull ArrayList<Song> songs, @Nullable CabHolder cabHolder) {
         super(activity, R.layout.item_list_song, songs);
         this.activity = activity;
         this.cabHolder = cabHolder;
@@ -55,8 +58,9 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
         addAll(dataSet);
     }
 
+    @Nullable
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, ViewGroup parent) {
         final Song song = getItem(position);
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_list_artist_song, parent, false);
@@ -87,7 +91,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
                 popupMenu.inflate(R.menu.menu_item_song);
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
-                    public boolean onMenuItemClick(MenuItem item) {
+                    public boolean onMenuItemClick(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.action_go_to_album:
                                 Pair[] albumPairs = new Pair[]{
@@ -127,7 +131,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
         return convertView;
     }
 
-    private void onMultipleItemAction(MenuItem menuItem, ArrayList<Song> selection) {
+    private void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Song> selection) {
         switch (menuItem.getItemId()) {
             case R.id.action_delete_from_disk:
                 DeleteSongsDialog.create(selection).show(activity.getSupportFragmentManager(), "DELETE_SONGS");
@@ -182,7 +186,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
     }
 
     @Override
-    public boolean onCabItemClicked(MenuItem menuItem) {
+    public boolean onCabItemClicked(@NonNull MenuItem menuItem) {
         onMultipleItemAction(menuItem, new ArrayList<>(checked));
         cab.finish();
         uncheckAll();

@@ -35,6 +35,7 @@ public class SongDetailDialog extends DialogFragment {
 
     public static final String TAG = SongDetailDialog.class.getSimpleName();
 
+    @NonNull
     public static SongDetailDialog create(File songFile) {
         SongDetailDialog dialog = new SongDetailDialog();
         Bundle args = new Bundle();
@@ -85,13 +86,13 @@ public class SongDetailDialog extends DialogFragment {
                 bitRate.setText(makeTextWithTitle(context, R.string.label_bit_rate, audioHeader.getBitRate() + " kb/s"));
                 samplingRate.setText(makeTextWithTitle(context, R.string.label_sampling_rate, audioHeader.getSampleRate() + " Hz"));
             }
-        } catch (CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException e) {
+        } catch (@NonNull CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException e) {
             Log.e(TAG, "error while reading the song file", e);
         }
         return dialog;
     }
 
-    private static Spanned makeTextWithTitle(Context context, int titleResId, String text) {
+    private static Spanned makeTextWithTitle(@NonNull Context context, int titleResId, String text) {
         return Html.fromHtml("<b>" + context.getResources().getString(titleResId) + ": " + "</b>" + text);
     }
 }

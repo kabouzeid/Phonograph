@@ -21,12 +21,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 public class RecentlyPlayedStore extends SQLiteOpenHelper {
     private static final int MAX_ITEMS_IN_DB = 100;
 
     public static final String DATABASE_NAME = "recently_played.db";
     private static final int VERSION = 1;
+    @Nullable
     private static RecentlyPlayedStore sInstance = null;
 
     public RecentlyPlayedStore(final Context context) {
@@ -34,25 +37,26 @@ public class RecentlyPlayedStore extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(final SQLiteDatabase db) {
+    public void onCreate(@NonNull final SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS " + RecentStoreColumns.NAME + " ("
                 + RecentStoreColumns.ID + " LONG NOT NULL," + RecentStoreColumns.TIME_PLAYED
                 + " LONG NOT NULL);");
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(@NonNull SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + RecentStoreColumns.NAME);
         onCreate(db);
     }
 
     @Override
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onDowngrade(@NonNull SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + RecentStoreColumns.NAME);
         onCreate(db);
     }
 
-    public static synchronized RecentlyPlayedStore getInstance(final Context context) {
+    @Nullable
+    public static synchronized RecentlyPlayedStore getInstance(@NonNull final Context context) {
         if (sInstance == null) {
             sInstance = new RecentlyPlayedStore(context.getApplicationContext());
         }

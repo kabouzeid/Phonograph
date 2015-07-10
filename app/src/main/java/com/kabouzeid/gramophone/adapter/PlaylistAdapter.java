@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
@@ -72,6 +73,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         dataSet.addAll(PlaylistLoader.getAllPlaylists(activity));
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         int layoutRes = viewType == VIEW_TYPE_DEFAULT ? R.layout.item_list_playlist : R.layout.item_list_smart_playlist;
@@ -80,7 +82,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Playlist playlist = dataSet.get(position);
         holder.playlistName.setText(playlist.name);
         holder.view.setActivated(isChecked(playlist));
@@ -110,7 +112,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
     }
 
     @Override
-    protected void onMultipleItemAction(MenuItem menuItem, ArrayList<Playlist> selection) {
+    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Playlist> selection) {
         switch (menuItem.getItemId()) {
             case R.id.action_delete_playlist:
                 for (int i = 0; i < selection.size(); i++) {
@@ -135,7 +137,8 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         }
     }
 
-    private ArrayList<Song> getSongList(List<Playlist> playlists) {
+    @NonNull
+    private ArrayList<Song> getSongList(@NonNull List<Playlist> playlists) {
         final ArrayList<Song> songs = new ArrayList<>();
         for (Playlist playlist : playlists) {
             if (playlist instanceof AbsSmartPlaylist) {
@@ -156,7 +159,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         ImageView icon;
         View view;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.inject(this, itemView);
             view = itemView;
@@ -169,7 +172,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
                     popupMenu.inflate(getItemViewType() == VIEW_TYPE_SMART ? R.menu.menu_item_smart_playlist : R.menu.menu_item_playlist);
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
-                        public boolean onMenuItemClick(MenuItem item) {
+                        public boolean onMenuItemClick(@NonNull MenuItem item) {
                             if (item.getItemId() == R.id.action_clear_playlist) {
                                 Playlist playlist = dataSet.get(getAdapterPosition());
                                 if (playlist instanceof AbsSmartPlaylist) {
@@ -219,7 +222,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
     }
 
     @Subscribe
-    public void onDataBaseEvent(DataBaseChangedEvent event) {
+    public void onDataBaseEvent(@NonNull DataBaseChangedEvent event) {
         switch (event.getAction()) {
             case DataBaseChangedEvent.PLAYLISTS_CHANGED:
             case DataBaseChangedEvent.DATABASE_CHANGED:

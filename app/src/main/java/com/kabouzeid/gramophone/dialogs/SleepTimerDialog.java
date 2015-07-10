@@ -121,7 +121,7 @@ public class SleepTimerDialog extends DialogFragment {
 
         seekArc.setOnSeekArcChangeListener(new SeekArc.OnSeekArcChangeListener() {
             @Override
-            public void onProgressChanged(SeekArc seekArc, int i, boolean b) {
+            public void onProgressChanged(@NonNull SeekArc seekArc, int i, boolean b) {
                 if (i < 1) {
                     seekArc.setProgress(1);
                     return;

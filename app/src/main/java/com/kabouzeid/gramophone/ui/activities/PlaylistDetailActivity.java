@@ -1,6 +1,8 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -33,6 +35,7 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
 
     public static final String TAG = PlaylistDetailActivity.class.getSimpleName();
 
+    @NonNull
     public static String EXTRA_PLAYLIST = "extra_playlist";
 
     @InjectView(R.id.recycler_view)
@@ -42,8 +45,10 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
     @InjectView(android.R.id.empty)
     TextView empty;
 
+    @Nullable
     private Playlist playlist;
     private MaterialCab cab;
+    @Nullable
     private AbsPlaylistSongAdapter adapter;
 
     @Override
@@ -110,6 +115,7 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
         }
     }
 
+    @NonNull
     @Override
     public String getTag() {
         return TAG;
@@ -122,7 +128,7 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_sleep_timer:
@@ -165,7 +171,7 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
     }
 
     @Subscribe
-    public void onDataBaseEvent(DataBaseChangedEvent event) {
+    public void onDataBaseEvent(@NonNull DataBaseChangedEvent event) {
         switch (event.getAction()) {
             case DataBaseChangedEvent.PLAYLISTS_CHANGED:
             case DataBaseChangedEvent.DATABASE_CHANGED:

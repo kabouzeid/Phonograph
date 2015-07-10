@@ -10,6 +10,8 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
@@ -31,7 +33,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
     public static final String TAG = SettingsActivity.class.getSimpleName();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
 
@@ -77,7 +79,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             setSummary(defaultStartPage);
             defaultStartPage.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
-                public boolean onPreferenceChange(Preference preference, Object o) {
+                public boolean onPreferenceChange(Preference preference, @NonNull Object o) {
                     setSummary(defaultStartPage, o);
                     return true;
                 }
@@ -87,7 +89,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             setSummary(generalTheme);
             generalTheme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
-                public boolean onPreferenceChange(Preference preference, Object o) {
+                public boolean onPreferenceChange(Preference preference, @NonNull Object o) {
                     setSummary(generalTheme, o);
                     App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.THEME_CHANGED, o));
                     return true;
@@ -99,7 +101,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                     DialogUtils.resolveColor(getActivity(), android.R.attr.textColorPrimary));
             primaryColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
-                public boolean onPreferenceClick(Preference preference) {
+                public boolean onPreferenceClick(@NonNull Preference preference) {
                     new ColorChooserDialog().show(getActivity(), preference.getTitleRes(),
                             PreferenceUtils.getInstance(getActivity()).getThemeColorPrimary());
                     return true;
@@ -111,7 +113,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                     DialogUtils.resolveColor(getActivity(), android.R.attr.textColorPrimary));
             accentColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
-                public boolean onPreferenceClick(Preference preference) {
+                public boolean onPreferenceClick(@NonNull Preference preference) {
                     new ColorChooserDialog().show(getActivity(), preference.getTitleRes(),
                             PreferenceUtils.getInstance(getActivity()).getThemeColorAccent());
                     return true;
@@ -178,13 +180,13 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             });
         }
 
-        private static void setSummary(Preference preference) {
+        private static void setSummary(@NonNull Preference preference) {
             setSummary(preference, PreferenceManager
                     .getDefaultSharedPreferences(preference.getContext())
                     .getString(preference.getKey(), ""));
         }
 
-        private static void setSummary(Preference preference, Object value) {
+        private static void setSummary(Preference preference, @NonNull Object value) {
             String stringValue = value.toString();
 
             if (preference instanceof ListPreference) {
@@ -211,7 +213,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
     }
 
     @Override
-    protected void onUIPreferenceChangedEvent(UIPreferenceChangedEvent event) {
+    protected void onUIPreferenceChangedEvent(@NonNull UIPreferenceChangedEvent event) {
         super.onUIPreferenceChangedEvent(event);
         switch (event.getAction()) {
             case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_OTHER_SCREENS_CHANGED:
@@ -231,7 +233,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;
@@ -239,6 +241,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         return super.onOptionsItemSelected(item);
     }
 
+    @NonNull
     @Override
     public String getTag() {
         return TAG;

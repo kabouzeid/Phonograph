@@ -14,6 +14,7 @@ import android.graphics.Path;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.util.Property;
 import android.view.animation.DecelerateInterpolator;
 
@@ -25,12 +26,12 @@ public class PlayPauseDrawable extends Drawable {
     private static final Property<PlayPauseDrawable, Float> PROGRESS =
             new Property<PlayPauseDrawable, Float>(Float.class, "progress") {
                 @Override
-                public Float get(PlayPauseDrawable d) {
+                public Float get(@NonNull PlayPauseDrawable d) {
                     return d.getProgress();
                 }
 
                 @Override
-                public void set(PlayPauseDrawable d, Float value) {
+                public void set(@NonNull PlayPauseDrawable d, Float value) {
                     d.setProgress(value);
                 }
             };
@@ -51,7 +52,7 @@ public class PlayPauseDrawable extends Drawable {
 
     private AnimatorSet animatorSet;
 
-    public PlayPauseDrawable(Context context) {
+    public PlayPauseDrawable(@NonNull Context context) {
         final Resources res = context.getResources();
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL);
@@ -62,7 +63,7 @@ public class PlayPauseDrawable extends Drawable {
     }
 
     @Override
-    protected void onBoundsChange(final Rect bounds) {
+    protected void onBoundsChange(@NonNull final Rect bounds) {
         super.onBoundsChange(bounds);
         if (bounds.width() > 0 && bounds.height() > 0) {
             width = bounds.width();
@@ -71,7 +72,7 @@ public class PlayPauseDrawable extends Drawable {
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public void draw(@NonNull Canvas canvas) {
         leftPauseBar.rewind();
         rightPauseBar.rewind();
 
@@ -126,6 +127,7 @@ public class PlayPauseDrawable extends Drawable {
         canvas.restore();
     }
 
+    @NonNull
     private Animator getPausePlayAnimator() {
         isPlaySet = !isPlaySet;
         final Animator anim = ObjectAnimator.ofFloat(this, PROGRESS, isPlay ? 1 : 0, isPlay ? 0 : 1);

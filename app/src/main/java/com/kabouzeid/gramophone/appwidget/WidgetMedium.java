@@ -7,6 +7,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -28,14 +30,14 @@ public class WidgetMedium extends AppWidgetProvider {
     private static String currentAlbumArtUri;
 
     @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+    public void onUpdate(@NonNull Context context, @NonNull AppWidgetManager appWidgetManager, @NonNull int[] appWidgetIds) {
         updateWidgets(context, MusicPlayerRemote.getCurrentSong(), MusicPlayerRemote.isPlaying());
         for (int widgetId : appWidgetIds) {
             appWidgetManager.updateAppWidget(widgetId, widgetLayout);
         }
     }
 
-    public static void updateWidgets(final Context context, final Song song, boolean isPlaying) {
+    public static void updateWidgets(@NonNull final Context context, @NonNull final Song song, boolean isPlaying) {
         if (song.id == -1) return;
         widgetLayout = new RemoteViews(context.getPackageName(), R.layout.widget_medium);
         linkButtons(context, widgetLayout);
@@ -45,7 +47,7 @@ public class WidgetMedium extends AppWidgetProvider {
         loadAlbumArt(context, song);
     }
 
-    public static void updateWidgetsPlayState(final Context context, boolean isPlaying) {
+    public static void updateWidgetsPlayState(@NonNull final Context context, boolean isPlaying) {
         if (widgetLayout == null)
             widgetLayout = new RemoteViews(context.getPackageName(), R.layout.widget_medium);
         int playPauseRes = isPlaying ? R.drawable.ic_pause_black_36dp : R.drawable.ic_play_arrow_black_36dp;
@@ -53,7 +55,7 @@ public class WidgetMedium extends AppWidgetProvider {
         updateWidgets(context);
     }
 
-    private static void updateWidgets(final Context context) {
+    private static void updateWidgets(@NonNull final Context context) {
         AppWidgetManager man = AppWidgetManager.getInstance(context);
         int[] ids = man.getAppWidgetIds(
                 new ComponentName(context, WidgetMedium.class));
@@ -62,12 +64,12 @@ public class WidgetMedium extends AppWidgetProvider {
         }
     }
 
-    private static void loadAlbumArt(final Context context, final Song song) {
+    private static void loadAlbumArt(@NonNull final Context context, @Nullable final Song song) {
         if (song != null) {
             currentAlbumArtUri = MusicUtil.getSongImageLoaderString(song);
             ImageLoader.getInstance().displayImage(currentAlbumArtUri, new NonViewAware(new ImageSize(-1, -1), ViewScaleType.CROP), new SimpleImageLoadingListener() {
                 @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
                     if (currentAlbumArtUri.equals(imageUri)) {
                         if (loadedImage != null) {
                             // The RemoteViews might wants to recycle the bitmaps thrown at it, so we need
@@ -94,7 +96,7 @@ public class WidgetMedium extends AppWidgetProvider {
         }
     }
 
-    private static void setAlbumArt(final Context context, final Bitmap albumArt) {
+    private static void setAlbumArt(@NonNull final Context context, @Nullable final Bitmap albumArt) {
         if (albumArt != null) {
             widgetLayout.setImageViewBitmap(R.id.album_art, albumArt);
         } else {
@@ -103,7 +105,7 @@ public class WidgetMedium extends AppWidgetProvider {
         updateWidgets(context);
     }
 
-    private static void linkButtons(final Context context, final RemoteViews views) {
+    private static void linkButtons(@NonNull final Context context, @NonNull final RemoteViews views) {
         views.setOnClickPendingIntent(R.id.album_art, retrievePlaybackActions(context, 0));
         views.setOnClickPendingIntent(R.id.media_titles, retrievePlaybackActions(context, 0));
         views.setOnClickPendingIntent(R.id.button_toggle_play_pause, retrievePlaybackActions(context, 1));
@@ -111,7 +113,7 @@ public class WidgetMedium extends AppWidgetProvider {
         views.setOnClickPendingIntent(R.id.button_prev, retrievePlaybackActions(context, 3));
     }
 
-    private static PendingIntent retrievePlaybackActions(final Context context, final int which) {
+    private static PendingIntent retrievePlaybackActions(@NonNull final Context context, final int which) {
         Intent action;
         PendingIntent pendingIntent;
         final ComponentName serviceName = new ComponentName(context, MusicService.class);

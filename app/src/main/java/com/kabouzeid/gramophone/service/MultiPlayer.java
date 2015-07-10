@@ -7,6 +7,8 @@ import android.media.audiofx.AudioEffect;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -22,9 +24,12 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
         MediaPlayer.OnCompletionListener {
     public static final String TAG = MultiPlayer.class.getSimpleName();
 
+    @NonNull
     private final WeakReference<MusicService> mService;
 
+    @Nullable
     private MediaPlayer mCurrentMediaPlayer = new MediaPlayer();
+    @Nullable
     private MediaPlayer mNextMediaPlayer;
 
     private Handler mHandler;
@@ -45,7 +50,7 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      * @return True if the <code>player</code> has been prepared and is
      * ready to play, false otherwise
      */
-    public boolean setDataSource(final String path) {
+    public boolean setDataSource(@NonNull final String path) {
         mIsInitialized = false;
         mIsInitialized = setDataSourceImpl(mCurrentMediaPlayer, path);
         if (mIsInitialized) {
@@ -61,7 +66,7 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      * @return True if the <code>player</code> has been prepared and is
      * ready to play, false otherwise
      */
-    private boolean setDataSourceImpl(final MediaPlayer player, final String path) {
+    private boolean setDataSourceImpl(@NonNull final MediaPlayer player, @NonNull final String path) {
         MusicService service = mService.get();
         if (service == null) {
             return false;
@@ -95,7 +100,7 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      * @param path The path of the file, or the http/rtsp URL of the stream
      *             you want to play
      */
-    public void setNextDataSource(final String path) {
+    public void setNextDataSource(@Nullable final String path) {
         MusicService service = mService.get();
         if (service == null) {
             return;
@@ -122,7 +127,7 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
             if (setDataSourceImpl(mNextMediaPlayer, path)) {
                 try {
                     mCurrentMediaPlayer.setNextMediaPlayer(mNextMediaPlayer);
-                } catch (IllegalArgumentException | IllegalStateException e) {
+                } catch (@NonNull IllegalArgumentException | IllegalStateException e) {
                     Log.e(TAG, "setNextDataSource: setNextMediaPlayer()", e);
                     if (mNextMediaPlayer != null) {
                         mNextMediaPlayer.release();
@@ -269,7 +274,7 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
         try {
             mCurrentMediaPlayer.setAudioSessionId(sessionId);
             return true;
-        } catch (IllegalArgumentException | IllegalStateException e) {
+        } catch (@NonNull IllegalArgumentException | IllegalStateException e) {
             return false;
         }
     }

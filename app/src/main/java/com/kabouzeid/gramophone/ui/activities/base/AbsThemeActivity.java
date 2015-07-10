@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.ui.activities.base;
 import android.app.ActivityManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -21,6 +22,7 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
     private int colorPrimaryDarker;
     private int colorAccent;
 
+    @Nullable
     private ActivityManager.TaskDescription taskDescription;
 
     @Override

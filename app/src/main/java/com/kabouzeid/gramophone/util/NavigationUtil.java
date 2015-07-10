@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.media.audiofx.AudioEffect;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
@@ -25,7 +27,7 @@ import com.kabouzeid.gramophone.ui.activities.PlaylistDetailActivity;
  */
 public class NavigationUtil {
 
-    public static void goToArtist(final Activity activity, final int artistId, final Pair[] sharedViews) {
+    public static void goToArtist(final Activity activity, final int artistId, @Nullable final Pair[] sharedViews) {
         if (activity instanceof ArtistDetailActivity)
             return;
         if ((activity instanceof KabViewsDisableAble && ((KabViewsDisableAble) activity).areViewsEnabled()) || !(activity instanceof KabViewsDisableAble)) {
@@ -44,7 +46,7 @@ public class NavigationUtil {
         }
     }
 
-    public static void goToAlbum(final Activity activity, final int albumId, final Pair[] sharedViews) {
+    public static void goToAlbum(final Activity activity, final int albumId, @Nullable final Pair[] sharedViews) {
         if (activity instanceof AlbumDetailActivity)
             return;
         if ((activity instanceof KabViewsDisableAble && ((KabViewsDisableAble) activity).areViewsEnabled()) || !(activity instanceof KabViewsDisableAble)) {
@@ -63,7 +65,7 @@ public class NavigationUtil {
         }
     }
 
-    public static void goToPlaylist(final Activity activity, final Playlist playlist, final Pair[] sharedViews) {
+    public static void goToPlaylist(final Activity activity, final Playlist playlist, @Nullable final Pair[] sharedViews) {
         if ((activity instanceof KabViewsDisableAble && ((KabViewsDisableAble) activity).areViewsEnabled()) || !(activity instanceof KabViewsDisableAble)) {
             if (activity instanceof KabViewsDisableAble)
                 ((KabViewsDisableAble) activity).disableViews();
@@ -83,7 +85,7 @@ public class NavigationUtil {
         }
     }
 
-    public static void openCurrentPlayingIfPossible(final Activity activity, final Pair[] sharedViews) {
+    public static void openCurrentPlayingIfPossible(final Activity activity, @Nullable final Pair[] sharedViews) {
         if (activity instanceof MusicControllerActivity) {
             activity.onBackPressed();
             return;
@@ -107,7 +109,7 @@ public class NavigationUtil {
         }
     }
 
-    public static void openPlayingQueueDialog(final AppCompatActivity activity) {
+    public static void openPlayingQueueDialog(@NonNull final AppCompatActivity activity) {
         PlayingQueueDialog dialog = PlayingQueueDialog.create();
         if (dialog != null) {
             dialog.show(activity.getSupportFragmentManager(), "PLAY_QUEUE");
@@ -116,7 +118,7 @@ public class NavigationUtil {
         }
     }
 
-    public static void openEqualizer(final Activity activity) {
+    public static void openEqualizer(@NonNull final Activity activity) {
         final int sessionId = MusicPlayerRemote.getAudioSessionId();
         if (sessionId == AudioEffect.ERROR_BAD_VALUE) {
             Toast.makeText(activity, activity.getResources().getString(R.string.no_audio_ID), Toast.LENGTH_LONG).show();
@@ -126,7 +128,7 @@ public class NavigationUtil {
                 effects.putExtra(AudioEffect.EXTRA_AUDIO_SESSION, sessionId);
                 effects.putExtra(AudioEffect.EXTRA_CONTENT_TYPE, AudioEffect.CONTENT_TYPE_MUSIC);
                 activity.startActivityForResult(effects, 0);
-            } catch (final ActivityNotFoundException notFound) {
+            } catch (@NonNull final ActivityNotFoundException notFound) {
                 Toast.makeText(activity, activity.getResources().getString(R.string.no_equalizer), Toast.LENGTH_SHORT).show();
             }
         }

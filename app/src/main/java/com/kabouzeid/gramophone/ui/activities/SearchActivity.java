@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -74,6 +75,7 @@ public class SearchActivity extends AbsBaseActivity {
         setStatusBarThemeColor();
     }
 
+    @NonNull
     @Override
     public String getTag() {
         return TAG;
@@ -92,7 +94,7 @@ public class SearchActivity extends AbsBaseActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
 
         final MenuItem search = menu.findItem(R.id.action_search);
@@ -111,7 +113,7 @@ public class SearchActivity extends AbsBaseActivity {
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(@NonNull String query) {
                 onQueryTextChange(query);
                 Util.hideSoftKeyboard(SearchActivity.this);
                 searchView.clearFocus();
@@ -119,7 +121,7 @@ public class SearchActivity extends AbsBaseActivity {
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
+            public boolean onQueryTextChange(@NonNull String newText) {
                 search(newText);
                 return false;
             }
@@ -142,7 +144,7 @@ public class SearchActivity extends AbsBaseActivity {
         return true;
     }
 
-    private void search(String query) {
+    private void search(@NonNull String query) {
         if (searchAdapter != null) {
             searchAdapter.search(query);
             empty.setVisibility(searchAdapter.getItemCount() < 1 ? View.VISIBLE : View.GONE);

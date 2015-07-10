@@ -13,6 +13,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.graphics.Palette;
 import android.view.View;
@@ -38,9 +40,12 @@ public class PlayingNotificationHelper {
     public static final String ACTION_NOTIFICATION_COLOR_PREFERENCE_CHANGED = "com.kabouzeid.gramophone.NOTIFICATION_COLOR_PREFERENCE_CHANGED";
     public static final String EXTRA_NOTIFICATION_COLORED = "com.kabouzeid.gramophone.EXTRA_NOTIFICATION_COLORED";
 
+    @NonNull
     private final MusicService service;
 
+    @NonNull
     private final NotificationManager notificationManager;
+    @Nullable
     private Notification notification = null;
 
     private RemoteViews notificationLayout;
@@ -54,9 +59,10 @@ public class PlayingNotificationHelper {
     private boolean isReceiverRegistered;
     private boolean isNotificationShown;
 
+    @NonNull
     final IntentFilter intentFilter;
 
-    public PlayingNotificationHelper(final MusicService service) {
+    public PlayingNotificationHelper(@NonNull final MusicService service) {
         this.service = service;
         notificationManager = (NotificationManager) service
                 .getSystemService(Context.NOTIFICATION_SERVICE);
@@ -65,9 +71,10 @@ public class PlayingNotificationHelper {
         intentFilter.addAction(ACTION_NOTIFICATION_COLOR_PREFERENCE_CHANGED);
     }
 
+    @NonNull
     private BroadcastReceiver notificationColorPreferenceChangedReceiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(Context context, @NonNull Intent intent) {
             if (intent.getAction().equals(ACTION_NOTIFICATION_COLOR_PREFERENCE_CHANGED)) {
                 boolean isColored = intent.getBooleanExtra(EXTRA_NOTIFICATION_COLORED, false);
                 if (isNotificationShown && PlayingNotificationHelper.this.isColored != isColored) {
@@ -219,7 +226,7 @@ public class PlayingNotificationHelper {
         });
     }
 
-    private void setAlbumArt(Bitmap albumArt) {
+    private void setAlbumArt(@Nullable Bitmap albumArt) {
         if (albumArt != null) {
             notificationLayout.setImageViewBitmap(R.id.icon, albumArt);
             notificationLayoutExpanded.setImageViewBitmap(R.id.icon, albumArt);

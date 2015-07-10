@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -23,6 +24,7 @@ public class AlbumViewFragment extends AbsMainActivityRecyclerViewFragment {
         return layoutManager;
     }
 
+    @NonNull
     @Override
     protected RecyclerView.Adapter createAdapter() {
         return new AlbumAdapter(getMainActivity(), getMainActivity());

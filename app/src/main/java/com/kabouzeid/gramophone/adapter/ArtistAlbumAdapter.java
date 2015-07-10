@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
@@ -38,11 +39,12 @@ public class ArtistAlbumAdapter extends AbsMultiSelectAdapter<ArtistAlbumAdapter
     private static final int TYPE_MIDDLE = 2;
     private static final int TYPE_LAST = 3;
 
+    @NonNull
     private final AppCompatActivity activity;
     private ArrayList<Album> dataSet;
     private final int listMargin;
 
-    public ArtistAlbumAdapter(AppCompatActivity activity, ArrayList<Album> objects, @Nullable CabHolder cabHolder) {
+    public ArtistAlbumAdapter(@NonNull AppCompatActivity activity, ArrayList<Album> objects, @Nullable CabHolder cabHolder) {
         super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         dataSet = objects;
@@ -60,6 +62,7 @@ public class ArtistAlbumAdapter extends AbsMultiSelectAdapter<ArtistAlbumAdapter
         notifyDataSetChanged();
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(activity).inflate(R.layout.item_grid_artist_album, parent, false);
@@ -73,7 +76,7 @@ public class ArtistAlbumAdapter extends AbsMultiSelectAdapter<ArtistAlbumAdapter
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Album album = dataSet.get(position);
 
         ImageLoader.getInstance().displayImage(
@@ -111,7 +114,7 @@ public class ArtistAlbumAdapter extends AbsMultiSelectAdapter<ArtistAlbumAdapter
     }
 
     @Override
-    protected void onMultipleItemAction(MenuItem menuItem, ArrayList<Album> selection) {
+    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Album> selection) {
         switch (menuItem.getItemId()) {
             case R.id.action_delete_from_disk:
                 DeleteSongsDialog.create(getSongList(selection)).show(activity.getSupportFragmentManager(), "DELETE_SONGS");
@@ -125,7 +128,8 @@ public class ArtistAlbumAdapter extends AbsMultiSelectAdapter<ArtistAlbumAdapter
         }
     }
 
-    private ArrayList<Song> getSongList(List<Album> albums) {
+    @NonNull
+    private ArrayList<Song> getSongList(@NonNull List<Album> albums) {
         final ArrayList<Song> songs = new ArrayList<>();
         for (Album album : albums) {
             songs.addAll(AlbumSongLoader.getAlbumSongList(activity, album.id));
@@ -134,12 +138,16 @@ public class ArtistAlbumAdapter extends AbsMultiSelectAdapter<ArtistAlbumAdapter
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+        @NonNull
         final ImageView albumArt;
+        @NonNull
         final TextView title;
+        @NonNull
         final TextView year;
+        @NonNull
         final View view;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
             albumArt = (ImageView) itemView.findViewById(R.id.album_art);

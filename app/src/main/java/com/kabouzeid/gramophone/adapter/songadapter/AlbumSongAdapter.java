@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.adapter.songadapter;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -49,6 +50,7 @@ public class AlbumSongAdapter extends AbsMultiSelectAdapter<AlbumSongAdapter.Vie
         notifyDataSetChanged();
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(activity).inflate(R.layout.item_list_album_song, parent, false);
@@ -56,7 +58,7 @@ public class AlbumSongAdapter extends AbsMultiSelectAdapter<AlbumSongAdapter.Vie
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Song song = dataSet.get(position);
 
         final int trackNumber = MusicUtil.getFixedTrackNumber(song.trackNumber);
@@ -78,7 +80,7 @@ public class AlbumSongAdapter extends AbsMultiSelectAdapter<AlbumSongAdapter.Vie
     }
 
     @Override
-    protected void onMultipleItemAction(MenuItem menuItem, ArrayList<Song> selection) {
+    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Song> selection) {
         switch (menuItem.getItemId()) {
             case R.id.action_delete_from_disk:
                 DeleteSongsDialog.create(selection).show(activity.getSupportFragmentManager(), "DELETE_SONGS");
@@ -93,13 +95,18 @@ public class AlbumSongAdapter extends AbsMultiSelectAdapter<AlbumSongAdapter.Vie
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+        @NonNull
         final TextView songTitle;
+        @NonNull
         final TextView trackNumber;
+        @NonNull
         final TextView artistName;
+        @NonNull
         final ImageView overflowButton;
+        @NonNull
         final View view;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
             songTitle = (TextView) itemView.findViewById(R.id.song_title);
@@ -115,7 +122,7 @@ public class AlbumSongAdapter extends AbsMultiSelectAdapter<AlbumSongAdapter.Vie
                     popupMenu.inflate(R.menu.menu_item_song);
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
-                        public boolean onMenuItemClick(MenuItem item) {
+                        public boolean onMenuItemClick(@NonNull MenuItem item) {
                             return MenuItemClickHelper.handleSongMenuClick(activity, dataSet.get(getAdapterPosition()), item);
                         }
                     });

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.kabouzeid.gramophone.R;
 
@@ -49,15 +51,16 @@ public final class PreferenceUtils {
 
     private static PreferenceUtils sInstance;
 
+    @NonNull
     private final Context mContext;
     private final SharedPreferences mPreferences;
 
-    public PreferenceUtils(final Context context) {
+    public PreferenceUtils(@NonNull final Context context) {
         mContext = context;
         mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public static PreferenceUtils getInstance(final Context context) {
+    public static PreferenceUtils getInstance(@NonNull final Context context) {
         if (sInstance == null) {
             sInstance = new PreferenceUtils(context.getApplicationContext());
         }
@@ -204,29 +207,35 @@ public final class PreferenceUtils {
         return mPreferences.getBoolean(IGNORE_MEDIA_STORE_ARTWORK, false);
     }
 
+    @Nullable
     public final String getArtistSortOrder() {
         return mPreferences.getString(ARTIST_SORT_ORDER, SortOrder.ArtistSortOrder.ARTIST_A_Z);
     }
 
+    @Nullable
     public final String getArtistSongSortOrder() {
         return mPreferences.getString(ARTIST_SONG_SORT_ORDER,
                 SortOrder.ArtistSongSortOrder.SONG_A_Z);
     }
 
+    @Nullable
     public final String getArtistAlbumSortOrder() {
         return mPreferences.getString(ARTIST_ALBUM_SORT_ORDER,
                 SortOrder.ArtistAlbumSortOrder.ALBUM_YEAR_ASC);
     }
 
+    @Nullable
     public final String getAlbumSortOrder() {
         return mPreferences.getString(ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_A_Z);
     }
 
+    @Nullable
     public final String getAlbumSongSortOrder() {
         return mPreferences.getString(ALBUM_SONG_SORT_ORDER,
                 SortOrder.AlbumSongSortOrder.SONG_TRACK_LIST);
     }
 
+    @Nullable
     public final String getSongSortOrder() {
         return mPreferences.getString(SONG_SORT_ORDER, SortOrder.SongSortOrder.SONG_A_Z);
     }

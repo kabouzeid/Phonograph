@@ -3,6 +3,8 @@ package com.kabouzeid.gramophone.util;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.internal.view.menu.ListMenuItemView;
 import android.support.v7.internal.view.menu.MenuPopupHelper;
 import android.view.View;
@@ -26,7 +28,7 @@ import java.lang.reflect.Field;
 public class ViewUtil {
     public final static int DEFAULT_COLOR_ANIMATION_DURATION = 500;
 
-    public static void disableViews(ViewGroup layout) {
+    public static void disableViews(@NonNull ViewGroup layout) {
         for (int i = 0; i < layout.getChildCount(); i++) {
             View child = layout.getChildAt(i);
             if (child instanceof ViewGroup) {
@@ -37,7 +39,7 @@ public class ViewUtil {
         }
     }
 
-    public static void enableViews(ViewGroup layout) {
+    public static void enableViews(@NonNull ViewGroup layout) {
         for (int i = 0; i < layout.getChildCount(); i++) {
             View child = layout.getChildAt(i);
             if (child instanceof ViewGroup) {
@@ -48,7 +50,7 @@ public class ViewUtil {
         }
     }
 
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
+    public static void setListViewHeightBasedOnChildren(@NonNull ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null)
             return;
@@ -100,13 +102,13 @@ public class ViewUtil {
         animator.start();
     }
 
-    public static void setBackgroundAlpha(View view, float alpha, int baseColor) {
+    public static void setBackgroundAlpha(@NonNull View view, float alpha, int baseColor) {
         int a = Math.min(255, Math.max(0, (int) (alpha * 255))) << 24;
         int rgb = 0x00ffffff & baseColor;
         view.setBackgroundColor(a + rgb);
     }
 
-    public static void addOnGlobalLayoutListener(final View view, final Runnable runnable) {
+    public static void addOnGlobalLayoutListener(@NonNull final View view, @NonNull final Runnable runnable) {
         ViewTreeObserver vto = view.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -134,7 +136,7 @@ public class ViewUtil {
 //        }
 //    }
 
-    public static void setCheckBoxTintForMenu(MenuPopupHelper menuPopupHelper) {
+    public static void setCheckBoxTintForMenu(@Nullable MenuPopupHelper menuPopupHelper) {
         if (menuPopupHelper != null) {
             final ListView listView = menuPopupHelper.getPopup().getListView();
             listView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {

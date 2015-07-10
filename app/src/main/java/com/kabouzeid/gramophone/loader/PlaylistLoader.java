@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Audio.PlaylistsColumns;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.kabouzeid.gramophone.model.Playlist;
 
@@ -13,11 +15,13 @@ import java.util.List;
 
 public class PlaylistLoader {
 
-    public static List<Playlist> getAllPlaylists(final Context context) {
+    @NonNull
+    public static List<Playlist> getAllPlaylists(@NonNull final Context context) {
         return getAllPlaylists(makePlaylistCursor(context, null, null));
     }
 
-    public static Playlist getPlaylist(final Context context, final int playlistId) {
+    @NonNull
+    public static Playlist getPlaylist(@NonNull final Context context, final int playlistId) {
         return getPlaylist(makePlaylistCursor(
                 context,
                 BaseColumns._ID + "=?",
@@ -27,7 +31,8 @@ public class PlaylistLoader {
         ));
     }
 
-    public static Playlist getPlaylist(final Context context, final String playlistName) {
+    @NonNull
+    public static Playlist getPlaylist(@NonNull final Context context, final String playlistName) {
         return getPlaylist(makePlaylistCursor(
                 context,
                 PlaylistsColumns.NAME + "=?",
@@ -37,7 +42,8 @@ public class PlaylistLoader {
         ));
     }
 
-    public static Playlist getPlaylist(final Cursor cursor) {
+    @NonNull
+    public static Playlist getPlaylist(@Nullable final Cursor cursor) {
         Playlist playlist = new Playlist();
 
         if (cursor != null && cursor.moveToFirst()) {
@@ -48,7 +54,8 @@ public class PlaylistLoader {
         return playlist;
     }
 
-    public static List<Playlist> getAllPlaylists(final Cursor cursor) {
+    @NonNull
+    public static List<Playlist> getAllPlaylists(@Nullable final Cursor cursor) {
         List<Playlist> playlists = new ArrayList<>();
 
         if (cursor != null && cursor.moveToFirst()) {
@@ -61,13 +68,14 @@ public class PlaylistLoader {
         return playlists;
     }
 
-    private static Playlist getPlaylistFromCursorImpl(final Cursor cursor) {
+    @NonNull
+    private static Playlist getPlaylistFromCursorImpl(@NonNull final Cursor cursor) {
         final int id = cursor.getInt(0);
         final String name = cursor.getString(1);
         return new Playlist(id, name);
     }
 
-    public static Cursor makePlaylistCursor(final Context context, final String selection, final String[] values) {
+    public static Cursor makePlaylistCursor(@NonNull final Context context, final String selection, final String[] values) {
         return context.getContentResolver().query(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,
                 new String[]{
                         /* 0 */

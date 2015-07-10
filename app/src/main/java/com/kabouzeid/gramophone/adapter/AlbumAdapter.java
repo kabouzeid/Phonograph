@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.adapter;
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
@@ -54,10 +55,12 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     public static final String TAG = AlbumAdapter.class.getSimpleName();
     private static final int FADE_IN_TIME = 500;
 
+    @NonNull
     private final AppCompatActivity activity;
     private boolean usePalette;
     private List<Album> dataSet;
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(activity).inflate(R.layout.item_grid_album, parent, false);
@@ -65,7 +68,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Album album = dataSet.get(position);
 
         resetColors(holder.title, holder.artist, holder.footer);
@@ -114,7 +117,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     }
 
     @Override
-    protected void onMultipleItemAction(MenuItem menuItem, ArrayList<Album> selection) {
+    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Album> selection) {
         switch (menuItem.getItemId()) {
             case R.id.action_delete_from_disk:
                 DeleteSongsDialog.create(getSongList(selection)).show(activity.getSupportFragmentManager(), "DELETE_SONGS");
@@ -128,7 +131,8 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
         }
     }
 
-    private ArrayList<Song> getSongList(List<Album> albums) {
+    @NonNull
+    private ArrayList<Song> getSongList(@NonNull List<Album> albums) {
         final ArrayList<Song> songs = new ArrayList<>();
         for (Album album : albums) {
             songs.addAll(AlbumSongLoader.getAlbumSongList(activity, album.id));
@@ -137,14 +141,19 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+        @NonNull
         final ImageView albumArt;
+        @NonNull
         final TextView title;
+        @NonNull
         final TextView artist;
         final View footer;
+        @NonNull
         final ImageView checkMark;
+        @NonNull
         final View view;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
             albumArt = (ImageView) itemView.findViewById(R.id.album_art);
@@ -161,7 +170,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
 
                     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                     @Override
-                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                    public boolean onTouch(@NonNull View view, @NonNull MotionEvent motionEvent) {
                         ((FrameLayout) view.findViewById(R.id.content)).getForeground().setHotspot(motionEvent.getX(), motionEvent.getY());
                         return false;
                     }
@@ -191,7 +200,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
         }
     }
 
-    public AlbumAdapter(AppCompatActivity activity, @Nullable CabHolder cabHolder) {
+    public AlbumAdapter(@NonNull AppCompatActivity activity, @Nullable CabHolder cabHolder) {
         super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         usePalette = PreferenceUtils.getInstance(activity).coloredAlbumFooters();
@@ -208,13 +217,13 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
         dataSet = AlbumLoader.getAllAlbums(activity);
     }
 
-    private void applyPalette(Bitmap bitmap, final TextView title, final TextView artist, final View footer) {
+    private void applyPalette(@Nullable Bitmap bitmap, @NonNull final TextView title, @NonNull final TextView artist, @NonNull final View footer) {
         if (bitmap != null) {
             Palette.from(bitmap)
                     .resizeBitmapSize(100)
                     .generate(new Palette.PaletteAsyncListener() {
                         @Override
-                        public void onGenerated(Palette palette) {
+                        public void onGenerated(@NonNull Palette palette) {
                             final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
                             if (vibrantSwatch != null) {
                                 title.setTextColor(Util.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
@@ -230,14 +239,14 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
         }
     }
 
-    private void paletteBlackAndWhite(final TextView title, final TextView artist, final View footer) {
+    private void paletteBlackAndWhite(@NonNull final TextView title, @NonNull final TextView artist, final View footer) {
         title.setTextColor(Util.getOpaqueColor(DialogUtils.resolveColor(activity, R.attr.title_text_color)));
         artist.setTextColor(Util.getOpaqueColor(DialogUtils.resolveColor(activity, R.attr.caption_text_color)));
         int defaultBarColor = DialogUtils.resolveColor(activity, R.attr.default_bar_color);
         ViewUtil.animateViewColor(footer, defaultBarColor, defaultBarColor);
     }
 
-    private void resetColors(final TextView title, final TextView artist, final View footer) {
+    private void resetColors(@NonNull final TextView title, @NonNull final TextView artist, @NonNull final View footer) {
         title.setTextColor(DialogUtils.resolveColor(activity, R.attr.title_text_color));
         artist.setTextColor(DialogUtils.resolveColor(activity, R.attr.caption_text_color));
         int defaultBarColor = DialogUtils.resolveColor(activity, R.attr.default_bar_color);
@@ -257,7 +266,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     }
 
     @Subscribe
-    public void onDataBaseEvent(DataBaseChangedEvent event) {
+    public void onDataBaseEvent(@NonNull DataBaseChangedEvent event) {
         switch (event.getAction()) {
             case DataBaseChangedEvent.ALBUMS_CHANGED:
             case DataBaseChangedEvent.DATABASE_CHANGED:
@@ -268,7 +277,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     }
 
     @Subscribe
-    public void onUIChangeEvent(UIPreferenceChangedEvent event) {
+    public void onUIChangeEvent(@NonNull UIPreferenceChangedEvent event) {
         switch (event.getAction()) {
             case UIPreferenceChangedEvent.ALBUM_OVERVIEW_PALETTE_CHANGED:
                 usePalette = (boolean) event.getValue();

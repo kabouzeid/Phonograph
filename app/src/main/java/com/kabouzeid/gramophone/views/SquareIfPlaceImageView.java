@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.views;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,11 +16,11 @@ public class SquareIfPlaceImageView extends ImageView {
         super(context);
     }
 
-    public SquareIfPlaceImageView(Context context, AttributeSet attrs) {
+    public SquareIfPlaceImageView(@NonNull Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SquareIfPlaceImageView(Context context, AttributeSet attrs, int defStyle) {
+    public SquareIfPlaceImageView(@NonNull Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

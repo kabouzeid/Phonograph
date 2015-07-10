@@ -22,6 +22,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.provider.MediaStore.Audio.AudioColumns;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Song;
@@ -34,6 +36,7 @@ import java.util.ArrayList;
  *         This keeps track of the music playback and history state of the playback service
  */
 public class MusicPlaybackQueueStore extends SQLiteOpenHelper {
+    @Nullable
     private static MusicPlaybackQueueStore sInstance = null;
     public static final String DATABASE_NAME = "music_playback_state.db";
     public static final String PLAYING_QUEUE_TABLE_NAME = "playing_queue";
@@ -50,12 +53,12 @@ public class MusicPlaybackQueueStore extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(final SQLiteDatabase db) {
+    public void onCreate(@NonNull final SQLiteDatabase db) {
         createTable(db, PLAYING_QUEUE_TABLE_NAME);
         createTable(db, ORIGINAL_PLAYING_QUEUE_TABLE_NAME);
     }
 
-    private void createTable(final SQLiteDatabase db, final String tableName) {
+    private void createTable(@NonNull final SQLiteDatabase db, final String tableName) {
         //noinspection StringBufferReplaceableByString
         StringBuilder builder = new StringBuilder();
         builder.append("CREATE TABLE IF NOT EXISTS ");
@@ -93,7 +96,7 @@ public class MusicPlaybackQueueStore extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
+    public void onUpgrade(@NonNull final SQLiteDatabase db, final int oldVersion, final int newVersion) {
         // not necessary yet
         db.execSQL("DROP TABLE IF EXISTS " + PLAYING_QUEUE_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + ORIGINAL_PLAYING_QUEUE_TABLE_NAME);
@@ -101,7 +104,7 @@ public class MusicPlaybackQueueStore extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onDowngrade(@NonNull SQLiteDatabase db, int oldVersion, int newVersion) {
         // If we ever have downgrade, drop the table to be safe
         db.execSQL("DROP TABLE IF EXISTS " + PLAYING_QUEUE_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + ORIGINAL_PLAYING_QUEUE_TABLE_NAME);
@@ -112,14 +115,15 @@ public class MusicPlaybackQueueStore extends SQLiteOpenHelper {
      * @param context The {@link Context} to use
      * @return A new instance of this class.
      */
-    public static synchronized MusicPlaybackQueueStore getInstance(final Context context) {
+    @Nullable
+    public static synchronized MusicPlaybackQueueStore getInstance(@NonNull final Context context) {
         if (sInstance == null) {
             sInstance = new MusicPlaybackQueueStore(context.getApplicationContext());
         }
         return sInstance;
     }
 
-    public synchronized void saveQueues(final ArrayList<Song> playingQueue, final ArrayList<Song> originalPlayingQueue) {
+    public synchronized void saveQueues(@NonNull final ArrayList<Song> playingQueue, @NonNull final ArrayList<Song> originalPlayingQueue) {
         saveQueue(PLAYING_QUEUE_TABLE_NAME, playingQueue);
         saveQueue(ORIGINAL_PLAYING_QUEUE_TABLE_NAME, originalPlayingQueue);
     }
@@ -130,7 +134,7 @@ public class MusicPlaybackQueueStore extends SQLiteOpenHelper {
      *
      * @param queue the queue to save
      */
-    private synchronized void saveQueue(final String tableName, final ArrayList<Song> queue) {
+    private synchronized void saveQueue(final String tableName, @NonNull final ArrayList<Song> queue) {
         final SQLiteDatabase database = getWritableDatabase();
         database.beginTransaction();
 
@@ -170,15 +174,18 @@ public class MusicPlaybackQueueStore extends SQLiteOpenHelper {
         }
     }
 
+    @NonNull
     public ArrayList<Song> getSavedPlayingQueue() {
         return getQueue(PLAYING_QUEUE_TABLE_NAME);
     }
 
+    @NonNull
     public ArrayList<Song> getSavedOriginalPlayingQueue() {
         return getQueue(ORIGINAL_PLAYING_QUEUE_TABLE_NAME);
     }
 
-    private ArrayList<Song> getQueue(final String tableName) {
+    @NonNull
+    private ArrayList<Song> getQueue(@NonNull final String tableName) {
         Cursor cursor = getReadableDatabase().query(tableName, null,
                 null, null, null, null, null);
         return SongLoader.getSongs(cursor);

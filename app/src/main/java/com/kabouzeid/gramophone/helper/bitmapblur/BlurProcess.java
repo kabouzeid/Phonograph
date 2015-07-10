@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.helper.bitmapblur;
 
 import android.graphics.Bitmap;
+import android.support.annotation.Nullable;
 
 interface BlurProcess {
     /**
@@ -11,5 +12,6 @@ interface BlurProcess {
      * @param radius   the radius in pixels to blur the image
      * @return the blurred version of the image.
      */
+    @Nullable
     Bitmap blur(Bitmap original, float radius);
 }

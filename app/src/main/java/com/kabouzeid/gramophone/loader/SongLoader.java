@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Audio.AudioColumns;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
@@ -17,22 +19,26 @@ import java.util.ArrayList;
 public class SongLoader {
     protected static final String BASE_SELECTION = AudioColumns.IS_MUSIC + "=1" + " AND " + AudioColumns.TITLE + " != ''";
 
-    public static ArrayList<Song> getAllSongs(Context context) {
+    @NonNull
+    public static ArrayList<Song> getAllSongs(@NonNull Context context) {
         Cursor cursor = makeSongCursor(context, null, null);
         return getSongs(cursor);
     }
 
-    public static ArrayList<Song> getSongs(final Context context, final String query) {
+    @NonNull
+    public static ArrayList<Song> getSongs(@NonNull final Context context, final String query) {
         Cursor cursor = makeSongCursor(context, AudioColumns.TITLE + " LIKE ?", new String[]{"%" + query + "%"});
         return getSongs(cursor);
     }
 
-    public static Song getSong(final Context context, final int queryId) {
+    @NonNull
+    public static Song getSong(@NonNull final Context context, final int queryId) {
         Cursor cursor = makeSongCursor(context, AudioColumns._ID + "=?", new String[]{String.valueOf(queryId)});
         return getSong(cursor);
     }
 
-    public static ArrayList<Song> getSongs(final Cursor cursor) {
+    @NonNull
+    public static ArrayList<Song> getSongs(@Nullable final Cursor cursor) {
         ArrayList<Song> songs = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -45,7 +51,8 @@ public class SongLoader {
         return songs;
     }
 
-    public static Song getSong(Cursor cursor) {
+    @NonNull
+    public static Song getSong(@Nullable Cursor cursor) {
         Song song = new Song();
         if (cursor != null && cursor.moveToFirst()) {
             song = getSongFromCursorImpl(cursor);
@@ -56,7 +63,8 @@ public class SongLoader {
         return song;
     }
 
-    private static Song getSongFromCursorImpl(Cursor cursor) {
+    @NonNull
+    private static Song getSongFromCursorImpl(@NonNull Cursor cursor) {
         final int id = cursor.getInt(0);
         final String songName = cursor.getString(1);
         final String artist = cursor.getString(2);
@@ -69,11 +77,11 @@ public class SongLoader {
         return new Song(id, albumId, artistId, songName, artist, album, duration, trackNumber, data);
     }
 
-    public static Cursor makeSongCursor(final Context context, final String selection, final String[] values) {
+    public static Cursor makeSongCursor(@NonNull final Context context, final String selection, final String[] values) {
         return makeSongCursor(context, selection, values, PreferenceUtils.getInstance(context).getSongSortOrder());
     }
 
-    public static Cursor makeSongCursor(final Context context, final String selection, final String[] values, final String sortOrder) {
+    public static Cursor makeSongCursor(@NonNull final Context context, @Nullable final String selection, final String[] values, final String sortOrder) {
         String baseSelection = BASE_SELECTION;
         if (selection != null && !selection.trim().equals("")) {
             baseSelection += " AND " + selection;

@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.ui.activities.tageditor;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -45,6 +46,7 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
         setUpViews();
     }
 
+    @NonNull
     @Override
     public String getTag() {
         return TAG;
@@ -106,6 +108,7 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
         return R.layout.activity_song_tag_editor;
     }
 
+    @NonNull
     @Override
     protected List<String> getSongPaths() {
         ArrayList<String> paths = new ArrayList<>(1);

@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -25,17 +26,17 @@ public class DynamicSwitch extends SwitchCompat {
     static final int[] CHECKED_STATE_SET = new int[]{android.R.attr.state_checked};
     static final int[] EMPTY_STATE_SET = new int[0];
 
-    public DynamicSwitch(Context context) {
+    public DynamicSwitch(@NonNull Context context) {
         super(context);
         init();
     }
 
-    public DynamicSwitch(Context context, AttributeSet attrs) {
+    public DynamicSwitch(@NonNull Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public DynamicSwitch(Context context, AttributeSet attrs, int defStyleAttr) {
+    public DynamicSwitch(@NonNull Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -45,7 +46,7 @@ public class DynamicSwitch extends SwitchCompat {
         setTint(this, color);
     }
 
-    public static void setTint(SwitchCompat switchCompat, int color) {
+    public static void setTint(@NonNull SwitchCompat switchCompat, int color) {
         ColorStateList trackColorSl = createSwitchTrackColorStateList(switchCompat.getContext(), color);
         ColorStateList thumbColorSl = createSwitchThumbColorStateList(switchCompat.getContext(), color);
 
@@ -59,7 +60,8 @@ public class DynamicSwitch extends SwitchCompat {
         switchCompat.setTrackDrawable(trackDrawable);
     }
 
-    private static ColorStateList createSwitchTrackColorStateList(Context context, int colorActivated) {
+    @NonNull
+    private static ColorStateList createSwitchTrackColorStateList(@NonNull Context context, int colorActivated) {
         final int[][] states = new int[3][];
         final int[] colors = new int[3];
         int i = 0;
@@ -80,7 +82,8 @@ public class DynamicSwitch extends SwitchCompat {
         return new ColorStateList(states, colors);
     }
 
-    private static ColorStateList createSwitchThumbColorStateList(Context context, int colorActivated) {
+    @NonNull
+    private static ColorStateList createSwitchThumbColorStateList(@NonNull Context context, int colorActivated) {
         final int[][] states = new int[3][];
         final int[] colors = new int[3];
         int i = 0;

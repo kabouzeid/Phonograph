@@ -1,5 +1,7 @@
 package com.kabouzeid.gramophone.adapter;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -48,18 +50,21 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     private static final int ARTIST = 2;
     private static final int SONG = 3;
 
+    @NonNull
     private final AppCompatActivity activity;
+    @NonNull
     private List results = Collections.emptyList();
     private String query;
+    @NonNull
     private final LastFMRestClient lastFMRestClient;
 
-    public SearchAdapter(AppCompatActivity activity) {
+    public SearchAdapter(@NonNull AppCompatActivity activity) {
         this.activity = activity;
         lastFMRestClient = new LastFMRestClient(activity);
     }
 
     @SuppressWarnings("unchecked")
-    public void search(String query) {
+    public void search(@NonNull String query) {
         this.query = query;
         results = new ArrayList();
         if (!query.trim().equals("")) {
@@ -92,6 +97,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         return HEADER;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == ALBUM)
@@ -104,7 +110,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case ALBUM:
                 final Album album = (Album) results.get(position);
@@ -130,7 +136,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 }
                 lastFMRestClient.getApiService().getArtistInfo(artist.name, null, new Callback<ArtistInfo>() {
                     @Override
-                    public void success(ArtistInfo artistInfo, Response response) {
+                    public void success(@NonNull ArtistInfo artistInfo, Response response) {
                         if (artistInfo.getArtist() != null) {
                             int thumbnailIndex = 0;
                             List<Image> images = artistInfo.getArtist().getImage();
@@ -177,12 +183,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        @Nullable
         private final ImageView image;
+        @NonNull
         public final TextView title;
+        @Nullable
         public final TextView subTitle;
         private final int viewType;
 
-        public ViewHolder(View itemView, int viewType) {
+        public ViewHolder(@NonNull View itemView, int viewType) {
             super(itemView);
             itemView.setOnClickListener(this);
             this.viewType = viewType;
@@ -208,7 +217,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                             popupMenu.inflate(R.menu.menu_item_song);
                             popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                                 @Override
-                                public boolean onMenuItemClick(MenuItem menuItem) {
+                                public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
                                     return MenuItemClickHelper.handleSongMenuClick(activity, (Song) results.get(getAdapterPosition()), menuItem);
                                 }
                             });
@@ -269,7 +278,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     }
 
     @Subscribe
-    public void onDataBaseEvent(DataBaseChangedEvent event) {
+    public void onDataBaseEvent(@NonNull DataBaseChangedEvent event) {
         switch (event.getAction()) {
             case DataBaseChangedEvent.ALBUMS_CHANGED:
             case DataBaseChangedEvent.DATABASE_CHANGED:

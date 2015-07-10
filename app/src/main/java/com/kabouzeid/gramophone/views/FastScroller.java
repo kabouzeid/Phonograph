@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.InsetDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -36,19 +37,20 @@ public class FastScroller extends FrameLayout {
     private boolean isHidden;
     private int hideTranslationX;
 
+    @Nullable
     private ViewPropertyAnimator currentAnimator = null;
 
-    public FastScroller(Context context, AttributeSet attrs) {
+    public FastScroller(@NonNull Context context, AttributeSet attrs) {
         super(context, attrs);
         initialise(context);
     }
 
-    public FastScroller(Context context, AttributeSet attrs, int defStyleAttr) {
+    public FastScroller(@NonNull Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initialise(context);
     }
 
-    private void initialise(Context context) {
+    private void initialise(@NonNull Context context) {
         hideTranslationX = getContext().getResources().getDimensionPixelSize(R.dimen.scrollbar_width) * (Util.isRTL(context) ? -1 : 1);
         setClipChildren(false);
         inflate(context, R.layout.vertical_recycler_fast_scroller_layout, this);
@@ -76,7 +78,7 @@ public class FastScroller extends FrameLayout {
         return super.onTouchEvent(event);
     }
 
-    public void setRecyclerView(RecyclerView recyclerView) {
+    public void setRecyclerView(@NonNull RecyclerView recyclerView) {
         this.recyclerView = recyclerView;
         recyclerView.addOnScrollListener(scrollListener);
     }

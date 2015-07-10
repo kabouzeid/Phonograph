@@ -3,6 +3,8 @@ package com.kabouzeid.gramophone.ui.activities.base;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.util.Pair;
 import android.util.Log;
@@ -30,6 +32,7 @@ import butterknife.Optional;
 public abstract class AbsFabActivity extends AbsPlaybackControlActivity {
     public static final String TAG = AbsFabActivity.class.getSimpleName();
 
+    @Nullable
     @Optional
     @InjectView(R.id.fab)
     FloatingActionButton fab;
@@ -83,7 +86,7 @@ public abstract class AbsFabActivity extends AbsPlaybackControlActivity {
 
         getFab().setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent event) {
+            public boolean onTouch(View view, @NonNull MotionEvent event) {
                 gestureDetector.onTouchEvent(event);
                 return false;
             }
@@ -119,6 +122,7 @@ public abstract class AbsFabActivity extends AbsPlaybackControlActivity {
         }
     }
 
+    @Nullable
     protected FloatingActionButton getFab() {
         if (fab == null) {
             fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -136,7 +140,7 @@ public abstract class AbsFabActivity extends AbsPlaybackControlActivity {
         updateFabState();
     }
 
-    public Pair[] getSharedViewsWithFab(Pair[] sharedViews) {
+    public Pair[] getSharedViewsWithFab(@Nullable Pair[] sharedViews) {
         Pair[] sharedViewsWithFab;
         if (sharedViews != null) {
             sharedViewsWithFab = new Pair[sharedViews.length + 1];

@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -25,13 +26,15 @@ public class PagerAdapter extends FragmentPagerAdapter {
 
     private final List<Holder> mHolderList = new ArrayList<>();
 
+    @NonNull
     private final Context mContext;
 
     private int mCurrentPage;
 
+    @NonNull
     private final String[] titles;
 
-    public PagerAdapter(final Context context, final FragmentManager fragmentManager) {
+    public PagerAdapter(@NonNull final Context context, final FragmentManager fragmentManager) {
         super(fragmentManager);
         mContext = context;
         titles = new String[]{
@@ -43,7 +46,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
     }
 
     @SuppressWarnings("synthetic-access")
-    public void add(final Class<? extends Fragment> className, final Bundle params) {
+    public void add(@NonNull final Class<? extends Fragment> className, final Bundle params) {
         final Holder mHolder = new Holder();
         mHolder.mClassName = className.getName();
         mHolder.mParams = params;
@@ -61,8 +64,9 @@ public class PagerAdapter extends FragmentPagerAdapter {
         return getItem(position);
     }
 
+    @NonNull
     @Override
-    public Object instantiateItem(final ViewGroup container, final int position) {
+    public Object instantiateItem(@NonNull final ViewGroup container, final int position) {
         final Fragment mFragment = (Fragment) super.instantiateItem(container, position);
         final WeakReference<Fragment> mWeakFragment = mFragmentArray.get(position);
         if (mWeakFragment != null) {
@@ -93,6 +97,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
         return mHolderList.size();
     }
 
+    @NonNull
     @Override
     public CharSequence getPageTitle(final int position) {
         return titles[position]

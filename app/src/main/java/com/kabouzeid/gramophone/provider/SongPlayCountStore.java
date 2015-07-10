@@ -21,6 +21,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
 
@@ -29,12 +31,14 @@ import android.view.animation.Interpolator;
  * the top played tracks as well as the playlist images
  */
 public class SongPlayCountStore extends SQLiteOpenHelper {
+    @Nullable
     private static SongPlayCountStore sInstance = null;
 
     public static final String DATABASE_NAME = "song_play_count.db";
     private static final int VERSION = 1;
 
     // interpolator curve applied for measuring the curve
+    @NonNull
     private static Interpolator sInterpolator = new AccelerateInterpolator(1.5f);
 
     // how many weeks worth of playback to track
@@ -51,6 +55,7 @@ public class SongPlayCountStore extends SQLiteOpenHelper {
     @SuppressWarnings("FieldCanBeLocal")
     private static int ONE_WEEK_IN_MS = 1000 * 60 * 60 * 24 * 7;
 
+    @NonNull
     private static String WHERE_ID_EQUALS = SongPlayCountColumns.ID + "=?";
 
     // number of weeks since epoch time
@@ -69,7 +74,7 @@ public class SongPlayCountStore extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(final SQLiteDatabase db) {
+    public void onCreate(@NonNull final SQLiteDatabase db) {
         // create the play count table
         // WARNING: If you change the order of these columns
         // please update getColumnIndexForWeek
@@ -95,13 +100,13 @@ public class SongPlayCountStore extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
+    public void onUpgrade(@NonNull final SQLiteDatabase db, final int oldVersion, final int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + SongPlayCountColumns.NAME);
         onCreate(db);
     }
 
     @Override
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onDowngrade(@NonNull SQLiteDatabase db, int oldVersion, int newVersion) {
         // If we ever have downgrade, drop the table to be safe
         db.execSQL("DROP TABLE IF EXISTS " + SongPlayCountColumns.NAME);
         onCreate(db);
@@ -111,7 +116,8 @@ public class SongPlayCountStore extends SQLiteOpenHelper {
      * @param context The {@link Context} to use
      * @return A new instance of this class.
      */
-    public static synchronized SongPlayCountStore getInstance(final Context context) {
+    @Nullable
+    public static synchronized SongPlayCountStore getInstance(@NonNull final Context context) {
         if (sInstance == null) {
             sInstance = new SongPlayCountStore(context.getApplicationContext());
         }
@@ -138,7 +144,7 @@ public class SongPlayCountStore extends SQLiteOpenHelper {
      * @param database a write able database
      * @param songId   the id of the track
      */
-    private void createNewPlayedEntry(final SQLiteDatabase database, final long songId) {
+    private void createNewPlayedEntry(@NonNull final SQLiteDatabase database, final long songId) {
         // no row exists, create a new one
         float newScore = getScoreMultiplierForWeek(0);
         int newPlayCount = 1;
@@ -160,7 +166,7 @@ public class SongPlayCountStore extends SQLiteOpenHelper {
      * @param id        the id of the track to bump
      * @param bumpCount whether to bump the current's week play count by 1 and adjust the score
      */
-    private void updateExistingRow(final SQLiteDatabase database, final long id, boolean bumpCount) {
+    private void updateExistingRow(@NonNull final SQLiteDatabase database, final long id, boolean bumpCount) {
         String stringId = String.valueOf(id);
 
         // begin the transaction
@@ -329,7 +335,7 @@ public class SongPlayCountStore extends SQLiteOpenHelper {
      * @param database database to use
      * @param stringId id to delete
      */
-    private void deleteEntry(final SQLiteDatabase database, final String stringId) {
+    private void deleteEntry(@NonNull final SQLiteDatabase database, final String stringId) {
         database.delete(SongPlayCountColumns.NAME, WHERE_ID_EQUALS, new String[]{stringId});
     }
 
@@ -340,7 +346,7 @@ public class SongPlayCountStore extends SQLiteOpenHelper {
      *                   where playCounts[N] is the # of times it was played N weeks ago
      * @return the score
      */
-    private static float calculateScore(final int[] playCounts) {
+    private static float calculateScore(@Nullable final int[] playCounts) {
         if (playCounts == null) {
             return 0;
         }
@@ -359,6 +365,7 @@ public class SongPlayCountStore extends SQLiteOpenHelper {
      * @param week number
      * @return the column name
      */
+    @NonNull
     private static String getColumnNameForWeek(final int week) {
         return SongPlayCountColumns.WEEK_PLAY_COUNT + String.valueOf(week);
     }

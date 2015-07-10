@@ -15,15 +15,15 @@ public class ColorChooserPreference extends Preference {
     private int color;
     private int border;
 
-    public ColorChooserPreference(Context context, AttributeSet attrs) {
+    public ColorChooserPreference(@NonNull Context context, @NonNull AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public ColorChooserPreference(Context context) {
+    public ColorChooserPreference(@NonNull Context context) {
         this(context, null, 0);
     }
 
-    public ColorChooserPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ColorChooserPreference(@NonNull Context context, @NonNull AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setLayoutResource(R.layout.preference_custom);
         setWidgetLayoutResource(R.layout.preference_color_widget);

@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.media.audiofx.AudioEffect;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
@@ -26,11 +28,12 @@ public class MusicPlayerRemote {
 
     public static final String TAG = MusicPlayerRemote.class.getSimpleName();
 
+    @Nullable
     public static MusicService musicService;
 
     private static final WeakHashMap<Context, ServiceBinder> mConnectionMap = new WeakHashMap<>();
 
-    public static ServiceToken bindToService(final Context context,
+    public static ServiceToken bindToService(@NonNull final Context context,
                                              final ServiceConnection callback) {
         Activity realActivity = ((Activity) context).getParent();
         if (realActivity == null) {
@@ -49,7 +52,7 @@ public class MusicPlayerRemote {
         return null;
     }
 
-    public static void unbindFromService(final ServiceToken token) {
+    public static void unbindFromService(@Nullable final ServiceToken token) {
         if (token == null) {
             return;
         }
@@ -161,6 +164,7 @@ public class MusicPlayerRemote {
         return -1;
     }
 
+    @Nullable
     public static ArrayList<Song> getPlayingQueue() {
         if (musicService != null) {
             return musicService.getPlayingQueue();
@@ -226,11 +230,11 @@ public class MusicPlayerRemote {
         return false;
     }
 
-    public static boolean shuffleAllSongs(final Context context, boolean startPlaying) {
+    public static boolean shuffleAllSongs(@NonNull final Context context, boolean startPlaying) {
         return openAndShuffleQueue(context, SongLoader.getAllSongs(context), startPlaying);
     }
 
-    public static boolean openAndShuffleQueue(final Context context, final ArrayList<Song> songs, boolean startPlaying) {
+    public static boolean openAndShuffleQueue(final Context context, @NonNull final ArrayList<Song> songs, boolean startPlaying) {
         if (musicService != null) {
             if (!songs.isEmpty()) {
                 MusicPlayerRemote.openQueue(songs, new Random().nextInt(songs.size()), startPlaying);
@@ -259,7 +263,7 @@ public class MusicPlayerRemote {
         return false;
     }
 
-    public static boolean enqueue(ArrayList<Song> songs) {
+    public static boolean enqueue(@NonNull ArrayList<Song> songs) {
         if (musicService != null) {
             musicService.addSongs(songs);
             final String toast = songs.size() == 1 ? musicService.getResources().getString(R.string.added_title_to_playing_queue) : musicService.getResources().getString(R.string.added_x_titles_to_playing_queue, songs.size());
@@ -269,7 +273,7 @@ public class MusicPlayerRemote {
         return false;
     }
 
-    public static boolean removeFromQueue(Song song) {
+    public static boolean removeFromQueue(@NonNull Song song) {
         if (musicService != null) {
             musicService.removeSong(song);
             return true;
