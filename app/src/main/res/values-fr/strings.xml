@@ -171,4 +171,9 @@
     <string name="download_from_last_fm">Télécharger depuis Last.fm</string>
     <string name="pick_from_local_storage">Sélectionner sur l\'appareil</string>
     <string name="web_search">Recherche Internet</string>
+    <string name="action_sleep_timer">Minuteur sommeil</string>
+    <string name="action_set">Régler</string>
+    <string name="cancel_current_timer">Annuler le minuteur actuel</string>
+    <string name="sleep_timer_canceled">Le minuteur actuel a été annulé</string>
+    <string name="sleep_timer_set">Arrêt de la musique dans %d minutes</string>
 </resources>

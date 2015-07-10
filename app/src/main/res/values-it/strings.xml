@@ -172,4 +172,8 @@
     <string name="pick_from_local_storage">Scegli da archiviazione locale</string>
     <string name="web_search">Cerca sul web</string>
     <string name="action_sleep_timer">Timer di spegnimento</string>
+    <string name="action_set">Imposta</string>
+    <string name="cancel_current_timer">Annulla timer attuale</string>
+    <string name="sleep_timer_canceled">Il timer di spegnimento è stato annullato</string>
+    <string name="sleep_timer_set">Timer di spegnimento impostato a %d minuti da adesso</string>
 </resources>
