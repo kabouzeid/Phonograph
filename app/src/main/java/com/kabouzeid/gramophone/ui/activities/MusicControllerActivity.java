@@ -5,7 +5,6 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
@@ -44,6 +43,7 @@ import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
 import com.kabouzeid.gramophone.dialogs.SongShareDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.bitmapblur.StackBlurManager;
+import com.kabouzeid.gramophone.imageloader.BlurProcessor;
 import com.kabouzeid.gramophone.misc.SmallTransitionListener;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
@@ -66,6 +66,7 @@ import java.lang.ref.WeakReference;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import hugo.weaving.DebugLog;
 
 public class MusicControllerActivity extends AbsFabActivity {
 
@@ -433,23 +434,30 @@ public class MusicControllerActivity extends AbsFabActivity {
                         .showImageOnFail(R.drawable.default_album_art)
                         .build(),
                 new SimpleImageLoadingListener() {
+                    @DebugLog
                     @Override
-                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
                         applyPalette(null);
-                        // to gain some performance cache the blurred bitmap
-                        if (defaultAlbumArtStackBlurManager == null) {
-                            BitmapFactory.Options options = new BitmapFactory.Options();
-                            options.inSampleSize = 2;
-                            defaultAlbumArtStackBlurManager = new StackBlurManager(BitmapFactory.decodeResource(getResources(), R.drawable.default_album_art, options));
-                            defaultAlbumArtStackBlurManager.process(10);
-                        }
-                        albumArtBackground.setImageBitmap(defaultAlbumArtStackBlurManager.returnBlurredImage());
+                        ImageLoader.getInstance().displayImage(
+                                "drawable://" + R.drawable.default_album_art,
+                                albumArtBackground,
+                                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor(10)).build()
+                        );
                     }
 
+                    @DebugLog
                     @Override
-                    public void onLoadingComplete(String imageUri, View view, @NonNull Bitmap loadedImage) {
+                    public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
+                        if (loadedImage == null) {
+                            onLoadingFailed(imageUri, view, null);
+                            return;
+                        }
                         applyPalette(loadedImage);
-                        albumArtBackground.setImageBitmap(new StackBlurManager(loadedImage).process(10));
+                        ImageLoader.getInstance().displayImage(
+                                imageUri,
+                                albumArtBackground,
+                                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor(10)).build()
+                        );
                     }
                 }
         );

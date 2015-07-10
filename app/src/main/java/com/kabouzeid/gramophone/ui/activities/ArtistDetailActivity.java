@@ -38,6 +38,7 @@ import com.kabouzeid.gramophone.adapter.songadapter.ArtistSongAdapter;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.bitmapblur.StackBlurManager;
+import com.kabouzeid.gramophone.imageloader.BlurProcessor;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
@@ -71,6 +72,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import hugo.weaving.DebugLog;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -333,20 +335,28 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                                     .resetViewBeforeLoading(true)
                                     .build(),
                             new SimpleImageLoadingListener() {
+                                @DebugLog
                                 @Override
-                                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                                public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
                                     resetPaletteAndArtistImageBackground();
                                     toastUpdatedArtistImageIfDownloadWasForced();
                                 }
 
+                                @DebugLog
                                 @Override
                                 public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
-                                    if (loadedImage != null) {
-                                        applyPalette(loadedImage);
-                                        artistImageBackground.setImageBitmap(new StackBlurManager(loadedImage).process(10));
-                                    } else {
-                                        resetPaletteAndArtistImageBackground();
+                                    if (loadedImage == null) {
+                                        onLoadingFailed(imageUri, view, null);
+                                        return;
                                     }
+                                    applyPalette(loadedImage);
+
+                                    ImageLoader.getInstance().displayImage(
+                                            imageUri,
+                                            artistImageBackground,
+                                            new DisplayImageOptions.Builder().postProcessor(new BlurProcessor(10)).build()
+                                    );
+
                                     toastUpdatedArtistImageIfDownloadWasForced();
                                 }
 
@@ -374,7 +384,11 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
 
     private void resetPaletteAndArtistImageBackground() {
         applyPalette(null);
-        artistImageBackground.setImageBitmap(defaultArtistImageBlurManager.process(10));
+        ImageLoader.getInstance().displayImage(
+                "drawable://" + R.drawable.default_artist_image,
+                artistImageBackground,
+                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor(10)).build()
+        );
     }
 
     private void applyPalette(@Nullable Bitmap bitmap) {
