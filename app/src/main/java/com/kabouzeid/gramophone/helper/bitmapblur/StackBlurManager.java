@@ -43,19 +43,19 @@ public class StackBlurManager {
     /**
      * Resized original image
      */
-    private final Bitmap _image;
+    private final Bitmap image;
 
     /**
      * Most recent result of blurring
      */
     @Nullable
-    private Bitmap _result;
+    private Bitmap result;
 
     /**
      * Method of blurring
      */
     @NonNull
-    private final BlurProcess _blurProcess;
+    private final BlurProcess blurProcess;
 
     /**
      * Constructor method (basic initialization and construction of the pixel array)
@@ -63,19 +63,20 @@ public class StackBlurManager {
      * @param image The image that will be analysed
      */
     public StackBlurManager(@NonNull Bitmap image) {
-        _image = Util.getResizedBitmap(image, 500, 500, false);
-        _blurProcess = new JavaBlurProcess();
+        // resize Bitmap to prevent OOM and OOB exceptions and increase the performance
+        this.image = Util.getResizedBitmap(image, 500, 500, false);
+        blurProcess = new JavaBlurProcess();
     }
 
     /**
      * Process the image on the given radius. Radius must be at least 1
      *
-     * @param radius
+     * @param radius the blur radius
      */
     @Nullable
     public Bitmap process(int radius) {
-        _result = _blurProcess.blur(_image, radius);
-        return _result;
+        result = blurProcess.blur(image, radius);
+        return result;
     }
 
     /**
@@ -85,6 +86,6 @@ public class StackBlurManager {
      */
     @Nullable
     public Bitmap returnBlurredImage() {
-        return _result;
+        return result;
     }
 }
