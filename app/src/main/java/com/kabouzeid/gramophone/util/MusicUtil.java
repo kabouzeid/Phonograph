@@ -12,6 +12,7 @@ import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -37,11 +38,13 @@ import java.util.List;
 public class MusicUtil {
     public static final String TAG = MusicUtil.class.getSimpleName();
 
-    public static String getAlbumImageLoaderString(Album album) {
+    @NonNull
+    public static String getAlbumImageLoaderString(@NonNull Album album) {
         return PhonographImageDownloader.SCHEME_ALBUM + album.id;
     }
 
-    public static String getSongImageLoaderString(Song song) {
+    @NonNull
+    public static String getSongImageLoaderString(@NonNull Song song) {
         return PhonographImageDownloader.SCHEME_SONG + song.albumId + "#" + song.data;
     }
 
@@ -57,14 +60,14 @@ public class MusicUtil {
     }
 
     @NonNull
-    public static Intent createShareSongFileIntent(final Song song) {
+    public static Intent createShareSongFileIntent(@NonNull final Song song) {
         return new Intent()
                 .setAction(Intent.ACTION_SEND)
                 .putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + song.data))
                 .setType("audio/*");
     }
 
-    public static void setRingtone(final Context context, final int id) {
+    public static void setRingtone(@NonNull final Context context, final int id) {
         final ContentResolver resolver = context.getContentResolver();
         final Uri uri = getSongUri(id);
         try {
@@ -72,7 +75,7 @@ public class MusicUtil {
             values.put(MediaStore.Audio.AudioColumns.IS_RINGTONE, "1");
             values.put(MediaStore.Audio.AudioColumns.IS_ALARM, "1");
             resolver.update(uri, values, null, null);
-        } catch (final UnsupportedOperationException ignored) {
+        } catch (@NonNull final UnsupportedOperationException ignored) {
             return;
         }
 
@@ -95,7 +98,8 @@ public class MusicUtil {
         }
     }
 
-    public static String getArtistInfoString(Context context, Artist artist) {
+    @NonNull
+    public static String getArtistInfoString(@NonNull Context context, @NonNull Artist artist) {
         return artist.songCount + " " + context.getResources().getString(R.string.songs) + " | " + artist.albumCount + " " + context.getResources().getString(R.string.albums);
     }
 
@@ -111,7 +115,7 @@ public class MusicUtil {
         return trackNumberToFix % 1000;
     }
 
-    public static void insertAlbumArt(Context context, int albumId, String path) {
+    public static void insertAlbumArt(@NonNull Context context, int albumId, String path) {
         ContentResolver contentResolver = context.getContentResolver();
 
         Uri artworkUri = Uri.parse("content://media/external/audio/albumart");
@@ -124,16 +128,18 @@ public class MusicUtil {
         contentResolver.insert(artworkUri, values);
     }
 
-    public static void deleteAlbumArt(Context context, int albumId) {
+    public static void deleteAlbumArt(@NonNull Context context, int albumId) {
         ContentResolver contentResolver = context.getContentResolver();
         Uri localUri = Uri.parse("content://media/external/audio/albumart");
         contentResolver.delete(ContentUris.withAppendedId(localUri, albumId), null, null);
     }
 
+    @NonNull
     public static File createAlbumArtFile(String name) {
         return new File(createAlbumArtDir(), name + System.currentTimeMillis());
     }
 
+    @NonNull
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public static File createAlbumArtDir() {
         File albumArtDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "/.albumart/");
@@ -148,7 +154,7 @@ public class MusicUtil {
         return albumArtDir;
     }
 
-    public static void deleteTracks(final Context context, final List<Song> songs) {
+    public static void deleteTracks(@NonNull final Context context, @NonNull final List<Song> songs) {
         final String[] projection = new String[]{
                 BaseColumns._ID, MediaStore.MediaColumns.DATA
         };
@@ -191,7 +197,7 @@ public class MusicUtil {
                         Log.e("MusicUtils", "Failed to delete file " + name);
                     }
                     cursor.moveToNext();
-                } catch (final SecurityException ex) {
+                } catch (@NonNull final SecurityException ex) {
                     cursor.moveToNext();
                 } catch (NullPointerException e) {
                     Log.e("MusicUtils", "Failed to find file " + name);
@@ -204,19 +210,19 @@ public class MusicUtil {
         App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.DATABASE_CHANGED));
     }
 
-    private static Playlist getFavoritesPlaylist(final Context context) {
+    private static Playlist getFavoritesPlaylist(@NonNull final Context context) {
         return PlaylistLoader.getPlaylist(context, context.getString(R.string.favorites));
     }
 
-    private static Playlist getOrCreateFavoritesPlaylist(final Context context) {
+    private static Playlist getOrCreateFavoritesPlaylist(@NonNull final Context context) {
         return PlaylistLoader.getPlaylist(context, PlaylistsUtil.createPlaylist(context, context.getString(R.string.favorites)));
     }
 
-    public static boolean isFavorite(final Context context, final Song song) {
+    public static boolean isFavorite(@NonNull final Context context, @NonNull final Song song) {
         return PlaylistsUtil.doPlaylistContains(context, getFavoritesPlaylist(context).id, song.id);
     }
 
-    public static void toggleFavorite(final Context context, final Song song) {
+    public static void toggleFavorite(@NonNull final Context context, @NonNull final Song song) {
         if (isFavorite(context, song)) {
             PlaylistsUtil.removeFromPlaylist(context, song, getFavoritesPlaylist(context).id);
         } else {
@@ -224,7 +230,7 @@ public class MusicUtil {
         }
     }
 
-    public static boolean isArtistNameUnknown(final String artistName) {
+    public static boolean isArtistNameUnknown(@Nullable final String artistName) {
         return artistName != null && (artistName.trim().toLowerCase().equals("unknown") || artistName.trim().toLowerCase().equals("<unknown>"));
     }
 }

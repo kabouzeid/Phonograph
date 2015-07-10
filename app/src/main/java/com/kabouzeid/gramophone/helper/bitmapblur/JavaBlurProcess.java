@@ -1,6 +1,8 @@
 package com.kabouzeid.gramophone.helper.bitmapblur;
 
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
@@ -71,8 +73,9 @@ class JavaBlurProcess implements BlurProcess {
             24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24
     };
 
+    @Nullable
     @Override
-    public Bitmap blur(Bitmap original, float radius) {
+    public Bitmap blur(@NonNull Bitmap original, float radius) {
         int w = original.getWidth();
         int h = original.getHeight();
         int[] currentPixels = new int[w * h];
@@ -319,6 +322,7 @@ class JavaBlurProcess implements BlurProcess {
             _round = round;
         }
 
+        @Nullable
         @Override
         public Void call() throws Exception {
             blurIteration(_src, _w, _h, _radius, _totalCores, _coreIndex, _round);

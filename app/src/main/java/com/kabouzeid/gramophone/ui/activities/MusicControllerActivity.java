@@ -14,6 +14,8 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -279,7 +281,7 @@ public class MusicControllerActivity extends AbsFabActivity {
         setUpProgressSlider();
     }
 
-    private void setTint(SeekBar seekBar, int color) {
+    private void setTint(@NonNull SeekBar seekBar, int color) {
         ColorStateList s1 = ColorStateList.valueOf(color);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             seekBar.setThumbTintList(s1);
@@ -380,6 +382,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
 
+    @NonNull
     @Override
     public String getTag() {
         return TAG;
@@ -443,7 +446,7 @@ public class MusicControllerActivity extends AbsFabActivity {
                     }
 
                     @Override
-                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                    public void onLoadingComplete(String imageUri, View view, @NonNull Bitmap loadedImage) {
                         applyPalette(loadedImage);
                         albumArtBackground.setImageBitmap(new StackBlurManager(loadedImage).process(10));
                     }
@@ -451,13 +454,13 @@ public class MusicControllerActivity extends AbsFabActivity {
         );
     }
 
-    private void applyPalette(Bitmap bitmap) {
+    private void applyPalette(@Nullable Bitmap bitmap) {
         if (bitmap != null) {
             Palette.from(bitmap)
                     .resizeBitmapSize(100)
                     .generate(new Palette.PaletteAsyncListener() {
                         @Override
-                        public void onGenerated(Palette palette) {
+                        public void onGenerated(@NonNull Palette palette) {
                             final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
                             if (vibrantSwatch != null) {
                                 final int swatchRgb = vibrantSwatch.getRgb();
@@ -616,7 +619,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         getMenuInflater().inflate(R.menu.menu_music_playing, menu);
         boolean isFavorite = MusicUtil.isFavorite(this, song);
         menu.findItem(R.id.action_toggle_favorite)
@@ -626,7 +629,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_sleep_timer:
@@ -701,13 +704,13 @@ public class MusicControllerActivity extends AbsFabActivity {
     private static class MusicProgressViewsUpdateHandler extends Handler {
         private WeakReference<MusicControllerActivity> activityReference;
 
-        public MusicProgressViewsUpdateHandler(final MusicControllerActivity activity, final Looper looper) {
+        public MusicProgressViewsUpdateHandler(final MusicControllerActivity activity, @NonNull final Looper looper) {
             super(looper);
             activityReference = new WeakReference<>(activity);
         }
 
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
             if (msg.what == CMD_UPDATE_PROGRESS_VIEWS) {
                 activityReference.get().updateProgressViews();

@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
@@ -43,11 +44,13 @@ import retrofit.client.Response;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolder, Artist> {
+    @NonNull
     protected final AppCompatActivity activity;
     protected List<Artist> dataSet;
+    @NonNull
     protected final LastFMRestClient lastFMRestClient;
 
-    public ArtistAdapter(AppCompatActivity activity, @Nullable CabHolder cabHolder) {
+    public ArtistAdapter(@NonNull AppCompatActivity activity, @Nullable CabHolder cabHolder) {
         super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         lastFMRestClient = new LastFMRestClient(activity);
@@ -64,6 +67,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
         dataSet = ArtistLoader.getAllArtists(activity);
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(activity).inflate(R.layout.item_list_artist, parent, false);
@@ -71,7 +75,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Artist artist = dataSet.get(position);
 
         holder.artistName.setText(artist.name);
@@ -85,7 +89,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
 
         lastFMRestClient.getApiService().getArtistInfo(artist.name, null, new Callback<ArtistInfo>() {
             @Override
-            public void success(ArtistInfo artistInfo, Response response) {
+            public void success(@NonNull ArtistInfo artistInfo, Response response) {
                 if (artistInfo.getArtist() != null) {
                     int thumbnailIndex = 0;
                     List<Image> images = artistInfo.getArtist().getImage();
@@ -127,7 +131,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     }
 
     @Override
-    protected void onMultipleItemAction(MenuItem menuItem, ArrayList<Artist> selection) {
+    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Artist> selection) {
         switch (menuItem.getItemId()) {
             case R.id.action_delete_from_disk:
                 DeleteSongsDialog.create(getSongList(selection)).show(activity.getSupportFragmentManager(), "DELETE_SONGS");
@@ -141,7 +145,8 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
         }
     }
 
-    private ArrayList<Song> getSongList(List<Artist> artists) {
+    @NonNull
+    private ArrayList<Song> getSongList(@NonNull List<Artist> artists) {
         final ArrayList<Song> songs = new ArrayList<>();
         for (Artist artist : artists) {
             songs.addAll(ArtistSongLoader.getArtistSongList(activity, artist.id));
@@ -150,12 +155,16 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+        @NonNull
         final TextView artistName;
+        @NonNull
         final TextView artistInfo;
+        @NonNull
         final ImageView artistImage;
+        @NonNull
         final View view;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
             artistName = (TextView) itemView.findViewById(R.id.artist_name);
@@ -200,7 +209,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     }
 
     @Subscribe
-    public void onDataBaseEvent(DataBaseChangedEvent event) {
+    public void onDataBaseEvent(@NonNull DataBaseChangedEvent event) {
         switch (event.getAction()) {
             case DataBaseChangedEvent.ARTISTS_CHANGED:
             case DataBaseChangedEvent.DATABASE_CHANGED:

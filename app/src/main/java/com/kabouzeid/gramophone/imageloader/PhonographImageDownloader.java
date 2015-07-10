@@ -2,6 +2,8 @@ package com.kabouzeid.gramophone.imageloader;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.model.Song;
@@ -24,12 +26,13 @@ public class PhonographImageDownloader extends BaseImageDownloader {
     public static final String SCHEME_ALBUM = "album://";
     public static final String SCHEME_SONG = "song://";
 
-    public PhonographImageDownloader(Context context) {
+    public PhonographImageDownloader(@NonNull Context context) {
         super(context);
     }
 
+    @Nullable
     @Override
-    protected InputStream getStreamFromOtherSource(String imageUri, Object extra) throws IOException {
+    protected InputStream getStreamFromOtherSource(@NonNull String imageUri, Object extra) throws IOException {
         if (imageUri.startsWith(SCHEME_ALBUM)) {
             return getStreamFromAlbum(imageUri, extra);
         } else if (imageUri.startsWith(SCHEME_SONG)) {
@@ -39,7 +42,8 @@ public class PhonographImageDownloader extends BaseImageDownloader {
         }
     }
 
-    protected InputStream getStreamFromAlbum(String imageUri, Object extra) throws IOException {
+    @Nullable
+    protected InputStream getStreamFromAlbum(@NonNull String imageUri, Object extra) throws IOException {
         int albumId = Integer.valueOf(imageUri.substring(SCHEME_ALBUM.length()));
 
         if (PreferenceUtils.getInstance(context).ignoreMediaStoreArtwork()) {
@@ -55,7 +59,8 @@ public class PhonographImageDownloader extends BaseImageDownloader {
         return getStream(MusicUtil.getAlbumArtUri(albumId).toString(), extra);
     }
 
-    protected InputStream getStreamFromSong(String imageUri, Object extra) throws IOException {
+    @Nullable
+    protected InputStream getStreamFromSong(@NonNull String imageUri, Object extra) throws IOException {
         String[] data = imageUri.split("#", 2);
 
         if (PreferenceUtils.getInstance(context).ignoreMediaStoreArtwork()) {
@@ -70,7 +75,8 @@ public class PhonographImageDownloader extends BaseImageDownloader {
         return getStream(MusicUtil.getAlbumArtUri(id).toString(), extra);
     }
 
-    private static ByteArrayInputStream getBitmapInputStream(Bitmap bitmap) {
+    @NonNull
+    private static ByteArrayInputStream getBitmapInputStream(@NonNull Bitmap bitmap) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
         return new ByteArrayInputStream(bos.toByteArray());

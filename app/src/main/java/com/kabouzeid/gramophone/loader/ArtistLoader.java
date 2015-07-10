@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Audio.ArtistColumns;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
@@ -16,22 +18,26 @@ import java.util.ArrayList;
  */
 public class ArtistLoader {
 
-    public static ArrayList<Artist> getAllArtists(Context context) {
+    @NonNull
+    public static ArrayList<Artist> getAllArtists(@NonNull Context context) {
         Cursor cursor = makeArtistCursor(context, null, null);
         return getArtists(cursor);
     }
 
-    public static ArrayList<Artist> getArtists(Context context, String query) {
+    @NonNull
+    public static ArrayList<Artist> getArtists(@NonNull Context context, String query) {
         Cursor cursor = makeArtistCursor(context, ArtistColumns.ARTIST + " LIKE ?", new String[]{"%" + query + "%"});
         return getArtists(cursor);
     }
 
-    public static Artist getArtist(Context context, int artistId) {
+    @NonNull
+    public static Artist getArtist(@NonNull Context context, int artistId) {
         Cursor cursor = makeArtistCursor(context, BaseColumns._ID + "=?", new String[]{String.valueOf(artistId)});
         return getArtist(cursor);
     }
 
-    public static ArrayList<Artist> getArtists(Cursor cursor) {
+    @NonNull
+    public static ArrayList<Artist> getArtists(@Nullable Cursor cursor) {
         ArrayList<Artist> artists = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -45,7 +51,8 @@ public class ArtistLoader {
         return artists;
     }
 
-    public static Artist getArtist(Cursor cursor) {
+    @NonNull
+    public static Artist getArtist(@Nullable Cursor cursor) {
         Artist artist = new Artist();
         if (cursor != null && cursor.moveToFirst()) {
             artist = getArtistFromCursorImpl(cursor);
@@ -57,7 +64,8 @@ public class ArtistLoader {
         return artist;
     }
 
-    private static Artist getArtistFromCursorImpl(Cursor cursor) {
+    @NonNull
+    private static Artist getArtistFromCursorImpl(@NonNull Cursor cursor) {
         final int id = cursor.getInt(0);
         final String artistName = cursor.getString(1);
         final int albumCount = cursor.getInt(2);
@@ -66,7 +74,7 @@ public class ArtistLoader {
         return new Artist(id, artistName, albumCount, songCount);
     }
 
-    public static Cursor makeArtistCursor(final Context context, final String selection, final String[] values) {
+    public static Cursor makeArtistCursor(@NonNull final Context context, final String selection, final String[] values) {
         return context.getContentResolver().query(MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI,
                 new String[]{
                         /* 0 */

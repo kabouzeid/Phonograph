@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.helper;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
  */
 public class MenuItemClickHelper {
 
-    public static boolean handleSongMenuClick(AppCompatActivity activity, Song song, MenuItem item) {
+    public static boolean handleSongMenuClick(@NonNull AppCompatActivity activity, @NonNull Song song, @NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_set_as_ringtone:
                 MusicUtil.setRingtone(activity, song.id);
@@ -78,7 +79,7 @@ public class MenuItemClickHelper {
         return false;
     }
 
-    public static boolean handlePlaylistMenuClick(AppCompatActivity activity, Playlist playlist, MenuItem item) {
+    public static boolean handlePlaylistMenuClick(@NonNull AppCompatActivity activity, @NonNull Playlist playlist, @NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_play:
                 MusicPlayerRemote.openQueue(new ArrayList<>(getPlaylistSongs(activity, playlist)), 0, true);
@@ -96,7 +97,8 @@ public class MenuItemClickHelper {
         return false;
     }
 
-    private static ArrayList<? extends Song> getPlaylistSongs(Activity activity, Playlist playlist) {
+    @NonNull
+    private static ArrayList<? extends Song> getPlaylistSongs(@NonNull Activity activity, Playlist playlist) {
         return playlist instanceof AbsSmartPlaylist ?
                 ((AbsSmartPlaylist) playlist).getSongs(activity) :
                 PlaylistSongLoader.getPlaylistSongList(activity, playlist.id);

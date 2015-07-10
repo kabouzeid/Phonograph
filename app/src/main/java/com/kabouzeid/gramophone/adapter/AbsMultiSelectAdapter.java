@@ -16,6 +16,7 @@ import java.util.ArrayList;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public abstract class AbsMultiSelectAdapter<VH extends RecyclerView.ViewHolder, I> extends RecyclerView.Adapter<VH> implements MaterialCab.Callback {
+    @Nullable
     private final CabHolder cabHolder;
     private MaterialCab cab;
     private ArrayList<I> checked;

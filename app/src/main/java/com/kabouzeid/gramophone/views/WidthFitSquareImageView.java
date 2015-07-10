@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.views;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -13,11 +14,11 @@ public class WidthFitSquareImageView extends ImageView {
         super(context);
     }
 
-    public WidthFitSquareImageView(Context context, AttributeSet attrs) {
+    public WidthFitSquareImageView(@NonNull Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public WidthFitSquareImageView(Context context, AttributeSet attrs, int defStyle) {
+    public WidthFitSquareImageView(@NonNull Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

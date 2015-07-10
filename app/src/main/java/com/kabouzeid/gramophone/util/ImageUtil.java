@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.Display;
 import android.view.WindowManager;
@@ -24,7 +25,7 @@ import java.io.IOException;
 public class ImageUtil {
 
     @Nullable
-    public static Bitmap getEmbeddedSongArt(File songFile, Context context) {
+    public static Bitmap getEmbeddedSongArt(File songFile, @NonNull Context context) {
         try {
             AudioFile audioFile = AudioFileIO.read(songFile);
             byte[] data = audioFile.getTag().getFirstArtwork().getBinaryData();
@@ -39,13 +40,13 @@ public class ImageUtil {
                 options.inJustDecodeBounds = false;
                 return BitmapFactory.decodeByteArray(data, 0, data.length, options);
             }
-        } catch (CannotReadException | TagException | IOException | ReadOnlyFileException | InvalidAudioFrameException e) {
+        } catch (@NonNull CannotReadException | TagException | IOException | ReadOnlyFileException | InvalidAudioFrameException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public static int calculateInSampleSize(BitmapFactory.Options options, Context context) {
+    public static int calculateInSampleSize(@NonNull BitmapFactory.Options options, @NonNull Context context) {
 
         // Raw height and width of image
         final int height = options.outHeight;
@@ -76,7 +77,7 @@ public class ImageUtil {
         return inSampleSize;
     }
 
-    private static int getSmallerScreenSize(Context c) {
+    private static int getSmallerScreenSize(@NonNull Context c) {
         Display display = ((WindowManager) c.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);

@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.model;
 
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import java.io.Serializable;
@@ -34,7 +35,7 @@ public class Playlist implements Serializable {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(@Nullable final Object obj) {
         if (this == obj) {
             return true;
         }

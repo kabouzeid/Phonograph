@@ -15,6 +15,7 @@ import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
  */
 public class ClearSmartPlaylistDialog extends DialogFragment {
 
+    @NonNull
     public static ClearSmartPlaylistDialog create(AbsSmartPlaylist playlist) {
         ClearSmartPlaylistDialog dialog = new ClearSmartPlaylistDialog();
         Bundle args = new Bundle();

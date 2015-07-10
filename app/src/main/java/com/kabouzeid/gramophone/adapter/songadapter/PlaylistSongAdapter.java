@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.adapter.songadapter;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
@@ -39,11 +40,12 @@ import java.util.List;
 public class PlaylistSongAdapter extends AbsPlaylistSongAdapter<PlaylistSongAdapter.ViewHolder, PlaylistSong> {
 
     public static final String TAG = PlaylistSongAdapter.class.getSimpleName();
+    @NonNull
     protected final AppCompatActivity activity;
     protected ArrayList<PlaylistSong> dataSet;
     private Playlist playlist;
 
-    public PlaylistSongAdapter(AppCompatActivity activity, Playlist playlist, @Nullable CabHolder cabHolder) {
+    public PlaylistSongAdapter(@NonNull AppCompatActivity activity, @NonNull Playlist playlist, @Nullable CabHolder cabHolder) {
         super(activity, cabHolder, R.menu.menu_playlists_songs_selection);
         this.activity = activity;
         this.playlist = playlist;
@@ -67,6 +69,7 @@ public class PlaylistSongAdapter extends AbsPlaylistSongAdapter<PlaylistSongAdap
         return dataSet;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(activity).inflate(R.layout.item_list_song, parent, false);
@@ -74,7 +77,7 @@ public class PlaylistSongAdapter extends AbsPlaylistSongAdapter<PlaylistSongAdap
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final PlaylistSong song = dataSet.get(position);
 
         holder.itemView.setActivated(isChecked(song));
@@ -102,7 +105,7 @@ public class PlaylistSongAdapter extends AbsPlaylistSongAdapter<PlaylistSongAdap
     }
 
     @Override
-    protected void onMultipleItemAction(MenuItem menuItem, ArrayList<PlaylistSong> selection) {
+    protected void onMultipleItemAction(@NonNull MenuItem menuItem, ArrayList<PlaylistSong> selection) {
         switch (menuItem.getItemId()) {
             case R.id.action_delete_from_playlist:
                 RemoveFromPlaylistDialog.create(selection).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");
@@ -129,12 +132,16 @@ public class PlaylistSongAdapter extends AbsPlaylistSongAdapter<PlaylistSongAdap
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+        @NonNull
         final TextView songTitle;
+        @NonNull
         final TextView songInfo;
+        @NonNull
         final ImageView overflowButton;
+        @NonNull
         final ImageView albumArt;
 
-        public ViewHolder(View itemView, final int songMenu) {
+        public ViewHolder(@NonNull View itemView, final int songMenu) {
             super(itemView);
             songTitle = (TextView) itemView.findViewById(R.id.song_title);
             songInfo = (TextView) itemView.findViewById(R.id.song_info);
@@ -149,7 +156,7 @@ public class PlaylistSongAdapter extends AbsPlaylistSongAdapter<PlaylistSongAdap
                     popupMenu.inflate(songMenu);
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
-                        public boolean onMenuItemClick(MenuItem item) {
+                        public boolean onMenuItemClick(@NonNull MenuItem item) {
                             switch (item.getItemId()) {
                                 case R.id.action_delete_from_playlist:
                                     RemoveFromPlaylistDialog.create(dataSet.get(getAdapterPosition())).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");

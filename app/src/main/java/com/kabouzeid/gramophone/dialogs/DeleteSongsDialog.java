@@ -18,12 +18,14 @@ import java.util.ArrayList;
  */
 public class DeleteSongsDialog extends DialogFragment {
 
+    @NonNull
     public static DeleteSongsDialog create(Song song) {
         ArrayList<Song> list = new ArrayList<>();
         list.add(song);
         return create(list);
     }
 
+    @NonNull
     public static DeleteSongsDialog create(ArrayList<Song> songs) {
         DeleteSongsDialog dialog = new DeleteSongsDialog();
         Bundle args = new Bundle();

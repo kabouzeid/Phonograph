@@ -15,6 +15,7 @@ import com.kabouzeid.gramophone.util.PlaylistsUtil;
  */
 public class RenamePlaylistDialog extends DialogFragment {
 
+    @NonNull
     public static RenamePlaylistDialog create(long playlistId) {
         RenamePlaylistDialog dialog = new RenamePlaylistDialog();
         Bundle args = new Bundle();
@@ -37,7 +38,7 @@ public class RenamePlaylistDialog extends DialogFragment {
                 .input(getString(R.string.playlist_name_empty), PlaylistsUtil.getNameForPlaylist(getActivity(), playlistId), false,
                         new MaterialDialog.InputCallback() {
                             @Override
-                            public void onInput(MaterialDialog materialDialog, CharSequence charSequence) {
+                            public void onInput(MaterialDialog materialDialog, @NonNull CharSequence charSequence) {
                                 if (!charSequence.toString().trim().equals("")) {
                                     long playlistId = getArguments().getLong("playlist_id");
                                     PlaylistsUtil.renamePlaylist(getActivity(), playlistId, charSequence.toString());

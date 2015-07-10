@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.AppBarLayout;
@@ -40,7 +41,7 @@ public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivit
     private RecyclerView.Adapter mAdapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutRes(), container, false);
         ButterKnife.inject(this, view);
         return view;
@@ -130,6 +131,7 @@ public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivit
 
     protected abstract RecyclerView.LayoutManager createLayoutManager();
 
+    @NonNull
     protected abstract RecyclerView.Adapter createAdapter();
 
     @Override

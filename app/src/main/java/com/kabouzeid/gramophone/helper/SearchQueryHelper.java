@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Song;
@@ -19,7 +20,8 @@ public class SearchQueryHelper {
     private static final String ARTIST_SELECTION = "lower(" + MediaStore.Audio.AudioColumns.ARTIST + ") = ?";
     private static final String AND = " AND ";
 
-    public static ArrayList<Song> getSongs(final Context context, final Bundle extras) {
+    @NonNull
+    public static ArrayList<Song> getSongs(@NonNull final Context context, @NonNull final Bundle extras) {
         final String query = extras.getString(SearchManager.QUERY, null);
         final String artistName = extras.getString(MediaStore.EXTRA_MEDIA_ARTIST, null);
         final String albumName = extras.getString(MediaStore.EXTRA_MEDIA_ALBUM, null);

@@ -8,6 +8,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -109,6 +111,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     private int bottomOffset;
 
     private Artist artist;
+    @Nullable
     private Spanned biography;
     private ArtistAlbumAdapter albumAdapter;
     private ArtistSongAdapter songAdapter;
@@ -219,6 +222,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         albumRecyclerView = ButterKnife.findById(songListHeader, R.id.recycler_view);
     }
 
+    @NonNull
     @Override
     public String getTag() {
         return TAG;
@@ -276,7 +280,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     private void loadBiography() {
         lastFMRestClient.getApiService().getArtistInfo(artist.name, null, new Callback<ArtistInfo>() {
             @Override
-            public void success(ArtistInfo artistInfo, Response response) {
+            public void success(@NonNull ArtistInfo artistInfo, Response response) {
                 if (artistInfo.getArtist() != null) {
                     String bio = artistInfo.getArtist().getBio().getContent();
                     if (bio != null && !bio.trim().equals("")) {
@@ -315,7 +319,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         }
         lastFMRestClient.getApiService().getArtistInfo(artist.name, forceDownload ? "no-cache" : null, new Callback<ArtistInfo>() {
             @Override
-            public void success(ArtistInfo artistInfo, Response response) {
+            public void success(@NonNull ArtistInfo artistInfo, Response response) {
                 if (artistInfo.getArtist() != null) {
                     List<Image> images = artistInfo.getArtist().getImage();
                     int lastElementIndex = images.size() - 1;
@@ -336,7 +340,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                                 }
 
                                 @Override
-                                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                                public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
                                     if (loadedImage != null) {
                                         applyPalette(loadedImage);
                                         artistImageBackground.setImageBitmap(new StackBlurManager(loadedImage).process(10));
@@ -373,14 +377,14 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         artistImageBackground.setImageBitmap(defaultArtistImageBlurManager.process(10));
     }
 
-    private void applyPalette(Bitmap bitmap) {
+    private void applyPalette(@Nullable Bitmap bitmap) {
         if (bitmap != null) {
             Palette.from(bitmap)
                     .resizeBitmapSize(100)
                     .generate(new Palette.PaletteAsyncListener() {
 
                         @Override
-                        public void onGenerated(Palette palette) {
+                        public void onGenerated(@NonNull Palette palette) {
                             final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
                             if (vibrantSwatch != null) {
                                 toolbarColor = vibrantSwatch.getRgb();
@@ -447,7 +451,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_sleep_timer:
@@ -531,7 +535,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     }
 
     @Subscribe
-    public void onDataBaseEvent(DataBaseChangedEvent event) {
+    public void onDataBaseEvent(@NonNull DataBaseChangedEvent event) {
         switch (event.getAction()) {
             case DataBaseChangedEvent.SONGS_CHANGED:
             case DataBaseChangedEvent.ALBUMS_CHANGED:
@@ -547,7 +551,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     }
 
     @Subscribe
-    public void onUIPreferenceChanged(UIPreferenceChangedEvent event) {
+    public void onUIPreferenceChanged(@NonNull UIPreferenceChangedEvent event) {
         switch (event.getAction()) {
             case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_ARTIST_CHANGED:
                 setNavigationBarColored((boolean) event.getValue());
@@ -562,7 +566,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     }
 
     @Override
-    public MaterialCab openCab(int menuRes, final MaterialCab.Callback callback) {
+    public MaterialCab openCab(int menuRes, @NonNull final MaterialCab.Callback callback) {
         if (cab != null && cab.isActive()) cab.finish();
         cab = new MaterialCab(this, R.id.cab_stub)
                 .setMenu(menuRes)

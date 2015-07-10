@@ -21,12 +21,14 @@ import java.util.List;
  */
 public class AddToPlaylistDialog extends DialogFragment {
 
+    @NonNull
     public static AddToPlaylistDialog create(Song song) {
         ArrayList<Song> list = new ArrayList<>();
         list.add(song);
         return create(list);
     }
 
+    @NonNull
     public static AddToPlaylistDialog create(ArrayList<Song> songs) {
         AddToPlaylistDialog dialog = new AddToPlaylistDialog();
         Bundle args = new Bundle();
@@ -49,7 +51,7 @@ public class AddToPlaylistDialog extends DialogFragment {
                 .items(playlistNames)
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
-                    public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
+                    public void onSelection(@NonNull MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
                         //noinspection unchecked
                         final ArrayList<Song> songs = (ArrayList<Song>) getArguments().getSerializable("songs");
                         if (i == 0) {

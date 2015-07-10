@@ -26,6 +26,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -52,6 +53,7 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements Rec
     private float autoScrollWindow = 0.1f;
     private float autoScrollSpeed = 0.5f;
 
+    @Nullable
     private BitmapDrawable floatingItem;
     private Rect floatingItemStatingBounds;
     private Rect floatingItemBounds;
@@ -85,6 +87,7 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements Rec
             Log.d(TAG, log);
     }
 
+    @NonNull
     public RecyclerView.OnScrollListener getScrollListener() {
         return scrollListener;
     }
@@ -128,7 +131,7 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements Rec
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView rv, RecyclerView.State state) {
+    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView rv, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, rv, state);
 
         debugLog("getItemOffsets");
@@ -195,7 +198,7 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements Rec
      * This *seems* to work, another method would be to use
      * getItemOffsets, but I think that could miss items?..
      */
-    private int getNewPostion(RecyclerView rv) {
+    private int getNewPostion(@NonNull RecyclerView rv) {
         int itemsOnScreen = rv.getLayoutManager().getChildCount();
 
         float floatMiddleY = floatingItemBounds.top + floatingItemBounds.height() / 2;
@@ -242,7 +245,7 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements Rec
 
 
     @Override
-    public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+    public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
         debugLog("onInterceptTouchEvent");
 
         //if (e.getAction() == MotionEvent.ACTION_DOWN)
@@ -315,7 +318,7 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements Rec
     }
 
     @Override
-    public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+    public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
         debugLog("onTouchEvent");
 
         if ((e.getAction() == MotionEvent.ACTION_UP) ||
@@ -388,7 +391,7 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements Rec
     final Paint bgColor = new Paint();
 
     @Override
-    public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+    public void onDrawOver(@NonNull Canvas c, RecyclerView parent, RecyclerView.State state) {
         if (floatingItem != null) {
             floatingItem.setAlpha((int) (255 * floatingItemAlpha));
             bgColor.setColor(floatingItemBgColor);
@@ -410,7 +413,8 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements Rec
         return true;
     }
 
-    private BitmapDrawable createFloatingBitmap(View v) {
+    @NonNull
+    private BitmapDrawable createFloatingBitmap(@NonNull View v) {
         floatingItemStatingBounds = new Rect(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
         floatingItemBounds = new Rect(floatingItemStatingBounds);
 

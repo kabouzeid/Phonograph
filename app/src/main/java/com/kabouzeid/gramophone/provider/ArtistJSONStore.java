@@ -5,25 +5,29 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 public class ArtistJSONStore extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "artists_last_fm.db";
     private static final int VERSION = 1;
+    @Nullable
     private static ArtistJSONStore sInstance = null;
 
     public ArtistJSONStore(final Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
 
-    public static synchronized ArtistJSONStore getInstance(final Context context) {
+    @Nullable
+    public static synchronized ArtistJSONStore getInstance(@NonNull final Context context) {
         if (sInstance == null) {
             sInstance = new ArtistJSONStore(context.getApplicationContext());
         }
         return sInstance;
     }
 
-    public void addArtistJSON(final String artistName, final String json) {
+    public void addArtistJSON(@Nullable final String artistName, @Nullable final String json) {
         if (artistName == null || json == null) {
             return;
         }
@@ -41,7 +45,8 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
         database.endTransaction();
     }
 
-    public String getArtistJSON(final String artistName) {
+    @Nullable
+    public String getArtistJSON(@Nullable final String artistName) {
         if (artistName == null) {
             return null;
         }
@@ -68,7 +73,7 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
         return null;
     }
 
-    public void removeArtistJSON(final String artistName) {
+    public void removeArtistJSON(@NonNull final String artistName) {
         final SQLiteDatabase database = getReadableDatabase();
         database.delete(ArtistJSONColumns.NAME, ArtistJSONColumns.ARTIST_NAME + "=?", new String[]{
                 artistName.trim().toLowerCase()
@@ -83,7 +88,7 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(final SQLiteDatabase db) {
+    public void onCreate(@NonNull final SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS " + ArtistJSONColumns.NAME +
                         " (" + ArtistJSONColumns.ARTIST_NAME + " TEXT NOT NULL," +
                         ArtistJSONColumns.JSON_DATA + " TEXT NOT NULL);"
@@ -92,7 +97,7 @@ public class ArtistJSONStore extends SQLiteOpenHelper {
 
 
     @Override
-    public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
+    public void onUpgrade(@NonNull final SQLiteDatabase db, final int oldVersion, final int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + ArtistJSONColumns.NAME);
         onCreate(db);
     }

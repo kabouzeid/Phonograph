@@ -8,6 +8,8 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.service.MusicService;
@@ -18,6 +20,7 @@ import java.lang.ref.WeakReference;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public abstract class AbsPlaybackControlActivity extends AbsBaseActivity {
+    @Nullable
     private MusicPlayerRemote.ServiceToken serviceToken;
     private PlaybackStatusReceiver playbackStatusReceiver;
 
@@ -88,6 +91,7 @@ public abstract class AbsPlaybackControlActivity extends AbsBaseActivity {
 
     private static final class PlaybackStatusReceiver extends BroadcastReceiver {
 
+        @NonNull
         private final WeakReference<AbsPlaybackControlActivity> reference;
 
         public PlaybackStatusReceiver(final AbsPlaybackControlActivity activity) {
@@ -95,7 +99,7 @@ public abstract class AbsPlaybackControlActivity extends AbsBaseActivity {
         }
 
         @Override
-        public void onReceive(final Context context, final Intent intent) {
+        public void onReceive(final Context context, @NonNull final Intent intent) {
             final String action = intent.getAction();
             switch (action) {
                 case MusicService.META_CHANGED:

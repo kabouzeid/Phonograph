@@ -15,6 +15,8 @@ import android.os.Build;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
@@ -36,7 +38,7 @@ public class Util {
 //        return resId;
 //    }
 
-    public static int resolveColor(Context context, @AttrRes int colorAttr) {
+    public static int resolveColor(@NonNull Context context, @AttrRes int colorAttr) {
         TypedArray a = context.obtainStyledAttributes(new int[]{colorAttr});
         int resId = a.getColor(0, 0);
         a.recycle();
@@ -50,7 +52,7 @@ public class Util {
 //        return result;
 //    }
 
-    public static int getActionBarSize(Context context) {
+    public static int getActionBarSize(@NonNull Context context) {
         TypedValue typedValue = new TypedValue();
         int[] textSizeAttr = new int[]{R.attr.actionBarSize};
         int indexOfAttrTextSize = 0;
@@ -60,7 +62,7 @@ public class Util {
         return actionBarSize;
     }
 
-    public static int getStatusBarHeight(Context context) {
+    public static int getStatusBarHeight(@NonNull Context context) {
         int result = 0;
         int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
@@ -69,7 +71,7 @@ public class Util {
         return result;
     }
 
-    public static int getNavigationBarHeight(Context context) {
+    public static int getNavigationBarHeight(@NonNull Context context) {
         int result = 0;
         int resourceId = context.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
         if (resourceId > 0) {
@@ -96,7 +98,7 @@ public class Util {
 //    }
 
     @TargetApi(19)
-    public static void setStatusBarTranslucent(Window window, boolean translucent) {
+    public static void setStatusBarTranslucent(@NonNull Window window, boolean translucent) {
         if (translucent) {
             window.setFlags(
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
@@ -112,12 +114,13 @@ public class Util {
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
     }
 
-    public static void setAllowDrawUnderStatusBar(Window window) {
+    public static void setAllowDrawUnderStatusBar(@NonNull Window window) {
         window.getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
+    @NonNull
     public static String getFileSizeString(long sizeInBytes) {
         long fileSizeInKB = sizeInBytes / 1024;
         long fileSizeInMB = fileSizeInKB / 1024;
@@ -142,7 +145,7 @@ public class Util {
 //        return Bitmap.createScaledBitmap(bitmap, albumArtSize, albumArtSize, false);
 //    }
 
-    public static void hideSoftKeyboard(Activity activity) {
+    public static void hideSoftKeyboard(@Nullable Activity activity) {
         if (activity != null) {
             View currentFocus = activity.getCurrentFocus();
             if (currentFocus != null) {
@@ -160,15 +163,15 @@ public class Util {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
     }
 
-    public static boolean isTablet(final Context context) {
+    public static boolean isTablet(@NonNull final Context context) {
         return context.getResources().getConfiguration().smallestScreenWidthDp >= 600;
     }
 
-    public static boolean isInPortraitMode(final Context context) {
+    public static boolean isInPortraitMode(@NonNull final Context context) {
         return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
     }
 
-    public static Drawable getTintedDrawable(Context context, @DrawableRes int drawableResId, int color) {
+    public static Drawable getTintedDrawable(@NonNull Context context, @DrawableRes int drawableResId, int color) {
         Drawable drawable = ContextCompat.getDrawable(context, drawableResId);
         if (drawable != null) {
             drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
@@ -195,6 +198,7 @@ public class Util {
         return (alpha << 24) + (0x00ffffff & Color.HSVToColor(hsv));
     }
 
+    @NonNull
     public static ColorStateList getEmptyColorStateList(int color) {
         return new ColorStateList(
                 new int[][]{
@@ -205,14 +209,14 @@ public class Util {
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public static boolean isRTL(Context context) {
+    public static boolean isRTL(@NonNull Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             Configuration config = context.getResources().getConfiguration();
             return config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
         } else return false;
     }
 
-    public static Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth, boolean recycleOld) {
+    public static Bitmap getResizedBitmap(@NonNull Bitmap bm, int newHeight, int newWidth, boolean recycleOld) {
         int width = bm.getWidth();
         int height = bm.getHeight();
         float scaleWidth = ((float) newWidth) / width;

@@ -13,6 +13,8 @@ import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +33,7 @@ public class ColorChooserDialog extends DialogFragment implements View.OnClickLi
 
     private ColorCallback mCallback;
     private int[] mColors;
+    @Nullable
     private GridView mGrid;
 
     @Override
@@ -40,7 +43,7 @@ public class ColorChooserDialog extends DialogFragment implements View.OnClickLi
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(@NonNull View v) {
         if (v.getTag() != null) {
             final int index = (Integer) v.getTag();
             getArguments().putInt("preselect", mColors[index]);
@@ -128,8 +131,9 @@ public class ColorChooserDialog extends DialogFragment implements View.OnClickLi
             return position;
         }
 
+        @Nullable
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, @Nullable View convertView, ViewGroup parent) {
             if (convertView == null)
                 convertView = LayoutInflater.from(getActivity()).inflate(R.layout.griditem_color_chooser, parent, false);
 
@@ -156,7 +160,7 @@ public class ColorChooserDialog extends DialogFragment implements View.OnClickLi
         }
 
         @Override
-        public void onClick(View v) {
+        public void onClick(@NonNull View v) {
             final int index = (Integer) v.getTag();
             getArguments().putInt("preselect", mColors[index]);
             invalidateGrid();
@@ -180,6 +184,7 @@ public class ColorChooserDialog extends DialogFragment implements View.OnClickLi
         return Color.argb(alpha, red, green, blue);
     }
 
+    @NonNull
     private static Drawable createSelector(int color) {
         ShapeDrawable darkerCircle = new ShapeDrawable(new OvalShape());
         darkerCircle.getPaint().setColor(translucentColor(shiftColorDown(color)));
@@ -188,7 +193,7 @@ public class ColorChooserDialog extends DialogFragment implements View.OnClickLi
         return stateListDrawable;
     }
 
-    public void show(Activity context, int title, int preselect) {
+    public void show(@NonNull Activity context, int title, int preselect) {
         Bundle args = new Bundle();
         args.putInt("preselect", preselect);
         args.putInt("title", title);

@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.util;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,7 +23,7 @@ public final class InternalStorageUtil {
      * @param key     the filename
      * @param object  any {@link java.io.Serializable} object which will be written to the internal storage
      */
-    public static synchronized void writeObject(final Context context, final String key, final Object object) throws IOException {
+    public static synchronized void writeObject(@NonNull final Context context, @NonNull final String key, final Object object) throws IOException {
         // First write the object to a file with ".tmp" postfix,
         // so when an error occurs, we do not overwrite the original
         // file (if exists) with a corrupted file.
@@ -43,7 +44,7 @@ public final class InternalStorageUtil {
      * @param originalFileName the original filename
      * @param newFileName      the new filename
      */
-    public static synchronized void renameAppFile(final Context context, String originalFileName, String newFileName) {
+    public static synchronized void renameAppFile(@NonNull final Context context, String originalFileName, @NonNull String newFileName) {
         File originalFile = context.getFileStreamPath(originalFileName);
         File newFile = new File(originalFile.getParent(), newFileName);
         if (newFile.exists()) {
@@ -57,7 +58,7 @@ public final class InternalStorageUtil {
      * @param context a valid {@link Context}
      * @param key     the filename
      */
-    public static synchronized Object readObject(final Context context, String key) throws IOException,
+    public static synchronized Object readObject(@NonNull final Context context, String key) throws IOException,
             ClassNotFoundException {
         FileInputStream fis = context.openFileInput(key);
         ObjectInputStream ois = new ObjectInputStream(fis);

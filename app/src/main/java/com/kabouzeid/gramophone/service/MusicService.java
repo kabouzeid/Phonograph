@@ -23,6 +23,8 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.os.Process;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Toast;
 
@@ -95,8 +97,11 @@ public class MusicService extends Service {
 
     private final IBinder musicBind = new MusicBinder();
 
+    @Nullable
     private MultiPlayer player;
+    @Nullable
     private ArrayList<Song> playingQueue;
+    @Nullable
     private ArrayList<Song> originalPlayingQueue;
     private int position = -1;
     private int nextPosition = -1;
@@ -113,14 +118,16 @@ public class MusicService extends Service {
     private QueueSaveHandler queueSaveHandler;
     private HandlerThread musicPlayerHandlerThread;
     private HandlerThread queueSaveHandlerThread;
+    @Nullable
     private RecentlyPlayedStore recentlyPlayedStore;
+    @Nullable
     private SongPlayCountStore songPlayCountStore;
     private boolean notNotifiedMetaChangedForCurrentTrack;
     private boolean isServiceInUse;
 
     private final BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(Context context, @NonNull Intent intent) {
             if (intent.getAction().equals(AudioManager.ACTION_AUDIO_BECOMING_NOISY)) {
                 pause();
             }
@@ -129,7 +136,7 @@ public class MusicService extends Service {
 
     private final BroadcastReceiver preferencesChangedReceiver = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(Context context, @NonNull Intent intent) {
             switch (intent.getAction()) {
                 case SETTING_GAPLESS_PLAYBACK_CHANGED:
                     setGaplessPlaybackEnabled(intent.getBooleanExtra(SETTING_BOOLEAN_EXTRA, false));
@@ -225,7 +232,7 @@ public class MusicService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
         if (intent != null) {
             if (intent.getAction() != null) {
                 String action = intent.getAction();
@@ -438,7 +445,7 @@ public class MusicService extends Service {
             final String currentAlbumArtUri = MusicUtil.getSongImageLoaderString(song);
             ImageLoader.getInstance().displayImage(currentAlbumArtUri, new NonViewAware(new ImageSize(-1, -1), ViewScaleType.CROP), new SimpleImageLoadingListener() {
                 @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
                     if (currentAlbumArtUri.equals(imageUri)) {
                         if (loadedImage != null) {
                             // RemoteControlClient wants to recycle the bitmaps thrown at it, so we need
@@ -495,7 +502,7 @@ public class MusicService extends Service {
         WidgetMedium.updateWidgets(this, getCurrentSong(), isPlaying());
     }
 
-    private static String getTrackUri(Song song) {
+    private static String getTrackUri(@NonNull Song song) {
         return ContentUris.withAppendedId(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, song.id).toString();
     }
 
@@ -530,6 +537,7 @@ public class MusicService extends Service {
         return getPosition() == getPlayingQueue().size() - 1;
     }
 
+    @Nullable
     public ArrayList<Song> getPlayingQueue() {
         return playingQueue;
     }
@@ -553,7 +561,7 @@ public class MusicService extends Service {
         }
     }
 
-    public void openAndPlayQueue(final ArrayList<Song> playingQueue, final int startPosition, final boolean startPlaying) {
+    public void openAndPlayQueue(@Nullable final ArrayList<Song> playingQueue, final int startPosition, final boolean startPlaying) {
         if (playingQueue != null && !playingQueue.isEmpty() && startPosition >= 0 && startPosition < playingQueue.size()) {
             originalPlayingQueue = playingQueue;
             this.playingQueue = new ArrayList<>(originalPlayingQueue);
@@ -618,7 +626,7 @@ public class MusicService extends Service {
         saveState();
     }
 
-    public void removeSong(Song song) {
+    public void removeSong(@NonNull Song song) {
         for (int i = 0; i < playingQueue.size(); i++) {
             if (playingQueue.get(i).id == song.id) playingQueue.remove(i);
         }
@@ -796,7 +804,7 @@ public class MusicService extends Service {
         notifyChange(SHUFFLE_MODE_CHANGED);
     }
 
-    private void notifyChange(final String what) {
+    private void notifyChange(@NonNull final String what) {
         final Intent internalIntent = new Intent(what);
 
         final Song currentSong = getCurrentSong();
@@ -857,21 +865,23 @@ public class MusicService extends Service {
     }
 
     public class MusicBinder extends Binder {
+        @NonNull
         public MusicService getService() {
             return MusicService.this;
         }
     }
 
     private static final class QueueSaveHandler extends Handler {
+        @NonNull
         private final WeakReference<MusicService> mService;
 
-        public QueueSaveHandler(final MusicService service, final Looper looper) {
+        public QueueSaveHandler(final MusicService service, @NonNull final Looper looper) {
             super(looper);
             mService = new WeakReference<>(service);
         }
 
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(@NonNull Message msg) {
             final MusicService service = mService.get();
             switch (msg.what) {
                 case SAVE_QUEUES:
@@ -882,16 +892,17 @@ public class MusicService extends Service {
     }
 
     private static final class MusicPlayerHandler extends Handler {
+        @NonNull
         private final WeakReference<MusicService> mService;
         private float currentDuckVolume = 1.0f;
 
-        public MusicPlayerHandler(final MusicService service, final Looper looper) {
+        public MusicPlayerHandler(final MusicService service, @NonNull final Looper looper) {
             super(looper);
             mService = new WeakReference<>(service);
         }
 
         @Override
-        public void handleMessage(final Message msg) {
+        public void handleMessage(@NonNull final Message msg) {
             final MusicService service = mService.get();
             if (service == null) {
                 return;

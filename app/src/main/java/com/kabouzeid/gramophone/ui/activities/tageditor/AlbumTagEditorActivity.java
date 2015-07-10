@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.ui.activities.tageditor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -67,6 +68,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
         setUpViews();
     }
 
+    @NonNull
     @Override
     public String getTag() {
         return TAG;
@@ -104,7 +106,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
         }
         lastFMRestClient.getApiService().getAlbumInfo(albumTitleStr, albumArtistNameStr, new Callback<AlbumInfo>() {
             @Override
-            public void success(AlbumInfo albumInfo, Response response) {
+            public void success(@NonNull AlbumInfo albumInfo, Response response) {
                 if (albumInfo.getAlbum() != null) {
                     List<Image> images = albumInfo.getAlbum().getImage();
                     int lastIndexOfImages = images.size() - 1;
@@ -187,6 +189,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
         return R.layout.activity_album_tag_editor;
     }
 
+    @NonNull
     @Override
     protected List<String> getSongPaths() {
         ArrayList<Song> songs = AlbumSongLoader.getAlbumSongList(this, getId());
@@ -198,7 +201,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
     }
 
     @Override
-    protected void loadImageFromFile(final Uri selectedFileUri) {
+    protected void loadImageFromFile(@NonNull final Uri selectedFileUri) {
         ImageLoader.getInstance().loadImage(selectedFileUri.toString(),
                 new ImageSize(500, 500),
                 new SimpleImageLoadingListener() {

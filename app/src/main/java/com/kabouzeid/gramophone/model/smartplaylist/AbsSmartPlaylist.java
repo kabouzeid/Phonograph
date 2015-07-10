@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.model.smartplaylist;
 
 import android.content.Context;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
@@ -32,6 +33,7 @@ public abstract class AbsSmartPlaylist extends Playlist {
         this.iconRes = R.drawable.ic_queue_music_white_24dp;
     }
 
+    @Nullable
     public SmartPlaylistSongAdapter createAdapter(AppCompatActivity activity, @Nullable CabHolder cabHolder) {
         return new SmartPlaylistSongAdapter(activity, this, cabHolder);
     }
@@ -49,7 +51,7 @@ public abstract class AbsSmartPlaylist extends Playlist {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public boolean equals(@NonNull final Object obj) {
         if (super.equals(obj)) {
             if (getClass() != obj.getClass()) {
                 return false;

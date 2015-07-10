@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.ui.activities.base;
 
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import com.crashlytics.android.Crashlytics;
 import com.kabouzeid.gramophone.App;
@@ -18,7 +19,7 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
     private boolean areViewsEnabled;
     private final Object uiPreferenceChangeListener = new Object() {
         @Subscribe
-        public void onUIPreferenceChangedEvent(UIPreferenceChangedEvent event) {
+        public void onUIPreferenceChangedEvent(@NonNull UIPreferenceChangedEvent event) {
             AbsBaseActivity.this.onUIPreferenceChangedEvent(event);
         }
     };
@@ -34,6 +35,7 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
     }
 
+    @NonNull
     protected abstract String getTag();
 
     @Override
@@ -57,7 +59,7 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
         return areViewsEnabled;
     }
 
-    protected void onUIPreferenceChangedEvent(UIPreferenceChangedEvent event) {
+    protected void onUIPreferenceChangedEvent(@NonNull UIPreferenceChangedEvent event) {
         switch (event.getAction()) {
             case UIPreferenceChangedEvent.THEME_CHANGED:
                 recreate();

@@ -17,15 +17,15 @@ import com.kabouzeid.gramophone.R;
  */
 public class DynamicPreferenceCategory extends PreferenceCategory {
 
-    public DynamicPreferenceCategory(Context context, AttributeSet attrs) {
+    public DynamicPreferenceCategory(@NonNull Context context, @NonNull AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public DynamicPreferenceCategory(Context context) {
+    public DynamicPreferenceCategory(@NonNull Context context) {
         this(context, null, 0);
     }
 
-    public DynamicPreferenceCategory(Context context, AttributeSet attrs, int defStyleAttr) {
+    public DynamicPreferenceCategory(@NonNull Context context, @NonNull AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setLayoutResource(R.layout.preference_category_custom);
         setSelectable(false);

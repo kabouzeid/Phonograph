@@ -26,6 +26,8 @@
 package com.kabouzeid.gramophone.helper.bitmapblur;
 
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.kabouzeid.gramophone.util.Util;
 
@@ -46,11 +48,13 @@ public class StackBlurManager {
     /**
      * Most recent result of blurring
      */
+    @Nullable
     private Bitmap _result;
 
     /**
      * Method of blurring
      */
+    @NonNull
     private final BlurProcess _blurProcess;
 
     /**
@@ -58,7 +62,7 @@ public class StackBlurManager {
      *
      * @param image The image that will be analysed
      */
-    public StackBlurManager(Bitmap image) {
+    public StackBlurManager(@NonNull Bitmap image) {
         _image = Util.getResizedBitmap(image, 500, 500, false);
         _blurProcess = new JavaBlurProcess();
     }
@@ -68,6 +72,7 @@ public class StackBlurManager {
      *
      * @param radius
      */
+    @Nullable
     public Bitmap process(int radius) {
         _result = _blurProcess.blur(_image, radius);
         return _result;
@@ -78,6 +83,7 @@ public class StackBlurManager {
      *
      * @return blurred image
      */
+    @Nullable
     public Bitmap returnBlurredImage() {
         return _result;
     }

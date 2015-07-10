@@ -9,6 +9,8 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
@@ -18,20 +20,23 @@ import com.kabouzeid.gramophone.util.Util;
 public class ColorView extends FrameLayout {
 
     private final Bitmap mCheck;
+    @NonNull
     private final Paint paint;
+    @NonNull
     private final Paint paintBorder;
+    @Nullable
     private Paint paintCheck;
     private final int borderWidth;
 
-    public ColorView(Context context) {
+    public ColorView(@NonNull Context context) {
         this(context, null, 0);
     }
 
-    public ColorView(Context context, AttributeSet attrs) {
+    public ColorView(@NonNull Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public ColorView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ColorView(@NonNull Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         final int checkSize = (int) context.getResources().getDimension(R.dimen.circle_view_check);
         mCheck = getResizedBitmap(BitmapFactory.decodeResource(context.getResources(),
@@ -47,7 +52,7 @@ public class ColorView extends FrameLayout {
         setWillNotDraw(false);
     }
 
-    private static Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
+    private static Bitmap getResizedBitmap(@NonNull Bitmap bm, int newHeight, int newWidth) {
         int width = bm.getWidth();
         int height = bm.getHeight();
         float scaleWidth = ((float) newWidth) / width;
@@ -88,7 +93,7 @@ public class ColorView extends FrameLayout {
 
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
 
         int canvasSize = canvas.getWidth();

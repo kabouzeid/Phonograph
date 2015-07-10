@@ -5,25 +5,29 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 public class AlbumJSONStore extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "albums_last_fm.db";
     private static final int VERSION = 1;
+    @Nullable
     private static AlbumJSONStore sInstance = null;
 
     public AlbumJSONStore(final Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
 
-    public static synchronized AlbumJSONStore getInstance(final Context context) {
+    @Nullable
+    public static synchronized AlbumJSONStore getInstance(@NonNull final Context context) {
         if (sInstance == null) {
             sInstance = new AlbumJSONStore(context.getApplicationContext());
         }
         return sInstance;
     }
 
-    public void addAlbumJSON(final String albumAndArtistName, final String json) {
+    public void addAlbumJSON(@Nullable final String albumAndArtistName, @Nullable final String json) {
         if (albumAndArtistName == null || json == null) {
             return;
         }
@@ -41,7 +45,8 @@ public class AlbumJSONStore extends SQLiteOpenHelper {
         database.endTransaction();
     }
 
-    public String getJSONData(final String albumAndArtistName) {
+    @Nullable
+    public String getJSONData(@Nullable final String albumAndArtistName) {
         if (albumAndArtistName == null) {
             return null;
         }
@@ -68,7 +73,7 @@ public class AlbumJSONStore extends SQLiteOpenHelper {
         return null;
     }
 
-    public void removeAlbumJSON(final String albumAndArtistName) {
+    public void removeAlbumJSON(@NonNull final String albumAndArtistName) {
         final SQLiteDatabase database = getReadableDatabase();
         database.delete(AlbumJSONColumns.NAME, AlbumJSONColumns.ALBUM_PLUS_ARTIST_NAME + " = ?", new String[]{
                 albumAndArtistName.trim().toLowerCase()
@@ -83,7 +88,7 @@ public class AlbumJSONStore extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(final SQLiteDatabase db) {
+    public void onCreate(@NonNull final SQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS " + AlbumJSONColumns.NAME +
                         " (" + AlbumJSONColumns.ALBUM_PLUS_ARTIST_NAME + " TEXT NOT NULL," +
                         AlbumJSONColumns.JSON_DATA + " TEXT NOT NULL);"
@@ -92,7 +97,7 @@ public class AlbumJSONStore extends SQLiteOpenHelper {
 
 
     @Override
-    public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
+    public void onUpgrade(@NonNull final SQLiteDatabase db, final int oldVersion, final int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + AlbumJSONColumns.NAME);
         onCreate(db);
     }

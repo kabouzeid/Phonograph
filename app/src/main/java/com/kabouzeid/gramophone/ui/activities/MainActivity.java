@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.AppBarLayout.OnOffsetChangedListener;
 import android.support.design.widget.NavigationView;
@@ -87,6 +88,7 @@ public class MainActivity extends AbsFabActivity
     private PagerAdapter pagerAdapter;
     private int currentPage = -1;
     private MaterialCab cab;
+    @Nullable
     private View navigationDrawerHeader;
 
     @Override
@@ -180,7 +182,7 @@ public class MainActivity extends AbsFabActivity
         ));
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 drawerLayout.closeDrawers();
                 switch (menuItem.getItemId()) {
                     case R.id.nav_songs:
@@ -242,6 +244,7 @@ public class MainActivity extends AbsFabActivity
         setUpNavigationView();
     }
 
+    @NonNull
     @Override
     public String getTag() {
         return TAG;
@@ -307,7 +310,7 @@ public class MainActivity extends AbsFabActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         if (isAlbumPage()) {
             getMenuInflater().inflate(R.menu.menu_albums, menu);
             setUpGridMenu(menu);
@@ -329,7 +332,7 @@ public class MainActivity extends AbsFabActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
@@ -370,7 +373,7 @@ public class MainActivity extends AbsFabActivity
     }
 
     @Override
-    public void onUIPreferenceChangedEvent(UIPreferenceChangedEvent event) {
+    public void onUIPreferenceChangedEvent(@NonNull UIPreferenceChangedEvent event) {
         super.onUIPreferenceChangedEvent(event);
         switch (event.getAction()) {
             case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_OTHER_SCREENS_CHANGED:
@@ -402,7 +405,7 @@ public class MainActivity extends AbsFabActivity
         PreferenceUtils.getInstance(MainActivity.this).setLastStartPage(currentPage);
     }
 
-    private void handlePlaybackIntent(Intent intent) {
+    private void handlePlaybackIntent(@Nullable Intent intent) {
         if (intent == null) {
             return;
         }
@@ -447,7 +450,7 @@ public class MainActivity extends AbsFabActivity
         }
     }
 
-    private long parseIdFromIntent(Intent intent, String longKey,
+    private long parseIdFromIntent(@NonNull Intent intent, String longKey,
                                    String stringKey) {
         long id = intent.getLongExtra(longKey, -1);
         if (id < 0) {
@@ -475,6 +478,7 @@ public class MainActivity extends AbsFabActivity
         return pager.getCurrentItem() == PagerAdapter.MusicFragments.ALBUM.ordinal();
     }
 
+    @NonNull
     public AlbumViewFragment getAlbumFragment() {
         return (AlbumViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.ALBUM.ordinal());
     }
@@ -495,7 +499,7 @@ public class MainActivity extends AbsFabActivity
 //        return (PlaylistViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.PLAYLIST.ordinal());
 //    }
 
-    private void setUpGridMenu(Menu menu) {
+    private void setUpGridMenu(@NonNull Menu menu) {
         boolean isPortrait = Util.isInPortraitMode(this);
         int columns = isPortrait ? PreferenceUtils.getInstance(this).getAlbumGridColumns() : PreferenceUtils.getInstance(this).getAlbumGridColumnsLand();
         String title = isPortrait ? getResources().getString(R.string.action_grid_columns) : getResources().getString(R.string.action_grid_columns_land);
@@ -507,7 +511,7 @@ public class MainActivity extends AbsFabActivity
         gridSizeMenu.getItem(columns - 1).setChecked(true);
     }
 
-    private boolean handleGridSize(MenuItem item) {
+    private boolean handleGridSize(@NonNull MenuItem item) {
         int size = -1;
 
         switch (item.getItemId()) {

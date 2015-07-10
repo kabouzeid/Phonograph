@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.adapter.songadapter;
 
 import android.graphics.Typeface;
+import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -63,6 +64,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
         dataSet = SongLoader.getAllSongs(activity);
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(activity).inflate(R.layout.item_list_song, parent, false);
@@ -75,7 +77,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         if (getItemViewType(position) == SONG) {
             final Song song = dataSet.get(position - 1);
 
@@ -118,7 +120,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
     }
 
     @Override
-    protected void onMultipleItemAction(MenuItem menuItem, ArrayList<Song> selection) {
+    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Song> selection) {
         switch (menuItem.getItemId()) {
             case R.id.action_delete_from_disk:
                 DeleteSongsDialog.create(selection).show(activity.getSupportFragmentManager(), "DELETE_SONGS");
@@ -133,15 +135,20 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+        @NonNull
         final TextView songTitle;
+        @NonNull
         final TextView songInfo;
+        @NonNull
         final ImageView overflowButton;
+        @NonNull
         final ImageView albumArt;
         final View separator;
         final View short_separator;
+        @NonNull
         final View view;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
             songTitle = (TextView) itemView.findViewById(R.id.song_title);
@@ -159,7 +166,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
                     popupMenu.inflate(R.menu.menu_item_song);
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
-                        public boolean onMenuItemClick(MenuItem item) {
+                        public boolean onMenuItemClick(@NonNull MenuItem item) {
                             final int position = getAdapterPosition() - 1;
                             switch (item.getItemId()) {
                                 case R.id.action_go_to_album:
@@ -212,7 +219,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
     }
 
     @Subscribe
-    public void onDataBaseEvent(DataBaseChangedEvent event) {
+    public void onDataBaseEvent(@NonNull DataBaseChangedEvent event) {
         switch (event.getAction()) {
             case DataBaseChangedEvent.SONGS_CHANGED:
             case DataBaseChangedEvent.DATABASE_CHANGED:

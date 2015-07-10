@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.lastfm.rest;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.kabouzeid.gramophone.lastfm.rest.service.LastFMService;
 import com.squareup.okhttp.Cache;
@@ -20,7 +21,7 @@ public class LastFMRestClient {
 
     private LastFMService apiService;
 
-    public LastFMRestClient(Context context) {
+    public LastFMRestClient(@NonNull Context context) {
         OkHttpClient okHttpClient = new OkHttpClient();
 
         File cacheDir = new File(context.getCacheDir().getAbsolutePath(), "/okhttp-lastfm/");
@@ -33,7 +34,7 @@ public class LastFMRestClient {
                 .setClient(new OkClient(okHttpClient))
                 .setRequestInterceptor(new RequestInterceptor() {
                     @Override
-                    public void intercept(RequestInterceptor.RequestFacade request) {
+                    public void intercept(@NonNull RequestInterceptor.RequestFacade request) {
                         request.addHeader("Cache-Control", String.format("max-age=%d, max-stale=%d", 31536000, 31536000));
                     }
                 })

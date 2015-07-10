@@ -9,6 +9,8 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
@@ -52,7 +54,6 @@ import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.Optional;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -77,7 +78,6 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     ObservableScrollView observableScrollView;
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
-    @Optional
     @InjectView(R.id.image)
     ImageView image;
     @InjectView(R.id.header)
@@ -220,9 +220,10 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
     protected abstract int getContentViewLayout();
 
+    @NonNull
     protected abstract List<String> getSongPaths();
 
-    protected void searchWebFor(List<String> strings) {
+    protected void searchWebFor(@NonNull List<String> strings) {
         StringBuilder stringBuilder = new StringBuilder();
         for (String string : strings) {
             stringBuilder.append(string);
@@ -234,7 +235,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
             case android.R.id.home:
@@ -281,7 +282,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         setImageBitmap(bitmap);
     }
 
-    protected void setImageBitmap(final Bitmap bitmap) {
+    protected void setImageBitmap(@Nullable final Bitmap bitmap) {
         if (bitmap != null) {
             image.setImageBitmap(bitmap);
             applyPalette(bitmap);
@@ -290,12 +291,12 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         }
     }
 
-    private void applyPalette(final Bitmap bitmap) {
+    private void applyPalette(@NonNull final Bitmap bitmap) {
         Palette.from(bitmap)
                 .resizeBitmapSize(100)
                 .generate(new Palette.PaletteAsyncListener() {
                     @Override
-                    public void onGenerated(Palette palette) {
+                    public void onGenerated(@NonNull Palette palette) {
                         final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
                         if (vibrantSwatch != null) {
                             paletteColorPrimary = palette.getVibrantColor(DialogUtils.resolveColor(AbsTagEditorActivity.this, R.attr.default_bar_color));
@@ -317,11 +318,11 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         return true;
     }
 
-    protected void writeValuesToFiles(final Map<FieldKey, String> fieldKeyValueMap) {
+    protected void writeValuesToFiles(@NonNull final Map<FieldKey, String> fieldKeyValueMap) {
         writeValuesToFiles(fieldKeyValueMap, null, false);
     }
 
-    protected void writeValuesToFiles(final Map<FieldKey, String> fieldKeyValueMap, final Artwork artwork, final boolean deleteArtwork) {
+    protected void writeValuesToFiles(@NonNull final Map<FieldKey, String> fieldKeyValueMap, @Nullable final Artwork artwork, final boolean deleteArtwork) {
         Util.hideSoftKeyboard(this);
         final String writingFileStr = getResources().getString(R.string.writing_file_number);
         final MaterialDialog progressDialog = new MaterialDialog.Builder(AbsTagEditorActivity.this)
@@ -361,7 +362,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                             tag.setField(artwork);
                         }
                         audioFile.commit();
-                    } catch (CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException e) {
+                    } catch (@NonNull CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException e) {
                         Log.e(TAG, "Error while reading audio file.", e);
                     } catch (CannotWriteException e) {
                         Log.e(TAG, "Error while writing audio file.", e);
@@ -390,7 +391,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         }).start();
     }
 
-    private void rescanMediaAndQuitOnFinish(final OnScannedAllListener listener) {
+    private void rescanMediaAndQuitOnFinish(@NonNull final OnScannedAllListener listener) {
         String[] toBeScanned = new String[songPaths.size()];
         toBeScanned = songPaths.toArray(toBeScanned);
         final int toBeScannedLength = toBeScanned.length;
@@ -418,7 +419,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         return id;
     }
 
-    protected void writeValuesToFiles(final Map<FieldKey, String> fieldKeyValueMap, final Artwork artwork) {
+    protected void writeValuesToFiles(@NonNull final Map<FieldKey, String> fieldKeyValueMap, @Nullable final Artwork artwork) {
         if (artwork == null) {
             writeValuesToFiles(fieldKeyValueMap, null, true);
         } else {
@@ -426,12 +427,12 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         }
     }
 
-    protected void writeValuesToFiles(final Map<FieldKey, String> fieldKeyValueMap, boolean deleteArtwork) {
+    protected void writeValuesToFiles(@NonNull final Map<FieldKey, String> fieldKeyValueMap, boolean deleteArtwork) {
         writeValuesToFiles(fieldKeyValueMap, null, deleteArtwork);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+    protected void onActivityResult(int requestCode, int resultCode, @NonNull Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
         switch (requestCode) {
             case REQUEST_CODE_SELECT_IMAGE:
@@ -444,6 +445,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
     protected abstract void loadImageFromFile(Uri selectedFile);
 
+    @Nullable
     protected String getSongTitle() {
         try {
             return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.TITLE);
@@ -452,15 +454,16 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         }
     }
 
-    private AudioFile getAudioFile(String path) {
+    private AudioFile getAudioFile(@NonNull String path) {
         try {
             return AudioFileIO.read(new File(path));
-        } catch (CannotReadException | ReadOnlyFileException | InvalidAudioFrameException | TagException | IOException e) {
+        } catch (@NonNull CannotReadException | ReadOnlyFileException | InvalidAudioFrameException | TagException | IOException e) {
             Log.e(TAG, "Error while trying to create the AudioFile from java.io.File", e);
         }
         return null;
     }
 
+    @Nullable
     protected String getAlbumTitle() {
         try {
             return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.ALBUM);
@@ -469,6 +472,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         return null;
     }
 
+    @Nullable
     protected String getArtistName() {
         try {
             return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.ARTIST);
@@ -477,6 +481,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         return null;
     }
 
+    @Nullable
     protected String getAlbumArtistName() {
         try {
             return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.ALBUM_ARTIST);
@@ -485,6 +490,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         return null;
     }
 
+    @Nullable
     protected String getGenreName() {
         try {
             return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.GENRE);
@@ -493,6 +499,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         return null;
     }
 
+    @Nullable
     protected String getSongYear() {
         try {
             return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.YEAR);
@@ -501,6 +508,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         return null;
     }
 
+    @Nullable
     protected String getTrackNumber() {
         try {
             return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.TRACK);
@@ -509,6 +517,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         return null;
     }
 
+    @Nullable
     protected Bitmap getAlbumArt() {
         try {
             Artwork artworkTag = getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirstArtwork();
