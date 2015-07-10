@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.media.audiofx.AudioEffect;
 import android.os.IBinder;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
@@ -305,6 +306,17 @@ public class MusicPlayerRemote {
     }
 
     public static void playFile(String path) {
-        //TODO
+        if (musicService != null) {
+            ArrayList<Song> songs = SongLoader.getSongs(SongLoader.makeSongCursor(
+                    musicService,
+                    MediaStore.Audio.AudioColumns.DATA + "=?",
+                    new String[]{path}
+            ));
+            if (!songs.isEmpty()) {
+                openQueue(songs, 0, true);
+            } else {
+                //TODO the file is not listed in the media store
+            }
+        }
     }
 }
