@@ -26,6 +26,7 @@ import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.Set;
 
@@ -165,6 +166,15 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     getActivity().sendBroadcast(new Intent(MusicService.SETTING_GAPLESS_PLAYBACK_CHANGED).putExtra(MusicService.SETTING_BOOLEAN_EXTRA, (boolean) newValue));
+                    return true;
+                }
+            });
+
+            Preference ignoreMediaStoreArtwork = findPreference("ignore_media_store_artwork");
+            ignoreMediaStoreArtwork.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    ImageLoader.getInstance().clearMemoryCache();
                     return true;
                 }
             });
