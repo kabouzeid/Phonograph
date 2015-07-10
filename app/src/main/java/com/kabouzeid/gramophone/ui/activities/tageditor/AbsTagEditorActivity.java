@@ -373,10 +373,8 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                         progressDialog.setContent(getString(R.string.rescanning_media));
                         if (deleteArtwork) {
                             MusicUtil.deleteAlbumArt(AbsTagEditorActivity.this, getId());
-                            //ImageLoader.getInstance().getMemoryCache().remove(MusicUtil.getAlbumArtUri(getId()).toString());
                             ImageLoader.getInstance().clearMemoryCache();
                         } else if (artwork != null) {
-                            //ImageLoader.getInstance().getMemoryCache().remove(MusicUtil.getAlbumArtUri(getId()).toString());
                             ImageLoader.getInstance().clearMemoryCache();
                         }
                     }

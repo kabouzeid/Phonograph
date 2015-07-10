@@ -27,6 +27,7 @@ public class App extends Application {
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
                 .imageDownloader(new PhonographImageDownloader(this))
+                .memoryCacheSizePercentage(30)
                 .build();
         ImageLoader.getInstance().init(config);
         L.writeLogs(false); // turns off UILs annoying LogCat output

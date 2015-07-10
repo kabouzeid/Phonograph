@@ -118,44 +118,6 @@ public class Util {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
-//    public static boolean isOnline(final Context context) {
-//        if (context == null)
-//            return false;
-//
-//        boolean state = false;
-//        final boolean onlyOnWifi = PreferenceUtils.getInstance(context).autoDownloadOnlyOnWifi();
-//
-//        /* Monitor network connections */
-//        final ConnectivityManager connectivityManager = (ConnectivityManager) context
-//                .getSystemService(Context.CONNECTIVITY_SERVICE);
-//
-//        /* Wi-Fi connection */
-//        final NetworkInfo wifiNetwork = connectivityManager
-//                .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-//        if (wifiNetwork != null) {
-//            state = wifiNetwork.isConnectedOrConnecting();
-//        }
-//
-//        /* Mobile data connection */
-//        final NetworkInfo mbobileNetwork = connectivityManager
-//                .getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-//        if (mbobileNetwork != null) {
-//            if (!onlyOnWifi) {
-//                state = mbobileNetwork.isConnectedOrConnecting();
-//            }
-//        }
-//
-//        /* Other networks */
-//        final NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-//        if (activeNetwork != null) {
-//            if (!onlyOnWifi) {
-//                state = activeNetwork.isConnectedOrConnecting();
-//            }
-//        }
-//
-//        return state;
-//    }
-
     public static String getFileSizeString(long sizeInBytes) {
         long fileSizeInKB = sizeInBytes / 1024;
         long fileSizeInMB = fileSizeInKB / 1024;

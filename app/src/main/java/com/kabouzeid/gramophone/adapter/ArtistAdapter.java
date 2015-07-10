@@ -82,6 +82,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
             holder.artistImage.setImageResource(R.drawable.default_artist_image);
             return;
         }
+
         lastFMRestClient.getApiService().getArtistInfo(artist.name, null, new Callback<ArtistInfo>() {
             @Override
             public void success(ArtistInfo artistInfo, Response response) {

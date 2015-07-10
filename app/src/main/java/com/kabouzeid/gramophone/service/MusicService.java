@@ -423,7 +423,7 @@ public class MusicService extends Service {
     }
 
     private void updateRemoteControlClient() {
-        updateRemoteControlClientImpl(PreferenceUtils.getInstance(this).albumArtOnLockscrenn());
+        updateRemoteControlClientImpl(PreferenceUtils.getInstance(this).albumArtOnLockscreen());
     }
 
     private void updateRemoteControlClientImpl(boolean showAlbumArt) {
@@ -435,7 +435,7 @@ public class MusicService extends Service {
                 .putLong(MediaMetadataRetriever.METADATA_KEY_DURATION, song.duration)
                 .apply();
         if (showAlbumArt) {
-            final String currentAlbumArtUri = MusicUtil.getAlbumArtUri(song.albumId).toString();
+            final String currentAlbumArtUri = MusicUtil.getSongImageLoaderString(song);
             ImageLoader.getInstance().displayImage(currentAlbumArtUri, new NonViewAware(new ImageSize(-1, -1), ViewScaleType.CROP), new SimpleImageLoadingListener() {
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {

@@ -206,7 +206,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
 
     private void setUpAlbumArtAndApplyPalette() {
         ImageLoader.getInstance().displayImage(
-                MusicUtil.getAlbumArtUri(album.id).toString(),
+                MusicUtil.getAlbumImageLoaderString(album),
                 albumArtImageView,
                 new DisplayImageOptions.Builder()
                         .cacheInMemory(true)

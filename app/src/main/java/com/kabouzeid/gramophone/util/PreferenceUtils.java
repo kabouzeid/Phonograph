@@ -22,8 +22,7 @@ public final class PreferenceUtils {
     public static final String ALBUM_SORT_ORDER = "album_sort_order";
     public static final String ALBUM_SONG_SORT_ORDER = "album_song_sort_order";
     public static final String SONG_SORT_ORDER = "song_sort_order";
-    //    public static final String ONLY_ON_WIFI = "auto_download_artist_images";
-    //    public static final String DOWNLOAD_MISSING_ARTIST_IMAGES = "auto_download_artist_images";
+    public static final String AUTO_DOWNLOAD_ARTIST_IMAGES_ONLY_ON_WIFI = "auto_download_artist_images_only_on_wifi";
     public static final String COLORED_ALBUM_FOOTERS = "colored_album_footers";
     public static final String COLORED_NAVIGATION_BAR = "colored_navigation_bar";
     public static final String COLORED_NAVIGATION_BAR_ALBUM = "colored_navigation_bar_album";
@@ -46,6 +45,7 @@ public final class PreferenceUtils {
     public static final String ALBUM_ART_ON_LOCKSCREEN = "album_art_on_lockscreen";
     public static final String LAST_SLEEP_TIMER_VALUE = "last_sleep_timer_value";
     public static final String NEXT_SLEEP_TIMER_ELAPSED_REALTIME = "next_sleep_timer_elapsed_real_time";
+    public static final String IGNORE_MEDIA_STORE_ARTWORK = "ignore_media_store_artwork";
 
     private static PreferenceUtils sInstance;
 
@@ -111,9 +111,9 @@ public final class PreferenceUtils {
         return mPreferences.getInt(LAST_START_PAGE, DEFAULT_PAGE);
     }
 
-//    public final boolean autoDownloadOnlyOnWifi() {
-//        return mPreferences.getBoolean(ONLY_ON_WIFI, false);
-//    }
+    public final boolean autoDownloadArtistImagesOnlyOnWifi() {
+        return mPreferences.getBoolean(AUTO_DOWNLOAD_ARTIST_IMAGES_ONLY_ON_WIFI, false);
+    }
 
     public final boolean coloredAlbumFooters() {
         return mPreferences.getBoolean(COLORED_ALBUM_FOOTERS, true);
@@ -168,11 +168,6 @@ public final class PreferenceUtils {
         }
     }
 
-//    @SuppressLint("CommitPrefEdits")
-//    private void setColoredNavigationBarOtherScreens(boolean coloredNavbar) {
-//        mPreferences.edit().putBoolean(COLORED_NAVIGATION_BAR_OTHER_SCREENS, coloredNavbar).commit();
-//    }
-
     public final boolean opaqueStatusbarNowPlaying() {
         return mPreferences.getBoolean(OPAQUE_STATUSBAR_NOW_PLAYING, false);
     }
@@ -201,67 +196,36 @@ public final class PreferenceUtils {
         return mPreferences.getBoolean(GAPLESS_PLAYBACK, false);
     }
 
-    public final boolean albumArtOnLockscrenn() {
+    public final boolean albumArtOnLockscreen() {
         return mPreferences.getBoolean(ALBUM_ART_ON_LOCKSCREEN, true);
     }
 
-//    public final boolean downloadMissingArtistImages() {
-//        return mPreferences.getBoolean(DOWNLOAD_MISSING_ARTIST_IMAGES, true);
-//    }
-//
+    public final boolean ignoreMediaStoreArtwork() {
+        return mPreferences.getBoolean(IGNORE_MEDIA_STORE_ARTWORK, false);
+    }
 
-//    private void setSortOrder(final String key, final String value) {
-//        final SharedPreferences.Editor editor = mPreferences.edit();
-//        editor.putString(key, value);
-//        editor.apply();
-//    }
-
-    //    public void setArtistSortOrder(final String value) {
-//        setSortOrder(ARTIST_SORT_ORDER, value);
-//    }
-//
     public final String getArtistSortOrder() {
         return mPreferences.getString(ARTIST_SORT_ORDER, SortOrder.ArtistSortOrder.ARTIST_A_Z);
     }
-
-//    public void setArtistSongSortOrder(final String value) {
-//        setSortOrder(ARTIST_SONG_SORT_ORDER, value);
-//    }
 
     public final String getArtistSongSortOrder() {
         return mPreferences.getString(ARTIST_SONG_SORT_ORDER,
                 SortOrder.ArtistSongSortOrder.SONG_A_Z);
     }
 
-//    public void setArtistAlbumSortOrder(final String value) {
-//        setSortOrder(ARTIST_ALBUM_SORT_ORDER, value);
-//    }
-
     public final String getArtistAlbumSortOrder() {
         return mPreferences.getString(ARTIST_ALBUM_SORT_ORDER,
                 SortOrder.ArtistAlbumSortOrder.ALBUM_YEAR_ASC);
     }
 
-//    public void setAlbumSortOrder(final String value) {
-//        setSortOrder(ALBUM_SORT_ORDER, value);
-//    }
-
     public final String getAlbumSortOrder() {
         return mPreferences.getString(ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_A_Z);
     }
-
-//    public void setAlbumSongSortOrder(final String value) {
-//        setSortOrder(ALBUM_SONG_SORT_ORDER, value);
-//    }
 
     public final String getAlbumSongSortOrder() {
         return mPreferences.getString(ALBUM_SONG_SORT_ORDER,
                 SortOrder.AlbumSongSortOrder.SONG_TRACK_LIST);
     }
-
-//    public void setSongSortOrder(final String value) {
-//        setSortOrder(SONG_SORT_ORDER, value);
-//    }
 
     public final String getSongSortOrder() {
         return mPreferences.getString(SONG_SORT_ORDER, SortOrder.SongSortOrder.SONG_A_Z);

@@ -70,7 +70,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
         songInfo.setText(song.albumName);
 
         ImageLoader.getInstance().displayImage(
-                MusicUtil.getAlbumArtUri(song.albumId).toString(),
+                MusicUtil.getSongImageLoaderString(song),
                 albumArt,
                 new DisplayImageOptions.Builder()
                         .cacheInMemory(true)

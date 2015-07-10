@@ -64,7 +64,7 @@ public class WidgetMedium extends AppWidgetProvider {
 
     private static void loadAlbumArt(final Context context, final Song song) {
         if (song != null) {
-            currentAlbumArtUri = MusicUtil.getAlbumArtUri(song.albumId).toString();
+            currentAlbumArtUri = MusicUtil.getSongImageLoaderString(song);
             ImageLoader.getInstance().displayImage(currentAlbumArtUri, new NonViewAware(new ImageSize(-1, -1), ViewScaleType.CROP), new SimpleImageLoadingListener() {
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {

@@ -11,14 +11,17 @@ import android.os.Environment;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.imageloader.PhonographImageDownloader;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.SongLoader;
+import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Playlist;
@@ -34,6 +37,14 @@ import java.util.List;
 public class MusicUtil {
     public static final String TAG = MusicUtil.class.getSimpleName();
 
+    public static String getAlbumImageLoaderString(Album album) {
+        return PhonographImageDownloader.SCHEME_ALBUM + album.id;
+    }
+
+    public static String getSongImageLoaderString(Song song) {
+        return PhonographImageDownloader.SCHEME_SONG + song.albumId + "#" + song.data;
+    }
+
     public static Uri getAlbumArtUri(int albumId) {
         final Uri sArtworkUri = Uri
                 .parse("content://media/external/audio/albumart");
@@ -45,6 +56,7 @@ public class MusicUtil {
         return ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, songId);
     }
 
+    @NonNull
     public static Intent createShareSongFileIntent(final Song song) {
         return new Intent()
                 .setAction(Intent.ACTION_SEND)
@@ -122,6 +134,7 @@ public class MusicUtil {
         return new File(createAlbumArtDir(), name + System.currentTimeMillis());
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static File createAlbumArtDir() {
         File albumArtDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "/.albumart/");
         if (!albumArtDir.exists()) {

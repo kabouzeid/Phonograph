@@ -104,6 +104,7 @@
     <string name="pref_title_general_theme">General Theme</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">General</string>
+    <string name="pref_header_images">Images</string>
     <string name="pref_header_lockscreen">Lockscreen</string>
     <string name="pref_summary_colored_navigation_bar">In which views the navigation bar should be colored.</string>
     <string name="pref_title_navigation_bar">Colored Navigation Bar</string>
@@ -117,6 +118,7 @@
     <string name="pref_title_colored_album_footers">Colored Album Footers</string>
     <string name="pref_title_album_art_on_lockscreen">Album Art on Lockscreen</string>
     <string name="pref_title_colored_notification">Colored Notification</string>
+    <string name="pref_title_ignore_media_store_artwork">Ignore Media Store artwork</string>
     <string name="pref_title_gapless_playback">Gapless Playback</string>
     <string name="pref_title_force_square_album_art">Force Square Album Cover</string>
     <string name="pref_title_opaque_toolbar_now_playing">Opaque Toolbar</string>
@@ -160,6 +162,7 @@
     <string name="pref_summary_larger_title_box_now_playing">The box below the album art where the song title and artist goes is larger in its height.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Uses a progressbar which does not cover the album art instead of the default progress slider.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Displays a card below the playback controller buttons (play/pause etc.).</string>
+    <string name="pref_summary_ignore_media_store_artwork">The Android Media Store caches your embedded album artwork but on some devices it seems to store it at a low resolution. Enabling this will bypass the Media Store, which can increase the album art quality but causes slower image loading times.</string>
     <string name="could_not_download_album_cover">"Could not download a matching album cover."</string>
     <string name="search_hint">Search your library…</string>
     <string name="rescanning_media">Rescanning media…</string>

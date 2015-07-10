@@ -258,7 +258,7 @@ public class MainActivity extends AbsFabActivity
             ((TextView) navigationDrawerHeader.findViewById(R.id.song_title)).setText(song.title);
             ((TextView) navigationDrawerHeader.findViewById(R.id.song_artist)).setText(song.artistName);
             ImageLoader.getInstance().displayImage(
-                    MusicUtil.getAlbumArtUri(song.albumId).toString(),
+                    MusicUtil.getSongImageLoaderString(song),
                     ((ImageView) navigationDrawerHeader.findViewById(R.id.album_art)),
                     new DisplayImageOptions.Builder()
                             .cacheInMemory(true)
