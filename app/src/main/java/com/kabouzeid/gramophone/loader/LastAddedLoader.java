@@ -27,7 +27,7 @@ public class LastAddedLoader {
 
         return SongLoader.makeSongCursor(
                 context,
-                MediaStore.Audio.Media.DATE_ADDED + ">",
+                MediaStore.Audio.Media.DATE_ADDED + ">?",
                 new String[]{String.valueOf(cutoff)},
                 MediaStore.Audio.Media.DATE_ADDED + " DESC");
     }
