@@ -97,11 +97,8 @@ public class MusicService extends Service {
 
     private final IBinder musicBind = new MusicBinder();
 
-    @Nullable
     private MultiPlayer player;
-    @Nullable
     private ArrayList<Song> playingQueue;
-    @Nullable
     private ArrayList<Song> originalPlayingQueue;
     private int position = -1;
     private int nextPosition = -1;
@@ -118,9 +115,7 @@ public class MusicService extends Service {
     private QueueSaveHandler queueSaveHandler;
     private HandlerThread musicPlayerHandlerThread;
     private HandlerThread queueSaveHandlerThread;
-    @Nullable
     private RecentlyPlayedStore recentlyPlayedStore;
-    @Nullable
     private SongPlayCountStore songPlayCountStore;
     private boolean notNotifiedMetaChangedForCurrentTrack;
     private boolean isServiceInUse;
@@ -446,20 +441,21 @@ public class MusicService extends Service {
             ImageLoader.getInstance().displayImage(currentAlbumArtUri, new NonViewAware(new ImageSize(-1, -1), ViewScaleType.CROP), new SimpleImageLoadingListener() {
                 @Override
                 public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
-                    if (currentAlbumArtUri.equals(imageUri)) {
-                        if (loadedImage != null) {
-                            // RemoteControlClient wants to recycle the bitmaps thrown at it, so we need
-                            // to make sure not to hand out our cache copy
-                            Bitmap.Config config = loadedImage.getConfig();
-                            if (config == null) {
-                                config = Bitmap.Config.ARGB_8888;
-                            }
-                            loadedImage = loadedImage.copy(config, false);
-                            updateRemoteControlClientBitmap(loadedImage.copy(loadedImage.getConfig(), true));
-                        } else {
-                            updateRemoteControlClientBitmap(null);
-                        }
+                    if (!currentAlbumArtUri.equals(imageUri)) {
+                        return;
                     }
+                    if (loadedImage == null) {
+                        onLoadingFailed(imageUri, view, null);
+                        return;
+                    }
+                    // RemoteControlClient wants to recycle the bitmaps thrown at it, so we need
+                    // to make sure not to hand out our cache copy
+                    Bitmap.Config config = loadedImage.getConfig();
+                    if (config == null) {
+                        config = Bitmap.Config.ARGB_8888;
+                    }
+                    loadedImage = loadedImage.copy(config, false);
+                    updateRemoteControlClientBitmap(loadedImage.copy(loadedImage.getConfig(), true));
                 }
 
                 @Override
@@ -537,7 +533,6 @@ public class MusicService extends Service {
         return getPosition() == getPlayingQueue().size() - 1;
     }
 
-    @Nullable
     public ArrayList<Song> getPlayingQueue() {
         return playingQueue;
     }
@@ -584,7 +579,7 @@ public class MusicService extends Service {
         int restoredPosition = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_POSITION, -1);
         int restoredPositionInTrack = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_POSITION_IN_TRACK, -1);
 
-        if (restoredQueue != null && restoredOriginalQueue != null && restoredPosition != -1) {
+        if (restoredQueue.size() > 0 && restoredQueue.size() == restoredOriginalQueue.size() && restoredPosition != -1) {
             this.originalPlayingQueue = restoredOriginalQueue;
             this.playingQueue = restoredQueue;
 
