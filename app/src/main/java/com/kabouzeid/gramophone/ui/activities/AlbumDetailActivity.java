@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,7 +30,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.songadapter.AlbumSongAdapter;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.helper.bitmapblur.StackBlurManager;
+import com.kabouzeid.gramophone.imageloader.BlurProcessor;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
@@ -218,20 +217,33 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                         .build(),
                 new SimpleImageLoadingListener() {
                     @Override
-                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
                         applyPalette(null);
-                        BitmapFactory.Options options = new BitmapFactory.Options();
-                        options.inSampleSize = 2;
-                        albumArtBackground.setImageBitmap(new StackBlurManager(BitmapFactory.decodeResource(getResources(), R.drawable.default_album_art, options)).process(10));
+
+                        ImageLoader.getInstance().displayImage(
+                                "drawable://" + R.drawable.default_album_art,
+                                albumArtBackground,
+                                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor(10)).build()
+                        );
+
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                             startPostponedEnterTransition();
                     }
 
-
                     @Override
-                    public void onLoadingComplete(String imageUri, View view, @NonNull Bitmap loadedImage) {
+                    public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
+                        if (loadedImage == null) {
+                            onLoadingFailed(imageUri, view, null);
+                            return;
+                        }
                         applyPalette(loadedImage);
-                        albumArtBackground.setImageBitmap(new StackBlurManager(loadedImage).process(10));
+
+                        ImageLoader.getInstance().displayImage(
+                                imageUri,
+                                albumArtBackground,
+                                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor(10)).build()
+                        );
+
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                             startPostponedEnterTransition();
                     }

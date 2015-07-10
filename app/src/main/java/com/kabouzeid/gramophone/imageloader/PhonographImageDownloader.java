@@ -72,7 +72,7 @@ public class PhonographImageDownloader extends BaseImageDownloader {
             return null;
         }
 
-        int id = Integer.valueOf(data[0].substring(SCHEME_SONG.length()));
+        int id = Integer.parseInt(data[0].substring(SCHEME_SONG.length()));
         return getMediaProviderAlbumArtInputStream(id);
     }
 
