@@ -23,8 +23,8 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
+        android:layout_width="@dimen/notification_big_image_size"
+        android:layout_height="@dimen/notification_big_image_size"
         android:scaleType="centerCrop"
         tools:ignore="ContentDescription" />
 

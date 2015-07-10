@@ -18,12 +18,14 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.assist.ViewScaleType;
 import com.nostra13.universalimageloader.core.imageaware.NonViewAware;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 public class WidgetMedium extends AppWidgetProvider {
     private static RemoteViews widgetLayout;
@@ -66,33 +68,40 @@ public class WidgetMedium extends AppWidgetProvider {
 
     private static void loadAlbumArt(@NonNull final Context context, @Nullable final Song song) {
         if (song != null) {
+            int widgetImageSize = context.getResources().getDimensionPixelSize(R.dimen.widget_medium_image_size);
             currentAlbumArtUri = MusicUtil.getSongImageLoaderString(song);
-            ImageLoader.getInstance().displayImage(currentAlbumArtUri, new NonViewAware(new ImageSize(-1, -1), ViewScaleType.CROP), new SimpleImageLoadingListener() {
-                @Override
-                public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
-                    if (currentAlbumArtUri.equals(imageUri)) {
-                        if (loadedImage != null) {
-                            // The RemoteViews might wants to recycle the bitmaps thrown at it, so we need
-                            // to make sure not to hand out our cache copy
-                            Bitmap.Config config = loadedImage.getConfig();
-                            if (config == null) {
-                                config = Bitmap.Config.ARGB_8888;
+            ImageLoader.getInstance().displayImage(
+                    currentAlbumArtUri,
+                    new NonViewAware(new ImageSize(widgetImageSize, widgetImageSize), ViewScaleType.CROP),
+                    new DisplayImageOptions.Builder()
+                            .postProcessor(new BitmapProcessor() {
+                                @Override
+                                public Bitmap process(Bitmap bitmap) {
+                                    // The RemoteViews might wants to recycle the bitmaps thrown at it, so we need
+                                    // to make sure not to hand out our cache copy
+                                    Bitmap.Config config = bitmap.getConfig();
+                                    if (config == null) {
+                                        config = Bitmap.Config.ARGB_8888;
+                                    }
+                                    bitmap = bitmap.copy(config, false);
+                                    return bitmap.copy(bitmap.getConfig(), true);
+                                }
+                            }).build(),
+                    new SimpleImageLoadingListener() {
+                        @Override
+                        public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
+                            if (currentAlbumArtUri.equals(imageUri)) {
+                                setAlbumArt(context, loadedImage);
                             }
-                            loadedImage = loadedImage.copy(config, false);
-                            setAlbumArt(context, loadedImage.copy(loadedImage.getConfig(), true));
-                        } else {
-                            setAlbumArt(context, null);
                         }
-                    }
-                }
 
-                @Override
-                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                    if (currentAlbumArtUri.equals(imageUri)) {
-                        setAlbumArt(context, null);
-                    }
-                }
-            });
+                        @Override
+                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                            if (currentAlbumArtUri.equals(imageUri)) {
+                                setAlbumArt(context, null);
+                            }
+                        }
+                    });
         }
     }
 
