@@ -570,6 +570,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         if (cab != null && cab.isActive()) cab.finish();
         cab = new MaterialCab(this, R.id.cab_stub)
                 .setMenu(menuRes)
+                .setCloseDrawableRes(R.drawable.ic_close_white_24dp)
                 .setBackgroundColor(getPaletteColor())
                 .start(new MaterialCab.Callback() {
                     @Override

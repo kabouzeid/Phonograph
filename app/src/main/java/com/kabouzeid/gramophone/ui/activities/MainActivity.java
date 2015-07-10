@@ -67,7 +67,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class MainActivity extends AbsFabActivity
-        implements KabViewsDisableAble, CabHolder, View.OnClickListener {
+        implements KabViewsDisableAble, CabHolder {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -256,7 +256,18 @@ public class MainActivity extends AbsFabActivity
         if (song.id != -1) {
             if (navigationDrawerHeader == null) {
                 navigationDrawerHeader = navigationView.inflateHeaderView(R.layout.navigation_drawer_header);
-                navigationDrawerHeader.setOnClickListener(this);
+                //noinspection ConstantConditions
+                navigationDrawerHeader.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //noinspection ConstantConditions
+                        NavigationUtil.openCurrentPlayingIfPossible(MainActivity.this, getSharedViewsWithFab(new Pair[]{
+                                Pair.create(navigationDrawerHeader.findViewById(R.id.album_art),
+                                        getResources().getString(R.string.transition_album_cover)
+                                )
+                        }));
+                    }
+                });
             }
             ((TextView) navigationDrawerHeader.findViewById(R.id.song_title)).setText(song.title);
             ((TextView) navigationDrawerHeader.findViewById(R.id.song_artist)).setText(song.artistName);
@@ -270,8 +281,10 @@ public class MainActivity extends AbsFabActivity
                             .build()
             );
         } else {
-            navigationView.removeHeaderView(navigationDrawerHeader);
-            navigationDrawerHeader = null;
+            if (navigationDrawerHeader != null) {
+                navigationView.removeHeaderView(navigationDrawerHeader);
+                navigationDrawerHeader = null;
+            }
         }
     }
 
@@ -596,27 +609,17 @@ public class MainActivity extends AbsFabActivity
         if (cab != null && cab.isActive()) cab.finish();
         cab = new MaterialCab(this, R.id.cab_stub)
                 .setMenu(menu)
+                .setCloseDrawableRes(R.drawable.ic_close_white_24dp)
                 .setBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimary())
                 .start(callback);
         return cab;
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v == navigationDrawerHeader) {
-            NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithFab(new Pair[]{
-                    Pair.create(((ImageView) navigationDrawerHeader.findViewById(R.id.album_art)),
-                            getResources().getString(R.string.transition_album_cover)
-                    )
-            }));
-        }
     }
 
     public void addOnAppBarOffsetChangedListener(OnOffsetChangedListener onOffsetChangedListener) {
         appbar.addOnOffsetChangedListener(onOffsetChangedListener);
     }
 
-    public void removeOnAppBArOffsetChangedListener(OnOffsetChangedListener onOffsetChangedListener) {
+    public void removeOnAppBarOffsetChangedListener(OnOffsetChangedListener onOffsetChangedListener) {
         appbar.removeOnOffsetChangedListener(onOffsetChangedListener);
     }
 
