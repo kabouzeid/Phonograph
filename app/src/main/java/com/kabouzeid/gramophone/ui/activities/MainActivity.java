@@ -59,6 +59,7 @@ import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -450,7 +451,7 @@ public class MainActivity extends AbsFabActivity
             MusicPlayerRemote.openQueue(SearchQueryHelper.getSongs(this, intent.getExtras()), 0, true);
         }
         if (uri != null && uri.toString().length() > 0) {
-            MusicPlayerRemote.playFile(uri.toString());
+            MusicPlayerRemote.playFile(new File(uri.getPath()).getAbsolutePath());
             handled = true;
         } else if (MediaStore.Audio.Playlists.CONTENT_TYPE.equals(mimeType)) {
             final int id = (int) parseIdFromIntent(intent, "playlistId", "playlist");
