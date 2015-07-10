@@ -315,9 +315,9 @@ public class MusicControllerActivity extends AbsFabActivity {
 
     private void setUpPrevNext() {
         nextButton.setImageDrawable(Util.getTintedDrawable(this,
-                R.drawable.ic_skip_next_white_48dp, DialogUtils.resolveColor(this, R.attr.themed_drawable_color)));
+                R.drawable.ic_skip_next_white_36dp, DialogUtils.resolveColor(this, R.attr.themed_drawable_color)));
         prevButton.setImageDrawable(Util.getTintedDrawable(this,
-                R.drawable.ic_skip_previous_white_48dp, DialogUtils.resolveColor(this, R.attr.themed_drawable_color)));
+                R.drawable.ic_skip_previous_white_36dp, DialogUtils.resolveColor(this, R.attr.themed_drawable_color)));
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -345,11 +345,11 @@ public class MusicControllerActivity extends AbsFabActivity {
     private void updateShuffleState() {
         switch (MusicPlayerRemote.getShuffleMode()) {
             case MusicService.SHUFFLE_MODE_SHUFFLE:
-                shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_48dp,
+                shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_36dp,
                         getThemeColorAccent() == Color.WHITE ? Color.BLACK : getThemeColorAccent()));
                 break;
             default:
-                shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_48dp,
+                shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_36dp,
                         DialogUtils.resolveColor(this, R.attr.themed_drawable_color)));
                 break;
         }
@@ -368,15 +368,15 @@ public class MusicControllerActivity extends AbsFabActivity {
     private void updateRepeatState() {
         switch (MusicPlayerRemote.getRepeatMode()) {
             case MusicService.REPEAT_MODE_NONE:
-                repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_white_48dp,
+                repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_white_36dp,
                         DialogUtils.resolveColor(this, R.attr.themed_drawable_color)));
                 break;
             case MusicService.REPEAT_MODE_ALL:
-                repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_white_48dp,
+                repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_white_36dp,
                         getThemeColorAccent() == Color.WHITE ? Color.BLACK : getThemeColorAccent()));
                 break;
             default:
-                repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_one_white_48dp,
+                repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_one_white_36dp,
                         getThemeColorAccent() == Color.WHITE ? Color.BLACK : getThemeColorAccent()));
                 break;
         }

@@ -125,7 +125,7 @@
                 android:elevation="8dp"
                 android:padding="22dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_skip_previous_white_48dp" />
+                android:src="@drawable/ic_skip_previous_white_36dp" />
 
             <ImageButton
                 android:id="@+id/next_button"
@@ -140,7 +140,7 @@
                 android:elevation="8dp"
                 android:padding="22dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_skip_next_white_48dp" />
+                android:src="@drawable/ic_skip_next_white_36dp" />
 
             <ImageButton
                 android:id="@+id/repeat_button"
@@ -155,7 +155,7 @@
                 android:elevation="8dp"
                 android:padding="22dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_repeat_white_48dp" />
+                android:src="@drawable/ic_repeat_white_36dp" />
 
             <ImageButton
                 android:id="@+id/shuffle_button"
@@ -170,7 +170,7 @@
                 android:elevation="8dp"
                 android:padding="22dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_shuffle_white_48dp" />
+                android:src="@drawable/ic_shuffle_white_36dp" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab"
