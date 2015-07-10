@@ -104,6 +104,7 @@
     <string name="pref_title_general_theme">Styl tła motywu</string>
     <string name="pref_header_audio">Dźwięk</string>
     <string name="pref_header_general">Ogólne</string>
+    <string name="pref_header_images">Obrazy</string>
     <string name="pref_header_lockscreen">Ekran blokady</string>
     <string name="pref_summary_colored_navigation_bar">Ustaw w którym miejscu pasek nawigacyjny ma być kolorowy</string>
     <string name="pref_title_navigation_bar">Kolorowy pasek nawigacyjny</string>
@@ -117,6 +118,7 @@
     <string name="pref_title_colored_album_footers">Kolorowa stopka albumu</string>
     <string name="pref_title_album_art_on_lockscreen">Okładka albumu na ekranie blokady</string>
     <string name="pref_title_colored_notification">Kolorowy odtwarzacz w pasku powiadomień</string>
+    <string name="pref_title_ignore_media_store_artwork">Ignoruj obrazy z Media Store</string>
     <string name="pref_title_gapless_playback">Odtwarzanie bez przerw</string>
     <string name="pref_title_force_square_album_art">Kadrowanie okładek</string>
     <string name="pref_title_opaque_toolbar_now_playing">Nieprzeźroczystość paska narzędzi</string>

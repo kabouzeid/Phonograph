@@ -104,6 +104,7 @@
     <string name="pref_title_general_theme">Tema</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">Generali</string>
+    <string name="pref_header_images">Immagini</string>
     <string name="pref_header_lockscreen">Schermata di sblocco</string>
     <string name="pref_summary_colored_navigation_bar">In quali schermate colorare la barra di navigazione.</string>
     <string name="pref_title_navigation_bar">Barra di navigazione colorata</string>
@@ -117,6 +118,7 @@
     <string name="pref_title_colored_album_footers">Riquadri album colorati</string>
     <string name="pref_title_album_art_on_lockscreen">Copertina nella schermata di sblocco</string>
     <string name="pref_title_colored_notification">Notifica colorata</string>
+    <string name="pref_title_ignore_media_store_artwork">Ignora le copertine del Media Store</string>
     <string name="pref_title_gapless_playback">Riproduzione senza intervalli</string>
     <string name="pref_title_force_square_album_art">Copertina in proporzioni quadrate</string>
     <string name="pref_title_opaque_toolbar_now_playing">Toolbar di riproduzione opaca</string>
@@ -160,6 +162,7 @@
     <string name="pref_summary_larger_title_box_now_playing">Il riquadro al di sotto della copertina in cui sono visualizzati il titolo del brano e l\'artista è più grande in altezza.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Usa una barra di scorrimento che non copre la copertina invece del normale cursore.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Visualizza un contorno in stile card dietro ai controlli di riproduzione (play, pausa ecc.).</string>
+    <string name="pref_summary_ignore_media_store_artwork">Aggira il Media Store; l\'opzione può incrementare la qualità delle copertine, ma a volte causa rallentamenti nel caricamento delle immagini. Abilita soltanto se hai problemi con copertine a bassa risoluzione.</string>
     <string name="could_not_download_album_cover">"Impossibile scaricare una copertina adatta."</string>
     <string name="search_hint">Cerca nella tua libreria...</string>
     <string name="rescanning_media">Nuova scannerizzazione media in corso...</string>

@@ -104,6 +104,7 @@
     <string name="pref_title_general_theme">Genel Tema</string>
     <string name="pref_header_audio">Ses</string>
     <string name="pref_header_general">Genel</string>
+    <string name="pref_header_images">Görüntüler</string>
     <string name="pref_header_lockscreen">Kilit ekranı</string>
     <string name="pref_summary_colored_navigation_bar">Renklendirilmesini istediğiniz gezinti çubuğunu ayarlayın</string>
     <string name="pref_title_navigation_bar">Renkli Gezinti Çubuğu</string>
@@ -117,6 +118,7 @@
     <string name="pref_title_colored_album_footers">Albüm Alt Bilgilerini Renklendir</string>
     <string name="pref_title_album_art_on_lockscreen">Kilit ekranındaki Albüm kapağı</string>
     <string name="pref_title_colored_notification">Renkli Bildirim</string>
+    <string name="pref_title_ignore_media_store_artwork">Media Store albüm kapağını yoksay</string>
     <string name="pref_title_gapless_playback">Aralıksız Çalma</string>
     <string name="pref_title_force_square_album_art">Kare Albüm Kapağına Zorla</string>
     <string name="pref_title_opaque_toolbar_now_playing">Opak Araç Çubuğu</string>
@@ -160,6 +162,7 @@
     <string name="pref_summary_larger_title_box_now_playing">Şarkı başlığı ve sanatçıya giden albüm kapağı altındaki kutusunun yüksekliğini büyültür.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Varsayılan ilerleme çubuğu yerine albüm kapağına taşan ilerleme çubuğu kullanılır.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Oynatma kontrol düğmelerinin altında bir kart görüntüler (oynat/duraklat, vb.).</string>
+    <string name="pref_summary_ignore_media_store_artwork">Albüm kapağı kalitesinin artırılması daha yavaş görüntü yükleme sürelerine neden olabilir. Düşük çözünürlükte olan albüm kapakları ile ilgili sorunlar varsa bunu etkinleştirin.</string>
     <string name="could_not_download_album_cover">"Eşlenen albüm kapağı indirilemedi"</string>
     <string name="search_hint">Kütüphaneniz taranıyor...</string>
     <string name="rescanning_media">Medyayı yeniden tara</string>
