@@ -60,6 +60,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -122,6 +123,8 @@ public class MainActivity extends AbsFabActivity
         navigationView.getMenu().getItem(startPosition).setChecked(true);
 
         tabs.setupWithViewPager(pager);
+        setUpTabStripColor();
+
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -141,6 +144,21 @@ public class MainActivity extends AbsFabActivity
         });
 
         pager.setCurrentItem(startPosition);
+    }
+
+    private void setUpTabStripColor() {
+        // use reflection to set the selected indicator color
+        try {
+            Field tabStripField = tabs.getClass().getDeclaredField("mTabStrip");
+            tabStripField.setAccessible(true);
+            Object tabStrip = tabStripField.get(tabs);
+
+            Method setSelectedIndicatorColorMethod = tabStrip.getClass().getDeclaredMethod("setSelectedIndicatorColor", int.class);
+            setSelectedIndicatorColorMethod.setAccessible(true);
+            setSelectedIndicatorColorMethod.invoke(tabStrip, ThemeSingleton.get().positiveColor);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void setUpToolbar() {
