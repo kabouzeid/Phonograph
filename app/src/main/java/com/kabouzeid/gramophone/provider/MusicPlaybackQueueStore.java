@@ -115,7 +115,7 @@ public class MusicPlaybackQueueStore extends SQLiteOpenHelper {
      * @param context The {@link Context} to use
      * @return A new instance of this class.
      */
-    @Nullable
+    @NonNull
     public static synchronized MusicPlaybackQueueStore getInstance(@NonNull final Context context) {
         if (sInstance == null) {
             sInstance = new MusicPlaybackQueueStore(context.getApplicationContext());
