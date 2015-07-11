@@ -20,6 +20,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="64dp"
+    android:background="#00000000"
     android:orientation="horizontal"
     internal:layout_maxHeight="64dp"
     internal:layout_minHeight="64dp"
