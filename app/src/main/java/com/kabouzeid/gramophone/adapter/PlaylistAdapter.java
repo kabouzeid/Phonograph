@@ -31,6 +31,7 @@ import com.kabouzeid.gramophone.model.smartplaylist.LastAddedPlaylist;
 import com.kabouzeid.gramophone.model.smartplaylist.MyTopTracksPlaylist;
 import com.kabouzeid.gramophone.model.smartplaylist.RecentlyPlayedPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
+import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.squareup.otto.Subscribe;
 
@@ -52,6 +53,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
 
     protected final AppCompatActivity activity;
     protected List<Playlist> dataSet;
+    int favoritePlaylistId;
 
     public PlaylistAdapter(AppCompatActivity activity, @Nullable CabHolder cabHolder) {
         super(activity, cabHolder, R.menu.menu_playlists_selection);
@@ -71,6 +73,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         dataSet.add(new RecentlyPlayedPlaylist(activity));
         dataSet.add(new MyTopTracksPlaylist(activity));
         dataSet.addAll(PlaylistLoader.getAllPlaylists(activity));
+        favoritePlaylistId = MusicUtil.getFavoritesPlaylist(activity).id;
     }
 
     @NonNull
@@ -93,7 +96,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         if (playlist instanceof AbsSmartPlaylist) {
             return ((AbsSmartPlaylist) playlist).iconRes;
         }
-        return R.drawable.ic_queue_music_white_24dp;
+        return playlist.id == favoritePlaylistId ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_queue_music_white_24dp;
     }
 
     @Override
