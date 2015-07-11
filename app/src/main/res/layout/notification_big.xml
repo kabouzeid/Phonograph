@@ -41,7 +41,6 @@
         android:layout_marginTop="2dp"
         android:background="@drawable/notification_selector"
         android:src="@drawable/ic_close_white_24dp"
-        android:tint="@color/default_notification_content_color"
         tools:ignore="ContentDescription" />
 
     <LinearLayout
@@ -68,7 +67,7 @@
             android:fadingEdge="horizontal"
             android:singleLine="true"
             android:textAppearance="@style/Theme.MaterialMusic.Notification.Title"
-            android:textColor="@color/default_notification_content_color" />
+            android:textColor="@color/notification_content_color" />
 
         <TextView
             android:id="@+id/text"
@@ -81,7 +80,7 @@
             android:fadingEdge="horizontal"
             android:singleLine="true"
             android:textAppearance="@style/Theme.MaterialMusic.Notification"
-            android:textColor="@color/default_notification_secondary_content_color" />
+            android:textColor="@color/notification_secondary_content_color" />
 
         <TextView
             android:id="@+id/text2"
@@ -93,7 +92,7 @@
             android:fadingEdge="horizontal"
             android:singleLine="true"
             android:textAppearance="@style/Theme.MaterialMusic.Notification"
-            android:textColor="@color/default_notification_secondary_content_color" />
+            android:textColor="@color/notification_secondary_content_color" />
     </LinearLayout>
 
     <LinearLayout
@@ -122,7 +121,6 @@
             android:padding="8dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_skip_previous_white_36dp"
-            android:tint="@color/default_notification_content_color"
             tools:ignore="ContentDescription" />
 
         <ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
@@ -138,7 +136,6 @@
             android:padding="8dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_play_arrow_white_36dp"
-            android:tint="@color/default_notification_content_color"
             tools:ignore="ContentDescription" />
 
         <ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
@@ -154,7 +151,6 @@
             android:padding="8dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_skip_next_white_36dp"
-            android:tint="@color/default_notification_content_color"
             tools:ignore="ContentDescription" />
     </LinearLayout>
 </RelativeLayout>

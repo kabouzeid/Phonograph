@@ -31,10 +31,6 @@
 
     <style name="PlayPauseFab" parent="PlayPauseFabParent" />
 
-    <style name="NotificationButton" parent="NotificationButtonParent">
-        <item name="android:background">?android:attr/selectableItemBackground</item>
-    </style>
-
     <style name="MusicProgressSlider" parent="MusicProgressSliderParent">
         <item name="android:thumbOffset">0dp</item>
     </style>
