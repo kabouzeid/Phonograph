@@ -48,4 +48,8 @@ public class ColorUtil {
                 new int[]{color}
         );
     }
+
+    public static boolean useDarkTextColorOnBackground(int backgroundColor) {
+        return (Color.red(backgroundColor) * 0.299 + Color.green(backgroundColor) * 0.587 + Color.blue(backgroundColor) * 0.114) > 186;
+    }
 }
