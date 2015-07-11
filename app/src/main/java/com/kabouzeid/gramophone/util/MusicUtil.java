@@ -210,7 +210,7 @@ public class MusicUtil {
         App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.DATABASE_CHANGED));
     }
 
-    private static Playlist getFavoritesPlaylist(@NonNull final Context context) {
+    public static Playlist getFavoritesPlaylist(@NonNull final Context context) {
         return PlaylistLoader.getPlaylist(context, context.getString(R.string.favorites));
     }
 
