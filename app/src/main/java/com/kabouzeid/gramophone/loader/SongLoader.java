@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
 
@@ -78,7 +78,7 @@ public class SongLoader {
     }
 
     public static Cursor makeSongCursor(@NonNull final Context context, final String selection, final String[] values) {
-        return makeSongCursor(context, selection, values, PreferenceUtils.getInstance(context).getSongSortOrder());
+        return makeSongCursor(context, selection, values, PreferenceUtil.getInstance(context).getSongSortOrder());
     }
 
     public static Cursor makeSongCursor(@NonNull final Context context, @Nullable final String selection, final String[] values, final String sortOrder) {

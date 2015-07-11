@@ -10,7 +10,8 @@ import android.view.View;
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.ColorUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 
 /**
@@ -27,25 +28,25 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(PreferenceUtils.getInstance(this).getGeneralTheme());
+        setTheme(PreferenceUtil.getInstance(this).getGeneralTheme());
         super.onCreate(savedInstanceState);
         setupTheme();
     }
 
 
     private void setupTheme() {
-        colorPrimary = PreferenceUtils.getInstance(this).getThemeColorPrimary();
-        colorPrimaryDarker = Util.shiftColorDown(colorPrimary);
-        colorAccent = PreferenceUtils.getInstance(this).getThemeColorAccent();
+        colorPrimary = PreferenceUtil.getInstance(this).getThemeColorPrimary();
+        colorPrimaryDarker = ColorUtil.shiftColorDown(colorPrimary);
+        colorAccent = PreferenceUtil.getInstance(this).getThemeColorAccent();
 
         ThemeSingleton.get().positiveColor = colorAccent;
         ThemeSingleton.get().negativeColor = ThemeSingleton.get().positiveColor;
         ThemeSingleton.get().neutralColor = ThemeSingleton.get().positiveColor;
         ThemeSingleton.get().widgetColor = ThemeSingleton.get().positiveColor;
-        ThemeSingleton.get().darkTheme = PreferenceUtils.getInstance(this).getGeneralTheme() == R.style.Theme_MaterialMusic;
+        ThemeSingleton.get().darkTheme = PreferenceUtil.getInstance(this).getGeneralTheme() == R.style.Theme_MaterialMusic;
 
         if (!overridesTaskColor()) {
-            notifyTaskColorChange(PreferenceUtils.getInstance(this).getThemeColorPrimary());
+            notifyTaskColorChange(PreferenceUtil.getInstance(this).getThemeColorPrimary());
         }
     }
 
@@ -83,12 +84,12 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
 
     protected final void setNavigationBarColor(int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            getWindow().setNavigationBarColor(Util.shiftColorDown(color));
+            getWindow().setNavigationBarColor(ColorUtil.shiftColorDown(color));
     }
 
     protected final void setStatusBarColor(int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            getWindow().setStatusBarColor(Util.shiftColorDown(color));
+            getWindow().setStatusBarColor(ColorUtil.shiftColorDown(color));
         // also do this on Lollipop in case the user modified the statusbar height
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             final View statusBar = getWindow().getDecorView().getRootView().findViewById(R.id.status_bar);
@@ -106,12 +107,12 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
 
     protected final void resetNavigationBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            setNavigationBarColor(Util.resolveColor(this, android.R.attr.navigationBarColor));
+            setNavigationBarColor(ColorUtil.resolveColor(this, android.R.attr.navigationBarColor));
     }
 
     protected final void resetStatusBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            setStatusBarColor(Util.resolveColor(this, android.R.attr.statusBarColor));
+            setStatusBarColor(ColorUtil.resolveColor(this, android.R.attr.statusBarColor));
     }
 
     protected boolean overridesTaskColor() {

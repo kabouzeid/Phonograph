@@ -20,7 +20,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.triggertrap.seekarc.SeekArc;
 
 import butterknife.ButterKnife;
@@ -59,12 +59,12 @@ public class SleepTimerDialog extends DialogFragment {
                             return;
                         }
                         final int min = seekArcProgress;
-                        PreferenceUtils.getInstance(getActivity()).setLastSleepTimerValue(min);
+                        PreferenceUtil.getInstance(getActivity()).setLastSleepTimerValue(min);
 
                         PendingIntent pi = makeTimerPendingIntent(PendingIntent.FLAG_CANCEL_CURRENT);
 
                         final long nextSleepTimerElapsedTime = SystemClock.elapsedRealtime() + min * 60 * 1000;
-                        PreferenceUtils.getInstance(getActivity()).setNextSleepTimerElapsedRealtime(nextSleepTimerElapsedTime);
+                        PreferenceUtil.getInstance(getActivity()).setNextSleepTimerElapsedRealtime(nextSleepTimerElapsedTime);
                         AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
                         am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextSleepTimerElapsedTime, pi);
 
@@ -115,7 +115,7 @@ public class SleepTimerDialog extends DialogFragment {
             }
         });
 
-        seekArcProgress = PreferenceUtils.getInstance(getActivity()).getLastSleepTimerValue();
+        seekArcProgress = PreferenceUtil.getInstance(getActivity()).getLastSleepTimerValue();
         updateTimeDisplayTime();
         seekArc.setProgress(seekArcProgress);
 
@@ -159,7 +159,7 @@ public class SleepTimerDialog extends DialogFragment {
 
     private class TimerUpdater extends CountDownTimer {
         public TimerUpdater() {
-            super(PreferenceUtils.getInstance(getActivity()).getNextSleepTimerElapsedRealTime() - SystemClock.elapsedRealtime(), 1000);
+            super(PreferenceUtil.getInstance(getActivity()).getNextSleepTimerElapsedRealTime() - SystemClock.elapsedRealtime(), 1000);
         }
 
         @Override

@@ -11,7 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.kabouzeid.gramophone.model.Album;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
 
@@ -78,7 +78,7 @@ public class AlbumLoader {
     }
 
     public static Cursor makeAlbumCursor(@NonNull final Context context, final String selection, final String[] values) {
-        return makeAlbumCursor(context, selection, values, PreferenceUtils.getInstance(context).getAlbumSortOrder());
+        return makeAlbumCursor(context, selection, values, PreferenceUtil.getInstance(context).getAlbumSortOrder());
     }
 
     public static Cursor makeAlbumCursor(@NonNull final Context context, final String selection, final String[] values, final String sortOrder) {

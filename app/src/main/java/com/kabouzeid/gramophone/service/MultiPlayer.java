@@ -13,7 +13,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.lang.ref.WeakReference;
 
@@ -120,7 +120,7 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
         if (path == null) {
             return;
         }
-        if (PreferenceUtils.getInstance(mService.get()).gaplessPlayback()) {
+        if (PreferenceUtil.getInstance(mService.get()).gaplessPlayback()) {
             mNextMediaPlayer = new MediaPlayer();
             mNextMediaPlayer.setWakeMode(mService.get(), PowerManager.PARTIAL_WAKE_LOCK);
             mNextMediaPlayer.setAudioSessionId(getAudioSessionId());

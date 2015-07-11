@@ -37,7 +37,7 @@ import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
 import com.kabouzeid.gramophone.provider.RecentlyPlayedStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -427,7 +427,7 @@ public class MusicService extends Service {
     }
 
     private void updateRemoteControlClient() {
-        updateRemoteControlClientImpl(PreferenceUtils.getInstance(this).albumArtOnLockscreen());
+        updateRemoteControlClientImpl(PreferenceUtil.getInstance(this).albumArtOnLockscreen());
     }
 
     private void updateRemoteControlClientImpl(boolean showAlbumArt) {

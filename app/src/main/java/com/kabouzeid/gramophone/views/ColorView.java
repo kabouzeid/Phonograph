@@ -15,7 +15,7 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.util.Util;
+import com.kabouzeid.gramophone.util.ColorUtil;
 
 public class ColorView extends FrameLayout {
 
@@ -69,7 +69,7 @@ public class ColorView extends FrameLayout {
     @Override
     public void setBackgroundColor(int color) {
         paint.setColor(color);
-        paintBorder.setColor(Util.shiftColorDown(color));
+        paintBorder.setColor(ColorUtil.shiftColorDown(color));
         requestLayout();
         invalidate();
     }

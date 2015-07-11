@@ -53,7 +53,7 @@ import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivi
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AlbumViewFragment;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -103,7 +103,7 @@ public class MainActivity extends AbsFabActivity
         setUpToolbar();
         setUpViewPager();
 
-        if (PreferenceUtils.getInstance(this).coloredNavigationBarOtherScreens())
+        if (PreferenceUtil.getInstance(this).coloredNavigationBarOtherScreens())
             setNavigationBarThemeColor();
     }
 
@@ -117,8 +117,8 @@ public class MainActivity extends AbsFabActivity
         pager.setAdapter(pagerAdapter);
         pager.setOffscreenPageLimit(pagerAdapter.getCount() - 1);
 
-        int startPosition = PreferenceUtils.getInstance(this).getDefaultStartPage();
-        startPosition = startPosition == -1 ? PreferenceUtils.getInstance(this).getLastStartPage() : startPosition;
+        int startPosition = PreferenceUtil.getInstance(this).getDefaultStartPage();
+        startPosition = startPosition == -1 ? PreferenceUtil.getInstance(this).getLastStartPage() : startPosition;
         currentPage = startPosition;
 
         navigationView.getMenu().getItem(startPosition).setChecked(true);
@@ -259,7 +259,7 @@ public class MainActivity extends AbsFabActivity
     }
 
     private void setUpDrawerLayout() {
-        drawerLayout.setStatusBarBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimaryDarker());
+        drawerLayout.setStatusBarBackgroundColor(PreferenceUtil.getInstance(this).getThemeColorPrimaryDarker());
         setUpNavigationView();
     }
 
@@ -414,7 +414,7 @@ public class MainActivity extends AbsFabActivity
                 break;
             case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_CHANGED:
                 try {
-                    if (((Set) event.getValue()).contains(PreferenceUtils.COLORED_NAVIGATION_BAR_OTHER_SCREENS))
+                    if (((Set) event.getValue()).contains(PreferenceUtil.COLORED_NAVIGATION_BAR_OTHER_SCREENS))
                         setNavigationBarThemeColor();
                     else resetNavigationBarColor();
                 } catch (NullPointerException ignored) {
@@ -434,7 +434,7 @@ public class MainActivity extends AbsFabActivity
     @Override
     protected void onPause() {
         super.onPause();
-        PreferenceUtils.getInstance(MainActivity.this).setLastStartPage(currentPage);
+        PreferenceUtil.getInstance(MainActivity.this).setLastStartPage(currentPage);
     }
 
     private void handlePlaybackIntent(@Nullable Intent intent) {
@@ -533,7 +533,7 @@ public class MainActivity extends AbsFabActivity
 
     private void setUpGridMenu(@NonNull Menu menu) {
         boolean isPortrait = Util.isInPortraitMode(this);
-        int columns = isPortrait ? PreferenceUtils.getInstance(this).getAlbumGridColumns() : PreferenceUtils.getInstance(this).getAlbumGridColumnsLand();
+        int columns = isPortrait ? PreferenceUtil.getInstance(this).getAlbumGridColumns() : PreferenceUtil.getInstance(this).getAlbumGridColumnsLand();
         String title = isPortrait ? getResources().getString(R.string.action_grid_columns) : getResources().getString(R.string.action_grid_columns_land);
 
         MenuItem gridSizeItem = menu.findItem(R.id.action_grid_columns);
@@ -572,9 +572,9 @@ public class MainActivity extends AbsFabActivity
             if (isAlbumPage()) {
                 getAlbumFragment().setColumns(size);
                 if (Util.isInPortraitMode(this)) {
-                    PreferenceUtils.getInstance(this).setAlbumGridColumns(size);
+                    PreferenceUtil.getInstance(this).setAlbumGridColumns(size);
                 } else {
-                    PreferenceUtils.getInstance(this).setAlbumGridColumnsLand(size);
+                    PreferenceUtil.getInstance(this).setAlbumGridColumnsLand(size);
                 }
             }
             return true;
@@ -629,7 +629,7 @@ public class MainActivity extends AbsFabActivity
         cab = new MaterialCab(this, R.id.cab_stub)
                 .setMenu(menu)
                 .setCloseDrawableRes(R.drawable.ic_close_white_24dp)
-                .setBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimary())
+                .setBackgroundColor(PreferenceUtil.getInstance(this).getThemeColorPrimary())
                 .start(callback);
         return cab;
     }

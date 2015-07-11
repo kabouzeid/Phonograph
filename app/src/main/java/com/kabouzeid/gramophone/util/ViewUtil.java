@@ -8,11 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.internal.view.menu.ListMenuItemView;
 import android.support.v7.internal.view.menu.MenuPopupHelper;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.PathInterpolator;
 import android.widget.CheckBox;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -27,50 +25,6 @@ import java.lang.reflect.Field;
  */
 public class ViewUtil {
     public final static int DEFAULT_COLOR_ANIMATION_DURATION = 500;
-
-    public static void disableViews(@NonNull ViewGroup layout) {
-        for (int i = 0; i < layout.getChildCount(); i++) {
-            View child = layout.getChildAt(i);
-            if (child instanceof ViewGroup) {
-                disableViews((ViewGroup) child);
-            } else {
-                child.setEnabled(false);
-            }
-        }
-    }
-
-    public static void enableViews(@NonNull ViewGroup layout) {
-        for (int i = 0; i < layout.getChildCount(); i++) {
-            View child = layout.getChildAt(i);
-            if (child instanceof ViewGroup) {
-                enableViews((ViewGroup) child);
-            } else {
-                child.setEnabled(true);
-            }
-        }
-    }
-
-    public static void setListViewHeightBasedOnChildren(@NonNull ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null)
-            return;
-
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
-        int totalHeight = 0;
-        View view = null;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            view = listAdapter.getView(i, view, listView);
-            if (i == 0)
-                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += view.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-        listView.requestLayout();
-    }
 
     public static void animateViewColor(final View v, final int startColor, final int endColor) {
         animateViewColor(v, startColor, endColor, DEFAULT_COLOR_ANIMATION_DURATION);
@@ -123,18 +77,6 @@ public class ViewUtil {
             }
         });
     }
-
-//    public static void animateTextViewMaxLines(TextView text, int maxLines) {
-//        try {
-//            ObjectAnimator animation = ObjectAnimator.ofInt(text, "maxLines", maxLines);
-//            animation.setInterpolator(new AccelerateInterpolator());
-//            animation.setDuration(200);
-//            animation.start();
-//        } catch (Exception e) {
-//            // Some devices crash at runtime when using the ObjectAnimator
-//            text.setMaxLines(maxLines);
-//        }
-//    }
 
     public static void setCheckBoxTintForMenu(@Nullable MenuPopupHelper menuPopupHelper) {
         if (menuPopupHelper != null) {

@@ -9,7 +9,7 @@ import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ImageUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 
 import java.io.ByteArrayInputStream;
@@ -47,7 +47,7 @@ public class PhonographImageDownloader extends BaseImageDownloader {
     protected InputStream getStreamFromAlbum(@NonNull String imageUri) throws IOException {
         int albumId = Integer.valueOf(imageUri.substring(SCHEME_ALBUM.length()));
 
-        if (PreferenceUtils.getInstance(context).ignoreMediaStoreArtwork()) {
+        if (PreferenceUtil.getInstance(context).ignoreMediaStoreArtwork()) {
             ArrayList<Song> songs = AlbumSongLoader.getAlbumSongList(context, albumId);
             for (Song song : songs) {
                 Bitmap bitmap = ImageUtil.getEmbeddedSongArt(new File(song.data), context);
@@ -64,7 +64,7 @@ public class PhonographImageDownloader extends BaseImageDownloader {
     protected InputStream getStreamFromSong(@NonNull String imageUri) throws IOException {
         String[] data = imageUri.split("#", 2);
 
-        if (PreferenceUtils.getInstance(context).ignoreMediaStoreArtwork()) {
+        if (PreferenceUtil.getInstance(context).ignoreMediaStoreArtwork()) {
             Bitmap bitmap = ImageUtil.getEmbeddedSongArt(new File(data[1]), context);
             if (bitmap != null) {
                 return getBitmapInputStream(bitmap);

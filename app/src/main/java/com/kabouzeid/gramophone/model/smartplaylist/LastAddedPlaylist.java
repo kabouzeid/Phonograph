@@ -8,7 +8,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.LastAddedLoader;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
 
@@ -29,7 +29,7 @@ public class LastAddedPlaylist extends AbsSmartPlaylist {
 
     @Override
     public void clear(@NonNull Context context) {
-        PreferenceUtils.getInstance(context).setLastAddedCutoffTimestamp(System.currentTimeMillis());
+        PreferenceUtil.getInstance(context).setLastAddedCutoffTimestamp(System.currentTimeMillis());
         App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
     }
 }

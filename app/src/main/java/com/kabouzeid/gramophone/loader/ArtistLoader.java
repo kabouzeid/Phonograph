@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.kabouzeid.gramophone.model.Artist;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
 
@@ -85,6 +85,6 @@ public class ArtistLoader {
                         ArtistColumns.NUMBER_OF_ALBUMS,
                         /* 3 */
                         ArtistColumns.NUMBER_OF_TRACKS
-                }, selection, values, PreferenceUtils.getInstance(context).getArtistSortOrder());
+                }, selection, values, PreferenceUtil.getInstance(context).getArtistSortOrder());
     }
 }

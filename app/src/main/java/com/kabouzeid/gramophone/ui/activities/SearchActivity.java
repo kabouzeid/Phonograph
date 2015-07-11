@@ -22,7 +22,7 @@ import android.widget.TextView;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.SearchAdapter;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 
 import butterknife.ButterKnife;
@@ -66,7 +66,7 @@ public class SearchActivity extends AbsBaseActivity {
             }
         });
 
-        toolbar.setBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimary());
+        toolbar.setBackgroundColor(PreferenceUtil.getInstance(this).getThemeColorPrimary());
         setSupportActionBar(toolbar);
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -18,8 +18,8 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.misc.SmallOnGestureListener;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.views.PlayPauseDrawable;
 
 import butterknife.ButterKnife;
@@ -53,7 +53,7 @@ public abstract class AbsFabActivity extends AbsPlaybackControlActivity {
 
         getFab().setImageDrawable(playPauseDrawable);
         final int accentColor = ThemeSingleton.get().positiveColor;
-        getFab().setBackgroundTintList(Util.getEmptyColorStateList(accentColor));
+        getFab().setBackgroundTintList(ColorUtil.getEmptyColorStateList(accentColor));
         if (accentColor == Color.WHITE) {
             getFab().getDrawable().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
         } else {

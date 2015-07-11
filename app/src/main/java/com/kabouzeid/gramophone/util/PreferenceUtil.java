@@ -8,11 +8,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.helper.SortOrder;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public final class PreferenceUtils {
+public final class PreferenceUtil {
 
     public static final int DEFAULT_PAGE = 1;
     public static final String GENERAL_THEME = "general_theme";
@@ -49,20 +50,20 @@ public final class PreferenceUtils {
     public static final String NEXT_SLEEP_TIMER_ELAPSED_REALTIME = "next_sleep_timer_elapsed_real_time";
     public static final String IGNORE_MEDIA_STORE_ARTWORK = "ignore_media_store_artwork";
 
-    private static PreferenceUtils sInstance;
+    private static PreferenceUtil sInstance;
 
     @NonNull
     private final Context mContext;
     private final SharedPreferences mPreferences;
 
-    public PreferenceUtils(@NonNull final Context context) {
+    public PreferenceUtil(@NonNull final Context context) {
         mContext = context;
         mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public static PreferenceUtils getInstance(@NonNull final Context context) {
+    public static PreferenceUtil getInstance(@NonNull final Context context) {
         if (sInstance == null) {
-            sInstance = new PreferenceUtils(context.getApplicationContext());
+            sInstance = new PreferenceUtil(context.getApplicationContext());
         }
         return sInstance;
     }
@@ -83,7 +84,7 @@ public final class PreferenceUtils {
     }
 
     public int getThemeColorPrimaryDarker() {
-        return Util.shiftColorDown(getThemeColorPrimary());
+        return ColorUtil.shiftColorDown(getThemeColorPrimary());
     }
 
     @SuppressLint("CommitPrefEdits")
