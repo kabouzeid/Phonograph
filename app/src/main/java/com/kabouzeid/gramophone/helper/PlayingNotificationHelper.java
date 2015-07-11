@@ -26,6 +26,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
+import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -253,7 +254,7 @@ public class PlayingNotificationHelper {
                 if (vibrantSwatch != null) {
                     int bgColor = vibrantSwatch.getRgb();
                     setBackgroundColor(bgColor);
-                    setNotificationTextDark((Color.red(bgColor) * 0.299 + Color.green(bgColor) * 0.587 + Color.blue(bgColor) * 0.114) > 186);
+                    setNotificationTextDark(ColorUtil.useDarkTextColorOnBackground(bgColor));
                     backgroundColorSet = true;
                 }
             }
