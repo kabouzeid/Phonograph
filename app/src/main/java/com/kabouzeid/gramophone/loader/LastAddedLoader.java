@@ -6,7 +6,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,7 @@ public class LastAddedLoader {
     public static Cursor makeLastAddedCursor(@NonNull final Context context) {
         long fourWeeksAgo = (System.currentTimeMillis() / 1000) - (4 * 3600 * 24 * 7);
         // possible saved timestamp caused by user "clearing" the last added playlist
-        long cutoff = PreferenceUtils.getInstance(context).getLastAddedCutOffTimestamp() / 1000;
+        long cutoff = PreferenceUtil.getInstance(context).getLastAddedCutOffTimestamp() / 1000;
         if (cutoff < fourWeeksAgo) {
             cutoff = fourWeeksAgo;
         }

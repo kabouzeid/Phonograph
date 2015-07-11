@@ -25,7 +25,7 @@ import com.kabouzeid.gramophone.prefs.ColorChooserPreference;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.Set;
@@ -39,14 +39,14 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         setContentView(R.layout.activity_preferences);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimary());
+        toolbar.setBackgroundColor(PreferenceUtil.getInstance(this).getThemeColorPrimary());
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null)
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
 
-        if (PreferenceUtils.getInstance(this).coloredNavigationBarOtherScreens())
+        if (PreferenceUtil.getInstance(this).coloredNavigationBarOtherScreens())
             setNavigationBarThemeColor();
         setStatusBarThemeColor();
     }
@@ -54,10 +54,10 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
     @Override
     public void onColorSelection(int title, int color) {
         if (title == R.string.primary_color) {
-            PreferenceUtils.getInstance(this).setThemeColorPrimary(color);
+            PreferenceUtil.getInstance(this).setThemeColorPrimary(color);
             App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.THEME_CHANGED, color));
         } else if (title == R.string.accent_color) {
-            PreferenceUtils.getInstance(this).setThemeColorAccent(color);
+            PreferenceUtil.getInstance(this).setThemeColorAccent(color);
             App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.THEME_CHANGED, color));
         }
         recreate();
@@ -98,25 +98,25 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             });
 
             ColorChooserPreference primaryColor = (ColorChooserPreference) findPreference("primary_color");
-            primaryColor.setColor(PreferenceUtils.getInstance(getActivity()).getThemeColorPrimary(),
+            primaryColor.setColor(PreferenceUtil.getInstance(getActivity()).getThemeColorPrimary(),
                     DialogUtils.resolveColor(getActivity(), android.R.attr.textColorPrimary));
             primaryColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull Preference preference) {
                     new ColorChooserDialog().show(getActivity(), preference.getTitleRes(),
-                            PreferenceUtils.getInstance(getActivity()).getThemeColorPrimary());
+                            PreferenceUtil.getInstance(getActivity()).getThemeColorPrimary());
                     return true;
                 }
             });
 
             ColorChooserPreference accentColor = (ColorChooserPreference) findPreference("accent_color");
-            accentColor.setColor(PreferenceUtils.getInstance(getActivity()).getThemeColorAccent(),
+            accentColor.setColor(PreferenceUtil.getInstance(getActivity()).getThemeColorAccent(),
                     DialogUtils.resolveColor(getActivity(), android.R.attr.textColorPrimary));
             accentColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull Preference preference) {
                     new ColorChooserDialog().show(getActivity(), preference.getTitleRes(),
-                            PreferenceUtils.getInstance(getActivity()).getThemeColorAccent());
+                            PreferenceUtil.getInstance(getActivity()).getThemeColorAccent());
                     return true;
                 }
             });
@@ -232,7 +232,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 break;
             case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_CHANGED:
                 try {
-                    if (((Set) event.getValue()).contains(PreferenceUtils.COLORED_NAVIGATION_BAR_OTHER_SCREENS))
+                    if (((Set) event.getValue()).contains(PreferenceUtil.COLORED_NAVIGATION_BAR_OTHER_SCREENS))
                         setNavigationBarThemeColor();
                     else resetNavigationBarColor();
                 } catch (NullPointerException ignored) {

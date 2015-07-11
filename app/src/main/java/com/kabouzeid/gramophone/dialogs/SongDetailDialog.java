@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.kabouzeid.gramophone.util.Util;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -80,7 +79,7 @@ public class SongDetailDialog extends DialogFragment {
 
                 fileName.setText(makeTextWithTitle(context, R.string.label_file_name, songFile.getName()));
                 filePath.setText(makeTextWithTitle(context, R.string.label_file_path, songFile.getAbsolutePath()));
-                fileSize.setText(makeTextWithTitle(context, R.string.label_file_size, Util.getFileSizeString(songFile.length())));
+                fileSize.setText(makeTextWithTitle(context, R.string.label_file_size, getFileSizeString(songFile.length())));
                 fileFormat.setText(makeTextWithTitle(context, R.string.label_file_format, audioHeader.getFormat()));
                 trackLength.setText(makeTextWithTitle(context, R.string.label_track_length, MusicUtil.getReadableDurationString(audioHeader.getTrackLength() * 1000)));
                 bitRate.setText(makeTextWithTitle(context, R.string.label_bit_rate, audioHeader.getBitRate() + " kb/s"));
@@ -94,5 +93,11 @@ public class SongDetailDialog extends DialogFragment {
 
     private static Spanned makeTextWithTitle(@NonNull Context context, int titleResId, String text) {
         return Html.fromHtml("<b>" + context.getResources().getString(titleResId) + ": " + "</b>" + text);
+    }
+
+    private static String getFileSizeString(long sizeInBytes) {
+        long fileSizeInKB = sizeInBytes / 1024;
+        long fileSizeInMB = fileSizeInKB / 1024;
+        return fileSizeInMB + " MB";
     }
 }

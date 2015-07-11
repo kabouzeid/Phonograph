@@ -50,9 +50,10 @@ import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
+import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.kabouzeid.gramophone.views.SquareIfPlaceImageView;
@@ -235,12 +236,12 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     private void initAppearanceVarsFromSharedPrefs() {
-        opaqueStatusBar = PreferenceUtils.getInstance(this).opaqueStatusbarNowPlaying();
-        opaqueToolBar = opaqueStatusBar && PreferenceUtils.getInstance(this).opaqueToolbarNowPlaying();
-        forceSquareAlbumArt = PreferenceUtils.getInstance(this).forceAlbumArtSquared();
-        largerTitleBox = PreferenceUtils.getInstance(this).largerTitleBoxNowPlaying();
-        alternativeProgressSlider = PreferenceUtils.getInstance(this).alternativeProgressSliderNowPlaying();
-        showPlaybackControllerCard = PreferenceUtils.getInstance(this).playbackControllerCardNowPlaying();
+        opaqueStatusBar = PreferenceUtil.getInstance(this).opaqueStatusbarNowPlaying();
+        opaqueToolBar = opaqueStatusBar && PreferenceUtil.getInstance(this).opaqueToolbarNowPlaying();
+        forceSquareAlbumArt = PreferenceUtil.getInstance(this).forceAlbumArtSquared();
+        largerTitleBox = PreferenceUtil.getInstance(this).largerTitleBoxNowPlaying();
+        alternativeProgressSlider = PreferenceUtil.getInstance(this).alternativeProgressSliderNowPlaying();
+        showPlaybackControllerCard = PreferenceUtil.getInstance(this).playbackControllerCardNowPlaying();
     }
 
     @Override
@@ -273,7 +274,7 @@ public class MusicControllerActivity extends AbsFabActivity {
 
     private void setUpPlaybackControllerCard() {
         playbackControllerCard.setVisibility(showPlaybackControllerCard ? View.VISIBLE : View.GONE);
-        mediaControllerContainer.setBackgroundColor(showPlaybackControllerCard ? Color.TRANSPARENT : Util.resolveColor(this, R.attr.music_controller_container_color));
+        mediaControllerContainer.setBackgroundColor(showPlaybackControllerCard ? Color.TRANSPARENT : ColorUtil.resolveColor(this, R.attr.music_controller_container_color));
     }
 
     private void setUpMusicControllers() {
@@ -474,7 +475,7 @@ public class MusicControllerActivity extends AbsFabActivity {
                             if (vibrantSwatch != null) {
                                 final int swatchRgb = vibrantSwatch.getRgb();
                                 animateColorChange(swatchRgb);
-                                animateTextColorChange(Util.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
+                                animateTextColorChange(ColorUtil.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
                                 notifyTaskColorChange(swatchRgb);
                             } else {
                                 resetColors();
@@ -487,7 +488,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     private void resetColors() {
-        final int textColor = Util.getOpaqueColor(DialogUtils.resolveColor(this, R.attr.title_text_color));
+        final int textColor = ColorUtil.getOpaqueColor(DialogUtils.resolveColor(this, R.attr.title_text_color));
         final int defaultBarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
 
         animateColorChange(defaultBarColor);
@@ -515,7 +516,7 @@ public class MusicControllerActivity extends AbsFabActivity {
         if (opaqueStatusBar) setStatusBarColor(newColor);
         else setStatusBarColor(Color.TRANSPARENT);
 
-        if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarCurrentPlaying())
+        if (PreferenceUtil.getInstance(this).coloredNavigationBarCurrentPlaying())
             setNavigationBarColor(newColor);
         lastFooterColor = newColor;
     }

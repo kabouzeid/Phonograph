@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.AlbumAdapter;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 
 /**
@@ -19,7 +19,7 @@ public class AlbumViewFragment extends AbsMainActivityRecyclerViewFragment {
 
     @Override
     protected RecyclerView.LayoutManager createLayoutManager() {
-        int columns = Util.isInPortraitMode(getActivity()) ? PreferenceUtils.getInstance(getActivity()).getAlbumGridColumns() : PreferenceUtils.getInstance(getActivity()).getAlbumGridColumnsLand();
+        int columns = Util.isInPortraitMode(getActivity()) ? PreferenceUtil.getInstance(getActivity()).getAlbumGridColumns() : PreferenceUtil.getInstance(getActivity()).getAlbumGridColumnsLand();
         layoutManager = new GridLayoutManager(getActivity(), columns);
         return layoutManager;
     }

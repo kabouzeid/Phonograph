@@ -55,9 +55,10 @@ import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
+import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.kabouzeid.gramophone.views.SquareIfPlaceImageView;
@@ -135,7 +136,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             postponeEnterTransition();
-            if (PreferenceUtils.getInstance(this).coloredNavigationBarArtist())
+            if (PreferenceUtil.getInstance(this).coloredNavigationBarArtist())
                 setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
         }
 
@@ -197,7 +198,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
             // Change alpha of overlay
             toolbarAlpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
             ViewUtil.setBackgroundAlpha(toolbar, toolbarAlpha, toolbarColor);
-            setStatusBarColor(Util.getColorWithAlpha(cab != null && cab.isActive() ? 1 : toolbarAlpha, toolbarColor));
+            setStatusBarColor(ColorUtil.getColorWithAlpha(cab != null && cab.isActive() ? 1 : toolbarAlpha, toolbarColor));
 
             // Translate name text
             int maxTitleTranslationY = artistImageViewHeight;
@@ -215,8 +216,9 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         int toolbarHeight = Util.getActionBarSize(this);
         titleViewHeight = getResources().getDimensionPixelSize(R.dimen.title_view_height);
         headerOffset = toolbarHeight;
-        if (Util.isAtLeastKitKat())
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             headerOffset += getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
+        }
     }
 
     private void initViews() {
@@ -403,8 +405,8 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                             if (vibrantSwatch != null) {
                                 toolbarColor = vibrantSwatch.getRgb();
                                 artistName.setBackgroundColor(vibrantSwatch.getRgb());
-                                artistName.setTextColor(Util.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
-                                if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(ArtistDetailActivity.this).coloredNavigationBarArtist())
+                                artistName.setTextColor(ColorUtil.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
+                                if (PreferenceUtil.getInstance(ArtistDetailActivity.this).coloredNavigationBarArtist())
                                     setNavigationBarColor(vibrantSwatch.getRgb());
                                 notifyTaskColorChange(toolbarColor);
                             } else {
@@ -443,7 +445,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         artistName.setBackgroundColor(defaultBarColor);
         artistName.setTextColor(titleTextColor);
 
-        if (Util.isAtLeastLollipop() && PreferenceUtils.getInstance(this).coloredNavigationBarArtist())
+        if (PreferenceUtil.getInstance(this).coloredNavigationBarArtist())
             setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
 
         notifyTaskColorChange(toolbarColor);
@@ -589,7 +591,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                 .start(new MaterialCab.Callback() {
                     @Override
                     public boolean onCabCreated(MaterialCab materialCab, Menu menu) {
-                        setStatusBarColor(Util.getOpaqueColor(toolbarColor));
+                        setStatusBarColor(ColorUtil.getOpaqueColor(toolbarColor));
                         return callback.onCabCreated(materialCab, menu);
                     }
 
@@ -600,7 +602,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
 
                     @Override
                     public boolean onCabFinished(MaterialCab materialCab) {
-                        setStatusBarColor(Util.getColorWithAlpha(toolbarAlpha, toolbarColor));
+                        setStatusBarColor(ColorUtil.getColorWithAlpha(toolbarAlpha, toolbarColor));
                         return callback.onCabFinished(materialCab);
                     }
                 });

@@ -18,6 +18,7 @@ import android.widget.FrameLayout;
 
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.Util;
 
 import static android.support.v7.widget.RecyclerView.OnScrollListener;
@@ -182,7 +183,7 @@ public class FastScroller extends FrameLayout {
     public void setPressedHandleColor(int accent) {
         StateListDrawable drawable = new StateListDrawable();
 
-        int colorControlNormal = Util.resolveColor(getContext(), R.attr.colorControlNormal);
+        int colorControlNormal = ColorUtil.resolveColor(getContext(), R.attr.colorControlNormal);
 
         if (!Util.isRTL(getContext())) {
             drawable.addState(View.PRESSED_ENABLED_STATE_SET,
@@ -201,7 +202,7 @@ public class FastScroller extends FrameLayout {
     private void setUpBarBackground() {
         Drawable drawable;
 
-        int colorControlNormal = Util.resolveColor(getContext(), R.attr.colorControlNormal);
+        int colorControlNormal = ColorUtil.resolveColor(getContext(), R.attr.colorControlNormal);
 
         if (!Util.isRTL(getContext())) {
             drawable = new InsetDrawable(new ColorDrawable(colorControlNormal), getResources().getDimensionPixelSize(R.dimen.scrollbar_inset), 0, 0, 0);

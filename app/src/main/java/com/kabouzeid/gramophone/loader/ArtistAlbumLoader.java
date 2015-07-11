@@ -6,7 +6,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 
 import com.kabouzeid.gramophone.model.Album;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
 
@@ -25,7 +25,7 @@ public class ArtistAlbumLoader {
                 MediaStore.Audio.Artists.Albums.getContentUri("external", artistId),
                 null,
                 null,
-                PreferenceUtils.getInstance(context).getArtistAlbumSortOrder()
+                PreferenceUtil.getInstance(context).getArtistAlbumSortOrder()
         );
     }
 }

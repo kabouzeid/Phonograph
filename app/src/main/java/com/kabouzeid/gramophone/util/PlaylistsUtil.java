@@ -59,19 +59,6 @@ public class PlaylistsUtil {
         return id;
     }
 
-//    public static void clearPlaylist(final Context context, final int playlistId) {
-//        final Uri uri = MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId);
-//        context.getContentResolver().delete(uri, null, null);
-//    }
-
-//    public static void deletePlaylists(final Context context, final long playlistId) {
-//        final Uri uri = MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI;
-//        String where = MediaStore.Audio.Playlists._ID + "=?";
-//        String[] whereVal = {String.valueOf(playlistId)};
-//        context.getContentResolver().delete(uri, where, whereVal);
-//        App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
-//    }
-
     public static void deletePlaylists(@NonNull final Context context, @NonNull final ArrayList<Playlist> playlists) {
         final Uri uri = MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI;
         final StringBuilder selection = new StringBuilder();
@@ -182,21 +169,6 @@ public class PlaylistsUtil {
         }
         return false;
     }
-
-//    public static int getSongCountForPlaylist(final Context context, final long playlistId) {
-//        Cursor c = context.getContentResolver().query(
-//                MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),
-//                new String[]{BaseColumns._ID}, MUSIC_ONLY_SELECTION, null, null);
-//        if (c != null) {
-//            int count = 0;
-//            if (c.moveToFirst()) {
-//                count = c.getCount();
-//            }
-//            c.close();
-//            return count;
-//        }
-//        return 0;
-//    }
 
     public static boolean moveItem(@NonNull final Context context, int playlistId, int from, int to) {
         return MediaStore.Audio.Playlists.Members.moveItem(context.getContentResolver(),

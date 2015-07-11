@@ -25,7 +25,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
@@ -89,7 +89,7 @@ public class PlayingNotificationHelper {
     };
 
     public void updateNotification() {
-        updateNotification(PreferenceUtils.getInstance(service).coloredNotification());
+        updateNotification(PreferenceUtil.getInstance(service).coloredNotification());
     }
 
     private void updateNotification(final boolean isColored) {

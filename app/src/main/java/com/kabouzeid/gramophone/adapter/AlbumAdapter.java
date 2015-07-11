@@ -32,10 +32,10 @@ import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
+import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
-import com.kabouzeid.gramophone.util.Util;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -203,7 +203,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     public AlbumAdapter(@NonNull AppCompatActivity activity, @Nullable CabHolder cabHolder) {
         super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
-        usePalette = PreferenceUtils.getInstance(activity).coloredAlbumFooters();
+        usePalette = PreferenceUtil.getInstance(activity).coloredAlbumFooters();
         loadDataSet();
         setHasStableIds(true);
     }
@@ -226,8 +226,8 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
                         public void onGenerated(@NonNull Palette palette) {
                             final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
                             if (vibrantSwatch != null) {
-                                title.setTextColor(Util.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
-                                artist.setTextColor(Util.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
+                                title.setTextColor(ColorUtil.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
+                                artist.setTextColor(ColorUtil.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
                                 ViewUtil.animateViewColor(footer, footer.getDrawingCacheBackgroundColor(), vibrantSwatch.getRgb());
                             } else {
                                 paletteBlackAndWhite(title, artist, footer);
@@ -240,8 +240,8 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     }
 
     private void paletteBlackAndWhite(@NonNull final TextView title, @NonNull final TextView artist, final View footer) {
-        title.setTextColor(Util.getOpaqueColor(DialogUtils.resolveColor(activity, R.attr.title_text_color)));
-        artist.setTextColor(Util.getOpaqueColor(DialogUtils.resolveColor(activity, R.attr.caption_text_color)));
+        title.setTextColor(ColorUtil.getOpaqueColor(DialogUtils.resolveColor(activity, R.attr.title_text_color)));
+        artist.setTextColor(ColorUtil.getOpaqueColor(DialogUtils.resolveColor(activity, R.attr.caption_text_color)));
         int defaultBarColor = DialogUtils.resolveColor(activity, R.attr.default_bar_color);
         ViewUtil.animateViewColor(footer, defaultBarColor, defaultBarColor);
     }

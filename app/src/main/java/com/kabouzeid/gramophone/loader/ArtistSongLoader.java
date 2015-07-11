@@ -6,7 +6,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class ArtistSongLoader {
                 new String[]{
                         String.valueOf(artistId)
                 },
-                PreferenceUtils.getInstance(context).getArtistSongSortOrder()
+                PreferenceUtil.getInstance(context).getArtistSongSortOrder()
         );
     }
 }

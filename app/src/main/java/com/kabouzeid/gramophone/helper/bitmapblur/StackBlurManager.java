@@ -29,7 +29,7 @@ import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.kabouzeid.gramophone.util.Util;
+import com.kabouzeid.gramophone.util.ImageUtil;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -64,7 +64,7 @@ public class StackBlurManager {
      */
     public StackBlurManager(@NonNull Bitmap image) {
         // resize Bitmap to prevent OOM and OOB exceptions and increase the performance
-        this.image = Util.getResizedBitmap(image, 500, 500, false);
+        this.image = ImageUtil.getResizedBitmap(image, 500, 500, false);
         blurProcess = new JavaBlurProcess();
     }
 

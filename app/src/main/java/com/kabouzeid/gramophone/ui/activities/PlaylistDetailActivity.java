@@ -24,7 +24,7 @@ import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.util.PreferenceUtils;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.squareup.otto.Subscribe;
 
 import butterknife.ButterKnife;
@@ -62,7 +62,7 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
 
         setUpToolBar();
 
-        if (PreferenceUtils.getInstance(this).coloredNavigationBarPlaylist())
+        if (PreferenceUtil.getInstance(this).coloredNavigationBarPlaylist())
             setNavigationBarThemeColor();
         setStatusBarThemeColor();
 
@@ -158,7 +158,7 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
         cab = new MaterialCab(this, R.id.cab_stub)
                 .setMenu(menu)
                 .setCloseDrawableRes(R.drawable.ic_close_white_24dp)
-                .setBackgroundColor(PreferenceUtils.getInstance(this).getThemeColorPrimary())
+                .setBackgroundColor(PreferenceUtil.getInstance(this).getThemeColorPrimary())
                 .start(callback);
         return cab;
     }
