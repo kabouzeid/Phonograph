@@ -22,11 +22,6 @@
         <item name="android:transitionName">@string/transition_fab</item>
     </style>
 
-    <style name="NotificationButton" parent="NotificationButtonParent">
-        <item name="android:background">@drawable/notification_selector</item>
-        <item name="android:tint">@color/default_notification_content_color</item>
-    </style>
-
     <style name="MusicProgressSlider" parent="MusicProgressSliderParent">
         <item name="android:elevation">2dp</item>
         <item name="android:padding">0dp</item>
