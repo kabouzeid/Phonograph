@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.adapter;
 
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
@@ -18,8 +19,8 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.ClearSmartPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeletePlaylistDialog;
-import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.helper.menu.PlaylistMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
@@ -31,8 +32,10 @@ import com.kabouzeid.gramophone.model.smartplaylist.LastAddedPlaylist;
 import com.kabouzeid.gramophone.model.smartplaylist.MyTopTracksPlaylist;
 import com.kabouzeid.gramophone.model.smartplaylist.RecentlyPlayedPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
+import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.Util;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
@@ -48,8 +51,8 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
 
     public static final String TAG = PlaylistAdapter.class.getSimpleName();
 
-    private int VIEW_TYPE_SMART = 0;
-    private int VIEW_TYPE_DEFAULT = 1;
+    private int SMART_PLAYLIST = 0;
+    private int DEFAULT_PLAYLIST = 1;
 
     protected final AppCompatActivity activity;
     protected List<Playlist> dataSet;
@@ -79,17 +82,21 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        int layoutRes = viewType == VIEW_TYPE_DEFAULT ? R.layout.item_list_playlist : R.layout.item_list_smart_playlist;
-        View view = LayoutInflater.from(activity).inflate(layoutRes, parent, false);
-        return new ViewHolder(view);
+        View view = LayoutInflater.from(activity).inflate(R.layout.item_list_single_row, parent, false);
+        return new ViewHolder(view, viewType);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Playlist playlist = dataSet.get(position);
         holder.playlistName.setText(playlist.name);
-        holder.view.setActivated(isChecked(playlist));
-        holder.icon.setImageResource(getIconRes(playlist));
+        holder.itemView.setActivated(isChecked(playlist));
+
+        holder.icon.setImageDrawable(Util.getTintedDrawable(
+                activity,
+                getIconRes(playlist),
+                ColorUtil.resolveColor(activity, R.attr.themed_drawable_color)
+        ));
     }
 
     private int getIconRes(Playlist playlist) {
@@ -101,7 +108,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
 
     @Override
     public int getItemViewType(int position) {
-        return dataSet.get(position) instanceof AbsSmartPlaylist ? VIEW_TYPE_SMART : VIEW_TYPE_DEFAULT;
+        return dataSet.get(position) instanceof AbsSmartPlaylist ? SMART_PLAYLIST : DEFAULT_PLAYLIST;
     }
 
     @Override
@@ -154,25 +161,37 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        @InjectView(R.id.playlist_name)
+        @InjectView(R.id.title)
         TextView playlistName;
         @InjectView(R.id.menu)
         View menu;
-        @InjectView(R.id.playlist_icon)
+        @InjectView(R.id.image)
         ImageView icon;
-        View view;
+        @InjectView(R.id.short_separator)
+        View shortSeparator;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, int itemViewType) {
             super(itemView);
             ButterKnife.inject(this, itemView);
-            view = itemView;
-            view.setOnClickListener(this);
-            view.setOnLongClickListener(this);
+
+            if (itemViewType == SMART_PLAYLIST) {
+                shortSeparator.setVisibility(View.GONE);
+                itemView.setBackgroundColor(ColorUtil.resolveColor(activity, R.attr.card_color));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    itemView.setElevation(activity.getResources().getDimensionPixelSize(R.dimen.card_elevation));
+                }
+            }
+
+            int padding = activity.getResources().getDimensionPixelSize(R.dimen.list_item_image_icon_padding);
+            icon.setPadding(padding, padding, padding, padding);
+
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
             menu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     PopupMenu popupMenu = new PopupMenu(activity, view);
-                    popupMenu.inflate(getItemViewType() == VIEW_TYPE_SMART ? R.menu.menu_item_smart_playlist : R.menu.menu_item_playlist);
+                    popupMenu.inflate(getItemViewType() == SMART_PLAYLIST ? R.menu.menu_item_smart_playlist : R.menu.menu_item_playlist);
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(@NonNull MenuItem item) {
@@ -183,7 +202,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
                                     return true;
                                 }
                             }
-                            return MenuItemClickHelper.handlePlaylistMenuClick(
+                            return PlaylistMenuHelper.handleMenuClick(
                                     activity, dataSet.get(getAdapterPosition()), item);
                         }
                     });

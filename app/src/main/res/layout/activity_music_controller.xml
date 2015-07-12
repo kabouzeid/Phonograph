@@ -74,11 +74,11 @@
             android:paddingLeft="72dp"
             android:paddingRight="72dp"
             android:paddingTop="@dimen/title_box_padding_large"
-            android:transitionName="@string/transition_album_text"
+            android:transitionName="@string/transition_album_art"
             tools:ignore="UnusedAttribute">
 
             <TextView
-                android:id="@+id/song_title"
+                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
@@ -87,7 +87,7 @@
                 android:textColor="?attr/title_text_color" />
 
             <TextView
-                android:id="@+id/song_artist"
+                android:id="@+id/text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
@@ -199,22 +199,23 @@
             tools:ignore="ContentDescription" />
 
         <com.kabouzeid.gramophone.views.SquareIfPlaceImageView
-            android:id="@+id/album_art"
+            android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:scaleType="centerCrop"
             android:src="@drawable/default_album_art"
-            android:transitionName="@string/transition_album_cover"
+            android:transitionName="@string/transition_album_art"
             tools:ignore="ContentDescription,UnusedAttribute" />
 
         <ImageView
             android:id="@+id/favorite_icon"
-            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/ic_favorite_red_a400_96dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:visibility="invisible"
+            tools:ignore="ContentDescription" />
 
         <RelativeLayout
             android:id="@+id/default_progress_container"
@@ -249,7 +250,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
-                tools:ignore="RtlHardcoded,RtlSymmetry,SmallSp" />
+                tools:ignore="RelativeOverlap,RtlHardcoded,RtlSymmetry,SmallSp" />
 
         </RelativeLayout>
     </FrameLayout>

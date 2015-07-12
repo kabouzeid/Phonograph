@@ -18,7 +18,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.util.DialogUtils;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
@@ -47,6 +46,9 @@ import com.squareup.otto.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -55,15 +57,24 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     public static final String TAG = AlbumAdapter.class.getSimpleName();
     private static final int FADE_IN_TIME = 500;
 
-    @NonNull
     private final AppCompatActivity activity;
     private boolean usePalette;
     private List<Album> dataSet;
+    private int defaultFooterColor;
+
+    public AlbumAdapter(@NonNull AppCompatActivity activity, @Nullable CabHolder cabHolder) {
+        super(activity, cabHolder, R.menu.menu_media_selection);
+        this.activity = activity;
+        usePalette = PreferenceUtil.getInstance(activity).coloredAlbumFooters();
+        defaultFooterColor = ColorUtil.resolveColor(activity, R.attr.default_bar_color);
+        loadDataSet();
+        setHasStableIds(true);
+    }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(activity).inflate(R.layout.item_grid_album, parent, false);
+        View view = LayoutInflater.from(activity).inflate(R.layout.item_grid, parent, false);
         return new ViewHolder(view);
     }
 
@@ -71,18 +82,18 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Album album = dataSet.get(position);
 
-        resetColors(holder.title, holder.artist, holder.footer);
+        setFooterColor(holder.title, holder.text, holder.footer, defaultFooterColor, false);
 
         final boolean isChecked = isChecked(album);
-        holder.view.setActivated(isChecked);
-        holder.checkMark.setVisibility(isChecked ? View.VISIBLE : View.INVISIBLE);
+        holder.itemView.setActivated(isChecked);
+        holder.selectedIndicator.setVisibility(isChecked ? View.VISIBLE : View.GONE);
 
         holder.title.setText(album.title);
-        holder.artist.setText(album.artistName);
+        holder.text.setText(album.artistName);
 
         ImageLoader.getInstance().displayImage(
                 MusicUtil.getAlbumImageLoaderString(album),
-                holder.albumArt,
+                holder.image,
                 new DisplayImageOptions.Builder()
                         .cacheInMemory(true)
                         .showImageOnFail(R.drawable.default_album_art)
@@ -94,13 +105,13 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
                     public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                         FadeInBitmapDisplayer.animate(view, FADE_IN_TIME);
                         if (usePalette)
-                            paletteBlackAndWhite(holder.title, holder.artist, holder.footer);
+                            applyPalette(null, holder.title, holder.text, holder.footer);
                     }
 
                     @Override
                     public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                         if (usePalette)
-                            applyPalette(loadedImage, holder.title, holder.artist, holder.footer);
+                            applyPalette(loadedImage, holder.title, holder.text, holder.footer);
                     }
                 }
         );
@@ -141,37 +152,33 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        @NonNull
-        final ImageView albumArt;
-        @NonNull
-        final TextView title;
-        @NonNull
-        final TextView artist;
-        final View footer;
-        @NonNull
-        final ImageView checkMark;
-        @NonNull
-        final View view;
+        @InjectView(R.id.image)
+        ImageView image;
+        @InjectView(R.id.title)
+        TextView title;
+        @InjectView(R.id.text)
+        TextView text;
+        @InjectView(R.id.footer)
+        View footer;
+        @InjectView(R.id.selected_indicator)
+        ImageView selectedIndicator;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            view = itemView;
-            albumArt = (ImageView) itemView.findViewById(R.id.album_art);
-            title = (TextView) itemView.findViewById(R.id.album_title);
-            artist = (TextView) itemView.findViewById(R.id.album_interpret);
-            footer = itemView.findViewById(R.id.footer);
-            checkMark = (ImageView) itemView.findViewById(R.id.check_mark);
-            view.setOnClickListener(this);
-            view.setOnLongClickListener(this);
+            ButterKnife.inject(this, itemView);
 
-            // fixes the ripple starts at the right position
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                view.setOnTouchListener(new View.OnTouchListener() {
+                image.setTransitionName(activity.getString(R.string.transition_album_art));
+                // fixes the ripple, so that it starts at the right position instead of in the middle
+                itemView.setOnTouchListener(new View.OnTouchListener() {
 
                     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                     @Override
                     public boolean onTouch(@NonNull View view, @NonNull MotionEvent motionEvent) {
-                        ((FrameLayout) view.findViewById(R.id.content)).getForeground().setHotspot(motionEvent.getX(), motionEvent.getY());
+                        ((FrameLayout) view.findViewById(R.id.container)).getForeground().setHotspot(motionEvent.getX(), motionEvent.getY());
                         return false;
                     }
                 });
@@ -184,8 +191,8 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
                 toggleChecked(getAdapterPosition());
             } else {
                 Pair[] albumPairs = new Pair[]{
-                        Pair.create(albumArt,
-                                activity.getResources().getString(R.string.transition_album_cover)
+                        Pair.create(image,
+                                activity.getResources().getString(R.string.transition_album_art)
                         )};
                 if (activity instanceof AbsFabActivity)
                     albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(albumPairs);
@@ -198,14 +205,6 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
             toggleChecked(getAdapterPosition());
             return true;
         }
-    }
-
-    public AlbumAdapter(@NonNull AppCompatActivity activity, @Nullable CabHolder cabHolder) {
-        super(activity, cabHolder, R.menu.menu_media_selection);
-        this.activity = activity;
-        usePalette = PreferenceUtil.getInstance(activity).coloredAlbumFooters();
-        loadDataSet();
-        setHasStableIds(true);
     }
 
     @Override
@@ -224,33 +223,23 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
                     .generate(new Palette.PaletteAsyncListener() {
                         @Override
                         public void onGenerated(@NonNull Palette palette) {
-                            final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
-                            if (vibrantSwatch != null) {
-                                title.setTextColor(ColorUtil.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
-                                artist.setTextColor(ColorUtil.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
-                                ViewUtil.animateViewColor(footer, footer.getDrawingCacheBackgroundColor(), vibrantSwatch.getRgb());
-                            } else {
-                                paletteBlackAndWhite(title, artist, footer);
-                            }
+                            setFooterColor(title, artist, footer, palette.getVibrantColor(defaultFooterColor), true);
                         }
                     });
         } else {
-            paletteBlackAndWhite(title, artist, footer);
+            setFooterColor(title, artist, footer, defaultFooterColor, true);
         }
     }
 
-    private void paletteBlackAndWhite(@NonNull final TextView title, @NonNull final TextView artist, final View footer) {
-        title.setTextColor(ColorUtil.getOpaqueColor(DialogUtils.resolveColor(activity, R.attr.title_text_color)));
-        artist.setTextColor(ColorUtil.getOpaqueColor(DialogUtils.resolveColor(activity, R.attr.caption_text_color)));
-        int defaultBarColor = DialogUtils.resolveColor(activity, R.attr.default_bar_color);
-        ViewUtil.animateViewColor(footer, defaultBarColor, defaultBarColor);
-    }
-
-    private void resetColors(@NonNull final TextView title, @NonNull final TextView artist, @NonNull final View footer) {
-        title.setTextColor(DialogUtils.resolveColor(activity, R.attr.title_text_color));
-        artist.setTextColor(DialogUtils.resolveColor(activity, R.attr.caption_text_color));
-        int defaultBarColor = DialogUtils.resolveColor(activity, R.attr.default_bar_color);
-        footer.setBackgroundColor(defaultBarColor);
+    private void setFooterColor(@NonNull final TextView title, @NonNull final TextView artist, final View footer, int footerColor, boolean animate) {
+        int textColor = ColorUtil.getTextColorForBackground(footerColor);
+        title.setTextColor(textColor);
+        artist.setTextColor(textColor);
+        if (animate) {
+            ViewUtil.animateViewColor(footer, footer.getDrawingCacheBackgroundColor(), footerColor);
+        } else {
+            footer.setBackgroundColor(footerColor);
+        }
     }
 
     @Override

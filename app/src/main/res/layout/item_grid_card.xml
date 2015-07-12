@@ -15,11 +15,10 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/album_art"
+            android:id="@+id/image"
             android:layout_width="104dp"
             android:layout_height="104dp"
             android:scaleType="centerCrop"
-            android:transitionName="@string/transition_album_cover"
             tools:ignore="ContentDescription,UnusedAttribute" />
 
         <LinearLayout
@@ -34,11 +33,10 @@
                 android:orientation="vertical"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:transitionName="@string/transition_album_text"
                 tools:ignore="UnusedAttribute">
 
                 <TextView
-                    android:id="@+id/album_title"
+                    android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
@@ -47,7 +45,7 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/album_year"
+                    android:id="@+id/text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"

@@ -146,7 +146,7 @@
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/track_number"
+                        android:id="@+id/image_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

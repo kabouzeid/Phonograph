@@ -15,13 +15,13 @@
             android:scaleType="centerCrop" />
 
         <com.kabouzeid.gramophone.views.SquareIfPlaceImageView
-            android:id="@+id/album_art"
+            android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:scaleType="centerCrop"
             android:src="@drawable/default_album_art"
-            android:transitionName="@string/transition_album_cover"
+            android:transitionName="@string/transition_album_art"
             tools:ignore="ContentDescription,UnusedAttribute" />
     </FrameLayout>
 
@@ -46,7 +46,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/album_title"
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_view_height"
             android:height="@dimen/title_view_height"

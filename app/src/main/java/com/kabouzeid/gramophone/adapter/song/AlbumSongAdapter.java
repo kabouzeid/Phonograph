@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.adapter.songadapter;
+package com.kabouzeid.gramophone.adapter.song;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,20 +9,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.AbsMultiSelectAdapter;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
-import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
 
 import java.util.ArrayList;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -45,7 +47,7 @@ public class AlbumSongAdapter extends AbsMultiSelectAdapter<AlbumSongAdapter.Vie
         return dataSet.get(position).id;
     }
 
-    public void updateDataSet(ArrayList<Song> objects){
+    public void updateDataSet(ArrayList<Song> objects) {
         dataSet = objects;
         notifyDataSetChanged();
     }
@@ -53,7 +55,7 @@ public class AlbumSongAdapter extends AbsMultiSelectAdapter<AlbumSongAdapter.Vie
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(activity).inflate(R.layout.item_list_album_song, parent, false);
+        View view = LayoutInflater.from(activity).inflate(R.layout.item_list, parent, false);
         return new ViewHolder(view);
     }
 
@@ -63,10 +65,10 @@ public class AlbumSongAdapter extends AbsMultiSelectAdapter<AlbumSongAdapter.Vie
 
         final int trackNumber = MusicUtil.getFixedTrackNumber(song.trackNumber);
         final String trackNumberString = trackNumber > 0 ? String.valueOf(trackNumber) : "-";
-        holder.trackNumber.setText(trackNumberString);
-        holder.songTitle.setText(song.title);
-        holder.artistName.setText(MusicUtil.getReadableDurationString(song.duration));
-        holder.view.setActivated(isChecked(song));
+        holder.track_number.setText(trackNumberString);
+        holder.title.setText(song.title);
+        holder.text.setText(MusicUtil.getReadableDurationString(song.duration));
+        holder.itemView.setActivated(isChecked(song));
     }
 
     @Override
@@ -95,38 +97,31 @@ public class AlbumSongAdapter extends AbsMultiSelectAdapter<AlbumSongAdapter.Vie
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        @NonNull
-        final TextView songTitle;
-        @NonNull
-        final TextView trackNumber;
-        @NonNull
-        final TextView artistName;
-        @NonNull
-        final ImageView overflowButton;
-        @NonNull
-        final View view;
+        @InjectView(R.id.title)
+        TextView title;
+        @InjectView(R.id.text)
+        TextView text;
+        @InjectView(R.id.image)
+        ImageView image;
+        @InjectView(R.id.image_text)
+        TextView track_number;
+        @InjectView(R.id.menu)
+        ImageView menu;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            view = itemView;
-            songTitle = (TextView) itemView.findViewById(R.id.song_title);
-            trackNumber = (TextView) itemView.findViewById(R.id.track_number);
-            artistName = (TextView) itemView.findViewById(R.id.song_info);
-            overflowButton = (ImageView) itemView.findViewById(R.id.menu);
-            view.setOnClickListener(this);
-            view.setOnLongClickListener(this);
-            overflowButton.setOnClickListener(new View.OnClickListener() {
+            ButterKnife.inject(this, itemView);
+
+            menu.setVisibility(View.VISIBLE);
+            track_number.setVisibility(View.VISIBLE);
+            image.setVisibility(View.GONE);
+
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
+            menu.setOnClickListener(new SongMenuHelper.OnClickSongMenu(activity) {
                 @Override
-                public void onClick(View v) {
-                    PopupMenu popupMenu = new PopupMenu(activity, v);
-                    popupMenu.inflate(R.menu.menu_item_song);
-                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(@NonNull MenuItem item) {
-                            return MenuItemClickHelper.handleSongMenuClick(activity, dataSet.get(getAdapterPosition()), item);
-                        }
-                    });
-                    popupMenu.show();
+                public Song getSong() {
+                    return dataSet.get(getAdapterPosition());
                 }
             });
         }

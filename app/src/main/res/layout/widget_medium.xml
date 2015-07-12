@@ -6,7 +6,7 @@
     tools:ignore="ContentDescription">
 
     <ImageView
-        android:id="@+id/album_art"
+        android:id="@+id/image"
         android:layout_width="@dimen/widget_medium_image_size"
         android:layout_height="@dimen/widget_medium_image_size"
         android:scaleType="centerCrop"
@@ -60,7 +60,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/song_title"
+                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

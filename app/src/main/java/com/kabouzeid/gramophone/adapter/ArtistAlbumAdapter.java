@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.adapter;
 
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
@@ -28,6 +29,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -65,7 +69,7 @@ public class ArtistAlbumAdapter extends AbsMultiSelectAdapter<ArtistAlbumAdapter
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(activity).inflate(R.layout.item_grid_artist_album, parent, false);
+        View view = LayoutInflater.from(activity).inflate(R.layout.item_grid_card, parent, false);
         ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         if (viewType == TYPE_FIRST) {
             params.leftMargin = listMargin;
@@ -81,7 +85,7 @@ public class ArtistAlbumAdapter extends AbsMultiSelectAdapter<ArtistAlbumAdapter
 
         ImageLoader.getInstance().displayImage(
                 MusicUtil.getAlbumImageLoaderString(album),
-                holder.albumArt,
+                holder.image,
                 new DisplayImageOptions.Builder()
                         .cacheInMemory(true)
                         .showImageOnFail(R.drawable.default_album_art)
@@ -90,8 +94,8 @@ public class ArtistAlbumAdapter extends AbsMultiSelectAdapter<ArtistAlbumAdapter
         );
 
         holder.title.setText(album.title);
-        holder.year.setText(String.valueOf(album.year));
-        holder.view.setActivated(isChecked(album));
+        holder.text.setText(String.valueOf(album.year));
+        holder.itemView.setActivated(isChecked(album));
     }
 
     @Override
@@ -138,23 +142,23 @@ public class ArtistAlbumAdapter extends AbsMultiSelectAdapter<ArtistAlbumAdapter
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        @NonNull
-        final ImageView albumArt;
-        @NonNull
-        final TextView title;
-        @NonNull
-        final TextView year;
-        @NonNull
-        final View view;
+        @InjectView(R.id.image)
+        ImageView image;
+        @InjectView(R.id.title)
+        TextView title;
+        @InjectView(R.id.text)
+        TextView text;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            view = itemView;
-            albumArt = (ImageView) itemView.findViewById(R.id.album_art);
-            title = (TextView) itemView.findViewById(R.id.album_title);
-            year = (TextView) itemView.findViewById(R.id.album_year);
-            view.setOnClickListener(this);
-            view.setOnLongClickListener(this);
+            ButterKnife.inject(this, itemView);
+
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                image.setTransitionName(activity.getString(R.string.transition_album_art));
+            }
         }
 
         @Override
@@ -163,8 +167,8 @@ public class ArtistAlbumAdapter extends AbsMultiSelectAdapter<ArtistAlbumAdapter
                 toggleChecked(getAdapterPosition());
             } else {
                 Pair[] albumPairs = new Pair[]{
-                        Pair.create(albumArt,
-                                activity.getResources().getString(R.string.transition_album_cover)
+                        Pair.create(image,
+                                activity.getResources().getString(R.string.transition_album_art)
                         )};
                 if (activity instanceof AbsFabActivity)
                     albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(albumPairs);

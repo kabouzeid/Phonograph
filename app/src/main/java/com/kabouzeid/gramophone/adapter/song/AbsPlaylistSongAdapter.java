@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.adapter.songadapter;
+package com.kabouzeid.gramophone.adapter.song;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

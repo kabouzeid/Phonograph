@@ -1,5 +1,6 @@
-package com.kabouzeid.gramophone.adapter.songadapter;
+package com.kabouzeid.gramophone.adapter.song;
 
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
@@ -11,15 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.afollestad.materialcab.MaterialCab;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
-import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
@@ -45,7 +45,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
     private final AppCompatActivity activity;
 
     public ArtistSongAdapter(@NonNull AppCompatActivity activity, @NonNull ArrayList<Song> songs, @Nullable CabHolder cabHolder) {
-        super(activity, R.layout.item_list_song, songs);
+        super(activity, R.layout.item_list, songs);
         this.activity = activity;
         this.cabHolder = cabHolder;
         checked = new ArrayList<>();
@@ -63,12 +63,12 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
     public View getView(final int position, @Nullable View convertView, ViewGroup parent) {
         final Song song = getItem(position);
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_list_artist_song, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_list, parent, false);
         }
 
-        final TextView songTitle = (TextView) convertView.findViewById(R.id.song_title);
-        final TextView songInfo = (TextView) convertView.findViewById(R.id.song_info);
-        final ImageView albumArt = (ImageView) convertView.findViewById(R.id.album_art);
+        final TextView songTitle = (TextView) convertView.findViewById(R.id.title);
+        final TextView songInfo = (TextView) convertView.findViewById(R.id.text);
+        final ImageView albumArt = (ImageView) convertView.findViewById(R.id.image);
 
         songTitle.setText(song.title);
         songInfo.setText(song.albumName);
@@ -83,29 +83,29 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
                         .build()
         );
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            albumArt.setTransitionName(activity.getString(R.string.transition_album_art));
+        }
+
         final ImageView overflowButton = (ImageView) convertView.findViewById(R.id.menu);
-        overflowButton.setOnClickListener(new View.OnClickListener() {
+        overflowButton.setOnClickListener(new SongMenuHelper.OnClickSongMenu(activity) {
             @Override
-            public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(activity, v);
-                popupMenu.inflate(R.menu.menu_item_song);
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.action_go_to_album:
-                                Pair[] albumPairs = new Pair[]{
-                                        Pair.create(albumArt, activity.getResources().getString(R.string.transition_album_cover))
-                                };
-                                if (activity instanceof AbsFabActivity)
-                                    albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(albumPairs);
-                                NavigationUtil.goToAlbum(activity, song.albumId, albumPairs);
-                                return true;
-                        }
-                        return MenuItemClickHelper.handleSongMenuClick(activity, song, item);
-                    }
-                });
-                popupMenu.show();
+            public Song getSong() {
+                return song;
+            }
+
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.action_go_to_album) {
+                    Pair[] albumPairs = new Pair[]{
+                            Pair.create(albumArt, activity.getResources().getString(R.string.transition_album_art))
+                    };
+                    if (activity instanceof AbsFabActivity)
+                        albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(albumPairs);
+                    NavigationUtil.goToAlbum(activity, song.albumId, albumPairs);
+                    return true;
+                }
+                return super.onMenuItemClick(item);
             }
         });
 

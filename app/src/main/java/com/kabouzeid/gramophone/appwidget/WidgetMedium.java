@@ -43,7 +43,7 @@ public class WidgetMedium extends AppWidgetProvider {
         if (song.id == -1) return;
         widgetLayout = new RemoteViews(context.getPackageName(), R.layout.widget_medium);
         linkButtons(context, widgetLayout);
-        widgetLayout.setTextViewText(R.id.song_title, song.title);
+        widgetLayout.setTextViewText(R.id.title, song.title);
         widgetLayout.setTextViewText(R.id.song_secondary_information, song.artistName + " | " + song.albumName);
         updateWidgetsPlayState(context, isPlaying);
         loadAlbumArt(context, song);
@@ -107,15 +107,15 @@ public class WidgetMedium extends AppWidgetProvider {
 
     private static void setAlbumArt(@NonNull final Context context, @Nullable final Bitmap albumArt) {
         if (albumArt != null) {
-            widgetLayout.setImageViewBitmap(R.id.album_art, albumArt);
+            widgetLayout.setImageViewBitmap(R.id.image, albumArt);
         } else {
-            widgetLayout.setImageViewResource(R.id.album_art, R.drawable.default_album_art);
+            widgetLayout.setImageViewResource(R.id.image, R.drawable.default_album_art);
         }
         updateWidgets(context);
     }
 
     private static void linkButtons(@NonNull final Context context, @NonNull final RemoteViews views) {
-        views.setOnClickPendingIntent(R.id.album_art, retrievePlaybackActions(context, 0));
+        views.setOnClickPendingIntent(R.id.image, retrievePlaybackActions(context, 0));
         views.setOnClickPendingIntent(R.id.media_titles, retrievePlaybackActions(context, 0));
         views.setOnClickPendingIntent(R.id.button_toggle_play_pause, retrievePlaybackActions(context, 1));
         views.setOnClickPendingIntent(R.id.button_next, retrievePlaybackActions(context, 2));

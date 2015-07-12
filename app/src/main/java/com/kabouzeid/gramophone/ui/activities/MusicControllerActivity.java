@@ -42,7 +42,6 @@ import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
 import com.kabouzeid.gramophone.dialogs.SongShareDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.helper.bitmapblur.StackBlurManager;
 import com.kabouzeid.gramophone.imageloader.BlurProcessor;
 import com.kabouzeid.gramophone.misc.SmallTransitionListener;
 import com.kabouzeid.gramophone.model.Song;
@@ -77,9 +76,9 @@ public class MusicControllerActivity extends AbsFabActivity {
 
     private static final int CMD_UPDATE_PROGRESS_VIEWS = 1;
 
-    @InjectView(R.id.song_title)
+    @InjectView(R.id.title)
     TextView songTitle;
-    @InjectView(R.id.song_artist)
+    @InjectView(R.id.text)
     TextView songArtist;
     @InjectView(R.id.footer)
     LinearLayout footer;
@@ -97,7 +96,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     RelativeLayout mediaControllerContainer;
     @InjectView(R.id.album_art_background)
     ImageView albumArtBackground;
-    @InjectView(R.id.album_art)
+    @InjectView(R.id.image)
     SquareIfPlaceImageView albumArt;
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
@@ -120,8 +119,6 @@ public class MusicControllerActivity extends AbsFabActivity {
     private boolean largerTitleBox;
     private boolean alternativeProgressSlider;
     private boolean showPlaybackControllerCard;
-
-    private StackBlurManager defaultAlbumArtStackBlurManager;
 
     private Song song;
 
@@ -439,6 +436,7 @@ public class MusicControllerActivity extends AbsFabActivity {
                     @Override
                     public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
                         applyPalette(null);
+
                         ImageLoader.getInstance().displayImage(
                                 "drawable://" + R.drawable.default_album_art,
                                 albumArtBackground,
@@ -453,7 +451,9 @@ public class MusicControllerActivity extends AbsFabActivity {
                             onLoadingFailed(imageUri, view, null);
                             return;
                         }
+
                         applyPalette(loadedImage);
+
                         ImageLoader.getInstance().displayImage(
                                 imageUri,
                                 albumArtBackground,
@@ -465,36 +465,25 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     private void applyPalette(@Nullable Bitmap bitmap) {
+        final int defaultBarColor = ColorUtil.resolveColor(this, R.attr.default_bar_color);
         if (bitmap != null) {
             Palette.from(bitmap)
                     .resizeBitmapSize(100)
                     .generate(new Palette.PaletteAsyncListener() {
                         @Override
                         public void onGenerated(@NonNull Palette palette) {
-                            final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
-                            if (vibrantSwatch != null) {
-                                final int swatchRgb = vibrantSwatch.getRgb();
-                                animateColorChange(swatchRgb);
-                                animateTextColorChange(ColorUtil.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
-                                notifyTaskColorChange(swatchRgb);
-                            } else {
-                                resetColors();
-                            }
+                            setColors(palette.getVibrantColor(defaultBarColor));
                         }
                     });
         } else {
-            resetColors();
+            setColors(defaultBarColor);
         }
     }
 
-    private void resetColors() {
-        final int textColor = ColorUtil.getOpaqueColor(DialogUtils.resolveColor(this, R.attr.title_text_color));
-        final int defaultBarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
-
-        animateColorChange(defaultBarColor);
-        animateTextColorChange(textColor);
-
-        notifyTaskColorChange(defaultBarColor);
+    private void setColors(int vibrantColor) {
+        animateColorChange(vibrantColor);
+        animateTextColorChange(ColorUtil.getTextColorForBackground(vibrantColor));
+        notifyTaskColorChange(vibrantColor);
     }
 
 

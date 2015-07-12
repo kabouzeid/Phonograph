@@ -45,7 +45,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
     public static final String TAG = AlbumTagEditorActivity.class.getSimpleName();
 
-    @InjectView(R.id.album_title)
+    @InjectView(R.id.title)
     EditText albumTitle;
     @InjectView(R.id.album_artist)
     EditText albumArtist;
