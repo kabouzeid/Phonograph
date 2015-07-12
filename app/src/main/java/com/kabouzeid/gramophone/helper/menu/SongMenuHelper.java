@@ -1,23 +1,20 @@
-package com.kabouzeid.gramophone.helper;
+package com.kabouzeid.gramophone.helper.menu;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.PopupMenu;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
-import com.kabouzeid.gramophone.dialogs.DeletePlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
-import com.kabouzeid.gramophone.dialogs.RenamePlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
-import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
-import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
@@ -25,14 +22,14 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 
 import java.io.File;
-import java.util.ArrayList;
 
 /**
- * @author Karim Abou Zeid (kabouzeid), Aidan Follestad (afollestad)
+ * @author Karim Abou Zeid (kabouzeid)
  */
-public class MenuItemClickHelper {
+public class SongMenuHelper {
+    public static int MENU_RES = R.menu.menu_item_song;
 
-    public static boolean handleSongMenuClick(@NonNull AppCompatActivity activity, @NonNull Song song, @NonNull MenuItem item) {
+    public static boolean handleMenuClick(@NonNull AppCompatActivity activity, @NonNull Song song, @NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_set_as_ringtone:
                 MusicUtil.setRingtone(activity, song.id);
@@ -79,28 +76,30 @@ public class MenuItemClickHelper {
         return false;
     }
 
-    public static boolean handlePlaylistMenuClick(@NonNull AppCompatActivity activity, @NonNull Playlist playlist, @NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_play:
-                MusicPlayerRemote.openQueue(new ArrayList<>(getPlaylistSongs(activity, playlist)), 0, true);
-                return true;
-            case R.id.action_add_to_current_playing:
-                MusicPlayerRemote.enqueue(new ArrayList<>(getPlaylistSongs(activity, playlist)));
-                return true;
-            case R.id.action_rename_playlist:
-                RenamePlaylistDialog.create(playlist.id).show(activity.getSupportFragmentManager(), "RENAME_PLAYLIST");
-                return true;
-            case R.id.action_delete_playlist:
-                DeletePlaylistDialog.create(playlist).show(activity.getSupportFragmentManager(), "DELETE_PLAYLIST");
-                return true;
-        }
-        return false;
-    }
+    public static abstract class OnClickSongMenu implements View.OnClickListener, PopupMenu.OnMenuItemClickListener {
+        private AppCompatActivity activity;
 
-    @NonNull
-    private static ArrayList<? extends Song> getPlaylistSongs(@NonNull Activity activity, Playlist playlist) {
-        return playlist instanceof AbsSmartPlaylist ?
-                ((AbsSmartPlaylist) playlist).getSongs(activity) :
-                PlaylistSongLoader.getPlaylistSongList(activity, playlist.id);
+        public OnClickSongMenu(@NonNull AppCompatActivity activity) {
+            this.activity = activity;
+        }
+
+        public int getMenuRes() {
+            return MENU_RES;
+        }
+
+        @Override
+        public void onClick(View v) {
+            PopupMenu popupMenu = new PopupMenu(activity, v);
+            popupMenu.inflate(getMenuRes());
+            popupMenu.setOnMenuItemClickListener(this);
+            popupMenu.show();
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            return handleMenuClick(activity, getSong(), item);
+        }
+
+        public abstract Song getSong();
     }
 }

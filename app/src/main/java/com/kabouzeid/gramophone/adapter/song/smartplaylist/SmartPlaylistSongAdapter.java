@@ -1,5 +1,6 @@
-package com.kabouzeid.gramophone.adapter.songadapter.smartplaylist;
+package com.kabouzeid.gramophone.adapter.song.smartplaylist;
 
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
@@ -10,14 +11,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.songadapter.AbsPlaylistSongAdapter;
+import com.kabouzeid.gramophone.adapter.song.AbsPlaylistSongAdapter;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
-import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
@@ -29,6 +29,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -67,8 +70,8 @@ public class SmartPlaylistSongAdapter extends AbsPlaylistSongAdapter<SmartPlayli
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(activity).inflate(R.layout.item_list_song, parent, false);
-        return new ViewHolder(view, R.menu.menu_item_cannot_delete_single_songs_playlist_song);
+        View view = LayoutInflater.from(activity).inflate(R.layout.item_list, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
@@ -76,11 +79,11 @@ public class SmartPlaylistSongAdapter extends AbsPlaylistSongAdapter<SmartPlayli
         final Song song = dataSet.get(position);
 
         holder.itemView.setActivated(isChecked(song));
-        holder.songTitle.setText(song.title);
-        holder.songInfo.setText(song.artistName);
+        holder.title.setText(song.title);
+        holder.text.setText(song.artistName);
         ImageLoader.getInstance().displayImage(
                 MusicUtil.getSongImageLoaderString(song),
-                holder.albumArt,
+                holder.image,
                 new DisplayImageOptions.Builder()
                         .cacheInMemory(true)
                         .showImageOnFail(R.drawable.default_album_art)
@@ -120,45 +123,49 @@ public class SmartPlaylistSongAdapter extends AbsPlaylistSongAdapter<SmartPlayli
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        @NonNull
-        final TextView songTitle;
-        @NonNull
-        final TextView songInfo;
-        @NonNull
-        final ImageView overflowButton;
-        @NonNull
-        final ImageView albumArt;
+        @InjectView(R.id.title)
+        TextView title;
+        @InjectView(R.id.text)
+        TextView text;
+        @InjectView(R.id.menu)
+        ImageView menu;
+        @InjectView(R.id.image)
+        ImageView image;
 
-        public ViewHolder(@NonNull View itemView, final int songMenu) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            songTitle = (TextView) itemView.findViewById(R.id.song_title);
-            songInfo = (TextView) itemView.findViewById(R.id.song_info);
-            albumArt = (ImageView) itemView.findViewById(R.id.album_art);
+            ButterKnife.inject(this, itemView);
+
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
-            overflowButton = (ImageView) itemView.findViewById(R.id.menu);
-            overflowButton.setOnClickListener(new View.OnClickListener() {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                image.setTransitionName(activity.getString(R.string.transition_album_art));
+            }
+
+            menu.setOnClickListener(new SongMenuHelper.OnClickSongMenu(activity) {
                 @Override
-                public void onClick(View v) {
-                    PopupMenu popupMenu = new PopupMenu(activity, v);
-                    popupMenu.inflate(songMenu);
-                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(@NonNull MenuItem item) {
-                            switch (item.getItemId()) {
-                                case R.id.action_go_to_album:
-                                    Pair[] albumPairs = new Pair[]{
-                                            Pair.create(albumArt, activity.getString(R.string.transition_album_cover))
-                                    };
-                                    if (activity instanceof AbsFabActivity)
-                                        albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(albumPairs);
-                                    NavigationUtil.goToAlbum(activity, dataSet.get(getAdapterPosition()).albumId, albumPairs);
-                                    return true;
-                            }
-                            return MenuItemClickHelper.handleSongMenuClick(activity, dataSet.get(getAdapterPosition()), item);
-                        }
-                    });
-                    popupMenu.show();
+                public Song getSong() {
+                    return dataSet.get(getAdapterPosition());
+                }
+
+                @Override
+                public int getMenuRes() {
+                    return R.menu.menu_item_cannot_delete_single_songs_playlist_song;
+                }
+
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    if (item.getItemId() == R.id.action_go_to_album) {
+                        Pair[] albumPairs = new Pair[]{
+                                Pair.create(image, activity.getString(R.string.transition_album_art))
+                        };
+                        if (activity instanceof AbsFabActivity)
+                            albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(albumPairs);
+                        NavigationUtil.goToAlbum(activity, dataSet.get(getAdapterPosition()).albumId, albumPairs);
+                        return true;
+                    }
+                    return super.onMenuItemClick(item);
                 }
             });
         }

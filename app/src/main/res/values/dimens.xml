@@ -9,7 +9,8 @@
     <dimen name="nav_drawer_margin">56dp</dimen>
 
     <dimen name="title_view_height">72dp</dimen>
-    <dimen name="toolbar_elevation">2dp</dimen>
+    <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
 
     <dimen name="header_image_height">360dp</dimen>
     <dimen name="progress_container_height">20dp</dimen>
@@ -62,5 +63,8 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="title_box_caption_text_size_large">14sp</dimen>
     <dimen name="title_box_text_spacing_small">0dp</dimen>
     <dimen name="title_box_text_spacing_large">2dp</dimen>
+
+    <!-- For use with 24dp drawables in the item_list layouts-->
+    <dimen name="list_item_image_icon_padding">8dp</dimen>
 
 </resources>

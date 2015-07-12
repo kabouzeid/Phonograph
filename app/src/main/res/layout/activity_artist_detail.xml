@@ -16,7 +16,7 @@
             android:scaleType="centerCrop" />
 
         <com.kabouzeid.gramophone.views.SquareIfPlaceImageView
-            android:id="@+id/artist_image"
+            android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/header_image_height"
             android:layout_gravity="center"
@@ -47,7 +47,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/artist_name"
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_view_height"
             android:height="@dimen/title_view_height"
@@ -100,7 +100,7 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         style="@style/PlayPauseFab"
-        android:layout_gravity="end|right|bottom"
+        android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/fab_margin" />
 
 </FrameLayout>

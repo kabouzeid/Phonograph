@@ -1,6 +1,7 @@
-package com.kabouzeid.gramophone.adapter.songadapter;
+package com.kabouzeid.gramophone.adapter.song;
 
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.afollestad.materialcab.MaterialCab;
@@ -20,8 +20,8 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.AbsMultiSelectAdapter;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
-import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
@@ -34,6 +34,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -67,7 +70,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(activity).inflate(R.layout.item_list_song, parent, false);
+        View view = LayoutInflater.from(activity).inflate(R.layout.item_list, parent, false);
         return new ViewHolder(view);
     }
 
@@ -81,28 +84,28 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
         if (getItemViewType(position) == SONG) {
             final Song song = dataSet.get(position - 1);
 
-            holder.songTitle.setText(song.title);
-            holder.songInfo.setText(song.artistName);
+            holder.title.setText(song.title);
+            holder.text.setText(song.artistName);
             ImageLoader.getInstance().displayImage(
                     MusicUtil.getSongImageLoaderString(song),
-                    holder.albumArt,
+                    holder.image,
                     new DisplayImageOptions.Builder()
                             .cacheInMemory(true)
                             .showImageOnFail(R.drawable.default_album_art)
                             .resetViewBeforeLoading(true)
                             .build()
             );
-            holder.view.setActivated(isChecked(song));
+            holder.itemView.setActivated(isChecked(song));
         } else {
-            holder.songTitle.setText(activity.getResources().getString(R.string.action_shuffle_all).toUpperCase());
-            holder.songTitle.setTextColor(ThemeSingleton.get().positiveColor);
-            holder.songTitle.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
-            holder.songInfo.setVisibility(View.GONE);
-            holder.overflowButton.setVisibility(View.GONE);
+            holder.title.setText(activity.getResources().getString(R.string.action_shuffle_all).toUpperCase());
+            holder.title.setTextColor(ThemeSingleton.get().positiveColor);
+            holder.title.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+            holder.text.setVisibility(View.GONE);
+            holder.menu.setVisibility(View.GONE);
             final int padding = activity.getResources().getDimensionPixelSize(R.dimen.default_item_margin) / 2;
-            holder.albumArt.setPadding(padding, padding, padding, padding);
-            holder.albumArt.setColorFilter(ThemeSingleton.get().positiveColor);
-            holder.albumArt.setImageResource(R.drawable.ic_shuffle_white_48dp);
+            holder.image.setPadding(padding, padding, padding, padding);
+            holder.image.setColorFilter(ThemeSingleton.get().positiveColor);
+            holder.image.setImageResource(R.drawable.ic_shuffle_white_48dp);
             holder.separator.setVisibility(View.VISIBLE);
             holder.short_separator.setVisibility(View.GONE);
         }
@@ -135,53 +138,49 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        @NonNull
-        final TextView songTitle;
-        @NonNull
-        final TextView songInfo;
-        @NonNull
-        final ImageView overflowButton;
-        @NonNull
-        final ImageView albumArt;
-        final View separator;
-        final View short_separator;
-        @NonNull
-        final View view;
+        @InjectView(R.id.title)
+        TextView title;
+        @InjectView(R.id.text)
+        TextView text;
+        @InjectView(R.id.menu)
+        ImageView menu;
+        @InjectView(R.id.image)
+        ImageView image;
+        @InjectView(R.id.separator)
+        View separator;
+        @InjectView(R.id.short_separator)
+        View short_separator;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            view = itemView;
-            songTitle = (TextView) itemView.findViewById(R.id.song_title);
-            songInfo = (TextView) itemView.findViewById(R.id.song_info);
-            albumArt = (ImageView) itemView.findViewById(R.id.album_art);
-            overflowButton = (ImageView) itemView.findViewById(R.id.menu);
-            separator = itemView.findViewById(R.id.separator);
-            short_separator = itemView.findViewById(R.id.short_separator);
-            view.setOnClickListener(this);
-            view.setOnLongClickListener(this);
-            overflowButton.setOnClickListener(new View.OnClickListener() {
+            ButterKnife.inject(this, itemView);
+
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                image.setTransitionName(activity.getString(R.string.transition_album_art));
+            }
+
+            menu.setOnClickListener(new SongMenuHelper.OnClickSongMenu(activity) {
                 @Override
-                public void onClick(View view) {
-                    PopupMenu popupMenu = new PopupMenu(activity, view);
-                    popupMenu.inflate(R.menu.menu_item_song);
-                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(@NonNull MenuItem item) {
-                            final int position = getAdapterPosition() - 1;
-                            switch (item.getItemId()) {
-                                case R.id.action_go_to_album:
-                                    Pair[] albumPairs = new Pair[]{
-                                            Pair.create(albumArt, activity.getResources().getString(R.string.transition_album_cover))
-                                    };
-                                    if (activity instanceof AbsFabActivity)
-                                        albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(albumPairs);
-                                    NavigationUtil.goToAlbum(activity, dataSet.get(position).albumId, albumPairs);
-                                    return true;
-                            }
-                            return MenuItemClickHelper.handleSongMenuClick(activity, dataSet.get(position), item);
-                        }
-                    });
-                    popupMenu.show();
+                public Song getSong() {
+                    return dataSet.get(getAdapterPosition() - 1);
+                }
+
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.action_go_to_album:
+                            Pair[] albumPairs = new Pair[]{
+                                    Pair.create(image, activity.getResources().getString(R.string.transition_album_art))
+                            };
+                            if (activity instanceof AbsFabActivity)
+                                albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(albumPairs);
+                            NavigationUtil.goToAlbum(activity, getSong().albumId, albumPairs);
+                            return true;
+                    }
+                    return super.onMenuItemClick(item);
                 }
             });
         }

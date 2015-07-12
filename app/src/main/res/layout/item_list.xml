@@ -6,7 +6,7 @@
     android:foreground="?rect_selector"
     tools:ignore="UnusedAttribute">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:descendantFocusability="blocksDescendants"
@@ -16,28 +16,44 @@
         android:paddingRight="0dp"
         android:paddingStart="16dp">
 
-        <TextView
-            android:id="@+id/track_number"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:fontFamily="sans-serif"
-            android:gravity="center"
-            android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            android:textColor="?title_text_color" />
+        <FrameLayout
+            android:id="@+id/image_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerCrop"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/image_text"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="?title_text_color"
+                android:visibility="gone" />
+
+        </FrameLayout>
 
         <LinearLayout
+            android:id="@+id/text_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/song_title"
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
@@ -46,7 +62,7 @@
                 android:textColor="?title_text_color" />
 
             <TextView
-                android:id="@+id/song_info"
+                android:id="@+id/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
@@ -59,10 +75,19 @@
             android:id="@+id/menu"
             style="@style/OverFlowButton"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginStart="2dp"
             tools:ignore="ContentDescription" />
+
     </LinearLayout>
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="?separator_color"
+        android:visibility="gone" />
 
     <View
         android:id="@+id/short_separator"
@@ -72,4 +97,5 @@
         android:layout_marginLeft="72dp"
         android:layout_marginStart="72dp"
         android:background="?separator_color" />
+
 </FrameLayout>

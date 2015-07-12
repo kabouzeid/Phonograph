@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.songadapter.smartplaylist.SmartPlaylistSongAdapter;
+import com.kabouzeid.gramophone.adapter.song.smartplaylist.SmartPlaylistSongAdapter;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
@@ -24,7 +24,7 @@ public abstract class AbsSmartPlaylist extends Playlist {
     public final int iconRes;
 
     public AbsSmartPlaylist(final String name, final int iconRes) {
-        super(-1, name);
+        super(-Math.abs(31 * name.hashCode() + (iconRes * name.hashCode() * 31 * 31)), name);
         this.iconRes = iconRes;
     }
 

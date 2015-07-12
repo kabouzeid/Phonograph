@@ -34,7 +34,7 @@ import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.ArtistAlbumAdapter;
-import com.kabouzeid.gramophone.adapter.songadapter.ArtistSongAdapter;
+import com.kabouzeid.gramophone.adapter.song.ArtistSongAdapter;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.bitmapblur.StackBlurManager;
@@ -91,13 +91,13 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
 
     @InjectView(R.id.artist_image_background)
     ImageView artistImageBackground;
-    @InjectView(R.id.artist_image)
+    @InjectView(R.id.image)
     SquareIfPlaceImageView artistImage;
     @InjectView(R.id.list_background)
     View songListBackground;
     @InjectView(R.id.list)
     ObservableListView songListView;
-    @InjectView(R.id.artist_name)
+    @InjectView(R.id.title)
     TextView artistName;
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
@@ -191,6 +191,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
 
             // Translate album cover
             artistImage.setTranslationY(Math.max(-artistImageViewHeight, -scrollY / 2));
+            artistImageBackground.setTranslationY(Math.max(-artistImageViewHeight, -scrollY / 2));
 
             // Translate list background
             songListBackground.setTranslationY(Math.max(0, -scrollY + artistImageViewHeight));
@@ -305,7 +306,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     private MaterialDialog getBiographyDialog() {
         return new MaterialDialog.Builder(ArtistDetailActivity.this)
                 .title(artist.name)
-                .content(biography)
+                .content(biography != null ? biography : "")
                 .positiveText(android.R.string.ok)
                 .build();
     }

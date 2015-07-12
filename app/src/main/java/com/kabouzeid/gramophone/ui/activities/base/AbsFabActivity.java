@@ -122,7 +122,7 @@ public abstract class AbsFabActivity extends AbsPlaybackControlActivity {
         }
     }
 
-    @Nullable
+    @NonNull
     protected FloatingActionButton getFab() {
         if (fab == null) {
             fab = (FloatingActionButton) findViewById(R.id.fab);

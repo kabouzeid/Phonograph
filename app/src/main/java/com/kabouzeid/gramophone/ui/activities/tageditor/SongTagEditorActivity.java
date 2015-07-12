@@ -34,7 +34,7 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
     EditText genre;
     @InjectView(R.id.year)
     EditText year;
-    @InjectView(R.id.track_number)
+    @InjectView(R.id.image_text)
     EditText trackNumber;
 
     @Override

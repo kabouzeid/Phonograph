@@ -27,7 +27,7 @@ import com.afollestad.materialdialogs.util.DialogUtils;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.songadapter.AlbumSongAdapter;
+import com.kabouzeid.gramophone.adapter.song.AlbumSongAdapter;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.imageloader.BlurProcessor;
@@ -77,13 +77,13 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
 
     @InjectView(R.id.list)
     ObservableRecyclerView recyclerView;
-    @InjectView(R.id.album_art)
+    @InjectView(R.id.image)
     ImageView albumArtImageView;
     @InjectView(R.id.album_art_background)
     ImageView albumArtBackground;
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
-    @InjectView(R.id.album_title)
+    @InjectView(R.id.title)
     TextView albumTitleView;
     @InjectView(R.id.list_background)
     View songsBackgroundView;
@@ -156,6 +156,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
 
             // Translate album cover
             albumArtImageView.setTranslationY(Math.max(-albumArtViewHeight, -scrollY / 2));
+            albumArtBackground.setTranslationY(Math.max(-albumArtViewHeight, -scrollY / 2));
 
             // Translate list background
             songsBackgroundView.setTranslationY(Math.max(0, -scrollY + albumArtViewHeight));
@@ -254,43 +255,31 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     }
 
     private void applyPalette(@Nullable Bitmap bitmap) {
+        final int defaultBarColor = ColorUtil.resolveColor(this, R.attr.default_bar_color);
         if (bitmap != null) {
             Palette.from(bitmap)
                     .resizeBitmapSize(100)
                     .generate(new Palette.PaletteAsyncListener() {
                         @Override
                         public void onGenerated(@NonNull Palette palette) {
-                            final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
-                            if (vibrantSwatch != null) {
-                                toolbarColor = vibrantSwatch.getRgb();
-                                albumTitleView.setBackgroundColor(toolbarColor);
-                                albumTitleView.setTextColor(ColorUtil.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
-                                if (PreferenceUtil.getInstance(AlbumDetailActivity.this).coloredNavigationBarAlbum())
-                                    setNavigationBarColor(toolbarColor);
-                                notifyTaskColorChange(toolbarColor);
-                            } else {
-                                resetColors();
-                            }
+                            setColors(palette.getVibrantColor(defaultBarColor));
                         }
                     });
         } else {
-            resetColors();
+            setColors(defaultBarColor);
         }
     }
 
 
-    private void resetColors() {
-        int titleTextColor = DialogUtils.resolveColor(this, R.attr.title_text_color);
-        int defaultBarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
-
-        toolbarColor = defaultBarColor;
-        albumTitleView.setBackgroundColor(defaultBarColor);
-        albumTitleView.setTextColor(titleTextColor);
+    private void setColors(int vibrantColor) {
+        toolbarColor = vibrantColor;
+        albumTitleView.setBackgroundColor(vibrantColor);
+        albumTitleView.setTextColor(ColorUtil.getTextColorForBackground(vibrantColor));
 
         if (PreferenceUtil.getInstance(this).coloredNavigationBarArtist())
-            setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
+            setNavigationBarColor(vibrantColor);
 
-        notifyTaskColorChange(toolbarColor);
+        notifyTaskColorChange(vibrantColor);
     }
 
     @Override

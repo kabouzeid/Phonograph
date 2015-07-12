@@ -5,7 +5,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.songadapter.SongAdapter;
+import com.kabouzeid.gramophone.adapter.song.SongAdapter;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)

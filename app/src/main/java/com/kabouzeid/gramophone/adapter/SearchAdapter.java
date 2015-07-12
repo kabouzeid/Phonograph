@@ -1,22 +1,21 @@
 package com.kabouzeid.gramophone.adapter;
 
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
 import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.ArtistInfo;
 import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.Image;
@@ -37,6 +36,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.Optional;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -100,22 +102,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == ALBUM)
-            return new ViewHolder(LayoutInflater.from(activity).inflate(R.layout.item_search_album, parent, false), viewType);
-        if (viewType == ARTIST)
-            return new ViewHolder(LayoutInflater.from(activity).inflate(R.layout.item_search_artist, parent, false), viewType);
-        if (viewType == SONG)
-            return new ViewHolder(LayoutInflater.from(activity).inflate(R.layout.item_search_song, parent, false), viewType);
-        return new ViewHolder(LayoutInflater.from(activity).inflate(R.layout.item_search_header, parent, false), viewType);
+        if (viewType == HEADER)
+            return new ViewHolder(LayoutInflater.from(activity).inflate(R.layout.sub_header, parent, false), viewType);
+        return new ViewHolder(LayoutInflater.from(activity).inflate(R.layout.item_list, parent, false), viewType);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case ALBUM:
                 final Album album = (Album) results.get(position);
                 holder.title.setText(album.title);
-                holder.subTitle.setText(album.artistName);
+                holder.text.setText(album.artistName);
                 ImageLoader.getInstance().displayImage(
                         MusicUtil.getAlbumImageLoaderString(album),
                         holder.image,
@@ -129,7 +128,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             case ARTIST:
                 final Artist artist = (Artist) results.get(position);
                 holder.title.setText(artist.name);
-                holder.subTitle.setText(MusicUtil.getArtistInfoString(activity, artist));
+                holder.text.setText(MusicUtil.getArtistInfoString(activity, artist));
                 if (MusicUtil.isArtistNameUnknown(artist.name)) {
                     holder.image.setImageResource(R.drawable.default_artist_image);
                     break;
@@ -169,7 +168,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             case SONG:
                 final Song song = (Song) results.get(position);
                 holder.title.setText(song.title);
-                holder.subTitle.setText(song.albumName);
+                holder.text.setText(song.albumName);
                 break;
             default:
                 holder.title.setText(results.get(position).toString());
@@ -183,53 +182,46 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        @InjectView(R.id.title)
+        TextView title;
         @Nullable
-        private final ImageView image;
-        @NonNull
-        public final TextView title;
+        @Optional
+        @InjectView(R.id.image)
+        ImageView image;
         @Nullable
-        public final TextView subTitle;
-        private final int viewType;
+        @Optional
+        @InjectView(R.id.text)
+        TextView text;
+        @Nullable
+        @Optional
+        @InjectView(R.id.menu)
+        View menu;
 
-        public ViewHolder(@NonNull View itemView, int viewType) {
+        @SuppressWarnings("ConstantConditions")
+        public ViewHolder(@NonNull View itemView, int itemViewType) {
             super(itemView);
-            itemView.setOnClickListener(this);
-            this.viewType = viewType;
-            switch (viewType) {
-                case ALBUM:
-                    image = (ImageView) itemView.findViewById(R.id.album_art);
-                    title = (TextView) itemView.findViewById(R.id.album_title);
-                    subTitle = (TextView) itemView.findViewById(R.id.album_artist);
-                    break;
-                case ARTIST:
-                    image = (ImageView) itemView.findViewById(R.id.artist_image);
-                    title = (TextView) itemView.findViewById(R.id.artist_name);
-                    subTitle = (TextView) itemView.findViewById(R.id.artist_info);
-                    break;
+            ButterKnife.inject(this, itemView);
+
+            switch (itemViewType) {
                 case SONG:
-                    image = null;
-                    title = (TextView) itemView.findViewById(R.id.song_title);
-                    subTitle = (TextView) itemView.findViewById(R.id.song_info);
-                    itemView.findViewById(R.id.menu).setOnClickListener(new View.OnClickListener() {
+                    menu.setOnClickListener(new SongMenuHelper.OnClickSongMenu(activity) {
                         @Override
-                        public void onClick(View view) {
-                            PopupMenu popupMenu = new PopupMenu(activity, view);
-                            popupMenu.inflate(R.menu.menu_item_song);
-                            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                                @Override
-                                public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
-                                    return MenuItemClickHelper.handleSongMenuClick(activity, (Song) results.get(getAdapterPosition()), menuItem);
-                                }
-                            });
-                            popupMenu.show();
+                        public Song getSong() {
+                            return (Song) results.get(getAdapterPosition());
                         }
                     });
                     break;
-                default:
-                    image = null;
-                    title = (TextView) itemView.findViewById(R.id.title);
-                    subTitle = null;
-                    itemView.setOnClickListener(null);
+                case ALBUM:
+                    menu.setVisibility(View.GONE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        image.setTransitionName(activity.getString(R.string.transition_album_art));
+                    }
+                    break;
+                case ARTIST:
+                    menu.setVisibility(View.GONE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        image.setTransitionName(activity.getString(R.string.transition_artist_image));
+                    }
                     break;
             }
         }
@@ -237,13 +229,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         @Override
         public void onClick(View view) {
             Object item = results.get(getAdapterPosition());
-            switch (viewType) {
+            switch (getItemViewType()) {
                 case ALBUM:
                     NavigationUtil.goToAlbum(activity,
                             ((Album) item).id,
                             new Pair[]{
                                     Pair.create(image,
-                                            activity.getResources().getString(R.string.transition_album_cover)
+                                            activity.getResources().getString(R.string.transition_album_art)
                                     )
                             });
                     break;
@@ -252,7 +244,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                             ((Artist) item).id,
                             new Pair[]{
                                     Pair.create(image,
-                                            activity.getResources().getString(R.string.transition_artist_image)
+                                            activity.getResources().getString(R.string.transition_album_art)
                                     )
                             });
                     break;

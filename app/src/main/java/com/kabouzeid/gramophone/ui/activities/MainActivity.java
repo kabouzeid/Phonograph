@@ -281,18 +281,18 @@ public class MainActivity extends AbsFabActivity
                     public void onClick(View v) {
                         //noinspection ConstantConditions
                         NavigationUtil.openCurrentPlayingIfPossible(MainActivity.this, getSharedViewsWithFab(new Pair[]{
-                                Pair.create(navigationDrawerHeader.findViewById(R.id.album_art),
-                                        getResources().getString(R.string.transition_album_cover)
+                                Pair.create(navigationDrawerHeader.findViewById(R.id.image),
+                                        getResources().getString(R.string.transition_album_art)
                                 )
                         }));
                     }
                 });
             }
-            ((TextView) navigationDrawerHeader.findViewById(R.id.song_title)).setText(song.title);
-            ((TextView) navigationDrawerHeader.findViewById(R.id.song_artist)).setText(song.artistName);
+            ((TextView) navigationDrawerHeader.findViewById(R.id.title)).setText(song.title);
+            ((TextView) navigationDrawerHeader.findViewById(R.id.text)).setText(song.artistName);
             ImageLoader.getInstance().displayImage(
                     MusicUtil.getSongImageLoaderString(song),
-                    ((ImageView) navigationDrawerHeader.findViewById(R.id.album_art)),
+                    ((ImageView) navigationDrawerHeader.findViewById(R.id.image)),
                     new DisplayImageOptions.Builder()
                             .cacheInMemory(true)
                             .showImageOnFail(R.drawable.default_album_art)

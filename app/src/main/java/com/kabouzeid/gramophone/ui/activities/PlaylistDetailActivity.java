@@ -13,8 +13,8 @@ import android.widget.TextView;
 import com.afollestad.materialcab.MaterialCab;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.songadapter.AbsPlaylistSongAdapter;
-import com.kabouzeid.gramophone.adapter.songadapter.PlaylistSongAdapter;
+import com.kabouzeid.gramophone.adapter.song.AbsPlaylistSongAdapter;
+import com.kabouzeid.gramophone.adapter.song.PlaylistSongAdapter;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
@@ -77,7 +77,7 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
             adapter = new PlaylistSongAdapter(this, playlist, this);
 
             DragSortRecycler dragSortRecycler = new DragSortRecycler();
-            dragSortRecycler.setViewHandleId(R.id.album_art);
+            dragSortRecycler.setViewHandleId(R.id.image);
             dragSortRecycler.setOnItemMovedListener(new DragSortRecycler.OnItemMovedListener() {
                 @Override
                 public void onItemMoved(int from, int to) {

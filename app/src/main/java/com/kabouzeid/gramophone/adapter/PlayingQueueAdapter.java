@@ -9,13 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.helper.MenuItemClickHelper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.Util;
 
@@ -30,7 +29,7 @@ public class PlayingQueueAdapter extends ArrayAdapter<Song> {
     private final AppCompatActivity activity;
 
     public PlayingQueueAdapter(@NonNull AppCompatActivity activity, @NonNull ArrayList<Song> playList) {
-        super(activity, R.layout.item_list_playlist_song, playList);
+        super(activity, R.layout.item_list_single_row, playList);
         this.activity = activity;
     }
 
@@ -39,10 +38,10 @@ public class PlayingQueueAdapter extends ArrayAdapter<Song> {
     public View getView(final int position, @Nullable View convertView, ViewGroup parent) {
         final Song song = getItem(position);
         if (convertView == null) {
-            convertView = LayoutInflater.from(activity).inflate(R.layout.item_list_playlist_song, parent, false);
+            convertView = LayoutInflater.from(activity).inflate(R.layout.item_list_single_row, parent, false);
         }
-        final TextView title = (TextView) convertView.findViewById(R.id.song_title);
-        final ImageView playingIndicator = (ImageView) convertView.findViewById(R.id.playing_indicator);
+        final TextView title = (TextView) convertView.findViewById(R.id.title);
+        final ImageView playingIndicator = (ImageView) convertView.findViewById(R.id.image);
         final ImageView overflowButton = (ImageView) convertView.findViewById(R.id.menu);
 
         title.setText(song.title);
@@ -53,23 +52,25 @@ public class PlayingQueueAdapter extends ArrayAdapter<Song> {
             playingIndicator.setVisibility(View.GONE);
         }
 
-        overflowButton.setOnClickListener(new View.OnClickListener() {
+        overflowButton.setOnClickListener(new SongMenuHelper.OnClickSongMenu(activity) {
             @Override
-            public void onClick(final View v) {
-                PopupMenu popupMenu = new PopupMenu(activity, v);
-                popupMenu.inflate(R.menu.menu_item_playing_queue_song);
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(@NonNull MenuItem item) {
-                        if (item.getItemId() == R.id.action_remove_from_playing_queue) {
-                            MusicPlayerRemote.removeFromQueue(position);
-                            notifyDataSetChanged();
-                            return true;
-                        }
-                        return MenuItemClickHelper.handleSongMenuClick(activity, song, item);
-                    }
-                });
-                popupMenu.show();
+            public Song getSong() {
+                return song;
+            }
+
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.action_remove_from_playing_queue) {
+                    MusicPlayerRemote.removeFromQueue(position);
+                    notifyDataSetChanged();
+                    return true;
+                }
+                return super.onMenuItemClick(item);
+            }
+
+            @Override
+            public int getMenuRes() {
+                return R.menu.menu_item_playing_queue_song;
             }
         });
         return convertView;
