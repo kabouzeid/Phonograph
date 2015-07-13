@@ -8,6 +8,8 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.database.ContentObserver;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
@@ -23,6 +25,7 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.os.Process;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -54,7 +57,8 @@ import java.util.List;
 /**
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal
  */
-public class MusicService extends Service {
+@SuppressWarnings("deprecation")
+public class MusicService extends Service implements SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String TAG = MusicService.class.getSimpleName();
 
     public static final String PHONOGRAPH_PACKAGE_NAME = "com.kabouzeid.gramophone";
@@ -68,14 +72,12 @@ public class MusicService extends Service {
     public static final String ACTION_REWIND = "com.kabouzeid.gramophone.action.REWIND";
     public static final String ACTION_QUIT = "com.kabouzeid.gramophone.action.QUIT";
 
-    public static final String META_CHANGED = "com.kabouzeid.gramophone.metachanged";
-    public static final String PLAY_STATE_CHANGED = "com.kabouzeid.gramophone.playstatechanged";
-    public static final String REPEAT_MODE_CHANGED = "com.kabouzeid.gramophone.repeatmodechanged";
-    public static final String SHUFFLE_MODE_CHANGED = "com.kabouzeid.gramophone.shufflemodechanged";
+    public static final String META_CHANGED = "com.kabouzeid.gramophone.meta_changed";
+    public static final String PLAY_STATE_CHANGED = "com.kabouzeid.gramophone.playstate_changed";
+    public static final String REPEAT_MODE_CHANGED = "com.kabouzeid.gramophone.repeat_mode_changed";
+    public static final String SHUFFLE_MODE_CHANGED = "com.kabouzeid.gramophone.shuffle_mode_changed";
 
-    public static final String SETTING_GAPLESS_PLAYBACK_CHANGED = "com.kabouzeid.gramophone.SETTING_GAPLESS_PLAYBACK_CHANGED";
-    public static final String SETTING_ALBUM_ART_ON_LOCKSCREEN_CHANGED = "com.kabouzeid.gramophone.SETTING_ALBUM_ART_ON_LOCKSCREEN_CHANGED";
-    public static final String SETTING_BOOLEAN_EXTRA = "com.kabouzeid.gramophone.SETTING_BOOLEAN_EXTRA";
+    public static final String MEDIA_STORE_CHANGED = "com.kabouzeid.gramophone.media_store_changed";
 
     public static final String SAVED_POSITION = "POSITION";
     public static final String SAVED_POSITION_IN_TRACK = "POSITION_IN_TRACK";
@@ -110,7 +112,6 @@ public class MusicService extends Service {
     private boolean receiversAndRemoteControlClientRegistered;
     private PlayingNotificationHelper playingNotificationHelper;
     private AudioManager audioManager;
-    @SuppressWarnings("deprecation")
     private RemoteControlClient remoteControlClient;
     private PowerManager.WakeLock wakeLock;
     private MusicPlayerHandler playerHandler;
@@ -119,38 +120,9 @@ public class MusicService extends Service {
     private HandlerThread queueSaveHandlerThread;
     private RecentlyPlayedStore recentlyPlayedStore;
     private SongPlayCountStore songPlayCountStore;
+    private ContentObserver mediaStoreObserver;
     private boolean notNotifiedMetaChangedForCurrentTrack;
     private boolean isServiceInUse;
-
-    private final BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, @NonNull Intent intent) {
-            if (intent.getAction().equals(AudioManager.ACTION_AUDIO_BECOMING_NOISY)) {
-                pause();
-            }
-        }
-    };
-
-    private final BroadcastReceiver preferencesChangedReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, @NonNull Intent intent) {
-            switch (intent.getAction()) {
-                case SETTING_GAPLESS_PLAYBACK_CHANGED:
-                    setGaplessPlaybackEnabled(intent.getBooleanExtra(SETTING_BOOLEAN_EXTRA, false));
-                    break;
-                case SETTING_ALBUM_ART_ON_LOCKSCREEN_CHANGED:
-                    updateRemoteControlClientImpl(intent.getBooleanExtra(SETTING_BOOLEAN_EXTRA, true));
-                    break;
-            }
-        }
-    };
-
-    private final AudioManager.OnAudioFocusChangeListener audioFocusListener = new AudioManager.OnAudioFocusChangeListener() {
-        @Override
-        public void onAudioFocusChange(final int focusChange) {
-            playerHandler.obtainMessage(FOCUS_CHANGE, focusChange, 0).sendToTarget();
-        }
-    };
 
     @Override
     public void onCreate() {
@@ -175,6 +147,7 @@ public class MusicService extends Service {
         musicPlayerHandlerThread.start();
         playerHandler = new MusicPlayerHandler(this, musicPlayerHandlerThread.getLooper());
 
+        // queue saving needs to run on a separate thread so that it doesn't block the player handler events
         queueSaveHandlerThread = new HandlerThread("QueueSaveHandler",
                 Process.THREAD_PRIORITY_BACKGROUND);
         queueSaveHandlerThread.start();
@@ -186,18 +159,35 @@ public class MusicService extends Service {
         registerReceiversAndRemoteControlClient();
 
         restoreQueueAndPosition();
+
+        mediaStoreObserver = new MediaStoreObserver(playerHandler);
+        getContentResolver().registerContentObserver(
+                MediaStore.Audio.Media.INTERNAL_CONTENT_URI, true, mediaStoreObserver);
+        getContentResolver().registerContentObserver(
+                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, true, mediaStoreObserver);
+
+        PreferenceUtil.getInstance(this).registerOnSharedPreferenceChangedListener(this);
     }
+
+    private final BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, @NonNull Intent intent) {
+            if (intent.getAction().equals(AudioManager.ACTION_AUDIO_BECOMING_NOISY)) {
+                pause();
+            }
+        }
+    };
+
+    private final AudioManager.OnAudioFocusChangeListener audioFocusListener = new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(final int focusChange) {
+            playerHandler.obtainMessage(FOCUS_CHANGE, focusChange, 0).sendToTarget();
+        }
+    };
 
     private void registerReceiversAndRemoteControlClient() {
         if (!receiversAndRemoteControlClientRegistered) {
             registerReceiver(becomingNoisyReceiver, new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY));
-
-            IntentFilter preferenceIntentFilter = new IntentFilter();
-            preferenceIntentFilter.addAction(SETTING_GAPLESS_PLAYBACK_CHANGED);
-            preferenceIntentFilter.addAction(SETTING_ALBUM_ART_ON_LOCKSCREEN_CHANGED);
-            registerReceiver(preferencesChangedReceiver, preferenceIntentFilter);
-
-            //noinspection deprecation
             getAudioManager().registerMediaButtonEventReceiver(new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class));
             initRemoteControlClient();
             receiversAndRemoteControlClientRegistered = true;
@@ -268,6 +258,8 @@ public class MusicService extends Service {
     public void onDestroy() {
         quit();
         releaseResources();
+        getContentResolver().unregisterContentObserver(mediaStoreObserver);
+        PreferenceUtil.getInstance(this).unregisterOnSharedPreferenceChangedListener(this);
         wakeLock.release();
     }
 
@@ -294,10 +286,7 @@ public class MusicService extends Service {
     private void unregisterReceiversAndRemoteControlClient() {
         if (receiversAndRemoteControlClientRegistered) {
             unregisterReceiver(becomingNoisyReceiver);
-            unregisterReceiver(preferencesChangedReceiver);
-            //noinspection deprecation
             getAudioManager().unregisterRemoteControlClient(remoteControlClient);
-            //noinspection deprecation
             getAudioManager().unregisterMediaButtonEventReceiver(new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class));
             receiversAndRemoteControlClientRegistered = false;
         }
@@ -866,6 +855,21 @@ public class MusicService extends Service {
         }
     }
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        switch (key) {
+            case PreferenceUtil.GAPLESS_PLAYBACK:
+                setGaplessPlaybackEnabled(sharedPreferences.getBoolean(key, false));
+                break;
+            case PreferenceUtil.ALBUM_ART_ON_LOCKSCREEN:
+                updateRemoteControlClientImpl(sharedPreferences.getBoolean(key, true));
+                break;
+            case PreferenceUtil.COLORED_NOTIFICATION:
+                playingNotificationHelper.updateNotification(sharedPreferences.getBoolean(key, false));
+                break;
+        }
+    }
+
     public class MusicBinder extends Binder {
         @NonNull
         public MusicService getService() {
@@ -890,6 +894,32 @@ public class MusicService extends Service {
                     service.saveQueuesImpl();
                     break;
             }
+        }
+    }
+
+    private class MediaStoreObserver extends ContentObserver implements Runnable {
+        // milliseconds to delay before calling refresh to aggregate events
+        private static final long REFRESH_DELAY = 500;
+        private Handler mHandler;
+
+        public MediaStoreObserver(Handler handler) {
+            super(handler);
+            mHandler = handler;
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            // if a change is detected, remove any scheduled callback
+            // then post a new one. This is intended to prevent closely
+            // spaced events from generating multiple refresh calls
+            mHandler.removeCallbacks(this);
+            mHandler.postDelayed(this, REFRESH_DELAY);
+        }
+
+        @Override
+        public void run() {
+            // actually call refresh when the delayed callback fires
+            notifyChange(MEDIA_STORE_CHANGED);
         }
     }
 

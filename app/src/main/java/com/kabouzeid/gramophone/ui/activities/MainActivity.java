@@ -257,7 +257,7 @@ public class MainActivity extends AbsFabActivity
     }
 
     private void setUpDrawerLayout() {
-        drawerLayout.setStatusBarBackgroundColor(PreferenceUtil.getInstance(this).getThemeColorPrimaryDarker());
+        drawerLayout.setStatusBarBackgroundColor(getThemeColorPrimaryDarker());
         setUpNavigationView();
     }
 
@@ -600,7 +600,7 @@ public class MainActivity extends AbsFabActivity
         cab = new MaterialCab(this, R.id.cab_stub)
                 .setMenu(menu)
                 .setCloseDrawableRes(R.drawable.ic_close_white_24dp)
-                .setBackgroundColor(PreferenceUtil.getInstance(this).getThemeColorPrimary())
+                .setBackgroundColor(getThemeColorPrimary())
                 .start(callback);
         return cab;
     }

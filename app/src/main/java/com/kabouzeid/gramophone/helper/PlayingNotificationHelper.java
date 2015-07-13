@@ -7,11 +7,9 @@ package com.kabouzeid.gramophone.helper;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
@@ -42,17 +40,12 @@ import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 public class PlayingNotificationHelper {
 
     public static final String TAG = PlayingNotificationHelper.class.getSimpleName();
-    public static final int NOTIFICATION_ID = 1337;
-    public static final String ACTION_NOTIFICATION_COLOR_PREFERENCE_CHANGED = "com.kabouzeid.gramophone.NOTIFICATION_COLOR_PREFERENCE_CHANGED";
-    public static final String EXTRA_NOTIFICATION_COLORED = "com.kabouzeid.gramophone.EXTRA_NOTIFICATION_COLORED";
 
-    @NonNull
     private final MusicService service;
 
-    @NonNull
     private final NotificationManager notificationManager;
-    @Nullable
     private Notification notification;
+    private int notificationId = hashCode();
 
     private RemoteViews notificationLayout;
     private RemoteViews notificationLayoutExpanded;
@@ -62,44 +55,23 @@ public class PlayingNotificationHelper {
 
     private boolean isDark;
     private boolean isColored;
-    private boolean isReceiverRegistered;
-    private boolean isNotificationShown;
 
     private ImageAware notificationImageAware;
-
-    @NonNull
-    final IntentFilter intentFilter;
 
     public PlayingNotificationHelper(@NonNull final MusicService service) {
         this.service = service;
         notificationManager = (NotificationManager) service
                 .getSystemService(Context.NOTIFICATION_SERVICE);
 
-        intentFilter = new IntentFilter();
-        intentFilter.addAction(ACTION_NOTIFICATION_COLOR_PREFERENCE_CHANGED);
-
         int bigNotificationImageSize = service.getResources().getDimensionPixelSize(R.dimen.notification_big_image_size);
         notificationImageAware = new NonViewAware(new ImageSize(bigNotificationImageSize, bigNotificationImageSize), ViewScaleType.CROP);
     }
-
-    @NonNull
-    private BroadcastReceiver notificationColorPreferenceChangedReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, @NonNull Intent intent) {
-            if (intent.getAction().equals(ACTION_NOTIFICATION_COLOR_PREFERENCE_CHANGED)) {
-                boolean isColored = intent.getBooleanExtra(EXTRA_NOTIFICATION_COLORED, false);
-                if (isNotificationShown && PlayingNotificationHelper.this.isColored != isColored) {
-                    updateNotification(isColored);
-                }
-            }
-        }
-    };
 
     public void updateNotification() {
         updateNotification(PreferenceUtil.getInstance(service).coloredNotification());
     }
 
-    private void updateNotification(final boolean isColored) {
+    public void updateNotification(final boolean isColored) {
         Song song = service.getCurrentSong();
         if (song.id == -1) {
             service.stopForeground(true);
@@ -108,10 +80,6 @@ public class PlayingNotificationHelper {
         this.isColored = isColored;
         currentSong = song;
         this.isPlaying = service.isPlaying();
-        if (!isReceiverRegistered)
-            service.registerReceiver(notificationColorPreferenceChangedReceiver, intentFilter);
-        isReceiverRegistered = true;
-        isNotificationShown = true;
 
         notificationLayout = new RemoteViews(service.getPackageName(), R.layout.notification);
         notificationLayoutExpanded = new RemoteViews(service.getPackageName(), R.layout.notification_big);
@@ -133,7 +101,7 @@ public class PlayingNotificationHelper {
         setUpPlaybackActions();
         setUpExpandedPlaybackActions();
 
-        service.startForeground(NOTIFICATION_ID, notification);
+        service.startForeground(notificationId, notification);
     }
 
     private PendingIntent getOpenMusicControllerPendingIntent() {
@@ -269,7 +237,7 @@ public class PlayingNotificationHelper {
         }
 
         if (notification != null) {
-            notificationManager.notify(NOTIFICATION_ID, notification);
+            notificationManager.notify(notificationId, notification);
         }
     }
 
@@ -279,12 +247,8 @@ public class PlayingNotificationHelper {
     }
 
     public void killNotification() {
-        if (isReceiverRegistered)
-            service.unregisterReceiver(notificationColorPreferenceChangedReceiver);
-        isReceiverRegistered = false;
         service.stopForeground(true);
         notification = null;
-        isNotificationShown = false;
     }
 
     public void updatePlayState(final boolean setPlaying) {
@@ -300,7 +264,7 @@ public class PlayingNotificationHelper {
         if (notificationLayoutExpanded != null) {
             notificationLayoutExpanded.setImageViewResource(R.id.action_play_pause, playPauseRes);
         }
-        notificationManager.notify(NOTIFICATION_ID, notification);
+        notificationManager.notify(notificationId, notification);
     }
 
     private void setNotificationTextDark(boolean setDark) {

@@ -18,9 +18,7 @@ import android.view.MenuItem;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.ColorChooserDialog;
-import com.kabouzeid.gramophone.helper.PlayingNotificationHelper;
 import com.kabouzeid.gramophone.prefs.ColorChooserPreference;
-import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
@@ -35,7 +33,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         setContentView(R.layout.activity_preferences);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(PreferenceUtil.getInstance(this).getThemeColorPrimary());
+        toolbar.setBackgroundColor(getThemeColorPrimary());
         setSupportActionBar(toolbar);
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -92,25 +90,25 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             });
 
             ColorChooserPreference primaryColor = (ColorChooserPreference) findPreference("primary_color");
-            primaryColor.setColor(PreferenceUtil.getInstance(getActivity()).getThemeColorPrimary(),
+            primaryColor.setColor(((SettingsActivity) getActivity()).getThemeColorPrimary(),
                     DialogUtils.resolveColor(getActivity(), android.R.attr.textColorPrimary));
             primaryColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull Preference preference) {
                     new ColorChooserDialog().show(getActivity(), preference.getTitleRes(),
-                            PreferenceUtil.getInstance(getActivity()).getThemeColorPrimary());
+                            ((SettingsActivity) getActivity()).getThemeColorPrimary());
                     return true;
                 }
             });
 
             ColorChooserPreference accentColor = (ColorChooserPreference) findPreference("accent_color");
-            accentColor.setColor(PreferenceUtil.getInstance(getActivity()).getThemeColorAccent(),
+            accentColor.setColor(((SettingsActivity) getActivity()).getThemeColorAccent(),
                     DialogUtils.resolveColor(getActivity(), android.R.attr.textColorPrimary));
             accentColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull Preference preference) {
                     new ColorChooserDialog().show(getActivity(), preference.getTitleRes(),
-                            PreferenceUtil.getInstance(getActivity()).getThemeColorAccent());
+                            ((SettingsActivity) getActivity()).getThemeColorAccent());
                     return true;
                 }
             });
@@ -120,33 +118,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 colorNavBar.setEnabled(false);
                 colorNavBar.setSummary(R.string.pref_only_lollipop);
             }
-
-            Preference coloredNotification = findPreference("colored_notification");
-            coloredNotification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    getActivity().sendBroadcast(new Intent(PlayingNotificationHelper.ACTION_NOTIFICATION_COLOR_PREFERENCE_CHANGED).putExtra(PlayingNotificationHelper.EXTRA_NOTIFICATION_COLORED, (boolean) newValue));
-                    return true;
-                }
-            });
-
-            Preference albumArtOnLockscreen = findPreference("album_art_on_lockscreen");
-            albumArtOnLockscreen.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    getActivity().sendBroadcast(new Intent(MusicService.SETTING_ALBUM_ART_ON_LOCKSCREEN_CHANGED).putExtra(MusicService.SETTING_BOOLEAN_EXTRA, (boolean) newValue));
-                    return true;
-                }
-            });
-
-            Preference gaplessPlayback = findPreference("gapless_playback");
-            gaplessPlayback.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    getActivity().sendBroadcast(new Intent(MusicService.SETTING_GAPLESS_PLAYBACK_CHANGED).putExtra(MusicService.SETTING_BOOLEAN_EXTRA, (boolean) newValue));
-                    return true;
-                }
-            });
 
             Preference ignoreMediaStoreArtwork = findPreference("ignore_media_store_artwork");
             ignoreMediaStoreArtwork.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {

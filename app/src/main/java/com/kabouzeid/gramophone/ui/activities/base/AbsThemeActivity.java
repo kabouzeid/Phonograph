@@ -35,9 +35,9 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
 
 
     private void setupTheme() {
-        colorPrimary = PreferenceUtil.getInstance(this).getThemeColorPrimary();
+        colorPrimary = PreferenceUtil.getInstance(this).getThemeColorPrimary(this);
         colorPrimaryDarker = ColorUtil.shiftColorDown(colorPrimary);
-        colorAccent = PreferenceUtil.getInstance(this).getThemeColorAccent();
+        colorAccent = PreferenceUtil.getInstance(this).getThemeColorAccent(this);
 
         ThemeSingleton.get().positiveColor = colorAccent;
         ThemeSingleton.get().negativeColor = ThemeSingleton.get().positiveColor;
@@ -46,7 +46,7 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
         ThemeSingleton.get().darkTheme = PreferenceUtil.getInstance(this).getGeneralTheme() == R.style.Theme_MaterialMusic;
 
         if (!overridesTaskColor()) {
-            notifyTaskColorChange(PreferenceUtil.getInstance(this).getThemeColorPrimary());
+            notifyTaskColorChange(getThemeColorPrimary());
         }
     }
 
