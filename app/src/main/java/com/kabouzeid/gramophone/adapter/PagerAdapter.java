@@ -104,14 +104,6 @@ public class PagerAdapter extends FragmentPagerAdapter {
                 .toUpperCase(Locale.getDefault());
     }
 
-    public int getCurrentPage() {
-        return mCurrentPage;
-    }
-
-    protected void setCurrentPage(final int currentPage) {
-        mCurrentPage = currentPage;
-    }
-
     public enum MusicFragments {
         SONG(SongViewFragment.class),
         ALBUM(AlbumViewFragment.class),

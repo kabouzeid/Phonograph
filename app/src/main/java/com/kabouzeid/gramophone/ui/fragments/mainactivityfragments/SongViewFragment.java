@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.song.SongAdapter;
+import com.kabouzeid.gramophone.loader.SongLoader;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -23,7 +24,7 @@ public class SongViewFragment extends AbsMainActivityRecyclerViewFragment {
     @NonNull
     @Override
     protected RecyclerView.Adapter createAdapter() {
-        return new SongAdapter(getMainActivity(), getMainActivity());
+        return new SongAdapter(getMainActivity(), SongLoader.getAllSongs(getActivity()), R.layout.item_list, getMainActivity());
     }
 
     @Override

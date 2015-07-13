@@ -38,7 +38,6 @@ import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.misc.SmallTransitionListener;
 import com.kabouzeid.gramophone.model.Album;
-import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
@@ -325,7 +324,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
 
     private void setUpSongsAdapter() {
         songs = AlbumSongLoader.getAlbumSongList(this, album.id);
-        adapter = new AlbumSongAdapter(this, songs, this);
+        adapter = new AlbumSongAdapter(this, songs, R.layout.item_list, this);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(adapter);
     }
@@ -391,19 +390,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         if (requestCode == TAG_EDITOR_REQUEST) {
             setUpAlbumArtAndApplyPalette();
             setResult(RESULT_OK);
-        }
-    }
-
-    @Subscribe
-    public void onDataBaseEvent(@NonNull DataBaseChangedEvent event) {
-        switch (event.getAction()) {
-            case DataBaseChangedEvent.SONGS_CHANGED:
-            case DataBaseChangedEvent.ALBUMS_CHANGED:
-            case DataBaseChangedEvent.DATABASE_CHANGED:
-                songs = AlbumSongLoader.getAlbumSongList(this, album.id);
-                adapter.updateDataSet(songs);
-                if (songs.size() < 1) finish();
-                break;
         }
     }
 

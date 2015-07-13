@@ -7,7 +7,7 @@
     android:layout_marginRight="8dp"
     android:foreground="?rect_selector"
     app:cardBackgroundColor="?card_color"
-    app:elevation="3dp">
+    app:elevation="@dimen/card_elevation">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +22,6 @@
             tools:ignore="ContentDescription,UnusedAttribute" />
 
         <LinearLayout
-            android:id="@+id/footer"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

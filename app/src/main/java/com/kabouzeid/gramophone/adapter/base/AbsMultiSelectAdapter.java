@@ -1,6 +1,7 @@
-package com.kabouzeid.gramophone.adapter;
+package com.kabouzeid.gramophone.adapter.base;
 
 import android.content.Context;
+import android.support.annotation.MenuRes;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -23,11 +24,15 @@ public abstract class AbsMultiSelectAdapter<VH extends RecyclerView.ViewHolder, 
     private int menuRes;
     private final Context context;
 
-    public AbsMultiSelectAdapter(Context context, @Nullable CabHolder cabHolder, int menuRes) {
+    public AbsMultiSelectAdapter(Context context, @Nullable CabHolder cabHolder, @MenuRes int menuRes) {
         this.cabHolder = cabHolder;
         checked = new ArrayList<>();
         this.menuRes = menuRes;
         this.context = context;
+    }
+
+    protected void overrideMultiSelectMenuRes(@MenuRes int menuRes) {
+        this.menuRes = menuRes;
     }
 
     protected void toggleChecked(final int position) {
