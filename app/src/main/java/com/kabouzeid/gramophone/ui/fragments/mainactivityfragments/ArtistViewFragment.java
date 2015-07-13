@@ -5,7 +5,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.artist.ArtistListAdapter;
+import com.kabouzeid.gramophone.adapter.artist.ArtistAdapter;
+import com.kabouzeid.gramophone.loader.ArtistLoader;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -17,13 +18,17 @@ public class ArtistViewFragment extends AbsMainActivityRecyclerViewFragment {
     @NonNull
     @Override
     protected RecyclerView.LayoutManager createLayoutManager() {
-        return new GridLayoutManager(getActivity(), 1);
+        return new GridLayoutManager(getActivity(), 2);
     }
 
     @NonNull
     @Override
     protected RecyclerView.Adapter createAdapter() {
-        return new ArtistListAdapter(getMainActivity(), getMainActivity());
+        return new ArtistAdapter(
+                getMainActivity(),
+                ArtistLoader.getAllArtists(getActivity()),
+                R.layout.item_grid,
+                getMainActivity());
     }
 
     @Override

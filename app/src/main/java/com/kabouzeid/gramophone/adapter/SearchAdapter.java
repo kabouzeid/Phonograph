@@ -2,18 +2,16 @@ package com.kabouzeid.gramophone.adapter;
 
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
@@ -26,6 +24,7 @@ import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -37,8 +36,6 @@ import java.util.Collections;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.Optional;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -181,46 +178,43 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         return results.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @InjectView(R.id.title)
-        TextView title;
-        @Nullable
-        @Optional
-        @InjectView(R.id.image)
-        ImageView image;
-        @Nullable
-        @Optional
-        @InjectView(R.id.text)
-        TextView text;
-        @Nullable
-        @Optional
-        @InjectView(R.id.menu)
-        View menu;
-
-        @SuppressWarnings("ConstantConditions")
+    public class ViewHolder extends MediaEntryViewHolder {
         public ViewHolder(@NonNull View itemView, int itemViewType) {
             super(itemView);
             ButterKnife.inject(this, itemView);
+            itemView.setOnLongClickListener(null);
 
-            switch (itemViewType) {
-                case SONG:
+            if (itemViewType != HEADER) {
+                itemView.setBackgroundColor(ColorUtil.resolveColor(activity, R.attr.card_color));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    itemView.setElevation(activity.getResources().getDimensionPixelSize(R.dimen.card_elevation));
+                }
+            }
+
+            if (menu != null) {
+                if (itemViewType == SONG) {
+                    menu.setVisibility(View.VISIBLE);
                     menu.setOnClickListener(new SongMenuHelper.OnClickSongMenu(activity) {
                         @Override
                         public Song getSong() {
                             return (Song) results.get(getAdapterPosition());
                         }
                     });
-                    break;
-                case ALBUM:
+                } else {
                     menu.setVisibility(View.GONE);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        image.setTransitionName(activity.getString(R.string.transition_album_art));
-                    }
+                }
+            }
+
+            switch (itemViewType) {
+                case ALBUM:
+                    setImageTransitionName(activity.getString(R.string.transition_album_art));
                     break;
                 case ARTIST:
-                    menu.setVisibility(View.GONE);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        image.setTransitionName(activity.getString(R.string.transition_artist_image));
+                    setImageTransitionName(activity.getString(R.string.transition_artist_image));
+                    break;
+                default:
+                    if (image != null) {
+                        image.setVisibility(View.GONE);
                     }
                     break;
             }
@@ -244,7 +238,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                             ((Artist) item).id,
                             new Pair[]{
                                     Pair.create(image,
-                                            activity.getResources().getString(R.string.transition_album_art)
+                                            activity.getResources().getString(R.string.transition_artist_image)
                                     )
                             });
                     break;

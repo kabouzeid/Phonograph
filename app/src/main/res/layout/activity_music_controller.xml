@@ -110,7 +110,8 @@
                 android:layout_height="match_parent"
                 android:layout_margin="16dp"
                 android:visibility="gone"
-                app:cardBackgroundColor="?music_controller_container_color" />
+                app:cardBackgroundColor="?music_controller_container_color"
+                app:elevation="@dimen/card_elevation" />
 
             <ImageButton
                 android:id="@+id/prev_button"

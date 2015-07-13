@@ -33,7 +33,7 @@ import com.afollestad.materialdialogs.util.DialogUtils;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.ArtistAlbumAdapter;
+import com.kabouzeid.gramophone.adapter.album.HorizontalAlbumAdapter;
 import com.kabouzeid.gramophone.adapter.song.ArtistSongAdapter;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -51,7 +51,6 @@ import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.misc.SmallTransitionListener;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
-import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
@@ -116,7 +115,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     private Artist artist;
     @Nullable
     private Spanned biography;
-    private ArtistAlbumAdapter albumAdapter;
+    private HorizontalAlbumAdapter albumAdapter;
     private ArtistSongAdapter songAdapter;
     private ArrayList<Song> songs;
     private ArrayList<Album> albums;
@@ -278,7 +277,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     private void setUpAlbumRecyclerView() {
         albumRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         albums = ArtistAlbumLoader.getArtistAlbumList(this, artist.id);
-        albumAdapter = new ArtistAlbumAdapter(this, albums, this);
+        albumAdapter = new HorizontalAlbumAdapter(this, albums, this);
         albumRecyclerView.setAdapter(albumAdapter);
     }
 
@@ -549,22 +548,6 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
 
             }
         });
-    }
-
-    @Subscribe
-    public void onDataBaseEvent(@NonNull DataBaseChangedEvent event) {
-        switch (event.getAction()) {
-            case DataBaseChangedEvent.SONGS_CHANGED:
-            case DataBaseChangedEvent.ALBUMS_CHANGED:
-            case DataBaseChangedEvent.ARTISTS_CHANGED:
-            case DataBaseChangedEvent.DATABASE_CHANGED:
-                songs = ArtistSongLoader.getArtistSongList(this, artist.id);
-                songAdapter.updateDataSet(songs);
-                albums = ArtistAlbumLoader.getArtistAlbumList(this, artist.id);
-                albumAdapter.updateDataSet(albums);
-                if (songs.size() < 1) finish();
-                break;
-        }
     }
 
     @Subscribe

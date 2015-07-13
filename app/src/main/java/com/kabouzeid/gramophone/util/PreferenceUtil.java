@@ -68,6 +68,14 @@ public final class PreferenceUtil {
         return sInstance;
     }
 
+    public void registerOnSharedPreferenceChangedListener(SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener) {
+        mPreferences.registerOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+    }
+
+    public void unregisterOnSharedPreferenceChangedListener(SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener) {
+        mPreferences.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
+    }
+
     public int getGeneralTheme() {
         int value = Integer.parseInt(mPreferences.getString(GENERAL_THEME, "0"));
         switch (value) {

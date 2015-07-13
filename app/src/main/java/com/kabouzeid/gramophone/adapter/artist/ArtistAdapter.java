@@ -1,19 +1,18 @@
 package com.kabouzeid.gramophone.adapter.artist;
 
-import android.os.Build;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.ViewGroup;
 
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.AbsMultiSelectAdapter;
+import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
+import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -21,23 +20,18 @@ import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
 import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.ArtistInfo;
 import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.Image;
-import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.model.Artist;
-import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -45,16 +39,18 @@ import retrofit.client.Response;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class AbsArtistAdapter extends AbsMultiSelectAdapter<AbsArtistAdapter.ViewHolder, Artist> {
+public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolder, Artist> {
     protected final AppCompatActivity activity;
-    protected List<Artist> dataSet;
+    protected ArrayList<Artist> dataSet;
+    protected int itemLayoutRes;
     protected final LastFMRestClient lastFMRestClient;
 
-    public AbsArtistAdapter(@NonNull AppCompatActivity activity, @Nullable CabHolder cabHolder) {
+    public ArtistAdapter(@NonNull AppCompatActivity activity, ArrayList<Artist> dataSet, @LayoutRes int itemLayoutRes, @Nullable CabHolder cabHolder) {
         super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
+        this.dataSet = dataSet;
+        this.itemLayoutRes = itemLayoutRes;
         lastFMRestClient = new LastFMRestClient(activity);
-        loadDataSet();
         setHasStableIds(true);
     }
 
@@ -63,27 +59,31 @@ public abstract class AbsArtistAdapter extends AbsMultiSelectAdapter<AbsArtistAd
         return dataSet.get(position).id;
     }
 
-    private void loadDataSet() {
-        dataSet = ArtistLoader.getAllArtists(activity);
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(activity).inflate(itemLayoutRes, parent, false);
+        return createViewHolder(view);
     }
 
-    protected Image getArtistImageToUse(List<Image> images) {
-        int thumbnailIndex = 0;
-        if (images.size() > 2) {
-            thumbnailIndex = 2;
-        } else if (images.size() > 1) {
-            thumbnailIndex = 1;
-        }
-        return images.get(thumbnailIndex);
+    protected ViewHolder createViewHolder(View view) {
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Artist artist = dataSet.get(position);
 
-        holder.title.setText(artist.name);
-        holder.text.setText(MusicUtil.getArtistInfoString(activity, artist));
+        if (holder.title != null) {
+            holder.title.setText(artist.name);
+        }
+        if (holder.text != null) {
+            holder.text.setText(MusicUtil.getArtistInfoString(activity, artist));
+        }
         holder.itemView.setActivated(isChecked(artist));
+
+        if (holder.image == null) {
+            return;
+        }
 
         if (MusicUtil.isArtistNameUnknown(artist.name)) {
             holder.image.setImageResource(R.drawable.default_artist_image);
@@ -95,7 +95,10 @@ public abstract class AbsArtistAdapter extends AbsMultiSelectAdapter<AbsArtistAd
             public void success(@NonNull ArtistInfo artistInfo, Response response) {
                 if (artistInfo.getArtist() != null) {
                     List<Image> images = artistInfo.getArtist().getImage();
-                    ImageLoader.getInstance().displayImage(getArtistImageToUse(images).getText(),
+                    if (images == null || images.isEmpty()) {
+                        return;
+                    }
+                    ImageLoader.getInstance().displayImage(images.get(images.size() - 1).getText(),
                             holder.image,
                             new DisplayImageOptions.Builder()
                                     .cacheInMemory(true)
@@ -151,46 +154,11 @@ public abstract class AbsArtistAdapter extends AbsMultiSelectAdapter<AbsArtistAd
         return songs;
     }
 
-    @Override
-    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView);
-        App.bus.unregister(this);
-    }
-
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        App.bus.register(this);
-    }
-
-    @Subscribe
-    public void onDataBaseEvent(@NonNull DataBaseChangedEvent event) {
-        switch (event.getAction()) {
-            case DataBaseChangedEvent.ARTISTS_CHANGED:
-            case DataBaseChangedEvent.DATABASE_CHANGED:
-                loadDataSet();
-                notifyDataSetChanged();
-                break;
-        }
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        @InjectView(R.id.title)
-        TextView title;
-        @InjectView(R.id.text)
-        TextView text;
-        @InjectView(R.id.image)
-        ImageView image;
+    public class ViewHolder extends MediaEntryViewHolder {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.inject(this, itemView);
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                image.setTransitionName(activity.getString(R.string.transition_artist_image));
-            }
+            setImageTransitionName(activity.getString(R.string.transition_artist_image));
         }
 
         @Override

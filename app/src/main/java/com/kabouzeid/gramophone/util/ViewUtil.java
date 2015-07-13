@@ -2,9 +2,11 @@ package com.kabouzeid.gramophone.util;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.graphics.Palette;
 import android.support.v7.internal.view.menu.ListMenuItemView;
 import android.support.v7.internal.view.menu.MenuPopupHelper;
 import android.view.View;
@@ -25,6 +27,47 @@ import java.lang.reflect.Field;
  */
 public class ViewUtil {
     public final static int DEFAULT_COLOR_ANIMATION_DURATION = 500;
+
+    public static void applyBackgroundColorFromBitmap(@Nullable Bitmap bitmap, final int defaultBgColor, @Nullable final View[] views, @Nullable final TextView[] textViews, final boolean animate) {
+        if (bitmap != null) {
+            Palette.from(bitmap)
+                    .resizeBitmapSize(100)
+                    .generate(new Palette.PaletteAsyncListener() {
+                        @Override
+                        public void onGenerated(@NonNull Palette palette) {
+                            applyBackgroundColor(palette.getVibrantColor(defaultBgColor), views, textViews, animate);
+                        }
+                    });
+        } else {
+            applyBackgroundColor(defaultBgColor, views, textViews, animate);
+        }
+    }
+
+    public static void applyBackgroundColor(int bgColor, @Nullable final View[] views, @Nullable TextView[] textViews, final boolean animate) {
+        if (views != null) {
+            for (View view : views) {
+                if (view != null) {
+                    if (animate) {
+                        ViewUtil.animateViewColor(view, view.getDrawingCacheBackgroundColor(), bgColor);
+                    } else {
+                        view.setBackgroundColor(bgColor);
+                    }
+                }
+            }
+        }
+        if (textViews != null) {
+            int textColor = ColorUtil.getTextColorForBackground(bgColor);
+            for (TextView textView : textViews) {
+                if (textView != null) {
+                    if (animate) {
+                        animateTextColor(textView, textView.getCurrentTextColor(), textColor);
+                    } else {
+                        textView.setTextColor(textColor);
+                    }
+                }
+            }
+        }
+    }
 
     public static void animateViewColor(final View v, final int startColor, final int endColor) {
         animateViewColor(v, startColor, endColor, DEFAULT_COLOR_ANIMATION_DURATION);

@@ -13,19 +13,21 @@ import android.widget.TextView;
 import com.afollestad.materialcab.MaterialCab;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.song.AbsPlaylistSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.PlaylistSongAdapter;
+import com.kabouzeid.gramophone.adapter.song.SmartPlaylistSongAdapter;
+import com.kabouzeid.gramophone.adapter.song.SongAdapter;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
+import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.misc.DragSortRecycler;
-import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Playlist;
+import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.PlaylistsUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
-import com.squareup.otto.Subscribe;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -46,7 +48,7 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
 
     private Playlist playlist;
     private MaterialCab cab;
-    private AbsPlaylistSongAdapter adapter;
+    private SongAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,16 +74,22 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
     private void setUpRecyclerView() {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         if (playlist instanceof AbsSmartPlaylist) {
-            adapter = ((AbsSmartPlaylist) playlist).createAdapter(this, this);
+            adapter = new SmartPlaylistSongAdapter(this, ((AbsSmartPlaylist) playlist).getSongs(this), R.layout.item_list, this);
         } else {
-            adapter = new PlaylistSongAdapter(this, playlist, this);
+            adapter = new PlaylistSongAdapter(this, PlaylistSongLoader.getPlaylistSongList(this, playlist.id), R.layout.item_list, this);
 
             DragSortRecycler dragSortRecycler = new DragSortRecycler();
             dragSortRecycler.setViewHandleId(R.id.image);
             dragSortRecycler.setOnItemMovedListener(new DragSortRecycler.OnItemMovedListener() {
                 @Override
                 public void onItemMoved(int from, int to) {
-                    ((PlaylistSongAdapter) adapter).moveItem(from, to);
+                    if (from == to) return;
+
+                    if (PlaylistsUtil.moveItem(PlaylistDetailActivity.this, playlist.id, from, to)) {
+                        Song song = adapter.getDataSet().remove(from);
+                        adapter.getDataSet().add(to, song);
+                        adapter.notifyItemMoved(from, to);
+                    }
                 }
             });
 
@@ -133,7 +141,6 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
                 new SleepTimerDialog().show(getSupportFragmentManager(), "SET_SLEEP_TIMER");
                 return true;
             case R.id.action_shuffle_playlist:
-                //noinspection unchecked
                 MusicPlayerRemote.openAndShuffleQueue(this, adapter.getDataSet(), true);
                 return true;
             case R.id.action_equalizer:
@@ -167,17 +174,6 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
     protected void onDestroy() {
         super.onDestroy();
         App.bus.unregister(this);
-    }
-
-    @Subscribe
-    public void onDataBaseEvent(@NonNull DataBaseChangedEvent event) {
-        switch (event.getAction()) {
-            case DataBaseChangedEvent.PLAYLISTS_CHANGED:
-            case DataBaseChangedEvent.DATABASE_CHANGED:
-                adapter.updateDataSet();
-                checkIsEmpty();
-                break;
-        }
     }
 
     @Override

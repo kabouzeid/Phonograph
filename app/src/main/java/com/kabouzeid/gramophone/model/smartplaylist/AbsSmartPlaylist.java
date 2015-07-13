@@ -2,13 +2,9 @@ package com.kabouzeid.gramophone.model.smartplaylist;
 
 import android.content.Context;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.song.smartplaylist.SmartPlaylistSongAdapter;
-import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 
@@ -31,11 +27,6 @@ public abstract class AbsSmartPlaylist extends Playlist {
     public AbsSmartPlaylist() {
         super();
         this.iconRes = R.drawable.ic_queue_music_white_24dp;
-    }
-
-    @NonNull
-    public SmartPlaylistSongAdapter createAdapter(AppCompatActivity activity, @Nullable CabHolder cabHolder) {
-        return new SmartPlaylistSongAdapter(activity, this, cabHolder);
     }
 
     public abstract ArrayList<Song> getSongs(Context context);

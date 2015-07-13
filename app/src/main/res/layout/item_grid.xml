@@ -1,63 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="2dp">
+    android:layout_margin="2dp"
+    android:foreground="?rect_selector">
 
-    <FrameLayout
-        android:id="@+id/container"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:foreground="?rect_selector">
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="UnusedAttribute,UselessParent">
 
-        <LinearLayout
+        <com.kabouzeid.gramophone.views.WidthFitSquareImageView
+            android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:scaleType="centerCrop" />
+
+
+        <LinearLayout
+            android:id="@+id/palette_color_container"
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:background="?default_bar_color"
+            android:gravity="center_vertical"
             android:orientation="vertical"
-            tools:ignore="UnusedAttribute,UselessParent">
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
 
-            <com.kabouzeid.gramophone.views.WidthFitSquareImageView
-                android:id="@+id/image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="?title_text_color" />
 
-
-            <LinearLayout
-                android:id="@+id/footer"
-                android:layout_width="match_parent"
-                android:layout_height="68dp"
-                android:background="?default_bar_color"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
-
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    android:textColor="?title_text_color" />
-
-                <TextView
-                    android:id="@+id/text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textColor="?caption_text_color" />
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="?caption_text_color" />
 
         </LinearLayout>
 
-    </FrameLayout>
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/selected_indicator"

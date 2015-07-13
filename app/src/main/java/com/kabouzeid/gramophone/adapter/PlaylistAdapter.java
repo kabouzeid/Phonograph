@@ -1,48 +1,38 @@
 package com.kabouzeid.gramophone.adapter;
 
 import android.os.Build;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.TextView;
 
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
+import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.ClearSmartPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeletePlaylistDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.PlaylistMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
-import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
-import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
-import com.kabouzeid.gramophone.model.smartplaylist.LastAddedPlaylist;
-import com.kabouzeid.gramophone.model.smartplaylist.MyTopTracksPlaylist;
-import com.kabouzeid.gramophone.model.smartplaylist.RecentlyPlayedPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
-import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -51,17 +41,22 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
 
     public static final String TAG = PlaylistAdapter.class.getSimpleName();
 
-    private int SMART_PLAYLIST = 0;
-    private int DEFAULT_PLAYLIST = 1;
+    private static final int SMART_PLAYLIST = 0;
+    private static final int DEFAULT_PLAYLIST = 1;
 
     protected final AppCompatActivity activity;
-    protected List<Playlist> dataSet;
-    int favoritePlaylistId;
+    protected ArrayList<Playlist> dataSet;
+    protected int itemLayoutRes;
+    protected int favoritePlaylistId;
 
-    public PlaylistAdapter(AppCompatActivity activity, @Nullable CabHolder cabHolder) {
+    public PlaylistAdapter(AppCompatActivity activity, ArrayList<Playlist> dataSet, @LayoutRes int itemLayoutRes, @Nullable CabHolder cabHolder) {
         super(activity, cabHolder, R.menu.menu_playlists_selection);
         this.activity = activity;
-        loadDataSet();
+        this.dataSet = dataSet;
+        this.itemLayoutRes = itemLayoutRes;
+
+        favoritePlaylistId = MusicUtil.getFavoritesPlaylist(activity).id;
+
         setHasStableIds(true);
     }
 
@@ -70,33 +65,34 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         return dataSet.get(position).id;
     }
 
-    public void loadDataSet() {
-        dataSet = new ArrayList<>();
-        dataSet.add(new LastAddedPlaylist(activity));
-        dataSet.add(new RecentlyPlayedPlaylist(activity));
-        dataSet.add(new MyTopTracksPlaylist(activity));
-        dataSet.addAll(PlaylistLoader.getAllPlaylists(activity));
-        favoritePlaylistId = MusicUtil.getFavoritesPlaylist(activity).id;
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(activity).inflate(R.layout.item_list_single_row, parent, false);
+        View view = LayoutInflater.from(activity).inflate(itemLayoutRes, parent, false);
+        return createViewHolder(view, viewType);
+    }
+
+    protected ViewHolder createViewHolder(View view, int viewType) {
         return new ViewHolder(view, viewType);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Playlist playlist = dataSet.get(position);
-        holder.playlistName.setText(playlist.name);
+
         holder.itemView.setActivated(isChecked(playlist));
 
-        holder.icon.setImageDrawable(Util.getTintedDrawable(
-                activity,
-                getIconRes(playlist),
-                ColorUtil.resolveColor(activity, R.attr.themed_drawable_color)
-        ));
+        if (holder.title != null) {
+            holder.title.setText(playlist.name);
+        }
+
+        if (holder.image != null) {
+            holder.image.setImageDrawable(Util.getTintedDrawable(
+                    activity,
+                    getIconRes(playlist),
+                    ColorUtil.resolveColor(activity, R.attr.themed_drawable_color)
+            ));
+        }
     }
 
     private int getIconRes(Playlist playlist) {
@@ -160,55 +156,50 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         return songs;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        @InjectView(R.id.title)
-        TextView playlistName;
-        @InjectView(R.id.menu)
-        View menu;
-        @InjectView(R.id.image)
-        ImageView icon;
-        @InjectView(R.id.short_separator)
-        View shortSeparator;
+    public class ViewHolder extends MediaEntryViewHolder {
 
         public ViewHolder(@NonNull View itemView, int itemViewType) {
             super(itemView);
-            ButterKnife.inject(this, itemView);
 
             if (itemViewType == SMART_PLAYLIST) {
-                shortSeparator.setVisibility(View.GONE);
+                if (shortSeparator != null) {
+                    shortSeparator.setVisibility(View.GONE);
+                }
                 itemView.setBackgroundColor(ColorUtil.resolveColor(activity, R.attr.card_color));
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     itemView.setElevation(activity.getResources().getDimensionPixelSize(R.dimen.card_elevation));
                 }
             }
 
-            int padding = activity.getResources().getDimensionPixelSize(R.dimen.list_item_image_icon_padding);
-            icon.setPadding(padding, padding, padding, padding);
+            if (image != null) {
+                int iconPadding = activity.getResources().getDimensionPixelSize(R.dimen.list_item_image_icon_padding);
+                image.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
+            }
 
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
-            menu.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    PopupMenu popupMenu = new PopupMenu(activity, view);
-                    popupMenu.inflate(getItemViewType() == SMART_PLAYLIST ? R.menu.menu_item_smart_playlist : R.menu.menu_item_playlist);
-                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(@NonNull MenuItem item) {
-                            if (item.getItemId() == R.id.action_clear_playlist) {
-                                Playlist playlist = dataSet.get(getAdapterPosition());
-                                if (playlist instanceof AbsSmartPlaylist) {
-                                    ClearSmartPlaylistDialog.create((AbsSmartPlaylist) playlist).show(activity.getSupportFragmentManager(), "CLEAR_SMART_PLAYLIST_" + playlist.name);
-                                    return true;
+            if (menu != null) {
+                menu.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        PopupMenu popupMenu = new PopupMenu(activity, view);
+                        popupMenu.inflate(getItemViewType() == SMART_PLAYLIST ? R.menu.menu_item_smart_playlist : R.menu.menu_item_playlist);
+                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(@NonNull MenuItem item) {
+                                if (item.getItemId() == R.id.action_clear_playlist) {
+                                    Playlist playlist = dataSet.get(getAdapterPosition());
+                                    if (playlist instanceof AbsSmartPlaylist) {
+                                        ClearSmartPlaylistDialog.create((AbsSmartPlaylist) playlist).show(activity.getSupportFragmentManager(), "CLEAR_SMART_PLAYLIST_" + playlist.name);
+                                        return true;
+                                    }
                                 }
+                                return PlaylistMenuHelper.handleMenuClick(
+                                        activity, dataSet.get(getAdapterPosition()), item);
                             }
-                            return PlaylistMenuHelper.handleMenuClick(
-                                    activity, dataSet.get(getAdapterPosition()), item);
-                        }
-                    });
-                    popupMenu.show();
-                }
-            });
+                        });
+                        popupMenu.show();
+                    }
+                });
+            }
         }
 
         @Override
@@ -228,29 +219,6 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         public boolean onLongClick(View view) {
             toggleChecked(getAdapterPosition());
             return true;
-        }
-    }
-
-    @Override
-    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView);
-        App.bus.unregister(this);
-    }
-
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        App.bus.register(this);
-    }
-
-    @Subscribe
-    public void onDataBaseEvent(@NonNull DataBaseChangedEvent event) {
-        switch (event.getAction()) {
-            case DataBaseChangedEvent.PLAYLISTS_CHANGED:
-            case DataBaseChangedEvent.DATABASE_CHANGED:
-                loadDataSet();
-                notifyDataSetChanged();
-                break;
         }
     }
 }
