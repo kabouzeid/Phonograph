@@ -35,6 +35,7 @@ local.properties
 # Android Studio
 *.iml
 .idea
+ajcore.*.txt
 
 # Mac
 .DS_Store
