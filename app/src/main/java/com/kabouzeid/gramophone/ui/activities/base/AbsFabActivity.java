@@ -128,7 +128,7 @@ public abstract class AbsFabActivity extends AbsPlaybackControlActivity {
             fab = (FloatingActionButton) findViewById(R.id.fab);
             if (fab == null) {
                 fab = new FloatingActionButton(this);
-                Log.e(getTag(), "No FAB found created default FAB.");
+                Log.e(TAG, "No FAB found created default FAB.");
             }
         }
         return fab;

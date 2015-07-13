@@ -7,8 +7,6 @@ import com.kabouzeid.gramophone.imageloader.PhonographImageDownloader;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.utils.L;
-import com.squareup.otto.Bus;
-import com.squareup.otto.ThreadEnforcer;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -17,7 +15,6 @@ import io.fabric.sdk.android.Fabric;
  */
 public class App extends Application {
     public static final String TAG = App.class.getSimpleName();
-    public static final Bus bus = new Bus(ThreadEnforcer.MAIN);
 
     @Override
     public void onCreate() {

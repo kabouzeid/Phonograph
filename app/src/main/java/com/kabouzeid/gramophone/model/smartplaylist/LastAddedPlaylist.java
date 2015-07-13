@@ -3,10 +3,8 @@ package com.kabouzeid.gramophone.model.smartplaylist;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.LastAddedLoader;
-import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
@@ -30,6 +28,5 @@ public class LastAddedPlaylist extends AbsSmartPlaylist {
     @Override
     public void clear(@NonNull Context context) {
         PreferenceUtil.getInstance(context).setLastAddedCutoffTimestamp(System.currentTimeMillis());
-        App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
     }
 }

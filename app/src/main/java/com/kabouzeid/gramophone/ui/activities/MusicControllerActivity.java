@@ -381,13 +381,6 @@ public class MusicControllerActivity extends AbsFabActivity {
         }
     }
 
-
-    @NonNull
-    @Override
-    public String getTag() {
-        return TAG;
-    }
-
     @Override
     protected void onResume() {
         super.onResume();

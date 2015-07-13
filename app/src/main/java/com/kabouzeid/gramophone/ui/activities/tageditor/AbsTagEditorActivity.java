@@ -25,10 +25,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
-import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
@@ -404,7 +402,6 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                     @Override
                     public void run() {
                         if (i == 0 || i == toBeScannedLength - 1) {
-                            App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.DATABASE_CHANGED));
                             if (i == toBeScannedLength - 1)
                                 listener.onScannedAll();
                         }

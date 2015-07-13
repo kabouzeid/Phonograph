@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.afollestad.materialcab.MaterialCab;
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.song.PlaylistSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.SmartPlaylistSongAdapter;
@@ -67,8 +66,6 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
         if (PreferenceUtil.getInstance(this).coloredNavigationBarPlaylist())
             setNavigationBarThemeColor();
         setStatusBarThemeColor();
-
-        App.bus.register(this);
     }
 
     private void setUpRecyclerView() {
@@ -121,12 +118,6 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
         }
     }
 
-    @NonNull
-    @Override
-    public String getTag() {
-        return TAG;
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_playlist_detail, menu);
@@ -168,12 +159,6 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
                 .setBackgroundColor(PreferenceUtil.getInstance(this).getThemeColorPrimary())
                 .start(callback);
         return cab;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        App.bus.unregister(this);
     }
 
     @Override

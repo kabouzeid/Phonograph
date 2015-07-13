@@ -11,9 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.model.DataBaseChangedEvent;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
@@ -40,7 +38,6 @@ public class PlaylistsUtil {
                 if (uri != null) {
                     Toast.makeText(context, context.getResources().getString(
                             R.string.created_playlist_x, name), Toast.LENGTH_SHORT).show();
-                    App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
                     id = Integer.parseInt(uri.getLastPathSegment());
                 }
             } else {
@@ -71,7 +68,6 @@ public class PlaylistsUtil {
         }
         selection.append(")");
         context.getContentResolver().delete(uri, selection.toString(), null);
-        App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
     }
 
     public static void addToPlaylist(@NonNull final Context context, final Song song, final int playlistId, final boolean showToastOnFinish) {
@@ -110,7 +106,6 @@ public class PlaylistsUtil {
             Toast.makeText(context, context.getResources().getString(
                     R.string.inserted_x_songs_into_playlist, numinserted), Toast.LENGTH_SHORT).show();
         }
-        App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
     }
 
     @NonNull
@@ -136,7 +131,6 @@ public class PlaylistsUtil {
         String[] selectionArgs = new String[]{String.valueOf(song.id)};
 
         context.getContentResolver().delete(uri, selection, selectionArgs);
-        App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
     }
 
     public static void removeFromPlaylist(@NonNull final Context context, @NonNull final List<PlaylistSong> songs) {
@@ -152,7 +146,6 @@ public class PlaylistsUtil {
         selection = selection.substring(0, selection.length() - 2) + ")";
 
         context.getContentResolver().delete(uri, selection, selectionArgs);
-        App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
     }
 
     public static boolean doPlaylistContains(@NonNull final Context context, final long playlistId, final int songId) {
@@ -182,7 +175,6 @@ public class PlaylistsUtil {
                 contentValues,
                 MediaStore.Audio.Playlists._ID + "=?",
                 new String[]{String.valueOf(id)});
-        App.bus.post(new DataBaseChangedEvent(DataBaseChangedEvent.PLAYLISTS_CHANGED));
     }
 
     public static String getNameForPlaylist(@NonNull final Context context, final long id) {

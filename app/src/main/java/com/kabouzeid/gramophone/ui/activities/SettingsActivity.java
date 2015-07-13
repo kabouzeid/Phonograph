@@ -16,19 +16,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.afollestad.materialdialogs.util.DialogUtils;
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.ColorChooserDialog;
 import com.kabouzeid.gramophone.helper.PlayingNotificationHelper;
-import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.prefs.ColorChooserPreference;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import java.util.Set;
 
 public class SettingsActivity extends AbsBaseActivity implements ColorChooserDialog.ColorCallback {
     public static final String TAG = SettingsActivity.class.getSimpleName();
@@ -41,6 +37,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(PreferenceUtil.getInstance(this).getThemeColorPrimary());
         setSupportActionBar(toolbar);
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null)
@@ -55,10 +52,8 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
     public void onColorSelection(int title, int color) {
         if (title == R.string.primary_color) {
             PreferenceUtil.getInstance(this).setThemeColorPrimary(color);
-            App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.THEME_CHANGED, color));
         } else if (title == R.string.accent_color) {
             PreferenceUtil.getInstance(this).setThemeColorAccent(color);
-            App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.THEME_CHANGED, color));
         }
         recreate();
     }
@@ -92,7 +87,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 @Override
                 public boolean onPreferenceChange(Preference preference, @NonNull Object o) {
                     setSummary(generalTheme, o);
-                    App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.THEME_CHANGED, o));
                     return true;
                 }
             });
@@ -121,26 +115,10 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 }
             });
 
-            findPreference("colored_album_footers").setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object o) {
-                    App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.ALBUM_OVERVIEW_PALETTE_CHANGED, o));
-                    return true;
-                }
-            });
-
             Preference colorNavBar = findPreference("colored_navigation_bar");
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 colorNavBar.setEnabled(false);
                 colorNavBar.setSummary(R.string.pref_only_lollipop);
-            } else {
-                colorNavBar.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object o) {
-                        App.bus.post(new UIPreferenceChangedEvent(UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_CHANGED, o));
-                        return true;
-                    }
-                });
             }
 
             Preference coloredNotification = findPreference("colored_notification");
@@ -223,37 +201,11 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
     }
 
     @Override
-    protected void onUIPreferenceChangedEvent(@NonNull UIPreferenceChangedEvent event) {
-        super.onUIPreferenceChangedEvent(event);
-        switch (event.getAction()) {
-            case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_OTHER_SCREENS_CHANGED:
-                if ((boolean) event.getValue()) setNavigationBarThemeColor();
-                else resetNavigationBarColor();
-                break;
-            case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_CHANGED:
-                try {
-                    if (((Set) event.getValue()).contains(PreferenceUtil.COLORED_NAVIGATION_BAR_OTHER_SCREENS))
-                        setNavigationBarThemeColor();
-                    else resetNavigationBarColor();
-                } catch (NullPointerException ignored) {
-                    resetNavigationBarColor();
-                }
-                break;
-        }
-    }
-
-    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @NonNull
-    @Override
-    public String getTag() {
-        return TAG;
     }
 }
