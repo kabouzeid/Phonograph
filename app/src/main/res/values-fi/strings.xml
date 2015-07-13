@@ -14,7 +14,7 @@
     <string name="artists">Artistit</string>
     <string name="songs">Kappaleet</string>
     <string name="playlists">Soittolistat</string>
-    <string name="nothing_playing">Mitään ei toisteta</string>
+    <string name="playing_queue_empty">Mitään ei toisteta</string>
     <string name="unplayable_file">Virhe toistettaessa kappaletta</string>
     <string name="biography_unavailable">Biogtagiaa ei löytynyt tälle artistille</string>
     <string name="biography">Biografia</string>

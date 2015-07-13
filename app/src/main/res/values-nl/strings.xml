@@ -27,7 +27,7 @@
     <string name="artists">Artiesten</string>
     <string name="songs">Nummers</string>
     <string name="playlists">Afspeellijsten</string>
-    <string name="nothing_playing">Niets wordt afgespeeld</string>
+    <string name="playing_queue_empty">Niets wordt afgespeeld</string>
     <string name="unplayable_file">Er is een fout opgetreden bij het afspelen van dit nummer.</string>
     <string name="biography_unavailable">Het is niet gelukt een passende biografie te vinden voor deze artiest.</string>
     <string name="biography">Biografie</string>

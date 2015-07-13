@@ -120,8 +120,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/tmp_now_playing_skip_rewind_margin"
                 android:layout_marginRight="@dimen/tmp_now_playing_skip_rewind_margin"
-                android:layout_toLeftOf="@+id/fab"
-                android:layout_toStartOf="@+id/fab"
+                android:layout_toLeftOf="@+id/play_pause_fab"
+                android:layout_toStartOf="@+id/play_pause_fab"
                 android:background="?round_selector"
                 android:elevation="8dp"
                 android:padding="22dp"
@@ -135,8 +135,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/tmp_now_playing_skip_rewind_margin"
                 android:layout_marginStart="@dimen/tmp_now_playing_skip_rewind_margin"
-                android:layout_toEndOf="@+id/fab"
-                android:layout_toRightOf="@+id/fab"
+                android:layout_toEndOf="@+id/play_pause_fab"
+                android:layout_toRightOf="@+id/play_pause_fab"
                 android:background="?round_selector"
                 android:elevation="8dp"
                 android:padding="22dp"
@@ -174,7 +174,7 @@
                 android:src="@drawable/ic_shuffle_white_36dp" />
 
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab"
+                android:id="@+id/play_pause_fab"
                 style="@style/PlayPauseFab"
                 android:layout_centerInParent="true"
                 android:layout_margin="0dp" />

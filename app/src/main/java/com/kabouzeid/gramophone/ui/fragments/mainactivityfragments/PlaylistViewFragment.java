@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class PlaylistViewFragment extends AbsMainActivityRecyclerViewFragment {
+public class PlaylistViewFragment extends AbsMainActivityRecyclerViewFragment<PlaylistAdapter> {
 
     public static final String TAG = PlaylistViewFragment.class.getSimpleName();
 
@@ -29,7 +29,21 @@ public class PlaylistViewFragment extends AbsMainActivityRecyclerViewFragment {
 
     @NonNull
     @Override
-    protected RecyclerView.Adapter createAdapter() {
+    protected PlaylistAdapter createAdapter() {
+        return new PlaylistAdapter(getMainActivity(), getAllPlaylists(), R.layout.item_list_single_row, getMainActivity());
+    }
+
+    @Override
+    protected int getEmptyMessage() {
+        return R.string.no_playlists;
+    }
+
+    @Override
+    public void onMediaStoreChanged() {
+        getAdapter().swapDataSet(getAllPlaylists());
+    }
+
+    private ArrayList<Playlist> getAllPlaylists() {
         ArrayList<Playlist> playlists = new ArrayList<>();
 
         playlists.add(new LastAddedPlaylist(getActivity()));
@@ -38,11 +52,6 @@ public class PlaylistViewFragment extends AbsMainActivityRecyclerViewFragment {
 
         playlists.addAll(PlaylistLoader.getAllPlaylists(getActivity()));
 
-        return new PlaylistAdapter(getMainActivity(), playlists, R.layout.item_list_single_row, getMainActivity());
-    }
-
-    @Override
-    protected int getEmptyMessage() {
-        return R.string.no_playlists;
+        return playlists;
     }
 }

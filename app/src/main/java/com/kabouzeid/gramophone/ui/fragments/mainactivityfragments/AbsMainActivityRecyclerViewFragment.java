@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.interfaces.MusicStateListener;
 import com.kabouzeid.gramophone.views.FastScroller;
 
 import butterknife.ButterKnife;
@@ -23,7 +24,7 @@ import butterknife.Optional;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivityFragment implements OnOffsetChangedListener {
+public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView.Adapter> extends AbsMainActivityFragment implements OnOffsetChangedListener, MusicStateListener {
 
     public static final String TAG = AbsMainActivityRecyclerViewFragment.class.getSimpleName();
 
@@ -38,7 +39,7 @@ public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivit
     @InjectView(R.id.fast_scroller)
     FastScroller fastScroller;
 
-    private RecyclerView.Adapter mAdapter;
+    private A mAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivit
         }
 
         getMainActivity().addOnAppBarOffsetChangedListener(this);
+        getMainActivity().addMusicStateListenerListener(this);
 
         setUpRecyclerView();
 
@@ -76,7 +78,7 @@ public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivit
         recyclerView.setAdapter(mAdapter);
     }
 
-    public RecyclerView.Adapter getAdapter() {
+    public A getAdapter() {
         return mAdapter;
     }
 
@@ -91,6 +93,16 @@ public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivit
             );
             fastScroller.updateHandlePosition();
         }
+    }
+
+    @Override
+    public void onPlayingMetaChanged() {
+
+    }
+
+    @Override
+    public void onPlayStateChanged() {
+
     }
 
     @Override
@@ -131,13 +143,13 @@ public abstract class AbsMainActivityRecyclerViewFragment extends AbsMainActivit
 
     protected abstract RecyclerView.LayoutManager createLayoutManager();
 
-    @NonNull
-    protected abstract RecyclerView.Adapter createAdapter();
+    protected abstract A createAdapter();
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         getMainActivity().removeOnAppBarOffsetChangedListener(this);
+        getMainActivity().removeMusicStateListenerListener(this);
         ButterKnife.reset(this);
     }
 }

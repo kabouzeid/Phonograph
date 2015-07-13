@@ -27,7 +27,7 @@
     <string name="artists">Artistas</string>
     <string name="songs">Canciones</string>
     <string name="playlists">Listas de reproducción</string>
-    <string name="nothing_playing">Nada se está reproduciendo</string>
+    <string name="playing_queue_empty">Nada se está reproduciendo</string>
     <string name="unplayable_file">Ocurrió un error al reproducir esta canción.</string>
     <string name="biography_unavailable">Lo sentimos, no encontramos una biografía correspondiente a éste artista</string>
     <string name="biography">Biografía</string>
@@ -106,6 +106,7 @@
     <string name="pref_title_general_theme">Tema general</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">General</string>
+    <string name="pref_header_images">Imágenes</string>
     <string name="pref_header_lockscreen">Pantalla de bloqueo</string>
     <string name="pref_summary_colored_navigation_bar">Selecciona en qué secciones la barra debe tener color</string>
     <string name="pref_title_navigation_bar">Color en la barra de navegación</string>
@@ -119,6 +120,7 @@
     <string name="pref_title_colored_album_footers">Pie de álbum coloreado</string>
     <string name="pref_title_album_art_on_lockscreen">Arte del álbum en la pantalla de bloqueo</string>
     <string name="pref_title_colored_notification">Notificación coloreada</string>
+    <string name="pref_title_ignore_media_store_artwork">Ignorar arte proveniente de almacenamiento</string>
     <string name="pref_title_gapless_playback">Quitar silencio entre canciones</string>
     <string name="pref_title_force_square_album_art">Forzar portada de álbum a cuadrado</string>
     <string name="pref_title_opaque_toolbar_now_playing">Barra de Reproducción Actual opaca</string>
@@ -162,6 +164,7 @@
     <string name="pref_summary_larger_title_box_now_playing">La caja detrás de la tapa del álbum donde se encuentra el título de la canción y el artista es mas largo que su altura.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Usa una barra de progreso que no cubre la tapa del álbum en vez de la barra normal de progreso.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Mostrar tarjeta detrás de los botones de control de reproducción (reproducir/pausar, etc).</string>
+    <string name="pref_summary_ignore_media_store_artwork">Si bien la calidad del arte de tapa del almacenamiento tiene mejor calidad, puede tardar más en cargar. Sólo activar si no se quieren artes de tapa de baja resolución.</string>
     <string name="could_not_download_album_cover">"No se puede descargar una tapa de álbum coincidente."</string>
     <string name="search_hint">Buscar en librería...</string>
     <string name="rescanning_media">Escaneando contenido...</string>

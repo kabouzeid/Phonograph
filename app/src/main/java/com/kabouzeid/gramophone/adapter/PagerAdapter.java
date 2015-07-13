@@ -29,8 +29,6 @@ public class PagerAdapter extends FragmentPagerAdapter {
     @NonNull
     private final Context mContext;
 
-    private int mCurrentPage;
-
     @NonNull
     private final String[] titles;
 

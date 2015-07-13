@@ -23,7 +23,7 @@ import com.kabouzeid.gramophone.misc.DragSortRecycler;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
-import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
+import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
@@ -31,7 +31,7 @@ import com.kabouzeid.gramophone.util.PreferenceUtil;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder {
+public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity implements CabHolder {
 
     public static final String TAG = PlaylistDetailActivity.class.getSimpleName();
 
@@ -132,7 +132,7 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
                 new SleepTimerDialog().show(getSupportFragmentManager(), "SET_SLEEP_TIMER");
                 return true;
             case R.id.action_shuffle_playlist:
-                MusicPlayerRemote.openAndShuffleQueue(this, adapter.getDataSet(), true);
+                MusicPlayerRemote.openAndShuffleQueue(adapter.getDataSet(), true);
                 return true;
             case R.id.action_equalizer:
                 NavigationUtil.openEqualizer(this);
@@ -141,7 +141,7 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
                 onBackPressed();
                 return true;
             case R.id.action_now_playing:
-                NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithFab(null));
+                NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithPlayPauseFab(null));
                 return true;
             case R.id.action_playing_queue:
                 NavigationUtil.openPlayingQueueDialog(this);

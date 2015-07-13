@@ -22,7 +22,7 @@ import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
+import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -60,6 +60,15 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
         this.itemLayoutRes = itemLayoutRes;
 
         setHasStableIds(true);
+    }
+
+    public List<Album> getDataSet() {
+        return dataSet;
+    }
+
+    public void swapDataSet(List<Album> dataSet) {
+        this.dataSet = dataSet;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -205,8 +214,8 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
                         Pair.create(image,
                                 activity.getResources().getString(R.string.transition_album_art)
                         )};
-                if (activity instanceof AbsFabActivity)
-                    albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(albumPairs);
+                if (activity instanceof AbsSlidingMusicPanelActivity)
+                    albumPairs = ((AbsSlidingMusicPanelActivity) activity).getSharedViewsWithPlayPauseFab(albumPairs);
                 NavigationUtil.goToAlbum(activity, dataSet.get(getAdapterPosition()).id, albumPairs);
             }
         }

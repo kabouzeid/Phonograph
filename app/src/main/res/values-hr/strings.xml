@@ -27,7 +27,7 @@
     <string name="artists">Izvođači</string>
     <string name="songs">Pjesme</string>
     <string name="playlists">Popisi pjesama</string>
-    <string name="nothing_playing">Ništa se ne reproducira</string>
+    <string name="playing_queue_empty">Ništa se ne reproducira</string>
     <string name="unplayable_file">Došlo je do greške prilikom pokušaja reproduciranja ove pjesme</string>
     <string name="biography_unavailable">Nismo mogli pronaći biografiju ovog izvođača</string>
     <string name="biography">Biografija</string>

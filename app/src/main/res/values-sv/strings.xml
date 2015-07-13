@@ -14,7 +14,7 @@
     <string name="artists">Artister</string>
     <string name="songs">Låtar</string>
     <string name="playlists">Spellista</string>
-    <string name="nothing_playing">Ingenting att spela</string>
+    <string name="playing_queue_empty">Ingenting att spela</string>
     <string name="unplayable_file">Ursäkta - ett problem uppstod vid spelningen av denna låt</string>
     <string name="biography_unavailable">Ursäkta, vi kunde inte hitta biografin för den här artisten</string>
     <string name="biography">Biografi</string>

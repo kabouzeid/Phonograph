@@ -27,7 +27,7 @@
     <string name="artists">Artistas</string>
     <string name="songs">Músicas</string>
     <string name="playlists">Playlists</string>
-    <string name="nothing_playing">Nada em execução</string>
+    <string name="playing_queue_empty">Nada em execução</string>
     <string name="unplayable_file">Desculpe - ocorreu um erro ao tentar reproduzir esta faixa</string>
     <string name="biography_unavailable">Desculpe, não conseguimos encontrar a biografia deste artista.</string>
     <string name="biography">Biografia</string>
@@ -51,7 +51,7 @@
     <string name="label_track_length">Duração</string>
     <string name="label_bit_rate">Taxa de bits</string>
     <string name="label_sampling_rate">Taxa de amostragem</string>
-    <string name="action_go_to_artist">Ir para artista</string>
+    <string name="action_go_to_artist">Ir para o artista</string>
     <string name="action_go_to_album">Ir para o álbum</string>
     <string name="label_current_playing_queue">Lista de reprodução</string>
     <string name="save_as_playlist">Salvar como playlist</string>

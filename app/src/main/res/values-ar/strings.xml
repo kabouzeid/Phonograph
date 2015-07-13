@@ -28,7 +28,7 @@
     <string name="artists">الفنانون</string>
     <string name="songs">الأغاني</string>
     <string name="playlists">قوائم التشغيل</string>
-    <string name="nothing_playing">لا شيء قيد التشغيل</string>
+    <string name="playing_queue_empty">لا شيء قيد التشغيل</string>
     <string name="unplayable_file">عذراً، حصل خطأ أثناء محاولة تشغيل الأغنية</string>
     <string name="biography_unavailable">عذراً، لم يتم العثور على سيرة ذاتية مطابقة لهذا الفنان</string>
     <string name="biography">سيرة ذاتية</string>

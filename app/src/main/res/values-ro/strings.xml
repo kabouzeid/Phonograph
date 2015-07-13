@@ -27,7 +27,7 @@
     <string name="artists">Artiști</string>
     <string name="songs">Melodii</string>
     <string name="playlists">Liste de redare</string>
-    <string name="nothing_playing">Nimic nu este redat</string>
+    <string name="playing_queue_empty">Nimic nu este redat</string>
     <string name="unplayable_file">Ne pare rău - a apărut o problemă în încercarea de a reda această melodie.</string>
     <string name="biography_unavailable">Ne pare rău, nu am putut găsi o biografie potrivită pentru acest artist.</string>
     <string name="biography">Biografie</string>

@@ -105,7 +105,7 @@ public class NavigationUtil {
                 }
             }
         } else {
-            Toast.makeText(activity, activity.getResources().getString(R.string.nothing_playing), Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, activity.getResources().getString(R.string.playing_queue_empty), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -114,7 +114,7 @@ public class NavigationUtil {
         if (dialog != null) {
             dialog.show(activity.getSupportFragmentManager(), "PLAY_QUEUE");
         } else {
-            Toast.makeText(activity, activity.getResources().getString(R.string.nothing_playing), Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, activity.getResources().getString(R.string.playing_queue_empty), Toast.LENGTH_SHORT).show();
         }
     }
 

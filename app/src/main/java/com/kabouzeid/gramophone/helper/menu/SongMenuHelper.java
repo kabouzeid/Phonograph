@@ -15,7 +15,7 @@ import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
+import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
@@ -62,14 +62,14 @@ public class SongMenuHelper {
                 return true;
             case R.id.action_go_to_album:
                 Pair[] albumPairs = null;
-                if (activity instanceof AbsFabActivity)
-                    albumPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(null);
+                if (activity instanceof AbsSlidingMusicPanelActivity)
+                    albumPairs = ((AbsSlidingMusicPanelActivity) activity).getSharedViewsWithPlayPauseFab(null);
                 NavigationUtil.goToAlbum(activity, song.albumId, albumPairs);
                 return true;
             case R.id.action_go_to_artist:
                 Pair[] artistPairs = null;
-                if (activity instanceof AbsFabActivity)
-                    artistPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(null);
+                if (activity instanceof AbsSlidingMusicPanelActivity)
+                    artistPairs = ((AbsSlidingMusicPanelActivity) activity).getSharedViewsWithPlayPauseFab(null);
                 NavigationUtil.goToArtist(activity, song.artistId, artistPairs);
                 return true;
         }

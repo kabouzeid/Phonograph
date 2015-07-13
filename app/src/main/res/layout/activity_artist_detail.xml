@@ -98,7 +98,7 @@
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/play_pause_fab"
         style="@style/PlayPauseFab"
         android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/fab_margin" />

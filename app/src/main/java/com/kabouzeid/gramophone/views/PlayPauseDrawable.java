@@ -2,7 +2,6 @@ package com.kabouzeid.gramophone.views;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.Resources;
@@ -50,7 +49,7 @@ public class PlayPauseDrawable extends Drawable {
     private boolean isPlay;
     private boolean isPlaySet;
 
-    private AnimatorSet animatorSet;
+    private Animator animator;
 
     public PlayPauseDrawable(@NonNull Context context) {
         final Resources res = context.getResources();
@@ -173,40 +172,38 @@ public class PlayPauseDrawable extends Drawable {
         return a + (b - a) * t;
     }
 
-    public void animatedPlay() {
-        if (!isPlaySet) {
-            togglePlayPause();
+    public void setPlay(boolean animate) {
+        if (animate) {
+            if (!isPlaySet) {
+                togglePlayPause();
+            }
+        } else {
+            isPlaySet = true;
+            isPlay = true;
+            setProgress(1);
         }
     }
 
-    public void animatedPause() {
-        if (isPlaySet) {
-            togglePlayPause();
+    public void setPause(boolean animate) {
+        if (animate) {
+            if (isPlaySet) {
+                togglePlayPause();
+            }
+        } else {
+            isPlaySet = false;
+            isPlay = false;
+            setProgress(0);
         }
-    }
-
-    public void setPlay() {
-        isPlaySet = true;
-        isPlay = true;
-        setProgress(1);
-    }
-
-    public void setPause() {
-        isPlaySet = false;
-        isPlay = false;
-        setProgress(0);
     }
 
     public void togglePlayPause() {
-        if (animatorSet != null) {
-            animatorSet.cancel();
+        if (animator != null) {
+            animator.cancel();
         }
 
-        animatorSet = new AnimatorSet();
-        final Animator pausePlayAnim = getPausePlayAnimator();
-        animatorSet.setInterpolator(new DecelerateInterpolator());
-        animatorSet.setDuration(PLAY_PAUSE_ANIMATION_DURATION);
-        animatorSet.playTogether(pausePlayAnim);
-        animatorSet.start();
+        animator = getPausePlayAnimator();
+        animator.setInterpolator(new DecelerateInterpolator());
+        animator.setDuration(PLAY_PAUSE_ANIMATION_DURATION);
+        animator.start();
     }
 }

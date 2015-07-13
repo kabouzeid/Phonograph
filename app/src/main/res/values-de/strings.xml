@@ -27,7 +27,7 @@
     <string name="artists">Interpreten</string>
     <string name="songs">Titel</string>
     <string name="playlists">Wiedergabelisten</string>
-    <string name="nothing_playing">Keine Wiedergabe</string>
+    <string name="playing_queue_empty">Keine Wiedergabe</string>
     <string name="unplayable_file">Der Song kann nicht abgespielt werden</string>
     <string name="biography_unavailable">Es konnte keine passende Biografie für diesen Interpreten gefunden werden</string>
     <string name="biography">Biografie</string>

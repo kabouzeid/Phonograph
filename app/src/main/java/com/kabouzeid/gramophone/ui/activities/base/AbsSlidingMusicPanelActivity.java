@@ -22,54 +22,46 @@ import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.views.PlayPauseDrawable;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.Optional;
-
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class AbsFabActivity extends AbsPlaybackControlActivity {
-    public static final String TAG = AbsFabActivity.class.getSimpleName();
+public abstract class AbsSlidingMusicPanelActivity extends AbsMusicStateActivity {
+    public static final String TAG = AbsSlidingMusicPanelActivity.class.getSimpleName();
 
-    @Nullable
-    @Optional
-    @InjectView(R.id.fab)
-    FloatingActionButton fab;
+    FloatingActionButton playPauseFab;
 
     private PlayPauseDrawable playPauseDrawable;
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        ButterKnife.inject(this);
-        setUpFab();
+        setUpPlayPauseButton();
     }
 
-    private void setUpFab() {
+    private void setUpPlayPauseButton() {
         if (playPauseDrawable == null) {
             playPauseDrawable = new PlayPauseDrawable(this);
         }
 
-        getFab().setImageDrawable(playPauseDrawable);
+        getPlayPauseFab().setImageDrawable(playPauseDrawable);
         final int accentColor = ThemeSingleton.get().positiveColor;
-        getFab().setBackgroundTintList(ColorUtil.getEmptyColorStateList(accentColor));
+        getPlayPauseFab().setBackgroundTintList(ColorUtil.getEmptyColorStateList(accentColor));
         if (accentColor == Color.WHITE) {
-            getFab().getDrawable().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+            getPlayPauseFab().getDrawable().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
         } else {
-            getFab().getDrawable().clearColorFilter();
+            getPlayPauseFab().getDrawable().clearColorFilter();
         }
 
-        updateFabState();
+        updateFabState(false);
         final GestureDetector gestureDetector = new GestureDetector(this, new SmallOnGestureListener() {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                NavigationUtil.openCurrentPlayingIfPossible(AbsFabActivity.this, getSharedViewsWithFab(null));
+                NavigationUtil.openCurrentPlayingIfPossible(AbsSlidingMusicPanelActivity.this, getSharedViewsWithPlayPauseFab(null));
                 return true;
             }
         });
 
-        getFab().setOnClickListener(new View.OnClickListener() {
+        getPlayPauseFab().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (MusicPlayerRemote.getPosition() != -1) {
@@ -79,12 +71,12 @@ public abstract class AbsFabActivity extends AbsPlaybackControlActivity {
                         MusicPlayerRemote.resumePlaying();
                     }
                 } else {
-                    Toast.makeText(AbsFabActivity.this, getResources().getString(R.string.nothing_playing), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AbsSlidingMusicPanelActivity.this, getResources().getString(R.string.playing_queue_empty), Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        getFab().setOnTouchListener(new View.OnTouchListener() {
+        getPlayPauseFab().setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, @NonNull MotionEvent event) {
                 gestureDetector.onTouchEvent(event);
@@ -92,55 +84,41 @@ public abstract class AbsFabActivity extends AbsPlaybackControlActivity {
             }
         });
 
-        getFab().setOnLongClickListener(new View.OnLongClickListener() {
+        getPlayPauseFab().setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 final Song song = MusicPlayerRemote.getCurrentSong();
                 if (song.id != -1) {
-                    Toast.makeText(AbsFabActivity.this, song.title + " - " + song.artistName, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AbsSlidingMusicPanelActivity.this, song.title + " - " + song.artistName, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(AbsFabActivity.this, getResources().getString(R.string.nothing_playing), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AbsSlidingMusicPanelActivity.this, getResources().getString(R.string.nothing_playing), Toast.LENGTH_SHORT).show();
                 }
                 return true;
             }
         });
     }
 
-    protected void updateFabState() {
+    protected void updateFabState(boolean animate) {
         if (MusicPlayerRemote.isPlaying()) {
-            playPauseDrawable.setPause();
+            playPauseDrawable.setPause(animate);
         } else {
-            playPauseDrawable.setPlay();
-        }
-    }
-
-    protected void animateUpdateFabState() {
-        if (MusicPlayerRemote.isPlaying()) {
-            setFabPause();
-        } else {
-            setFabPlay();
+            playPauseDrawable.setPlay(animate);
         }
     }
 
     @NonNull
-    protected FloatingActionButton getFab() {
-        if (fab == null) {
-            fab = (FloatingActionButton) findViewById(R.id.fab);
-            if (fab == null) {
-                fab = new FloatingActionButton(this);
-                Log.e(TAG, "No FAB found created default FAB.");
+    protected FloatingActionButton getPlayPauseFab() {
+        if (playPauseFab == null) {
+            playPauseFab = (FloatingActionButton) findViewById(R.id.play_pause_fab);
+            if (playPauseFab == null) {
+                playPauseFab = new FloatingActionButton(this);
+                Log.e(TAG, "PlayPauseFAB not found, created default FAB.");
             }
         }
-        return fab;
+        return playPauseFab;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        updateFabState();
-    }
-
-    public Pair[] getSharedViewsWithFab(@Nullable Pair[] sharedViews) {
+    public Pair[] getSharedViewsWithPlayPauseFab(@Nullable Pair[] sharedViews) {
         Pair[] sharedViewsWithFab;
         if (sharedViews != null) {
             sharedViewsWithFab = new Pair[sharedViews.length + 1];
@@ -148,21 +126,13 @@ public abstract class AbsFabActivity extends AbsPlaybackControlActivity {
         } else {
             sharedViewsWithFab = new Pair[1];
         }
-        sharedViewsWithFab[sharedViewsWithFab.length - 1] = Pair.create((View) getFab(), getString(R.string.transition_fab));
+        sharedViewsWithFab[sharedViewsWithFab.length - 1] = Pair.create((View) getPlayPauseFab(), getString(R.string.transition_fab));
         return sharedViewsWithFab;
     }
 
     @Override
     public void onPlayStateChanged() {
         super.onPlayStateChanged();
-        animateUpdateFabState();
-    }
-
-    private void setFabPlay() {
-        playPauseDrawable.animatedPlay();
-    }
-
-    private void setFabPause() {
-        playPauseDrawable.animatedPause();
+        updateFabState(true);
     }
 }
