@@ -27,7 +27,7 @@
     <string name="artists">Sanatçılar</string>
     <string name="songs">Şarkılar</string>
     <string name="playlists">Çalma listeleri</string>
-    <string name="nothing_playing">Şu anda çalınan şarkı yok</string>
+    <string name="playing_queue_empty">Şu anda çalınan şarkı yok</string>
     <string name="unplayable_file">Bu şarkı oynatılırken bir hata oluştu</string>
     <string name="biography_unavailable">Bu sanatçı ile ilgili hiçbir biyografi yazısı bulamadık.</string>
     <string name="biography">Biyografi</string>

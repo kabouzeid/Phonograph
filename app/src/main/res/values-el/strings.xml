@@ -14,7 +14,7 @@
     <string name="artists">Καλλιτέχνες</string>
     <string name="songs">Τραγούδια</string>
     <string name="playlists">Λίστες αναπαραγωγής</string>
-    <string name="nothing_playing">Δεν παίζει τίποτα</string>
+    <string name="playing_queue_empty">Δεν παίζει τίποτα</string>
     <string name="unplayable_file">Συγγνώμη - Υπήρξε σφάλμα στην προσπάθεια αναπαραγωγής</string>
     <string name="biography_unavailable">Συγγνώμη, δεν βρήκαμε τη βιογραφία αυτού του καλλιτέχνη</string>
     <string name="biography">Βιογραφία</string>

@@ -919,7 +919,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         @Override
         public void run() {
             // actually call refresh when the delayed callback fires
-            notifyChange(MEDIA_STORE_CHANGED);
+            // do not send a sticky broadcast here
+            sendBroadcast(new Intent(MEDIA_STORE_CHANGED));
         }
     }
 

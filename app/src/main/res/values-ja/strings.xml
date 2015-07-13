@@ -27,7 +27,7 @@
     <string name="artists">アーティスト</string>
     <string name="songs">楽曲</string>
     <string name="playlists">プレイリスト</string>
-    <string name="nothing_playing">再生中の曲はありません</string>
+    <string name="playing_queue_empty">再生中の曲はありません</string>
     <string name="unplayable_file">楽曲の再生時にエラーが発生しました</string>
     <string name="biography_unavailable">バイオグラフィーが見つかりません</string>
     <string name="biography">バイオグラフィー</string>

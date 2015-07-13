@@ -27,7 +27,7 @@
     <string name="artists">아티스트</string>
     <string name="songs">노래</string>
     <string name="playlists">재생목록</string>
-    <string name="nothing_playing">재생 중인 노래가 없습니다.</string>
+    <string name="playing_queue_empty">재생 중인 노래가 없습니다.</string>
     <string name="unplayable_file">이 노래를 재생하려던 중 오류가 발생했습니다.</string>
     <string name="biography_unavailable">이 아티스트와 일치하는 정보를 찾을 수 없습니다.</string>
     <string name="biography">정보</string>

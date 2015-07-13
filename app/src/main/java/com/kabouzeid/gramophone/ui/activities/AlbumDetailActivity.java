@@ -36,7 +36,7 @@ import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.misc.SmallTransitionListener;
 import com.kabouzeid.gramophone.model.Album;
-import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
+import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AlbumTagEditorActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
@@ -58,7 +58,7 @@ import butterknife.InjectView;
  * <p/>
  * Should be kinda stable ONLY AS IT IS!!!
  */
-public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorHolder, CabHolder {
+public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements PaletteColorHolder, CabHolder {
 
     public static final String TAG = AlbumDetailActivity.class.getSimpleName();
     private static final int TAG_EDITOR_REQUEST = 2001;
@@ -334,7 +334,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                 NavigationUtil.openEqualizer(this);
                 return true;
             case R.id.action_shuffle_album:
-                MusicPlayerRemote.openAndShuffleQueue(this, adapter.getDataSet(), true);
+                MusicPlayerRemote.openAndShuffleQueue(adapter.getDataSet(), true);
                 return true;
             case android.R.id.home:
                 super.onBackPressed();
@@ -343,7 +343,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                 NavigationUtil.openPlayingQueueDialog(this);
                 return true;
             case R.id.action_now_playing:
-                NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithFab(null));
+                NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithPlayPauseFab(null));
                 return true;
             case R.id.action_tag_editor:
                 Intent intent = new Intent(this, AlbumTagEditorActivity.class);
@@ -351,7 +351,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                 startActivityForResult(intent, TAG_EDITOR_REQUEST);
                 return true;
             case R.id.action_go_to_artist:
-                Pair[] artistPairs = getSharedViewsWithFab(null);
+                Pair[] artistPairs = getSharedViewsWithPlayPauseFab(null);
                 NavigationUtil.goToArtist(this, album.artistId, artistPairs);
                 return true;
         }

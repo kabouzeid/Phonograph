@@ -27,6 +27,7 @@
     <string name="artists">Artists</string>
     <string name="songs">Songs</string>
     <string name="playlists">Playlists</string>
+    <string name="playing_queue_empty">Playing queue is empty</string>
     <string name="nothing_playing">Nothing is playing</string>
     <string name="unplayable_file">An error occurred while attempting to play this song</string>
     <string name="biography_unavailable">Could not find a matching biography for this artist</string>

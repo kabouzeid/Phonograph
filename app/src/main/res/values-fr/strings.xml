@@ -27,7 +27,7 @@
     <string name="artists">Artistes</string>
     <string name="songs">Titres</string>
     <string name="playlists">Playlists</string>
-    <string name="nothing_playing">Aucune lecture en cours</string>
+    <string name="playing_queue_empty">Aucune lecture en cours</string>
     <string name="unplayable_file">Une erreur est survenue lors de la tentative de lecture de ce titre.</string>
     <string name="biography_unavailable">Nous n\'avons pas trouvé la biographie correspondant à cet artiste.</string>
     <string name="biography">Biographie</string>
@@ -104,6 +104,7 @@
     <string name="pref_title_general_theme">Thème général</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">Général</string>
+    <string name="pref_header_images">Images</string>
     <string name="pref_header_lockscreen">Écran de vérouillage</string>
     <string name="pref_summary_colored_navigation_bar">Dans quelles vues la barre navigation doit être colorée.</string>
     <string name="pref_title_navigation_bar">Barre de navigation colorée</string>
@@ -117,6 +118,7 @@
     <string name="pref_title_colored_album_footers">Bas d\'album coloré</string>
     <string name="pref_title_album_art_on_lockscreen">Vignette d\'album sur l\'écran de vérouillage</string>
     <string name="pref_title_colored_notification">Notification colorée</string>
+    <string name="pref_title_ignore_media_store_artwork">Ignorer stockage des artwork media</string>
     <string name="pref_title_gapless_playback">Lecture sans coupure</string>
     <string name="pref_title_force_square_album_art">Vignette carrée</string>
     <string name="pref_title_opaque_toolbar_now_playing">Barre d\'outil opaque</string>
@@ -160,6 +162,7 @@
     <string name="pref_summary_larger_title_box_now_playing">La boîte en dessous de la vignette de l\'album où se trouvent le titre de la musique et l\'artiste est plus large dans sa hauteur.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Utilise une barre de progression qui ne recouvre pas la vignette de l\'album à la place de la barre de progression normale.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Affiche une carte derrière les boutons de lecture (lecture/pause etc.)</string>
+    <string name="pref_summary_ignore_media_store_artwork">Countourner le stockage media, ce qui peut augmenter la qualité des images mais peut cause des temps de chargement plus longs. N\'activez que si vous avez des problèmes de basse résolution des images</string>
     <string name="could_not_download_album_cover">"Impossible de télécharger la vignette correspondant à l'album."</string>
     <string name="search_hint">Rechercher votre bibliothèque...</string>
     <string name="rescanning_media">Réanalyse des médias…</string>

@@ -49,7 +49,6 @@
             android:layout_marginRight="16dp"
             android:fontFamily="sans-serif"
             android:singleLine="true"
-            android:text="@string/nothing_playing"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@android:color/white"
             android:textSize="14sp" />

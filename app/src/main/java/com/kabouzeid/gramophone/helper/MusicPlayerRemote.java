@@ -101,10 +101,6 @@ public class MusicPlayerRemote {
         }
     }
 
-    public static boolean isServiceConnected() {
-        return musicService != null;
-    }
-
     public static void playSongAt(final int position) {
         if (musicService != null) {
             musicService.playSongAt(position);
@@ -231,11 +227,7 @@ public class MusicPlayerRemote {
         return false;
     }
 
-    public static boolean shuffleAllSongs(@NonNull final Context context, boolean startPlaying) {
-        return openAndShuffleQueue(context, SongLoader.getAllSongs(context), startPlaying);
-    }
-
-    public static boolean openAndShuffleQueue(final Context context, @NonNull final ArrayList<Song> songs, boolean startPlaying) {
+    public static boolean openAndShuffleQueue(@NonNull final ArrayList<Song> songs, boolean startPlaying) {
         if (musicService != null) {
             if (!songs.isEmpty()) {
                 MusicPlayerRemote.openQueue(songs, new Random().nextInt(songs.size()), startPlaying);

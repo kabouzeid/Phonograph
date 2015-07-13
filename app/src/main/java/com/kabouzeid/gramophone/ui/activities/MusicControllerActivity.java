@@ -43,10 +43,11 @@ import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
 import com.kabouzeid.gramophone.dialogs.SongShareDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.imageloader.BlurProcessor;
+import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.misc.SmallTransitionListener;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
-import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
+import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
@@ -68,7 +69,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import hugo.weaving.DebugLog;
 
-public class MusicControllerActivity extends AbsFabActivity {
+public class MusicControllerActivity extends AbsSlidingMusicPanelActivity {
 
     public static final String TAG = MusicControllerActivity.class.getSimpleName();
     private static final int FAB_CIRCULAR_REVEAL_ANIMATION_TIME = 1000;
@@ -193,11 +194,11 @@ public class MusicControllerActivity extends AbsFabActivity {
                 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onTransitionEnd(Transition transition) {
-                    int cx = (getFab().getLeft() + getFab().getRight()) / 2;
-                    int cy = (getFab().getTop() + getFab().getBottom()) / 2;
+                    int cx = (getPlayPauseFab().getLeft() + getPlayPauseFab().getRight()) / 2;
+                    int cy = (getPlayPauseFab().getTop() + getPlayPauseFab().getBottom()) / 2;
                     int finalRadius = Math.max(mediaControllerContainer.getWidth(), mediaControllerContainer.getHeight());
 
-                    Animator animator = ViewAnimationUtils.createCircularReveal(mediaControllerContainer, cx, cy, getFab().getWidth() / 2, finalRadius);
+                    Animator animator = ViewAnimationUtils.createCircularReveal(mediaControllerContainer, cx, cy, getPlayPauseFab().getWidth() / 2, finalRadius);
                     animator.setInterpolator(new DecelerateInterpolator());
                     animator.setDuration(FAB_CIRCULAR_REVEAL_ANIMATION_TIME);
                     animator.start();
@@ -225,11 +226,13 @@ public class MusicControllerActivity extends AbsFabActivity {
     }
 
     private void startUpdatingProgressViews() {
+        startHandler();
         progressViewsUpdateHandler.sendEmptyMessage(CMD_UPDATE_PROGRESS_VIEWS);
     }
 
     private void stopUpdatingProgressViews() {
         progressViewsUpdateHandler.removeMessages(CMD_UPDATE_PROGRESS_VIEWS);
+        stopHandler();
     }
 
     private void initAppearanceVarsFromSharedPrefs() {
@@ -244,7 +247,7 @@ public class MusicControllerActivity extends AbsFabActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        getFab().setOnLongClickListener(null);
+        getPlayPauseFab().setOnLongClickListener(null);
     }
 
 
@@ -384,9 +387,6 @@ public class MusicControllerActivity extends AbsFabActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        updateControllerState();
-        updateCurrentSong();
-        startHandler();
         startUpdatingProgressViews();
     }
 
@@ -394,7 +394,6 @@ public class MusicControllerActivity extends AbsFabActivity {
     protected void onPause() {
         super.onPause();
         stopUpdatingProgressViews();
-        stopHandler();
     }
 
     private void updateCurrentSong() {
@@ -536,12 +535,6 @@ public class MusicControllerActivity extends AbsFabActivity {
         });
     }
 
-    protected void updateControllerState() {
-        updateFabState();
-        updateRepeatState();
-        updateShuffleState();
-    }
-
     private void animateSetFavorite() {
         favoriteIcon.clearAnimation();
 
@@ -641,7 +634,7 @@ public class MusicControllerActivity extends AbsFabActivity {
                 NavigationUtil.openEqualizer(this);
                 return true;
             case R.id.action_shuffle_all:
-                MusicPlayerRemote.shuffleAllSongs(this, true);
+                MusicPlayerRemote.openAndShuffleQueue(SongLoader.getAllSongs(this), true);
                 return true;
             case R.id.action_add_to_playlist:
                 AddToPlaylistDialog.create(song).show(getSupportFragmentManager(), "ADD_PLAYLIST");
@@ -662,10 +655,10 @@ public class MusicControllerActivity extends AbsFabActivity {
                 SongDetailDialog.create(songFile).show(getSupportFragmentManager(), "SONG_DETAIL");
                 return true;
             case R.id.action_go_to_album:
-                NavigationUtil.goToAlbum(this, song.albumId, getSharedViewsWithFab(null));
+                NavigationUtil.goToAlbum(this, song.albumId, getSharedViewsWithPlayPauseFab(null));
                 return true;
             case R.id.action_go_to_artist:
-                NavigationUtil.goToArtist(this, song.artistId, getSharedViewsWithFab(null));
+                NavigationUtil.goToArtist(this, song.artistId, getSharedViewsWithPlayPauseFab(null));
                 return true;
         }
 

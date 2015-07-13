@@ -27,7 +27,7 @@
     <string name="artists">Artisti</string>
     <string name="songs">Brani</string>
     <string name="playlists">Playlist</string>
-    <string name="nothing_playing">Niente in riproduzione</string>
+    <string name="playing_queue_empty">Niente in riproduzione</string>
     <string name="unplayable_file">Spiacenti - Si è verificato un errore nel tentativo di riprodurre questa canzone.</string>
     <string name="biography_unavailable">Spiacenti - Impossibile trovare una biografia corrispondente a questo artista.</string>
     <string name="biography">Biografia</string>

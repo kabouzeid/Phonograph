@@ -48,7 +48,7 @@ import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.misc.SmallTransitionListener;
 import com.kabouzeid.gramophone.model.Artist;
-import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
+import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -75,7 +75,7 @@ import retrofit.client.Response;
  * <p/>
  * Should be kinda stable ONLY AS IT IS!!!
  */
-public class ArtistDetailActivity extends AbsFabActivity implements PaletteColorHolder, CabHolder {
+public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implements PaletteColorHolder, CabHolder {
 
     public static final String TAG = ArtistDetailActivity.class.getSimpleName();
 
@@ -449,7 +449,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                 NavigationUtil.openEqualizer(this);
                 return true;
             case R.id.action_shuffle_artist:
-                MusicPlayerRemote.openAndShuffleQueue(this, songAdapter.getDataSet(), true);
+                MusicPlayerRemote.openAndShuffleQueue(songAdapter.getDataSet(), true);
                 return true;
             case android.R.id.home:
                 super.onBackPressed();
@@ -469,7 +469,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                 setUpArtistImageAndApplyPalette(true);
                 return true;
             case R.id.action_now_playing:
-                NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithFab(null));
+                NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithPlayPauseFab(null));
                 return true;
         }
         return super.onOptionsItemSelected(item);

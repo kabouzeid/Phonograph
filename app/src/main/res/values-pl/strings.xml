@@ -27,7 +27,7 @@
     <string name="artists">Wykonawcy</string>
     <string name="songs">Utwory</string>
     <string name="playlists">Listy odtwarzania</string>
-    <string name="nothing_playing">Nic nie gra</string>
+    <string name="playing_queue_empty">Nic nie gra</string>
     <string name="unplayable_file">Wystąpił błąd przy próbie odtworzenia tego utworu</string>
     <string name="biography_unavailable">Nie znaleziono pasującej biografii dla tego wykonawcy</string>
     <string name="biography">Biografia</string>
@@ -162,6 +162,7 @@
     <string name="pref_summary_larger_title_box_now_playing">Zaznacz, a pole nazwy utworu i wykonawcy pod okładką albumu będzie większe</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Zaznacz, a w odróżnieniu od domyślnego suwaka, pasek postępu nie zasłoni okładki albumu</string>
     <string name="pref_summary_playback_controller_card_now_playing">Zaznacz, a pod przyciskami sterującymi odtwarzaczem (odtwarzanie/pauza, itp.) zostanie wyświetlona karta</string>
+    <string name="pref_summary_ignore_media_store_artwork">Pomijaj korzystanie z Media Store, polepszy to jakość okładek, ale może spowodować ich wolniejsze ładowanie. Zaznacz tylko wtedy, gdy masz kłopoty z niską jakością grafik</string>
     <string name="could_not_download_album_cover">"Nie udało się pobrać okładki pasującej do albumu"</string>
     <string name="search_hint">Szukaj w bibliotece...</string>
     <string name="rescanning_media">Ponowny skan nośnika...</string>
@@ -175,7 +176,7 @@
     <string name="web_search">Wyszukaj w sieci</string>
     <string name="action_sleep_timer">Wyłącznik czasowy</string>
     <string name="action_set">Ustaw</string>
-    <string name="cancel_current_timer">Anuluj aktualny wyłącznik czasowy</string>
+    <string name="cancel_current_timer">Anuluj wyłącznik</string>
     <string name="sleep_timer_canceled">Wyłącznik czasowy został anulowany</string>
     <string name="sleep_timer_set">Wyłącznik czasowy ustawiony na %d minut od teraz</string>
 </resources>

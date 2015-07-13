@@ -27,7 +27,7 @@
     <string name="artists">歌手</string>
     <string name="songs">歌曲</string>
     <string name="playlists">音樂清單</string>
-    <string name="nothing_playing">沒有正在播放的歌曲</string>
+    <string name="playing_queue_empty">沒有正在播放的歌曲</string>
     <string name="unplayable_file">嘗試播放歌曲時發生錯誤</string>
     <string name="biography_unavailable">無法找到與這位歌手相符的個人簡介</string>
     <string name="biography">個人簡介</string>

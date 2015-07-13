@@ -26,7 +26,7 @@
     <string name="artists">Исполнители</string>
     <string name="songs">Песни</string>
     <string name="playlists">Списки воспроизведения</string>
-    <string name="nothing_playing">Ничего нет для воспроизведения</string>
+    <string name="playing_queue_empty">Ничего нет для воспроизведения</string>
     <string name="unplayable_file">Произошла ошибка при попытке проиграть эту песню</string>
     <string name="biography_unavailable">Извините, биография для этого исполнителя не найдена.</string>
     <string name="biography">Биография</string>

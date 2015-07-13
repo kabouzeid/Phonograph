@@ -11,7 +11,7 @@ import com.kabouzeid.gramophone.loader.ArtistLoader;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class ArtistViewFragment extends AbsMainActivityRecyclerViewFragment {
+public class ArtistViewFragment extends AbsMainActivityRecyclerViewFragment<ArtistAdapter> {
 
     public static final String TAG = ArtistViewFragment.class.getSimpleName();
 
@@ -23,7 +23,7 @@ public class ArtistViewFragment extends AbsMainActivityRecyclerViewFragment {
 
     @NonNull
     @Override
-    protected RecyclerView.Adapter createAdapter() {
+    protected ArtistAdapter createAdapter() {
         return new ArtistAdapter(
                 getMainActivity(),
                 ArtistLoader.getAllArtists(getActivity()),
@@ -34,5 +34,10 @@ public class ArtistViewFragment extends AbsMainActivityRecyclerViewFragment {
     @Override
     protected int getEmptyMessage() {
         return R.string.no_artists;
+    }
+
+    @Override
+    public void onMediaStoreChanged() {
+        getAdapter().swapDataSet(ArtistLoader.getAllArtists(getActivity()));
     }
 }

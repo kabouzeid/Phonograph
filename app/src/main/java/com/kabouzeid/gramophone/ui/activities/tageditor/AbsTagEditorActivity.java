@@ -70,7 +70,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     private int paletteColorPrimary;
     private boolean isInNoImageMode;
 
-    @InjectView(R.id.fab)
+    @InjectView(R.id.play_pause_fab)
     FloatingActionButton fab;
     @InjectView(R.id.observableScrollView)
     ObservableScrollView observableScrollView;

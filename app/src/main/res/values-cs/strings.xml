@@ -25,7 +25,7 @@
     <string name="artists">Interpreti</string>
     <string name="songs">Skladby</string>
     <string name="playlists">Playlisty</string>
-    <string name="nothing_playing">Nic nehraje</string>
+    <string name="playing_queue_empty">Nic nehraje</string>
     <string name="unplayable_file">Omlouváme se, při pokusu přehrát tuto skladbu došlo k chybě</string>
     <string name="biography_unavailable">Omlouváme se, k tomuto interpretovi nemůžeme sehnat doplňující informace.</string>
     <string name="biography">Biografie</string>

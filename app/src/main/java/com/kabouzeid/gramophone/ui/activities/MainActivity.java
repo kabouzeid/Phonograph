@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.ui.activities;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
@@ -7,6 +8,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -46,8 +48,9 @@ import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
+import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
+import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AlbumViewFragment;
 import com.kabouzeid.gramophone.util.MusicUtil;
@@ -66,7 +69,7 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MainActivity extends AbsFabActivity
+public class MainActivity extends AbsSlidingMusicPanelActivity
         implements KabViewsDisableAble, CabHolder {
 
     public static final String TAG = MainActivity.class.getSimpleName();
@@ -86,7 +89,6 @@ public class MainActivity extends AbsFabActivity
 
     private ActionBarDrawerToggle drawerToggle;
     private PagerAdapter pagerAdapter;
-    private int currentPage = -1;
     private MaterialCab cab;
     @Nullable
     private View navigationDrawerHeader;
@@ -117,7 +119,6 @@ public class MainActivity extends AbsFabActivity
 
         int startPosition = PreferenceUtil.getInstance(this).getDefaultStartPage();
         startPosition = startPosition == -1 ? PreferenceUtil.getInstance(this).getLastStartPage() : startPosition;
-        currentPage = startPosition;
 
         navigationView.getMenu().getItem(startPosition).setChecked(true);
 
@@ -133,7 +134,6 @@ public class MainActivity extends AbsFabActivity
             @Override
             public void onPageSelected(int position) {
                 navigationView.getMenu().getItem(position).setChecked(true);
-                currentPage = position;
             }
 
             @Override
@@ -271,7 +271,7 @@ public class MainActivity extends AbsFabActivity
                     @Override
                     public void onClick(View v) {
                         //noinspection ConstantConditions
-                        NavigationUtil.openCurrentPlayingIfPossible(MainActivity.this, getSharedViewsWithFab(new Pair[]{
+                        NavigationUtil.openCurrentPlayingIfPossible(MainActivity.this, getSharedViewsWithPlayPauseFab(new Pair[]{
                                 Pair.create(navigationDrawerHeader.findViewById(R.id.image),
                                         getResources().getString(R.string.transition_album_art)
                                 )
@@ -303,9 +303,8 @@ public class MainActivity extends AbsFabActivity
         try {
             super.enableViews();
             toolbar.setEnabled(true);
-            ((AbsMainActivityFragment) pagerAdapter.getItem(pager.getCurrentItem())).enableViews();
-        } catch (NullPointerException e) {
-            //Log.e(TAG, "wasn't able to enable the views", e);
+            ((AbsMainActivityFragment) pagerAdapter.getFragment(pager.getCurrentItem())).enableViews();
+        } catch (NullPointerException ignored) {
         }
     }
 
@@ -313,9 +312,8 @@ public class MainActivity extends AbsFabActivity
     public void disableViews() {
         try {
             super.disableViews();
-            ((AbsMainActivityFragment) pagerAdapter.getItem(pager.getCurrentItem())).disableViews();
-        } catch (NullPointerException e) {
-            //Log.e(TAG, "wasn't able to disable the views", e);
+            ((AbsMainActivityFragment) pagerAdapter.getFragment(pager.getCurrentItem())).disableViews();
+        } catch (NullPointerException ignored) {
         }
     }
 
@@ -326,9 +324,8 @@ public class MainActivity extends AbsFabActivity
     }
 
     @Override
-    public void onServiceConnected() {
-        super.onServiceConnected();
-        updateNavigationDrawerHeader();
+    public void onServiceConnected(ComponentName name, IBinder service) {
+        super.onServiceConnected(name, service);
         handlePlaybackIntent(getIntent());
     }
 
@@ -371,7 +368,7 @@ public class MainActivity extends AbsFabActivity
                 NavigationUtil.openEqualizer(this);
                 return true;
             case R.id.action_shuffle_all:
-                MusicPlayerRemote.shuffleAllSongs(this, true);
+                MusicPlayerRemote.openAndShuffleQueue(SongLoader.getAllSongs(this), true);
                 return true;
             case R.id.action_new_playlist:
                 CreatePlaylistDialog.create().show(getSupportFragmentManager(), "CREATE_PLAYLIST");
@@ -380,7 +377,7 @@ public class MainActivity extends AbsFabActivity
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
                 return true;
             case R.id.action_now_playing:
-                NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithFab(null));
+                NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithPlayPauseFab(null));
                 return true;
             case R.id.action_playing_queue:
                 NavigationUtil.openPlayingQueueDialog(this);
@@ -405,7 +402,7 @@ public class MainActivity extends AbsFabActivity
     @Override
     protected void onPause() {
         super.onPause();
-        PreferenceUtil.getInstance(MainActivity.this).setLastStartPage(currentPage);
+        PreferenceUtil.getInstance(MainActivity.this).setLastStartPage(pager.getCurrentItem());
     }
 
     private void handlePlaybackIntent(@Nullable Intent intent) {

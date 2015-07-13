@@ -13,7 +13,7 @@ import com.kabouzeid.gramophone.util.Util;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class AlbumViewFragment extends AbsMainActivityRecyclerViewFragment {
+public class AlbumViewFragment extends AbsMainActivityRecyclerViewFragment<AlbumAdapter> {
     public static final String TAG = AlbumViewFragment.class.getSimpleName();
 
     private GridLayoutManager layoutManager;
@@ -27,8 +27,12 @@ public class AlbumViewFragment extends AbsMainActivityRecyclerViewFragment {
 
     @NonNull
     @Override
-    protected RecyclerView.Adapter createAdapter() {
-        return new AlbumAdapter(getMainActivity(), AlbumLoader.getAllAlbums(getActivity()), R.layout.item_grid, getMainActivity());
+    protected AlbumAdapter createAdapter() {
+        return new AlbumAdapter(
+                getMainActivity(),
+                AlbumLoader.getAllAlbums(getActivity()),
+                R.layout.item_grid,
+                getMainActivity());
     }
 
     @Override
@@ -39,5 +43,10 @@ public class AlbumViewFragment extends AbsMainActivityRecyclerViewFragment {
     public void setColumns(int columns) {
         layoutManager.setSpanCount(columns);
         layoutManager.requestLayout();
+    }
+
+    @Override
+    public void onMediaStoreChanged() {
+        getAdapter().swapDataSet(AlbumLoader.getAllAlbums(getActivity()));
     }
 }

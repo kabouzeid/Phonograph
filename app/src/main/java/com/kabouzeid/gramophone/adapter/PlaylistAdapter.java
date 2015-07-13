@@ -25,7 +25,7 @@ import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
-import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
+import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -58,6 +58,15 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         favoritePlaylistId = MusicUtil.getFavoritesPlaylist(activity).id;
 
         setHasStableIds(true);
+    }
+
+    public ArrayList<Playlist> getDataSet() {
+        return dataSet;
+    }
+
+    public void swapDataSet(ArrayList<Playlist> dataSet) {
+        this.dataSet = dataSet;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -208,8 +217,8 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
                 toggleChecked(getAdapterPosition());
             } else {
                 Pair[] sharedViews = null;
-                if (activity instanceof AbsFabActivity)
-                    sharedViews = ((AbsFabActivity) activity).getSharedViewsWithFab(null);
+                if (activity instanceof AbsSlidingMusicPanelActivity)
+                    sharedViews = ((AbsSlidingMusicPanelActivity) activity).getSharedViewsWithPlayPauseFab(null);
                 Playlist playlist = dataSet.get(getAdapterPosition());
                 NavigationUtil.goToPlaylist(activity, playlist, sharedViews);
             }

@@ -23,7 +23,7 @@ import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.Image;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
+import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -52,6 +52,15 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
         this.itemLayoutRes = itemLayoutRes;
         lastFMRestClient = new LastFMRestClient(activity);
         setHasStableIds(true);
+    }
+
+    public ArrayList<Artist> getDataSet() {
+        return dataSet;
+    }
+
+    public void swapDataSet(ArrayList<Artist> dataSet) {
+        this.dataSet = dataSet;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -170,8 +179,8 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
                         Pair.create(image,
                                 activity.getResources().getString(R.string.transition_artist_image)
                         )};
-                if (activity instanceof AbsFabActivity)
-                    artistPairs = ((AbsFabActivity) activity).getSharedViewsWithFab(artistPairs);
+                if (activity instanceof AbsSlidingMusicPanelActivity)
+                    artistPairs = ((AbsSlidingMusicPanelActivity) activity).getSharedViewsWithPlayPauseFab(artistPairs);
                 NavigationUtil.goToArtist(activity, dataSet.get(getAdapterPosition()).id, artistPairs);
             }
         }
