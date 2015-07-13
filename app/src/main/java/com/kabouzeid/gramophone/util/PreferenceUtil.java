@@ -25,8 +25,6 @@ public final class PreferenceUtil {
     public static final String ALBUM_SORT_ORDER = "album_sort_order";
     public static final String ALBUM_SONG_SORT_ORDER = "album_song_sort_order";
     public static final String SONG_SORT_ORDER = "song_sort_order";
-    public static final String AUTO_DOWNLOAD_ARTIST_IMAGES_ONLY_ON_WIFI = "auto_download_artist_images_only_on_wifi";
-    public static final String COLORED_ALBUM_FOOTERS = "colored_album_footers";
     public static final String COLORED_NAVIGATION_BAR = "colored_navigation_bar";
     public static final String COLORED_NAVIGATION_BAR_ALBUM = "colored_navigation_bar_album";
     public static final String COLORED_NAVIGATION_BAR_ARTIST = "colored_navigation_bar_artist";
@@ -52,12 +50,9 @@ public final class PreferenceUtil {
 
     private static PreferenceUtil sInstance;
 
-    @NonNull
-    private final Context mContext;
     private final SharedPreferences mPreferences;
 
     public PreferenceUtil(@NonNull final Context context) {
-        mContext = context;
         mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
@@ -87,12 +82,12 @@ public final class PreferenceUtil {
         return R.style.Theme_MaterialMusic_Light;
     }
 
-    public int getThemeColorPrimary() {
-        return mPreferences.getInt("primary_color", mContext.getResources().getColor(R.color.indigo_500));
+    public int getThemeColorPrimary(Context context) {
+        return mPreferences.getInt("primary_color", context.getResources().getColor(R.color.indigo_500));
     }
 
-    public int getThemeColorPrimaryDarker() {
-        return ColorUtil.shiftColorDown(getThemeColorPrimary());
+    public int getThemeColorPrimaryDarker(Context context) {
+        return ColorUtil.shiftColorDown(getThemeColorPrimary(context));
     }
 
     @SuppressLint("CommitPrefEdits")
@@ -100,8 +95,8 @@ public final class PreferenceUtil {
         mPreferences.edit().putInt("primary_color", color).commit();
     }
 
-    public int getThemeColorAccent() {
-        return mPreferences.getInt("accent_color", mContext.getResources().getColor(R.color.pink_A200));
+    public int getThemeColorAccent(Context context) {
+        return mPreferences.getInt("accent_color", context.getResources().getColor(R.color.pink_A200));
     }
 
     @SuppressLint("CommitPrefEdits")
@@ -121,14 +116,6 @@ public final class PreferenceUtil {
 
     public final int getLastStartPage() {
         return mPreferences.getInt(LAST_START_PAGE, DEFAULT_PAGE);
-    }
-
-    public final boolean autoDownloadArtistImagesOnlyOnWifi() {
-        return mPreferences.getBoolean(AUTO_DOWNLOAD_ARTIST_IMAGES_ONLY_ON_WIFI, false);
-    }
-
-    public final boolean coloredAlbumFooters() {
-        return mPreferences.getBoolean(COLORED_ALBUM_FOOTERS, true);
     }
 
     public final boolean coloredNotification() {

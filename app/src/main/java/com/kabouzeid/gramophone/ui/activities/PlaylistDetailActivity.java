@@ -156,7 +156,7 @@ public class PlaylistDetailActivity extends AbsFabActivity implements CabHolder 
         cab = new MaterialCab(this, R.id.cab_stub)
                 .setMenu(menu)
                 .setCloseDrawableRes(R.drawable.ic_close_white_24dp)
-                .setBackgroundColor(PreferenceUtil.getInstance(this).getThemeColorPrimary())
+                .setBackgroundColor(getThemeColorPrimary())
                 .start(callback);
         return cab;
     }

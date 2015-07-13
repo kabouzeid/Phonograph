@@ -200,7 +200,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
 
     private void resetColors() {
-        paletteColorPrimary = PreferenceUtil.getInstance(this).getThemeColorPrimary();
+        paletteColorPrimary = getThemeColorPrimary();
         observableScrollViewCallbacks.onScrollChanged(observableScrollView.getCurrentScrollY(), false, false);
         setStatusBarColor(paletteColorPrimary);
         if (PreferenceUtil.getInstance(this).coloredNavigationBarTagEditor())
@@ -252,7 +252,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         observableScrollViewCallbacks.onScrollChanged(observableScrollView.getCurrentScrollY(), false, false);
 
         paletteColorPrimary = getIntent().getIntExtra(EXTRA_PALETTE,
-                PreferenceUtil.getInstance(this).getThemeColorPrimary());
+                getThemeColorPrimary());
         toolbar.setBackgroundColor(paletteColorPrimary);
         header.setBackgroundColor(paletteColorPrimary);
 
