@@ -75,12 +75,6 @@ public class SearchActivity extends AbsBaseActivity {
         setStatusBarThemeColor();
     }
 
-    @NonNull
-    @Override
-    public String getTag() {
-        return TAG;
-    }
-
     @Override
     public void enableViews() {
         super.enableViews();

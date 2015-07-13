@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,7 +24,6 @@ import android.widget.TextView;
 import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.song.AlbumSongAdapter;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
@@ -38,8 +36,6 @@ import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.misc.SmallTransitionListener;
 import com.kabouzeid.gramophone.model.Album;
-import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AlbumTagEditorActivity;
@@ -53,9 +49,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.squareup.otto.Subscribe;
-
-import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -88,7 +81,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     View songsBackgroundView;
 
     private AlbumSongAdapter adapter;
-    private ArrayList<Song> songs;
 
     private MaterialCab cab;
     private int headerOffset;
@@ -104,8 +96,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_detail);
         ButterKnife.inject(this);
-
-        App.bus.register(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             postponeEnterTransition();
@@ -181,12 +171,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         if (album.id == -1) {
             finish();
         }
-    }
-
-    @NonNull
-    @Override
-    public String getTag() {
-        return TAG;
     }
 
     private void setUpObservableListViewParams() {
@@ -291,15 +275,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
         return toolbarColor;
     }
 
-
-    private void setNavigationBarColored(boolean colored) {
-        if (colored) {
-            setNavigationBarColor(toolbarColor);
-        } else {
-            setNavigationBarColor(Color.BLACK);
-        }
-    }
-
     private void setUpListView() {
         recyclerView.setScrollViewCallbacks(observableScrollViewCallbacks);
         recyclerView.setPadding(0, albumArtViewHeight + titleViewHeight, 0, bottomOffset);
@@ -323,8 +298,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
     }
 
     private void setUpSongsAdapter() {
-        songs = AlbumSongLoader.getAlbumSongList(this, album.id);
-        adapter = new AlbumSongAdapter(this, songs, R.layout.item_list, this);
+        adapter = new AlbumSongAdapter(this, AlbumSongLoader.getAlbumSongList(this, album.id), R.layout.item_list, this);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(adapter);
     }
@@ -360,7 +334,7 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
                 NavigationUtil.openEqualizer(this);
                 return true;
             case R.id.action_shuffle_album:
-                MusicPlayerRemote.openAndShuffleQueue(this, songs, true);
+                MusicPlayerRemote.openAndShuffleQueue(this, adapter.getDataSet(), true);
                 return true;
             case android.R.id.home:
                 super.onBackPressed();
@@ -391,21 +365,6 @@ public class AlbumDetailActivity extends AbsFabActivity implements PaletteColorH
             setUpAlbumArtAndApplyPalette();
             setResult(RESULT_OK);
         }
-    }
-
-    @Subscribe
-    public void onUIPreferenceChanged(@NonNull UIPreferenceChangedEvent event) {
-        switch (event.getAction()) {
-            case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_ALBUM_CHANGED:
-                setNavigationBarColored((boolean) event.getValue());
-                break;
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        App.bus.unregister(this);
     }
 
     @Override

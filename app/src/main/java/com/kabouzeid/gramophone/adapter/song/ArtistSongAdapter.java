@@ -52,10 +52,8 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
         dataSet = songs;
     }
 
-    public void updateDataSet(ArrayList<Song> objects) {
-        dataSet = objects;
-        clear();
-        addAll(dataSet);
+    public ArrayList<Song> getDataSet() {
+        return dataSet;
     }
 
     @Nullable
@@ -167,7 +165,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
         }
     }
 
-    private void uncheckAll() {
+    private void unCheckAll() {
         checked.clear();
         notifyDataSetChanged();
     }
@@ -189,13 +187,13 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
     public boolean onCabItemClicked(@NonNull MenuItem menuItem) {
         onMultipleItemAction(menuItem, new ArrayList<>(checked));
         cab.finish();
-        uncheckAll();
+        unCheckAll();
         return true;
     }
 
     @Override
     public boolean onCabFinished(MaterialCab materialCab) {
-        uncheckAll();
+        unCheckAll();
         return true;
     }
 }

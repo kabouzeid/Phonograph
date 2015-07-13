@@ -55,7 +55,7 @@ public class RecentlyPlayedStore extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    @Nullable
+    @NonNull
     public static synchronized RecentlyPlayedStore getInstance(@NonNull final Context context) {
         if (sInstance == null) {
             sInstance = new RecentlyPlayedStore(context.getApplicationContext());

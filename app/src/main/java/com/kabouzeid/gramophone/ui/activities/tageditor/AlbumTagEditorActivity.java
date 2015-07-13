@@ -68,12 +68,6 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
         setUpViews();
     }
 
-    @NonNull
-    @Override
-    public String getTag() {
-        return TAG;
-    }
-
     private void setUpViews() {
         fillViewsWithFileTags();
         albumTitle.addTextChangedListener(this);

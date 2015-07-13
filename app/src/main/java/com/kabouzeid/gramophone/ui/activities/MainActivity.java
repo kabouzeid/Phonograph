@@ -47,7 +47,6 @@ import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AlbumViewFragment;
@@ -63,7 +62,6 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Set;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -263,13 +261,6 @@ public class MainActivity extends AbsFabActivity
         setUpNavigationView();
     }
 
-    @NonNull
-    @Override
-    public String getTag() {
-        return TAG;
-    }
-
-
     private void updateNavigationDrawerHeader() {
         Song song = MusicPlayerRemote.getCurrentSong();
         if (song.id != -1) {
@@ -402,26 +393,6 @@ public class MainActivity extends AbsFabActivity
     public void onConfigurationChanged(Configuration newConfig) {
         drawerToggle.onConfigurationChanged(newConfig);
         super.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public void onUIPreferenceChangedEvent(@NonNull UIPreferenceChangedEvent event) {
-        super.onUIPreferenceChangedEvent(event);
-        switch (event.getAction()) {
-            case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_OTHER_SCREENS_CHANGED:
-                if ((boolean) event.getValue()) setNavigationBarThemeColor();
-                else resetNavigationBarColor();
-                break;
-            case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_CHANGED:
-                try {
-                    if (((Set) event.getValue()).contains(PreferenceUtil.COLORED_NAVIGATION_BAR_OTHER_SCREENS))
-                        setNavigationBarThemeColor();
-                    else resetNavigationBarColor();
-                } catch (NullPointerException ignored) {
-                    resetNavigationBarColor();
-                }
-                break;
-        }
     }
 
     @Override

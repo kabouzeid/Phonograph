@@ -46,12 +46,6 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
         setUpViews();
     }
 
-    @NonNull
-    @Override
-    public String getTag() {
-        return TAG;
-    }
-
     private void setUpViews() {
         fillViewsWithFileTags();
         songTitle.addTextChangedListener(this);

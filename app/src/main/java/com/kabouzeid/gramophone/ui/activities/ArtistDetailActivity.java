@@ -5,7 +5,6 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,7 +30,6 @@ import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.album.HorizontalAlbumAdapter;
 import com.kabouzeid.gramophone.adapter.song.ArtistSongAdapter;
@@ -49,10 +47,7 @@ import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.misc.SmallTransitionListener;
-import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
-import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.model.UIPreferenceChangedEvent;
 import com.kabouzeid.gramophone.ui.activities.base.AbsFabActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
@@ -65,9 +60,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.squareup.otto.Subscribe;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -117,8 +110,6 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
     private Spanned biography;
     private HorizontalAlbumAdapter albumAdapter;
     private ArtistSongAdapter songAdapter;
-    private ArrayList<Song> songs;
-    private ArrayList<Album> albums;
 
     private LastFMRestClient lastFMRestClient;
 
@@ -130,8 +121,6 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist_detail);
         ButterKnife.inject(this);
-
-        App.bus.register(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             postponeEnterTransition();
@@ -226,12 +215,6 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         albumRecyclerView = ButterKnife.findById(songListHeader, R.id.recycler_view);
     }
 
-    @NonNull
-    @Override
-    public String getTag() {
-        return TAG;
-    }
-
     private void setUpViews() {
         artistName.setText(artist.name);
 
@@ -246,22 +229,12 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
         loadBiography();
     }
 
-
-    private void setNavigationBarColored(boolean colored) {
-        if (colored) {
-            setNavigationBarColor(toolbarColor);
-        } else {
-            setNavigationBarColor(Color.BLACK);
-        }
-    }
-
     private void setUpSongListView() {
         songListView.setScrollViewCallbacks(observableScrollViewCallbacks);
         songListView.setPadding(0, artistImageViewHeight + titleViewHeight, 0, bottomOffset);
         songListView.addHeaderView(songListHeader);
 
-        songs = ArtistSongLoader.getArtistSongList(this, artist.id);
-        songAdapter = new ArtistSongAdapter(this, songs, this);
+        songAdapter = new ArtistSongAdapter(this, ArtistSongLoader.getArtistSongList(this, artist.id), this);
         songListView.setAdapter(songAdapter);
 
         final View contentView = getWindow().getDecorView().findViewById(android.R.id.content);
@@ -276,8 +249,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
 
     private void setUpAlbumRecyclerView() {
         albumRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        albums = ArtistAlbumLoader.getArtistAlbumList(this, artist.id);
-        albumAdapter = new HorizontalAlbumAdapter(this, albums, this);
+        albumAdapter = new HorizontalAlbumAdapter(this, ArtistAlbumLoader.getArtistAlbumList(this, artist.id), this);
         albumRecyclerView.setAdapter(albumAdapter);
     }
 
@@ -477,7 +449,7 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
                 NavigationUtil.openEqualizer(this);
                 return true;
             case R.id.action_shuffle_artist:
-                MusicPlayerRemote.openAndShuffleQueue(this, songs, true);
+                MusicPlayerRemote.openAndShuffleQueue(this, songAdapter.getDataSet(), true);
                 return true;
             case android.R.id.home:
                 super.onBackPressed();
@@ -548,21 +520,6 @@ public class ArtistDetailActivity extends AbsFabActivity implements PaletteColor
 
             }
         });
-    }
-
-    @Subscribe
-    public void onUIPreferenceChanged(@NonNull UIPreferenceChangedEvent event) {
-        switch (event.getAction()) {
-            case UIPreferenceChangedEvent.COLORED_NAVIGATION_BAR_ARTIST_CHANGED:
-                setNavigationBarColored((boolean) event.getValue());
-                break;
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        App.bus.unregister(this);
     }
 
     @Override
