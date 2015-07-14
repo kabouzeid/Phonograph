@@ -7,6 +7,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.internal.view.menu.ListMenuItemView;
 import android.support.v7.internal.view.menu.MenuPopupHelper;
+import android.support.v7.widget.ActionMenuPresenter;
+import android.support.v7.widget.ActionMenuView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.PathInterpolator;
@@ -78,7 +83,41 @@ public class ViewUtil {
         });
     }
 
-    public static void setCheckBoxTintForMenu(@Nullable MenuPopupHelper menuPopupHelper) {
+    /**
+     * Should be called in {@link android.app.Activity#onPrepareOptionsMenu(Menu)} and {@link android.app.Activity#onOptionsItemSelected(MenuItem)}
+     *
+     * @param toolbar the toolbar to apply the tint on
+     */
+    public static void invalidateToolbarPopupMenuTint(@NonNull final Toolbar toolbar) {
+        toolbar.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Field f1 = Toolbar.class.getDeclaredField("mMenuView");
+                    f1.setAccessible(true);
+                    ActionMenuView actionMenuView = (ActionMenuView) f1.get(toolbar);
+
+                    Field f2 = ActionMenuView.class.getDeclaredField("mPresenter");
+                    f2.setAccessible(true);
+                    ActionMenuPresenter presenter = (ActionMenuPresenter) f2.get(actionMenuView);
+
+                    Field f3 = presenter.getClass().getDeclaredField("mOverflowPopup");
+                    f3.setAccessible(true);
+                    MenuPopupHelper overflowMenuPopupHelper = (MenuPopupHelper) f3.get(presenter);
+                    ViewUtil.setTintForMenuPopupHelper(overflowMenuPopupHelper);
+
+                    Field f4 = presenter.getClass().getDeclaredField("mActionButtonPopup");
+                    f4.setAccessible(true);
+                    MenuPopupHelper subMenuPopupHelper = (MenuPopupHelper) f4.get(presenter);
+                    ViewUtil.setTintForMenuPopupHelper(subMenuPopupHelper);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public static void setTintForMenuPopupHelper(@Nullable MenuPopupHelper menuPopupHelper) {
         if (menuPopupHelper != null) {
             final ListView listView = menuPopupHelper.getPopup().getListView();
             listView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
