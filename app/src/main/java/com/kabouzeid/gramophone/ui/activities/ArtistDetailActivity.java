@@ -4,12 +4,10 @@ import android.animation.Animator;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -35,13 +33,11 @@ import com.kabouzeid.gramophone.adapter.album.HorizontalAlbumAdapter;
 import com.kabouzeid.gramophone.adapter.song.ArtistSongAdapter;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.helper.bitmapblur.StackBlurManager;
 import com.kabouzeid.gramophone.imageloader.BlurProcessor;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
 import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.ArtistInfo;
-import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.Image;
 import com.kabouzeid.gramophone.loader.ArtistAlbumLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
@@ -60,19 +56,17 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-
-import java.util.List;
+import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import hugo.weaving.DebugLog;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 /**
  * A lot of hackery is done in this activity. Changing things may will brake the whole activity.
- * <p/>
+ * <p>
  * Should be kinda stable ONLY AS IT IS!!!
  */
 public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implements PaletteColorHolder, CabHolder {
@@ -112,8 +106,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     private ArtistSongAdapter songAdapter;
 
     private LastFMRestClient lastFMRestClient;
-
-    private StackBlurManager defaultArtistImageBlurManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -283,112 +275,54 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     }
 
     private void setUpArtistImageAndApplyPalette(final boolean forceDownload) {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 2;
-        if (defaultArtistImageBlurManager == null) {
-            defaultArtistImageBlurManager = new StackBlurManager(BitmapFactory.decodeResource(getResources(), R.drawable.default_artist_image, options));
-        }
-        if (MusicUtil.isArtistNameUnknown(artist.name)) {
-            artistImage.setImageResource(R.drawable.default_artist_image);
-            resetPaletteAndArtistImageBackground();
-            return;
-        }
-        lastFMRestClient.getApiService().getArtistInfo(artist.name, forceDownload ? "no-cache" : null, new Callback<ArtistInfo>() {
-            @Override
-            public void success(@NonNull ArtistInfo artistInfo, Response response) {
-                if (artistInfo.getArtist() != null) {
-                    List<Image> images = artistInfo.getArtist().getImage();
-                    int lastElementIndex = images.size() - 1;
-                    ImageLoader.getInstance().displayImage(images.get(lastElementIndex).getText(),
-                            artistImage,
-                            new DisplayImageOptions.Builder()
-                                    .cacheInMemory(true)
-                                    .cacheOnDisk(true)
-                                    .showImageOnFail(R.drawable.default_artist_image)
-                                    .showImageForEmptyUri(R.drawable.default_artist_image)
-                                    .resetViewBeforeLoading(true)
-                                    .build(),
-                            new SimpleImageLoadingListener() {
-                                @DebugLog
-                                @Override
-                                public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
-                                    resetPaletteAndArtistImageBackground();
-                                    toastUpdatedArtistImageIfDownloadWasForced();
-                                }
-
-                                @DebugLog
-                                @Override
-                                public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
-                                    if (loadedImage == null) {
-                                        onLoadingFailed(imageUri, view, null);
-                                        return;
+        ImageLoader.getInstance().displayImage(MusicUtil.getArtistImageLoaderString(artist, forceDownload),
+                artistImage,
+                new DisplayImageOptions.Builder()
+                        .cacheInMemory(true)
+                        .cacheOnDisk(true)
+                        .showImageOnFail(R.drawable.default_artist_image)
+                        .resetViewBeforeLoading(true)
+                        .postProcessor(new BitmapProcessor() {
+                            @Override
+                            public Bitmap process(Bitmap bitmap) {
+                                final int color = ColorUtil.generateColor(ArtistDetailActivity.this, bitmap);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        setColors(color);
                                     }
-                                    applyPalette(loadedImage);
-
-                                    ImageLoader.getInstance().displayImage(
-                                            imageUri,
-                                            artistImageBackground,
-                                            new DisplayImageOptions.Builder().postProcessor(new BlurProcessor(10)).build()
-                                    );
-
-                                    toastUpdatedArtistImageIfDownloadWasForced();
-                                }
-
-                                private void toastUpdatedArtistImageIfDownloadWasForced() {
-                                    if (forceDownload) {
-                                        Toast.makeText(ArtistDetailActivity.this, getString(R.string.updated_artist_image), Toast.LENGTH_SHORT).show();
-                                    }
-                                }
+                                });
+                                return bitmap;
                             }
-                    );
-                }
-            }
+                        })
+                        .build(),
+                new SimpleImageLoadingListener() {
+                    @Override
+                    public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
+                        setUpBackground("drawable://" + R.drawable.default_artist_image);
 
-            @Override
-            public void failure(RetrofitError error) {
-                if (forceDownload) {
-                    Toast.makeText(ArtistDetailActivity.this, getString(R.string.could_not_update_artist_image), Toast.LENGTH_SHORT).show();
-                } else {
-                    artistImage.setImageResource(R.drawable.default_artist_image);
-                    resetPaletteAndArtistImageBackground();
-                }
-            }
-        });
-    }
+                        toastUpdatedArtistImageIfDownloadWasForced();
+                    }
 
-    private void resetPaletteAndArtistImageBackground() {
-        applyPalette(null);
-        ImageLoader.getInstance().displayImage(
-                "drawable://" + R.drawable.default_artist_image,
-                artistImageBackground,
-                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor(10)).build()
-        );
-    }
-
-    private void applyPalette(@Nullable Bitmap bitmap) {
-        if (bitmap != null) {
-            Palette.from(bitmap)
-                    .resizeBitmapSize(100)
-                    .generate(new Palette.PaletteAsyncListener() {
-
-                        @Override
-                        public void onGenerated(@NonNull Palette palette) {
-                            final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
-                            if (vibrantSwatch != null) {
-                                toolbarColor = vibrantSwatch.getRgb();
-                                artistName.setBackgroundColor(vibrantSwatch.getRgb());
-                                artistName.setTextColor(ColorUtil.getOpaqueColor(vibrantSwatch.getTitleTextColor()));
-                                if (PreferenceUtil.getInstance(ArtistDetailActivity.this).coloredNavigationBarArtist())
-                                    setNavigationBarColor(vibrantSwatch.getRgb());
-                                notifyTaskColorChange(toolbarColor);
-                            } else {
-                                resetColors();
-                            }
+                    @Override
+                    public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
+                        if (loadedImage == null) {
+                            onLoadingFailed(imageUri, view, null);
+                            return;
                         }
-                    });
-        } else {
-            resetColors();
-        }
+
+                        setUpBackground(imageUri);
+
+                        toastUpdatedArtistImageIfDownloadWasForced();
+                    }
+
+                    private void toastUpdatedArtistImageIfDownloadWasForced() {
+                        if (forceDownload) {
+                            Toast.makeText(ArtistDetailActivity.this, getString(R.string.updated_artist_image), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+        );
     }
 
     @Override
@@ -408,19 +342,23 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         return toolbarColor;
     }
 
+    private void setUpBackground(String imageUri) {
+        ImageLoader.getInstance().displayImage(
+                imageUri,
+                artistImageBackground,
+                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor(10)).build()
+        );
+    }
 
-    private void resetColors() {
-        int titleTextColor = DialogUtils.resolveColor(this, R.attr.title_text_color);
-        int defaultBarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
-
-        toolbarColor = defaultBarColor;
-        artistName.setBackgroundColor(defaultBarColor);
-        artistName.setTextColor(titleTextColor);
+    private void setColors(int vibrantColor) {
+        toolbarColor = vibrantColor;
+        artistName.setBackgroundColor(vibrantColor);
+        artistName.setTextColor(ColorUtil.getTextColorForBackground(vibrantColor));
 
         if (PreferenceUtil.getInstance(this).coloredNavigationBarArtist())
-            setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
+            setNavigationBarColor(vibrantColor);
 
-        notifyTaskColorChange(toolbarColor);
+        notifyTaskColorChange(vibrantColor);
     }
 
     private void getArtistFromIntentExtras() {

@@ -2,7 +2,6 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.album.AlbumAdapter;
@@ -13,16 +12,13 @@ import com.kabouzeid.gramophone.util.Util;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class AlbumViewFragment extends AbsMainActivityRecyclerViewFragment<AlbumAdapter> {
+public class AlbumViewFragment extends AbsMainActivityRecyclerViewFragment<AlbumAdapter, GridLayoutManager> {
     public static final String TAG = AlbumViewFragment.class.getSimpleName();
 
-    private GridLayoutManager layoutManager;
-
     @Override
-    protected RecyclerView.LayoutManager createLayoutManager() {
+    protected GridLayoutManager createLayoutManager() {
         int columns = Util.isInPortraitMode(getActivity()) ? PreferenceUtil.getInstance(getActivity()).getAlbumGridColumns() : PreferenceUtil.getInstance(getActivity()).getAlbumGridColumnsLand();
-        layoutManager = new GridLayoutManager(getActivity(), columns);
-        return layoutManager;
+        return new GridLayoutManager(getActivity(), columns);
     }
 
     @NonNull
@@ -41,8 +37,10 @@ public class AlbumViewFragment extends AbsMainActivityRecyclerViewFragment<Album
     }
 
     public void setColumns(int columns) {
-        layoutManager.setSpanCount(columns);
-        layoutManager.requestLayout();
+        getLayoutManager().setSpanCount(columns);
+        getLayoutManager().requestLayout();
+        // required to animate the column size change
+        getAdapter().notifyDataSetChanged();
     }
 
     @Override

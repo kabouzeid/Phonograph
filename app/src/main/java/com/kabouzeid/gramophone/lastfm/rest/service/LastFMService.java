@@ -20,6 +20,12 @@ public interface LastFMService {
     @GET(BASE_QUERY_PARAMETERS + "&method=album.getinfo")
     void getAlbumInfo(@Query("album") String albumName, @Query("artist") String artistName, Callback<AlbumInfo> callback);
 
+    @GET(BASE_QUERY_PARAMETERS + "&method=album.getinfo")
+    AlbumInfo getAlbumInfo(@Query("album") String albumName, @Query("artist") String artistName);
+
     @GET(BASE_QUERY_PARAMETERS + "&method=artist.getinfo")
     void getArtistInfo(@Query("artist") String artistName, @Nullable @Header("Cache-Control") String cacheControl, Callback<ArtistInfo> callback);
+
+    @GET(BASE_QUERY_PARAMETERS + "&method=artist.getinfo")
+    ArtistInfo getArtistInfo(@Query("artist") String artistName, @Nullable @Header("Cache-Control") String cacheControl);
 }

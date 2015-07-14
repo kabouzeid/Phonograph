@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.transition.Transition;
@@ -49,13 +48,14 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
  * A lot of hackery is done in this activity. Changing things may will brake the whole activity.
- * <p/>
+ * <p>
  * Should be kinda stable ONLY AS IT IS!!!
  */
 public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements PaletteColorHolder, CabHolder {
@@ -200,17 +200,24 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                         .cacheInMemory(true)
                         .showImageOnFail(R.drawable.default_album_art)
                         .resetViewBeforeLoading(true)
+                        .postProcessor(new BitmapProcessor() {
+                            @Override
+                            public Bitmap process(Bitmap bitmap) {
+                                final int color = ColorUtil.generateColor(AlbumDetailActivity.this, bitmap);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        setColors(color);
+                                    }
+                                });
+                                return bitmap;
+                            }
+                        })
                         .build(),
                 new SimpleImageLoadingListener() {
                     @Override
                     public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
-                        applyPalette(null);
-
-                        ImageLoader.getInstance().displayImage(
-                                "drawable://" + R.drawable.default_album_art,
-                                albumArtBackground,
-                                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor(10)).build()
-                        );
+                        setUpBackground("drawable://" + R.drawable.default_album_art);
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                             startPostponedEnterTransition();
@@ -222,13 +229,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                             onLoadingFailed(imageUri, view, null);
                             return;
                         }
-                        applyPalette(loadedImage);
-
-                        ImageLoader.getInstance().displayImage(
-                                imageUri,
-                                albumArtBackground,
-                                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor(10)).build()
-                        );
+                        setUpBackground(imageUri);
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                             startPostponedEnterTransition();
@@ -237,22 +238,13 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         );
     }
 
-    private void applyPalette(@Nullable Bitmap bitmap) {
-        final int defaultBarColor = ColorUtil.resolveColor(this, R.attr.default_bar_color);
-        if (bitmap != null) {
-            Palette.from(bitmap)
-                    .resizeBitmapSize(100)
-                    .generate(new Palette.PaletteAsyncListener() {
-                        @Override
-                        public void onGenerated(@NonNull Palette palette) {
-                            setColors(palette.getVibrantColor(defaultBarColor));
-                        }
-                    });
-        } else {
-            setColors(defaultBarColor);
-        }
+    private void setUpBackground(String imageUri) {
+        ImageLoader.getInstance().displayImage(
+                imageUri,
+                albumArtBackground,
+                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor(10)).build()
+        );
     }
-
 
     private void setColors(int vibrantColor) {
         toolbarColor = vibrantColor;

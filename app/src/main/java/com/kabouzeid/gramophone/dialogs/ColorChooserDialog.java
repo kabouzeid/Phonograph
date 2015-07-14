@@ -24,6 +24,7 @@ import android.widget.GridView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.views.ColorView;
 
 /**
@@ -33,7 +34,6 @@ public class ColorChooserDialog extends DialogFragment implements View.OnClickLi
 
     private ColorCallback mCallback;
     private int[] mColors;
-    @Nullable
     private GridView mGrid;
 
     @Override
@@ -149,7 +149,7 @@ public class ColorChooserDialog extends DialogFragment implements View.OnClickLi
                         new int[]{android.R.attr.state_pressed}
                 };
                 int[] colors = new int[]{
-                        shiftColorDown(mColors[position])
+                        ColorUtil.shiftColorDown(mColors[position])
                 };
                 ColorStateList rippleColors = new ColorStateList(states, colors);
                 colorView.setForeground(new RippleDrawable(rippleColors, selector, null));
@@ -167,14 +167,6 @@ public class ColorChooserDialog extends DialogFragment implements View.OnClickLi
         }
     }
 
-    @SuppressWarnings("ResourceType")
-    private static int shiftColorDown(int color) {
-        float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv);
-        hsv[2] *= 0.9f; // value component
-        return Color.HSVToColor(hsv);
-    }
-
     private static int translucentColor(int color) {
         final float factor = 0.7f;
         int alpha = Math.round(Color.alpha(color) * factor);
@@ -187,7 +179,7 @@ public class ColorChooserDialog extends DialogFragment implements View.OnClickLi
     @NonNull
     private static Drawable createSelector(int color) {
         ShapeDrawable darkerCircle = new ShapeDrawable(new OvalShape());
-        darkerCircle.getPaint().setColor(translucentColor(shiftColorDown(color)));
+        darkerCircle.getPaint().setColor(translucentColor(ColorUtil.shiftColorDown(color)));
         StateListDrawable stateListDrawable = new StateListDrawable();
         stateListDrawable.addState(new int[]{android.R.attr.state_pressed}, darkerCircle);
         return stateListDrawable;

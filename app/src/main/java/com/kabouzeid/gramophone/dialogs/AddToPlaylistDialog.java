@@ -54,6 +54,7 @@ public class AddToPlaylistDialog extends DialogFragment {
                     public void onSelection(@NonNull MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
                         //noinspection unchecked
                         final ArrayList<Song> songs = (ArrayList<Song>) getArguments().getSerializable("songs");
+                        if (songs == null) return;
                         if (i == 0) {
                             materialDialog.dismiss();
                             CreatePlaylistDialog.create(songs).show(getActivity().getSupportFragmentManager(), "ADD_TO_PLAYLIST");

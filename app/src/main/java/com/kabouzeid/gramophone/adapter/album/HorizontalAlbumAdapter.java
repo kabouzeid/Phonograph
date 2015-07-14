@@ -20,6 +20,7 @@ public class HorizontalAlbumAdapter extends AlbumAdapter {
 
     public HorizontalAlbumAdapter(@NonNull AppCompatActivity activity, ArrayList<Album> dataSet, @Nullable CabHolder cabHolder) {
         super(activity, dataSet, HorizontalAdapterHelper.LAYOUT_RES, cabHolder);
+        usePalette = false;
     }
 
     @Override

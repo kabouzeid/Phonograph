@@ -37,6 +37,15 @@ public class MusicUtil {
     public static final String TAG = MusicUtil.class.getSimpleName();
 
     @NonNull
+    public static String getArtistImageLoaderString(@NonNull Artist artist, boolean forceDownload) {
+        if (forceDownload) {
+            return PhonographImageDownloader.SCHEME_ARTIST + "no-cache#" + artist.name;
+        } else {
+            return PhonographImageDownloader.SCHEME_ARTIST + "#" + artist.name;
+        }
+    }
+
+    @NonNull
     public static String getAlbumImageLoaderString(@NonNull Album album) {
         return PhonographImageDownloader.SCHEME_ALBUM + album.id;
     }

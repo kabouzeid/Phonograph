@@ -24,7 +24,7 @@ import butterknife.Optional;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView.Adapter> extends AbsMainActivityFragment implements OnOffsetChangedListener, MusicStateListener {
+public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView.Adapter, LM extends RecyclerView.LayoutManager> extends AbsMainActivityFragment implements OnOffsetChangedListener, MusicStateListener {
 
     public static final String TAG = AbsMainActivityRecyclerViewFragment.class.getSimpleName();
 
@@ -39,7 +39,8 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
     @InjectView(R.id.fast_scroller)
     FastScroller fastScroller;
 
-    private A mAdapter;
+    private A adapter;
+    private LM layoutManager;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,8 +66,8 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
     }
 
     private void setUpRecyclerView() {
-        mAdapter = createAdapter();
-        mAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+        adapter = createAdapter();
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {
                 super.onChanged();
@@ -74,12 +75,22 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
             }
         });
 
-        recyclerView.setLayoutManager(createLayoutManager());
-        recyclerView.setAdapter(mAdapter);
+        layoutManager = createLayoutManager();
+
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
     }
 
-    public A getAdapter() {
-        return mAdapter;
+    protected A getAdapter() {
+        return adapter;
+    }
+
+    protected LM getLayoutManager() {
+        return layoutManager;
+    }
+
+    protected RecyclerView getRecyclerView() {
+        return recyclerView;
     }
 
     @Override
@@ -137,11 +148,7 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
         return R.layout.fragment_main_activity_recycler_view;
     }
 
-    protected RecyclerView getRecyclerView() {
-        return recyclerView;
-    }
-
-    protected abstract RecyclerView.LayoutManager createLayoutManager();
+    protected abstract LM createLayoutManager();
 
     protected abstract A createAdapter();
 

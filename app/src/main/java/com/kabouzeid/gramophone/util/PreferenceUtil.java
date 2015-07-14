@@ -71,23 +71,34 @@ public final class PreferenceUtil {
         mPreferences.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
     }
 
-    public int getGeneralTheme() {
-        int value = Integer.parseInt(mPreferences.getString(GENERAL_THEME, "0"));
-        switch (value) {
-            case 0:
-                return R.style.Theme_MaterialMusic_Light;
-            case 1:
-                return R.style.Theme_MaterialMusic;
+    @SuppressLint("CommitPrefEdits")
+    public void setGeneralTheme(Context context, String value) {
+        String[] allowedValues = context.getResources().getStringArray(R.array.pref_general_theme_list_values);
+        for (String allowedValue : allowedValues) {
+            if (value.equals(allowedValue)) {
+                mPreferences.edit().putString(GENERAL_THEME, value).commit();
+                return;
+            }
         }
+    }
+
+    public int getGeneralTheme() {
+        try {
+            int value = Integer.parseInt(mPreferences.getString(GENERAL_THEME, "0"));
+            switch (value) {
+                case 0:
+                    return R.style.Theme_MaterialMusic_Light;
+                case 1:
+                    return R.style.Theme_MaterialMusic;
+            }
+        } catch (NumberFormatException ignored) {
+        }
+
         return R.style.Theme_MaterialMusic_Light;
     }
 
     public int getThemeColorPrimary(Context context) {
         return mPreferences.getInt("primary_color", context.getResources().getColor(R.color.indigo_500));
-    }
-
-    public int getThemeColorPrimaryDarker(Context context) {
-        return ColorUtil.shiftColorDown(getThemeColorPrimary(context));
     }
 
     @SuppressLint("CommitPrefEdits")
