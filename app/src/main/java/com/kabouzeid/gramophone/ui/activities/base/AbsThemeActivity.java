@@ -22,6 +22,7 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
     private int colorPrimary;
     private int colorPrimaryDarker;
     private int colorAccent;
+    private boolean darkTheme;
 
     @Nullable
     private ActivityManager.TaskDescription taskDescription;
@@ -33,21 +34,39 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
         setupTheme();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        recreateIfThemeChanged();
+    }
 
     private void setupTheme() {
         colorPrimary = PreferenceUtil.getInstance(this).getThemeColorPrimary(this);
         colorPrimaryDarker = ColorUtil.shiftColorDown(colorPrimary);
         colorAccent = PreferenceUtil.getInstance(this).getThemeColorAccent(this);
+        darkTheme = PreferenceUtil.getInstance(this).getGeneralTheme() == R.style.Theme_MaterialMusic;
 
         ThemeSingleton.get().positiveColor = colorAccent;
-        ThemeSingleton.get().negativeColor = ThemeSingleton.get().positiveColor;
-        ThemeSingleton.get().neutralColor = ThemeSingleton.get().positiveColor;
-        ThemeSingleton.get().widgetColor = ThemeSingleton.get().positiveColor;
-        ThemeSingleton.get().darkTheme = PreferenceUtil.getInstance(this).getGeneralTheme() == R.style.Theme_MaterialMusic;
+        ThemeSingleton.get().negativeColor = colorAccent;
+        ThemeSingleton.get().neutralColor = colorAccent;
+        ThemeSingleton.get().widgetColor = colorAccent;
+        ThemeSingleton.get().darkTheme = darkTheme;
 
         if (!overridesTaskColor()) {
             notifyTaskColorChange(getThemeColorPrimary());
         }
+    }
+
+    protected void recreateIfThemeChanged() {
+        if (didThemeChanged()) {
+            recreate();
+        }
+    }
+
+    private boolean didThemeChanged() {
+        return colorPrimary != PreferenceUtil.getInstance(this).getThemeColorPrimary(this) ||
+                colorAccent != PreferenceUtil.getInstance(this).getThemeColorAccent(this) ||
+                darkTheme != (PreferenceUtil.getInstance(this).getGeneralTheme() == R.style.Theme_MaterialMusic);
     }
 
     protected void notifyTaskColorChange(int color) {

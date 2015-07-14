@@ -17,9 +17,6 @@ import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
-import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
-import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.ArtistInfo;
-import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.Image;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Song;
@@ -32,10 +29,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
-
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -43,14 +36,12 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     protected final AppCompatActivity activity;
     protected ArrayList<Artist> dataSet;
     protected int itemLayoutRes;
-    protected final LastFMRestClient lastFMRestClient;
 
     public ArtistAdapter(@NonNull AppCompatActivity activity, ArrayList<Artist> dataSet, @LayoutRes int itemLayoutRes, @Nullable CabHolder cabHolder) {
         super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         this.dataSet = dataSet;
         this.itemLayoutRes = itemLayoutRes;
-        lastFMRestClient = new LastFMRestClient(activity);
         setHasStableIds(true);
     }
 
@@ -94,39 +85,15 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
             return;
         }
 
-        if (MusicUtil.isArtistNameUnknown(artist.name)) {
-            holder.image.setImageResource(R.drawable.default_artist_image);
-            return;
-        }
-
-        lastFMRestClient.getApiService().getArtistInfo(artist.name, null, new Callback<ArtistInfo>() {
-            @Override
-            public void success(@NonNull ArtistInfo artistInfo, Response response) {
-                if (artistInfo.getArtist() != null) {
-                    List<Image> images = artistInfo.getArtist().getImage();
-                    if (images == null || images.isEmpty()) {
-                        return;
-                    }
-                    ImageLoader.getInstance().displayImage(images.get(images.size() - 1).getText(),
-                            holder.image,
-                            new DisplayImageOptions.Builder()
-                                    .cacheInMemory(true)
-                                    .cacheOnDisk(true)
-                                    .resetViewBeforeLoading(true)
-                                    .showImageOnFail(R.drawable.default_artist_image)
-                                    .showImageForEmptyUri(R.drawable.default_artist_image)
-                                    .build()
-                    );
-                } else {
-                    holder.image.setImageResource(R.drawable.default_artist_image);
-                }
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                holder.image.setImageResource(R.drawable.default_artist_image);
-            }
-        });
+        ImageLoader.getInstance().displayImage(MusicUtil.getArtistImageLoaderString(artist, false),
+                holder.image,
+                new DisplayImageOptions.Builder()
+                        .cacheInMemory(true)
+                        .cacheOnDisk(true)
+                        .resetViewBeforeLoading(true)
+                        .showImageOnFail(R.drawable.default_artist_image)
+                        .build()
+        );
     }
 
     @Override

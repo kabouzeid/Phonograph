@@ -14,8 +14,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
-import com.afollestad.materialdialogs.util.DialogUtils;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.ColorChooserDialog;
 import com.kabouzeid.gramophone.prefs.ColorChooserPreference;
@@ -53,15 +53,21 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         } else if (title == R.string.accent_color) {
             PreferenceUtil.getInstance(this).setThemeColorAccent(color);
         }
-        recreate();
+        recreateIfThemeChanged();
     }
 
     public static class SettingsFragment extends PreferenceFragment {
-        private Preference equalizer;
+
+        @Override
+        public void onViewCreated(View view, Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+            view.findViewById(android.R.id.list).setPadding(0, 0, 0, 0);
+        }
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+
             addPreferencesFromResource(R.xml.pref_general);
             addPreferencesFromResource(R.xml.pref_colors);
             addPreferencesFromResource(R.xml.pref_now_playing_screen);
@@ -85,29 +91,33 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 @Override
                 public boolean onPreferenceChange(Preference preference, @NonNull Object o) {
                     setSummary(generalTheme, o);
+                    PreferenceUtil.getInstance(getActivity()).setGeneralTheme(getActivity(), (String) o);
+                    ((SettingsActivity) getActivity()).recreateIfThemeChanged();
                     return true;
                 }
             });
 
             ColorChooserPreference primaryColor = (ColorChooserPreference) findPreference("primary_color");
-            primaryColor.setColor(((SettingsActivity) getActivity()).getThemeColorPrimary(),
-                    DialogUtils.resolveColor(getActivity(), android.R.attr.textColorPrimary));
+            primaryColor.setColor(PreferenceUtil.getInstance(getActivity()).getThemeColorPrimary(getActivity()));
             primaryColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull Preference preference) {
-                    new ColorChooserDialog().show(getActivity(), preference.getTitleRes(),
+                    new ColorChooserDialog().show(
+                            getActivity(),
+                            preference.getTitleRes(),
                             ((SettingsActivity) getActivity()).getThemeColorPrimary());
                     return true;
                 }
             });
 
             ColorChooserPreference accentColor = (ColorChooserPreference) findPreference("accent_color");
-            accentColor.setColor(((SettingsActivity) getActivity()).getThemeColorAccent(),
-                    DialogUtils.resolveColor(getActivity(), android.R.attr.textColorPrimary));
+            accentColor.setColor(PreferenceUtil.getInstance(getActivity()).getThemeColorAccent(getActivity()));
             accentColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull Preference preference) {
-                    new ColorChooserDialog().show(getActivity(), preference.getTitleRes(),
+                    new ColorChooserDialog().show(
+                            getActivity(),
+                            preference.getTitleRes(),
                             ((SettingsActivity) getActivity()).getThemeColorAccent());
                     return true;
                 }
@@ -128,8 +138,11 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 }
             });
 
-            equalizer = findPreference("equalizer");
-            resolveEqualizer();
+            Preference equalizer = findPreference("equalizer");
+            if (!hasEqualizer()) {
+                equalizer.setEnabled(false);
+                equalizer.setSummary(getResources().getString(R.string.no_equalizer));
+            }
             equalizer.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -160,14 +173,11 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             }
         }
 
-        private void resolveEqualizer() {
+        private boolean hasEqualizer() {
             final Intent effects = new Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL);
             PackageManager pm = getActivity().getPackageManager();
             ResolveInfo ri = pm.resolveActivity(effects, 0);
-            if (ri == null) {
-                equalizer.setEnabled(false);
-                equalizer.setSummary(getResources().getString(R.string.no_equalizer));
-            }
+            return ri != null;
         }
     }
 

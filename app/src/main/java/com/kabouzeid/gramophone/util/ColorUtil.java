@@ -3,15 +3,26 @@ package com.kabouzeid.gramophone.util;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
+import android.support.v7.graphics.Palette;
+
+import com.kabouzeid.gramophone.R;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class ColorUtil {
+
+    public static int generateColor(Context context, Bitmap bitmap) {
+        return Palette.from(bitmap)
+                .resizeBitmapSize(100)
+                .generate()
+                .getVibrantColor(ColorUtil.resolveColor(context, R.attr.default_bar_color));
+    }
 
     public static int resolveColor(@NonNull Context context, @AttrRes int colorAttr) {
         TypedArray a = context.obtainStyledAttributes(new int[]{colorAttr});
@@ -50,10 +61,10 @@ public class ColorUtil {
     }
 
     public static boolean useDarkTextColorOnBackground(int backgroundColor) {
-        return (Color.red(backgroundColor) * 0.299 + Color.green(backgroundColor) * 0.587 + Color.blue(backgroundColor) * 0.114) > 186;
+        return (Color.red(backgroundColor) * 0.299 + Color.green(backgroundColor) * 0.587 + Color.blue(backgroundColor) * 0.114) > (255 / 2);
     }
 
     public static int getTextColorForBackground(int backgroundColor) {
-        return (Color.red(backgroundColor) * 0.299 + Color.green(backgroundColor) * 0.587 + Color.blue(backgroundColor) * 0.114) > 186 ? Color.BLACK : Color.WHITE;
+        return useDarkTextColorOnBackground(backgroundColor) ? Color.BLACK : Color.WHITE;
     }
 }

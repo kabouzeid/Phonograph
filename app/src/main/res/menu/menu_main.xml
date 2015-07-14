@@ -31,6 +31,40 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_view_as"
+        android:title="@string/action_view_as">
+        <menu>
+            <group
+                android:id="@+id/gridSizeGroup"
+                android:checkableBehavior="single"
+                tools:ignore="HardcodedText">
+                <item
+                    android:id="@+id/gridSizeOne"
+                    android:title="1" />
+                <item
+                    android:id="@+id/gridSizeTwo"
+                    android:title="2" />
+                <item
+                    android:id="@+id/gridSizeThree"
+                    android:title="3" />
+                <item
+                    android:id="@+id/gridSizeFour"
+                    android:title="4" />
+                <item
+                    android:id="@+id/gridSizeFive"
+                    android:title="5" />
+                <item
+                    android:id="@+id/gridSizeSix"
+                    android:title="6" />
+            </group>
+            <item
+                android:id="@+id/colored_footers"
+                android:checkable="true"
+                android:title="@string/colored_footers" />
+        </menu>
+    </item>
+
+    <item
         android:id="@+id/action_equalizer"
         android:orderInCategory="99"
         android:title="@string/equalizer"

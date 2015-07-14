@@ -43,11 +43,6 @@ public abstract class MediaEntryViewHolder extends RecyclerView.ViewHolder imple
 
     @Nullable
     @Optional
-    @InjectView(R.id.palette_color_container)
-    public View paletteColorContainer;
-
-    @Nullable
-    @Optional
     @InjectView(R.id.separator)
     public View separator;
     @Nullable
@@ -59,6 +54,12 @@ public abstract class MediaEntryViewHolder extends RecyclerView.ViewHolder imple
     @Optional
     @InjectView(R.id.selected_indicator)
     public View selectedIndicator;
+
+    @Nullable
+    @Optional
+    @InjectView(R.id.palette_color_container)
+    public View paletteColorContainer;
+    public int paletteColor;
 
     public MediaEntryViewHolder(View itemView) {
         super(itemView);

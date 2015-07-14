@@ -1,8 +1,7 @@
 package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
 import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.LinearLayoutManager;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PlaylistAdapter;
@@ -17,14 +16,14 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class PlaylistViewFragment extends AbsMainActivityRecyclerViewFragment<PlaylistAdapter> {
+public class PlaylistViewFragment extends AbsMainActivityRecyclerViewFragment<PlaylistAdapter, LinearLayoutManager> {
 
     public static final String TAG = PlaylistViewFragment.class.getSimpleName();
 
     @NonNull
     @Override
-    protected RecyclerView.LayoutManager createLayoutManager() {
-        return new GridLayoutManager(getActivity(), 1);
+    protected LinearLayoutManager createLayoutManager() {
+        return new LinearLayoutManager(getActivity());
     }
 
     @NonNull

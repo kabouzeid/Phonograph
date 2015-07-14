@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
@@ -26,7 +25,6 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -34,6 +32,7 @@ import com.nostra13.universalimageloader.core.assist.LoadedFrom;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +50,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
 
     protected int itemLayoutRes;
 
-    protected boolean usePalette;
+    protected boolean usePalette = false;
 
     public AlbumAdapter(@NonNull AppCompatActivity activity, ArrayList<Album> dataSet, @LayoutRes int itemLayoutRes, @Nullable CabHolder cabHolder) {
         super(activity, cabHolder, R.menu.menu_media_selection);
@@ -60,6 +59,11 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
         this.itemLayoutRes = itemLayoutRes;
 
         setHasStableIds(true);
+    }
+
+    public void usePalette(boolean usePalette) {
+        this.usePalette = usePalette;
+        notifyDataSetChanged();
     }
 
     public List<Album> getDataSet() {
@@ -99,11 +103,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
         final Album album = dataSet.get(position);
 
         final int defaultBarColor = ColorUtil.resolveColor(activity, R.attr.default_bar_color);
-        ViewUtil.applyBackgroundColor(
-                defaultBarColor,
-                new View[]{holder.paletteColorContainer},
-                new TextView[]{holder.title, holder.text},
-                false);
+        setColors(defaultBarColor, holder);
 
         final boolean isChecked = isChecked(album);
         holder.itemView.setActivated(isChecked);
@@ -125,6 +125,13 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
                         .cacheInMemory(true)
                         .showImageOnFail(R.drawable.default_album_art)
                         .resetViewBeforeLoading(true)
+                        .postProcessor(new BitmapProcessor() {
+                            @Override
+                            public Bitmap process(Bitmap bitmap) {
+                                holder.paletteColor = ColorUtil.generateColor(activity, bitmap);
+                                return bitmap;
+                            }
+                        })
                         .displayer(new FadeInBitmapDisplayer(FADE_IN_TIME) {
                             @Override
                             public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
@@ -135,12 +142,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
                                     super.display(bitmap, imageAware, loadedFrom);
                                 }
                                 if (usePalette)
-                                    ViewUtil.applyBackgroundColorFromBitmap(
-                                            bitmap,
-                                            defaultBarColor,
-                                            new View[]{holder.paletteColorContainer},
-                                            new TextView[]{holder.title, holder.text},
-                                            !loadedFromMemoryCache);
+                                    setColors(holder.paletteColor, holder);
                             }
                         })
                         .build(),
@@ -149,14 +151,23 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
                     public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                         FadeInBitmapDisplayer.animate(view, FADE_IN_TIME);
                         if (usePalette)
-                            ViewUtil.applyBackgroundColor(
-                                    defaultBarColor,
-                                    new View[]{holder.paletteColorContainer},
-                                    new TextView[]{holder.title, holder.text},
-                                    true);
+                            setColors(defaultBarColor, holder);
                     }
                 }
         );
+    }
+
+    private void setColors(int color, ViewHolder holder) {
+        if (holder.paletteColorContainer != null) {
+            holder.paletteColorContainer.setBackgroundColor(color);
+            int textColor = ColorUtil.getTextColorForBackground(color);
+            if (holder.title != null) {
+                holder.title.setTextColor(textColor);
+            }
+            if (holder.text != null) {
+                holder.text.setTextColor(textColor);
+            }
+        }
     }
 
     @Override

@@ -13,7 +13,6 @@ public class ColorChooserPreference extends Preference {
 
     private View mView;
     private int color;
-    private int border;
 
     public ColorChooserPreference(@NonNull Context context, @NonNull AttributeSet attrs) {
         this(context, attrs, 0);
@@ -36,20 +35,19 @@ public class ColorChooserPreference extends Preference {
         invalidateColor();
     }
 
-    public void setColor(int color, int border) {
+    public void setColor(int color) {
         this.color = color;
-        this.border = border;
         invalidateColor();
     }
 
     private void invalidateColor() {
         if (mView != null) {
-            ColorView circle = (ColorView) mView.findViewById(R.id.circle);
+            ColorView colorView = (ColorView) mView.findViewById(R.id.circle);
             if (this.color != 0) {
-                circle.setVisibility(View.VISIBLE);
-                circle.setBackgroundColor(color);
+                colorView.setVisibility(View.VISIBLE);
+                colorView.setBackgroundColor(color);
             } else {
-                circle.setVisibility(View.GONE);
+                colorView.setVisibility(View.GONE);
             }
         }
     }

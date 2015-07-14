@@ -2,7 +2,6 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.artist.ArtistAdapter;
@@ -11,13 +10,13 @@ import com.kabouzeid.gramophone.loader.ArtistLoader;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class ArtistViewFragment extends AbsMainActivityRecyclerViewFragment<ArtistAdapter> {
+public class ArtistViewFragment extends AbsMainActivityRecyclerViewFragment<ArtistAdapter, GridLayoutManager> {
 
     public static final String TAG = ArtistViewFragment.class.getSimpleName();
 
     @NonNull
     @Override
-    protected RecyclerView.LayoutManager createLayoutManager() {
+    protected GridLayoutManager createLayoutManager() {
         return new GridLayoutManager(getActivity(), 2);
     }
 

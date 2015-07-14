@@ -13,9 +13,6 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
-import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
-import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.ArtistInfo;
-import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.Image;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.SongLoader;
@@ -33,9 +30,6 @@ import java.util.Collections;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -48,11 +42,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
     private final AppCompatActivity activity;
     private List results = Collections.emptyList();
-    private final LastFMRestClient lastFMRestClient;
 
     public SearchAdapter(@NonNull AppCompatActivity activity) {
         this.activity = activity;
-        lastFMRestClient = new LastFMRestClient(activity);
     }
 
     @SuppressWarnings("unchecked")
@@ -122,37 +114,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     holder.image.setImageResource(R.drawable.default_artist_image);
                     break;
                 }
-                lastFMRestClient.getApiService().getArtistInfo(artist.name, null, new Callback<ArtistInfo>() {
-                    @Override
-                    public void success(@NonNull ArtistInfo artistInfo, Response response) {
-                        if (artistInfo.getArtist() != null) {
-                            int thumbnailIndex = 0;
-                            List<Image> images = artistInfo.getArtist().getImage();
-                            if (images.size() > 2) {
-                                thumbnailIndex = 2;
-                            } else if (images.size() > 1) {
-                                thumbnailIndex = 1;
-                            }
-                            ImageLoader.getInstance().displayImage(images.get(thumbnailIndex).getText(),
-                                    holder.image,
-                                    new DisplayImageOptions.Builder()
-                                            .cacheInMemory(true)
-                                            .cacheOnDisk(true)
-                                            .resetViewBeforeLoading(true)
-                                            .showImageOnFail(R.drawable.default_artist_image)
-                                            .showImageForEmptyUri(R.drawable.default_artist_image)
-                                            .build()
-                            );
-                        } else {
-                            holder.image.setImageResource(R.drawable.default_artist_image);
-                        }
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        holder.image.setImageResource(R.drawable.default_artist_image);
-                    }
-                });
+                ImageLoader.getInstance().displayImage(MusicUtil.getArtistImageLoaderString(artist, false),
+                        holder.image,
+                        new DisplayImageOptions.Builder()
+                                .cacheInMemory(true)
+                                .cacheOnDisk(true)
+                                .resetViewBeforeLoading(true)
+                                .showImageOnFail(R.drawable.default_artist_image)
+                                .build()
+                );
                 break;
             case SONG:
                 final Song song = (Song) results.get(position);

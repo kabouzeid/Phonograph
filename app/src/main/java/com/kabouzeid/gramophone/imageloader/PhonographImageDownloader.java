@@ -5,6 +5,9 @@ import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
+import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.ArtistInfo;
+import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.Image;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ImageUtil;
@@ -19,6 +22,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -26,21 +31,41 @@ import java.util.ArrayList;
 public class PhonographImageDownloader extends BaseImageDownloader {
     public static final String SCHEME_ALBUM = "album://";
     public static final String SCHEME_SONG = "song://";
+    public static final String SCHEME_ARTIST = Scheme.HTTP.wrap("artist://");
+
+    private final LastFMRestClient lastFMRestClient;
 
     public PhonographImageDownloader(@NonNull Context context) {
         super(context);
+        lastFMRestClient = new LastFMRestClient(context);
     }
 
     @Nullable
     @Override
     public InputStream getStream(@NonNull String imageUri, Object extra) throws IOException {
-        if (imageUri.startsWith(SCHEME_ALBUM)) {
+        if (imageUri.toLowerCase(Locale.US).startsWith(SCHEME_ALBUM)) {
             return getStreamFromAlbum(imageUri);
         }
-        if (imageUri.startsWith(SCHEME_SONG)) {
+        if (imageUri.toLowerCase(Locale.US).startsWith(SCHEME_SONG)) {
             return getStreamFromSong(imageUri);
         }
+        if (imageUri.toLowerCase(Locale.US).startsWith(SCHEME_ARTIST)) {
+            return getStreamFromArtist(imageUri, extra);
+        }
         return super.getStream(imageUri, extra);
+    }
+
+    protected InputStream getStreamFromArtist(@NonNull String imageUri, @NonNull Object extra) throws IOException {
+        String[] data = imageUri.substring(SCHEME_ARTIST.length()).split("#", 2);
+        String artistName = data[1];
+
+        if (MusicUtil.isArtistNameUnknown(artistName)) {
+            return super.getStream("", extra);
+        }
+
+        ArtistInfo artistInfo = lastFMRestClient.getApiService().getArtistInfo(artistName, data[0].equals("") ? null : data[0]);
+        List<Image> images = artistInfo.getArtist().getImage();
+        return super.getStream(images.get(images.size() - 1).getText(), extra);
     }
 
     @Nullable
@@ -62,7 +87,7 @@ public class PhonographImageDownloader extends BaseImageDownloader {
 
     @Nullable
     protected InputStream getStreamFromSong(@NonNull String imageUri) throws IOException {
-        String[] data = imageUri.split("#", 2);
+        String[] data = imageUri.substring(SCHEME_SONG.length()).split("#", 2);
 
         if (PreferenceUtil.getInstance(context).ignoreMediaStoreArtwork()) {
             Bitmap bitmap = ImageUtil.getEmbeddedSongArt(new File(data[1]), context);
@@ -72,7 +97,7 @@ public class PhonographImageDownloader extends BaseImageDownloader {
             return null;
         }
 
-        int id = Integer.parseInt(data[0].substring(SCHEME_SONG.length()));
+        int id = Integer.parseInt(data[0]);
         return getMediaProviderAlbumArtInputStream(id);
     }
 
@@ -84,7 +109,8 @@ public class PhonographImageDownloader extends BaseImageDownloader {
     }
 
     @NonNull
-    private InputStream getMediaProviderAlbumArtInputStream(int albumId) throws FileNotFoundException {
+    private InputStream getMediaProviderAlbumArtInputStream(int albumId) throws
+            FileNotFoundException {
         return context.getContentResolver().openInputStream(MusicUtil.getAlbumArtUri(albumId));
     }
 }

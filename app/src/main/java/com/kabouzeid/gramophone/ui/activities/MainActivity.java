@@ -329,26 +329,24 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         handlePlaybackIntent(getIntent());
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
-        if (isAlbumPage()) {
-            getMenuInflater().inflate(R.menu.menu_albums, menu);
-            setUpGridMenu(menu);
-        } else if (isPlaylistPage()) {
-            getMenuInflater().inflate(R.menu.menu_playlists, menu);
-        } else {
-            getMenuInflater().inflate(R.menu.menu_main, menu);
-        }
-        restoreActionBar();
-        return true;
-    }
-
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         //noinspection ConstantConditions
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
+        if (isPlaylistPage()) {
+            getMenuInflater().inflate(R.menu.menu_playlists, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.menu_main, menu);
+            setUpGridMenu(menu);
+        }
+        restoreActionBar();
+        return true;
     }
 
     @Override
@@ -384,6 +382,63 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setUpGridMenu(@NonNull Menu menu) {
+        boolean isPortrait = Util.isInPortraitMode(this);
+        int columns = isPortrait ? PreferenceUtil.getInstance(this).getAlbumGridColumns() : PreferenceUtil.getInstance(this).getAlbumGridColumnsLand();
+        String title = isPortrait ? getResources().getString(R.string.action_view_as) : getResources().getString(R.string.action_view_as_land);
+
+        MenuItem gridSizeItem = menu.findItem(R.id.action_view_as);
+        gridSizeItem.setTitle(title);
+
+        SubMenu gridSizeMenu = gridSizeItem.getSubMenu();
+        gridSizeMenu.getItem(columns - 1).setChecked(true);
+    }
+
+    private boolean handleGridSize(@NonNull MenuItem item) {
+        int size = getGridSize(item);
+
+        if (size > 0) {
+            item.setChecked(true);
+            if (isAlbumPage()) {
+                getAlbumFragment().setColumns(size);
+                if (Util.isInPortraitMode(this)) {
+                    PreferenceUtil.getInstance(this).setAlbumGridColumns(size);
+                } else {
+                    PreferenceUtil.getInstance(this).setAlbumGridColumnsLand(size);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private int getGridSize(MenuItem item) {
+        int size = -1;
+
+        switch (item.getItemId()) {
+            case R.id.gridSizeOne:
+                size = 1;
+                break;
+            case R.id.gridSizeTwo:
+                size = 2;
+                break;
+            case R.id.gridSizeThree:
+                size = 3;
+                break;
+            case R.id.gridSizeFour:
+                size = 4;
+                break;
+            case R.id.gridSizeFive:
+                size = 5;
+                break;
+            case R.id.gridSizeSix:
+                size = 6;
+                break;
+        }
+
+        return size;
     }
 
     @Override
@@ -498,57 +553,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 //    public PlaylistViewFragment getPlaylistFragment() {
 //        return (PlaylistViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.PLAYLIST.ordinal());
 //    }
-
-    private void setUpGridMenu(@NonNull Menu menu) {
-        boolean isPortrait = Util.isInPortraitMode(this);
-        int columns = isPortrait ? PreferenceUtil.getInstance(this).getAlbumGridColumns() : PreferenceUtil.getInstance(this).getAlbumGridColumnsLand();
-        String title = isPortrait ? getResources().getString(R.string.action_grid_columns) : getResources().getString(R.string.action_grid_columns_land);
-
-        MenuItem gridSizeItem = menu.findItem(R.id.action_grid_columns);
-        gridSizeItem.setTitle(title);
-
-        SubMenu gridSizeMenu = gridSizeItem.getSubMenu();
-        gridSizeMenu.getItem(columns - 1).setChecked(true);
-    }
-
-    private boolean handleGridSize(@NonNull MenuItem item) {
-        int size = -1;
-
-        switch (item.getItemId()) {
-            case R.id.gridSizeOne:
-                size = 1;
-                break;
-            case R.id.gridSizeTwo:
-                size = 2;
-                break;
-            case R.id.gridSizeThree:
-                size = 3;
-                break;
-            case R.id.gridSizeFour:
-                size = 4;
-                break;
-            case R.id.gridSizeFive:
-                size = 5;
-                break;
-            case R.id.gridSizeSix:
-                size = 6;
-                break;
-        }
-
-        if (size > 0) {
-            item.setChecked(true);
-            if (isAlbumPage()) {
-                getAlbumFragment().setColumns(size);
-                if (Util.isInPortraitMode(this)) {
-                    PreferenceUtil.getInstance(this).setAlbumGridColumns(size);
-                } else {
-                    PreferenceUtil.getInstance(this).setAlbumGridColumnsLand(size);
-                }
-            }
-            return true;
-        }
-        return false;
-    }
 
     @Override
     public boolean dispatchKeyEvent(@NonNull KeyEvent event) {
