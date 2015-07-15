@@ -310,6 +310,6 @@ public final class PreferenceUtil {
     }
 
     public final boolean artistColoredFooters() {
-        return mPreferences.getBoolean(ARTIST_COLORED_FOOTERS, false);
+        return mPreferences.getBoolean(ARTIST_COLORED_FOOTERS, true);
     }
 }
