@@ -75,9 +75,9 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     private void setUpRecyclerView() {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         if (playlist instanceof AbsSmartPlaylist) {
-            adapter = new SmartPlaylistSongAdapter(this, loadSmartPlaylistDataSet(), R.layout.item_list, this);
+            adapter = new SmartPlaylistSongAdapter(this, loadSmartPlaylistDataSet(), R.layout.item_list, false, this);
         } else {
-            adapter = new PlaylistSongAdapter(this, loadPlaylistDataSet(), R.layout.item_list, this);
+            adapter = new PlaylistSongAdapter(this, loadPlaylistDataSet(), R.layout.item_list, false, this);
 
             DragSortRecycler dragSortRecycler = new DragSortRecycler();
             dragSortRecycler.setViewHandleId(R.id.image);

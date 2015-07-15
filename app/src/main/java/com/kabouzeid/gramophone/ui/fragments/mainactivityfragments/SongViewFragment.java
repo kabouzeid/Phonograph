@@ -6,24 +6,30 @@ import android.support.v7.widget.GridLayoutManager;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.song.SongAdapter;
 import com.kabouzeid.gramophone.loader.SongLoader;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class SongViewFragment extends AbsMainActivityRecyclerViewFragment<SongAdapter, GridLayoutManager> {
+public class SongViewFragment extends AbsMainActivityRecyclerViewLayoutModeFragment<SongAdapter, GridLayoutManager> {
 
     public static final String TAG = SongViewFragment.class.getSimpleName();
 
     @NonNull
     @Override
     protected GridLayoutManager createLayoutManager() {
-        return new GridLayoutManager(getActivity(), 1);
+        return new GridLayoutManager(getActivity(), getColumnNumber());
     }
 
     @NonNull
     @Override
     protected SongAdapter createAdapter() {
-        return new SongAdapter(getMainActivity(), SongLoader.getAllSongs(getActivity()), R.layout.item_list, getMainActivity());
+        return new SongAdapter(
+                getMainActivity(),
+                SongLoader.getAllSongs(getActivity()),
+                getItemLayout(),
+                loadUsePalette(),
+                getMainActivity());
     }
 
     @Override
@@ -34,5 +40,26 @@ public class SongViewFragment extends AbsMainActivityRecyclerViewFragment<SongAd
     @Override
     public void onMediaStoreChanged() {
         getAdapter().swapDataSet(SongLoader.getAllSongs(getActivity()));
+    }
+
+    @Override
+    protected int loadLayoutMode() {
+        return PreferenceUtil.getInstance(getActivity()).getSongLayoutMode();
+    }
+
+    @Override
+    protected void saveLayoutMode(int layoutMode) {
+        PreferenceUtil.getInstance(getActivity()).setSongLayoutMode(layoutMode);
+    }
+
+    @Override
+    public void setUsePaletteAndSaveValue(boolean usePalette) {
+        getAdapter().usePalette(usePalette);
+        PreferenceUtil.getInstance(getActivity()).setSongColoredFooters(usePalette);
+    }
+
+    @Override
+    public boolean loadUsePalette() {
+        return PreferenceUtil.getInstance(getActivity()).songColoredFooters();
     }
 }

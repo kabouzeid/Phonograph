@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.adapter.song;
 
+import android.graphics.Bitmap;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,11 +22,17 @@ import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
+import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.LoadedFrom;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.imageaware.ImageAware;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 import java.util.ArrayList;
 
@@ -42,16 +49,24 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
 
     protected int itemLayoutRes;
 
-    public SongAdapter(AppCompatActivity activity, ArrayList<Song> dataSet, @LayoutRes int itemLayoutRes, @Nullable CabHolder cabHolder) {
+    protected boolean usePalette = false;
+
+    public SongAdapter(AppCompatActivity activity, ArrayList<Song> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
         super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         this.dataSet = dataSet;
         this.itemLayoutRes = itemLayoutRes;
+        this.usePalette = usePalette;
         setHasStableIds(true);
     }
 
     public void swapDataSet(ArrayList<Song> dataSet) {
         this.dataSet = dataSet;
+        notifyDataSetChanged();
+    }
+
+    public void usePalette(boolean usePalette) {
+        this.usePalette = usePalette;
         notifyDataSetChanged();
     }
 
@@ -79,6 +94,15 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Song song = dataSet.get(position);
 
+        final int defaultBarColor = ColorUtil.resolveColor(activity, R.attr.default_bar_color);
+        setColors(defaultBarColor, holder);
+
+        boolean isChecked = isChecked(song);
+        holder.itemView.setActivated(isChecked);
+        if (holder.selectedIndicator != null) {
+            holder.selectedIndicator.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+        }
+
         if (holder.title != null) {
             holder.title.setText(getSongTitle(song));
         }
@@ -93,12 +117,50 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
                             .cacheInMemory(true)
                             .showImageOnFail(R.drawable.default_album_art)
                             .resetViewBeforeLoading(true)
-                            .displayer(new FadeInBitmapDisplayer(FADE_IN_TIME, true, true, false))
-                            .build()
+                            .postProcessor(new BitmapProcessor() {
+                                @Override
+                                public Bitmap process(Bitmap bitmap) {
+                                    holder.paletteColor = ColorUtil.generateColor(activity, bitmap);
+                                    return bitmap;
+                                }
+                            })
+                            .displayer(new FadeInBitmapDisplayer(FADE_IN_TIME) {
+                                @Override
+                                public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
+                                    boolean loadedFromMemoryCache = loadedFrom == LoadedFrom.MEMORY_CACHE;
+                                    if (loadedFromMemoryCache) {
+                                        imageAware.setImageBitmap(bitmap);
+                                    } else {
+                                        super.display(bitmap, imageAware, loadedFrom);
+                                    }
+                                    if (usePalette)
+                                        setColors(holder.paletteColor, holder);
+                                }
+                            })
+                            .build(),
+                    new SimpleImageLoadingListener() {
+                        @Override
+                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                            FadeInBitmapDisplayer.animate(view, FADE_IN_TIME);
+                            if (usePalette)
+                                setColors(defaultBarColor, holder);
+                        }
+                    }
             );
         }
+    }
 
-        holder.itemView.setActivated(isChecked(song));
+    private void setColors(int color, ViewHolder holder) {
+        if (holder.paletteColorContainer != null) {
+            holder.paletteColorContainer.setBackgroundColor(color);
+            int textColor = ColorUtil.getTextColorForBackground(color);
+            if (holder.title != null) {
+                holder.title.setTextColor(textColor);
+            }
+            if (holder.text != null) {
+                holder.text.setTextColor(textColor);
+            }
+        }
     }
 
     protected String getSongTitle(Song song) {

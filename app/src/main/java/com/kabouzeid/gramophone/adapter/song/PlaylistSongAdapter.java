@@ -25,8 +25,8 @@ public class PlaylistSongAdapter extends SongAdapter {
 
     public static final String TAG = PlaylistSongAdapter.class.getSimpleName();
 
-    public PlaylistSongAdapter(@NonNull AppCompatActivity activity, @NonNull ArrayList<PlaylistSong> dataSet, @LayoutRes int itemLayoutRes, @Nullable CabHolder cabHolder) {
-        super(activity, (ArrayList<Song>) (List) dataSet, itemLayoutRes, cabHolder);
+    public PlaylistSongAdapter(@NonNull AppCompatActivity activity, @NonNull ArrayList<PlaylistSong> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
+        super(activity, (ArrayList<Song>) (List) dataSet, itemLayoutRes, usePalette, cabHolder);
         overrideMultiSelectMenuRes(R.menu.menu_playlists_songs_selection);
     }
 
