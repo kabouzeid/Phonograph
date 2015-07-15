@@ -4,12 +4,6 @@
     tools:context=".DrawerActivity">
 
     <item
-        android:id="@+id/action_now_playing"
-        android:icon="@drawable/ic_play_circle_fill_white_24dp"
-        android:title="@string/action_now_playing"
-        app:showAsAction="always" />
-
-    <item
         android:id="@+id/action_search"
         android:icon="@drawable/abc_ic_search_api_mtrl_alpha"
         android:title="@string/action_search"
@@ -35,30 +29,18 @@
         android:title="@string/action_view_as">
         <menu>
             <group
-                android:id="@+id/gridSizeGroup"
+                android:id="@+id/group_view_as"
                 android:checkableBehavior="single"
                 tools:ignore="HardcodedText">
                 <item
-                    android:id="@+id/gridSizeOne"
-                    android:title="1" />
+                    android:id="@+id/action_layout_mode_list"
+                    android:title="@string/list" />
                 <item
-                    android:id="@+id/gridSizeTwo"
-                    android:title="2" />
-                <item
-                    android:id="@+id/gridSizeThree"
-                    android:title="3" />
-                <item
-                    android:id="@+id/gridSizeFour"
-                    android:title="4" />
-                <item
-                    android:id="@+id/gridSizeFive"
-                    android:title="5" />
-                <item
-                    android:id="@+id/gridSizeSix"
-                    android:title="6" />
+                    android:id="@+id/action_layout_mode_grid"
+                    android:title="@string/grid" />
             </group>
             <item
-                android:id="@+id/colored_footers"
+                android:id="@+id/action_colored_footers"
                 android:checkable="true"
                 android:title="@string/colored_footers" />
         </menu>

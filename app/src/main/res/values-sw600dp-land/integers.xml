@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="grid_num_columns">6</integer>
+    <integer name="list_num_columns">3</integer>
+</resources>

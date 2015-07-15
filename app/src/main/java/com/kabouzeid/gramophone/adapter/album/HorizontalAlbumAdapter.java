@@ -19,7 +19,7 @@ public class HorizontalAlbumAdapter extends AlbumAdapter {
     public static final String TAG = AlbumAdapter.class.getSimpleName();
 
     public HorizontalAlbumAdapter(@NonNull AppCompatActivity activity, ArrayList<Album> dataSet, @Nullable CabHolder cabHolder) {
-        super(activity, dataSet, HorizontalAdapterHelper.LAYOUT_RES, cabHolder);
+        super(activity, dataSet, HorizontalAdapterHelper.LAYOUT_RES, false, cabHolder);
         usePalette = false;
     }
 

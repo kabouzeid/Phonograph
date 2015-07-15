@@ -7,18 +7,16 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.album.AlbumAdapter;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
-import com.kabouzeid.gramophone.util.Util;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class AlbumViewFragment extends AbsMainActivityRecyclerViewFragment<AlbumAdapter, GridLayoutManager> {
+public class AlbumViewFragment extends AbsMainActivityRecyclerViewLayoutModeFragment<AlbumAdapter, GridLayoutManager> {
     public static final String TAG = AlbumViewFragment.class.getSimpleName();
 
     @Override
     protected GridLayoutManager createLayoutManager() {
-        int columns = Util.isInPortraitMode(getActivity()) ? PreferenceUtil.getInstance(getActivity()).getAlbumGridColumns() : PreferenceUtil.getInstance(getActivity()).getAlbumGridColumnsLand();
-        return new GridLayoutManager(getActivity(), columns);
+        return new GridLayoutManager(getActivity(), getColumnNumber());
     }
 
     @NonNull
@@ -27,7 +25,8 @@ public class AlbumViewFragment extends AbsMainActivityRecyclerViewFragment<Album
         return new AlbumAdapter(
                 getMainActivity(),
                 AlbumLoader.getAllAlbums(getActivity()),
-                R.layout.item_grid,
+                getItemLayout(),
+                PreferenceUtil.getInstance(getActivity()).albumColoredFooters(),
                 getMainActivity());
     }
 
@@ -36,11 +35,25 @@ public class AlbumViewFragment extends AbsMainActivityRecyclerViewFragment<Album
         return R.string.no_albums;
     }
 
-    public void setColumns(int columns) {
-        getLayoutManager().setSpanCount(columns);
-        getLayoutManager().requestLayout();
-        // required to animate the column size change
-        getAdapter().notifyDataSetChanged();
+    @Override
+    public void setUsePaletteAndSaveValue(boolean usePalette) {
+        getAdapter().usePalette(usePalette);
+        PreferenceUtil.getInstance(getActivity()).setAlbumColoredFooters(usePalette);
+    }
+
+    @Override
+    public boolean loadUsePalette() {
+        return PreferenceUtil.getInstance(getActivity()).albumColoredFooters();
+    }
+
+    @Override
+    protected int loadLayoutMode() {
+        return PreferenceUtil.getInstance(getActivity()).getAlbumLayoutMode();
+    }
+
+    @Override
+    protected void saveLayoutMode(int layoutMode) {
+        PreferenceUtil.getInstance(getActivity()).setAlbumLayoutMode(layoutMode);
     }
 
     @Override
