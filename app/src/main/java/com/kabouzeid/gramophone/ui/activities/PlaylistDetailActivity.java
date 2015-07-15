@@ -28,8 +28,8 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity implements CabHolder {
 
@@ -38,11 +38,11 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     @NonNull
     public static String EXTRA_PLAYLIST = "extra_playlist";
 
-    @InjectView(R.id.recycler_view)
+    @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
-    @InjectView(R.id.toolbar)
+    @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @InjectView(android.R.id.empty)
+    @Bind(android.R.id.empty)
     TextView empty;
 
     private Playlist playlist;
@@ -53,7 +53,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_detail);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         getIntentExtras();
 

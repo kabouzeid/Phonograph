@@ -17,9 +17,8 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.MusicStateListener;
 import com.kabouzeid.gramophone.views.FastScroller;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.Optional;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -28,15 +27,13 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
 
     public static final String TAG = AbsMainActivityRecyclerViewFragment.class.getSimpleName();
 
-    @InjectView(R.id.recycler_view)
+    @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
     @Nullable
-    @Optional
-    @InjectView(android.R.id.empty)
+    @Bind(android.R.id.empty)
     TextView empty;
     @Nullable
-    @Optional
-    @InjectView(R.id.fast_scroller)
+    @Bind(R.id.fast_scroller)
     FastScroller fastScroller;
 
     private A adapter;
@@ -45,7 +42,7 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutRes(), container, false);
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
         return view;
     }
 
@@ -163,7 +160,7 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
         super.onDestroyView();
         getMainActivity().removeOnAppBarOffsetChangedListener(this);
         getMainActivity().removeMusicStateListenerListener(this);
-        ButterKnife.reset(this);
+        ButterKnife.unbind(this);
     }
 
     protected int getDefaultGridColumnNumber() {

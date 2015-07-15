@@ -50,12 +50,12 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * A lot of hackery is done in this activity. Changing things may will brake the whole activity.
- * <p>
+ * <p/>
  * Should be kinda stable ONLY AS IT IS!!!
  */
 public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements PaletteColorHolder, CabHolder {
@@ -67,17 +67,17 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
 
     private Album album;
 
-    @InjectView(R.id.list)
+    @Bind(R.id.list)
     ObservableRecyclerView recyclerView;
-    @InjectView(R.id.image)
+    @Bind(R.id.image)
     ImageView albumArtImageView;
-    @InjectView(R.id.album_art_background)
+    @Bind(R.id.album_art_background)
     ImageView albumArtBackground;
-    @InjectView(R.id.toolbar)
+    @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @InjectView(R.id.title)
+    @Bind(R.id.title)
     TextView albumTitleView;
-    @InjectView(R.id.list_background)
+    @Bind(R.id.list_background)
     View songsBackgroundView;
 
     private AlbumSongAdapter adapter;
@@ -95,7 +95,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         setStatusBarTransparent();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_detail);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             postponeEnterTransition();

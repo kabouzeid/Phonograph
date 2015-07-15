@@ -50,8 +50,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -70,15 +70,15 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     private int paletteColorPrimary;
     private boolean isInNoImageMode;
 
-    @InjectView(R.id.play_pause_fab)
+    @Bind(R.id.play_pause_fab)
     FloatingActionButton fab;
-    @InjectView(R.id.observableScrollView)
+    @Bind(R.id.observableScrollView)
     ObservableScrollView observableScrollView;
-    @InjectView(R.id.toolbar)
+    @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @InjectView(R.id.image)
+    @Bind(R.id.image)
     ImageView image;
-    @InjectView(R.id.header)
+    @Bind(R.id.header)
     LinearLayout header;
 
     private List<String> songPaths;
@@ -87,7 +87,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentViewLayout());
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         getIntentExtras();
 

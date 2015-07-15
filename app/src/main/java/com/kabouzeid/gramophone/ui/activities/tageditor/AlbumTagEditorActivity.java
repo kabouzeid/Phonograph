@@ -35,8 +35,8 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -45,13 +45,13 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
     public static final String TAG = AlbumTagEditorActivity.class.getSimpleName();
 
-    @InjectView(R.id.title)
+    @Bind(R.id.title)
     EditText albumTitle;
-    @InjectView(R.id.album_artist)
+    @Bind(R.id.album_artist)
     EditText albumArtist;
-    @InjectView(R.id.genre)
+    @Bind(R.id.genre)
     EditText genre;
-    @InjectView(R.id.year)
+    @Bind(R.id.year)
     EditText year;
 
     private Bitmap albumArtBitmap;
@@ -61,7 +61,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         lastFMRestClient = new LastFMRestClient(this);
 

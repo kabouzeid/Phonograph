@@ -24,18 +24,18 @@ import com.kabouzeid.gramophone.adapter.SearchAdapter;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.Util;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class SearchActivity extends AbsBaseActivity {
 
     public static final String TAG = SearchActivity.class.getSimpleName();
-    @InjectView(R.id.recycler_view)
+    @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
-    @InjectView(R.id.toolbar)
+    @Bind(R.id.toolbar)
     Toolbar toolbar;
     @SuppressWarnings("ButterKnifeNoViewWithId")
-    @InjectView(android.R.id.empty)
+    @Bind(android.R.id.empty)
     TextView empty;
 
 
@@ -48,7 +48,7 @@ public class SearchActivity extends AbsBaseActivity {
         setTitle(null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         searchAdapter = new SearchAdapter(this);

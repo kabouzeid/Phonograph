@@ -143,7 +143,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public class ViewHolder extends MediaEntryViewHolder {
         public ViewHolder(@NonNull View itemView, int itemViewType) {
             super(itemView);
-            ButterKnife.inject(this, itemView);
+            ButterKnife.bind(this, itemView);
             itemView.setOnLongClickListener(null);
 
             if (itemViewType != HEADER) {

@@ -58,15 +58,15 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 /**
  * A lot of hackery is done in this activity. Changing things may will brake the whole activity.
- * <p>
+ * <p/>
  * Should be kinda stable ONLY AS IT IS!!!
  */
 public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implements PaletteColorHolder, CabHolder {
@@ -75,17 +75,17 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
     public static final String EXTRA_ARTIST_ID = "extra_artist_id";
 
-    @InjectView(R.id.artist_image_background)
+    @Bind(R.id.artist_image_background)
     ImageView artistImageBackground;
-    @InjectView(R.id.image)
+    @Bind(R.id.image)
     SquareIfPlaceImageView artistImage;
-    @InjectView(R.id.list_background)
+    @Bind(R.id.list_background)
     View songListBackground;
-    @InjectView(R.id.list)
+    @Bind(R.id.list)
     ObservableListView songListView;
-    @InjectView(R.id.title)
+    @Bind(R.id.title)
     TextView artistName;
-    @InjectView(R.id.toolbar)
+    @Bind(R.id.toolbar)
     Toolbar toolbar;
 
     View songListHeader;
@@ -112,7 +112,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         setStatusBarTransparent();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist_detail);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             postponeEnterTransition();

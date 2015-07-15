@@ -29,16 +29,16 @@ import com.triggertrap.seekarc.SeekArc;
 
 import java.lang.reflect.Field;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class SleepTimerDialog extends DialogFragment {
-    @InjectView(R.id.seek_arc)
+    @Bind(R.id.seek_arc)
     SeekArc seekArc;
-    @InjectView(R.id.timer_display)
+    @Bind(R.id.timer_display)
     TextView timerDisplay;
 
     private int seekArcProgress;
@@ -106,7 +106,7 @@ public class SleepTimerDialog extends DialogFragment {
             return materialDialog;
         }
 
-        ButterKnife.inject(this, materialDialog.getCustomView());
+        ButterKnife.bind(this, materialDialog.getCustomView());
 
         seekArc.post(new Runnable() {
             @Override
