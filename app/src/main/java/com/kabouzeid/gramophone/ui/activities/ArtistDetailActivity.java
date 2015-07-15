@@ -43,7 +43,9 @@ import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.misc.SmallTransitionListener;
+import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
+import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
@@ -57,6 +59,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.process.BitmapProcessor;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -226,7 +230,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         songListView.setPadding(0, artistImageViewHeight + titleViewHeight, 0, bottomOffset);
         songListView.addHeaderView(songListHeader);
 
-        songAdapter = new ArtistSongAdapter(this, ArtistSongLoader.getArtistSongList(this, artist.id), this);
+        songAdapter = new ArtistSongAdapter(this, loadSongDataSet(), this);
         songListView.setAdapter(songAdapter);
 
         final View contentView = getWindow().getDecorView().findViewById(android.R.id.content);
@@ -241,8 +245,28 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
     private void setUpAlbumRecyclerView() {
         albumRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        albumAdapter = new HorizontalAlbumAdapter(this, ArtistAlbumLoader.getArtistAlbumList(this, artist.id), this);
+        albumAdapter = new HorizontalAlbumAdapter(this, loadAlbumDataSet(), this);
         albumRecyclerView.setAdapter(albumAdapter);
+        albumAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                if (albumAdapter.getItemCount() == 0) finish();
+            }
+        });
+    }
+
+    private void reloadDataSets() {
+        songAdapter.swapDataSet(loadSongDataSet());
+        albumAdapter.swapDataSet(loadAlbumDataSet());
+    }
+
+    private ArrayList<Song> loadSongDataSet() {
+        return ArtistSongLoader.getArtistSongList(this, artist.id);
+    }
+
+    private ArrayList<Album> loadAlbumDataSet() {
+        return ArtistAlbumLoader.getArtistAlbumList(this, artist.id);
     }
 
     private void loadBiography() {
@@ -495,5 +519,11 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
             albumRecyclerView.stopScroll();
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onMediaStoreChanged() {
+        super.onMediaStoreChanged();
+        reloadDataSets();
     }
 }

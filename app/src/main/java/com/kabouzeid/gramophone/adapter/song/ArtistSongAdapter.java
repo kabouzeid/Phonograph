@@ -44,16 +44,21 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
     @NonNull
     private final AppCompatActivity activity;
 
-    public ArtistSongAdapter(@NonNull AppCompatActivity activity, @NonNull ArrayList<Song> songs, @Nullable CabHolder cabHolder) {
-        super(activity, R.layout.item_list, songs);
+    public ArtistSongAdapter(@NonNull AppCompatActivity activity, @NonNull ArrayList<Song> dataSet, @Nullable CabHolder cabHolder) {
+        super(activity, R.layout.item_list, dataSet);
         this.activity = activity;
         this.cabHolder = cabHolder;
+        this.dataSet = dataSet;
         checked = new ArrayList<>();
-        dataSet = songs;
     }
 
     public ArrayList<Song> getDataSet() {
         return dataSet;
+    }
+
+    public void swapDataSet(ArrayList<Song> dataSet) {
+        this.dataSet = dataSet;
+        notifyDataSetChanged();
     }
 
     @Nullable
