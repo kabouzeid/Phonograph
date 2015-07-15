@@ -65,8 +65,8 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import java.io.File;
 import java.lang.ref.WeakReference;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import hugo.weaving.DebugLog;
 
 public class MusicControllerActivity extends AbsSlidingMusicPanelActivity {
@@ -77,31 +77,31 @@ public class MusicControllerActivity extends AbsSlidingMusicPanelActivity {
 
     private static final int CMD_UPDATE_PROGRESS_VIEWS = 1;
 
-    @InjectView(R.id.title)
+    @Bind(R.id.title)
     TextView songTitle;
-    @InjectView(R.id.text)
+    @Bind(R.id.text)
     TextView songArtist;
-    @InjectView(R.id.footer)
+    @Bind(R.id.footer)
     LinearLayout footer;
-    @InjectView(R.id.playback_controller_card)
+    @Bind(R.id.playback_controller_card)
     CardView playbackControllerCard;
-    @InjectView(R.id.prev_button)
+    @Bind(R.id.prev_button)
     ImageButton prevButton;
-    @InjectView(R.id.next_button)
+    @Bind(R.id.next_button)
     ImageButton nextButton;
-    @InjectView(R.id.repeat_button)
+    @Bind(R.id.repeat_button)
     ImageButton repeatButton;
-    @InjectView(R.id.shuffle_button)
+    @Bind(R.id.shuffle_button)
     ImageButton shuffleButton;
-    @InjectView(R.id.media_controller_container)
+    @Bind(R.id.media_controller_container)
     RelativeLayout mediaControllerContainer;
-    @InjectView(R.id.album_art_background)
+    @Bind(R.id.album_art_background)
     ImageView albumArtBackground;
-    @InjectView(R.id.image)
+    @Bind(R.id.image)
     SquareIfPlaceImageView albumArt;
-    @InjectView(R.id.toolbar)
+    @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @InjectView(R.id.favorite_icon)
+    @Bind(R.id.favorite_icon)
     ImageView favoriteIcon;
 
     TextView songCurrentProgress;
@@ -129,7 +129,7 @@ public class MusicControllerActivity extends AbsSlidingMusicPanelActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_controller);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         initAppearanceVarsFromSharedPrefs();
         initProgressSliderDependentViews();

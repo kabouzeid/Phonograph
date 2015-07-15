@@ -67,25 +67,25 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class MainActivity extends AbsSlidingMusicPanelActivity
         implements KabViewsDisableAble, CabHolder {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
-    @InjectView(R.id.toolbar)
+    @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @InjectView(R.id.tabs)
+    @Bind(R.id.tabs)
     TabLayout tabs;
-    @InjectView(R.id.appbar)
+    @Bind(R.id.appbar)
     AppBarLayout appbar;
-    @InjectView(R.id.pager)
+    @Bind(R.id.pager)
     ViewPager pager;
-    @InjectView(R.id.navigation_view)
+    @Bind(R.id.navigation_view)
     NavigationView navigationView;
-    @InjectView(R.id.drawer_layout)
+    @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
     private ActionBarDrawerToggle drawerToggle;
@@ -98,7 +98,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         setUpDrawerLayout();
         setUpToolbar();

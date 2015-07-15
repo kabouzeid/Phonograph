@@ -17,30 +17,30 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class SongTagEditorActivity extends AbsTagEditorActivity implements TextWatcher {
 
     public static final String TAG = SongTagEditorActivity.class.getSimpleName();
 
-    @InjectView(R.id.title1)
+    @Bind(R.id.title1)
     EditText songTitle;
-    @InjectView(R.id.title2)
+    @Bind(R.id.title2)
     EditText albumTitle;
-    @InjectView(R.id.artist)
+    @Bind(R.id.artist)
     EditText artist;
-    @InjectView(R.id.genre)
+    @Bind(R.id.genre)
     EditText genre;
-    @InjectView(R.id.year)
+    @Bind(R.id.year)
     EditText year;
-    @InjectView(R.id.image_text)
+    @Bind(R.id.image_text)
     EditText trackNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         setNoImageMode();
         setUpViews();

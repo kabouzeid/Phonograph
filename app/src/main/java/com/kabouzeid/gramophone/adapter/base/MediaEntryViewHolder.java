@@ -10,60 +10,53 @@ import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.Optional;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public abstract class MediaEntryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
     @Nullable
-    @Optional
-    @InjectView(R.id.image)
+    @Bind(R.id.image)
     public ImageView image;
+
     @Nullable
-    @Optional
-    @InjectView(R.id.image_text)
+    @Bind(R.id.image_text)
     public TextView imageText;
 
     @Nullable
-    @Optional
-    @InjectView(R.id.title)
+    @Bind(R.id.title)
     public TextView title;
+
     @Nullable
-    @Optional
-    @InjectView(R.id.text)
+    @Bind(R.id.text)
     public TextView text;
 
     @Nullable
-    @Optional
-    @InjectView(R.id.menu)
+    @Bind(R.id.menu)
     public View menu;
 
     @Nullable
-    @Optional
-    @InjectView(R.id.separator)
+    @Bind(R.id.separator)
     public View separator;
+
     @Nullable
-    @Optional
-    @InjectView(R.id.short_separator)
+    @Bind(R.id.short_separator)
     public View shortSeparator;
 
     @Nullable
-    @Optional
-    @InjectView(R.id.selected_indicator)
+    @Bind(R.id.selected_indicator)
     public View selectedIndicator;
 
     @Nullable
-    @Optional
-    @InjectView(R.id.palette_color_container)
+    @Bind(R.id.palette_color_container)
     public View paletteColorContainer;
     public int paletteColor;
 
     public MediaEntryViewHolder(View itemView) {
         super(itemView);
-        ButterKnife.inject(this, itemView);
+        ButterKnife.bind(this, itemView);
 
         itemView.setOnClickListener(this);
         itemView.setOnLongClickListener(this);
