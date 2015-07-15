@@ -59,7 +59,7 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
 
         setUpRecyclerView();
 
-        showEmptyMessageIfEmpty();
+        checkIsEmpty();
     }
 
     private void setUpRecyclerView() {
@@ -73,7 +73,7 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
             @Override
             public void onChanged() {
                 super.onChanged();
-                showEmptyMessageIfEmpty();
+                checkIsEmpty();
             }
         });
         recyclerView.setAdapter(adapter);
@@ -131,7 +131,7 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
         recyclerView.setEnabled(false);
     }
 
-    private void showEmptyMessageIfEmpty() {
+    private void checkIsEmpty() {
         if (empty != null) {
             RecyclerView.Adapter adapter = getAdapter();
             if (adapter != null) {

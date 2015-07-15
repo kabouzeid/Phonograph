@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.transition.Transition;
 import android.view.Menu;
@@ -35,6 +36,7 @@ import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.misc.SmallTransitionListener;
 import com.kabouzeid.gramophone.model.Album;
+import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AlbumTagEditorActivity;
@@ -49,6 +51,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.process.BitmapProcessor;
+
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -187,7 +191,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
 
     private void setUpViews() {
         albumTitleView.setText(album.title);
-        setUpListView();
+        setUpRecyclerViewView();
         setUpSongsAdapter();
         setUpAlbumArtAndApplyPalette();
     }
@@ -267,7 +271,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         return toolbarColor;
     }
 
-    private void setUpListView() {
+    private void setUpRecyclerViewView() {
         recyclerView.setScrollViewCallbacks(observableScrollViewCallbacks);
         recyclerView.setPadding(0, albumArtViewHeight + titleViewHeight, 0, bottomOffset);
         final View contentView = getWindow().getDecorView().findViewById(android.R.id.content);
@@ -290,9 +294,24 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     }
 
     private void setUpSongsAdapter() {
-        adapter = new AlbumSongAdapter(this, AlbumSongLoader.getAlbumSongList(this, album.id), R.layout.item_list, this);
+        adapter = new AlbumSongAdapter(this, loadSongDataSet(), R.layout.item_list, this);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(adapter);
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                if (adapter.getItemCount() == 0) finish();
+            }
+        });
+    }
+
+    private void reloadDataSet() {
+        adapter.swapDataSet(loadSongDataSet());
+    }
+
+    private ArrayList<Song> loadSongDataSet() {
+        return AlbumSongLoader.getAlbumSongList(this, album.id);
     }
 
     @Override
@@ -394,5 +413,11 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
             recyclerView.stopScroll();
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onMediaStoreChanged() {
+        super.onMediaStoreChanged();
+        reloadDataSet();
     }
 }

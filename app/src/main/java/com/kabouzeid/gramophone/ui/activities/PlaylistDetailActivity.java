@@ -21,12 +21,16 @@ import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.misc.DragSortRecycler;
 import com.kabouzeid.gramophone.model.Playlist;
+import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -71,9 +75,9 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     private void setUpRecyclerView() {
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         if (playlist instanceof AbsSmartPlaylist) {
-            adapter = new SmartPlaylistSongAdapter(this, ((AbsSmartPlaylist) playlist).getSongs(this), R.layout.item_list, this);
+            adapter = new SmartPlaylistSongAdapter(this, loadSmartPlaylistDataSet(), R.layout.item_list, this);
         } else {
-            adapter = new PlaylistSongAdapter(this, PlaylistSongLoader.getPlaylistSongList(this, playlist.id), R.layout.item_list, this);
+            adapter = new PlaylistSongAdapter(this, loadPlaylistDataSet(), R.layout.item_list, this);
 
             DragSortRecycler dragSortRecycler = new DragSortRecycler();
             dragSortRecycler.setViewHandleId(R.id.image);
@@ -96,6 +100,31 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
             recyclerView.setItemAnimator(null);
         }
         recyclerView.setAdapter(adapter);
+
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                checkIsEmpty();
+            }
+        });
+    }
+
+    private void reloadDataSet() {
+        if (playlist instanceof AbsSmartPlaylist) {
+            adapter.swapDataSet(loadSmartPlaylistDataSet());
+        } else {
+            //noinspection unchecked
+            adapter.swapDataSet((ArrayList<Song>) (List) loadPlaylistDataSet());
+        }
+    }
+
+    private ArrayList<PlaylistSong> loadPlaylistDataSet() {
+        return PlaylistSongLoader.getPlaylistSongList(this, playlist.id);
+    }
+
+    private ArrayList<Song> loadSmartPlaylistDataSet() {
+        return ((AbsSmartPlaylist) playlist).getSongs(this);
     }
 
     private void setUpToolBar() {
@@ -168,6 +197,12 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
             recyclerView.stopScroll();
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onMediaStoreChanged() {
+        super.onMediaStoreChanged();
+        reloadDataSet();
     }
 
     private void checkIsEmpty() {

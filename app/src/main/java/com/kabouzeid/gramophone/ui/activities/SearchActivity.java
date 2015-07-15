@@ -21,13 +21,13 @@ import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.SearchAdapter;
-import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
+import com.kabouzeid.gramophone.ui.activities.base.AbsMusicStateActivity;
 import com.kabouzeid.gramophone.util.Util;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SearchActivity extends AbsBaseActivity {
+public class SearchActivity extends AbsMusicStateActivity {
 
     public static final String TAG = SearchActivity.class.getSimpleName();
     @Bind(R.id.recycler_view)
@@ -38,9 +38,10 @@ public class SearchActivity extends AbsBaseActivity {
     @Bind(android.R.id.empty)
     TextView empty;
 
-
     private SearchView searchView;
     private SearchAdapter searchAdapter;
+
+    private String searchQuery = "";
 
     @SuppressLint("NewApi")
     @Override
@@ -138,9 +139,16 @@ public class SearchActivity extends AbsBaseActivity {
     }
 
     private void search(@NonNull String query) {
+        searchQuery = query;
         if (searchAdapter != null) {
             searchAdapter.search(query);
             empty.setVisibility(searchAdapter.getItemCount() < 1 ? View.VISIBLE : View.GONE);
         }
+    }
+
+    @Override
+    public void onMediaStoreChanged() {
+        super.onMediaStoreChanged();
+        search(searchQuery);
     }
 }
