@@ -26,7 +26,7 @@
     <string name="artists">Исполнители</string>
     <string name="songs">Песни</string>
     <string name="playlists">Списки воспроизведения</string>
-    <string name="playing_queue_empty">Ничего нет для воспроизведения</string>
+    <string name="nothing_playing">Ничего нет для воспроизведения</string>
     <string name="unplayable_file">Произошла ошибка при попытке проиграть эту песню</string>
     <string name="biography_unavailable">Извините, биография для этого исполнителя не найдена.</string>
     <string name="biography">Биография</string>
@@ -61,7 +61,6 @@
     <string name="updating">Обновление...</string>
     <string name="added_title_to_playing_queue">"Добавлена 1 композиция в очередь воспроизведения"</string>
     <string name="added_x_titles_to_playing_queue">Добавлено %1$d композиций в очередь воспроизведения</string>
-    <string name="new_playlist_action">Новый список воспроизведения...</string>
     <string name="action_grid_columns">Столбцы сетки</string>
     <string name="action_grid_columns_land">Столбцы сетки (ландшафт)</string>
     <string name="inserted_x_songs_into_playlist">Вставлено %1$d песен в список воспроизведения.</string>
@@ -77,7 +76,6 @@
     <string name="delete_playlist_title">Удалить список воспроизведения</string>
     <string name="delete_playlists_title">Удалить списки воспроизведения</string>
     <string name="add_playlist_title">"Добавить в список воспроизведения"</string>
-    <string name="new_playlist_title">Новый список воспроизведения</string>
     <string name="delete_warning">"Внимание ! Эта операция необратима."</string>
     <string name="last_opened">Последнее открытое</string>
     <string name="light_theme_name">Светлая</string>
@@ -117,4 +115,5 @@
     <string name="pref_summary_colored_album_footers">"Панели альбомов в сетке окрашены цветом из палитры обложки альбома."</string>
     <string name="search_hint">Поиск библиотеки...</string>
     <string name="rescanning_media">Повторное сканирование медиа...</string>
+    <string name="new_playlist_title">Новый список воспроизведения</string>
 </resources>

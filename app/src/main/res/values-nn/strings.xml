@@ -14,7 +14,7 @@
     <string name="artists">Artistar</string>
     <string name="songs">Songar</string>
     <string name="playlists">Spelelister</string>
-    <string name="playing_queue_empty">Ingenting speler</string>
+    <string name="nothing_playing">Ingenting speler</string>
     <string name="unplayable_file">Orsak - ein feil oppstod medan spelaren prøvde å spele denne songen</string>
     <string name="biography_unavailable">Orsak, vi fann ingen passande biografi for denne artisten.</string>
     <string name="biography">Biografi</string>
@@ -49,7 +49,6 @@
     <string name="updating">Oppdaterer...</string>
     <string name="added_title_to_playing_queue">"La 1 tittel til songkøen."</string>
     <string name="added_x_titles_to_playing_queue">La %1$d titlar til songkøen.</string>
-    <string name="new_playlist_action">Ny speleliste...</string>
     <string name="action_grid_columns">Rutenettkolonnar</string>
     <string name="action_grid_columns_land">Rutenettkolonnar (land)</string>
     <string name="inserted_x_songs_into_playlist">Satte inn %1$d songar i denne spelelista.</string>
@@ -73,7 +72,6 @@
     <string name="delete_playlist_title">Slett speleliste</string>
     <string name="delete_playlists_title">Slett spelelister</string>
     <string name="add_playlist_title">"Legg til i speleliste"</string>
-    <string name="new_playlist_title">Ny speleliste</string>
     <string name="delete_warning">"Åtvaring: Denne operasjonen kan ikkje gjerast om."</string>
     <string name="last_opened">Sist opna</string>
     <string name="light_theme_name">Lys</string>
@@ -108,4 +106,5 @@
     <string name="pref_only_lollipop">"Berre tilgjengeleg på Lollipop."</string>
     <string name="search_hint">Søk i biblioteket...</string>
     <string name="rescanning_media">Skanner media på nytt...</string>
+    <string name="new_playlist_title">Ny speleliste</string>
 </resources>

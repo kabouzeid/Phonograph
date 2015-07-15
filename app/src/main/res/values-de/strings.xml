@@ -10,7 +10,7 @@
     <string name="action_settings">"Einstellungen"</string>
     <string name="action_about">Infos</string>
     <string name="action_now_playing">Jetzt Läuft</string>
-    <string name="action_clear_playlist">Playlist leeren</string>
+    <string name="action_clear_playlist">Wiedergabeliste leeren</string>
     <string name="action_playing_queue">Warteschlange</string>
     <string name="action_add_to_favorites">Zu Favoriten hinzufügen</string>
     <string name="action_remove_from_favorites">Von Favoriten entfernen</string>
@@ -27,7 +27,8 @@
     <string name="artists">Interpreten</string>
     <string name="songs">Titel</string>
     <string name="playlists">Wiedergabelisten</string>
-    <string name="playing_queue_empty">Keine Wiedergabe</string>
+    <string name="playing_queue_empty">Die Wiedergabeschlange ist leer.</string>
+    <string name="nothing_playing">Keine Wiedergabe</string>
     <string name="unplayable_file">Der Song kann nicht abgespielt werden</string>
     <string name="biography_unavailable">Es konnte keine passende Biografie für diesen Interpreten gefunden werden</string>
     <string name="biography">Biografie</string>
@@ -65,16 +66,16 @@
     <string name="added_title_to_playing_queue">"1 Titel wurde der Warteschlange hinzugefügt"</string>
     <string name="added_x_titles_to_playing_queue">%1$d Titel wurden der Warteschlange hinzugefügt</string>
     <string name="action_remove_from_playlist">Aus Wiedergabeliste entfernen</string>
-    <string name="new_playlist_action">Neue Wiedergabeliste…</string>
     <string name="action_grid_columns">Rastergröße</string>
     <string name="action_grid_columns_land">Rastergröße (Quer)</string>
+    <string name="action_view_as">Anzeigen als</string>
     <string name="inserted_x_songs_into_playlist">%1$d Titel zur Wiedergabeliste hinzugefügt</string>
     <string name="created_playlist_x">Wiedergabeliste %1$s erstellt</string>
     <string name="deleted_playlist_x">Wiedergabeliste %1$s gelöscht</string>
     <string name="deleted_x_songs">%1$d Titel gelöscht</string>
     <string name="could_not_create_playlist">Wiedergabeliste konnte nicht erstellt werden</string>
     <string name="delete_playlist_x"><![CDATA[Willst du die Wiedergabeliste <b>%1$s</b> löschen?]]></string>
-    <string name="clear_playlist_x"><![CDATA[Möchtest du die Playlist <b>%1$s</b> wirklich leeren?]]></string>
+    <string name="clear_playlist_x"><![CDATA[Möchtest du die Wiedergabeliste <b>%1$s</b> wirklich leeren?]]></string>
     <string name="delete_x_playlists"><![CDATA[Willst du <b>%1$d</b> Wiedergabelisten löschen?]]></string>
     <string name="delete_song_x"><![CDATA[Willst du den Titel <b>%1$s</b> löschen?]]></string>
     <string name="delete_x_songs"><![CDATA[Willst du <b>%1$d</b> Titel löschen?]]></string>
@@ -87,9 +88,8 @@
     <string name="rename_playlist_title">Wiedergabeliste umbenennen</string>
     <string name="delete_playlist_title">Wiedergabeliste löschen</string>
     <string name="delete_playlists_title">Wiedergabelisten löschen</string>
-    <string name="clear_playlist_title">Playlist leeren</string>
+    <string name="clear_playlist_title">Wiedergabeliste leeren</string>
     <string name="add_playlist_title">"Zu Wiedergabeliste hinzufügen"</string>
-    <string name="new_playlist_title">Neue Wiedergabeliste</string>
     <string name="delete_warning">"Warnung: Diese Aktion kann nicht rückgängig gemacht werden"</string>
     <string name="action_shuffle_all">Zufällige Wiedergabe</string>
     <string name="action_shuffle_album">Album zufällig wiedergeben</string>
@@ -149,7 +149,7 @@
     <string name="no_songs">Keine Songs</string>
     <string name="no_artists">Keine Interpreten</string>
     <string name="empty">Leer</string>
-    <string name="playlist_name_empty">Playlist name</string>
+    <string name="playlist_name_empty">Wiedergabelisten Name</string>
     <string name="song">Titel</string>
     <string name="pref_only_lollipop">"Nur auf Lollipop verfügbar"</string>
     <string name="pref_summary_colored_album_footers">"Farbe der Box unter jedem Album dem Cover anpassen"</string>
@@ -179,4 +179,9 @@
     <string name="cancel_current_timer">Aktuellen Timer abbrechen</string>
     <string name="sleep_timer_canceled">Der Einschlaf Timer wurde abgebrochen</string>
     <string name="sleep_timer_set">Der Einschlaf Timer wurde auf %d Minuten von jetzt gesetzt</string>
+    <string name="action_new_playlist">Neue Wiedergabeliste...</string>
+    <string name="new_playlist_title">Neue Wiedergabeliste</string>
+    <string name="grid">Gitter</string>
+    <string name="list">Liste</string>
+    <string name="colored_footers">Farbige Balken</string>
 </resources>

@@ -27,7 +27,7 @@
     <string name="artists">Artiști</string>
     <string name="songs">Melodii</string>
     <string name="playlists">Liste de redare</string>
-    <string name="playing_queue_empty">Nimic nu este redat</string>
+    <string name="nothing_playing">Nimic nu este redat</string>
     <string name="unplayable_file">Ne pare rău - a apărut o problemă în încercarea de a reda această melodie.</string>
     <string name="biography_unavailable">Ne pare rău, nu am putut găsi o biografie potrivită pentru acest artist.</string>
     <string name="biography">Biografie</string>
@@ -63,7 +63,6 @@
     <string name="added_title_to_playing_queue">"Melodie adăugată în lista de redare."</string>
     <string name="added_x_titles_to_playing_queue">%1$d melodii adăugate în lista de redare.</string>
     <string name="action_remove_from_playlist">Ștergeți din lista de redare.</string>
-    <string name="new_playlist_action">Listă de redare nouă...</string>
     <string name="action_grid_columns">Rânduri pe  grilă</string>
     <string name="action_grid_columns_land">Rânduri pe grilă (Orizontal)</string>
     <string name="inserted_x_songs_into_playlist">%1$d melodii inserate în listă</string>
@@ -84,7 +83,6 @@
     <string name="delete_playlists_title">Ștergeți listele de redare</string>
     <string name="clear_playlist_title">Eliberați lista de redare</string>
     <string name="add_playlist_title">"Adaugă la listă de redare"</string>
-    <string name="new_playlist_title">Listă de redare nouă</string>
     <string name="delete_warning">"Atenţie: Această operaţie nu poate fi revocată."</string>
     <string name="action_shuffle_all">Amestecare</string>
     <string name="action_shuffle_album">Amestecare album</string>
@@ -147,4 +145,5 @@
     <string name="remove_cover">Ștergeți pictogramă</string>
     <string name="download_from_last_fm">Descărcați de la Last.fm</string>
     <string name="pick_from_local_storage">Alegeți din Stocarea locală</string>
+    <string name="new_playlist_title">Listă de redare nouă</string>
 </resources>

@@ -27,7 +27,7 @@
     <string name="artists">Izvođači</string>
     <string name="songs">Pjesme</string>
     <string name="playlists">Popisi pjesama</string>
-    <string name="playing_queue_empty">Ništa se ne reproducira</string>
+    <string name="nothing_playing">Ništa se ne reproducira</string>
     <string name="unplayable_file">Došlo je do greške prilikom pokušaja reproduciranja ove pjesme</string>
     <string name="biography_unavailable">Nismo mogli pronaći biografiju ovog izvođača</string>
     <string name="biography">Biografija</string>
@@ -65,7 +65,6 @@
     <string name="added_title_to_playing_queue">"Pjesma dodana u red čekanja"</string>
     <string name="added_x_titles_to_playing_queue">Dodano %1$d pjesama u red čekanja</string>
     <string name="action_remove_from_playlist">Ukloni s popisa pjesama</string>
-    <string name="new_playlist_action">Novi popis pjesama</string>
     <string name="action_grid_columns">Stupci rešetke</string>
     <string name="action_grid_columns_land">Stupci rešetke (položeno)</string>
     <string name="inserted_x_songs_into_playlist">Stavljeno %1$d pjesama na popis</string>
@@ -89,7 +88,6 @@
     <string name="delete_playlists_title">Obriši popise pjesama</string>
     <string name="clear_playlist_title">Isprazni popis pjesama</string>
     <string name="add_playlist_title">"Dodaj na popis pjesama"</string>
-    <string name="new_playlist_title">Novi popis pjesama</string>
     <string name="delete_warning">"Upozorenje: Ovaj postupak nije moguće poništiti"</string>
     <string name="action_shuffle_all">Nasumična reprodukcija svega</string>
     <string name="action_shuffle_album">Nasumična reprodukcija albuma</string>
@@ -176,4 +174,5 @@
     <string name="cancel_current_timer">Otkaži trenutni tajmer</string>
     <string name="sleep_timer_canceled">Tajmer za spavanje je otkazan</string>
     <string name="sleep_timer_set">Tajmer za spavanje namješten je za %d min od sada</string>
+    <string name="new_playlist_title">Novi popis pjesama</string>
 </resources>

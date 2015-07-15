@@ -27,7 +27,7 @@
     <string name="artists">Sanatçılar</string>
     <string name="songs">Şarkılar</string>
     <string name="playlists">Çalma listeleri</string>
-    <string name="playing_queue_empty">Şu anda çalınan şarkı yok</string>
+    <string name="nothing_playing">Şu anda çalınan şarkı yok</string>
     <string name="unplayable_file">Bu şarkı oynatılırken bir hata oluştu</string>
     <string name="biography_unavailable">Bu sanatçı ile ilgili hiçbir biyografi yazısı bulamadık.</string>
     <string name="biography">Biyografi</string>
@@ -65,7 +65,6 @@
     <string name="added_title_to_playing_queue">"Çalma kuyruğuna 1 başlık eklendi."</string>
     <string name="added_x_titles_to_playing_queue">Çalma kuyruğuna %1$d başlıkları eklendi.</string>
     <string name="action_remove_from_playlist">Çalma listesinden kaldır</string>
-    <string name="new_playlist_action">Yeni çalma listesi...</string>
     <string name="action_grid_columns">Izgara sütunları</string>
     <string name="action_grid_columns_land">Izgara sütunları (Yatay)</string>
     <string name="inserted_x_songs_into_playlist">Bu çalma listesine %1$d şarkı eklenmiştir.</string>
@@ -89,7 +88,6 @@
     <string name="delete_playlists_title">Çalma listelerini sil</string>
     <string name="clear_playlist_title">Çalma Listesini Temizle</string>
     <string name="add_playlist_title">"Çalma Listesine Ekle"</string>
-    <string name="new_playlist_title">Yeni Çalma Listesi</string>
     <string name="delete_warning">"Uyarı: Bu işlem geri alınamaz."</string>
     <string name="action_shuffle_all">Tümünü Karıştır</string>
     <string name="action_shuffle_album">Albümü Karıştır</string>
@@ -179,4 +177,5 @@
     <string name="cancel_current_timer">Şu anki zamanlayıcıyı iptal et</string>
     <string name="sleep_timer_canceled">Uyku zamanlayıcısı iptal edildi</string>
     <string name="sleep_timer_set">Uyku zamanlayıcısı %d dakikalığına ayarlandı</string>
+    <string name="new_playlist_title">Yeni Çalma Listesi</string>
 </resources>

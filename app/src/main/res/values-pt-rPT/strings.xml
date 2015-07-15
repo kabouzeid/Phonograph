@@ -14,7 +14,7 @@
     <string name="artists">Artistas</string>
     <string name="songs">Músicas</string>
     <string name="playlists">Playlists</string>
-    <string name="playing_queue_empty">Nada está sendo reproduzido</string>
+    <string name="nothing_playing">Nada está sendo reproduzido</string>
     <string name="unplayable_file">Desculpe - ocorreu um erro ao tentar reproduzir essa música</string>
     <string name="biography_unavailable">Desculpe, mas nós não fomos capazes de encontrar uma biografia para este artista.</string>
     <string name="biography">Biografia</string>

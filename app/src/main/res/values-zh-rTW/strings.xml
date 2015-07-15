@@ -27,7 +27,7 @@
     <string name="artists">歌手</string>
     <string name="songs">歌曲</string>
     <string name="playlists">音樂清單</string>
-    <string name="playing_queue_empty">沒有正在播放的歌曲</string>
+    <string name="nothing_playing">沒有正在播放的歌曲</string>
     <string name="unplayable_file">嘗試播放歌曲時發生錯誤</string>
     <string name="biography_unavailable">無法找到與這位歌手相符的個人簡介</string>
     <string name="biography">個人簡介</string>
@@ -64,7 +64,6 @@
     <string name="added_title_to_playing_queue">"這歌曲已加入播放佇列"</string>
     <string name="added_x_titles_to_playing_queue">已增加%1$d首歌曲到播放佇列</string>
     <string name="action_remove_from_playlist">從音樂清單移除</string>
-    <string name="new_playlist_action">新增音樂清單</string>
     <string name="action_grid_columns">專輯網格列數</string>
     <string name="action_grid_columns_land">專輯網格列數（橫向）</string>
     <string name="inserted_x_songs_into_playlist">%1$d首歌曲已加入該音樂清單</string>
@@ -88,7 +87,6 @@
     <string name="delete_playlists_title">刪除音樂清單</string>
     <string name="clear_playlist_title">清除音樂清單</string>
     <string name="add_playlist_title">"加入音樂清單"</string>
-    <string name="new_playlist_title">新增音樂清單</string>
     <string name="delete_warning">"警告：這個操作無法被撤銷！"</string>
     <string name="action_shuffle_all">全部歌曲隨機播放</string>
     <string name="action_shuffle_album">專輯隨機播放</string>
@@ -172,4 +170,5 @@
     <string name="cancel_current_timer">取消當前定時計</string>
     <string name="sleep_timer_canceled">已取消睡眠定時計</string>
     <string name="sleep_timer_set">設定睡眠定時計從現在開始%d分鐘</string>
+    <string name="new_playlist_title">新增音樂清單</string>
 </resources>

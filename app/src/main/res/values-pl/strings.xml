@@ -27,7 +27,8 @@
     <string name="artists">Wykonawcy</string>
     <string name="songs">Utwory</string>
     <string name="playlists">Listy odtwarzania</string>
-    <string name="playing_queue_empty">Nic nie gra</string>
+    <string name="playing_queue_empty">Kolejka odtwarzania jest pusta</string>
+    <string name="nothing_playing">Nic nie gra</string>
     <string name="unplayable_file">Wystąpił błąd przy próbie odtworzenia tego utworu</string>
     <string name="biography_unavailable">Nie znaleziono pasującej biografii dla tego wykonawcy</string>
     <string name="biography">Biografia</string>
@@ -65,7 +66,6 @@
     <string name="added_title_to_playing_queue">"Dodano 1 tytuł do kolejki odtwarzania"</string>
     <string name="added_x_titles_to_playing_queue">Dodano %1$d tytuły do kolejki odtwarzania</string>
     <string name="action_remove_from_playlist">Usuń z listy odtwarzania</string>
-    <string name="new_playlist_action">Nowa lista odtwarzania...</string>
     <string name="action_grid_columns">Siatka kolumn</string>
     <string name="action_grid_columns_land">Siatka kolumn (poziomo)</string>
     <string name="inserted_x_songs_into_playlist">Dodano %1$d utworów do listy odtwarzania</string>
@@ -89,7 +89,6 @@
     <string name="delete_playlists_title">Usuń listy odtwarzania</string>
     <string name="clear_playlist_title">Wyczyść listę odtwarzania</string>
     <string name="add_playlist_title">"Dodaj do listy odtwarzania"</string>
-    <string name="new_playlist_title">Nowa lista odtwarzania</string>
     <string name="delete_warning">"Ostrzeżenie: Ta operacja nie może być cofnięta"</string>
     <string name="action_shuffle_all">Wszystkie losowo</string>
     <string name="action_shuffle_album">Losowy album</string>
@@ -179,4 +178,6 @@
     <string name="cancel_current_timer">Anuluj wyłącznik</string>
     <string name="sleep_timer_canceled">Wyłącznik czasowy został anulowany</string>
     <string name="sleep_timer_set">Wyłącznik czasowy ustawiony na %d minut od teraz</string>
+    <string name="action_new_playlist">Nowa lista odtwarzania</string>
+    <string name="new_playlist_title">Nowa lista odtwarzania</string>
 </resources>
