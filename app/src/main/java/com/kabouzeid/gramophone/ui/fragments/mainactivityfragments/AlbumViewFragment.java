@@ -26,7 +26,7 @@ public class AlbumViewFragment extends AbsMainActivityRecyclerViewLayoutModeFrag
                 getMainActivity(),
                 AlbumLoader.getAllAlbums(getActivity()),
                 getItemLayout(),
-                PreferenceUtil.getInstance(getActivity()).albumColoredFooters(),
+                loadUsePalette(),
                 getMainActivity());
     }
 

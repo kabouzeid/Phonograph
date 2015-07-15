@@ -67,10 +67,6 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
         notifyDataSetChanged();
     }
 
-    public List<Album> getDataSet() {
-        return dataSet;
-    }
-
     public void swapDataSet(List<Album> dataSet) {
         this.dataSet = dataSet;
         notifyDataSetChanged();

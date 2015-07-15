@@ -19,8 +19,8 @@ public class AlbumSongAdapter extends SongAdapter {
 
     public static final String TAG = AlbumSongAdapter.class.getSimpleName();
 
-    public AlbumSongAdapter(AppCompatActivity activity, ArrayList<Song> dataSet, @LayoutRes int itemLayoutRes, @Nullable CabHolder cabHolder) {
-        super(activity, dataSet, itemLayoutRes, cabHolder);
+    public AlbumSongAdapter(AppCompatActivity activity, ArrayList<Song> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
+        super(activity, dataSet, itemLayoutRes, usePalette, cabHolder);
     }
 
     @Override
