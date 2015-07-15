@@ -27,6 +27,7 @@
     <string name="artists">Sanatçılar</string>
     <string name="songs">Şarkılar</string>
     <string name="playlists">Çalma listeleri</string>
+    <string name="playing_queue_empty">Çalma kuyruğu boş</string>
     <string name="nothing_playing">Şu anda çalınan şarkı yok</string>
     <string name="unplayable_file">Bu şarkı oynatılırken bir hata oluştu</string>
     <string name="biography_unavailable">Bu sanatçı ile ilgili hiçbir biyografi yazısı bulamadık.</string>
@@ -67,6 +68,7 @@
     <string name="action_remove_from_playlist">Çalma listesinden kaldır</string>
     <string name="action_grid_columns">Izgara sütunları</string>
     <string name="action_grid_columns_land">Izgara sütunları (Yatay)</string>
+    <string name="action_view_as">Görünüm</string>
     <string name="inserted_x_songs_into_playlist">Bu çalma listesine %1$d şarkı eklenmiştir.</string>
     <string name="created_playlist_x">Çalma listesi %1$s oluşturuldu</string>
     <string name="deleted_playlist_x">Çalma listesi %1$s silindi</string>
@@ -113,7 +115,6 @@
     <string name="pref_title_colored_navigation_bar_playlists">Çalma Listesi Görünümü</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">Etiket Düzenleyici</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Başka Her Yerde</string>
-    <string name="pref_title_colored_album_footers">Albüm Alt Bilgilerini Renklendir</string>
     <string name="pref_title_album_art_on_lockscreen">Kilit ekranındaki Albüm kapağı</string>
     <string name="pref_title_colored_notification">Renkli Bildirim</string>
     <string name="pref_title_ignore_media_store_artwork">Media Store albüm kapağını yoksay</string>
@@ -150,7 +151,6 @@
     <string name="playlist_name_empty">Çalma listesi adı</string>
     <string name="song">Şarkı</string>
     <string name="pref_only_lollipop">"Sadece Lollipop için"</string>
-    <string name="pref_summary_colored_album_footers">"Izgara içindeki albüm alt bilgisini albüm arkaplanına ait canlı renklerle renklendirir."</string>
     <string name="pref_summary_album_art_on_lockscreen">Albüm kapağı kilit ekranında görüntülenmektedir. Değişikliğin uygulanması için Phonograph\'ı yeniden başlatmanız gerekebilir</string>
     <string name="pref_summary_colored_notification">"Bildirimler albüm kapağının canlı renkleriyle renklenir."</string>
     <string name="pref_summary_gapless_playback">"İki parça arasındaki geçişi kaldırmak, bazı cihazlardaki oynatma sorununuzu giderebilir."</string>
@@ -177,5 +177,9 @@
     <string name="cancel_current_timer">Şu anki zamanlayıcıyı iptal et</string>
     <string name="sleep_timer_canceled">Uyku zamanlayıcısı iptal edildi</string>
     <string name="sleep_timer_set">Uyku zamanlayıcısı %d dakikalığına ayarlandı</string>
+    <string name="action_new_playlist">Yeni çalma listesi....</string>
     <string name="new_playlist_title">Yeni Çalma Listesi</string>
+    <string name="grid">Izgara</string>
+    <string name="list">Liste</string>
+    <string name="colored_footers">Renkli alt bilgiler</string>
 </resources>

@@ -27,6 +27,7 @@
     <string name="artists">艺术家</string>
     <string name="songs">歌曲</string>
     <string name="playlists">播放列表</string>
+    <string name="playing_queue_empty">播放队列为空</string>
     <string name="nothing_playing">没有正在播放的曲目</string>
     <string name="unplayable_file">尝试播放该曲目时发生错误。</string>
     <string name="biography_unavailable">找不到与该艺术家相匹配的个人简介。</string>
@@ -67,6 +68,7 @@
     <string name="action_remove_from_playlist">从播放列表移除</string>
     <string name="action_grid_columns">专辑列数</string>
     <string name="action_grid_columns_land">专辑列数（横屏）</string>
+    <string name="action_view_as">查看方式</string>
     <string name="inserted_x_songs_into_playlist">%1$d首曲目已添加到该播放列表。</string>
     <string name="created_playlist_x">播放列表%1$s已创建</string>
     <string name="deleted_playlist_x">%1$s播放列表已删除</string>
@@ -102,6 +104,7 @@
     <string name="pref_title_general_theme">全局主题</string>
     <string name="pref_header_audio">声音</string>
     <string name="pref_header_general">通用</string>
+    <string name="pref_header_images">图片</string>
     <string name="pref_header_lockscreen">锁屏</string>
     <string name="pref_summary_colored_navigation_bar">设置在哪些界面应用变色导航栏</string>
     <string name="pref_title_navigation_bar">变色导航栏</string>
@@ -112,9 +115,9 @@
     <string name="pref_title_colored_navigation_bar_playlists">播放列表视图</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">音乐标签编辑器</string>
     <string name="pref_title_colored_navigation_bar_other_screens">其他任何地方</string>
-    <string name="pref_title_colored_album_footers">使用变色的专辑标签</string>
     <string name="pref_title_album_art_on_lockscreen">在锁屏显示专辑封面</string>
     <string name="pref_title_colored_notification">使用变色的通知栏</string>
+    <string name="pref_title_ignore_media_store_artwork">忽略媒体储存中的专辑封面</string>
     <string name="pref_title_gapless_playback">连续播放</string>
     <string name="pref_title_force_square_album_art">强制使用方形专辑封面</string>
     <string name="pref_title_opaque_toolbar_now_playing">正在播放界面使用不透明工具栏</string>
@@ -148,7 +151,6 @@
     <string name="playlist_name_empty">播放列表名称</string>
     <string name="song">歌曲</string>
     <string name="pref_only_lollipop">"仅适用于 Lollipop"</string>
-    <string name="pref_summary_colored_album_footers">"专辑队列视图中专辑页脚会根据专辑封面的色调进行变色。"</string>
     <string name="pref_summary_album_art_on_lockscreen">在锁屏显示专辑封面。可能需要重启 Phonograph 才能生效。</string>
     <string name="pref_summary_colored_notification">"使用与专辑封面色彩相对应的通知栏消息背景"</string>
     <string name="pref_summary_gapless_playback">"消除两首歌曲之间的间隔。禁用该选项或许能修复某些播放问题。"</string>
@@ -158,6 +160,7 @@
     <string name="pref_summary_larger_title_box_now_playing">增加专辑封面下方用于显示歌曲名称和艺术家区域的高度</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">使用不会遮挡专辑封面的进度条替代正常的进度滑块。</string>
     <string name="pref_summary_playback_controller_card_now_playing">在播放控制按钮（播放/暂停等）下方显示卡片背景</string>
+    <string name="pref_summary_ignore_media_store_artwork">绕过媒体储存以提高专辑封面质量，但会减缓图片加载速度。当您遇到专辑封面质量过低的状况时请开启此选项。</string>
     <string name="could_not_download_album_cover">"无法下载匹配的专辑封面。"</string>
     <string name="search_hint">正在扫描</string>
     <string name="rescanning_media">正在重新扫描媒体库…</string>
@@ -174,5 +177,9 @@
     <string name="cancel_current_timer">取消当前计时器</string>
     <string name="sleep_timer_canceled">睡眠定时器已被取消</string>
     <string name="sleep_timer_set">音乐将于%d分钟后停止播放</string>
+    <string name="action_new_playlist">新建播放列表…</string>
     <string name="new_playlist_title">新建播放列表</string>
+    <string name="grid">网格</string>
+    <string name="list">列表</string>
+    <string name="colored_footers">变色页脚</string>
 </resources>

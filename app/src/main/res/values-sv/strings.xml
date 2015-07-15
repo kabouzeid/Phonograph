@@ -81,7 +81,6 @@ Vill du radera <b>%1$d</b> låtar?
     <string name="pref_title_colored_navigation_bar_playlists">Spellistevy</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">Etikettredigerare</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Överallt</string>
-    <string name="pref_title_colored_album_footers">Färgade albumsidfötter</string>
     <string name="no_equalizer">Hittar ingen equalizer</string>
     <string name="no_audio_ID">"Inget ljud-ID, spela något annat och försök igen."</string>
     <string name="delete_action">Radera</string>

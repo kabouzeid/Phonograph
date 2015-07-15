@@ -113,7 +113,6 @@
     <string name="pref_title_colored_navigation_bar_playlists">مشهد قائمة التشغيل</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">تعديل معلومات الموسيقى</string>
     <string name="pref_title_colored_navigation_bar_other_screens">في أي مكان</string>
-    <string name="pref_title_colored_album_footers">الهوامش السفلية للألبومات  ملونة</string>
     <string name="pref_title_album_art_on_lockscreen">صورة الالبوم في قائمة التشغيل</string>
     <string name="pref_title_colored_notification">اشعار ملون</string>
     <string name="pref_title_gapless_playback">تشغيل مختصر</string>
@@ -149,7 +148,6 @@
     <string name="playlist_name_empty">اسم قائمة التشغيل</string>
     <string name="song">الأغنية</string>
     <string name="pref_only_lollipop">"متوفر في نظام التشغيل Lollipop."</string>
-    <string name="pref_summary_colored_album_footers">"تلوين الهوامش السفلية للألبومات بلون غلاف الألبوم."</string>
     <string name="pref_summary_album_art_on_lockscreen">صورة الالبوم تظهر في شاشة القفل. قد تضطر إلى إعادة تشغيل البرنامج من أجل ان تصبح التغييرات نافذة المفعول.</string>
     <string name="pref_summary_colored_notification">"تلوين الاشعارات بلون غلاف الألبوم."</string>
     <string name="pref_summary_gapless_playback">"ازالة المقاطع التي الصامتة بين الاغنيتين. هذا يمكن ان يسبب مشاكل في التشغيل في بعض الاجهرة"</string>

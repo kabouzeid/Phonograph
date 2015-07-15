@@ -112,7 +112,6 @@
     <string name="pref_title_colored_navigation_bar_playlists">プレイリスト</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">タグエディター</string>
     <string name="pref_title_colored_navigation_bar_other_screens">上記以外の画面</string>
-    <string name="pref_title_colored_album_footers">アルバムフッターに色を付ける</string>
     <string name="pref_title_album_art_on_lockscreen">アルバムアートをロック画面に表示する</string>
     <string name="pref_title_colored_notification">通知コントロールに色を付ける</string>
     <string name="pref_title_gapless_playback">ギャップレス再生</string>
@@ -148,7 +147,6 @@
     <string name="playlist_name_empty">名前を入力…</string>
     <string name="song">タイトル</string>
     <string name="pref_only_lollipop">"Lollipop(Android 5.0~)でのみ利用可能"</string>
-    <string name="pref_summary_colored_album_footers">"アルバム一覧画面でタイトルの背景色をアルバムアートから抽出して使用します"</string>
     <string name="pref_summary_album_art_on_lockscreen">アルバムアートをロック画面に表示します(適用するにはアプリの再起動が必要です)</string>
     <string name="pref_summary_colored_notification">"通知バーの再生コントロールの色をアルバムアートから抽出して使用します"</string>
     <string name="pref_summary_gapless_playback">"曲と曲の間の無音部分をスキップします(再生時に問題が生じる場合は無効にして下さい)"</string>

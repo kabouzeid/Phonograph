@@ -106,7 +106,7 @@
     <string name="pref_header_general">Generell</string>
     <string name="pref_header_images">Bilder</string>
     <string name="pref_header_lockscreen">Sperrbildschirm</string>
-    <string name="pref_summary_colored_navigation_bar">In welchen Ansichten die Navigationsleiste gefärbt werden soll</string>
+    <string name="pref_summary_colored_navigation_bar">Färbt die Navigationsleiste mit der Hauptfarbe.</string>
     <string name="pref_title_navigation_bar">Farbige Navigationsleiste</string>
     <string name="pref_title_set_default_start_page">Startseite</string>
     <string name="pref_title_colored_navigation_bar_artists">Interpreten</string>
@@ -115,7 +115,6 @@
     <string name="pref_title_colored_navigation_bar_playlists">Wiedergabelisten-Ansicht</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">Tag-Editor</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Überall sonst</string>
-    <string name="pref_title_colored_album_footers">Farbige Balken unter den Alben</string>
     <string name="pref_title_album_art_on_lockscreen">Album Cover im Sperrbildschirm anzeigen</string>
     <string name="pref_title_colored_notification">Farbige Benachrichtigung</string>
     <string name="pref_title_ignore_media_store_artwork">Media Store Cover ignorieren</string>
@@ -152,7 +151,6 @@
     <string name="playlist_name_empty">Wiedergabelisten Name</string>
     <string name="song">Titel</string>
     <string name="pref_only_lollipop">"Nur auf Lollipop verfügbar"</string>
-    <string name="pref_summary_colored_album_footers">"Farbe der Box unter jedem Album dem Cover anpassen"</string>
     <string name="pref_summary_album_art_on_lockscreen">Das Album Cover wird im Sperrbildschirm angezeigt. Möglicherweise musst du Phonograph neu starten damit die Änderungen wirksam werden.</string>
     <string name="pref_summary_colored_notification">"Die Benachrichtigung ist in der Farbe des Album Covers gefärbt."</string>
     <string name="pref_summary_gapless_playback">"Nahtloser Übergang zwischen zwei Songs. Diese Einstellung kann bei einigen Geräten Wiedergabeprobleme verursachen."</string>

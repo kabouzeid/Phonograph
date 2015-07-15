@@ -83,7 +83,6 @@
     <string name="pref_title_colored_navigation_bar_playlists">Προβολή λίστας αναπαραγωγής</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">Επεξεργασία ετικετών</string>
     <string name="pref_title_colored_navigation_bar_other_screens">σε όλα τα υπόλοιπα</string>
-    <string name="pref_title_colored_album_footers">Έγχρωμα υποσέλιδα δίσκων</string>
     <string name="no_equalizer">Δε βρέθηκε ισοσταθμιστής</string>
     <string name="no_audio_ID">"Δε βρέθηκε ήχος, αναπαράξτε κάτι και δοκιμάστε ξανά."</string>
     <string name="navigation_drawer_open">Άνοιγμα συρταριού πλόηγησης</string>
@@ -101,7 +100,6 @@
     <string name="no_playlists">Καμία λίστα</string>
     <string name="song">Τραγούδι</string>
     <string name="pref_only_lollipop">"Διαθέσιμο μόνο σε Lollipop."</string>
-    <string name="pref_summary_colored_album_footers">"Το υποσέλιδο των δίσκων στο πλέγμα χρωματίζεται με βάση την παλέττα του εξώφυλλου του δίσκου."</string>
     <string name="search_hint">Αναζήτηση στη βιβλιοθήκη...</string>
     <string name="rescanning_media">Σάρωση αρχείων πολυμέσων...</string>
     <string name="new_playlist_title">Νέα λίστα αναπαραγωγής</string>

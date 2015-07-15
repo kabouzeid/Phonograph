@@ -4,7 +4,7 @@
     <string name="currently_listening_to_x_by_x">Reproduciendo %1$s de %2$s</string>
     <string name="the_audio_file">Archivo de audio</string>
     <string name="do_you_want_to_set_x_as_ringtone">¿Quieres establecer %1$s como tono de llamada?</string>
-    <string name="x_has_been_set_as_ringtone">%1$s ha sido establecido como tono de llamada</string>
+    <string name="x_has_been_set_as_ringtone">%1$s se establecio como tono de llamada</string>
     <string name="action_set_as_ringtone">Establecer como tono de llamada</string>
     <string name="action_share">Compartir</string>
     <string name="action_settings">"Ajustes"</string>
@@ -27,6 +27,7 @@
     <string name="artists">Artistas</string>
     <string name="songs">Canciones</string>
     <string name="playlists">Listas de reproducción</string>
+    <string name="playing_queue_empty">Lista de reproduccion vacia</string>
     <string name="nothing_playing">Nada se está reproduciendo</string>
     <string name="unplayable_file">Ocurrió un error al reproducir esta canción.</string>
     <string name="biography_unavailable">Lo sentimos, no encontramos una biografía correspondiente a éste artista</string>
@@ -40,7 +41,7 @@
     <string name="year">Año</string>
     <string name="track">Pista</string>
     <string name="track_hint">"Pista (2 para pista 2 ó 3004 para CD3 pista 4)"</string>
-    <string name="album_or_artist_empty">El título del álbum o el campo de artista del álbum está vacío.</string>
+    <string name="album_or_artist_empty">El título del álbum o el artista del álbum está vacío.</string>
     <string name="writing_file_number">Escribiendo archivo</string>
     <string name="saving_changes">Guardando cambios...</string>
     <string name="label_details">Detalles</string>
@@ -49,7 +50,7 @@
     <string name="label_file_size">Tamaño</string>
     <string name="label_file_format">Formato</string>
     <string name="label_track_length">Duración</string>
-    <string name="label_bit_rate">Velocidad de Bits</string>
+    <string name="label_bit_rate">Bitrate</string>
     <string name="label_sampling_rate">Frecuencia de muestreo</string>
     <string name="action_go_to_artist">Ir al artista</string>
     <string name="action_go_to_album">Ir al álbum</string>
@@ -67,6 +68,7 @@
     <string name="action_remove_from_playlist">Eliminar de la lista de reproducción</string>
     <string name="action_grid_columns">Columnas de la cuadrícula</string>
     <string name="action_grid_columns_land">Columnas de la cuadrícula (apaisado)</string>
+    <string name="action_view_as">Vista</string>
     <string name="inserted_x_songs_into_playlist">%1$d canciones añadidas a la lista de reproducción</string>
     <string name="created_playlist_x">Lista de reproducción %1$s creada</string>
     <string name="deleted_playlist_x">Lista de reproducción %1$s borrada</string>
@@ -109,14 +111,13 @@
     <string name="pref_summary_colored_navigation_bar">Selecciona en qué secciones la barra debe tener color</string>
     <string name="pref_title_navigation_bar">Color en la barra de navegación</string>
     <string name="pref_title_set_default_start_page">Pagina de inicio</string>
-    <string name="pref_title_colored_navigation_bar_artists">Barra de navegación en Vista del Artista coloreada</string>
-    <string name="pref_title_colored_navigation_bar_albums">Ver álbum</string>
+    <string name="pref_title_colored_navigation_bar_artists">Artistas</string>
+    <string name="pref_title_colored_navigation_bar_albums">Albumes</string>
     <string name="pref_title_colored_navigation_bar_current_playing">Ver reproducción</string>
     <string name="pref_title_colored_navigation_bar_playlists">Ver lista de reproducción</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">Editor de etiquetas</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Cualquier lugar</string>
-    <string name="pref_title_colored_album_footers">Pie de álbum coloreado</string>
-    <string name="pref_title_album_art_on_lockscreen">Arte del álbum en la pantalla de bloqueo</string>
+    <string name="pref_title_album_art_on_lockscreen">Caratula en la pantalla de bloqueo</string>
     <string name="pref_title_colored_notification">Notificación coloreada</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorar arte proveniente de almacenamiento</string>
     <string name="pref_title_gapless_playback">Quitar silencio entre canciones</string>
@@ -152,7 +153,6 @@
     <string name="playlist_name_empty">Nombre de la lista de reproducción</string>
     <string name="song">Canción</string>
     <string name="pref_only_lollipop">"Disponible sólo en Lollipop"</string>
-    <string name="pref_summary_colored_album_footers">"El color pie del álbum en la cuadrícula se basa en la paleta de colores de la tapa del álbum."</string>
     <string name="pref_summary_album_art_on_lockscreen">La carátula del álbum se muestra en la pantalla de bloqueo. Quizás tengas que reiniciar Phonograph para que los cambios se apliquen.</string>
     <string name="pref_summary_colored_notification">"La notificación es coloreada basándose en el color principal de la tapa del álbum."</string>
     <string name="pref_summary_gapless_playback">"Elimina el silencio entre dos canciones. Esto podría causar problemas durante la reproducción en algunos dispositivos."</string>
@@ -175,5 +175,9 @@
     <string name="pick_from_local_storage">Seleccionar de almacenamiento interno</string>
     <string name="web_search">Buscar en Internet</string>
     <string name="action_sleep_timer">Temporizador de apagado</string>
+    <string name="action_set">Fijar</string>
+    <string name="cancel_current_timer">Cancelar</string>
+    <string name="sleep_timer_canceled">Temporizador desactivado</string>
     <string name="new_playlist_title">Nueva lista de reproducción</string>
+    <string name="grid">Cuadricula</string>
 </resources>

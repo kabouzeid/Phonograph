@@ -68,6 +68,7 @@
     <string name="action_remove_from_playlist">Rimuovi dalla playlist</string>
     <string name="action_grid_columns">Colonne griglia</string>
     <string name="action_grid_columns_land">Colonne griglia (schermo orizzontale)</string>
+    <string name="action_view_as">Visualizza come</string>
     <string name="inserted_x_songs_into_playlist">%1$d brani inseriti in questa playlist.</string>
     <string name="created_playlist_x">Playlist %1$s creata</string>
     <string name="deleted_playlist_x">Playlist %1$s eliminata</string>
@@ -114,7 +115,6 @@
     <string name="pref_title_colored_navigation_bar_playlists">Schermata Playlist</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">Modifica tag</string>
     <string name="pref_title_colored_navigation_bar_other_screens">In tutte le altre schermate</string>
-    <string name="pref_title_colored_album_footers">Riquadri album colorati</string>
     <string name="pref_title_album_art_on_lockscreen">Copertina nella schermata di sblocco</string>
     <string name="pref_title_colored_notification">Notifica colorata</string>
     <string name="pref_title_ignore_media_store_artwork">Ignora le copertine del Media Store</string>
@@ -151,7 +151,6 @@
     <string name="playlist_name_empty">Nome playlist</string>
     <string name="song">Brano</string>
     <string name="pref_only_lollipop">"Disponibile solo su Lollipop."</string>
-    <string name="pref_summary_colored_album_footers">"I riquadri degli album nella griglia sono colorati secondo la gamma di colori della copertina."</string>
     <string name="pref_summary_album_art_on_lockscreen">La copertina dell\'album è visualizzata nella schermata di sblocco. Potrebbe essere necessario un riavvio di Phonograph affinché le modifiche abbiano effetto.</string>
     <string name="pref_summary_colored_notification">"La notifica è colorata secondo la gamma di colori della copertina."</string>
     <string name="pref_summary_gapless_playback">"Elimina l'intervallo tra due brani. Disabilitare quest'opzione può risolvere problemi di riproduzione."</string>
@@ -180,4 +179,7 @@
     <string name="sleep_timer_set">Timer di spegnimento impostato a %d minuti da adesso</string>
     <string name="action_new_playlist">Nuova playlist</string>
     <string name="new_playlist_title">Nuova playlist</string>
+    <string name="grid">Griglia</string>
+    <string name="list">Lista</string>
+    <string name="colored_footers">Riquadri colorati</string>
 </resources>

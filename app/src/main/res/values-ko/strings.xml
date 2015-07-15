@@ -114,7 +114,6 @@
     <string name="pref_title_colored_navigation_bar_playlists">재생목록 화면에서</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">태그 편집기 화면에서</string>
     <string name="pref_title_colored_navigation_bar_other_screens">기타 다른 모든 곳에서</string>
-    <string name="pref_title_colored_album_footers">색칠된 앨범 카드</string>
     <string name="pref_title_album_art_on_lockscreen">잠금화면 앨범 아트</string>
     <string name="pref_title_colored_notification">색칠된 알림 컨트롤</string>
     <string name="pref_title_ignore_media_store_artwork">미디어 스토어 앨범 아트 무시</string>
@@ -152,7 +151,6 @@
     <string name="playlist_name_empty">재생목록 이름</string>
     <string name="song">노래</string>
     <string name="pref_only_lollipop">"안드로이드 롤리팝에서만 가능합니다."</string>
-    <string name="pref_summary_colored_album_footers">"앨범 커버의 색상에 맞추어 앨범 카드가 색칠됩니다."</string>
     <string name="pref_summary_album_art_on_lockscreen">노래의 앨범 아트가 잠금 화면에 표시됩니다. 변경 사항을 적용하기 위해서는 Phonograph를 다시 시작해야 할 수도 있습니다.</string>
     <string name="pref_summary_colored_notification">"알림창에 뜨는 알림 컨트롤이 앨범 아트의 주요 색상으로 칠해집니다."</string>
     <string name="pref_summary_gapless_playback">"곡을 넘길 때 간격을 없애 끊김없이 재생합니다. 이 기능을 끄면 곡 전환 관련 문제가 해결될 수 있습니다."</string>

@@ -10,16 +10,16 @@
     <string name="action_settings">"Configurações"</string>
     <string name="action_about">Sobre</string>
     <string name="action_now_playing">Tocando Agora</string>
-    <string name="action_clear_playlist">Limpar playlist</string>
-    <string name="action_playing_queue">Fila de execução</string>
+    <string name="action_clear_playlist">Limpar Playlist</string>
+    <string name="action_playing_queue">Fila de Execução</string>
     <string name="action_add_to_favorites">Adicionar aos favoritos</string>
     <string name="action_remove_from_favorites">Remover dos favoritos</string>
     <string name="action_search">Pesquisar</string>
-    <string name="action_play_next">Reproduzir a seguir</string>
+    <string name="action_play_next">Reproduzir a Seguir</string>
     <string name="action_play">Reproduzir</string>
-    <string name="action_add_to_playing_queue">Adicionar à fila</string>
-    <string name="action_remove_from_playing_queue">Remover da fila atual</string>
-    <string name="action_add_to_playlist">Adicionar à playlist...</string>
+    <string name="action_add_to_playing_queue">Adicionar à Fila</string>
+    <string name="action_remove_from_playing_queue">Remover da Fila Atual</string>
+    <string name="action_add_to_playlist">Adicionar à Playlist...</string>
     <string name="action_tag_editor">Editor de tags</string>
     <string name="action_delete_from_device">Apagar do Dispositivo</string>
     <string name="action_details">Detalhes</string>
@@ -68,6 +68,7 @@
     <string name="action_remove_from_playlist">Remover da playlist</string>
     <string name="action_grid_columns">Colunas da grade</string>
     <string name="action_grid_columns_land">Colunas da grade (Horizontal)</string>
+    <string name="action_view_as">Ver como</string>
     <string name="inserted_x_songs_into_playlist">%1$d faixas foram inseridas nesta playlist.</string>
     <string name="created_playlist_x">A playlist %1$s foi criada</string>
     <string name="deleted_playlist_x">A playlist %1$s foi excluída</string>
@@ -114,7 +115,6 @@
     <string name="pref_title_colored_navigation_bar_playlists">Vista da playlist</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">Editor de tags</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Todos os outros lugares</string>
-    <string name="pref_title_colored_album_footers">Rodapés de álbuns coloridos</string>
     <string name="pref_title_album_art_on_lockscreen">Imagem do álbum no bloqueio de tela</string>
     <string name="pref_title_colored_notification">Notificação colorida</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorar artwork Media Store</string>
@@ -151,7 +151,6 @@
     <string name="playlist_name_empty">Nome da Playlist</string>
     <string name="song">Música</string>
     <string name="pref_only_lollipop">"Apenas disponível no Lollipop."</string>
-    <string name="pref_summary_colored_album_footers">"Rodapés de álbum na grade são coloridos com as paletas correspondentes."</string>
     <string name="pref_summary_album_art_on_lockscreen">A imagem do álbum está sendo mostrada no bloqueio de tela. Você deve reiniciar o Phonograph para as mudanças fazerem efeito.</string>
     <string name="pref_summary_colored_notification">"A notificação é colorida com a cor mais vibrante do álbum."</string>
     <string name="pref_summary_gapless_playback">"Elimina a lacuna entre duas músicas. Desativar essa pode corrigir problemas de reprodução."</string>
@@ -180,4 +179,7 @@
     <string name="sleep_timer_set">Temporizador definido para %d minutos a partir de agora</string>
     <string name="action_new_playlist">Nova Playlist</string>
     <string name="new_playlist_title">Nova Playlist</string>
+    <string name="grid">Grade</string>
+    <string name="list">Lista</string>
+    <string name="colored_footers">Rodapés coloridos</string>
 </resources>
