@@ -11,6 +11,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.RemoteControlClient;
@@ -41,6 +42,7 @@ import com.kabouzeid.gramophone.provider.RecentlyPlayedStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
+import com.kabouzeid.gramophone.util.Util;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -429,9 +431,10 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 .apply();
         if (showAlbumArt) {
             final String currentAlbumArtUri = MusicUtil.getSongImageLoaderString(song);
+            Point screenSize = Util.getScreenSize(this);
             ImageLoader.getInstance().displayImage(
                     currentAlbumArtUri,
-                    new NonViewAware(new ImageSize(-1, -1), ViewScaleType.CROP),
+                    new NonViewAware(new ImageSize(screenSize.x, screenSize.y), ViewScaleType.CROP),
                     new DisplayImageOptions.Builder()
                             .postProcessor(new BitmapProcessor() {
                                 @Override
