@@ -497,7 +497,7 @@ public class MusicControllerActivity extends AbsSlidingMusicPanelActivity {
         if (opaqueStatusBar) setStatusBarColor(newColor);
         else setStatusBarColor(Color.TRANSPARENT);
 
-        if (PreferenceUtil.getInstance(this).coloredNavigationBarCurrentPlaying())
+        if (shouldColorNavigationBar())
             setNavigationBarColor(newColor);
         lastFooterColor = newColor;
     }

@@ -3,48 +3,40 @@
     <com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory android:title="@string/pref_header_colors">
 
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
-            android:layout="@layout/preference_custom"
             android:defaultValue="0"
             android:entries="@array/pref_general_theme_list_titles"
             android:entryValues="@array/pref_general_theme_list_values"
             android:key="general_theme"
+            android:layout="@layout/preference_custom"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:title="@string/pref_title_general_theme" />
 
         <com.kabouzeid.gramophone.prefs.ColorChooserPreference
             android:key="primary_color"
-            android:title="@string/primary_color"
-            android:summary="@string/primary_color_desc" />
+            android:summary="@string/primary_color_desc"
+            android:title="@string/primary_color" />
 
         <com.kabouzeid.gramophone.prefs.ColorChooserPreference
             android:key="accent_color"
-            android:title="@string/accent_color"
-            android:summary="@string/accent_color_desc" />
+            android:summary="@string/accent_color_desc"
+            android:title="@string/accent_color" />
 
         <CheckBoxPreference
-            android:layout="@layout/preference_custom"
             android:defaultValue="true"
-            android:key="colored_album_footers"
-            android:title="@string/pref_title_colored_album_footers"
-            android:summary="@string/pref_summary_colored_album_footers"
+            android:key="colored_notification"
+            android:layout="@layout/preference_custom"
+            android:summary="@string/pref_summary_colored_notification"
+            android:title="@string/pref_title_colored_notification"
             android:widgetLayout="@layout/preference_dynamic_checkbox" />
 
         <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="should_color_navigation_bar"
             android:layout="@layout/preference_custom"
-            android:defaultValue="false"
-            android:key="colored_notification"
-            android:title="@string/pref_title_colored_notification"
-            android:summary="@string/pref_summary_colored_notification"
-            android:widgetLayout="@layout/preference_dynamic_checkbox" />
-
-        <com.afollestad.materialdialogs.prefs.MaterialMultiSelectListPreference
-            android:layout="@layout/preference_custom"
-            android:key="colored_navigation_bar"
-            android:entries="@array/pref_navigation_bar_color_titles"
-            android:entryValues="@array/pref_navigation_bar_color_values"
+            android:summary="@string/pref_summary_colored_navigation_bar"
             android:title="@string/pref_title_navigation_bar"
-            android:summary="@string/pref_summary_colored_navigation_bar" />
+            android:widgetLayout="@layout/preference_dynamic_checkbox" />
 
     </com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory>
 

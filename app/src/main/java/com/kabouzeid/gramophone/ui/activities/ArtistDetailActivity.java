@@ -50,7 +50,6 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.kabouzeid.gramophone.views.SquareIfPlaceImageView;
@@ -120,9 +119,10 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             postponeEnterTransition();
-            if (PreferenceUtil.getInstance(this).coloredNavigationBarArtist())
-                setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
         }
+
+        if (shouldColorNavigationBar())
+            setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
 
         lastFMRestClient = new LastFMRestClient(this);
 
@@ -379,7 +379,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         artistName.setBackgroundColor(vibrantColor);
         artistName.setTextColor(ColorUtil.getTextColorForBackground(vibrantColor));
 
-        if (PreferenceUtil.getInstance(this).coloredNavigationBarArtist())
+        if (shouldColorNavigationBar())
             setNavigationBarColor(vibrantColor);
 
         notifyTaskColorChange(vibrantColor);

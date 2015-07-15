@@ -43,7 +43,6 @@ import com.kabouzeid.gramophone.ui.activities.tageditor.AlbumTagEditorActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -103,9 +102,10 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             postponeEnterTransition();
-            if (PreferenceUtil.getInstance(this).coloredNavigationBarAlbum())
-                setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
         }
+
+        if (shouldColorNavigationBar())
+            setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
 
         getAlbumFromIntentExtras();
         setUpObservableListViewParams();
@@ -255,7 +255,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         albumTitleView.setBackgroundColor(vibrantColor);
         albumTitleView.setTextColor(ColorUtil.getTextColorForBackground(vibrantColor));
 
-        if (PreferenceUtil.getInstance(this).coloredNavigationBarArtist())
+        if (shouldColorNavigationBar())
             setNavigationBarColor(vibrantColor);
 
         notifyTaskColorChange(vibrantColor);

@@ -23,6 +23,7 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
     private int colorPrimaryDarker;
     private int colorAccent;
     private boolean darkTheme;
+    private boolean coloredNavigationBar;
 
     @Nullable
     private ActivityManager.TaskDescription taskDescription;
@@ -45,6 +46,7 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
         colorPrimaryDarker = ColorUtil.shiftColorDown(colorPrimary);
         colorAccent = PreferenceUtil.getInstance(this).getThemeColorAccent(this);
         darkTheme = PreferenceUtil.getInstance(this).getGeneralTheme() == R.style.Theme_MaterialMusic;
+        coloredNavigationBar = PreferenceUtil.getInstance(this).shouldUseColoredNavigationBar();
 
         ThemeSingleton.get().positiveColor = colorAccent;
         ThemeSingleton.get().negativeColor = colorAccent;
@@ -64,7 +66,8 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
     }
 
     private boolean didThemeChanged() {
-        return colorPrimary != PreferenceUtil.getInstance(this).getThemeColorPrimary(this) ||
+        return coloredNavigationBar != PreferenceUtil.getInstance(this).shouldUseColoredNavigationBar() ||
+                colorPrimary != PreferenceUtil.getInstance(this).getThemeColorPrimary(this) ||
                 colorAccent != PreferenceUtil.getInstance(this).getThemeColorAccent(this) ||
                 darkTheme != (PreferenceUtil.getInstance(this).getGeneralTheme() == R.style.Theme_MaterialMusic);
     }
@@ -92,6 +95,10 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
 
     public int getThemeColorAccent() {
         return colorAccent;
+    }
+
+    public boolean shouldColorNavigationBar() {
+        return coloredNavigationBar;
     }
 
     protected void setStatusBarTransparent() {

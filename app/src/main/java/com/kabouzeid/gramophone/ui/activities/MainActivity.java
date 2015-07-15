@@ -104,7 +104,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         setUpToolbar();
         setUpViewPager();
 
-        if (PreferenceUtil.getInstance(this).coloredNavigationBarOtherScreens())
+        if (shouldColorNavigationBar())
             setNavigationBarThemeColor();
     }
 
