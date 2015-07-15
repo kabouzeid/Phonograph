@@ -66,6 +66,11 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
     }
 
     private void setUpRecyclerView() {
+        invalidateLayoutManager();
+        invalidateAdapter();
+    }
+
+    protected void invalidateAdapter() {
         adapter = createAdapter();
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
@@ -74,11 +79,12 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
                 showEmptyMessageIfEmpty();
             }
         });
-
-        layoutManager = createLayoutManager();
-
-        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+    }
+
+    protected void invalidateLayoutManager() {
+        layoutManager = createLayoutManager();
+        recyclerView.setLayoutManager(layoutManager);
     }
 
     protected A getAdapter() {
@@ -158,5 +164,13 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
         getMainActivity().removeOnAppBarOffsetChangedListener(this);
         getMainActivity().removeMusicStateListenerListener(this);
         ButterKnife.reset(this);
+    }
+
+    protected int getDefaultGridColumnNumber() {
+        return getActivity().getResources().getInteger(R.integer.grid_num_columns);
+    }
+
+    protected int getDefaultListColumnNumber() {
+        return getActivity().getResources().getInteger(R.integer.list_num_columns);
     }
 }
