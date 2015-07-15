@@ -113,7 +113,6 @@
     <string name="pref_title_colored_navigation_bar_playlists">Vue playlist</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">Éditeur d\'infos</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Partout ailleurs</string>
-    <string name="pref_title_colored_album_footers">Bas d\'album coloré</string>
     <string name="pref_title_album_art_on_lockscreen">Vignette d\'album sur l\'écran de vérouillage</string>
     <string name="pref_title_colored_notification">Notification colorée</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorer stockage des artwork media</string>
@@ -150,7 +149,6 @@
     <string name="playlist_name_empty">Nom de la playlist</string>
     <string name="song">Titre</string>
     <string name="pref_only_lollipop">"Uniquement disponible sur Lollipop."</string>
-    <string name="pref_summary_colored_album_footers">"Les bas d\'album dans la grille sont colorés avec la palette de la vignette."</string>
     <string name="pref_summary_album_art_on_lockscreen">La vignette de l\'album s\'affiche sur l\'écran de vérouillage. Il peut être nécessaire de redémarrer Phonograph pour appliquer les changements.</string>
     <string name="pref_summary_colored_notification">"La notification est colorée en fonction de la vignette de l\'album."</string>
     <string name="pref_summary_gapless_playback">"Élimine le silence entre deux musiques. Désactiver cette option peut résoudre les éventuels problèmes de lecture."</string>

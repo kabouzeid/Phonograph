@@ -61,7 +61,6 @@
     <string name="pref_title_set_default_start_page">Selecionar página inicial</string>
     <string name="pref_title_colored_navigation_bar_artists">Barra de navegação colorida na visualização do artista</string>
     <string name="pref_title_colored_navigation_bar_albums">Barra de navegação colorida na visualização do álbum</string>
-    <string name="pref_title_colored_album_footers">Rodapés coloridos do álbum</string>
     <string name="no_equalizer">Nenhum equalizador encontrado</string>
     <string name="navigation_drawer_open">Abrir área de navegação</string>
     <string name="navigation_drawer_close">"Fechar área de navegação"</string>

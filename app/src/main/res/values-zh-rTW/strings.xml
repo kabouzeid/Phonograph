@@ -111,7 +111,6 @@
     <string name="pref_title_colored_navigation_bar_playlists">音樂清單頁面</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">編輯音樂標籤</string>
     <string name="pref_title_colored_navigation_bar_other_screens">任何其他地方</string>
-    <string name="pref_title_colored_album_footers">使用變色的專輯標籤</string>
     <string name="pref_title_album_art_on_lockscreen">鎖屏中之專輯封面</string>
     <string name="pref_title_colored_notification">使用變色的通知</string>
     <string name="pref_title_gapless_playback">無縫重播</string>
@@ -147,7 +146,6 @@
     <string name="playlist_name_empty">音樂清單名稱</string>
     <string name="song">歌曲</string>
     <string name="pref_only_lollipop">"只適用於 Lollipop。"</string>
-    <string name="pref_summary_colored_album_footers">"在專輯頁面中的專輯標籤會隨其封面顏色而改變。"</string>
     <string name="pref_summary_album_art_on_lockscreen">專輯封面會於鎖屏顯示。你可能需要重新啟動電唱機以得到更改生效</string>
     <string name="pref_summary_colored_notification">"通知會隨其封面顏色而改變。"</string>
     <string name="pref_summary_gapless_playback">"消除了兩首歌曲之間的間隙。這可能會導致某些設備上出現重播問題。"</string>

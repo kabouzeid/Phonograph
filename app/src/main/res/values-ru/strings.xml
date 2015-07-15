@@ -93,7 +93,6 @@
     <string name="pref_title_colored_navigation_bar_playlists">Вид листа воспроизведения</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">Редактор тэгов</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Во всех остальных</string>
-    <string name="pref_title_colored_album_footers">Цветная панель названия альбома</string>
     <string name="no_equalizer">Эквалайзер не найден</string>
     <string name="no_audio_ID">"Нет аудио, воспроизведите что-нибудь и попробуйте ещё раз."</string>
     <string name="navigation_drawer_open">Открыть панель навигации</string>
@@ -112,7 +111,6 @@
     <string name="playlist_name_empty">Имя плейлиста</string>
     <string name="song">Песня</string>
     <string name="pref_only_lollipop">"Доступно только для Lollipop."</string>
-    <string name="pref_summary_colored_album_footers">"Панели альбомов в сетке окрашены цветом из палитры обложки альбома."</string>
     <string name="search_hint">Поиск библиотеки...</string>
     <string name="rescanning_media">Повторное сканирование медиа...</string>
     <string name="new_playlist_title">Новый список воспроизведения</string>
