@@ -27,7 +27,7 @@
     <string name="artists">Artistes</string>
     <string name="songs">Titres</string>
     <string name="playlists">Playlists</string>
-    <string name="playing_queue_empty">Aucune lecture en cours</string>
+    <string name="nothing_playing">Aucune lecture en cours</string>
     <string name="unplayable_file">Une erreur est survenue lors de la tentative de lecture de ce titre.</string>
     <string name="biography_unavailable">Nous n\'avons pas trouvé la biographie correspondant à cet artiste.</string>
     <string name="biography">Biographie</string>
@@ -65,7 +65,6 @@
     <string name="added_title_to_playing_queue">"1 titre ajouté à la file de lecture."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titres ajoutés à la file de lecture.</string>
     <string name="action_remove_from_playlist">Retirer de la playlist</string>
-    <string name="new_playlist_action">Nouvelle playlist...</string>
     <string name="action_grid_columns">Nombre de colonnes</string>
     <string name="action_grid_columns_land">Nombre de colonnes (paysage)</string>
     <string name="inserted_x_songs_into_playlist">%1$d titres ajoutés à la playlist.</string>
@@ -89,7 +88,6 @@
     <string name="delete_playlists_title">Supprimer les playlists</string>
     <string name="clear_playlist_title">Effacer La Playlist</string>
     <string name="add_playlist_title">"Ajouter à la playlist"</string>
-    <string name="new_playlist_title">Nouvelle playlist</string>
     <string name="delete_warning">"Attention : Cette action ne peut être annulée"</string>
     <string name="action_shuffle_all">Tout Aléatoire</string>
     <string name="action_shuffle_album">Aléatoire Album</string>
@@ -179,4 +177,5 @@
     <string name="cancel_current_timer">Annuler le minuteur actuel</string>
     <string name="sleep_timer_canceled">Le minuteur actuel a été annulé</string>
     <string name="sleep_timer_set">Arrêt de la musique dans %d minutes</string>
+    <string name="new_playlist_title">Nouvelle playlist</string>
 </resources>

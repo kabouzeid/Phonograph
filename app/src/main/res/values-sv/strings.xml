@@ -14,7 +14,7 @@
     <string name="artists">Artister</string>
     <string name="songs">Låtar</string>
     <string name="playlists">Spellista</string>
-    <string name="playing_queue_empty">Ingenting att spela</string>
+    <string name="nothing_playing">Ingenting att spela</string>
     <string name="unplayable_file">Ursäkta - ett problem uppstod vid spelningen av denna låt</string>
     <string name="biography_unavailable">Ursäkta, vi kunde inte hitta biografin för den här artisten</string>
     <string name="biography">Biografi</string>
@@ -48,7 +48,6 @@
     <string name="action_re_download_artist_image">Uppdatera artistbild</string>
     <string name="updating">Uppdaterar ...</string>
     <string name="added_title_to_playing_queue">"Lagt till 1 titel till spellistan."</string>
-    <string name="new_playlist_action">Ny spellista ...</string>
     <string name="created_playlist_x">Spellista %1$s skapad</string>
     <string name="deleted_playlist_x">Spellista %1$s raderad</string>
     <string name="delete_playlist_x"><![CDATA[
@@ -65,7 +64,6 @@ Vill du radera <b>%1$d</b> låtar?
     <string name="rename_playlist_title">Döp om spellista</string>
     <string name="delete_playlist_title">Radera spellista</string>
     <string name="add_playlist_title">"Lägg till i spellista"</string>
-    <string name="new_playlist_title">Ny spellista</string>
     <string name="delete_warning">"Varning: denna process kan inte ångras."</string>
     <string name="last_opened">Senast öppnad</string>
     <string name="light_theme_name">Ljus</string>
@@ -98,4 +96,5 @@ Vill du radera <b>%1$d</b> låtar?
     <string name="pref_only_lollipop">"Enbart tillgänglig för Lollipop."</string>
     <string name="search_hint">Sök i ditt bibliotek ...</string>
     <string name="rescanning_media">Återskannar media ...</string>
+    <string name="new_playlist_title">Ny spellista</string>
 </resources>

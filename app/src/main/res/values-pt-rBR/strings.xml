@@ -27,7 +27,8 @@
     <string name="artists">Artistas</string>
     <string name="songs">Músicas</string>
     <string name="playlists">Playlists</string>
-    <string name="playing_queue_empty">Nada em execução</string>
+    <string name="playing_queue_empty">Fila de execução</string>
+    <string name="nothing_playing">Nada em execução</string>
     <string name="unplayable_file">Desculpe - ocorreu um erro ao tentar reproduzir esta faixa</string>
     <string name="biography_unavailable">Desculpe, não conseguimos encontrar a biografia deste artista.</string>
     <string name="biography">Biografia</string>
@@ -53,7 +54,7 @@
     <string name="label_sampling_rate">Taxa de amostragem</string>
     <string name="action_go_to_artist">Ir para o artista</string>
     <string name="action_go_to_album">Ir para o álbum</string>
-    <string name="label_current_playing_queue">Lista de reprodução</string>
+    <string name="label_current_playing_queue">Fila de execução</string>
     <string name="save_as_playlist">Salvar como playlist</string>
     <string name="credits_3">Ícone por</string>
     <string name="credits_1">"O Phonograph é um player de música completamente grátis com Material Design feito por"</string>
@@ -65,7 +66,6 @@
     <string name="added_title_to_playing_queue">"1 título adicionado à lista de reprodução"</string>
     <string name="added_x_titles_to_playing_queue">%1$d faixas adicionadas à lista de reprodução.</string>
     <string name="action_remove_from_playlist">Remover da playlist</string>
-    <string name="new_playlist_action">Nova playlist...</string>
     <string name="action_grid_columns">Colunas da grade</string>
     <string name="action_grid_columns_land">Colunas da grade (Horizontal)</string>
     <string name="inserted_x_songs_into_playlist">%1$d faixas foram inseridas nesta playlist.</string>
@@ -89,7 +89,6 @@
     <string name="delete_playlists_title">Apagar Playlists</string>
     <string name="clear_playlist_title">Limpar playlist</string>
     <string name="add_playlist_title">"Adicionar à Playlist"</string>
-    <string name="new_playlist_title">Nova Playlist</string>
     <string name="delete_warning">"Aviso: Esta operação não pode ser desfeita."</string>
     <string name="action_shuffle_all">Misturar Todas</string>
     <string name="action_shuffle_album">Misturar Álbum</string>
@@ -179,4 +178,6 @@
     <string name="cancel_current_timer">Cancelar temporizador atual</string>
     <string name="sleep_timer_canceled">Temporizador foi cancelado</string>
     <string name="sleep_timer_set">Temporizador definido para %d minutos a partir de agora</string>
+    <string name="action_new_playlist">Nova Playlist</string>
+    <string name="new_playlist_title">Nova Playlist</string>
 </resources>

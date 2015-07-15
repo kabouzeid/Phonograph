@@ -25,7 +25,7 @@
     <string name="artists">Interpreti</string>
     <string name="songs">Skladby</string>
     <string name="playlists">Playlisty</string>
-    <string name="playing_queue_empty">Nic nehraje</string>
+    <string name="nothing_playing">Nic nehraje</string>
     <string name="unplayable_file">Omlouváme se, při pokusu přehrát tuto skladbu došlo k chybě</string>
     <string name="biography_unavailable">Omlouváme se, k tomuto interpretovi nemůžeme sehnat doplňující informace.</string>
     <string name="biography">Biografie</string>
@@ -61,7 +61,6 @@
     <string name="added_title_to_playing_queue">"Přidána 1 skladba do fronty."</string>
     <string name="added_x_titles_to_playing_queue">Přidáno %1$d skladeb do fronty.</string>
     <string name="action_remove_from_playlist">Odstranit z playlistu</string>
-    <string name="new_playlist_action">Nový playlist...</string>
     <string name="action_grid_columns">Počet sloupců mřížky</string>
     <string name="action_grid_columns_land">Počet sloupců mřížky (Horizontálně)</string>
     <string name="inserted_x_songs_into_playlist">Přidáno %1$d skladeb do tohoto playlistu</string>
@@ -84,7 +83,6 @@
     <string name="delete_playlists_title">Smazat playlisty</string>
     <string name="clear_playlist_title">Vyčistit playlisty</string>
     <string name="add_playlist_title">"Přidat do playlistu"</string>
-    <string name="new_playlist_title">Nový playlist</string>
     <string name="delete_warning">"Varování: Tato operace nemůže být vrácena"</string>
     <string name="last_opened">Naposledy otevřené</string>
     <string name="light_theme_name">Světlý</string>
@@ -144,4 +142,5 @@
     <string name="download_from_last_fm">Stáhnout z Last.fm</string>
     <string name="pick_from_local_storage">Vybrat ze souborů</string>
     <string name="web_search">Najít na webu</string>
+    <string name="new_playlist_title">Nový playlist</string>
 </resources>

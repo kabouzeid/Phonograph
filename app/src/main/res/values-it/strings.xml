@@ -27,7 +27,8 @@
     <string name="artists">Artisti</string>
     <string name="songs">Brani</string>
     <string name="playlists">Playlist</string>
-    <string name="playing_queue_empty">Niente in riproduzione</string>
+    <string name="playing_queue_empty">La coda di riproduzione è vuota</string>
+    <string name="nothing_playing">Niente in riproduzione</string>
     <string name="unplayable_file">Spiacenti - Si è verificato un errore nel tentativo di riprodurre questa canzone.</string>
     <string name="biography_unavailable">Spiacenti - Impossibile trovare una biografia corrispondente a questo artista.</string>
     <string name="biography">Biografia</string>
@@ -65,7 +66,6 @@
     <string name="added_title_to_playing_queue">"Un brano aggiunto alla coda."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titoli aggiunti alla coda.</string>
     <string name="action_remove_from_playlist">Rimuovi dalla playlist</string>
-    <string name="new_playlist_action">Nuova playlist...</string>
     <string name="action_grid_columns">Colonne griglia</string>
     <string name="action_grid_columns_land">Colonne griglia (schermo orizzontale)</string>
     <string name="inserted_x_songs_into_playlist">%1$d brani inseriti in questa playlist.</string>
@@ -89,7 +89,6 @@
     <string name="delete_playlists_title">Elimina playlist</string>
     <string name="clear_playlist_title">Svuota playlist</string>
     <string name="add_playlist_title">"Aggiungi alla playlist"</string>
-    <string name="new_playlist_title">Nuova playlist</string>
     <string name="delete_warning">"Attenzione: questa operazione non può essere annullata."</string>
     <string name="action_shuffle_all">Riproduzione casuale</string>
     <string name="action_shuffle_album">Riproduzione casuale album</string>
@@ -179,4 +178,6 @@
     <string name="cancel_current_timer">Annulla timer attuale</string>
     <string name="sleep_timer_canceled">Il timer di spegnimento è stato annullato</string>
     <string name="sleep_timer_set">Timer di spegnimento impostato a %d minuti da adesso</string>
+    <string name="action_new_playlist">Nuova playlist</string>
+    <string name="new_playlist_title">Nuova playlist</string>
 </resources>

@@ -27,7 +27,7 @@
     <string name="artists">アーティスト</string>
     <string name="songs">楽曲</string>
     <string name="playlists">プレイリスト</string>
-    <string name="playing_queue_empty">再生中の曲はありません</string>
+    <string name="nothing_playing">再生中の曲はありません</string>
     <string name="unplayable_file">楽曲の再生時にエラーが発生しました</string>
     <string name="biography_unavailable">バイオグラフィーが見つかりません</string>
     <string name="biography">バイオグラフィー</string>
@@ -65,7 +65,6 @@
     <string name="added_title_to_playing_queue">"曲をキューに追加しました"</string>
     <string name="added_x_titles_to_playing_queue">%1$d曲をキューに追加しました</string>
     <string name="action_remove_from_playlist">プレイリストから除去</string>
-    <string name="new_playlist_action">プレイリストの新規作成</string>
     <string name="action_grid_columns">アルバムアートの列数</string>
     <string name="action_grid_columns_land">アルバムアートの列数(横画面)</string>
     <string name="inserted_x_songs_into_playlist">プレイリストに%1$d曲登録されています</string>
@@ -89,7 +88,6 @@
     <string name="delete_playlists_title">プレイリストの複数削除</string>
     <string name="clear_playlist_title">プレイリストの初期化</string>
     <string name="add_playlist_title">"プレイリストに追加"</string>
-    <string name="new_playlist_title">プレイリストの新規作成</string>
     <string name="delete_warning">"警告: この操作は取り消せません！"</string>
     <string name="action_shuffle_all">全曲シャッフル</string>
     <string name="action_shuffle_album">アルバムでシャッフル</string>
@@ -176,4 +174,5 @@
     <string name="cancel_current_timer">スリープタイマーを解除</string>
     <string name="sleep_timer_canceled">スリープタイマーは解除されました</string>
     <string name="sleep_timer_set">%d分後にスリープタイマーをセットしました</string>
+    <string name="new_playlist_title">プレイリストの新規作成</string>
 </resources>

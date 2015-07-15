@@ -28,7 +28,7 @@
     <string name="artists">الفنانون</string>
     <string name="songs">الأغاني</string>
     <string name="playlists">قوائم التشغيل</string>
-    <string name="playing_queue_empty">لا شيء قيد التشغيل</string>
+    <string name="nothing_playing">لا شيء قيد التشغيل</string>
     <string name="unplayable_file">عذراً، حصل خطأ أثناء محاولة تشغيل الأغنية</string>
     <string name="biography_unavailable">عذراً، لم يتم العثور على سيرة ذاتية مطابقة لهذا الفنان</string>
     <string name="biography">سيرة ذاتية</string>
@@ -66,7 +66,6 @@
     <string name="added_title_to_playing_queue">"تمت الإضافة إلى قائمة الانتظار"</string>
     <string name="added_x_titles_to_playing_queue">اضف %1$d الى قائمة الانتطار</string>
     <string name="action_remove_from_playlist">حذف من قائمة التشغيل</string>
-    <string name="new_playlist_action">قائمة تشغيل جديدة...</string>
     <string name="action_grid_columns">عدد قوائم الشبكة</string>
     <string name="action_grid_columns_land">قائمة شبكية (أرضية)</string>
     <string name="inserted_x_songs_into_playlist">تم إدراج الأغاني %1$d إلى قائمة التشغيل</string>
@@ -90,7 +89,6 @@
     <string name="delete_playlists_title">احذف قائمة التشغيل</string>
     <string name="clear_playlist_title">مسح قائمة التشغيل</string>
     <string name="add_playlist_title">"إضافة إلى قائمة التشغيل"</string>
-    <string name="new_playlist_title">قائمة تشغيل جديدة</string>
     <string name="delete_warning">"تحذير: لا يمكن التراجع عن هذه العملية."</string>
     <string name="action_shuffle_all">تشغيل عشوائي</string>
     <string name="action_shuffle_album">تشغيل الالبوم عشوائيا</string>
@@ -172,4 +170,5 @@
     <string name="download_from_last_fm">التنزيل من Last.fm</string>
     <string name="pick_from_local_storage">اختيار من التخزين الداخلي</string>
     <string name="web_search">البحث في الويب</string>
+    <string name="new_playlist_title">قائمة تشغيل جديدة</string>
 </resources>

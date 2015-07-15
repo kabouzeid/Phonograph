@@ -14,7 +14,7 @@
     <string name="artists">Artistit</string>
     <string name="songs">Kappaleet</string>
     <string name="playlists">Soittolistat</string>
-    <string name="playing_queue_empty">Mitään ei toisteta</string>
+    <string name="nothing_playing">Mitään ei toisteta</string>
     <string name="unplayable_file">Virhe toistettaessa kappaletta</string>
     <string name="biography_unavailable">Biogtagiaa ei löytynyt tälle artistille</string>
     <string name="biography">Biografia</string>
@@ -49,7 +49,6 @@
     <string name="updating">Päivitetään...</string>
     <string name="added_title_to_playing_queue">"Kappale lisätty jonoon"</string>
     <string name="added_x_titles_to_playing_queue">{%1$d} kappaletta lisättiin jonoon</string>
-    <string name="new_playlist_action">Uusi soittolista</string>
     <string name="action_grid_columns">Ruudukon sarakkeet</string>
     <string name="action_grid_columns_land">Ruudukon sarakkeet (Vaaka)</string>
     <string name="inserted_x_songs_into_playlist">{%1$d} kappaletta lisättiin tähän soittolistaan</string>
@@ -63,10 +62,10 @@
     <string name="rename_playlist_title">Nimeä Uudelleen Soittolista</string>
     <string name="delete_playlist_title">Poista Soittolista</string>
     <string name="add_playlist_title">"Lisää Soittolistaan"</string>
-    <string name="new_playlist_title">Uusi Soittolista</string>
     <string name="delete_warning">"Varoitus: Tätä toimintoa ei voida perua."</string>
     <string name="last_opened">Viimeksi avattu</string>
     <string name="light_theme_name">Vaalea</string>
     <string name="dark_theme_name">Tumma</string>
     <string name="equalizer">Taajuuskorjain</string>
+    <string name="new_playlist_title">Uusi Soittolista</string>
 </resources>

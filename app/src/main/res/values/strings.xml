@@ -69,7 +69,6 @@
     <string name="action_grid_columns">Grid columns</string>
     <string name="action_grid_columns_land">Grid columns (Land)</string>
     <string name="action_view_as">View as</string>
-    <string name="action_view_as_land">View as (Land)</string>
     <string name="inserted_x_songs_into_playlist">Inserted %1$d songs into this playlist</string>
     <string name="created_playlist_x">Created playlist %1$s</string>
     <string name="deleted_playlist_x">Deleted playlist %1$s</string>
@@ -180,7 +179,7 @@
     <string name="cancel_current_timer">Cancel current timer</string>
     <string name="sleep_timer_canceled">Sleep timer has been canceled</string>
     <string name="sleep_timer_set">Sleep timer set for %d minutes from now</string>
-    <string name="new_playlist_action">New playlist…</string>
+    <string name="action_new_playlist">New playlist…</string>
     <string name="new_playlist_title">New Playlist</string>
     <string name="grid">Grid</string>
     <string name="list">List</string>

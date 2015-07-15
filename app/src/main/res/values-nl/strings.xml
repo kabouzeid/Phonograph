@@ -27,7 +27,7 @@
     <string name="artists">Artiesten</string>
     <string name="songs">Nummers</string>
     <string name="playlists">Afspeellijsten</string>
-    <string name="playing_queue_empty">Niets wordt afgespeeld</string>
+    <string name="nothing_playing">Niets wordt afgespeeld</string>
     <string name="unplayable_file">Er is een fout opgetreden bij het afspelen van dit nummer.</string>
     <string name="biography_unavailable">Het is niet gelukt een passende biografie te vinden voor deze artiest.</string>
     <string name="biography">Biografie</string>
@@ -65,7 +65,6 @@
     <string name="added_title_to_playing_queue">"1 titel toegevoegd aan de afspeelwachtrij."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titels toegevoegd aan de afspeelwachtrij.</string>
     <string name="action_remove_from_playlist">Verwijderen uit afspeellijst</string>
-    <string name="new_playlist_action">Nieuwe afspeellijst...</string>
     <string name="action_grid_columns">Rasterkolommen</string>
     <string name="action_grid_columns_land">Rasterkolommen (Land)</string>
     <string name="inserted_x_songs_into_playlist">%1$d nummers toegevoegd aan de afspeellijst.</string>
@@ -89,7 +88,6 @@
     <string name="delete_playlists_title">Verwijder afspeellijst</string>
     <string name="clear_playlist_title">Afspeellijst legen</string>
     <string name="add_playlist_title">"Toevoegen aan afspeellijst"</string>
-    <string name="new_playlist_title">Nieuwe afspeellijst</string>
     <string name="delete_warning">"Waarschuwing: Deze handeling kan niet ongedaan gemaakt worden."</string>
     <string name="action_shuffle_all">Shuffle alles</string>
     <string name="action_shuffle_album">Shuffle album</string>
@@ -171,4 +169,5 @@
     <string name="download_from_last_fm">Download van last.fm</string>
     <string name="pick_from_local_storage">Kies uit lokale opslag</string>
     <string name="web_search">Zoek op het web</string>
+    <string name="new_playlist_title">Nieuwe afspeellijst</string>
 </resources>
