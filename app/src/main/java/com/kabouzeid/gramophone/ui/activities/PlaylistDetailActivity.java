@@ -27,7 +27,6 @@ import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
-import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +66,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
 
         setUpToolBar();
 
-        if (PreferenceUtil.getInstance(this).coloredNavigationBarPlaylist())
+        if (shouldColorNavigationBar())
             setNavigationBarThemeColor();
         setStatusBarThemeColor();
     }

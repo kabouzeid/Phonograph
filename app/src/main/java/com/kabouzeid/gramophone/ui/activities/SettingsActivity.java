@@ -41,7 +41,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         if (savedInstanceState == null)
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
 
-        if (PreferenceUtil.getInstance(this).coloredNavigationBarOtherScreens())
+        if (shouldColorNavigationBar())
             setNavigationBarThemeColor();
         setStatusBarThemeColor();
     }
@@ -123,10 +123,19 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 }
             });
 
-            Preference colorNavBar = findPreference("colored_navigation_bar");
+            Preference colorNavBar = findPreference("should_color_navigation_bar");
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 colorNavBar.setEnabled(false);
                 colorNavBar.setSummary(R.string.pref_only_lollipop);
+            } else {
+                colorNavBar.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        PreferenceUtil.getInstance(getActivity()).setColoredNavigationBar((boolean) newValue);
+                        ((SettingsActivity) getActivity()).recreateIfThemeChanged();
+                        return true;
+                    }
+                });
             }
 
             Preference ignoreMediaStoreArtwork = findPreference("ignore_media_store_artwork");

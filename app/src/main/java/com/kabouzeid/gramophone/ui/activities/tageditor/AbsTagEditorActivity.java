@@ -29,7 +29,6 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -203,7 +202,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         paletteColorPrimary = getThemeColorPrimary();
         observableScrollViewCallbacks.onScrollChanged(observableScrollView.getCurrentScrollY(), false, false);
         setStatusBarColor(paletteColorPrimary);
-        if (PreferenceUtil.getInstance(this).coloredNavigationBarTagEditor())
+        if (shouldColorNavigationBar())
             setNavigationBarColor(paletteColorPrimary);
         header.setBackgroundColor(paletteColorPrimary);
         notifyTaskColorChange(paletteColorPrimary);
@@ -256,9 +255,9 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         toolbar.setBackgroundColor(paletteColorPrimary);
         header.setBackgroundColor(paletteColorPrimary);
 
-        setStatusBarColor(paletteColorPrimary);
-        if (PreferenceUtil.getInstance(this).coloredNavigationBarTagEditor())
+        if (shouldColorNavigationBar())
             setNavigationBarColor(paletteColorPrimary);
+        setStatusBarColor(paletteColorPrimary);
     }
 
     protected void dataChanged() {
@@ -299,9 +298,9 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                         if (vibrantSwatch != null) {
                             paletteColorPrimary = palette.getVibrantColor(DialogUtils.resolveColor(AbsTagEditorActivity.this, R.attr.default_bar_color));
                             observableScrollViewCallbacks.onScrollChanged(observableScrollView.getCurrentScrollY(), false, false);
-                            setStatusBarColor(paletteColorPrimary);
-                            if (PreferenceUtil.getInstance(AbsTagEditorActivity.this).coloredNavigationBarTagEditor())
+                            if (shouldColorNavigationBar())
                                 setNavigationBarColor(paletteColorPrimary);
+                            setStatusBarColor(paletteColorPrimary);
                             header.setBackgroundColor(paletteColorPrimary);
                             notifyTaskColorChange(paletteColorPrimary);
                         } else {

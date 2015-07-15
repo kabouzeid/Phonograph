@@ -10,9 +10,6 @@ import android.support.annotation.Nullable;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.SortOrder;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public final class PreferenceUtil {
     public static final String GENERAL_THEME = "general_theme";
     public static final String DEFAULT_START_PAGE = "default_start_page";
@@ -25,13 +22,8 @@ public final class PreferenceUtil {
     public static final String ALBUM_SONG_SORT_ORDER = "album_song_sort_order";
     public static final String SONG_SORT_ORDER = "song_sort_order";
 
-    public static final String COLORED_NAVIGATION_BAR = "colored_navigation_bar";
-    public static final String COLORED_NAVIGATION_BAR_ALBUM = "colored_navigation_bar_album";
-    public static final String COLORED_NAVIGATION_BAR_ARTIST = "colored_navigation_bar_artist";
-    public static final String COLORED_NAVIGATION_BAR_CURRENT_PLAYING = "colored_navigation_bar_current_playing";
-    public static final String COLORED_NAVIGATION_BAR_PLAYLIST = "colored_navigation_bar_playlist";
-    public static final String COLORED_NAVIGATION_BAR_TAG_EDITOR = "colored_navigation_bar_tag_editor";
-    public static final String COLORED_NAVIGATION_BAR_OTHER_SCREENS = "colored_navigation_bar_other_screens";
+    // don't use "colored_navigation_bar" key here as this causes a class cast exception for users upgrading from older versions
+    public static final String COLORED_NAVIGATION_BAR = "should_color_navigation_bar";
 
     public static final String ALBUM_LAYOUT_MODE = "album_layout_mode";
     public static final String ALBUM_COLORED_FOOTERS = "album_colored_footers";
@@ -127,6 +119,17 @@ public final class PreferenceUtil {
         mPreferences.edit().putInt("accent_color", color).commit();
     }
 
+    public final boolean shouldUseColoredNavigationBar() {
+        return mPreferences.getBoolean(COLORED_NAVIGATION_BAR, true);
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    public void setColoredNavigationBar(boolean coloredNavigationBar) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putBoolean(COLORED_NAVIGATION_BAR, coloredNavigationBar);
+        editor.commit();
+    }
+
     public final int getDefaultStartPage() {
         return Integer.parseInt(mPreferences.getString(DEFAULT_START_PAGE, "-1"));
     }
@@ -144,52 +147,7 @@ public final class PreferenceUtil {
     }
 
     public final boolean coloredNotification() {
-        return mPreferences.getBoolean(COLORED_NOTIFICATION, false);
-    }
-
-    public final boolean coloredNavigationBarAlbum() {
-        return coloredNavigationBarFor(COLORED_NAVIGATION_BAR_ALBUM);
-    }
-
-    public final boolean coloredNavigationBarArtist() {
-        return coloredNavigationBarFor(COLORED_NAVIGATION_BAR_ARTIST);
-    }
-
-    public final boolean coloredNavigationBarCurrentPlaying() {
-        return coloredNavigationBarFor(COLORED_NAVIGATION_BAR_CURRENT_PLAYING);
-    }
-
-    public final boolean coloredNavigationBarPlaylist() {
-        return coloredNavigationBarFor(COLORED_NAVIGATION_BAR_PLAYLIST);
-    }
-
-    public final boolean coloredNavigationBarTagEditor() {
-        return coloredNavigationBarFor(COLORED_NAVIGATION_BAR_TAG_EDITOR);
-    }
-
-    public final boolean coloredNavigationBarOtherScreens() {
-        return coloredNavigationBarFor(COLORED_NAVIGATION_BAR_OTHER_SCREENS);
-    }
-
-    @SuppressLint("CommitPrefEdits")
-    private boolean coloredNavigationBarFor(String key) {
-        final Set<String> defaultVals = new HashSet<>();
-        defaultVals.add(COLORED_NAVIGATION_BAR_ALBUM);
-        defaultVals.add(COLORED_NAVIGATION_BAR_ARTIST);
-        defaultVals.add(COLORED_NAVIGATION_BAR_CURRENT_PLAYING);
-        defaultVals.add(COLORED_NAVIGATION_BAR_PLAYLIST);
-        defaultVals.add(COLORED_NAVIGATION_BAR_TAG_EDITOR);
-        defaultVals.add(COLORED_NAVIGATION_BAR_OTHER_SCREENS);
-
-        if (!mPreferences.contains(COLORED_NAVIGATION_BAR))
-            mPreferences.edit().putStringSet(COLORED_NAVIGATION_BAR, defaultVals).commit();
-
-        try {
-            //noinspection ConstantConditions
-            return mPreferences.getStringSet(COLORED_NAVIGATION_BAR, defaultVals).contains(key);
-        } catch (NullPointerException e) {
-            return false;
-        }
+        return mPreferences.getBoolean(COLORED_NOTIFICATION, true);
     }
 
     public final boolean opaqueStatusbarNowPlaying() {

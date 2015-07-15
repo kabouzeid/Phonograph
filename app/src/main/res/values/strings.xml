@@ -106,7 +106,7 @@
     <string name="pref_header_general">General</string>
     <string name="pref_header_images">Images</string>
     <string name="pref_header_lockscreen">Lockscreen</string>
-    <string name="pref_summary_colored_navigation_bar">In which views the navigation bar should be colored.</string>
+    <string name="pref_summary_colored_navigation_bar">Colors the navigation bar in the primary color.</string>
     <string name="pref_title_navigation_bar">Colored Navigation Bar</string>
     <string name="pref_title_set_default_start_page">Start Page</string>
     <string name="pref_title_colored_navigation_bar_artists">Artist View</string>
@@ -115,7 +115,6 @@
     <string name="pref_title_colored_navigation_bar_playlists">Playlist View</string>
     <string name="pref_title_colored_navigation_bar_tag_editor">Tag Editor</string>
     <string name="pref_title_colored_navigation_bar_other_screens">Everywhere Else</string>
-    <string name="pref_title_colored_album_footers">Colored Album Footers</string>
     <string name="pref_title_album_art_on_lockscreen">Album Art on Lockscreen</string>
     <string name="pref_title_colored_notification">Colored Notification</string>
     <string name="pref_title_ignore_media_store_artwork">Ignore Media Store artwork</string>
@@ -152,7 +151,6 @@
     <string name="playlist_name_empty">Playlist name</string>
     <string name="song">Song</string>
     <string name="pref_only_lollipop">"Only available on Lollipop."</string>
-    <string name="pref_summary_colored_album_footers">"Album footers in the grid are colored with the album cover\'s vibrant color."</string>
     <string name="pref_summary_album_art_on_lockscreen">The album art is shown on the lockscreen. You might have to restart Phonograph in order for changes to take affect.</string>
     <string name="pref_summary_colored_notification">"The notification is colored with the album cover\'s vibrant color."</string>
     <string name="pref_summary_gapless_playback">"Eliminates the gap between two songs. This can cause playback issues on some devices."</string>
