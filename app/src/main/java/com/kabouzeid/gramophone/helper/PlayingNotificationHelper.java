@@ -48,7 +48,7 @@ public class PlayingNotificationHelper {
     private int notificationId = hashCode();
 
     private RemoteViews notificationLayout;
-    private RemoteViews notificationLayoutExpanded;
+    private RemoteViews notificationLayoutBig;
 
     private Song currentSong;
     private boolean isPlaying;
@@ -82,7 +82,7 @@ public class PlayingNotificationHelper {
         this.isPlaying = service.isPlaying();
 
         notificationLayout = new RemoteViews(service.getPackageName(), R.layout.notification);
-        notificationLayoutExpanded = new RemoteViews(service.getPackageName(), R.layout.notification_big);
+        notificationLayoutBig = new RemoteViews(service.getPackageName(), R.layout.notification_big);
 
         notification = new NotificationCompat.Builder(service)
                 .setSmallIcon(R.drawable.ic_notification)
@@ -93,7 +93,7 @@ public class PlayingNotificationHelper {
                 .setContent(notificationLayout)
                 .build();
 
-        notification.bigContentView = notificationLayoutExpanded;
+        notification.bigContentView = notificationLayoutBig;
 
         setUpCollapsedLayout();
         setUpExpandedLayout();
@@ -109,19 +109,19 @@ public class PlayingNotificationHelper {
     }
 
     private void setUpExpandedPlaybackActions() {
-        notificationLayoutExpanded.setOnClickPendingIntent(R.id.action_play_pause,
+        notificationLayoutBig.setOnClickPendingIntent(R.id.action_play_pause,
                 retrievePlaybackActions(1));
 
-        notificationLayoutExpanded.setOnClickPendingIntent(R.id.action_next,
+        notificationLayoutBig.setOnClickPendingIntent(R.id.action_next,
                 retrievePlaybackActions(2));
 
-        notificationLayoutExpanded.setOnClickPendingIntent(R.id.action_prev,
+        notificationLayoutBig.setOnClickPendingIntent(R.id.action_prev,
                 retrievePlaybackActions(3));
 
-        notificationLayoutExpanded.setOnClickPendingIntent(R.id.action_quit,
+        notificationLayoutBig.setOnClickPendingIntent(R.id.action_quit,
                 retrievePlaybackActions(4));
 
-        notificationLayoutExpanded.setImageViewResource(R.id.action_play_pause, getPlayPauseRes());
+        notificationLayoutBig.setImageViewResource(R.id.action_play_pause, getPlayPauseRes());
     }
 
     private void setUpPlaybackActions() {
@@ -178,9 +178,9 @@ public class PlayingNotificationHelper {
 
     private void setUpExpandedLayout() {
         if (currentSong != null) {
-            notificationLayoutExpanded.setTextViewText(R.id.title, currentSong.title);
-            notificationLayoutExpanded.setTextViewText(R.id.text, currentSong.artistName);
-            notificationLayoutExpanded.setTextViewText(R.id.text2, currentSong.albumName);
+            notificationLayoutBig.setTextViewText(R.id.title, currentSong.title);
+            notificationLayoutBig.setTextViewText(R.id.text, currentSong.artistName);
+            notificationLayoutBig.setTextViewText(R.id.text2, currentSong.albumName);
         }
     }
 
@@ -216,7 +216,7 @@ public class PlayingNotificationHelper {
         boolean backgroundColorSet = false;
         if (albumArt != null) {
             notificationLayout.setImageViewBitmap(R.id.icon, albumArt);
-            notificationLayoutExpanded.setImageViewBitmap(R.id.icon, albumArt);
+            notificationLayoutBig.setImageViewBitmap(R.id.icon, albumArt);
             if (isColored) {
                 Palette.Swatch vibrantSwatch = Palette.from(albumArt).resizeBitmapSize(100).generate().getVibrantSwatch();
                 if (vibrantSwatch != null) {
@@ -228,7 +228,7 @@ public class PlayingNotificationHelper {
             }
         } else {
             notificationLayout.setImageViewResource(R.id.icon, R.drawable.default_album_art);
-            notificationLayoutExpanded.setImageViewResource(R.id.icon, R.drawable.default_album_art);
+            notificationLayoutBig.setImageViewResource(R.id.icon, R.drawable.default_album_art);
         }
 
         if (!backgroundColorSet) {
@@ -243,7 +243,7 @@ public class PlayingNotificationHelper {
 
     private void setBackgroundColor(int color) {
         notificationLayout.setInt(R.id.root, "setBackgroundColor", color);
-        notificationLayoutExpanded.setInt(R.id.root, "setBackgroundColor", color);
+        notificationLayoutBig.setInt(R.id.root, "setBackgroundColor", color);
     }
 
     public void killNotification() {
@@ -261,8 +261,8 @@ public class PlayingNotificationHelper {
         if (notificationLayout != null) {
             notificationLayout.setImageViewResource(R.id.action_play_pause, playPauseRes);
         }
-        if (notificationLayoutExpanded != null) {
-            notificationLayoutExpanded.setImageViewResource(R.id.action_play_pause, playPauseRes);
+        if (notificationLayoutBig != null) {
+            notificationLayoutBig.setImageViewResource(R.id.action_play_pause, playPauseRes);
         }
         notificationManager.notify(notificationId, notification);
     }
@@ -270,7 +270,7 @@ public class PlayingNotificationHelper {
     private void setNotificationTextDark(boolean setDark) {
         isDark = setDark;
 
-        if (notificationLayout != null && notificationLayoutExpanded != null) {
+        if (notificationLayout != null && notificationLayoutBig != null) {
             int darkContentColor = service.getResources().getColor(R.color.notification_dark_text_content_color);
             int darkContentSecondaryColor = service.getResources().getColor(R.color.notification_dark_text_secondary_content_color);
             int contentColor = service.getResources().getColor(R.color.notification_content_color);
@@ -282,13 +282,13 @@ public class PlayingNotificationHelper {
             notificationLayout.setImageViewResource(R.id.action_play_pause, getPlayPauseRes());
             notificationLayout.setImageViewResource(R.id.action_next, setDark ? R.drawable.ic_skip_next_black_36dp : R.drawable.ic_skip_next_white_36dp);
 
-            notificationLayoutExpanded.setTextColor(R.id.title, setDark ? darkContentColor : contentColor);
-            notificationLayoutExpanded.setTextColor(R.id.text, setDark ? darkContentSecondaryColor : contentSecondaryColor);
-            notificationLayoutExpanded.setTextColor(R.id.text2, setDark ? darkContentSecondaryColor : contentSecondaryColor);
-            notificationLayoutExpanded.setImageViewResource(R.id.action_prev, setDark ? R.drawable.ic_skip_previous_black_36dp : R.drawable.ic_skip_previous_white_36dp);
-            notificationLayoutExpanded.setImageViewResource(R.id.action_play_pause, getPlayPauseRes());
-            notificationLayoutExpanded.setImageViewResource(R.id.action_next, setDark ? R.drawable.ic_skip_next_black_36dp : R.drawable.ic_skip_next_white_36dp);
-            notificationLayoutExpanded.setImageViewResource(R.id.action_quit, setDark ? R.drawable.ic_close_black_24dp : R.drawable.ic_close_white_24dp);
+            notificationLayoutBig.setTextColor(R.id.title, setDark ? darkContentColor : contentColor);
+            notificationLayoutBig.setTextColor(R.id.text, setDark ? darkContentSecondaryColor : contentSecondaryColor);
+            notificationLayoutBig.setTextColor(R.id.text2, setDark ? darkContentSecondaryColor : contentSecondaryColor);
+            notificationLayoutBig.setImageViewResource(R.id.action_prev, setDark ? R.drawable.ic_skip_previous_black_36dp : R.drawable.ic_skip_previous_white_36dp);
+            notificationLayoutBig.setImageViewResource(R.id.action_play_pause, getPlayPauseRes());
+            notificationLayoutBig.setImageViewResource(R.id.action_next, setDark ? R.drawable.ic_skip_next_black_36dp : R.drawable.ic_skip_next_white_36dp);
+            notificationLayoutBig.setImageViewResource(R.id.action_quit, setDark ? R.drawable.ic_close_black_24dp : R.drawable.ic_close_white_24dp);
         }
     }
 
