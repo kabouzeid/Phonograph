@@ -105,7 +105,7 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             Util.setAllowDrawUnderStatusBar(getWindow());
         else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-            Util.setStatusBarTranslucent(getWindow(), true);
+            Util.setStatusBarTranslucent(getWindow());
     }
 
     protected final void setNavigationBarColor(int color) {

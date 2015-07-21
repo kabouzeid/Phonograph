@@ -45,20 +45,10 @@ public class Util {
     }
 
     @TargetApi(19)
-    public static void setStatusBarTranslucent(@NonNull Window window, boolean translucent) {
-        if (translucent) {
-            window.setFlags(
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            return;
-        }
-
-        final WindowManager.LayoutParams attrs = window
-                .getAttributes();
-        attrs.flags &= (~WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setAttributes(attrs);
-        window.clearFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+    public static void setStatusBarTranslucent(@NonNull Window window) {
+        window.setFlags(
+                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     }
 
     public static void setAllowDrawUnderStatusBar(@NonNull Window window) {
