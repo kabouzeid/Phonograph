@@ -4,14 +4,14 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.song.SongAdapter;
+import com.kabouzeid.gramophone.adapter.song.ShuffleButtonSongAdapter;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class SongViewFragment extends AbsMainActivityRecyclerViewLayoutModeFragment<SongAdapter, GridLayoutManager> {
+public class SongViewFragment extends AbsMainActivityRecyclerViewLayoutModeFragment<ShuffleButtonSongAdapter, GridLayoutManager> {
 
     public static final String TAG = SongViewFragment.class.getSimpleName();
 
@@ -23,8 +23,8 @@ public class SongViewFragment extends AbsMainActivityRecyclerViewLayoutModeFragm
 
     @NonNull
     @Override
-    protected SongAdapter createAdapter() {
-        return new SongAdapter(
+    protected ShuffleButtonSongAdapter createAdapter() {
+        return new ShuffleButtonSongAdapter(
                 getMainActivity(),
                 SongLoader.getAllSongs(getActivity()),
                 getItemLayout(),
