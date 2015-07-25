@@ -39,9 +39,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicStateActivity
     }
 
     private void setUpPlayPauseButton() {
-        if (playPauseDrawable == null) {
-            playPauseDrawable = new PlayPauseDrawable(this);
-        }
+        updateFabState(false);
 
         getPlayPauseFab().setImageDrawable(playPauseDrawable);
         final int accentColor = ThemeSingleton.get().positiveColor;
@@ -52,7 +50,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicStateActivity
             getPlayPauseFab().getDrawable().clearColorFilter();
         }
 
-        updateFabState(false);
         final GestureDetector gestureDetector = new GestureDetector(this, new SmallOnGestureListener() {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
@@ -99,6 +96,9 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicStateActivity
     }
 
     protected void updateFabState(boolean animate) {
+        if (playPauseDrawable == null) {
+            playPauseDrawable = new PlayPauseDrawable(this);
+        }
         if (MusicPlayerRemote.isPlaying()) {
             playPauseDrawable.setPause(animate);
         } else {
