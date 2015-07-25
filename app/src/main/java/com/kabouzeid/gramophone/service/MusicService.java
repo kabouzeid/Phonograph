@@ -66,20 +66,21 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final String PHONOGRAPH_PACKAGE_NAME = "com.kabouzeid.gramophone";
     public static final String MUSIC_PACKAGE_NAME = "com.android.music";
 
-    public static final String ACTION_TOGGLE_PLAYBACK = "com.kabouzeid.gramophone.action.TOGGLE_PLAYBACK";
-    public static final String ACTION_PLAY = "com.kabouzeid.gramophone.action.PLAY";
-    public static final String ACTION_PAUSE = "com.kabouzeid.gramophone.action.PAUSE";
-    public static final String ACTION_STOP = "com.kabouzeid.gramophone.action.STOP";
-    public static final String ACTION_SKIP = "com.kabouzeid.gramophone.action.SKIP";
-    public static final String ACTION_REWIND = "com.kabouzeid.gramophone.action.REWIND";
-    public static final String ACTION_QUIT = "com.kabouzeid.gramophone.action.QUIT";
+    public static final String ACTION_TOGGLE_PAUSE = "com.kabouzeid.gramophone.togglepause";
+    public static final String ACTION_PLAY = "com.kabouzeid.gramophone.play";
+    public static final String ACTION_PAUSE = "com.kabouzeid.gramophone.pause";
+    public static final String ACTION_STOP = "com.kabouzeid.gramophone.stop";
+    public static final String ACTION_SKIP = "com.kabouzeid.gramophone.skip";
+    public static final String ACTION_REWIND = "com.kabouzeid.gramophone.rewind";
+    public static final String ACTION_QUIT = "com.kabouzeid.gramophone.quitservice";
 
-    public static final String META_CHANGED = "com.kabouzeid.gramophone.meta_changed";
-    public static final String PLAY_STATE_CHANGED = "com.kabouzeid.gramophone.playstate_changed";
-    public static final String REPEAT_MODE_CHANGED = "com.kabouzeid.gramophone.repeat_mode_changed";
-    public static final String SHUFFLE_MODE_CHANGED = "com.kabouzeid.gramophone.shuffle_mode_changed";
+    // do not change this strings as it will break support with other apps (e.g. last.fm scrobbling)
+    public static final String META_CHANGED = "com.kabouzeid.gramophone.metachanged";
+    public static final String PLAY_STATE_CHANGED = "com.kabouzeid.gramophone.playstatechanged";
+    public static final String REPEAT_MODE_CHANGED = "com.kabouzeid.gramophone.repeatmodechanged";
+    public static final String SHUFFLE_MODE_CHANGED = "com.kabouzeid.gramophone.shufflemodechanged";
 
-    public static final String MEDIA_STORE_CHANGED = "com.kabouzeid.gramophone.media_store_changed";
+    public static final String MEDIA_STORE_CHANGED = "com.kabouzeid.gramophone.mediastorechanged";
 
     public static final String SAVED_POSITION = "POSITION";
     public static final String SAVED_POSITION_IN_TRACK = "POSITION_IN_TRACK";
@@ -226,7 +227,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             if (intent.getAction() != null) {
                 String action = intent.getAction();
                 switch (action) {
-                    case ACTION_TOGGLE_PLAYBACK:
+                    case ACTION_TOGGLE_PAUSE:
                         if (isPlaying()) {
                             pause();
                         } else {

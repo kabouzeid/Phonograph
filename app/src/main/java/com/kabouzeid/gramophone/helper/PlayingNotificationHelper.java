@@ -143,7 +143,7 @@ public class PlayingNotificationHelper {
         final ComponentName serviceName = new ComponentName(service, MusicService.class);
         switch (which) {
             case 1:
-                action = new Intent(MusicService.ACTION_TOGGLE_PLAYBACK);
+                action = new Intent(MusicService.ACTION_TOGGLE_PAUSE);
                 action.setComponent(serviceName);
                 pendingIntent = PendingIntent.getService(service, 1, action, 0);
                 return pendingIntent;

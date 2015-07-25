@@ -132,7 +132,7 @@ public class WidgetMedium extends AppWidgetProvider {
                 pendingIntent = PendingIntent.getActivity(context, 0, action, 0);
                 return pendingIntent;
             case 1:
-                action = new Intent(MusicService.ACTION_TOGGLE_PLAYBACK);
+                action = new Intent(MusicService.ACTION_TOGGLE_PAUSE);
                 action.setComponent(serviceName);
                 pendingIntent = PendingIntent.getService(context, 1, action, 0);
                 return pendingIntent;
