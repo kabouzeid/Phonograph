@@ -87,6 +87,7 @@ dependencies {
     compile 'com.github.ksoichiro:android-observablescrollview:1.5.1'
     compile 'asia.ivity.android:drag-sort-listview:1.0'
     compile 'com.github.semoncat.seekarc:library:0.1'
+    compile 'com.sothree.slidinguppanel:library:3.0.0'
 
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.squareup.okhttp:okhttp:2.4.0'

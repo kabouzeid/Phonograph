@@ -4,7 +4,6 @@ import android.os.Build;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -25,7 +24,6 @@ import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
-import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -216,11 +214,8 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
             if (isInQuickSelectMode()) {
                 toggleChecked(getAdapterPosition());
             } else {
-                Pair[] sharedViews = null;
-                if (activity instanceof AbsSlidingMusicPanelActivity)
-                    sharedViews = ((AbsSlidingMusicPanelActivity) activity).getSharedViewsWithPlayPauseFab(null);
                 Playlist playlist = dataSet.get(getAdapterPosition());
-                NavigationUtil.goToPlaylist(activity, playlist, sharedViews);
+                NavigationUtil.goToPlaylist(activity, playlist, null);
             }
         }
 

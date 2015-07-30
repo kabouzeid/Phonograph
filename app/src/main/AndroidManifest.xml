@@ -93,9 +93,6 @@
         </activity>
         <activity android:name=".ui.activities.AlbumDetailActivity" />
         <activity android:name=".ui.activities.ArtistDetailActivity" />
-        <activity
-            android:name=".ui.activities.MusicControllerActivity"
-            android:parentActivityName=".ui.activities.MainActivity" />
 
         <service
             android:name=".service.MusicService"

@@ -19,7 +19,6 @@ import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity;
 import com.kabouzeid.gramophone.ui.activities.ArtistDetailActivity;
-import com.kabouzeid.gramophone.ui.activities.MusicControllerActivity;
 import com.kabouzeid.gramophone.ui.activities.PlaylistDetailActivity;
 
 /**
@@ -82,30 +81,6 @@ public class NavigationUtil {
             } else {
                 activity.startActivity(intent);
             }
-        }
-    }
-
-    public static void openCurrentPlayingIfPossible(final Activity activity, @Nullable final Pair[] sharedViews) {
-        if (activity instanceof MusicControllerActivity) {
-            activity.onBackPressed();
-            return;
-        }
-        if (MusicPlayerRemote.getPosition() != -1) {
-            if ((activity instanceof KabViewsDisableAble && ((KabViewsDisableAble) activity).areViewsEnabled()) || !(activity instanceof KabViewsDisableAble)) {
-                if (activity instanceof KabViewsDisableAble)
-                    ((KabViewsDisableAble) activity).disableViews();
-                Intent intent = new Intent(activity, MusicControllerActivity.class);
-                if (sharedViews != null) {
-                    @SuppressWarnings("unchecked") ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
-                            sharedViews
-                    );
-                    ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
-                } else {
-                    activity.startActivity(intent);
-                }
-            }
-        } else {
-            Toast.makeText(activity, activity.getResources().getString(R.string.playing_queue_empty), Toast.LENGTH_SHORT).show();
         }
     }
 

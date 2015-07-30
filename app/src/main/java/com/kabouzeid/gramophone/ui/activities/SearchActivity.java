@@ -46,6 +46,7 @@ public class SearchActivity extends AbsMusicStateActivity {
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setStatusBarTransparent();
         setTitle(null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
@@ -71,7 +72,8 @@ public class SearchActivity extends AbsMusicStateActivity {
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setNavigationBarThemeColor();
+        if (shouldColorNavigationBar())
+            setNavigationBarThemeColor();
         setStatusBarThemeColor();
     }
 

@@ -24,12 +24,9 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
         MediaPlayer.OnCompletionListener {
     public static final String TAG = MultiPlayer.class.getSimpleName();
 
-    @NonNull
     private final WeakReference<MusicService> mService;
 
-    @Nullable
     private MediaPlayer mCurrentMediaPlayer = new MediaPlayer();
-    @Nullable
     private MediaPlayer mNextMediaPlayer;
 
     private Handler mHandler;

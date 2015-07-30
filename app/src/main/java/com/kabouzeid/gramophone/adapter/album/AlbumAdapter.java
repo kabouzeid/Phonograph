@@ -157,12 +157,11 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     private void setColors(int color, ViewHolder holder) {
         if (holder.paletteColorContainer != null) {
             holder.paletteColorContainer.setBackgroundColor(color);
-            int textColor = ColorUtil.getTextColorForBackground(color);
             if (holder.title != null) {
-                holder.title.setTextColor(textColor);
+                holder.title.setTextColor(ColorUtil.getPrimaryTextColorForBackground(activity, color));
             }
             if (holder.text != null) {
-                holder.text.setTextColor(textColor);
+                holder.text.setTextColor(ColorUtil.getSecondaryTextColorForBackground(activity, color));
             }
         }
     }
@@ -223,7 +222,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
                                 activity.getResources().getString(R.string.transition_album_art)
                         )};
                 if (activity instanceof AbsSlidingMusicPanelActivity)
-                    albumPairs = ((AbsSlidingMusicPanelActivity) activity).getSharedViewsWithPlayPauseFab(albumPairs);
+                    albumPairs = ((AbsSlidingMusicPanelActivity) activity).addPlayPauseFabToSharedViews(albumPairs);
                 NavigationUtil.goToAlbum(activity, dataSet.get(getAdapterPosition()).id, albumPairs);
             }
         }

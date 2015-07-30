@@ -1,11 +1,13 @@
 package com.kabouzeid.gramophone.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -17,7 +19,6 @@ import android.support.design.widget.AppBarLayout.OnOffsetChangedListener;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.Pair;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -29,6 +30,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -51,16 +53,14 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityRecyclerViewLayoutModeFragment;
-import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AlbumViewFragment;
-import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.ArtistViewFragment;
-import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.PlaylistViewFragment;
-import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.SongViewFragment;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
+import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -97,8 +97,15 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
         ButterKnife.bind(this);
+
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+            Util.setStatusBarTranslucent(getWindow());
+            drawerLayout.setFitsSystemWindows(false);
+            navigationView.setFitsSystemWindows(false);
+            findViewById(R.id.drawer_content_container).setFitsSystemWindows(false);
+        }
 
         setUpDrawerLayout();
         setUpToolbar();
@@ -106,6 +113,16 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 
         if (shouldColorNavigationBar())
             setNavigationBarThemeColor();
+        setStatusBarThemeColor();
+    }
+
+    @Override
+    protected View createContentView() {
+        @SuppressLint("InflateParams")
+        View contentView = getLayoutInflater().inflate(R.layout.activity_main_drawer_layout, null);
+        ViewGroup drawerContent = ButterKnife.findById(contentView, R.id.drawer_content_container);
+        drawerContent.addView(wrapSlidingMusicPanelAndFab(R.layout.activity_main_content));
+        return contentView;
     }
 
     private void setUpViewPager() {
@@ -258,7 +275,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     }
 
     private void setUpDrawerLayout() {
-        drawerLayout.setStatusBarBackgroundColor(getThemeColorPrimaryDarker());
         setUpNavigationView();
     }
 
@@ -271,12 +287,10 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                 navigationDrawerHeader.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //noinspection ConstantConditions
-                        NavigationUtil.openCurrentPlayingIfPossible(MainActivity.this, getSharedViewsWithPlayPauseFab(new Pair[]{
-                                Pair.create(navigationDrawerHeader.findViewById(R.id.image),
-                                        getResources().getString(R.string.transition_album_art)
-                                )
-                        }));
+                        drawerLayout.closeDrawers();
+                        if (getSlidingUpPanelLayout().getPanelState() != SlidingUpPanelLayout.PanelState.EXPANDED) {
+                            getSlidingUpPanelLayout().setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                        }
                     }
                 });
             }
@@ -390,12 +404,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                 return true;
             case R.id.action_search:
                 startActivity(new Intent(MainActivity.this, SearchActivity.class));
-                return true;
-            case R.id.action_now_playing:
-                NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithPlayPauseFab(null));
-                return true;
-            case R.id.action_playing_queue:
-                NavigationUtil.openPlayingQueueDialog(this);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -524,38 +532,37 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         return pagerAdapter.getFragment(pager.getCurrentItem());
     }
 
-    private boolean isArtistPage() {
-        return pager.getCurrentItem() == PagerAdapter.MusicFragments.ARTIST.ordinal();
-    }
-
-    public ArtistViewFragment getArtistFragment() {
-        return (ArtistViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.ARTIST.ordinal());
-    }
-
-    private boolean isAlbumPage() {
-        return pager.getCurrentItem() == PagerAdapter.MusicFragments.ALBUM.ordinal();
-    }
-
-    @NonNull
-    public AlbumViewFragment getAlbumFragment() {
-        return (AlbumViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.ALBUM.ordinal());
-    }
-
-    private boolean isSongPage() {
-        return pager.getCurrentItem() == PagerAdapter.MusicFragments.SONG.ordinal();
-    }
-
-    public SongViewFragment getSongFragment() {
-        return (SongViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.SONG.ordinal());
-    }
+//    private boolean isArtistPage() {
+//        return pager.getCurrentItem() == PagerAdapter.MusicFragments.ARTIST.ordinal();
+//    }
+//
+//    public ArtistViewFragment getArtistFragment() {
+//        return (ArtistViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.ARTIST.ordinal());
+//    }
+//
+//    private boolean isAlbumPage() {
+//        return pager.getCurrentItem() == PagerAdapter.MusicFragments.ALBUM.ordinal();
+//    }
+//
+//    public AlbumViewFragment getAlbumFragment() {
+//        return (AlbumViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.ALBUM.ordinal());
+//    }
+//
+//    private boolean isSongPage() {
+//        return pager.getCurrentItem() == PagerAdapter.MusicFragments.SONG.ordinal();
+//    }
+//
+//    public SongViewFragment getSongFragment() {
+//        return (SongViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.SONG.ordinal());
+//    }
 
     private boolean isPlaylistPage() {
         return pager.getCurrentItem() == PagerAdapter.MusicFragments.PLAYLIST.ordinal();
     }
 
-    public PlaylistViewFragment getPlaylistFragment() {
-        return (PlaylistViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.PLAYLIST.ordinal());
-    }
+//    public PlaylistViewFragment getPlaylistFragment() {
+//        return (PlaylistViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.PLAYLIST.ordinal());
+//    }
 
     @Override
     public boolean dispatchKeyEvent(@NonNull KeyEvent event) {
@@ -588,5 +595,17 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 
     public int getTotalAppBarScrollingRange() {
         return appbar.getTotalScrollRange();
+    }
+
+    @Override
+    public void onPanelExpanded(View view) {
+        super.onPanelExpanded(view);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+    }
+
+    @Override
+    public void onPanelCollapsed(View view) {
+        super.onPanelCollapsed(view);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 }

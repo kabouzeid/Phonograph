@@ -55,7 +55,7 @@ public class SmartPlaylistSongAdapter extends SongAdapter {
                         Pair.create(image, activity.getString(R.string.transition_album_art))
                 };
                 if (activity instanceof AbsSlidingMusicPanelActivity)
-                    albumPairs = ((AbsSlidingMusicPanelActivity) activity).getSharedViewsWithPlayPauseFab(albumPairs);
+                    albumPairs = ((AbsSlidingMusicPanelActivity) activity).addPlayPauseFabToSharedViews(albumPairs);
                 NavigationUtil.goToAlbum(activity, dataSet.get(getAdapterPosition()).albumId, albumPairs);
                 return true;
             }

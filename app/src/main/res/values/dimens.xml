@@ -44,7 +44,7 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="widget_medium_image_size">96dp</dimen>
     <dimen name="notification_big_image_size">128dp</dimen>
 
-    <dimen name="bottom_offset_fab_activity">86dp</dimen>
+    <dimen name="bottom_offset_fab_activity">44dp</dimen>
 
     <dimen name="scrollbar_width">8dp</dimen>
     <dimen name="scrollbar_inset">8dp</dimen>
@@ -52,7 +52,8 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="scrollbar_width_plus_inset">16dp</dimen>
 
     <!-- ONLY 0dp WHILE THERE IS THE BUG IN DESIGN SUPPORT LIBRARY 22.2.0-->
-    <dimen name="fab_margin">0dp</dimen>
+    <dimen name="fab_margin_top_left_right">0dp</dimen>
+    <dimen name="fab_margin_bottom">0dp</dimen>
     <dimen name="tmp_now_playing_skip_rewind_margin">-24dp</dimen>
 
     <dimen name="title_box_padding_small">16dp</dimen>
@@ -66,5 +67,7 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
 
     <!-- For use with 24dp drawables in the item_list layouts-->
     <dimen name="list_item_image_icon_padding">8dp</dimen>
+
+    <dimen name="mini_player_height">48dp</dimen>
 
 </resources>

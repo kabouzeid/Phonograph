@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.ui.activities.base;
 import android.app.ActivityManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -72,7 +73,7 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
                 darkTheme != (PreferenceUtil.getInstance(this).getGeneralTheme() == R.style.Theme_MaterialMusic);
     }
 
-    protected void notifyTaskColorChange(int color) {
+    protected void notifyTaskColorChange(@ColorInt int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // Sets color of entry in the system recents page
             if (taskDescription == null || taskDescription.getPrimaryColor() != color) {
@@ -108,18 +109,29 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
             Util.setStatusBarTranslucent(getWindow());
     }
 
-    protected final void setNavigationBarColor(int color) {
+    protected final void setNavigationBarColor(@ColorInt int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             getWindow().setNavigationBarColor(ColorUtil.shiftColorDown(color));
     }
 
-    protected final void setStatusBarColor(int color) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            getWindow().setStatusBarColor(ColorUtil.shiftColorDown(color));
-        // also do this on Lollipop in case the user modified the statusbar height
+    /**
+     * This will set the color of the view with the id "status_bar" on KitKat and Lollipop.
+     * On Lollipop if no such view is found it will set the statusbar color using the native method.
+     *
+     * @param color the new statusbar color (will be shifted down on Lollipop and above)
+     */
+    protected final void setStatusBarColor(@ColorInt int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             final View statusBar = getWindow().getDecorView().getRootView().findViewById(R.id.status_bar);
-            if (statusBar != null) statusBar.setBackgroundColor(color);
+            if (statusBar != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    statusBar.setBackgroundColor(ColorUtil.shiftColorDown(color));
+                } else {
+                    statusBar.setBackgroundColor(color);
+                }
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(ColorUtil.shiftColorDown(color));
+            }
         }
     }
 

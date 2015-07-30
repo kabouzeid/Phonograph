@@ -6,9 +6,7 @@ package com.kabouzeid.gramophone.interfaces;
 public interface MusicStateListener {
     void onPlayingMetaChanged();
 
-
     void onPlayStateChanged();
-
 
     void onMediaStoreChanged();
 }

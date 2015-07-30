@@ -54,8 +54,8 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setStatusBarTransparent();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_playlist_detail);
         ButterKnife.bind(this);
 
         getIntentExtras();
@@ -69,6 +69,11 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         if (shouldColorNavigationBar())
             setNavigationBarThemeColor();
         setStatusBarThemeColor();
+    }
+
+    @Override
+    protected View createContentView() {
+        return wrapSlidingMusicPanelAndFab(R.layout.activity_playlist_detail);
     }
 
     private void setUpRecyclerView() {
@@ -167,12 +172,6 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
                 return true;
             case android.R.id.home:
                 onBackPressed();
-                return true;
-            case R.id.action_now_playing:
-                NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithPlayPauseFab(null));
-                return true;
-            case R.id.action_playing_queue:
-                NavigationUtil.openPlayingQueueDialog(this);
                 return true;
         }
         return super.onOptionsItemSelected(item);

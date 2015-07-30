@@ -124,15 +124,10 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
                                     return bitmap;
                                 }
                             })
-                            .displayer(new FadeInBitmapDisplayer(FADE_IN_TIME) {
+                            .displayer(new FadeInBitmapDisplayer(FADE_IN_TIME, true, true, false) {
                                 @Override
                                 public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
-                                    boolean loadedFromMemoryCache = loadedFrom == LoadedFrom.MEMORY_CACHE;
-                                    if (loadedFromMemoryCache) {
-                                        imageAware.setImageBitmap(bitmap);
-                                    } else {
-                                        super.display(bitmap, imageAware, loadedFrom);
-                                    }
+                                    super.display(bitmap, imageAware, loadedFrom);
                                     if (usePalette)
                                         setColors(holder.paletteColor, holder);
                                 }
@@ -153,12 +148,11 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
     private void setColors(int color, ViewHolder holder) {
         if (holder.paletteColorContainer != null) {
             holder.paletteColorContainer.setBackgroundColor(color);
-            int textColor = ColorUtil.getTextColorForBackground(color);
             if (holder.title != null) {
-                holder.title.setTextColor(textColor);
+                holder.title.setTextColor(ColorUtil.getPrimaryTextColorForBackground(activity, color));
             }
             if (holder.text != null) {
-                holder.text.setTextColor(textColor);
+                holder.text.setTextColor(ColorUtil.getSecondaryTextColorForBackground(activity, color));
             }
         }
     }
@@ -244,7 +238,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
                                 Pair.create(image, activity.getResources().getString(R.string.transition_album_art))
                         };
                         if (activity instanceof AbsSlidingMusicPanelActivity)
-                            albumPairs = ((AbsSlidingMusicPanelActivity) activity).getSharedViewsWithPlayPauseFab(albumPairs);
+                            albumPairs = ((AbsSlidingMusicPanelActivity) activity).addPlayPauseFabToSharedViews(albumPairs);
                         NavigationUtil.goToAlbum(activity, getSong().albumId, albumPairs);
                         return true;
                 }

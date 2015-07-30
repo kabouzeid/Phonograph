@@ -41,8 +41,8 @@ import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.ArtistInfo;
 import com.kabouzeid.gramophone.loader.ArtistAlbumLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
-import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
-import com.kabouzeid.gramophone.misc.SmallTransitionListener;
+import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
+import com.kabouzeid.gramophone.misc.SimpleTransitionListener;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Song;
@@ -68,9 +68,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 /**
- * A lot of hackery is done in this activity. Changing things may will brake the whole activity.
- * <p/>
- * Should be kinda stable ONLY AS IT IS!!!
+ * Be careful when changing things in this Activity!
  */
 public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implements PaletteColorHolder, CabHolder {
 
@@ -114,12 +112,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     protected void onCreate(Bundle savedInstanceState) {
         setStatusBarTransparent();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_artist_detail);
         ButterKnife.bind(this);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            postponeEnterTransition();
-        }
 
         if (shouldColorNavigationBar())
             setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
@@ -137,12 +130,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            fixLollipopTransitionImageWrongSize();
-            startPostponedEnterTransition();
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().getEnterTransition().addListener(new SmallTransitionListener() {
+            getWindow().getEnterTransition().addListener(new SimpleTransitionListener() {
                 @Override
                 public void onTransitionStart(Transition transition) {
                     artistImageBackground.setVisibility(View.INVISIBLE);
@@ -166,11 +154,15 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         }
     }
 
-    private final SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
+    @Override
+    protected View createContentView() {
+        return wrapSlidingMusicPanelAndFab(R.layout.activity_artist_detail);
+    }
+
+    private final SimpleObservableScrollViewCallbacks observableScrollViewCallbacks = new SimpleObservableScrollViewCallbacks() {
         @Override
         public void onScrollChanged(int scrollY, boolean b, boolean b2) {
             scrollY += artistImageViewHeight + titleViewHeight;
-            super.onScrollChanged(scrollY, b, b2);
             float flexibleRange = artistImageViewHeight - headerOffset;
 
             // Translate album cover
@@ -214,12 +206,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     private void setUpViews() {
         artistName.setText(artist.name);
 
-        ViewUtil.addOnGlobalLayoutListener(artistImage, new Runnable() {
-            @Override
-            public void run() {
-                setUpArtistImageAndApplyPalette(false);
-            }
-        });
+        setUpArtistImageAndApplyPalette(false);
         setUpSongListView();
         setUpAlbumRecyclerView();
         loadBiography();
@@ -377,7 +364,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     private void setColors(int vibrantColor) {
         toolbarColor = vibrantColor;
         artistName.setBackgroundColor(vibrantColor);
-        artistName.setTextColor(ColorUtil.getTextColorForBackground(vibrantColor));
+        artistName.setTextColor(ColorUtil.getPrimaryTextColorForBackground(this, vibrantColor));
 
         if (shouldColorNavigationBar())
             setNavigationBarColor(vibrantColor);
@@ -416,9 +403,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
             case android.R.id.home:
                 super.onBackPressed();
                 return true;
-            case R.id.action_playing_queue:
-                NavigationUtil.openPlayingQueueDialog(this);
-                return true;
             case R.id.action_biography:
                 if (biography != null) {
                     getBiographyDialog().show();
@@ -429,9 +413,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
             case R.id.action_re_download_artist_image:
                 Toast.makeText(ArtistDetailActivity.this, getResources().getString(R.string.updating), Toast.LENGTH_SHORT).show();
                 setUpArtistImageAndApplyPalette(true);
-                return true;
-            case R.id.action_now_playing:
-                NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithPlayPauseFab(null));
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -451,37 +432,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         songListView.setEnabled(false);
         toolbar.setEnabled(false);
         albumRecyclerView.setEnabled(false);
-    }
-
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void fixLollipopTransitionImageWrongSize() {
-        getWindow().getSharedElementEnterTransition().addListener(new Transition.TransitionListener() {
-            @Override
-            public void onTransitionStart(Transition transition) {
-
-            }
-
-            @Override
-            public void onTransitionEnd(Transition transition) {
-                setUpArtistImageAndApplyPalette(false);
-            }
-
-            @Override
-            public void onTransitionCancel(Transition transition) {
-
-            }
-
-            @Override
-            public void onTransitionPause(Transition transition) {
-
-            }
-
-            @Override
-            public void onTransitionResume(Transition transition) {
-
-            }
-        });
     }
 
     @Override

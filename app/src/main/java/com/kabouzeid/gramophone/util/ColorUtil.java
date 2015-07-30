@@ -35,14 +35,14 @@ public class ColorUtil {
         return color | 0xFF000000;
     }
 
-    public static int getColorWithAlpha(float alpha, int baseColor) {
+    public static int getColorWithAlpha(float alpha, @ColorInt int baseColor) {
         int a = Math.min(255, Math.max(0, (int) (alpha * 255))) << 24;
         int rgb = 0x00ffffff & baseColor;
         return a + rgb;
     }
 
     @SuppressWarnings("ResourceType")
-    public static int shiftColorDown(int color) {
+    public static int shiftColorDown(@ColorInt int color) {
         int alpha = Color.alpha(color);
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
@@ -51,7 +51,7 @@ public class ColorUtil {
     }
 
     @NonNull
-    public static ColorStateList getEmptyColorStateList(int color) {
+    public static ColorStateList getEmptyColorStateList(@ColorInt int color) {
         return new ColorStateList(
                 new int[][]{
                         new int[]{}
@@ -60,11 +60,15 @@ public class ColorUtil {
         );
     }
 
-    public static boolean useDarkTextColorOnBackground(int backgroundColor) {
+    public static boolean useDarkTextColorOnBackground(@ColorInt int backgroundColor) {
         return (Color.red(backgroundColor) * 0.299 + Color.green(backgroundColor) * 0.587 + Color.blue(backgroundColor) * 0.114) > (255 / 2);
     }
 
-    public static int getTextColorForBackground(int backgroundColor) {
-        return useDarkTextColorOnBackground(backgroundColor) ? Color.BLACK : Color.WHITE;
+    public static int getPrimaryTextColorForBackground(final Context context, @ColorInt int backgroundColor) {
+        return useDarkTextColorOnBackground(backgroundColor) ? context.getResources().getColor(R.color.primary_text_default_material_light) : context.getResources().getColor(R.color.primary_text_default_material_dark);
+    }
+
+    public static int getSecondaryTextColorForBackground(final Context context, @ColorInt int backgroundColor) {
+        return useDarkTextColorOnBackground(backgroundColor) ? context.getResources().getColor(R.color.secondary_text_default_material_light) : context.getResources().getColor(R.color.secondary_text_default_material_dark);
     }
 }

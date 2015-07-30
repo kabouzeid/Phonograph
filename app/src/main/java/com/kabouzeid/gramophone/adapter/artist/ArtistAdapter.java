@@ -151,12 +151,11 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     private void setColors(int color, ViewHolder holder) {
         if (holder.paletteColorContainer != null) {
             holder.paletteColorContainer.setBackgroundColor(color);
-            int textColor = ColorUtil.getTextColorForBackground(color);
             if (holder.title != null) {
-                holder.title.setTextColor(textColor);
+                holder.title.setTextColor(ColorUtil.getPrimaryTextColorForBackground(activity, color));
             }
             if (holder.text != null) {
-                holder.text.setTextColor(textColor);
+                holder.text.setTextColor(ColorUtil.getSecondaryTextColorForBackground(activity, color));
             }
         }
     }
@@ -212,7 +211,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
                                 activity.getResources().getString(R.string.transition_artist_image)
                         )};
                 if (activity instanceof AbsSlidingMusicPanelActivity)
-                    artistPairs = ((AbsSlidingMusicPanelActivity) activity).getSharedViewsWithPlayPauseFab(artistPairs);
+                    artistPairs = ((AbsSlidingMusicPanelActivity) activity).addPlayPauseFabToSharedViews(artistPairs);
                 NavigationUtil.goToArtist(activity, dataSet.get(getAdapterPosition()).id, artistPairs);
             }
         }
