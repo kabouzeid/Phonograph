@@ -33,8 +33,8 @@ import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
-import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
-import com.kabouzeid.gramophone.misc.SmallTransitionListener;
+import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
+import com.kabouzeid.gramophone.misc.SimpleTransitionListener;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
@@ -57,9 +57,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * A lot of hackery is done in this activity. Changing things may will brake the whole activity.
- * <p/>
- * Should be kinda stable ONLY AS IT IS!!!
+ * Be careful when changing things in this Activity!
  */
 public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements PaletteColorHolder, CabHolder {
 
@@ -97,7 +95,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         setStatusBarTransparent();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_album_detail);
         ButterKnife.bind(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -114,9 +111,14 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         animateFabCircularRevealOnEnterTransitionEnd();
     }
 
+    @Override
+    protected View createContentView() {
+        return wrapSlidingMusicPanelAndFab(R.layout.activity_album_detail);
+    }
+
     private void animateFabCircularRevealOnEnterTransitionEnd() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().getEnterTransition().addListener(new SmallTransitionListener() {
+            getWindow().getEnterTransition().addListener(new SimpleTransitionListener() {
                 @Override
                 public void onTransitionStart(Transition transition) {
                     albumArtBackground.setVisibility(View.INVISIBLE);
@@ -140,11 +142,10 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         }
     }
 
-    private final SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
+    private final SimpleObservableScrollViewCallbacks observableScrollViewCallbacks = new SimpleObservableScrollViewCallbacks() {
         @Override
         public void onScrollChanged(int scrollY, boolean b, boolean b2) {
             scrollY += albumArtViewHeight + titleViewHeight;
-            super.onScrollChanged(scrollY, b, b2);
             float flexibleRange = albumArtViewHeight - headerOffset;
 
             // Translate album cover
@@ -253,7 +254,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     private void setColors(int vibrantColor) {
         toolbarColor = vibrantColor;
         albumTitleView.setBackgroundColor(vibrantColor);
-        albumTitleView.setTextColor(ColorUtil.getTextColorForBackground(vibrantColor));
+        albumTitleView.setTextColor(ColorUtil.getPrimaryTextColorForBackground(this, vibrantColor));
 
         if (shouldColorNavigationBar())
             setNavigationBarColor(vibrantColor);
@@ -280,6 +281,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
             public void run() {
                 songsBackgroundView.getLayoutParams().height = contentView.getHeight();
                 observableScrollViewCallbacks.onScrollChanged(-(albumArtViewHeight + titleViewHeight), false, false);
+                // necessary to fix a bug
                 recyclerView.scrollBy(0, 1);
                 recyclerView.scrollBy(0, -1);
             }
@@ -350,19 +352,13 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
             case android.R.id.home:
                 super.onBackPressed();
                 return true;
-            case R.id.action_playing_queue:
-                NavigationUtil.openPlayingQueueDialog(this);
-                return true;
-            case R.id.action_now_playing:
-                NavigationUtil.openCurrentPlayingIfPossible(this, getSharedViewsWithPlayPauseFab(null));
-                return true;
             case R.id.action_tag_editor:
                 Intent intent = new Intent(this, AlbumTagEditorActivity.class);
                 intent.putExtra(AbsTagEditorActivity.EXTRA_ID, album.id);
                 startActivityForResult(intent, TAG_EDITOR_REQUEST);
                 return true;
             case R.id.action_go_to_artist:
-                Pair[] artistPairs = getSharedViewsWithPlayPauseFab(null);
+                Pair[] artistPairs = addPlayPauseFabToSharedViews(null);
                 NavigationUtil.goToArtist(this, album.artistId, artistPairs);
                 return true;
         }

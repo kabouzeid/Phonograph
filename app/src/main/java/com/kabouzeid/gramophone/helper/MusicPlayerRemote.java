@@ -183,10 +183,11 @@ public class MusicPlayerRemote {
         return -1;
     }
 
-    public static void seekTo(int millis) {
+    public static int seekTo(int millis) {
         if (musicService != null) {
-            musicService.seek(millis);
+            return musicService.seek(millis);
         }
+        return -1;
     }
 
     public static int getRepeatMode() {

@@ -26,7 +26,7 @@ import com.afollestad.materialdialogs.ThemeSingleton;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.misc.SmallObservableScrollViewCallbacks;
+import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
@@ -116,7 +116,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         observableScrollView.setScrollViewCallbacks(observableScrollViewCallbacks);
     }
 
-    private final SmallObservableScrollViewCallbacks observableScrollViewCallbacks = new SmallObservableScrollViewCallbacks() {
+    private final SimpleObservableScrollViewCallbacks observableScrollViewCallbacks = new SimpleObservableScrollViewCallbacks() {
         @Override
         public void onScrollChanged(int scrollY, boolean b, boolean b2) {
             float alpha;

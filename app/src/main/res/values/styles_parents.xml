@@ -10,8 +10,8 @@
 
         <item name="md_dark_theme">true</item>
 
-        <item name="title_text_color">?android:attr/textColorPrimary</item>
-        <item name="caption_text_color">?android:attr/textColorSecondary</item>
+        <item name="title_text_color">@color/primary_text_default_material_dark</item>
+        <item name="caption_text_color">@color/secondary_text_default_material_dark</item>
 
         <item name="music_controller_container_color">
             @color/materialmusic_dark_music_controller_container_color
@@ -43,8 +43,8 @@
 
         <item name="md_dark_theme">false</item>
 
-        <item name="title_text_color">?android:attr/textColorPrimary</item>
-        <item name="caption_text_color">?android:attr/textColorSecondary</item>
+        <item name="title_text_color">@color/primary_text_default_material_light</item>
+        <item name="caption_text_color">@color/secondary_text_default_material_light</item>
 
         <item name="music_controller_container_color">
             @color/materialmusic_music_controller_container_color

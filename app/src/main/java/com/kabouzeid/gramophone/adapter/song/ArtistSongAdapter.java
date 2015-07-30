@@ -27,6 +27,7 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.ArrayList;
 
@@ -34,6 +35,7 @@ import java.util.ArrayList;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab.Callback {
+    private static final int FADE_IN_TIME = 500;
 
     @Nullable
     private final CabHolder cabHolder;
@@ -83,6 +85,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
                         .cacheInMemory(true)
                         .showImageOnFail(R.drawable.default_album_art)
                         .resetViewBeforeLoading(true)
+                        .displayer(new FadeInBitmapDisplayer(FADE_IN_TIME, true, true, false))
                         .build()
         );
 
@@ -104,7 +107,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
                             Pair.create(albumArt, activity.getResources().getString(R.string.transition_album_art))
                     };
                     if (activity instanceof AbsSlidingMusicPanelActivity)
-                        albumPairs = ((AbsSlidingMusicPanelActivity) activity).getSharedViewsWithPlayPauseFab(albumPairs);
+                        albumPairs = ((AbsSlidingMusicPanelActivity) activity).addPlayPauseFabToSharedViews(albumPairs);
                     NavigationUtil.goToAlbum(activity, song.albumId, albumPairs);
                     return true;
                 }

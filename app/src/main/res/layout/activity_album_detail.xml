@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -80,7 +81,9 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/toolbar_elevation"
+            tools:ignore="UnusedAttribute">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -95,11 +98,5 @@
         </FrameLayout>
 
     </LinearLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/play_pause_fab"
-        style="@style/PlayPauseFab"
-        android:layout_gravity="end|right|bottom"
-        android:layout_margin="@dimen/fab_margin" />
 
 </FrameLayout>

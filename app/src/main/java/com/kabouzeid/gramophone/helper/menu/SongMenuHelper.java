@@ -21,8 +21,6 @@ import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 
-import java.io.File;
-
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -57,19 +55,18 @@ public class SongMenuHelper {
                 activity.startActivity(tagEditorIntent);
                 return true;
             case R.id.action_details:
-                File songFile = new File(song.data);
-                SongDetailDialog.create(songFile).show(activity.getSupportFragmentManager(), "SONG_DETAILS");
+                SongDetailDialog.create(song).show(activity.getSupportFragmentManager(), "SONG_DETAILS");
                 return true;
             case R.id.action_go_to_album:
                 Pair[] albumPairs = null;
                 if (activity instanceof AbsSlidingMusicPanelActivity)
-                    albumPairs = ((AbsSlidingMusicPanelActivity) activity).getSharedViewsWithPlayPauseFab(null);
+                    albumPairs = ((AbsSlidingMusicPanelActivity) activity).addPlayPauseFabToSharedViews(null);
                 NavigationUtil.goToAlbum(activity, song.albumId, albumPairs);
                 return true;
             case R.id.action_go_to_artist:
                 Pair[] artistPairs = null;
                 if (activity instanceof AbsSlidingMusicPanelActivity)
-                    artistPairs = ((AbsSlidingMusicPanelActivity) activity).getSharedViewsWithPlayPauseFab(null);
+                    artistPairs = ((AbsSlidingMusicPanelActivity) activity).addPlayPauseFabToSharedViews(null);
                 NavigationUtil.goToArtist(activity, song.artistId, artistPairs);
                 return true;
         }

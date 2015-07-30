@@ -48,6 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
             android:layout_weight="1"
             android:fontFamily="sans-serif"
@@ -60,6 +62,8 @@
             style="@style/OverFlowButton"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
             android:layout_marginStart="2dp"
             tools:ignore="ContentDescription" />
 

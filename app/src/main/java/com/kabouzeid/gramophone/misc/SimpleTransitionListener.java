@@ -7,7 +7,7 @@ import android.transition.Transition;
  * @author Karim Abou Zeid (kabouzeid)
  */
 @TargetApi(21)
-public class SmallTransitionListener implements Transition.TransitionListener {
+public abstract class SimpleTransitionListener implements Transition.TransitionListener {
     @Override
     public void onTransitionStart(Transition transition) {
 

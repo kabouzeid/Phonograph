@@ -1,0 +1,43 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        android:id="@+id/sliding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        sothree:umanoPanelHeight="@dimen/mini_player_height"
+        sothree:umanoParalaxOffset="0dp"
+        sothree:umanoShadowHeight="@dimen/card_elevation">
+
+        <FrameLayout
+            android:id="@+id/content_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <FrameLayout
+            android:id="@+id/player_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?android:colorBackground">
+
+            <include layout="@layout/player" />
+
+            <include layout="@layout/mini_player" />
+
+        </FrameLayout>
+
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/play_pause_fab"
+        style="@style/PlayPauseFab"
+        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="@dimen/fab_margin_bottom"
+        android:layout_marginLeft="@dimen/fab_margin_top_left_right"
+        android:layout_marginRight="@dimen/fab_margin_top_left_right"
+        android:layout_marginTop="@dimen/fab_margin_top_left_right" />
+
+</FrameLayout>

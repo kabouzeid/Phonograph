@@ -67,7 +67,8 @@
                 android:gravity="center_vertical"
                 android:singleLine="true"
                 android:text="@string/nothing_playing"
-                android:textAppearance="@style/Theme.MaterialMusic.Notification.Title" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="@color/primary_text_default_material_light" />
 
             <TextView
                 android:id="@+id/song_secondary_information"
@@ -76,7 +77,8 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:textAppearance="@style/Theme.MaterialMusic.Notification" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                android:textColor="@color/secondary_text_default_material_light" />
 
         </LinearLayout>
 

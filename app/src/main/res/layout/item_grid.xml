@@ -43,7 +43,6 @@
                 android:id="@+id/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textColor="?caption_text_color" />

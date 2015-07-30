@@ -1,34 +1,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context="com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity">
-
-    <item
-        android:id="@+id/action_now_playing"
-        android:icon="@drawable/ic_play_circle_fill_white_24dp"
-        android:title="@string/action_now_playing"
-        app:showAsAction="ifRoom"/>
-
-    <item
-        android:id="@+id/action_playing_queue"
-        android:icon="@drawable/ic_queue_music_white_24dp"
-        android:title="@string/action_playing_queue"
-        app:showAsAction="ifRoom" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity">
 
     <item
         android:id="@+id/action_shuffle_artist"
+        android:icon="@drawable/ic_shuffle_white_24dp"
         android:title="@string/action_shuffle_artist"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_biography"
         android:title="@string/biography"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_re_download_artist_image"
         android:title="@string/action_re_download_artist_image"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_sleep_timer"
@@ -39,6 +28,6 @@
         android:id="@+id/action_equalizer"
         android:orderInCategory="99"
         android:title="@string/equalizer"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
 
 </menu>

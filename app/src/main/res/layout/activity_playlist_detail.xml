@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -7,9 +8,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <include layout="@layout/status_bar" />
+
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/toolbar_elevation"
+            tools:ignore="UnusedAttribute">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -44,11 +49,5 @@
         android:text="@string/playlist_empty_text"
         android:textColor="?android:textColorSecondary"
         android:textSize="@dimen/empty_text_size" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/play_pause_fab"
-        style="@style/PlayPauseFab"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin" />
 
 </FrameLayout>

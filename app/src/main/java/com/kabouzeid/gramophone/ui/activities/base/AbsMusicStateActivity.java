@@ -47,6 +47,8 @@ public abstract class AbsMusicStateActivity extends AbsBaseActivity implements S
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
         onPlayStateChanged();
+        onRepeatModeChanged();
+        onShuffleModeChanged();
         onPlayingMetaChanged();
     }
 

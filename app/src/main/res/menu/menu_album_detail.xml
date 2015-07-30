@@ -4,21 +4,10 @@
     tools:context="com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity">
 
     <item
-        android:id="@+id/action_now_playing"
-        android:icon="@drawable/ic_play_circle_fill_white_24dp"
-        android:title="@string/action_now_playing"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/action_playing_queue"
-        android:icon="@drawable/ic_queue_music_white_24dp"
-        android:title="@string/action_playing_queue"
-        app:showAsAction="ifRoom" />
-
-    <item
+        android:icon="@drawable/ic_shuffle_white_24dp"
         android:id="@+id/action_shuffle_album"
         android:title="@string/action_shuffle_album"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_go_to_artist"

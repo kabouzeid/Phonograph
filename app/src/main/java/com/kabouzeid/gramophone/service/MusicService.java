@@ -741,9 +741,10 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         return player.duration();
     }
 
-    public void seek(int millis) {
-        player.seek(millis);
+    public int seek(int millis) {
+        int newPosition = player.seek(millis);
         savePositionInTrack();
+        return newPosition;
     }
 
     public void cycleRepeatMode() {

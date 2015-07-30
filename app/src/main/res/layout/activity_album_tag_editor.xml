@@ -146,7 +146,7 @@
         android:id="@+id/play_pause_fab"
         style="@style/PlayPauseFab"
         android:layout_gravity="bottom|right|end"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_margin="@dimen/fab_margin_top_left_right"
         android:src="@drawable/ic_done_white_24dp"
         tools:ignore="RtlHardcoded" />
 
