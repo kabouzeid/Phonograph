@@ -45,6 +45,7 @@ public class WidgetMedium extends AppWidgetProvider {
         linkButtons(context, widgetLayout);
         widgetLayout.setTextViewText(R.id.title, song.title);
         widgetLayout.setTextViewText(R.id.song_secondary_information, song.artistName + " | " + song.albumName);
+
         updateWidgetsPlayState(context, isPlaying);
         loadAlbumArt(context, song);
     }
@@ -123,29 +124,24 @@ public class WidgetMedium extends AppWidgetProvider {
     }
 
     private static PendingIntent retrievePlaybackActions(@NonNull final Context context, final int which) {
-        Intent action;
-        PendingIntent pendingIntent;
         final ComponentName serviceName = new ComponentName(context, MusicService.class);
+        Intent intent;
         switch (which) {
             case 0:
-                action = new Intent(context, MainActivity.class);
-                pendingIntent = PendingIntent.getActivity(context, 0, action, 0);
-                return pendingIntent;
+                intent = new Intent(context, MainActivity.class);
+                return PendingIntent.getActivity(context, 0, intent, 0);
             case 1:
-                action = new Intent(MusicService.ACTION_TOGGLE_PAUSE);
-                action.setComponent(serviceName);
-                pendingIntent = PendingIntent.getService(context, 1, action, 0);
-                return pendingIntent;
+                intent = new Intent(MusicService.ACTION_TOGGLE_PAUSE);
+                intent.setComponent(serviceName);
+                return PendingIntent.getService(context, 1, intent, 0);
             case 2:
-                action = new Intent(MusicService.ACTION_SKIP);
-                action.setComponent(serviceName);
-                pendingIntent = PendingIntent.getService(context, 2, action, 0);
-                return pendingIntent;
+                intent = new Intent(MusicService.ACTION_SKIP);
+                intent.setComponent(serviceName);
+                return PendingIntent.getService(context, 2, intent, 0);
             case 3:
-                action = new Intent(MusicService.ACTION_REWIND);
-                action.setComponent(serviceName);
-                pendingIntent = PendingIntent.getService(context, 3, action, 0);
-                return pendingIntent;
+                intent = new Intent(MusicService.ACTION_REWIND);
+                intent.setComponent(serviceName);
+                return PendingIntent.getService(context, 3, intent, 0);
         }
         return null;
     }

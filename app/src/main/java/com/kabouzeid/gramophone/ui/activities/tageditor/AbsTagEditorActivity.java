@@ -192,7 +192,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                 save();
             }
         });
-        fab.setRippleColor(ThemeSingleton.get().positiveColor);
+        fab.setBackgroundTintList(ThemeSingleton.get().positiveColor);
     }
 
     protected abstract void save();

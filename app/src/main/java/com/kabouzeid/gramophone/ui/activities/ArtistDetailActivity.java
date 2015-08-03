@@ -311,6 +311,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                     @Override
                     public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
                         setUpBackground("drawable://" + R.drawable.default_artist_image);
+                        setColors(ColorUtil.resolveColor(ArtistDetailActivity.this, R.attr.default_bar_color));
 
                         toastUpdatedArtistImageIfDownloadWasForced();
                     }

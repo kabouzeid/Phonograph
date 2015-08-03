@@ -123,12 +123,12 @@ public class SleepTimerDialog extends DialogFragment {
                     Field f1 = SeekArc.class.getDeclaredField("mThumb");
                     f1.setAccessible(true);
                     Drawable thumb = (Drawable) f1.get(seekArc);
-                    thumb.setColorFilter(ThemeSingleton.get().positiveColor, PorterDuff.Mode.SRC_IN);
+                    thumb.setColorFilter(ThemeSingleton.get().positiveColor.getDefaultColor(), PorterDuff.Mode.SRC_IN);
 
                     Field f2 = SeekArc.class.getDeclaredField("mProgressPaint");
                     f2.setAccessible(true);
                     Paint progressPaint = (Paint) f2.get(seekArc);
-                    progressPaint.setColor(ThemeSingleton.get().positiveColor);
+                    progressPaint.setColor(ThemeSingleton.get().positiveColor.getDefaultColor());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

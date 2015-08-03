@@ -223,6 +223,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                     @Override
                     public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
                         setUpBackground("drawable://" + R.drawable.default_album_art);
+                        setColors(ColorUtil.resolveColor(AlbumDetailActivity.this, R.attr.default_bar_color));
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                             startPostponedEnterTransition();

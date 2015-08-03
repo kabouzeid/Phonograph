@@ -105,7 +105,8 @@ public class PlayingNotificationHelper {
     }
 
     private PendingIntent getOpenMusicControllerPendingIntent() {
-        return PendingIntent.getActivity(service, 0, new Intent(service, MainActivity.class), 0);
+        Intent intent = new Intent(service, MainActivity.class);
+        return PendingIntent.getActivity(service, 0, intent, 0);
     }
 
     private void setUpExpandedPlaybackActions() {

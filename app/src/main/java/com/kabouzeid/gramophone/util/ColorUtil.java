@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.util;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -48,16 +47,6 @@ public class ColorUtil {
         Color.colorToHSV(color, hsv);
         hsv[2] *= 0.9f; // value component
         return (alpha << 24) + (0x00ffffff & Color.HSVToColor(hsv));
-    }
-
-    @NonNull
-    public static ColorStateList getEmptyColorStateList(@ColorInt int color) {
-        return new ColorStateList(
-                new int[][]{
-                        new int[]{}
-                },
-                new int[]{color}
-        );
     }
 
     public static boolean useDarkTextColorOnBackground(@ColorInt int backgroundColor) {

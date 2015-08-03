@@ -42,7 +42,7 @@ public class DynamicSwitch extends SwitchCompat {
     }
 
     private void init() {
-        final int color = ThemeSingleton.get().positiveColor;
+        final int color = ThemeSingleton.get().positiveColor.getDefaultColor();
         setTint(this, color);
     }
 

@@ -27,41 +27,48 @@ public abstract class AbsMusicStateActivity extends AbsBaseActivity implements S
 
     private MusicPlayerRemote.ServiceToken serviceToken;
     private MusicStateReceiver musicStateReceiver;
+    private boolean receiverRegistered;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         serviceToken = MusicPlayerRemote.bindToService(this, this);
-        musicStateReceiver = new MusicStateReceiver(this);
-
-        final IntentFilter filter = new IntentFilter();
-        filter.addAction(MusicService.PLAY_STATE_CHANGED);
-        filter.addAction(MusicService.SHUFFLE_MODE_CHANGED);
-        filter.addAction(MusicService.REPEAT_MODE_CHANGED);
-        filter.addAction(MusicService.META_CHANGED);
-        filter.addAction(MusicService.MEDIA_STORE_CHANGED);
-
-        registerReceiver(musicStateReceiver, filter);
     }
 
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
-        onPlayStateChanged();
-        onRepeatModeChanged();
-        onShuffleModeChanged();
-        onPlayingMetaChanged();
+        if (!receiverRegistered) {
+            musicStateReceiver = new MusicStateReceiver(this);
+
+            final IntentFilter filter = new IntentFilter();
+            filter.addAction(MusicService.PLAY_STATE_CHANGED);
+            filter.addAction(MusicService.SHUFFLE_MODE_CHANGED);
+            filter.addAction(MusicService.REPEAT_MODE_CHANGED);
+            filter.addAction(MusicService.META_CHANGED);
+            filter.addAction(MusicService.MEDIA_STORE_CHANGED);
+
+            registerReceiver(musicStateReceiver, filter);
+
+            receiverRegistered = true;
+        }
     }
 
     @Override
     public void onServiceDisconnected(ComponentName name) {
-
+        if (receiverRegistered) {
+            unregisterReceiver(musicStateReceiver);
+            receiverRegistered = false;
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         MusicPlayerRemote.unbindFromService(serviceToken);
-        unregisterReceiver(musicStateReceiver);
+        if (receiverRegistered) {
+            unregisterReceiver(musicStateReceiver);
+            receiverRegistered = false;
+        }
     }
 
     public void addMusicStateListenerListener(final MusicStateListener listener) {

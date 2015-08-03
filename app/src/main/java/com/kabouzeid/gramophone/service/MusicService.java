@@ -590,6 +590,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             if (restoredPositionInTrack > 0) seek(restoredPositionInTrack);
 
             notNotifiedMetaChangedForCurrentTrack = true;
+            sendChangeIntent(META_CHANGED);
+            updateWidgets();
         }
     }
 
@@ -801,6 +803,11 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     }
 
     private void notifyChange(@NonNull final String what) {
+        sendChangeIntent(what);
+        handleChange(what);
+    }
+
+    private void sendChangeIntent(@NonNull final String what) {
         final Intent internalIntent = new Intent(what);
 
         final Song currentSong = getCurrentSong();
@@ -813,11 +820,13 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         internalIntent.putExtra("playing", isPlaying());
         sendStickyBroadcast(internalIntent);
 
-        //to let other apps know whats playing. i.E. last.fm (scrobbling) or musixmatch
+        // to let other apps know whats playing. i.E. last.fm (scrobbling) or musixmatch
         final Intent publicMusicIntent = new Intent(internalIntent);
         publicMusicIntent.setAction(what.replace(PHONOGRAPH_PACKAGE_NAME, MUSIC_PACKAGE_NAME));
         sendStickyBroadcast(publicMusicIntent);
+    }
 
+    private void handleChange(@NonNull final String what) {
         if (what.equals(PLAY_STATE_CHANGED)) {
             final boolean isPlaying = isPlaying();
             playingNotificationHelper.updatePlayState(isPlaying);
@@ -833,6 +842,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             updateRemoteControlClient();
             savePosition();
             savePositionInTrack();
+            final Song currentSong = getCurrentSong();
             recentlyPlayedStore.addSongId(currentSong.id);
             songPlayCountStore.bumpSongCount(currentSong.id);
         }

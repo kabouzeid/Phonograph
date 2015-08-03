@@ -75,14 +75,14 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.2.1@aar') {
         transitive = true;
     }
-    compile 'com.android.support:support-v4:22.2.0'
-    compile 'com.android.support:support-v13:22.2.0'
-    compile 'com.android.support:appcompat-v7:22.2.0'
-    compile 'com.android.support:recyclerview-v7:22.2.0'
-    compile 'com.android.support:cardview-v7:22.2.0'
-    compile 'com.android.support:palette-v7:22.2.0'
-    compile 'com.android.support:design:22.2.0'
-    compile 'com.android.support:support-annotations:22.2.0'
+    compile 'com.android.support:support-v4:22.2.1'
+    compile 'com.android.support:support-v13:22.2.1'
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.android.support:recyclerview-v7:22.2.1'
+    compile 'com.android.support:cardview-v7:22.2.1'
+    compile 'com.android.support:palette-v7:22.2.1'
+    compile 'com.android.support:design:22.2.1'
+    compile 'com.android.support:support-annotations:22.2.1'
 
     compile 'com.github.ksoichiro:android-observablescrollview:1.5.1'
     compile 'asia.ivity.android:drag-sort-listview:1.0'
@@ -94,7 +94,7 @@ dependencies {
 
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
 
-    compile 'com.afollestad:material-dialogs:0.7.6.0'
+    compile 'com.afollestad:material-dialogs:0.7.7.0'
     compile 'com.afollestad:material-cab:0.1.4'
 
     compile 'com.jakewharton:butterknife:7.0.1'

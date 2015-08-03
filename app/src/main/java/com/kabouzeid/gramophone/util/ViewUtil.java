@@ -67,22 +67,6 @@ public class ViewUtil {
         view.setBackgroundColor(a + rgb);
     }
 
-    public static void addOnGlobalLayoutListener(@NonNull final View view, @NonNull final Runnable runnable) {
-        ViewTreeObserver vto = view.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                    //noinspection deprecation
-                    view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                } else {
-                    view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                }
-                runnable.run();
-            }
-        });
-    }
-
     /**
      * Should be called in {@link android.app.Activity#onPrepareOptionsMenu(Menu)} and {@link android.app.Activity#onOptionsItemSelected(MenuItem)}
      *
@@ -136,7 +120,7 @@ public class ViewUtil {
 
                             CheckBox check = (CheckBox) checkboxField.get(iv);
                             if (check != null) {
-                                MDTintHelper.setTint(check, ThemeSingleton.get().positiveColor);
+                                MDTintHelper.setTint(check, ThemeSingleton.get().positiveColor.getDefaultColor());
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                     check.setBackground(null);
                                 }
@@ -144,7 +128,7 @@ public class ViewUtil {
 
                             RadioButton radioButton = (RadioButton) radioButtonField.get(iv);
                             if (radioButton != null) {
-                                MDTintHelper.setTint(radioButton, ThemeSingleton.get().positiveColor);
+                                MDTintHelper.setTint(radioButton, ThemeSingleton.get().positiveColor.getDefaultColor());
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                     radioButton.setBackground(null);
                                 }
