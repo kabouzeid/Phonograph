@@ -58,7 +58,7 @@ public class FastScroller extends FrameLayout {
         handle = findViewById(R.id.scroll_handle);
         bar = findViewById(R.id.scroll_bar);
         handle.setEnabled(true);
-        setPressedHandleColor(ThemeSingleton.get().positiveColor);
+        setPressedHandleColor(ThemeSingleton.get().positiveColor.getDefaultColor());
         setUpBarBackground();
         postDelayed(handleHider, HANDLE_HIDE_DELAY);
     }

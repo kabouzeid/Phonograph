@@ -72,6 +72,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicStateActivity
     private static final int FAB_CIRCULAR_REVEAL_ANIMATION_TIME = 1000;
     private static final long DEFAULT_PROGRESS_VIEW_REFRESH_INTERVAL = 500;
     private static final int CMD_REFRESH_PROGRESS_VIEWS = 1;
+    private static final String PANEL_EXPANDED_KEY = "panel_state";
 
     @Bind(R.id.play_pause_fab)
     FloatingActionButton playPauseFab;
@@ -161,6 +162,17 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicStateActivity
         setUpPlayerToolbar();
 
         progressViewsUpdateHandler = new MusicProgressViewsUpdateHandler(this);
+
+        slidingUpPanelLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                    mediaControllerContainer.setVisibility(View.VISIBLE);
+                    onPanelSlide(slidingUpPanelLayout, 1);
+                    onPanelExpanded(slidingUpPanelLayout);
+                }
+            }
+        });
     }
 
     protected abstract View createContentView();
@@ -201,10 +213,9 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicStateActivity
         updateFabState(false);
 
         playPauseFab.setImageDrawable(playPauseDrawable);
-        final int accentColor = ThemeSingleton.get().positiveColor;
-        playPauseFab.setBackgroundTintList(ColorUtil.getEmptyColorStateList(accentColor));
-        if (accentColor == Color.WHITE) {
-            playPauseFab.getDrawable().setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+        playPauseFab.setBackgroundTintList(ThemeSingleton.get().positiveColor);
+        if (getThemeColorAccent() == Color.WHITE) {
+            playPauseFab.getDrawable().setColorFilter(getResources().getColor(R.color.primary_text_default_material_light), PorterDuff.Mode.SRC_IN);
         } else {
             playPauseFab.getDrawable().clearColorFilter();
         }
@@ -315,6 +326,10 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicStateActivity
 
     @Override
     public void onPanelExpanded(View view) {
+        onPanelSlide(view, 1);
+        if (!progressViewsUpdateHandler.hasMessages(CMD_REFRESH_PROGRESS_VIEWS)) {
+            startUpdatingProgressViews();
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (mediaControllerContainer.getVisibility() == View.INVISIBLE) {
                 int cx = (dummyFab.getLeft() + dummyFab.getRight()) / 2;
@@ -474,7 +489,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicStateActivity
     }
 
     private void setUpSeekBar() {
-        setTint(seekBar, !ThemeSingleton.get().darkTheme && getThemeColorAccent() == Color.WHITE ? Color.BLACK : getThemeColorAccent());
+        setTint(seekBar, getThemeColorAccent());
         seekBar.setOnSeekBarChangeListener(new SimpleOnSeekbarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -520,11 +535,11 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicStateActivity
         switch (MusicPlayerRemote.getShuffleMode()) {
             case MusicService.SHUFFLE_MODE_SHUFFLE:
                 shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_36dp,
-                        getThemeColorAccent() == Color.WHITE ? Color.BLACK : getThemeColorAccent()));
+                        getThemeColorAccent() == Color.WHITE ? getResources().getColor(R.color.primary_text_default_material_light) : getThemeColorAccent()));
                 break;
             default:
                 shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_36dp,
-                        DialogUtils.resolveColor(this, R.attr.themed_drawable_color)));
+                        ColorUtil.resolveColor(this, R.attr.themed_drawable_color)));
                 break;
         }
     }
@@ -547,11 +562,11 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicStateActivity
                 break;
             case MusicService.REPEAT_MODE_ALL:
                 repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_white_36dp,
-                        getThemeColorAccent() == Color.WHITE ? Color.BLACK : getThemeColorAccent()));
+                        getThemeColorAccent() == Color.WHITE ? getResources().getColor(R.color.primary_text_default_material_light) : getThemeColorAccent()));
                 break;
             default:
                 repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_one_white_36dp,
-                        getThemeColorAccent() == Color.WHITE ? Color.BLACK : getThemeColorAccent()));
+                        getThemeColorAccent() == Color.WHITE ? getResources().getColor(R.color.primary_text_default_material_light) : getThemeColorAccent()));
                 break;
         }
     }
@@ -740,7 +755,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicStateActivity
     }
 
     private void startUpdatingProgressViews() {
-        queueNextRefresh(0);
+        queueNextRefresh(1);
     }
 
     private void stopUpdatingProgressViews() {
@@ -789,7 +804,11 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicStateActivity
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
             if (msg.what == CMD_REFRESH_PROGRESS_VIEWS) {
-                activityReference.get().queueNextRefresh(activityReference.get().refreshProgressViews());
+                AbsSlidingMusicPanelActivity activity = activityReference.get();
+                if (activity != null) {
+                    long nextDelay = activityReference.get().refreshProgressViews();
+                    activityReference.get().queueNextRefresh(nextDelay);
+                }
             }
         }
     }

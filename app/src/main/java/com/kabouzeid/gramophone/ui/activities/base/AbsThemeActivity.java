@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.ui.activities.base;
 
 import android.app.ActivityManager;
+import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -49,9 +50,10 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
         darkTheme = PreferenceUtil.getInstance(this).getGeneralTheme() == R.style.Theme_MaterialMusic;
         coloredNavigationBar = PreferenceUtil.getInstance(this).shouldUseColoredNavigationBar();
 
-        ThemeSingleton.get().positiveColor = colorAccent;
-        ThemeSingleton.get().negativeColor = colorAccent;
-        ThemeSingleton.get().neutralColor = colorAccent;
+        final ColorStateList accentColorStateList = ColorStateList.valueOf(colorAccent);
+        ThemeSingleton.get().positiveColor = accentColorStateList;
+        ThemeSingleton.get().negativeColor = accentColorStateList;
+        ThemeSingleton.get().neutralColor = accentColorStateList;
         ThemeSingleton.get().widgetColor = colorAccent;
         ThemeSingleton.get().darkTheme = darkTheme;
 

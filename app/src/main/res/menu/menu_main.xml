@@ -15,11 +15,6 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_sleep_timer"
-        android:title="@string/action_sleep_timer"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/action_view_as"
         android:title="@string/action_view_as">
         <menu>
@@ -40,6 +35,12 @@
                 android:title="@string/colored_footers" />
         </menu>
     </item>
+
+    <item
+        android:orderInCategory="98"
+        android:id="@+id/action_sleep_timer"
+        android:title="@string/action_sleep_timer"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_equalizer"

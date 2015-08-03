@@ -25,7 +25,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -170,9 +169,9 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
             tabStripField.setAccessible(true);
             Object tabStrip = tabStripField.get(tabs);
 
-            Method setSelectedIndicatorColorMethod = tabStrip.getClass().getDeclaredMethod("setSelectedIndicatorColor", int.class);
+            Method setSelectedIndicatorColorMethod = tabStrip.getClass().getDeclaredMethod("setSelectedIndicatorColor", Integer.TYPE);
             setSelectedIndicatorColorMethod.setAccessible(true);
-            setSelectedIndicatorColorMethod.invoke(tabStrip, ThemeSingleton.get().positiveColor);
+            setSelectedIndicatorColorMethod.invoke(tabStrip, ThemeSingleton.get().positiveColor.getDefaultColor());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -190,7 +189,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     }
 
     private void setUpNavigationView() {
-        final int colorAccent = ThemeSingleton.get().positiveColor;
+        final int colorAccent = ThemeSingleton.get().positiveColor.getDefaultColor();
         navigationView.setItemTextColor(new ColorStateList(
                 new int[][]{
                         //{-android.R.attr.state_enabled}, // disabled
@@ -476,10 +475,10 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         String mimeType = intent.getType();
         boolean handled = false;
 
-        if (intent.getAction() != null
-                && intent.getAction().equals(MediaStore.INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH)) {
+        if (intent.getAction() != null && intent.getAction().equals(MediaStore.INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH)) {
             MusicPlayerRemote.openQueue(SearchQueryHelper.getSongs(this, intent.getExtras()), 0, true);
         }
+
         if (uri != null && uri.toString().length() > 0) {
             MusicPlayerRemote.playFile(new File(uri.getPath()).getAbsolutePath());
             handled = true;
@@ -564,14 +563,12 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 //        return (PlaylistViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.PLAYLIST.ordinal());
 //    }
 
+
     @Override
-    public boolean dispatchKeyEvent(@NonNull KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_MENU && event.getAction() == KeyEvent.ACTION_UP) {
-            if (toolbar != null)
-                toolbar.showOverflowMenu();
-            return true;
-        }
-        return super.dispatchKeyEvent(event);
+    protected void showOverflowMenu() {
+        super.showOverflowMenu();
+        if (toolbar != null && getSlidingUpPanelLayout().getPanelState() != SlidingUpPanelLayout.PanelState.EXPANDED)
+            toolbar.showOverflowMenu();
     }
 
     @Override

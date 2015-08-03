@@ -29,9 +29,9 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        setStatusBarTransparent();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
+        setStatusBarTransparent();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(getThemeColorPrimary());
