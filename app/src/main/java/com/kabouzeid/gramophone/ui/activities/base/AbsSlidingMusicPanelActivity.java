@@ -62,7 +62,7 @@ import butterknife.ButterKnife;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
- *         <p/>
+ *         <p>
  *         Do not use {@link #setContentView(int)} but wrap your layout with
  *         {@link #wrapSlidingMusicPanelAndFab(int)} first and then return it in {@link #createContentView()}
  */
@@ -213,12 +213,11 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicStateActivity
         updateFabState(false);
 
         playPauseFab.setImageDrawable(playPauseDrawable);
-        playPauseFab.setBackgroundTintList(ThemeSingleton.get().positiveColor);
-        if (getThemeColorAccent() == Color.WHITE) {
-            playPauseFab.getDrawable().setColorFilter(getResources().getColor(R.color.primary_text_default_material_light), PorterDuff.Mode.SRC_IN);
-        } else {
-            playPauseFab.getDrawable().clearColorFilter();
-        }
+
+        int fabColor = getThemeColorAccent();
+        int fabDrawableColor = ColorUtil.getDrawableColorForBackground(this, fabColor);
+        playPauseFab.setBackgroundTintList(ColorStateList.valueOf(getThemeColorAccent()));
+        playPauseFab.getDrawable().setColorFilter(fabDrawableColor, PorterDuff.Mode.SRC_IN);
 
         final GestureDetector gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
@@ -535,7 +534,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicStateActivity
         switch (MusicPlayerRemote.getShuffleMode()) {
             case MusicService.SHUFFLE_MODE_SHUFFLE:
                 shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_36dp,
-                        getThemeColorAccent() == Color.WHITE ? getResources().getColor(R.color.primary_text_default_material_light) : getThemeColorAccent()));
+                        ThemeSingleton.get().positiveColor.getDefaultColor()));
                 break;
             default:
                 shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_36dp,
@@ -562,11 +561,11 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicStateActivity
                 break;
             case MusicService.REPEAT_MODE_ALL:
                 repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_white_36dp,
-                        getThemeColorAccent() == Color.WHITE ? getResources().getColor(R.color.primary_text_default_material_light) : getThemeColorAccent()));
+                        ThemeSingleton.get().positiveColor.getDefaultColor()));
                 break;
             default:
                 repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_one_white_36dp,
-                        getThemeColorAccent() == Color.WHITE ? getResources().getColor(R.color.primary_text_default_material_light) : getThemeColorAccent()));
+                        ThemeSingleton.get().positiveColor.getDefaultColor()));
                 break;
         }
     }

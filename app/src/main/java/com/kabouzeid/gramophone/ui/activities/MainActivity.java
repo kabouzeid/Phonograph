@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.provider.MediaStore;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -140,7 +141,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         navigationView.getMenu().getItem(startPosition).setChecked(true);
 
         tabs.setupWithViewPager(pager);
-        setUpTabStripColor();
+        setUpTabStripColor(getThemeColorAccent() == Color.WHITE ? Color.WHITE : ThemeSingleton.get().positiveColor.getDefaultColor());
 
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -162,7 +163,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         pager.setCurrentItem(startPosition);
     }
 
-    private void setUpTabStripColor() {
+    private void setUpTabStripColor(@ColorInt int color) {
         // use reflection to set the selected indicator color
         try {
             Field tabStripField = tabs.getClass().getDeclaredField("mTabStrip");
@@ -171,7 +172,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 
             Method setSelectedIndicatorColorMethod = tabStrip.getClass().getDeclaredMethod("setSelectedIndicatorColor", Integer.TYPE);
             setSelectedIndicatorColorMethod.setAccessible(true);
-            setSelectedIndicatorColorMethod.invoke(tabStrip, ThemeSingleton.get().positiveColor.getDefaultColor());
+            setSelectedIndicatorColorMethod.invoke(tabStrip, color);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -199,7 +200,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                 new int[]{
                         // 0,
                         colorAccent,
-                        ThemeSingleton.get().darkTheme ? Color.argb(222, 255, 255, 255) : Color.argb(222, 0, 0, 0)
+                        ThemeSingleton.get().darkTheme ? getResources().getColor(R.color.primary_text_default_material_dark) : getResources().getColor(R.color.primary_text_default_material_light)
                 }
         ));
         navigationView.setItemIconTintList(new ColorStateList(
@@ -211,7 +212,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                 new int[]{
                         // 0,
                         colorAccent,
-                        ThemeSingleton.get().darkTheme ? Color.argb(138, 255, 255, 255) : Color.argb(138, 0, 0, 0)
+                        ThemeSingleton.get().darkTheme ? getResources().getColor(R.color.secondary_text_default_material_dark) : getResources().getColor(R.color.secondary_text_default_material_light)
                 }
         ));
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
