@@ -49,8 +49,12 @@ public class ColorUtil {
         return (alpha << 24) + (0x00ffffff & Color.HSVToColor(hsv));
     }
 
+    public static float getLuminance(@ColorInt int color) {
+        return (Color.red(color) * 0.299f + Color.green(color) * 0.587f + Color.blue(color) * 0.114f);
+    }
+
     public static boolean useDarkTextColorOnBackground(@ColorInt int backgroundColor) {
-        return (Color.red(backgroundColor) * 0.299 + Color.green(backgroundColor) * 0.587 + Color.blue(backgroundColor) * 0.114) > (255 / 2);
+        return getLuminance(backgroundColor) > (255f / 2f);
     }
 
     public static int getPrimaryTextColorForBackground(final Context context, @ColorInt int backgroundColor) {
@@ -59,5 +63,13 @@ public class ColorUtil {
 
     public static int getSecondaryTextColorForBackground(final Context context, @ColorInt int backgroundColor) {
         return useDarkTextColorOnBackground(backgroundColor) ? context.getResources().getColor(R.color.secondary_text_default_material_light) : context.getResources().getColor(R.color.secondary_text_default_material_dark);
+    }
+
+    public static boolean useDarkDrawableColorOnBackground(@ColorInt int backgroundColor) {
+        return getLuminance(backgroundColor) > (255f / 1.3f);
+    }
+
+    public static int getDrawableColorForBackground(final Context context, @ColorInt int backgroundColor) {
+        return useDarkDrawableColorOnBackground(backgroundColor) ? context.getResources().getColor(R.color.primary_text_default_material_light) : context.getResources().getColor(R.color.primary_text_default_material_dark);
     }
 }

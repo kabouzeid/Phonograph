@@ -4,13 +4,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
@@ -20,13 +18,10 @@ import com.kabouzeid.gramophone.util.ColorUtil;
 public class ColorView extends FrameLayout {
 
     private final Bitmap mCheck;
-    @NonNull
     private final Paint paint;
-    @NonNull
     private final Paint paintBorder;
-    @Nullable
-    private Paint paintCheck;
     private final int borderWidth;
+    private Paint paintCheck;
 
     public ColorView(@NonNull Context context) {
         this(context, null, 0);
@@ -49,6 +44,9 @@ public class ColorView extends FrameLayout {
         paintBorder = new Paint();
         paintBorder.setAntiAlias(true);
 
+        paintCheck = new Paint();
+        paintCheck.setAntiAlias(true);
+
         setWillNotDraw(false);
     }
 
@@ -70,6 +68,7 @@ public class ColorView extends FrameLayout {
     public void setBackgroundColor(int color) {
         paint.setColor(color);
         paintBorder.setColor(ColorUtil.shiftColorDown(color));
+        paintCheck.setColorFilter(new PorterDuffColorFilter(ColorUtil.getDrawableColorForBackground(getContext(), color), PorterDuff.Mode.SRC_IN));
         requestLayout();
         invalidate();
     }
@@ -106,15 +105,6 @@ public class ColorView extends FrameLayout {
 
         if (isActivated()) {
             final int offset = (canvasSize / 2) - (mCheck.getWidth() / 2);
-            if (paint.getColor() == Color.WHITE) {
-                if (paintCheck == null) {
-                    paintCheck = new Paint();
-                    paintCheck.setAntiAlias(true);
-                    paintCheck.setColorFilter(new PorterDuffColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN));
-                }
-            } else {
-                paintCheck = null;
-            }
             canvas.drawBitmap(mCheck, offset, offset, paintCheck);
         }
     }
