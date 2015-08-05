@@ -86,22 +86,19 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final String SAVED_POSITION_IN_TRACK = "POSITION_IN_TRACK";
     public static final String SAVED_SHUFFLE_MODE = "SHUFFLE_MODE";
     public static final String SAVED_REPEAT_MODE = "REPEAT_MODE";
-
-    private static final int FOCUS_CHANGE = 5;
-    private static final int DUCK = 6;
-    private static final int UNDUCK = 7;
     public static final int RELEASE_WAKELOCK = 10;
     public static final int TRACK_ENDED = 11;
     public static final int TRACK_WENT_TO_NEXT = 12;
     public static final int PLAY_SONG = 13;
     public static final int SAVE_QUEUES = 14;
-
     public static final int SHUFFLE_MODE_NONE = 0;
     public static final int SHUFFLE_MODE_SHUFFLE = 1;
     public static final int REPEAT_MODE_NONE = 0;
     public static final int REPEAT_MODE_ALL = 1;
     public static final int REPEAT_MODE_THIS = 2;
-
+    private static final int FOCUS_CHANGE = 5;
+    private static final int DUCK = 6;
+    private static final int UNDUCK = 7;
     private final IBinder musicBind = new MusicBinder();
 
     private MultiPlayer player;
@@ -118,14 +115,32 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private RemoteControlClient remoteControlClient;
     private PowerManager.WakeLock wakeLock;
     private MusicPlayerHandler playerHandler;
+    private final AudioManager.OnAudioFocusChangeListener audioFocusListener = new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(final int focusChange) {
+            playerHandler.obtainMessage(FOCUS_CHANGE, focusChange, 0).sendToTarget();
+        }
+    };
     private QueueSaveHandler queueSaveHandler;
     private HandlerThread musicPlayerHandlerThread;
     private HandlerThread queueSaveHandlerThread;
     private RecentlyPlayedStore recentlyPlayedStore;
     private SongPlayCountStore songPlayCountStore;
+    private final BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, @NonNull Intent intent) {
+            if (intent.getAction().equals(AudioManager.ACTION_AUDIO_BECOMING_NOISY)) {
+                pause();
+            }
+        }
+    };
     private ContentObserver mediaStoreObserver;
-    private boolean notNotifiedMetaChangedForCurrentTrack;
+    private boolean notHandledMetaChangedForCurrentTrack;
     private boolean isServiceInUse;
+
+    private static String getTrackUri(@NonNull Song song) {
+        return ContentUris.withAppendedId(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, song.id).toString();
+    }
 
     @Override
     public void onCreate() {
@@ -150,14 +165,14 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         musicPlayerHandlerThread.start();
         playerHandler = new MusicPlayerHandler(this, musicPlayerHandlerThread.getLooper());
 
+        player = new MultiPlayer(this);
+        player.setHandler(playerHandler);
+
         // queue saving needs to run on a separate thread so that it doesn't block the player handler events
         queueSaveHandlerThread = new HandlerThread("QueueSaveHandler",
                 Process.THREAD_PRIORITY_BACKGROUND);
         queueSaveHandlerThread.start();
         queueSaveHandler = new QueueSaveHandler(this, queueSaveHandlerThread.getLooper());
-
-        player = new MultiPlayer(this);
-        player.setHandler(playerHandler);
 
         registerReceiversAndRemoteControlClient();
 
@@ -170,23 +185,10 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, true, mediaStoreObserver);
 
         PreferenceUtil.getInstance(this).registerOnSharedPreferenceChangedListener(this);
+
+        notifyChange(SHUFFLE_MODE_CHANGED);
+        notifyChange(REPEAT_MODE_CHANGED);
     }
-
-    private final BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, @NonNull Intent intent) {
-            if (intent.getAction().equals(AudioManager.ACTION_AUDIO_BECOMING_NOISY)) {
-                pause();
-            }
-        }
-    };
-
-    private final AudioManager.OnAudioFocusChangeListener audioFocusListener = new AudioManager.OnAudioFocusChangeListener() {
-        @Override
-        public void onAudioFocusChange(final int focusChange) {
-            playerHandler.obtainMessage(FOCUS_CHANGE, focusChange, 0).sendToTarget();
-        }
-    };
 
     private void registerReceiversAndRemoteControlClient() {
         if (!receiversAndRemoteControlClientRegistered) {
@@ -379,7 +381,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             boolean prepared = openCurrent();
             if (prepared) prepareNext();
             notifyChange(META_CHANGED);
-            notNotifiedMetaChangedForCurrentTrack = false;
+            notHandledMetaChangedForCurrentTrack = false;
             return prepared;
         }
     }
@@ -498,10 +500,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         WidgetMedium.updateWidgets(this, getCurrentSong(), isPlaying());
     }
 
-    private static String getTrackUri(@NonNull Song song) {
-        return ContentUris.withAppendedId(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, song.id).toString();
-    }
-
     public int getNextPosition(boolean force) {
         int position = getPosition() + 1;
         switch (getRepeatMode()) {
@@ -589,7 +587,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
             if (restoredPositionInTrack > 0) seek(restoredPositionInTrack);
 
-            notNotifiedMetaChangedForCurrentTrack = true;
+            notHandledMetaChangedForCurrentTrack = true;
             sendChangeIntent(META_CHANGED);
             updateWidgets();
         }
@@ -683,9 +681,9 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                     } else {
                         registerReceiversAndRemoteControlClient();
                         player.start();
-                        if (notNotifiedMetaChangedForCurrentTrack) {
-                            notifyChange(META_CHANGED);
-                            notNotifiedMetaChangedForCurrentTrack = false;
+                        if (notHandledMetaChangedForCurrentTrack) {
+                            handleChange(META_CHANGED);
+                            notHandledMetaChangedForCurrentTrack = false;
                         }
                         notifyChange(PLAY_STATE_CHANGED);
                     }
@@ -885,13 +883,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
     }
 
-    public class MusicBinder extends Binder {
-        @NonNull
-        public MusicService getService() {
-            return MusicService.this;
-        }
-    }
-
     private static final class QueueSaveHandler extends Handler {
         @NonNull
         private final WeakReference<MusicService> mService;
@@ -909,33 +900,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                     service.saveQueuesImpl();
                     break;
             }
-        }
-    }
-
-    private class MediaStoreObserver extends ContentObserver implements Runnable {
-        // milliseconds to delay before calling refresh to aggregate events
-        private static final long REFRESH_DELAY = 500;
-        private Handler mHandler;
-
-        public MediaStoreObserver(Handler handler) {
-            super(handler);
-            mHandler = handler;
-        }
-
-        @Override
-        public void onChange(boolean selfChange) {
-            // if a change is detected, remove any scheduled callback
-            // then post a new one. This is intended to prevent closely
-            // spaced events from generating multiple refresh calls
-            mHandler.removeCallbacks(this);
-            mHandler.postDelayed(this, REFRESH_DELAY);
-        }
-
-        @Override
-        public void run() {
-            // actually call refresh when the delayed callback fires
-            // do not send a sticky broadcast here
-            sendBroadcast(new Intent(MEDIA_STORE_CHANGED));
         }
     }
 
@@ -1041,6 +1005,40 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                     }
                     break;
             }
+        }
+    }
+
+    public class MusicBinder extends Binder {
+        @NonNull
+        public MusicService getService() {
+            return MusicService.this;
+        }
+    }
+
+    private class MediaStoreObserver extends ContentObserver implements Runnable {
+        // milliseconds to delay before calling refresh to aggregate events
+        private static final long REFRESH_DELAY = 500;
+        private Handler mHandler;
+
+        public MediaStoreObserver(Handler handler) {
+            super(handler);
+            mHandler = handler;
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            // if a change is detected, remove any scheduled callback
+            // then post a new one. This is intended to prevent closely
+            // spaced events from generating multiple refresh calls
+            mHandler.removeCallbacks(this);
+            mHandler.postDelayed(this, REFRESH_DELAY);
+        }
+
+        @Override
+        public void run() {
+            // actually call refresh when the delayed callback fires
+            // do not send a sticky broadcast here
+            sendBroadcast(new Intent(MEDIA_STORE_CHANGED));
         }
     }
 }

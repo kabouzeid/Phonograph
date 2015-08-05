@@ -36,6 +36,7 @@ local.properties
 *.iml
 .idea
 ajcore.*.txt
+captures/
 
 # Mac
 .DS_Store
