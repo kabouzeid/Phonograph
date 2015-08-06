@@ -3,7 +3,6 @@ package com.kabouzeid.gramophone.dialogs;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid), Aidan Follestad (afollestad)
  */
-public class PlayingQueueDialog extends DialogFragment {
+public class PlayingQueueDialog extends LeakDetectDialogFragment {
 
     public static PlayingQueueDialog create() {
         final ArrayList<Song> playingQueue = MusicPlayerRemote.getPlayingQueue();

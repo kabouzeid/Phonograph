@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.interfaces.MusicStateListener;
+import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
 import com.kabouzeid.gramophone.views.FastScroller;
 
 import butterknife.Bind;
@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView.Adapter, LM extends RecyclerView.LayoutManager> extends AbsMainActivityFragment implements OnOffsetChangedListener, MusicStateListener {
+public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView.Adapter, LM extends RecyclerView.LayoutManager> extends AbsMainActivityFragment implements OnOffsetChangedListener, MusicServiceEventListener {
 
     public static final String TAG = AbsMainActivityRecyclerViewFragment.class.getSimpleName();
 
@@ -116,6 +116,16 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
 
     @Override
     public void onPlayStateChanged() {
+
+    }
+
+    @Override
+    public void onShuffleModeChanged() {
+
+    }
+
+    @Override
+    public void onRepeatModeChanged() {
 
     }
 

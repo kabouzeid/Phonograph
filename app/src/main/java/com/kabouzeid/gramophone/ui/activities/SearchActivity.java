@@ -21,13 +21,13 @@ import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.SearchAdapter;
-import com.kabouzeid.gramophone.ui.activities.base.AbsMusicStateActivity;
+import com.kabouzeid.gramophone.ui.activities.base.AbsMusicServiceActivity;
 import com.kabouzeid.gramophone.util.Util;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SearchActivity extends AbsMusicStateActivity {
+public class SearchActivity extends AbsMusicServiceActivity {
 
     public static final String TAG = SearchActivity.class.getSimpleName();
     @Bind(R.id.recycler_view)

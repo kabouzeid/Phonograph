@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +34,7 @@ import butterknife.ButterKnife;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class SleepTimerDialog extends DialogFragment {
+public class SleepTimerDialog extends LeakDetectDialogFragment {
     @Bind(R.id.seek_arc)
     SeekArc seekArc;
     @Bind(R.id.timer_display)

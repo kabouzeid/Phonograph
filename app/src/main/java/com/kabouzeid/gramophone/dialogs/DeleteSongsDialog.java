@@ -3,7 +3,6 @@ package com.kabouzeid.gramophone.dialogs;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.text.Html;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid), Aidan Follestad (afollestad)
  */
-public class DeleteSongsDialog extends DialogFragment {
+public class DeleteSongsDialog extends LeakDetectDialogFragment {
 
     @NonNull
     public static DeleteSongsDialog create(Song song) {
