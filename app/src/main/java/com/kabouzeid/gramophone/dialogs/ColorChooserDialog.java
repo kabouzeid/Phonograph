@@ -2,7 +2,6 @@ package com.kabouzeid.gramophone.dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -16,6 +15,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,11 +30,32 @@ import com.kabouzeid.gramophone.views.ColorView;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ColorChooserDialog extends DialogFragment implements View.OnClickListener {
+public class ColorChooserDialog extends LeakDetectDialogFragment implements View.OnClickListener {
 
     private ColorCallback mCallback;
     private int[] mColors;
     private GridView mGrid;
+
+    public ColorChooserDialog() {
+    }
+
+    private static int translucentColor(int color) {
+        final float factor = 0.7f;
+        int alpha = Math.round(Color.alpha(color) * factor);
+        int red = Color.red(color);
+        int green = Color.green(color);
+        int blue = Color.blue(color);
+        return Color.argb(alpha, red, green, blue);
+    }
+
+    @NonNull
+    private static Drawable createSelector(int color) {
+        ShapeDrawable darkerCircle = new ShapeDrawable(new OvalShape());
+        darkerCircle.getPaint().setColor(translucentColor(ColorUtil.shiftColorDown(color)));
+        StateListDrawable stateListDrawable = new StateListDrawable();
+        stateListDrawable.addState(new int[]{android.R.attr.state_pressed}, darkerCircle);
+        return stateListDrawable;
+    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -49,13 +70,6 @@ public class ColorChooserDialog extends DialogFragment implements View.OnClickLi
             getArguments().putInt("preselect", mColors[index]);
             invalidateGrid();
         }
-    }
-
-    public interface ColorCallback {
-        void onColorSelection(int title, int color);
-    }
-
-    public ColorChooserDialog() {
     }
 
     @Override
@@ -109,6 +123,18 @@ public class ColorChooserDialog extends DialogFragment implements View.OnClickLi
             mGrid.setAdapter(new ColorGridAdapter());
             mGrid.setSelector(ResourcesCompat.getDrawable(getResources(), R.drawable.md_transparent, null));
         } else ((BaseAdapter) mGrid.getAdapter()).notifyDataSetChanged();
+    }
+
+    public void show(@NonNull AppCompatActivity activity, int title, int preselect) {
+        Bundle args = new Bundle();
+        args.putInt("preselect", preselect);
+        args.putInt("title", title);
+        setArguments(args);
+        show(activity.getSupportFragmentManager(), "COLOR_SELECTOR");
+    }
+
+    public interface ColorCallback {
+        void onColorSelection(int title, int color);
     }
 
     private class ColorGridAdapter extends BaseAdapter implements View.OnClickListener {
@@ -165,31 +191,5 @@ public class ColorChooserDialog extends DialogFragment implements View.OnClickLi
             getArguments().putInt("preselect", mColors[index]);
             invalidateGrid();
         }
-    }
-
-    private static int translucentColor(int color) {
-        final float factor = 0.7f;
-        int alpha = Math.round(Color.alpha(color) * factor);
-        int red = Color.red(color);
-        int green = Color.green(color);
-        int blue = Color.blue(color);
-        return Color.argb(alpha, red, green, blue);
-    }
-
-    @NonNull
-    private static Drawable createSelector(int color) {
-        ShapeDrawable darkerCircle = new ShapeDrawable(new OvalShape());
-        darkerCircle.getPaint().setColor(translucentColor(ColorUtil.shiftColorDown(color)));
-        StateListDrawable stateListDrawable = new StateListDrawable();
-        stateListDrawable.addState(new int[]{android.R.attr.state_pressed}, darkerCircle);
-        return stateListDrawable;
-    }
-
-    public void show(@NonNull Activity context, int title, int preselect) {
-        Bundle args = new Bundle();
-        args.putInt("preselect", preselect);
-        args.putInt("title", title);
-        setArguments(args);
-        show(context.getFragmentManager(), "COLOR_SELECTOR");
     }
 }

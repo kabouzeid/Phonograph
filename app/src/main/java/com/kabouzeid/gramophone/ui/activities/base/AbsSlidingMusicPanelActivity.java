@@ -62,17 +62,16 @@ import butterknife.ButterKnife;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
- *         <p>
+ *         <p/>
  *         Do not use {@link #setContentView(int)} but wrap your layout with
  *         {@link #wrapSlidingMusicPanelAndFab(int)} first and then return it in {@link #createContentView()}
  */
-public abstract class AbsSlidingMusicPanelActivity extends AbsMusicStateActivity implements SlidingUpPanelLayout.PanelSlideListener {
+public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivity implements SlidingUpPanelLayout.PanelSlideListener {
     public static final String TAG = AbsSlidingMusicPanelActivity.class.getSimpleName();
 
     private static final int FAB_CIRCULAR_REVEAL_ANIMATION_TIME = 1000;
     private static final long DEFAULT_PROGRESS_VIEW_REFRESH_INTERVAL = 500;
     private static final int CMD_REFRESH_PROGRESS_VIEWS = 1;
-    private static final String PANEL_EXPANDED_KEY = "panel_state";
 
     @Bind(R.id.play_pause_fab)
     FloatingActionButton playPauseFab;

@@ -26,6 +26,7 @@ import com.afollestad.materialdialogs.ThemeSingleton;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.misc.LagTracker;
 import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
@@ -57,18 +58,10 @@ import butterknife.ButterKnife;
  */
 public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
-    private static final String TAG = AbsTagEditorActivity.class.getSimpleName();
-
-    private static final int REQUEST_CODE_SELECT_IMAGE = 1337;
-
     public static final String EXTRA_ID = "extra_id";
     public static final String EXTRA_PALETTE = "extra_palette";
-
-    private int id;
-    private int headerVariableSpace;
-    private int paletteColorPrimary;
-    private boolean isInNoImageMode;
-
+    private static final String TAG = AbsTagEditorActivity.class.getSimpleName();
+    private static final int REQUEST_CODE_SELECT_IMAGE = 1337;
     @Bind(R.id.play_pause_fab)
     FloatingActionButton fab;
     @Bind(R.id.observableScrollView)
@@ -79,13 +72,32 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     ImageView image;
     @Bind(R.id.header)
     LinearLayout header;
-
+    private int id;
+    private int headerVariableSpace;
+    private int paletteColorPrimary;
+    private boolean isInNoImageMode;
+    private final SimpleObservableScrollViewCallbacks observableScrollViewCallbacks = new SimpleObservableScrollViewCallbacks() {
+        @Override
+        public void onScrollChanged(int scrollY, boolean b, boolean b2) {
+            float alpha;
+            if (!isInNoImageMode) {
+                alpha = 1 - (float) Math.max(0, headerVariableSpace - scrollY) / headerVariableSpace;
+            } else {
+                header.setTranslationY(scrollY);
+                alpha = 1;
+            }
+            ViewUtil.setBackgroundAlpha(toolbar, alpha, paletteColorPrimary);
+            image.setTranslationY(scrollY / 2);
+        }
+    };
     private List<String> songPaths;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LagTracker.get().start("setContentView");
         setContentView(getContentViewLayout());
+        LagTracker.get().end("setContentView");
         ButterKnife.bind(this);
 
         getIntentExtras();
@@ -115,21 +127,6 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     private void setUpScrollView() {
         observableScrollView.setScrollViewCallbacks(observableScrollViewCallbacks);
     }
-
-    private final SimpleObservableScrollViewCallbacks observableScrollViewCallbacks = new SimpleObservableScrollViewCallbacks() {
-        @Override
-        public void onScrollChanged(int scrollY, boolean b, boolean b2) {
-            float alpha;
-            if (!isInNoImageMode) {
-                alpha = 1 - (float) Math.max(0, headerVariableSpace - scrollY) / headerVariableSpace;
-            } else {
-                header.setTranslationY(scrollY);
-                alpha = 1;
-            }
-            ViewUtil.setBackgroundAlpha(toolbar, alpha, paletteColorPrimary);
-            image.setTranslationY(scrollY / 2);
-        }
-    };
 
     private void setUpImageView() {
         loadCurrentImage();

@@ -22,19 +22,22 @@
 -keepattributes Signature
 -keepattributes Exceptions
 
--keep class !android.support.v7.internal.view.menu.**,** {*;}
+# LeakCanary
+-keep class org.eclipse.mat.** { *; }
+-keep class com.squareup.leakcanary.** { *; }
 
+# ButterKnife
 -keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**
 -keep class **$$ViewBinder { *; }
-
 -keepclasseswithmembernames class * {
     @butterknife.* <fields>;
 }
-
 -keepclasseswithmembernames class * {
     @butterknife.* <methods>;
 }
+
+-keep class !android.support.v7.internal.view.menu.**,** {*;}
 
 -dontwarn
 -ignorewarnings

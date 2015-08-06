@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.text.TextUtils;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -14,7 +13,17 @@ import com.kabouzeid.gramophone.R;
 /**
  * @author Karim Abou Zeid (kabouzeid), Aidan Follestad (afollestad)
  */
-public class AboutDialog extends DialogFragment {
+public class AboutDialog extends LeakDetectDialogFragment {
+
+    private static String getCurrentVersionName(@NonNull final Context context) {
+        String versionName;
+        try {
+            versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            return "Unknown";
+        }
+        return versionName;
+    }
 
     @NonNull
     @Override
@@ -29,15 +38,5 @@ public class AboutDialog extends DialogFragment {
                 )
                 .positiveText(android.R.string.ok)
                 .build();
-    }
-
-    private static String getCurrentVersionName(@NonNull final Context context) {
-        String versionName;
-        try {
-            versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            return "Unknown";
-        }
-        return versionName;
     }
 }

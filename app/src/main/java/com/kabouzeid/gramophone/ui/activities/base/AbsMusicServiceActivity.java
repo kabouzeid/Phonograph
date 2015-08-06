@@ -11,7 +11,7 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.interfaces.MusicStateListener;
+import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
 import com.kabouzeid.gramophone.service.MusicService;
 
 import java.lang.ref.WeakReference;
@@ -20,10 +20,10 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class AbsMusicStateActivity extends AbsBaseActivity implements ServiceConnection, MusicStateListener {
-    public static final String TAG = AbsMusicStateActivity.class.getSimpleName();
+public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements ServiceConnection, MusicServiceEventListener {
+    public static final String TAG = AbsMusicServiceActivity.class.getSimpleName();
 
-    private final ArrayList<MusicStateListener> mMusicStateListener = new ArrayList<>();
+    private final ArrayList<MusicServiceEventListener> mMusicServiceEventListener = new ArrayList<>();
 
     private MusicPlayerRemote.ServiceToken serviceToken;
     private MusicStateReceiver musicStateReceiver;
@@ -71,21 +71,21 @@ public abstract class AbsMusicStateActivity extends AbsBaseActivity implements S
         }
     }
 
-    public void addMusicStateListenerListener(final MusicStateListener listener) {
+    public void addMusicStateListenerListener(final MusicServiceEventListener listener) {
         if (listener != null) {
-            mMusicStateListener.add(listener);
+            mMusicServiceEventListener.add(listener);
         }
     }
 
-    public void removeMusicStateListenerListener(final MusicStateListener listener) {
+    public void removeMusicStateListenerListener(final MusicServiceEventListener listener) {
         if (listener != null) {
-            mMusicStateListener.remove(listener);
+            mMusicServiceEventListener.remove(listener);
         }
     }
 
     @Override
     public void onPlayingMetaChanged() {
-        for (MusicStateListener listener : mMusicStateListener) {
+        for (MusicServiceEventListener listener : mMusicServiceEventListener) {
             if (listener != null) {
                 listener.onPlayingMetaChanged();
             }
@@ -94,7 +94,7 @@ public abstract class AbsMusicStateActivity extends AbsBaseActivity implements S
 
     @Override
     public void onPlayStateChanged() {
-        for (MusicStateListener listener : mMusicStateListener) {
+        for (MusicServiceEventListener listener : mMusicServiceEventListener) {
             if (listener != null) {
                 listener.onPlayStateChanged();
             }
@@ -103,33 +103,43 @@ public abstract class AbsMusicStateActivity extends AbsBaseActivity implements S
 
     @Override
     public void onMediaStoreChanged() {
-        for (MusicStateListener listener : mMusicStateListener) {
+        for (MusicServiceEventListener listener : mMusicServiceEventListener) {
             if (listener != null) {
                 listener.onMediaStoreChanged();
             }
         }
     }
 
+    @Override
     public void onRepeatModeChanged() {
-
+        for (MusicServiceEventListener listener : mMusicServiceEventListener) {
+            if (listener != null) {
+                listener.onRepeatModeChanged();
+            }
+        }
     }
 
+    @Override
     public void onShuffleModeChanged() {
-
+        for (MusicServiceEventListener listener : mMusicServiceEventListener) {
+            if (listener != null) {
+                listener.onShuffleModeChanged();
+            }
+        }
     }
 
     private static final class MusicStateReceiver extends BroadcastReceiver {
 
-        private final WeakReference<AbsMusicStateActivity> reference;
+        private final WeakReference<AbsMusicServiceActivity> reference;
 
-        public MusicStateReceiver(final AbsMusicStateActivity activity) {
+        public MusicStateReceiver(final AbsMusicServiceActivity activity) {
             reference = new WeakReference<>(activity);
         }
 
         @Override
         public void onReceive(final Context context, @NonNull final Intent intent) {
             final String action = intent.getAction();
-            AbsMusicStateActivity activity = reference.get();
+            AbsMusicServiceActivity activity = reference.get();
             if (activity != null) {
                 switch (action) {
                     case MusicService.META_CHANGED:

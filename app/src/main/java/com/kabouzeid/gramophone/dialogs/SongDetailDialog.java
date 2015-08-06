@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -31,7 +30,7 @@ import java.io.IOException;
 /**
  * @author Karim Abou Zeid (kabouzeid), Aidan Follestad (afollestad)
  */
-public class SongDetailDialog extends DialogFragment {
+public class SongDetailDialog extends LeakDetectDialogFragment {
 
     public static final String TAG = SongDetailDialog.class.getSimpleName();
 
@@ -42,6 +41,16 @@ public class SongDetailDialog extends DialogFragment {
         args.putSerializable("song", song);
         dialog.setArguments(args);
         return dialog;
+    }
+
+    private static Spanned makeTextWithTitle(@NonNull Context context, int titleResId, String text) {
+        return Html.fromHtml("<b>" + context.getResources().getString(titleResId) + ": " + "</b>" + text);
+    }
+
+    private static String getFileSizeString(long sizeInBytes) {
+        long fileSizeInKB = sizeInBytes / 1024;
+        long fileSizeInMB = fileSizeInKB / 1024;
+        return fileSizeInMB + " MB";
     }
 
     @NonNull
@@ -93,15 +102,5 @@ public class SongDetailDialog extends DialogFragment {
             Log.e(TAG, "error while reading the song file", e);
         }
         return dialog;
-    }
-
-    private static Spanned makeTextWithTitle(@NonNull Context context, int titleResId, String text) {
-        return Html.fromHtml("<b>" + context.getResources().getString(titleResId) + ": " + "</b>" + text);
-    }
-
-    private static String getFileSizeString(long sizeInBytes) {
-        long fileSizeInKB = sizeInBytes / 1024;
-        long fileSizeInMB = fileSizeInKB / 1024;
-        return fileSizeInMB + " MB";
     }
 }
