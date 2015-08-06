@@ -57,7 +57,37 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         recreateIfThemeChanged();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public static class SettingsFragment extends PreferenceFragment {
+
+        private static void setSummary(@NonNull Preference preference) {
+            setSummary(preference, PreferenceManager
+                    .getDefaultSharedPreferences(preference.getContext())
+                    .getString(preference.getKey(), ""));
+        }
+
+        private static void setSummary(Preference preference, @NonNull Object value) {
+            String stringValue = value.toString();
+
+            if (preference instanceof ListPreference) {
+                ListPreference listPreference = (ListPreference) preference;
+                int index = listPreference.findIndexOfValue(stringValue);
+                preference.setSummary(
+                        index >= 0
+                                ? listPreference.getEntries()[index]
+                                : null);
+            } else {
+                preference.setSummary(stringValue);
+            }
+        }
 
         @Override
         public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -162,138 +192,11 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             });
         }
 
-        private static void setSummary(@NonNull Preference preference) {
-            setSummary(preference, PreferenceManager
-                    .getDefaultSharedPreferences(preference.getContext())
-                    .getString(preference.getKey(), ""));
-        }
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-            addPreferencesFromResource(R.xml.pref_general);
-            addPreferencesFromResource(R.xml.pref_colors);
-            addPreferencesFromResource(R.xml.pref_now_playing_screen);
-            addPreferencesFromResource(R.xml.pref_images);
-            addPreferencesFromResource(R.xml.pref_lockscreen);
-            addPreferencesFromResource(R.xml.pref_audio);
-
-            final Preference defaultStartPage = findPreference("default_start_page");
-            setSummary(defaultStartPage);
-            defaultStartPage.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, @NonNull Object o) {
-                    setSummary(defaultStartPage, o);
-                    return true;
-                }
-            });
-
-            final Preference generalTheme = findPreference("general_theme");
-            setSummary(generalTheme);
-            generalTheme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, @NonNull Object o) {
-                    setSummary(generalTheme, o);
-                    PreferenceUtil.getInstance(getActivity()).setGeneralTheme(getActivity(), (String) o);
-                    ((SettingsActivity) getActivity()).recreateIfThemeChanged();
-                    return true;
-                }
-            });
-
-            ColorChooserPreference primaryColor = (ColorChooserPreference) findPreference("primary_color");
-            primaryColor.setColor(PreferenceUtil.getInstance(getActivity()).getThemeColorPrimary(getActivity()));
-            primaryColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(@NonNull Preference preference) {
-                    new ColorChooserDialog().show(
-                            ((SettingsActivity) getActivity()),
-                            preference.getTitleRes(),
-                            ((SettingsActivity) getActivity()).getThemeColorPrimary());
-                    return true;
-                }
-            });
-
-            ColorChooserPreference accentColor = (ColorChooserPreference) findPreference("accent_color");
-            accentColor.setColor(PreferenceUtil.getInstance(getActivity()).getThemeColorAccent(getActivity()));
-            accentColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(@NonNull Preference preference) {
-                    new ColorChooserDialog().show(
-                            ((SettingsActivity) getActivity()),
-                            preference.getTitleRes(),
-                            ((SettingsActivity) getActivity()).getThemeColorAccent());
-                    return true;
-                }
-            });
-
-            Preference colorNavBar = findPreference("should_color_navigation_bar");
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                colorNavBar.setEnabled(false);
-                colorNavBar.setSummary(R.string.pref_only_lollipop);
-            } else {
-                colorNavBar.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        PreferenceUtil.getInstance(getActivity()).setColoredNavigationBar((boolean) newValue);
-                        ((SettingsActivity) getActivity()).recreateIfThemeChanged();
-                        return true;
-                    }
-                });
-            }
-
-            Preference ignoreMediaStoreArtwork = findPreference("ignore_media_store_artwork");
-            ignoreMediaStoreArtwork.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    ImageLoader.getInstance().clearMemoryCache();
-                    return true;
-                }
-            });
-
-            Preference equalizer = findPreference("equalizer");
-            if (!hasEqualizer()) {
-                equalizer.setEnabled(false);
-                equalizer.setSummary(getResources().getString(R.string.no_equalizer));
-            }
-            equalizer.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    NavigationUtil.openEqualizer(getActivity());
-                    return true;
-                }
-            });
-        }
-
-        private static void setSummary(Preference preference, @NonNull Object value) {
-            String stringValue = value.toString();
-
-            if (preference instanceof ListPreference) {
-                ListPreference listPreference = (ListPreference) preference;
-                int index = listPreference.findIndexOfValue(stringValue);
-                preference.setSummary(
-                        index >= 0
-                                ? listPreference.getEntries()[index]
-                                : null);
-            } else {
-                preference.setSummary(stringValue);
-            }
-        }
-
         private boolean hasEqualizer() {
             final Intent effects = new Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL);
             PackageManager pm = getActivity().getPackageManager();
             ResolveInfo ri = pm.resolveActivity(effects, 0);
             return ri != null;
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }
