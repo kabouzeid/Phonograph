@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.graphics.Palette;
 
 import com.kabouzeid.gramophone.R;
@@ -15,12 +16,35 @@ import com.kabouzeid.gramophone.R;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class ColorUtil {
+    public static final int PALETTE_BITMAP_SIZE = 100;
 
     public static int generateColor(Context context, Bitmap bitmap) {
+        return getColor(context, generatePalette(bitmap));
+    }
+
+    public static Palette generatePalette(Bitmap bitmap) {
         return Palette.from(bitmap)
-                .resizeBitmapSize(100)
-                .generate()
-                .getVibrantColor(ColorUtil.resolveColor(context, R.attr.default_bar_color));
+                .resizeBitmapSize(PALETTE_BITMAP_SIZE)
+                .generate();
+    }
+
+    public static int getColor(Context context, @Nullable Palette palette) {
+        if (palette != null) {
+            if (palette.getVibrantSwatch() != null) {
+                return palette.getVibrantSwatch().getRgb();
+            } else if (palette.getMutedSwatch() != null) {
+                return palette.getMutedSwatch().getRgb();
+            } else if (palette.getDarkVibrantSwatch() != null) {
+                return palette.getDarkVibrantSwatch().getRgb();
+            } else if (palette.getDarkMutedSwatch() != null) {
+                return palette.getDarkMutedSwatch().getRgb();
+            } else if (palette.getLightVibrantSwatch() != null) {
+                return palette.getLightVibrantSwatch().getRgb();
+            } else if (palette.getLightMutedSwatch() != null) {
+                return palette.getLightMutedSwatch().getRgb();
+            }
+        }
+        return ColorUtil.resolveColor(context, R.attr.default_bar_color);
     }
 
     public static int resolveColor(@NonNull Context context, @AttrRes int colorAttr) {

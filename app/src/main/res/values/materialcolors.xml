@@ -2,15 +2,9 @@
 <resources>
 
     <color name="pink_A200">#ff4081</color>
-
     <color name="indigo_500">#3f51b5</color>
 
-    <color name="black">#000</color>
-    <color name="white">#fff</color>
-
-    <color name="grey_300">#e0e0e0</color>
-    <color name="grey_400">#bdbdbd</color>
-    <color name="grey_500">#9e9e9e</color>
+    <color name="grey_700">#616161</color>
     <color name="grey_800">#424242</color>
     <color name="grey_900">#212121</color>
 

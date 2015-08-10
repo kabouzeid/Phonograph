@@ -60,7 +60,6 @@
             android:paddingRight="72dp"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="?attr/title_text_color"
             tools:ignore="UnusedAttribute" />
 
         <View

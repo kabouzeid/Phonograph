@@ -36,7 +36,6 @@
                 android:gravity="center"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="?title_text_color"
                 android:visibility="gone" />
 
         </FrameLayout>
@@ -58,8 +57,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="?title_text_color" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <TextView
                 android:id="@+id/text"
@@ -68,7 +66,7 @@
                 android:fontFamily="sans-serif"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="?caption_text_color" />
+                android:textColor="?android:textColorSecondary" />
         </LinearLayout>
 
         <ImageView
@@ -88,7 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_gravity="bottom"
-        android:background="?separator_color"
+        android:background="?dividerHorizontal"
         android:visibility="gone" />
 
     <View
@@ -98,6 +96,6 @@
         android:layout_gravity="bottom"
         android:layout_marginLeft="72dp"
         android:layout_marginStart="72dp"
-        android:background="?separator_color" />
+        android:background="?dividerHorizontal" />
 
 </FrameLayout>

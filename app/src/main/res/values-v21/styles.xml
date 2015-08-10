@@ -33,4 +33,8 @@
         <item name="android:progressBackgroundTint">@android:color/transparent</item>
     </style>
 
+    <style name="OverFlowButton" parent="OverFlowButtonParent">
+        <item name="android:tintMode">src_in</item>
+    </style>
+
 </resources>

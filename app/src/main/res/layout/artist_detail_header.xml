@@ -11,9 +11,9 @@
         android:scrollbars="none" />
 
     <View
-        android:layout_marginTop="-8dp"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?separator_color" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-8dp"
+        android:background="?dividerHorizontal" />
 
 </LinearLayout>

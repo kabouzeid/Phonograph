@@ -281,10 +281,10 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
             }
         });
 
-        setMiniPlayerColor(ColorUtil.resolveColor(this, R.attr.card_color));
+        setMiniPlayerColor(ColorUtil.resolveColor(this, R.attr.cardBackgroundColor));
 
-        miniPlayerImage.setImageResource(R.drawable.ic_equalizer_white_24dp);
-        miniPlayerImage.setColorFilter(ColorUtil.resolveColor(this, R.attr.themed_drawable_color));
+        miniPlayerImage.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_equalizer_white_24dp,
+                ColorUtil.resolveColor(this, android.R.attr.textColorSecondary)));
     }
 
     public void setMiniPlayerColor(int color) {
@@ -500,7 +500,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     private void setUpPrevNext() {
-        int themedDrawableColor = ColorUtil.resolveColor(this, R.attr.themed_drawable_color);
+        int themedDrawableColor = ColorUtil.resolveColor(this, android.R.attr.textColorSecondary);
         nextButton.setImageDrawable(Util.getTintedDrawable(this,
                 R.drawable.ic_skip_next_white_36dp, themedDrawableColor));
         prevButton.setImageDrawable(Util.getTintedDrawable(this,
@@ -537,7 +537,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                 break;
             default:
                 shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_36dp,
-                        ColorUtil.resolveColor(this, R.attr.themed_drawable_color)));
+                        ColorUtil.resolveColor(this, android.R.attr.textColorSecondary)));
                 break;
         }
     }
@@ -556,7 +556,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         switch (MusicPlayerRemote.getRepeatMode()) {
             case MusicService.REPEAT_MODE_NONE:
                 repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_white_36dp,
-                        DialogUtils.resolveColor(this, R.attr.themed_drawable_color)));
+                        DialogUtils.resolveColor(this, android.R.attr.textColorSecondary)));
                 break;
             case MusicService.REPEAT_MODE_ALL:
                 repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_white_36dp,
@@ -671,18 +671,17 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     private void applyPalette(@Nullable Bitmap bitmap) {
-        final int defaultBarColor = ColorUtil.resolveColor(this, R.attr.default_bar_color);
         if (bitmap != null) {
             Palette.from(bitmap)
-                    .resizeBitmapSize(100)
+                    .resizeBitmapSize(ColorUtil.PALETTE_BITMAP_SIZE)
                     .generate(new Palette.PaletteAsyncListener() {
                         @Override
                         public void onGenerated(@NonNull Palette palette) {
-                            setColors(palette.getVibrantColor(defaultBarColor));
+                            setColors(ColorUtil.getColor(AbsSlidingMusicPanelActivity.this, palette));
                         }
                     });
         } else {
-            setColors(defaultBarColor);
+            setColors(ColorUtil.getColor(AbsSlidingMusicPanelActivity.this, null));
         }
     }
 
