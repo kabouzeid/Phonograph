@@ -31,14 +31,6 @@ public class WidgetMedium extends AppWidgetProvider {
     private static RemoteViews widgetLayout;
     private static String currentAlbumArtUri;
 
-    @Override
-    public void onUpdate(@NonNull Context context, @NonNull AppWidgetManager appWidgetManager, @NonNull int[] appWidgetIds) {
-        updateWidgets(context, MusicPlayerRemote.getCurrentSong(), MusicPlayerRemote.isPlaying());
-        for (int widgetId : appWidgetIds) {
-            appWidgetManager.updateAppWidget(widgetId, widgetLayout);
-        }
-    }
-
     public static void updateWidgets(@NonNull final Context context, @NonNull final Song song, boolean isPlaying) {
         if (song.id == -1) return;
         widgetLayout = new RemoteViews(context.getPackageName(), R.layout.widget_medium);
@@ -53,7 +45,7 @@ public class WidgetMedium extends AppWidgetProvider {
     public static void updateWidgetsPlayState(@NonNull final Context context, boolean isPlaying) {
         if (widgetLayout == null)
             widgetLayout = new RemoteViews(context.getPackageName(), R.layout.widget_medium);
-        int playPauseRes = isPlaying ? R.drawable.ic_pause_black_36dp : R.drawable.ic_play_arrow_black_36dp;
+        int playPauseRes = isPlaying ? R.drawable.ic_pause_dark_36dp : R.drawable.ic_play_arrow_dark_36dp;
         widgetLayout.setImageViewResource(R.id.button_toggle_play_pause, playPauseRes);
         updateWidgets(context);
     }
@@ -144,6 +136,14 @@ public class WidgetMedium extends AppWidgetProvider {
                 return PendingIntent.getService(context, 3, intent, 0);
         }
         return null;
+    }
+
+    @Override
+    public void onUpdate(@NonNull Context context, @NonNull AppWidgetManager appWidgetManager, @NonNull int[] appWidgetIds) {
+        updateWidgets(context, MusicPlayerRemote.getCurrentSong(), MusicPlayerRemote.isPlaying());
+        for (int widgetId : appWidgetIds) {
+            appWidgetManager.updateAppWidget(widgetId, widgetLayout);
+        }
     }
 }
 

@@ -48,7 +48,7 @@ public class PlayingQueueAdapter extends ArrayAdapter<Song> {
         if (MusicPlayerRemote.getPosition() == position) {
             int iconPadding = activity.getResources().getDimensionPixelSize(R.dimen.list_item_image_icon_padding);
             playingIndicator.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
-            playingIndicator.setImageDrawable(Util.getTintedDrawable(getContext(), R.drawable.ic_volume_up_white_24dp, DialogUtils.resolveColor(getContext(), R.attr.themed_drawable_color)));
+            playingIndicator.setImageDrawable(Util.getTintedDrawable(getContext(), R.drawable.ic_volume_up_white_24dp, DialogUtils.resolveColor(getContext(), android.R.attr.textColorSecondary)));
             playingIndicator.setVisibility(View.VISIBLE);
         } else {
             playingIndicator.setVisibility(View.GONE);

@@ -6,7 +6,7 @@
     android:layout_marginEnd="8dp"
     android:layout_marginRight="8dp"
     android:foreground="?rect_selector"
-    app:cardBackgroundColor="?card_color"
+    app:cardBackgroundColor="?cardBackgroundColor"
     app:elevation="@dimen/card_elevation">
 
     <LinearLayout
@@ -40,7 +40,6 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    android:textColor="?title_text_color"
                     android:textSize="14sp" />
 
                 <TextView
@@ -49,7 +48,6 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textColor="?caption_text_color"
                     android:textSize="12sp" />
 
             </LinearLayout>

@@ -97,7 +97,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
             holder.image.setImageDrawable(Util.getTintedDrawable(
                     activity,
                     getIconRes(playlist),
-                    ColorUtil.resolveColor(activity, R.attr.themed_drawable_color)
+                    ColorUtil.resolveColor(activity, android.R.attr.textColorSecondary)
             ));
         }
     }
@@ -172,7 +172,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
                 if (shortSeparator != null) {
                     shortSeparator.setVisibility(View.GONE);
                 }
-                itemView.setBackgroundColor(ColorUtil.resolveColor(activity, R.attr.card_color));
+                itemView.setBackgroundColor(ColorUtil.resolveColor(activity, R.attr.cardBackgroundColor));
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     itemView.setElevation(activity.getResources().getDimensionPixelSize(R.dimen.card_elevation));
                 }

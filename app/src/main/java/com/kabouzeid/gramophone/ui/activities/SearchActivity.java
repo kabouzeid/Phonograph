@@ -46,10 +46,9 @@ public class SearchActivity extends AbsMusicServiceActivity {
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusBarTransparent();
-        setTitle(null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        setStatusBarTransparent();
         ButterKnife.bind(this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

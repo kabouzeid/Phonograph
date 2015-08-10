@@ -16,12 +16,12 @@
             android:layout_height="match_parent">
 
             <com.kabouzeid.gramophone.views.WidthFitSquareImageView
-                android:transitionName="@string/transition_album_art"
                 android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/default_album_art"
+                android:transitionName="@string/transition_album_art"
                 tools:ignore="UnusedAttribute" />
 
             <LinearLayout
@@ -52,7 +52,7 @@
                         android:inputType="text|textCapWords"
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/primary_text_default_material_dark" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -81,8 +81,7 @@
                         android:hint="@string/album_artist"
                         android:inputType="text|textCapWords"
                         android:singleLine="true"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:textColor="?attr/title_text_color" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -100,8 +99,7 @@
                         android:hint="@string/genre"
                         android:inputType="text|textCapWords"
                         android:singleLine="true"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:textColor="?attr/title_text_color" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -119,8 +117,7 @@
                         android:hint="@string/year"
                         android:inputType="text|number"
                         android:singleLine="true"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:textColor="?attr/title_text_color" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 </android.support.design.widget.TextInputLayout>
 

@@ -30,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/notification_selector"
-                android:src="@drawable/ic_skip_previous_black_36dp" />
+                android:src="@drawable/ic_skip_previous_dark_36dp" />
 
             <ImageButton
                 android:id="@+id/button_toggle_play_pause"
@@ -38,7 +38,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/notification_selector"
-                android:src="@drawable/ic_play_arrow_black_36dp" />
+                android:src="@drawable/ic_play_arrow_dark_36dp" />
 
             <ImageButton
                 android:id="@+id/button_next"
@@ -46,7 +46,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/notification_selector"
-                android:src="@drawable/ic_skip_next_black_36dp" />
+                android:src="@drawable/ic_skip_next_dark_36dp" />
 
         </LinearLayout>
 

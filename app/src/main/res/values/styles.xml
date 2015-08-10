@@ -8,18 +8,7 @@
 
     <style name="Theme.MaterialMusic.Notification.Title" parent="@android:style/TextAppearance.StatusBar.EventContent.Title" />
 
-    <style name="OverFlowButton">
-        <item name="android:tint">?themed_drawable_color</item>
-        <item name="android:src">@drawable/ic_more_vert_white_24dp</item>
-        <item name="android:padding">12dp</item>
-        <item name="android:layout_width">48dp</item>
-        <item name="android:layout_height">48dp</item>
-        <item name="android:scaleType">fitXY</item>
-        <item name="android:background">?round_selector</item>
-        <item name="android:layout_centerVertical">true</item>
-        <item name="android:focusableInTouchMode">false</item>
-        <item name="android:focusable">false</item>
-    </style>
+    <style name="OverFlowButton" parent="OverFlowButtonParent" />
 
     <style name="PlayingIndicator">
         <item name="android:layout_width">36dp</item>
@@ -41,8 +30,7 @@
     </style>
 
     <style name="Toolbar">
-
-    <item name="titleMarginStart">16dp</item>
+        <item name="titleMarginStart">16dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>

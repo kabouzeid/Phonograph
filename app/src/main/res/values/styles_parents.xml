@@ -2,69 +2,48 @@
 <resources>
 
     <style name="Theme.MaterialMusic.Base" parent="Theme.AppCompat.NoActionBar">
-        <!-- FIX FOR DESIGN LIB 22.2.0 NAVDRAWER ITEM FONT-->
-        <item name="textAppearanceListItem">@style/TextAppearance.AppCompat.Body2</item>
 
         <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
 
         <item name="md_dark_theme">true</item>
 
-        <item name="title_text_color">@color/primary_text_default_material_dark</item>
-        <item name="caption_text_color">@color/secondary_text_default_material_dark</item>
-
-        <item name="music_controller_container_color">
-            @color/materialmusic_dark_music_controller_container_color
+        <item name="music_controller_container_color">@color/music_controller_container_color_dark
         </item>
 
         <item name="round_selector">@drawable/round_selector_dark</item>
         <item name="rect_selector">@drawable/rect_selector_dark</item>
-        <item name="separator_color">@color/materialmusic_dark_separator_color</item>
-        <item name="seek_arc_thumb_drawable">@drawable/traditional_slider_thumb_dark</item>
 
-        <item name="themed_drawable_color">@color/materialmusic_dark_themed_drawable_color</item>
-        <item name="check_mark_color">@color/grey_900</item>
+        <item name="cardBackgroundColor">@color/cardview_dark_background</item>
 
-        <item name="default_bar_color">@color/materialmusic_dark_default_bar_color</item>
-        <item name="card_color">@color/grey_800</item>
+        <item name="default_bar_color">@color/default_bar_color_dark</item>
 
         <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat</item>
 
         <!-- FOR EVERYWHERE WE CANT OVERRIDE THE ACCENT COLOR-->
-        <item name="colorAccent">@color/white</item>
+        <item name="colorAccent">@android:color/white</item>
     </style>
 
     <style name="Theme.MaterialMusic.Base.Light" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- FIX FOR DESIGN LIB 22.2.0 NAVDRAWER ITEM FONT-->
-        <item name="textAppearanceListItem">@style/TextAppearance.AppCompat.Body2</item>
 
         <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
 
         <item name="md_dark_theme">false</item>
 
-        <item name="title_text_color">@color/primary_text_default_material_light</item>
-        <item name="caption_text_color">@color/secondary_text_default_material_light</item>
-
-        <item name="music_controller_container_color">
-            @color/materialmusic_music_controller_container_color
-        </item>
+        <item name="music_controller_container_color">@color/music_controller_container_color</item>
 
         <item name="round_selector">@drawable/round_selector</item>
         <item name="rect_selector">@drawable/rect_selector</item>
-        <item name="separator_color">@color/materialmusic_separator_color</item>
-        <item name="seek_arc_thumb_drawable">@drawable/traditional_slider_thumb</item>
 
-        <item name="themed_drawable_color">@color/materialmusic_themed_drawable_color</item>
-        <item name="check_mark_color">@color/white</item>
+        <item name="cardBackgroundColor">@color/cardview_light_background</item>
 
-        <item name="default_bar_color">@color/materialmusic_default_bar_color</item>
-        <item name="card_color">@color/white</item>
+        <item name="default_bar_color">@color/default_bar_color</item>
 
         <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
 
         <!-- FOR EVERYWHERE WE CANT OVERRIDE THE ACCENT COLOR-->
-        <item name="colorAccent">@color/black</item>
+        <item name="colorAccent">@android:color/black</item>
     </style>
 
     <style name="PlayPauseFabParent">
@@ -85,5 +64,18 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">@dimen/seek_bar_margin_left_right</item>
         <item name="android:layout_marginRight">@dimen/seek_bar_margin_left_right</item>
+    </style>
+
+    <style name="OverFlowButtonParent">
+        <item name="android:tint">?android:textColorSecondary</item>
+        <item name="android:src">@drawable/abc_ic_menu_moreoverflow_mtrl_alpha</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:background">?round_selector</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:focusable">false</item>
     </style>
 </resources>

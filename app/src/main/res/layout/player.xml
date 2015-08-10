@@ -33,7 +33,7 @@
                 android:paddingLeft="8dp"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="?themed_drawable_color"
+                android:textColor="?android:textColorSecondary"
                 android:textSize="10sp"
                 tools:ignore="RtlHardcoded,RtlSymmetry,SmallSp" />
 
@@ -47,7 +47,7 @@
                 android:paddingRight="8dp"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="?themed_drawable_color"
+                android:textColor="?android:textColorSecondary"
                 android:textSize="10sp"
                 tools:ignore="RtlHardcoded,RtlSymmetry,SmallSp" />
 
@@ -80,8 +80,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                android:textColor="?attr/title_text_color" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
             <TextView
                 android:id="@+id/player_text"
@@ -89,8 +88,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
                 android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:textColor="?attr/caption_text_color" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
         </LinearLayout>
 
@@ -188,7 +186,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/player_footer_frame"
-        android:background="@color/black">
+        android:background="@android:color/black">
 
         <ImageView
             android:id="@+id/player_album_art_background"

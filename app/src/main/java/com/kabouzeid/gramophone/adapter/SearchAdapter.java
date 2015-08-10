@@ -29,8 +29,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.ButterKnife;
-
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -143,13 +141,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public class ViewHolder extends MediaEntryViewHolder {
         public ViewHolder(@NonNull View itemView, int itemViewType) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
             itemView.setOnLongClickListener(null);
 
             if (itemViewType != HEADER) {
-                itemView.setBackgroundColor(ColorUtil.resolveColor(activity, R.attr.card_color));
+                itemView.setBackgroundColor(ColorUtil.resolveColor(activity, R.attr.cardBackgroundColor));
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     itemView.setElevation(activity.getResources().getDimensionPixelSize(R.dimen.card_elevation));
+                }
+                if (shortSeparator != null) {
+                    shortSeparator.setVisibility(View.GONE);
                 }
             }
 

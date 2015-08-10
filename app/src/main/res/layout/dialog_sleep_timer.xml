@@ -16,7 +16,7 @@
         seekarc:rotation="180"
         seekarc:startAngle="30"
         seekarc:sweepAngle="300"
-        seekarc:thumb="?seek_arc_thumb_drawable" />
+        seekarc:thumb="@drawable/traditional_slider_thumb" />
 
     <TextView
         android:id="@+id/timer_display"

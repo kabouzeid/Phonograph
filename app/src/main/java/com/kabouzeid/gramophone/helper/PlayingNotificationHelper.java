@@ -272,30 +272,30 @@ public class PlayingNotificationHelper {
         isDark = setDark;
 
         if (notificationLayout != null && notificationLayoutBig != null) {
-            int darkContentColor = service.getResources().getColor(R.color.notification_dark_text_content_color);
-            int darkContentSecondaryColor = service.getResources().getColor(R.color.notification_dark_text_secondary_content_color);
-            int contentColor = service.getResources().getColor(R.color.notification_content_color);
-            int contentSecondaryColor = service.getResources().getColor(R.color.notification_secondary_content_color);
+            int darkContentColor = service.getResources().getColor(R.color.primary_text_default_material_light);
+            int darkContentSecondaryColor = service.getResources().getColor(R.color.secondary_text_default_material_light);
+            int contentColor = service.getResources().getColor(R.color.primary_text_default_material_dark);
+            int contentSecondaryColor = service.getResources().getColor(R.color.secondary_text_default_material_dark);
 
             notificationLayout.setTextColor(R.id.title, setDark ? darkContentColor : contentColor);
             notificationLayout.setTextColor(R.id.text, setDark ? darkContentSecondaryColor : contentSecondaryColor);
-            notificationLayout.setImageViewResource(R.id.action_prev, setDark ? R.drawable.ic_skip_previous_black_36dp : R.drawable.ic_skip_previous_white_36dp);
+            notificationLayout.setImageViewResource(R.id.action_prev, setDark ? R.drawable.ic_skip_previous_dark_36dp : R.drawable.ic_skip_previous_white_36dp);
             notificationLayout.setImageViewResource(R.id.action_play_pause, getPlayPauseRes());
-            notificationLayout.setImageViewResource(R.id.action_next, setDark ? R.drawable.ic_skip_next_black_36dp : R.drawable.ic_skip_next_white_36dp);
+            notificationLayout.setImageViewResource(R.id.action_next, setDark ? R.drawable.ic_skip_next_dark_36dp : R.drawable.ic_skip_next_white_36dp);
 
             notificationLayoutBig.setTextColor(R.id.title, setDark ? darkContentColor : contentColor);
             notificationLayoutBig.setTextColor(R.id.text, setDark ? darkContentSecondaryColor : contentSecondaryColor);
             notificationLayoutBig.setTextColor(R.id.text2, setDark ? darkContentSecondaryColor : contentSecondaryColor);
-            notificationLayoutBig.setImageViewResource(R.id.action_prev, setDark ? R.drawable.ic_skip_previous_black_36dp : R.drawable.ic_skip_previous_white_36dp);
+            notificationLayoutBig.setImageViewResource(R.id.action_prev, setDark ? R.drawable.ic_skip_previous_dark_36dp : R.drawable.ic_skip_previous_white_36dp);
             notificationLayoutBig.setImageViewResource(R.id.action_play_pause, getPlayPauseRes());
-            notificationLayoutBig.setImageViewResource(R.id.action_next, setDark ? R.drawable.ic_skip_next_black_36dp : R.drawable.ic_skip_next_white_36dp);
-            notificationLayoutBig.setImageViewResource(R.id.action_quit, setDark ? R.drawable.ic_close_black_24dp : R.drawable.ic_close_white_24dp);
+            notificationLayoutBig.setImageViewResource(R.id.action_next, setDark ? R.drawable.ic_skip_next_dark_36dp : R.drawable.ic_skip_next_white_36dp);
+            notificationLayoutBig.setImageViewResource(R.id.action_quit, setDark ? R.drawable.ic_close_dark_24dp : R.drawable.ic_close_white_24dp);
         }
     }
 
     private int getPlayPauseRes() {
         return isPlaying ?
-                (isDark ? R.drawable.ic_pause_black_36dp : R.drawable.ic_pause_white_36dp) :
-                (isDark ? R.drawable.ic_play_arrow_black_36dp : R.drawable.ic_play_arrow_white_36dp);
+                (isDark ? R.drawable.ic_pause_dark_36dp : R.drawable.ic_pause_white_36dp) :
+                (isDark ? R.drawable.ic_play_arrow_dark_36dp : R.drawable.ic_play_arrow_white_36dp);
     }
 }

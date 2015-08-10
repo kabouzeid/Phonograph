@@ -24,10 +24,10 @@
     internal:layout_minHeight="64dp">
 
     <LinearLayout
-        android:id="@+id/root"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:internal="http://schemas.android.com/apk/prv/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#00000000"
@@ -36,9 +36,9 @@
         tools:ignore="UselessParent">
 
         <FrameLayout
-            android:id="@+id/icon_group"
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:internal="http://schemas.android.com/apk/prv/res/android"
+            android:id="@+id/icon_group"
             android:layout_width="@dimen/notification_large_icon_width"
             android:layout_height="@dimen/notification_large_icon_height"
             android:layout_weight="0">
@@ -73,7 +73,6 @@
                 android:gravity="bottom"
                 android:singleLine="true"
                 android:textAppearance="@style/Theme.MaterialMusic.Notification.Title"
-                android:textColor="@color/notification_content_color"
                 tools:ignore="NestedWeights" />
 
             <TextView
@@ -85,8 +84,7 @@
                 android:ellipsize="marquee"
                 android:fadingEdge="horizontal"
                 android:singleLine="true"
-                android:textAppearance="@style/Theme.MaterialMusic.Notification"
-                android:textColor="@color/notification_secondary_content_color" />
+                android:textAppearance="@style/Theme.MaterialMusic.Notification" />
         </LinearLayout>
 
         <LinearLayout
@@ -100,10 +98,9 @@
             android:orientation="horizontal"
             tools:ignore="UnusedAttribute">
             <!-- media buttons will be added here -->
-            <ImageButton
+            <ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/action_prev"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="48dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="2dp"
@@ -116,10 +113,9 @@
                 android:src="@drawable/ic_skip_previous_white_36dp"
                 tools:ignore="ContentDescription" />
 
-            <ImageButton
+            <ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/action_play_pause"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="48dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="2dp"
@@ -132,10 +128,9 @@
                 android:src="@drawable/ic_play_arrow_white_36dp"
                 tools:ignore="ContentDescription" />
 
-            <ImageButton
+            <ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/action_next"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="48dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="2dp"

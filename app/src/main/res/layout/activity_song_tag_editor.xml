@@ -50,7 +50,7 @@
                         android:inputType="text|textCapWords"
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/primary_text_default_material_dark" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -68,7 +68,7 @@
                         android:inputType="text|textCapWords"
                         android:singleLine="true"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/primary_text_default_material_dark" />
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
@@ -97,10 +97,9 @@
                         android:hint="@string/artist"
                         android:inputType="text|textCapWords"
                         android:singleLine="true"
-                        android:textColor="?attr/title_text_color" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 </android.support.design.widget.TextInputLayout>
-
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -115,8 +114,7 @@
                         android:gravity="center_vertical"
                         android:hint="@string/genre"
                         android:singleLine="true"
-
-                        android:textColor="?attr/title_text_color" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -135,8 +133,7 @@
                         android:hint="@string/year"
                         android:inputType="text|number"
                         android:singleLine="true"
-
-                        android:textColor="?attr/title_text_color" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -155,7 +152,7 @@
                         android:hint="@string/track_hint"
                         android:inputType="text|number"
                         android:singleLine="true"
-                        android:textColor="?attr/title_text_color" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 </android.support.design.widget.TextInputLayout>
 

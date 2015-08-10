@@ -1,34 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--general-->
-    <color name="ripple_material_dark" type="color">#4dffffff</color>
-    <color name="ripple_material_light" type="color">#1f000000</color>
-
-    <color name="activated_selected_dark" type="color">#9affffff</color>
-    <color name="activated_selected_light" type="color">#3e000000</color>
 
     <!--light theme-->
-    <color name="materialmusic_music_controller_container_color">@color/grey_300</color>
-    <color name="materialmusic_navigation_drawer_background_color">#fff</color>
-    <color name="materialmusic_separator_color">#0C000000</color>
-    <color name="materialmusic_default_bar_color">@color/grey_400</color>
-    <color name="materialmusic_themed_drawable_color">#8A000000</color>
+    <color name="music_controller_container_color">@android:color/white</color>
+    <color name="default_bar_color">@color/grey_700</color>
 
     <!--dark theme-->
-    <color name="materialmusic_dark_music_controller_container_color">@color/grey_800</color>
-    <color name="materialmusic_dark_navigation_drawer_background_color">@color/grey_900</color>
-    <color name="materialmusic_dark_separator_color">#0CFFFFFF</color>
-    <color name="materialmusic_dark_default_bar_color">@color/grey_900</color>
-    <color name="materialmusic_dark_themed_drawable_color">@color/white</color>
-
-    <color name="sliding_tabs_activated">#FFFFFF</color>
-    <color name="sliding_tabs_deactivated">#99FFFFFF</color>
-
-    <!--notification-->
-    <color name="notification_content_color">#deFFFFFF</color>
-    <color name="notification_secondary_content_color">#aaFFFFFF</color>
-
-    <color name="notification_dark_text_content_color">#de000000</color>
-    <color name="notification_dark_text_secondary_content_color">#aa000000</color>
+    <color name="music_controller_container_color_dark">@color/grey_800</color>
+    <color name="default_bar_color_dark">@color/grey_900</color>
 
 </resources>
