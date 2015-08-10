@@ -33,6 +33,8 @@ public class AboutDialog extends LeakDetectDialogFragment {
                 .iconRes(R.drawable.ic_launcher)
                 .content(TextUtils.concat(getActivity().getResources().getText(R.string.credits_1),
                                 getActivity().getResources().getText(R.string.credits_2),
+                                getActivity().getResources().getText(R.string.special_thanks_to),
+                                getActivity().getResources().getText(R.string.special_thanks_names),
                                 getActivity().getResources().getText(R.string.credits_3),
                                 getActivity().getResources().getText(R.string.credits_4))
                 )
