@@ -72,7 +72,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile('com.crashlytics.sdk.android:crashlytics:2.5.0@aar') {
+    compile('com.crashlytics.sdk.android:crashlytics:2.5.1@aar') {
         transitive = true;
     }
     compile 'com.android.support:support-v4:22.2.1'
@@ -84,10 +84,10 @@ dependencies {
     compile 'com.android.support:design:22.2.1'
     compile 'com.android.support:support-annotations:22.2.1'
 
-    compile 'com.github.ksoichiro:android-observablescrollview:1.5.1'
+    compile 'com.github.ksoichiro:android-observablescrollview:1.5.2'
     compile 'asia.ivity.android:drag-sort-listview:1.0'
     compile 'com.github.semoncat.seekarc:library:0.1'
-    compile 'com.sothree.slidinguppanel:library:3.0.0'
+    compile 'com.sothree.slidinguppanel:library:3.1.1'
 
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
