@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.ui.activities.base;
 
 import android.animation.Animator;
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -32,7 +33,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.afollestad.materialdialogs.util.DialogUtils;
@@ -62,11 +62,11 @@ import butterknife.ButterKnife;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
- *         <p/>
+ *         <p>
  *         Do not use {@link #setContentView(int)} but wrap your layout with
  *         {@link #wrapSlidingMusicPanelAndFab(int)} first and then return it in {@link #createContentView()}
  */
-public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivity implements SlidingUpPanelLayout.PanelSlideListener {
+public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivity implements SlidingUpPanelLayout.PanelSlideListener, SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String TAG = AbsSlidingMusicPanelActivity.class.getSimpleName();
 
     private static final int FAB_CIRCULAR_REVEAL_ANIMATION_TIME = 1000;
@@ -151,6 +151,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         setUpSlidingPanel();
 
         initAppearanceVarsFromSharedPrefs();
+        PreferenceUtil.getInstance(this).registerOnSharedPreferenceChangedListener(this);
         initProgressSliderDependentViews();
 
         moveSeekBarIntoPlace();
@@ -175,6 +176,12 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     protected abstract View createContentView();
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferenceUtil.getInstance(this).unregisterOnSharedPreferenceChangedListener(this);
+    }
 
     @Override
     protected void onResume() {
@@ -206,6 +213,48 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         updateShuffleState();
     }
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        switch (key) {
+            case PreferenceUtil.OPAQUE_STATUSBAR_NOW_PLAYING:
+                opaqueStatusBar = PreferenceUtil.getInstance(this).opaqueStatusbarNowPlaying();
+                // do not break here
+            case PreferenceUtil.OPAQUE_TOOLBAR_NOW_PLAYING:
+                opaqueToolBar = opaqueStatusBar && PreferenceUtil.getInstance(this).opaqueToolbarNowPlaying();
+                if (lastFooterColor != -1) {
+                    animateColorChange(lastFooterColor);
+                }
+                if (opaqueStatusBar) {
+                    if (opaqueToolBar) {
+                        alignAlbumArtToToolbar();
+                    } else {
+                        alignAlbumArtToStatusBar();
+                    }
+                } else {
+                    alignAlbumArtToTop();
+                }
+                break;
+            case PreferenceUtil.FORCE_SQUARE_ALBUM_ART:
+                forceSquareAlbumArt = PreferenceUtil.getInstance(this).forceAlbumArtSquared();
+                albumArt.forceSquare(forceSquareAlbumArt);
+                break;
+            case PreferenceUtil.LARGER_TITLE_BOX_NOW_PLAYING:
+                largerTitleBox = PreferenceUtil.getInstance(this).largerTitleBoxNowPlaying();
+                adjustTitleBoxSize();
+                break;
+            case PreferenceUtil.ALTERNATIVE_PROGRESS_SLIDER_NOW_PLAYING:
+                alternativeProgressSlider = PreferenceUtil.getInstance(this).alternativeProgressSliderNowPlaying();
+                initProgressSliderDependentViews();
+                moveSeekBarIntoPlace();
+                setTint(seekBar, getThemeColorAccent());
+                break;
+            case PreferenceUtil.PLAYBACK_CONTROLLER_CARD_NOW_PLAYING:
+                showPlaybackControllerCard = PreferenceUtil.getInstance(this).playbackControllerCardNowPlaying();
+                setUpPlaybackControllerCard();
+                break;
+        }
+    }
+
     private void setUpPlayPauseButton() {
         updateFabState(false);
 
@@ -233,8 +282,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                     } else {
                         MusicPlayerRemote.resumePlaying();
                     }
-                } else {
-                    Toast.makeText(AbsSlidingMusicPanelActivity.this, getResources().getString(R.string.playing_queue_empty), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -299,13 +346,13 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     @Override
     public void onPanelSlide(View view, float slideOffset) {
-        miniPlayer.setAlpha(1 - slideOffset);
-
         float xTranslation = (dummyFab.getX() + mediaControllerContainer.getX() + footerFrame.getX() - playPauseFab.getLeft()) * slideOffset;
         float yTranslation = (dummyFab.getY() + mediaControllerContainer.getY() + footerFrame.getY() - playPauseFab.getTop()) * slideOffset;
 
         playPauseFab.setTranslationX(xTranslation);
         playPauseFab.setTranslationY(yTranslation);
+
+        miniPlayer.setAlpha(1 - slideOffset);
     }
 
     @Override
@@ -324,7 +371,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                 int cy = (dummyFab.getTop() + dummyFab.getBottom()) / 2;
                 int finalRadius = Math.max(mediaControllerContainer.getWidth(), mediaControllerContainer.getHeight());
 
-                Animator animator = ViewAnimationUtils.createCircularReveal(mediaControllerContainer, cx, cy, dummyFab.getWidth() / 2, finalRadius);
+                final Animator animator = ViewAnimationUtils.createCircularReveal(mediaControllerContainer, cx, cy, dummyFab.getWidth() / 2, finalRadius);
                 animator.setInterpolator(new DecelerateInterpolator());
                 animator.setDuration(FAB_CIRCULAR_REVEAL_ANIMATION_TIME);
                 animator.start();
@@ -350,10 +397,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         } else {
             slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
         }
-    }
-
-    public FloatingActionButton getPlayPauseFab() {
-        return playPauseFab;
     }
 
     public SlidingUpPanelLayout getSlidingUpPanelLayout() {
@@ -425,6 +468,10 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
             songTotalTime = (TextView) findViewById(R.id.player_alternative_song_total_time);
             seekBar = (SeekBar) findViewById(R.id.player_alternative_progress_slider);
         } else {
+            findViewById(R.id.player_default_progress_container).setVisibility(View.VISIBLE);
+            findViewById(R.id.player_default_progress_slider).setVisibility(View.VISIBLE);
+            findViewById(R.id.player_alternative_progress_container).setVisibility(View.GONE);
+
             songCurrentProgress = (TextView) findViewById(R.id.player_default_song_current_progress);
             songTotalTime = (TextView) findViewById(R.id.player_default_song_total_time);
             seekBar = (SeekBar) findViewById(R.id.player_default_progress_slider);
@@ -742,9 +789,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     private void startUpdatingProgressViews() {
-        if (!progressViewsUpdateHandler.hasMessages(CMD_REFRESH_PROGRESS_VIEWS)) {
-            queueNextRefresh(0);
-        }
+        queueNextRefresh(1);
     }
 
     private void stopUpdatingProgressViews() {

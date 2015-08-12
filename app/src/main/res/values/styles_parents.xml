@@ -18,6 +18,9 @@
 
         <item name="default_bar_color">@color/default_bar_color_dark</item>
 
+        <item name="divider_color">@color/md_divider_white</item>
+        <item name="icon_color">@color/secondary_text_default_material_dark</item>
+
         <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat</item>
 
         <!-- FOR EVERYWHERE WE CANT OVERRIDE THE ACCENT COLOR-->
@@ -39,6 +42,9 @@
         <item name="cardBackgroundColor">@color/cardview_light_background</item>
 
         <item name="default_bar_color">@color/default_bar_color</item>
+
+        <item name="divider_color">@color/md_divider_black</item>
+        <item name="icon_color">@color/secondary_text_default_material_light</item>
 
         <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
 
@@ -67,12 +73,12 @@
     </style>
 
     <style name="OverFlowButtonParent">
-        <item name="android:tint">?android:textColorSecondary</item>
+        <item name="android:tint">?icon_color</item>
         <item name="android:src">@drawable/abc_ic_menu_moreoverflow_mtrl_alpha</item>
         <item name="android:padding">12dp</item>
         <item name="android:layout_width">48dp</item>
         <item name="android:layout_height">48dp</item>
-        <item name="android:scaleType">fitXY</item>
+        <!--<item name="android:scaleType">fitXY</item>-->
         <item name="android:background">?round_selector</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:focusableInTouchMode">false</item>

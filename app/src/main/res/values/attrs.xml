@@ -10,4 +10,7 @@
 
     <attr name="toolbarPopupTheme" format="reference" />
 
+    <attr name="icon_color" format="color" />
+    <attr name="divider_color" format="color" />
+
 </resources>

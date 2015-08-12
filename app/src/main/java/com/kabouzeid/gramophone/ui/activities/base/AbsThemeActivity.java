@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -41,7 +42,13 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
     @Override
     protected void onResume() {
         super.onResume();
-        recreateIfThemeChanged();
+        // the handler is necessary to avoid "java.lang.RuntimeException: Performing pause of activity that is not resumed"
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                recreateIfThemeChanged();
+            }
+        }, 200);
     }
 
     private void setupTheme() {

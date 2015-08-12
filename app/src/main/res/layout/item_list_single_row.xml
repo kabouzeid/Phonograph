@@ -72,7 +72,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_gravity="bottom"
-        android:background="?dividerHorizontal"
+        android:background="?divider_color"
         android:visibility="gone" />
 
     <View
@@ -82,6 +82,6 @@
         android:layout_gravity="bottom"
         android:layout_marginLeft="72dp"
         android:layout_marginStart="72dp"
-        android:background="?dividerHorizontal" />
+        android:background="?divider_color" />
 
 </FrameLayout>
