@@ -179,9 +179,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     @Override
     protected void onResume() {
         super.onResume();
-        if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
-            startUpdatingProgressViews();
-        }
+        startUpdatingProgressViews();
     }
 
     @Override
@@ -308,15 +306,10 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
         playPauseFab.setTranslationX(xTranslation);
         playPauseFab.setTranslationY(yTranslation);
-
-        if (slideOffset > 0 && !progressViewsUpdateHandler.hasMessages(CMD_REFRESH_PROGRESS_VIEWS)) {
-            startUpdatingProgressViews();
-        }
     }
 
     @Override
     public void onPanelCollapsed(View view) {
-        stopUpdatingProgressViews();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mediaControllerContainer.setVisibility(View.INVISIBLE);
         }
@@ -325,9 +318,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     @Override
     public void onPanelExpanded(View view) {
         onPanelSlide(view, 1);
-        if (!progressViewsUpdateHandler.hasMessages(CMD_REFRESH_PROGRESS_VIEWS)) {
-            startUpdatingProgressViews();
-        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (mediaControllerContainer.getVisibility() == View.INVISIBLE) {
                 int cx = (dummyFab.getLeft() + dummyFab.getRight()) / 2;
@@ -752,7 +742,9 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     private void startUpdatingProgressViews() {
-        queueNextRefresh(1);
+        if (!progressViewsUpdateHandler.hasMessages(CMD_REFRESH_PROGRESS_VIEWS)) {
+            queueNextRefresh(0);
+        }
     }
 
     private void stopUpdatingProgressViews() {
