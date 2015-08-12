@@ -2,11 +2,11 @@
 <resources>
 
     <!--light theme-->
-    <color name="music_controller_container_color">@android:color/white</color>
+    <color name="music_controller_container_color">@color/cardview_light_background</color>
     <color name="default_bar_color">@color/grey_700</color>
 
     <!--dark theme-->
-    <color name="music_controller_container_color_dark">@color/grey_800</color>
+    <color name="music_controller_container_color_dark">@color/cardview_dark_background</color>
     <color name="default_bar_color_dark">@color/grey_900</color>
 
 </resources>

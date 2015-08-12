@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -22,8 +21,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -88,7 +85,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
-    private ActionBarDrawerToggle drawerToggle;
     private PagerAdapter pagerAdapter;
     private MaterialCab cab;
     @Nullable
@@ -179,10 +175,10 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     }
 
     private void setUpToolbar() {
+        toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
         setTitle(getResources().getString(R.string.app_name));
         setAppBarColor();
         setSupportActionBar(toolbar);
-        setUpDrawerToggle();
     }
 
     private void setAppBarColor() {
@@ -258,22 +254,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         });
     }
 
-    private void setUpDrawerToggle() {
-        drawerToggle = new ActionBarDrawerToggle(
-                this,
-                drawerLayout,
-                R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close
-        );
-        drawerLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                drawerToggle.syncState();
-            }
-        });
-        drawerLayout.setDrawerListener(drawerToggle);
-    }
-
     private void setUpDrawerLayout() {
         setUpNavigationView();
     }
@@ -344,14 +324,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         handlePlaybackIntent(getIntent());
     }
 
-    public void restoreActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        //noinspection ConstantConditions
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(@NonNull Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -364,7 +336,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         } else {
             menu.removeItem(R.id.action_view_as);
         }
-        restoreActionBar();
         return true;
     }
 
@@ -376,7 +347,12 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (drawerToggle.onOptionsItemSelected(item)) {
+        if (item.getItemId() == android.R.id.home) {
+            if (drawerLayout.isDrawerOpen(navigationView)) {
+                drawerLayout.closeDrawer(navigationView);
+            } else {
+                drawerLayout.openDrawer(navigationView);
+            }
             return true;
         }
 
@@ -446,12 +422,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
             }
         }
         return false;
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        drawerToggle.onConfigurationChanged(newConfig);
-        super.onConfigurationChanged(newConfig);
     }
 
     @Override
