@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.ui.activities;
 import android.animation.Animator;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ import com.kabouzeid.gramophone.ui.activities.tageditor.AlbumTagEditorActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -89,7 +91,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     private int albumArtViewHeight;
     private int toolbarColor;
     private float toolbarAlpha;
-    private int bottomOffset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,7 +180,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     }
 
     private void setUpObservableListViewParams() {
-        bottomOffset = getResources().getDimensionPixelSize(R.dimen.bottom_offset_fab_activity);
         albumArtViewHeight = getResources().getDimensionPixelSize(R.dimen.header_image_height);
         toolbarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
         int toolbarHeight = Util.getActionBarSize(this);
@@ -274,8 +274,8 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     }
 
     private void setUpRecyclerViewView() {
+        setUpRecyclerViewPadding();
         recyclerView.setScrollViewCallbacks(observableScrollViewCallbacks);
-        recyclerView.setPadding(0, albumArtViewHeight + titleViewHeight, 0, bottomOffset);
         final View contentView = getWindow().getDecorView().findViewById(android.R.id.content);
         contentView.post(new Runnable() {
             @Override
@@ -287,6 +287,10 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                 recyclerView.scrollBy(0, -1);
             }
         });
+    }
+
+    private void setUpRecyclerViewPadding() {
+        recyclerView.setPadding(0, albumArtViewHeight + titleViewHeight, 0, getBottomOffset());
     }
 
     private void setUpToolBar() {
@@ -416,5 +420,13 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     public void onMediaStoreChanged() {
         super.onMediaStoreChanged();
         reloadDataSet();
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        super.onSharedPreferenceChanged(sharedPreferences, key);
+        if (key.equals(PreferenceUtil.HIDE_BOTTOM_BAR)) {
+            setUpRecyclerViewPadding();
+        }
     }
 }

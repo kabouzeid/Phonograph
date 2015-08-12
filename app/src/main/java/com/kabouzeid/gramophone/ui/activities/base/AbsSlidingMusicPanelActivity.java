@@ -62,7 +62,7 @@ import butterknife.ButterKnife;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
- *         <p>
+ *         <p/>
  *         Do not use {@link #setContentView(int)} but wrap your layout with
  *         {@link #wrapSlidingMusicPanelAndFab(int)} first and then return it in {@link #createContentView()}
  */
@@ -252,6 +252,9 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                 showPlaybackControllerCard = PreferenceUtil.getInstance(this).playbackControllerCardNowPlaying();
                 setUpPlaybackControllerCard();
                 break;
+            case PreferenceUtil.HIDE_BOTTOM_BAR:
+                hideBottomBar(PreferenceUtil.getInstance(this).hideBottomBar());
+                break;
         }
     }
 
@@ -296,6 +299,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     private void setUpMiniPlayer() {
+        hideBottomBar(PreferenceUtil.getInstance(this).hideBottomBar());
         final GestureDetector gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
@@ -401,6 +405,18 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     public SlidingUpPanelLayout getSlidingUpPanelLayout() {
         return slidingUpPanelLayout;
+    }
+
+    public void hideBottomBar(boolean hide) {
+        if (hide) {
+            slidingUpPanelLayout.setPanelHeight(0);
+        } else {
+            slidingUpPanelLayout.setPanelHeight(getResources().getDimensionPixelSize(R.dimen.mini_player_height));
+        }
+    }
+
+    public int getBottomOffset() {
+        return getResources().getDimensionPixelSize(R.dimen.bottom_offset_fab_activity) - slidingUpPanelLayout.getPanelHeight();
     }
 
     protected void updateFabState(boolean animate) {

@@ -3,14 +3,22 @@
     <com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory android:title="@string/pref_header_general">
 
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
-            android:layout="@layout/preference_custom"
             android:defaultValue="-1"
             android:entries="@array/pref_start_page_list_titles"
             android:entryValues="@array/pref_start_page_list_values"
             android:key="default_start_page"
+            android:layout="@layout/preference_custom"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:title="@string/pref_title_set_default_start_page" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="hide_bottom_bar"
+            android:layout="@layout/preference_custom"
+            android:summary="@string/pref_summary_hide_bottom_bar"
+            android:title="@string/pref_title_hide_bottom_bar"
+            android:widgetLayout="@layout/preference_dynamic_checkbox" />
 
     </com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory>
 

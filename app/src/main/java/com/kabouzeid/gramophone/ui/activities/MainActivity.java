@@ -90,6 +90,12 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     @Nullable
     private View navigationDrawerHeader;
 
+    private ArrayList<HideBottomBarListener> hideBottomBarListeners = new ArrayList<>();
+
+    public interface HideBottomBarListener {
+        void onBottomBarHiddenStateChanged(boolean hidden);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,7 +133,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         for (final PagerAdapter.MusicFragments fragment : fragments) {
             pagerAdapter.add(fragment.getFragmentClass(), null);
         }
-
         pager.setAdapter(pagerAdapter);
         pager.setOffscreenPageLimit(pagerAdapter.getCount() - 1);
 
@@ -575,5 +580,27 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     public void onPanelCollapsed(View view) {
         super.onPanelCollapsed(view);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+    }
+
+    @Override
+    public void hideBottomBar(boolean hide) {
+        super.hideBottomBar(hide);
+        for (HideBottomBarListener hideBottomBarListener : hideBottomBarListeners) {
+            if (hideBottomBarListener != null) {
+                hideBottomBarListener.onBottomBarHiddenStateChanged(hide);
+            }
+        }
+    }
+
+    public void addHideBottomBarListener(HideBottomBarListener listener) {
+        if (listener != null) {
+            hideBottomBarListeners.add(listener);
+        }
+    }
+
+    public void removeHideBottomBarListener(HideBottomBarListener listener) {
+        if (listener != null) {
+            hideBottomBarListeners.remove(listener);
+        }
     }
 }

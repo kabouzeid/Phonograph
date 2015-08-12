@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
+import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.views.FastScroller;
 
 import butterknife.Bind;
@@ -23,7 +24,7 @@ import butterknife.ButterKnife;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView.Adapter, LM extends RecyclerView.LayoutManager> extends AbsMainActivityFragment implements OnOffsetChangedListener, MusicServiceEventListener {
+public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView.Adapter, LM extends RecyclerView.LayoutManager> extends AbsMainActivityFragment implements OnOffsetChangedListener, MusicServiceEventListener, MainActivity.HideBottomBarListener {
 
     public static final String TAG = AbsMainActivityRecyclerViewFragment.class.getSimpleName();
 
@@ -56,6 +57,7 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
 
         getMainActivity().addOnAppBarOffsetChangedListener(this);
         getMainActivity().addMusicStateListenerListener(this);
+        getMainActivity().addHideBottomBarListener(this);
 
         setUpRecyclerView();
 
@@ -63,8 +65,13 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
     }
 
     private void setUpRecyclerView() {
+        setUpRecyclerViewPadding();
         invalidateLayoutManager();
         invalidateAdapter();
+    }
+
+    private void setUpRecyclerViewPadding() {
+        recyclerView.setPadding(0, 0, 0, getMainActivity().getBottomOffset());
     }
 
     protected void invalidateAdapter() {
@@ -130,6 +137,11 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
     }
 
     @Override
+    public void onBottomBarHiddenStateChanged(boolean hidden) {
+        setUpRecyclerViewPadding();
+    }
+
+    @Override
     public void enableViews() {
         super.enableViews();
         recyclerView.setEnabled(true);
@@ -170,6 +182,7 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
         super.onDestroyView();
         getMainActivity().removeOnAppBarOffsetChangedListener(this);
         getMainActivity().removeMusicStateListenerListener(this);
+        getMainActivity().removeHideBottomBarListener(this);
         ButterKnife.unbind(this);
     }
 
