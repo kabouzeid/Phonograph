@@ -54,7 +54,7 @@
         android:layout_gravity="center"
         android:paddingBottom="68dp"
         android:src="@drawable/ic_check_white_96dp"
-        android:tint="?android:textColorPrimary"
+        android:tint="?android:colorBackground"
         android:visibility="gone"
         tools:ignore="ContentDescription" />
 
