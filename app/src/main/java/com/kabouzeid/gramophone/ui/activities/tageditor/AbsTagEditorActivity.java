@@ -47,6 +47,7 @@ import org.jaudiotagger.tag.images.Artwork;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Map;
 
@@ -91,6 +92,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         }
     };
     private List<String> songPaths;
+    private MaterialDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +115,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         setUpViews();
 
         setSupportActionBar(toolbar);
+        //noinspection ConstantConditions
         getSupportActionBar().setTitle(getResources().getString(R.string.tag_editor));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -319,7 +322,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     protected void writeValuesToFiles(@NonNull final Map<FieldKey, String> fieldKeyValueMap, @Nullable final Artwork artwork, final boolean deleteArtwork) {
         Util.hideSoftKeyboard(this);
         final String writingFileStr = getResources().getString(R.string.writing_file_number);
-        final MaterialDialog progressDialog = new MaterialDialog.Builder(AbsTagEditorActivity.this)
+        progressDialog = new MaterialDialog.Builder(AbsTagEditorActivity.this)
                 .title(R.string.saving_changes)
                 .cancelable(false)
                 .progress(true, 0)
@@ -374,54 +377,76 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                         }
                     }
                 });
-                rescanMediaAndQuitOnFinish(new OnScannedAllListener() {
-                    @Override
-                    public void onScannedAll() {
-                        progressDialog.dismiss();
-                        finish();
-                    }
-                });
+                rescanMediaAndQuitOnFinish();
             }
         }).start();
     }
 
-    private void rescanMediaAndQuitOnFinish(@NonNull final OnScannedAllListener listener) {
-        String[] toBeScanned = new String[songPaths.size()];
-        toBeScanned = songPaths.toArray(toBeScanned);
-        final int toBeScannedLength = toBeScanned.length;
-        MediaScannerConnection.scanFile(this, toBeScanned, null, new MediaScannerConnection.OnScanCompletedListener() {
-            int i = 0;
+    private static class FinishOnCompletedMediaScanner implements MediaScannerConnection.MediaScannerConnectionClient {
 
+        private WeakReference<AbsTagEditorActivity> activityWeakReference;
+        private MediaScannerConnection connection;
+        private String[] toBeScanned;
+        private int position;
+
+
+        private FinishOnCompletedMediaScanner(AbsTagEditorActivity activity, String[] toBeScanned) {
+            activityWeakReference = new WeakReference<>(activity);
+            this.toBeScanned = toBeScanned;
+            connection = new MediaScannerConnection(activity.getApplicationContext(), this);
+        }
+
+        public void scan() {
+            connection.connect();
+        }
+
+        @Override
+        public void onMediaScannerConnected() {
+            scanNextPath();
+        }
+
+        @Override
+        public void onScanCompleted(String path, Uri uri) {
+            scanNextPath();
+        }
+
+        private void scanNextPath() {
+            if (position < toBeScanned.length) {
+                connection.scanFile(toBeScanned[position], null);
+            }
+            checkIsDone();
+            position++;
+        }
+
+        private void checkIsDone() {
+            if (position >= toBeScanned.length - 1) {
+                connection.disconnect();
+                AbsTagEditorActivity activity = activityWeakReference.get();
+                if (activity != null) {
+                    activity.dismissDialogAndFinish();
+                }
+            }
+        }
+    }
+
+    public void dismissDialogAndFinish() {
+        runOnUiThread(new Runnable() {
             @Override
-            public void onScanCompleted(String s, Uri uri) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (i == 0 || i == toBeScannedLength - 1) {
-                            if (i == toBeScannedLength - 1)
-                                listener.onScannedAll();
-                        }
-                        i++;
-                    }
-                });
+            public void run() {
+                progressDialog.dismiss();
+                finish();
             }
         });
     }
 
+    private void rescanMediaAndQuitOnFinish() {
+        String[] toBeScanned = new String[songPaths.size()];
+        toBeScanned = songPaths.toArray(toBeScanned);
+        new FinishOnCompletedMediaScanner(this, toBeScanned).scan();
+    }
+
     protected int getId() {
         return id;
-    }
-
-    protected void writeValuesToFiles(@NonNull final Map<FieldKey, String> fieldKeyValueMap, @Nullable final Artwork artwork) {
-        if (artwork == null) {
-            writeValuesToFiles(fieldKeyValueMap, null, true);
-        } else {
-            writeValuesToFiles(fieldKeyValueMap, artwork, false);
-        }
-    }
-
-    protected void writeValuesToFiles(@NonNull final Map<FieldKey, String> fieldKeyValueMap, boolean deleteArtwork) {
-        writeValuesToFiles(fieldKeyValueMap, null, deleteArtwork);
     }
 
     @Override
@@ -438,76 +463,77 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
     protected abstract void loadImageFromFile(Uri selectedFile);
 
+    @NonNull
+    private AudioFile getAudioFile(@NonNull String path) {
+        try {
+            return AudioFileIO.read(new File(path));
+        } catch (Exception e) {
+            Log.e(TAG, "Could not read audio file " + path, e);
+            return new AudioFile();
+        }
+    }
+
     @Nullable
     protected String getSongTitle() {
         try {
             return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.TITLE);
-        } catch (NullPointerException e) {
+        } catch (Exception ignored) {
             return null;
         }
-    }
-
-    private AudioFile getAudioFile(@NonNull String path) {
-        try {
-            return AudioFileIO.read(new File(path));
-        } catch (@NonNull CannotReadException | ReadOnlyFileException | InvalidAudioFrameException | TagException | IOException e) {
-            Log.e(TAG, "Error while trying to create the AudioFile from java.io.File", e);
-        }
-        return null;
     }
 
     @Nullable
     protected String getAlbumTitle() {
         try {
             return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.ALBUM);
-        } catch (NullPointerException ignored) {
+        } catch (Exception ignored) {
+            return null;
         }
-        return null;
     }
 
     @Nullable
     protected String getArtistName() {
         try {
             return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.ARTIST);
-        } catch (NullPointerException ignored) {
+        } catch (Exception ignored) {
+            return null;
         }
-        return null;
     }
 
     @Nullable
     protected String getAlbumArtistName() {
         try {
             return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.ALBUM_ARTIST);
-        } catch (NullPointerException ignored) {
+        } catch (Exception ignored) {
+            return null;
         }
-        return null;
     }
 
     @Nullable
     protected String getGenreName() {
         try {
             return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.GENRE);
-        } catch (NullPointerException ignored) {
+        } catch (Exception ignored) {
+            return null;
         }
-        return null;
     }
 
     @Nullable
     protected String getSongYear() {
         try {
             return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.YEAR);
-        } catch (NullPointerException ignored) {
+        } catch (Exception ignored) {
+            return null;
         }
-        return null;
     }
 
     @Nullable
     protected String getTrackNumber() {
         try {
             return getAudioFile(songPaths.get(0)).getTagOrCreateAndSetDefault().getFirst(FieldKey.TRACK);
-        } catch (NullPointerException ignored) {
+        } catch (Exception ignored) {
+            return null;
         }
-        return null;
     }
 
     @Nullable
@@ -518,12 +544,9 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                 byte[] artworkBinaryData = artworkTag.getBinaryData();
                 return BitmapFactory.decodeByteArray(artworkBinaryData, 0, artworkBinaryData.length);
             }
-        } catch (NullPointerException ignored) {
+            return null;
+        } catch (Exception ignored) {
+            return null;
         }
-        return null;
-    }
-
-    private interface OnScannedAllListener {
-        void onScannedAll();
     }
 }
