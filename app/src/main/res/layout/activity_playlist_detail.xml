@@ -35,7 +35,6 @@
             android:clipToPadding="false"
             android:divider="@null"
             android:dividerHeight="0px"
-            android:paddingBottom="@dimen/bottom_offset_fab_activity"
             android:scrollbars="vertical" />
 
     </LinearLayout>

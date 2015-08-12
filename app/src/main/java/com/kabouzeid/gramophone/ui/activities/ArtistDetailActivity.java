@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.ui.activities;
 import android.animation.Animator;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -50,6 +51,7 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.kabouzeid.gramophone.views.SquareIfPlaceImageView;
@@ -98,7 +100,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     private int artistImageViewHeight;
     private int toolbarColor;
     private float toolbarAlpha;
-    private int bottomOffset;
 
     private Artist artist;
     @Nullable
@@ -187,7 +188,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     };
 
     private void setUpObservableListViewParams() {
-        bottomOffset = getResources().getDimensionPixelSize(R.dimen.bottom_offset_fab_activity);
         artistImageViewHeight = getResources().getDimensionPixelSize(R.dimen.header_image_height);
         toolbarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
         int toolbarHeight = Util.getActionBarSize(this);
@@ -213,8 +213,8 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     }
 
     private void setUpSongListView() {
+        setUpSongListPadding();
         songListView.setScrollViewCallbacks(observableScrollViewCallbacks);
-        songListView.setPadding(0, artistImageViewHeight + titleViewHeight, 0, bottomOffset);
         songListView.addHeaderView(songListHeader);
 
         songAdapter = new ArtistSongAdapter(this, loadSongDataSet(), this);
@@ -228,6 +228,10 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                 observableScrollViewCallbacks.onScrollChanged(-(artistImageViewHeight + titleViewHeight), false, false);
             }
         });
+    }
+
+    private void setUpSongListPadding() {
+        songListView.setPadding(0, artistImageViewHeight + titleViewHeight, 0, getBottomOffset());
     }
 
     private void setUpAlbumRecyclerView() {
@@ -476,5 +480,13 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     public void onMediaStoreChanged() {
         super.onMediaStoreChanged();
         reloadDataSets();
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        super.onSharedPreferenceChanged(sharedPreferences, key);
+        if (key.equals(PreferenceUtil.HIDE_BOTTOM_BAR)) {
+            setUpSongListPadding();
+        }
     }
 }

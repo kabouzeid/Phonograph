@@ -44,8 +44,6 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="widget_medium_image_size">96dp</dimen>
     <dimen name="notification_big_image_size">128dp</dimen>
 
-    <dimen name="bottom_offset_fab_activity">44dp</dimen>
-
     <dimen name="scrollbar_width">8dp</dimen>
     <dimen name="scrollbar_inset">8dp</dimen>
     <!-- MUST BE THE RESULT OF WIDTH PLUS INSET-->
@@ -69,5 +67,6 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="list_item_image_icon_padding">8dp</dimen>
 
     <dimen name="mini_player_height">48dp</dimen>
+    <dimen name="bottom_offset_fab_activity">92dp</dimen>
 
 </resources>
