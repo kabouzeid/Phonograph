@@ -109,12 +109,6 @@
     <string name="pref_summary_colored_navigation_bar">In quali schermate colorare la barra di navigazione.</string>
     <string name="pref_title_navigation_bar">Barra di navigazione colorata</string>
     <string name="pref_title_set_default_start_page">Pagina iniziale</string>
-    <string name="pref_title_colored_navigation_bar_artists">Schermata Artista</string>
-    <string name="pref_title_colored_navigation_bar_albums">Schermata Album</string>
-    <string name="pref_title_colored_navigation_bar_current_playing">Schermata In riproduzione</string>
-    <string name="pref_title_colored_navigation_bar_playlists">Schermata Playlist</string>
-    <string name="pref_title_colored_navigation_bar_tag_editor">Modifica tag</string>
-    <string name="pref_title_colored_navigation_bar_other_screens">In tutte le altre schermate</string>
     <string name="pref_title_album_art_on_lockscreen">Copertina nella schermata di sblocco</string>
     <string name="pref_title_colored_notification">Notifica colorata</string>
     <string name="pref_title_ignore_media_store_artwork">Ignora le copertine del Media Store</string>
@@ -182,4 +176,5 @@
     <string name="grid">Griglia</string>
     <string name="list">Lista</string>
     <string name="colored_footers">Riquadri colorati</string>
+    <string name="special_thanks_to">Ringraziamenti speciali a</string>
 </resources>

@@ -87,7 +87,7 @@
     <string name="remove_songs_from_playlist_title">Şarkıları Çalma Listesinden Kaldır</string>
     <string name="rename_playlist_title">Çalma Listesini Yeniden Adlandır</string>
     <string name="delete_playlist_title">Çalma Listesini Sil</string>
-    <string name="delete_playlists_title">Çalma listelerini sil</string>
+    <string name="delete_playlists_title">Çalma Listelerini Sil</string>
     <string name="clear_playlist_title">Çalma Listesini Temizle</string>
     <string name="add_playlist_title">"Çalma Listesine Ekle"</string>
     <string name="delete_warning">"Uyarı: Bu işlem geri alınamaz."</string>
@@ -105,17 +105,11 @@
     <string name="pref_header_audio">Ses</string>
     <string name="pref_header_general">Genel</string>
     <string name="pref_header_images">Görüntüler</string>
-    <string name="pref_header_lockscreen">Kilit ekranı</string>
-    <string name="pref_summary_colored_navigation_bar">Renklendirilmesini istediğiniz gezinti çubuğunu ayarlayın</string>
+    <string name="pref_header_lockscreen">Kilit Ekranı</string>
+    <string name="pref_summary_colored_navigation_bar">Gezinme çubuğu renkleri birincil renkler içinden.</string>
     <string name="pref_title_navigation_bar">Renkli Gezinti Çubuğu</string>
     <string name="pref_title_set_default_start_page">Başlangıç Sayfası</string>
-    <string name="pref_title_colored_navigation_bar_artists">Sanatçı Görünümü</string>
-    <string name="pref_title_colored_navigation_bar_albums">Albüm Görünümü</string>
-    <string name="pref_title_colored_navigation_bar_current_playing">Şuan Çalınan Görünümü</string>
-    <string name="pref_title_colored_navigation_bar_playlists">Çalma Listesi Görünümü</string>
-    <string name="pref_title_colored_navigation_bar_tag_editor">Etiket Düzenleyici</string>
-    <string name="pref_title_colored_navigation_bar_other_screens">Başka Her Yerde</string>
-    <string name="pref_title_album_art_on_lockscreen">Kilit ekranındaki Albüm kapağı</string>
+    <string name="pref_title_album_art_on_lockscreen">Kilit Ekranındaki Albüm kapağı</string>
     <string name="pref_title_colored_notification">Renkli Bildirim</string>
     <string name="pref_title_ignore_media_store_artwork">Media Store albüm kapağını yoksay</string>
     <string name="pref_title_gapless_playback">Aralıksız Çalma</string>
@@ -150,8 +144,8 @@
     <string name="empty">Boş</string>
     <string name="playlist_name_empty">Çalma listesi adı</string>
     <string name="song">Şarkı</string>
-    <string name="pref_only_lollipop">"Sadece Lollipop için"</string>
-    <string name="pref_summary_album_art_on_lockscreen">Albüm kapağı kilit ekranında görüntülenmektedir. Değişikliğin uygulanması için Phonograph\'ı yeniden başlatmanız gerekebilir</string>
+    <string name="pref_only_lollipop">"Sadece Lollipop için."</string>
+    <string name="pref_summary_album_art_on_lockscreen">Kilit ekranında albüm kapağı görüntülenir.</string>
     <string name="pref_summary_colored_notification">"Bildirimler albüm kapağının canlı renkleriyle renklenir."</string>
     <string name="pref_summary_gapless_playback">"İki parça arasındaki geçişi kaldırmak, bazı cihazlardaki oynatma sorununuzu giderebilir."</string>
     <string name="pref_summary_force_square_album_art">Şu anda çalınan albüm kapağı görüntüsünü kare olmaya zorlar.</string>
@@ -161,9 +155,9 @@
     <string name="pref_summary_alternative_progress_slider_now_playing">Varsayılan ilerleme çubuğu yerine albüm kapağına taşan ilerleme çubuğu kullanılır.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Oynatma kontrol düğmelerinin altında bir kart görüntüler (oynat/duraklat, vb.).</string>
     <string name="pref_summary_ignore_media_store_artwork">Albüm kapağı kalitesinin artırılması daha yavaş görüntü yükleme sürelerine neden olabilir. Düşük çözünürlükte olan albüm kapakları ile ilgili sorunlar varsa bunu etkinleştirin.</string>
-    <string name="could_not_download_album_cover">"Eşlenen albüm kapağı indirilemedi"</string>
+    <string name="could_not_download_album_cover">"Eşlenen albüm kapağı indirilemedi."</string>
     <string name="search_hint">Kütüphaneniz taranıyor...</string>
-    <string name="rescanning_media">Medyayı yeniden tara</string>
+    <string name="rescanning_media">Medyayı yeniden tara...</string>
     <string name="favorites">Favoriler</string>
     <string name="last_added">Son Eklenen</string>
     <string name="recently_played">Son Çalınanlar</string>
@@ -182,4 +176,5 @@
     <string name="grid">Izgara</string>
     <string name="list">Liste</string>
     <string name="colored_footers">Renkli alt bilgiler</string>
+    <string name="special_thanks_to">Özel teşekkür</string>
 </resources>

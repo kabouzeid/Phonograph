@@ -107,12 +107,6 @@
     <string name="pref_summary_colored_navigation_bar">في أي مشهد يتم تلوين شريط التنقل</string>
     <string name="pref_title_navigation_bar">شريط تنقل ملون</string>
     <string name="pref_title_set_default_start_page">ضبط صفحة البدء</string>
-    <string name="pref_title_colored_navigation_bar_artists">مشهد الفنان</string>
-    <string name="pref_title_colored_navigation_bar_albums">مشهد الألبوم</string>
-    <string name="pref_title_colored_navigation_bar_current_playing">مشهد التشغيل</string>
-    <string name="pref_title_colored_navigation_bar_playlists">مشهد قائمة التشغيل</string>
-    <string name="pref_title_colored_navigation_bar_tag_editor">تعديل معلومات الموسيقى</string>
-    <string name="pref_title_colored_navigation_bar_other_screens">في أي مكان</string>
     <string name="pref_title_album_art_on_lockscreen">صورة الالبوم في قائمة التشغيل</string>
     <string name="pref_title_colored_notification">اشعار ملون</string>
     <string name="pref_title_gapless_playback">تشغيل مختصر</string>

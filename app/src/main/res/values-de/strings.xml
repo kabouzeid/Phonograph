@@ -109,12 +109,6 @@
     <string name="pref_summary_colored_navigation_bar">Färbt die Navigationsleiste mit der Hauptfarbe.</string>
     <string name="pref_title_navigation_bar">Farbige Navigationsleiste</string>
     <string name="pref_title_set_default_start_page">Startseite</string>
-    <string name="pref_title_colored_navigation_bar_artists">Interpreten</string>
-    <string name="pref_title_colored_navigation_bar_albums">Albumansicht</string>
-    <string name="pref_title_colored_navigation_bar_current_playing">Aktuelle Wiedergabe</string>
-    <string name="pref_title_colored_navigation_bar_playlists">Wiedergabelisten-Ansicht</string>
-    <string name="pref_title_colored_navigation_bar_tag_editor">Tag-Editor</string>
-    <string name="pref_title_colored_navigation_bar_other_screens">Überall sonst</string>
     <string name="pref_title_album_art_on_lockscreen">Album Cover im Sperrbildschirm anzeigen</string>
     <string name="pref_title_colored_notification">Farbige Benachrichtigung</string>
     <string name="pref_title_ignore_media_store_artwork">Media Store Cover ignorieren</string>
@@ -125,6 +119,7 @@
     <string name="pref_title_larger_title_box_now_playing">Größere Titel Bar</string>
     <string name="pref_title_alternative_progress_slider_now_playing">Alternativer Progress Slider</string>
     <string name="pref_title_playback_controller_card_now_playing">Karte hinter Wiedergabesteuerung</string>
+    <string name="pref_title_hide_bottom_bar">Verstecke die untere Leiste</string>
     <string name="no_equalizer">Kein Equalizer gefunden.</string>
     <string name="no_audio_ID">"Keine Audio ID, spiele etwas ab und versuche es erneut."</string>
     <string name="navigation_drawer_open">Navigationsdrawer öffnen</string>
@@ -182,4 +177,5 @@
     <string name="grid">Gitter</string>
     <string name="list">Liste</string>
     <string name="colored_footers">Farbige Balken</string>
+    <string name="special_thanks_to">Besonderes Dankeschön an</string>
 </resources>

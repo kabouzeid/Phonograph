@@ -77,12 +77,6 @@
     <string name="pref_summary_colored_navigation_bar">Σε ποιές προβολές θα χρωματίζεται η μπάρα πλοήγησης.</string>
     <string name="pref_title_navigation_bar">Έγχρωμη μπάρα πλοήγησης</string>
     <string name="pref_title_set_default_start_page">Αρχική σελίδα</string>
-    <string name="pref_title_colored_navigation_bar_artists">Προβολή καλλιτέχνη</string>
-    <string name="pref_title_colored_navigation_bar_albums">Προβολή δίσκου</string>
-    <string name="pref_title_colored_navigation_bar_current_playing">Προβολή αναπαραγωγής</string>
-    <string name="pref_title_colored_navigation_bar_playlists">Προβολή λίστας αναπαραγωγής</string>
-    <string name="pref_title_colored_navigation_bar_tag_editor">Επεξεργασία ετικετών</string>
-    <string name="pref_title_colored_navigation_bar_other_screens">σε όλα τα υπόλοιπα</string>
     <string name="no_equalizer">Δε βρέθηκε ισοσταθμιστής</string>
     <string name="no_audio_ID">"Δε βρέθηκε ήχος, αναπαράξτε κάτι και δοκιμάστε ξανά."</string>
     <string name="navigation_drawer_open">Άνοιγμα συρταριού πλόηγησης</string>
