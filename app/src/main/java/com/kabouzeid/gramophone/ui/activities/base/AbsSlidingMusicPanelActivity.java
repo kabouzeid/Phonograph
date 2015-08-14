@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.ui.activities.base;
 
 import android.animation.Animator;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -21,11 +22,13 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.GestureDetector;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -37,13 +40,22 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
+import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
+import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
+import com.kabouzeid.gramophone.dialogs.SongShareDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.imageloader.BlurProcessor;
+import com.kabouzeid.gramophone.loader.SongLoader;
+import com.kabouzeid.gramophone.misc.SimpleAnimatorListener;
 import com.kabouzeid.gramophone.misc.SimpleOnSeekbarChangeListener;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
+import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
+import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
+import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
@@ -66,7 +78,7 @@ import butterknife.ButterKnife;
  *         Do not use {@link #setContentView(int)} but wrap your layout with
  *         {@link #wrapSlidingMusicPanelAndFab(int)} first and then return it in {@link #createContentView()}
  */
-public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivity implements SlidingUpPanelLayout.PanelSlideListener, SharedPreferences.OnSharedPreferenceChangeListener {
+public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivity implements SlidingUpPanelLayout.PanelSlideListener, SharedPreferences.OnSharedPreferenceChangeListener, Toolbar.OnMenuItemClickListener {
     public static final String TAG = AbsSlidingMusicPanelActivity.class.getSimpleName();
 
     private static final int FAB_CIRCULAR_REVEAL_ANIMATION_TIME = 1000;
@@ -658,22 +670,39 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     private void setUpPlayerToolbar() {
-        // TODO setUpPlayerToolbar
+        playerToolbar.inflateMenu(R.menu.menu_player);
+        playerToolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
+        playerToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+            }
+        });
+        playerToolbar.setOnMenuItemClickListener(this);
+    }
+
+    private void updatePlayerMenu() {
+        boolean isFavorite = MusicUtil.isFavorite(this, song);
+        playerToolbar.getMenu().findItem(R.id.action_toggle_favorite)
+                .setIcon(isFavorite ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_outline_white_24dp)
+                .setTitle(isFavorite ? getString(R.string.action_remove_from_favorites) : getString(R.string.action_add_to_favorites));
     }
 
     private void updateCurrentSong() {
         getCurrentSong();
         updateMiniPlayerAndHeaderText();
         setUpAlbumArtAndApplyPalette();
-        // TODO invalidateOptionsMenu() for the custom player menu
+        updatePlayerMenu();
     }
 
     private void getCurrentSong() {
         song = MusicPlayerRemote.getCurrentSong();
         if (song.id == -1) {
-            // TODO disable and hide sliding panel & fab
+            playPauseFab.setVisibility(View.GONE);
+            slidingUpPanelLayout.setVisibility(View.GONE);
         } else {
-            // TODO enable and show sliding panel & fab
+            playPauseFab.setVisibility(View.VISIBLE);
+            slidingUpPanelLayout.setVisibility(View.VISIBLE);
         }
     }
 
@@ -863,100 +892,84 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         }
     }
 
-// TODO use this for the custom player menu
-//    @Override
-//    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_player, menu);
-//        boolean isFavorite = MusicUtil.isFavorite(this, song);
-//        menu.findItem(R.id.action_toggle_favorite)
-//                .setIcon(isFavorite ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_outline_white_24dp)
-//                .setTitle(isFavorite ? getString(R.string.action_remove_from_favorites) : getString(R.string.action_add_to_favorites));
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        int id = item.getItemId();
-//        switch (id) {
-//            case R.id.action_sleep_timer:
-//                new SleepTimerDialog().show(getSupportFragmentManager(), "SET_SLEEP_TIMER");
-//                return true;
-//            case R.id.action_toggle_favorite:
-//                MusicUtil.toggleFavorite(this, song);
-//                if (MusicUtil.isFavorite(this, song)) {
-//                    animateSetFavorite();
-//                }
-//                invalidateOptionsMenu();
-//                return true;
-//            case R.id.action_share:
-//                SongShareDialog.create(song).show(getSupportFragmentManager(), "SHARE_SONG");
-//                return true;
-//            case R.id.action_equalizer:
-//                NavigationUtil.openEqualizer(this);
-//                return true;
-//            case R.id.action_shuffle_all:
-//                MusicPlayerRemote.openAndShuffleQueue(SongLoader.getAllSongs(this), true);
-//                return true;
-//            case R.id.action_add_to_playlist:
-//                AddToPlaylistDialog.create(song).show(getSupportFragmentManager(), "ADD_PLAYLIST");
-//                return true;
-//            case android.R.id.home:
-//                super.onBackPressed();
-//                return true;
-//            case R.id.action_playing_queue:
-//                NavigationUtil.openPlayingQueueDialog(this);
-//                return true;
-//            case R.id.action_tag_editor:
-//                Intent intent = new Intent(this, SongTagEditorActivity.class);
-//                intent.putExtra(AbsTagEditorActivity.EXTRA_ID, song.id);
-//                startActivity(intent);
-//                return true;
-//            case R.id.action_details:
-//                SongDetailDialog.create(song).show(getSupportFragmentManager(), "SONG_DETAIL");
-//                return true;
-//            case R.id.action_go_to_album:
-//                NavigationUtil.goToAlbum(this, song.albumId, addPlayPauseFabToSharedViews(null));
-//                return true;
-//            case R.id.action_go_to_artist:
-//                NavigationUtil.goToArtist(this, song.artistId, addPlayPauseFabToSharedViews(null));
-//                return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-//
-//    private void animateSetFavorite() {
-//        favoriteIcon.clearAnimation();
-//
-//        favoriteIcon.setAlpha(0f);
-//        favoriteIcon.setScaleX(0f);
-//        favoriteIcon.setScaleY(0f);
-//        favoriteIcon.setVisibility(View.VISIBLE);
-//        favoriteIcon.setPivotX(favoriteIcon.getWidth() / 2);
-//        favoriteIcon.setPivotY(favoriteIcon.getHeight() / 2);
-//
-//        favoriteIcon.animate()
-//                .setDuration(600)
-//                .setInterpolator(new OvershootInterpolator())
-//                .scaleX(1f)
-//                .scaleY(1f)
-//                .alpha(1f)
-//                .setListener(new SimpleAnimatorListener() {
-//                    @Override
-//                    public void onAnimationCancel(Animator animation) {
-//                        favoriteIcon.setVisibility(View.INVISIBLE);
-//                    }
-//                })
-//                .withEndAction(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        favoriteIcon.animate()
-//                                .setDuration(300)
-//                                .setInterpolator(new DecelerateInterpolator())
-//                                .alpha(0f)
-//                                .start();
-//                    }
-//                })
-//                .start();
-//    }
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sleep_timer:
+                new SleepTimerDialog().show(getSupportFragmentManager(), "SET_SLEEP_TIMER");
+                return true;
+            case R.id.action_toggle_favorite:
+                MusicUtil.toggleFavorite(this, song);
+                if (MusicUtil.isFavorite(this, song)) {
+                    animateSetFavorite();
+                }
+                updatePlayerMenu();
+                return true;
+            case R.id.action_share:
+                SongShareDialog.create(song).show(getSupportFragmentManager(), "SHARE_SONG");
+                return true;
+            case R.id.action_equalizer:
+                NavigationUtil.openEqualizer(this);
+                return true;
+            case R.id.action_shuffle_all:
+                MusicPlayerRemote.openAndShuffleQueue(SongLoader.getAllSongs(this), true);
+                return true;
+            case R.id.action_add_to_playlist:
+                AddToPlaylistDialog.create(song).show(getSupportFragmentManager(), "ADD_PLAYLIST");
+                return true;
+            case R.id.action_playing_queue:
+                NavigationUtil.openPlayingQueueDialog(this);
+                return true;
+            case R.id.action_tag_editor:
+                Intent intent = new Intent(this, SongTagEditorActivity.class);
+                intent.putExtra(AbsTagEditorActivity.EXTRA_ID, song.id);
+                startActivity(intent);
+                return true;
+            case R.id.action_details:
+                SongDetailDialog.create(song).show(getSupportFragmentManager(), "SONG_DETAIL");
+                return true;
+            case R.id.action_go_to_album:
+                NavigationUtil.goToAlbum(this, song.albumId, addPlayPauseFabToSharedViews(null));
+                return true;
+            case R.id.action_go_to_artist:
+                NavigationUtil.goToArtist(this, song.artistId, addPlayPauseFabToSharedViews(null));
+                return true;
+        }
+        return false;
+    }
+
+    private void animateSetFavorite() {
+        favoriteIcon.clearAnimation();
+
+        favoriteIcon.setAlpha(0f);
+        favoriteIcon.setScaleX(0f);
+        favoriteIcon.setScaleY(0f);
+        favoriteIcon.setVisibility(View.VISIBLE);
+        favoriteIcon.setPivotX(favoriteIcon.getWidth() / 2);
+        favoriteIcon.setPivotY(favoriteIcon.getHeight() / 2);
+
+        favoriteIcon.animate()
+                .setDuration(600)
+                .setInterpolator(new OvershootInterpolator())
+                .scaleX(1f)
+                .scaleY(1f)
+                .alpha(1f)
+                .setListener(new SimpleAnimatorListener() {
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                        favoriteIcon.setVisibility(View.INVISIBLE);
+                    }
+                })
+                .withEndAction(new Runnable() {
+                    @Override
+                    public void run() {
+                        favoriteIcon.animate()
+                                .setDuration(300)
+                                .setInterpolator(new DecelerateInterpolator())
+                                .alpha(0f)
+                                .start();
+                    }
+                })
+                .start();
+    }
 }
