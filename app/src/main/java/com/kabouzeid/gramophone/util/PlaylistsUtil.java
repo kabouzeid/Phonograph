@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.util;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
@@ -15,6 +16,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.service.MusicService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,8 @@ public class PlaylistsUtil {
                         MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,
                         values);
                 if (uri != null) {
+                    // necessary because somehow the MediaStoreObserver is not notified when adding a playlist
+                    context.sendBroadcast(new Intent(MusicService.MEDIA_STORE_CHANGED));
                     Toast.makeText(context, context.getResources().getString(
                             R.string.created_playlist_x, name), Toast.LENGTH_SHORT).show();
                     id = Integer.parseInt(uri.getLastPathSegment());
@@ -57,7 +61,6 @@ public class PlaylistsUtil {
     }
 
     public static void deletePlaylists(@NonNull final Context context, @NonNull final ArrayList<Playlist> playlists) {
-        final Uri uri = MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI;
         final StringBuilder selection = new StringBuilder();
         selection.append(MediaStore.Audio.Playlists._ID + " IN (");
         for (int i = 0; i < playlists.size(); i++) {
@@ -67,7 +70,7 @@ public class PlaylistsUtil {
             }
         }
         selection.append(")");
-        context.getContentResolver().delete(uri, selection.toString(), null);
+        context.getContentResolver().delete(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI, selection.toString(), null);
     }
 
     public static void addToPlaylist(@NonNull final Context context, final Song song, final int playlistId, final boolean showToastOnFinish) {

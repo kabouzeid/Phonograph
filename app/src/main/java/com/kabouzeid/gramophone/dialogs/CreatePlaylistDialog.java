@@ -60,7 +60,9 @@ public class CreatePlaylistDialog extends LeakDetectDialogFragment {
                             if (playlistId != -1 && getActivity() != null) {
                                 //noinspection unchecked
                                 ArrayList<Song> songs = (ArrayList<Song>) getArguments().getSerializable("songs");
-                                PlaylistsUtil.addToPlaylist(getActivity(), songs, playlistId, true);
+                                if (songs != null) {
+                                    PlaylistsUtil.addToPlaylist(getActivity(), songs, playlistId, true);
+                                }
                             }
                         }
                     }
