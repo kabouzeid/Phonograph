@@ -125,7 +125,7 @@
     <string name="pref_title_larger_title_box_now_playing">Larger Title Box</string>
     <string name="pref_title_alternative_progress_slider_now_playing">Alternative Progress Slider</string>
     <string name="pref_title_playback_controller_card_now_playing">Show Card below Playback Controllers</string>
-    <string name="pref_title_hide_bottom_bar">Hide bottom bar</string>
+    <string name="pref_title_hide_bottom_bar">Hide Bottom Bar</string>
     <string name="no_equalizer">No equalizer found.</string>
     <string name="no_audio_ID">"No audio ID, play something and try again."</string>
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
