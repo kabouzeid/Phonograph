@@ -121,7 +121,7 @@ public final class PreferenceUtil {
     }
 
     public final boolean shouldUseColoredNavigationBar() {
-        return mPreferences.getBoolean(COLORED_NAVIGATION_BAR, true);
+        return mPreferences.getBoolean(COLORED_NAVIGATION_BAR, false);
     }
 
     @SuppressLint("CommitPrefEdits")
