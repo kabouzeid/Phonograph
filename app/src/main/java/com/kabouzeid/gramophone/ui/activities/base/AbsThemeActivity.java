@@ -127,7 +127,7 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
             Util.setStatusBarTranslucent(getWindow());
     }
 
-    protected final void setNavigationBarColor(@ColorInt int color) {
+    protected void setNavigationBarColor(@ColorInt int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             getWindow().setNavigationBarColor(ColorUtil.shiftColorDown(color));
     }
