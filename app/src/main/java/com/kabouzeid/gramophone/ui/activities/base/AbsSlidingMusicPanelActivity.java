@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -138,6 +139,9 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     private int lastFooterColor = -1;
     private int lastTitleTextColor = -2;
     private int lastCaptionTextColor = -2;
+
+    private int navigationBarColor;
+    private int taskColor;
 
     private Handler progressViewsUpdateHandler;
 
@@ -373,6 +377,10 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     @Override
     public void onPanelCollapsed(View view) {
+        super.notifyTaskColorChange(taskColor);
+        if (shouldColorNavigationBar()) {
+            super.setNavigationBarColor(navigationBarColor);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mediaControllerContainer.setVisibility(View.INVISIBLE);
         }
@@ -380,7 +388,10 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     @Override
     public void onPanelExpanded(View view) {
-        onPanelSlide(view, 1);
+        super.notifyTaskColorChange(lastFooterColor);
+        if (shouldColorNavigationBar()) {
+            super.setNavigationBarColor(lastFooterColor);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (mediaControllerContainer.getVisibility() == View.INVISIBLE) {
                 int cx = (dummyFab.getLeft() + dummyFab.getRight()) / 2;
@@ -770,6 +781,13 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     private void setColors(int color) {
         animateColorChange(color);
         animateTextColorChange(ColorUtil.getPrimaryTextColorForBackground(this, color), ColorUtil.getSecondaryTextColorForBackground(this, color));
+
+        if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
+            super.notifyTaskColorChange(color);
+            if (shouldColorNavigationBar()) {
+                super.setNavigationBarColor(color);
+            }
+        }
     }
 
     private void animateColorChange(final int newColor) {
@@ -812,9 +830,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                 playerStatusbar.setBackgroundColor(Color.TRANSPARENT);
             }
         }
-
-        if (shouldColorNavigationBar())
-            setNavigationBarColor(newColor);
         lastFooterColor = newColor;
     }
 
@@ -971,5 +986,21 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                     }
                 })
                 .start();
+    }
+
+    @Override
+    protected void setNavigationBarColor(@ColorInt int color) {
+        this.navigationBarColor = color;
+        if (slidingUpPanelLayout == null || slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+            super.setNavigationBarColor(color);
+        }
+    }
+
+    @Override
+    protected void notifyTaskColorChange(@ColorInt int color) {
+        this.taskColor = color;
+        if (slidingUpPanelLayout == null || slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+            super.notifyTaskColorChange(color);
+        }
     }
 }
