@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom"
+        sothree:umanoDragView="@+id/player_container"
         sothree:umanoPanelHeight="@dimen/mini_player_height"
         sothree:umanoParalaxOffset="0dp"
         sothree:umanoShadowHeight="@dimen/card_elevation">
@@ -21,7 +22,9 @@
             android:id="@+id/player_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?android:colorBackground">
+            android:background="?android:colorBackground"
+            android:clickable="true"
+            android:focusable="false">
 
             <include layout="@layout/player" />
 
