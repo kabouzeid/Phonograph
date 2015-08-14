@@ -16,7 +16,6 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
-import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -219,13 +218,10 @@ public class PlayingNotificationHelper {
             notificationLayout.setImageViewBitmap(R.id.icon, albumArt);
             notificationLayoutBig.setImageViewBitmap(R.id.icon, albumArt);
             if (isColored) {
-                Palette.Swatch vibrantSwatch = Palette.from(albumArt).resizeBitmapSize(100).generate().getVibrantSwatch();
-                if (vibrantSwatch != null) {
-                    int bgColor = vibrantSwatch.getRgb();
-                    setBackgroundColor(bgColor);
-                    setNotificationTextDark(ColorUtil.useDarkTextColorOnBackground(bgColor));
-                    backgroundColorSet = true;
-                }
+                int bgColor = ColorUtil.generateColor(service, albumArt);
+                setBackgroundColor(bgColor);
+                setNotificationTextDark(ColorUtil.useDarkTextColorOnBackground(bgColor));
+                backgroundColorSet = true;
             }
         } else {
             notificationLayout.setImageViewResource(R.id.icon, R.drawable.default_album_art);
