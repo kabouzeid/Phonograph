@@ -3,8 +3,10 @@ package com.kabouzeid.gramophone.ui.activities.tageditor;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.PorterDuff;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -22,13 +24,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.ThemeSingleton;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.misc.LagTracker;
 import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
+import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
@@ -192,11 +194,14 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                 save();
             }
         });
-        fab.setBackgroundTintList(ThemeSingleton.get().positiveColor);
+
+        int fabColor = getThemeColorAccent();
+        int fabDrawableColor = ColorUtil.getDrawableColorForBackground(this, fabColor);
+        fab.setBackgroundTintList(ColorStateList.valueOf(fabColor));
+        fab.getDrawable().setColorFilter(fabDrawableColor, PorterDuff.Mode.SRC_IN);
     }
 
     protected abstract void save();
-
 
     private void resetColors() {
         paletteColorPrimary = getThemeColorPrimary();

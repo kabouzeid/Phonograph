@@ -281,7 +281,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
         int fabColor = getThemeColorAccent();
         int fabDrawableColor = ColorUtil.getDrawableColorForBackground(this, fabColor);
-        playPauseFab.setBackgroundTintList(ColorStateList.valueOf(getThemeColorAccent()));
+        playPauseFab.setBackgroundTintList(ColorStateList.valueOf(fabColor));
         playPauseFab.getDrawable().setColorFilter(fabDrawableColor, PorterDuff.Mode.SRC_IN);
 
         final GestureDetector gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
