@@ -109,12 +109,6 @@
     <string name="pref_summary_colored_navigation_bar">设置在哪些界面应用变色导航栏</string>
     <string name="pref_title_navigation_bar">变色导航栏</string>
     <string name="pref_title_set_default_start_page">设置默认起始页</string>
-    <string name="pref_title_colored_navigation_bar_artists">在艺术家界面使用变色导航栏</string>
-    <string name="pref_title_colored_navigation_bar_albums">在专辑详情界面使用变色导航栏</string>
-    <string name="pref_title_colored_navigation_bar_current_playing">正在播放视图</string>
-    <string name="pref_title_colored_navigation_bar_playlists">播放列表视图</string>
-    <string name="pref_title_colored_navigation_bar_tag_editor">音乐标签编辑器</string>
-    <string name="pref_title_colored_navigation_bar_other_screens">其他任何地方</string>
     <string name="pref_title_album_art_on_lockscreen">在锁屏显示专辑封面</string>
     <string name="pref_title_colored_notification">使用变色的通知栏</string>
     <string name="pref_title_ignore_media_store_artwork">忽略媒体储存中的专辑封面</string>
@@ -182,4 +176,5 @@
     <string name="grid">网格</string>
     <string name="list">列表</string>
     <string name="colored_footers">变色页脚</string>
+    <string name="special_thanks_to">特别感谢</string>
 </resources>

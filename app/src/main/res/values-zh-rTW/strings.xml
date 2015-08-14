@@ -105,12 +105,6 @@
     <string name="pref_summary_colored_navigation_bar">設定在哪些頁面啟用可變色的導航列</string>
     <string name="pref_title_navigation_bar">變色導航列</string>
     <string name="pref_title_set_default_start_page">起始頁</string>
-    <string name="pref_title_colored_navigation_bar_artists">歌手頁面</string>
-    <string name="pref_title_colored_navigation_bar_albums">專輯頁面</string>
-    <string name="pref_title_colored_navigation_bar_current_playing">播放頁面</string>
-    <string name="pref_title_colored_navigation_bar_playlists">音樂清單頁面</string>
-    <string name="pref_title_colored_navigation_bar_tag_editor">編輯音樂標籤</string>
-    <string name="pref_title_colored_navigation_bar_other_screens">任何其他地方</string>
     <string name="pref_title_album_art_on_lockscreen">鎖屏中之專輯封面</string>
     <string name="pref_title_colored_notification">使用變色的通知</string>
     <string name="pref_title_gapless_playback">無縫重播</string>

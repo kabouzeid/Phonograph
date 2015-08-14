@@ -82,11 +82,6 @@
     <string name="pref_header_general">Generelt</string>
     <string name="pref_title_navigation_bar">Farga navigasjonslinje</string>
     <string name="pref_title_set_default_start_page">Startside</string>
-    <string name="pref_title_colored_navigation_bar_artists">Artistvising</string>
-    <string name="pref_title_colored_navigation_bar_albums">Albumvising</string>
-    <string name="pref_title_colored_navigation_bar_current_playing">Spelevising</string>
-    <string name="pref_title_colored_navigation_bar_playlists">Spelelistevising</string>
-    <string name="pref_title_colored_navigation_bar_other_screens">Alle andre stader</string>
     <string name="no_equalizer">Ingen equalizer funne</string>
     <string name="no_audio_ID">"Ingen audio-ID, spel noko og prøv igjen"</string>
     <string name="navigation_drawer_open">Opne navigasjonsskuff</string>

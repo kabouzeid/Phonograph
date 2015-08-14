@@ -75,12 +75,6 @@ Vill du radera <b>%1$d</b> låtar?
     <string name="pref_summary_colored_navigation_bar">I vilken vy navigeringslisten skall vara färgad</string>
     <string name="pref_title_navigation_bar">Färgad navigeringslist</string>
     <string name="pref_title_set_default_start_page">Startsida</string>
-    <string name="pref_title_colored_navigation_bar_artists">Artistvy</string>
-    <string name="pref_title_colored_navigation_bar_albums">Albumvy</string>
-    <string name="pref_title_colored_navigation_bar_current_playing">Spelarvy</string>
-    <string name="pref_title_colored_navigation_bar_playlists">Spellistevy</string>
-    <string name="pref_title_colored_navigation_bar_tag_editor">Etikettredigerare</string>
-    <string name="pref_title_colored_navigation_bar_other_screens">Överallt</string>
     <string name="no_equalizer">Hittar ingen equalizer</string>
     <string name="no_audio_ID">"Inget ljud-ID, spela något annat och försök igen."</string>
     <string name="delete_action">Radera</string>

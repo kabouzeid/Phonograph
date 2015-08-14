@@ -27,6 +27,7 @@
     <string name="artists">Izvođači</string>
     <string name="songs">Pjesme</string>
     <string name="playlists">Popisi pjesama</string>
+    <string name="playing_queue_empty">Red čekanja je prazan</string>
     <string name="nothing_playing">Ništa se ne reproducira</string>
     <string name="unplayable_file">Došlo je do greške prilikom pokušaja reproduciranja ove pjesme</string>
     <string name="biography_unavailable">Nismo mogli pronaći biografiju ovog izvođača</string>
@@ -67,6 +68,7 @@
     <string name="action_remove_from_playlist">Ukloni s popisa pjesama</string>
     <string name="action_grid_columns">Stupci rešetke</string>
     <string name="action_grid_columns_land">Stupci rešetke (položeno)</string>
+    <string name="action_view_as">Pregledaj kao</string>
     <string name="inserted_x_songs_into_playlist">Stavljeno %1$d pjesama na popis</string>
     <string name="created_playlist_x">Stvoren popis pjesama %1$s</string>
     <string name="deleted_playlist_x">Obrisan popis pjesama %1$s</string>
@@ -102,18 +104,14 @@
     <string name="pref_title_general_theme">Zadana tema</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">Općenito</string>
+    <string name="pref_header_images">Slike</string>
     <string name="pref_header_lockscreen">Zaključani zaslon</string>
-    <string name="pref_summary_colored_navigation_bar">U kojim prikazima bi navigacijska traka trebala biti obojena.</string>
+    <string name="pref_summary_colored_navigation_bar">Boji navigacijsku traku primarnom bojom.</string>
     <string name="pref_title_navigation_bar">Obojena navigacijska traka</string>
     <string name="pref_title_set_default_start_page">Početni zaslon</string>
-    <string name="pref_title_colored_navigation_bar_artists">Prikaz izvođača</string>
-    <string name="pref_title_colored_navigation_bar_albums">Prikaz albuma</string>
-    <string name="pref_title_colored_navigation_bar_current_playing">Prikaz reprodukcije</string>
-    <string name="pref_title_colored_navigation_bar_playlists">Prikaz popisa pjesama</string>
-    <string name="pref_title_colored_navigation_bar_tag_editor">Uređivač tagova</string>
-    <string name="pref_title_colored_navigation_bar_other_screens">Bilo gdje drugdje</string>
     <string name="pref_title_album_art_on_lockscreen">Omot Albuma na Zaključanom Zaslonu</string>
     <string name="pref_title_colored_notification">Obojene obavijesti</string>
+    <string name="pref_title_ignore_media_store_artwork">Ignoriraj omot s Media Store</string>
     <string name="pref_title_gapless_playback">Reprodukcija bez prekida</string>
     <string name="pref_title_force_square_album_art">Četvrtasti omot albuma</string>
     <string name="pref_title_opaque_toolbar_now_playing">Neprozirna alatna traka</string>
@@ -121,6 +119,7 @@
     <string name="pref_title_larger_title_box_now_playing">Veći okvir naslova</string>
     <string name="pref_title_alternative_progress_slider_now_playing">Alternativni klizač napretka</string>
     <string name="pref_title_playback_controller_card_now_playing">Kartica ispod kontrola reprodukcije</string>
+    <string name="pref_title_hide_bottom_bar">Sakrij Traku u Podnožju</string>
     <string name="no_equalizer">Ekvalizator nije pronađen</string>
     <string name="no_audio_ID">"Nema audio ID-a, reproducirajte nešto i pokušajte opet."</string>
     <string name="navigation_drawer_open">Otvori navigacijsku ladicu</string>
@@ -156,6 +155,7 @@
     <string name="pref_summary_larger_title_box_now_playing">Okvir ispod omota albuma gdje su prikazani naslov pjesme i izvođač je viši.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Koristi se traka napretka koja ne prekriva omot albuma umjesto zadanog klizača.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Prikazuje karticu ispod gumbića koji služe za kontrolu reprodukcije (pokreni/pauziraj itd.).</string>
+    <string name="pref_summary_ignore_media_store_artwork">Zaobiči Media Store, što može povećati kvalitetu omota albuma, ali usporiti učitavanje slike. Omogućite ovo jedino ako imate problema s omotima niske rezolucije.</string>
     <string name="could_not_download_album_cover">"Nemoguće skinuti odgovarajući omot albuma."</string>
     <string name="search_hint">Pretraži fonoteku</string>
     <string name="rescanning_media">Ponovno skeniram medijske datoteke</string>
@@ -172,5 +172,10 @@
     <string name="cancel_current_timer">Otkaži trenutni tajmer</string>
     <string name="sleep_timer_canceled">Tajmer za spavanje je otkazan</string>
     <string name="sleep_timer_set">Tajmer za spavanje namješten je za %d min od sada</string>
+    <string name="action_new_playlist">Novi popis pjesama</string>
     <string name="new_playlist_title">Novi popis pjesama</string>
+    <string name="grid">Rešetka</string>
+    <string name="list">Popis</string>
+    <string name="colored_footers">Obojena podnožja</string>
+    <string name="special_thanks_to">Posebna zahvala</string>
 </resources>

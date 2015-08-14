@@ -68,6 +68,7 @@
     <string name="action_remove_from_playlist">Usuń z listy odtwarzania</string>
     <string name="action_grid_columns">Siatka kolumn</string>
     <string name="action_grid_columns_land">Siatka kolumn (poziomo)</string>
+    <string name="action_view_as">Widok</string>
     <string name="inserted_x_songs_into_playlist">Dodano %1$d utworów do listy odtwarzania</string>
     <string name="created_playlist_x">Utworzono listę odtwarzania %1$s</string>
     <string name="deleted_playlist_x">Usunięto listę odtwarzania %1$s</string>
@@ -105,15 +106,9 @@
     <string name="pref_header_general">Ogólne</string>
     <string name="pref_header_images">Obrazy</string>
     <string name="pref_header_lockscreen">Ekran blokady</string>
-    <string name="pref_summary_colored_navigation_bar">Ustaw w którym miejscu pasek nawigacyjny ma być kolorowy</string>
+    <string name="pref_summary_colored_navigation_bar">Kolory paska nawigacyjnego będą odpowiadały kolorowi podstawowemu</string>
     <string name="pref_title_navigation_bar">Kolorowy pasek nawigacyjny</string>
     <string name="pref_title_set_default_start_page">Strona startowa</string>
-    <string name="pref_title_colored_navigation_bar_artists">Widok wykonawcy</string>
-    <string name="pref_title_colored_navigation_bar_albums">Widok albumu</string>
-    <string name="pref_title_colored_navigation_bar_current_playing">Widok aktualnie granych</string>
-    <string name="pref_title_colored_navigation_bar_playlists">Widok listy odtwarzania</string>
-    <string name="pref_title_colored_navigation_bar_tag_editor">Edytor tagów</string>
-    <string name="pref_title_colored_navigation_bar_other_screens">W każdym innym miejscu</string>
     <string name="pref_title_album_art_on_lockscreen">Okładka albumu na ekranie blokady</string>
     <string name="pref_title_colored_notification">Kolorowy odtwarzacz w pasku powiadomień</string>
     <string name="pref_title_ignore_media_store_artwork">Ignoruj obrazy z Media Store</string>
@@ -150,7 +145,7 @@
     <string name="playlist_name_empty">Nazwa listy odtwarzania</string>
     <string name="song">Utwór</string>
     <string name="pref_only_lollipop">"Dostępne tylko w androidzie Lollipop"</string>
-    <string name="pref_summary_album_art_on_lockscreen">Okładka albumu jest wyświetlana na ekranie blokady. Może być wymagane ponowne uruchomienie odtwarzacza, by zmiany odniosły skutek</string>
+    <string name="pref_summary_album_art_on_lockscreen">Okładka albumu jest wyświetlana na ekranie blokady</string>
     <string name="pref_summary_colored_notification">"Odtwarzacz w pasku powiadomień ma kolor okładki albumu"</string>
     <string name="pref_summary_gapless_playback">"Eliminuje pauzę pomiędzy dwoma utworami. Na niektórych urządzeniach mogą wystąpić problemy z odtwarzaniem"</string>
     <string name="pref_summary_force_square_album_art">Zaznacz, a wymuszone zostanie kadrowanie okładek na ekranie \'\'Obecnie Grane\'\'</string>
@@ -176,6 +171,10 @@
     <string name="cancel_current_timer">Anuluj wyłącznik</string>
     <string name="sleep_timer_canceled">Wyłącznik czasowy został anulowany</string>
     <string name="sleep_timer_set">Wyłącznik czasowy ustawiony na %d minut od teraz</string>
-    <string name="action_new_playlist">Nowa lista odtwarzania</string>
+    <string name="action_new_playlist">Nowa lista odtwarzania...</string>
     <string name="new_playlist_title">Nowa lista odtwarzania</string>
+    <string name="grid">Siatka</string>
+    <string name="list">Lista</string>
+    <string name="colored_footers">Kolorowe stopki</string>
+    <string name="special_thanks_to">Specjalne podziękowania dla</string>
 </resources>

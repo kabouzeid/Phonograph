@@ -27,6 +27,7 @@
     <string name="artists">Artiști</string>
     <string name="songs">Melodii</string>
     <string name="playlists">Liste de redare</string>
+    <string name="playing_queue_empty">Coada de redare este goală.</string>
     <string name="nothing_playing">Nimic nu este redat</string>
     <string name="unplayable_file">Ne pare rău - a apărut o problemă în încercarea de a reda această melodie.</string>
     <string name="biography_unavailable">Ne pare rău, nu am putut găsi o biografie potrivită pentru acest artist.</string>
@@ -101,12 +102,6 @@
     <string name="pref_summary_colored_navigation_bar">În ce ecrane bara de navigare să fie colorată.</string>
     <string name="pref_title_navigation_bar">Bară de navigare colorată</string>
     <string name="pref_title_set_default_start_page">Pagina de deschidere</string>
-    <string name="pref_title_colored_navigation_bar_artists">Ecran artiști</string>
-    <string name="pref_title_colored_navigation_bar_albums">Ecran albume</string>
-    <string name="pref_title_colored_navigation_bar_current_playing">Vederea de redare curentă</string>
-    <string name="pref_title_colored_navigation_bar_playlists">Ecran liste redare</string>
-    <string name="pref_title_colored_navigation_bar_tag_editor">Editor etichete</string>
-    <string name="pref_title_colored_navigation_bar_other_screens">Oriunde altundeva</string>
     <string name="pref_title_colored_notification">Notificare colorată</string>
     <string name="pref_title_gapless_playback">Redare fără întreruperi</string>
     <string name="pref_title_force_square_album_art">Forțează pictogramă album pătrată</string>
@@ -135,6 +130,8 @@
     <string name="playlist_name_empty">Nume listă</string>
     <string name="song">Melodie</string>
     <string name="pref_only_lollipop">"Valabil numai în Android Lollipop."</string>
+    <string name="pref_summary_gapless_playback">"Elimină pauza dintre doua piese. Poate cauza probleme de playback pe anumite terminale."</string>
+    <string name="could_not_download_album_cover">"Nu s-a putut descărca un cover de album potrivit."</string>
     <string name="search_hint">Căutați în bibliotecă.</string>
     <string name="rescanning_media">Se rescanează media.</string>
     <string name="favorites">Favorite</string>
@@ -144,5 +141,11 @@
     <string name="remove_cover">Ștergeți pictogramă</string>
     <string name="download_from_last_fm">Descărcați de la Last.fm</string>
     <string name="pick_from_local_storage">Alegeți din Stocarea locală</string>
+    <string name="web_search">Căutare pe Web</string>
+    <string name="action_set">Setează</string>
+    <string name="cancel_current_timer">Anulează timer curent.</string>
+    <string name="action_new_playlist">Lista de redare nouă...</string>
     <string name="new_playlist_title">Listă de redare nouă</string>
+    <string name="grid">Cadru</string>
+    <string name="list">Listă</string>
 </resources>

@@ -109,12 +109,6 @@
     <string name="pref_summary_colored_navigation_bar">Definir onde a barra de navegação deve ser colorida.</string>
     <string name="pref_title_navigation_bar">Barra de navegação colorida</string>
     <string name="pref_title_set_default_start_page">Página inicial</string>
-    <string name="pref_title_colored_navigation_bar_artists">Visualização por artistas</string>
-    <string name="pref_title_colored_navigation_bar_albums">Visualização por álbuns</string>
-    <string name="pref_title_colored_navigation_bar_current_playing">Vista em execução</string>
-    <string name="pref_title_colored_navigation_bar_playlists">Vista da playlist</string>
-    <string name="pref_title_colored_navigation_bar_tag_editor">Editor de tags</string>
-    <string name="pref_title_colored_navigation_bar_other_screens">Todos os outros lugares</string>
     <string name="pref_title_album_art_on_lockscreen">Imagem do álbum no bloqueio de tela</string>
     <string name="pref_title_colored_notification">Notificação colorida</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorar artwork Media Store</string>
@@ -182,4 +176,5 @@
     <string name="grid">Grade</string>
     <string name="list">Lista</string>
     <string name="colored_footers">Rodapés coloridos</string>
+    <string name="special_thanks_to">Agradecimentos especiais para</string>
 </resources>

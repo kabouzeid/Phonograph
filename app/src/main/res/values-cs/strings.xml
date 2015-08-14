@@ -109,12 +109,6 @@
     <string name="pref_summary_colored_navigation_bar">Zvolte, kde se má zobrazovat barevné záhlaví.</string>
     <string name="pref_title_navigation_bar">Barevné záhlaví</string>
     <string name="pref_title_set_default_start_page">Zvolit výchozí obrazovku</string>
-    <string name="pref_title_colored_navigation_bar_artists">Barevné záhlaví interpretů</string>
-    <string name="pref_title_colored_navigation_bar_albums">Barevné záhlaví alb</string>
-    <string name="pref_title_colored_navigation_bar_current_playing">Zobrazení \"Právě hraje\"</string>
-    <string name="pref_title_colored_navigation_bar_playlists">Zobrazení playlistu</string>
-    <string name="pref_title_colored_navigation_bar_tag_editor">Editor tagů</string>
-    <string name="pref_title_colored_navigation_bar_other_screens">Všude jinde</string>
     <string name="pref_title_album_art_on_lockscreen">Obal alba na odemykací obrazovce</string>
     <string name="pref_title_colored_notification">Barevné notifikace</string>
     <string name="pref_title_gapless_playback">Přehrávání bez mezer</string>
