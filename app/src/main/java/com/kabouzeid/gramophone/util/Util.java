@@ -78,6 +78,9 @@ public class Util {
     public static Drawable getTintedDrawable(@NonNull Context context, @DrawableRes int drawableResId, int color) {
         Drawable drawable = ContextCompat.getDrawable(context, drawableResId);
         if (drawable != null) {
+            // If we don't mutate the drawable, then all drawables with this id will have a color
+            // filter applied to it.
+            drawable.mutate();
             drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
         }
         return drawable;
