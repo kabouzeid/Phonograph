@@ -3,7 +3,6 @@ package com.kabouzeid.gramophone.ui.activities;
 import android.animation.Animator;
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,7 +43,6 @@ import com.kabouzeid.gramophone.ui.activities.tageditor.AlbumTagEditorActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -420,13 +418,5 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     public void onMediaStoreChanged() {
         super.onMediaStoreChanged();
         reloadDataSet();
-    }
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        super.onSharedPreferenceChanged(sharedPreferences, key);
-        if (key.equals(PreferenceUtil.HIDE_BOTTOM_BAR)) {
-            setUpRecyclerViewPadding();
-        }
     }
 }

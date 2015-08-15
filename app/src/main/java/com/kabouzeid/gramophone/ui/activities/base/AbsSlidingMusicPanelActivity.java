@@ -165,8 +165,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         setUpPlayPauseButton();
         setUpMiniPlayer();
         setUpSlidingPanel();
-        // ensures that the fab and the mini player are hidden if the queue is empty
-        getCurrentSong();
 
         initAppearanceVarsFromSharedPrefs();
         PreferenceUtil.getInstance(this).registerOnSharedPreferenceChangedListener(this);
@@ -188,6 +186,11 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                     mediaControllerContainer.setVisibility(View.VISIBLE);
                     onPanelSlide(slidingUpPanelLayout, 1);
                     onPanelExpanded(slidingUpPanelLayout);
+                }
+                // ensures that the fab and the mini player are hidden if the queue is empty
+                if (MusicPlayerRemote.getCurrentSong().id == -1) {
+                    playPauseFab.setVisibility(View.GONE);
+                    hideBottomBar(true);
                 }
             }
         });
@@ -271,7 +274,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                 setUpPlaybackControllerCard();
                 break;
             case PreferenceUtil.HIDE_BOTTOM_BAR:
-                hideBottomBar(PreferenceUtil.getInstance(this).hideBottomBar());
+                recreate();
                 break;
         }
     }
