@@ -1,6 +1,5 @@
 package com.kabouzeid.gramophone.ui.activities;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
@@ -28,7 +27,6 @@ import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
-import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -208,14 +206,6 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     public void onMediaStoreChanged() {
         super.onMediaStoreChanged();
         reloadDataSet();
-    }
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        super.onSharedPreferenceChanged(sharedPreferences, key);
-        if (key.equals(PreferenceUtil.HIDE_BOTTOM_BAR)) {
-            setUpRecyclerViewPadding();
-        }
     }
 
     private void checkIsEmpty() {
