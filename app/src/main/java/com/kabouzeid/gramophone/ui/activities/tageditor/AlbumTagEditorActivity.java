@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.ui.activities.tageditor;
 
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,14 +15,18 @@ import android.widget.Toast;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
 import com.kabouzeid.gramophone.lastfm.rest.model.albuminfo.AlbumInfo;
-import com.kabouzeid.gramophone.lastfm.rest.model.albuminfo.Image;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.util.ImageUtil;
+import com.kabouzeid.gramophone.util.LastFMUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
+import com.kabouzeid.gramophone.util.Util;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.images.Artwork;
@@ -102,10 +107,18 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
             @Override
             public void success(@NonNull AlbumInfo albumInfo, Response response) {
                 if (albumInfo.getAlbum() != null) {
-                    List<Image> images = albumInfo.getAlbum().getImage();
-                    int lastIndexOfImages = images.size() - 1;
-                    ImageLoader.getInstance().loadImage(images.get(lastIndexOfImages).getText(),
-                            new ImageSize(500, 500),
+                    Point size = Util.getScreenSize(AlbumTagEditorActivity.this);
+                    final int screenWidth = Math.min(size.x, size.y);
+                    ImageLoader.getInstance().loadImage(LastFMUtil.getLargestAlbumImageUrl(albumInfo.getAlbum().getImage()),
+                            new DisplayImageOptions.Builder()
+                                    .preProcessor(new BitmapProcessor() {
+                                        @Override
+                                        public Bitmap process(Bitmap bitmap) {
+                                            //noinspection SuspiciousNameCombination
+                                            return ImageUtil.getResizedBitmap(bitmap, screenWidth, screenWidth, true);
+                                        }
+                                    })
+                                    .build(),
                             new SimpleImageLoadingListener() {
                                 @Override
                                 public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
@@ -114,6 +127,10 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
                                 @Override
                                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                                    if (loadedImage == null) {
+                                        onLoadingFailed(imageUri, view, null);
+                                        return;
+                                    }
                                     albumArtBitmap = loadedImage;
                                     setImageBitmap(albumArtBitmap);
                                     deleteAlbumArt = false;

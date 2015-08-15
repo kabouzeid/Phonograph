@@ -7,10 +7,10 @@ import android.support.annotation.Nullable;
 
 import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
 import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.ArtistInfo;
-import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.Image;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ImageUtil;
+import com.kabouzeid.gramophone.util.LastFMUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
@@ -22,7 +22,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -64,8 +63,7 @@ public class PhonographImageDownloader extends BaseImageDownloader {
         }
 
         ArtistInfo artistInfo = lastFMRestClient.getApiService().getArtistInfo(artistName, data[0].equals("") ? null : data[0]);
-        List<Image> images = artistInfo.getArtist().getImage();
-        return super.getStream(images.get(images.size() - 1).getText(), extra);
+        return super.getStream(LastFMUtil.getLargestArtistImageUrl(artistInfo.getArtist().getImage()), extra);
     }
 
     @Nullable
