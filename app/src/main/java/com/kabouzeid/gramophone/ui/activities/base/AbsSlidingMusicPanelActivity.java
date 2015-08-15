@@ -165,6 +165,8 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         setUpPlayPauseButton();
         setUpMiniPlayer();
         setUpSlidingPanel();
+        // ensures that the fab and the mini player are hidden if the queue is empty
+        getCurrentSong();
 
         initAppearanceVarsFromSharedPrefs();
         PreferenceUtil.getInstance(this).registerOnSharedPreferenceChangedListener(this);
@@ -710,10 +712,10 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         song = MusicPlayerRemote.getCurrentSong();
         if (song.id == -1) {
             playPauseFab.setVisibility(View.GONE);
-            slidingUpPanelLayout.setVisibility(View.GONE);
+            hideBottomBar(true);
         } else {
             playPauseFab.setVisibility(View.VISIBLE);
-            slidingUpPanelLayout.setVisibility(View.VISIBLE);
+            hideBottomBar(PreferenceUtil.getInstance(this).hideBottomBar());
         }
     }
 

@@ -53,6 +53,8 @@ public final class PreferenceUtil {
 
     public static final String HIDE_BOTTOM_BAR = "hide_bottom_bar";
 
+    public static final String LAST_CHANGELOG_VERSION = "last_changelog_version";
+
     private static PreferenceUtil sInstance;
 
     private final SharedPreferences mPreferences;
@@ -310,5 +312,13 @@ public final class PreferenceUtil {
 
     public final boolean artistColoredFooters() {
         return mPreferences.getBoolean(ARTIST_COLORED_FOOTERS, true);
+    }
+
+    public void setLastChangeLogVersion(int version) {
+        mPreferences.edit().putInt(LAST_CHANGELOG_VERSION, version).apply();
+    }
+
+    public final int getLastChangelogVersion() {
+        return mPreferences.getInt(LAST_CHANGELOG_VERSION, -1);
     }
 }

@@ -39,6 +39,14 @@ public class AboutDialog extends LeakDetectDialogFragment {
                                 getActivity().getResources().getText(R.string.credits_4))
                 )
                 .positiveText(android.R.string.ok)
+                .neutralText(R.string.changelog)
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onNeutral(MaterialDialog dialog) {
+                        super.onNeutral(dialog);
+                        ChangelogDialog.create().show(getActivity().getSupportFragmentManager(), "CHANGE_LOG_DIALOG");
+                    }
+                })
                 .build();
     }
 }

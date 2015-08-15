@@ -3,6 +3,8 @@ package com.kabouzeid.gramophone.ui.activities;
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
@@ -36,6 +38,7 @@ import com.afollestad.materialdialogs.ThemeSingleton;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PagerAdapter;
 import com.kabouzeid.gramophone.dialogs.AboutDialog;
+import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
 import com.kabouzeid.gramophone.dialogs.CreatePlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -99,7 +102,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         ButterKnife.bind(this);
 
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
@@ -116,6 +118,8 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         if (shouldColorNavigationBar())
             setNavigationBarThemeColor();
         setStatusBarThemeColor();
+
+        checkChangelog();
     }
 
     @Override
@@ -601,6 +605,18 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     public void removeHideBottomBarListener(HideBottomBarListener listener) {
         if (listener != null) {
             hideBottomBarListeners.remove(listener);
+        }
+    }
+
+    private void checkChangelog() {
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            int currentVersion = pInfo.versionCode;
+            if (currentVersion != PreferenceUtil.getInstance(this).getLastChangelogVersion()) {
+                ChangelogDialog.create().show(getSupportFragmentManager(), "CHANGE_LOG_DIALOG");
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }
