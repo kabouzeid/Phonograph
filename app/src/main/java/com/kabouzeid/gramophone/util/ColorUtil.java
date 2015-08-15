@@ -73,6 +73,15 @@ public class ColorUtil {
         return (alpha << 24) + (0x00ffffff & Color.HSVToColor(hsv));
     }
 
+    @SuppressWarnings("ResourceType")
+    public static int shiftColorUp(@ColorInt int color) {
+        int alpha = Color.alpha(color);
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        hsv[2] *= 1.1f; // value component
+        return (alpha << 24) + (0x00ffffff & Color.HSVToColor(hsv));
+    }
+
     public static float getLuminance(@ColorInt int color) {
         return (Color.red(color) * 0.299f + Color.green(color) * 0.587f + Color.blue(color) * 0.114f);
     }
