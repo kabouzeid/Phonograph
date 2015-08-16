@@ -13,7 +13,8 @@
             android:id="@+id/album_art_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            tools:ignore="ContentDescription" />
 
         <com.kabouzeid.gramophone.views.SquareIfPlaceImageView
             android:id="@+id/image"
@@ -52,7 +53,6 @@
             android:layout_height="@dimen/title_view_height"
             android:height="@dimen/title_view_height"
             android:background="?default_bar_color"
-            android:clickable="true"
             android:elevation="@dimen/toolbar_elevation"
             android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
