@@ -210,6 +210,9 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
             setImageTransitionName(activity.getString(R.string.transition_album_art));
+            if (menu != null) {
+                menu.setVisibility(View.GONE);
+            }
         }
 
         @Override
