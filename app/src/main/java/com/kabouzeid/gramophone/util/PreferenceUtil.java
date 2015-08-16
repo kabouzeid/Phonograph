@@ -143,7 +143,7 @@ public final class PreferenceUtil {
         editor.apply();
     }
 
-    public static final int DEFAULT_PAGE = 1;
+    public static final int DEFAULT_PAGE = 0;
 
     public final int getLastStartPage() {
         return mPreferences.getInt(LAST_START_PAGE, DEFAULT_PAGE);
