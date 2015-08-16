@@ -199,6 +199,9 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             setImageTransitionName(activity.getString(R.string.transition_artist_image));
+            if (menu != null) {
+                menu.setVisibility(View.GONE);
+            }
         }
 
         @Override
