@@ -134,7 +134,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     TextView songCurrentProgress;
     TextView songTotalTime;
-    SeekBar seekBar;
+    SeekBar progressSlider;
 
     private int lastFooterColor = -1;
     private int lastTitleTextColor = -2;
@@ -168,9 +168,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
         initAppearanceVarsFromSharedPrefs();
         PreferenceUtil.getInstance(this).registerOnSharedPreferenceChangedListener(this);
-        initProgressSliderDependentViews();
 
-        moveSeekBarIntoPlace();
         adjustTitleBoxSize();
         setUpPlaybackControllerCard();
         setUpMusicControllers();
@@ -265,9 +263,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                 break;
             case PreferenceUtil.ALTERNATIVE_PROGRESS_SLIDER_NOW_PLAYING:
                 alternativeProgressSlider = PreferenceUtil.getInstance(this).alternativeProgressSliderNowPlaying();
-                initProgressSliderDependentViews();
-                moveSeekBarIntoPlace();
-                setTint(seekBar, getThemeColorAccent());
+                setUpProgressSlider();
                 break;
             case PreferenceUtil.PLAYBACK_CONTROLLER_CARD_NOW_PLAYING:
                 showPlaybackControllerCard = PreferenceUtil.getInstance(this).playbackControllerCardNowPlaying();
@@ -510,7 +506,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
             songCurrentProgress = (TextView) findViewById(R.id.player_alternative_song_current_progress);
             songTotalTime = (TextView) findViewById(R.id.player_alternative_song_total_time);
-            seekBar = (SeekBar) findViewById(R.id.player_alternative_progress_slider);
+            progressSlider = (SeekBar) findViewById(R.id.player_alternative_progress_slider);
         } else {
             findViewById(R.id.player_default_progress_container).setVisibility(View.VISIBLE);
             findViewById(R.id.player_default_progress_slider).setVisibility(View.VISIBLE);
@@ -518,17 +514,17 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
             songCurrentProgress = (TextView) findViewById(R.id.player_default_song_current_progress);
             songTotalTime = (TextView) findViewById(R.id.player_default_song_total_time);
-            seekBar = (SeekBar) findViewById(R.id.player_default_progress_slider);
+            progressSlider = (SeekBar) findViewById(R.id.player_default_progress_slider);
         }
     }
 
-    private void moveSeekBarIntoPlace() {
+    private void moveProgressSliderIntoPlace() {
         if (!alternativeProgressSlider) {
-            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) seekBar.getLayoutParams();
-            seekBar.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) progressSlider.getLayoutParams();
+            progressSlider.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
             final int seekBarMarginLeftRight = getResources().getDimensionPixelSize(R.dimen.seek_bar_margin_left_right);
-            lp.setMargins(seekBarMarginLeftRight, 0, seekBarMarginLeftRight, -(seekBar.getMeasuredHeight() / 2));
-            seekBar.setLayoutParams(lp);
+            lp.setMargins(seekBarMarginLeftRight, 0, seekBarMarginLeftRight, -(progressSlider.getMeasuredHeight() / 2));
+            progressSlider.setLayoutParams(lp);
         }
     }
 
@@ -552,24 +548,33 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         setUpPrevNext();
         setUpRepeatButton();
         setUpShuffleButton();
-        setUpSeekBar();
+        setUpProgressSlider();
     }
 
-    private void setTint(@NonNull SeekBar seekBar, int color) {
-        ColorStateList s1 = ColorStateList.valueOf(color);
+    private void setUpProgressSliderTint() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            seekBar.setThumbTintList(s1);
-            if (!alternativeProgressSlider) seekBar.setProgressTintList(s1);
+            if (alternativeProgressSlider) {
+                progressSlider.setThumbTintList(ThemeSingleton.get().positiveColor);
+            } else {
+                final ColorStateList seekBarTint = ColorStateList.valueOf(getThemeColorAccent());
+                progressSlider.setThumbTintList(seekBarTint);
+                progressSlider.setProgressTintList(seekBarTint);
+            }
         } else {
-            seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-            if (!alternativeProgressSlider)
-                seekBar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            if (alternativeProgressSlider) {
+                progressSlider.getThumb().setColorFilter(ThemeSingleton.get().positiveColor.getDefaultColor(), PorterDuff.Mode.SRC_IN);
+            } else {
+                progressSlider.getThumb().setColorFilter(getThemeColorAccent(), PorterDuff.Mode.SRC_IN);
+                progressSlider.getProgressDrawable().setColorFilter(getThemeColorAccent(), PorterDuff.Mode.SRC_IN);
+            }
         }
     }
 
-    private void setUpSeekBar() {
-        setTint(seekBar, getThemeColorAccent());
-        seekBar.setOnSeekBarChangeListener(new SimpleOnSeekbarChangeListener() {
+    private void setUpProgressSlider() {
+        initProgressSliderDependentViews();
+        moveProgressSliderIntoPlace();
+        setUpProgressSliderTint();
+        progressSlider.setOnSeekBarChangeListener(new SimpleOnSeekbarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
@@ -871,8 +876,8 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         final int totalMillis = MusicPlayerRemote.getSongDurationMillis();
         final int progressMillis = MusicPlayerRemote.getSongProgressMillis();
 
-        seekBar.setMax(totalMillis);
-        seekBar.setProgress(progressMillis);
+        progressSlider.setMax(totalMillis);
+        progressSlider.setProgress(progressMillis);
         songCurrentProgress.setText(MusicUtil.getReadableDurationString(progressMillis));
         songTotalTime.setText(MusicUtil.getReadableDurationString(totalMillis));
 
