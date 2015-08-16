@@ -4,18 +4,18 @@
     <string name="currently_listening_to_x_by_x">Ich höre gerade %1$s von %2$s</string>
     <string name="the_audio_file">Die Audiodatei</string>
     <string name="do_you_want_to_set_x_as_ringtone">Willst du %1$s als deinen Klingelton verwenden?</string>
-    <string name="x_has_been_set_as_ringtone">%1$s wird jetzt als Klingelton verwendet</string>
+    <string name="x_has_been_set_as_ringtone">%1$s wird jetzt als dein Klingelton verwendet.</string>
     <string name="action_set_as_ringtone">Als Klingelton verwenden</string>
     <string name="action_share">Teilen</string>
     <string name="action_settings">"Einstellungen"</string>
-    <string name="action_about">Infos</string>
+    <string name="action_about">Über</string>
     <string name="action_now_playing">Jetzt Läuft</string>
     <string name="action_clear_playlist">Wiedergabeliste leeren</string>
-    <string name="action_playing_queue">Warteschlange</string>
+    <string name="action_playing_queue">Wiedergabeliste</string>
     <string name="action_add_to_favorites">Zu Favoriten hinzufügen</string>
     <string name="action_remove_from_favorites">Von Favoriten entfernen</string>
     <string name="action_search">Suche</string>
-    <string name="action_play_next">Als nächstes spielen</string>
+    <string name="action_play_next">Spiele als nächstes</string>
     <string name="action_play">Abspielen</string>
     <string name="action_add_to_playing_queue">Zur Warteschlange hinzufügen</string>
     <string name="action_remove_from_playing_queue">Von Warteschlange entfernen</string>
@@ -156,6 +156,7 @@
     <string name="pref_summary_alternative_progress_slider_now_playing">Benutzt einen Balken als Progress Slider anstatt dem normalen Progress Slider.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Zeigt eine Karte hinter der Wiedergabesteuerung</string>
     <string name="pref_summary_ignore_media_store_artwork">Der Media Store wird umgangen, was die Album Cover Qualität verbessern kann aber die Ladezeit beeinträchtigt. Nur aktivieren falls Probleme mit niedrig aufgelösten Album Covern auftreten</string>
+    <string name="pref_summary_hide_bottom_bar">Versteckt die untere Leiste mit der momentanen Wiedergabe-Information. Man kann aber immer noch den Play/Pause Knopf in jede Richtung ziehen um die momentane Wiedergabe anzuzeigen.</string>
     <string name="could_not_download_album_cover">"Es konnte kein passendes Album Cover heruntergeladen werden."</string>
     <string name="search_hint">Durchsuche deine Mediathek</string>
     <string name="rescanning_media">Medien neu scannen...</string>
@@ -178,4 +179,5 @@
     <string name="list">Liste</string>
     <string name="colored_footers">Farbige Balken</string>
     <string name="special_thanks_to">Besonderes Dankeschön an</string>
+    <string name="changelog">Changelog</string>
 </resources>

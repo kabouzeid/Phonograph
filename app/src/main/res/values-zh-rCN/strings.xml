@@ -119,6 +119,7 @@
     <string name="pref_title_larger_title_box_now_playing">更大的标题框</string>
     <string name="pref_title_alternative_progress_slider_now_playing">启用备选的进度条</string>
     <string name="pref_title_playback_controller_card_now_playing">显示播放控制按钮后的卡片背景</string>
+    <string name="pref_title_hide_bottom_bar">隐藏底栏</string>
     <string name="no_equalizer">没有找到均衡器</string>
     <string name="no_audio_ID">"没有音频ID，请播放并重试。"</string>
     <string name="navigation_drawer_open">弹出导航抽屉</string>
@@ -155,6 +156,7 @@
     <string name="pref_summary_alternative_progress_slider_now_playing">使用不会遮挡专辑封面的进度条替代正常的进度滑块。</string>
     <string name="pref_summary_playback_controller_card_now_playing">在播放控制按钮（播放/暂停等）下方显示卡片背景</string>
     <string name="pref_summary_ignore_media_store_artwork">绕过媒体储存以提高专辑封面质量，但会减缓图片加载速度。当您遇到专辑封面质量过低的状况时请开启此选项。</string>
+    <string name="pref_summary_hide_bottom_bar">隐藏用于显示正在播放信息的底栏。你仍然可以通过朝任意方向轻掷播放/暂停按钮来打开正在播放界面。</string>
     <string name="could_not_download_album_cover">"无法下载匹配的专辑封面。"</string>
     <string name="search_hint">正在扫描</string>
     <string name="rescanning_media">正在重新扫描媒体库…</string>
@@ -177,4 +179,5 @@
     <string name="list">列表</string>
     <string name="colored_footers">变色页脚</string>
     <string name="special_thanks_to">特别感谢</string>
+    <string name="changelog">更新日志</string>
 </resources>

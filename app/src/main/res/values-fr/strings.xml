@@ -119,6 +119,7 @@
     <string name="pref_title_larger_title_box_now_playing">Boîte de titre plus large</string>
     <string name="pref_title_alternative_progress_slider_now_playing">Barre de progression alternative</string>
     <string name="pref_title_playback_controller_card_now_playing">Afficher le rectangle sous les boutons de lecture</string>
+    <string name="pref_title_hide_bottom_bar">Masquer la barre inférieure</string>
     <string name="no_equalizer">Aucun égaliseur trouvé</string>
     <string name="no_audio_ID">"Aucun ID audio, jouez quelque chose et réessayez."</string>
     <string name="navigation_drawer_open">Ouvrir le volet de navigation</string>
@@ -154,7 +155,8 @@
     <string name="pref_summary_larger_title_box_now_playing">La boîte en dessous de la vignette de l\'album où se trouvent le titre de la musique et l\'artiste est plus large dans sa hauteur.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Utilise une barre de progression qui ne recouvre pas la vignette de l\'album à la place de la barre de progression normale.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Affiche une carte derrière les boutons de lecture (lecture/pause etc.)</string>
-    <string name="pref_summary_ignore_media_store_artwork">Countourner le stockage media, ce qui peut augmenter la qualité des images mais peut cause des temps de chargement plus longs. N\'activez que si vous avez des problèmes de basse résolution des images</string>
+    <string name="pref_summary_ignore_media_store_artwork">Countourner le stockage media, ce qui peut augmenter la qualité des images mais peut causer des temps de chargement plus longs. N\'activez cette option que si vous avez des problèmes de basse résolution des images.</string>
+    <string name="pref_summary_hide_bottom_bar">Masque la barre où s\'affichent les informations de lecture. Il est toujours possible de faire glisser le bouton Lecture/Pause pour ouvrir l\'écran de lecture en cours.</string>
     <string name="could_not_download_album_cover">"Impossible de télécharger la vignette correspondant à l'album."</string>
     <string name="search_hint">Rechercher votre bibliothèque...</string>
     <string name="rescanning_media">Réanalyse des médias…</string>
@@ -175,4 +177,6 @@
     <string name="new_playlist_title">Nouvelle playlist</string>
     <string name="grid">Grille</string>
     <string name="list">Liste</string>
+    <string name="colored_footers">Bas d\'album colorés</string>
+    <string name="special_thanks_to">Un grand merci à</string>
 </resources>
