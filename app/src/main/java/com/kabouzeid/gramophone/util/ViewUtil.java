@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.util;
 
+import android.animation.Animator;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.os.Build;
@@ -29,36 +30,26 @@ import java.lang.reflect.Field;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class ViewUtil {
+
+    public static Animator createBackgroundColorTransition(final View v, final int startColor, final int endColor) {
+        return createColorAnimator(v, "backgroundColor", startColor, endColor);
+    }
+
+    public static Animator createTextColorTransition(final TextView v, final int startColor, final int endColor) {
+        return createColorAnimator(v, "textColor", startColor, endColor);
+    }
+
     public final static int DEFAULT_COLOR_ANIMATION_DURATION = 500;
 
-    public static void animateViewColor(final View v, final int startColor, final int endColor) {
-        animateViewColor(v, startColor, endColor, DEFAULT_COLOR_ANIMATION_DURATION);
-    }
-
-    public static void animateViewColor(final View v, final int startColor, final int endColor, final int duration) {
-        ObjectAnimator animator = ObjectAnimator.ofObject(v, "backgroundColor",
+    private static Animator createColorAnimator(Object target, String propertyName, int startColor, int endColor) {
+        ObjectAnimator animator = ObjectAnimator.ofObject(target, propertyName,
                 new ArgbEvaluator(), startColor, endColor);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             animator.setInterpolator(new PathInterpolator(0.4f, 0f, 1f, 1f));
         }
-        animator.setDuration(duration);
-        animator.start();
-    }
-
-    public static void animateTextColor(final TextView v, final int startColor, final int endColor) {
-        animateTextColor(v, startColor, endColor, DEFAULT_COLOR_ANIMATION_DURATION);
-    }
-
-    public static void animateTextColor(final TextView v, final int startColor, final int endColor, final int duration) {
-        ObjectAnimator animator = ObjectAnimator.ofObject(v, "textColor",
-                new ArgbEvaluator(), startColor, endColor);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            animator.setInterpolator(new PathInterpolator(0.4f, 0f, 1f, 1f));
-        }
-        animator.setDuration(duration);
-        animator.start();
+        animator.setDuration(DEFAULT_COLOR_ANIMATION_DURATION);
+        return animator;
     }
 
     public static void setBackgroundAlpha(@NonNull View view, float alpha, int baseColor) {

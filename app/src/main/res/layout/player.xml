@@ -98,8 +98,13 @@
             android:id="@+id/player_media_controller_container"
             android:layout_width="match_parent"
             android:layout_height="@dimen/media_controller_container_height"
-            android:background="?music_controller_container_color"
             tools:ignore="ContentDescription,UnusedAttribute">
+
+            <View
+                android:id="@+id/player_media_controller_container_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?music_controller_container_color" />
 
             <android.support.v7.widget.CardView
                 android:id="@+id/player_playback_controller_card"
@@ -271,7 +276,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/status_bar_padding"
         android:background="@android:color/transparent"
-        android:elevation="@dimen/toolbar_elevation" />
+        android:elevation="@dimen/toolbar_elevation"
+        tools:ignore="UnusedAttribute" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/player_toolbar"
