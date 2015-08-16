@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.ui.activities.base;
 
 import android.animation.Animator;
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -11,6 +12,7 @@ import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
@@ -185,11 +187,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                     onPanelSlide(slidingUpPanelLayout, 1);
                     onPanelExpanded(slidingUpPanelLayout);
                 }
-                // ensures that the fab and the mini player are hidden if the queue is empty
-                if (MusicPlayerRemote.getCurrentSong().id == -1) {
-                    playPauseFab.setVisibility(View.GONE);
-                    hideBottomBar(true);
-                }
             }
         });
     }
@@ -218,6 +215,12 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     public void onPlayingMetaChanged() {
         super.onPlayingMetaChanged();
         updateCurrentSong();
+    }
+
+    @Override
+    public void onServiceConnected(ComponentName name, IBinder service) {
+        hideBottomBarIfQueueIsEmpty();
+        super.onServiceConnected(name, service);
     }
 
     @Override
@@ -433,9 +436,19 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     public void hideBottomBar(boolean hide) {
         if (hide) {
-            slidingUpPanelLayout.setPanelHeight(0);
+            slidingUpPanelLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    slidingUpPanelLayout.setPanelHeight(0);
+                }
+            });
         } else {
-            slidingUpPanelLayout.setPanelHeight(getResources().getDimensionPixelSize(R.dimen.mini_player_height));
+            slidingUpPanelLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    slidingUpPanelLayout.setPanelHeight(getResources().getDimensionPixelSize(R.dimen.mini_player_height));
+                }
+            });
         }
     }
 
@@ -710,21 +723,25 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     private void updateCurrentSong() {
+        hideBottomBarIfQueueIsEmpty();
         getCurrentSong();
         updateMiniPlayerAndHeaderText();
         setUpAlbumArtAndApplyPalette();
         updatePlayerMenu();
     }
 
-    private void getCurrentSong() {
-        song = MusicPlayerRemote.getCurrentSong();
-        if (song.id == -1) {
+    private void hideBottomBarIfQueueIsEmpty() {
+        if (MusicPlayerRemote.getPlayingQueue().isEmpty()) {
             playPauseFab.setVisibility(View.GONE);
             hideBottomBar(true);
         } else {
             playPauseFab.setVisibility(View.VISIBLE);
             hideBottomBar(PreferenceUtil.getInstance(this).hideBottomBar());
         }
+    }
+
+    private void getCurrentSong() {
+        song = MusicPlayerRemote.getCurrentSong();
     }
 
     private void updateMiniPlayerAndHeaderText() {

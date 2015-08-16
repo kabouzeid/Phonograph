@@ -262,8 +262,8 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     }
 
     private void updateNavigationDrawerHeader() {
-        Song song = MusicPlayerRemote.getCurrentSong();
-        if (song.id != -1) {
+        if (!MusicPlayerRemote.getPlayingQueue().isEmpty()) {
+            Song song = MusicPlayerRemote.getCurrentSong();
             if (navigationDrawerHeader == null) {
                 navigationDrawerHeader = navigationView.inflateHeaderView(R.layout.navigation_drawer_header);
                 //noinspection ConstantConditions

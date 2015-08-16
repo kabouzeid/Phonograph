@@ -161,7 +161,6 @@ public class MusicPlayerRemote {
         return -1;
     }
 
-    @Nullable
     public static ArrayList<Song> getPlayingQueue() {
         if (musicService != null) {
             return musicService.getPlayingQueue();
