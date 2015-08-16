@@ -119,6 +119,7 @@
     <string name="pref_title_larger_title_box_now_playing">Grotere titelkader</string>
     <string name="pref_title_alternative_progress_slider_now_playing">Alternatieve progressiebalk</string>
     <string name="pref_title_playback_controller_card_now_playing">Toon kaart onder de afspeelknoppen</string>
+    <string name="pref_title_hide_bottom_bar">Verberg onderste balk</string>
     <string name="no_equalizer">Geen equalizer gevonden.</string>
     <string name="no_audio_ID">"Geen audio ID, speel iets af en probeer opnieuw. "</string>
     <string name="navigation_drawer_open">Open navigatielade</string>
@@ -155,6 +156,7 @@
     <string name="pref_summary_alternative_progress_slider_now_playing">Gebruikt een progressiebalk die de albumhoes niet bedekt, in plaats van de standaard progressiecirkel.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Weergeeft een kaart onder de bedieningsknoppen (afspelen/pauze etc.).</string>
     <string name="pref_summary_ignore_media_store_artwork">Dit kan de albumhoes kwaliteit doen toenemen, maar langere laadtijden veroorzaken. Gebruik dit alleen als je problemen hebt met lage resolutie illustraties.</string>
+    <string name="pref_summary_hide_bottom_bar">Verbergt de balk onderaan met de afspeelinformatie. Je kan nog steeds over de afspelen/pauze knop vegen om het afspeelscherm te openen.</string>
     <string name="could_not_download_album_cover">"Kon geen bijpassende albumhoes downloaden."</string>
     <string name="search_hint">Zoek in je bibliotheek…</string>
     <string name="rescanning_media">Media herscannen…</string>
@@ -177,4 +179,5 @@
     <string name="list">Lijst</string>
     <string name="colored_footers">Gekleurde voetkaders</string>
     <string name="special_thanks_to">Speciale dank aan</string>
+    <string name="changelog">Changelog</string>
 </resources>

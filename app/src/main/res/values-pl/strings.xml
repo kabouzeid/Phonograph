@@ -179,4 +179,5 @@
     <string name="list">Lista</string>
     <string name="colored_footers">Kolorowe stopki</string>
     <string name="special_thanks_to">Specjalne podziękowania dla</string>
+    <string name="changelog">Lista zmian</string>
 </resources>

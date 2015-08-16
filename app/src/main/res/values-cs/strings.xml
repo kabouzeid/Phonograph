@@ -9,7 +9,7 @@
     <string name="action_share">Sdílet</string>
     <string name="action_settings">"Nastavení"</string>
     <string name="action_about">O aplikaci</string>
-    <string name="action_now_playing">"Přehrávání "</string>
+    <string name="action_now_playing">Nyní hraje</string>
     <string name="action_clear_playlist">Vyčistit playlist</string>
     <string name="action_playing_queue">Fronta</string>
     <string name="action_add_to_favorites">Přidat do oblíbených</string>

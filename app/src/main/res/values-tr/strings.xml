@@ -9,7 +9,7 @@
     <string name="action_share">Paylaş</string>
     <string name="action_settings">"Ayarlar"</string>
     <string name="action_about">Hakkında</string>
-    <string name="action_now_playing">Şuan Çalınan</string>
+    <string name="action_now_playing">Şu an çalınan</string>
     <string name="action_clear_playlist">Çalma Listesini Temizle</string>
     <string name="action_playing_queue">Çalma Sırası</string>
     <string name="action_add_to_favorites">Favorilere Ekle</string>
@@ -30,7 +30,7 @@
     <string name="playing_queue_empty">Çalma kuyruğu boş</string>
     <string name="nothing_playing">Şu anda çalınan şarkı yok</string>
     <string name="unplayable_file">Bu şarkı oynatılırken bir hata oluştu</string>
-    <string name="biography_unavailable">Bu sanatçı ile ilgili hiçbir biyografi yazısı bulamadık.</string>
+    <string name="biography_unavailable">Bu sanatçı ile ilgili bilgi bulunamadı</string>
     <string name="biography">Biyografi</string>
     <string name="audio_focus_denied">Ses odağı sağlanamıyor.</string>
     <string name="tag_editor">Etiket Düzenleyici</string>
@@ -40,8 +40,8 @@
     <string name="album_artist">Albüm Sanatçısı</string>
     <string name="year">Yıl</string>
     <string name="track">Şarkı</string>
-    <string name="track_hint">"Şarkı (2. şarkı için 2 yada CD3 4. şarkı için 3004)"</string>
-    <string name="album_or_artist_empty">Albüm başlığı veya albüm sanatçısı yazı alanı boş.</string>
+    <string name="track_hint">"Parça (2. parça için 2 ya da CD3 4. parça için 3004)"</string>
+    <string name="album_or_artist_empty">Albüm başlığı veya albüm sanatçısı bilgisi yok</string>
     <string name="writing_file_number">Dosya yazılıyor</string>
     <string name="saving_changes">Değişiklikler kaydediliyor...</string>
     <string name="label_details">Ayrıntılar</string>
@@ -57,7 +57,7 @@
     <string name="label_current_playing_queue">Çalma Sırası</string>
     <string name="save_as_playlist">Çalma Listesi Olarak Kaydet</string>
     <string name="credits_3">Simge tasarımı</string>
-    <string name="credits_1">"Phonograph tamamen ücretsiz material tasarıma sahip bir müzik çalardır. Yapan"</string>
+    <string name="credits_1">"Phonograph tamamen ücretsiz, material tasarımlı müzik çalar. Yapan"</string>
     <string name="no_results">Sonuç bulunamadı</string>
     <string name="action_re_download_artist_image">Sanatçı resmini güncelle</string>
     <string name="updated_artist_image">Güncellenmiş sanatçı resmi.</string>
