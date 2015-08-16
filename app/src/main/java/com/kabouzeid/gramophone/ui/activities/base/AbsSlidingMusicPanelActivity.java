@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.ui.activities.base;
 
 import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -121,6 +122,8 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     ImageButton shuffleButton;
     @Bind(R.id.player_media_controller_container)
     RelativeLayout mediaControllerContainer;
+    @Bind(R.id.player_media_controller_container_background)
+    View mediaControllerContainerBackground;
     @Bind(R.id.player_footer_frame)
     LinearLayout footerFrame;
     @Bind(R.id.player_album_art_background)
@@ -138,9 +141,9 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     TextView songTotalTime;
     SeekBar progressSlider;
 
-    private int lastFooterColor = -1;
-    private int lastTitleTextColor = -2;
-    private int lastCaptionTextColor = -2;
+    private int lastFooterColor;
+    private int lastTitleTextColor;
+    private int lastCaptionTextColor;
 
     private int navigationBarColor;
     private int taskColor;
@@ -157,6 +160,8 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     private Song song;
 
     private PlayPauseDrawable playPauseDrawable;
+
+    private AnimatorSet colorTransitionAnimator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -554,7 +559,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     private void setUpPlaybackControllerCard() {
         playbackControllerCard.setVisibility(showPlaybackControllerCard ? View.VISIBLE : View.GONE);
-        mediaControllerContainer.setBackgroundColor(showPlaybackControllerCard ? Color.TRANSPARENT : ColorUtil.resolveColor(this, R.attr.music_controller_container_color));
+        mediaControllerContainerBackground.setVisibility(showPlaybackControllerCard ? View.GONE : View.VISIBLE);
     }
 
     private void setUpMusicControllers() {
@@ -807,7 +812,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     private void setColors(int color) {
         animateColorChange(color);
-        animateTextColorChange(ColorUtil.getPrimaryTextColorForBackground(this, color), ColorUtil.getSecondaryTextColorForBackground(this, color));
 
         if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
             super.notifyTaskColorChange(color);
@@ -818,59 +822,39 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     private void animateColorChange(final int newColor) {
-        if (lastFooterColor != -1 && lastFooterColor != newColor) {
-            ViewUtil.animateViewColor(footer, lastFooterColor, newColor);
-
-            if (opaqueToolBar) {
-                ViewUtil.animateViewColor(playerToolbar, lastFooterColor, newColor);
-            } else {
-                playerToolbar.setBackgroundColor(Color.TRANSPARENT);
-            }
-
-            if (opaqueStatusBar) {
-                int newStatusbarColor = newColor;
-                int oldStatusbarColor = lastFooterColor;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    newStatusbarColor = ColorUtil.shiftColorDown(newStatusbarColor);
-                    oldStatusbarColor = ColorUtil.shiftColorDown(oldStatusbarColor);
-                }
-                ViewUtil.animateViewColor(playerStatusbar, oldStatusbarColor, newStatusbarColor);
-            } else {
-                playerStatusbar.setBackgroundColor(Color.TRANSPARENT);
-            }
-        } else {
-            footer.setBackgroundColor(newColor);
-
-            if (opaqueToolBar) {
-                playerToolbar.setBackgroundColor(newColor);
-            } else {
-                playerToolbar.setBackgroundColor(Color.TRANSPARENT);
-            }
-
-            if (opaqueStatusBar) {
-                int newStatusbarColor = newColor;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    newStatusbarColor = ColorUtil.shiftColorDown(newColor);
-                }
-                playerStatusbar.setBackgroundColor(newStatusbarColor);
-            } else {
-                playerStatusbar.setBackgroundColor(Color.TRANSPARENT);
-            }
+        if (colorTransitionAnimator != null && colorTransitionAnimator.isStarted()) {
+            colorTransitionAnimator.cancel();
         }
+        colorTransitionAnimator = new AnimatorSet();
+        AnimatorSet.Builder animatorSetBuilder = colorTransitionAnimator.play(ViewUtil.createBackgroundColorTransition(footer, lastFooterColor, newColor));
+
+        if (opaqueToolBar) {
+            animatorSetBuilder.with(ViewUtil.createBackgroundColorTransition(playerToolbar, lastFooterColor, newColor));
+        } else {
+            playerToolbar.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        if (opaqueStatusBar) {
+            int newStatusbarColor = newColor;
+            int oldStatusbarColor = lastFooterColor;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                newStatusbarColor = ColorUtil.shiftColorDown(newStatusbarColor);
+                oldStatusbarColor = ColorUtil.shiftColorDown(oldStatusbarColor);
+            }
+            animatorSetBuilder.with(ViewUtil.createBackgroundColorTransition(playerStatusbar, oldStatusbarColor, newStatusbarColor));
+        } else {
+            playerStatusbar.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        int titleTextColor = ColorUtil.getPrimaryTextColorForBackground(this, newColor);
+        int captionTextColor = ColorUtil.getSecondaryTextColorForBackground(this, newColor);
+
+        animatorSetBuilder.with(ViewUtil.createTextColorTransition(songTitle, lastTitleTextColor, titleTextColor));
+        animatorSetBuilder.with(ViewUtil.createTextColorTransition(songText, lastCaptionTextColor, captionTextColor));
+
+        colorTransitionAnimator.start();
+
         lastFooterColor = newColor;
-    }
-
-    private void animateTextColorChange(int titleTextColor, int captionTextColor) {
-        if (lastTitleTextColor != -2 && lastTitleTextColor != titleTextColor) {
-            ViewUtil.animateTextColor(songTitle, lastTitleTextColor, titleTextColor);
-        } else {
-            songTitle.setTextColor(titleTextColor);
-        }
-        if (lastCaptionTextColor != -2 && lastCaptionTextColor != captionTextColor) {
-            ViewUtil.animateTextColor(songText, lastCaptionTextColor, captionTextColor);
-        } else {
-            songText.setTextColor(captionTextColor);
-        }
         lastTitleTextColor = titleTextColor;
         lastCaptionTextColor = captionTextColor;
     }
