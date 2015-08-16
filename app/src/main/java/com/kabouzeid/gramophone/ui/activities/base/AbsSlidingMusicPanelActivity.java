@@ -181,6 +181,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         setUpMusicControllers();
         setUpAlbumArtViews();
         setUpPlayerToolbar();
+        setUpPlayerStatusBarElevation();
 
         progressViewsUpdateHandler = new MusicProgressViewsUpdateHandler(this);
 
@@ -248,9 +249,8 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                 // do not break here
             case PreferenceUtil.OPAQUE_TOOLBAR_NOW_PLAYING:
                 opaqueToolBar = opaqueStatusBar && PreferenceUtil.getInstance(this).opaqueToolbarNowPlaying();
-                if (lastFooterColor != -1) {
-                    animateColorChange(lastFooterColor);
-                }
+                setUpPlayerStatusBarElevation();
+                animateColorChange(lastFooterColor);
                 if (opaqueStatusBar) {
                     if (opaqueToolBar) {
                         alignAlbumArtToToolbar();
@@ -718,6 +718,16 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
             }
         });
         playerToolbar.setOnMenuItemClickListener(this);
+    }
+
+    private void setUpPlayerStatusBarElevation() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (opaqueToolBar) {
+                playerStatusbar.setElevation(getResources().getDimensionPixelSize(R.dimen.toolbar_elevation));
+            } else {
+                playerStatusbar.setElevation(0);
+            }
+        }
     }
 
     private void updatePlayerMenu() {
