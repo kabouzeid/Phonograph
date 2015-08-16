@@ -50,8 +50,8 @@ android {
         applicationId "com.kabouzeid.gramophone"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 60
-        versionName "0.9.43b beta1"
+        versionCode 61
+        versionName "0.9.43 beta2"
     }
     buildTypes {
         release {

@@ -119,6 +119,7 @@
     <string name="pref_title_larger_title_box_now_playing">Büyük Başlık Kutucuğu</string>
     <string name="pref_title_alternative_progress_slider_now_playing">Alternatif İlerleme Kaydırma</string>
     <string name="pref_title_playback_controller_card_now_playing">Oynatma Kontrolleri Altında Kartı Göster</string>
+    <string name="pref_title_hide_bottom_bar">Alt çubuğu gizle</string>
     <string name="no_equalizer">Ekolayzer bulunamadı.</string>
     <string name="no_audio_ID">"Hiçbir ses kimliği yok, bir şarkı çalın ve tekrar deneyin."</string>
     <string name="navigation_drawer_open">Gezinti Çekmecesini Aç</string>
@@ -155,6 +156,7 @@
     <string name="pref_summary_alternative_progress_slider_now_playing">Varsayılan ilerleme çubuğu yerine albüm kapağına taşan ilerleme çubuğu kullanılır.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Oynatma kontrol düğmelerinin altında bir kart görüntüler (oynat/duraklat, vb.).</string>
     <string name="pref_summary_ignore_media_store_artwork">Albüm kapağı kalitesinin artırılması daha yavaş görüntü yükleme sürelerine neden olabilir. Düşük çözünürlükte olan albüm kapakları ile ilgili sorunlar varsa bunu etkinleştirin.</string>
+    <string name="pref_summary_hide_bottom_bar">Altta mevcut oyatma bilgileri çubuğu gizlenir. Yine de hemen oynatma görünümünü açmak için herhangi bir yönde Başlat/Durdur düğmesini fırlatma olabilir.</string>
     <string name="could_not_download_album_cover">"Eşlenen albüm kapağı indirilemedi."</string>
     <string name="search_hint">Kütüphaneniz taranıyor...</string>
     <string name="rescanning_media">Medyayı yeniden tara...</string>
@@ -177,4 +179,5 @@
     <string name="list">Liste</string>
     <string name="colored_footers">Renkli alt bilgiler</string>
     <string name="special_thanks_to">Özel teşekkür</string>
+    <string name="changelog">Sürüm Notları</string>
 </resources>
