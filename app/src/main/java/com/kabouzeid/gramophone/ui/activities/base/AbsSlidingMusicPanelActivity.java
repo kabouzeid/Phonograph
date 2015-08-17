@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.ui.activities.base;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
+import android.animation.ArgbEvaluator;
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -42,7 +43,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.ThemeSingleton;
-import com.afollestad.materialdialogs.util.DialogUtils;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
@@ -90,7 +90,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     private static final int CMD_REFRESH_PROGRESS_VIEWS = 1;
 
     @Bind(R.id.play_pause_fab)
-    FloatingActionButton playPauseFab;
+    FloatingActionButton playPauseButton;
     @Bind(R.id.sliding_layout)
     SlidingUpPanelLayout slidingUpPanelLayout;
 
@@ -142,6 +142,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     SeekBar progressSlider;
 
     private int lastFooterColor;
+    private int lastPlaybackControllsColor;
     private int lastTitleTextColor;
     private int lastCaptionTextColor;
 
@@ -156,6 +157,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     private boolean largerTitleBox;
     private boolean alternativeProgressSlider;
     private boolean showPlaybackControllerCard;
+    private boolean colorPlaybackControls;
 
     private Song song;
 
@@ -163,18 +165,20 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     private AnimatorSet colorTransitionAnimator;
 
+    private ArgbEvaluator argbEvaluator = new ArgbEvaluator();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(createContentView());
         ButterKnife.bind(this);
 
+        initAppearanceVarsFromSharedPrefs();
+        PreferenceUtil.getInstance(this).registerOnSharedPreferenceChangedListener(this);
+
         setUpPlayPauseButton();
         setUpMiniPlayer();
         setUpSlidingPanel();
-
-        initAppearanceVarsFromSharedPrefs();
-        PreferenceUtil.getInstance(this).registerOnSharedPreferenceChangedListener(this);
 
         adjustTitleBoxSize();
         setUpPlaybackControllerCard();
@@ -277,6 +281,13 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                 showPlaybackControllerCard = PreferenceUtil.getInstance(this).playbackControllerCardNowPlaying();
                 setUpPlaybackControllerCard();
                 break;
+            case PreferenceUtil.COLOR_PLAYBACK_CONTROLS_NOW_PLAYING:
+                colorPlaybackControls = PreferenceUtil.getInstance(this).colorPlaybackControlsNowPlaying();
+                updateRepeatState();
+                updateShuffleState();
+                setUpProgressSliderTint();
+                setUpPlayPauseButtonTint();
+                break;
             case PreferenceUtil.HIDE_BOTTOM_BAR:
                 recreate();
                 break;
@@ -286,12 +297,9 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     private void setUpPlayPauseButton() {
         updateFabState(false);
 
-        playPauseFab.setImageDrawable(playPauseDrawable);
+        playPauseButton.setImageDrawable(playPauseDrawable);
 
-        int fabColor = getThemeColorAccent();
-        int fabDrawableColor = ColorUtil.getDrawableColorForBackground(this, fabColor);
-        playPauseFab.setBackgroundTintList(ColorStateList.valueOf(fabColor));
-        playPauseFab.getDrawable().setColorFilter(fabDrawableColor, PorterDuff.Mode.SRC_IN);
+        setUpPlayPauseButtonTint();
 
         final GestureDetector gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
@@ -301,7 +309,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
             }
         });
 
-        playPauseFab.setOnClickListener(new View.OnClickListener() {
+        playPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (MusicPlayerRemote.getPosition() != -1) {
@@ -314,13 +322,24 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
             }
         });
 
-        playPauseFab.setOnTouchListener(new View.OnTouchListener() {
+        playPauseButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, @NonNull MotionEvent event) {
                 gestureDetector.onTouchEvent(event);
                 return false;
             }
         });
+    }
+
+    private void setUpPlayPauseButtonTint() {
+        int fabColor = colorPlaybackControls && slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED ? lastPlaybackControllsColor : getThemeColorAccent();
+        setPlayPauseButtonTint(fabColor);
+    }
+
+    private void setPlayPauseButtonTint(int color) {
+        int fabDrawableColor = ColorUtil.getDrawableColorForBackground(this, color);
+        playPauseButton.setBackgroundTintList(ColorStateList.valueOf(color));
+        playPauseButton.getDrawable().setColorFilter(fabDrawableColor, PorterDuff.Mode.SRC_IN);
     }
 
     private void setUpMiniPlayer() {
@@ -375,13 +394,16 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     @Override
     public void onPanelSlide(View view, float slideOffset) {
-        float xTranslation = (dummyFab.getX() + mediaControllerContainer.getX() + footerFrame.getX() - playPauseFab.getLeft()) * slideOffset;
-        float yTranslation = (dummyFab.getY() + mediaControllerContainer.getY() + footerFrame.getY() - playPauseFab.getTop()) * slideOffset;
+        float xTranslation = (dummyFab.getX() + mediaControllerContainer.getX() + footerFrame.getX() - playPauseButton.getLeft()) * slideOffset;
+        float yTranslation = (dummyFab.getY() + mediaControllerContainer.getY() + footerFrame.getY() - playPauseButton.getTop()) * slideOffset;
 
-        playPauseFab.setTranslationX(xTranslation);
-        playPauseFab.setTranslationY(yTranslation);
+        playPauseButton.setTranslationX(xTranslation);
+        playPauseButton.setTranslationY(yTranslation);
 
         miniPlayer.setAlpha(1 - slideOffset);
+
+        int newColor = colorPlaybackControls ? (int) argbEvaluator.evaluate(slideOffset, getThemeColorAccent(), lastPlaybackControllsColor) : getThemeColorAccent();
+        setPlayPauseButtonTint(newColor);
     }
 
     @Override
@@ -480,7 +502,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         } else {
             sharedViewsWithFab = new Pair[1];
         }
-        sharedViewsWithFab[sharedViewsWithFab.length - 1] = Pair.create((View) playPauseFab, getString(R.string.transition_fab));
+        sharedViewsWithFab[sharedViewsWithFab.length - 1] = Pair.create((View) playPauseButton, getString(R.string.transition_fab));
         return sharedViewsWithFab;
     }
 
@@ -514,6 +536,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         largerTitleBox = PreferenceUtil.getInstance(this).largerTitleBoxNowPlaying();
         alternativeProgressSlider = PreferenceUtil.getInstance(this).alternativeProgressSliderNowPlaying();
         showPlaybackControllerCard = PreferenceUtil.getInstance(this).playbackControllerCardNowPlaying();
+        colorPlaybackControls = PreferenceUtil.getInstance(this).colorPlaybackControlsNowPlaying();
     }
 
     private void initProgressSliderDependentViews() {
@@ -572,18 +595,21 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     private void setUpProgressSliderTint() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (alternativeProgressSlider) {
-                progressSlider.setThumbTintList(ThemeSingleton.get().positiveColor);
+                ColorStateList thumbTintList = colorPlaybackControls ? ColorStateList.valueOf(lastPlaybackControllsColor) : ThemeSingleton.get().positiveColor;
+                progressSlider.setThumbTintList(thumbTintList);
             } else {
-                final ColorStateList seekBarTint = ColorStateList.valueOf(getThemeColorAccent());
+                final ColorStateList seekBarTint = colorPlaybackControls ? ColorStateList.valueOf(lastPlaybackControllsColor) : ColorStateList.valueOf(getThemeColorAccent());
                 progressSlider.setThumbTintList(seekBarTint);
                 progressSlider.setProgressTintList(seekBarTint);
             }
         } else {
             if (alternativeProgressSlider) {
-                progressSlider.getThumb().setColorFilter(ThemeSingleton.get().positiveColor.getDefaultColor(), PorterDuff.Mode.SRC_IN);
+                int color = colorPlaybackControls ? lastPlaybackControllsColor : ThemeSingleton.get().positiveColor.getDefaultColor();
+                progressSlider.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
             } else {
-                progressSlider.getThumb().setColorFilter(getThemeColorAccent(), PorterDuff.Mode.SRC_IN);
-                progressSlider.getProgressDrawable().setColorFilter(getThemeColorAccent(), PorterDuff.Mode.SRC_IN);
+                int color = colorPlaybackControls ? lastPlaybackControllsColor : getThemeColorAccent();
+                progressSlider.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                progressSlider.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
             }
         }
     }
@@ -636,12 +662,14 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     private void updateShuffleState() {
         switch (MusicPlayerRemote.getShuffleMode()) {
             case MusicService.SHUFFLE_MODE_SHUFFLE:
+                int activatedColor = colorPlaybackControls ? lastPlaybackControllsColor : ThemeSingleton.get().positiveColor.getDefaultColor();
                 shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_36dp,
-                        ThemeSingleton.get().positiveColor.getDefaultColor()));
+                        activatedColor));
                 break;
             default:
+                int deactivatedColor = ColorUtil.resolveColor(this, android.R.attr.textColorSecondary);
                 shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_36dp,
-                        ColorUtil.resolveColor(this, android.R.attr.textColorSecondary)));
+                        deactivatedColor));
                 break;
         }
     }
@@ -657,18 +685,20 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     private void updateRepeatState() {
+        int activatedColor = colorPlaybackControls ? lastPlaybackControllsColor : ThemeSingleton.get().positiveColor.getDefaultColor();
         switch (MusicPlayerRemote.getRepeatMode()) {
-            case MusicService.REPEAT_MODE_NONE:
-                repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_white_36dp,
-                        DialogUtils.resolveColor(this, android.R.attr.textColorSecondary)));
-                break;
             case MusicService.REPEAT_MODE_ALL:
                 repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_white_36dp,
-                        ThemeSingleton.get().positiveColor.getDefaultColor()));
+                        activatedColor));
+                break;
+            case MusicService.REPEAT_MODE_THIS:
+                repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_one_white_36dp,
+                        activatedColor));
                 break;
             default:
-                repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_one_white_36dp,
-                        ThemeSingleton.get().positiveColor.getDefaultColor()));
+                int deactivatedColor = ColorUtil.resolveColor(this, android.R.attr.textColorSecondary);
+                repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_white_36dp,
+                        deactivatedColor));
                 break;
         }
     }
@@ -747,10 +777,10 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     private void hideBottomBarIfQueueIsEmpty() {
         if (MusicPlayerRemote.getPlayingQueue().isEmpty()) {
-            playPauseFab.setVisibility(View.GONE);
+            playPauseButton.setVisibility(View.GONE);
             hideBottomBar(true);
         } else {
-            playPauseFab.setVisibility(View.VISIBLE);
+            playPauseButton.setVisibility(View.VISIBLE);
             hideBottomBar(PreferenceUtil.getInstance(this).hideBottomBar());
         }
     }
@@ -862,11 +892,36 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         animatorSetBuilder.with(ViewUtil.createTextColorTransition(songTitle, lastTitleTextColor, titleTextColor));
         animatorSetBuilder.with(ViewUtil.createTextColorTransition(songText, lastCaptionTextColor, captionTextColor));
 
+        colorTransitionAnimator.addListener(new SimpleAnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                if (newColor == ColorUtil.resolveColor(AbsSlidingMusicPanelActivity.this, R.attr.default_bar_color)) {
+                    lastPlaybackControllsColor = Color.WHITE;
+                } else {
+                    lastPlaybackControllsColor = shiftColorDown(newColor);
+                }
+                updateRepeatState();
+                updateShuffleState();
+                setUpProgressSliderTint();
+                setUpPlayPauseButtonTint();
+            }
+        });
+
         colorTransitionAnimator.start();
 
         lastFooterColor = newColor;
         lastTitleTextColor = titleTextColor;
         lastCaptionTextColor = captionTextColor;
+    }
+
+    // note that this is not exactly the same as in ColorUtil
+    @SuppressWarnings("ResourceType")
+    private static int shiftColorDown(@ColorInt int color) {
+        int alpha = Color.alpha(color);
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        hsv[2] *= 0.5f; // value component
+        return (alpha << 24) + (0x00ffffff & Color.HSVToColor(hsv));
     }
 
     private void startUpdatingProgressViews() {

@@ -52,6 +52,14 @@
             android:title="@string/pref_title_playback_controller_card_now_playing"
             android:widgetLayout="@layout/preference_dynamic_checkbox" />
 
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="color_playback_controls_now_playing"
+            android:layout="@layout/preference_custom"
+            android:summary="@string/pref_summary_colored_playback_controls_now_playing"
+            android:title="@string/pref_title_colored_playback_controls_now_playing"
+            android:widgetLayout="@layout/preference_dynamic_checkbox" />
+
     </com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory>
 
 </PreferenceScreen>
