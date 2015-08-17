@@ -142,7 +142,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     SeekBar progressSlider;
 
     private int lastFooterColor;
-    private int lastPlaybackControllsColor;
+    private int lastPlaybackControlsColor;
     private int lastTitleTextColor;
     private int lastCaptionTextColor;
 
@@ -332,7 +332,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     private void setUpPlayPauseButtonTint() {
-        int fabColor = colorPlaybackControls && slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED ? lastPlaybackControllsColor : getThemeColorAccent();
+        int fabColor = colorPlaybackControls && slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED ? lastPlaybackControlsColor : getThemeColorAccent();
         setPlayPauseButtonTint(fabColor);
     }
 
@@ -402,7 +402,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
         miniPlayer.setAlpha(1 - slideOffset);
 
-        int newColor = colorPlaybackControls ? (int) argbEvaluator.evaluate(slideOffset, getThemeColorAccent(), lastPlaybackControllsColor) : getThemeColorAccent();
+        int newColor = colorPlaybackControls ? (int) argbEvaluator.evaluate(slideOffset, getThemeColorAccent(), lastPlaybackControlsColor) : getThemeColorAccent();
         setPlayPauseButtonTint(newColor);
     }
 
@@ -593,24 +593,57 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     private void setUpProgressSliderTint() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (alternativeProgressSlider) {
-                ColorStateList thumbTintList = colorPlaybackControls ? ColorStateList.valueOf(lastPlaybackControllsColor) : ThemeSingleton.get().positiveColor;
-                progressSlider.setThumbTintList(thumbTintList);
+        int thumbColor;
+        int progressColor;
+        if (alternativeProgressSlider) {
+            if (colorPlaybackControls) {
+                thumbColor = lastPlaybackControlsColor;
             } else {
-                final ColorStateList seekBarTint = colorPlaybackControls ? ColorStateList.valueOf(lastPlaybackControllsColor) : ColorStateList.valueOf(getThemeColorAccent());
-                progressSlider.setThumbTintList(seekBarTint);
-                progressSlider.setProgressTintList(seekBarTint);
+                thumbColor = ThemeSingleton.get().positiveColor.getDefaultColor();
             }
+            progressColor = Color.TRANSPARENT;
         } else {
-            if (alternativeProgressSlider) {
-                int color = colorPlaybackControls ? lastPlaybackControllsColor : ThemeSingleton.get().positiveColor.getDefaultColor();
-                progressSlider.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            if (colorPlaybackControls) {
+                if (ColorUtil.useDarkTextColorOnBackground(lastPlaybackControlsColor)) {
+                    thumbColor = shiftColorDown(lastPlaybackControlsColor);
+                } else {
+                    thumbColor = shiftColorUp(lastPlaybackControlsColor);
+                }
             } else {
-                int color = colorPlaybackControls ? lastPlaybackControllsColor : getThemeColorAccent();
-                progressSlider.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
-                progressSlider.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                thumbColor = getThemeColorAccent();
             }
+            progressColor = thumbColor;
+        }
+        setSeekBarTint(progressSlider, thumbColor, progressColor);
+    }
+
+    // note that this is not exactly the same as in ColorUtil
+    @SuppressWarnings("ResourceType")
+    private static int shiftColorUp(@ColorInt int color) {
+        int alpha = Color.alpha(color);
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        hsv[2] *= 1.2f; // value component
+        return (alpha << 24) + (0x00ffffff & Color.HSVToColor(hsv));
+    }
+
+    // note that this is not exactly the same as in ColorUtil
+    @SuppressWarnings("ResourceType")
+    private static int shiftColorDown(@ColorInt int color) {
+        int alpha = Color.alpha(color);
+        float[] hsv = new float[3];
+        Color.colorToHSV(color, hsv);
+        hsv[2] *= 0.8f; // value component
+        return (alpha << 24) + (0x00ffffff & Color.HSVToColor(hsv));
+    }
+
+    private static void setSeekBarTint(SeekBar seekBar, @ColorInt int thumbColor, @ColorInt int progressColor) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            seekBar.setThumbTintList(ColorStateList.valueOf(thumbColor));
+            seekBar.setProgressTintList(ColorStateList.valueOf(progressColor));
+        } else {
+            seekBar.getThumb().setColorFilter(thumbColor, PorterDuff.Mode.SRC_IN);
+            seekBar.getProgressDrawable().setColorFilter(progressColor, PorterDuff.Mode.SRC_IN);
         }
     }
 
@@ -662,7 +695,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     private void updateShuffleState() {
         switch (MusicPlayerRemote.getShuffleMode()) {
             case MusicService.SHUFFLE_MODE_SHUFFLE:
-                int activatedColor = colorPlaybackControls ? lastPlaybackControllsColor : ThemeSingleton.get().positiveColor.getDefaultColor();
+                int activatedColor = colorPlaybackControls ? lastPlaybackControlsColor : ThemeSingleton.get().positiveColor.getDefaultColor();
                 shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_36dp,
                         activatedColor));
                 break;
@@ -685,7 +718,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     private void updateRepeatState() {
-        int activatedColor = colorPlaybackControls ? lastPlaybackControllsColor : ThemeSingleton.get().positiveColor.getDefaultColor();
+        int activatedColor = colorPlaybackControls ? lastPlaybackControlsColor : ThemeSingleton.get().positiveColor.getDefaultColor();
         switch (MusicPlayerRemote.getRepeatMode()) {
             case MusicService.REPEAT_MODE_ALL:
                 repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_white_36dp,
@@ -895,10 +928,10 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         colorTransitionAnimator.addListener(new SimpleAnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                if (newColor == ColorUtil.resolveColor(AbsSlidingMusicPanelActivity.this, R.attr.default_bar_color)) {
-                    lastPlaybackControllsColor = Color.WHITE;
+                if (newColor == ColorUtil.resolveColor(AbsSlidingMusicPanelActivity.this, R.attr.default_bar_color) && ThemeSingleton.get().darkTheme) {
+                    lastPlaybackControlsColor = Color.WHITE;
                 } else {
-                    lastPlaybackControllsColor = shiftColorDown(newColor);
+                    lastPlaybackControlsColor = newColor;
                 }
                 updateRepeatState();
                 updateShuffleState();
@@ -912,16 +945,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         lastFooterColor = newColor;
         lastTitleTextColor = titleTextColor;
         lastCaptionTextColor = captionTextColor;
-    }
-
-    // note that this is not exactly the same as in ColorUtil
-    @SuppressWarnings("ResourceType")
-    private static int shiftColorDown(@ColorInt int color) {
-        int alpha = Color.alpha(color);
-        float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv);
-        hsv[2] *= 0.5f; // value component
-        return (alpha << 24) + (0x00ffffff & Color.HSVToColor(hsv));
     }
 
     private void startUpdatingProgressViews() {
