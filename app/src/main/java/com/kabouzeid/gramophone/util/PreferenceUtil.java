@@ -37,6 +37,7 @@ public final class PreferenceUtil {
     public static final String LARGER_TITLE_BOX_NOW_PLAYING = "larger_title_box_now_playing";
     public static final String ALTERNATIVE_PROGRESS_SLIDER_NOW_PLAYING = "alternative_progress_slider_now_playing";
     public static final String PLAYBACK_CONTROLLER_CARD_NOW_PLAYING = "playback_controller_card_now_playing";
+    public static final String COLOR_PLAYBACK_CONTROLS_NOW_PLAYING = "color_playback_controls_now_playing";
 
     public static final String COLORED_NOTIFICATION = "colored_notification";
 
@@ -167,6 +168,10 @@ public final class PreferenceUtil {
 
     public final boolean playbackControllerCardNowPlaying() {
         return mPreferences.getBoolean(PLAYBACK_CONTROLLER_CARD_NOW_PLAYING, false);
+    }
+
+    public final boolean colorPlaybackControlsNowPlaying() {
+        return mPreferences.getBoolean(COLOR_PLAYBACK_CONTROLS_NOW_PLAYING, false);
     }
 
     public final boolean largerTitleBoxNowPlaying() {
