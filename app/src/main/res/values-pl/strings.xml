@@ -119,6 +119,8 @@
     <string name="pref_title_larger_title_box_now_playing">Większe pole tytułu</string>
     <string name="pref_title_alternative_progress_slider_now_playing">Alternatywny pasek postępu</string>
     <string name="pref_title_playback_controller_card_now_playing">Wyświetlanie karty pod przyciskami odtwarzania</string>
+    <string name="pref_title_colored_playback_controls_now_playing">"Kolorowe przyciski odtwarzania
+"</string>
     <string name="pref_title_hide_bottom_bar">Ukryj dolną belkę</string>
     <string name="no_equalizer">Nie znaleziono korektora</string>
     <string name="no_audio_ID">"Brak ID dźwięku, puść coś i spróbuj ponownie"</string>
