@@ -13,8 +13,6 @@ import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
 
-import hugo.weaving.DebugLog;
-
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -84,7 +82,6 @@ public class SongLoader {
         return makeSongCursor(context, selection, values, PreferenceUtil.getInstance(context).getSongSortOrder());
     }
 
-    @DebugLog
     @Nullable
     public static Cursor makeSongCursor(@NonNull final Context context, @Nullable final String selection, final String[] values, final String sortOrder) {
         String baseSelection = BASE_SELECTION;

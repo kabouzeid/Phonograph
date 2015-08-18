@@ -22,8 +22,6 @@ import com.kabouzeid.gramophone.service.MusicService;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-import hugo.weaving.DebugLog;
-
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -207,7 +205,6 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED;
     }
 
-    @DebugLog
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
