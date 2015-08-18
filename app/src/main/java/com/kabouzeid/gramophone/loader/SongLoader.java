@@ -13,6 +13,8 @@ import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
 
+import hugo.weaving.DebugLog;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -77,36 +79,43 @@ public class SongLoader {
         return new Song(id, albumId, artistId, songName, artist, album, duration, trackNumber, data);
     }
 
+    @Nullable
     public static Cursor makeSongCursor(@NonNull final Context context, final String selection, final String[] values) {
         return makeSongCursor(context, selection, values, PreferenceUtil.getInstance(context).getSongSortOrder());
     }
 
+    @DebugLog
+    @Nullable
     public static Cursor makeSongCursor(@NonNull final Context context, @Nullable final String selection, final String[] values, final String sortOrder) {
         String baseSelection = BASE_SELECTION;
         if (selection != null && !selection.trim().equals("")) {
             baseSelection += " AND " + selection;
         }
 
-        return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                new String[]{
+        try {
+            return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                    new String[]{
                         /* 0 */
-                        BaseColumns._ID,
+                            BaseColumns._ID,
                         /* 1 */
-                        AudioColumns.TITLE,
+                            AudioColumns.TITLE,
                         /* 2 */
-                        AudioColumns.ARTIST,
+                            AudioColumns.ARTIST,
                         /* 3 */
-                        AudioColumns.ALBUM,
+                            AudioColumns.ALBUM,
                         /* 4 */
-                        AudioColumns.DURATION,
+                            AudioColumns.DURATION,
                         /* 5 */
-                        AudioColumns.TRACK,
+                            AudioColumns.TRACK,
                         /* 6 */
-                        AudioColumns.ARTIST_ID,
+                            AudioColumns.ARTIST_ID,
                         /* 7 */
-                        AudioColumns.ALBUM_ID,
+                            AudioColumns.ALBUM_ID,
                         /* 8 */
-                        AudioColumns.DATA
-                }, baseSelection, values, sortOrder);
+                            AudioColumns.DATA
+                    }, baseSelection, values, sortOrder);
+        } catch (SecurityException e) {
+            return null;
+        }
     }
 }

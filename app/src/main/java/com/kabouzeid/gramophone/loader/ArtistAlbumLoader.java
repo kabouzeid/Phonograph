@@ -21,11 +21,15 @@ public class ArtistAlbumLoader {
     }
 
     public static Cursor makeArtistAlbumCursor(@NonNull final Context context, final int artistId) {
-        return AlbumLoader.makeAlbumCursor(context,
-                MediaStore.Audio.Artists.Albums.getContentUri("external", artistId),
-                null,
-                null,
-                PreferenceUtil.getInstance(context).getArtistAlbumSortOrder()
-        );
+        try {
+            return AlbumLoader.makeAlbumCursor(context,
+                    MediaStore.Audio.Artists.Albums.getContentUri("external", artistId),
+                    null,
+                    null,
+                    PreferenceUtil.getInstance(context).getArtistAlbumSortOrder()
+            );
+        } catch (SecurityException e) {
+            return null;
+        }
     }
 }

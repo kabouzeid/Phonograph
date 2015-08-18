@@ -21,13 +21,17 @@ public class ArtistSongLoader {
     }
 
     public static Cursor makeArtistSongCursor(@NonNull final Context context, final int artistId) {
-        return SongLoader.makeSongCursor(
-                context,
-                MediaStore.Audio.AudioColumns.ARTIST_ID + "=?",
-                new String[]{
-                        String.valueOf(artistId)
-                },
-                PreferenceUtil.getInstance(context).getArtistSongSortOrder()
-        );
+        try {
+            return SongLoader.makeSongCursor(
+                    context,
+                    MediaStore.Audio.AudioColumns.ARTIST_ID + "=?",
+                    new String[]{
+                            String.valueOf(artistId)
+                    },
+                    PreferenceUtil.getInstance(context).getArtistSongSortOrder()
+            );
+        } catch (SecurityException e) {
+            return null;
+        }
     }
 }

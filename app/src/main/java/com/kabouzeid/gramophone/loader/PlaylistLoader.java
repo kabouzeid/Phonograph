@@ -75,13 +75,18 @@ public class PlaylistLoader {
         return new Playlist(id, name);
     }
 
+    @Nullable
     public static Cursor makePlaylistCursor(@NonNull final Context context, final String selection, final String[] values) {
-        return context.getContentResolver().query(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,
-                new String[]{
+        try {
+            return context.getContentResolver().query(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,
+                    new String[]{
                         /* 0 */
-                        BaseColumns._ID,
+                            BaseColumns._ID,
                         /* 1 */
-                        PlaylistsColumns.NAME
-                }, selection, values, MediaStore.Audio.Playlists.DEFAULT_SORT_ORDER);
+                            PlaylistsColumns.NAME
+                    }, selection, values, MediaStore.Audio.Playlists.DEFAULT_SORT_ORDER);
+        } catch (SecurityException e) {
+            return null;
+        }
     }
 }
