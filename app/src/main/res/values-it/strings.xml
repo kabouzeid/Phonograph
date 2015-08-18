@@ -119,6 +119,7 @@
     <string name="pref_title_larger_title_box_now_playing">Riquadro titolo più grande</string>
     <string name="pref_title_alternative_progress_slider_now_playing">Cursore di scorrimento alternativo</string>
     <string name="pref_title_playback_controller_card_now_playing">Sfondo card per i controlli di riproduzione</string>
+    <string name="pref_title_colored_playback_controls_now_playing">Controlli di riproduzione colorati</string>
     <string name="pref_title_hide_bottom_bar">Nascondi barra inferiore</string>
     <string name="no_equalizer">Nessun equalizzatore trovato</string>
     <string name="no_audio_ID">"Nessun ID audio, riproduci qualcosa e prova di nuovo."</string>
@@ -157,6 +158,7 @@
     <string name="pref_summary_playback_controller_card_now_playing">Visualizza un contorno in stile card dietro ai controlli di riproduzione (play, pausa ecc.).</string>
     <string name="pref_summary_ignore_media_store_artwork">Aggira il Media Store; l\'opzione può incrementare la qualità delle copertine, ma a volte causa rallentamenti nel caricamento delle immagini. Abilita soltanto se hai problemi con copertine a bassa risoluzione.</string>
     <string name="pref_summary_hide_bottom_bar">Nasconde la barra con le informazioni di riproduzione in basso. È ancora possibile trascinare il pulsante play/pausa in qualsiasi direzione per aprire la schermata In riproduzione.</string>
+    <string name="pref_summary_colored_playback_controls_now_playing">I pulsanti play/pausa, casuale e ripeti così come la barra d\'avanzamento sono colorati secondo la gamma di colori della copertina.</string>
     <string name="could_not_download_album_cover">"Impossibile scaricare una copertina adatta."</string>
     <string name="search_hint">Cerca nella tua libreria...</string>
     <string name="rescanning_media">Nuova scannerizzazione media in corso...</string>

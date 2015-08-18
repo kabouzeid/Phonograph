@@ -119,6 +119,7 @@
     <string name="pref_title_larger_title_box_now_playing">Caja de título grande</string>
     <string name="pref_title_alternative_progress_slider_now_playing">Barra de progreso alternativa</string>
     <string name="pref_title_playback_controller_card_now_playing">Mostrar tarjeta bajo los controles del reproductor</string>
+    <string name="pref_title_colored_playback_controls_now_playing">Controles de reproducción coloreados</string>
     <string name="pref_title_hide_bottom_bar">Ocultar barra inferior</string>
     <string name="no_equalizer">No se encontró ningún ecualizador</string>
     <string name="no_audio_ID">"No se encontró el ID de audio. Intenta otra vez."</string>
@@ -157,6 +158,7 @@
     <string name="pref_summary_playback_controller_card_now_playing">Mostrar tarjeta detrás de los botones de control de reproducción (reproducir/pausar, etc.)</string>
     <string name="pref_summary_ignore_media_store_artwork">Si bien la calidad del arte de tapa del almacenamiento tiene mejor calidad, puede tardar más en cargar. Sólo activar si no se quieren artes de tapa de baja resolución.</string>
     <string name="pref_summary_hide_bottom_bar">Oculta la barra con la información de reproducción actual en la parte inferior. Aún puedes deslizar el botón de reproducir/pausar en cualquier dirección para abrir la vista de reproducción actual.</string>
+    <string name="pref_summary_colored_playback_controls_now_playing">El botón de reproducir/pausar, aleatorio y repetir así como la barra de progreso son coloreados con el color vibrante de la carátula del álbum.</string>
     <string name="could_not_download_album_cover">"No se puede descargar una tapa de álbum coincidente."</string>
     <string name="search_hint">Buscar en la biblioteca...</string>
     <string name="rescanning_media">Escaneando contenido...</string>

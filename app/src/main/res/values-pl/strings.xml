@@ -118,7 +118,7 @@
     <string name="pref_title_opaque_statusbar_now_playing">Nieprzeźroczystość paska stanu</string>
     <string name="pref_title_larger_title_box_now_playing">Większe pole tytułu</string>
     <string name="pref_title_alternative_progress_slider_now_playing">Alternatywny pasek postępu</string>
-    <string name="pref_title_playback_controller_card_now_playing">Wyświetlanie karty pod przyciskami odtwarzania</string>
+    <string name="pref_title_playback_controller_card_now_playing">Karta pod przyciskami odtwarzania</string>
     <string name="pref_title_colored_playback_controls_now_playing">"Kolorowe przyciski odtwarzania
 "</string>
     <string name="pref_title_hide_bottom_bar">Ukryj dolną belkę</string>
@@ -156,9 +156,10 @@
     <string name="pref_summary_opaque_statusbar_now_playing">Zaznacz, a pasek stanu będzie nieprzeźroczysty i nie zasłoni już okładki albumu</string>
     <string name="pref_summary_larger_title_box_now_playing">Zaznacz, a pole nazwy utworu i wykonawcy pod okładką albumu będzie większe</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Zaznacz, a w odróżnieniu od domyślnego suwaka, pasek postępu nie zasłoni okładki albumu</string>
-    <string name="pref_summary_playback_controller_card_now_playing">Zaznacz, a pod przyciskami sterującymi odtwarzaczem (odtwarzanie/pauza, itp.) zostanie wyświetlona karta</string>
+    <string name="pref_summary_playback_controller_card_now_playing">Zaznacz, a pod przyciskami sterującymi odtwarzaczem (Graj/Pauzuj, itp.) zostanie wyświetlona karta</string>
     <string name="pref_summary_ignore_media_store_artwork">Pomijaj korzystanie z Media Store, polepszy to jakość okładek, ale może spowodować ich wolniejsze ładowanie. Zaznacz tylko wtedy, gdy masz kłopoty z niską jakością grafik</string>
     <string name="pref_summary_hide_bottom_bar">Ukrywa dolną belkę z informacjami o obecnie granym utworze. Nadal można przesuwać przycisk Graj/Pauza w dowolnym kierunku, aby otworzyć widok obecnie granego utworu</string>
+    <string name="pref_summary_colored_playback_controls_now_playing">Zaznacz, a przyciski \'\'Graj/Pauzuj\'\', \'\'Odtwarzaj Losowo\'\', \'\'Powtórz\'\' oraz pasek postępu, będą w kolorach z okładek albumów</string>
     <string name="could_not_download_album_cover">"Nie udało się pobrać okładki pasującej do albumu"</string>
     <string name="search_hint">Szukaj w bibliotece...</string>
     <string name="rescanning_media">Ponowny skan nośnika...</string>
