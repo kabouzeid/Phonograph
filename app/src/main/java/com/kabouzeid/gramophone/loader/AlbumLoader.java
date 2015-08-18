@@ -77,29 +77,36 @@ public class AlbumLoader {
         return new Album(id, albumName, artist, artistId, songCount, year);
     }
 
+    @Nullable
     public static Cursor makeAlbumCursor(@NonNull final Context context, final String selection, final String[] values) {
         return makeAlbumCursor(context, selection, values, PreferenceUtil.getInstance(context).getAlbumSortOrder());
     }
 
+    @Nullable
     public static Cursor makeAlbumCursor(@NonNull final Context context, final String selection, final String[] values, final String sortOrder) {
         return makeAlbumCursor(context, MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, selection, values, sortOrder);
     }
 
+    @Nullable
     public static Cursor makeAlbumCursor(@NonNull final Context context, @NonNull final Uri contentUri, final String selection, final String[] values, final String sortOrder) {
-        return context.getContentResolver().query(contentUri,
-                new String[]{
+        try {
+            return context.getContentResolver().query(contentUri,
+                    new String[]{
                         /* 0 */
-                        BaseColumns._ID,
+                            BaseColumns._ID,
                         /* 1 */
-                        AlbumColumns.ALBUM,
+                            AlbumColumns.ALBUM,
                         /* 2 */
-                        AlbumColumns.ARTIST,
+                            AlbumColumns.ARTIST,
                         /* 3 */
-                        AudioColumns.ARTIST_ID,
+                            AudioColumns.ARTIST_ID,
                         /* 4 */
-                        AlbumColumns.NUMBER_OF_SONGS,
+                            AlbumColumns.NUMBER_OF_SONGS,
                         /* 5 */
-                        AlbumColumns.FIRST_YEAR,
-                }, selection, values, sortOrder);
+                            AlbumColumns.FIRST_YEAR,
+                    }, selection, values, sortOrder);
+        } catch (SecurityException e) {
+            return null;
+        }
     }
 }

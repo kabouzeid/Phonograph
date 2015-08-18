@@ -45,30 +45,34 @@ public class PlaylistSongLoader {
     }
 
     public static Cursor makePlaylistSongCursor(@NonNull final Context context, final int playlistId) {
-        return context.getContentResolver().query(
-                MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),
-                new String[]{
+        try {
+            return context.getContentResolver().query(
+                    MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),
+                    new String[]{
                         /* 0 */
-                        MediaStore.Audio.Playlists.Members.AUDIO_ID,
+                            MediaStore.Audio.Playlists.Members.AUDIO_ID,
                         /* 1 */
-                        AudioColumns.TITLE,
+                            AudioColumns.TITLE,
                         /* 2 */
-                        AudioColumns.ARTIST,
+                            AudioColumns.ARTIST,
                         /* 3 */
-                        AudioColumns.ALBUM,
+                            AudioColumns.ALBUM,
                         /* 4 */
-                        AudioColumns.DURATION,
+                            AudioColumns.DURATION,
                         /* 5 */
-                        AudioColumns.TRACK,
+                            AudioColumns.TRACK,
                         /* 6 */
-                        AudioColumns.ALBUM_ID,
+                            AudioColumns.ALBUM_ID,
                         /* 7 */
-                        AudioColumns.ARTIST_ID,
+                            AudioColumns.ARTIST_ID,
                         /* 8 */
-                        AudioColumns.DATA,
+                            AudioColumns.DATA,
                         /* 9 */
-                        MediaStore.Audio.Playlists.Members._ID
-                }, SongLoader.BASE_SELECTION, null,
-                MediaStore.Audio.Playlists.Members.DEFAULT_SORT_ORDER);
+                            MediaStore.Audio.Playlists.Members._ID
+                    }, SongLoader.BASE_SELECTION, null,
+                    MediaStore.Audio.Playlists.Members.DEFAULT_SORT_ORDER);
+        } catch (SecurityException e) {
+            return null;
+        }
     }
 }

@@ -4,7 +4,6 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -139,7 +138,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private boolean isServiceInUse;
 
     private static String getTrackUri(@NonNull Song song) {
-        return ContentUris.withAppendedId(android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, song.id).toString();
+        return MusicUtil.getSongUri(song.id).toString();
     }
 
     @Override

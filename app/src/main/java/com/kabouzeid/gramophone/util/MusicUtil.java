@@ -86,22 +86,25 @@ public class MusicUtil {
             return;
         }
 
-        Cursor cursor = resolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                new String[]{MediaStore.MediaColumns.TITLE},
-                BaseColumns._ID + "=?",
-                new String[]{String.valueOf(id)},
-                null);
         try {
-            if (cursor != null && cursor.getCount() == 1) {
-                cursor.moveToFirst();
-                Settings.System.putString(resolver, Settings.System.RINGTONE, uri.toString());
-                final String message = context.getString(R.string.x_has_been_set_as_ringtone, cursor.getString(0));
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+            Cursor cursor = resolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                    new String[]{MediaStore.MediaColumns.TITLE},
+                    BaseColumns._ID + "=?",
+                    new String[]{String.valueOf(id)},
+                    null);
+            try {
+                if (cursor != null && cursor.getCount() == 1) {
+                    cursor.moveToFirst();
+                    Settings.System.putString(resolver, Settings.System.RINGTONE, uri.toString());
+                    final String message = context.getString(R.string.x_has_been_set_as_ringtone, cursor.getString(0));
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                }
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
             }
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
+        } catch (SecurityException ignored) {
         }
     }
 
@@ -174,46 +177,50 @@ public class MusicUtil {
             }
         }
         selection.append(")");
-        final Cursor cursor = context.getContentResolver().query(
-                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection, selection.toString(),
-                null, null);
-        if (cursor != null) {
-            // Step 1: Remove selected tracks from the current playlist, as well
-            // as from the album art cache
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                final int id = cursor.getInt(0);
-                final Song song = SongLoader.getSong(context, id);
-                MusicPlayerRemote.removeFromQueue(song);
-                cursor.moveToNext();
-            }
 
-            // Step 2: Remove selected tracks from the database
-            context.getContentResolver().delete(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                    selection.toString(), null);
-
-            // Step 3: Remove files from card
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                final String name = cursor.getString(1);
-                try { // File.delete can throw a security exception
-                    final File f = new File(name);
-                    if (!f.delete()) {
-                        // I'm not sure if we'd ever get here (deletion would
-                        // have to fail, but no exception thrown)
-                        Log.e("MusicUtils", "Failed to delete file " + name);
-                    }
+        try {
+            final Cursor cursor = context.getContentResolver().query(
+                    MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection, selection.toString(),
+                    null, null);
+            if (cursor != null) {
+                // Step 1: Remove selected tracks from the current playlist, as well
+                // as from the album art cache
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    final int id = cursor.getInt(0);
+                    final Song song = SongLoader.getSong(context, id);
+                    MusicPlayerRemote.removeFromQueue(song);
                     cursor.moveToNext();
-                } catch (@NonNull final SecurityException ex) {
-                    cursor.moveToNext();
-                } catch (NullPointerException e) {
-                    Log.e("MusicUtils", "Failed to find file " + name);
                 }
+
+                // Step 2: Remove selected tracks from the database
+                context.getContentResolver().delete(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                        selection.toString(), null);
+
+                // Step 3: Remove files from card
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    final String name = cursor.getString(1);
+                    try { // File.delete can throw a security exception
+                        final File f = new File(name);
+                        if (!f.delete()) {
+                            // I'm not sure if we'd ever get here (deletion would
+                            // have to fail, but no exception thrown)
+                            Log.e("MusicUtils", "Failed to delete file " + name);
+                        }
+                        cursor.moveToNext();
+                    } catch (@NonNull final SecurityException ex) {
+                        cursor.moveToNext();
+                    } catch (NullPointerException e) {
+                        Log.e("MusicUtils", "Failed to find file " + name);
+                    }
+                }
+                cursor.close();
             }
-            cursor.close();
+            context.getContentResolver().notifyChange(Uri.parse("content://media"), null);
+            Toast.makeText(context, context.getString(R.string.deleted_x_songs, songs.size()), Toast.LENGTH_SHORT).show();
+        } catch (SecurityException ignored) {
         }
-        context.getContentResolver().notifyChange(Uri.parse("content://media"), null);
-        Toast.makeText(context, context.getString(R.string.deleted_x_songs, songs.size()), Toast.LENGTH_SHORT).show();
     }
 
     public static Playlist getFavoritesPlaylist(@NonNull final Context context) {

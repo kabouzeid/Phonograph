@@ -74,17 +74,22 @@ public class ArtistLoader {
         return new Artist(id, artistName, albumCount, songCount);
     }
 
+    @Nullable
     public static Cursor makeArtistCursor(@NonNull final Context context, final String selection, final String[] values) {
-        return context.getContentResolver().query(MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI,
-                new String[]{
+        try {
+            return context.getContentResolver().query(MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI,
+                    new String[]{
                         /* 0 */
-                        BaseColumns._ID,
+                            BaseColumns._ID,
                         /* 1 */
-                        ArtistColumns.ARTIST,
+                            ArtistColumns.ARTIST,
                         /* 2 */
-                        ArtistColumns.NUMBER_OF_ALBUMS,
+                            ArtistColumns.NUMBER_OF_ALBUMS,
                         /* 3 */
-                        ArtistColumns.NUMBER_OF_TRACKS
-                }, selection, values, PreferenceUtil.getInstance(context).getArtistSortOrder());
+                            ArtistColumns.NUMBER_OF_TRACKS
+                    }, selection, values, PreferenceUtil.getInstance(context).getArtistSortOrder());
+        } catch (SecurityException e) {
+            return null;
+        }
     }
 }
