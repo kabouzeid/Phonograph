@@ -41,6 +41,10 @@ public class PagerAdapter extends FragmentPagerAdapter {
                 context.getResources().getString(R.string.artists),
                 context.getResources().getString(R.string.playlists)
         };
+        final MusicFragments[] fragments = MusicFragments.values();
+        for (final PagerAdapter.MusicFragments fragment : fragments) {
+            add(fragment.getFragmentClass(), null);
+        }
     }
 
     @SuppressWarnings("synthetic-access")
