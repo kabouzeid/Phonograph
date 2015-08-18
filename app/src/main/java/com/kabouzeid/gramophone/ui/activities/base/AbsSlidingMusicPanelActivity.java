@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.ui.activities.base;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -25,6 +26,7 @@ import android.support.v4.util.Pair;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Property;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.MenuItem;
@@ -88,6 +90,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     private static final int FAB_CIRCULAR_REVEAL_ANIMATION_TIME = 1000;
     private static final long DEFAULT_PROGRESS_VIEW_REFRESH_INTERVAL = 500;
     private static final int CMD_REFRESH_PROGRESS_VIEWS = 1;
+    private static final int SLIDING_PANEL_ANIMATION_STEPS = 1000;
 
     @Bind(R.id.play_pause_fab)
     FloatingActionButton playPauseButton;
@@ -165,7 +168,12 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     private AnimatorSet colorTransitionAnimator;
 
-    private ArgbEvaluator argbEvaluator = new ArgbEvaluator();
+    private ObjectAnimator fabXAnimator;
+    private ObjectAnimator fabYAnimator;
+    private ObjectAnimator fabColorAnimator;
+    private int lastFabStartColor;
+    private int lastFabEndColor;
+    private ObjectAnimator miniPlayerAlphaAnimator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -333,13 +341,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     private void setUpPlayPauseButtonTint() {
         int fabColor = colorPlaybackControls && slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED ? lastPlaybackControlsColor : getThemeColorAccent();
-        setPlayPauseButtonTint(fabColor);
-    }
-
-    private void setPlayPauseButtonTint(int color) {
-        int fabDrawableColor = ColorUtil.getDrawableColorForBackground(this, color);
-        playPauseButton.setBackgroundTintList(ColorStateList.valueOf(color));
-        playPauseButton.getDrawable().setColorFilter(fabDrawableColor, PorterDuff.Mode.SRC_IN);
+        FloatingActionButtonProperty.FAB_COLOR.set(playPauseButton, fabColor);
     }
 
     private void setUpMiniPlayer() {
@@ -394,16 +396,16 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     @Override
     public void onPanelSlide(View view, float slideOffset) {
-        float xTranslation = (dummyFab.getX() + mediaControllerContainer.getX() + footerFrame.getX() - playPauseButton.getLeft()) * slideOffset;
-        float yTranslation = (dummyFab.getY() + mediaControllerContainer.getY() + footerFrame.getY() - playPauseButton.getTop()) * slideOffset;
+        initFabXAnimatorIfNecessary();
+        initFabYAnimatorIfNecessary();
+        initFabColorAnimatorIfNecessary();
+        initMiniPlayerAlphaAnimatorIfNecessary();
 
-        playPauseButton.setTranslationX(xTranslation);
-        playPauseButton.setTranslationY(yTranslation);
-
-        miniPlayer.setAlpha(1 - slideOffset);
-
-        int newColor = colorPlaybackControls ? (int) argbEvaluator.evaluate(slideOffset, getThemeColorAccent(), lastPlaybackControlsColor) : getThemeColorAccent();
-        setPlayPauseButtonTint(newColor);
+        int durationProgress = (int) (SLIDING_PANEL_ANIMATION_STEPS * slideOffset);
+        fabXAnimator.setCurrentPlayTime(durationProgress);
+        fabYAnimator.setCurrentPlayTime(durationProgress);
+        fabColorAnimator.setCurrentPlayTime(durationProgress);
+        miniPlayerAlphaAnimator.setCurrentPlayTime(durationProgress);
     }
 
     @Override
@@ -447,6 +449,52 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     @Override
     public void onPanelHidden(View view) {
 
+    }
+
+    private void initFabXAnimatorIfNecessary() {
+        if (fabXAnimator == null) {
+            float xTranslation = dummyFab.getX() + mediaControllerContainer.getX() + footerFrame.getX() - playPauseButton.getLeft();
+            fabXAnimator = ObjectAnimator.ofFloat(playPauseButton, View.TRANSLATION_X, 0, xTranslation);
+            fabXAnimator.setDuration(SLIDING_PANEL_ANIMATION_STEPS);
+        }
+    }
+
+    private void initFabYAnimatorIfNecessary() {
+        if (fabYAnimator == null) {
+            float yTranslation = dummyFab.getY() + mediaControllerContainer.getY() + footerFrame.getY() - playPauseButton.getTop();
+            fabYAnimator = ObjectAnimator.ofFloat(playPauseButton, View.TRANSLATION_Y, 0, yTranslation);
+            fabYAnimator.setDuration(SLIDING_PANEL_ANIMATION_STEPS);
+        }
+    }
+
+    private void initFabColorAnimatorIfNecessary() {
+        int startColor = getThemeColorAccent();
+        int endColor;
+        if (colorPlaybackControls) {
+            endColor = lastPlaybackControlsColor;
+        } else {
+            endColor = startColor;
+        }
+        if (fabColorAnimator == null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                fabColorAnimator = ObjectAnimator.ofArgb(playPauseButton, FloatingActionButtonProperty.FAB_COLOR, startColor, endColor);
+            } else {
+                fabColorAnimator = ObjectAnimator.ofInt(playPauseButton, FloatingActionButtonProperty.FAB_COLOR, startColor, endColor);
+                fabColorAnimator.setEvaluator(new ArgbEvaluator());
+            }
+            fabColorAnimator.setDuration(SLIDING_PANEL_ANIMATION_STEPS);
+        } else if (startColor != lastFabStartColor || endColor != lastFabEndColor) {
+            fabColorAnimator.setIntValues(startColor, endColor);
+        }
+        lastFabStartColor = startColor;
+        lastFabEndColor = endColor;
+    }
+
+    private void initMiniPlayerAlphaAnimatorIfNecessary() {
+        if (miniPlayerAlphaAnimator == null) {
+            miniPlayerAlphaAnimator = ObjectAnimator.ofFloat(miniPlayer, View.ALPHA, 1, 0);
+            miniPlayerAlphaAnimator.setDuration(SLIDING_PANEL_ANIMATION_STEPS);
+        }
     }
 
     private void toggleSlidingPanel() {
@@ -1101,5 +1149,21 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         if (slidingUpPanelLayout == null || slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
             super.notifyTaskColorChange(color);
         }
+    }
+
+    private static class FloatingActionButtonProperty {
+        public static final Property<FloatingActionButton, Integer> FAB_COLOR = new Property<FloatingActionButton, Integer>(Integer.class, "fabColor") {
+            @Override
+            public void set(FloatingActionButton object, Integer value) {
+                object.setBackgroundTintList(ColorStateList.valueOf(value));
+                object.setRippleColor(shiftColorDown(value));
+                object.getDrawable().setColorFilter(ColorUtil.getDrawableColorForBackground(object.getContext(), value), PorterDuff.Mode.SRC_IN);
+            }
+
+            @Override
+            public Integer get(FloatingActionButton object) {
+                return object.getBackgroundTintList() != null ? object.getBackgroundTintList().getDefaultColor() : 0;
+            }
+        };
     }
 }

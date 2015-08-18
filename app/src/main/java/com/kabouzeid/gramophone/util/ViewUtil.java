@@ -42,8 +42,13 @@ public class ViewUtil {
     public final static int DEFAULT_COLOR_ANIMATION_DURATION = 500;
 
     private static Animator createColorAnimator(Object target, String propertyName, int startColor, int endColor) {
-        ObjectAnimator animator = ObjectAnimator.ofObject(target, propertyName,
-                new ArgbEvaluator(), startColor, endColor);
+        ObjectAnimator animator;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            animator = ObjectAnimator.ofArgb(target, propertyName, startColor, endColor);
+        } else {
+            animator = ObjectAnimator.ofInt(target, propertyName, startColor, endColor);
+            animator.setEvaluator(new ArgbEvaluator());
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             animator.setInterpolator(new PathInterpolator(0.4f, 0f, 1f, 1f));

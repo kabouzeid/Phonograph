@@ -16,16 +16,11 @@
 
 <!--This FrameLayout IS necessary in order tp prevent fucking TouchWiz to interpret the "background="#00000000" as making the whole notification transparent-->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:internal="http://schemas.android.com/apk/prv/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="64dp"
-    internal:layout_maxHeight="64dp"
-    internal:layout_minHeight="64dp">
+    android:layout_height="64dp">
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:internal="http://schemas.android.com/apk/prv/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/root"
         android:layout_width="match_parent"
@@ -35,9 +30,7 @@
         android:orientation="horizontal"
         tools:ignore="UselessParent">
 
-        <FrameLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:internal="http://schemas.android.com/apk/prv/res/android"
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/icon_group"
             android:layout_width="@dimen/notification_large_icon_width"
             android:layout_height="@dimen/notification_large_icon_height"
