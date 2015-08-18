@@ -127,10 +127,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 
     private void setUpViewPager() {
         pagerAdapter = new PagerAdapter(this, getSupportFragmentManager());
-        final PagerAdapter.MusicFragments[] fragments = PagerAdapter.MusicFragments.values();
-        for (final PagerAdapter.MusicFragments fragment : fragments) {
-            pagerAdapter.add(fragment.getFragmentClass(), null);
-        }
         pager.setAdapter(pagerAdapter);
         pager.setOffscreenPageLimit(pagerAdapter.getCount() - 1);
 
