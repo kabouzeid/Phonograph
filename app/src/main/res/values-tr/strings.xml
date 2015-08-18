@@ -119,6 +119,7 @@
     <string name="pref_title_larger_title_box_now_playing">Büyük Başlık Kutucuğu</string>
     <string name="pref_title_alternative_progress_slider_now_playing">Alternatif İlerleme Kaydırma</string>
     <string name="pref_title_playback_controller_card_now_playing">Oynatma Kontrolleri Altında Kartı Göster</string>
+    <string name="pref_title_colored_playback_controls_now_playing">Renkli Oynatma Kontrolleri</string>
     <string name="pref_title_hide_bottom_bar">Alt çubuğu gizle</string>
     <string name="no_equalizer">Ekolayzer bulunamadı.</string>
     <string name="no_audio_ID">"Hiçbir ses kimliği yok, bir şarkı çalın ve tekrar deneyin."</string>
