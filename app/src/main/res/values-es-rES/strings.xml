@@ -61,7 +61,7 @@
     <string name="no_results">Sin resultados</string>
     <string name="action_re_download_artist_image">Actualizar imagen del artista</string>
     <string name="updated_artist_image">Imagen de artista actualizada</string>
-    <string name="could_not_update_artist_image">No se puedo subir la imagen del artista</string>
+    <string name="could_not_update_artist_image">No se pudo subir la imagen del artista</string>
     <string name="updating">Actualizando...</string>
     <string name="added_title_to_playing_queue">"1 título añadido a la cola de reproducción"</string>
     <string name="added_x_titles_to_playing_queue">Añadir %1$d a la cola de reproducción</string>
@@ -136,7 +136,7 @@
     <string name="primary_color">Color primario</string>
     <string name="accent_color">Color de énfasis</string>
     <string name="primary_color_desc">El color principal por defecto es índigo</string>
-    <string name="accent_color_desc">El color de énfasis es rosado</string>
+    <string name="accent_color_desc">El color de énfasis es rosa</string>
     <string name="update_image">Actualizar imagen</string>
     <string name="playlist_empty_text">La lista de reproducción está vacía</string>
     <string name="no_playlists">No hay listas de reproducción</string>
