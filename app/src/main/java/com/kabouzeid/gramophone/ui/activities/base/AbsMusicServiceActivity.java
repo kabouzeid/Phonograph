@@ -15,6 +15,7 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
+import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
 import com.kabouzeid.gramophone.service.MusicService;
@@ -196,13 +197,15 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
 
     private void checkExternalStoragePermissions() {
         hasExternalStoragePermission = hasExternalStoragePermission();
-        if (hasExternalStoragePermission) {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_EXTERNAL_STORAGE_PERMISSION);
+        if (!hasExternalStoragePermission) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_EXTERNAL_STORAGE_PERMISSION);
+            }
         }
     }
 
     private boolean hasExternalStoragePermission() {
-        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED;
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
     @Override
@@ -215,7 +218,7 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
                     return;
                 }
             }
-            Toast.makeText(AbsMusicServiceActivity.this, "You must grant permission to external storage in order to explore your music", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AbsMusicServiceActivity.this, getResources().getString(R.string.permission_to_access_external_storage_denied), Toast.LENGTH_SHORT).show();
         }
     }
 }
