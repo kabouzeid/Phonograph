@@ -9,7 +9,6 @@
     <string name="action_share">Partager</string>
     <string name="action_settings">"Paramètres"</string>
     <string name="action_about">À propos</string>
-    <string name="action_now_playing">Lecture En Cours</string>
     <string name="action_clear_playlist">Effacer la playlist</string>
     <string name="action_playing_queue">File de lecture</string>
     <string name="action_add_to_favorites">Ajouter aux favoris</string>
@@ -31,7 +30,6 @@
     <string name="biography_unavailable">Nous n\'avons pas trouv\u00e9 la biographie correspondant \u00e0 cet artiste.</string>
     <string name="biography">Biographie</string>
     <string name="audio_focus_denied">Aucun focus audio.</string>
-    <string name="tag_editor">Éditeur d\'infos</string>
     <string name="album">Album</string>
     <string name="artist">Artiste</string>
     <string name="genre">Genre</string>

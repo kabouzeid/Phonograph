@@ -172,7 +172,7 @@ public final class PreferenceUtil {
     }
 
     public final boolean colorPlaybackControlsNowPlaying() {
-        return mPreferences.getBoolean(COLOR_PLAYBACK_CONTROLS_NOW_PLAYING, false);
+        return mPreferences.getBoolean(COLOR_PLAYBACK_CONTROLS_NOW_PLAYING, true);
     }
 
     public final boolean largerTitleBoxNowPlaying() {

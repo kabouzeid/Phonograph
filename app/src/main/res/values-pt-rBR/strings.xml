@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">O que você quer compartilhar?</string>
-    <string name="currently_listening_to_x_by_x">Atualmente ouvindo %1$s por %2$s</string>
+    <string name="currently_listening_to_x_by_x">Atualmente ouvindo %1$s por %2$s.</string>
     <string name="the_audio_file">O arquivo de áudio</string>
     <string name="do_you_want_to_set_x_as_ringtone">Deseja definir %1$s como seu toque?</string>
     <string name="x_has_been_set_as_ringtone">A faixa %1$s foi definida como seu toque.</string>
@@ -9,7 +9,6 @@
     <string name="action_share">Compartilhar</string>
     <string name="action_settings">"Configurações"</string>
     <string name="action_about">Sobre</string>
-    <string name="action_now_playing">Tocando Agora</string>
     <string name="action_clear_playlist">Limpar Playlist</string>
     <string name="action_playing_queue">Fila de Execução</string>
     <string name="action_add_to_favorites">Adicionar aos favoritos</string>
@@ -31,7 +30,6 @@
     <string name="biography_unavailable">Desculpe, n\u00e3o conseguimos encontrar a biografia deste artista.</string>
     <string name="biography">Biografia</string>
     <string name="audio_focus_denied">Não conseguimos obter o foco do áudio.</string>
-    <string name="tag_editor">Editor de Tags</string>
     <string name="album">Álbum</string>
     <string name="artist">Artista</string>
     <string name="genre">Gênero</string>
@@ -65,6 +63,7 @@
     <string name="added_x_titles_to_playing_queue">%1$d faixas adicionadas à fila de reprodução.</string>
     <string name="action_remove_from_playlist">Remover da playlist</string>
     <string name="action_view_as">Ver como</string>
+    <string name="inserted_x_songs_into_playlist_x">Inserido %1$d músicas na playlist %2$s.</string>
     <string name="created_playlist_x">A playlist %1$s foi criada</string>
     <string name="deleted_playlist_x">A playlist %1$s foi excluída</string>
     <string name="deleted_x_songs">%1$d músicas excluidas</string>
@@ -112,6 +111,7 @@
     <string name="pref_title_larger_title_box_now_playing">Caixa de Titulo Maior</string>
     <string name="pref_title_alternative_progress_slider_now_playing">Barra de Progresso Alternativa</string>
     <string name="pref_title_playback_controller_card_now_playing">Mostrar cartão abaixo dos controles de reprodução</string>
+    <string name="pref_title_colored_playback_controls_now_playing">Controles de reprodução coloridos</string>
     <string name="pref_title_hide_bottom_bar">Ocultar Barra Inferior</string>
     <string name="no_equalizer">Nenhum equalizador encontrado.</string>
     <string name="no_audio_ID">"Sem identificação de áudio, reproduza algo e tente novamente."</string>
@@ -148,6 +148,7 @@
     <string name="pref_summary_playback_controller_card_now_playing">Mostra um cartão abaixo dos controles de reprodução (tocar/pausar etc.)</string>
     <string name="pref_summary_ignore_media_store_artwork">O Android Media Store armazena em cache sua capa do álbum embutido, mas em alguns dispositivos que parece para armazená-lo em uma resolução baixa. Ativar essa vai ignorar o Media Store, que pode aumentar a qualidade do álbum, mas faz com que tempos imagem de carregamento lento.</string>
     <string name="pref_summary_hide_bottom_bar">Ocultar a barra de informações da música atual. Você ainda pode arrastar o botão tocar/pausar em qualquer direção para abrir a tela de execução.</string>
+    <string name="pref_summary_colored_playback_controls_now_playing">Cores play/pause, aleat\u00f3rio e repetir assim como a barra de progresso na cor vibrante da capa do \u00e1lbum.</string>
     <string name="pref_summary_colored_navigation_bar">Definir onde a barra de navegação deve ser colorida.</string>
     <string name="could_not_download_album_cover">"N\u00e3o foi poss\u00edvel baixar uma capa do \u00e1lbum correspondente."</string>
     <string name="search_hint">Pesquisar na sua biblioteca...</string>
@@ -172,4 +173,5 @@
     <string name="colored_footers">Rodapés coloridos</string>
     <string name="special_thanks_to">Agradecimentos especiais para</string>
     <string name="changelog">Novidades</string>
+    <string name="permission_to_access_external_storage_denied">Permissão para acessar armazenamento externo negado.</string>
 </resources>

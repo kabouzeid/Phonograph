@@ -9,7 +9,6 @@
     <string name="action_share">Condividi</string>
     <string name="action_settings">"Impostazioni"</string>
     <string name="action_about">Informazioni</string>
-    <string name="action_now_playing">In riproduzione</string>
     <string name="action_clear_playlist">Svuota playlist</string>
     <string name="action_playing_queue">Brani in coda</string>
     <string name="action_add_to_favorites">Aggiungi ai preferiti</string>
@@ -27,11 +26,10 @@
     <string name="artists">Artisti</string>
     <string name="songs">Brani</string>
     <string name="playlists">Playlist</string>
-    <string name="unplayable_file">Spiacenti - Si \u00e8 verificato un errore nel tentativo di riprodurre questa canzone.</string>
-    <string name="biography_unavailable">Spiacenti - Impossibile trovare una biografia corrispondente a questo artista.</string>
+    <string name="unplayable_file">Errore nel riprodurre questa canzone.</string>
+    <string name="biography_unavailable">Impossibile trovare una biografia corrispondente a questo artista.</string>
     <string name="biography">Biografia</string>
     <string name="audio_focus_denied">Impossibile ottenere focus audio.</string>
-    <string name="tag_editor">Modifica tag</string>
     <string name="album">Album</string>
     <string name="artist">Artista</string>
     <string name="genre">Genere</string>
@@ -59,18 +57,19 @@
     <string name="no_results">Nessun risultato</string>
     <string name="action_re_download_artist_image">Aggiorna immagine artista</string>
     <string name="updated_artist_image">Immagine artista aggiornata.</string>
-    <string name="could_not_update_artist_image">Impossibile aggiornare l\'immagine artista.</string>
+    <string name="could_not_update_artist_image">Impossibile aggiornare l\'immagine dell\'artista.</string>
     <string name="updating">Aggiornamento...</string>
     <string name="added_title_to_playing_queue">"Un brano aggiunto alla coda."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titoli aggiunti alla coda.</string>
     <string name="action_remove_from_playlist">Rimuovi dalla playlist</string>
     <string name="action_view_as">Visualizza come</string>
+    <string name="inserted_x_songs_into_playlist_x">Aggiunte %1$d canzoni alla playlist %2$s</string>
     <string name="created_playlist_x">Playlist %1$s creata</string>
     <string name="deleted_playlist_x">Playlist %1$s eliminata</string>
     <string name="deleted_x_songs">%1$d brani eliminati</string>
     <string name="could_not_create_playlist">Impossibile creare playlist</string>
     <string name="delete_playlist_x"><![CDATA[        Vuoi eliminare la playlist <b>%1$s</b>? ]]></string>
-    <string name="clear_playlist_x"><![CDATA[Vuoi davvero svuotare la playlist <b>%1$s</b>? L\'operazione non pu\u00f2 essere annullata!]]></string>
+    <string name="clear_playlist_x"><![CDATA[Vuoi svuotare la playlist <b>%1$s</b>? L\'operazione non pu\u00f2 essere annullata!]]></string>
     <string name="delete_x_playlists"><![CDATA[        Vuoi eliminare <b>%1$d</b> playlist? ]]></string>
     <string name="delete_song_x"><![CDATA[        Vuoi eliminare il brano <b>%1$s</b>? ]]></string>
     <string name="delete_x_songs"><![CDATA[        Vuoi eliminare <b>%1$d</b> brani? ]]></string>
@@ -115,7 +114,7 @@
     <string name="pref_title_colored_playback_controls_now_playing">Controlli di riproduzione colorati</string>
     <string name="pref_title_hide_bottom_bar">Nascondi barra inferiore</string>
     <string name="no_equalizer">Nessun equalizzatore trovato</string>
-    <string name="no_audio_ID">"Nessun ID audio, riproduci qualcosa e prova di nuovo."</string>
+    <string name="no_audio_ID">"Riproduci un brano e prova di nuovo."</string>
     <string name="delete_action">Elimina</string>
     <string name="clear_action">Svuota</string>
     <string name="remove_action">Rimuovi</string>
@@ -129,7 +128,7 @@
     <string name="primary_color_desc">Colore principale, predefinito impostato su indaco.</string>
     <string name="accent_color_desc">Colore in risalto, predefinito impostato su rosa.</string>
     <string name="update_image">Aggiorna immagine</string>
-    <string name="playlist_empty_text">La playlist è vuota</string>
+    <string name="playlist_empty_text">Playlist vuota</string>
     <string name="no_playlists">Nessuna playlist</string>
     <string name="no_albums">Nessun album</string>
     <string name="no_songs">Nessun brano</string>
@@ -138,7 +137,7 @@
     <string name="playlist_name_empty">Nome playlist</string>
     <string name="song">Brano</string>
     <string name="pref_only_lollipop">"Disponibile solo su Lollipop."</string>
-    <string name="pref_summary_album_art_on_lockscreen">La copertina dell\'album è visualizzata nella schermata di sblocco. Potrebbe essere necessario un riavvio di Phonograph affinché le modifiche abbiano effetto.</string>
+    <string name="pref_summary_album_art_on_lockscreen">Usa la copertina dell\'album in riproduzione come sfondo della schermata di blocco.</string>
     <string name="pref_summary_colored_notification">"La notifica \u00e8 colorata secondo la gamma di colori della copertina."</string>
     <string name="pref_summary_gapless_playback">"Elimina l'intervallo tra due brani. Disabilitare quest'opzione può risolvere problemi di riproduzione."</string>
     <string name="pref_summary_force_square_album_art">La copertina nella schermata In riproduzione è sempre visualizzata con proporzioni quadrate.</string>
@@ -150,7 +149,7 @@
     <string name="pref_summary_ignore_media_store_artwork">Aggira il Media Store; l\'opzione può incrementare la qualità delle copertine, ma a volte causa rallentamenti nel caricamento delle immagini. Abilita soltanto se hai problemi con copertine a bassa risoluzione.</string>
     <string name="pref_summary_hide_bottom_bar">Nasconde la barra con le informazioni di riproduzione in basso. È ancora possibile trascinare il pulsante play/pausa in qualsiasi direzione per aprire la schermata In riproduzione.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">I pulsanti play/pausa, casuale e ripeti cos\u00ec come la barra d\'avanzamento sono colorati secondo la gamma di colori della copertina.</string>
-    <string name="pref_summary_colored_navigation_bar">In quali schermate colorare la barra di navigazione.</string>
+    <string name="pref_summary_colored_navigation_bar">Colora la barra di navigazione del colore principale.</string>
     <string name="could_not_download_album_cover">"Impossibile scaricare una copertina adatta."</string>
     <string name="search_hint">Cerca nella tua libreria...</string>
     <string name="rescanning_media">Nuova scannerizzazione media in corso...</string>
@@ -167,11 +166,12 @@
     <string name="cancel_current_timer">Annulla timer attuale</string>
     <string name="sleep_timer_canceled">Il timer di spegnimento è stato annullato</string>
     <string name="sleep_timer_set">Timer di spegnimento impostato a %d minuti da adesso</string>
-    <string name="action_new_playlist">Nuova playlist</string>
+    <string name="action_new_playlist">Nuova playlist...</string>
     <string name="new_playlist_title">Nuova playlist</string>
     <string name="grid">Griglia</string>
     <string name="list">Lista</string>
     <string name="colored_footers">Riquadri colorati</string>
     <string name="special_thanks_to">Ringraziamenti speciali a</string>
     <string name="changelog">Modifiche</string>
+    <string name="permission_to_access_external_storage_denied">Permesso per accedere alla memoria esterna negato.</string>
 </resources>

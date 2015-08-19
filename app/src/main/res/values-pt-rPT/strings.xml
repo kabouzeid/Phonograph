@@ -9,7 +9,6 @@
     <string name="action_share">Partilhar</string>
     <string name="action_settings">"Configurações"</string>
     <string name="action_about">Acerca</string>
-    <string name="action_now_playing">A tocar</string>
     <string name="action_clear_playlist">Limpar Playlist</string>
     <string name="action_playing_queue">Fila Atual</string>
     <string name="action_add_to_favorites">Adicionar aos favoritos</string>
@@ -30,7 +29,6 @@
     <string name="biography_unavailable">N\u00e3o foi poss\u00edvel encontrar uma biografia para este artista</string>
     <string name="biography">Biografia</string>
     <string name="audio_focus_denied">Sem foco de áudio</string>
-    <string name="tag_editor">Editor de tags</string>
     <string name="album">Álbum</string>
     <string name="artist">Artista</string>
     <string name="genre">Género</string>
