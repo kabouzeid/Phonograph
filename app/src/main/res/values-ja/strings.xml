@@ -9,7 +9,6 @@
     <string name="action_share">共有</string>
     <string name="action_settings">"設定"</string>
     <string name="action_about">Phonographについて</string>
-    <string name="action_now_playing">NowPlaying</string>
     <string name="action_clear_playlist">プレイリストの初期化</string>
     <string name="action_playing_queue">キュー</string>
     <string name="action_add_to_favorites">お気に入りに追加</string>
@@ -31,7 +30,6 @@
     <string name="biography_unavailable">\u30d0\u30a4\u30aa\u30b0\u30e9\u30d5\u30a3\u30fc\u304c\u898b\u3064\u304b\u308a\u307e\u305b\u3093</string>
     <string name="biography">バイオグラフィー</string>
     <string name="audio_focus_denied">オーディオが選択されていません</string>
-    <string name="tag_editor">タグエディター</string>
     <string name="album">アルバム</string>
     <string name="artist">アーティスト</string>
     <string name="genre">ジャンル</string>

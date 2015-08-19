@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">무엇을 공유하고 싶으십니까?</string>
-    <string name="currently_listening_to_x_by_x">현재 %1$s 에서 %2$s 까지 재생 중</string>
+    <string name="currently_listening_to_x_by_x">현재 %1$s 에서 %2$s 까지 듣는 중</string>
     <string name="the_audio_file">노래 파일</string>
     <string name="do_you_want_to_set_x_as_ringtone">%1$s을(를) 전화 벨소리로 설정하시겠습니까?</string>
-    <string name="x_has_been_set_as_ringtone">%1$s을(를) 전화 벨소리로 설정하였습니다.</string>
+    <string name="x_has_been_set_as_ringtone">%1$s을(를) 전화 벨소리로 설정</string>
     <string name="action_set_as_ringtone">벨소리로 설정</string>
     <string name="action_share">공유</string>
     <string name="action_settings">"설정"</string>
     <string name="action_about">정보</string>
-    <string name="action_now_playing">지금 재생 중</string>
     <string name="action_clear_playlist">재생목록 비우기</string>
     <string name="action_playing_queue">재생 대기열</string>
     <string name="action_add_to_favorites">좋아하는 곡 목록에 추가</string>
@@ -27,11 +26,10 @@
     <string name="artists">아티스트</string>
     <string name="songs">노래</string>
     <string name="playlists">재생목록</string>
-    <string name="unplayable_file">\uc774 \ub178\ub798\ub97c \uc7ac\uc0dd\ud558\ub824\ub358 \uc911 \uc624\ub958\uac00 \ubc1c\uc0dd\ud588\uc2b5\ub2c8\ub2e4.</string>
-    <string name="biography_unavailable">\uc774 \uc544\ud2f0\uc2a4\ud2b8\uc640 \uc77c\uce58\ud558\ub294 \uc815\ubcf4\ub97c \ucc3e\uc744 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.</string>
+    <string name="unplayable_file">\uc774 \ub178\ub798\ub97c \uc7ac\uc0dd\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.</string>
+    <string name="biography_unavailable">\uc544\ud2f0\uc2a4\ud2b8 \uc815\ubcf4\ub97c \ucc3e\uc744 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.</string>
     <string name="biography">정보</string>
     <string name="audio_focus_denied">Audio focus 권한을 얻을 수 없습니다.</string>
-    <string name="tag_editor">태그 편집기</string>
     <string name="album">앨범</string>
     <string name="artist">아티스트</string>
     <string name="genre">장르</string>
@@ -39,7 +37,7 @@
     <string name="year">연도</string>
     <string name="track">트랙</string>
     <string name="track_hint">"트랙 (트랙2는 2, CD3 트랙4는 3004 등으로 표기)"</string>
-    <string name="album_or_artist_empty">앨범 제목이나 앨범 아티스트 란이 비었습니다.</string>
+    <string name="album_or_artist_empty">제목이나 아티스트 란이 비었습니다.</string>
     <string name="writing_file_number">파일에 정보 기록 중...</string>
     <string name="saving_changes">변경사항 저장 중...</string>
     <string name="label_details">세부정보</string>
@@ -65,17 +63,18 @@
     <string name="added_x_titles_to_playing_queue">재생 대기열에 %1$d개의 노래를 추가했습니다.</string>
     <string name="action_remove_from_playlist">재생목록에서 제거</string>
     <string name="action_view_as">보기 방식</string>
-    <string name="created_playlist_x">재생 목록 \'%1$s\'을 만들었습니다.</string>
+    <string name="inserted_x_songs_into_playlist_x">%1$d개의 노래들을 재생목록 %2$s에 추가</string>
+    <string name="created_playlist_x">재생 목록 \'%1$s\'을 생성하여습니다.</string>
     <string name="deleted_playlist_x">재생목록 \'%1$s\'을 삭제했습니다.</string>
     <string name="deleted_x_songs"><b>%1$d</b>개의 노래를 삭제했습니다</string>
     <string name="could_not_create_playlist">\uc7ac\uc0dd\ubaa9\ub85d\uc744 \ub9cc\ub4e4 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.</string>
     <string name="delete_playlist_x"><![CDATA[재생목록 <b>%1$s</b>을(를) 삭제하시겠습니까?]]></string>
-    <string name="clear_playlist_x"><![CDATA[\uc7ac\uc0dd\ubaa9\ub85d <b>%1$s</b>\uc744(\ub97c) \ube44\uc6b0\uc2dc\uaca0\uc2b5\ub2c8\uae4c?]]></string>
+    <string name="clear_playlist_x"><![CDATA[\uc7ac\uc0dd\ubaa9\ub85d <b>%1$s</b>\uc744(\ub97c) \ube44\uc6b0\uc2dc\uaca0\uc2b5\ub2c8\uae4c? \uc774 \uc791\uc5c5\uc740 \ucde8\uc18c\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4!]]></string>
     <string name="delete_x_playlists"><![CDATA[재생목록 <b>%1$d</b>을(를) 삭제하시겠습니까?]]></string>
     <string name="delete_song_x"><![CDATA[노래 <b>%1$s</b>을(를) 삭제하시겠습니까?]]></string>
     <string name="delete_x_songs"><![CDATA[<b>%1$d</b>개의 노래를 삭제하시겠습니까?]]></string>
     <string name="remove_song_x_from_playlist"><![CDATA[노래 <b>%1$s</b>을(를) 재생목록에서 삭제하시겠습니까?]]></string>
-    <string name="remove_x_songs_from_playlist"><![CDATA[노래 <b>%1$d</b>을(를) 재생목록에서 삭제하시겠습니까?]]></string>
+    <string name="remove_x_songs_from_playlist"><![CDATA[노래 <b>%1$d</b>개를 재생목록에서 삭제하시겠습니까?]]></string>
     <string name="delete_song_title">노래 삭제</string>
     <string name="delete_songs_title">노래 삭제</string>
     <string name="remove_song_from_playlist_title">재생목록에서 노래 삭제</string>
@@ -112,6 +111,8 @@
     <string name="pref_title_larger_title_box_now_playing">더 큰 제목 바</string>
     <string name="pref_title_alternative_progress_slider_now_playing">대체 음악 조절 슬라이더</string>
     <string name="pref_title_playback_controller_card_now_playing">컨트롤 부분을 드로 표시</string>
+    <string name="pref_title_colored_playback_controls_now_playing">색칠된 재생 컨트롤</string>
+    <string name="pref_title_hide_bottom_bar">하단 바 감추기</string>
     <string name="no_equalizer">설치된 이퀄라이저가 없습니다.</string>
     <string name="no_audio_ID">"오디오 ID가 없습니다.
 아무 것이나 재생하시고 다시 시도해 주십시오."</string>
@@ -147,6 +148,8 @@
     <string name="pref_summary_alternative_progress_slider_now_playing">보통의 조절 슬라이더 대신 앨범 아트를 가리지 않는 대체 조절 슬라이더를 사용합니다.</string>
     <string name="pref_summary_playback_controller_card_now_playing">지금 재생 중 화면에서 컨트롤 부분(재생, 일시정지 등의 버튼이 있는 곳)을 카드로 표시합니다.</string>
     <string name="pref_summary_ignore_media_store_artwork">앨범 아트 이미지의 질이 높아지지만 로딩 시간을 길게 하는 미디어 스토어의 앨범 아트를 무시합니다. 저화질 앨범 아트에 문제가 있을 때에만 이 기능을 사용하십시오.</string>
+    <string name="pref_summary_hide_bottom_bar">하단 바를 현재 재생되고 있는 노래의 정보로 감춥니다. 재생/일시정지 버튼을 슬라이드하여 현재 재생 중 화면으로 가는 것은 가능합니다.</string>
+    <string name="pref_summary_colored_playback_controls_now_playing">\uc568\ubc94 \ucee4\ubc84\uc758 \uc0c9\uc5d0 \ub9de\ucd94\uc5b4 \uc7ac\uc0dd/\uc77c\uc2dc\uc815\uc9c0, \uc11e\uae30, \ubc18\ubcf5 \ubc84\ud2bc\uacfc \uc7ac\uc0dd \uc2ac\ub77c\uc774\ub354\ub97c \uc0c9\uce60\ud569\ub2c8\ub2e4.</string>
     <string name="pref_summary_colored_navigation_bar">하단바가 색깔을 주 색상으로 색칠합니다.</string>
     <string name="could_not_download_album_cover">"\uc77c\uce58\ud558\ub294 \uc568\ubc94 \ucee4\ubc84\ub97c \ub2e4\uc6b4\ub85c\ub4dc \ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4."</string>
     <string name="search_hint">저장소 검색...</string>
@@ -170,4 +173,6 @@
     <string name="list">목록</string>
     <string name="colored_footers">색칠된 앨범 카드</string>
     <string name="special_thanks_to">"특별히 감사드립니다 : "</string>
+    <string name="changelog">변경ㅈ</string>
+    <string name="permission_to_access_external_storage_denied">외장 메모리 접근 권한이 거부되었습니다.</string>
 </resources>

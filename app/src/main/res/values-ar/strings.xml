@@ -10,7 +10,6 @@
     <string name="action_settings">"الإعدادات"</string>
     <string name="action_about">"   عن التطبيق
 "</string>
-    <string name="action_now_playing">يعمل الان</string>
     <string name="action_clear_playlist">امسح قائمة التشغيل</string>
     <string name="action_playing_queue">قائمة الإنتظار</string>
     <string name="action_add_to_favorites">اضافة الى المفضلة</string>
@@ -32,7 +31,6 @@
     <string name="biography_unavailable">\u0639\u0630\u0631\u0627\u064b\u060c \u0644\u0645 \u064a\u062a\u0645 \u0627\u0644\u0639\u062b\u0648\u0631 \u0639\u0644\u0649 \u0633\u064a\u0631\u0629 \u0630\u0627\u062a\u064a\u0629 \u0645\u0637\u0627\u0628\u0642\u0629 \u0644\u0647\u0630\u0627 \u0627\u0644\u0641\u0646\u0627\u0646</string>
     <string name="biography">سيرة ذاتية</string>
     <string name="audio_focus_denied">لم يتم منح التطبيق إذن Audio focus</string>
-    <string name="tag_editor">تعديل معلومات الموسيقى</string>
     <string name="album">الألبوم</string>
     <string name="artist">الفنان</string>
     <string name="genre">النوع</string>

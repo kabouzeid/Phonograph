@@ -118,7 +118,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
         setSupportActionBar(toolbar);
         //noinspection ConstantConditions
-        getSupportActionBar().setTitle(getResources().getString(R.string.tag_editor));
+        getSupportActionBar().setTitle(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 

@@ -9,7 +9,6 @@
     <string name="action_share">分享</string>
     <string name="action_settings">"設定"</string>
     <string name="action_about">關於</string>
-    <string name="action_now_playing">播放中</string>
     <string name="action_clear_playlist">清除音樂清單</string>
     <string name="action_playing_queue">播放列表</string>
     <string name="action_add_to_favorites">加到最愛</string>
@@ -31,7 +30,6 @@
     <string name="biography_unavailable">\u7121\u6cd5\u627e\u5230\u8207\u9019\u4f4d\u6b4c\u624b\u76f8\u7b26\u7684\u500b\u4eba\u7c21\u4ecb</string>
     <string name="biography">個人簡介</string>
     <string name="audio_focus_denied">無法獲得音訊焦點</string>
-    <string name="tag_editor">編輯音樂標籤</string>
     <string name="album">專輯</string>
     <string name="artist">歌手</string>
     <string name="genre">音樂類型</string>

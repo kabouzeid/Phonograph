@@ -9,7 +9,6 @@
     <string name="action_share">Distribuiți</string>
     <string name="action_settings">"Setări"</string>
     <string name="action_about">Despre</string>
-    <string name="action_now_playing">Se redă</string>
     <string name="action_clear_playlist">Eliberați lista de redare</string>
     <string name="action_playing_queue">Lista de redare</string>
     <string name="action_add_to_favorites">Adăugați la favorite</string>
@@ -31,7 +30,6 @@
     <string name="biography_unavailable">Ne pare r\u0103u, nu am putut g\u0103si o biografie potrivit\u0103 pentru acest artist.</string>
     <string name="biography">Biografie</string>
     <string name="audio_focus_denied">Nu am putut face rost de focus audio.</string>
-    <string name="tag_editor">Editor Etichete</string>
     <string name="album">Album</string>
     <string name="artist">Artist</string>
     <string name="genre">Gen</string>

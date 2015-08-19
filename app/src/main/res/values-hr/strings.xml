@@ -9,7 +9,6 @@
     <string name="action_share">Podijeli</string>
     <string name="action_settings">"Postavke"</string>
     <string name="action_about">O Phonographu</string>
-    <string name="action_now_playing">Sada se reproducira</string>
     <string name="action_clear_playlist">Isprazni popis pjesama</string>
     <string name="action_playing_queue">Red čekanja</string>
     <string name="action_add_to_favorites">Dodaj u favorite</string>
@@ -31,7 +30,6 @@
     <string name="biography_unavailable">Nismo mogli prona\u0107i biografiju ovog izvo\u0111a\u010da</string>
     <string name="biography">Biografija</string>
     <string name="audio_focus_denied">Nema audio fokusa.</string>
-    <string name="tag_editor">Uređivač tagova</string>
     <string name="album">Album</string>
     <string name="artist">Izvođač</string>
     <string name="genre">Žanr</string>

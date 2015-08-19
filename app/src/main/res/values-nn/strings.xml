@@ -18,7 +18,6 @@
     <string name="biography_unavailable">Orsak, vi fann ingen passande biografi for denne artisten.</string>
     <string name="biography">Biografi</string>
     <string name="audio_focus_denied">We were not able to gain audio focus.</string>
-    <string name="tag_editor">Tag editor</string>
     <string name="album">Album</string>
     <string name="artist">Artist</string>
     <string name="genre">Genre</string>

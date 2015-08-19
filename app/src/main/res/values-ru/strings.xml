@@ -5,11 +5,10 @@
     <string name="the_audio_file">Аудиофайл</string>
     <string name="do_you_want_to_set_x_as_ringtone">Вы хотите установить %1$s на звонок?</string>
     <string name="x_has_been_set_as_ringtone">%1$s был установлен на звонок.</string>
-    <string name="action_set_as_ringtone">Установить как мелодию звонка</string>
+    <string name="action_set_as_ringtone">Установить как рингтон</string>
     <string name="action_share">Поделиться</string>
     <string name="action_settings">"Настройки"</string>
     <string name="action_about">О программе</string>
-    <string name="action_now_playing">Сейчас воспроизводится</string>
     <string name="action_clear_playlist">Очистить плейлист</string>
     <string name="action_playing_queue">Очередь воспроизведения</string>
     <string name="action_add_to_favorites">Добавить в избранное</string>
@@ -31,7 +30,6 @@
     <string name="biography_unavailable">\u0418\u0437\u0432\u0438\u043d\u0438\u0442\u0435, \u0431\u0438\u043e\u0433\u0440\u0430\u0444\u0438\u044f \u0434\u043b\u044f \u044d\u0442\u043e\u0433\u043e \u0438\u0441\u043f\u043e\u043b\u043d\u0438\u0442\u0435\u043b\u044f \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u0430.</string>
     <string name="biography">Биография</string>
     <string name="audio_focus_denied">Невозможно получить аудио фокус.</string>
-    <string name="tag_editor">Редактор тэгов</string>
     <string name="album">Альбом</string>
     <string name="artist">Исполнитель</string>
     <string name="genre">Жанр</string>
@@ -65,15 +63,16 @@
     <string name="added_x_titles_to_playing_queue">Добавлено %1$d композиций в очередь воспроизведения</string>
     <string name="action_remove_from_playlist">Удалить из плейлиста</string>
     <string name="action_view_as">Просмотр как</string>
+    <string name="inserted_x_songs_into_playlist_x">Добавлено %1$d песен в плейлист %2$s.</string>
     <string name="created_playlist_x">Список воспроизведения %1$s создан</string>
     <string name="deleted_playlist_x">Список воспроизведения %1$s удалён</string>
     <string name="deleted_x_songs">Удалено %1$d композиций</string>
     <string name="could_not_create_playlist">\u041d\u0435\u0432\u043e\u0437\u043c\u043e\u0436\u043d\u043e \u0441\u043e\u0437\u0434\u0430\u0442\u044c \u043f\u043b\u0435\u0439\u043b\u0438\u0441\u0442</string>
-    <string name="delete_playlist_x"><![CDATA[ Вы хотите удалить список воспроизведения <b>%1$s</b>? ]]></string>
+    <string name="delete_playlist_x"><![CDATA[Вы хотите удалить список воспроизведения <b>%1$s</b>?]]></string>
     <string name="clear_playlist_x"><![CDATA[\u0412\u044b \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043b\u044c\u043d\u043e \u0445\u043e\u0442\u0438\u0442\u0435 \u043e\u0447\u0438\u0441\u0442\u0438\u0442\u044c \u0441\u043f\u0438\u0441\u043e\u043a \u0432\u043e\u0441\u043f\u0440\u043e\u0438\u0437\u0432\u0435\u0434\u0435\u043d\u0438\u044f <b>%1$s</b>? \u042d\u0442\u043e \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435 \u043d\u0435 \u043c\u043e\u0436\u0435\u0442 \u0431\u044b\u0442\u044c \u043e\u0442\u043c\u0435\u043d\u0435\u043d\u043e!]]></string>
     <string name="delete_x_playlists"><![CDATA[Вы хотите удалить списки воспроизведения <b>%1$d</b> ? ]]></string>
-    <string name="delete_song_x"><![CDATA[ Вы хотите удалить песню <b>%1$s</b>? ]]></string>
-    <string name="delete_x_songs"><![CDATA[ Вы хотите удалить <b>%1$d</b> песни? ]]></string>
+    <string name="delete_song_x"><![CDATA[Вы хотите удалить песню <b>%1$s</b>?]]></string>
+    <string name="delete_x_songs"><![CDATA[Вы хотите удалить <b>%1$d</b> песни?]]></string>
     <string name="remove_song_x_from_playlist"><![CDATA[Вы действительно хотите удалить песню <b>%1$s</b> из плейлиста?]]></string>
     <string name="remove_x_songs_from_playlist"><![CDATA[Вы действительно хотите удалить <b>%1$d</b> элементов со списка воспроизведения?]]></string>
     <string name="delete_song_title">Удалить песню</string>
@@ -174,4 +173,5 @@
     <string name="colored_footers">Окрасить</string>
     <string name="special_thanks_to">Особая благодарность</string>
     <string name="changelog">Список изменений</string>
+    <string name="permission_to_access_external_storage_denied">В разрешении на доступ к внешнему хранилищу отказано.</string>
 </resources>

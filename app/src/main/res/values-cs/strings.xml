@@ -9,7 +9,6 @@
     <string name="action_share">Sdílet</string>
     <string name="action_settings">"Nastavení"</string>
     <string name="action_about">O aplikaci</string>
-    <string name="action_now_playing">Nyní hraje</string>
     <string name="action_clear_playlist">Vyčistit playlist</string>
     <string name="action_playing_queue">Fronta</string>
     <string name="action_add_to_favorites">Přidat do oblíbených</string>
@@ -31,7 +30,6 @@
     <string name="biography_unavailable">Omlouv\u00e1me se, k tomuto interpretovi nem\u016f\u017eeme sehnat dopl\u0148uj\u00edc\u00ed informace.</string>
     <string name="biography">Biografie</string>
     <string name="audio_focus_denied">Nebylo možné získat ohnisko zvuku.</string>
-    <string name="tag_editor">Editor Tagů</string>
     <string name="album">Album</string>
     <string name="artist">Interpret</string>
     <string name="genre">Žánr</string>

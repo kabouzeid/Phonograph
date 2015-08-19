@@ -9,7 +9,6 @@
     <string name="action_share">Delen</string>
     <string name="action_settings">"Instellingen"</string>
     <string name="action_about">Over</string>
-    <string name="action_now_playing">Nu spelend</string>
     <string name="action_clear_playlist">Afspeellijst legen</string>
     <string name="action_playing_queue">Afspeelwachtrij</string>
     <string name="action_add_to_favorites">Toevoegen aan favorieten</string>
@@ -31,7 +30,6 @@
     <string name="biography_unavailable">Kon geen passende biografie te vinden voor deze artiest</string>
     <string name="biography">Biografie</string>
     <string name="audio_focus_denied">Geen audio focus.</string>
-    <string name="tag_editor">Label bewerker</string>
     <string name="album">Album</string>
     <string name="artist">Artiest</string>
     <string name="genre">Genre</string>
