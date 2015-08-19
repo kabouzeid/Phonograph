@@ -85,12 +85,7 @@ public class NavigationUtil {
     }
 
     public static void openPlayingQueueDialog(@NonNull final AppCompatActivity activity) {
-        PlayingQueueDialog dialog = PlayingQueueDialog.create();
-        if (dialog != null) {
-            dialog.show(activity.getSupportFragmentManager(), "PLAY_QUEUE");
-        } else {
-            Toast.makeText(activity, activity.getResources().getString(R.string.playing_queue_empty), Toast.LENGTH_SHORT).show();
-        }
+        PlayingQueueDialog.create().show(activity.getSupportFragmentManager(), "PLAY_QUEUE");
     }
 
     public static void openEqualizer(@NonNull final Activity activity) {

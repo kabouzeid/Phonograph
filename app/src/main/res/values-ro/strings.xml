@@ -27,10 +27,8 @@
     <string name="artists">Artiști</string>
     <string name="songs">Melodii</string>
     <string name="playlists">Liste de redare</string>
-    <string name="playing_queue_empty">Coada de redare este goală.</string>
-    <string name="nothing_playing">Nimic nu este redat</string>
-    <string name="unplayable_file">Ne pare rău - a apărut o problemă în încercarea de a reda această melodie.</string>
-    <string name="biography_unavailable">Ne pare rău, nu am putut găsi o biografie potrivită pentru acest artist.</string>
+    <string name="unplayable_file">Ne pare r\u0103u - a ap\u0103rut o problem\u0103 \u00een \u00eencercarea de a reda aceast\u0103 melodie.</string>
+    <string name="biography_unavailable">Ne pare r\u0103u, nu am putut g\u0103si o biografie potrivit\u0103 pentru acest artist.</string>
     <string name="biography">Biografie</string>
     <string name="audio_focus_denied">Nu am putut face rost de focus audio.</string>
     <string name="tag_editor">Editor Etichete</string>
@@ -64,15 +62,12 @@
     <string name="added_title_to_playing_queue">"Melodie adăugată în lista de redare."</string>
     <string name="added_x_titles_to_playing_queue">%1$d melodii adăugate în lista de redare.</string>
     <string name="action_remove_from_playlist">Ștergeți din lista de redare.</string>
-    <string name="action_grid_columns">Rânduri pe  grilă</string>
-    <string name="action_grid_columns_land">Rânduri pe grilă (Orizontal)</string>
-    <string name="inserted_x_songs_into_playlist">%1$d melodii inserate în listă</string>
     <string name="created_playlist_x">Lista de redare %1$s a fost creată.</string>
     <string name="deleted_playlist_x">Lista de redare %1$s a fost ștearsă.</string>
     <string name="deleted_x_songs">%1$d melodii șterse</string>
     <string name="could_not_create_playlist">Nu s-a putut crea lista de redare</string>
     <string name="delete_playlist_x"><![CDATA[Doriți să ștergeți lista <b>%1$s</b>?]]></string>
-    <string name="clear_playlist_x"><![CDATA[Sunteți sigur ca doriți să eliberați lista  <b>%1$s</b>? Aceasta acțiune este ireversibilă!]]></string>
+    <string name="clear_playlist_x"><![CDATA[Sunte\u021bi sigur ca dori\u021bi s\u0103 elibera\u021bi lista  <b>%1$s</b>? Aceasta ac\u021biune este ireversibil\u0103!]]></string>
     <string name="delete_x_playlists"><![CDATA[Doriți să ștergeți <b>%1$d</b> liste?]]></string>
     <string name="delete_song_x"><![CDATA[Doriți să ștergeți melodia <b>%1$s</b> ?]]></string>
     <string name="delete_x_songs"><![CDATA[Doriți să ștergeți <b>%1$d</b> melodii ?]]></string>
@@ -84,7 +79,6 @@
     <string name="delete_playlists_title">Ștergeți listele de redare</string>
     <string name="clear_playlist_title">Eliberați lista de redare</string>
     <string name="add_playlist_title">"Adaugă la listă de redare"</string>
-    <string name="delete_warning">"Atenţie: Această operaţie nu poate fi revocată."</string>
     <string name="action_shuffle_all">Amestecare</string>
     <string name="action_shuffle_album">Amestecare album</string>
     <string name="action_shuffle_artist">Amestecare artist</string>
@@ -99,7 +93,6 @@
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">General</string>
     <string name="pref_header_lockscreen">Ecran blocat</string>
-    <string name="pref_summary_colored_navigation_bar">În ce ecrane bara de navigare să fie colorată.</string>
     <string name="pref_title_navigation_bar">Bară de navigare colorată</string>
     <string name="pref_title_set_default_start_page">Pagina de deschidere</string>
     <string name="pref_title_colored_notification">Notificare colorată</string>
@@ -108,8 +101,6 @@
     <string name="pref_title_opaque_toolbar_now_playing">Bară de instrumente opacă</string>
     <string name="pref_title_opaque_statusbar_now_playing">Bară de statuturi opacă</string>
     <string name="no_equalizer">Niciun egalizator găsit</string>
-    <string name="navigation_drawer_open">Deschide sertarul de navigație</string>
-    <string name="navigation_drawer_close">"Închide sertarul de navigație"</string>
     <string name="delete_action">Șterge</string>
     <string name="clear_action">Eliberați</string>
     <string name="remove_action">Ștergeți</string>
@@ -131,7 +122,8 @@
     <string name="song">Melodie</string>
     <string name="pref_only_lollipop">"Valabil numai în Android Lollipop."</string>
     <string name="pref_summary_gapless_playback">"Elimină pauza dintre doua piese. Poate cauza probleme de playback pe anumite terminale."</string>
-    <string name="could_not_download_album_cover">"Nu s-a putut descărca un cover de album potrivit."</string>
+    <string name="pref_summary_colored_navigation_bar">În ce ecrane bara de navigare să fie colorată.</string>
+    <string name="could_not_download_album_cover">"Nu s-a putut desc\u0103rca un cover de album potrivit."</string>
     <string name="search_hint">Căutați în bibliotecă.</string>
     <string name="rescanning_media">Se rescanează media.</string>
     <string name="favorites">Favorite</string>

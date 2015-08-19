@@ -14,9 +14,8 @@
     <string name="artists">Καλλιτέχνες</string>
     <string name="songs">Τραγούδια</string>
     <string name="playlists">Λίστες αναπαραγωγής</string>
-    <string name="nothing_playing">Δεν παίζει τίποτα</string>
-    <string name="unplayable_file">Συγγνώμη - Υπήρξε σφάλμα στην προσπάθεια αναπαραγωγής</string>
-    <string name="biography_unavailable">Συγγνώμη, δεν βρήκαμε τη βιογραφία αυτού του καλλιτέχνη</string>
+    <string name="unplayable_file">\u03a3\u03c5\u03b3\u03b3\u03bd\u03ce\u03bc\u03b7 - \u03a5\u03c0\u03ae\u03c1\u03be\u03b5 \u03c3\u03c6\u03ac\u03bb\u03bc\u03b1 \u03c3\u03c4\u03b7\u03bd \u03c0\u03c1\u03bf\u03c3\u03c0\u03ac\u03b8\u03b5\u03b9\u03b1 \u03b1\u03bd\u03b1\u03c0\u03b1\u03c1\u03b1\u03b3\u03c9\u03b3\u03ae\u03c2</string>
+    <string name="biography_unavailable">\u03a3\u03c5\u03b3\u03b3\u03bd\u03ce\u03bc\u03b7, \u03b4\u03b5\u03bd \u03b2\u03c1\u03ae\u03ba\u03b1\u03bc\u03b5 \u03c4\u03b7 \u03b2\u03b9\u03bf\u03b3\u03c1\u03b1\u03c6\u03af\u03b1 \u03b1\u03c5\u03c4\u03bf\u03cd \u03c4\u03bf\u03c5 \u03ba\u03b1\u03bb\u03bb\u03b9\u03c4\u03ad\u03c7\u03bd\u03b7</string>
     <string name="biography">Βιογραφία</string>
     <string name="audio_focus_denied">Δεν μπορούμε να φέρουμε τον ήχο στο προσκήνιο.</string>
     <string name="tag_editor">Επεξεργασία ετικετών</string>
@@ -49,9 +48,6 @@
     <string name="updating">Γίνεται ανανέωση...</string>
     <string name="added_title_to_playing_queue">"Προστέθηκε ένας τίτλος στη σειρά αναπαραγωγής"</string>
     <string name="added_x_titles_to_playing_queue">Προστέθηκαν %1$d εικονίδια στην σειρά αναπαραγωγής</string>
-    <string name="action_grid_columns">Στήλες πλέγματος</string>
-    <string name="action_grid_columns_land">Στήλες πλέγματος</string>
-    <string name="inserted_x_songs_into_playlist">Προστέθηκαν %1$d τραγούδια σε αυτή τη λίστα αναπαραγωγής</string>
     <string name="created_playlist_x">Δημιουργήθηκε η λίστα αναπαραγωγής %1$s</string>
     <string name="deleted_playlist_x">Διεγράφη η λίστα αναπαραγωγής %1$s</string>
     <string name="delete_playlist_x"><![CDATA[Θέλετε να διαγράψετε τη λίστα αναπαραγωγής <b>%1$s</b>;]]></string>
@@ -66,7 +62,6 @@
     <string name="delete_playlist_title">Διαγραφή λίστας αναπαραγωγής</string>
     <string name="delete_playlists_title">Διαγραφή λιστών αναπαραγωγής</string>
     <string name="add_playlist_title">"Προσθήκη στη λίστα αναπαραγωγής"</string>
-    <string name="delete_warning">"Προσοχή: Αυτή η ενέργεια δε μπορεί να αναιρεθεί."</string>
     <string name="last_opened">Τελευταίο άνοιγμα</string>
     <string name="light_theme_name">Ανοιχτό</string>
     <string name="dark_theme_name">Σκούρο</string>
@@ -74,13 +69,10 @@
     <string name="pref_title_general_theme">Γενικό θέμα</string>
     <string name="pref_header_audio">Ήχος</string>
     <string name="pref_header_general">Γενικά</string>
-    <string name="pref_summary_colored_navigation_bar">Σε ποιές προβολές θα χρωματίζεται η μπάρα πλοήγησης.</string>
     <string name="pref_title_navigation_bar">Έγχρωμη μπάρα πλοήγησης</string>
     <string name="pref_title_set_default_start_page">Αρχική σελίδα</string>
     <string name="no_equalizer">Δε βρέθηκε ισοσταθμιστής</string>
     <string name="no_audio_ID">"Δε βρέθηκε ήχος, αναπαράξτε κάτι και δοκιμάστε ξανά."</string>
-    <string name="navigation_drawer_open">Άνοιγμα συρταριού πλόηγησης</string>
-    <string name="navigation_drawer_close">"Κλείσιμο συρταριού πλόηγησης"</string>
     <string name="delete_action">Διαγραφή</string>
     <string name="rename_action">Μετονομασία</string>
     <string name="select">Επιλογή</string>
@@ -94,6 +86,7 @@
     <string name="no_playlists">Καμία λίστα</string>
     <string name="song">Τραγούδι</string>
     <string name="pref_only_lollipop">"Διαθέσιμο μόνο σε Lollipop."</string>
+    <string name="pref_summary_colored_navigation_bar">Σε ποιές προβολές θα χρωματίζεται η μπάρα πλοήγησης.</string>
     <string name="search_hint">Αναζήτηση στη βιβλιοθήκη...</string>
     <string name="rescanning_media">Σάρωση αρχείων πολυμέσων...</string>
     <string name="new_playlist_title">Νέα λίστα αναπαραγωγής</string>

@@ -23,8 +23,6 @@ public class PlayingQueueDialog extends LeakDetectDialogFragment {
 
     public static PlayingQueueDialog create() {
         final ArrayList<Song> playingQueue = MusicPlayerRemote.getPlayingQueue();
-        if (playingQueue.isEmpty())
-            return null;
         PlayingQueueDialog dialog = new PlayingQueueDialog();
         Bundle args = new Bundle();
         args.putSerializable("queue", playingQueue);

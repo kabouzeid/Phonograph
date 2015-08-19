@@ -27,10 +27,8 @@
     <string name="artists">아티스트</string>
     <string name="songs">노래</string>
     <string name="playlists">재생목록</string>
-    <string name="playing_queue_empty">재생 대기열이 비었습니다.</string>
-    <string name="nothing_playing">재생 중인 노래가 없습니다.</string>
-    <string name="unplayable_file">이 노래를 재생하려던 중 오류가 발생했습니다.</string>
-    <string name="biography_unavailable">이 아티스트와 일치하는 정보를 찾을 수 없습니다.</string>
+    <string name="unplayable_file">\uc774 \ub178\ub798\ub97c \uc7ac\uc0dd\ud558\ub824\ub358 \uc911 \uc624\ub958\uac00 \ubc1c\uc0dd\ud588\uc2b5\ub2c8\ub2e4.</string>
+    <string name="biography_unavailable">\uc774 \uc544\ud2f0\uc2a4\ud2b8\uc640 \uc77c\uce58\ud558\ub294 \uc815\ubcf4\ub97c \ucc3e\uc744 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.</string>
     <string name="biography">정보</string>
     <string name="audio_focus_denied">Audio focus 권한을 얻을 수 없습니다.</string>
     <string name="tag_editor">태그 편집기</string>
@@ -61,21 +59,18 @@
     <string name="no_results">결과 없음</string>
     <string name="action_re_download_artist_image">아티스트 이미지 변경</string>
     <string name="updated_artist_image">아티스트 이미지를 변경하였습니다.</string>
-    <string name="could_not_update_artist_image">아티스트 이미지를 변경할 수 없습니다.</string>
+    <string name="could_not_update_artist_image">\uc544\ud2f0\uc2a4\ud2b8 \uc774\ubbf8\uc9c0\ub97c \ubcc0\uacbd\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.</string>
     <string name="updating">변경 중...</string>
     <string name="added_title_to_playing_queue">"재생 대기열에 1개의 노래를 추가했습니다."</string>
     <string name="added_x_titles_to_playing_queue">재생 대기열에 %1$d개의 노래를 추가했습니다.</string>
     <string name="action_remove_from_playlist">재생목록에서 제거</string>
-    <string name="action_grid_columns">가로 격자</string>
-    <string name="action_grid_columns_land">가로 격자 (가로모드일 때)</string>
     <string name="action_view_as">보기 방식</string>
-    <string name="inserted_x_songs_into_playlist">이 재생목록에 %1$d개의 노래를 추가했습니다.</string>
     <string name="created_playlist_x">재생 목록 \'%1$s\'을 만들었습니다.</string>
     <string name="deleted_playlist_x">재생목록 \'%1$s\'을 삭제했습니다.</string>
     <string name="deleted_x_songs"><b>%1$d</b>개의 노래를 삭제했습니다</string>
-    <string name="could_not_create_playlist">재생목록을 만들 수 없습니다.</string>
+    <string name="could_not_create_playlist">\uc7ac\uc0dd\ubaa9\ub85d\uc744 \ub9cc\ub4e4 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.</string>
     <string name="delete_playlist_x"><![CDATA[재생목록 <b>%1$s</b>을(를) 삭제하시겠습니까?]]></string>
-    <string name="clear_playlist_x"><![CDATA[재생목록 <b>%1$s</b>을(를) 비우시겠습니까?]]></string>
+    <string name="clear_playlist_x"><![CDATA[\uc7ac\uc0dd\ubaa9\ub85d <b>%1$s</b>\uc744(\ub97c) \ube44\uc6b0\uc2dc\uaca0\uc2b5\ub2c8\uae4c?]]></string>
     <string name="delete_x_playlists"><![CDATA[재생목록 <b>%1$d</b>을(를) 삭제하시겠습니까?]]></string>
     <string name="delete_song_x"><![CDATA[노래 <b>%1$s</b>을(를) 삭제하시겠습니까?]]></string>
     <string name="delete_x_songs"><![CDATA[<b>%1$d</b>개의 노래를 삭제하시겠습니까?]]></string>
@@ -90,7 +85,6 @@
     <string name="delete_playlists_title">재생목록 삭제</string>
     <string name="clear_playlist_title">재생목록 비우기</string>
     <string name="add_playlist_title">"재생목록에 추가"</string>
-    <string name="delete_warning">"경고 : 이 작업은 되돌릴 수 없습니다."</string>
     <string name="action_shuffle_all">모든 곡 임의 재생</string>
     <string name="action_shuffle_album">앨범 임의 재생</string>
     <string name="action_shuffle_artist">아티스트 임의 재생</string>
@@ -106,7 +100,6 @@
     <string name="pref_header_general">일반</string>
     <string name="pref_header_images">이미지</string>
     <string name="pref_header_lockscreen">잠금 화면</string>
-    <string name="pref_summary_colored_navigation_bar">하단바가 색깔을 주 색상으로 색칠합니다.</string>
     <string name="pref_title_navigation_bar">하단바 색깔</string>
     <string name="pref_title_set_default_start_page">시작 화면</string>
     <string name="pref_title_album_art_on_lockscreen">잠금화면 앨범 아트</string>
@@ -122,8 +115,6 @@
     <string name="no_equalizer">설치된 이퀄라이저가 없습니다.</string>
     <string name="no_audio_ID">"오디오 ID가 없습니다.
 아무 것이나 재생하시고 다시 시도해 주십시오."</string>
-    <string name="navigation_drawer_open">네비게이션 서랍 열기</string>
-    <string name="navigation_drawer_close">"네비게이션 서랍 닫기"</string>
     <string name="delete_action">삭제</string>
     <string name="clear_action">비우기</string>
     <string name="remove_action">제거</string>
@@ -147,7 +138,7 @@
     <string name="song">노래</string>
     <string name="pref_only_lollipop">"안드로이드 롤리팝에서만 가능합니다."</string>
     <string name="pref_summary_album_art_on_lockscreen">노래의 앨범 아트가 잠금 화면에 표시됩니다.</string>
-    <string name="pref_summary_colored_notification">"알림창에 뜨는 알림 컨트롤이 앨범 아트의 주요 색상으로 칠해집니다."</string>
+    <string name="pref_summary_colored_notification">"\uc54c\ub9bc\ucc3d\uc5d0 \ub728\ub294 \uc54c\ub9bc \ucee8\ud2b8\ub864\uc774 \uc568\ubc94 \uc544\ud2b8\uc758 \uc8fc\uc694 \uc0c9\uc0c1\uc73c\ub85c \uce60\ud574\uc9d1\ub2c8\ub2e4."</string>
     <string name="pref_summary_gapless_playback">"곡을 넘길 때 간격을 없애 끊김없이 재생합니다. 이 기능을 끄면 곡 전환 관련 문제가 해결될 수 있습니다."</string>
     <string name="pref_summary_force_square_album_art">지금 재생 중 화면의 앨범 아트 이미지가 강제로 정사각형으로 보이게 합니다.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">지금 재생 중 화면 상단의 툴바를 불투명하게 하고 앨범 아트를 가리지 않게 합니다.</string>
@@ -156,7 +147,8 @@
     <string name="pref_summary_alternative_progress_slider_now_playing">보통의 조절 슬라이더 대신 앨범 아트를 가리지 않는 대체 조절 슬라이더를 사용합니다.</string>
     <string name="pref_summary_playback_controller_card_now_playing">지금 재생 중 화면에서 컨트롤 부분(재생, 일시정지 등의 버튼이 있는 곳)을 카드로 표시합니다.</string>
     <string name="pref_summary_ignore_media_store_artwork">앨범 아트 이미지의 질이 높아지지만 로딩 시간을 길게 하는 미디어 스토어의 앨범 아트를 무시합니다. 저화질 앨범 아트에 문제가 있을 때에만 이 기능을 사용하십시오.</string>
-    <string name="could_not_download_album_cover">"일치하는 앨범 커버를 다운로드 할 수 없습니다."</string>
+    <string name="pref_summary_colored_navigation_bar">하단바가 색깔을 주 색상으로 색칠합니다.</string>
+    <string name="could_not_download_album_cover">"\uc77c\uce58\ud558\ub294 \uc568\ubc94 \ucee4\ubc84\ub97c \ub2e4\uc6b4\ub85c\ub4dc \ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4."</string>
     <string name="search_hint">저장소 검색...</string>
     <string name="rescanning_media">미디어 재스캐닝 중...</string>
     <string name="favorites">좋아하는 곡들</string>
