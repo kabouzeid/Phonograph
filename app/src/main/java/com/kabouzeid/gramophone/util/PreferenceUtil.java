@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.SortOrder;
@@ -106,7 +107,7 @@ public final class PreferenceUtil {
     }
 
     public int getThemeColorPrimary(Context context) {
-        return mPreferences.getInt("primary_color", context.getResources().getColor(R.color.indigo_500));
+        return mPreferences.getInt("primary_color", ContextCompat.getColor(context, R.color.indigo_500));
     }
 
     @SuppressLint("CommitPrefEdits")
@@ -115,7 +116,7 @@ public final class PreferenceUtil {
     }
 
     public int getThemeColorAccent(Context context) {
-        return mPreferences.getInt("accent_color", context.getResources().getColor(R.color.pink_A200));
+        return mPreferences.getInt("accent_color", ContextCompat.getColor(context, R.color.pink_A200));
     }
 
     @SuppressLint("CommitPrefEdits")

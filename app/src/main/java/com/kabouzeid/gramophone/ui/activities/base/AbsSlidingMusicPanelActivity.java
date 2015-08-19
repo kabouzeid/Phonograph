@@ -1156,8 +1156,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
             @Override
             public void set(FloatingActionButton object, Integer value) {
                 object.setBackgroundTintList(ColorStateList.valueOf(value));
-                object.setRippleColor(shiftColorDown(value));
-                object.getDrawable().setColorFilter(ColorUtil.getDrawableColorForBackground(object.getContext(), value), PorterDuff.Mode.SRC_IN);
+                object.getDrawable().setColorFilter(ColorUtil.getFabDrawableColorForBackground(object.getContext(), value), PorterDuff.Mode.SRC_IN);
             }
 
             @Override

@@ -68,7 +68,7 @@ public class ColorView extends FrameLayout {
     public void setBackgroundColor(int color) {
         paint.setColor(color);
         paintBorder.setColor(ColorUtil.shiftColorDown(color));
-        paintCheck.setColorFilter(new PorterDuffColorFilter(ColorUtil.getDrawableColorForBackground(getContext(), color), PorterDuff.Mode.SRC_IN));
+        paintCheck.setColorFilter(new PorterDuffColorFilter(ColorUtil.getFabDrawableColorForBackground(getContext(), color), PorterDuff.Mode.SRC_IN));
         requestLayout();
         invalidate();
     }

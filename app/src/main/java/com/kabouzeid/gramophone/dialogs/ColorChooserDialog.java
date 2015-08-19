@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -72,6 +73,7 @@ public class ColorChooserDialog extends LeakDetectDialogFragment implements View
         }
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
@@ -94,9 +96,9 @@ public class ColorChooserDialog extends LeakDetectDialogFragment implements View
                     public void onNeutral(MaterialDialog dialog) {
                         super.onNeutral(dialog);
                         if (getArguments().getInt("title", 0) == R.string.primary_color) {
-                            getArguments().putInt("preselect", getResources().getColor(R.color.indigo_500));
+                            getArguments().putInt("preselect", ContextCompat.getColor(getContext(), R.color.indigo_500));
                         } else if (getArguments().getInt("title", 0) == R.string.accent_color) {
-                            getArguments().putInt("preselect", getResources().getColor(R.color.pink_A200));
+                            getArguments().putInt("preselect", ContextCompat.getColor(getContext(), R.color.pink_A200));
                         }
                         invalidateGrid();
                     }

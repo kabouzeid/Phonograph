@@ -21,6 +21,7 @@ import android.support.design.widget.AppBarLayout.OnOffsetChangedListener;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
@@ -195,7 +196,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                 new int[]{
                         // 0,
                         colorAccent,
-                        ThemeSingleton.get().darkTheme ? getResources().getColor(R.color.primary_text_default_material_dark) : getResources().getColor(R.color.primary_text_default_material_light)
+                        ThemeSingleton.get().darkTheme ? ContextCompat.getColor(this, R.color.primary_text_default_material_dark) : ContextCompat.getColor(this, R.color.primary_text_default_material_light)
                 }
         ));
         navigationView.setItemIconTintList(new ColorStateList(
@@ -207,7 +208,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                 new int[]{
                         // 0,
                         colorAccent,
-                        ThemeSingleton.get().darkTheme ? getResources().getColor(R.color.secondary_text_default_material_dark) : getResources().getColor(R.color.secondary_text_default_material_light)
+                        ThemeSingleton.get().darkTheme ? ContextCompat.getColor(this, R.color.secondary_text_default_material_dark) : ContextCompat.getColor(this, R.color.secondary_text_default_material_light)
                 }
         ));
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
