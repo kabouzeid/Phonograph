@@ -14,9 +14,8 @@
     <string name="artists">Artister</string>
     <string name="songs">Låtar</string>
     <string name="playlists">Spellista</string>
-    <string name="nothing_playing">Ingenting att spela</string>
-    <string name="unplayable_file">Ursäkta - ett problem uppstod vid spelningen av denna låt</string>
-    <string name="biography_unavailable">Ursäkta, vi kunde inte hitta biografin för den här artisten</string>
+    <string name="unplayable_file">Urs\u00e4kta - ett problem uppstod vid spelningen av denna l\u00e5t</string>
+    <string name="biography_unavailable">Urs\u00e4kta, vi kunde inte hitta biografin f\u00f6r den h\u00e4r artisten</string>
     <string name="biography">Biografi</string>
     <string name="audio_focus_denied">Vi kunde inte hitta ljudfokus</string>
     <string name="tag_editor">Tagredigering</string>
@@ -64,7 +63,6 @@ Vill du radera <b>%1$d</b> låtar?
     <string name="rename_playlist_title">Döp om spellista</string>
     <string name="delete_playlist_title">Radera spellista</string>
     <string name="add_playlist_title">"Lägg till i spellista"</string>
-    <string name="delete_warning">"Varning: denna process kan inte ångras."</string>
     <string name="last_opened">Senast öppnad</string>
     <string name="light_theme_name">Ljus</string>
     <string name="dark_theme_name">Mörk</string>
@@ -72,7 +70,6 @@ Vill du radera <b>%1$d</b> låtar?
     <string name="pref_title_general_theme">Allmänt tema</string>
     <string name="pref_header_audio">Ljud</string>
     <string name="pref_header_general">Allmänt</string>
-    <string name="pref_summary_colored_navigation_bar">I vilken vy navigeringslisten skall vara färgad</string>
     <string name="pref_title_navigation_bar">Färgad navigeringslist</string>
     <string name="pref_title_set_default_start_page">Startsida</string>
     <string name="no_equalizer">Hittar ingen equalizer</string>
@@ -87,6 +84,7 @@ Vill du radera <b>%1$d</b> låtar?
     <string name="no_playlists">Inga spellistor</string>
     <string name="song">Låt</string>
     <string name="pref_only_lollipop">"Enbart tillgänglig för Lollipop."</string>
+    <string name="pref_summary_colored_navigation_bar">I vilken vy navigeringslisten skall vara färgad</string>
     <string name="search_hint">Sök i ditt bibliotek ...</string>
     <string name="rescanning_media">Återskannar media ...</string>
     <string name="new_playlist_title">Ny spellista</string>

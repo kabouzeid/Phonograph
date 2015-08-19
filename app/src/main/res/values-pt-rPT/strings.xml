@@ -26,10 +26,8 @@
     <string name="artists">Artistas</string>
     <string name="songs">Faixas</string>
     <string name="playlists">Playlists</string>
-    <string name="playing_queue_empty">A fila encontra-se vazia</string>
-    <string name="nothing_playing">Nada a ser reproduzido</string>
     <string name="unplayable_file">Ocorreu um erro ao tentar reproduzir esta faixa</string>
-    <string name="biography_unavailable">Não foi possível encontrar uma biografia para este artista</string>
+    <string name="biography_unavailable">N\u00e3o foi poss\u00edvel encontrar uma biografia para este artista</string>
     <string name="biography">Biografia</string>
     <string name="audio_focus_denied">Sem foco de áudio</string>
     <string name="tag_editor">Editor de tags</string>
@@ -65,10 +63,7 @@
     <string name="added_title_to_playing_queue">"Adicionada 1 música para a fila reprodução"</string>
     <string name="added_x_titles_to_playing_queue">Adicionadas %1$d títulos à fila de reprodução</string>
     <string name="action_remove_from_playlist">Remover da Playlist</string>
-    <string name="action_grid_columns">Colunas da grade</string>
-    <string name="action_grid_columns_land">Colunas da grade (Paisagem)</string>
     <string name="action_view_as">Ver como</string>
-    <string name="inserted_x_songs_into_playlist">Inseridas %1$d faixas a esta playlist</string>
     <string name="deleted_playlist_x">Playlist %1$s eliminada</string>
     <string name="deleted_x_songs">Eliminadas %1$d faixas</string>
     <string name="remove_song_from_playlist_title">Remover faixa da playlist</string>
@@ -78,7 +73,6 @@
     <string name="delete_playlists_title">Eliminar Playlists</string>
     <string name="clear_playlist_title">Limpar Playlist</string>
     <string name="add_playlist_title">"Adicionar à playlist"</string>
-    <string name="delete_warning">"Aviso: Esta operação não pode ser desfeita."</string>
     <string name="action_shuffle_all">Embaralhar Todas</string>
     <string name="action_shuffle_album">Embaralhar Álbum</string>
     <string name="action_shuffle_artist">Embaralhar Artista</string>
@@ -97,7 +91,5 @@
     <string name="pref_title_album_art_on_lockscreen">Capa do Álbum no ecrã de bloqueio</string>
     <string name="pref_title_colored_notification">Notificação Colorida</string>
     <string name="no_equalizer">Nenhum equalizador encontrado</string>
-    <string name="navigation_drawer_open">Abrir área de navegação</string>
-    <string name="navigation_drawer_close">"Fechar área de navegação"</string>
     <string name="song">Música</string>
 </resources>

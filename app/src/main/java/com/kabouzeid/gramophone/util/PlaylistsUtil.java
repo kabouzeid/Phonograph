@@ -112,7 +112,7 @@ public class PlaylistsUtil {
 
             if (showToastOnFinish) {
                 Toast.makeText(context, context.getResources().getString(
-                        R.string.inserted_x_songs_into_playlist, numInserted), Toast.LENGTH_SHORT).show();
+                        R.string.inserted_x_songs_into_playlist_x, numInserted, getNameForPlaylist(context, playlistId)), Toast.LENGTH_SHORT).show();
             }
         } catch (SecurityException ignored) {
         }
