@@ -16,6 +16,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -268,10 +269,10 @@ public class PlayingNotificationHelper {
         isDark = setDark;
 
         if (notificationLayout != null && notificationLayoutBig != null) {
-            int darkContentColor = service.getResources().getColor(R.color.primary_text_default_material_light);
-            int darkContentSecondaryColor = service.getResources().getColor(R.color.secondary_text_default_material_light);
-            int contentColor = service.getResources().getColor(R.color.primary_text_default_material_dark);
-            int contentSecondaryColor = service.getResources().getColor(R.color.secondary_text_default_material_dark);
+            int darkContentColor = ContextCompat.getColor(service, R.color.primary_text_default_material_light);
+            int darkContentSecondaryColor = ContextCompat.getColor(service, R.color.secondary_text_default_material_light);
+            int contentColor = ContextCompat.getColor(service, R.color.primary_text_default_material_dark);
+            int contentSecondaryColor = ContextCompat.getColor(service, R.color.secondary_text_default_material_dark);
 
             notificationLayout.setTextColor(R.id.title, setDark ? darkContentColor : contentColor);
             notificationLayout.setTextColor(R.id.text, setDark ? darkContentSecondaryColor : contentSecondaryColor);

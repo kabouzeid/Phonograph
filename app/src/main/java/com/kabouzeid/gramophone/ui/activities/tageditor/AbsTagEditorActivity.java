@@ -196,7 +196,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         });
 
         int fabColor = getThemeColorAccent();
-        int fabDrawableColor = ColorUtil.getDrawableColorForBackground(this, fabColor);
+        int fabDrawableColor = ColorUtil.getFabDrawableColorForBackground(this, fabColor);
         fab.setBackgroundTintList(ColorStateList.valueOf(fabColor));
         fab.getDrawable().setColorFilter(fabDrawableColor, PorterDuff.Mode.SRC_IN);
     }

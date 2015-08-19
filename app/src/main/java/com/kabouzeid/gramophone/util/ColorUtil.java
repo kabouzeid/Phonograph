@@ -8,6 +8,7 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.Palette;
 
 import com.kabouzeid.gramophone.R;
@@ -82,6 +83,14 @@ public class ColorUtil {
         return (alpha << 24) + (0x00ffffff & Color.HSVToColor(hsv));
     }
 
+    public static int getPrimaryTextColor(final Context context, boolean dark) {
+        return dark ? ContextCompat.getColor(context, R.color.primary_text_default_material_light) : ContextCompat.getColor(context, R.color.primary_text_default_material_dark);
+    }
+
+    public static int getSecondaryTextColor(final Context context, boolean dark) {
+        return dark ? ContextCompat.getColor(context, R.color.secondary_text_default_material_light) : ContextCompat.getColor(context, R.color.secondary_text_default_material_dark);
+    }
+
     public static float getLuminance(@ColorInt int color) {
         return (Color.red(color) * 0.299f + Color.green(color) * 0.587f + Color.blue(color) * 0.114f);
     }
@@ -90,19 +99,19 @@ public class ColorUtil {
         return getLuminance(backgroundColor) > (255f / 2f);
     }
 
-    public static int getPrimaryTextColorForBackground(final Context context, @ColorInt int backgroundColor) {
-        return useDarkTextColorOnBackground(backgroundColor) ? context.getResources().getColor(R.color.primary_text_default_material_light) : context.getResources().getColor(R.color.primary_text_default_material_dark);
-    }
-
-    public static int getSecondaryTextColorForBackground(final Context context, @ColorInt int backgroundColor) {
-        return useDarkTextColorOnBackground(backgroundColor) ? context.getResources().getColor(R.color.secondary_text_default_material_light) : context.getResources().getColor(R.color.secondary_text_default_material_dark);
-    }
-
-    public static boolean useDarkDrawableColorOnBackground(@ColorInt int backgroundColor) {
+    public static boolean useDarkFabDrawableOnBackground(@ColorInt int backgroundColor) {
         return getLuminance(backgroundColor) > (255f / 1.3f);
     }
 
-    public static int getDrawableColorForBackground(final Context context, @ColorInt int backgroundColor) {
-        return useDarkDrawableColorOnBackground(backgroundColor) ? context.getResources().getColor(R.color.primary_text_default_material_light) : context.getResources().getColor(R.color.primary_text_default_material_dark);
+    public static int getPrimaryTextColorForBackground(final Context context, @ColorInt int backgroundColor) {
+        return getPrimaryTextColor(context, useDarkTextColorOnBackground(backgroundColor));
+    }
+
+    public static int getSecondaryTextColorForBackground(final Context context, @ColorInt int backgroundColor) {
+        return getSecondaryTextColor(context, useDarkTextColorOnBackground(backgroundColor));
+    }
+
+    public static int getFabDrawableColorForBackground(final Context context, @ColorInt int backgroundColor) {
+        return getPrimaryTextColor(context, useDarkFabDrawableOnBackground(backgroundColor));
     }
 }
