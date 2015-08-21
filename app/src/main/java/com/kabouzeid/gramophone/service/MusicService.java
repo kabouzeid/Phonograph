@@ -55,6 +55,8 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import hugo.weaving.DebugLog;
+
 /**
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal
  */
@@ -75,6 +77,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     // do not change this strings as it will break support with other apps (e.g. last.fm scrobbling)
     public static final String META_CHANGED = "com.kabouzeid.gramophone.metachanged";
+    public static final String QUEUE_CHANGED = "com.kabouzeid.gramophone.queuechanged";
     public static final String PLAY_STATE_CHANGED = "com.kabouzeid.gramophone.playstatechanged";
     public static final String REPEAT_MODE_CHANGED = "com.kabouzeid.gramophone.repeatmodechanged";
     public static final String SHUFFLE_MODE_CHANGED = "com.kabouzeid.gramophone.shufflemodechanged";
@@ -395,6 +398,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
     }
 
+    @DebugLog
     private boolean prepareNext() {
         synchronized (this) {
             try {
@@ -566,7 +570,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             if (startPlaying) {
                 playSongAt(position);
             }
-            saveState();
+            notifyChange(QUEUE_CHANGED);
         }
     }
 
@@ -588,6 +592,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
             notHandledMetaChangedForCurrentTrack = true;
             sendChangeIntent(META_CHANGED);
+            sendChangeIntent(QUEUE_CHANGED);
             updateWidgets();
         }
     }
@@ -595,19 +600,19 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public void addSong(int position, Song song) {
         playingQueue.add(position, song);
         originalPlayingQueue.add(position, song);
-        saveState();
+        notifyChange(QUEUE_CHANGED);
     }
 
     public void addSong(Song song) {
         playingQueue.add(song);
         originalPlayingQueue.add(song);
-        saveState();
+        notifyChange(QUEUE_CHANGED);
     }
 
     public void addSongs(List<Song> songs) {
         playingQueue.addAll(songs);
         originalPlayingQueue.addAll(songs);
-        saveState();
+        notifyChange(QUEUE_CHANGED);
     }
 
     public void removeSong(int position) {
@@ -617,7 +622,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         } else {
             originalPlayingQueue.remove(playingQueue.remove(position));
         }
-        saveState();
+        notifyChange(QUEUE_CHANGED);
     }
 
     public void removeSong(@NonNull Song song) {
@@ -627,7 +632,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         for (int i = 0; i < originalPlayingQueue.size(); i++) {
             if (originalPlayingQueue.get(i).id == song.id) originalPlayingQueue.remove(i);
         }
-        saveState();
+        notifyChange(QUEUE_CHANGED);
     }
 
     public void moveSong(int from, int to) {
@@ -645,8 +650,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         } else if (from == currentPosition) {
             setPosition(to);
         }
-        if (from != to) prepareNext();
-        saveState();
+        notifyChange(QUEUE_CHANGED);
     }
 
     public void playSongAt(final int position) {
@@ -795,8 +799,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 setPosition(newPosition);
                 break;
         }
-        prepareNext();
         notifyChange(SHUFFLE_MODE_CHANGED);
+        notifyChange(QUEUE_CHANGED);
     }
 
     private void notifyChange(@NonNull final String what) {
@@ -842,6 +846,9 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             final Song currentSong = getCurrentSong();
             recentlyPlayedStore.addSongId(currentSong.id);
             songPlayCountStore.bumpSongCount(currentSong.id);
+        } else if (what.equals(QUEUE_CHANGED)) {
+            saveState();
+            prepareNext();
         }
     }
 
@@ -859,19 +866,15 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         wakeLock.acquire(milli);
     }
 
-    private void setGaplessPlaybackEnabled(boolean setEnabled) {
-        if (setEnabled) {
-            prepareNext();
-        } else {
-            player.setNextDataSource(null);
-        }
-    }
-
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         switch (key) {
             case PreferenceUtil.GAPLESS_PLAYBACK:
-                setGaplessPlaybackEnabled(sharedPreferences.getBoolean(key, false));
+                if (sharedPreferences.getBoolean(key, false)) {
+                    prepareNext();
+                } else {
+                    player.setNextDataSource(null);
+                }
                 break;
             case PreferenceUtil.ALBUM_ART_ON_LOCKSCREEN:
                 updateRemoteControlClientImpl(sharedPreferences.getBoolean(key, true));
