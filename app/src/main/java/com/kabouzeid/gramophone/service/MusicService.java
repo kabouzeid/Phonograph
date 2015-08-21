@@ -55,8 +55,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import hugo.weaving.DebugLog;
-
 /**
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal
  */
@@ -398,7 +396,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
     }
 
-    @DebugLog
     private boolean prepareNext() {
         synchronized (this) {
             try {
@@ -828,27 +825,31 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     }
 
     private void handleChange(@NonNull final String what) {
-        if (what.equals(PLAY_STATE_CHANGED)) {
-            final boolean isPlaying = isPlaying();
-            playingNotificationHelper.updatePlayState(isPlaying);
-            WidgetMedium.updateWidgetsPlayState(this, isPlaying);
-            //noinspection deprecation
-            remoteControlClient.setPlaybackState(isPlaying ? RemoteControlClient.PLAYSTATE_PLAYING : RemoteControlClient.PLAYSTATE_PAUSED);
-            if (!isPlaying && getSongProgressMillis() > 0) {
+        switch (what) {
+            case PLAY_STATE_CHANGED:
+                final boolean isPlaying = isPlaying();
+                playingNotificationHelper.updatePlayState(isPlaying);
+                WidgetMedium.updateWidgetsPlayState(this, isPlaying);
+                //noinspection deprecation
+                remoteControlClient.setPlaybackState(isPlaying ? RemoteControlClient.PLAYSTATE_PLAYING : RemoteControlClient.PLAYSTATE_PAUSED);
+                if (!isPlaying && getSongProgressMillis() > 0) {
+                    savePositionInTrack();
+                }
+                break;
+            case META_CHANGED:
+                updateNotification();
+                updateWidgets();
+                updateRemoteControlClient();
+                savePosition();
                 savePositionInTrack();
-            }
-        } else if (what.equals(META_CHANGED)) {
-            updateNotification();
-            updateWidgets();
-            updateRemoteControlClient();
-            savePosition();
-            savePositionInTrack();
-            final Song currentSong = getCurrentSong();
-            recentlyPlayedStore.addSongId(currentSong.id);
-            songPlayCountStore.bumpSongCount(currentSong.id);
-        } else if (what.equals(QUEUE_CHANGED)) {
-            saveState();
-            prepareNext();
+                final Song currentSong = getCurrentSong();
+                recentlyPlayedStore.addSongId(currentSong.id);
+                songPlayCountStore.bumpSongCount(currentSong.id);
+                break;
+            case QUEUE_CHANGED:
+                saveState();
+                prepareNext();
+                break;
         }
     }
 
