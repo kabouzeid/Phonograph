@@ -686,13 +686,8 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     private static void setSeekBarTint(SeekBar seekBar, @ColorInt int thumbColor, @ColorInt int progressColor) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            seekBar.setThumbTintList(ColorStateList.valueOf(thumbColor));
-            seekBar.setProgressTintList(ColorStateList.valueOf(progressColor));
-        } else {
-            seekBar.getThumb().setColorFilter(thumbColor, PorterDuff.Mode.SRC_IN);
-            seekBar.getProgressDrawable().setColorFilter(progressColor, PorterDuff.Mode.SRC_IN);
-        }
+        seekBar.getThumb().mutate().setColorFilter(thumbColor, PorterDuff.Mode.SRC_IN);
+        seekBar.getProgressDrawable().mutate().setColorFilter(progressColor, PorterDuff.Mode.SRC_IN);
     }
 
     private void setUpProgressSlider() {
