@@ -44,6 +44,11 @@ public class Util {
         return size;
     }
 
+    public static int getSmallerScreenSize(@NonNull Context c) {
+        Point size = Util.getScreenSize(c);
+        return Math.min(size.x, size.y);
+    }
+
     @TargetApi(19)
     public static void setStatusBarTranslucent(@NonNull Window window) {
         window.setFlags(
