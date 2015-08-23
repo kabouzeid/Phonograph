@@ -9,8 +9,13 @@ import com.nostra13.universalimageloader.core.process.BitmapProcessor;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class BlurProcessor implements BitmapProcessor {
+    public static final int DEFAULT_BLUR_RADIUS = 10;
 
     final int blurRadius;
+
+    public BlurProcessor() {
+        this.blurRadius = DEFAULT_BLUR_RADIUS;
+    }
 
     public BlurProcessor(int blurRadius) {
         this.blurRadius = blurRadius;

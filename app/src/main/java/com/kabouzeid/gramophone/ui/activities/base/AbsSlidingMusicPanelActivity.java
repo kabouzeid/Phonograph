@@ -893,7 +893,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                         ImageLoader.getInstance().displayImage(
                                 "drawable://" + R.drawable.default_album_art,
                                 albumArtBackground,
-                                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor(10)).build()
+                                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor()).build()
                         );
                     }
 
@@ -909,7 +909,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                         ImageLoader.getInstance().displayImage(
                                 imageUri,
                                 albumArtBackground,
-                                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor(10)).build()
+                                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor()).build()
                         );
                     }
                 }
