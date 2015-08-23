@@ -15,6 +15,7 @@ import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.tag.images.Artwork;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -73,14 +74,9 @@ public class PhonographImageDownloader extends BaseImageDownloader {
         if (PreferenceUtil.getInstance(context).ignoreMediaStoreArtwork()) {
             ArrayList<Song> songs = AlbumSongLoader.getAlbumSongList(context, albumId);
             for (Song song : songs) {
-                try {
-                    AudioFile audioFile = AudioFileIO.read(new File(song.data));
-                    byte[] albumCover = audioFile.getTagOrCreateAndSetDefault().getFirstArtwork().getBinaryData();
-                    if (albumCover != null) {
-                        return new ByteArrayInputStream(albumCover);
-                    }
-                } catch (@NonNull Exception e) {
-                    e.printStackTrace();
+                byte[] albumCover = getAlbumCoverBinaryData(new File(song.data));
+                if (albumCover != null) {
+                    return new ByteArrayInputStream(albumCover);
                 }
             }
         }
@@ -92,19 +88,28 @@ public class PhonographImageDownloader extends BaseImageDownloader {
         String[] data = imageUri.substring(SCHEME_SONG.length()).split("#", 2);
 
         if (PreferenceUtil.getInstance(context).ignoreMediaStoreArtwork()) {
-            try {
-                AudioFile audioFile = AudioFileIO.read(new File(data[1]));
-                byte[] albumCover = audioFile.getTagOrCreateAndSetDefault().getFirstArtwork().getBinaryData();
-                if (albumCover != null) {
-                    return new ByteArrayInputStream(albumCover);
-                }
-            } catch (@NonNull Exception e) {
-                e.printStackTrace();
+            byte[] albumCover = getAlbumCoverBinaryData(new File(data[1]));
+            if (albumCover != null) {
+                return new ByteArrayInputStream(albumCover);
             }
         }
 
         int id = Integer.parseInt(data[0]);
         return getMediaProviderAlbumArtInputStream(id);
+    }
+
+    @Nullable
+    private static byte[] getAlbumCoverBinaryData(File song) {
+        try {
+            AudioFile audioFile = AudioFileIO.read(song);
+            Artwork artwork = audioFile.getTagOrCreateAndSetDefault().getFirstArtwork();
+            if (artwork != null) {
+                return artwork.getBinaryData();
+            }
+        } catch (@NonNull Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Nullable

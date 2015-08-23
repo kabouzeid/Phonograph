@@ -109,8 +109,8 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusBarTransparent();
         super.onCreate(savedInstanceState);
+        setStatusBarTransparent();
         ButterKnife.bind(this);
 
         if (shouldColorNavigationBar())
@@ -122,12 +122,16 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         initViews();
         setUpObservableListViewParams();
         setUpViews();
+        setUpToolbar();
+        animateAlbumArtBackgroundOnEnterTransitionEnd();
+    }
 
-        setSupportActionBar(toolbar);
-        //noinspection ConstantConditions
-        getSupportActionBar().setTitle(null);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    @Override
+    protected View createContentView() {
+        return wrapSlidingMusicPanelAndFab(R.layout.activity_artist_detail);
+    }
 
+    private void animateAlbumArtBackgroundOnEnterTransitionEnd() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().getEnterTransition().addListener(new SimpleTransitionListener() {
                 @Override
@@ -151,11 +155,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                 }
             });
         }
-    }
-
-    @Override
-    protected View createContentView() {
-        return wrapSlidingMusicPanelAndFab(R.layout.activity_artist_detail);
     }
 
     private final SimpleObservableScrollViewCallbacks observableScrollViewCallbacks = new SimpleObservableScrollViewCallbacks() {
@@ -203,7 +202,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
     private void setUpViews() {
         artistName.setText(artist.name);
-
         setUpArtistImageAndApplyPalette(false);
         setUpSongListView();
         setUpAlbumRecyclerView();
@@ -347,8 +345,9 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK)
-            albumAdapter.notifyDataSetChanged();
+        if (resultCode == RESULT_OK) {
+            reloadDataSets();
+        }
     }
 
     @Override
@@ -382,6 +381,13 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         if (artist.id == -1) {
             finish();
         }
+    }
+
+    private void setUpToolbar() {
+        setSupportActionBar(toolbar);
+        //noinspection ConstantConditions
+        getSupportActionBar().setTitle(null);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

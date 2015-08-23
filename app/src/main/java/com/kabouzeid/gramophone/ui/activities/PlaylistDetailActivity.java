@@ -55,8 +55,8 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
         setStatusBarTransparent();
+        ButterKnife.bind(this);
 
         getIntentExtras();
 

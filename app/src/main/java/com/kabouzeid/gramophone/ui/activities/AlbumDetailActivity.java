@@ -92,8 +92,8 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusBarTransparent();
         super.onCreate(savedInstanceState);
+        setStatusBarTransparent();
         ButterKnife.bind(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -107,7 +107,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         setUpObservableListViewParams();
         setUpToolBar();
         setUpViews();
-        animateFabCircularRevealOnEnterTransitionEnd();
+        animateAlbumArtBackgroundOnEnterTransitionEnd();
     }
 
     @Override
@@ -115,7 +115,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         return wrapSlidingMusicPanelAndFab(R.layout.activity_album_detail);
     }
 
-    private void animateFabCircularRevealOnEnterTransitionEnd() {
+    private void animateAlbumArtBackgroundOnEnterTransitionEnd() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().getEnterTransition().addListener(new SimpleTransitionListener() {
                 @Override
@@ -372,6 +372,8 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == TAG_EDITOR_REQUEST) {
+            getAlbumFromIntentExtras();
+            albumTitleView.setText(album.title);
             setUpAlbumArtAndApplyPalette();
             setResult(RESULT_OK);
         }
