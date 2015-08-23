@@ -27,7 +27,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.misc.LagTracker;
 import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
@@ -99,9 +98,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LagTracker.get().start("setContentView");
         setContentView(getContentViewLayout());
-        LagTracker.get().end("setContentView");
         ButterKnife.bind(this);
 
         getIntentExtras();

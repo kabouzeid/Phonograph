@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.imageloader;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -9,14 +8,15 @@ import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
 import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.ArtistInfo;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.util.ImageUtil;
 import com.kabouzeid.gramophone.util.LastFMUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 
+import org.jaudiotagger.audio.AudioFile;
+import org.jaudiotagger.audio.AudioFileIO;
+
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -73,12 +73,16 @@ public class PhonographImageDownloader extends BaseImageDownloader {
         if (PreferenceUtil.getInstance(context).ignoreMediaStoreArtwork()) {
             ArrayList<Song> songs = AlbumSongLoader.getAlbumSongList(context, albumId);
             for (Song song : songs) {
-                Bitmap bitmap = ImageUtil.getEmbeddedSongArt(new File(song.data), context);
-                if (bitmap != null) {
-                    return getBitmapInputStream(bitmap);
+                try {
+                    AudioFile audioFile = AudioFileIO.read(new File(song.data));
+                    byte[] albumCover = audioFile.getTagOrCreateAndSetDefault().getFirstArtwork().getBinaryData();
+                    if (albumCover != null) {
+                        return new ByteArrayInputStream(albumCover);
+                    }
+                } catch (@NonNull Exception e) {
+                    e.printStackTrace();
                 }
             }
-            return null;
         }
         return getMediaProviderAlbumArtInputStream(albumId);
     }
@@ -88,25 +92,22 @@ public class PhonographImageDownloader extends BaseImageDownloader {
         String[] data = imageUri.substring(SCHEME_SONG.length()).split("#", 2);
 
         if (PreferenceUtil.getInstance(context).ignoreMediaStoreArtwork()) {
-            Bitmap bitmap = ImageUtil.getEmbeddedSongArt(new File(data[1]), context);
-            if (bitmap != null) {
-                return getBitmapInputStream(bitmap);
+            try {
+                AudioFile audioFile = AudioFileIO.read(new File(data[1]));
+                byte[] albumCover = audioFile.getTagOrCreateAndSetDefault().getFirstArtwork().getBinaryData();
+                if (albumCover != null) {
+                    return new ByteArrayInputStream(albumCover);
+                }
+            } catch (@NonNull Exception e) {
+                e.printStackTrace();
             }
-            return null;
         }
 
         int id = Integer.parseInt(data[0]);
         return getMediaProviderAlbumArtInputStream(id);
     }
 
-    @NonNull
-    private static ByteArrayInputStream getBitmapInputStream(@NonNull Bitmap bitmap) {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-        return new ByteArrayInputStream(bos.toByteArray());
-    }
-
-    @NonNull
+    @Nullable
     private InputStream getMediaProviderAlbumArtInputStream(int albumId) throws
             FileNotFoundException {
         return context.getContentResolver().openInputStream(MusicUtil.getAlbumArtUri(albumId));
