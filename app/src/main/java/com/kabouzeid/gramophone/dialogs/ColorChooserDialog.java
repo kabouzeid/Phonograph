@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -127,7 +128,7 @@ public class ColorChooserDialog extends LeakDetectDialogFragment implements View
         } else ((BaseAdapter) mGrid.getAdapter()).notifyDataSetChanged();
     }
 
-    public void show(@NonNull AppCompatActivity activity, int title, int preselect) {
+    public void show(@NonNull AppCompatActivity activity, @StringRes int title, int preselect) {
         Bundle args = new Bundle();
         args.putInt("preselect", preselect);
         args.putInt("title", title);
