@@ -64,6 +64,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
 
     public void swapDataSet(ArrayList<Playlist> dataSet) {
         this.dataSet = dataSet;
+        favoritePlaylistId = MusicUtil.getFavoritesPlaylist(activity).id;
         notifyDataSetChanged();
     }
 
