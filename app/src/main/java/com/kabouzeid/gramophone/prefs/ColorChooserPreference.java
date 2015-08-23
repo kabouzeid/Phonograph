@@ -43,11 +43,13 @@ public class ColorChooserPreference extends Preference {
     }
 
     private void invalidateColor() {
-        if (this.color >= 0) {
-            colorView.setVisibility(View.VISIBLE);
-            colorView.setBackgroundColor(color);
-        } else {
-            colorView.setVisibility(View.GONE);
+        if (colorView != null) {
+            if (this.color != -1) {
+                colorView.setVisibility(View.VISIBLE);
+                colorView.setBackgroundColor(color);
+            } else {
+                colorView.setVisibility(View.GONE);
+            }
         }
     }
 }
