@@ -91,6 +91,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final int TRACK_WENT_TO_NEXT = 12;
     public static final int PLAY_SONG = 13;
     public static final int SAVE_QUEUES = 14;
+    public static final int PREPARE_NEXT = 15;
     public static final int SHUFFLE_MODE_NONE = 0;
     public static final int SHUFFLE_MODE_SHUFFLE = 1;
     public static final int REPEAT_MODE_NONE = 0;
@@ -379,7 +380,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         synchronized (this) {
             setPosition(position);
             boolean prepared = openCurrent();
-            if (prepared) prepareNext();
+            if (prepared) prepareNextImpl();
             notifyChange(META_CHANGED);
             notHandledMetaChangedForCurrentTrack = false;
             return prepared;
@@ -396,7 +397,12 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
     }
 
-    private boolean prepareNext() {
+    private void prepareNext() {
+        playerHandler.removeMessages(PREPARE_NEXT);
+        playerHandler.obtainMessage(PREPARE_NEXT).sendToTarget();
+    }
+
+    private boolean prepareNextImpl() {
         synchronized (this) {
             try {
                 int nextPosition = getNextPosition(false);
@@ -950,7 +956,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         service.seek(0);
                     } else {
                         service.setPosition(service.nextPosition);
-                        service.prepareNext();
+                        service.prepareNextImpl();
                         service.notifyChange(META_CHANGED);
                     }
                     break;
@@ -970,6 +976,10 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
                 case PLAY_SONG:
                     service.playSongAtImpl(msg.arg1);
+                    break;
+
+                case PREPARE_NEXT:
+                    service.prepareNextImpl();
                     break;
 
                 case FOCUS_CHANGE:
