@@ -44,6 +44,9 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
 
         setNoImageMode();
         setUpViews();
+
+        //noinspection ConstantConditions
+        getSupportActionBar().setTitle(R.string.action_tag_editor);
     }
 
     private void setUpViews() {
