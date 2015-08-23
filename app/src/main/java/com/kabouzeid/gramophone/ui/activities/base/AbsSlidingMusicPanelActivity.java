@@ -456,6 +456,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
             float xTranslation = dummyFab.getX() + mediaControllerContainer.getX() + footerFrame.getX() - playPauseButton.getLeft();
             fabXAnimator = ObjectAnimator.ofFloat(playPauseButton, View.TRANSLATION_X, 0, xTranslation);
             fabXAnimator.setDuration(SLIDING_PANEL_ANIMATION_STEPS);
+            fabXAnimator.setInterpolator(null);
         }
     }
 
@@ -464,6 +465,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
             float yTranslation = dummyFab.getY() + mediaControllerContainer.getY() + footerFrame.getY() - playPauseButton.getTop();
             fabYAnimator = ObjectAnimator.ofFloat(playPauseButton, View.TRANSLATION_Y, 0, yTranslation);
             fabYAnimator.setDuration(SLIDING_PANEL_ANIMATION_STEPS);
+            fabYAnimator.setInterpolator(null);
         }
     }
 
@@ -483,6 +485,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                 fabColorAnimator.setEvaluator(new ArgbEvaluator());
             }
             fabColorAnimator.setDuration(SLIDING_PANEL_ANIMATION_STEPS);
+            fabColorAnimator.setInterpolator(null);
         } else if (startColor != lastFabStartColor || endColor != lastFabEndColor) {
             fabColorAnimator.setIntValues(startColor, endColor);
         }
@@ -494,6 +497,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         if (miniPlayerAlphaAnimator == null) {
             miniPlayerAlphaAnimator = ObjectAnimator.ofFloat(miniPlayer, View.ALPHA, 1, 0);
             miniPlayerAlphaAnimator.setDuration(SLIDING_PANEL_ANIMATION_STEPS);
+            miniPlayerAlphaAnimator.setInterpolator(null);
         }
     }
 
