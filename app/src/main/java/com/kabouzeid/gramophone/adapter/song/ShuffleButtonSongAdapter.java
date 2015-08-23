@@ -46,6 +46,12 @@ public class ShuffleButtonSongAdapter extends SongAdapter {
     }
 
     @Override
+    public int getItemCount() {
+        int superItemCount = super.getItemCount();
+        return superItemCount == 0 ? 0 : superItemCount + 1;
+    }
+
+    @Override
     public int getItemViewType(int position) {
         return position == 0 ? SHUFFLE_BUTTON : SONG;
     }
