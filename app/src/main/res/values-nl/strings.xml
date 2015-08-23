@@ -27,7 +27,7 @@
     <string name="songs">Nummers</string>
     <string name="playlists">Afspeellijsten</string>
     <string name="unplayable_file">Kan dit nummer niet afspelen.</string>
-    <string name="biography_unavailable">Kan geen passende biografie te vinden voor deze artiest.</string>
+    <string name="biography_unavailable">Kan geen passende biografie vinden voor deze artiest.</string>
     <string name="biography">Biografie</string>
     <string name="audio_focus_denied">Audiofocus geweigerd.</string>
     <string name="album">Album</string>

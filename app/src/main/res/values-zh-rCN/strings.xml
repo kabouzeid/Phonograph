@@ -142,7 +142,7 @@
     <string name="pref_summary_gapless_playback">"在某些设备上会造成播放问题。"</string>
     <string name="pref_summary_force_square_album_art">正在播放界面中总是显示正方形的专辑封面。</string>
     <string name="pref_summary_opaque_toolbar_now_playing">工具栏颜色自适应。</string>
-    <string name="pref_summary_opaque_statusbar_now_playing">半透明状态栏。</string>
+    <string name="pref_summary_opaque_statusbar_now_playing">状态栏颜色自适应。</string>
     <string name="pref_summary_larger_title_box_now_playing">标题框高度更大。</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">使用不会遮挡专辑封面的进度条替换默认的进度滑块。</string>
     <string name="pref_summary_playback_controller_card_now_playing">在播放/暂停，上一首/下一首，随机播放和循环按钮下方显示卡片作为背景。</string>
