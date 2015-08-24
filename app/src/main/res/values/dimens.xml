@@ -33,9 +33,8 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="fab_icon_bound_width">56dp</dimen>
     <dimen name="fab_icon_bound_height">36dp</dimen>
 
-    <!-- Color Chooser Dialog -->
-    <dimen name="circle_view_border">1dp</dimen>
-    <dimen name="circle_view_check">24dp</dimen>
+    <dimen name="color_view_border">1dp</dimen>
+
     <dimen name="empty_text_size">20sp</dimen>
 
     <dimen name="seek_bar_margin_left_right">-17dp</dimen>

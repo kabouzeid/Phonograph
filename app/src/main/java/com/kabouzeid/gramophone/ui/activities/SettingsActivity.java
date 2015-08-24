@@ -10,6 +10,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +19,7 @@ import android.view.View;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.ColorChooserDialog;
+import com.kabouzeid.gramophone.helper.MaterialColorHelper;
 import com.kabouzeid.gramophone.prefs.ColorChooserPreference;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -48,11 +50,14 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
     }
 
     @Override
-    public void onColorSelection(int title, int color) {
-        if (title == R.string.primary_color) {
-            PreferenceUtil.getInstance(this).setThemeColorPrimary(color);
-        } else if (title == R.string.accent_color) {
-            PreferenceUtil.getInstance(this).setThemeColorAccent(color);
+    public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int selectedColor) {
+        switch (dialog.getTitleRes()) {
+            case R.string.primary_color:
+                PreferenceUtil.getInstance(this).setThemeColorPrimary(selectedColor);
+                break;
+            case R.string.accent_color:
+                PreferenceUtil.getInstance(this).setThemeColorAccent(selectedColor);
+                break;
         }
         recreateIfThemeChanged();
     }
@@ -133,10 +138,12 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             primaryColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull Preference preference) {
-                    new ColorChooserDialog().show(
-                            ((SettingsActivity) getActivity()),
-                            preference.getTitleRes(),
-                            ((SettingsActivity) getActivity()).getThemeColorPrimary());
+                    ColorChooserDialog
+                            .create(preference.getTitleRes(),
+                                    new ColorChooserDialog.Colors(MaterialColorHelper.createPrimaryColorIndexes(), MaterialColorHelper.createPrimaryColors()),
+                                    PreferenceUtil.getInstance(getActivity()).getThemeColorPrimary(getActivity())
+                            )
+                            .show(((SettingsActivity) getActivity()).getSupportFragmentManager(), "COLOR_CHOOSER");
                     return true;
                 }
             });
@@ -146,10 +153,12 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             accentColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull Preference preference) {
-                    new ColorChooserDialog().show(
-                            ((SettingsActivity) getActivity()),
-                            preference.getTitleRes(),
-                            ((SettingsActivity) getActivity()).getThemeColorAccent());
+                    ColorChooserDialog
+                            .create(preference.getTitleRes(),
+                                    new ColorChooserDialog.Colors(MaterialColorHelper.createAccentColorIndexes(), MaterialColorHelper.createAccentColors()),
+                                    PreferenceUtil.getInstance(getActivity()).getThemeColorAccent(getActivity())
+                            )
+                            .show(((SettingsActivity) getActivity()).getSupportFragmentManager(), "COLOR_CHOOSER");
                     return true;
                 }
             });

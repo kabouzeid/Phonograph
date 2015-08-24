@@ -25,7 +25,7 @@ public class DynamicPreferenceCategory extends PreferenceCategory {
         this(context, null, 0);
     }
 
-    public DynamicPreferenceCategory(@NonNull Context context, @NonNull AttributeSet attrs, int defStyleAttr) {
+    public DynamicPreferenceCategory(@NonNull Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setLayoutResource(R.layout.preference_category_custom);
         setSelectable(false);

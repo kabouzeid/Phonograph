@@ -2,157 +2,212 @@ package com.kabouzeid.gramophone.dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.res.ColorStateList;
-import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.RippleDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.StateListDrawable;
-import android.graphics.drawable.shapes.OvalShape;
-import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.util.ColorUtil;
-import com.kabouzeid.gramophone.views.ColorView;
+import com.kabouzeid.gramophone.views.SelectableColorView;
 
 /**
- * @author Aidan Follestad (afollestad)
+ * @author Aidan Follestad (afollestad), Karim Abou Zeid (kabouzeid)
  */
 public class ColorChooserDialog extends LeakDetectDialogFragment implements View.OnClickListener {
 
-    private ColorCallback mCallback;
-    private int[] mColors;
-    private GridView mGrid;
+    private Colors colors;
 
     public ColorChooserDialog() {
     }
 
-    private static int translucentColor(int color) {
-        final float factor = 0.7f;
-        int alpha = Math.round(Color.alpha(color) * factor);
-        int red = Color.red(color);
-        int green = Color.green(color);
-        int blue = Color.blue(color);
-        return Color.argb(alpha, red, green, blue);
-    }
-
-    @NonNull
-    private static Drawable createSelector(int color) {
-        ShapeDrawable darkerCircle = new ShapeDrawable(new OvalShape());
-        darkerCircle.getPaint().setColor(translucentColor(ColorUtil.shiftColorDown(color)));
-        StateListDrawable stateListDrawable = new StateListDrawable();
-        stateListDrawable.addState(new int[]{android.R.attr.state_pressed}, darkerCircle);
-        return stateListDrawable;
-    }
+    private int mCircleSize;
+    private ColorCallback mCallback;
+    private GridView mGrid;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        if (!(activity instanceof ColorCallback))
+            throw new IllegalStateException("ColorChooserDialog needs to be shown from an Activity implementing ColorCallback.");
         mCallback = (ColorCallback) activity;
     }
 
+    private boolean isInSub() {
+        return getArguments().getBoolean("in_sub", false);
+    }
+
+    private void setInSub(boolean value) {
+        getArguments().putBoolean("in_sub", value);
+        if (value) {
+            ((MaterialDialog) getDialog()).setActionButton(DialogAction.NEUTRAL, R.string.back);
+        } else {
+            ((MaterialDialog) getDialog()).setActionButton(DialogAction.NEUTRAL, null);
+        }
+    }
+
+    private int getTopIndex() {
+        return getArguments().getInt("top_index", -1);
+    }
+
+    private void setTopIndex(int value) {
+        if (getTopIndex() != value)
+            setSubIndex(colors.headerColorIndexes[value]);
+        getArguments().putInt("top_index", value);
+    }
+
+    private int getSubIndex() {
+        return getArguments().getInt("sub_index", -1);
+    }
+
+    private void setSubIndex(int value) {
+        getArguments().putInt("sub_index", value);
+    }
+
+    private int getPreselectColor() {
+        return getArguments().getInt("color_preselect", -1);
+    }
+
     @Override
-    public void onClick(@NonNull View v) {
+    public void onClick(View v) {
         if (v.getTag() != null) {
             final int index = (Integer) v.getTag();
-            getArguments().putInt("preselect", mColors[index]);
+            if (isInSub()) {
+                setSubIndex(index);
+            } else {
+                setTopIndex(index);
+                setInSub(true);
+            }
             invalidateGrid();
         }
+    }
+
+    public interface ColorCallback {
+        void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int selectedColor);
+    }
+
+    private void setColors() {
+        colors = Colors.fromBundle(getArguments());
+    }
+
+    private void setIndexesFor(@ColorInt int color) {
+        if (getTopIndex() != -1) return;
+        if (color != -1) {
+            for (int i = 0; i < colors.colors.length; i++) {
+                for (int z = 0; z < colors.colors[i].length; z++) {
+                    if (color == colors.colors[i][z]) {
+                        setTopIndex(i);
+                        setSubIndex(z);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    public int getTitleRes() {
+        return getArguments().getInt("title", 0);
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        setColors();
+        setIndexesFor(getPreselectColor());
+
+        final DisplayMetrics dm = getResources().getDisplayMetrics();
+        mCircleSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 56, dm);
+        mGrid = new GridView(getContext());
+        mGrid.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        mGrid.setColumnWidth(mCircleSize);
+        mGrid.setNumColumns(GridView.AUTO_FIT);
+
+        final int eightDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, dm);
+        mGrid.setVerticalSpacing(eightDp);
+        mGrid.setHorizontalSpacing(eightDp);
+
+        final int sixteenDp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, dm);
+        mGrid.setPadding(sixteenDp, sixteenDp, sixteenDp, sixteenDp);
+        mGrid.setClipToPadding(false);
+        mGrid.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
+        mGrid.setGravity(Gravity.CENTER);
+
         MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
-                .title(getArguments().getInt("title", 0))
+                .title(getTitleRes())
                 .autoDismiss(false)
-                .customView(R.layout.dialog_color_chooser, false)
-                .neutralText(R.string.default_str)
+                .customView(mGrid, false)
                 .positiveText(R.string.select)
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
                         super.onPositive(dialog);
-                        final int title = getArguments().getInt("title", 0);
-                        final int preselect = getArguments().getInt("preselect", -1);
-                        mCallback.onColorSelection(title, preselect);
+                        mCallback.onColorSelection(ColorChooserDialog.this, getSelectedColor());
                         dismiss();
                     }
 
                     @Override
                     public void onNeutral(MaterialDialog dialog) {
                         super.onNeutral(dialog);
-                        if (getArguments().getInt("title", 0) == R.string.primary_color) {
-                            getArguments().putInt("preselect", ContextCompat.getColor(getContext(), R.color.indigo_500));
-                        } else if (getArguments().getInt("title", 0) == R.string.accent_color) {
-                            getArguments().putInt("preselect", ContextCompat.getColor(getContext(), R.color.pink_A200));
-                        }
+                        setInSub(false);
                         invalidateGrid();
                     }
-                })
-                .build();
-
-        final boolean primary = getArguments().getInt("title", 0) == R.string.primary_color;
-        final TypedArray ta = getActivity().getResources().obtainTypedArray(
-                primary ? R.array.colors_primary : R.array.colors_accent);
-        mColors = new int[ta.length()];
-        for (int i = 0; i < ta.length(); i++)
-            mColors[i] = ta.getColor(i, 0);
-        ta.recycle();
-        mGrid = (GridView) dialog.getCustomView();
-        if (mGrid != null) {
-            mGrid.setNumColumns(primary ? 7 : 4);
-            invalidateGrid();
+                }).build();
+        invalidateGrid();
+        if (isInSub()) {
+            dialog.setActionButton(DialogAction.NEUTRAL, R.string.back);
         }
         return dialog;
+    }
+
+    @ColorInt
+    private int getSelectedColor() {
+        int selectedColor = 0;
+        int topIndex = getTopIndex();
+        int subIndex = getSubIndex();
+        if (topIndex != -1 && subIndex != -1) {
+            selectedColor = colors.colors[topIndex][subIndex];
+        }
+        return selectedColor;
     }
 
     private void invalidateGrid() {
         if (mGrid.getAdapter() == null) {
             mGrid.setAdapter(new ColorGridAdapter());
-            mGrid.setSelector(ResourcesCompat.getDrawable(getResources(), R.drawable.md_transparent, null));
-        } else ((BaseAdapter) mGrid.getAdapter()).notifyDataSetChanged();
+        } else {
+            ((BaseAdapter) mGrid.getAdapter()).notifyDataSetChanged();
+        }
     }
 
-    public void show(@NonNull AppCompatActivity activity, @StringRes int title, int preselect) {
-        Bundle args = new Bundle();
-        args.putInt("preselect", preselect);
-        args.putInt("title", title);
-        setArguments(args);
-        show(activity.getSupportFragmentManager(), "COLOR_SELECTOR");
-    }
-
-    public interface ColorCallback {
-        void onColorSelection(int title, int color);
-    }
-
-    private class ColorGridAdapter extends BaseAdapter implements View.OnClickListener {
+    private class ColorGridAdapter extends BaseAdapter {
 
         public ColorGridAdapter() {
         }
 
         @Override
         public int getCount() {
-            return mColors.length;
+            if (isInSub()) {
+                return colors.colors[getTopIndex()].length;
+            } else {
+                return colors.colors.length;
+            }
         }
 
         @Override
         public Object getItem(int position) {
-            return mColors[position];
+            if (isInSub()) {
+                return colors.colors[getTopIndex()][position];
+            } else {
+                return colors.colors[position][colors.headerColorIndexes[position]];
+            }
         }
 
         @Override
@@ -160,39 +215,65 @@ public class ColorChooserDialog extends LeakDetectDialogFragment implements View
             return position;
         }
 
-        @Nullable
         @Override
-        public View getView(int position, @Nullable View convertView, ViewGroup parent) {
-            if (convertView == null)
-                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.griditem_color_chooser, parent, false);
-
-            final ColorView colorView = (ColorView) convertView;
-            colorView.setActivated(getArguments().getInt("preselect") == mColors[position]);
-            colorView.setBackgroundColor(mColors[position]);
-            colorView.setTag(position);
-            colorView.setOnClickListener(this);
-
-            Drawable selector = createSelector(mColors[position]);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                int[][] states = new int[][]{
-                        new int[]{android.R.attr.state_pressed}
-                };
-                int[] colors = new int[]{
-                        ColorUtil.shiftColorDown(mColors[position])
-                };
-                ColorStateList rippleColors = new ColorStateList(states, colors);
-                colorView.setForeground(new RippleDrawable(rippleColors, selector, null));
-            } else {
-                colorView.setForeground(selector);
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = new SelectableColorView(getContext());
+                convertView.setLayoutParams(new GridView.LayoutParams(mCircleSize, mCircleSize));
             }
+            SelectableColorView child = (SelectableColorView) convertView;
+            if (isInSub()) {
+                child.setBackgroundColor(colors.colors[getTopIndex()][position]);
+                child.setSelected(getSubIndex() == position);
+            } else {
+                child.setBackgroundColor(colors.colors[position][colors.headerColorIndexes[position]]);
+                child.setSelected(getTopIndex() == position);
+            }
+            child.setTag(position);
+            child.setOnClickListener(ColorChooserDialog.this);
             return convertView;
         }
+    }
 
-        @Override
-        public void onClick(@NonNull View v) {
-            final int index = (Integer) v.getTag();
-            getArguments().putInt("preselect", mColors[index]);
-            invalidateGrid();
+    public static ColorChooserDialog create(@StringRes int title, @NonNull Colors colors, @ColorInt int preselectColor) {
+        ColorChooserDialog dialog = new ColorChooserDialog();
+        Bundle args = new Bundle();
+        args.putInt("title", title);
+        args.putInt("color_preselect", preselectColor);
+
+        Colors.toBundle(colors, args);
+
+        dialog.setArguments(args);
+        return dialog;
+    }
+
+    public static final class Colors {
+        final int[] headerColorIndexes;
+        final int[][] colors;
+
+        public Colors(int[] headerColorIndexes, int[][] colors) {
+            if (headerColorIndexes.length != colors.length) {
+                throw new IllegalArgumentException("int[] headerColorIndexes and int[][] colors must have the same length");
+            }
+            this.headerColorIndexes = headerColorIndexes;
+            this.colors = colors;
+        }
+
+        static void toBundle(Colors colors, Bundle bundle) {
+            bundle.putIntArray("top_colors", colors.headerColorIndexes);
+            for (int i = 0; i < colors.colors.length; i++) {
+                bundle.putIntArray("sub_colors_" + i, colors.colors[i]);
+            }
+        }
+
+        static Colors fromBundle(Bundle bundle) {
+            int[] headerColorIndexes = bundle.getIntArray("top_colors");
+            if (headerColorIndexes == null) return new Colors(new int[]{}, new int[][]{});
+            int[][] colors = new int[headerColorIndexes.length][];
+            for (int i = 0; i < colors.length; i++) {
+                colors[i] = bundle.getIntArray("sub_colors_" + i);
+            }
+            return new Colors(headerColorIndexes, colors);
         }
     }
 }
