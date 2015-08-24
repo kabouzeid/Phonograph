@@ -80,7 +80,7 @@ public class ChangelogDialog extends LeakDetectDialogFragment {
             webView.loadData(buf.toString()
                     .replace("{style-placeholder}", ThemeSingleton.get().darkTheme ?
                             "body { background-color: #444444; color: #fff; }" :
-                            "body { background-color: #EDEDED; color: #000; }")
+                            "body { background-color: #fff; color: #000; }")
                     .replace("{link-color}", colorToHex(ThemeSingleton.get().positiveColor.getDefaultColor()))
                     .replace("{link-color-active}", colorToHex(ColorUtil.shiftColorUp(ThemeSingleton.get().positiveColor.getDefaultColor())))
                     , "text/html", "UTF-8");
