@@ -80,7 +80,7 @@ import butterknife.ButterKnife;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
- *         <p/>
+ *         <p>
  *         Do not use {@link #setContentView(int)} but wrap your layout with
  *         {@link #wrapSlidingMusicPanelAndFab(int)} first and then return it in {@link #createContentView()}
  */
@@ -669,24 +669,14 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         setSeekBarTint(progressSlider, thumbColor, progressColor);
     }
 
-    // note that this is not exactly the same as in ColorUtil
-    @SuppressWarnings("ResourceType")
+    @ColorInt
     private static int shiftColorUp(@ColorInt int color) {
-        int alpha = Color.alpha(color);
-        float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv);
-        hsv[2] *= 1.2f; // value component
-        return (alpha << 24) + (0x00ffffff & Color.HSVToColor(hsv));
+        return ColorUtil.shiftColor(color, 1.2f);
     }
 
-    // note that this is not exactly the same as in ColorUtil
-    @SuppressWarnings("ResourceType")
+    @ColorInt
     private static int shiftColorDown(@ColorInt int color) {
-        int alpha = Color.alpha(color);
-        float[] hsv = new float[3];
-        Color.colorToHSV(color, hsv);
-        hsv[2] *= 0.8f; // value component
-        return (alpha << 24) + (0x00ffffff & Color.HSVToColor(hsv));
+        return ColorUtil.shiftColor(color, 0.8f);
     }
 
     private static void setSeekBarTint(SeekBar seekBar, @ColorInt int thumbColor, @ColorInt int progressColor) {

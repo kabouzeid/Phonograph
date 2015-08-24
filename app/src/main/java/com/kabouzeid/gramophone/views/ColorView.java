@@ -1,13 +1,8 @@
 package com.kabouzeid.gramophone.views;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
@@ -17,11 +12,9 @@ import com.kabouzeid.gramophone.util.ColorUtil;
 
 public class ColorView extends FrameLayout {
 
-    private final Bitmap mCheck;
     private final Paint paint;
     private final Paint paintBorder;
     private final int borderWidth;
-    private Paint paintCheck;
 
     public ColorView(@NonNull Context context) {
         this(context, null, 0);
@@ -33,10 +26,7 @@ public class ColorView extends FrameLayout {
 
     public ColorView(@NonNull Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        final int checkSize = (int) context.getResources().getDimension(R.dimen.circle_view_check);
-        mCheck = getResizedBitmap(BitmapFactory.decodeResource(context.getResources(),
-                R.drawable.ic_checkbox_marked_circle_outline_white_24dp), checkSize, checkSize);
-        borderWidth = (int) getResources().getDimension(R.dimen.circle_view_border);
+        borderWidth = getResources().getDimensionPixelSize(R.dimen.color_view_border);
 
         paint = new Paint();
         paint.setAntiAlias(true);
@@ -44,31 +34,13 @@ public class ColorView extends FrameLayout {
         paintBorder = new Paint();
         paintBorder.setAntiAlias(true);
 
-        paintCheck = new Paint();
-        paintCheck.setAntiAlias(true);
-
         setWillNotDraw(false);
-    }
-
-    private static Bitmap getResizedBitmap(@NonNull Bitmap bm, int newHeight, int newWidth) {
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        Matrix matrix = new Matrix();
-        matrix.postScale(scaleWidth, scaleHeight);
-        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
-        if (bm != resizedBitmap) {
-            bm.recycle();
-        }
-        return resizedBitmap;
     }
 
     @Override
     public void setBackgroundColor(int color) {
         paint.setColor(color);
         paintBorder.setColor(ColorUtil.shiftColorDown(color));
-        paintCheck.setColorFilter(new PorterDuffColorFilter(ColorUtil.getFabDrawableColorForBackground(getContext(), color), PorterDuff.Mode.SRC_IN));
         requestLayout();
         invalidate();
     }
@@ -102,10 +74,5 @@ public class ColorView extends FrameLayout {
         int circleCenter = (canvasSize - (borderWidth * 2)) / 2;
         canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, ((canvasSize - (borderWidth * 2)) / 2) + borderWidth - 4.0f, paintBorder);
         canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, ((canvasSize - (borderWidth * 2)) / 2) - 4.0f, paint);
-
-        if (isActivated()) {
-            final int offset = (canvasSize / 2) - (mCheck.getWidth() / 2);
-            canvas.drawBitmap(mCheck, offset, offset, paintCheck);
-        }
     }
 }

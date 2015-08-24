@@ -9,6 +9,7 @@ import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.AttrRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -78,6 +79,13 @@ public class Util {
 
     public static boolean isInPortraitMode(@NonNull final Context context) {
         return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+    }
+
+    public static Drawable resolveDrawable(@NonNull Context context, @AttrRes int drawableAttr) {
+        TypedArray a = context.obtainStyledAttributes(new int[]{drawableAttr});
+        Drawable drawable = a.getDrawable(0);
+        a.recycle();
+        return drawable;
     }
 
     public static Drawable getTintedDrawable(@NonNull Context context, @DrawableRes int drawableResId, int color) {
