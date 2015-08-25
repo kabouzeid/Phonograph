@@ -12,8 +12,6 @@ import android.graphics.drawable.StateListDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
 import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.FrameLayout;
@@ -24,13 +22,15 @@ import com.kabouzeid.gramophone.util.ColorUtil;
 
 public class SelectableColorView extends FrameLayout {
 
+    private boolean selected;
+
+    private final int borderWidthExtraSmall;
     private final int borderWidthSmall;
     private final int borderWidthLarge;
 
     private Paint outerPaint;
     private Paint gapPaint;
     private Paint innerPaint;
-    private boolean mSelected;
 
     public SelectableColorView(Context context) {
         this(context, null, 0);
@@ -43,12 +43,13 @@ public class SelectableColorView extends FrameLayout {
     public SelectableColorView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         final Resources r = getResources();
+        borderWidthExtraSmall = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, r.getDisplayMetrics());
         borderWidthSmall = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, r.getDisplayMetrics());
         borderWidthLarge = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, r.getDisplayMetrics());
 
         gapPaint = new Paint();
         gapPaint.setAntiAlias(true);
-        gapPaint.setColor(ColorUtil.resolveColor(context, R.attr.cardBackgroundColor));
+        resetGapColor();
 
         innerPaint = new Paint();
         innerPaint.setAntiAlias(true);
@@ -59,7 +60,11 @@ public class SelectableColorView extends FrameLayout {
         setWillNotDraw(false);
     }
 
-    private void update(@ColorInt int color) {
+    private void resetGapColor() {
+        gapPaint.setColor(ColorUtil.resolveColor(getContext(), R.attr.cardBackgroundColor));
+    }
+
+    private void updateColor(@ColorInt int color) {
         innerPaint.setColor(color);
         outerPaint.setColor(ColorUtil.shiftColorDown(color));
 
@@ -92,49 +97,15 @@ public class SelectableColorView extends FrameLayout {
         }
     }
 
-    @Override
-    public void setBackgroundColor(@ColorInt int color) {
-        update(color);
+    public void setColor(@ColorInt int color) {
+        updateColor(color);
         requestLayout();
         invalidate();
     }
 
     @Override
-    public void setBackgroundResource(@ColorRes int color) {
-        setBackgroundColor(ContextCompat.getColor(getContext(), color));
-    }
-
-    /**
-     * @deprecated
-     */
-    @Deprecated
-    @Override
-    public void setBackground(Drawable background) {
-        throw new IllegalStateException("Cannot use setBackground() on CircleView.");
-    }
-
-    /**
-     * @deprecated
-     */
-    @SuppressWarnings("deprecation")
-    @Deprecated
-    @Override
-    public void setBackgroundDrawable(Drawable background) {
-        throw new IllegalStateException("Cannot use setBackgroundDrawable() on CircleView.");
-    }
-
-    /**
-     * @deprecated
-     */
-    @SuppressWarnings("deprecation")
-    @Deprecated
-    @Override
-    public void setActivated(boolean activated) {
-        throw new IllegalStateException("Cannot use setActivated() on CircleView.");
-    }
-
     public void setSelected(boolean selected) {
-        mSelected = selected;
+        this.selected = selected;
         requestLayout();
         invalidate();
     }
@@ -159,7 +130,7 @@ public class SelectableColorView extends FrameLayout {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         final int outerRadius = getMeasuredWidth() / 2;
-        if (mSelected) {
+        if (selected) {
             final int whiteRadius = outerRadius - borderWidthLarge;
             final int innerRadius = whiteRadius - borderWidthSmall;
             canvas.drawCircle(getMeasuredWidth() / 2,
@@ -175,9 +146,14 @@ public class SelectableColorView extends FrameLayout {
                     innerRadius,
                     innerPaint);
         } else {
+            final int innerRadius = outerRadius - borderWidthExtraSmall;
             canvas.drawCircle(getMeasuredWidth() / 2,
                     getMeasuredHeight() / 2,
                     outerRadius,
+                    outerPaint);
+            canvas.drawCircle(getMeasuredWidth() / 2,
+                    getMeasuredHeight() / 2,
+                    innerRadius,
                     innerPaint);
         }
     }

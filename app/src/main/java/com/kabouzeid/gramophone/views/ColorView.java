@@ -37,8 +37,7 @@ public class ColorView extends FrameLayout {
         setWillNotDraw(false);
     }
 
-    @Override
-    public void setBackgroundColor(int color) {
+    public void setColor(int color) {
         paint.setColor(color);
         paintBorder.setColor(ColorUtil.shiftColorDown(color));
         requestLayout();
@@ -61,7 +60,6 @@ public class ColorView extends FrameLayout {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
     }
-
 
     @Override
     protected void onDraw(@NonNull Canvas canvas) {

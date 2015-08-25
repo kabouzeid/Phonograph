@@ -24,7 +24,7 @@ public class ColorPalette {
             5,
             5,
             5,
-            5,
+            6,
             5
     };
 
@@ -234,6 +234,7 @@ public class ColorPalette {
                     Color.parseColor("#3E2723")
             },
             new int[]{
+                    Color.parseColor("#FFFFFF"), // not in the original palette
                     Color.parseColor("#FAFAFA"),
                     Color.parseColor("#F5F5F5"),
                     Color.parseColor("#EEEEEE"),
@@ -244,6 +245,7 @@ public class ColorPalette {
                     Color.parseColor("#616161"),
                     Color.parseColor("#424242"),
                     Color.parseColor("#212121"),
+                    Color.parseColor("#000000")  // not in the original palette
             },
             new int[]{
                     Color.parseColor("#ECEFF1"),
@@ -260,6 +262,7 @@ public class ColorPalette {
     };
 
     public static int[] MAIN_ACCENT_COLOR_INDEXES = new int[]{
+            1,
             1,
             1,
             1,
@@ -376,5 +379,11 @@ public class ColorPalette {
                     Color.parseColor("#ff3d00"),
                     Color.parseColor("#dd2c00")
             },
+            new int[]{
+                    Color.parseColor("#FFFFFF"), // not in the original palette
+                    Color.parseColor("#9E9E9E"), // not in the original palette
+                    Color.parseColor("#424242"), // not in the original palette
+                    Color.parseColor("#000000")  // not in the original palette
+            }
     };
 }
