@@ -57,12 +57,6 @@ public class ViewUtil {
         return animator;
     }
 
-    public static void setBackgroundAlpha(@NonNull View view, float alpha, int baseColor) {
-        int a = Math.min(255, Math.max(0, (int) (alpha * 255))) << 24;
-        int rgb = 0x00ffffff & baseColor;
-        view.setBackgroundColor(a + rgb);
-    }
-
     /**
      * Should be called in {@link android.app.Activity#onPrepareOptionsMenu(Menu)} and {@link android.app.Activity#onOptionsItemSelected(MenuItem)}
      *
