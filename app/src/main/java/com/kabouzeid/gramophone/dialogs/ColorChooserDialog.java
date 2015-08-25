@@ -100,7 +100,7 @@ public class ColorChooserDialog extends LeakDetectDialogFragment implements View
 
     private void setIndexesFor(@ColorInt int color) {
         if (getTopIndex() != -1) return;
-        if (color != -1) {
+        if (color != 0) {
             for (int i = 0; i < colorSetWithHeaders.colors.length; i++) {
                 for (int z = 0; z < colorSetWithHeaders.colors[i].length; z++) {
                     if (color == colorSetWithHeaders.colors[i][z]) {
@@ -223,10 +223,10 @@ public class ColorChooserDialog extends LeakDetectDialogFragment implements View
             }
             SelectableColorView child = (SelectableColorView) convertView;
             if (isInSub()) {
-                child.setBackgroundColor(colorSetWithHeaders.colors[getTopIndex()][position]);
+                child.setColor(colorSetWithHeaders.colors[getTopIndex()][position]);
                 child.setSelected(getSubIndex() == position);
             } else {
-                child.setBackgroundColor(colorSetWithHeaders.colors[position][colorSetWithHeaders.headerColorIndexes[position]]);
+                child.setColor(colorSetWithHeaders.colors[position][colorSetWithHeaders.headerColorIndexes[position]]);
                 child.setSelected(getTopIndex() == position);
             }
             child.setTag(position);
