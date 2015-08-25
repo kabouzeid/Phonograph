@@ -24,7 +24,7 @@ import com.kabouzeid.gramophone.views.SelectableColorView;
  */
 public class ColorChooserDialog extends LeakDetectDialogFragment implements View.OnClickListener {
 
-    private Colors colors;
+    private ColorSetWithHeaders colorSetWithHeaders;
 
     public ColorChooserDialog() {
     }
@@ -60,7 +60,7 @@ public class ColorChooserDialog extends LeakDetectDialogFragment implements View
 
     private void setTopIndex(int value) {
         if (getTopIndex() != value)
-            setSubIndex(colors.headerColorIndexes[value]);
+            setSubIndex(colorSetWithHeaders.headerColorIndexes[value]);
         getArguments().putInt("top_index", value);
     }
 
@@ -95,15 +95,15 @@ public class ColorChooserDialog extends LeakDetectDialogFragment implements View
     }
 
     private void setColors() {
-        colors = Colors.fromBundle(getArguments());
+        colorSetWithHeaders = ColorSetWithHeaders.fromBundle(getArguments());
     }
 
     private void setIndexesFor(@ColorInt int color) {
         if (getTopIndex() != -1) return;
         if (color != -1) {
-            for (int i = 0; i < colors.colors.length; i++) {
-                for (int z = 0; z < colors.colors[i].length; z++) {
-                    if (color == colors.colors[i][z]) {
+            for (int i = 0; i < colorSetWithHeaders.colors.length; i++) {
+                for (int z = 0; z < colorSetWithHeaders.colors[i].length; z++) {
+                    if (color == colorSetWithHeaders.colors[i][z]) {
                         setTopIndex(i);
                         setSubIndex(z);
                         return;
@@ -174,7 +174,7 @@ public class ColorChooserDialog extends LeakDetectDialogFragment implements View
         int topIndex = getTopIndex();
         int subIndex = getSubIndex();
         if (topIndex != -1 && subIndex != -1) {
-            selectedColor = colors.colors[topIndex][subIndex];
+            selectedColor = colorSetWithHeaders.colors[topIndex][subIndex];
         }
         return selectedColor;
     }
@@ -195,18 +195,18 @@ public class ColorChooserDialog extends LeakDetectDialogFragment implements View
         @Override
         public int getCount() {
             if (isInSub()) {
-                return colors.colors[getTopIndex()].length;
+                return colorSetWithHeaders.colors[getTopIndex()].length;
             } else {
-                return colors.colors.length;
+                return colorSetWithHeaders.colors.length;
             }
         }
 
         @Override
         public Object getItem(int position) {
             if (isInSub()) {
-                return colors.colors[getTopIndex()][position];
+                return colorSetWithHeaders.colors[getTopIndex()][position];
             } else {
-                return colors.colors[position][colors.headerColorIndexes[position]];
+                return colorSetWithHeaders.colors[position][colorSetWithHeaders.headerColorIndexes[position]];
             }
         }
 
@@ -223,10 +223,10 @@ public class ColorChooserDialog extends LeakDetectDialogFragment implements View
             }
             SelectableColorView child = (SelectableColorView) convertView;
             if (isInSub()) {
-                child.setBackgroundColor(colors.colors[getTopIndex()][position]);
+                child.setBackgroundColor(colorSetWithHeaders.colors[getTopIndex()][position]);
                 child.setSelected(getSubIndex() == position);
             } else {
-                child.setBackgroundColor(colors.colors[position][colors.headerColorIndexes[position]]);
+                child.setBackgroundColor(colorSetWithHeaders.colors[position][colorSetWithHeaders.headerColorIndexes[position]]);
                 child.setSelected(getTopIndex() == position);
             }
             child.setTag(position);
@@ -235,23 +235,23 @@ public class ColorChooserDialog extends LeakDetectDialogFragment implements View
         }
     }
 
-    public static ColorChooserDialog create(@StringRes int title, @NonNull Colors colors, @ColorInt int preselectColor) {
+    public static ColorChooserDialog create(@StringRes int title, @NonNull ColorSetWithHeaders colorSetWithHeaders, @ColorInt int preselectColor) {
         ColorChooserDialog dialog = new ColorChooserDialog();
         Bundle args = new Bundle();
         args.putInt("title", title);
         args.putInt("color_preselect", preselectColor);
 
-        Colors.toBundle(colors, args);
+        ColorSetWithHeaders.toBundle(colorSetWithHeaders, args);
 
         dialog.setArguments(args);
         return dialog;
     }
 
-    public static final class Colors {
+    public static final class ColorSetWithHeaders {
         final int[] headerColorIndexes;
         final int[][] colors;
 
-        public Colors(int[] headerColorIndexes, int[][] colors) {
+        public ColorSetWithHeaders(int[] headerColorIndexes, int[][] colors) {
             if (headerColorIndexes.length != colors.length) {
                 throw new IllegalArgumentException("int[] headerColorIndexes and int[][] colors must have the same length");
             }
@@ -259,21 +259,22 @@ public class ColorChooserDialog extends LeakDetectDialogFragment implements View
             this.colors = colors;
         }
 
-        static void toBundle(Colors colors, Bundle bundle) {
-            bundle.putIntArray("top_colors", colors.headerColorIndexes);
-            for (int i = 0; i < colors.colors.length; i++) {
-                bundle.putIntArray("sub_colors_" + i, colors.colors[i]);
+        static void toBundle(ColorSetWithHeaders colorSetWithHeaders, Bundle bundle) {
+            bundle.putIntArray("top_colors", colorSetWithHeaders.headerColorIndexes);
+            for (int i = 0; i < colorSetWithHeaders.colors.length; i++) {
+                bundle.putIntArray("sub_colors_" + i, colorSetWithHeaders.colors[i]);
             }
         }
 
-        static Colors fromBundle(Bundle bundle) {
+        static ColorSetWithHeaders fromBundle(Bundle bundle) {
             int[] headerColorIndexes = bundle.getIntArray("top_colors");
-            if (headerColorIndexes == null) return new Colors(new int[]{}, new int[][]{});
+            if (headerColorIndexes == null)
+                return new ColorSetWithHeaders(new int[]{}, new int[][]{});
             int[][] colors = new int[headerColorIndexes.length][];
             for (int i = 0; i < colors.length; i++) {
                 colors[i] = bundle.getIntArray("sub_colors_" + i);
             }
-            return new Colors(headerColorIndexes, colors);
+            return new ColorSetWithHeaders(headerColorIndexes, colors);
         }
     }
 }
