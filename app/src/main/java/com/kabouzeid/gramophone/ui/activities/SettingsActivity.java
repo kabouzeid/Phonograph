@@ -19,7 +19,7 @@ import android.view.View;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.ColorChooserDialog;
-import com.kabouzeid.gramophone.helper.MaterialColorHelper;
+import com.kabouzeid.gramophone.helper.ColorPalette;
 import com.kabouzeid.gramophone.prefs.ColorChooserPreference;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -140,7 +140,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 public boolean onPreferenceClick(@NonNull Preference preference) {
                     ColorChooserDialog
                             .create(preference.getTitleRes(),
-                                    new ColorChooserDialog.Colors(MaterialColorHelper.createPrimaryColorIndexes(), MaterialColorHelper.createPrimaryColors()),
+                                    new ColorChooserDialog.ColorSetWithHeaders(ColorPalette.MAIN_PRIMARY_COLOR_INDEXES, ColorPalette.PRIMARY_COLORS),
                                     PreferenceUtil.getInstance(getActivity()).getThemeColorPrimary(getActivity())
                             )
                             .show(((SettingsActivity) getActivity()).getSupportFragmentManager(), "COLOR_CHOOSER");
@@ -155,7 +155,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 public boolean onPreferenceClick(@NonNull Preference preference) {
                     ColorChooserDialog
                             .create(preference.getTitleRes(),
-                                    new ColorChooserDialog.Colors(MaterialColorHelper.createAccentColorIndexes(), MaterialColorHelper.createAccentColors()),
+                                    new ColorChooserDialog.ColorSetWithHeaders(ColorPalette.MAIN_ACCENT_COLOR_INDEXES, ColorPalette.ACCENT_COLORS),
                                     PreferenceUtil.getInstance(getActivity()).getThemeColorAccent(getActivity())
                             )
                             .show(((SettingsActivity) getActivity()).getSupportFragmentManager(), "COLOR_CHOOSER");
