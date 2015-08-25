@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
@@ -16,7 +17,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.FrameLayout;
 
-import com.kabouzeid.gramophone.R;
+import com.afollestad.materialdialogs.ThemeSingleton;
 import com.kabouzeid.gramophone.util.ColorUtil;
 
 
@@ -49,7 +50,7 @@ public class SelectableColorView extends FrameLayout {
 
         gapPaint = new Paint();
         gapPaint.setAntiAlias(true);
-        resetGapColor();
+        gapPaint.setColor(ThemeSingleton.get().darkTheme ? Color.parseColor("#444444") : Color.WHITE);
 
         innerPaint = new Paint();
         innerPaint.setAntiAlias(true);
@@ -58,10 +59,6 @@ public class SelectableColorView extends FrameLayout {
         outerPaint.setAntiAlias(true);
 
         setWillNotDraw(false);
-    }
-
-    private void resetGapColor() {
-        gapPaint.setColor(ColorUtil.resolveColor(getContext(), R.attr.cardBackgroundColor));
     }
 
     private void updateColor(@ColorInt int color) {
