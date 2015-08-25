@@ -78,7 +78,8 @@ public class ColorUtil {
         float[] hsv = new float[3];
         Color.colorToHSV(color, hsv);
         hsv[2] *= by; // value component
-        return getColorWithAlpha(alpha, Color.HSVToColor(hsv));
+        // don't use  getColorWithAlpha(float alpha, int baseColor) here
+        return (alpha << 24) + (0x00ffffff & Color.HSVToColor(hsv));
     }
 
     @SuppressWarnings("ResourceType")

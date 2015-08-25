@@ -32,7 +32,6 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
-import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.jaudiotagger.audio.AudioFile;
@@ -88,7 +87,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                 header.setTranslationY(scrollY);
                 alpha = 1;
             }
-            ViewUtil.setBackgroundAlpha(toolbar, alpha, paletteColorPrimary);
+            toolbar.setBackgroundColor(ColorUtil.getColorWithAlpha(alpha, paletteColorPrimary));
             image.setTranslationY(scrollY / 2);
         }
     };

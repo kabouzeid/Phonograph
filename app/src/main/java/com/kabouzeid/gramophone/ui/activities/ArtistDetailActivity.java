@@ -172,7 +172,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
             // Change alpha of overlay
             toolbarAlpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
-            ViewUtil.setBackgroundAlpha(toolbar, toolbarAlpha, toolbarColor);
+            toolbar.setBackgroundColor(ColorUtil.getColorWithAlpha(toolbarAlpha, toolbarColor));
             setStatusBarColor(ColorUtil.getColorWithAlpha(cab != null && cab.isActive() ? 1 : toolbarAlpha, toolbarColor));
 
             // Translate name text

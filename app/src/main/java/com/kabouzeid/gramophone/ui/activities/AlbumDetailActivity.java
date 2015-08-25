@@ -44,7 +44,6 @@ import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
-import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -156,7 +155,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
 
             // Change alpha of overlay
             toolbarAlpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
-            ViewUtil.setBackgroundAlpha(toolbar, toolbarAlpha, toolbarColor);
+            toolbar.setBackgroundColor(ColorUtil.getColorWithAlpha(toolbarAlpha, toolbarColor));
             setStatusBarColor(ColorUtil.getColorWithAlpha(cab != null && cab.isActive() ? 1 : toolbarAlpha, toolbarColor));
 
             // Translate name text
