@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">Što želite podijeliti?</string>
-    <string name="currently_listening_to_x_by_x">Trenutno slušate %1$s od %2$s</string>
+    <string name="currently_listening_to_x_by_x">Trenutno slušate %1$s od %2$s.</string>
     <string name="the_audio_file">Audio datoteka</string>
     <string name="do_you_want_to_set_x_as_ringtone">Želite li postaviti %1$s kao zvuk zvona?</string>
-    <string name="x_has_been_set_as_ringtone">Postavili ste %1$s kao zvuk zvona</string>
+    <string name="x_has_been_set_as_ringtone">Postavili ste %1$s kao zvuk zvona.</string>
     <string name="action_set_as_ringtone">Postavi kao zvuk zvona</string>
     <string name="action_share">Podijeli</string>
     <string name="action_settings">"Postavke"</string>
@@ -18,7 +18,7 @@
     <string name="action_play">Reproduciraj</string>
     <string name="action_add_to_playing_queue">Dodaj u red čekanja</string>
     <string name="action_remove_from_playing_queue">Ukloni iz reda čekanja</string>
-    <string name="action_add_to_playlist">Dodaj na popis pjesama</string>
+    <string name="action_add_to_playlist">Dodaj na popis pjesama...</string>
     <string name="action_tag_editor">Uređivač tagova</string>
     <string name="action_delete_from_device">Obriši s uređaja</string>
     <string name="action_details">Detalji</string>
@@ -63,6 +63,7 @@
     <string name="added_x_titles_to_playing_queue">Dodano %1$d pjesama u red čekanja</string>
     <string name="action_remove_from_playlist">Ukloni s popisa pjesama</string>
     <string name="action_view_as">Pregledaj kao</string>
+    <string name="inserted_x_songs_into_playlist_x">Umetnuto pjesama: %1$d na popis %2$s.</string>
     <string name="created_playlist_x">Stvoren popis pjesama %1$s</string>
     <string name="deleted_playlist_x">Obrisan popis pjesama %1$s</string>
     <string name="deleted_x_songs">Obrisano %1$d pjesama</string>
@@ -172,4 +173,5 @@
     <string name="colored_footers">Obojena podnožja</string>
     <string name="special_thanks_to">Posebna zahvala</string>
     <string name="changelog">Promjene</string>
+    <string name="permission_to_access_external_storage_denied">Dopuštenje za pristup vanjskoj pohrani je odbijeno.</string>
 </resources>
