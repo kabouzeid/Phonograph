@@ -221,14 +221,16 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     @NonNull
     protected abstract List<String> getSongPaths();
 
-    protected void searchWebFor(@NonNull List<String> strings) {
+    protected void searchWebFor(String... keys) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (String string : strings) {
-            stringBuilder.append(string);
+        for (String key : keys) {
+            stringBuilder.append(key);
             stringBuilder.append(" ");
         }
         Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
         intent.putExtra(SearchManager.QUERY, stringBuilder.toString());
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
         startActivity(intent);
     }
 

@@ -153,10 +153,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
     @Override
     protected void searchImageOnWeb() {
-        List<String> query = new ArrayList<>();
-        query.add(albumTitle.getText().toString());
-        query.add(albumArtist.getText().toString());
-        searchWebFor(query);
+        searchWebFor(albumTitle.getText().toString(), albumArtist.getText().toString());
     }
 
     @Override
