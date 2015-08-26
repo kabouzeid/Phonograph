@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Phonograph</string>
-    <string name="credits_4">\u0020<a href="http://cookicons.co/">Cookicons</a></string>
-    <string name="credits_2">\u0020<b>Karim Abou Zeid</b>.\n<a href="https://plus.google.com/+KarimAbouZeid23697">Google+</a>&#160;&#160;&#160;<a href="https://twitter.com/karim23697">Twitter</a>\n\n</string>
-    <string name="special_thanks_names">\u0020<a href="https://google.com/+AidanFollestad">Aidan Follestad</a>\n\n</string>
+    <string name="app_name" translatable="false">Phonograph</string>
+    <string name="credits_4" translatable="false">\u0020<a href="http://cookicons.co/">Cookicons</a></string>
+    <string name="credits_2" translatable="false">\u0020<b>Karim Abou Zeid</b>.\n<a href="https://plus.google.com/+KarimAbouZeid23697">Google+</a>&#160;&#160;&#160;<a href="https://twitter.com/karim23697">Twitter</a>\n\n</string>
+    <string name="special_thanks_names" translatable="false">\u0020<a href="https://google.com/+AidanFollestad">Aidan Follestad</a>\n\n</string>
+
+    <string-array name="donation_names" translatable="false">
+        <item>$1.00</item>
+        <item>$3.00</item>
+        <item>$5.00</item>
+        <item>$10.00</item>
+        <item>$15.00</item>
+        <item>$20.00</item>
+    </string-array>
+    <string-array name="donation_ids" translatable="false">
+        <item>donation_1</item>
+        <item>donation_3</item>
+        <item>donation_5</item>
+        <item>donation_10</item>
+        <item>donation_15</item>
+        <item>donation_20</item>
+    </string-array>
 </resources>

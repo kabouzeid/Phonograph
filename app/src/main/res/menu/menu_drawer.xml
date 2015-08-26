@@ -26,6 +26,10 @@
         android:id="@+id/navigation_drawer_menu_category_other"
         android:checkableBehavior="none">
         <item
+            android:id="@+id/support_development"
+            android:icon="@drawable/ic_favorite_white_24dp"
+            android:title="@string/support_development" />
+        <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings_white_24dp"
             android:title="@string/action_settings" />

@@ -33,9 +33,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialcab.MaterialCab;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.ThemeSingleton;
+import com.anjlab.android.iab.v3.BillingProcessor;
+import com.anjlab.android.iab.v3.BillingProcessor.IBillingHandler;
+import com.anjlab.android.iab.v3.TransactionDetails;
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PagerAdapter;
 import com.kabouzeid.gramophone.dialogs.AboutDialog;
@@ -72,7 +78,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AbsSlidingMusicPanelActivity
-        implements KabViewsDisableAble, CabHolder {
+        implements KabViewsDisableAble, CabHolder, IBillingHandler {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -89,10 +95,12 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
-    private PagerAdapter pagerAdapter;
-    private MaterialCab cab;
     @Nullable
     private View navigationDrawerHeader;
+    private PagerAdapter pagerAdapter;
+    private MaterialCab cab;
+
+    private BillingProcessor billingProcessor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +121,8 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         if (shouldColorNavigationBar())
             setNavigationBarThemeColor();
         setStatusBarThemeColor();
+
+        billingProcessor = new BillingProcessor(this, App.GOOGLE_PLAY_LICENSE_KEY, this);
 
         checkChangelog();
     }
@@ -231,6 +241,14 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                     case R.id.nav_playlists:
                         menuItem.setChecked(true);
                         pager.setCurrentItem(PagerAdapter.MusicFragments.PLAYLIST.ordinal(), true);
+                        break;
+                    case R.id.support_development:
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                showDonationDialog();
+                            }
+                        }, 200);
                         break;
                     case R.id.nav_settings:
                         new Handler().postDelayed(new Runnable() {
@@ -587,5 +605,55 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    private void showDonationDialog() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.support_development)
+                .items(R.array.donation_names)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
+                        final String[] ids = getResources().getStringArray(R.array.donation_ids);
+                        billingProcessor.purchase(MainActivity.this, ids[i]);
+                    }
+                }).show();
+    }
+
+    @Override
+    public void onProductPurchased(String productId, TransactionDetails details) {
+        billingProcessor.consumePurchase(productId);
+        Toast.makeText(this, R.string.thank_you, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPurchaseHistoryRestored() {
+        // ignore
+    }
+
+    @Override
+    public void onBillingError(int errorCode, Throwable error) {
+        Toast.makeText(this, "Billing error: code = " + errorCode + ", error: " +
+                (error != null ? error.getMessage() : "?"), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onBillingInitialized() {
+        // ignore
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (!billingProcessor.handleActivityResult(requestCode, resultCode, data)) {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (billingProcessor != null) {
+            billingProcessor.release();
+        }
+        super.onDestroy();
     }
 }
