@@ -262,23 +262,23 @@ public class ColorPalette {
     };
 
     public static int[] MAIN_ACCENT_COLOR_INDEXES = new int[]{
+            2,
             1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
     };
 
     public static int[][] ACCENT_COLORS = new int[][]{

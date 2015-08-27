@@ -174,4 +174,7 @@
     <string name="special_thanks_to">Agradecimientos a</string>
     <string name="changelog">Lista de cambios</string>
     <string name="permission_to_access_external_storage_denied">Permiso para acceder al almacenamiento externo denegado.</string>
+    <string name="back">regresar</string>
+    <string name="support_development">Apoyar desarrollo</string>
+    <string name="thank_you">¡Gracias!</string>
 </resources>

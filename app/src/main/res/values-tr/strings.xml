@@ -4,7 +4,7 @@
     <string name="currently_listening_to_x_by_x">Şu anda %2$s nın %1$s parçası çalıyor.</string>
     <string name="the_audio_file">Ses dosyası</string>
     <string name="do_you_want_to_set_x_as_ringtone">%1$s yı zil sesi olarak ayarlamak ister misiniz?</string>
-    <string name="x_has_been_set_as_ringtone">%1$s zil sesiniz olarak ayarlandı.</string>
+    <string name="x_has_been_set_as_ringtone">%1$s \'yı zil sesi olarak ayarla.</string>
     <string name="action_set_as_ringtone">Zil sesi olarak ayarla</string>
     <string name="action_share">Paylaş</string>
     <string name="action_settings">"Ayarlar"</string>
@@ -26,7 +26,7 @@
     <string name="artists">Sanatçılar</string>
     <string name="songs">Şarkılar</string>
     <string name="playlists">Çalma listeleri</string>
-    <string name="unplayable_file">Bu \u015fark\u0131 oynat\u0131l\u0131rken bir hata olu\u015ftu</string>
+    <string name="unplayable_file">Bu \u015fark\u0131 oynat\u0131lamad\u0131.</string>
     <string name="biography_unavailable">Bu sanat\u00e7\u0131 ile ilgili bilgi bulunamad\u0131</string>
     <string name="biography">Biyografi</string>
     <string name="audio_focus_denied">Ses odağı reddedildi.</string>
@@ -56,7 +56,7 @@
     <string name="credits_1">"Phonograph tamamen ücretsiz, material tasarımlı müzik çalar. Yapan"</string>
     <string name="no_results">Sonuç bulunamadı</string>
     <string name="action_re_download_artist_image">Sanatçı resmini güncelle</string>
-    <string name="updated_artist_image">Güncellenmiş sanatçı resmi.</string>
+    <string name="updated_artist_image">Sanatçı resmi güncellendi.</string>
     <string name="could_not_update_artist_image">Sanat\u00e7\u0131 resmi g\u00fcncellenemedi.</string>
     <string name="updating">Güncelleniyor...</string>
     <string name="added_title_to_playing_queue">"Çalma kuyruğuna 1 başlık eklendi."</string>
@@ -68,7 +68,7 @@
     <string name="deleted_playlist_x">Çalma listesi %1$s silindi.</string>
     <string name="deleted_x_songs">%1$d parça silindi.</string>
     <string name="could_not_create_playlist">\u00c7alma listesi olu\u015fturulamad\u0131</string>
-    <string name="delete_playlist_x"><![CDATA[<b>%1$s</b> çalma listesini silmek istiyor musunuz?]]></string>
+    <string name="delete_playlist_x"><![CDATA[<b>%1$s</b> çalma listesini sil?]]></string>
     <string name="clear_playlist_x"><![CDATA[<b>%1$s</b> \u00e7alma listesini temizlemek istedi\u011finize emin misiniz? Bu geri al\u0131namaz!]]></string>
     <string name="delete_x_playlists"><![CDATA[<b>%1$d</b> çalma listelerini silmek istiyor musunuz?]]></string>
     <string name="delete_song_x"><![CDATA[<b>%1$s</b> şarkıyı silmek istiyor musunuz?]]></string>
@@ -174,4 +174,5 @@
     <string name="special_thanks_to">Özel teşekkür</string>
     <string name="changelog">Sürüm Notları</string>
     <string name="permission_to_access_external_storage_denied">Harici depolamaya erişmek için izin verilmedi</string>
+    <string name="back">geri</string>
 </resources>

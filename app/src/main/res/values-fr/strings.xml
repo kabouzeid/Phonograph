@@ -19,14 +19,14 @@
     <string name="action_add_to_playing_queue">Ajouter à la liste de lecture</string>
     <string name="action_remove_from_playing_queue">Retirer de la liste de lecture</string>
     <string name="action_add_to_playlist">Ajouter à une playlist...</string>
-    <string name="action_tag_editor">Éditeur de tags</string>
+    <string name="action_tag_editor">Éditeur d\'infos</string>
     <string name="action_delete_from_device">Supprimer de l\'appareil</string>
     <string name="action_details">Détails</string>
     <string name="albums">Albums</string>
     <string name="artists">Artistes</string>
     <string name="songs">Titres</string>
     <string name="playlists">Playlists</string>
-    <string name="unplayable_file">La lecture de ce titre a \u00e9chou\u00e9.</string>
+    <string name="unplayable_file">La lecture de ce titre a \u00e9chou\u00e9e.</string>
     <string name="biography_unavailable">La biographie de l\'artiste est introuvable.</string>
     <string name="biography">Biographie</string>
     <string name="audio_focus_denied">Focus audio refusé.</string>
@@ -52,7 +52,7 @@
     <string name="action_go_to_album">Voir l\'album</string>
     <string name="label_current_playing_queue">File de lecture</string>
     <string name="save_as_playlist">Sauvegarder</string>
-    <string name="credits_3">Icône par</string>
+    <string name="credits_3">Icône fournie par</string>
     <string name="credits_1">"Phonograph est un lecteur de musique entièrement gratuit suivant le concept du Material Design. Phonograph vous est apporté par"</string>
     <string name="no_results">Aucun résultat</string>
     <string name="action_re_download_artist_image">Actualiser l\'image de l\'artiste</string>
@@ -143,15 +143,15 @@
     <string name="pref_summary_force_square_album_art">La pochette de l\'album dans l\'écran de lecture en cours est forcée à rester carrée.</string>
     <string name="pref_summary_opaque_toolbar_now_playing">La barre d\'outil est opaque et ne recouvre pas la vignette de l\'album.</string>
     <string name="pref_summary_opaque_statusbar_now_playing">Colore la barre de statut.</string>
-    <string name="pref_summary_larger_title_box_now_playing">La boîte en dessous de la vignette de l\'album où se trouvent le titre de la musique et l\'artiste est plus large dans sa hauteur.</string>
-    <string name="pref_summary_alternative_progress_slider_now_playing">Utilise une barre de progression qui ne recouvre pas la vignette de l\'album à la place de la barre de progression normale.</string>
-    <string name="pref_summary_playback_controller_card_now_playing">Affiche une carte derrière les boutons de lecture (lecture/pause etc.)</string>
-    <string name="pref_summary_ignore_media_store_artwork">Countourner le stockage media, ce qui peut augmenter la qualité des images mais peut causer des temps de chargement plus longs. N\'activez cette option que si vous avez des problèmes de basse résolution des images.</string>
+    <string name="pref_summary_larger_title_box_now_playing">La boîte en dessous de la pochette de l\'album où se trouvent le titre de la musique et l\'artiste est plus large dans sa hauteur.</string>
+    <string name="pref_summary_alternative_progress_slider_now_playing">Utilise une barre de progression qui ne recouvre pas la pochette de l\'album à la place de la barre de progression normale.</string>
+    <string name="pref_summary_playback_controller_card_now_playing">Affiche une carte derrière les contrôles de lecture (boutons Lecture/Pause, Lecture Aléatoire et Répéter)</string>
+    <string name="pref_summary_ignore_media_store_artwork">Peut augmenter la qualité des pochettes d\'albums, mais peut causer des temps de chargement plus longs. N\'activez cette option que si vous avez des problèmes de basse résolution des pochettes.</string>
     <string name="pref_summary_hide_bottom_bar">Masque la barre où s\'affichent les informations de lecture. Il est toujours possible de faire glisser le bouton Lecture/Pause pour ouvrir l\'écran de lecture en cours.</string>
-    <string name="pref_summary_colored_playback_controls_now_playing">Colore le bouton Lecture/Pause, le bouton Lecture Al\u00e9atoire ainsi que la barre de progression en fonction de la pochette de l\'album.</string>
+    <string name="pref_summary_colored_playback_controls_now_playing">Colore les contr\u00f4les de lecture (boutons Lecture/Pause, Lecture Al\u00e9atoire et R\u00e9p\u00e9ter) ainsi que la barre de progression en fonction de la pochette de l\'album.</string>
     <string name="pref_summary_colored_navigation_bar">Dans quelles vues la barre navigation doit être colorée.</string>
     <string name="could_not_download_album_cover">"Impossible de t\u00e9l\u00e9charger la vignette correspondant \u00e0 l'album."</string>
-    <string name="search_hint">Rechercher dans votre bibliothèque...</string>
+    <string name="search_hint">Recherche dans votre bibliothèque...</string>
     <string name="rescanning_media">Réanalyse des médias…</string>
     <string name="favorites">Favoris</string>
     <string name="last_added">Derniers ajouts</string>
@@ -165,7 +165,7 @@
     <string name="action_set">Régler</string>
     <string name="cancel_current_timer">Annuler le minuteur actuel</string>
     <string name="sleep_timer_canceled">Le minuteur actuel a été annulé</string>
-    <string name="sleep_timer_set">Arrêt de la musique dans %d minutes</string>
+    <string name="sleep_timer_set">Arrêt de la musique dans %d minutes.</string>
     <string name="action_new_playlist">Nouvelle playlist…</string>
     <string name="new_playlist_title">Nouvelle playlist</string>
     <string name="grid">Grille</string>
@@ -174,4 +174,5 @@
     <string name="special_thanks_to">Un grand merci à</string>
     <string name="changelog">Changelog</string>
     <string name="permission_to_access_external_storage_denied">Accès au stockage externe refusé.</string>
+    <string name="back">Retour</string>
 </resources>
