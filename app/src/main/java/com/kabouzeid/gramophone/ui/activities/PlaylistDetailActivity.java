@@ -25,8 +25,10 @@ import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
+import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
+import com.kabouzeid.gramophone.util.ViewUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -159,6 +161,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_playlist_detail, menu);
+        ViewUtil.setToolbarContentColorForBackground(this, toolbar, getThemeColorPrimary());
         return true;
     }
 

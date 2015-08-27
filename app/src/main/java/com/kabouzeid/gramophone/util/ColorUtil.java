@@ -109,11 +109,7 @@ public class ColorUtil {
     }
 
     public static boolean useDarkTextColorOnBackground(@ColorInt int backgroundColor) {
-        return getLuminance(backgroundColor) > (255f / 2f);
-    }
-
-    public static boolean useDarkFabDrawableOnBackground(@ColorInt int backgroundColor) {
-        return getLuminance(backgroundColor) > (255f / 1.3f);
+        return getLuminance(backgroundColor) > (255f / 1.5f);
     }
 
     @ColorInt
@@ -124,10 +120,5 @@ public class ColorUtil {
     @ColorInt
     public static int getSecondaryTextColorForBackground(final Context context, @ColorInt int backgroundColor) {
         return getSecondaryTextColor(context, useDarkTextColorOnBackground(backgroundColor));
-    }
-
-    @ColorInt
-    public static int getFabDrawableColorForBackground(final Context context, @ColorInt int backgroundColor) {
-        return getPrimaryTextColor(context, useDarkFabDrawableOnBackground(backgroundColor));
     }
 }
