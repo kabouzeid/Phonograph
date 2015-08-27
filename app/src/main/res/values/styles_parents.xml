@@ -23,8 +23,11 @@
 
         <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat</item>
 
-        <!-- FOR EVERYWHERE WE CANT OVERRIDE THE ACCENT COLOR-->
+        <!-- just in case-->
         <item name="colorAccent">@android:color/white</item>
+
+        <!-- necessary to find the overflow button later in the layout-->
+        <item name="android:actionOverflowButtonStyle">@style/Widget.ActionButton.Overflow</item>
     </style>
 
     <style name="Theme.MaterialMusic.Base.Light" parent="Theme.AppCompat.Light.NoActionBar">
@@ -48,8 +51,11 @@
 
         <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
 
-        <!-- FOR EVERYWHERE WE CANT OVERRIDE THE ACCENT COLOR-->
+        <!-- just in case-->
         <item name="colorAccent">@android:color/black</item>
+
+        <!-- necessary to find the overflow button later in the layout-->
+        <item name="android:actionOverflowButtonStyle">@style/Widget.ActionButton.Overflow</item>
     </style>
 
     <style name="PlayPauseFabParent">
@@ -82,5 +88,10 @@
         <item name="android:layout_centerVertical">true</item>
         <item name="android:focusableInTouchMode">false</item>
         <item name="android:focusable">false</item>
+    </style>
+
+    <!-- content description is necessary to find the overflow button later in the layout-->
+    <style name="Widget.ActionButton.Overflow" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:contentDescription">@string/abc_action_menu_overflow_description</item>
     </style>
 </resources>

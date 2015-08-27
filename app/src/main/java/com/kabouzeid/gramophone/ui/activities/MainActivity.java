@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.provider.MediaStore;
-import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -65,6 +64,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityRecyclerViewLayoutModeFragment;
+import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
@@ -75,8 +75,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.io.File;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -154,7 +152,8 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         navigationView.getMenu().getItem(startPosition).setChecked(true);
 
         tabs.setupWithViewPager(pager);
-        setUpTabStripColor(getThemeColorAccent() == Color.WHITE ? Color.WHITE : ThemeSingleton.get().positiveColor.getDefaultColor());
+        tabs.setTabTextColors(ColorUtil.getSecondaryTextColorForBackground(this, getThemeColorPrimary()), ColorUtil.getPrimaryTextColorForBackground(this, getThemeColorPrimary()));
+        tabs.setSelectedTabIndicatorColor(getThemeColorAccent() == Color.WHITE && !ColorUtil.useDarkTextColorOnBackground(getThemeColorPrimary()) ? Color.WHITE : ThemeSingleton.get().positiveColor.getDefaultColor());
 
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -174,21 +173,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         });
 
         pager.setCurrentItem(startPosition);
-    }
-
-    private void setUpTabStripColor(@ColorInt int color) {
-        // use reflection to set the selected indicator color
-        try {
-            Field tabStripField = tabs.getClass().getDeclaredField("mTabStrip");
-            tabStripField.setAccessible(true);
-            Object tabStrip = tabStripField.get(tabs);
-
-            Method setSelectedIndicatorColorMethod = tabStrip.getClass().getDeclaredMethod("setSelectedIndicatorColor", Integer.TYPE);
-            setSelectedIndicatorColorMethod.setAccessible(true);
-            setSelectedIndicatorColorMethod.invoke(tabStrip, color);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private void setUpToolbar() {
@@ -361,6 +345,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         } else {
             menu.removeItem(R.id.action_view_as);
         }
+        ViewUtil.setToolbarContentColorForBackground(this, toolbar, getThemeColorPrimary());
         return true;
     }
 

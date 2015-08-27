@@ -14,6 +14,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -22,20 +23,28 @@ import com.kabouzeid.gramophone.dialogs.ColorChooserDialog;
 import com.kabouzeid.gramophone.helper.ColorPalette;
 import com.kabouzeid.gramophone.prefs.ColorChooserPreference;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
+import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
+import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class SettingsActivity extends AbsBaseActivity implements ColorChooserDialog.ColorCallback {
     public static final String TAG = SettingsActivity.class.getSimpleName();
+
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
         setStatusBarTransparent();
+        ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(getThemeColorPrimary());
         setSupportActionBar(toolbar);
         //noinspection ConstantConditions
@@ -69,6 +78,12 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        ViewUtil.setToolbarContentColorForBackground(this, toolbar, getThemeColorPrimary());
+        return super.onCreateOptionsMenu(menu);
     }
 
     public static class SettingsFragment extends PreferenceFragment {

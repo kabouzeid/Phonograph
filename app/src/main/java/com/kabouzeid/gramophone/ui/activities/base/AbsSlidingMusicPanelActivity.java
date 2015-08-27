@@ -12,6 +12,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -846,8 +847,9 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     private void updatePlayerMenu() {
         boolean isFavorite = MusicUtil.isFavorite(this, song);
+        Drawable favoriteIcon = Util.getTintedDrawable(this, isFavorite ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_outline_white_24dp, ViewUtil.getToolbarIconColor(this, opaqueToolBar && ColorUtil.useDarkTextColorOnBackground(lastFooterColor)));
         playerToolbar.getMenu().findItem(R.id.action_toggle_favorite)
-                .setIcon(isFavorite ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_outline_white_24dp)
+                .setIcon(favoriteIcon)
                 .setTitle(isFavorite ? getString(R.string.action_remove_from_favorites) : getString(R.string.action_add_to_favorites));
     }
 
@@ -954,8 +956,10 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
         if (opaqueToolBar) {
             animatorSetBuilder.with(ViewUtil.createBackgroundColorTransition(playerToolbar, lastFooterColor, newColor));
+            ViewUtil.setToolbarContentColorForBackground(this, playerToolbar, newColor);
         } else {
             playerToolbar.setBackgroundColor(Color.TRANSPARENT);
+            ViewUtil.setToolbarContentDark(this, playerToolbar, false);
         }
 
         if (opaqueStatusBar) {
@@ -1159,7 +1163,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
             @Override
             public void set(FloatingActionButton object, Integer value) {
                 object.setBackgroundTintList(ColorStateList.valueOf(value));
-                object.getDrawable().setColorFilter(ColorUtil.getFabDrawableColorForBackground(object.getContext(), value), PorterDuff.Mode.SRC_IN);
+                object.getDrawable().setColorFilter(ColorUtil.getPrimaryTextColorForBackground(object.getContext(), value), PorterDuff.Mode.SRC_IN);
             }
 
             @Override

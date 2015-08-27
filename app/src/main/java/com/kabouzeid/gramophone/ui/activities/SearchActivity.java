@@ -1,28 +1,30 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.SearchAdapter;
 import com.kabouzeid.gramophone.ui.activities.base.AbsMusicServiceActivity;
+import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.Util;
+import com.kabouzeid.gramophone.util.ViewUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -34,14 +36,15 @@ public class SearchActivity extends AbsMusicServiceActivity {
     RecyclerView recyclerView;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
+    @Bind(R.id.search_src_text)
+    EditText searchSrcText;
+    @Bind(R.id.search_close_btn)
+    ImageView searchCloseBtn;
     @SuppressWarnings("ButterKnifeNoViewWithId")
     @Bind(android.R.id.empty)
     TextView empty;
 
-    private SearchView searchView;
     private SearchAdapter searchAdapter;
-
-    private String searchQuery = "";
 
     @SuppressLint("NewApi")
     @Override
@@ -59,21 +62,73 @@ public class SearchActivity extends AbsMusicServiceActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Util.hideSoftKeyboard(SearchActivity.this);
-                if (searchView != null) {
-                    searchView.clearFocus();
-                }
+                searchSrcText.clearFocus();
                 return false;
             }
         });
 
-        toolbar.setBackgroundColor(getThemeColorPrimary());
-        setSupportActionBar(toolbar);
-        //noinspection ConstantConditions
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setUpToolBar();
+        setUpSearchBar();
 
         if (shouldColorNavigationBar())
             setNavigationBarThemeColor();
         setStatusBarThemeColor();
+    }
+
+    private void setUpToolBar() {
+        setSupportActionBar(toolbar);
+        //noinspection ConstantConditions
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setBackgroundColor(getThemeColorPrimary());
+        Drawable navigationIcon = toolbar.getNavigationIcon();
+        if (navigationIcon != null) {
+            navigationIcon = navigationIcon.mutate();
+            navigationIcon.setColorFilter(ViewUtil.getToolbarIconColor(this, ColorUtil.useDarkTextColorOnBackground(getThemeColorPrimary())), PorterDuff.Mode.SRC_IN);
+            toolbar.setNavigationIcon(navigationIcon);
+        }
+    }
+
+    private void setUpSearchBar() {
+        searchCloseBtn.setColorFilter(ViewUtil.getToolbarIconColor(this, ColorUtil.useDarkTextColorOnBackground(getThemeColorPrimary())), PorterDuff.Mode.SRC_IN);
+        searchCloseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchSrcText.setText("");
+            }
+        });
+
+        searchSrcText.setTextColor(ColorUtil.getPrimaryTextColorForBackground(this, getThemeColorPrimary()));
+        searchSrcText.setHintTextColor(ColorUtil.getSecondaryTextColorForBackground(this, getThemeColorPrimary()));
+        searchSrcText.setHint(R.string.search_hint);
+
+        searchSrcText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                search(searchSrcText.getText().toString());
+            }
+        });
+
+        searchSrcText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    search(searchSrcText.getText().toString());
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -89,58 +144,14 @@ public class SearchActivity extends AbsMusicServiceActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search, menu);
-
-        final MenuItem search = menu.findItem(R.id.action_search);
-        searchView = (SearchView) MenuItemCompat.getActionView(search);
-        searchView.setIconified(false);
-        searchView.setIconifiedByDefault(false);
-        searchView.setQueryHint(getString(R.string.search_hint));
-
-        View searchViewPlate = searchView.findViewById(android.support.v7.appcompat.R.id.search_plate);
-        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.abc_textfield_search_activated_mtrl_alpha);
-        drawable.setColorFilter(Color.TRANSPARENT, PorterDuff.Mode.SRC_IN);
-        searchViewPlate.setBackground(drawable);
-
-        ActionBar.LayoutParams params = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
-        searchView.setLayoutParams(params);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(@NonNull String query) {
-                onQueryTextChange(query);
-                Util.hideSoftKeyboard(SearchActivity.this);
-                searchView.clearFocus();
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(@NonNull String newText) {
-                search(newText);
-                return false;
-            }
-        });
-
-        MenuItemCompat.setOnActionExpandListener(search, new MenuItemCompat.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                finish();
-                return false;
-            }
-        });
-
-        MenuItemCompat.expandActionView(search);
-        return true;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            super.onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void search(@NonNull String query) {
-        searchQuery = query;
         if (searchAdapter != null) {
             searchAdapter.search(query);
             empty.setVisibility(searchAdapter.getItemCount() < 1 ? View.VISIBLE : View.GONE);
@@ -150,6 +161,6 @@ public class SearchActivity extends AbsMusicServiceActivity {
     @Override
     public void onMediaStoreChanged() {
         super.onMediaStoreChanged();
-        search(searchQuery);
+        search(searchSrcText.getText().toString());
     }
 }

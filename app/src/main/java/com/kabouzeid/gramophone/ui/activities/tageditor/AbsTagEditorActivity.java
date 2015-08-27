@@ -17,6 +17,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
@@ -32,6 +33,7 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
+import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.jaudiotagger.audio.AudioFile;
@@ -192,7 +194,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         });
 
         int fabColor = getThemeColorAccent();
-        int fabDrawableColor = ColorUtil.getFabDrawableColorForBackground(this, fabColor);
+        int fabDrawableColor = ColorUtil.getPrimaryTextColorForBackground(this, fabColor);
         fab.setBackgroundTintList(ColorStateList.valueOf(fabColor));
         fab.getDrawable().setColorFilter(fabDrawableColor, PorterDuff.Mode.SRC_IN);
     }
@@ -206,6 +208,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         if (shouldColorNavigationBar())
             setNavigationBarColor(paletteColorPrimary);
         header.setBackgroundColor(paletteColorPrimary);
+        ViewUtil.setToolbarContentColorForBackground(this, toolbar, paletteColorPrimary);
         notifyTaskColorChange(paletteColorPrimary);
     }
 
@@ -245,6 +248,11 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        ViewUtil.setToolbarContentColorForBackground(this, toolbar, paletteColorPrimary);
+        return super.onCreateOptionsMenu(menu);
+    }
 
     protected void setNoImageMode() {
         isInNoImageMode = true;
@@ -305,6 +313,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                                 setNavigationBarColor(paletteColorPrimary);
                             setStatusBarColor(paletteColorPrimary);
                             header.setBackgroundColor(paletteColorPrimary);
+                            ViewUtil.setToolbarContentColorForBackground(AbsTagEditorActivity.this, toolbar, paletteColorPrimary);
                             notifyTaskColorChange(paletteColorPrimary);
                         } else {
                             resetColors();
