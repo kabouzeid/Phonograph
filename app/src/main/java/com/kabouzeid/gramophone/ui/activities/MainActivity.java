@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -14,6 +15,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.provider.MediaStore;
 import android.support.annotation.ColorInt;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -26,11 +28,13 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +44,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.BillingProcessor.IBillingHandler;
+import com.anjlab.android.iab.v3.SkuDetails;
 import com.anjlab.android.iab.v3.TransactionDetails;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
@@ -73,6 +78,8 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -607,17 +614,62 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         }
     }
 
+    static class SkuDetailsAdapter extends ArrayAdapter<SkuDetails> {
+        @LayoutRes
+        private static int LAYOUT_RES_ID = R.layout.item_donation_option;
+
+        public SkuDetailsAdapter(@NonNull Context context, @NonNull List<SkuDetails> objects) {
+            super(context, LAYOUT_RES_ID, objects);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(LAYOUT_RES_ID, parent, false);
+            }
+
+            SkuDetails skuDetails = getItem(position);
+            ViewHolder viewHolder = new ViewHolder(convertView);
+
+            viewHolder.title.setText(skuDetails.title.replace("(Phonograph Music Player)", "").trim());
+            viewHolder.text.setText(skuDetails.description);
+            viewHolder.price.setText(skuDetails.priceText);
+
+            return convertView;
+        }
+
+        static class ViewHolder {
+            @Bind(R.id.title)
+            TextView title;
+            @Bind(R.id.text)
+            TextView text;
+            @Bind(R.id.price)
+            TextView price;
+
+            public ViewHolder(View view) {
+                ButterKnife.bind(this, view);
+            }
+        }
+    }
+
     private void showDonationDialog() {
+        final String[] ids = getResources().getStringArray(R.array.donation_ids);
+        List<SkuDetails> skuDetailsList = billingProcessor.getPurchaseListingDetails(new ArrayList<>(Arrays.asList(ids)));
+        if (skuDetailsList == null) return;
+
         new MaterialDialog.Builder(this)
                 .title(R.string.support_development)
-                .items(R.array.donation_names)
-                .itemsCallback(new MaterialDialog.ListCallback() {
+                .adapter(new SkuDetailsAdapter(this, skuDetailsList), new MaterialDialog.ListCallback() {
                     @Override
                     public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
-                        final String[] ids = getResources().getStringArray(R.array.donation_ids);
-                        billingProcessor.purchase(MainActivity.this, ids[i]);
+                        donate(i);
                     }
                 }).show();
+    }
+
+    private void donate(int i) {
+        final String[] ids = getResources().getStringArray(R.array.donation_ids);
+        billingProcessor.purchase(MainActivity.this, ids[i]);
     }
 
     @Override
@@ -633,8 +685,8 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 
     @Override
     public void onBillingError(int errorCode, Throwable error) {
-        Toast.makeText(this, "Billing error: code = " + errorCode + ", error: " +
-                (error != null ? error.getMessage() : "?"), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Billing error: code = " + errorCode +
+                (error != null ? ", error: " + error.getMessage() : ""), Toast.LENGTH_SHORT).show();
     }
 
     @Override

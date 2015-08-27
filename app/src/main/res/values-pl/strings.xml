@@ -138,7 +138,7 @@
     <string name="song">Utwór</string>
     <string name="pref_only_lollipop">"Dostępne tylko w androidzie Lollipop"</string>
     <string name="pref_summary_album_art_on_lockscreen">Okładki albumów obecnie granych utworów będą zastępowały tapetę na ekranie blokady</string>
-    <string name="pref_summary_colored_notification">"Odtwarzacz w pasku powiadomie\u0144 ma kolor ok\u0142adki albumu"</string>
+    <string name="pref_summary_colored_notification">"Odtwarzacz w pasku powiadomie\u0144 ma tonacj\u0119 ok\u0142adki albumu"</string>
     <string name="pref_summary_gapless_playback">"Na niektórych urządzeniach mogą wystąpić problemy z odtwarzaniem"</string>
     <string name="pref_summary_force_square_album_art">Okładki albumów na ekranie \'\'Obecnie Grane\'\' będą zawsze kadrowane</string>
     <string name="pref_summary_opaque_toolbar_now_playing">Kolorowy pasek narzędzi</string>
@@ -148,7 +148,7 @@
     <string name="pref_summary_playback_controller_card_now_playing">Wyświetla kartę pod przyciskami \'\'Graj/Pauzuj\'\', \'\'Pomiń\'\', \'\'Przewiń\'\', \'\'Losowo\'\' i \'\'Powtórz\'\'</string>
     <string name="pref_summary_ignore_media_store_artwork">Polepszy to jakość okładek, ale może spowodować ich wolniejsze ładowanie. Zaznacz tylko wtedy, gdy masz kłopoty z niską jakością grafik</string>
     <string name="pref_summary_hide_bottom_bar">Ukrywa dolną belkę z informacjami o obecnie granym utworze. Nadal można przesuwać przycisk Graj/Pauza w dowolnym kierunku, aby otworzyć widok obecnie granego utworu</string>
-    <string name="pref_summary_colored_playback_controls_now_playing">Przyciski \'\'Graj/Pauzuj\'\', \'\'Losowo\'\', \'\'Powt\u00f3rz\'\' oraz pasek post\u0119pu, b\u0119d\u0105 w kolorach z ok\u0142adek album\u00f3w</string>
+    <string name="pref_summary_colored_playback_controls_now_playing">Przyciski \'\'Graj/Pauzuj\'\', \'\'Losowo\'\', \'\'Powt\u00f3rz\'\' oraz pasek post\u0119pu, b\u0119d\u0105 w tonacjach ok\u0142adek album\u00f3w</string>
     <string name="pref_summary_colored_navigation_bar">Kolory paska nawigacyjnego będą odpowiadały kolorowi podstawowemu</string>
     <string name="could_not_download_album_cover">"Nie uda\u0142o si\u0119 pobra\u0107 pasuj\u0105cej ok\u0142adki albumu"</string>
     <string name="search_hint">Szukaj w bibliotece...</string>
@@ -174,4 +174,7 @@
     <string name="special_thanks_to">Specjalne podziękowania dla</string>
     <string name="changelog">Lista zmian</string>
     <string name="permission_to_access_external_storage_denied">Pozwolenie na dostęp do pamięci zewnętrznej odrzucone</string>
+    <string name="back">Wróć</string>
+    <string name="support_development">Wspomóż rozwój</string>
+    <string name="thank_you">Dziękuję!</string>
 </resources>
