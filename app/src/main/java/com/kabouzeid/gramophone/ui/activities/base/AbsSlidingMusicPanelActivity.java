@@ -80,7 +80,7 @@ import butterknife.ButterKnife;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
- *         <p>
+ *         <p/>
  *         Do not use {@link #setContentView(int)} but wrap your layout with
  *         {@link #wrapSlidingMusicPanelAndFab(int)} first and then return it in {@link #createContentView()}
  */
@@ -197,14 +197,21 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
         progressViewsUpdateHandler = new MusicProgressViewsUpdateHandler(this);
 
-        slidingUpPanelLayout.post(new Runnable() {
+        // I know the nested post calls are ugly, but this is necessary for the fab to be in the right position!
+        playPauseButton.post(new Runnable() {
             @Override
             public void run() {
-                if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
-                    mediaControllerContainer.setVisibility(View.VISIBLE);
-                    onPanelSlide(slidingUpPanelLayout, 1);
-                    onPanelExpanded(slidingUpPanelLayout);
-                }
+                dummyFab.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        playPauseButton.requestLayout();
+                        if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                            mediaControllerContainer.setVisibility(View.VISIBLE);
+                            onPanelSlide(slidingUpPanelLayout, 1);
+                            onPanelExpanded(slidingUpPanelLayout);
+                        }
+                    }
+                });
             }
         });
     }
@@ -401,11 +408,18 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         initFabColorAnimatorIfNecessary();
         initMiniPlayerAlphaAnimatorIfNecessary();
 
-        int durationProgress = (int) (SLIDING_PANEL_ANIMATION_STEPS * slideOffset);
-        fabXAnimator.setCurrentPlayTime(durationProgress);
-        fabYAnimator.setCurrentPlayTime(durationProgress);
-        fabColorAnimator.setCurrentPlayTime(durationProgress);
-        miniPlayerAlphaAnimator.setCurrentPlayTime(durationProgress);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            fabXAnimator.setCurrentFraction(slideOffset);
+            fabYAnimator.setCurrentFraction(slideOffset);
+            fabColorAnimator.setCurrentFraction(slideOffset);
+            miniPlayerAlphaAnimator.setCurrentFraction(slideOffset);
+        } else {
+            int durationProgress = (int) (SLIDING_PANEL_ANIMATION_STEPS * slideOffset);
+            fabXAnimator.setCurrentPlayTime(durationProgress);
+            fabYAnimator.setCurrentPlayTime(durationProgress);
+            fabColorAnimator.setCurrentPlayTime(durationProgress);
+            miniPlayerAlphaAnimator.setCurrentPlayTime(durationProgress);
+        }
     }
 
     @Override
