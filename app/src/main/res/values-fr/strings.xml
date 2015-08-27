@@ -175,4 +175,6 @@
     <string name="changelog">Changelog</string>
     <string name="permission_to_access_external_storage_denied">Accès au stockage externe refusé.</string>
     <string name="back">Retour</string>
+    <string name="support_development">Soutenir le développement</string>
+    <string name="thank_you">Merci !</string>
 </resources>
