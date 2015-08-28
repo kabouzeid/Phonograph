@@ -561,11 +561,11 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         }
     }
 
-    public Pair[] addPlayPauseFabToSharedViews(@Nullable Pair[] sharedViews) {
+    public final Pair[] addPlayPauseFabToSharedViews(@Nullable final Pair... sharedElements) {
         Pair[] sharedViewsWithFab;
-        if (sharedViews != null) {
-            sharedViewsWithFab = new Pair[sharedViews.length + 1];
-            System.arraycopy(sharedViews, 0, sharedViewsWithFab, 0, sharedViews.length);
+        if (sharedElements != null) {
+            sharedViewsWithFab = new Pair[sharedElements.length + 1];
+            System.arraycopy(sharedElements, 0, sharedViewsWithFab, 0, sharedElements.length);
         } else {
             sharedViewsWithFab = new Pair[1];
         }
@@ -1098,10 +1098,10 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                 SongDetailDialog.create(song).show(getSupportFragmentManager(), "SONG_DETAIL");
                 return true;
             case R.id.action_go_to_album:
-                NavigationUtil.goToAlbum(this, song.albumId, addPlayPauseFabToSharedViews(null));
+                NavigationUtil.goToAlbum(this, song.albumId, addPlayPauseFabToSharedViews());
                 return true;
             case R.id.action_go_to_artist:
-                NavigationUtil.goToArtist(this, song.artistId, addPlayPauseFabToSharedViews(null));
+                NavigationUtil.goToArtist(this, song.artistId, addPlayPauseFabToSharedViews());
                 return true;
         }
         return false;

@@ -60,13 +60,13 @@ public class SongMenuHelper {
             case R.id.action_go_to_album:
                 Pair[] albumPairs = null;
                 if (activity instanceof AbsSlidingMusicPanelActivity)
-                    albumPairs = ((AbsSlidingMusicPanelActivity) activity).addPlayPauseFabToSharedViews(null);
+                    albumPairs = ((AbsSlidingMusicPanelActivity) activity).addPlayPauseFabToSharedViews();
                 NavigationUtil.goToAlbum(activity, song.albumId, albumPairs);
                 return true;
             case R.id.action_go_to_artist:
                 Pair[] artistPairs = null;
                 if (activity instanceof AbsSlidingMusicPanelActivity)
-                    artistPairs = ((AbsSlidingMusicPanelActivity) activity).addPlayPauseFabToSharedViews(null);
+                    artistPairs = ((AbsSlidingMusicPanelActivity) activity).addPlayPauseFabToSharedViews();
                 NavigationUtil.goToArtist(activity, song.artistId, artistPairs);
                 return true;
         }

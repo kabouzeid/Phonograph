@@ -189,20 +189,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 case ALBUM:
                     NavigationUtil.goToAlbum(activity,
                             ((Album) item).id,
-                            new Pair[]{
-                                    Pair.create(image,
-                                            activity.getResources().getString(R.string.transition_album_art)
-                                    )
-                            });
+                            Pair.create(image,
+                                    activity.getResources().getString(R.string.transition_album_art)
+                            ));
                     break;
                 case ARTIST:
                     NavigationUtil.goToArtist(activity,
                             ((Artist) item).id,
-                            new Pair[]{
-                                    Pair.create(image,
-                                            activity.getResources().getString(R.string.transition_artist_image)
-                                    )
-                            });
+                            Pair.create(image,
+                                    activity.getResources().getString(R.string.transition_artist_image)
+                            ));
                     break;
                 case SONG:
                     ArrayList<Song> playList = new ArrayList<>();
