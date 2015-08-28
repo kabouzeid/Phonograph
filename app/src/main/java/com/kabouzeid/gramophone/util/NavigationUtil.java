@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.media.audiofx.AudioEffect;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
@@ -26,62 +25,46 @@ import com.kabouzeid.gramophone.ui.activities.PlaylistDetailActivity;
  */
 public class NavigationUtil {
 
-    public static void goToArtist(final Activity activity, final int artistId, @Nullable final Pair[] sharedViews) {
-        if (activity instanceof ArtistDetailActivity)
-            return;
-        if ((activity instanceof KabViewsDisableAble && ((KabViewsDisableAble) activity).areViewsEnabled()) || !(activity instanceof KabViewsDisableAble)) {
-            if (activity instanceof KabViewsDisableAble)
-                ((KabViewsDisableAble) activity).disableViews();
-            final Intent intent = new Intent(activity, ArtistDetailActivity.class);
-            intent.putExtra(ArtistDetailActivity.EXTRA_ARTIST_ID, artistId);
-            if (sharedViews != null) {
-                @SuppressWarnings("unchecked") ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
-                        sharedViews
-                );
-                ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
-            } else {
-                activity.startActivity(intent);
-            }
-        }
+    public static void goToArtist(@NonNull final Activity activity, final int artistId, @Nullable final Pair... sharedElements) {
+        if (activity instanceof ArtistDetailActivity) return;
+        if (!disableViewsAndCheckIsReadyForTransition(activity)) return;
+
+        final Intent intent = new Intent(activity, ArtistDetailActivity.class);
+        intent.putExtra(ArtistDetailActivity.EXTRA_ARTIST_ID, artistId);
+
+        //noinspection unchecked
+        activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedElements).toBundle());
     }
 
-    public static void goToAlbum(final Activity activity, final int albumId, @Nullable final Pair[] sharedViews) {
-        if (activity instanceof AlbumDetailActivity)
-            return;
-        if ((activity instanceof KabViewsDisableAble && ((KabViewsDisableAble) activity).areViewsEnabled()) || !(activity instanceof KabViewsDisableAble)) {
-            if (activity instanceof KabViewsDisableAble)
-                ((KabViewsDisableAble) activity).disableViews();
-            final Intent intent = new Intent(activity, AlbumDetailActivity.class);
-            intent.putExtra(AlbumDetailActivity.EXTRA_ALBUM_ID, albumId);
-            if (sharedViews != null) {
-                @SuppressWarnings("unchecked") ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
-                        sharedViews
-                );
-                ActivityCompat.startActivityForResult(activity, intent, 1001, optionsCompat.toBundle());
-            } else {
-                activity.startActivity(intent);
-            }
-        }
+    public static void goToAlbum(@NonNull final Activity activity, final int albumId, @Nullable final Pair... sharedElements) {
+        if (activity instanceof AlbumDetailActivity) return;
+        if (!disableViewsAndCheckIsReadyForTransition(activity)) return;
+
+        final Intent intent = new Intent(activity, AlbumDetailActivity.class);
+        intent.putExtra(AlbumDetailActivity.EXTRA_ALBUM_ID, albumId);
+
+        //noinspection unchecked
+        activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedElements).toBundle());
     }
 
-    public static void goToPlaylist(final Activity activity, final Playlist playlist, @Nullable final Pair[] sharedViews) {
-        if ((activity instanceof KabViewsDisableAble && ((KabViewsDisableAble) activity).areViewsEnabled()) || !(activity instanceof KabViewsDisableAble)) {
-            if (activity instanceof KabViewsDisableAble)
+    public static void goToPlaylist(@NonNull final Activity activity, final Playlist playlist, @Nullable final Pair... sharedElements) {
+        if (!disableViewsAndCheckIsReadyForTransition(activity)) return;
+
+        final Intent intent = new Intent(activity, PlaylistDetailActivity.class);
+        intent.putExtra(PlaylistDetailActivity.EXTRA_PLAYLIST, playlist);
+
+        //noinspection unchecked
+        activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedElements).toBundle());
+    }
+
+    private static boolean disableViewsAndCheckIsReadyForTransition(@NonNull final Activity activity) {
+        if (activity instanceof KabViewsDisableAble) {
+            if (((KabViewsDisableAble) activity).areViewsEnabled()) {
                 ((KabViewsDisableAble) activity).disableViews();
-
-            final Intent intent;
-            intent = new Intent(activity, PlaylistDetailActivity.class);
-            intent.putExtra(PlaylistDetailActivity.EXTRA_PLAYLIST, playlist);
-
-            if (sharedViews != null) {
-                @SuppressWarnings("unchecked") ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
-                        sharedViews
-                );
-                ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
-            } else {
-                activity.startActivity(intent);
+                return true;
             }
         }
+        return false;
     }
 
     public static void openPlayingQueueDialog(@NonNull final AppCompatActivity activity) {
