@@ -239,7 +239,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                             public void run() {
                                 showDonationDialog();
                             }
-                        }, 200);
+                        }, 300);
                         break;
                     case R.id.nav_settings:
                         new Handler().postDelayed(new Runnable() {
@@ -255,7 +255,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                             public void run() {
                                 new AboutDialog().show(getSupportFragmentManager(), "ABOUT_DIALOG");
                             }
-                        }, 200);
+                        }, 300);
                         break;
                 }
                 return true;
@@ -670,8 +670,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 
     @Override
     public void onBillingError(int errorCode, Throwable error) {
-        Toast.makeText(this, "Billing error: code = " + errorCode +
-                (error != null ? ", error: " + error.getMessage() : ""), Toast.LENGTH_SHORT).show();
+        Log.e(TAG, "Billing error: code = " + errorCode, error);
     }
 
     @Override
