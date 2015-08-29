@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.crashlytics.android.Crashlytics;
+import com.kabouzeid.gramophone.imageloader.PhonographExecutor;
 import com.kabouzeid.gramophone.imageloader.PhonographImageDownloader;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -38,6 +39,7 @@ public class App extends Application {
 
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
                 .imageDownloader(new PhonographImageDownloader(this))
+                .taskExecutor(new PhonographExecutor())
                 .memoryCacheSizePercentage(30)
                 .build();
         ImageLoader.getInstance().init(config);

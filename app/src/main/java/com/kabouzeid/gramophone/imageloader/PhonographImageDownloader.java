@@ -55,6 +55,7 @@ public class PhonographImageDownloader extends BaseImageDownloader {
         return super.getStream(imageUri, extra);
     }
 
+    @Nullable
     protected InputStream getStreamFromArtist(@NonNull String imageUri, @NonNull Object extra) throws IOException {
         String[] data = imageUri.substring(SCHEME_ARTIST.length()).split("#", 2);
         String artistName = data[1];

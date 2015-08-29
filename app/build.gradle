@@ -17,6 +17,7 @@ apply plugin: 'com.github.triplet.play'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
+    maven { url "https://jitpack.io" }
 }
 
 // For pushing APKs directly to Google Play. Won't work without the .p12 key.
@@ -102,7 +103,7 @@ dependencies {
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
 
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+    compile 'com.github.kabouzeid:Android-Universal-Image-Loader:8ffb5d4afa'
 
     compile 'com.afollestad:material-dialogs:0.7.8.1'
     compile 'com.afollestad:material-cab:0.1.4'
