@@ -42,5 +42,4 @@ captures/
 .DS_Store
 
 # Private Keys
-keystore.properties
-play-developer-key.p12
+/privatekeys
