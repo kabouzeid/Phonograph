@@ -43,3 +43,4 @@ captures/
 
 # Private Keys
 keystore.properties
+play-developer-key.p12

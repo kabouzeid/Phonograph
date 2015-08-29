@@ -360,7 +360,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                 startActivityForResult(intent, TAG_EDITOR_REQUEST);
                 return true;
             case R.id.action_go_to_artist:
-                Pair[] artistPairs = addPlayPauseFabToSharedViews(null);
+                Pair[] artistPairs = addPlayPauseFabToSharedViews();
                 NavigationUtil.goToArtist(this, album.artistId, artistPairs);
                 return true;
         }
