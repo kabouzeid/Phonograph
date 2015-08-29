@@ -13,9 +13,16 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'com.jakewharton.hugo'
+apply plugin: 'com.github.triplet.play'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
+}
+
+// For pushing APKs directly to Google Play. Won't work without the .p12 key.
+play {
+    serviceAccountEmail = '992499570703-57nnnb8m7ha6sri9tcov8nhgkg3fc9i9@developer.gserviceaccount.com'
+    pk12File = file('../play-developer-key.p12')
 }
 
 android {
