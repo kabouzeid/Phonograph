@@ -2,12 +2,12 @@ package com.kabouzeid.gramophone.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +30,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -603,8 +604,8 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         @LayoutRes
         private static int LAYOUT_RES_ID = R.layout.item_donation_option;
 
-        public SkuDetailsAdapter(@NonNull Context context, @NonNull List<SkuDetails> objects) {
-            super(context, LAYOUT_RES_ID, objects);
+        public SkuDetailsAdapter(@NonNull MainActivity mainActivity, @NonNull List<SkuDetails> objects) {
+            super(mainActivity, LAYOUT_RES_ID, objects);
         }
 
         @Override
@@ -620,7 +621,31 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
             viewHolder.text.setText(skuDetails.description);
             viewHolder.price.setText(skuDetails.priceText);
 
+            final boolean purchased = ((MainActivity) getContext()).billingProcessor.isPurchased(skuDetails.productId);
+
+            int titleTextColor = purchased ? ColorUtil.resolveColor(getContext(), android.R.attr.textColorHint) : ColorUtil.resolveColor(getContext(), android.R.attr.textColorPrimary);
+            int contentTextColor = purchased ? titleTextColor : ColorUtil.resolveColor(getContext(), android.R.attr.textColorSecondary);
+
+            viewHolder.title.setTextColor(titleTextColor);
+            viewHolder.text.setTextColor(contentTextColor);
+            viewHolder.price.setTextColor(titleTextColor);
+
+            strikeThrough(viewHolder.title, purchased);
+            strikeThrough(viewHolder.text, purchased);
+            strikeThrough(viewHolder.price, purchased);
+
+            convertView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return purchased;
+                }
+            });
+
             return convertView;
+        }
+
+        private static void strikeThrough(TextView textView, boolean strikeThrough) {
+            textView.setPaintFlags(strikeThrough ? textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG : textView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
         static class ViewHolder {
@@ -638,6 +663,8 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     }
 
     private void showDonationDialog() {
+        billingProcessor.loadOwnedPurchasesFromGoogle();
+
         final String[] ids = getResources().getStringArray(R.array.donation_ids);
         List<SkuDetails> skuDetailsList = billingProcessor.getPurchaseListingDetails(new ArrayList<>(Arrays.asList(ids)));
         if (skuDetailsList == null) return;
@@ -647,6 +674,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                 .adapter(new SkuDetailsAdapter(this, skuDetailsList), new MaterialDialog.ListCallback() {
                     @Override
                     public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
+                        materialDialog.dismiss();
                         donate(i);
                     }
                 }).show();
@@ -659,7 +687,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 
     @Override
     public void onProductPurchased(String productId, TransactionDetails details) {
-        billingProcessor.consumePurchase(productId);
         Toast.makeText(this, R.string.thank_you, Toast.LENGTH_SHORT).show();
     }
 
