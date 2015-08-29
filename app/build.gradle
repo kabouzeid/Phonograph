@@ -22,7 +22,7 @@ repositories {
 // For pushing APKs directly to Google Play. Won't work without the .p12 key.
 play {
     serviceAccountEmail = '992499570703-57nnnb8m7ha6sri9tcov8nhgkg3fc9i9@developer.gserviceaccount.com'
-    pk12File = file('../play-developer-key.p12')
+    pk12File = file('../privatekeys/play-developer-key.p12')
 }
 
 android {
@@ -39,7 +39,7 @@ android {
             storePassword 'kabouzeid'
 
             // "keystore.properties" file containing the release keys password is needed in order to sign the apk for release
-            File propFile = project.rootProject.file('keystore.properties')
+            File propFile = project.rootProject.file('privatekeys/keystore.properties')
             if (propFile.exists()) {
                 Properties properties = new Properties()
                 properties.load(propFile.newDataInputStream())
