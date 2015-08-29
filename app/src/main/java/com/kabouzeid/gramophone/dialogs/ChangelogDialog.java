@@ -77,10 +77,11 @@ public class ChangelogDialog extends LeakDetectDialogFragment {
             in.close();
 
             // Inject color values for WebView body background and links
+            final String backgroundColor = ThemeSingleton.get().darkTheme ? "444444" : "fff";
+            final String contentColor = ThemeSingleton.get().darkTheme ? "fff" : "000";
             webView.loadData(buf.toString()
-                    .replace("{style-placeholder}", ThemeSingleton.get().darkTheme ?
-                            "body { background-color: #444444; color: #fff; }" :
-                            "body { background-color: #fff; color: #000; }")
+                    .replace("{style-placeholder}",
+                            String.format("body { background-color: #%s; color: #%s; }", backgroundColor, contentColor))
                     .replace("{link-color}", colorToHex(ThemeSingleton.get().positiveColor.getDefaultColor()))
                     .replace("{link-color-active}", colorToHex(ColorUtil.shiftColorUp(ThemeSingleton.get().positiveColor.getDefaultColor())))
                     , "text/html", "UTF-8");
@@ -90,7 +91,7 @@ public class ChangelogDialog extends LeakDetectDialogFragment {
         return dialog;
     }
 
-    private String colorToHex(int color) {
+    private static String colorToHex(int color) {
         return Integer.toHexString(color).substring(2);
     }
 }
