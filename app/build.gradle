@@ -59,7 +59,7 @@ android {
         applicationId "com.kabouzeid.gramophone"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 71
+        versionCode 72
         versionName "0.9.44 beta5"
     }
     buildTypes {
@@ -105,7 +105,7 @@ dependencies {
 
     compile 'com.github.kabouzeid:Android-Universal-Image-Loader:8ffb5d4afa'
 
-    compile 'com.afollestad:material-dialogs:0.7.8.1'
+    compile 'com.afollestad:material-dialogs:0.7.9.0'
     compile 'com.afollestad:material-cab:0.1.4'
 
     compile 'com.jakewharton:butterknife:7.0.1'
