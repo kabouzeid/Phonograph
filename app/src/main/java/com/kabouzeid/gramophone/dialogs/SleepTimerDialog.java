@@ -63,17 +63,16 @@ public class SleepTimerDialog extends LeakDetectDialogFragment {
                         if (getActivity() == null) {
                             return;
                         }
-                        final int min = seekArcProgress;
-                        PreferenceUtil.getInstance(getActivity()).setLastSleepTimerValue(min);
+                        final int minutes = seekArcProgress;
 
                         PendingIntent pi = makeTimerPendingIntent(PendingIntent.FLAG_CANCEL_CURRENT);
 
-                        final long nextSleepTimerElapsedTime = SystemClock.elapsedRealtime() + min * 60 * 1000;
+                        final long nextSleepTimerElapsedTime = SystemClock.elapsedRealtime() + minutes * 60 * 1000;
                         PreferenceUtil.getInstance(getActivity()).setNextSleepTimerElapsedRealtime(nextSleepTimerElapsedTime);
                         AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
                         am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextSleepTimerElapsedTime, pi);
 
-                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_set, min), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_set, minutes), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -156,7 +155,7 @@ public class SleepTimerDialog extends LeakDetectDialogFragment {
 
             @Override
             public void onStopTrackingTouch(SeekArc seekArc) {
-
+                PreferenceUtil.getInstance(getActivity()).setLastSleepTimerValue(seekArcProgress);
             }
         });
 
