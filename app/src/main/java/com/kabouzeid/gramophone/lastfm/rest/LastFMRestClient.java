@@ -8,6 +8,7 @@ import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
@@ -28,6 +29,9 @@ public class LastFMRestClient {
         if (cacheDir.mkdirs() || cacheDir.isDirectory()) {
             okHttpClient.setCache(new Cache(cacheDir, 1024 * 1024 * 10));
         }
+
+        okHttpClient.setConnectTimeout(15, TimeUnit.SECONDS);
+        okHttpClient.setReadTimeout(20, TimeUnit.SECONDS);
 
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(BASE_URL)
