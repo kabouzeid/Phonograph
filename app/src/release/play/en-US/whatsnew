@@ -1,1 +1,4 @@
-Changelog within the app.
+FIX: Album image loading delay (white album covers which took ages to load).
+FIX: Song detail dialog padding.
+FIX: Sleep timer dialog retains its current time on rotate.
+IMPROVEMENT: No longer "consume" purchases. This means that your donations are saved from now on. I made this, so that just in case I make a paid version onetime in future, I know who has already donated before so I can unlock the paid version for them.
