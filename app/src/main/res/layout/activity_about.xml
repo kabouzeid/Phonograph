@@ -1,81 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:clipToPadding="false"
-    android:isScrollContainer="true">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activities.AboutActivity">
 
-    <LinearLayout
+    <include layout="@layout/status_bar" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Toolbar"
+        android:background="@android:color/transparent" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:clipToPadding="false"
+        android:isScrollContainer="true">
 
-        <!-- Application -->
-
-        <android.support.v7.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:cardBackgroundColor="?cardBackgroundColor"
-            app:cardCornerRadius="4dp"
-            app:cardUseCompatPadding="true">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <LinearLayout
+            <include layout="@layout/card_about_app" />
+
+            <include
+                layout="@layout/card_author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="24dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="24dp">
+                android:layout_marginTop="16dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Application"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+            <include
+                layout="@layout/card_support_development"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?selectableItemBackground"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="8dp">
+            <include
+                layout="@layout/card_special_thanks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center_vertical"
-                        android:tint="?android:textColorSecondary"
-                        android:src="@drawable/ic_history_white_24dp" />
+        </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_marginLeft="16dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="vertical">
+    </ScrollView>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                            android:text="Version" />
-
-                        <TextView
-                            android:id="@+id/txtAboutVersionContent"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                            tools:text="0.9.5 (145)" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

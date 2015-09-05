@@ -49,7 +49,6 @@ import com.anjlab.android.iab.v3.TransactionDetails;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PagerAdapter;
-import com.kabouzeid.gramophone.dialogs.AboutDialog;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
 import com.kabouzeid.gramophone.dialogs.CreatePlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
@@ -254,7 +253,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                new AboutDialog().show(getSupportFragmentManager(), "ABOUT_DIALOG");
+                                startActivity(new Intent(MainActivity.this, AboutActivity.class));
                             }
                         }, 300);
                         break;

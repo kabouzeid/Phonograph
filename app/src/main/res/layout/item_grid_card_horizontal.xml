@@ -6,8 +6,7 @@
     android:layout_marginEnd="8dp"
     android:layout_marginRight="8dp"
     android:foreground="?rect_selector"
-    app:cardBackgroundColor="?cardBackgroundColor"
-    app:elevation="@dimen/card_elevation">
+    app:cardBackgroundColor="?cardBackgroundColor">
 
     <LinearLayout
         android:layout_width="match_parent"
