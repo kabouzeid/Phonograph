@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">Phonograph</string>
-    <string name="cookicons" translatable="false"><a href="http://cookicons.co/">Cookicons</a></string>
-    <string name="karim_abou_zeid" translatable="false"><b>Karim Abou Zeid</b></string>
-    <string name="karim_abou_zeid_links" translatable="false"><a href="https://google.com/+KarimAbouZeid23697">Google+</a>&#160;&#160;&#160;<a href="https://twitter.com/karim23697">Twitter</a></string>
-    <string name="aidan_follestad" translatable="false"><a href="https://google.com/+AidanFollestad">Aidan Follestad</a></string>
-    <string name="maarten_corpel" translatable="false"><a href="https://google.com/+MaartenCorpel">Maarten Corpel</a></string>
+
+    <string name="karim_abou_zeid" translatable="false">Karim Abou Zeid</string>
+    <string name="aidan_follestad" translatable="false">Aidan Follestad</string>
+    <string name="maarten_corpel" translatable="false">Maarten Corpel</string>
+    <string name="michael_cook_cookicons" translatable="false">Michael Cook (Cookicons)</string>
+    <string name="aleksandar_tesic" translatable="false">Aleksandar Tešić</string>
+
+    <string name="aachen_germany" translatable="false">Aachen, Germany</string>
+
+    <string name="google_plus" translatable="false">Google Plus</string>
+    <string name="twitter" translatable="false">Twitter</string>
+    <string name="git_hub" translatable="false">GitHub</string>
 
     <string-array name="donation_ids" translatable="false">
         <item>donation_1</item>

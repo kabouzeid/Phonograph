@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--light theme-->
-    <color name="music_controller_container_color">@color/cardview_light_background</color>
-    <color name="default_bar_color">@color/grey_700</color>
+    <color name="pink_A200">#ff4081</color>
+    <color name="indigo_500">#3f51b5</color>
 
-    <!--dark theme-->
-    <color name="music_controller_container_color_dark">@color/cardview_dark_background</color>
-    <color name="default_bar_color_dark">@color/grey_900</color>
+    <color name="grey_700">#616161</color>
+    <color name="grey_800">#424242</color>
+    <color name="grey_900">#212121</color>
 
 </resources>

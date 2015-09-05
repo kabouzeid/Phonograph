@@ -8,15 +8,14 @@
 
         <item name="md_dark_theme">true</item>
 
-        <item name="music_controller_container_color">@color/music_controller_container_color_dark
-        </item>
+        <item name="music_controller_container_color">@color/cardview_dark_background</item>
 
         <item name="round_selector">@drawable/round_selector_dark</item>
         <item name="rect_selector">@drawable/rect_selector_dark</item>
 
         <item name="cardBackgroundColor">@color/cardview_dark_background</item>
 
-        <item name="default_bar_color">@color/default_bar_color_dark</item>
+        <item name="default_bar_color">@color/grey_900</item>
 
         <item name="divider_color">@color/md_divider_white</item>
         <item name="icon_color">@color/secondary_text_default_material_dark</item>
@@ -37,14 +36,14 @@
 
         <item name="md_dark_theme">false</item>
 
-        <item name="music_controller_container_color">@color/music_controller_container_color</item>
+        <item name="music_controller_container_color">@color/cardview_light_background</item>
 
         <item name="round_selector">@drawable/round_selector</item>
         <item name="rect_selector">@drawable/rect_selector</item>
 
         <item name="cardBackgroundColor">@color/cardview_light_background</item>
 
-        <item name="default_bar_color">@color/default_bar_color</item>
+        <item name="default_bar_color">@color/grey_700</item>
 
         <item name="divider_color">@color/md_divider_black</item>
         <item name="icon_color">@color/secondary_text_default_material_light</item>
