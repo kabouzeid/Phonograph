@@ -1,4 +1,3 @@
-FIX: Album image loading delay (white album covers which took ages to load).
-FIX: Song detail dialog padding.
-FIX: Sleep timer dialog retains its current time on rotate.
-IMPROVEMENT: No longer "consume" purchases. This means that your donations are saved from now on. I made this, so that just in case I make a paid version onetime in future, I know who has already donated before so I can unlock the paid version for them.
+FIX: Even though the Last.fm app and web page say something is scrobbling, the scrobble doesn't actually get saved at the end. <i>Thanks to Tim Malseed for that.</i>
+FIX: Fixed the plural typo in the artist list.
+FIX: Toolbar had no shadow in the playlist view.
