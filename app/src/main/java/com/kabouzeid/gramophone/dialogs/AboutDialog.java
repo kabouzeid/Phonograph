@@ -32,11 +32,24 @@ public class AboutDialog extends LeakDetectDialogFragment {
                 .title(getActivity().getResources().getString(R.string.app_name) + " " + getCurrentVersionName(getActivity()))
                 .iconRes(R.drawable.ic_launcher)
                 .content(TextUtils.concat(getActivity().getResources().getText(R.string.credits_1),
-                                getActivity().getResources().getText(R.string.credits_2),
+                                " ",
+                                getActivity().getResources().getText(R.string.karim_abou_zeid),
+                                ".\n",
+                                getActivity().getResources().getText(R.string.karim_abou_zeid_links),
+                                "\n\n",
                                 getActivity().getResources().getText(R.string.special_thanks_to),
-                                getActivity().getResources().getText(R.string.special_thanks_names),
+                                " ",
+                                getActivity().getResources().getText(R.string.aidan_follestad),
+                                ".\n\n",
                                 getActivity().getResources().getText(R.string.credits_3),
-                                getActivity().getResources().getText(R.string.credits_4))
+                                " ",
+                                getActivity().getResources().getText(R.string.cookicons),
+                                ".\n\n",
+                                getActivity().getResources().getText(R.string.play_store_illustration_by),
+                                " ",
+                                getActivity().getResources().getText(R.string.maarten_corpel),
+                                "."
+                        )
                 )
                 .positiveText(android.R.string.ok)
                 .neutralText(R.string.changelog)
