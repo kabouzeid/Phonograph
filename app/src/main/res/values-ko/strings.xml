@@ -2,7 +2,7 @@
 <resources>
     <string name="what_do_you_want_to_share">무엇을 공유하고 싶으십니까?</string>
     <string name="currently_listening_to_x_by_x">현재 %1$s 에서 %2$s 까지 듣는 중</string>
-    <string name="the_audio_file">노래 파일</string>
+    <string name="the_audio_file">음원 파일</string>
     <string name="do_you_want_to_set_x_as_ringtone">%1$s을(를) 전화 벨소리로 설정하시겠습니까?</string>
     <string name="x_has_been_set_as_ringtone">%1$s을(를) 전화 벨소리로 설정</string>
     <string name="action_set_as_ringtone">벨소리로 설정</string>
@@ -10,14 +10,14 @@
     <string name="action_settings">"설정"</string>
     <string name="action_about">정보</string>
     <string name="action_clear_playlist">재생목록 비우기</string>
-    <string name="action_playing_queue">재생 대기열</string>
+    <string name="action_playing_queue">현재재생목록</string>
     <string name="action_add_to_favorites">좋아하는 곡 목록에 추가</string>
     <string name="action_remove_from_favorites">좋아하는 곡 목록에서 삭제</string>
     <string name="action_search">검색</string>
     <string name="action_play_next">다음 곡</string>
     <string name="action_play">재생</string>
-    <string name="action_add_to_playing_queue">재생 대기열에 추가</string>
-    <string name="action_remove_from_playing_queue">재생 대기열에서 제거</string>
+    <string name="action_add_to_playing_queue">현재재생목록에 추가</string>
+    <string name="action_remove_from_playing_queue">현재재생목록에서 제거</string>
     <string name="action_add_to_playlist">재생목록에 추가</string>
     <string name="action_tag_editor">태그 편집기</string>
     <string name="action_delete_from_device">기기에서 삭제</string>
@@ -50,7 +50,7 @@
     <string name="label_sampling_rate">샘플링 빈도</string>
     <string name="action_go_to_artist">아티스트로 가기</string>
     <string name="action_go_to_album">앨범으로 가기</string>
-    <string name="label_current_playing_queue">재생 대기열</string>
+    <string name="label_current_playing_queue">현재재생목록</string>
     <string name="save_as_playlist">재생목록으로 저장</string>
     <string name="credits_3">아이콘 제작</string>
     <string name="credits_1">"Phonograph는 완전히 무료인, 머티리얼 디자인이 적용된 음악 플레이어입니다. 제작자 :"</string>
@@ -158,21 +158,24 @@
     <string name="last_added">최근 추가됨</string>
     <string name="recently_played">최근 재생됨</string>
     <string name="my_top_tracks">내가 좋아하는 트랙</string>
-    <string name="remove_cover">앨범 아트 없애기</string>
+    <string name="remove_cover">앨범 아트 제거</string>
     <string name="download_from_last_fm">Last.fm에서 다운로드</string>
     <string name="pick_from_local_storage">내부 저장소에서 고르기</string>
-    <string name="web_search">" 검색"</string>
+    <string name="web_search">웹 검색</string>
     <string name="action_sleep_timer">수면 타이머</string>
     <string name="action_set">설정</string>
     <string name="cancel_current_timer">현재 타이머 취소</string>
-    <string name="sleep_timer_canceled">잠자기 타이머가 취소되었습니다.</string>
-    <string name="sleep_timer_set">잠자기 타이머가 %d분 후로 설정되었습니다.</string>
-    <string name="action_new_playlist">새로운 재생목록</string>
+    <string name="sleep_timer_canceled">수면 타이머가 취소되었습니다.</string>
+    <string name="sleep_timer_set">수면 타이머가 %d분 후로 설정되었습니다.</string>
+    <string name="action_new_playlist">새로운 재생목록...</string>
     <string name="new_playlist_title">새로운 재생목록</string>
     <string name="grid">격자</string>
     <string name="list">목록</string>
     <string name="colored_footers">색칠된 앨범 카드</string>
     <string name="special_thanks_to">"특별히 감사드립니다 : "</string>
-    <string name="changelog">변경ㅈ</string>
+    <string name="changelog">변경점</string>
     <string name="permission_to_access_external_storage_denied">외장 메모리 접근 권한이 거부되었습니다.</string>
+    <string name="back">뒤로</string>
+    <string name="support_development">개발자 지원하기</string>
+    <string name="thank_you">감사합니다!</string>
 </resources>

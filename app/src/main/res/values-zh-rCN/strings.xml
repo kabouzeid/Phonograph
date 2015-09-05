@@ -175,4 +175,6 @@
     <string name="changelog">更新日志</string>
     <string name="permission_to_access_external_storage_denied">访问外部存储的权限被拒绝。</string>
     <string name="back">返回</string>
+    <string name="support_development">支持开发者</string>
+    <string name="thank_you">非常感谢！</string>
 </resources>
