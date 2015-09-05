@@ -822,6 +822,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             internalIntent.putExtra("artist", currentSong.artistName);
             internalIntent.putExtra("album", currentSong.albumName);
             internalIntent.putExtra("track", currentSong.title);
+            internalIntent.putExtra("duration", currentSong.duration);
         }
         internalIntent.putExtra("playing", isPlaying());
         sendStickyBroadcast(internalIntent);
