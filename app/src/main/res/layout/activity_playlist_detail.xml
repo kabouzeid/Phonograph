@@ -14,6 +14,7 @@
             android:clipToPadding="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?colorPrimary"
             android:elevation="@dimen/toolbar_elevation"
             tools:ignore="UnusedAttribute">
 
