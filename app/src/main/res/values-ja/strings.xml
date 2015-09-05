@@ -166,4 +166,5 @@
     <string name="new_playlist_title">プレイリストの新規作成</string>
     <string name="grid">グリッド</string>
     <string name="list">リスト</string>
+    <string name="back">戻る</string>
 </resources>
