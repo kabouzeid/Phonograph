@@ -58,7 +58,6 @@ import java.util.List;
 /**
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal
  */
-@SuppressWarnings("deprecation")
 public class MusicService extends Service implements SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String TAG = MusicService.class.getSimpleName();
 
@@ -79,7 +78,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final String PLAY_STATE_CHANGED = "com.kabouzeid.gramophone.playstatechanged";
     public static final String REPEAT_MODE_CHANGED = "com.kabouzeid.gramophone.repeatmodechanged";
     public static final String SHUFFLE_MODE_CHANGED = "com.kabouzeid.gramophone.shufflemodechanged";
-
     public static final String MEDIA_STORE_CHANGED = "com.kabouzeid.gramophone.mediastorechanged";
 
     public static final String SAVED_POSITION = "POSITION";
@@ -113,6 +111,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private boolean receiversAndRemoteControlClientRegistered;
     private PlayingNotificationHelper playingNotificationHelper;
     private AudioManager audioManager;
+    @SuppressWarnings("deprecation")
     private RemoteControlClient remoteControlClient;
     private PowerManager.WakeLock wakeLock;
     private MusicPlayerHandler playerHandler;
@@ -194,6 +193,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private void registerReceiversAndRemoteControlClient() {
         if (!receiversAndRemoteControlClientRegistered) {
             registerReceiver(becomingNoisyReceiver, new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY));
+            //noinspection deprecation
             getAudioManager().registerMediaButtonEventReceiver(new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class));
             initRemoteControlClient();
             receiversAndRemoteControlClientRegistered = true;
@@ -292,7 +292,9 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private void unregisterReceiversAndRemoteControlClient() {
         if (receiversAndRemoteControlClientRegistered) {
             unregisterReceiver(becomingNoisyReceiver);
+            //noinspection deprecation
             getAudioManager().unregisterRemoteControlClient(remoteControlClient);
+            //noinspection deprecation
             getAudioManager().unregisterMediaButtonEventReceiver(new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class));
             receiversAndRemoteControlClientRegistered = false;
         }
