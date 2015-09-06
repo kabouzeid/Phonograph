@@ -31,7 +31,6 @@ public class ChangelogDialog extends LeakDetectDialogFragment {
         return new ChangelogDialog();
     }
 
-
     @SuppressLint("InflateParams")
     @NonNull
     @Override

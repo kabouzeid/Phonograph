@@ -151,6 +151,48 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/rate_on_google_play"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?rect_selector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/md_listitem_height"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <android.support.v7.internal.widget.TintImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_play_shopping_bag_white_24dp"
+                android:tint="?android:textColorSecondary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginStart="32dp"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rate_on_google_play"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rate_on_google_play_summary"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/donate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
