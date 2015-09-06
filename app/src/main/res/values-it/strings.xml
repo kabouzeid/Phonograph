@@ -52,8 +52,6 @@
     <string name="action_go_to_album">Vai all\'album</string>
     <string name="label_current_playing_queue">Coda di riproduzione</string>
     <string name="save_as_playlist">Salva come playlist</string>
-    <string name="credits_3">Icona disegnata da</string>
-    <string name="credits_1">"Phonograph è un lettore musicale in material design completamente gratuito realizzato da"</string>
     <string name="no_results">Nessun risultato</string>
     <string name="action_re_download_artist_image">Aggiorna immagine artista</string>
     <string name="updated_artist_image">Immagine artista aggiornata.</string>
@@ -177,4 +175,25 @@
     <string name="back">indietro</string>
     <string name="support_development">Supporta lo sviluppo</string>
     <string name="thank_you">Grazie!</string>
+    <string name="play_store_illustration_by">Illustrazione nel Play Store di</string>
+    <string name="version">Versione</string>
+    <string name="application">Applicazione</string>
+    <string name="author">Autore</string>
+    <string name="add_to_google_plus_circles">Aggiungi alle cerchie di Google+</string>
+    <string name="follow_on_twitter">Segui su Twitter</string>
+    <string name="fork_on_git_hub">Crea un fork su GitHub</string>
+    <string name="visit_website">Visita sito web</string>
+    <string name="report_bugs">Segnala bug</string>
+    <string name="report_bugs_summary">Segnala bug o richiedi nuove funzionalità.</string>
+    <string name="join_community">Unisciti alla community di Google+</string>
+    <string name="join_community_summary">Se hai bisogno di aiuto o hai domande, la community di Phonograph su Google+ è un buon posto dove andare.</string>
+    <string name="translate">Traduci</string>
+    <string name="translate_summary">Aiuta a tradurre Phonograph nella tua lingua.</string>
+    <string name="donate">Dona</string>
+    <string name="donate_summary">Se credi che io meriti di essere pagato per il mio lavoro, puoi lasciarmi qui qualche dollaro.</string>
+    <string name="aidan_follestad_summary">Per il theme engine ed altre cose fantastiche.</string>
+    <string name="michael_cook_summary">Per la bella icona in stile material.</string>
+    <string name="maarten_corpel_summary">Per aver realizzato l\'illustrazione nel Play Store e la copertina album vuota.</string>
+    <string name="aleksandar_tesic_summary">Per avermi aiutato col design.</string>
+    <string name="website">Sito web</string>
 </resources>

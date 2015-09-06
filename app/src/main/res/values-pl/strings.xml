@@ -52,8 +52,6 @@
     <string name="action_go_to_album">Przejdź do albumu</string>
     <string name="label_current_playing_queue">Kolejka odtwarzania</string>
     <string name="save_as_playlist">Zapisz jako listę odtwarzania</string>
-    <string name="credits_3">Ikona</string>
-    <string name="credits_1">"Phonograph to całkowicie darmowy odtwarzacz muzyczny, utrzymany w stylistyce Material Design, którego twórcą jest"</string>
     <string name="no_results">Brak wyników</string>
     <string name="action_re_download_artist_image">Zaktualizuj zdjęcie wykonawcy</string>
     <string name="updated_artist_image">Zdjęcie wykonawcy zostało zaktualizowane</string>
