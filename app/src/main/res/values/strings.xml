@@ -175,6 +175,7 @@
     <string name="back">back</string>
     <string name="support_development">Support development</string>
     <string name="thank_you">Thank you!</string>
+    <string name="restored_previous_purchases">Restored previous purchases.</string>
     <string name="play_store_illustration_by">Play Store illustration by</string>
     <string name="version">Version</string>
     <string name="application">Application</string>
@@ -189,6 +190,8 @@
     <string name="join_community_summary">If you need help or have questions, the Phonograph community on Google Plus is a good place to go.</string>
     <string name="translate">Translate</string>
     <string name="translate_summary">Help translating Phonograph to your native language.</string>
+    <string name="rate_on_google_play">Rate</string>
+    <string name="rate_on_google_play_summary">Leave a positive rating on Google Play if you like Phonograph.</string>
     <string name="donate">Donate</string>
     <string name="donate_summary">If you think I deserve to get paid for my work, you can leave me a few dollars here.</string>
     <string name="aidan_follestad_summary">For the theme engine and some other great stuff.</string>
@@ -196,4 +199,5 @@
     <string name="maarten_corpel_summary">For making the Play Store illustration and the empty album cover.</string>
     <string name="aleksandar_tesic_summary">For helping me with the design.</string>
     <string name="website">Website</string>
+    <string name="loading_products">Loading products…</string>
 </resources>

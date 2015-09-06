@@ -7,14 +7,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.provider.MediaStore;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -27,30 +25,21 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.afollestad.materialcab.MaterialCab;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.ThemeSingleton;
-import com.anjlab.android.iab.v3.BillingProcessor;
-import com.anjlab.android.iab.v3.BillingProcessor.IBillingHandler;
-import com.anjlab.android.iab.v3.SkuDetails;
-import com.anjlab.android.iab.v3.TransactionDetails;
-import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PagerAdapter;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
 import com.kabouzeid.gramophone.dialogs.CreatePlaylistDialog;
+import com.kabouzeid.gramophone.dialogs.DonationDialog;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.SearchQueryHelper;
@@ -76,14 +65,12 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AbsSlidingMusicPanelActivity
-        implements KabViewsDisableAble, CabHolder, IBillingHandler {
+        implements KabViewsDisableAble, CabHolder {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -105,8 +92,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     private PagerAdapter pagerAdapter;
     private MaterialCab cab;
 
-    private BillingProcessor billingProcessor;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,8 +111,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         if (shouldColorNavigationBar())
             setNavigationBarThemeColor();
         setStatusBarThemeColor();
-
-        billingProcessor = new BillingProcessor(this, App.GOOGLE_PLAY_LICENSE_KEY, this);
 
         checkChangelog();
     }
@@ -237,7 +220,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                showDonationDialog();
+                                DonationDialog.create().show(getSupportFragmentManager(), "DONATION_DIALOG");
                             }
                         }, 300);
                         break;
@@ -597,125 +580,5 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-    }
-
-    static class SkuDetailsAdapter extends ArrayAdapter<SkuDetails> {
-        @LayoutRes
-        private static int LAYOUT_RES_ID = R.layout.item_donation_option;
-
-        public SkuDetailsAdapter(@NonNull MainActivity mainActivity, @NonNull List<SkuDetails> objects) {
-            super(mainActivity, LAYOUT_RES_ID, objects);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(LAYOUT_RES_ID, parent, false);
-            }
-
-            SkuDetails skuDetails = getItem(position);
-            ViewHolder viewHolder = new ViewHolder(convertView);
-
-            viewHolder.title.setText(skuDetails.title.replace("(Phonograph Music Player)", "").trim());
-            viewHolder.text.setText(skuDetails.description);
-            viewHolder.price.setText(skuDetails.priceText);
-
-            final boolean purchased = ((MainActivity) getContext()).billingProcessor.isPurchased(skuDetails.productId);
-
-            int titleTextColor = purchased ? ColorUtil.resolveColor(getContext(), android.R.attr.textColorHint) : ColorUtil.resolveColor(getContext(), android.R.attr.textColorPrimary);
-            int contentTextColor = purchased ? titleTextColor : ColorUtil.resolveColor(getContext(), android.R.attr.textColorSecondary);
-
-            viewHolder.title.setTextColor(titleTextColor);
-            viewHolder.text.setTextColor(contentTextColor);
-            viewHolder.price.setTextColor(titleTextColor);
-
-            strikeThrough(viewHolder.title, purchased);
-            strikeThrough(viewHolder.text, purchased);
-            strikeThrough(viewHolder.price, purchased);
-
-            convertView.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    return purchased;
-                }
-            });
-
-            return convertView;
-        }
-
-        private static void strikeThrough(TextView textView, boolean strikeThrough) {
-            textView.setPaintFlags(strikeThrough ? textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG : textView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
-        }
-
-        static class ViewHolder {
-            @Bind(R.id.title)
-            TextView title;
-            @Bind(R.id.text)
-            TextView text;
-            @Bind(R.id.price)
-            TextView price;
-
-            public ViewHolder(View view) {
-                ButterKnife.bind(this, view);
-            }
-        }
-    }
-
-    private void showDonationDialog() {
-        billingProcessor.loadOwnedPurchasesFromGoogle();
-
-        final String[] ids = getResources().getStringArray(R.array.donation_ids);
-        List<SkuDetails> skuDetailsList = billingProcessor.getPurchaseListingDetails(new ArrayList<>(Arrays.asList(ids)));
-        if (skuDetailsList == null) return;
-
-        new MaterialDialog.Builder(this)
-                .title(R.string.support_development)
-                .adapter(new SkuDetailsAdapter(this, skuDetailsList), new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
-                        materialDialog.dismiss();
-                        donate(i);
-                    }
-                }).show();
-    }
-
-    private void donate(int i) {
-        final String[] ids = getResources().getStringArray(R.array.donation_ids);
-        billingProcessor.purchase(MainActivity.this, ids[i]);
-    }
-
-    @Override
-    public void onProductPurchased(String productId, TransactionDetails details) {
-        Toast.makeText(this, R.string.thank_you, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onPurchaseHistoryRestored() {
-        // ignore
-    }
-
-    @Override
-    public void onBillingError(int errorCode, Throwable error) {
-        Log.e(TAG, "Billing error: code = " + errorCode, error);
-    }
-
-    @Override
-    public void onBillingInitialized() {
-        // ignore
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (!billingProcessor.handleActivityResult(requestCode, resultCode, data)) {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (billingProcessor != null) {
-            billingProcessor.release();
-        }
-        super.onDestroy();
     }
 }
