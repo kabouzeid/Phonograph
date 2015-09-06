@@ -52,8 +52,6 @@
     <string name="action_go_to_album">앨범으로 가기</string>
     <string name="label_current_playing_queue">현재재생목록</string>
     <string name="save_as_playlist">재생목록으로 저장</string>
-    <string name="credits_3">아이콘 제작</string>
-    <string name="credits_1">"Phonograph는 완전히 무료인, 머티리얼 디자인이 적용된 음악 플레이어입니다. 제작자 :"</string>
     <string name="no_results">결과 없음</string>
     <string name="action_re_download_artist_image">아티스트 이미지 변경</string>
     <string name="updated_artist_image">아티스트 이미지를 변경하였습니다.</string>

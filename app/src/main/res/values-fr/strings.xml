@@ -52,8 +52,6 @@
     <string name="action_go_to_album">Voir l\'album</string>
     <string name="label_current_playing_queue">File de lecture</string>
     <string name="save_as_playlist">Sauvegarder</string>
-    <string name="credits_3">Icône fournie par</string>
-    <string name="credits_1">"Phonograph est un lecteur de musique entièrement gratuit suivant le concept du Material Design. Phonograph vous est apporté par"</string>
     <string name="no_results">Aucun résultat</string>
     <string name="action_re_download_artist_image">Actualiser l\'image de l\'artiste</string>
     <string name="updated_artist_image">Image de l\'artiste mise à jour.</string>
@@ -177,4 +175,25 @@
     <string name="back">Retour</string>
     <string name="support_development">Soutenir le développement</string>
     <string name="thank_you">Merci !</string>
+    <string name="play_store_illustration_by">Illustration du Play Store par</string>
+    <string name="version">Version</string>
+    <string name="application">Application</string>
+    <string name="author">Auteur</string>
+    <string name="add_to_google_plus_circles">Ajouter aux cercles Google Plus</string>
+    <string name="follow_on_twitter">Suivre sur Twitter</string>
+    <string name="fork_on_git_hub">Bifurquer sur GitHub</string>
+    <string name="visit_website">Visiter le site internet</string>
+    <string name="report_bugs">Signaler des bugs</string>
+    <string name="report_bugs_summary">Signaler des bugs ou demander des nouvelles fonctionnalités.</string>
+    <string name="join_community">Rejoindre la communauté Google Plus</string>
+    <string name="join_community_summary">Si vous avez besoin d\'aide ou si vous avez des questions, la communauté Phonograph sur Google Plus est un bon endroit où se rendre.</string>
+    <string name="translate">Traduire</string>
+    <string name="translate_summary">Aider à traduire Phonograph dans votre langue maternelle.</string>
+    <string name="donate">Faire un don</string>
+    <string name="donate_summary">Si vous pensez que je mérite d\'être payé pour mon travail, vous pouvez me laisser quelques euros ici.</string>
+    <string name="aidan_follestad_summary">Pour le moteur de thème et quelques autres trucs formidables.</string>
+    <string name="michael_cook_summary">Pour la jolie icône de l\'application material design.</string>
+    <string name="maarten_corpel_summary">Pour avoir réaliser l\'illustration du Play Store ainsi que la pochette de l\'album vide.</string>
+    <string name="aleksandar_tesic_summary">Pour m\'avoir aidé à la conception.</string>
+    <string name="website">Site internet</string>
 </resources>

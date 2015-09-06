@@ -52,8 +52,6 @@
     <string name="action_go_to_album">Přejít do alba</string>
     <string name="label_current_playing_queue">Fronta</string>
     <string name="save_as_playlist">Uložit jako playlist...</string>
-    <string name="credits_3">Ikonu vytvořil</string>
-    <string name="credits_1">"Phonograph je hudební přehrávač, který je úplně zdarma a založen na material designu od"</string>
     <string name="no_results">Žádné výsledky</string>
     <string name="action_re_download_artist_image">Změnit obrázek umělce</string>
     <string name="updated_artist_image">Obrázek umělce změněn.</string>

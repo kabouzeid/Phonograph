@@ -51,8 +51,6 @@
     <string name="action_go_to_album">Ir para o álbum</string>
     <string name="label_current_playing_queue">A reproduzir lista</string>
     <string name="save_as_playlist">Gravar como playlist</string>
-    <string name="credits_3">Ícone por</string>
-    <string name="credits_1">"Phonograph é um player de música completamente grátis com Material Design feito por"</string>
     <string name="no_results">Sem resultados</string>
     <string name="action_re_download_artist_image">Actualizar imagem do artista</string>
     <string name="updated_artist_image">Imagem do artista actualizada</string>

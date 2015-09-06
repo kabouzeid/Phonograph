@@ -52,8 +52,6 @@
     <string name="action_go_to_album">前往該專輯頁面</string>
     <string name="label_current_playing_queue">播放佇列</string>
     <string name="save_as_playlist">儲存為播放清單</string>
-    <string name="credits_3">圖示設計者為</string>
-    <string name="credits_1">"Phonograph 是一個完全免費且遵從 Material Design 的音樂播放器，開發者為 "</string>
     <string name="no_results">無搜尋結果</string>
     <string name="action_re_download_artist_image">更新歌手圖片</string>
     <string name="updated_artist_image">歌手圖片已更新。</string>
