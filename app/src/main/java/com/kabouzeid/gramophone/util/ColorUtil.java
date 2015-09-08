@@ -121,4 +121,20 @@ public class ColorUtil {
     public static int getSecondaryTextColorForBackground(final Context context, @ColorInt int backgroundColor) {
         return getSecondaryTextColor(context, useDarkTextColorOnBackground(backgroundColor));
     }
+
+    @ColorInt
+    public static int shiftBackgroundColorForLightText(@ColorInt int backgroundColor) {
+        while (ColorUtil.useDarkTextColorOnBackground(backgroundColor)) {
+            backgroundColor = ColorUtil.shiftColorDown(backgroundColor);
+        }
+        return backgroundColor;
+    }
+
+    @ColorInt
+    public static int shiftBackgroundColorForDarkText(@ColorInt int backgroundColor) {
+        while (!ColorUtil.useDarkTextColorOnBackground(backgroundColor)) {
+            backgroundColor = ColorUtil.shiftColorUp(backgroundColor);
+        }
+        return backgroundColor;
+    }
 }

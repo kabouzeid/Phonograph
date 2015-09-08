@@ -448,7 +448,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         cab = new MaterialCab(this, R.id.cab_stub)
                 .setMenu(menuRes)
                 .setCloseDrawableRes(R.drawable.ic_close_white_24dp)
-                .setBackgroundColor(getPaletteColor())
+                .setBackgroundColor(ColorUtil.shiftBackgroundColorForLightText(getPaletteColor()))
                 .start(new MaterialCab.Callback() {
                     @Override
                     public boolean onCabCreated(MaterialCab materialCab, Menu menu) {
