@@ -23,7 +23,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.util.Pair;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -70,7 +69,11 @@ import com.kabouzeid.gramophone.views.SquareIfPlaceImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.LoadedFrom;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.lang.ref.WeakReference;
@@ -80,16 +83,16 @@ import butterknife.ButterKnife;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
- *         <p>
+ *         <p/>
  *         Do not use {@link #setContentView(int)} but wrap your layout with
  *         {@link #wrapSlidingMusicPanelAndFab(int)} first and then return it in {@link #createContentView()}
  */
 public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivity implements SlidingUpPanelLayout.PanelSlideListener, SharedPreferences.OnSharedPreferenceChangeListener, Toolbar.OnMenuItemClickListener {
     public static final String TAG = AbsSlidingMusicPanelActivity.class.getSimpleName();
 
-    private static final int FAB_CIRCULAR_REVEAL_ANIMATION_TIME = 1000;
-    private static final long DEFAULT_PROGRESS_VIEW_REFRESH_INTERVAL = 500;
     private static final int CMD_REFRESH_PROGRESS_VIEWS = 1;
+
+    private static final int FAB_CIRCULAR_REVEAL_ANIMATION_TIME = 1000;
 
     @Bind(R.id.play_pause_fab)
     FloatingActionButton playPauseButton;
@@ -835,18 +838,39 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         miniPlayerTitle.setText(song.title);
     }
 
+    private static class ColorHolder {
+        @ColorInt
+        public int color;
+    }
+
     private void setUpAlbumArtAndApplyPalette() {
+        final ColorHolder colorHolder = new ColorHolder();
         ImageLoader.getInstance().displayImage(
                 MusicUtil.getSongImageLoaderString(song),
                 albumArt,
                 new DisplayImageOptions.Builder()
                         .cacheInMemory(true)
                         .showImageOnFail(R.drawable.default_album_art)
+                        .postProcessor(new BitmapProcessor() {
+                            @Override
+                            public Bitmap process(Bitmap bitmap) {
+                                colorHolder.color = ColorUtil.generateColor(AbsSlidingMusicPanelActivity.this, bitmap);
+                                return bitmap;
+                            }
+                        })
+                        .displayer(new FadeInBitmapDisplayer(ViewUtil.DEFAULT_COLOR_ANIMATION_DURATION) {
+                            @Override
+                            public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
+                                super.display(bitmap, imageAware, loadedFrom);
+                                setColors(colorHolder.color);
+                            }
+                        })
                         .build(),
                 new SimpleImageLoadingListener() {
                     @Override
                     public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
-                        applyPalette(null);
+                        FadeInBitmapDisplayer.animate(view, ViewUtil.DEFAULT_COLOR_ANIMATION_DURATION);
+                        setColors(ColorUtil.resolveColor(AbsSlidingMusicPanelActivity.this, R.attr.default_bar_color));
 
                         ImageLoader.getInstance().displayImage(
                                 "drawable://" + R.drawable.default_album_art,
@@ -862,8 +886,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                             return;
                         }
 
-                        applyPalette(loadedImage);
-
                         ImageLoader.getInstance().displayImage(
                                 imageUri,
                                 albumArtBackground,
@@ -872,21 +894,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                     }
                 }
         );
-    }
-
-    private void applyPalette(@Nullable Bitmap bitmap) {
-        if (bitmap != null) {
-            Palette.from(bitmap)
-                    .resizeBitmapSize(ColorUtil.PALETTE_BITMAP_SIZE)
-                    .generate(new Palette.PaletteAsyncListener() {
-                        @Override
-                        public void onGenerated(@NonNull Palette palette) {
-                            setColors(ColorUtil.getColor(AbsSlidingMusicPanelActivity.this, palette));
-                        }
-                    });
-        } else {
-            setColors(ColorUtil.getColor(AbsSlidingMusicPanelActivity.this, null));
-        }
     }
 
     private void setColors(int color) {
@@ -979,7 +986,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         songTotalTime.setText(MusicUtil.getReadableDurationString(totalMillis));
 
         if (!MusicPlayerRemote.isPlaying()) {
-            return DEFAULT_PROGRESS_VIEW_REFRESH_INTERVAL;
+            return 500;
         }
 
         // calculate the number of milliseconds until the next full second,

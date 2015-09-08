@@ -129,15 +129,10 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
                                 return bitmap;
                             }
                         })
-                        .displayer(new FadeInBitmapDisplayer(FADE_IN_TIME) {
+                        .displayer(new FadeInBitmapDisplayer(FADE_IN_TIME, true, true, false) {
                             @Override
                             public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
-                                boolean loadedFromMemoryCache = loadedFrom == LoadedFrom.MEMORY_CACHE;
-                                if (loadedFromMemoryCache) {
-                                    imageAware.setImageBitmap(bitmap);
-                                } else {
-                                    super.display(bitmap, imageAware, loadedFrom);
-                                }
+                                super.display(bitmap, imageAware, loadedFrom);
                                 if (usePalette)
                                     setColors(holder.paletteColor, holder);
                             }
