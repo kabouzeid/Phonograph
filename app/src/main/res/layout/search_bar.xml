@@ -23,7 +23,7 @@
         android:textCursorDrawable="@null"
         tools:ignore="RtlHardcoded" />
 
-    <android.support.v7.internal.widget.TintImageView
+    <ImageView
         android:id="@+id/search_close_btn"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

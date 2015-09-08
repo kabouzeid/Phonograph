@@ -49,11 +49,12 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <android.support.v7.internal.widget.TintImageView
+            <ImageView
+                android:id="@+id/icon_info"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_info_outline_white_24dp"
-                android:tint="?android:textColorSecondary" />
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,11 +94,12 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <android.support.v7.internal.widget.TintImageView
+            <ImageView
+                android:id="@+id/icon_changelog"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_history_white_24dp"
-                android:tint="?android:textColorSecondary" />
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
