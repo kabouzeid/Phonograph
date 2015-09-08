@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -652,7 +653,12 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     private static void setSeekBarTint(SeekBar seekBar, @ColorInt int thumbColor, @ColorInt int progressColor) {
         seekBar.getThumb().mutate().setColorFilter(thumbColor, PorterDuff.Mode.SRC_IN);
-        seekBar.getProgressDrawable().mutate().setColorFilter(progressColor, PorterDuff.Mode.SRC_IN);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // this will only tint the left part of the progress bar
+            seekBar.setProgressTintList(ColorStateList.valueOf(progressColor));
+        } else {
+            seekBar.getProgressDrawable().mutate().setColorFilter(progressColor, PorterDuff.Mode.SRC_IN);
+        }
     }
 
     private void setUpProgressSlider() {
