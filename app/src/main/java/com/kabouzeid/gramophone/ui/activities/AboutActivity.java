@@ -10,6 +10,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
 import com.kabouzeid.gramophone.dialogs.DonationDialog;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
+import com.kabouzeid.gramophone.util.ColorUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,6 +26,7 @@ import butterknife.ButterKnife;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class AboutActivity extends AbsBaseActivity implements View.OnClickListener {
 
     private static String GOOGLE_PLUS = "https://google.com/+KarimAbouZeid23697";
@@ -83,6 +86,31 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     @Bind(R.id.aleksandar_tesic_google_plus)
     AppCompatButton aleksandarTesicGooglePlus;
 
+    @Bind(R.id.icon_info)
+    ImageView iconInfo;
+    @Bind(R.id.icon_changelog)
+    ImageView iconChangelog;
+    @Bind(R.id.icon_bug_report)
+    ImageView iconBugReport;
+    @Bind(R.id.icon_google_plus_community)
+    ImageView iconGooglePlusCommunity;
+    @Bind(R.id.icon_flag)
+    ImageView iconFlag;
+    @Bind(R.id.icon_rate)
+    ImageView iconRate;
+    @Bind(R.id.icon_donate)
+    ImageView iconDonate;
+    @Bind(R.id.icon_author)
+    ImageView iconAuthor;
+    @Bind(R.id.icon_google_plus)
+    ImageView iconGooglePlus;
+    @Bind(R.id.icon_twitter)
+    ImageView iconTwitter;
+    @Bind(R.id.icon_github)
+    ImageView iconGithub;
+    @Bind(R.id.icon_website)
+    ImageView iconWebsite;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +128,7 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     private void setUpViews() {
         setUpToolbar();
         setUpAppVersion();
+        setUpIconTint();
         setUpOnClickListeners();
     }
 
@@ -131,6 +160,21 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         michaelCookWebsite.setOnClickListener(this);
         maartenCorpelGooglePlus.setOnClickListener(this);
         aleksandarTesicGooglePlus.setOnClickListener(this);
+    }
+
+    private void setUpIconTint() {
+        iconInfo.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
+        iconChangelog.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
+        iconBugReport.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
+        iconGooglePlusCommunity.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
+        iconFlag.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
+        iconRate.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
+        iconDonate.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
+        iconAuthor.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
+        iconGooglePlus.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
+        iconTwitter.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
+        iconGithub.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
+        iconWebsite.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
     }
 
     @Override

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center"
     app:cardBackgroundColor="?cardBackgroundColor"
     app:cardUseCompatPadding="true">
@@ -36,11 +37,12 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <android.support.v7.internal.widget.TintImageView
+            <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_bug_report_white_24dp"
-                android:tint="?android:textColorSecondary" />
+                android:id="@+id/icon_bug_report"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,11 +80,12 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <android.support.v7.internal.widget.TintImageView
+            <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_google_plus_box_white_24dp"
-                android:tint="?android:textColorSecondary" />
+                android:id="@+id/icon_google_plus_community"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -120,11 +123,12 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <android.support.v7.internal.widget.TintImageView
+            <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_flag_white_24dp"
-                android:tint="?android:textColorSecondary" />
+                android:id="@+id/icon_flag"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -162,11 +166,12 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <android.support.v7.internal.widget.TintImageView
+            <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_play_shopping_bag_white_24dp"
-                android:tint="?android:textColorSecondary" />
+                android:id="@+id/icon_rate"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -204,11 +209,12 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <android.support.v7.internal.widget.TintImageView
+            <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_attach_money_white_24dp"
-                android:tint="?android:textColorSecondary" />
+                android:id="@+id/icon_donate"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
                 android:layout_width="match_parent"
