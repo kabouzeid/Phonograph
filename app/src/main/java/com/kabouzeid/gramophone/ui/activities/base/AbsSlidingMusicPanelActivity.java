@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -142,6 +143,8 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     Toolbar playerToolbar;
     @Bind(R.id.player_favorite_icon)
     ImageView favoriteIcon;
+    @Bind(R.id.player_album_art_frame)
+    FrameLayout albumArtFrame;
 
     TextView songCurrentProgress;
     TextView songTotalTime;
@@ -349,30 +352,38 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         FloatingActionButtonProperties.COLOR.set(playPauseButton, fabColor);
     }
 
+    private static class FlingPlayBackController implements View.OnTouchListener {
+
+        GestureDetector flingPlayBackController;
+
+        public FlingPlayBackController(Context context) {
+            flingPlayBackController = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                    if (Math.abs(velocityX) > Math.abs(velocityY)) {
+                        if (velocityX < 0) {
+                            MusicPlayerRemote.playNextSong();
+                            return true;
+                        } else if (velocityX > 0) {
+                            MusicPlayerRemote.playPreviousSong();
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            return flingPlayBackController.onTouchEvent(event);
+        }
+    }
+
     private void setUpMiniPlayer() {
         hideBottomBar(PreferenceUtil.getInstance(this).hideBottomBar());
-        final GestureDetector gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
-            @Override
-            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                if (Math.abs(velocityX) > Math.abs(velocityY)) {
-                    if (velocityX < 0) {
-                        MusicPlayerRemote.playNextSong();
-                        return true;
-                    } else if (velocityX > 0) {
-                        MusicPlayerRemote.back();
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
 
-        miniPlayer.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return gestureDetector.onTouchEvent(event);
-            }
-        });
+        miniPlayer.setOnTouchListener(new FlingPlayBackController(this));
 
         miniPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -765,7 +776,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     private void alignAlbumArtToTop() {
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) findViewById(R.id.player_album_art_frame).getLayoutParams();
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) albumArtFrame.getLayoutParams();
         if (Build.VERSION.SDK_INT > 16) {
             params.removeRule(RelativeLayout.BELOW);
         } else {
@@ -776,12 +787,12 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     private void alignAlbumArtToToolbar() {
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) findViewById(R.id.player_album_art_frame).getLayoutParams();
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) albumArtFrame.getLayoutParams();
         params.addRule(RelativeLayout.BELOW, R.id.player_toolbar);
     }
 
     private void alignAlbumArtToStatusBar() {
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) findViewById(R.id.player_album_art_frame).getLayoutParams();
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) albumArtFrame.getLayoutParams();
         params.addRule(RelativeLayout.BELOW, R.id.player_status_bar);
     }
 

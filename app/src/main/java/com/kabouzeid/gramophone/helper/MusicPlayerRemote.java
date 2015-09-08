@@ -121,7 +121,7 @@ public class MusicPlayerRemote {
 
     public static void playPreviousSong() {
         if (musicService != null) {
-            musicService.back(true);
+            musicService.playPreviousSong(true);
         }
     }
 
