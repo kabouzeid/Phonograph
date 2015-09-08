@@ -22,7 +22,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.PathInterpolator;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -160,6 +159,7 @@ public class ViewUtil {
         setToolbarIconColor(context, toolbar, getToolbarIconColor(context, dark));
     }
 
+    @ColorInt
     public static int getToolbarIconColor(Context context, boolean dark) {
         if (dark) {
             return ColorUtil.getSecondaryTextColor(context, true);

@@ -541,7 +541,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         cab = new MaterialCab(this, R.id.cab_stub)
                 .setMenu(menu)
                 .setCloseDrawableRes(R.drawable.ic_close_white_24dp)
-                .setBackgroundColor(getThemeColorPrimary())
+                .setBackgroundColor(ColorUtil.shiftBackgroundColorForLightText(getThemeColorPrimary()))
                 .start(callback);
         return cab;
     }
