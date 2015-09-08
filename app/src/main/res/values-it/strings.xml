@@ -175,6 +175,7 @@
     <string name="back">indietro</string>
     <string name="support_development">Supporta lo sviluppo</string>
     <string name="thank_you">Grazie!</string>
+    <string name="restored_previous_purchases">Acquisti precedenti ripristinati.</string>
     <string name="play_store_illustration_by">Illustrazione nel Play Store di</string>
     <string name="version">Versione</string>
     <string name="application">Applicazione</string>
@@ -189,6 +190,8 @@
     <string name="join_community_summary">Se hai bisogno di aiuto o hai domande, la community di Phonograph su Google+ è un buon posto dove andare.</string>
     <string name="translate">Traduci</string>
     <string name="translate_summary">Aiuta a tradurre Phonograph nella tua lingua.</string>
+    <string name="rate_on_google_play">Valuta</string>
+    <string name="rate_on_google_play_summary">Lascia una valutazione positiva su Google Play se ti piace Phonograph.</string>
     <string name="donate">Dona</string>
     <string name="donate_summary">Se credi che io meriti di essere pagato per il mio lavoro, puoi lasciarmi qui qualche dollaro.</string>
     <string name="aidan_follestad_summary">Per il theme engine ed altre cose fantastiche.</string>
@@ -196,4 +199,5 @@
     <string name="maarten_corpel_summary">Per aver realizzato l\'illustrazione nel Play Store e la copertina album vuota.</string>
     <string name="aleksandar_tesic_summary">Per avermi aiutato col design.</string>
     <string name="website">Sito web</string>
+    <string name="loading_products">Caricamento dei prodotti...</string>
 </resources>

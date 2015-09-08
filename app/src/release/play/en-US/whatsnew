@@ -1,4 +1,3 @@
-NEW: Moved the stuff from the about dialog to a whole new screen and added useful links.
-FIX: Even though the Last.fm app and web page say something is scrobbling, the scrobble doesn't actually get saved at the end. Thanks to Tim Malseed for that.
-FIX: Fixed the plural typo in the artist list.
-FIX: Toolbar had no shadow in the playlist view.
+NEW: Fade album covers in the now playing screen in.
+FIX: Play/pause button covering the next button on some devices.
+FIX: Crash when opening the about section.
