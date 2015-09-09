@@ -76,7 +76,8 @@ android {
     lintOptions {
         disable 'MissingTranslation'
         disable 'InvalidPackage'
-        // remove after it has been fixed (probably 1.4 preview 3 + gradle 1.4 alpha2)
+        abortOnError false
+        // remove as soon as it has been fixed
         disable 'PrivateResource'
     }
 }
