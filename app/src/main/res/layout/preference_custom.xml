@@ -7,7 +7,8 @@
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:paddingEnd="?android:attr/scrollbarSize"
     android:paddingRight="?android:attr/scrollbarSize"
-    tools:ignore="RtlSymmetry,UnusedAttribute">
+    tools:ignore="RtlSymmetry,UnusedAttribute"
+    android:baselineAligned="false">
 
     <RelativeLayout
         android:layout_width="0dp"
