@@ -23,7 +23,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.provider.RecentlyPlayedStore;
+import com.kabouzeid.gramophone.provider.HistoryStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
 
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class TopAndRecentlyPlayedTracksLoader {
             ArrayList<Long> missingIds = retCursor.getMissingIds();
             if (missingIds != null && missingIds.size() > 0) {
                 for (long id : missingIds) {
-                    RecentlyPlayedStore.getInstance(context).removeSongId(id);
+                    HistoryStore.getInstance(context).removeSongId(id);
                 }
             }
         }
@@ -76,11 +76,11 @@ public class TopAndRecentlyPlayedTracksLoader {
     @Nullable
     private static SortedCursor makeRecentTracksCursorImpl(@NonNull final Context context) {
         // first get the top results ids from the internal database
-        Cursor songs = RecentlyPlayedStore.getInstance(context).queryRecentIds();
+        Cursor songs = HistoryStore.getInstance(context).queryRecentIds();
 
         try {
             return makeSortedCursor(context, songs,
-                    songs.getColumnIndex(RecentlyPlayedStore.RecentStoreColumns.ID));
+                    songs.getColumnIndex(HistoryStore.RecentStoreColumns.ID));
         } finally {
             if (songs != null) {
                 songs.close();

@@ -35,7 +35,7 @@ public class SongPlayCountStore extends SQLiteOpenHelper {
     private static SongPlayCountStore sInstance = null;
 
     public static final String DATABASE_NAME = "song_play_count.db";
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
 
     // interpolator curve applied for measuring the curve
     @NonNull
@@ -129,8 +129,8 @@ public class SongPlayCountStore extends SQLiteOpenHelper {
      *
      * @param songId The song id to increase the play count
      */
-    public void bumpSongCount(final long songId) {
-        if (songId < 0) {
+    public void bumpPlayCount(final long songId) {
+        if (songId == -1) {
             return;
         }
 

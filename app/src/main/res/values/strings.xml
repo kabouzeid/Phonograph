@@ -153,7 +153,7 @@
     <string name="rescanning_media">Rescanning media…</string>
     <string name="favorites">Favorites</string>
     <string name="last_added">Last added</string>
-    <string name="recently_played">Recently played</string>
+    <string name="history">History</string>
     <string name="my_top_tracks">My top tracks</string>
     <string name="remove_cover">Remove cover</string>
     <string name="download_from_last_fm">Download from Last.fm</string>

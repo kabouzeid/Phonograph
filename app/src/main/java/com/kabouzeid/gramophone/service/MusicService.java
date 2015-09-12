@@ -35,9 +35,10 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appwidget.WidgetMedium;
 import com.kabouzeid.gramophone.helper.PlayingNotificationHelper;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
+import com.kabouzeid.gramophone.helper.StopWatch;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.provider.HistoryStore;
 import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
-import com.kabouzeid.gramophone.provider.RecentlyPlayedStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
@@ -101,8 +102,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private final IBinder musicBind = new MusicBinder();
 
     private MultiPlayer player;
-    private ArrayList<Song> playingQueue;
-    private ArrayList<Song> originalPlayingQueue;
+    private ArrayList<Song> playingQueue = new ArrayList<>();
+    private ArrayList<Song> originalPlayingQueue = new ArrayList<>();
     private int position = -1;
     private int nextPosition = -1;
     private int shuffleMode;
@@ -124,8 +125,9 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private QueueSaveHandler queueSaveHandler;
     private HandlerThread musicPlayerHandlerThread;
     private HandlerThread queueSaveHandlerThread;
-    private RecentlyPlayedStore recentlyPlayedStore;
+    private HistoryStore historyStore;
     private SongPlayCountStore songPlayCountStore;
+    private SongPlayCountHelper songPlayCountHelper = new SongPlayCountHelper();
     private final BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, @NonNull Intent intent) {
@@ -145,12 +147,10 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     @Override
     public void onCreate() {
         super.onCreate();
-        playingQueue = new ArrayList<>();
-        originalPlayingQueue = new ArrayList<>();
 
         playingNotificationHelper = new PlayingNotificationHelper(this);
 
-        recentlyPlayedStore = RecentlyPlayedStore.getInstance(this);
+        historyStore = HistoryStore.getInstance(this);
         songPlayCountStore = SongPlayCountStore.getInstance(this);
 
         shuffleMode = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_SHUFFLE_MODE, 0);
@@ -809,8 +809,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     }
 
     private void notifyChange(@NonNull final String what) {
-        sendChangeIntent(what);
         handleChange(what);
+        sendChangeIntent(what);
     }
 
     private void sendChangeIntent(@NonNull final String what) {
@@ -844,6 +844,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 if (!isPlaying && getSongProgressMillis() > 0) {
                     savePositionInTrack();
                 }
+                songPlayCountHelper.notifyPlayStateChanged(isPlaying);
                 break;
             case META_CHANGED:
                 updateNotification();
@@ -852,8 +853,11 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 savePosition();
                 savePositionInTrack();
                 final Song currentSong = getCurrentSong();
-                recentlyPlayedStore.addSongId(currentSong.id);
-                songPlayCountStore.bumpSongCount(currentSong.id);
+                historyStore.addSongId(currentSong.id);
+                if (songPlayCountHelper.shouldBumpPlayCount()) {
+                    songPlayCountStore.bumpPlayCount(songPlayCountHelper.getSong().id);
+                }
+                songPlayCountHelper.notifySongChanged(currentSong);
                 break;
             case QUEUE_CHANGED:
                 saveState();
@@ -1055,6 +1059,38 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             // actually call refresh when the delayed callback fires
             // do not send a sticky broadcast here
             sendBroadcast(new Intent(MEDIA_STORE_CHANGED));
+        }
+    }
+
+    private static class SongPlayCountHelper {
+        public static final String TAG = SongPlayCountHelper.class.getSimpleName();
+
+        private StopWatch stopWatch = new StopWatch();
+        private Song song = new Song();
+
+        public Song getSong() {
+            return song;
+        }
+
+        boolean shouldBumpPlayCount() {
+            return song.duration * 0.5d < stopWatch.getElapsedTime();
+        }
+
+        void notifySongChanged(Song song) {
+            synchronized (this) {
+                stopWatch.reset();
+                this.song = song;
+            }
+        }
+
+        void notifyPlayStateChanged(boolean isPlaying) {
+            synchronized (this) {
+                if (isPlaying) {
+                    stopWatch.start();
+                } else {
+                    stopWatch.pause();
+                }
+            }
         }
     }
 }
