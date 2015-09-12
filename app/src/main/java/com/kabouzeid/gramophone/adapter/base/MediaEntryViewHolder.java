@@ -50,6 +50,10 @@ public abstract class MediaEntryViewHolder extends RecyclerView.ViewHolder imple
     public View selectedIndicator;
 
     @Nullable
+    @Bind(R.id.drag_view)
+    public View dragView;
+
+    @Nullable
     @Bind(R.id.palette_color_container)
     public View paletteColorContainer;
     public int paletteColor;

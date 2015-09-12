@@ -48,6 +48,9 @@ public class PlaylistSongAdapter extends SongAdapter {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            if (dragView != null) {
+                dragView.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override

@@ -87,7 +87,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
             adapter = new PlaylistSongAdapter(this, loadPlaylistDataSet(), R.layout.item_list, false, this);
 
             DragSortRecycler dragSortRecycler = new DragSortRecycler();
-            dragSortRecycler.setViewHandleId(R.id.image);
+            dragSortRecycler.setViewHandleId(R.id.drag_view);
             dragSortRecycler.setOnItemMovedListener(new DragSortRecycler.OnItemMovedListener() {
                 @Override
                 public void onItemMoved(int from, int to) {
