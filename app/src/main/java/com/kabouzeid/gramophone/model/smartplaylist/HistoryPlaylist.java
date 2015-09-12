@@ -6,17 +6,17 @@ import android.support.annotation.NonNull;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.TopAndRecentlyPlayedTracksLoader;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.provider.RecentlyPlayedStore;
+import com.kabouzeid.gramophone.provider.HistoryStore;
 
 import java.util.ArrayList;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class RecentlyPlayedPlaylist extends AbsSmartPlaylist {
+public class HistoryPlaylist extends AbsSmartPlaylist {
 
-    public RecentlyPlayedPlaylist(@NonNull Context context) {
-        super(context.getString(R.string.recently_played), R.drawable.ic_access_time_white_24dp);
+    public HistoryPlaylist(@NonNull Context context) {
+        super(context.getString(R.string.history), R.drawable.ic_access_time_white_24dp);
     }
 
     @NonNull
@@ -27,6 +27,6 @@ public class RecentlyPlayedPlaylist extends AbsSmartPlaylist {
 
     @Override
     public void clear(@NonNull Context context) {
-        RecentlyPlayedStore.getInstance(context).clear();
+        HistoryStore.getInstance(context).clear();
     }
 }

@@ -7,9 +7,9 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PlaylistAdapter;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.model.Playlist;
+import com.kabouzeid.gramophone.model.smartplaylist.HistoryPlaylist;
 import com.kabouzeid.gramophone.model.smartplaylist.LastAddedPlaylist;
 import com.kabouzeid.gramophone.model.smartplaylist.MyTopTracksPlaylist;
-import com.kabouzeid.gramophone.model.smartplaylist.RecentlyPlayedPlaylist;
 
 import java.util.ArrayList;
 
@@ -46,7 +46,7 @@ public class PlaylistViewFragment extends AbsMainActivityRecyclerViewFragment<Pl
         ArrayList<Playlist> playlists = new ArrayList<>();
 
         playlists.add(new LastAddedPlaylist(getActivity()));
-        playlists.add(new RecentlyPlayedPlaylist(getActivity()));
+        playlists.add(new HistoryPlaylist(getActivity()));
         playlists.add(new MyTopTracksPlaylist(getActivity()));
 
         playlists.addAll(PlaylistLoader.getAllPlaylists(getActivity()));

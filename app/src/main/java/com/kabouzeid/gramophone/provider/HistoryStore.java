@@ -24,15 +24,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-public class RecentlyPlayedStore extends SQLiteOpenHelper {
+public class HistoryStore extends SQLiteOpenHelper {
     private static final int MAX_ITEMS_IN_DB = 100;
 
-    public static final String DATABASE_NAME = "recently_played.db";
+    public static final String DATABASE_NAME = "history.db";
     private static final int VERSION = 1;
     @Nullable
-    private static RecentlyPlayedStore sInstance = null;
+    private static HistoryStore sInstance = null;
 
-    public RecentlyPlayedStore(final Context context) {
+    public HistoryStore(final Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
 
@@ -56,18 +56,23 @@ public class RecentlyPlayedStore extends SQLiteOpenHelper {
     }
 
     @NonNull
-    public static synchronized RecentlyPlayedStore getInstance(@NonNull final Context context) {
+    public static synchronized HistoryStore getInstance(@NonNull final Context context) {
         if (sInstance == null) {
-            sInstance = new RecentlyPlayedStore(context.getApplicationContext());
+            sInstance = new HistoryStore(context.getApplicationContext());
         }
         return sInstance;
     }
 
     public void addSongId(final long songId) {
+        if (songId == -1) {
+            return;
+        }
+
         final SQLiteDatabase database = getWritableDatabase();
         database.beginTransaction();
 
         try {
+            // remove previous entries
             removeSongId(songId);
 
             // add the entry
