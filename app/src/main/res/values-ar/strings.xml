@@ -145,7 +145,6 @@
     <string name="rescanning_media">إعادة تفحص الملفات...</string>
     <string name="favorites">المفضلة</string>
     <string name="last_added">اخرما اضيف</string>
-    <string name="recently_played">اخر ما سمع</string>
     <string name="my_top_tracks">افضل الاغاني</string>
     <string name="remove_cover">ازالة الغلاف</string>
     <string name="download_from_last_fm">التنزيل من Last.fm</string>

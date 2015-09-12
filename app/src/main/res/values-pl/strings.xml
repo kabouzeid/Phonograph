@@ -153,7 +153,6 @@
     <string name="rescanning_media">Ponowny skan nośnika...</string>
     <string name="favorites">Ulubione</string>
     <string name="last_added">Ostatnio dodane</string>
-    <string name="recently_played">Ostatnio grane</string>
     <string name="my_top_tracks">Moja Top Lista</string>
     <string name="remove_cover">Usuń okładkę</string>
     <string name="download_from_last_fm">Pobierz z last.fm</string>

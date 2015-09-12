@@ -100,7 +100,7 @@
     <string name="pref_title_navigation_bar">Farbige Navigationsleiste</string>
     <string name="pref_title_set_default_start_page">Startseite</string>
     <string name="pref_title_album_art_on_lockscreen">Album Cover im Sperrbildschirm anzeigen</string>
-    <string name="pref_title_colored_notification">Farbige Benachrichtigung</string>
+    <string name="pref_title_colored_notification">Gefärbte Benachrichtigung</string>
     <string name="pref_title_ignore_media_store_artwork">Media Store Cover ignorieren</string>
     <string name="pref_title_gapless_playback">Lückenlose Wiedergabe</string>
     <string name="pref_title_force_square_album_art">Quadratisches Album Cover erzwingen</string>
@@ -153,7 +153,7 @@
     <string name="rescanning_media">Medien neu scannen…</string>
     <string name="favorites">Favoriten</string>
     <string name="last_added">Zuletzt hinzugefügt</string>
-    <string name="recently_played">Zuletzt gespielt</string>
+    <string name="history">Verlauf</string>
     <string name="my_top_tracks">Meine lieblings Titel</string>
     <string name="remove_cover">Cover entfernen</string>
     <string name="download_from_last_fm">Von Last.fm herunterladen</string>
@@ -187,11 +187,11 @@
     <string name="report_bugs">Fehler melden</string>
     <string name="report_bugs_summary">Melde Fehler oder schlage neue Features vor.</string>
     <string name="join_community">Trete der Google Plus Community bei</string>
-    <string name="join_community_summary">Wenn du Hilfe brauchst oder eine Frage hast, bist du bei der Phonograph Community an der richtigen Adresse.</string>
+    <string name="join_community_summary">Wenn du Hilfe brauchst oder eine Frage hast, bist du bei der Phonograph Community bei der richtigen Adresse.</string>
     <string name="translate">Übersetze</string>
     <string name="translate_summary">Helfe dabei, Phonograph in deine Sprache zu übersetzen.</string>
     <string name="rate_on_google_play">Bewerten</string>
-    <string name="rate_on_google_play_summary">Hinterlasse eine positive Bewertung auf Google Play, wenn dir Phonograph gefällt.</string>
+    <string name="rate_on_google_play_summary">Hinterlasse eine positive Bewertung auf Google Play wenn dir Phonograph gefällt.</string>
     <string name="donate">Spende</string>
     <string name="donate_summary">Wenn du denkst, dass ich es verdient hätte für meine Arbeit bezahlt zu werden, kannst du mir hier ein paar Euro da lassen.</string>
     <string name="aidan_follestad_summary">Für die Theme Engine und andere tolle Sachen.</string>
@@ -199,5 +199,5 @@
     <string name="maarten_corpel_summary">Für das machen der Play Store Illustration und des leeren Album Covers.</string>
     <string name="aleksandar_tesic_summary">Für die Hilfe beim Design.</string>
     <string name="website">Website</string>
-    <string name="loading_products">Produkte werden geladen…</string>
+    <string name="loading_products">Produkte werden geladen...</string>
 </resources>

@@ -140,7 +140,6 @@
     <string name="rescanning_media">Kontrola médií...</string>
     <string name="favorites">Oblíbené</string>
     <string name="last_added">Naposledy přidané</string>
-    <string name="recently_played">Naposledy přehrané</string>
     <string name="remove_cover">Odstranit obal</string>
     <string name="download_from_last_fm">Stáhnout z Last.fm</string>
     <string name="pick_from_local_storage">Vybrat ze souborů</string>

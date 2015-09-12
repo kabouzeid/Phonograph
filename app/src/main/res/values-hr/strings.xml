@@ -153,7 +153,6 @@
     <string name="rescanning_media">Ponovno skeniram medijske datoteke</string>
     <string name="favorites">Favoriti</string>
     <string name="last_added">Posljednje dodano</string>
-    <string name="recently_played">Nedavno reproducirano</string>
     <string name="my_top_tracks">Najslušanije pjesme</string>
     <string name="remove_cover">Ukloni omot</string>
     <string name="download_from_last_fm">Skini s lokacije Last.fm</string>

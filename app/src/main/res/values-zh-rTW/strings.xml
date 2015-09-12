@@ -153,7 +153,6 @@
     <string name="rescanning_media">正在重新掃描媒體庫…</string>
     <string name="favorites">最愛</string>
     <string name="last_added">最後新增</string>
-    <string name="recently_played">最近播放</string>
     <string name="my_top_tracks">我的最佳單曲</string>
     <string name="remove_cover">移除封面</string>
     <string name="download_from_last_fm">從 Last.fm 下載</string>

@@ -2,7 +2,7 @@
 <resources>
     <string name="what_do_you_want_to_share">¿Qué quieres compartir?</string>
     <string name="currently_listening_to_x_by_x">Reproduciendo %1$s de %2$s</string>
-    <string name="the_audio_file">El archivo de audio</string>
+    <string name="the_audio_file">Archivo de audio</string>
     <string name="do_you_want_to_set_x_as_ringtone">¿Quieres establecer %1$s como tono de llamada?</string>
     <string name="x_has_been_set_as_ringtone">%1$s se ha establecido como tono de llamada.</string>
     <string name="action_set_as_ringtone">Establecer como tono de llamada</string>
@@ -153,7 +153,6 @@
     <string name="rescanning_media">Escaneando contenido...</string>
     <string name="favorites">Favoritos</string>
     <string name="last_added">Último agregado</string>
-    <string name="recently_played">Reproducido recientemente</string>
     <string name="my_top_tracks">Canciones más reproducidas</string>
     <string name="remove_cover">Eliminar carátula</string>
     <string name="download_from_last_fm">Descargar desde Last.fm</string>
@@ -175,6 +174,7 @@
     <string name="back">regresar</string>
     <string name="support_development">Apoyar desarrollo</string>
     <string name="thank_you">¡Gracias!</string>
+    <string name="restored_previous_purchases">Restaurar datos de comprar anteriores</string>
     <string name="play_store_illustration_by">Ilustración de play store por</string>
     <string name="version">versión</string>
     <string name="application">Aplicación</string>
@@ -189,6 +189,8 @@
     <string name="join_community_summary">Si necesitas ayuda o tienes preguntas, la comunidad Phonograph en Google Plus es un buen lugar para ir.</string>
     <string name="translate">Traducir</string>
     <string name="translate_summary">Ayuda traduciendo Phonograph a tu idioma nativo.</string>
+    <string name="rate_on_google_play">Valorar</string>
+    <string name="rate_on_google_play_summary">Deja una valoración positiva si te gusta Phonograph.</string>
     <string name="donate">Donar</string>
     <string name="donate_summary">Si consideras que merezco ser pagado por mi trabajo, puedes dejarme un par de dólares aquí.</string>
     <string name="aidan_follestad_summary">Por el motor de temas y alguna otra grandiosa aportación.</string>
@@ -196,4 +198,5 @@
     <string name="maarten_corpel_summary">Por la elaboración de la ilustración de Play Store y la portada del álbum vacío.</string>
     <string name="aleksandar_tesic_summary">Por ayudarme con el diseño.</string>
     <string name="website">Sitio web</string>
+    <string name="loading_products">Cargando productos...</string>
 </resources>
