@@ -147,7 +147,6 @@
     <string name="rescanning_media">メディアの再スキャン中…</string>
     <string name="favorites">お気に入り</string>
     <string name="last_added">最近追加された曲</string>
-    <string name="recently_played">最近再生された曲</string>
     <string name="my_top_tracks">トップレート</string>
     <string name="remove_cover">アルバムアートを除去</string>
     <string name="download_from_last_fm">Last.fmからダウンロード</string>

@@ -1,3 +1,4 @@
-NEW: Fade album covers in the now playing screen in.
-FIX: Play/pause button covering the next button on some devices.
-FIX: Crash when opening the about section.
+NEW: Added a drag view to playlist songs for easier rearrangement.
+IMPROVEMENT: Replaced recently played with history. Songs are always added to the history once they are started but their play count will be only increased if they were played at least half. This makes the top tracks playlist much more accurate.
+IMPROVEMENT: Synced translations.
+FIX: Cab (contextual action bar) content not visible with light primary colors.

@@ -153,7 +153,6 @@
     <string name="rescanning_media">Nuova scannerizzazione media in corso...</string>
     <string name="favorites">Preferiti</string>
     <string name="last_added">Aggiunti di recente</string>
-    <string name="recently_played">Riprodotti di recente</string>
     <string name="my_top_tracks">Brani preferiti</string>
     <string name="remove_cover">Rimuovi cover</string>
     <string name="download_from_last_fm">Scarica da Last.fm</string>
@@ -182,7 +181,7 @@
     <string name="author">Autore</string>
     <string name="add_to_google_plus_circles">Aggiungi alle cerchie di Google+</string>
     <string name="follow_on_twitter">Segui su Twitter</string>
-    <string name="fork_on_git_hub">Crea un fork su GitHub</string>
+    <string name="fork_on_git_hub">Crea fork su GitHub</string>
     <string name="visit_website">Visita sito web</string>
     <string name="report_bugs">Segnala bug</string>
     <string name="report_bugs_summary">Segnala bug o richiedi nuove funzionalità.</string>
@@ -194,7 +193,7 @@
     <string name="rate_on_google_play_summary">Lascia una valutazione positiva su Google Play se ti piace Phonograph.</string>
     <string name="donate">Dona</string>
     <string name="donate_summary">Se credi che io meriti di essere pagato per il mio lavoro, puoi lasciarmi qui qualche dollaro.</string>
-    <string name="aidan_follestad_summary">Per il theme engine ed altre cose fantastiche.</string>
+    <string name="aidan_follestad_summary">Per il theme engine e altre cose fantastiche.</string>
     <string name="michael_cook_summary">Per la bella icona in stile material.</string>
     <string name="maarten_corpel_summary">Per aver realizzato l\'illustrazione nel Play Store e la copertina album vuota.</string>
     <string name="aleksandar_tesic_summary">Per avermi aiutato col design.</string>

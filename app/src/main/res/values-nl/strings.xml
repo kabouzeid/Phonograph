@@ -153,7 +153,6 @@
     <string name="rescanning_media">Media herscannen…</string>
     <string name="favorites">Favorieten</string>
     <string name="last_added">Laatst toegevoegd</string>
-    <string name="recently_played">Recent afgespeeld</string>
     <string name="my_top_tracks">Mijn top nummers</string>
     <string name="remove_cover">Verwijder albumhoes</string>
     <string name="download_from_last_fm">Download van last.fm</string>
@@ -175,4 +174,29 @@
     <string name="back">Terug</string>
     <string name="support_development">Ondersteun ontwikkeling</string>
     <string name="thank_you">Dankjewel!</string>
+    <string name="restored_previous_purchases">Verleden aankopen hersteld.</string>
+    <string name="play_store_illustration_by">Play Store illustratie door</string>
+    <string name="version">Versie</string>
+    <string name="application">Applicatie</string>
+    <string name="author">Auteur</string>
+    <string name="add_to_google_plus_circles">Toevoegen aan Google Plus cirkels</string>
+    <string name="follow_on_twitter">Volgen op Twitter</string>
+    <string name="fork_on_git_hub">Fork op GitHub</string>
+    <string name="visit_website">Bezoek website</string>
+    <string name="report_bugs">Rapporteer bugs</string>
+    <string name="report_bugs_summary">Rapporteer bugs of verzoek nieuwe functies.</string>
+    <string name="join_community">Deelnemen aan de Google Plus community</string>
+    <string name="join_community_summary">Als je hulp nodig hebt of vragen hebt, de Phonograph community op Google Plus is een goede plaats om te raadplegen.</string>
+    <string name="translate">Vertalen</string>
+    <string name="translate_summary">Help Phonograph te vertalen naar jouw moedertaal.</string>
+    <string name="rate_on_google_play">Waarderen</string>
+    <string name="rate_on_google_play_summary">Laat een positieve waardering achter op Google Play als je Phonograph leuk vindt.</string>
+    <string name="donate">Doneer</string>
+    <string name="donate_summary">Als je vindt dat ik het verdient heb, mag je mij hier een paar dollar achterlaten.</string>
+    <string name="aidan_follestad_summary">Voor de themamogelijkheden en andere goede functies.</string>
+    <string name="michael_cook_summary">Voor het mooie material app icoon.</string>
+    <string name="maarten_corpel_summary">Voor het maken van de Play Store illustratie en de lege album albumhoes.</string>
+    <string name="aleksandar_tesic_summary">Voor de hulp met het design.</string>
+    <string name="website">Website</string>
+    <string name="loading_products">Producten laden…</string>
 </resources>

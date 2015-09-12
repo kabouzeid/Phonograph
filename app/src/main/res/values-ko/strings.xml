@@ -154,7 +154,6 @@
     <string name="rescanning_media">미디어 재스캐닝 중...</string>
     <string name="favorites">좋아하는 곡들</string>
     <string name="last_added">최근 추가됨</string>
-    <string name="recently_played">최근 재생됨</string>
     <string name="my_top_tracks">내가 좋아하는 트랙</string>
     <string name="remove_cover">앨범 아트 제거</string>
     <string name="download_from_last_fm">Last.fm에서 다운로드</string>
