@@ -358,7 +358,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         ImageLoader.getInstance().displayImage(
                 imageUri,
                 artistImageBackground,
-                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor()).build()
+                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor.Builder(this).build()).build()
         );
     }
 

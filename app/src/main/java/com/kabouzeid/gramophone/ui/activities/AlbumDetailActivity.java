@@ -245,7 +245,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         ImageLoader.getInstance().displayImage(
                 imageUri,
                 albumArtBackground,
-                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor()).build()
+                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor.Builder(this).build()).build()
         );
     }
 
