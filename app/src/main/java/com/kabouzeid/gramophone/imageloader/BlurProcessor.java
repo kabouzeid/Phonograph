@@ -1,28 +1,110 @@
 package com.kabouzeid.gramophone.imageloader;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.support.annotation.FloatRange;
+import android.support.annotation.NonNull;
+import android.support.v8.renderscript.Allocation;
+import android.support.v8.renderscript.Element;
+import android.support.v8.renderscript.RenderScript;
+import android.support.v8.renderscript.ScriptIntrinsicBlur;
 
-import com.kabouzeid.gramophone.helper.bitmapblur.StackBlurManager;
+import com.kabouzeid.gramophone.util.ImageUtil;
 import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class BlurProcessor implements BitmapProcessor {
-    public static final int DEFAULT_BLUR_RADIUS = 10;
+    public static final float DEFAULT_BLUR_RADIUS = 5f;
 
-    final int blurRadius;
+    private Context context;
+    private final float blurRadius;
+    private final int sampling;
 
-    public BlurProcessor() {
-        this.blurRadius = DEFAULT_BLUR_RADIUS;
+    private BlurProcessor(Builder builder) {
+        this.context = builder.context;
+        this.blurRadius = builder.blurRadius;
+        this.sampling = builder.sampling;
     }
 
-    public BlurProcessor(int blurRadius) {
-        this.blurRadius = blurRadius;
-    }
-
+    // Something here seems to cause a memory leak... Go into LeakCanary for more details.
     @Override
     public Bitmap process(Bitmap bitmap) {
-        return new StackBlurManager(bitmap).process(blurRadius);
+        int sampling;
+        if (this.sampling == 0) {
+            sampling = ImageUtil.calculateInSampleSize(bitmap.getWidth(), bitmap.getHeight(), 100);
+        } else {
+            sampling = this.sampling;
+        }
+
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        int scaledWidth = width / sampling;
+        int scaledHeight = height / sampling;
+
+        Bitmap out = Bitmap.createBitmap(scaledWidth, scaledHeight, Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(out);
+        canvas.scale(1 / (float) sampling, 1 / (float) sampling);
+        Paint paint = new Paint();
+        paint.setFlags(Paint.FILTER_BITMAP_FLAG);
+        canvas.drawBitmap(bitmap, 0, 0, paint);
+
+        final RenderScript rs = RenderScript.create(context.getApplicationContext());
+        final Allocation input = Allocation.createFromBitmap(rs, out, Allocation.MipmapControl.MIPMAP_NONE, Allocation.USAGE_SCRIPT);
+        final Allocation output = Allocation.createTyped(rs, input.getType());
+        final ScriptIntrinsicBlur script = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
+
+        script.setRadius(blurRadius);
+        script.setInput(input);
+        script.forEach(output);
+
+        output.copyTo(out);
+
+        rs.destroy();
+
+        return out;
+    }
+
+    public static class Builder {
+        private Context context;
+        private float blurRadius = DEFAULT_BLUR_RADIUS;
+        private int sampling;
+
+        public Builder(@NonNull Context context) {
+            this.context = context;
+        }
+
+        /**
+         * @param blurRadius The radius to use. Must be between 0 and 25. Default is 5.
+         * @return the same Builder
+         */
+        public Builder blurRadius(@FloatRange(from = 0.0f, to = 25.0f) float blurRadius) {
+            this.blurRadius = blurRadius;
+            return this;
+        }
+
+        /**
+         * @param sampling The inSampleSize to use. Must be a power of 2, or 1 for no down sampling or 0 for auto detect sampling. Default is 0.
+         * @return the same Builder
+         */
+        public Builder sampling(int sampling) {
+            this.sampling = sampling;
+            return this;
+        }
+
+        public Builder fromPrototype(BlurProcessor prototype) {
+            context = prototype.context;
+            blurRadius = prototype.blurRadius;
+            sampling = prototype.sampling;
+            return this;
+        }
+
+        public BlurProcessor build() {
+            return new BlurProcessor(this);
+        }
     }
 }
