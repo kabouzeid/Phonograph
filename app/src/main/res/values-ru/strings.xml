@@ -153,6 +153,7 @@
     <string name="rescanning_media">Повторное сканирование медиа...</string>
     <string name="favorites">Избранное</string>
     <string name="last_added">Последние добавленные</string>
+    <string name="history">История прослушивания</string>
     <string name="my_top_tracks">Мои популярные треки</string>
     <string name="remove_cover">Удалить обложку</string>
     <string name="download_from_last_fm">Загрузить из Last.fm</string>
