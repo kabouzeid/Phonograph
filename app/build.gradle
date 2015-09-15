@@ -56,9 +56,13 @@ android {
     compileSdkVersion 23
     buildToolsVersion '23.0.1'
     defaultConfig {
-        applicationId "com.kabouzeid.gramophone"
         minSdkVersion 16
         targetSdkVersion 23
+
+        renderscriptTargetApi 23
+        renderscriptSupportModeEnabled true
+
+        applicationId "com.kabouzeid.gramophone"
         versionCode 76
         versionName "0.9.46 beta 3"
     }
