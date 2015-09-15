@@ -153,6 +153,7 @@
     <string name="rescanning_media">Nuova scannerizzazione media in corso...</string>
     <string name="favorites">Preferiti</string>
     <string name="last_added">Aggiunti di recente</string>
+    <string name="history">Cronologia</string>
     <string name="my_top_tracks">Brani preferiti</string>
     <string name="remove_cover">Rimuovi cover</string>
     <string name="download_from_last_fm">Scarica da Last.fm</string>

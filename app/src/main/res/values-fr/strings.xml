@@ -153,6 +153,7 @@
     <string name="rescanning_media">Réanalyse des médias…</string>
     <string name="favorites">Favoris</string>
     <string name="last_added">Derniers ajouts</string>
+    <string name="history">Titres écoutés récemments</string>
     <string name="my_top_tracks">Mes meilleurs titres</string>
     <string name="remove_cover">Supprimer la pochette</string>
     <string name="download_from_last_fm">Télécharger depuis Last.fm</string>

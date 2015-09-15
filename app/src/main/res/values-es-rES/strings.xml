@@ -18,7 +18,7 @@
     <string name="action_play">Reproducir</string>
     <string name="action_add_to_playing_queue">Añadir a cola de reproducción</string>
     <string name="action_remove_from_playing_queue">Quitar de la cola de reproducción</string>
-    <string name="action_add_to_playlist">Añadir a lista de reproducción...</string>
+    <string name="action_add_to_playlist">Agregar a la playlist...</string>
     <string name="action_tag_editor">Editor de etiquetas</string>
     <string name="action_delete_from_device">Eliminar del dispositivo</string>
     <string name="action_details">Detalles</string>
@@ -55,7 +55,7 @@
     <string name="no_results">Sin resultados</string>
     <string name="action_re_download_artist_image">Actualizar imagen del artista</string>
     <string name="updated_artist_image">Imagen de artista actualizada.</string>
-    <string name="could_not_update_artist_image">No se pudo subir la imagen del artista.</string>
+    <string name="could_not_update_artist_image">"No se pudo actualizar la imagen del artista. "</string>
     <string name="updating">Actualizando...</string>
     <string name="added_title_to_playing_queue">"1 título añadido a la cola de reproducción."</string>
     <string name="added_x_titles_to_playing_queue">Añadir %1$d a la cola de reproducción.</string>

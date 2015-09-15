@@ -63,8 +63,8 @@ android {
         renderscriptSupportModeEnabled true
 
         applicationId "com.kabouzeid.gramophone"
-        versionCode 76
-        versionName "0.9.46 beta 3"
+        versionCode 77
+        versionName "0.9.46 beta 4"
     }
     buildTypes {
         release {

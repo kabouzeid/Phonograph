@@ -61,6 +61,7 @@
     <string name="added_x_titles_to_playing_queue">Přidáno %1$d skladeb do fronty.</string>
     <string name="action_remove_from_playlist">Odstranit z playlistu</string>
     <string name="action_view_as">Zobrazit jako</string>
+    <string name="inserted_x_songs_into_playlist_x">Vložit %1$d do playlistu %2$s.</string>
     <string name="created_playlist_x">Vytvořen playlist %1$s</string>
     <string name="deleted_playlist_x">Playlist %1$s smazán</string>
     <string name="deleted_x_songs">Odstraněno %1$d skladeb</string>
@@ -102,8 +103,13 @@
     <string name="pref_title_colored_notification">Barevné notifikace</string>
     <string name="pref_title_gapless_playback">Přehrávání bez mezer</string>
     <string name="pref_title_force_square_album_art">Vynutit čtvercové obaly alb</string>
+    <string name="pref_title_opaque_toolbar_now_playing">Neprůhledný toolbar</string>
+    <string name="pref_title_opaque_statusbar_now_playing">Neprůhledný statusbar</string>
+    <string name="pref_title_larger_title_box_now_playing">Velké nadpisy</string>
     <string name="pref_title_alternative_progress_slider_now_playing">Alternativní ukazatel přehrávače</string>
     <string name="pref_title_playback_controller_card_now_playing">Zvýraznit tlačítka ovládání přehrávače</string>
+    <string name="pref_title_colored_playback_controls_now_playing">Barevná ovládací tlaítka</string>
+    <string name="pref_title_hide_bottom_bar">Skrýt spodní lištu</string>
     <string name="no_equalizer">Ekvalizér nenalezen</string>
     <string name="no_audio_ID">"Neznámé ID hudby, přehrajte něco jiného a zkuste to znovu."</string>
     <string name="delete_action">Smazat</string>
@@ -132,8 +138,11 @@
     <string name="pref_summary_colored_notification">"Notifikace jsou zbarveny podle obalu alba."</string>
     <string name="pref_summary_gapless_playback">"Odstraní ticho mezi skladbami. Deaktivace může vyřešit problémy s přehráváním."</string>
     <string name="pref_summary_force_square_album_art">Obaly alb jsou v přehrávači vsazena do čtverce.</string>
+    <string name="pref_summary_opaque_toolbar_now_playing">Zabarvit toolbar.</string>
+    <string name="pref_summary_opaque_statusbar_now_playing">Zabarvit statusbar.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Ukazatel přehrávače se nezbarvuje podle alba.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Zvýraznit tlačítka ovládání přehrávače</string>
+    <string name="pref_summary_ignore_media_store_artwork">Může zvýšit kvalitu obalu, ale způsobí pomalejší načítaní. Povolte pouze pokud máte problémy s obaly.</string>
     <string name="pref_summary_colored_navigation_bar">Zvolte, kde se má zobrazovat barevné záhlaví.</string>
     <string name="could_not_download_album_cover">"Nelze st\u00e1hnout obal alba."</string>
     <string name="search_hint">Vyhledat zvukové soubory...</string>

@@ -27,7 +27,7 @@
     <string name="songs">Şarkılar</string>
     <string name="playlists">Çalma listeleri</string>
     <string name="unplayable_file">Bu \u015fark\u0131 oynat\u0131lamad\u0131.</string>
-    <string name="biography_unavailable">Bu sanat\u00e7\u0131 ile ilgili bilgi bulunamad\u0131</string>
+    <string name="biography_unavailable">Bu sanat\u00e7\u0131n\u0131n biyografisi bulunamad\u0131</string>
     <string name="biography">Biyografi</string>
     <string name="audio_focus_denied">Ses odağı reddedildi.</string>
     <string name="album">Albüm</string>
@@ -153,6 +153,7 @@
     <string name="rescanning_media">Medyayı yeniden tara...</string>
     <string name="favorites">Favoriler</string>
     <string name="last_added">Son eklenen</string>
+    <string name="history">Geçmiş</string>
     <string name="my_top_tracks">En iyi parçalarım</string>
     <string name="remove_cover">Albüm kapağını kaldır</string>
     <string name="download_from_last_fm">Last.fm den İndir</string>
@@ -174,4 +175,24 @@
     <string name="back">geri</string>
     <string name="support_development">Geliştirmeyi destekleyin</string>
     <string name="thank_you">Teşekkürler</string>
+    <string name="restored_previous_purchases">Önceki satın alımlar geri yüklendi.</string>
+    <string name="play_store_illustration_by">Play Store düzenlemerini yapan</string>
+    <string name="version">Sürüm</string>
+    <string name="application">Uygulama</string>
+    <string name="author">Yapımcı</string>
+    <string name="add_to_google_plus_circles">Google+ çevrelerine ekle</string>
+    <string name="follow_on_twitter">Twitterda takip et</string>
+    <string name="fork_on_git_hub">GitHub da katkıda bulunun</string>
+    <string name="visit_website">Websitesini ziyaret ediniz</string>
+    <string name="report_bugs">Hata raporlayınız</string>
+    <string name="report_bugs_summary">Hata raporlayınız ya da yeni özellikler isteyiniz</string>
+    <string name="join_community">Google+ grubuna katılın</string>
+    <string name="join_community_summary">Eğer yardma ihtiyacınız varsa veya sorunuz varsa Google+ Phonoraph grubu en iyi yer.</string>
+    <string name="translate">Çeviri</string>
+    <string name="translate_summary">YErel dilinize çeviri için yardımda bulunun.</string>
+    <string name="rate_on_google_play">Oyla</string>
+    <string name="rate_on_google_play_summary">Eğer Phonograph\'ı beğendiyseniz Google Play\'de olumlu oy verin</string>
+    <string name="donate">Bağış yap</string>
+    <string name="donate_summary">Eğer çalışmalarım için bağışta bulunmak istiyorsanız birkaç dolar bırakabilirsiniz.</string>
+    <string name="website">Web sitesi</string>
 </resources>

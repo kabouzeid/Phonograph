@@ -153,6 +153,7 @@
     <string name="rescanning_media">Media herscannen…</string>
     <string name="favorites">Favorieten</string>
     <string name="last_added">Laatst toegevoegd</string>
+    <string name="history">Historie</string>
     <string name="my_top_tracks">Mijn top nummers</string>
     <string name="remove_cover">Verwijder albumhoes</string>
     <string name="download_from_last_fm">Download van last.fm</string>
