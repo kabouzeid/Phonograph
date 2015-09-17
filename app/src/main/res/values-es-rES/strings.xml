@@ -153,6 +153,7 @@
     <string name="rescanning_media">Escaneando contenido...</string>
     <string name="favorites">Favoritos</string>
     <string name="last_added">Último agregado</string>
+    <string name="history">. . .</string>
     <string name="my_top_tracks">Canciones más reproducidas</string>
     <string name="remove_cover">Eliminar carátula</string>
     <string name="download_from_last_fm">Descargar desde Last.fm</string>
