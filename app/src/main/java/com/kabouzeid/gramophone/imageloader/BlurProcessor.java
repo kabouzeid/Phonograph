@@ -14,7 +14,6 @@ import android.support.v8.renderscript.ScriptIntrinsicBlur;
 
 import com.kabouzeid.gramophone.BuildConfig;
 import com.kabouzeid.gramophone.helper.StackBlur;
-import com.kabouzeid.gramophone.misc.LagTracker;
 import com.kabouzeid.gramophone.util.ImageUtil;
 import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
@@ -70,7 +69,6 @@ public class BlurProcessor implements BitmapProcessor {
             output.copyTo(out);
 
             rs.destroy();
-            LagTracker.get().end("BLUR RENDERSCRIPT");
 
             return out;
 
