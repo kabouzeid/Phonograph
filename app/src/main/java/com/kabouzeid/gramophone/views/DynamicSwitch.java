@@ -13,7 +13,7 @@ import android.support.v7.internal.widget.ThemeUtils;
 import android.support.v7.widget.SwitchCompat;
 import android.util.AttributeSet;
 
-import com.afollestad.materialdialogs.ThemeSingleton;
+import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.kabouzeid.gramophone.R;
 
 import static android.support.v7.internal.widget.ThemeUtils.getThemeAttrColorStateList;

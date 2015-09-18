@@ -11,7 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.afollestad.materialdialogs.ThemeSingleton;
+import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.util.ColorUtil;

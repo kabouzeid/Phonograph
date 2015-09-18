@@ -7,7 +7,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.ThemeSingleton;
+import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.kabouzeid.gramophone.R;
 
 /**

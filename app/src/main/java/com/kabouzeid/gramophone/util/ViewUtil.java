@@ -27,8 +27,8 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.ThemeSingleton;
 import com.afollestad.materialdialogs.internal.MDTintHelper;
+import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.kabouzeid.gramophone.R;
 
 import java.lang.reflect.Field;
