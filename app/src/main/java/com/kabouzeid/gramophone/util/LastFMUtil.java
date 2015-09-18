@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.util;
 
-import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.Image;
+import com.kabouzeid.gramophone.lastfm.rest.model.LastFmAlbum.Album;
+import com.kabouzeid.gramophone.lastfm.rest.model.LastFmArtist.Artist;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,9 +16,9 @@ public class LastFMUtil {
         SMALL, MEDIUM, LARGE, EXTRALARGE, MEGA, UNKNOWN
     }
 
-    public static String getLargestArtistImageUrl(List<Image> images) {
+    public static String getLargestArtistImageUrl(List<Artist.Image> images) {
         Map<ImageSize, String> imageUrls = new HashMap<>();
-        for (Image image : images) {
+        for (Artist.Image image : images) {
             ImageSize size = null;
             final String attribute = image.getSize();
             if (attribute == null) {
@@ -36,9 +37,9 @@ public class LastFMUtil {
         return getLargestImageUrl(imageUrls);
     }
 
-    public static String getLargestAlbumImageUrl(List<com.kabouzeid.gramophone.lastfm.rest.model.albuminfo.Image> images) {
+    public static String getLargestAlbumImageUrl(List<Album.Image> images) {
         Map<ImageSize, String> imageUrls = new HashMap<>();
-        for (com.kabouzeid.gramophone.lastfm.rest.model.albuminfo.Image image : images) {
+        for (Album.Image image : images) {
             ImageSize size = null;
             final String attribute = image.getSize();
             if (attribute == null) {

@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
-import com.kabouzeid.gramophone.lastfm.rest.model.albuminfo.AlbumInfo;
+import com.kabouzeid.gramophone.lastfm.rest.model.LastFmAlbum;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ImageUtil;
@@ -41,8 +41,7 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import retrofit.Response;
 
 public class AlbumTagEditorActivity extends AbsTagEditorActivity implements TextWatcher {
 
@@ -101,12 +100,13 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
             Toast.makeText(this, getResources().getString(R.string.album_or_artist_empty), Toast.LENGTH_SHORT).show();
             return;
         }
-        lastFMRestClient.getApiService().getAlbumInfo(albumTitleStr, albumArtistNameStr, new Callback<AlbumInfo>() {
+        lastFMRestClient.getApiService().getAlbumInfo(albumTitleStr, albumArtistNameStr).enqueue(new Callback<LastFmAlbum>() {
             @Override
-            public void success(@NonNull AlbumInfo albumInfo, Response response) {
-                if (albumInfo.getAlbum() != null) {
+            public void onResponse(Response<LastFmAlbum> response) {
+                LastFmAlbum lastFmAlbum = response.body();
+                if (lastFmAlbum.getAlbum() != null) {
                     final int smallerScreenSize = Util.getSmallerScreenSize(AlbumTagEditorActivity.this);
-                    ImageLoader.getInstance().loadImage(LastFMUtil.getLargestAlbumImageUrl(albumInfo.getAlbum().getImage()),
+                    ImageLoader.getInstance().loadImage(LastFMUtil.getLargestAlbumImageUrl(lastFmAlbum.getAlbum().getImage()),
                             new DisplayImageOptions.Builder()
                                     .preProcessor(new BitmapProcessor() {
                                         @Override
@@ -140,7 +140,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
             }
 
             @Override
-            public void failure(RetrofitError error) {
+            public void onFailure(Throwable t) {
                 toastLoadingFailed();
             }
 

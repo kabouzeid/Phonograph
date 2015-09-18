@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
-import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.ArtistInfo;
+import com.kabouzeid.gramophone.lastfm.rest.model.LastFmArtist;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.LastFMUtil;
@@ -64,8 +64,8 @@ public class PhonographImageDownloader extends BaseImageDownloader {
             return super.getStream("", extra);
         }
 
-        ArtistInfo artistInfo = lastFMRestClient.getApiService().getArtistInfo(artistName, data[0].equals("") ? null : data[0]);
-        return super.getStream(LastFMUtil.getLargestArtistImageUrl(artistInfo.getArtist().getImage()), extra);
+        LastFmArtist lastFmArtist = lastFMRestClient.getApiService().getArtistInfo(artistName, data[0].equals("") ? null : data[0]).execute().body();
+        return super.getStream(LastFMUtil.getLargestArtistImageUrl(lastFmArtist.getArtist().getImage()), extra);
     }
 
     @Nullable
