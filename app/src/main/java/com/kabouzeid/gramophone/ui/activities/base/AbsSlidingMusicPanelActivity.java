@@ -414,7 +414,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     public void onPanelSlide(View view, @FloatRange(from = 0, to = 1) float slideOffset) {
         setFabPositionProgress(slideOffset);
         setFabColorProgress(slideOffset);
-        setFabAlphaProgress(slideOffset);
+        setMiniPlayerAlphaProgress(slideOffset);
     }
 
     @Override
@@ -460,8 +460,10 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     }
 
-    private void setFabAlphaProgress(@FloatRange(from = 0, to = 1) float progress) {
-        miniPlayer.setAlpha(1 - progress);
+    private void setMiniPlayerAlphaProgress(@FloatRange(from = 0, to = 1) float progress) {
+        float alpha = 1 - progress;
+        miniPlayer.setAlpha(alpha);
+        miniPlayer.setVisibility(alpha == 0 ? View.GONE : View.VISIBLE);
     }
 
     private void setFabPositionProgress(@FloatRange(from = 0, to = 1) float progress) {

@@ -29,7 +29,7 @@
     <string name="unplayable_file">No se pudo reproducir esta canci\u00f3n.</string>
     <string name="biography_unavailable">Lo sentimos, no encontramos una biograf\u00eda correspondiente a \u00e9ste artista</string>
     <string name="biography">Biografía</string>
-    <string name="audio_focus_denied">Sin foco de audio</string>
+    <string name="audio_focus_denied">No se encontró el foco de audio.</string>
     <string name="album">Álbum</string>
     <string name="artist">Artista</string>
     <string name="genre">Género</string>
@@ -69,7 +69,7 @@
     <string name="delete_playlist_x"><![CDATA[¿Borrar la lista de reproducción <b>%1$s</b>?]]></string>
     <string name="clear_playlist_x"><![CDATA[\u00bfVaciar la lista de reproducci\u00f3n {<b>} {</b>} {%1$s}? \u00a1Esto no se puede deshacer!]]></string>
     <string name="delete_x_playlists"><![CDATA[¿Borrar <b>%1$d</b> listas de reproducción?]]></string>
-    <string name="delete_song_x"><![CDATA[¿Eeliminar la canción <b>%1$s</b>?]]></string>
+    <string name="delete_song_x"><![CDATA[¿Eliminar <b>%1$s</b>?]]></string>
     <string name="delete_x_songs"><![CDATA[¿Eliminar <b>%1$d</b> canciones?]]></string>
     <string name="remove_song_x_from_playlist"><![CDATA[¿Eliminar la canción </b>%1$s<b> de la lista de reproducción?]]></string>
     <string name="remove_x_songs_from_playlist"><![CDATA[¿Eliminar </b>%1$d<b> canciones de la lista de reproducción?]]></string>
