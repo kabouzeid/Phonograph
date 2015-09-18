@@ -37,7 +37,7 @@ import com.kabouzeid.gramophone.imageloader.BlurProcessor;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
-import com.kabouzeid.gramophone.lastfm.rest.model.artistinfo.ArtistInfo;
+import com.kabouzeid.gramophone.lastfm.rest.model.LastFmArtist;
 import com.kabouzeid.gramophone.loader.ArtistAlbumLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
@@ -63,8 +63,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import retrofit.Response;
 
 /**
  * Be careful when changing things in this Activity!
@@ -256,11 +255,12 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     }
 
     private void loadBiography() {
-        lastFMRestClient.getApiService().getArtistInfo(artist.name, null, new Callback<ArtistInfo>() {
+        lastFMRestClient.getApiService().getArtistInfo(artist.name, null).enqueue(new Callback<LastFmArtist>() {
             @Override
-            public void success(@NonNull ArtistInfo artistInfo, Response response) {
-                if (artistInfo.getArtist() != null) {
-                    String bio = artistInfo.getArtist().getBio().getContent();
+            public void onResponse(Response<LastFmArtist> response) {
+                LastFmArtist lastFmArtist = response.body();
+                if (lastFmArtist.getArtist() != null) {
+                    String bio = lastFmArtist.getArtist().getBio().getContent();
                     if (bio != null && !bio.trim().equals("")) {
                         biography = Html.fromHtml(bio);
                         return;
@@ -270,7 +270,8 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
             }
 
             @Override
-            public void failure(RetrofitError error) {
+            public void onFailure(Throwable t) {
+                t.printStackTrace();
                 biography = null;
             }
         });
