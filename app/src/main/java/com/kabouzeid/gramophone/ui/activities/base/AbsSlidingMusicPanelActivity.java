@@ -722,7 +722,9 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     private void updateShuffleState() {
         switch (MusicPlayerRemote.getShuffleMode()) {
             case MusicService.SHUFFLE_MODE_SHUFFLE:
-                int activatedColor = colorPlaybackControls ? lastPlaybackControlsColor : ThemeSingleton.get().positiveColor.getDefaultColor();
+                int activatedColor = colorPlaybackControls
+                        ? getFixedShuffleRepeatButtonColor(lastPlaybackControlsColor)
+                        : ThemeSingleton.get().positiveColor.getDefaultColor();
                 shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_36dp,
                         activatedColor));
                 break;
@@ -745,7 +747,9 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     private void updateRepeatState() {
-        int activatedColor = colorPlaybackControls ? lastPlaybackControlsColor : ThemeSingleton.get().positiveColor.getDefaultColor();
+        int activatedColor = colorPlaybackControls
+                ? getFixedShuffleRepeatButtonColor(lastPlaybackControlsColor)
+                : ThemeSingleton.get().positiveColor.getDefaultColor();
         switch (MusicPlayerRemote.getRepeatMode()) {
             case MusicService.REPEAT_MODE_ALL:
                 repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_white_36dp,
@@ -761,6 +765,18 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                         deactivatedColor));
                 break;
         }
+    }
+
+    /**
+     * Checks whether the default color and the activated color are similar. If true, returns a darker
+     * activated color. Else, returns the given color as-is.
+     */
+    private int getFixedShuffleRepeatButtonColor(int activatedColor) {
+        if (ColorUtil.calculateColorDistance(activatedColor,
+                ColorUtil.resolveColor(this, android.R.attr.textColorSecondary))) {
+            return ColorUtil.shiftColor(activatedColor, 0.6f);
+        }
+        return activatedColor;
     }
 
     private void setUpAlbumArtViews() {
