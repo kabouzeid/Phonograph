@@ -16,7 +16,6 @@ import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
 import com.kabouzeid.gramophone.lastfm.rest.model.LastFmAlbum;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.util.ImageUtil;
 import com.kabouzeid.gramophone.util.LastFMUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
@@ -102,25 +101,14 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
         }
         lastFMRestClient.getApiService().getAlbumInfo(albumTitleStr, albumArtistNameStr).enqueue(new Callback<LastFmAlbum>() {
             @Override
-            public void onResponse(Response<LastFmAlbum> response) {
+            public void onResponse(final Response<LastFmAlbum> response) {
                 LastFmAlbum lastFmAlbum = response.body();
                 if (lastFmAlbum.getAlbum() != null) {
-                    final int smallerScreenSize = Util.getSmallerScreenSize(AlbumTagEditorActivity.this);
                     ImageLoader.getInstance().loadImage(LastFMUtil.getLargestAlbumImageUrl(lastFmAlbum.getAlbum().getImage()),
                             new DisplayImageOptions.Builder()
-                                    .preProcessor(new BitmapProcessor() {
-                                        @Override
-                                        public Bitmap process(Bitmap bitmap) {
-                                            return ImageUtil.getResizedBitmap(bitmap, smallerScreenSize, smallerScreenSize, true);
-                                        }
-                                    })
+                                    .preProcessor(albumCoverProcessor)
                                     .build(),
                             new SimpleImageLoadingListener() {
-                                @Override
-                                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                                    toastLoadingFailed();
-                                }
-
                                 @Override
                                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                                     if (loadedImage == null) {
@@ -132,6 +120,11 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
                                     deleteAlbumArt = false;
                                     dataChanged();
                                     setResult(RESULT_OK);
+                                }
+
+                                @Override
+                                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                                    handleFailReason(failReason);
                                 }
                             });
                 } else {
@@ -206,23 +199,11 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
     @Override
     protected void loadImageFromFile(@NonNull final Uri selectedFileUri) {
-        final int smallerScreenSize = Util.getSmallerScreenSize(AlbumTagEditorActivity.this);
         ImageLoader.getInstance().loadImage(selectedFileUri.toString(),
                 new DisplayImageOptions.Builder()
-                        .preProcessor(new BitmapProcessor() {
-                            @Override
-                            public Bitmap process(Bitmap bitmap) {
-                                return ImageUtil.getResizedBitmap(bitmap, smallerScreenSize, smallerScreenSize, true);
-                            }
-                        })
+                        .preProcessor(albumCoverProcessor)
                         .build(),
                 new SimpleImageLoadingListener() {
-                    @Override
-                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                        Toast.makeText(AlbumTagEditorActivity.this,
-                                R.string.could_not_download_album_cover, Toast.LENGTH_SHORT).show();
-                    }
-
                     @Override
                     public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                         albumArtBitmap = loadedImage;
@@ -230,6 +211,11 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
                         deleteAlbumArt = false;
                         dataChanged();
                         setResult(RESULT_OK);
+                    }
+
+                    @Override
+                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                        handleFailReason(failReason);
                     }
                 });
     }
@@ -247,5 +233,51 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
     @Override
     public void afterTextChanged(Editable s) {
         dataChanged();
+    }
+
+    private BitmapProcessor albumCoverProcessor = new BitmapProcessor() {
+        @Override
+        public Bitmap process(Bitmap bitmap) {
+            return getResizedAlbumCover(bitmap, Util.getSmallerScreenSize(AlbumTagEditorActivity.this));
+        }
+    };
+
+    @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
+    private void handleFailReason(FailReason failReason) {
+        Throwable cause = failReason.getCause();
+        if (cause != null) {
+            cause.printStackTrace();
+            Toast.makeText(AlbumTagEditorActivity.this, cause.toString(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private static Bitmap getResizedAlbumCover(@NonNull Bitmap src, int maxForSmallerSize) {
+        int width = src.getWidth();
+        int height = src.getHeight();
+
+        final int dstWidth;
+        final int dstHeight;
+
+        if (width < height) {
+            if (maxForSmallerSize >= width) {
+                return src;
+            }
+            float ratio = (float) height / width;
+            dstWidth = maxForSmallerSize;
+            dstHeight = Math.round(maxForSmallerSize * ratio);
+        } else {
+            if (maxForSmallerSize >= height) {
+                return src;
+            }
+            float ratio = (float) width / height;
+            dstWidth = Math.round(maxForSmallerSize * ratio);
+            dstHeight = maxForSmallerSize;
+        }
+
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(src, dstWidth, dstHeight, false);
+        if (scaledBitmap != src) {
+            src.recycle();
+        }
+        return scaledBitmap;
     }
 }
