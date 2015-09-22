@@ -137,4 +137,17 @@ public class ColorUtil {
         }
         return backgroundColor;
     }
+
+    /**
+     * Calculates the distance of two colors in 3D Space.
+     *
+     * Taken from http://stackoverflow.com/a/1725535/984061
+     */
+    public static boolean calculateColorDistance(int color1, int color2) {
+        double red = Math.pow(Math.abs(Color.red(color2) - Color.red(color1)), 2);
+        double green = Math.pow(Math.abs(Color.green(color2) - Color.green(color1)), 2);
+        double blue = Math.pow(Math.abs(Color.blue(color2) - Color.blue(color1)), 2);
+        double distance = red + green + blue;
+        return distance < 55000;
+    }
 }
