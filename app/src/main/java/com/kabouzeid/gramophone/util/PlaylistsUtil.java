@@ -19,6 +19,8 @@ import com.kabouzeid.gramophone.model.Song;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.provider.MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -28,13 +30,13 @@ public class PlaylistsUtil {
         int id = -1;
         if (name != null && name.length() > 0) {
             try {
-                Cursor cursor = context.getContentResolver().query(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,
+                Cursor cursor = context.getContentResolver().query(EXTERNAL_CONTENT_URI,
                         new String[]{MediaStore.Audio.Playlists._ID}, MediaStore.Audio.PlaylistsColumns.NAME + "=?", new String[]{name}, null);
                 if (cursor == null || cursor.getCount() < 1) {
                     final ContentValues values = new ContentValues(1);
                     values.put(MediaStore.Audio.PlaylistsColumns.NAME, name);
                     final Uri uri = context.getContentResolver().insert(
-                            MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,
+                            EXTERNAL_CONTENT_URI,
                             values);
                     if (uri != null) {
                         // necessary because somehow the MediaStoreObserver is not notified when adding a playlist
@@ -72,7 +74,7 @@ public class PlaylistsUtil {
         }
         selection.append(")");
         try {
-            context.getContentResolver().delete(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI, selection.toString(), null);
+            context.getContentResolver().delete(EXTERNAL_CONTENT_URI, selection.toString(), null);
         } catch (SecurityException ignored) {
         }
     }
@@ -192,10 +194,11 @@ public class PlaylistsUtil {
         ContentValues contentValues = new ContentValues();
         contentValues.put(MediaStore.Audio.PlaylistsColumns.NAME, newName);
         try {
-            context.getContentResolver().update(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,
+            context.getContentResolver().update(EXTERNAL_CONTENT_URI,
                     contentValues,
                     MediaStore.Audio.Playlists._ID + "=?",
                     new String[]{String.valueOf(id)});
+            context.getContentResolver().notifyChange(Uri.parse("content://media"), null);
         } catch (SecurityException ignored) {
         }
     }
@@ -203,7 +206,7 @@ public class PlaylistsUtil {
     public static String getNameForPlaylist(@NonNull final Context context, final long id) {
         try {
             Cursor cursor = context.getContentResolver().query(
-                    MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI,
+                    EXTERNAL_CONTENT_URI,
                     new String[]{MediaStore.Audio.PlaylistsColumns.NAME},
                     BaseColumns._ID + "=?",
                     new String[]{String.valueOf(id)},
