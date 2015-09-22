@@ -146,6 +146,9 @@ public class ViewUtil {
         });
     }
 
+    /**
+     * Call this in {@link android.app.Activity#onCreateOptionsMenu(Menu)} and everywhere where the toolbar color is changed.
+     */
     public static void setToolbarContentColorForBackground(@NonNull Context context, @Nullable Toolbar toolbar, @ColorInt final int backgroundColor) {
         ViewUtil.setToolbarContentDark(context, toolbar, ColorUtil.useDarkTextColorOnBackground(backgroundColor));
     }

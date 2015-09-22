@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,6 +20,7 @@ import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
 import com.kabouzeid.gramophone.dialogs.DonationDialog;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
+import com.kabouzeid.gramophone.util.ViewUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -237,5 +239,11 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         i.setData(Uri.parse(url));
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        ViewUtil.setToolbarContentColorForBackground(this, toolbar, getThemeColorPrimary());
+        return super.onCreateOptionsMenu(menu);
     }
 }
