@@ -722,16 +722,12 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     private void updateShuffleState() {
         switch (MusicPlayerRemote.getShuffleMode()) {
             case MusicService.SHUFFLE_MODE_SHUFFLE:
-                int activatedColor = colorPlaybackControls
-                        ? getFixedShuffleRepeatButtonColor(lastPlaybackControlsColor)
-                        : ThemeSingleton.get().positiveColor.getDefaultColor();
                 shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_36dp,
-                        activatedColor));
+                        getActivatedIconColor()));
                 break;
             default:
-                int deactivatedColor = ColorUtil.resolveColor(this, android.R.attr.textColorSecondary);
                 shuffleButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_shuffle_white_36dp,
-                        deactivatedColor));
+                        getDeactivatedIconColor()));
                 break;
         }
     }
@@ -747,34 +743,43 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     private void updateRepeatState() {
-        int activatedColor = colorPlaybackControls
-                ? getFixedShuffleRepeatButtonColor(lastPlaybackControlsColor)
-                : ThemeSingleton.get().positiveColor.getDefaultColor();
         switch (MusicPlayerRemote.getRepeatMode()) {
             case MusicService.REPEAT_MODE_ALL:
                 repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_white_36dp,
-                        activatedColor));
+                        getActivatedIconColor()));
                 break;
             case MusicService.REPEAT_MODE_THIS:
                 repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_one_white_36dp,
-                        activatedColor));
+                        getActivatedIconColor()));
                 break;
             default:
-                int deactivatedColor = ColorUtil.resolveColor(this, android.R.attr.textColorSecondary);
                 repeatButton.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_repeat_white_36dp,
-                        deactivatedColor));
+                        getDeactivatedIconColor()));
                 break;
         }
     }
 
+    private int getActivatedIconColor() {
+        if (colorPlaybackControls) {
+            return ensureActivatedColorVisibleIfNecessary(lastPlaybackControlsColor);
+        } else {
+            return ThemeSingleton.get().positiveColor.getDefaultColor();
+        }
+    }
+
+    private int getDeactivatedIconColor() {
+        return ColorUtil.resolveColor(this, android.R.attr.textColorSecondary);
+    }
+
     /**
-     * Checks whether the default color and the activated color are similar. If true, returns a darker
-     * activated color. Else, returns the given color as-is.
+     * @return If the activated color wont have enough difference to the deactivated color Color.WHITE / Color.BLACK (depending on the theme),
+     * else the unmodified accentColor.
      */
-    private int getFixedShuffleRepeatButtonColor(int activatedColor) {
-        if (ColorUtil.calculateColorDistance(activatedColor,
-                ColorUtil.resolveColor(this, android.R.attr.textColorSecondary))) {
-            return ColorUtil.shiftColor(activatedColor, 0.6f);
+    private int ensureActivatedColorVisibleIfNecessary(int activatedColor) {
+        // Not optimal, but much easier then computing the opaque deactivated color on the background color every time.
+        int preBlendedDeactivatedIconColor = ThemeSingleton.get().darkTheme ? Color.argb(255, 188, 188, 188) : Color.argb(255, 115, 115, 115);
+        if (ColorUtil.getColorDifference(activatedColor, preBlendedDeactivatedIconColor) <= 30d) {
+            return ThemeSingleton.get().darkTheme ? Color.WHITE : Color.BLACK;
         }
         return activatedColor;
     }

@@ -43,7 +43,7 @@
 
         <item name="cardBackgroundColor">@color/cardview_light_background</item>
 
-        <item name="default_bar_color">@color/grey_800</item>
+        <item name="default_bar_color">@color/grey_700</item>
 
         <item name="divider_color">@color/md_divider_black</item>
         <item name="icon_color">@color/secondary_text_default_material_light</item>
