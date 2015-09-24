@@ -3,26 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="8dp">
 
-    <include layout="@layout/card_about_app" />
+    <include
+        layout="@layout/card_about_app"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp" />
 
     <include
         layout="@layout/card_author"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" />
+        android:layout_marginBottom="8dp" />
 
     <include
         layout="@layout/card_support_development"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" />
+        android:layout_marginBottom="8dp" />
 
-    <include
-        layout="@layout/card_special_thanks"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" />
+    <include layout="@layout/card_special_thanks" />
 
 </LinearLayout>
