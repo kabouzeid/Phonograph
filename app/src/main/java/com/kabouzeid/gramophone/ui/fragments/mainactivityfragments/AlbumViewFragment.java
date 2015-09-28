@@ -16,7 +16,7 @@ public class AlbumViewFragment extends AbsMainActivityRecyclerViewLayoutModeFrag
 
     @Override
     protected GridLayoutManager createLayoutManager() {
-        return new GridLayoutManager(getActivity(), getColumnNumber());
+        return new GridLayoutManager(getActivity(), getColumnCount());
     }
 
     @NonNull
@@ -25,7 +25,7 @@ public class AlbumViewFragment extends AbsMainActivityRecyclerViewLayoutModeFrag
         return new AlbumAdapter(
                 getMainActivity(),
                 AlbumLoader.getAllAlbums(getActivity()),
-                getItemLayout(),
+                getItemLayoutRes(),
                 loadUsePalette(),
                 getMainActivity());
     }
