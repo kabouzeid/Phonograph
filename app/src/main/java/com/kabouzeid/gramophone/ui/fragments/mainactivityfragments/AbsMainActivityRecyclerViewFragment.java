@@ -178,11 +178,11 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
         ButterKnife.unbind(this);
     }
 
-    protected int getDefaultGridColumnNumber() {
+    protected int getDefaultGridColumnCount() {
         return getActivity().getResources().getInteger(R.integer.grid_num_columns);
     }
 
-    protected int getDefaultListColumnNumber() {
+    protected int getDefaultListColumnCount() {
         return getActivity().getResources().getInteger(R.integer.list_num_columns);
     }
 }

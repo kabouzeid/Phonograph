@@ -5,31 +5,49 @@ import android.support.v7.widget.GridLayoutManager;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.song.ShuffleButtonSongAdapter;
+import com.kabouzeid.gramophone.adapter.song.SongAdapter;
 import com.kabouzeid.gramophone.loader.SongLoader;
+import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
+
+import java.util.ArrayList;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class SongViewFragment extends AbsMainActivityRecyclerViewLayoutModeFragment<ShuffleButtonSongAdapter, GridLayoutManager> {
+public class SongViewFragment extends AbsMainActivityRecyclerViewLayoutModeFragment<SongAdapter, GridLayoutManager> {
 
     public static final String TAG = SongViewFragment.class.getSimpleName();
 
     @NonNull
     @Override
     protected GridLayoutManager createLayoutManager() {
-        return new GridLayoutManager(getActivity(), getColumnNumber());
+        return new GridLayoutManager(getActivity(), getColumnCount());
     }
 
     @NonNull
     @Override
-    protected ShuffleButtonSongAdapter createAdapter() {
-        return new ShuffleButtonSongAdapter(
-                getMainActivity(),
-                SongLoader.getAllSongs(getActivity()),
-                getItemLayout(),
-                loadUsePalette(),
-                getMainActivity());
+    protected SongAdapter createAdapter() {
+        MainActivity mainActivity = getMainActivity();
+        ArrayList<Song> songs = SongLoader.getAllSongs(getActivity());
+        int itemLayoutRes = getItemLayoutRes();
+        boolean usePalette = loadUsePalette();
+
+        if (getLayoutMode() == PreferenceUtil.LAYOUT_MODE_LIST) {
+            return new ShuffleButtonSongAdapter(
+                    mainActivity,
+                    songs,
+                    itemLayoutRes,
+                    usePalette,
+                    mainActivity);
+        }
+        return new SongAdapter(
+                mainActivity,
+                songs,
+                itemLayoutRes,
+                usePalette,
+                mainActivity);
     }
 
     @Override

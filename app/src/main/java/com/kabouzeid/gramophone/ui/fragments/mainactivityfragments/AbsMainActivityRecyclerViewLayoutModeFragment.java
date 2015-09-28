@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 
 import com.kabouzeid.gramophone.R;
@@ -20,7 +21,8 @@ public abstract class AbsMainActivityRecyclerViewLayoutModeFragment<A extends Re
         return layoutMode;
     }
 
-    protected int getItemLayout() {
+    @LayoutRes
+    protected int getItemLayoutRes() {
         switch (getLayoutMode()) {
             case PreferenceUtil.LAYOUT_MODE_LIST:
                 return R.layout.item_list;
@@ -31,14 +33,14 @@ public abstract class AbsMainActivityRecyclerViewLayoutModeFragment<A extends Re
         }
     }
 
-    protected int getColumnNumber() {
+    protected int getColumnCount() {
         switch (getLayoutMode()) {
             case PreferenceUtil.LAYOUT_MODE_LIST:
-                return getDefaultListColumnNumber();
+                return getDefaultListColumnCount();
             case PreferenceUtil.LAYOUT_MODE_GRID:
-                return getDefaultGridColumnNumber();
+                return getDefaultGridColumnCount();
             default:
-                return R.layout.item_list;
+                return getDefaultListColumnCount();
         }
     }
 

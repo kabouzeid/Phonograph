@@ -18,7 +18,7 @@ public class ArtistViewFragment extends AbsMainActivityRecyclerViewLayoutModeFra
     @NonNull
     @Override
     protected GridLayoutManager createLayoutManager() {
-        return new GridLayoutManager(getActivity(), getColumnNumber());
+        return new GridLayoutManager(getActivity(), getColumnCount());
     }
 
     @NonNull
@@ -27,7 +27,7 @@ public class ArtistViewFragment extends AbsMainActivityRecyclerViewLayoutModeFra
         return new ArtistAdapter(
                 getMainActivity(),
                 ArtistLoader.getAllArtists(getActivity()),
-                getItemLayout(),
+                getItemLayoutRes(),
                 loadUsePalette(),
                 getMainActivity());
     }
