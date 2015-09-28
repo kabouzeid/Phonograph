@@ -55,7 +55,7 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
         }
 
         getMainActivity().addOnAppBarOffsetChangedListener(this);
-        getMainActivity().addMusicStateListenerListener(this);
+        getMainActivity().addMusicServiceEventListener(this);
 
         setUpRecyclerView();
 
@@ -174,7 +174,7 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
     public void onDestroyView() {
         super.onDestroyView();
         getMainActivity().removeOnAppBarOffsetChangedListener(this);
-        getMainActivity().removeMusicStateListenerListener(this);
+        getMainActivity().removeMusicServiceEventListener(this);
         ButterKnife.unbind(this);
     }
 

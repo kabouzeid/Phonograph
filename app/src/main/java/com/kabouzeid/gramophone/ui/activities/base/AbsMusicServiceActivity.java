@@ -32,7 +32,7 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
 
     public static final int REQUEST_EXTERNAL_STORAGE_PERMISSION = 0;
 
-    private final ArrayList<MusicServiceEventListener> mMusicServiceEventListener = new ArrayList<>();
+    private final ArrayList<MusicServiceEventListener> mMusicServiceEventListeners = new ArrayList<>();
 
     private MusicPlayerRemote.ServiceToken serviceToken;
     private MusicStateReceiver musicStateReceiver;
@@ -105,21 +105,21 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
         }
     }
 
-    public void addMusicStateListenerListener(final MusicServiceEventListener listener) {
+    public void addMusicServiceEventListener(final MusicServiceEventListener listener) {
         if (listener != null) {
-            mMusicServiceEventListener.add(listener);
+            mMusicServiceEventListeners.add(listener);
         }
     }
 
-    public void removeMusicStateListenerListener(final MusicServiceEventListener listener) {
+    public void removeMusicServiceEventListener(final MusicServiceEventListener listener) {
         if (listener != null) {
-            mMusicServiceEventListener.remove(listener);
+            mMusicServiceEventListeners.remove(listener);
         }
     }
 
     @Override
     public void onPlayingMetaChanged() {
-        for (MusicServiceEventListener listener : mMusicServiceEventListener) {
+        for (MusicServiceEventListener listener : mMusicServiceEventListeners) {
             if (listener != null) {
                 listener.onPlayingMetaChanged();
             }
@@ -128,7 +128,7 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
 
     @Override
     public void onPlayStateChanged() {
-        for (MusicServiceEventListener listener : mMusicServiceEventListener) {
+        for (MusicServiceEventListener listener : mMusicServiceEventListeners) {
             if (listener != null) {
                 listener.onPlayStateChanged();
             }
@@ -137,7 +137,7 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
 
     @Override
     public void onMediaStoreChanged() {
-        for (MusicServiceEventListener listener : mMusicServiceEventListener) {
+        for (MusicServiceEventListener listener : mMusicServiceEventListeners) {
             if (listener != null) {
                 listener.onMediaStoreChanged();
             }
@@ -146,7 +146,7 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
 
     @Override
     public void onRepeatModeChanged() {
-        for (MusicServiceEventListener listener : mMusicServiceEventListener) {
+        for (MusicServiceEventListener listener : mMusicServiceEventListeners) {
             if (listener != null) {
                 listener.onRepeatModeChanged();
             }
@@ -155,7 +155,7 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
 
     @Override
     public void onShuffleModeChanged() {
-        for (MusicServiceEventListener listener : mMusicServiceEventListener) {
+        for (MusicServiceEventListener listener : mMusicServiceEventListeners) {
             if (listener != null) {
                 listener.onShuffleModeChanged();
             }
