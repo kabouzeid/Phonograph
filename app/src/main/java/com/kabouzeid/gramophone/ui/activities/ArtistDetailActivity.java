@@ -64,6 +64,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import retrofit.Callback;
 import retrofit.Response;
+import retrofit.Retrofit;
 
 /**
  * Be careful when changing things in this Activity!
@@ -257,7 +258,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     private void loadBiography() {
         lastFMRestClient.getApiService().getArtistInfo(artist.name, null).enqueue(new Callback<LastFmArtist>() {
             @Override
-            public void onResponse(Response<LastFmArtist> response) {
+            public void onResponse(Response<LastFmArtist> response, Retrofit retrofit) {
                 LastFmArtist lastFmArtist = response.body();
                 if (lastFmArtist.getArtist() != null) {
                     String bio = lastFmArtist.getArtist().getBio().getContent();
