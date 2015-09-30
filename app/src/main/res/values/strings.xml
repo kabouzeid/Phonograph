@@ -60,7 +60,8 @@
     <string name="added_title_to_playing_queue">"Added 1 title to the playing queue."</string>
     <string name="added_x_titles_to_playing_queue">Added %1$d titles to the playing queue.</string>
     <string name="action_remove_from_playlist">Remove from playlist</string>
-    <string name="action_view_as">View as</string>
+    <string name="action_grid_size">Grid size</string>
+    <string name="action_grid_size_land">Grid size (land)</string>
     <string name="inserted_x_songs_into_playlist_x">Inserted %1$d songs into the playlist %2$s.</string>
     <string name="created_playlist_x">Created playlist %1$s.</string>
     <string name="deleted_playlist_x">Deleted playlist %1$s.</string>
@@ -166,8 +167,14 @@
     <string name="sleep_timer_set">Sleep timer set for %d minutes from now.</string>
     <string name="action_new_playlist">New playlist…</string>
     <string name="new_playlist_title">New playlist</string>
-    <string name="grid">Grid</string>
-    <string name="list">List</string>
+    <string name="grid_size_1">1</string>
+    <string name="grid_size_2">2</string>
+    <string name="grid_size_3">3</string>
+    <string name="grid_size_4">4</string>
+    <string name="grid_size_5">5</string>
+    <string name="grid_size_6">6</string>
+    <string name="grid_size_7">7</string>
+    <string name="grid_size_8">8</string>
     <string name="colored_footers">Colored footers</string>
     <string name="special_thanks_to">Special thanks to</string>
     <string name="changelog">Changelog</string>

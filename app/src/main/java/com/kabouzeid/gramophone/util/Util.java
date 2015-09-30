@@ -77,8 +77,8 @@ public class Util {
         return context.getResources().getConfiguration().smallestScreenWidthDp >= 600;
     }
 
-    public static boolean isInPortraitMode(@NonNull final Context context) {
-        return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+    public static boolean isLandscape(@NonNull final Context context) {
+        return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     public static Drawable resolveDrawable(@NonNull Context context, @AttrRes int drawableAttr) {

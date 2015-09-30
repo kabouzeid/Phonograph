@@ -11,14 +11,14 @@ import com.kabouzeid.gramophone.util.PreferenceUtil;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class ArtistViewFragment extends AbsMainActivityRecyclerViewLayoutModeFragment<ArtistAdapter, GridLayoutManager> {
+public class ArtistsFragment extends AbsMainActivityRecyclerViewCustomGridSizeFragment<ArtistAdapter, GridLayoutManager> {
 
-    public static final String TAG = ArtistViewFragment.class.getSimpleName();
+    public static final String TAG = ArtistsFragment.class.getSimpleName();
 
     @NonNull
     @Override
     protected GridLayoutManager createLayoutManager() {
-        return new GridLayoutManager(getActivity(), getColumnCount());
+        return new GridLayoutManager(getActivity(), getGridSize());
     }
 
     @NonNull
@@ -43,23 +43,43 @@ public class ArtistViewFragment extends AbsMainActivityRecyclerViewLayoutModeFra
     }
 
     @Override
-    protected int loadLayoutMode() {
-        return PreferenceUtil.getInstance(getActivity()).getArtistLayoutMode();
+    protected int loadGridSize() {
+        return PreferenceUtil.getInstance(getActivity()).getArtistGridSize(getActivity());
     }
 
     @Override
-    protected void saveLayoutMode(int layoutMode) {
-        PreferenceUtil.getInstance(getActivity()).setArtistLayoutMode(layoutMode);
+    protected void saveGridSize(int gridSize) {
+        PreferenceUtil.getInstance(getActivity()).setArtistGridSize(gridSize);
     }
 
     @Override
-    public void setUsePaletteAndSaveValue(boolean usePalette) {
-        getAdapter().usePalette(usePalette);
+    protected int loadGridSizeLand() {
+        return PreferenceUtil.getInstance(getActivity()).getArtistGridSizeLand(getActivity());
+    }
+
+    @Override
+    protected void saveGridSizeLand(int gridSize) {
+        PreferenceUtil.getInstance(getActivity()).setArtistGridSizeLand(gridSize);
+    }
+
+    @Override
+    protected void saveUsePalette(boolean usePalette) {
         PreferenceUtil.getInstance(getActivity()).setArtistColoredFooters(usePalette);
     }
 
     @Override
     public boolean loadUsePalette() {
         return PreferenceUtil.getInstance(getActivity()).artistColoredFooters();
+    }
+
+    @Override
+    protected void setUsePalette(boolean usePalette) {
+        getAdapter().usePalette(usePalette);
+    }
+
+    @Override
+    protected void setGridSize(int gridSize) {
+        getLayoutManager().setSpanCount(gridSize);
+        getLayoutManager().requestLayout();
     }
 }

@@ -25,11 +25,17 @@ public final class PreferenceUtil {
     // don't use "colored_navigation_bar" key here as this causes a class cast exception for users upgrading from older versions
     public static final String COLORED_NAVIGATION_BAR = "should_color_navigation_bar";
 
-    public static final String ALBUM_LAYOUT_MODE = "album_layout_mode";
+    public static final String ALBUM_GRID_SIZE = "album_grid_size";
+    public static final String ALBUM_GRID_SIZE_LAND = "album_grid_size_land";
+
+    public static final String SONG_GRID_SIZE = "song_grid_size";
+    public static final String SONG_GRID_SIZE_LAND = "song_grid_size_land";
+
+    public static final String ARTIST_GRID_SIZE = "artist_grid_size";
+    public static final String ARTIST_GRID_SIZE_LAND = "artist_grid_size_land";
+
     public static final String ALBUM_COLORED_FOOTERS = "album_colored_footers";
-    public static final String SONG_LAYOUT_MODE = "song_layout_mode";
     public static final String SONG_COLORED_FOOTERS = "song_colored_footers";
-    public static final String ARTIST_LAYOUT_MODE = "artist_layout_mode";
     public static final String ARTIST_COLORED_FOOTERS = "artist_colored_footers";
 
     public static final String OPAQUE_TOOLBAR_NOW_PLAYING = "opaque_toolbar_now_playing";
@@ -257,37 +263,64 @@ public final class PreferenceUtil {
         editor.apply();
     }
 
-    public static final int LAYOUT_MODE_LIST = 0;
-    public static final int LAYOUT_MODE_GRID = 1;
-
-    public void setAlbumLayoutMode(final int value) {
+    public void setAlbumGridSize(final int gridSize) {
         final SharedPreferences.Editor editor = mPreferences.edit();
-        editor.putInt(ALBUM_LAYOUT_MODE, value);
+        editor.putInt(ALBUM_GRID_SIZE, gridSize);
         editor.apply();
     }
 
-    public final int getAlbumLayoutMode() {
-        return mPreferences.getInt(ALBUM_LAYOUT_MODE, LAYOUT_MODE_GRID);
+    public final int getAlbumGridSize(Context context) {
+        return mPreferences.getInt(ALBUM_GRID_SIZE, context.getResources().getInteger(R.integer.default_grid_columns));
     }
 
-    public void setSongLayoutMode(final int value) {
+    public void setSongGridSize(final int gridSize) {
         final SharedPreferences.Editor editor = mPreferences.edit();
-        editor.putInt(SONG_LAYOUT_MODE, value);
+        editor.putInt(SONG_GRID_SIZE, gridSize);
         editor.apply();
     }
 
-    public final int getSongLayoutMode() {
-        return mPreferences.getInt(SONG_LAYOUT_MODE, LAYOUT_MODE_LIST);
+    public final int getSongGridSize(Context context) {
+        return mPreferences.getInt(SONG_GRID_SIZE, context.getResources().getInteger(R.integer.default_list_columns));
     }
 
-    public void setArtistLayoutMode(final int value) {
+    public void setArtistGridSize(final int gridSize) {
         final SharedPreferences.Editor editor = mPreferences.edit();
-        editor.putInt(ARTIST_LAYOUT_MODE, value);
+        editor.putInt(ARTIST_GRID_SIZE, gridSize);
         editor.apply();
     }
 
-    public final int getArtistLayoutMode() {
-        return mPreferences.getInt(ARTIST_LAYOUT_MODE, LAYOUT_MODE_GRID);
+    public final int getArtistGridSize(Context context) {
+        return mPreferences.getInt(ARTIST_GRID_SIZE, context.getResources().getInteger(R.integer.default_grid_columns));
+    }
+
+    public void setAlbumGridSizeLand(final int gridSize) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putInt(ALBUM_GRID_SIZE_LAND, gridSize);
+        editor.apply();
+    }
+
+    public final int getAlbumGridSizeLand(Context context) {
+        return mPreferences.getInt(ALBUM_GRID_SIZE_LAND, context.getResources().getInteger(R.integer.default_grid_columns_land));
+    }
+
+    public void setSongGridSizeLand(final int gridSize) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putInt(SONG_GRID_SIZE_LAND, gridSize);
+        editor.apply();
+    }
+
+    public final int getSongGridSizeLand(Context context) {
+        return mPreferences.getInt(SONG_GRID_SIZE_LAND, context.getResources().getInteger(R.integer.default_list_columns_land));
+    }
+
+    public void setArtistGridSizeLand(final int gridSize) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putInt(ARTIST_GRID_SIZE_LAND, gridSize);
+        editor.apply();
+    }
+
+    public final int getArtistGridSizeLand(Context context) {
+        return mPreferences.getInt(ARTIST_GRID_SIZE_LAND, context.getResources().getInteger(R.integer.default_grid_columns_land));
     }
 
     public void setAlbumColoredFooters(final boolean value) {

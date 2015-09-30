@@ -53,7 +53,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityFragment;
-import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityRecyclerViewLayoutModeFragment;
+import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityRecyclerViewCustomGridSizeFragment;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -324,10 +324,20 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
             menu.add(0, R.id.action_new_playlist, 0, R.string.new_playlist_title);
         }
         Fragment currentFragment = getCurrentFragment();
-        if (currentFragment instanceof AbsMainActivityRecyclerViewLayoutModeFragment) {
-            setUpLayoutModeMenu((AbsMainActivityRecyclerViewLayoutModeFragment) currentFragment, menu);
+        if (currentFragment instanceof AbsMainActivityRecyclerViewCustomGridSizeFragment) {
+            AbsMainActivityRecyclerViewCustomGridSizeFragment absMainActivityRecyclerViewCustomGridSizeFragment = (AbsMainActivityRecyclerViewCustomGridSizeFragment) currentFragment;
+
+            MenuItem gridSizeItem = menu.findItem(R.id.action_grid_size);
+            if (Util.isLandscape(this)) {
+                gridSizeItem.setTitle(R.string.action_grid_size_land);
+            }
+            setUpGridSizeMenu(absMainActivityRecyclerViewCustomGridSizeFragment, gridSizeItem.getSubMenu());
+
+            menu.findItem(R.id.action_colored_footers).setChecked(absMainActivityRecyclerViewCustomGridSizeFragment.usePalette());
+            menu.findItem(R.id.action_colored_footers).setEnabled(absMainActivityRecyclerViewCustomGridSizeFragment.canUsePalette());
         } else {
-            menu.removeItem(R.id.action_view_as);
+            menu.removeItem(R.id.action_grid_size);
+            menu.removeItem(R.id.action_colored_footers);
         }
         ViewUtil.setToolbarContentColorForBackground(this, toolbar, getThemeColorPrimary());
         return true;
@@ -353,9 +363,16 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         ViewUtil.invalidateToolbarPopupMenuTint(toolbar);
 
         Fragment currentFragment = getCurrentFragment();
-        if (currentFragment instanceof AbsMainActivityRecyclerViewLayoutModeFragment) {
-            if (handleLayoutModeMenuItem((AbsMainActivityRecyclerViewLayoutModeFragment) currentFragment, item))
+        if (currentFragment instanceof AbsMainActivityRecyclerViewCustomGridSizeFragment) {
+            AbsMainActivityRecyclerViewCustomGridSizeFragment absMainActivityRecyclerViewCustomGridSizeFragment = (AbsMainActivityRecyclerViewCustomGridSizeFragment) currentFragment;
+            if (item.getItemId() == R.id.action_colored_footers) {
+                item.setChecked(!item.isChecked());
+                absMainActivityRecyclerViewCustomGridSizeFragment.setAndSaveUsePalette(item.isChecked());
                 return true;
+            }
+            if (handleGridSizeMenuItem(absMainActivityRecyclerViewCustomGridSizeFragment, item)) {
+                return true;
+            }
         }
 
         int id = item.getItemId();
@@ -379,41 +396,68 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private void setUpLayoutModeMenu(@NonNull AbsMainActivityRecyclerViewLayoutModeFragment fragment, @NonNull Menu menu) {
-        SubMenu layoutModeMenu = menu.findItem(R.id.action_view_as).getSubMenu();
-
-        switch (fragment.getLayoutMode()) {
-            case PreferenceUtil.LAYOUT_MODE_LIST:
-                layoutModeMenu.findItem(R.id.action_layout_mode_list).setChecked(true);
-                layoutModeMenu.findItem(R.id.action_colored_footers).setEnabled(false);
+    private void setUpGridSizeMenu(@NonNull AbsMainActivityRecyclerViewCustomGridSizeFragment fragment, @NonNull SubMenu gridSizeMenu) {
+        switch (fragment.getGridSize()) {
+            case 1:
+                gridSizeMenu.findItem(R.id.action_grid_size_1).setChecked(true);
                 break;
-            case PreferenceUtil.LAYOUT_MODE_GRID:
-                layoutModeMenu.findItem(R.id.action_layout_mode_grid).setChecked(true);
-                layoutModeMenu.findItem(R.id.action_colored_footers).setEnabled(true);
+            case 2:
+                gridSizeMenu.findItem(R.id.action_grid_size_2).setChecked(true);
+                break;
+            case 3:
+                gridSizeMenu.findItem(R.id.action_grid_size_3).setChecked(true);
+                break;
+            case 4:
+                gridSizeMenu.findItem(R.id.action_grid_size_4).setChecked(true);
+                break;
+            case 5:
+                gridSizeMenu.findItem(R.id.action_grid_size_5).setChecked(true);
+                break;
+            case 6:
+                gridSizeMenu.findItem(R.id.action_grid_size_6).setChecked(true);
+                break;
+            case 7:
+                gridSizeMenu.findItem(R.id.action_grid_size_7).setChecked(true);
+                break;
+            case 8:
+                gridSizeMenu.findItem(R.id.action_grid_size_8).setChecked(true);
                 break;
         }
-
-        layoutModeMenu.findItem(R.id.action_colored_footers).setChecked(fragment.loadUsePalette());
     }
 
-    private boolean handleLayoutModeMenuItem(AbsMainActivityRecyclerViewLayoutModeFragment fragment, @NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_colored_footers) {
-            item.setChecked(!item.isChecked());
-            fragment.setUsePaletteAndSaveValue(item.isChecked());
+    private boolean handleGridSizeMenuItem(@NonNull AbsMainActivityRecyclerViewCustomGridSizeFragment fragment, @NonNull MenuItem item) {
+        int gridSize = 0;
+        switch (item.getItemId()) {
+            case R.id.action_grid_size_1:
+                gridSize = 1;
+                break;
+            case R.id.action_grid_size_2:
+                gridSize = 2;
+                break;
+            case R.id.action_grid_size_3:
+                gridSize = 3;
+                break;
+            case R.id.action_grid_size_4:
+                gridSize = 4;
+                break;
+            case R.id.action_grid_size_5:
+                gridSize = 5;
+                break;
+            case R.id.action_grid_size_6:
+                gridSize = 6;
+                break;
+            case R.id.action_grid_size_7:
+                gridSize = 7;
+                break;
+            case R.id.action_grid_size_8:
+                gridSize = 8;
+                break;
+        }
+        if (gridSize > 0) {
+            item.setChecked(true);
+            fragment.setAndSaveGridSize(gridSize);
+            toolbar.getMenu().findItem(R.id.action_colored_footers).setEnabled(fragment.canUsePalette());
             return true;
-        } else {
-            switch (item.getItemId()) {
-                case R.id.action_layout_mode_list:
-                    item.setChecked(true);
-                    fragment.setLayoutModeAndSaveValue(PreferenceUtil.LAYOUT_MODE_LIST);
-                    toolbar.getMenu().findItem(R.id.action_colored_footers).setEnabled(false);
-                    return true;
-                case R.id.action_layout_mode_grid:
-                    item.setChecked(true);
-                    fragment.setLayoutModeAndSaveValue(PreferenceUtil.LAYOUT_MODE_GRID);
-                    toolbar.getMenu().findItem(R.id.action_colored_footers).setEnabled(true);
-                    return true;
-            }
         }
         return false;
     }
@@ -505,32 +549,32 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 //        return pager.getCurrentItem() == PagerAdapter.MusicFragments.ARTIST.ordinal();
 //    }
 //
-//    public ArtistViewFragment getArtistFragment() {
-//        return (ArtistViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.ARTIST.ordinal());
+//    public ArtistsFragment getArtistFragment() {
+//        return (ArtistsFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.ARTIST.ordinal());
 //    }
 //
 //    private boolean isAlbumPage() {
 //        return pager.getCurrentItem() == PagerAdapter.MusicFragments.ALBUM.ordinal();
 //    }
 //
-//    public AlbumViewFragment getAlbumFragment() {
-//        return (AlbumViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.ALBUM.ordinal());
+//    public AlbumsFragment getAlbumFragment() {
+//        return (AlbumsFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.ALBUM.ordinal());
 //    }
 //
 //    private boolean isSongPage() {
 //        return pager.getCurrentItem() == PagerAdapter.MusicFragments.SONG.ordinal();
 //    }
 //
-//    public SongViewFragment getSongFragment() {
-//        return (SongViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.SONG.ordinal());
+//    public SongsFragment getSongFragment() {
+//        return (SongsFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.SONG.ordinal());
 //    }
 
     private boolean isPlaylistPage() {
         return pager.getCurrentItem() == PagerAdapter.MusicFragments.PLAYLIST.ordinal();
     }
 
-//    public PlaylistViewFragment getPlaylistFragment() {
-//        return (PlaylistViewFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.PLAYLIST.ordinal());
+//    public PlaylistsFragment getPlaylistFragment() {
+//        return (PlaylistsFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.PLAYLIST.ordinal());
 //    }
 
 
