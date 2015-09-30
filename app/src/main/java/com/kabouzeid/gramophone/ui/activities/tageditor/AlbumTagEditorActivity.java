@@ -41,6 +41,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import retrofit.Callback;
 import retrofit.Response;
+import retrofit.Retrofit;
 
 public class AlbumTagEditorActivity extends AbsTagEditorActivity implements TextWatcher {
 
@@ -101,7 +102,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
         }
         lastFMRestClient.getApiService().getAlbumInfo(albumTitleStr, albumArtistNameStr).enqueue(new Callback<LastFmAlbum>() {
             @Override
-            public void onResponse(final Response<LastFmAlbum> response) {
+            public void onResponse(final Response<LastFmAlbum> response, Retrofit retrofit) {
                 LastFmAlbum lastFmAlbum = response.body();
                 if (lastFmAlbum.getAlbum() != null) {
                     ImageLoader.getInstance().loadImage(LastFMUtil.getLargestAlbumImageUrl(lastFmAlbum.getAlbum().getImage()),

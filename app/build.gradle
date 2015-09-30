@@ -110,8 +110,8 @@ dependencies {
     compile 'com.github.semoncat.seekarc:library:0.1'
     compile 'com.sothree.slidinguppanel:library:3.1.1'
 
-    compile 'com.squareup.retrofit:retrofit:2.0.0-beta1'
-    compile 'com.squareup.retrofit:converter-gson:2.0.0-beta1'
+    compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
+    compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
     compile 'com.squareup.okhttp:okhttp:2.5.0'
 
     compile 'com.github.kabouzeid:Android-Universal-Image-Loader:8ffb5d4afa'
