@@ -177,12 +177,4 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
         getMainActivity().removeMusicServiceEventListener(this);
         ButterKnife.unbind(this);
     }
-
-    protected int getDefaultGridColumnCount() {
-        return getActivity().getResources().getInteger(R.integer.grid_num_columns);
-    }
-
-    protected int getDefaultListColumnCount() {
-        return getActivity().getResources().getInteger(R.integer.list_num_columns);
-    }
 }

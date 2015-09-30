@@ -16,14 +16,14 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class SongViewFragment extends AbsMainActivityRecyclerViewLayoutModeFragment<SongAdapter, GridLayoutManager> {
+public class SongsFragment extends AbsMainActivityRecyclerViewCustomGridSizeFragment<SongAdapter, GridLayoutManager> {
 
-    public static final String TAG = SongViewFragment.class.getSimpleName();
+    public static final String TAG = SongsFragment.class.getSimpleName();
 
     @NonNull
     @Override
     protected GridLayoutManager createLayoutManager() {
-        return new GridLayoutManager(getActivity(), getColumnCount());
+        return new GridLayoutManager(getActivity(), getGridSize());
     }
 
     @NonNull
@@ -34,7 +34,7 @@ public class SongViewFragment extends AbsMainActivityRecyclerViewLayoutModeFragm
         int itemLayoutRes = getItemLayoutRes();
         boolean usePalette = loadUsePalette();
 
-        if (getLayoutMode() == PreferenceUtil.LAYOUT_MODE_LIST) {
+        if (getGridSize() <= getMaxGridSizeForList()) {
             return new ShuffleButtonSongAdapter(
                     mainActivity,
                     songs,
@@ -61,23 +61,43 @@ public class SongViewFragment extends AbsMainActivityRecyclerViewLayoutModeFragm
     }
 
     @Override
-    protected int loadLayoutMode() {
-        return PreferenceUtil.getInstance(getActivity()).getSongLayoutMode();
+    protected int loadGridSize() {
+        return PreferenceUtil.getInstance(getActivity()).getSongGridSize(getActivity());
     }
 
     @Override
-    protected void saveLayoutMode(int layoutMode) {
-        PreferenceUtil.getInstance(getActivity()).setSongLayoutMode(layoutMode);
+    protected void saveGridSize(int gridSize) {
+        PreferenceUtil.getInstance(getActivity()).setSongGridSize(gridSize);
     }
 
     @Override
-    public void setUsePaletteAndSaveValue(boolean usePalette) {
-        getAdapter().usePalette(usePalette);
+    protected int loadGridSizeLand() {
+        return PreferenceUtil.getInstance(getActivity()).getSongGridSizeLand(getActivity());
+    }
+
+    @Override
+    protected void saveGridSizeLand(int gridSize) {
+        PreferenceUtil.getInstance(getActivity()).setSongGridSizeLand(gridSize);
+    }
+
+    @Override
+    public void saveUsePalette(boolean usePalette) {
         PreferenceUtil.getInstance(getActivity()).setSongColoredFooters(usePalette);
     }
 
     @Override
     public boolean loadUsePalette() {
         return PreferenceUtil.getInstance(getActivity()).songColoredFooters();
+    }
+
+    @Override
+    public void setUsePalette(boolean usePalette) {
+        getAdapter().usePalette(usePalette);
+    }
+
+    @Override
+    protected void setGridSize(int gridSize) {
+        getLayoutManager().setSpanCount(gridSize);
+        getLayoutManager().requestLayout();
     }
 }
