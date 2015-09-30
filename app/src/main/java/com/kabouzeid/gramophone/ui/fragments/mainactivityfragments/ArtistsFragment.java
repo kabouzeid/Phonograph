@@ -80,6 +80,6 @@ public class ArtistsFragment extends AbsMainActivityRecyclerViewCustomGridSizeFr
     @Override
     protected void setGridSize(int gridSize) {
         getLayoutManager().setSpanCount(gridSize);
-        getLayoutManager().requestLayout();
+        getAdapter().notifyDataSetChanged();
     }
 }
