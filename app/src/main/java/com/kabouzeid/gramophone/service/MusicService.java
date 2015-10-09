@@ -31,6 +31,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Toast;
 
+import com.kabouzeid.gramophone.BuildConfig;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appwidget.WidgetMedium;
 import com.kabouzeid.gramophone.helper.PlayingNotificationHelper;
@@ -450,14 +451,16 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                             .postProcessor(new BitmapProcessor() {
                                 @Override
                                 public Bitmap process(Bitmap bitmap) {
-                                    // RemoteControlClient wants to recycle the bitmaps thrown at it, so we need
-                                    // to make sure not to hand out our cache copy
                                     Bitmap.Config config = bitmap.getConfig();
                                     if (config == null) {
                                         config = Bitmap.Config.ARGB_8888;
                                     }
-                                    bitmap = bitmap.copy(config, false);
-                                    return bitmap.copy(bitmap.getConfig(), true);
+                                    try {
+                                        return bitmap.copy(config, false);
+                                    } catch (OutOfMemoryError e) {
+                                        if (BuildConfig.DEBUG) e.printStackTrace();
+                                        return null;
+                                    }
                                 }
                             }).build(),
                     new SimpleImageLoadingListener() {
