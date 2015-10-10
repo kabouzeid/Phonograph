@@ -5,7 +5,9 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.kabouzeid.gramophone.R;
@@ -24,6 +26,16 @@ public class ShuffleButtonSongAdapter extends SongAdapter {
 
     public ShuffleButtonSongAdapter(AppCompatActivity activity, ArrayList<Song> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
         super(activity, dataSet, itemLayoutRes, usePalette, cabHolder);
+    }
+
+    @NonNull
+    @Override
+    public SongAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType == SHUFFLE_BUTTON) {
+            View view = LayoutInflater.from(activity).inflate(R.layout.item_list_single_row, parent, false);
+            return createViewHolder(view);
+        }
+        return super.onCreateViewHolder(parent, viewType);
     }
 
     @Override
