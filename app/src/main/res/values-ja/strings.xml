@@ -159,7 +159,5 @@
     <string name="sleep_timer_set">%d分後にスリープタイマーをセットしました</string>
     <string name="action_new_playlist">プレイリストの新規作成</string>
     <string name="new_playlist_title">プレイリストの新規作成</string>
-    <string name="grid">グリッド</string>
-    <string name="list">リスト</string>
     <string name="back">戻る</string>
 </resources>

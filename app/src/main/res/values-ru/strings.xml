@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">Чем вы хотите поделиться?</string>
-    <string name="currently_listening_to_x_by_x">#NowPlaying %1$s by %2$s</string>
+    <string name="currently_listening_to_x_by_x">Сейчас воспроизводится « %1$s » исполнителя %2$s</string>
     <string name="the_audio_file">Аудиофайл</string>
     <string name="do_you_want_to_set_x_as_ringtone">Вы хотите установить %1$s на звонок?</string>
     <string name="x_has_been_set_as_ringtone">%1$s был установлен на звонок.</string>
@@ -60,7 +60,6 @@
     <string name="added_title_to_playing_queue">"Добавлена 1 композиция в очередь воспроизведения"</string>
     <string name="added_x_titles_to_playing_queue">Добавлено %1$d композиций в очередь воспроизведения</string>
     <string name="action_remove_from_playlist">Удалить из плейлиста</string>
-    <string name="action_view_as">Просмотр как</string>
     <string name="inserted_x_songs_into_playlist_x">Добавлено %1$d песен в плейлист %2$s.</string>
     <string name="created_playlist_x">Плейлист %1$s создан</string>
     <string name="deleted_playlist_x">Плейлист %1$s удалён</string>
@@ -166,8 +165,6 @@
     <string name="sleep_timer_set">Таймер сна установлен на %d минут(ы) с текущего момента</string>
     <string name="action_new_playlist">Новый список воспроизведения...</string>
     <string name="new_playlist_title">Новый список воспроизведения</string>
-    <string name="grid">Сетка</string>
-    <string name="list">Список</string>
     <string name="colored_footers">Окрашенные нижние колонтитулы</string>
     <string name="special_thanks_to">Особая благодарность</string>
     <string name="changelog">Список изменений</string>

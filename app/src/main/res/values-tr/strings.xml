@@ -60,7 +60,6 @@
     <string name="added_title_to_playing_queue">"Çalma kuyruğuna 1 başlık eklendi."</string>
     <string name="added_x_titles_to_playing_queue">Çalma kuyruğuna %1$d başlıkları eklendi.</string>
     <string name="action_remove_from_playlist">Çalma listesinden kaldır</string>
-    <string name="action_view_as">Görünüm</string>
     <string name="inserted_x_songs_into_playlist_x">%2$s oynatma listesine%1$d şarkı eklendi.</string>
     <string name="created_playlist_x">Çalma listesi %1$s oluşturuldu.</string>
     <string name="deleted_playlist_x">Çalma listesi %1$s silindi.</string>
@@ -166,8 +165,6 @@
     <string name="sleep_timer_set">Uyku zamanlayıcısı %d dakikalığına ayarlandı.</string>
     <string name="action_new_playlist">Yeni çalma listesi....</string>
     <string name="new_playlist_title">Yeni çalma listesi</string>
-    <string name="grid">Izgara</string>
-    <string name="list">Liste</string>
     <string name="colored_footers">Renkli alt bilgiler</string>
     <string name="special_thanks_to">Özel teşekkür</string>
     <string name="changelog">Sürüm Notları</string>
@@ -189,10 +186,15 @@
     <string name="join_community">Google+ grubuna katılın</string>
     <string name="join_community_summary">Eğer yardma ihtiyacınız varsa veya sorunuz varsa Google+ Phonoraph grubu en iyi yer.</string>
     <string name="translate">Çeviri</string>
-    <string name="translate_summary">YErel dilinize çeviri için yardımda bulunun.</string>
+    <string name="translate_summary">Yerel dilinize çeviri için yardımda bulunun.</string>
     <string name="rate_on_google_play">Oyla</string>
     <string name="rate_on_google_play_summary">Eğer Phonograph\'ı beğendiyseniz Google Play\'de olumlu oy verin</string>
     <string name="donate">Bağış yap</string>
     <string name="donate_summary">Eğer çalışmalarım için bağışta bulunmak istiyorsanız birkaç dolar bırakabilirsiniz.</string>
+    <string name="aidan_follestad_summary">Tema motoru ve bazı diğer muhteşem özellikler için.</string>
+    <string name="michael_cook_summary">Güzel materyal uygulama simgesi için.</string>
+    <string name="maarten_corpel_summary">Play Store ve boş albüm kapağı düzenlemeleri için.</string>
+    <string name="aleksandar_tesic_summary">Tasarım için bana yardımı için.</string>
     <string name="website">Web sitesi</string>
+    <string name="loading_products">İçerik yükleniyor...</string>
 </resources>

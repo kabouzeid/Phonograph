@@ -5,15 +5,15 @@
     <string name="the_audio_file">ملف الصوت</string>
     <string name="do_you_want_to_set_x_as_ringtone">هل تريد تعيين %1$s كنغمة رنين ؟</string>
     <string name="x_has_been_set_as_ringtone">%1$s تم تعيين كنغمة رنين</string>
-    <string name="action_set_as_ringtone">تعيين كنغمة رنين</string>
+    <string name="action_set_as_ringtone">"تم تعيين النغمة "</string>
     <string name="action_share">مشاركة</string>
     <string name="action_settings">"الإعدادات"</string>
     <string name="action_about">"   عن التطبيق
 "</string>
     <string name="action_clear_playlist">امسح قائمة التشغيل</string>
     <string name="action_playing_queue">قائمة الإنتظار</string>
-    <string name="action_add_to_favorites">اضافة الى المفضلة</string>
-    <string name="action_remove_from_favorites">ازل من المفضلة</string>
+    <string name="action_add_to_favorites">"اضافة الى الاغاني المفضلة "</string>
+    <string name="action_remove_from_favorites">"ازالة من الاغاني المفضلة "</string>
     <string name="action_search">بحث</string>
     <string name="action_play_next">استمع لاحقاً</string>
     <string name="action_play">استمع</string>
@@ -97,7 +97,7 @@
     <string name="pref_header_lockscreen">قفل الشاشة</string>
     <string name="pref_title_navigation_bar">شريط تنقل ملون</string>
     <string name="pref_title_set_default_start_page">ضبط صفحة البدء</string>
-    <string name="pref_title_album_art_on_lockscreen">صورة الالبوم في قائمة التشغيل</string>
+    <string name="pref_title_album_art_on_lockscreen">"صورة الالبوم في قفل الشاشة "</string>
     <string name="pref_title_colored_notification">اشعار ملون</string>
     <string name="pref_title_gapless_playback">تشغيل مختصر</string>
     <string name="pref_title_force_square_album_art">اجبار صور الالبوم على ان تكون مربعة</string>

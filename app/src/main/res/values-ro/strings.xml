@@ -133,6 +133,4 @@
     <string name="cancel_current_timer">Anulează timer curent.</string>
     <string name="action_new_playlist">Lista de redare nouă...</string>
     <string name="new_playlist_title">Listă de redare nouă</string>
-    <string name="grid">Cadru</string>
-    <string name="list">Listă</string>
 </resources>

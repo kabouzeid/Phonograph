@@ -60,7 +60,6 @@
     <string name="added_title_to_playing_queue">"1 titel toegevoegd aan de afspeelwachtrij."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titels toegevoegd aan de afspeelwachtrij.</string>
     <string name="action_remove_from_playlist">Verwijderen uit afspeellijst</string>
-    <string name="action_view_as">Weergeven als</string>
     <string name="inserted_x_songs_into_playlist_x">%1$d nummers toegevoegd aan afspeellijst %2$s.</string>
     <string name="created_playlist_x">Afspeellijst %1$s aangemaakt.</string>
     <string name="deleted_playlist_x">Afspeellijst %1$s verwijderd.</string>
@@ -123,8 +122,8 @@
     <string name="default_str">Standaard</string>
     <string name="primary_color">Primaire kleur</string>
     <string name="accent_color">Accentkleur</string>
-    <string name="primary_color_desc">De primaire kleur is standaard indigo.</string>
-    <string name="accent_color_desc">De accentkleur is standaard roze.</string>
+    <string name="primary_color_desc">De primaire themakleur, standaard indigo.</string>
+    <string name="accent_color_desc">De thema accentkleur, standaard roze.</string>
     <string name="update_image">Afbeelding bijwerken</string>
     <string name="playlist_empty_text">Lege afspeellijst</string>
     <string name="no_playlists">Geen afspeellijsten</string>
@@ -166,8 +165,6 @@
     <string name="sleep_timer_set">Slaaptimer gezet voor %d minuten vanaf nu.</string>
     <string name="action_new_playlist">Nieuwe afspeellijst…</string>
     <string name="new_playlist_title">Nieuwe afspeellijst</string>
-    <string name="grid">Raster</string>
-    <string name="list">Lijst</string>
     <string name="colored_footers">Gekleurde voetkaders</string>
     <string name="special_thanks_to">Speciale dank aan</string>
     <string name="changelog">Changelog</string>
@@ -196,7 +193,7 @@
     <string name="donate_summary">Als je vindt dat ik het verdient heb, mag je mij hier een paar dollar achterlaten.</string>
     <string name="aidan_follestad_summary">Voor de themamogelijkheden en andere goede functies.</string>
     <string name="michael_cook_summary">Voor het mooie material app icoon.</string>
-    <string name="maarten_corpel_summary">Voor het maken van de Play Store illustratie en de lege album albumhoes.</string>
+    <string name="maarten_corpel_summary">Voor het maken van de Play Store illustratie en de lege album hoes.</string>
     <string name="aleksandar_tesic_summary">Voor de hulp met het design.</string>
     <string name="website">Website</string>
     <string name="loading_products">Producten laden…</string>

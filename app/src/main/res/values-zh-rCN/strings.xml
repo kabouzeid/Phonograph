@@ -60,7 +60,6 @@
     <string name="added_title_to_playing_queue">"该曲目已加入正在播放队列。"</string>
     <string name="added_x_titles_to_playing_queue">%1$d 首曲目已加入到正在播放队列。</string>
     <string name="action_remove_from_playlist">从播放列表移除</string>
-    <string name="action_view_as">查看方式</string>
     <string name="inserted_x_songs_into_playlist_x">%1$d 首曲目已加入到播放列表 %2$s 中。</string>
     <string name="created_playlist_x">播放列表 %1$s 已创建。</string>
     <string name="deleted_playlist_x">%1$s 播放列表已删除。</string>
@@ -166,8 +165,6 @@
     <string name="sleep_timer_set">音乐将在 %d 分钟后停止播放。</string>
     <string name="action_new_playlist">新建播放列表…</string>
     <string name="new_playlist_title">新建播放列表</string>
-    <string name="grid">网格</string>
-    <string name="list">列表</string>
     <string name="colored_footers">变色页脚</string>
     <string name="special_thanks_to">特别感谢</string>
     <string name="changelog">更新日志</string>
