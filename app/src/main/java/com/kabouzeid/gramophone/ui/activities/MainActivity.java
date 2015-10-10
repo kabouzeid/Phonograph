@@ -423,6 +423,25 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                 gridSizeMenu.findItem(R.id.action_grid_size_8).setChecked(true);
                 break;
         }
+        int maxGridSize = fragment.getMaxGridSize();
+        if (maxGridSize < 8) {
+            gridSizeMenu.findItem(R.id.action_grid_size_8).setVisible(false);
+        }
+        if (maxGridSize < 7) {
+            gridSizeMenu.findItem(R.id.action_grid_size_7).setVisible(false);
+        }
+        if (maxGridSize < 6) {
+            gridSizeMenu.findItem(R.id.action_grid_size_6).setVisible(false);
+        }
+        if (maxGridSize < 5) {
+            gridSizeMenu.findItem(R.id.action_grid_size_5).setVisible(false);
+        }
+        if (maxGridSize < 4) {
+            gridSizeMenu.findItem(R.id.action_grid_size_4).setVisible(false);
+        }
+        if (maxGridSize < 3) {
+            gridSizeMenu.findItem(R.id.action_grid_size_3).setVisible(false);
+        }
     }
 
     private boolean handleGridSizeMenuItem(@NonNull AbsMainActivityRecyclerViewCustomGridSizeFragment fragment, @NonNull MenuItem item) {
