@@ -26,6 +26,14 @@ public abstract class AbsMainActivityRecyclerViewCustomGridSizeFragment<A extend
         return gridSize;
     }
 
+    public int getMaxGridSize() {
+        if (isLandscape()) {
+            return getResources().getInteger(R.integer.max_columns_land);
+        } else {
+            return getResources().getInteger(R.integer.max_columns);
+        }
+    }
+
     /**
      * @return whether the palette should be used at all or not
      */
