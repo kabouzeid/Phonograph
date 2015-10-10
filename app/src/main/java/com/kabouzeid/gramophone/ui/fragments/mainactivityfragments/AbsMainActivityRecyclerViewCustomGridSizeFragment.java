@@ -112,6 +112,6 @@ public abstract class AbsMainActivityRecyclerViewCustomGridSizeFragment<A extend
     }
 
     protected final boolean isLandscape() {
-        return Util.isLandscape(getActivity());
+        return Util.isLandscape(getResources());
     }
 }
