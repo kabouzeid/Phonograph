@@ -2,7 +2,7 @@
 <resources>
     <string name="what_do_you_want_to_share">您想分享那些內容？</string>
     <string name="currently_listening_to_x_by_x">正在播放 %2$s 的 %1$s 。</string>
-    <string name="the_audio_file">音檔</string>
+    <string name="the_audio_file">音訊檔</string>
     <string name="do_you_want_to_set_x_as_ringtone">您想要將 %1$s 設為鈴聲嗎？</string>
     <string name="x_has_been_set_as_ringtone">已將 %1$s 設為鈴聲。</string>
     <string name="action_set_as_ringtone">設為鈴聲</string>
@@ -60,7 +60,6 @@
     <string name="added_title_to_playing_queue">"已將 1 首歌加到播放佇列。"</string>
     <string name="added_x_titles_to_playing_queue">已將 %1$d 首歌加到播放佇列。</string>
     <string name="action_remove_from_playlist">從播放清單中移除</string>
-    <string name="action_view_as">檢視</string>
     <string name="inserted_x_songs_into_playlist_x">已將 %1$d 首歌加入播放清單 %2$s 中。</string>
     <string name="created_playlist_x">已新增播放清單 %1$s。</string>
     <string name="deleted_playlist_x">已刪除播放清單 %1$s 。</string>
@@ -165,8 +164,6 @@
     <string name="sleep_timer_set">已設定睡眠定時器，從現在開始的 %d 分鐘</string>
     <string name="action_new_playlist">新增播放清單...</string>
     <string name="new_playlist_title">新增播放清單</string>
-    <string name="grid">格狀</string>
-    <string name="list">清單</string>
     <string name="colored_footers">彩色的註腳</string>
     <string name="special_thanks_to">特別感謝</string>
     <string name="changelog">新功能</string>

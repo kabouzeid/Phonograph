@@ -60,7 +60,6 @@
     <string name="added_title_to_playing_queue">"Un brano aggiunto alla coda."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titoli aggiunti alla coda.</string>
     <string name="action_remove_from_playlist">Rimuovi dalla playlist</string>
-    <string name="action_view_as">Visualizza come</string>
     <string name="inserted_x_songs_into_playlist_x">Aggiunte %1$d canzoni alla playlist %2$s</string>
     <string name="created_playlist_x">Playlist %1$s creata.</string>
     <string name="deleted_playlist_x">Playlist %1$s eliminata.</string>
@@ -166,8 +165,6 @@
     <string name="sleep_timer_set">Timer di spegnimento impostato a %d minuti da adesso</string>
     <string name="action_new_playlist">Nuova playlist...</string>
     <string name="new_playlist_title">Nuova playlist</string>
-    <string name="grid">Griglia</string>
-    <string name="list">Lista</string>
     <string name="colored_footers">Riquadri colorati</string>
     <string name="special_thanks_to">Ringraziamenti speciali a</string>
     <string name="changelog">Modifiche</string>

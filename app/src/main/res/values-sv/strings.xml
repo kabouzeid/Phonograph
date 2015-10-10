@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_settings">"Inställningar"</string>
-    <string name="action_about">Information</string>
+    <string name="action_about">Om</string>
     <string name="action_playing_queue">Uppspelningskö</string>
     <string name="action_search">Sök</string>
-    <string name="action_play_next">Spela som nästa</string>
+    <string name="action_play_next">Spela nästa</string>
     <string name="action_add_to_playing_queue">Lägg till i uppspelningskön</string>
     <string name="action_remove_from_playing_queue">Ta bort från uppspelningskön</string>
-    <string name="action_add_to_playlist">Lägg till spellista</string>
+    <string name="action_add_to_playlist">Lägg till i spellista</string>
     <string name="action_tag_editor">Tagredigering</string>
     <string name="action_details">Detaljer</string>
     <string name="albums">Album</string>

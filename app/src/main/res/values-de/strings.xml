@@ -60,7 +60,6 @@
     <string name="added_title_to_playing_queue">"1 Titel wurde der Warteschlange hinzugefügt."</string>
     <string name="added_x_titles_to_playing_queue">%1$d Titel wurden der Warteschlange hinzugefügt.</string>
     <string name="action_remove_from_playlist">Aus Wiedergabeliste entfernen</string>
-    <string name="action_view_as">Anzeigen als</string>
     <string name="inserted_x_songs_into_playlist_x">%1$d Titel wurden der Wiedergabeliste %2$s hinzugefügt.</string>
     <string name="created_playlist_x">Wiedergabeliste %1$s erstellt.</string>
     <string name="deleted_playlist_x">Wiedergabeliste %1$s gelöscht.</string>
@@ -166,8 +165,6 @@
     <string name="sleep_timer_set">Der Einschlaf Timer wurde auf %d Minuten von jetzt gesetzt</string>
     <string name="action_new_playlist">Neue Wiedergabeliste…</string>
     <string name="new_playlist_title">Neue Wiedergabeliste</string>
-    <string name="grid">Gitter</string>
-    <string name="list">Liste</string>
     <string name="colored_footers">Farbige Balken</string>
     <string name="special_thanks_to">Besonderes Dankeschön an</string>
     <string name="changelog">Änderungen</string>

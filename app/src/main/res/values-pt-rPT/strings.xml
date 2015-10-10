@@ -59,7 +59,6 @@
     <string name="added_title_to_playing_queue">"Adicionada 1 música para a fila reprodução"</string>
     <string name="added_x_titles_to_playing_queue">Adicionadas %1$d títulos à fila de reprodução</string>
     <string name="action_remove_from_playlist">Remover da Playlist</string>
-    <string name="action_view_as">Ver como</string>
     <string name="deleted_playlist_x">Playlist %1$s eliminada</string>
     <string name="deleted_x_songs">Eliminadas %1$d faixas</string>
     <string name="remove_song_from_playlist_title">Remover faixa da playlist</string>

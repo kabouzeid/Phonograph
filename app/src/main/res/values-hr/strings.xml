@@ -60,7 +60,6 @@
     <string name="added_title_to_playing_queue">"Pjesma dodana u red čekanja."</string>
     <string name="added_x_titles_to_playing_queue">Dodano %1$d pjesama u red čekanja.</string>
     <string name="action_remove_from_playlist">Ukloni s popisa pjesama</string>
-    <string name="action_view_as">Pregledaj kao</string>
     <string name="inserted_x_songs_into_playlist_x">Umetnuto pjesama: %1$d na popis %2$s.</string>
     <string name="created_playlist_x">Stvoren popis pjesama %1$s.</string>
     <string name="deleted_playlist_x">Obrisan popis pjesama %1$s.</string>
@@ -165,8 +164,6 @@
     <string name="sleep_timer_set">Tajmer za spavanje namješten je za %d min od sada.</string>
     <string name="action_new_playlist">Novi popis pjesama</string>
     <string name="new_playlist_title">Novi popis pjesama</string>
-    <string name="grid">Rešetka</string>
-    <string name="list">Popis</string>
     <string name="colored_footers">Obojena podnožja</string>
     <string name="special_thanks_to">Posebna zahvala</string>
     <string name="changelog">Promjene</string>

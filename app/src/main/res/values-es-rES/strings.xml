@@ -60,7 +60,6 @@
     <string name="added_title_to_playing_queue">"1 título añadido a la cola de reproducción."</string>
     <string name="added_x_titles_to_playing_queue">Añadir %1$d a la cola de reproducción.</string>
     <string name="action_remove_from_playlist">Eliminar de la lista de reproducción</string>
-    <string name="action_view_as">Ver como</string>
     <string name="inserted_x_songs_into_playlist_x">Añadidas %1$d canciones a la lista %2$s.</string>
     <string name="created_playlist_x">Lista de reproducción %1$s creada.</string>
     <string name="deleted_playlist_x">Lista de reproducción %1$s eliminada.</string>
@@ -166,8 +165,6 @@
     <string name="sleep_timer_set">La música se parará dentro de {%d} minutos a partir de ahora.</string>
     <string name="action_new_playlist">Nueva lista de reproducción...</string>
     <string name="new_playlist_title">Nueva lista de reproducción</string>
-    <string name="grid">Cuadrícula</string>
-    <string name="list">Lista</string>
     <string name="colored_footers">Pies de página coloreados</string>
     <string name="special_thanks_to">Agradecimientos a</string>
     <string name="changelog">Lista de cambios</string>

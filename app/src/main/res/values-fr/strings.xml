@@ -60,7 +60,6 @@
     <string name="added_title_to_playing_queue">"1 titre ajouté à la file de lecture."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titres ajoutés à la file de lecture.</string>
     <string name="action_remove_from_playlist">Retirer de la playlist</string>
-    <string name="action_view_as">Afficher comme</string>
     <string name="inserted_x_songs_into_playlist_x">%1$d titres ajoutés à la playlist %2$s.</string>
     <string name="created_playlist_x">Playlist %1$s créée.</string>
     <string name="deleted_playlist_x">Playlist %1$s supprimée.</string>
@@ -166,8 +165,6 @@
     <string name="sleep_timer_set">Arrêt de la musique dans %d minutes.</string>
     <string name="action_new_playlist">Nouvelle playlist…</string>
     <string name="new_playlist_title">Nouvelle playlist</string>
-    <string name="grid">Grille</string>
-    <string name="list">Liste</string>
     <string name="colored_footers">Bas des albums colorés</string>
     <string name="special_thanks_to">Un grand merci à</string>
     <string name="changelog">Changelog</string>

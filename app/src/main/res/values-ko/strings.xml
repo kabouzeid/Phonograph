@@ -60,7 +60,6 @@
     <string name="added_title_to_playing_queue">"재생 대기열에 1개의 노래를 추가했습니다."</string>
     <string name="added_x_titles_to_playing_queue">재생 대기열에 %1$d개의 노래를 추가했습니다.</string>
     <string name="action_remove_from_playlist">재생목록에서 제거</string>
-    <string name="action_view_as">보기 방식</string>
     <string name="inserted_x_songs_into_playlist_x">%1$d개의 노래들을 재생목록 %2$s에 추가</string>
     <string name="created_playlist_x">재생 목록 \'%1$s\'을 생성하여습니다.</string>
     <string name="deleted_playlist_x">재생목록 \'%1$s\'을 삭제했습니다.</string>
@@ -166,8 +165,6 @@
     <string name="sleep_timer_set">수면 타이머가 %d분 후로 설정되었습니다.</string>
     <string name="action_new_playlist">새로운 재생목록...</string>
     <string name="new_playlist_title">새로운 재생목록</string>
-    <string name="grid">격자</string>
-    <string name="list">목록</string>
     <string name="colored_footers">색칠된 앨범 카드</string>
     <string name="special_thanks_to">"특별히 감사드립니다 : "</string>
     <string name="changelog">변경점</string>

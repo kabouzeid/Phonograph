@@ -60,7 +60,6 @@
     <string name="added_title_to_playing_queue">"Přidána 1 skladba do fronty."</string>
     <string name="added_x_titles_to_playing_queue">Přidáno %1$d skladeb do fronty.</string>
     <string name="action_remove_from_playlist">Odstranit z playlistu</string>
-    <string name="action_view_as">Zobrazit jako</string>
     <string name="inserted_x_songs_into_playlist_x">Vložit %1$d do playlistu %2$s.</string>
     <string name="created_playlist_x">Vytvořen playlist %1$s</string>
     <string name="deleted_playlist_x">Playlist %1$s smazán</string>
@@ -160,6 +159,4 @@
     <string name="sleep_timer_set">Přehrávání se ukončí za %d minut</string>
     <string name="action_new_playlist">Nový playlist...</string>
     <string name="new_playlist_title">Nový playlist</string>
-    <string name="grid">Mřížka</string>
-    <string name="list">Seznam</string>
 </resources>

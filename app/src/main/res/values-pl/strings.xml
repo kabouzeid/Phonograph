@@ -60,7 +60,6 @@
     <string name="added_title_to_playing_queue">"Dodano 1 tytuł do kolejki odtwarzania"</string>
     <string name="added_x_titles_to_playing_queue">Dodano %1$d tytuły do kolejki odtwarzania</string>
     <string name="action_remove_from_playlist">Usuń z listy odtwarzania</string>
-    <string name="action_view_as">Widok</string>
     <string name="inserted_x_songs_into_playlist_x">Dodano %1$d utwory do listy odtwarzania %2$s</string>
     <string name="created_playlist_x">Utworzono listę odtwarzania %1$s</string>
     <string name="deleted_playlist_x">Usunięto listę odtwarzania %1$s</string>
@@ -166,8 +165,6 @@
     <string name="sleep_timer_set">Wyłącznik czasowy ustawiony na %d minut od teraz</string>
     <string name="action_new_playlist">Nowa lista odtwarzania...</string>
     <string name="new_playlist_title">Nowa lista odtwarzania</string>
-    <string name="grid">Siatka</string>
-    <string name="list">Lista</string>
     <string name="colored_footers">Kolorowe stopki</string>
     <string name="special_thanks_to">Specjalne podziękowania dla</string>
     <string name="changelog">Lista zmian</string>
