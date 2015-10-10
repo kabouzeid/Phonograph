@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
@@ -73,12 +74,12 @@ public class Util {
         }
     }
 
-    public static boolean isTablet(@NonNull final Context context) {
-        return context.getResources().getConfiguration().smallestScreenWidthDp >= 600;
+    public static boolean isTablet(@NonNull final Resources resources) {
+        return resources.getConfiguration().smallestScreenWidthDp >= 600;
     }
 
-    public static boolean isLandscape(@NonNull final Context context) {
-        return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    public static boolean isLandscape(@NonNull final Resources resources) {
+        return resources.getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
     }
 
     public static Drawable resolveDrawable(@NonNull Context context, @AttrRes int drawableAttr) {

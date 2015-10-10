@@ -328,7 +328,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
             AbsMainActivityRecyclerViewCustomGridSizeFragment absMainActivityRecyclerViewCustomGridSizeFragment = (AbsMainActivityRecyclerViewCustomGridSizeFragment) currentFragment;
 
             MenuItem gridSizeItem = menu.findItem(R.id.action_grid_size);
-            if (Util.isLandscape(this)) {
+            if (Util.isLandscape(getResources())) {
                 gridSizeItem.setTitle(R.string.action_grid_size_land);
             }
             setUpGridSizeMenu(absMainActivityRecyclerViewCustomGridSizeFragment, gridSizeItem.getSubMenu());
