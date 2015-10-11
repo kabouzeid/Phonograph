@@ -286,7 +286,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     }
 
     private void setUpRecyclerViewPadding() {
-        recyclerView.setPadding(0, albumArtViewHeight + titleViewHeight, 0, getBottomOffset());
+        recyclerView.setPadding(0, albumArtViewHeight + titleViewHeight, 0, 0);
     }
 
     private void setUpToolBar() {
