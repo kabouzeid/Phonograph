@@ -1,7 +1,5 @@
 package com.kabouzeid.gramophone.ui.activities;
 
-import android.animation.Animator;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
@@ -11,12 +9,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.transition.Transition;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewAnimationUtils;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,13 +22,11 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.song.AlbumSongAdapter;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.imageloader.BlurProcessor;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
-import com.kabouzeid.gramophone.misc.SimpleTransitionListener;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
@@ -70,8 +63,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     ObservableRecyclerView recyclerView;
     @Bind(R.id.image)
     ImageView albumArtImageView;
-    @Bind(R.id.album_art_background)
-    ImageView albumArtBackground;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.title)
@@ -105,38 +96,11 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         setUpObservableListViewParams();
         setUpToolBar();
         setUpViews();
-        animateAlbumArtBackgroundOnEnterTransitionEnd();
     }
 
     @Override
     protected View createContentView() {
         return wrapSlidingMusicPanelAndFab(R.layout.activity_album_detail);
-    }
-
-    private void animateAlbumArtBackgroundOnEnterTransitionEnd() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().getEnterTransition().addListener(new SimpleTransitionListener() {
-                @Override
-                public void onTransitionStart(Transition transition) {
-                    albumArtBackground.setVisibility(View.INVISIBLE);
-                }
-
-                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-                @Override
-                public void onTransitionEnd(Transition transition) {
-                    int cx = (albumArtBackground.getLeft() + albumArtBackground.getRight()) / 2;
-                    int cy = (albumArtBackground.getTop() + albumArtBackground.getBottom()) / 2;
-                    int finalRadius = Math.max(albumArtBackground.getWidth(), albumArtBackground.getHeight());
-
-                    Animator animator = ViewAnimationUtils.createCircularReveal(albumArtBackground, cx, cy, albumArtImageView.getWidth() / 2, finalRadius);
-                    animator.setInterpolator(new DecelerateInterpolator());
-                    animator.setDuration(1000);
-                    animator.start();
-
-                    albumArtBackground.setVisibility(View.VISIBLE);
-                }
-            });
-        }
     }
 
     private final SimpleObservableScrollViewCallbacks observableScrollViewCallbacks = new SimpleObservableScrollViewCallbacks() {
@@ -147,7 +111,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
 
             // Translate album cover
             albumArtImageView.setTranslationY(Math.max(-albumArtViewHeight, -scrollY / 2));
-            albumArtBackground.setTranslationY(Math.max(-albumArtViewHeight, -scrollY / 2));
 
             // Translate list background
             songsBackgroundView.setTranslationY(Math.max(0, -scrollY + albumArtViewHeight));
@@ -218,7 +181,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                 new SimpleImageLoadingListener() {
                     @Override
                     public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
-                        setUpBackground("drawable://" + R.drawable.default_album_art);
                         setColors(ColorUtil.resolveColor(AlbumDetailActivity.this, R.attr.default_bar_color));
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -231,20 +193,11 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                             onLoadingFailed(imageUri, view, null);
                             return;
                         }
-                        setUpBackground(imageUri);
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                             startPostponedEnterTransition();
                     }
                 }
-        );
-    }
-
-    private void setUpBackground(String imageUri) {
-        ImageLoader.getInstance().displayImage(
-                imageUri,
-                albumArtBackground,
-                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor.Builder(this).build()).build()
         );
     }
 

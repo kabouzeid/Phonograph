@@ -23,7 +23,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -50,7 +49,6 @@ import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
 import com.kabouzeid.gramophone.dialogs.SongShareDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.imageloader.BlurProcessor;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.misc.FloatingActionButtonProperties;
 import com.kabouzeid.gramophone.misc.SimpleAnimatorListener;
@@ -130,8 +128,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     RelativeLayout mediaControllerContainer;
     @Bind(R.id.player_media_controller_container_background)
     View mediaControllerContainerBackground;
-    @Bind(R.id.player_album_art_background)
-    ImageView albumArtBackground;
     @Bind(R.id.player_image)
     SquareIfPlaceImageView albumArt;
     @Bind(R.id.player_status_bar)
@@ -167,7 +163,8 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     private Song song;
 
-    private PlayPauseDrawable playPauseDrawable;
+    private PlayPauseDrawable miniPlayerPlayPauseDrawable;
+    private PlayPauseDrawable playerFabPlayPauseDrawable;
 
     private AnimatorSet colorTransitionAnimator;
 
@@ -310,12 +307,13 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     };
 
     private void setUpPlayPauseButtons() {
-        updatePlayPauseDrawableState(false);
+        updatePlayPauseDrawablesStates(false);
 
-        miniPlayerPlayPauseButton.setImageDrawable(playPauseDrawable);
-        playerPlayPauseFab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_keyboard_arrow_up_white_24dp));
+        miniPlayerPlayPauseButton.setImageDrawable(miniPlayerPlayPauseDrawable);
+        playerPlayPauseFab.setImageDrawable(playerFabPlayPauseDrawable);
+
         setUpPlayerPlayPauseFabTint();
-        miniPlayerPlayPauseButton.getDrawable().mutate().setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary), PorterDuff.Mode.SRC_IN);
+        miniPlayerPlayPauseButton.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary), PorterDuff.Mode.SRC_IN);
 
         miniPlayerPlayPauseButton.setOnClickListener(playPauseButtonOnClickListener);
         playerPlayPauseFab.setOnClickListener(playPauseButtonOnClickListener);
@@ -381,6 +379,16 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mediaControllerContainer.setVisibility(View.INVISIBLE);
         }
+        playerPlayPauseFab.post(new Runnable() {
+            @Override
+            public void run() {
+                playerPlayPauseFab.setPivotX(playerPlayPauseFab.getWidth() / 2);
+                playerPlayPauseFab.setPivotY(playerPlayPauseFab.getHeight() / 2);
+            }
+        });
+        playerPlayPauseFab.setScaleX(0f);
+        playerPlayPauseFab.setScaleY(0f);
+        playerPlayPauseFab.setRotation(0f);
         slidingUpPanelLayout.setPanelSlideListener(this);
     }
 
@@ -398,6 +406,9 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mediaControllerContainer.setVisibility(View.INVISIBLE);
         }
+        playerPlayPauseFab.setScaleX(0f);
+        playerPlayPauseFab.setScaleY(0f);
+        playerPlayPauseFab.setRotation(0f);
     }
 
     @Override
@@ -406,17 +417,24 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         if (shouldColorNavigationBar()) {
             super.setNavigationBarColor(lastFooterColor);
         }
+
+        playerPlayPauseFab.animate()
+                .scaleX(1)
+                .scaleY(1)
+                .rotation(360f)
+                .setInterpolator(new DecelerateInterpolator())
+                .start();
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (mediaControllerContainer.getVisibility() == View.INVISIBLE) {
                 int cx = (playerPlayPauseFab.getLeft() + playerPlayPauseFab.getRight()) / 2;
                 int cy = (playerPlayPauseFab.getTop() + playerPlayPauseFab.getBottom()) / 2;
                 int finalRadius = Math.max(mediaControllerContainer.getWidth(), mediaControllerContainer.getHeight());
 
-                final Animator animator = ViewAnimationUtils.createCircularReveal(mediaControllerContainer, cx, cy, playerPlayPauseFab.getWidth() / 2, finalRadius);
+                final Animator animator = ViewAnimationUtils.createCircularReveal(mediaControllerContainer, cx, cy, 0, finalRadius);
                 animator.setInterpolator(new DecelerateInterpolator());
                 animator.setDuration(FAB_CIRCULAR_REVEAL_ANIMATION_TIME);
                 animator.start();
-
                 mediaControllerContainer.setVisibility(View.VISIBLE);
             }
         }
@@ -469,21 +487,26 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         }
     }
 
-    protected void updatePlayPauseDrawableState(boolean animate) {
-        if (playPauseDrawable == null) {
-            playPauseDrawable = new PlayPauseDrawable(this);
+    protected void updatePlayPauseDrawablesStates(boolean animate) {
+        if (miniPlayerPlayPauseDrawable == null) {
+            miniPlayerPlayPauseDrawable = new PlayPauseDrawable(this);
+        }
+        if (playerFabPlayPauseDrawable == null) {
+            playerFabPlayPauseDrawable = new PlayPauseDrawable(this);
         }
         if (MusicPlayerRemote.isPlaying()) {
-            playPauseDrawable.setPause(animate);
+            miniPlayerPlayPauseDrawable.setPause(animate);
+            playerFabPlayPauseDrawable.setPause(animate);
         } else {
-            playPauseDrawable.setPlay(animate);
+            miniPlayerPlayPauseDrawable.setPlay(animate);
+            playerFabPlayPauseDrawable.setPlay(animate);
         }
     }
 
     @Override
     public void onPlayStateChanged() {
         super.onPlayStateChanged();
-        updatePlayPauseDrawableState(true);
+        updatePlayPauseDrawablesStates(true);
     }
 
     protected View wrapSlidingMusicPanelAndFab(@LayoutRes int resId) {
@@ -722,7 +745,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     private void setUpAlbumArtViews() {
-        albumArtBackground.setAlpha(0.7f);
         albumArt.forceSquare(forceSquareAlbumArt);
         if (opaqueStatusBar) {
             if (opaqueToolBar) {
@@ -838,26 +860,13 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                     public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
                         FadeInBitmapDisplayer.animate(view, ViewUtil.DEFAULT_COLOR_ANIMATION_DURATION);
                         setColors(ColorUtil.resolveColor(AbsSlidingMusicPanelActivity.this, R.attr.default_bar_color));
-
-                        ImageLoader.getInstance().displayImage(
-                                "drawable://" + R.drawable.default_album_art,
-                                albumArtBackground,
-                                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor.Builder(AbsSlidingMusicPanelActivity.this).build()).build()
-                        );
                     }
 
                     @Override
                     public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
                         if (loadedImage == null) {
                             onLoadingFailed(imageUri, view, null);
-                            return;
                         }
-
-                        ImageLoader.getInstance().displayImage(
-                                imageUri,
-                                albumArtBackground,
-                                new DisplayImageOptions.Builder().postProcessor(new BlurProcessor.Builder(AbsSlidingMusicPanelActivity.this).build()).build()
-                        );
                     }
                 }
         );
