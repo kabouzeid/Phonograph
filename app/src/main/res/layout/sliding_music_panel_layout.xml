@@ -6,7 +6,6 @@
     android:gravity="bottom"
     sothree:umanoDragView="@+id/player_container"
     sothree:umanoPanelHeight="@dimen/mini_player_height"
-    sothree:umanoParalaxOffset="0dp"
     sothree:umanoShadowHeight="@dimen/card_elevation">
 
     <FrameLayout

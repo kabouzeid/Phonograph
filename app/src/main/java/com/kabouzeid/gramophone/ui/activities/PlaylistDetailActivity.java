@@ -79,7 +79,6 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     }
 
     private void setUpRecyclerView() {
-        setUpRecyclerViewPadding();
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         if (playlist instanceof AbsSmartPlaylist) {
             adapter = new SmartPlaylistSongAdapter(this, loadSmartPlaylistDataSet(), R.layout.item_list, false, this);
@@ -115,10 +114,6 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
                 checkIsEmpty();
             }
         });
-    }
-
-    private void setUpRecyclerViewPadding() {
-        recyclerView.setPadding(0, 0, 0, getBottomOffset());
     }
 
     private void reloadDataSet() {

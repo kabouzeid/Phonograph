@@ -226,7 +226,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     }
 
     private void setUpSongListPadding() {
-        songListView.setPadding(0, artistImageViewHeight + titleViewHeight, 0, getBottomOffset());
+        songListView.setPadding(0, artistImageViewHeight + titleViewHeight, 0, 0);
     }
 
     private void setUpAlbumRecyclerView() {

@@ -63,13 +63,8 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
     }
 
     private void setUpRecyclerView() {
-        setUpRecyclerViewPadding();
         invalidateLayoutManager();
         invalidateAdapter();
-    }
-
-    private void setUpRecyclerViewPadding() {
-        recyclerView.setPadding(0, 0, 0, getMainActivity().getBottomOffset());
     }
 
     protected void invalidateAdapter() {

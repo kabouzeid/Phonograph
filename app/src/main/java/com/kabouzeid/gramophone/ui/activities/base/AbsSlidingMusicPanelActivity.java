@@ -23,6 +23,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -312,7 +313,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         updatePlayPauseDrawableState(false);
 
         miniPlayerPlayPauseButton.setImageDrawable(playPauseDrawable);
-        playerPlayPauseFab.setImageDrawable(getDrawable(R.drawable.ic_keyboard_arrow_up_white_24dp));
+        playerPlayPauseFab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_keyboard_arrow_up_white_24dp));
         setUpPlayerPlayPauseFabTint();
         miniPlayerPlayPauseButton.getDrawable().mutate().setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary), PorterDuff.Mode.SRC_IN);
 
