@@ -21,7 +21,6 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -237,8 +236,6 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
                         Pair[] albumPairs = new Pair[]{
                                 Pair.create(image, activity.getResources().getString(R.string.transition_album_art))
                         };
-                        if (activity instanceof AbsSlidingMusicPanelActivity)
-                            albumPairs = ((AbsSlidingMusicPanelActivity) activity).addPlayPauseFabToSharedViews(albumPairs);
                         NavigationUtil.goToAlbum(activity, getSong().albumId, albumPairs);
                         return true;
                 }

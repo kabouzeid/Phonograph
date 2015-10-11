@@ -2,7 +2,6 @@ package com.kabouzeid.gramophone.ui.activities.base;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
-import android.animation.ArgbEvaluator;
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Context;
@@ -24,7 +23,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.util.Pair;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -96,20 +94,20 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     private static final int FAB_CIRCULAR_REVEAL_ANIMATION_TIME = 1000;
 
-    @Bind(R.id.play_pause_fab)
-    FloatingActionButton playPauseButton;
     @Bind(R.id.sliding_layout)
     SlidingUpPanelLayout slidingUpPanelLayout;
 
     @Bind(R.id.mini_player)
-    FrameLayout miniPlayer;
+    LinearLayout miniPlayer;
     @Bind(R.id.mini_player_title)
     TextView miniPlayerTitle;
     @Bind(R.id.mini_player_image)
     ImageView miniPlayerImage;
+    @Bind(R.id.mini_player_play_pause_button)
+    ImageView miniPlayerPlayPauseButton;
 
-    @Bind(R.id.player_dummy_fab)
-    View dummyFab;
+    @Bind(R.id.player_play_pause_fab)
+    FloatingActionButton playerPlayPauseFab;
 
     @Bind(R.id.player_title)
     TextView songTitle;
@@ -131,8 +129,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     RelativeLayout mediaControllerContainer;
     @Bind(R.id.player_media_controller_container_background)
     View mediaControllerContainerBackground;
-    @Bind(R.id.player_footer_frame)
-    LinearLayout footerFrame;
     @Bind(R.id.player_album_art_background)
     ImageView albumArtBackground;
     @Bind(R.id.player_image)
@@ -174,8 +170,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     private AnimatorSet colorTransitionAnimator;
 
-    private ArgbEvaluator argbEvaluator = new ArgbEvaluator();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -185,7 +179,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         initAppearanceVarsFromSharedPrefs();
         PreferenceUtil.getInstance(this).registerOnSharedPreferenceChangedListener(this);
 
-        setUpPlayPauseButton();
+        setUpPlayPauseButtons();
         setUpMiniPlayer();
         setUpSlidingPanel();
 
@@ -198,21 +192,14 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
         progressViewsUpdateHandler = new MusicProgressViewsUpdateHandler(this);
 
-        // I know the nested post calls are ugly, but this is necessary for the fab to be in the right position!
-        playPauseButton.post(new Runnable() {
+        slidingUpPanelLayout.post(new Runnable() {
             @Override
             public void run() {
-                dummyFab.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        playPauseButton.requestLayout();
-                        if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
-                            mediaControllerContainer.setVisibility(View.VISIBLE);
-                            onPanelSlide(slidingUpPanelLayout, 1);
-                            onPanelExpanded(slidingUpPanelLayout);
-                        }
-                    }
-                });
+                if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                    mediaControllerContainer.setVisibility(View.VISIBLE);
+                    onPanelSlide(slidingUpPanelLayout, 1);
+                    onPanelExpanded(slidingUpPanelLayout);
+                }
             }
         });
     }
@@ -245,7 +232,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
-        hideBottomBarIfQueueIsEmpty();
+        hideBottomBar(MusicPlayerRemote.getPlayingQueue().isEmpty());
         super.onServiceConnected(name, service);
     }
 
@@ -302,7 +289,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                 updateRepeatState();
                 updateShuffleState();
                 setUpProgressSliderTint();
-                setUpPlayPauseButtonTint();
+                setUpPlayerPlayPauseFabTint();
                 break;
             case PreferenceUtil.HIDE_BOTTOM_BAR:
                 recreate();
@@ -310,46 +297,32 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         }
     }
 
-    private void setUpPlayPauseButton() {
-        updateFabState(false);
-
-        playPauseButton.setImageDrawable(playPauseDrawable);
-
-        setUpPlayPauseButtonTint();
-
-        final GestureDetector gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
-            @Override
-            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                toggleSlidingPanel();
-                return true;
+    private View.OnClickListener playPauseButtonOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (MusicPlayerRemote.isPlaying()) {
+                MusicPlayerRemote.pauseSong();
+            } else {
+                MusicPlayerRemote.resumePlaying();
             }
-        });
+        }
+    };
 
-        playPauseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (MusicPlayerRemote.getPosition() != -1) {
-                    if (MusicPlayerRemote.isPlaying()) {
-                        MusicPlayerRemote.pauseSong();
-                    } else {
-                        MusicPlayerRemote.resumePlaying();
-                    }
-                }
-            }
-        });
+    private void setUpPlayPauseButtons() {
+        updatePlayPauseDrawableState(false);
 
-        playPauseButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, @NonNull MotionEvent event) {
-                gestureDetector.onTouchEvent(event);
-                return false;
-            }
-        });
+        miniPlayerPlayPauseButton.setImageDrawable(playPauseDrawable);
+        playerPlayPauseFab.setImageDrawable(getDrawable(R.drawable.ic_keyboard_arrow_up_white_24dp));
+        setUpPlayerPlayPauseFabTint();
+        miniPlayerPlayPauseButton.getDrawable().mutate().setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary), PorterDuff.Mode.SRC_IN);
+
+        miniPlayerPlayPauseButton.setOnClickListener(playPauseButtonOnClickListener);
+        playerPlayPauseFab.setOnClickListener(playPauseButtonOnClickListener);
     }
 
-    private void setUpPlayPauseButtonTint() {
-        int fabColor = colorPlaybackControls && slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED ? lastPlaybackControlsColor : getThemeColorAccent();
-        FloatingActionButtonProperties.COLOR.set(playPauseButton, fabColor);
+    private void setUpPlayerPlayPauseFabTint() {
+        int fabColor = colorPlaybackControls ? lastPlaybackControlsColor : getThemeColorAccent();
+        FloatingActionButtonProperties.COLOR.set(playerPlayPauseFab, fabColor);
     }
 
     private static class FlingPlayBackController implements View.OnTouchListener {
@@ -394,7 +367,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
         setMiniPlayerColor(ColorUtil.resolveColor(this, R.attr.cardBackgroundColor));
 
-        miniPlayerImage.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_equalizer_white_24dp,
+        miniPlayerImage.setImageDrawable(Util.getTintedDrawable(this, R.drawable.ic_keyboard_arrow_up_white_24dp,
                 ColorUtil.resolveColor(this, android.R.attr.textColorSecondary)));
     }
 
@@ -412,8 +385,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     @Override
     public void onPanelSlide(View view, @FloatRange(from = 0, to = 1) float slideOffset) {
-        setFabPositionProgress(slideOffset);
-        setFabColorProgress(slideOffset);
         setMiniPlayerAlphaProgress(slideOffset);
     }
 
@@ -436,11 +407,11 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (mediaControllerContainer.getVisibility() == View.INVISIBLE) {
-                int cx = (dummyFab.getLeft() + dummyFab.getRight()) / 2;
-                int cy = (dummyFab.getTop() + dummyFab.getBottom()) / 2;
+                int cx = (playerPlayPauseFab.getLeft() + playerPlayPauseFab.getRight()) / 2;
+                int cy = (playerPlayPauseFab.getTop() + playerPlayPauseFab.getBottom()) / 2;
                 int finalRadius = Math.max(mediaControllerContainer.getWidth(), mediaControllerContainer.getHeight());
 
-                final Animator animator = ViewAnimationUtils.createCircularReveal(mediaControllerContainer, cx, cy, dummyFab.getWidth() / 2, finalRadius);
+                final Animator animator = ViewAnimationUtils.createCircularReveal(mediaControllerContainer, cx, cy, playerPlayPauseFab.getWidth() / 2, finalRadius);
                 animator.setInterpolator(new DecelerateInterpolator());
                 animator.setDuration(FAB_CIRCULAR_REVEAL_ANIMATION_TIME);
                 animator.start();
@@ -463,27 +434,8 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     private void setMiniPlayerAlphaProgress(@FloatRange(from = 0, to = 1) float progress) {
         float alpha = 1 - progress;
         miniPlayer.setAlpha(alpha);
+        // necessary to make the views below clickable
         miniPlayer.setVisibility(alpha == 0 ? View.GONE : View.VISIBLE);
-    }
-
-    private void setFabPositionProgress(@FloatRange(from = 0, to = 1) float progress) {
-        float newXTranslation = (dummyFab.getX() + mediaControllerContainer.getX() + footerFrame.getX() - playPauseButton.getLeft()) * progress;
-        float newYTranslation = (dummyFab.getY() + mediaControllerContainer.getY() + footerFrame.getY() - playPauseButton.getTop()) * progress;
-
-        playPauseButton.setTranslationX(newXTranslation);
-        playPauseButton.setTranslationY(newYTranslation);
-    }
-
-    private void setFabColorProgress(@FloatRange(from = 0, to = 1) float progress) {
-        int startColor = getThemeColorAccent();
-        int endColor;
-        if (colorPlaybackControls) {
-            endColor = lastPlaybackControlsColor;
-        } else {
-            endColor = startColor;
-        }
-        int newFabColor = (int) argbEvaluator.evaluate(progress, startColor, endColor);
-        FloatingActionButtonProperties.COLOR.set(playPauseButton, newFabColor);
     }
 
     private void toggleSlidingPanel() {
@@ -520,7 +472,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         return getResources().getDimensionPixelSize(R.dimen.bottom_offset_fab_activity) - slidingUpPanelLayout.getPanelHeight();
     }
 
-    protected void updateFabState(boolean animate) {
+    protected void updatePlayPauseDrawableState(boolean animate) {
         if (playPauseDrawable == null) {
             playPauseDrawable = new PlayPauseDrawable(this);
         }
@@ -531,22 +483,10 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         }
     }
 
-    public final Pair[] addPlayPauseFabToSharedViews(@Nullable final Pair... sharedElements) {
-        Pair[] sharedViewsWithFab;
-        if (sharedElements != null) {
-            sharedViewsWithFab = new Pair[sharedElements.length + 1];
-            System.arraycopy(sharedElements, 0, sharedViewsWithFab, 0, sharedElements.length);
-        } else {
-            sharedViewsWithFab = new Pair[1];
-        }
-        sharedViewsWithFab[sharedViewsWithFab.length - 1] = Pair.create((View) playPauseButton, getString(R.string.transition_fab));
-        return sharedViewsWithFab;
-    }
-
     @Override
     public void onPlayStateChanged() {
         super.onPlayStateChanged();
-        updateFabState(true);
+        updatePlayPauseDrawableState(true);
     }
 
     protected View wrapSlidingMusicPanelAndFab(@LayoutRes int resId) {
@@ -850,21 +790,11 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     private void updateCurrentSong() {
-        hideBottomBarIfQueueIsEmpty();
+        hideBottomBar(MusicPlayerRemote.getPlayingQueue().isEmpty());
         getCurrentSong();
         updateMiniPlayerAndHeaderText();
         setUpAlbumArtAndApplyPalette();
         updatePlayerMenu();
-    }
-
-    private void hideBottomBarIfQueueIsEmpty() {
-        if (MusicPlayerRemote.getPlayingQueue().isEmpty()) {
-            playPauseButton.setVisibility(View.GONE);
-            hideBottomBar(true);
-        } else {
-            playPauseButton.setVisibility(View.VISIBLE);
-            hideBottomBar(PreferenceUtil.getInstance(this).hideBottomBar());
-        }
     }
 
     private void getCurrentSong() {
@@ -991,7 +921,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                 updateRepeatState();
                 updateShuffleState();
                 setUpProgressSliderTint();
-                setUpPlayPauseButtonTint();
+                setUpPlayerPlayPauseFabTint();
             }
         });
 
@@ -1098,10 +1028,10 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                 SongDetailDialog.create(song).show(getSupportFragmentManager(), "SONG_DETAIL");
                 return true;
             case R.id.action_go_to_album:
-                NavigationUtil.goToAlbum(this, song.albumId, addPlayPauseFabToSharedViews());
+                NavigationUtil.goToAlbum(this, song.albumId);
                 return true;
             case R.id.action_go_to_artist:
-                NavigationUtil.goToArtist(this, song.artistId, addPlayPauseFabToSharedViews());
+                NavigationUtil.goToArtist(this, song.artistId);
                 return true;
         }
         return false;

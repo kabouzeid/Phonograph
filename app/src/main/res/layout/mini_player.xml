@@ -1,35 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    android:id="@+id/mini_player"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mini_player"
     android:layout_width="match_parent"
     android:layout_height="@dimen/mini_player_height"
     android:clickable="true"
-    android:focusable="false">
+    android:focusable="false"
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/mini_player_image"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_gravity="center_vertical"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_margin="16dp"
         android:scaleType="centerCrop"
         tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/mini_player_title"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginEnd="88dp"
-        android:layout_marginLeft="72dp"
-        android:layout_marginRight="88dp"
-        android:layout_marginStart="72dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
         android:gravity="center_vertical"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/mini_player_play_pause_button"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="16dp"
+        android:scaleType="centerCrop"
+        tools:ignore="ContentDescription" />
+
+</LinearLayout>

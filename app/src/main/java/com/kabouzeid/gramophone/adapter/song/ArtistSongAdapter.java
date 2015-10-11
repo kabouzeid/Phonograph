@@ -22,7 +22,6 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -106,8 +105,6 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
                     Pair[] albumPairs = new Pair[]{
                             Pair.create(albumArt, activity.getResources().getString(R.string.transition_album_art))
                     };
-                    if (activity instanceof AbsSlidingMusicPanelActivity)
-                        albumPairs = ((AbsSlidingMusicPanelActivity) activity).addPlayPauseFabToSharedViews(albumPairs);
                     NavigationUtil.goToAlbum(activity, song.albumId, albumPairs);
                     return true;
                 }

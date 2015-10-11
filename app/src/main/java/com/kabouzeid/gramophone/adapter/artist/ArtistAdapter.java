@@ -21,7 +21,6 @@ import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -208,8 +207,6 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
                         Pair.create(image,
                                 activity.getResources().getString(R.string.transition_artist_image)
                         )};
-                if (activity instanceof AbsSlidingMusicPanelActivity)
-                    artistPairs = ((AbsSlidingMusicPanelActivity) activity).addPlayPauseFabToSharedViews(artistPairs);
                 NavigationUtil.goToArtist(activity, dataSet.get(getAdapterPosition()).id, artistPairs);
             }
         }
