@@ -6,10 +6,12 @@ import com.nostra13.universalimageloader.core.DefaultConfigurationFactory;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.LoadAndDisplayImageTask;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.ImageDownloader;
 
 import java.io.File;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * A custom {@link Executor} meant for kabouzeid's fork of nostra13's Android Universal Image Loader (https://github.com/kabouzeid/Android-Universal-Image-Loader).
@@ -22,21 +24,22 @@ import java.util.concurrent.Executor;
 public class PhonographExecutor implements Executor {
     public static final String TAG = PhonographExecutor.class.getSimpleName();
 
-    private Executor localTaskExecutor;
-    private Executor networkTaskExecutor;
+    private static final int SECONDARY_THREAD_COUNT = 1; // must be more than ImageLoaderConfiguration.Builder.DEFAULT_THREAD_POOL_SIZE
 
-    // The thread pool size here needs further testing. Maybe the 2 additional Threads of the networkTaskExecutor are to much for lower end devices.
+    private ThreadPoolExecutor primaryExecutor;
+    private ThreadPoolExecutor secondaryExecutor;
+
     public PhonographExecutor() {
-        localTaskExecutor = DefaultConfigurationFactory.createExecutor(
-                ImageLoaderConfiguration.Builder.DEFAULT_THREAD_POOL_SIZE,
+        primaryExecutor = (ThreadPoolExecutor) DefaultConfigurationFactory.createExecutor(
+                ImageLoaderConfiguration.Builder.DEFAULT_THREAD_POOL_SIZE - SECONDARY_THREAD_COUNT,
                 ImageLoaderConfiguration.Builder.DEFAULT_THREAD_PRIORITY,
                 ImageLoaderConfiguration.Builder.DEFAULT_TASK_PROCESSING_TYPE
         );
 
-        networkTaskExecutor = DefaultConfigurationFactory.createExecutor(
-                2,
+        secondaryExecutor = (ThreadPoolExecutor) DefaultConfigurationFactory.createExecutor(
+                SECONDARY_THREAD_COUNT,
                 ImageLoaderConfiguration.Builder.DEFAULT_THREAD_PRIORITY,
-                ImageLoaderConfiguration.Builder.DEFAULT_TASK_PROCESSING_TYPE
+                QueueProcessingType.FIFO
         );
     }
 
@@ -50,11 +53,16 @@ public class PhonographExecutor implements Executor {
                     File imageFile = ImageLoader.getInstance().getDiskCache().get(uri);
                     if (imageFile == null || !imageFile.exists() || imageFile.length() <= 0) {
                         // the image is not yet in the disk cache
-                        networkTaskExecutor.execute(command);
+                        secondaryExecutor.execute(command);
                         return;
                     }
             }
         }
-        localTaskExecutor.execute(command);
+        if (secondaryExecutor.getActiveCount() < secondaryExecutor.getPoolSize()) {
+            // if the secondary executor got unused threads left, use them!
+            secondaryExecutor.execute(command);
+        } else {
+            primaryExecutor.execute(command);
+        }
     }
 }
