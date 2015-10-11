@@ -94,93 +94,106 @@
 
         </LinearLayout>
 
-        <RelativeLayout
-            android:id="@+id/player_media_controller_container"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/media_controller_container_height"
-            tools:ignore="ContentDescription,UnusedAttribute">
+            android:layout_height="match_parent">
 
-            <View
-                android:id="@+id/player_media_controller_container_background"
+            <RelativeLayout
+                android:id="@+id/player_media_controller_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?music_controller_container_color" />
+                android:layout_height="@dimen/media_controller_container_height"
+                tools:ignore="ContentDescription,UnusedAttribute">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/player_playback_controller_card"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="16dp"
-                android:visibility="gone"
-                app:cardBackgroundColor="?music_controller_container_color"
-                app:elevation="@dimen/card_elevation" />
+                <View
+                    android:id="@+id/player_media_controller_container_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?music_controller_container_color" />
 
-            <ImageButton
-                android:id="@+id/player_prev_button"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/tmp_now_playing_skip_rewind_margin"
-                android:layout_marginRight="@dimen/tmp_now_playing_skip_rewind_margin"
-                android:layout_toLeftOf="@+id/player_play_pause_fab"
-                android:layout_toStartOf="@+id/player_play_pause_fab"
-                android:background="?round_selector"
-                android:elevation="8dp"
-                android:padding="22dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_skip_previous_white_36dp" />
+                <android.support.v7.widget.CardView
+                    android:id="@+id/player_playback_controller_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:visibility="gone"
+                    app:cardBackgroundColor="?music_controller_container_color"
+                    app:elevation="@dimen/card_elevation" />
 
-            <ImageButton
-                android:id="@+id/player_next_button"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/tmp_now_playing_skip_rewind_margin"
-                android:layout_marginStart="@dimen/tmp_now_playing_skip_rewind_margin"
-                android:layout_toEndOf="@+id/player_play_pause_fab"
-                android:layout_toRightOf="@+id/player_play_pause_fab"
-                android:background="?round_selector"
-                android:elevation="8dp"
-                android:padding="22dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_skip_next_white_36dp" />
+                <ImageButton
+                    android:id="@+id/player_prev_button"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/tmp_now_playing_skip_rewind_margin"
+                    android:layout_marginRight="@dimen/tmp_now_playing_skip_rewind_margin"
+                    android:layout_toLeftOf="@+id/dummy_fab"
+                    android:layout_toStartOf="@+id/dummy_fab"
+                    android:background="?round_selector"
+                    android:elevation="8dp"
+                    android:padding="22dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_skip_previous_white_36dp" />
 
-            <ImageButton
-                android:id="@+id/player_repeat_button"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="24dp"
-                android:layout_marginStart="24dp"
-                android:background="?round_selector"
-                android:elevation="8dp"
-                android:padding="22dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_repeat_white_36dp" />
+                <ImageButton
+                    android:id="@+id/player_next_button"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/tmp_now_playing_skip_rewind_margin"
+                    android:layout_marginStart="@dimen/tmp_now_playing_skip_rewind_margin"
+                    android:layout_toEndOf="@+id/dummy_fab"
+                    android:layout_toRightOf="@+id/dummy_fab"
+                    android:background="?round_selector"
+                    android:elevation="8dp"
+                    android:padding="22dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_skip_next_white_36dp" />
 
-            <ImageButton
-                android:id="@+id/player_shuffle_button"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="24dp"
-                android:layout_marginRight="24dp"
-                android:background="?round_selector"
-                android:elevation="8dp"
-                android:padding="22dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_shuffle_white_36dp" />
+                <ImageButton
+                    android:id="@+id/player_repeat_button"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginStart="24dp"
+                    android:background="?round_selector"
+                    android:elevation="8dp"
+                    android:padding="22dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_repeat_white_36dp" />
+
+                <ImageButton
+                    android:id="@+id/player_shuffle_button"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="24dp"
+                    android:background="?round_selector"
+                    android:elevation="8dp"
+                    android:padding="22dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_shuffle_white_36dp" />
+
+                <View
+                    android:id="@+id/dummy_fab"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_centerInParent="true"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/player_play_pause_fab"
                 style="@style/PlayPauseFab"
-                android:layout_centerInParent="true" />
+                android:layout_gravity="center" />
 
-        </RelativeLayout>
+        </FrameLayout>
 
     </LinearLayout>
 
@@ -192,13 +205,6 @@
         android:layout_height="match_parent"
         android:layout_above="@id/player_footer_frame"
         android:background="@android:color/black">
-
-        <ImageView
-            android:id="@+id/player_album_art_background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            tools:ignore="ContentDescription" />
 
         <com.kabouzeid.gramophone.views.SquareIfPlaceImageView
             android:id="@+id/player_image"

@@ -3,29 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <FrameLayout
+    <com.kabouzeid.gramophone.views.SquareIfPlaceImageView
+        android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/header_image_height"
-        android:background="?android:colorBackground">
-
-        <ImageView
-            android:id="@+id/artist_image_background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            tools:ignore="ContentDescription" />
-
-        <com.kabouzeid.gramophone.views.SquareIfPlaceImageView
-            android:id="@+id/image"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/header_image_height"
-            android:layout_gravity="center"
-            android:scaleType="centerCrop"
-            android:src="@drawable/default_artist_image"
-            android:transitionName="@string/transition_artist_image"
-            tools:ignore="ContentDescription,UnusedAttribute" />
-    </FrameLayout>
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_artist_image"
+        android:transitionName="@string/transition_artist_image"
+        tools:ignore="ContentDescription,UnusedAttribute" />
 
     <View
         android:id="@+id/list_background"
