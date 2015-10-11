@@ -469,10 +469,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         }
     }
 
-    public int getBottomOffset() {
-        return getResources().getDimensionPixelSize(R.dimen.bottom_offset_fab_activity) - slidingUpPanelLayout.getPanelHeight();
-    }
-
     protected void updatePlayPauseDrawableState(boolean animate) {
         if (playPauseDrawable == null) {
             playPauseDrawable = new PlayPauseDrawable(this);
