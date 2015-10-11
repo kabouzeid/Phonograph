@@ -62,6 +62,5 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="list_item_image_icon_padding">8dp</dimen>
 
     <dimen name="mini_player_height">48dp</dimen>
-    <dimen name="bottom_offset_fab_activity">92dp</dimen>
 
 </resources>
