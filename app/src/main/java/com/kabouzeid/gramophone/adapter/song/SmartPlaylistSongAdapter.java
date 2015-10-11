@@ -11,7 +11,6 @@ import android.view.View;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 
 import java.util.ArrayList;
@@ -54,8 +53,6 @@ public class SmartPlaylistSongAdapter extends SongAdapter {
                 Pair[] albumPairs = new Pair[]{
                         Pair.create(image, activity.getString(R.string.transition_album_art))
                 };
-                if (activity instanceof AbsSlidingMusicPanelActivity)
-                    albumPairs = ((AbsSlidingMusicPanelActivity) activity).addPlayPauseFabToSharedViews(albumPairs);
                 NavigationUtil.goToAlbum(activity, dataSet.get(getAdapterPosition()).albumId, albumPairs);
                 return true;
             }

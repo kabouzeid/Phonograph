@@ -176,11 +176,9 @@
                 android:src="@drawable/ic_shuffle_white_36dp" />
 
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/player_dummy_fab"
+                android:id="@+id/player_play_pause_fab"
                 style="@style/PlayPauseFab"
-                android:layout_centerInParent="true"
-                android:layout_margin="0dp"
-                android:visibility="invisible" />
+                android:layout_centerInParent="true" />
 
         </RelativeLayout>
 

@@ -1,46 +1,31 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sliding_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    sothree:umanoDragView="@+id/player_container"
+    sothree:umanoPanelHeight="@dimen/mini_player_height"
+    sothree:umanoParalaxOffset="0dp"
+    sothree:umanoShadowHeight="@dimen/card_elevation">
 
-    <com.sothree.slidinguppanel.SlidingUpPanelLayout
-        android:id="@+id/sliding_layout"
+    <FrameLayout
+        android:id="@+id/content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:id="@+id/player_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="bottom"
-        sothree:umanoDragView="@+id/player_container"
-        sothree:umanoPanelHeight="@dimen/mini_player_height"
-        sothree:umanoParalaxOffset="0dp"
-        sothree:umanoShadowHeight="@dimen/card_elevation">
+        android:background="?android:colorBackground"
+        android:clickable="true"
+        android:focusable="false">
 
-        <FrameLayout
-            android:id="@+id/content_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <include layout="@layout/player" />
 
-        <FrameLayout
-            android:id="@+id/player_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?android:colorBackground"
-            android:clickable="true"
-            android:focusable="false">
+        <include layout="@layout/mini_player" />
 
-            <include layout="@layout/player" />
+    </FrameLayout>
 
-            <include layout="@layout/mini_player" />
-
-        </FrameLayout>
-
-    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/play_pause_fab"
-        style="@style/PlayPauseFab"
-        android:layout_gravity="end|bottom"
-        android:layout_marginBottom="@dimen/fab_margin_bottom"
-        android:layout_marginLeft="@dimen/fab_margin_top_left_right"
-        android:layout_marginRight="@dimen/fab_margin_top_left_right"
-        android:layout_marginTop="@dimen/fab_margin_top_left_right" />
-
-</FrameLayout>
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

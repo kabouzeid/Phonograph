@@ -15,7 +15,7 @@ public class FloatingActionButtonProperties {
         @Override
         public void set(FloatingActionButton object, Integer value) {
             object.setBackgroundTintList(ColorStateList.valueOf(value));
-            object.getDrawable().setColorFilter(ColorUtil.getPrimaryTextColorForBackground(object.getContext(), value), PorterDuff.Mode.SRC_IN);
+            object.getDrawable().mutate().setColorFilter(ColorUtil.getPrimaryTextColorForBackground(object.getContext(), value), PorterDuff.Mode.SRC_IN);
         }
 
         @Override

@@ -2,7 +2,6 @@ package com.kabouzeid.gramophone.helper.menu;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +14,6 @@ import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
@@ -58,16 +56,10 @@ public class SongMenuHelper {
                 SongDetailDialog.create(song).show(activity.getSupportFragmentManager(), "SONG_DETAILS");
                 return true;
             case R.id.action_go_to_album:
-                Pair[] albumPairs = null;
-                if (activity instanceof AbsSlidingMusicPanelActivity)
-                    albumPairs = ((AbsSlidingMusicPanelActivity) activity).addPlayPauseFabToSharedViews();
-                NavigationUtil.goToAlbum(activity, song.albumId, albumPairs);
+                NavigationUtil.goToAlbum(activity, song.albumId);
                 return true;
             case R.id.action_go_to_artist:
-                Pair[] artistPairs = null;
-                if (activity instanceof AbsSlidingMusicPanelActivity)
-                    artistPairs = ((AbsSlidingMusicPanelActivity) activity).addPlayPauseFabToSharedViews();
-                NavigationUtil.goToArtist(activity, song.artistId, artistPairs);
+                NavigationUtil.goToArtist(activity, song.artistId);
                 return true;
         }
         return false;

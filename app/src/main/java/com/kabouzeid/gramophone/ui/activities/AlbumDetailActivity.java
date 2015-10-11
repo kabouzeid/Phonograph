@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.util.Pair;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -360,8 +359,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                 startActivityForResult(intent, TAG_EDITOR_REQUEST);
                 return true;
             case R.id.action_go_to_artist:
-                Pair[] artistPairs = addPlayPauseFabToSharedViews();
-                NavigationUtil.goToArtist(this, album.artistId, artistPairs);
+                NavigationUtil.goToArtist(this, album.artistId);
                 return true;
         }
         return super.onOptionsItemSelected(item);
