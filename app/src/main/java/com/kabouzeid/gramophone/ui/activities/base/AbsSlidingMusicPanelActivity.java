@@ -289,9 +289,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                 setUpProgressSliderTint();
                 setUpPlayerPlayPauseFabTint();
                 break;
-            case PreferenceUtil.HIDE_BOTTOM_BAR:
-                recreate();
-                break;
         }
     }
 
@@ -353,8 +350,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     private void setUpMiniPlayer() {
-        hideBottomBar(PreferenceUtil.getInstance(this).hideBottomBar());
-
         miniPlayer.setOnTouchListener(new FlingPlayBackController(this));
 
         miniPlayer.setOnClickListener(new View.OnClickListener() {
