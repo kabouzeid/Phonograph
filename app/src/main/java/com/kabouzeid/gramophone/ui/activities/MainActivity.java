@@ -62,7 +62,6 @@ import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -121,7 +120,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         @SuppressLint("InflateParams")
         View contentView = getLayoutInflater().inflate(R.layout.activity_main_drawer_layout, null);
         ViewGroup drawerContent = ButterKnife.findById(contentView, R.id.drawer_content_container);
-        drawerContent.addView(wrapSlidingMusicPanelAndFab(R.layout.activity_main_content));
+        drawerContent.addView(wrapSlidingMusicPanel(R.layout.activity_main_content));
         return contentView;
     }
 
@@ -261,8 +260,8 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                     @Override
                     public void onClick(View v) {
                         drawerLayout.closeDrawers();
-                        if (getSlidingUpPanelLayout().getPanelState() != SlidingUpPanelLayout.PanelState.EXPANDED) {
-                            getSlidingUpPanelLayout().setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                        if (isPanelCollapsed()) {
+                            toggleSlidingPanel();
                         }
                     }
                 });
@@ -564,44 +563,8 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         return pagerAdapter.getFragment(pager.getCurrentItem());
     }
 
-//    private boolean isArtistPage() {
-//        return pager.getCurrentItem() == PagerAdapter.MusicFragments.ARTIST.ordinal();
-//    }
-//
-//    public ArtistsFragment getArtistFragment() {
-//        return (ArtistsFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.ARTIST.ordinal());
-//    }
-//
-//    private boolean isAlbumPage() {
-//        return pager.getCurrentItem() == PagerAdapter.MusicFragments.ALBUM.ordinal();
-//    }
-//
-//    public AlbumsFragment getAlbumFragment() {
-//        return (AlbumsFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.ALBUM.ordinal());
-//    }
-//
-//    private boolean isSongPage() {
-//        return pager.getCurrentItem() == PagerAdapter.MusicFragments.SONG.ordinal();
-//    }
-//
-//    public SongsFragment getSongFragment() {
-//        return (SongsFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.SONG.ordinal());
-//    }
-
     private boolean isPlaylistPage() {
         return pager.getCurrentItem() == PagerAdapter.MusicFragments.PLAYLIST.ordinal();
-    }
-
-//    public PlaylistsFragment getPlaylistFragment() {
-//        return (PlaylistsFragment) pagerAdapter.getFragment(PagerAdapter.MusicFragments.PLAYLIST.ordinal());
-//    }
-
-
-    @Override
-    protected void showOverflowMenu() {
-        super.showOverflowMenu();
-        if (toolbar != null && getSlidingUpPanelLayout().getPanelState() != SlidingUpPanelLayout.PanelState.EXPANDED)
-            toolbar.showOverflowMenu();
     }
 
     @Override

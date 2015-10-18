@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.widget.FrameLayout;
 
-import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.Util;
@@ -58,7 +57,7 @@ public class FastScroller extends FrameLayout {
         handle = findViewById(R.id.scroll_handle);
         bar = findViewById(R.id.scroll_bar);
         handle.setEnabled(true);
-        setPressedHandleColor(ThemeSingleton.get().positiveColor.getDefaultColor());
+        setPressedHandleColor(ColorUtil.resolveColor(getContext(), R.attr.colorControlActivated));
         setUpBarBackground();
         postDelayed(handleHider, HANDLE_HIDE_DELAY);
     }
