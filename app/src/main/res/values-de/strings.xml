@@ -60,6 +60,8 @@
     <string name="added_title_to_playing_queue">"1 Titel wurde der Warteschlange hinzugefügt."</string>
     <string name="added_x_titles_to_playing_queue">%1$d Titel wurden der Warteschlange hinzugefügt.</string>
     <string name="action_remove_from_playlist">Aus Wiedergabeliste entfernen</string>
+    <string name="action_grid_size">Rastergröße</string>
+    <string name="action_grid_size_land">Rastergröße (Querformat)</string>
     <string name="inserted_x_songs_into_playlist_x">%1$d Titel wurden der Wiedergabeliste %2$s hinzugefügt.</string>
     <string name="created_playlist_x">Wiedergabeliste %1$s erstellt.</string>
     <string name="deleted_playlist_x">Wiedergabeliste %1$s gelöscht.</string>
@@ -109,7 +111,6 @@
     <string name="pref_title_alternative_progress_slider_now_playing">Alternativer Progress Slider</string>
     <string name="pref_title_playback_controller_card_now_playing">Karte hinter Wiedergabesteuerung</string>
     <string name="pref_title_colored_playback_controls_now_playing">Farbige Wiedergabesteuerung</string>
-    <string name="pref_title_hide_bottom_bar">Verstecke die untere Leiste</string>
     <string name="no_equalizer">Kein Equalizer gefunden.</string>
     <string name="no_audio_ID">"Keine Audio ID, spiele etwas ab und versuche es erneut."</string>
     <string name="delete_action">Löschen</string>
@@ -144,7 +145,6 @@
     <string name="pref_summary_alternative_progress_slider_now_playing">Benutzt einen Balken als Progress Slider anstatt dem normalen Progress Slider.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Zeigt eine Karte hinter der Wiedergabesteuerung.</string>
     <string name="pref_summary_ignore_media_store_artwork">Kann die Album Cover Qualität verbessern was jedoch die Ladezeit beeinträchtigt. Nur aktivieren falls Probleme mit niedrig aufgelösten Album Covern auftreten.</string>
-    <string name="pref_summary_hide_bottom_bar">Versteckt die untere Leiste mit der momentanen Wiedergabe-Information. Man kann aber immer noch den Play/Pause Knopf in jede Richtung ziehen um die momentane Wiedergabe anzuzeigen.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Der Play/Pause, Shuffle und Repeat Schalter sowie der Progress Slider sind in der Farbe des Album Covers gef\u00e4rbt.</string>
     <string name="pref_summary_colored_navigation_bar">Färbt die Navigationsleiste mit der Hauptfarbe.</string>
     <string name="could_not_download_album_cover">"Es konnte kein passendes Album Cover heruntergeladen werden."</string>

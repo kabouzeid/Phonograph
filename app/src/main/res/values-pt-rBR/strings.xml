@@ -60,6 +60,8 @@
     <string name="added_title_to_playing_queue">"1 título adicionado à fila de reprodução"</string>
     <string name="added_x_titles_to_playing_queue">%1$d faixas adicionadas à fila de reprodução.</string>
     <string name="action_remove_from_playlist">Remover da playlist</string>
+    <string name="action_grid_size">Número de colunas</string>
+    <string name="action_grid_size_land">Número de colunas (horizontal)</string>
     <string name="inserted_x_songs_into_playlist_x">Inserido %1$d músicas na playlist %2$s.</string>
     <string name="created_playlist_x">A playlist %1$s foi criada</string>
     <string name="deleted_playlist_x">A playlist %1$s foi excluída</string>
@@ -109,7 +111,6 @@
     <string name="pref_title_alternative_progress_slider_now_playing">Barra de progresso alternativa</string>
     <string name="pref_title_playback_controller_card_now_playing">Mostrar cartão abaixo controles de reprodução</string>
     <string name="pref_title_colored_playback_controls_now_playing">Controles de reprodução coloridos</string>
-    <string name="pref_title_hide_bottom_bar">Ocultar barra inferior</string>
     <string name="no_equalizer">Nenhum equalizador encontrado.</string>
     <string name="no_audio_ID">"Sem identificação de áudio, reproduza algo e tente novamente."</string>
     <string name="delete_action">Excluir</string>
@@ -144,7 +145,6 @@
     <string name="pref_summary_alternative_progress_slider_now_playing">Usa uma barra de progresso que não cobre a capa do álbum substituindo a barra padrão.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Mostra um cartão abaixo play/pause, saltar, retroceder, shuffle e repetir.</string>
     <string name="pref_summary_ignore_media_store_artwork">Pode aumentar a qualidade da capa do álbum, mas faz com tempos de carregamento mais lento imagem. Só habilite esta opção se você tiver problemas com obras de arte de baixa resolução.</string>
-    <string name="pref_summary_hide_bottom_bar">Ocultar a barra de informações da música atual. Você ainda pode arrastar o botão tocar/pausar em qualquer direção para abrir a tela de execução.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Cores play/pause, aleat\u00f3rio e repetir assim como a barra de progresso na cor vibrante da capa do \u00e1lbum.</string>
     <string name="pref_summary_colored_navigation_bar">Cores da barra de navegação na cor primária.</string>
     <string name="could_not_download_album_cover">"N\u00e3o foi poss\u00edvel baixar uma capa do \u00e1lbum correspondente."</string>

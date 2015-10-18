@@ -60,6 +60,8 @@
     <string name="added_title_to_playing_queue">"Un brano aggiunto alla coda."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titoli aggiunti alla coda.</string>
     <string name="action_remove_from_playlist">Rimuovi dalla playlist</string>
+    <string name="action_grid_size">Dimensione griglia</string>
+    <string name="action_grid_size_land">Dimensione griglia (schermo orizzontale)</string>
     <string name="inserted_x_songs_into_playlist_x">Aggiunte %1$d canzoni alla playlist %2$s</string>
     <string name="created_playlist_x">Playlist %1$s creata.</string>
     <string name="deleted_playlist_x">Playlist %1$s eliminata.</string>
@@ -109,7 +111,6 @@
     <string name="pref_title_alternative_progress_slider_now_playing">Cursore di scorrimento alternativo</string>
     <string name="pref_title_playback_controller_card_now_playing">Sfondo card per i controlli di riproduzione</string>
     <string name="pref_title_colored_playback_controls_now_playing">Controlli di riproduzione colorati</string>
-    <string name="pref_title_hide_bottom_bar">Nascondi barra inferiore</string>
     <string name="no_equalizer">Nessun equalizzatore trovato</string>
     <string name="no_audio_ID">"Riproduci un brano e prova di nuovo."</string>
     <string name="delete_action">Elimina</string>
@@ -144,7 +145,6 @@
     <string name="pref_summary_alternative_progress_slider_now_playing">Usa una barra di scorrimento che non copre la copertina invece del cursore predefinito.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Visualizza un contorno in stile card dietro i pulsanti play/pausa, salta, riavvolgi, casuale e ripeti.</string>
     <string name="pref_summary_ignore_media_store_artwork">Può incrementare la qualità delle copertine, ma causa rallentamenti nei tempi di caricamento delle immagini. Abilita soltanto se hai problemi con copertine a bassa risoluzione.</string>
-    <string name="pref_summary_hide_bottom_bar">Nasconde la barra con le informazioni di riproduzione in basso. È ancora possibile trascinare il pulsante play/pausa in qualsiasi direzione per aprire la schermata In riproduzione.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Colora i pulsanti play/pausa, casuale e ripeti cos\u00ec come la barra d\'avanzamento secondo la gamma di colori della copertina.</string>
     <string name="pref_summary_colored_navigation_bar">Colora la barra di navigazione del colore principale.</string>
     <string name="could_not_download_album_cover">"Impossibile scaricare una copertina adatta."</string>

@@ -109,7 +109,6 @@
     <string name="pref_title_alternative_progress_slider_now_playing">Alternativni klizač napretka</string>
     <string name="pref_title_playback_controller_card_now_playing">Kartica ispod kontrola reprodukcije</string>
     <string name="pref_title_colored_playback_controls_now_playing">Obojene kontrole reprodukcije</string>
-    <string name="pref_title_hide_bottom_bar">Sakrij traku u podnožju</string>
     <string name="no_equalizer">Ekvalizator nije pronađen</string>
     <string name="no_audio_ID">"Reproducirajte nešto i pokušajte opet."</string>
     <string name="delete_action">Obriši</string>
@@ -144,7 +143,6 @@
     <string name="pref_summary_alternative_progress_slider_now_playing">Koristi se traka napretka koja ne prekriva omot albuma umjesto zadanog klizača.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Prikazuje karticu gumbića za kontrolu reprodukcije.</string>
     <string name="pref_summary_ignore_media_store_artwork">Može povećati kvalitetu omota albuma, ali povećava vrijeme učitavanja. Omogućite ovo jedino ako imate problema s omotima niske rezolucije.</string>
-    <string name="pref_summary_hide_bottom_bar">Traka s podacima o trenutnoj reprodukciji u podnožju bit će sakrivena. Možete povući gumb za pokretanje/pauziranje glazbe u bilo kojem smjeru kako biste vidjeli zaslon s onim što se trenutno reproducira.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Gumbi za reprodukciju/pauzu, nasumi\u010dnu reprodukciju i ponavljanje kao i kliza\u010d napretka su obojeni istaknutom bojom omota albuma.</string>
     <string name="pref_summary_colored_navigation_bar">Boji navigacijsku traku primarnom bojom.</string>
     <string name="could_not_download_album_cover">"Nemogu\u0107e skinuti odgovaraju\u0107i omot albuma."</string>
