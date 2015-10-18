@@ -117,10 +117,10 @@ dependencies {
 
     compile 'com.github.kabouzeid:Android-Universal-Image-Loader:8ffb5d4afa'
 
-    compile('com.afollestad.material-dialogs:core:0.8.4.0@aar') {
+    compile('com.afollestad.material-dialogs:core:0.8.4.2@aar') {
         transitive = true
     }
-    compile('com.afollestad.material-dialogs:commons:0.8.4.0@aar') {
+    compile('com.afollestad.material-dialogs:commons:0.8.4.2@aar') {
         transitive = true
     }
     compile 'com.afollestad:material-cab:0.1.5'
