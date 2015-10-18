@@ -122,7 +122,7 @@ public final class PreferenceUtil {
     }
 
     public int getThemeColorAccent(Context context) {
-        return mPreferences.getInt("accent_color", ContextCompat.getColor(context, R.color.pink_A200));
+        return mPreferences.getInt("accent_color", ContextCompat.getColor(context, R.color.pink_A400));
     }
 
     @SuppressLint("CommitPrefEdits")
