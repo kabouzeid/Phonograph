@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="pink_A200">#ff4081</color>
-    <color name="indigo_500">#3f51b5</color>
+    <color name="pink_A400">#F50057</color>
+    <color name="indigo_500">#3F51B5</color>
 
     <color name="grey_700">#616161</color>
     <color name="grey_900">#212121</color>
