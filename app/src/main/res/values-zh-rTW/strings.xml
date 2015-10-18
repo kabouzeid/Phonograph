@@ -109,7 +109,6 @@
     <string name="pref_title_alternative_progress_slider_now_playing">替代進度條</string>
     <string name="pref_title_playback_controller_card_now_playing">在播放控制器下顯示背景卡片</string>
     <string name="pref_title_colored_playback_controls_now_playing">彩色的播放控制器</string>
-    <string name="pref_title_hide_bottom_bar">隱藏底部訊息欄</string>
     <string name="no_equalizer">沒有找到均衡器。</string>
     <string name="no_audio_ID">"請先播放一首歌後再重試一遍。"</string>
     <string name="delete_action">刪除</string>
@@ -144,7 +143,6 @@
     <string name="pref_summary_alternative_progress_slider_now_playing">使用不會遮住專輯封面的進度欄，而非預設的進度條。</string>
     <string name="pref_summary_playback_controller_card_now_playing">在播放／暫停、下一首、上一首、隨機播放和重播扭下顯示背景卡片。</string>
     <string name="pref_summary_ignore_media_store_artwork">提高專輯封面的成像品質，但會造成較長的讀取時間。建議只有在您對低畫質的專輯封面有問題時才開啟此選項。</string>
-    <string name="pref_summary_hide_bottom_bar">隱藏用來顯示正在播放歌曲訊息的底部欄。您仍然可以透過播放／暫停扭來開啟正在播放面板。</string>
     <string name="pref_summary_colored_playback_controls_now_playing">\u5c07\u5c08\u8f2f\u5c01\u9762\u7684\u4e3b\u8272\u8abf\u8a2d\u70ba\u64ad\u653e\uff0f\u66ab\u505c\u3001\u96a8\u6a5f\u64ad\u653e\u3001\u91cd\u64ad\u626d\u548c\u9032\u5ea6\u689d\u7684\u984f\u8272\u3002</string>
     <string name="pref_summary_colored_navigation_bar">將專輯封面的主色調設為導航列的顏色。</string>
     <string name="could_not_download_album_cover">"\u7121\u6cd5\u4e0b\u8f09\u5408\u9069\u7684\u5c08\u8f2f\u5c01\u9762\u3002"</string>

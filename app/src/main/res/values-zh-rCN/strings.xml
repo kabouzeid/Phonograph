@@ -60,6 +60,8 @@
     <string name="added_title_to_playing_queue">"该曲目已加入正在播放队列。"</string>
     <string name="added_x_titles_to_playing_queue">%1$d 首曲目已加入到正在播放队列。</string>
     <string name="action_remove_from_playlist">从播放列表移除</string>
+    <string name="action_grid_size">网格尺寸</string>
+    <string name="action_grid_size_land">网格尺寸（横屏）</string>
     <string name="inserted_x_songs_into_playlist_x">%1$d 首曲目已加入到播放列表 %2$s 中。</string>
     <string name="created_playlist_x">播放列表 %1$s 已创建。</string>
     <string name="deleted_playlist_x">%1$s 播放列表已删除。</string>
@@ -109,7 +111,6 @@
     <string name="pref_title_alternative_progress_slider_now_playing">备选进度条样式</string>
     <string name="pref_title_playback_controller_card_now_playing">启用卡片式播放控制面板</string>
     <string name="pref_title_colored_playback_controls_now_playing">启用播放控制面板变色</string>
-    <string name="pref_title_hide_bottom_bar">隐藏底栏</string>
     <string name="no_equalizer">没有找到均衡器。</string>
     <string name="no_audio_ID">"请在播放曲目后再尝试该操作。"</string>
     <string name="delete_action">删除</string>
@@ -144,7 +145,6 @@
     <string name="pref_summary_alternative_progress_slider_now_playing">使用不会遮挡专辑封面的进度条替换默认的进度滑块。</string>
     <string name="pref_summary_playback_controller_card_now_playing">在播放/暂停，上一首/下一首，随机播放和循环按钮下方显示卡片作为背景。</string>
     <string name="pref_summary_ignore_media_store_artwork">提高专辑封面质量但会增加专辑封面图片的加载时间。仅在遇到专辑封面像素过低问题时开启。</string>
-    <string name="pref_summary_hide_bottom_bar">隐藏用于显示正在播放信息的底栏。你仍然可以通过朝任意方向轻掷播放/暂停按钮来打开正在播放界面。</string>
     <string name="pref_summary_colored_playback_controls_now_playing">\u64ad\u653e/\u6682\u505c\u3001\u4e0a/\u4e0b\u66f2\u3001\u968f\u673a\u64ad\u653e\u3001\u5faa\u73af\u64ad\u653e\u7b49\u6309\u952e\u4ee5\u53ca\u6b4c\u66f2\u8fdb\u5ea6\u6761\u90fd\u5c06\u9002\u5e94\u4e13\u8f91\u5c01\u9762\u8fdb\u884c\u53d8\u8272\u3002</string>
     <string name="pref_summary_colored_navigation_bar">导航栏颜色与主色调保持一致。</string>
     <string name="could_not_download_album_cover">"\u65e0\u6cd5\u4e0b\u8f7d\u5339\u914d\u7684\u4e13\u8f91\u5c01\u9762\u3002"</string>

@@ -9,7 +9,7 @@
     <string name="action_share">Compartir</string>
     <string name="action_settings">"Ajustes"</string>
     <string name="action_about">Acerca de</string>
-    <string name="action_clear_playlist">Vaciar lista de reproducción</string>
+    <string name="action_clear_playlist">Limpiar lista de reproducción</string>
     <string name="action_playing_queue">Cola de reproducción</string>
     <string name="action_add_to_favorites">Añadir a favoritos</string>
     <string name="action_remove_from_favorites">Eliminar de favoritos</string>
@@ -17,8 +17,8 @@
     <string name="action_play_next">Siguiente</string>
     <string name="action_play">Reproducir</string>
     <string name="action_add_to_playing_queue">Añadir a cola de reproducción</string>
-    <string name="action_remove_from_playing_queue">Quitar de la cola de reproducción</string>
-    <string name="action_add_to_playlist">Agregar a la playlist...</string>
+    <string name="action_remove_from_playing_queue">Eliminar de la cola de reproducción</string>
+    <string name="action_add_to_playlist">Agregar a la lista de reproducción...</string>
     <string name="action_tag_editor">Editor de etiquetas</string>
     <string name="action_delete_from_device">Eliminar del dispositivo</string>
     <string name="action_details">Detalles</string>
@@ -26,7 +26,7 @@
     <string name="artists">Artistas</string>
     <string name="songs">Canciones</string>
     <string name="playlists">Listas de reproducción</string>
-    <string name="unplayable_file">No se pudo reproducir esta canci\u00f3n.</string>
+    <string name="unplayable_file">No se ha podido reproducir esta canci\u00f3n.</string>
     <string name="biography_unavailable">Lo sentimos, no encontramos una biograf\u00eda correspondiente a \u00e9ste artista</string>
     <string name="biography">Biografía</string>
     <string name="audio_focus_denied">No se encontró el foco de audio.</string>
@@ -36,7 +36,7 @@
     <string name="album_artist">Artista del álbum</string>
     <string name="year">Año</string>
     <string name="track">Pista</string>
-    <string name="track_hint">"Pista (2 para pista 2 ó 3004 para CD3 pista 4)"</string>
+    <string name="track_hint">"Pista (2 para pista 2 o 3004 para CD3 pista 4)"</string>
     <string name="album_or_artist_empty">El título o artista está vacío.</string>
     <string name="writing_file_number">Escribiendo archivo...</string>
     <string name="saving_changes">Guardando cambios...</string>
@@ -47,7 +47,7 @@
     <string name="label_file_format">Formato</string>
     <string name="label_track_length">Duración</string>
     <string name="label_bit_rate">Tasa de bits</string>
-    <string name="label_sampling_rate">Frecuencia de muestreo</string>
+    <string name="label_sampling_rate">Frecuencia de la muestra</string>
     <string name="action_go_to_artist">Ir al artista</string>
     <string name="action_go_to_album">Ir al álbum</string>
     <string name="label_current_playing_queue">Cola de reproducción</string>
@@ -60,6 +60,8 @@
     <string name="added_title_to_playing_queue">"1 título añadido a la cola de reproducción."</string>
     <string name="added_x_titles_to_playing_queue">Añadir %1$d a la cola de reproducción.</string>
     <string name="action_remove_from_playlist">Eliminar de la lista de reproducción</string>
+    <string name="action_grid_size">Tamaño de la cuadrícula</string>
+    <string name="action_grid_size_land">Tamaño de la cuadrícula (plano)</string>
     <string name="inserted_x_songs_into_playlist_x">Añadidas %1$d canciones a la lista %2$s.</string>
     <string name="created_playlist_x">Lista de reproducción %1$s creada.</string>
     <string name="deleted_playlist_x">Lista de reproducción %1$s eliminada.</string>
@@ -109,7 +111,6 @@
     <string name="pref_title_alternative_progress_slider_now_playing">Barra de progreso alternativa</string>
     <string name="pref_title_playback_controller_card_now_playing">Mostrar tarjeta detrás de los controles de reproducción</string>
     <string name="pref_title_colored_playback_controls_now_playing">Controles de reproducción coloreados</string>
-    <string name="pref_title_hide_bottom_bar">Ocultar barra inferior</string>
     <string name="no_equalizer">No se encontró ningún ecualizador</string>
     <string name="no_audio_ID">"Reproduce una canción primero, luego intenta otra vez."</string>
     <string name="delete_action">Borrar</string>
@@ -144,7 +145,6 @@
     <string name="pref_summary_alternative_progress_slider_now_playing">Usa una barra de progreso que no cubre la tapa del álbum en vez de la barra normal de progreso.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Muestra una tarjeta detrás de los botones reproducir/pausar, adelantar, regresar, aleatorio y repetir.</string>
     <string name="pref_summary_ignore_media_store_artwork">Puede aumentar la calidad de la carátula del álbum pero a veces puede tardar en cargar. Sólo activalo si tienes problemas con carátulas de baja resolución.</string>
-    <string name="pref_summary_hide_bottom_bar">Oculta la barra con la información de reproducción actual en la parte inferior. Aún puedes deslizar el botón de reproducir/pausar en cualquier dirección para abrir la vista de reproducción actual.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Color en reproducir/pausar, aleatorio y repetir as\u00ed como la barra de progreso con el color vibrante de la car\u00e1tula del \u00e1lbum.</string>
     <string name="pref_summary_colored_navigation_bar">Selecciona en qué secciones la barra debe tener color</string>
     <string name="could_not_download_album_cover">"No se puede descargar una tapa de \u00e1lbum coincidente."</string>

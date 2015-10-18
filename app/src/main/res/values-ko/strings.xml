@@ -109,7 +109,6 @@
     <string name="pref_title_alternative_progress_slider_now_playing">대체 음악 조절 슬라이더</string>
     <string name="pref_title_playback_controller_card_now_playing">컨트롤 부분을 드로 표시</string>
     <string name="pref_title_colored_playback_controls_now_playing">색칠된 재생 컨트롤</string>
-    <string name="pref_title_hide_bottom_bar">하단 바 감추기</string>
     <string name="no_equalizer">설치된 이퀄라이저가 없습니다.</string>
     <string name="no_audio_ID">"오디오 ID가 없습니다.
 아무 것이나 재생하시고 다시 시도해 주십시오."</string>
@@ -145,7 +144,6 @@
     <string name="pref_summary_alternative_progress_slider_now_playing">보통의 조절 슬라이더 대신 앨범 아트를 가리지 않는 대체 조절 슬라이더를 사용합니다.</string>
     <string name="pref_summary_playback_controller_card_now_playing">지금 재생 중 화면에서 컨트롤 부분(재생, 일시정지 등의 버튼이 있는 곳)을 카드로 표시합니다.</string>
     <string name="pref_summary_ignore_media_store_artwork">앨범 아트 이미지의 질이 높아지지만 로딩 시간을 길게 하는 미디어 스토어의 앨범 아트를 무시합니다. 저화질 앨범 아트에 문제가 있을 때에만 이 기능을 사용하십시오.</string>
-    <string name="pref_summary_hide_bottom_bar">하단 바를 현재 재생되고 있는 노래의 정보로 감춥니다. 재생/일시정지 버튼을 슬라이드하여 현재 재생 중 화면으로 가는 것은 가능합니다.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">\uc568\ubc94 \ucee4\ubc84\uc758 \uc0c9\uc5d0 \ub9de\ucd94\uc5b4 \uc7ac\uc0dd/\uc77c\uc2dc\uc815\uc9c0, \uc11e\uae30, \ubc18\ubcf5 \ubc84\ud2bc\uacfc \uc7ac\uc0dd \uc2ac\ub77c\uc774\ub354\ub97c \uc0c9\uce60\ud569\ub2c8\ub2e4.</string>
     <string name="pref_summary_colored_navigation_bar">하단바가 색깔을 주 색상으로 색칠합니다.</string>
     <string name="could_not_download_album_cover">"\uc77c\uce58\ud558\ub294 \uc568\ubc94 \ucee4\ubc84\ub97c \ub2e4\uc6b4\ub85c\ub4dc \ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4."</string>

@@ -109,7 +109,6 @@
     <string name="pref_title_alternative_progress_slider_now_playing">Alternatif İlerleme Kaydırma</string>
     <string name="pref_title_playback_controller_card_now_playing">Oynatma kontrolleri altında kartı göster</string>
     <string name="pref_title_colored_playback_controls_now_playing">Oynatma kontrollerini renklendir</string>
-    <string name="pref_title_hide_bottom_bar">Alt çubuğu gizle</string>
     <string name="no_equalizer">Ekolayzer bulunamadı.</string>
     <string name="no_audio_ID">"ilk şarkıyı çalın, daha sonra tekrar deneyin."</string>
     <string name="delete_action">Sil</string>
@@ -144,7 +143,6 @@
     <string name="pref_summary_alternative_progress_slider_now_playing">Varsayılan ilerleme çubuğu yerine albüm kapağına taşan ilerleme çubuğu kullanılır.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Aşağıda bir kart gösterir, oynat/duraklat, atla, geri sarma, karıştır ve tekrar.</string>
     <string name="pref_summary_ignore_media_store_artwork">Albüm kapağı kalitesinin artırılması daha yavaş görüntü yükleme sürelerine neden olabilir. Düşük çözünürlükte olan albüm kapakları ile ilgili sorunlar varsa bunu etkinleştirin.</string>
-    <string name="pref_summary_hide_bottom_bar">Altta mevcut oynatma bilgileri çubuğu gizlenir. Yine de hemen oynatma görünümünü açmak için oynat/durdur düğmesine basılı tutarak herhangi bir tarafa savurun.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Oynat/durdur, kar\u0131\u015ft\u0131r ve tekrar tu\u015flar\u0131n\u0131n yan\u0131 s\u0131ra ilerleme kayd\u0131r\u0131c\u0131 alb\u00fcm kapa\u011f\u0131n\u0131n canl\u0131 rengi ile renklendirilir.</string>
     <string name="pref_summary_colored_navigation_bar">Gezinme çubuğu renkleri birincil renkler içinden.</string>
     <string name="could_not_download_album_cover">"E\u015flenen bir alb\u00fcm kapa\u011f\u0131 indirilemedi."</string>
