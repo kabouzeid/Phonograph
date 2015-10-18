@@ -18,12 +18,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.dialogs.ColorChooserDialog;
-import com.kabouzeid.gramophone.helper.ColorPalette;
 import com.kabouzeid.gramophone.prefs.ColorChooserPreference;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
-import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.ViewUtil;
@@ -60,7 +58,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
     @Override
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int selectedColor) {
-        switch (dialog.getTitleRes()) {
+        switch (dialog.getTitle()) {
             case R.string.primary_color:
                 PreferenceUtil.getInstance(this).setThemeColorPrimary(selectedColor);
                 break;
@@ -153,12 +151,11 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             primaryColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull Preference preference) {
-                    ColorChooserDialog
-                            .create(preference.getTitleRes(),
-                                    new ColorChooserDialog.ColorSetWithHeaders(ColorPalette.MAIN_PRIMARY_COLOR_INDEXES, ColorPalette.PRIMARY_COLORS),
-                                    PreferenceUtil.getInstance(getActivity()).getThemeColorPrimary(getActivity())
-                            )
-                            .show(((SettingsActivity) getActivity()).getSupportFragmentManager(), "COLOR_CHOOSER");
+                    new ColorChooserDialog.Builder(((SettingsActivity) getActivity()), R.string.primary_color)
+                            .accentMode(false)
+                            .allowUserColorInput(true)
+                            .preselect(PreferenceUtil.getInstance(getActivity()).getThemeColorPrimary(getActivity()))
+                            .show();
                     return true;
                 }
             });
@@ -168,12 +165,11 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             accentColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull Preference preference) {
-                    ColorChooserDialog
-                            .create(preference.getTitleRes(),
-                                    new ColorChooserDialog.ColorSetWithHeaders(ColorPalette.MAIN_ACCENT_COLOR_INDEXES, ColorPalette.ACCENT_COLORS),
-                                    PreferenceUtil.getInstance(getActivity()).getThemeColorAccent(getActivity())
-                            )
-                            .show(((SettingsActivity) getActivity()).getSupportFragmentManager(), "COLOR_CHOOSER");
+                    new ColorChooserDialog.Builder(((SettingsActivity) getActivity()), R.string.accent_color)
+                            .accentMode(true)
+                            .allowUserColorInput(true)
+                            .preselect(PreferenceUtil.getInstance(getActivity()).getThemeColorAccent(getActivity()))
+                            .show();
                     return true;
                 }
             });
