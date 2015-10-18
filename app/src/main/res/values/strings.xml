@@ -111,7 +111,6 @@
     <string name="pref_title_alternative_progress_slider_now_playing">Alternative progress slider</string>
     <string name="pref_title_playback_controller_card_now_playing">Show card below playback controls</string>
     <string name="pref_title_colored_playback_controls_now_playing">Colored playback controls</string>
-    <string name="pref_title_hide_bottom_bar">Hide bottom bar</string>
     <string name="no_equalizer">No equalizer found.</string>
     <string name="no_audio_ID">"Play a song first, then try again."</string>
     <string name="delete_action">Delete</string>
@@ -146,7 +145,6 @@
     <string name="pref_summary_alternative_progress_slider_now_playing">Uses a progressbar which does not cover the album art instead of the default progress slider.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Shows a card below play/pause, skip, rewind, shuffle and repeat.</string>
     <string name="pref_summary_ignore_media_store_artwork">Can increase the album cover quality but causes slower image loading times. Only enable this if you have problems with low resolution artworks.</string>
-    <string name="pref_summary_hide_bottom_bar">Hides the bar with the current playing information at the bottom. You can still fling the play/pause button in any direction to open the now playing view.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Colors play/pause, shuffle and repeat as well as the progress slider in the album cover\u2019s vibrant color.</string>
     <string name="pref_summary_colored_navigation_bar">Colors the navigation bar in the primary color.</string>
     <string name="could_not_download_album_cover">"Couldn\u2019t download a matching album cover."</string>

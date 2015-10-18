@@ -59,8 +59,6 @@ public final class PreferenceUtil {
 
     public static final String IGNORE_MEDIA_STORE_ARTWORK = "ignore_media_store_artwork";
 
-    public static final String HIDE_BOTTOM_BAR = "hide_bottom_bar";
-
     public static final String LAST_CHANGELOG_VERSION = "last_changelog_version";
 
     private static PreferenceUtil sInstance;
@@ -199,10 +197,6 @@ public final class PreferenceUtil {
 
     public final boolean ignoreMediaStoreArtwork() {
         return mPreferences.getBoolean(IGNORE_MEDIA_STORE_ARTWORK, false);
-    }
-
-    public final boolean hideBottomBar() {
-        return mPreferences.getBoolean(HIDE_BOTTOM_BAR, false);
     }
 
     public final String getArtistSortOrder() {
