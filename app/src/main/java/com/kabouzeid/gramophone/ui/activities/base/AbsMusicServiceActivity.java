@@ -1,22 +1,15 @@
 package com.kabouzeid.gramophone.ui.activities.base;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
-import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
 import com.kabouzeid.gramophone.service.MusicService;
@@ -30,43 +23,17 @@ import java.util.ArrayList;
 public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements ServiceConnection, MusicServiceEventListener {
     public static final String TAG = AbsMusicServiceActivity.class.getSimpleName();
 
-    public static final int REQUEST_EXTERNAL_STORAGE_PERMISSION = 0;
-
     private final ArrayList<MusicServiceEventListener> mMusicServiceEventListeners = new ArrayList<>();
 
     private MusicPlayerRemote.ServiceToken serviceToken;
     private MusicStateReceiver musicStateReceiver;
     private boolean receiverRegistered;
 
-    private boolean hasExternalStoragePermission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        checkExternalStoragePermissions();
         serviceToken = MusicPlayerRemote.bindToService(this, this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // the handler is necessary to avoid "java.lang.RuntimeException: Performing pause of activity that is not resumed"
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                recreateIfPermissionsChanged();
-            }
-        }, 200);
-    }
-
-    protected void recreateIfPermissionsChanged() {
-        if (didPermissionsChanged()) {
-            recreate();
-        }
-    }
-
-    private boolean didPermissionsChanged() {
-        return hasExternalStoragePermission != hasExternalStoragePermission();
     }
 
     @Override
@@ -193,34 +160,6 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
                         break;
                 }
             }
-        }
-    }
-
-    private void checkExternalStoragePermissions() {
-        hasExternalStoragePermission = hasExternalStoragePermission();
-        if (!hasExternalStoragePermission) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_EXTERNAL_STORAGE_PERMISSION);
-            }
-        }
-    }
-
-    @SuppressLint("NewApi")
-    private boolean hasExternalStoragePermission() {
-        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_EXTERNAL_STORAGE_PERMISSION) {
-            for (int grantResult : grantResults) {
-                if (grantResult == PackageManager.PERMISSION_GRANTED) {
-                    recreate();
-                    return;
-                }
-            }
-            Toast.makeText(AbsMusicServiceActivity.this, getResources().getString(R.string.permission_to_access_external_storage_denied), Toast.LENGTH_SHORT).show();
         }
     }
 }
