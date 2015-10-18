@@ -61,6 +61,6 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <!-- For use with 24dp drawables in the item_list layouts-->
     <dimen name="list_item_image_icon_padding">8dp</dimen>
 
-    <dimen name="mini_player_height">48dp</dimen>
+    <dimen name="mini_player_height">56dp</dimen>
 
 </resources>

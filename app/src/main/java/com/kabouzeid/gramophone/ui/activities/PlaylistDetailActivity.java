@@ -75,7 +75,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
 
     @Override
     protected View createContentView() {
-        return wrapSlidingMusicPanelAndFab(R.layout.activity_playlist_detail);
+        return wrapSlidingMusicPanel(R.layout.activity_playlist_detail);
     }
 
     private void setUpRecyclerView() {

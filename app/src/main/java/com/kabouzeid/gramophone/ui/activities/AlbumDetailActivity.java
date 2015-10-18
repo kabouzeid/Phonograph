@@ -100,7 +100,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
 
     @Override
     protected View createContentView() {
-        return wrapSlidingMusicPanelAndFab(R.layout.activity_album_detail);
+        return wrapSlidingMusicPanel(R.layout.activity_album_detail);
     }
 
     private final SimpleObservableScrollViewCallbacks observableScrollViewCallbacks = new SimpleObservableScrollViewCallbacks() {
