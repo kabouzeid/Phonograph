@@ -26,9 +26,6 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="pause_bar_distance">4dp</dimen>
     <dimen name="pause_bar_height">14dp</dimen>
 
-    <dimen name="fab_icon_bound_width">56dp</dimen>
-    <dimen name="fab_icon_bound_height">36dp</dimen>
-
     <dimen name="color_view_border">1dp</dimen>
 
     <dimen name="empty_text_size">20sp</dimen>
@@ -46,7 +43,6 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
 
     <!-- ONLY 0dp WHILE THERE IS THE BUG IN DESIGN SUPPORT LIBRARY 22.2.0-->
     <dimen name="fab_margin_top_left_right">0dp</dimen>
-    <dimen name="fab_margin_bottom">0dp</dimen>
     <dimen name="tmp_now_playing_skip_rewind_margin">-24dp</dimen>
 
     <dimen name="title_box_padding_small">16dp</dimen>
