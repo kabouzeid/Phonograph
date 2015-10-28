@@ -164,7 +164,6 @@ public class PlayerFragment extends Fragment implements SharedPreferences.OnShar
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initAppearanceVarsFromSharedPrefs();
-        PreferenceUtil.getInstance(getContext()).registerOnSharedPreferenceChangedListener(this);
         progressViewUpdateHelper = new MusicProgressViewUpdateHelper(this);
     }
 
@@ -188,6 +187,7 @@ public class PlayerFragment extends Fragment implements SharedPreferences.OnShar
         setUpPlayerToolbar();
         setUpPlayerStatusBarElevation();
 
+        PreferenceUtil.getInstance(getContext()).registerOnSharedPreferenceChangedListener(this);
         activity.addMusicServiceEventListener(this);
     }
 
@@ -195,14 +195,8 @@ public class PlayerFragment extends Fragment implements SharedPreferences.OnShar
     public void onDestroyView() {
         super.onDestroyView();
         activity.removeMusicServiceEventListener(this);
-        ButterKnife.unbind(this);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        activity.removeMusicServiceEventListener(this);
         PreferenceUtil.getInstance(activity).unregisterOnSharedPreferenceChangedListener(this);
+        ButterKnife.unbind(this);
     }
 
     @Override

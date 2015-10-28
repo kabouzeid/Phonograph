@@ -194,7 +194,7 @@ public class ViewUtil {
                 for (int i = 0; i < menu.size(); i++) {
                     MenuItem item = menu.getItem(i);
                     if (item.getIcon() != null) {
-                        item.getIcon().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                        item.getIcon().mutate().setColorFilter(color, PorterDuff.Mode.SRC_IN);
                     }
                 }
 
