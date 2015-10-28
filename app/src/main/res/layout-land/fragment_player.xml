@@ -5,22 +5,6 @@
     android:clickable="true"
     android:focusable="false">
 
-    <fragment
-        android:id="@+id/player_album_cover_fragment"
-        class="com.kabouzeid.gramophone.ui.fragments.PlayerAlbumCoverFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/playback_controls_fragment"
-        tools:layout="@layout/fragment_player_album_cover" />
-
-    <fragment
-        android:layout_alignParentBottom="true"
-        android:id="@+id/playback_controls_fragment"
-        class="com.kabouzeid.gramophone.ui.fragments.PlaybackControlsFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_playback_controls" />
-
     <include layout="@layout/shadow_statusbar_actionbar" />
 
     <View
@@ -37,5 +21,21 @@
         android:layout_below="@id/player_status_bar"
         android:background="@android:color/transparent"
         tools:ignore="UnusedAttribute" />
+
+    <fragment
+        android:layout_alignParentLeft="true"
+        android:id="@+id/player_album_cover_fragment"
+        class="com.kabouzeid.gramophone.ui.fragments.PlayerAlbumCoverFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_player_album_cover" />
+
+    <fragment
+        android:layout_toRightOf="@id/player_album_cover_fragment"
+        android:id="@+id/playback_controls_fragment"
+        class="com.kabouzeid.gramophone.ui.fragments.PlaybackControlsFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_playback_controls" />
 
 </RelativeLayout>

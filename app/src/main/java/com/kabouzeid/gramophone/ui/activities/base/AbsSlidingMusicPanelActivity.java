@@ -55,7 +55,8 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
             });
         }
 
-        setUpSlidingPanel();
+        slidingUpPanelLayout.setPanelSlideListener(this);
+        playerFragment.resetShowControlsAnimation();
 
         slidingUpPanelLayout.post(new Runnable() {
             @Override
@@ -74,10 +75,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     public void onServiceConnected(ComponentName name, IBinder service) {
         hideBottomBar(MusicPlayerRemote.getPlayingQueue().isEmpty());
         super.onServiceConnected(name, service);
-    }
-
-    private void setUpSlidingPanel() {
-        slidingUpPanelLayout.setPanelSlideListener(this);
     }
 
     @Override
