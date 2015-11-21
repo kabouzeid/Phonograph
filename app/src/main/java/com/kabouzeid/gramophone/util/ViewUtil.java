@@ -10,9 +10,8 @@ import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.internal.view.menu.ListMenuItemView;
-import android.support.v7.internal.view.menu.MenuPopupHelper;
-import android.support.v7.widget.ActionMenuPresenter;
+import android.support.v7.view.menu.ListMenuItemView;
+import android.support.v7.view.menu.MenuPopupHelper;
 import android.support.v7.widget.ActionMenuView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -82,7 +81,7 @@ public class ViewUtil {
 
                     Field f2 = ActionMenuView.class.getDeclaredField("mPresenter");
                     f2.setAccessible(true);
-                    ActionMenuPresenter presenter = (ActionMenuPresenter) f2.get(actionMenuView);
+                    Object presenter = f2.get(actionMenuView); // ActionMenuPresenter is not a public class, so we use Object here
 
                     Field f3 = presenter.getClass().getDeclaredField("mOverflowPopup");
                     f3.setAccessible(true);
