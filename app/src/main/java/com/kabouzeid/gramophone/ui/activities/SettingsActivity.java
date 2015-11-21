@@ -154,6 +154,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                     new ColorChooserDialog.Builder(((SettingsActivity) getActivity()), R.string.primary_color)
                             .accentMode(false)
                             .allowUserColorInput(true)
+                            .allowUserColorInputAlpha(false)
                             .preselect(PreferenceUtil.getInstance(getActivity()).getThemeColorPrimary(getActivity()))
                             .show();
                     return true;
@@ -168,6 +169,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                     new ColorChooserDialog.Builder(((SettingsActivity) getActivity()), R.string.accent_color)
                             .accentMode(true)
                             .allowUserColorInput(true)
+                            .allowUserColorInputAlpha(false)
                             .preselect(PreferenceUtil.getInstance(getActivity()).getThemeColorAccent(getActivity()))
                             .show();
                     return true;
