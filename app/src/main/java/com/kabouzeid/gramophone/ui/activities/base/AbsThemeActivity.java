@@ -98,7 +98,7 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
                 taskDescription = new ActivityManager.TaskDescription(
                         null,
                         null,
-                        color);
+                        ColorUtil.getOpaqueColor(color));
                 setTaskDescription(taskDescription);
             }
         }
