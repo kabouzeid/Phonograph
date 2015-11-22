@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.kabouzeid.gramophone.R;
@@ -25,13 +24,10 @@ import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.kabouzeid.gramophone.views.SquareIfPlaceImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.LoadedFrom;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
@@ -44,13 +40,9 @@ import butterknife.ButterKnife;
 public class PlayerAlbumCoverFragment extends Fragment implements MusicServiceEventListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Bind(R.id.player_image)
-    SquareIfPlaceImageView albumArt;
+    ImageView albumCover;
     @Bind(R.id.player_favorite_icon)
     ImageView favoriteIcon;
-    @Bind(R.id.player_album_art_frame)
-    FrameLayout albumArtFrame;
-
-    private boolean forceSquareAlbumArt;
 
     private AbsMusicServiceActivity activity;
     private OnColorChangedListener onColorChangedListener;
@@ -82,7 +74,7 @@ public class PlayerAlbumCoverFragment extends Fragment implements MusicServiceEv
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        albumArt.forceSquare(forceSquareAlbumArt);
+        forceSquareAlbumCover(PreferenceUtil.getInstance(getContext()).forceSquareAlbumCover());
 
         PreferenceUtil.getInstance(getContext()).registerOnSharedPreferenceChangedListener(this);
         activity.addMusicServiceEventListener(this);
@@ -124,9 +116,8 @@ public class PlayerAlbumCoverFragment extends Fragment implements MusicServiceEv
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         switch (key) {
-            case PreferenceUtil.FORCE_SQUARE_ALBUM_ART:
-                forceSquareAlbumArt = PreferenceUtil.getInstance(activity).forceAlbumArtSquared();
-                albumArt.forceSquare(forceSquareAlbumArt);
+            case PreferenceUtil.FORCE_SQUARE_ALBUM_COVER:
+                forceSquareAlbumCover(PreferenceUtil.getInstance(activity).forceSquareAlbumCover());
                 break;
         }
     }
@@ -140,7 +131,7 @@ public class PlayerAlbumCoverFragment extends Fragment implements MusicServiceEv
         final ColorHolder colorHolder = new ColorHolder();
         ImageLoader.getInstance().displayImage(
                 MusicUtil.getSongImageLoaderString(MusicPlayerRemote.getCurrentSong()),
-                albumArt,
+                albumCover,
                 new DisplayImageOptions.Builder()
                         .cacheInMemory(true)
                         .showImageOnFail(R.drawable.default_album_art)
@@ -151,13 +142,7 @@ public class PlayerAlbumCoverFragment extends Fragment implements MusicServiceEv
                                 return bitmap;
                             }
                         })
-                        .displayer(new FadeInBitmapDisplayer(ViewUtil.DEFAULT_COLOR_ANIMATION_DURATION) {
-                            @Override
-                            public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
-                                super.display(bitmap, imageAware, loadedFrom);
-                                setColor(colorHolder.color);
-                            }
-                        })
+                        .displayer(new FadeInBitmapDisplayer(ViewUtil.DEFAULT_COLOR_ANIMATION_DURATION))
                         .build(),
                 new SimpleImageLoadingListener() {
                     @Override
@@ -170,7 +155,9 @@ public class PlayerAlbumCoverFragment extends Fragment implements MusicServiceEv
                     public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
                         if (loadedImage == null) {
                             onLoadingFailed(imageUri, view, null);
+                            return;
                         }
+                        setColor(colorHolder.color);
                     }
                 }
         );
@@ -209,6 +196,10 @@ public class PlayerAlbumCoverFragment extends Fragment implements MusicServiceEv
                     }
                 })
                 .start();
+    }
+
+    public void forceSquareAlbumCover(boolean forceSquareAlbumCover) {
+        albumCover.setScaleType(forceSquareAlbumCover ? ImageView.ScaleType.FIT_CENTER : ImageView.ScaleType.CENTER_CROP);
     }
 
     private void setColor(int color) {

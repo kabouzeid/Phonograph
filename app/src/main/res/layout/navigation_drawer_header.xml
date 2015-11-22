@@ -1,23 +1,24 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.percent.PercentFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/header"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/navigation_drawer_header_height"
+    android:layout_height="wrap_content"
     android:clickable="true"
     android:foreground="?rect_selector">
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        app:layout_widthPercent="100%"
+        app:layout_aspectRatio="178%"
         android:scaleType="centerCrop"
         android:src="@drawable/default_album_art"
         android:transitionName="@string/transition_album_art"
-        tools:ignore="UnusedAttribute" />
+        tools:ignore="ContentDescription,UnusedAttribute" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="56dp"
         android:layout_gravity="bottom"
         android:background="@drawable/shadow_up" />
 
@@ -55,4 +56,4 @@
 
     </LinearLayout>
 
-</FrameLayout>
+</android.support.percent.PercentFrameLayout>

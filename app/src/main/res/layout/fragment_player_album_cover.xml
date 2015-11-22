@@ -8,13 +8,11 @@
     android:layout_above="@id/player_footer_frame"
     android:background="@android:color/black">
 
-    <com.kabouzeid.gramophone.views.SquareIfPlaceImageView
+    <com.kabouzeid.gramophone.views.WidthFitSquareImageView
         android:id="@+id/player_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
         android:scaleType="centerCrop"
-        android:src="@drawable/default_album_art"
         tools:ignore="ContentDescription,UnusedAttribute" />
 
     <ImageView

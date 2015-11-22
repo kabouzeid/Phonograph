@@ -42,8 +42,6 @@ import butterknife.ButterKnife;
 public class PlayerFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener, MusicServiceEventListener, Toolbar.OnMenuItemClickListener, PaletteColorHolder, MusicProgressViewUpdateHelper.Callback, PlayerAlbumCoverFragment.OnColorChangedListener {
     public static final String TAG = PlayerFragment.class.getSimpleName();
 
-    @Bind(R.id.player_status_bar)
-    View statusbar;
     @Bind(R.id.player_toolbar)
     Toolbar toolbar;
 
@@ -59,6 +57,7 @@ public class PlayerFragment extends Fragment implements SharedPreferences.OnShar
     private Callbacks callbacks;
 
     private PlaybackControlsFragment playbackControlsFragment;
+    private PlayingInfoFragment playingInfoFragment;
     private PlayerAlbumCoverFragment playerAlbumCoverFragment;
 
     @Override
@@ -97,6 +96,7 @@ public class PlayerFragment extends Fragment implements SharedPreferences.OnShar
         ButterKnife.bind(this, view);
 
         playbackControlsFragment = (PlaybackControlsFragment) getChildFragmentManager().findFragmentById(R.id.playback_controls_fragment);
+        playingInfoFragment = (PlayingInfoFragment) getChildFragmentManager().findFragmentById(R.id.playing_info_fragment);
         playerAlbumCoverFragment = (PlayerAlbumCoverFragment) getChildFragmentManager().findFragmentById(R.id.player_album_cover_fragment);
         playerAlbumCoverFragment.setOnColorChangedListener(this);
 
@@ -340,46 +340,7 @@ public class PlayerFragment extends Fragment implements SharedPreferences.OnShar
     }
 
     private void animateColorChange(final int newColor) {
-//        if (colorTransitionAnimator != null && colorTransitionAnimator.isStarted()) {
-//            colorTransitionAnimator.cancel();
-//        }
-//        colorTransitionAnimator = new AnimatorSet();
-//        AnimatorSet.Builder animatorSetBuilder = colorTransitionAnimator.play(ViewUtil.createBackgroundColorTransition(footer, lastColor, newColor));
-//
-//        if (opaqueToolBar) {
-//            animatorSetBuilder.with(ViewUtil.createBackgroundColorTransition(toolbar, lastColor, newColor));
-//            ViewUtil.setToolbarContentColorForBackground(activity, toolbar, newColor);
-//        } else {
-//            toolbar.setBackgroundColor(Color.TRANSPARENT);
-//            ViewUtil.setToolbarContentDark(activity, toolbar, false);
-//        }
-//
-//        if (opaqueStatusBar) {
-//            int newStatusbarColor = newColor;
-//            int oldStatusbarColor = lastColor;
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                newStatusbarColor = ColorUtil.shiftColorDown(newStatusbarColor);
-//                oldStatusbarColor = ColorUtil.shiftColorDown(oldStatusbarColor);
-//            }
-//            animatorSetBuilder.with(ViewUtil.createBackgroundColorTransition(statusbar, oldStatusbarColor, newStatusbarColor));
-//        } else {
-//            statusbar.setBackgroundColor(Color.TRANSPARENT);
-//        }
-//
-//        colorTransitionAnimator.addListener(new SimpleAnimatorListener() {
-//            @Override
-//            public void onAnimationStart(Animator animation) {
-//                if (newColor == ColorUtil.resolveColor(activity, R.attr.default_bar_color) && ThemeSingleton.get().darkTheme) {
-//                    lastPlaybackControlsColor = Color.WHITE;
-//                } else {
-//                    lastPlaybackControlsColor = newColor;
-//                }
-//                updateProgressSliderTint();
-//            }
-//        });
-//
-//        colorTransitionAnimator.start();
-
+        getView().setBackgroundColor(newColor);
         lastColor = newColor;
     }
 

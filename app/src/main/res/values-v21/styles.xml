@@ -23,7 +23,6 @@
     </style>
 
     <style name="MusicProgressSlider" parent="MusicProgressSliderParent">
-        <item name="android:elevation">2dp</item>
         <item name="android:padding">0dp</item>
     </style>
 
