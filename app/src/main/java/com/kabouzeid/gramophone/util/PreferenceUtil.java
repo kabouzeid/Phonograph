@@ -40,7 +40,7 @@ public final class PreferenceUtil {
 
     public static final String OPAQUE_TOOLBAR_NOW_PLAYING = "opaque_toolbar_now_playing";
     public static final String OPAQUE_STATUSBAR_NOW_PLAYING = "opaque_statusbar_now_playing";
-    public static final String FORCE_SQUARE_ALBUM_ART = "force_square_album_art";
+    public static final String FORCE_SQUARE_ALBUM_COVER = "force_square_album_art";
     public static final String LARGER_TITLE_BOX_NOW_PLAYING = "larger_title_box_now_playing";
     public static final String ALTERNATIVE_PROGRESS_SLIDER_NOW_PLAYING = "alternative_progress_slider_now_playing";
     public static final String PLAYBACK_CONTROLLER_CARD_NOW_PLAYING = "playback_controller_card_now_playing";
@@ -167,8 +167,8 @@ public final class PreferenceUtil {
         return mPreferences.getBoolean(OPAQUE_TOOLBAR_NOW_PLAYING, false);
     }
 
-    public final boolean forceAlbumArtSquared() {
-        return mPreferences.getBoolean(FORCE_SQUARE_ALBUM_ART, false);
+    public final boolean forceSquareAlbumCover() {
+        return mPreferences.getBoolean(FORCE_SQUARE_ALBUM_COVER, false);
     }
 
     public final boolean playbackControllerCardNowPlaying() {

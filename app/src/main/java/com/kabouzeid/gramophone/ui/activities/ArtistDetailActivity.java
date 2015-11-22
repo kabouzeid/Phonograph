@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +44,6 @@ import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
-import com.kabouzeid.gramophone.views.SquareIfPlaceImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -68,7 +68,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     public static final String EXTRA_ARTIST_ID = "extra_artist_id";
 
     @Bind(R.id.image)
-    SquareIfPlaceImageView artistImage;
+    ImageView artistImage;
     @Bind(R.id.list_background)
     View songListBackground;
     @Bind(R.id.list)

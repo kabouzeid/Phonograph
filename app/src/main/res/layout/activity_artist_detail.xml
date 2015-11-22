@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.kabouzeid.gramophone.views.SquareIfPlaceImageView
+    <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/header_image_height"

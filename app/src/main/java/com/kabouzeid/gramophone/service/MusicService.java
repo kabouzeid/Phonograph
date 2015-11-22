@@ -31,12 +31,12 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Toast;
 
-import com.kabouzeid.gramophone.BuildConfig;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appwidget.WidgetMedium;
 import com.kabouzeid.gramophone.helper.PlayingNotificationHelper;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.helper.StopWatch;
+import com.kabouzeid.gramophone.imageloader.BlurProcessor;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.HistoryStore;
 import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
@@ -51,7 +51,6 @@ import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.assist.ViewScaleType;
 import com.nostra13.universalimageloader.core.imageaware.NonViewAware;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -447,22 +446,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             ImageLoader.getInstance().displayImage(
                     currentAlbumArtUri,
                     new NonViewAware(new ImageSize(screenSize.x, screenSize.y), ViewScaleType.CROP),
-                    new DisplayImageOptions.Builder()
-                            .postProcessor(new BitmapProcessor() {
-                                @Override
-                                public Bitmap process(Bitmap bitmap) {
-                                    Bitmap.Config config = bitmap.getConfig();
-                                    if (config == null) {
-                                        config = Bitmap.Config.ARGB_8888;
-                                    }
-                                    try {
-                                        return bitmap.copy(config, false);
-                                    } catch (OutOfMemoryError e) {
-                                        if (BuildConfig.DEBUG) e.printStackTrace();
-                                        return null;
-                                    }
-                                }
-                            }).build(),
+                    new DisplayImageOptions.Builder().postProcessor(new BlurProcessor.Builder(this).build()).build(),
                     new SimpleImageLoadingListener() {
                         @Override
                         public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
