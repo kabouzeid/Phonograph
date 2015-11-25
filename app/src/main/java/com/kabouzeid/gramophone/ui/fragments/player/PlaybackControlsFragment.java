@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.ui.fragments;
+package com.kabouzeid.gramophone.ui.fragments.player;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -229,7 +229,7 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
                         lastPlaybackControlsColor));
                 break;
             default:
-                shuffleButton.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_shuffle_white_36dp,
+                shuffleButton.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_trending_flat_white_36dp,
                         lastPlaybackControlsColor));
                 break;
         }
@@ -256,7 +256,7 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
                         lastPlaybackControlsColor));
                 break;
             default:
-                repeatButton.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_repeat_white_36dp,
+                repeatButton.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_repeat_off_white_36dp,
                         lastPlaybackControlsColor));
                 break;
         }

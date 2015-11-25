@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="bottom"
+    sothree:umanoScrollableView="@+id/sliding_panel"
     sothree:umanoDragView="@+id/sliding_panel"
     sothree:umanoPanelHeight="@dimen/mini_player_height"
     sothree:umanoShadowHeight="@dimen/card_elevation">
@@ -18,19 +19,17 @@
         android:id="@+id/sliding_panel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?android:colorBackground"
-        android:clickable="true"
-        android:focusable="false">
+        android:background="?android:colorBackground">
 
         <fragment
             android:id="@+id/player_fragment"
-            class="com.kabouzeid.gramophone.ui.fragments.PlayerFragment"
+            class="com.kabouzeid.gramophone.ui.fragments.player.PlayerFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <fragment
             android:id="@+id/mini_player_fragment"
-            class="com.kabouzeid.gramophone.ui.fragments.MiniPlayerFragment"
+            class="com.kabouzeid.gramophone.ui.fragments.player.MiniPlayerFragment"
             android:layout_width="match_parent"
             android:layout_height="@dimen/mini_player_height" />
 

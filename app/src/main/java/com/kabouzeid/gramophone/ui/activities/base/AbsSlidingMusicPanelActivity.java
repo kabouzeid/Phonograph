@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.ui.fragments.MiniPlayerFragment;
-import com.kabouzeid.gramophone.ui.fragments.PlayerFragment;
+import com.kabouzeid.gramophone.ui.fragments.player.MiniPlayerFragment;
+import com.kabouzeid.gramophone.ui.fragments.player.PlayerFragment;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import butterknife.Bind;

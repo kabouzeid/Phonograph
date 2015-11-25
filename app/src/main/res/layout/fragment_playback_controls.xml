@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:background="#5a000000"
+        android:background="#33000000"
         android:layout_width="match_parent"
         android:layout_height="@dimen/progress_container_height">
 

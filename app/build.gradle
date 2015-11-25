@@ -125,6 +125,7 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.5.0'
     compile 'com.github.kabouzeid:Android-Universal-Image-Loader:c2894ad9f1'
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
     //noinspection GradleDynamicVersion
     compile 'com.anjlab.android.iab.v3:library:1.0.+@aar'
 }
