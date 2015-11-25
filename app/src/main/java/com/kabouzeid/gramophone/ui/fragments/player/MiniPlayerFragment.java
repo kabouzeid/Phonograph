@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.ui.fragments;
+package com.kabouzeid.gramophone.ui.fragments.player;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
