@@ -14,7 +14,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.ui.fragments.player.MiniPlayerFragment;
 import com.kabouzeid.gramophone.ui.fragments.player.PlayerFragment;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+import com.kabouzeid.gramophone.views.SlidingUpPanelLayout;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -67,6 +67,8 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                 }
             }
         });
+
+        slidingUpPanelLayout.setScrollingEnabled(false);
     }
 
     protected abstract View createContentView();
