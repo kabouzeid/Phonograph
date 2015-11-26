@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -24,11 +25,11 @@ import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
 import com.kabouzeid.gramophone.dialogs.SongShareDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.ui.activities.base.AbsMusicServiceActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
@@ -37,8 +38,8 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
+import com.kabouzeid.gramophone.views.SlidingUpPanelLayout;
 import com.kabouzeid.gramophone.views.SquareLayout;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import org.solovyev.android.views.llm.LinearLayoutManager;
 
@@ -107,11 +108,11 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
         setUpSubFragments();
 
         recyclerView.setAdapter(new SongAdapter(
-                ((MainActivity) getActivity()),
+                ((AppCompatActivity) getActivity()),
                 SongLoader.getAllSongs(getActivity()),
                 R.layout.item_list,
                 false,
-                ((MainActivity) getActivity())));
+                ((CabHolder) getActivity())));
 
         // TODO set child size
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -274,4 +275,6 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
     public interface Callbacks {
         void onPaletteColorChanged();
     }
+
+
 }
