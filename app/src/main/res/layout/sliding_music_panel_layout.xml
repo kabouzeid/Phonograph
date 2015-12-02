@@ -1,10 +1,12 @@
-<com.kabouzeid.gramophone.views.SlidingUpPanelLayout
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
     android:id="@+id/sliding_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:sothree="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="bottom"
+    sothree:umanoScrollableView="@+id/sliding_panel"
+    sothree:umanoDragView="@+id/sliding_panel"
     sothree:umanoPanelHeight="@dimen/mini_player_height"
     sothree:umanoShadowHeight="@dimen/card_elevation">
 
@@ -33,4 +35,4 @@
 
     </FrameLayout>
 
-</com.kabouzeid.gramophone.views.SlidingUpPanelLayout>
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>
