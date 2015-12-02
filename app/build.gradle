@@ -119,11 +119,11 @@ dependencies {
     compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
     compile 'asia.ivity.android:drag-sort-listview:1.0'
     compile 'com.github.semoncat.seekarc:library:0.1'
-    compile 'com.sothree.slidinguppanel:library:3.2.0'
+    compile 'com.github.kabouzeid:AndroidSlidingUpPanel:b08e8a2290'
     compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
     compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
     compile 'com.squareup.okhttp:okhttp:2.5.0'
-    compile 'com.github.kabouzeid:Android-Universal-Image-Loader:c2894ad9f1'
+    compile 'com.github.kabouzeid:Android-Universal-Image-Loader:66fde37ba2'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
     //noinspection GradleDynamicVersion
