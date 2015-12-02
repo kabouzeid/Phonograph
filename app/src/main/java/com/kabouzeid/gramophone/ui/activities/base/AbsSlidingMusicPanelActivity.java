@@ -69,12 +69,22 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         });
     }
 
+    public void setAntiDragView(View antiDragView) {
+        slidingUpPanelLayout.setAntiDragView(antiDragView);
+    }
+
     protected abstract View createContentView();
 
     @Override
-    public void onServiceConnected(ComponentName name, IBinder service) {
+    public void onPlayingMetaChanged() {
+        super.onPlayingMetaChanged();
         hideBottomBar(MusicPlayerRemote.getPlayingQueue().isEmpty());
+    }
+
+    @Override
+    public void onServiceConnected(ComponentName name, IBinder service) {
         super.onServiceConnected(name, service);
+        hideBottomBar(MusicPlayerRemote.getPlayingQueue().isEmpty());
     }
 
     @Override
@@ -133,6 +143,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     public void hideBottomBar(boolean hide) {
         if (hide) {
+            slidingUpPanelLayout.setPanelHeight(0);
             slidingUpPanelLayout.post(new Runnable() {
                 @Override
                 public void run() {
@@ -140,6 +151,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                 }
             });
         } else {
+            slidingUpPanelLayout.setPanelHeight(getResources().getDimensionPixelSize(R.dimen.mini_player_height));
             slidingUpPanelLayout.post(new Runnable() {
                 @Override
                 public void run() {
@@ -159,6 +171,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     @Override
     public void onBackPressed() {
+        if (playerFragment.onBackPressed()) return;
         if (!isPanelCollapsed()) {
             slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
             return;
