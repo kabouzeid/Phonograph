@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.ui.fragments.player;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
@@ -31,22 +33,22 @@ import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsMusicServiceActivity;
+import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
-import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.kabouzeid.gramophone.views.SlidingUpPanelLayout;
 import com.kabouzeid.gramophone.views.SquareLayout;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import org.solovyev.android.views.llm.LinearLayoutManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class PlayerFragment extends Fragment implements MusicServiceEventListener, Toolbar.OnMenuItemClickListener, PaletteColorHolder, PlayerAlbumCoverFragment.OnColorChangedListener {
+public class PlayerFragment extends Fragment implements MusicServiceEventListener, Toolbar.OnMenuItemClickListener, PaletteColorHolder, PlayerAlbumCoverFragment.OnColorChangedListener, SlidingUpPanelLayout.PanelSlideListener {
     public static final String TAG = PlayerFragment.class.getSimpleName();
 
     @Bind(R.id.player_toolbar)
@@ -61,6 +63,8 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
     SquareLayout albumCoverContainer;
     @Bind(R.id.player_content)
     RelativeLayout playerContent;
+    @Bind(R.id.color_background)
+    View colorBackground;
 
     private int lastColor;
 
@@ -69,6 +73,8 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
 
     private PlaybackControlsFragment playbackControlsFragment;
     private PlayerAlbumCoverFragment playerAlbumCoverFragment;
+
+    private LinearLayoutManager layoutManager;
 
     @Override
     public void onAttach(Context context) {
@@ -115,7 +121,11 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
                 ((CabHolder) getActivity())));
 
         // TODO set child size
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+
+        //slidingUpPanelLayout.setParallaxOffset(Util.resolveDimensionPixelSize(activity, R.attr.actionBarSize) + getResources().getDimensionPixelSize(R.dimen.status_bar_padding));
+        slidingUpPanelLayout.setPanelSlideListener(this);
 
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -124,8 +134,6 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
                 setUpPanelAndAlbumCoverHeight();
             }
         });
-
-
 
         activity.addMusicServiceEventListener(this);
     }
@@ -163,13 +171,16 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
     }
 
     private void setUpPanelAndAlbumCoverHeight() {
-        final int availablePanelHeight = slidingUpPanelLayout.getHeight() - playerContent.getHeight();
-        final int minPanelHeight = (int) getResources().getDisplayMetrics().density * (72 + 32);
+        int topMargin = getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
+
+        final int availablePanelHeight = slidingUpPanelLayout.getHeight() - playerContent.getHeight() + topMargin;
+        final int minPanelHeight = (int) getResources().getDisplayMetrics().density * (72 + 32) + topMargin;
         if (availablePanelHeight < minPanelHeight) {
             albumCoverContainer.getLayoutParams().height = albumCoverContainer.getHeight() - (minPanelHeight - availablePanelHeight);
             albumCoverContainer.forceSquare(false);
         }
         slidingUpPanelLayout.setPanelHeight(Math.max(minPanelHeight, availablePanelHeight));
+        ((AbsSlidingMusicPanelActivity) activity).setAntiDragView(slidingUpPanelLayout.findViewById(R.id.player_panel));
     }
 
     private void setUpSubFragments() {
@@ -193,7 +204,7 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
 
     private void updatePlayerMenu() {
         boolean isFavorite = MusicUtil.isFavorite(activity, MusicPlayerRemote.getCurrentSong());
-        Drawable favoriteIcon = Util.getTintedDrawable(activity, isFavorite ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_outline_white_24dp, ViewUtil.getToolbarIconColor(activity, ColorUtil.useDarkTextColorOnBackground(lastColor)));
+        Drawable favoriteIcon = Util.getTintedDrawable(activity, isFavorite ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_outline_white_24dp, ViewUtil.getToolbarIconColor(activity, false));
         toolbar.getMenu().findItem(R.id.action_toggle_favorite)
                 .setIcon(favoriteIcon)
                 .setTitle(isFavorite ? getString(R.string.action_remove_from_favorites) : getString(R.string.action_add_to_favorites));
@@ -205,8 +216,17 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
         return lastColor;
     }
 
+    @SuppressWarnings("ConstantConditions")
     private void animateColorChange(final int newColor) {
-        getView().setBackgroundColor(newColor);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int x = (int) (playbackControlsFragment.playPauseFab.getX() + playbackControlsFragment.playPauseFab.getWidth() / 2 + playbackControlsFragment.getView().getX());
+            int y = (int) (playbackControlsFragment.playPauseFab.getY() + playbackControlsFragment.playPauseFab.getHeight() / 2 + playbackControlsFragment.getView().getY());
+            float startRadius = 0;
+            float endRadius = Math.max(colorBackground.getWidth(), colorBackground.getHeight());
+            slidingUpPanelLayout.setBackgroundColor(lastColor);
+            colorBackground.setBackgroundColor(newColor);
+            ViewAnimationUtils.createCircularReveal(colorBackground, x, y, startRadius, endRadius).setDuration(1000).start();
+        }
         lastColor = newColor;
     }
 
@@ -265,6 +285,14 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
         playbackControlsFragment.resetShowControlsAnimation();
     }
 
+    public boolean onBackPressed() {
+        if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
+            slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public void onColorChanged(int color) {
         animateColorChange(color);
@@ -272,9 +300,39 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
         callbacks.onPaletteColorChanged();
     }
 
+    @Override
+    public void onPanelSlide(View view, float slide) {
+        float density = getResources().getDisplayMetrics().density;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            playingQueueCard.setCardElevation(density * 6 * slide + 2 * density);
+        }
+    }
+
+    @Override
+    public void onPanelCollapsed(View view) {
+        if (layoutManager.findLastVisibleItemPosition() < 50) {
+            recyclerView.smoothScrollToPosition(0);
+        } else {
+            recyclerView.scrollToPosition(0);
+        }
+    }
+
+    @Override
+    public void onPanelExpanded(View view) {
+
+    }
+
+    @Override
+    public void onPanelAnchored(View view) {
+
+    }
+
+    @Override
+    public void onPanelHidden(View view) {
+
+    }
+
     public interface Callbacks {
         void onPaletteColorChanged();
     }
-
-
 }

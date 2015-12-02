@@ -89,6 +89,13 @@ public class Util {
         return drawable;
     }
 
+    public static int resolveDimensionPixelSize(@NonNull Context context, @AttrRes int dimenAttr) {
+        TypedArray a = context.obtainStyledAttributes(new int[]{dimenAttr});
+        int dimensionPixelSize = a.getDimensionPixelSize(0, 0);
+        a.recycle();
+        return dimensionPixelSize;
+    }
+
     public static Drawable getTintedDrawable(@NonNull Context context, @DrawableRes int drawableResId, int color) {
         Drawable drawable = ContextCompat.getDrawable(context, drawableResId);
         if (drawable != null) {

@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="bottom"
-    sothree:umanoScrollableView="@+id/sliding_panel"
-    sothree:umanoDragView="@+id/sliding_panel"
+    sothree:umanoOverlay="false"
     sothree:umanoPanelHeight="@dimen/mini_player_height"
     sothree:umanoShadowHeight="@dimen/card_elevation">
 

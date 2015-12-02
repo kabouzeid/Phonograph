@@ -6,43 +6,52 @@
     xmlns:sothree="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="true"
     android:clickable="false"
+    android:focusable="true"
     android:gravity="bottom"
-    sothree:umanoDragView="@+id/player_panel"
     sothree:umanoFadeColor="#00000000"
     sothree:umanoOverlay="true"
     sothree:umanoPanelHeight="0dp"
     sothree:umanoScrollableView="@+id/player_recycler_view"
-    sothree:umanoParallaxOffset="32dp"
     sothree:umanoShadowHeight="0dp">
 
-    <RelativeLayout
-        android:id="@+id/player_content"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <com.kabouzeid.gramophone.views.SquareLayout
-            android:id="@+id/album_cover_container"
+        <View
+            android:id="@+id/color_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <RelativeLayout
+            android:id="@+id/player_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true">
+            android:orientation="vertical">
+
+            <com.kabouzeid.gramophone.views.SquareLayout
+                android:id="@+id/album_cover_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true">
+
+                <fragment
+                    android:id="@+id/player_album_cover_fragment"
+                    class="com.kabouzeid.gramophone.ui.fragments.player.PlayerAlbumCoverFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.kabouzeid.gramophone.views.SquareLayout>
 
             <fragment
-                android:id="@+id/player_album_cover_fragment"
-                class="com.kabouzeid.gramophone.ui.fragments.player.PlayerAlbumCoverFragment"
+                android:id="@+id/playback_controls_fragment"
+                class="com.kabouzeid.gramophone.ui.fragments.player.PlaybackControlsFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_below="@id/album_cover_container" />
 
-        </com.kabouzeid.gramophone.views.SquareLayout>
-
-        <fragment
-            android:id="@+id/playback_controls_fragment"
-            class="com.kabouzeid.gramophone.ui.fragments.player.PlaybackControlsFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/album_cover_container" />
+        </RelativeLayout>
 
         <include layout="@layout/shadow_statusbar_actionbar" />
 
@@ -51,7 +60,8 @@
             style="@style/Toolbar"
             android:layout_marginTop="@dimen/status_bar_padding"
             android:background="@android:color/transparent" />
-    </RelativeLayout>
+
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/player_panel"
@@ -62,11 +72,13 @@
             android:id="@+id/playing_queue_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
+            android:layout_marginTop="@dimen/status_bar_padding"
             app:cardBackgroundColor="?cardBackgroundColor"
             app:cardElevation="@dimen/card_elevation"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="false">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/player_recycler_view"
