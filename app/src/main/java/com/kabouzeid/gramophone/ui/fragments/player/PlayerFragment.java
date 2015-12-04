@@ -120,8 +120,8 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
                 false,
                 ((CabHolder) getActivity())));
 
-        // TODO set child size
         layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setChildSize((int) (getResources().getDisplayMetrics().density * 72));
         recyclerView.setLayoutManager(layoutManager);
 
         //slidingUpPanelLayout.setParallaxOffset(Util.resolveDimensionPixelSize(activity, R.attr.actionBarSize) + getResources().getDimensionPixelSize(R.dimen.status_bar_padding));
