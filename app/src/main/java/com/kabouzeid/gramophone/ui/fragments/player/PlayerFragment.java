@@ -1,5 +1,7 @@
 package com.kabouzeid.gramophone.ui.fragments.player;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -17,9 +19,12 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.adapter.song.SongAdapter;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.PlayingQueueDialog;
@@ -36,6 +41,7 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsMusicServiceActivity;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
+import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
@@ -65,6 +71,13 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
     RelativeLayout playerContent;
     @Bind(R.id.color_background)
     View colorBackground;
+
+    @Bind(R.id.player_queue_subheader)
+    TextView playerQueueSubheader;
+
+    @Bind(R.id.current_song)
+    View currentSong;
+    MediaEntryViewHolder mediaEntryViewHolder;
 
     private int lastColor;
 
@@ -136,6 +149,16 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
         });
 
         activity.addMusicServiceEventListener(this);
+
+        mediaEntryViewHolder = new MediaEntryViewHolder(currentSong) {
+        };
+
+        mediaEntryViewHolder.separator.setVisibility(View.VISIBLE);
+        mediaEntryViewHolder.shortSeparator.setVisibility(View.GONE);
+        mediaEntryViewHolder.title.setText("When I'm Gone");
+        mediaEntryViewHolder.text.setText("Eminem");
+        mediaEntryViewHolder.image.setScaleType(ImageView.ScaleType.CENTER);
+        mediaEntryViewHolder.image.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_volume_up_white_24dp, ColorUtil.resolveColor(activity, R.attr.icon_color)));
     }
 
     @Override
@@ -218,15 +241,25 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
 
     @SuppressWarnings("ConstantConditions")
     private void animateColorChange(final int newColor) {
+        slidingUpPanelLayout.setBackgroundColor(lastColor);
+        Animator backgroundAnimator;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             int x = (int) (playbackControlsFragment.playPauseFab.getX() + playbackControlsFragment.playPauseFab.getWidth() / 2 + playbackControlsFragment.getView().getX());
             int y = (int) (playbackControlsFragment.playPauseFab.getY() + playbackControlsFragment.playPauseFab.getHeight() / 2 + playbackControlsFragment.getView().getY());
             float startRadius = 0;
             float endRadius = Math.max(colorBackground.getWidth(), colorBackground.getHeight());
-            slidingUpPanelLayout.setBackgroundColor(lastColor);
             colorBackground.setBackgroundColor(newColor);
-            ViewAnimationUtils.createCircularReveal(colorBackground, x, y, startRadius, endRadius).setDuration(1000).start();
+            backgroundAnimator = ViewAnimationUtils.createCircularReveal(colorBackground, x, y, startRadius, endRadius);
+        } else {
+            backgroundAnimator = ViewUtil.createBackgroundColorTransition(colorBackground, lastColor, newColor);
         }
+
+        Animator subHeaderAnimator = ViewUtil.createTextColorTransition(playerQueueSubheader, lastColor, newColor);
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(backgroundAnimator, subHeaderAnimator);
+        animatorSet.setDuration(1000).start();
+
         lastColor = newColor;
     }
 
