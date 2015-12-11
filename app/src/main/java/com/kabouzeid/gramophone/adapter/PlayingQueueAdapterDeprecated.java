@@ -23,12 +23,12 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class PlayingQueueAdapter extends ArrayAdapter<Song> {
+public class PlayingQueueAdapterDeprecated extends ArrayAdapter<Song> {
 
     @NonNull
     private final AppCompatActivity activity;
 
-    public PlayingQueueAdapter(@NonNull AppCompatActivity activity, @NonNull ArrayList<Song> playList) {
+    public PlayingQueueAdapterDeprecated(@NonNull AppCompatActivity activity, @NonNull ArrayList<Song> playList) {
         super(activity, R.layout.item_list_single_row, playList);
         this.activity = activity;
     }

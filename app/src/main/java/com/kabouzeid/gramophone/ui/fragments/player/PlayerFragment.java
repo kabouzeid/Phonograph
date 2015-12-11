@@ -25,7 +25,7 @@ import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
-import com.kabouzeid.gramophone.adapter.song.SongAdapter;
+import com.kabouzeid.gramophone.adapter.song.PlayingQueueAdapter;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.PlayingQueueDialog;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
@@ -126,7 +126,7 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
         setUpPlayerToolbar();
         setUpSubFragments();
 
-        recyclerView.setAdapter(new SongAdapter(
+        recyclerView.setAdapter(new PlayingQueueAdapter(
                 ((AppCompatActivity) getActivity()),
                 SongLoader.getAllSongs(getActivity()),
                 R.layout.item_list,
