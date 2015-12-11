@@ -9,7 +9,7 @@ import android.widget.AdapterView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.PlayingQueueAdapter;
+import com.kabouzeid.gramophone.adapter.PlayingQueueAdapterDeprecated;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.model.Song;
 import com.mobeta.android.dslv.DragSortListView;
@@ -53,21 +53,21 @@ public class PlayingQueueDialog extends LeakDetectDialogFragment {
         //noinspection unchecked
         final ArrayList<Song> playingQueue = (ArrayList<Song>) getArguments().getSerializable("queue");
         final DragSortListView dragSortListView = (DragSortListView) dialog.getCustomView().findViewById(R.id.dragSortListView);
-        final PlayingQueueAdapter playingQueueAdapter =
-                new PlayingQueueAdapter((AppCompatActivity) getActivity(), playingQueue);
-        dragSortListView.setAdapter(playingQueueAdapter);
+        final PlayingQueueAdapterDeprecated playingQueueAdapterDeprecated =
+                new PlayingQueueAdapterDeprecated((AppCompatActivity) getActivity(), playingQueue);
+        dragSortListView.setAdapter(playingQueueAdapterDeprecated);
         dragSortListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MusicPlayerRemote.playSongAt(position);
-                playingQueueAdapter.notifyDataSetChanged();
+                playingQueueAdapterDeprecated.notifyDataSetChanged();
             }
         });
         dragSortListView.setDropListener(new DragSortListView.DropListener() {
             @Override
             public void drop(int from, int to) {
                 MusicPlayerRemote.moveSong(from, to);
-                playingQueueAdapter.notifyDataSetChanged();
+                playingQueueAdapterDeprecated.notifyDataSetChanged();
             }
         });
         dragSortListView.post(new Runnable() {
