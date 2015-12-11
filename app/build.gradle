@@ -127,5 +127,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
     //noinspection GradleDynamicVersion
-    compile 'com.anjlab.android.iab.v3:library:1.0.+@aar'
+    compile 'com.anjlab.android.iab.v3:library:1.0.+'
 }
