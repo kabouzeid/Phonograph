@@ -122,6 +122,11 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
     }
 
     @Override
+    public void onQueueChanged() {
+
+    }
+
+    @Override
     public void onPlayStateChanged() {
         updatePlayPauseDrawableState(true);
     }
@@ -229,8 +234,8 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
                         lastPlaybackControlsColor));
                 break;
             default:
-                shuffleButton.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_trending_flat_white_36dp,
-                        lastPlaybackControlsColor));
+                shuffleButton.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_shuffle_white_36dp,
+                        ColorUtil.getColorWithAlpha(0.5f, lastPlaybackControlsColor)));
                 break;
         }
     }
@@ -256,8 +261,8 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
                         lastPlaybackControlsColor));
                 break;
             default:
-                repeatButton.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_repeat_off_white_36dp,
-                        lastPlaybackControlsColor));
+                repeatButton.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_repeat_white_36dp,
+                        ColorUtil.getColorWithAlpha(0.5f, lastPlaybackControlsColor)));
                 break;
         }
     }

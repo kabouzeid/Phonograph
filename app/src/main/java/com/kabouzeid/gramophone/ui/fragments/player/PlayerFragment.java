@@ -32,10 +32,10 @@ import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
 import com.kabouzeid.gramophone.dialogs.SongShareDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.loader.SongLoader;
+import com.kabouzeid.gramophone.misc.DragSortRecycler;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsMusicServiceActivity;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
@@ -75,9 +75,7 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
     @Bind(R.id.player_queue_subheader)
     TextView playerQueueSubheader;
 
-    @Bind(R.id.current_song)
-    View currentSong;
-    MediaEntryViewHolder mediaEntryViewHolder;
+    MediaEntryViewHolder currentSongViewHolder;
 
     private int lastColor;
 
@@ -88,6 +86,8 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
     private PlayerAlbumCoverFragment playerAlbumCoverFragment;
 
     private LinearLayoutManager layoutManager;
+
+    private PlayingQueueAdapter playingQueueAdapter;
 
     @Override
     public void onAttach(Context context) {
@@ -126,19 +126,23 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
         setUpPlayerToolbar();
         setUpSubFragments();
 
-        recyclerView.setAdapter(new PlayingQueueAdapter(
+        playingQueueAdapter = new PlayingQueueAdapter(
                 ((AppCompatActivity) getActivity()),
-                SongLoader.getAllSongs(getActivity()),
+                MusicPlayerRemote.getPlayingQueue(),
                 R.layout.item_list,
                 false,
-                ((CabHolder) getActivity())));
+                null);
+        recyclerView.setAdapter(playingQueueAdapter);
 
         layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setChildSize((int) (getResources().getDisplayMetrics().density * 72));
         recyclerView.setLayoutManager(layoutManager);
 
+        setUpDragSort();
+
         //slidingUpPanelLayout.setParallaxOffset(Util.resolveDimensionPixelSize(activity, R.attr.actionBarSize) + getResources().getDimensionPixelSize(R.dimen.status_bar_padding));
         slidingUpPanelLayout.setPanelSlideListener(this);
+        slidingUpPanelLayout.setAntiDragView(view.findViewById(R.id.draggable_area));
 
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -150,15 +154,7 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
 
         activity.addMusicServiceEventListener(this);
 
-        mediaEntryViewHolder = new MediaEntryViewHolder(currentSong) {
-        };
-
-        mediaEntryViewHolder.separator.setVisibility(View.VISIBLE);
-        mediaEntryViewHolder.shortSeparator.setVisibility(View.GONE);
-        mediaEntryViewHolder.title.setText("When I'm Gone");
-        mediaEntryViewHolder.text.setText("Eminem");
-        mediaEntryViewHolder.image.setScaleType(ImageView.ScaleType.CENTER);
-        mediaEntryViewHolder.image.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_volume_up_white_24dp, ColorUtil.resolveColor(activity, R.attr.icon_color)));
+        setUpCurrentSongView();
     }
 
     @Override
@@ -171,6 +167,13 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
     @Override
     public void onPlayingMetaChanged() {
         updatePlayerMenu();
+        updateCurrentSong();
+        updateQueue();
+    }
+
+    @Override
+    public void onQueueChanged() {
+        updateQueue();
     }
 
     @Override
@@ -191,6 +194,20 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
     @Override
     public void onMediaStoreChanged() {
 
+    }
+
+    private void updateQueue() {
+        playingQueueAdapter.swapDataSet(MusicPlayerRemote.getPlayingQueue(), MusicPlayerRemote.getPosition());
+        if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+            resetToCurrentPosition();
+        }
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    private void updateCurrentSong() {
+        Song song = MusicPlayerRemote.getCurrentSong();
+        currentSongViewHolder.title.setText(song.title);
+        currentSongViewHolder.text.setText(song.artistName);
     }
 
     private void setUpPanelAndAlbumCoverHeight() {
@@ -225,12 +242,39 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
         toolbar.setOnMenuItemClickListener(this);
     }
 
+    @SuppressWarnings("ConstantConditions")
+    private void setUpCurrentSongView() {
+        currentSongViewHolder = new MediaEntryViewHolder(getView().findViewById(R.id.current_song));
+
+        currentSongViewHolder.separator.setVisibility(View.VISIBLE);
+        currentSongViewHolder.shortSeparator.setVisibility(View.GONE);
+        currentSongViewHolder.image.setScaleType(ImageView.ScaleType.CENTER);
+        currentSongViewHolder.image.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_volume_up_white_24dp, ColorUtil.resolveColor(activity, R.attr.icon_color)));
+    }
+
     private void updatePlayerMenu() {
         boolean isFavorite = MusicUtil.isFavorite(activity, MusicPlayerRemote.getCurrentSong());
         Drawable favoriteIcon = Util.getTintedDrawable(activity, isFavorite ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_outline_white_24dp, ViewUtil.getToolbarIconColor(activity, false));
         toolbar.getMenu().findItem(R.id.action_toggle_favorite)
                 .setIcon(favoriteIcon)
                 .setTitle(isFavorite ? getString(R.string.action_remove_from_favorites) : getString(R.string.action_add_to_favorites));
+    }
+
+    private void setUpDragSort() {
+        DragSortRecycler dragSortRecycler = new DragSortRecycler();
+        dragSortRecycler.setViewHandleId(R.id.image_text);
+        dragSortRecycler.setOnItemMovedListener(new DragSortRecycler.OnItemMovedListener() {
+            @Override
+            public void onItemMoved(int from, int to) {
+                if (from == to) return;
+                MusicPlayerRemote.moveSong(from, to);
+            }
+        });
+
+        recyclerView.addItemDecoration(dragSortRecycler);
+        recyclerView.addOnItemTouchListener(dragSortRecycler);
+        recyclerView.addOnScrollListener(dragSortRecycler.getScrollListener());
+        recyclerView.setItemAnimator(null);
     }
 
     @Override
@@ -343,11 +387,12 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
 
     @Override
     public void onPanelCollapsed(View view) {
-        if (layoutManager.findLastVisibleItemPosition() < 50) {
-            recyclerView.smoothScrollToPosition(0);
-        } else {
-            recyclerView.scrollToPosition(0);
-        }
+        resetToCurrentPosition();
+    }
+
+    private void resetToCurrentPosition() {
+        recyclerView.stopScroll();
+        layoutManager.scrollToPositionWithOffset(MusicPlayerRemote.getPosition() + 1, 0);
     }
 
     @Override

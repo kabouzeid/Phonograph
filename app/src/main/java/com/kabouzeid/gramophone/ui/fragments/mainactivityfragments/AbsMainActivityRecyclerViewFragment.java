@@ -115,6 +115,11 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
     }
 
     @Override
+    public void onQueueChanged() {
+
+    }
+
+    @Override
     public void onPlayStateChanged() {
 
     }

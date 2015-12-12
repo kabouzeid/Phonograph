@@ -6,6 +6,8 @@ package com.kabouzeid.gramophone.interfaces;
 public interface MusicServiceEventListener {
     void onPlayingMetaChanged();
 
+    void onQueueChanged();
+
     void onPlayStateChanged();
 
     void onRepeatModeChanged();

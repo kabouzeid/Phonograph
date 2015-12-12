@@ -35,7 +35,7 @@ public abstract class AbsMultiSelectAdapter<VH extends RecyclerView.ViewHolder, 
         this.menuRes = menuRes;
     }
 
-    protected void toggleChecked(final int position) {
+    protected boolean toggleChecked(final int position) {
         if (cabHolder != null) {
             openCabIfNecessary();
 
@@ -47,7 +47,10 @@ public abstract class AbsMultiSelectAdapter<VH extends RecyclerView.ViewHolder, 
             if (size <= 0) cab.finish();
             else if (size == 1) cab.setTitle(checked.get(0).toString());
             else if (size > 1) cab.setTitle(context.getString(R.string.x_selected, size));
+
+            return true;
         }
+        return false;
     }
 
     private void openCabIfNecessary() {
