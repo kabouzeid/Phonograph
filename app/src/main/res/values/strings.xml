@@ -205,7 +205,5 @@
     <string name="aleksandar_tesic_summary">For helping me with the design.</string>
     <string name="website">Website</string>
     <string name="loading_products">Loading products…</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="up_next">Up next</string>
 </resources>

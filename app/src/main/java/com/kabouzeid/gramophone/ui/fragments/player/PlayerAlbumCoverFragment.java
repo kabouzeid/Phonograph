@@ -94,6 +94,11 @@ public class PlayerAlbumCoverFragment extends Fragment implements MusicServiceEv
     }
 
     @Override
+    public void onQueueChanged() {
+
+    }
+
+    @Override
     public void onPlayStateChanged() {
 
     }

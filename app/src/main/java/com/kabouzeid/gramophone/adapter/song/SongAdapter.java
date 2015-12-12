@@ -93,8 +93,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Song song = dataSet.get(position);
 
-        final int defaultBarColor = ColorUtil.resolveColor(activity, R.attr.default_bar_color);
-        setColors(defaultBarColor, holder);
+        setColors(ColorUtil.resolveColor(activity, R.attr.default_bar_color), holder);
 
         boolean isChecked = isChecked(song);
         holder.itemView.setActivated(isChecked);
@@ -108,40 +107,9 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
         if (holder.text != null) {
             holder.text.setText(getSongText(song));
         }
-        if (holder.image != null) {
-            ImageLoader.getInstance().displayImage(
-                    getSongImageLoaderUri(song),
-                    holder.image,
-                    new DisplayImageOptions.Builder()
-                            .cacheInMemory(true)
-                            .showImageOnFail(R.drawable.default_album_art)
-                            .resetViewBeforeLoading(true)
-                            .postProcessor(new BitmapProcessor() {
-                                @Override
-                                public Bitmap process(Bitmap bitmap) {
-                                    holder.paletteColor = ColorUtil.generateColor(activity, bitmap);
-                                    return bitmap;
-                                }
-                            })
-                            .displayer(new FadeInBitmapDisplayer(FADE_IN_TIME, true, true, false) {
-                                @Override
-                                public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
-                                    super.display(bitmap, imageAware, loadedFrom);
-                                    if (usePalette)
-                                        setColors(holder.paletteColor, holder);
-                                }
-                            })
-                            .build(),
-                    new SimpleImageLoadingListener() {
-                        @Override
-                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                            FadeInBitmapDisplayer.animate(view, FADE_IN_TIME);
-                            if (usePalette)
-                                setColors(defaultBarColor, holder);
-                        }
-                    }
-            );
-        }
+
+        loadAlbumCover(song, holder);
+
     }
 
     private void setColors(int color, ViewHolder holder) {
@@ -154,6 +122,42 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
                 holder.text.setTextColor(ColorUtil.getSecondaryTextColorForBackground(activity, color));
             }
         }
+    }
+
+    protected void loadAlbumCover(Song song, final ViewHolder holder) {
+        if (holder.image == null) return;
+        ImageLoader.getInstance().displayImage(
+                getSongImageLoaderUri(song),
+                holder.image,
+                new DisplayImageOptions.Builder()
+                        .cacheInMemory(true)
+                        .showImageOnFail(R.drawable.default_album_art)
+                        .resetViewBeforeLoading(true)
+                        .postProcessor(new BitmapProcessor() {
+                            @Override
+                            public Bitmap process(Bitmap bitmap) {
+                                holder.paletteColor = ColorUtil.generateColor(activity, bitmap);
+                                return bitmap;
+                            }
+                        })
+                        .displayer(new FadeInBitmapDisplayer(FADE_IN_TIME, true, true, false) {
+                            @Override
+                            public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
+                                super.display(bitmap, imageAware, loadedFrom);
+                                if (usePalette)
+                                    setColors(holder.paletteColor, holder);
+                            }
+                        })
+                        .build(),
+                new SimpleImageLoadingListener() {
+                    @Override
+                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                        FadeInBitmapDisplayer.animate(view, FADE_IN_TIME);
+                        if (usePalette)
+                            setColors(ColorUtil.resolveColor(activity, R.attr.default_bar_color), holder);
+                    }
+                }
+        );
     }
 
     protected String getSongTitle(Song song) {
@@ -254,8 +258,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
 
         @Override
         public boolean onLongClick(View view) {
-            toggleChecked(getAdapterPosition());
-            return true;
+            return toggleChecked(getAdapterPosition());
         }
     }
 }

@@ -121,6 +121,11 @@ public class MiniPlayerFragment extends Fragment implements MusicServiceEventLis
     }
 
     @Override
+    public void onQueueChanged() {
+
+    }
+
+    @Override
     public void onPlayStateChanged() {
         updatePlayPauseDrawableState(true);
     }

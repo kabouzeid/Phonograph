@@ -46,6 +46,7 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
             filter.addAction(MusicService.SHUFFLE_MODE_CHANGED);
             filter.addAction(MusicService.REPEAT_MODE_CHANGED);
             filter.addAction(MusicService.META_CHANGED);
+            filter.addAction(MusicService.QUEUE_CHANGED);
             filter.addAction(MusicService.MEDIA_STORE_CHANGED);
 
             registerReceiver(musicStateReceiver, filter);
@@ -89,6 +90,15 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
         for (MusicServiceEventListener listener : mMusicServiceEventListeners) {
             if (listener != null) {
                 listener.onPlayingMetaChanged();
+            }
+        }
+    }
+
+    @Override
+    public void onQueueChanged() {
+        for (MusicServiceEventListener listener : mMusicServiceEventListeners) {
+            if (listener != null) {
+                listener.onQueueChanged();
             }
         }
     }
@@ -145,6 +155,9 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
                 switch (action) {
                     case MusicService.META_CHANGED:
                         activity.onPlayingMetaChanged();
+                        break;
+                    case MusicService.QUEUE_CHANGED:
+                        activity.onQueueChanged();
                         break;
                     case MusicService.PLAY_STATE_CHANGED:
                         activity.onPlayStateChanged();

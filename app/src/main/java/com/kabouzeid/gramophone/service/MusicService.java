@@ -628,6 +628,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     }
 
     public void moveSong(int from, int to) {
+        if (from == to) return;
         final int currentPosition = getPosition();
         Song songToMove = playingQueue.remove(from);
         playingQueue.add(to, songToMove);
