@@ -214,7 +214,7 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
         int topMargin = getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
 
         final int availablePanelHeight = slidingUpPanelLayout.getHeight() - playerContent.getHeight() + topMargin;
-        final int minPanelHeight = (int) getResources().getDisplayMetrics().density * (72 + 32) + topMargin;
+        final int minPanelHeight = (int) getResources().getDisplayMetrics().density * (72 + 24) + topMargin;
         if (availablePanelHeight < minPanelHeight) {
             albumCoverContainer.getLayoutParams().height = albumCoverContainer.getHeight() - (minPanelHeight - availablePanelHeight);
             albumCoverContainer.forceSquare(false);
