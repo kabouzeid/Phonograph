@@ -86,6 +86,7 @@
 
                 <!--This is necessary for the drag sorting to work at the top-->
                 <View
+                    android:layout_marginTop="120dp"
                     android:layout_alignTop="@+id/card_content"
                     android:layout_alignBottom="@+id/card_content"
                     android:id="@+id/draggable_area"
