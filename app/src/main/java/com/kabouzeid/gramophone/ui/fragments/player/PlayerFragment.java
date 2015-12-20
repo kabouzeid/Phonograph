@@ -262,7 +262,7 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
 
     private void setUpDragSort() {
         DragSortRecycler dragSortRecycler = new DragSortRecycler();
-        dragSortRecycler.setViewHandleId(R.id.image_text);
+        dragSortRecycler.setViewHandleId(R.id.image);
         dragSortRecycler.setOnItemMovedListener(new DragSortRecycler.OnItemMovedListener() {
             @Override
             public void onItemMoved(int from, int to) {

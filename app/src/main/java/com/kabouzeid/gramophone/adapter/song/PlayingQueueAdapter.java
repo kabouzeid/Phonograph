@@ -29,13 +29,6 @@ public class PlayingQueueAdapter extends SongAdapter {
     @Override
     public void onBindViewHolder(@NonNull SongAdapter.ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-        if (holder.imageText != null) {
-            holder.imageText.setVisibility(View.VISIBLE);
-            holder.imageText.setText("" + (position - current));
-        }
-        if (holder.image != null) {
-            holder.image.setVisibility(View.GONE);
-        }
         if (holder.getItemViewType() == HISTORY) {
             setAlpha(holder, 0.5f);
         } else if (holder.getItemViewType() == CURRENT) {
@@ -51,11 +44,6 @@ public class PlayingQueueAdapter extends SongAdapter {
             return UP_NEXT;
         }
         return CURRENT;
-    }
-
-    @Override
-    protected void loadAlbumCover(Song song, ViewHolder holder) {
-        //super.loadAlbumCover(song, holder);
     }
 
     public void swapDataSet(ArrayList<Song> dataSet, int position) {
