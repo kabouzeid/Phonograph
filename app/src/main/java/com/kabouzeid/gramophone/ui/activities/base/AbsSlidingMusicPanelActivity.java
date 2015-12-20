@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.ui.fragments.player.AbsPlayerFragment;
 import com.kabouzeid.gramophone.ui.fragments.player.MiniPlayerFragment;
 import com.kabouzeid.gramophone.ui.fragments.player.PlayerFragment;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -34,7 +35,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     private int navigationBarColor;
     private int taskColor;
 
-    private PlayerFragment playerFragment;
+    private AbsPlayerFragment playerFragment;
     private MiniPlayerFragment miniPlayerFragment;
 
     @Override
@@ -43,7 +44,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         setContentView(createContentView());
         ButterKnife.bind(this);
 
-        playerFragment = (PlayerFragment) getSupportFragmentManager().findFragmentById(R.id.player_fragment);
+        playerFragment = (AbsPlayerFragment) getSupportFragmentManager().findFragmentById(R.id.player_fragment);
         miniPlayerFragment = (MiniPlayerFragment) getSupportFragmentManager().findFragmentById(R.id.mini_player_fragment);
 
         if (miniPlayerFragment.getView() != null) {
@@ -56,7 +57,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         }
 
         slidingUpPanelLayout.setPanelSlideListener(this);
-        playerFragment.show();
+        playerFragment.onShow();
 
         slidingUpPanelLayout.post(new Runnable() {
             @Override
@@ -98,7 +99,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         if (shouldColorNavigationBar()) {
             super.setNavigationBarColor(navigationBarColor);
         }
-        playerFragment.show();
+        playerFragment.onShow();
     }
 
     @Override
@@ -108,7 +109,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         if (shouldColorNavigationBar()) {
             super.setNavigationBarColor(playerFragmentColor);
         }
-        playerFragment.hide();
+        playerFragment.onHide();
     }
 
     @Override

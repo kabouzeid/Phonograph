@@ -2,13 +2,10 @@ package com.kabouzeid.gramophone.ui.fragments.player;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -26,24 +23,12 @@ import android.widget.TextView;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.adapter.song.PlayingQueueAdapter;
-import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
-import com.kabouzeid.gramophone.dialogs.PlayingQueueDialog;
-import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
-import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
-import com.kabouzeid.gramophone.dialogs.SongShareDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
-import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
-import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.misc.DragSortRecycler;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.ui.activities.base.AbsMusicServiceActivity;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
-import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
-import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.kabouzeid.gramophone.views.SquareLayout;
@@ -54,7 +39,7 @@ import org.solovyev.android.views.llm.LinearLayoutManager;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class PlayerFragment extends Fragment implements MusicServiceEventListener, Toolbar.OnMenuItemClickListener, PaletteColorHolder, PlayerAlbumCoverFragment.OnColorChangedListener, SlidingUpPanelLayout.PanelSlideListener {
+public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCoverFragment.OnColorChangedListener, SlidingUpPanelLayout.PanelSlideListener {
     public static final String TAG = PlayerFragment.class.getSimpleName();
 
     @Bind(R.id.player_toolbar)
@@ -79,9 +64,6 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
 
     private int lastColor;
 
-    private AbsMusicServiceActivity activity;
-    private Callbacks callbacks;
-
     private PlaybackControlsFragment playbackControlsFragment;
     private PlayerAlbumCoverFragment playerAlbumCoverFragment;
 
@@ -90,38 +72,15 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
     private PlayingQueueAdapter playingQueueAdapter;
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            activity = (AbsMusicServiceActivity) context;
-            callbacks = (Callbacks) context;
-        } catch (ClassCastException e) {
-            throw new RuntimeException(context.getClass().getSimpleName() + " must be an instance of " + AbsMusicServiceActivity.class.getSimpleName() + " and implement " + Callbacks.class.getSimpleName());
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        activity = null;
-        callbacks = null;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_player, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_player, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
 
         setUpPlayerToolbar();
         setUpSubFragments();
@@ -152,21 +111,18 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
             }
         });
 
-        activity.addMusicServiceEventListener(this);
-
         setUpCurrentSongView();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        activity.removeMusicServiceEventListener(this);
         ButterKnife.unbind(this);
     }
 
     @Override
     public void onPlayingMetaChanged() {
-        updatePlayerMenu();
+        updateIsFavorite();
         updateCurrentSong();
         updateQueue();
     }
@@ -174,26 +130,6 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
     @Override
     public void onQueueChanged() {
         updateQueue();
-    }
-
-    @Override
-    public void onPlayStateChanged() {
-
-    }
-
-    @Override
-    public void onRepeatModeChanged() {
-
-    }
-
-    @Override
-    public void onShuffleModeChanged() {
-
-    }
-
-    @Override
-    public void onMediaStoreChanged() {
-
     }
 
     private void updateQueue() {
@@ -252,7 +188,7 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
         currentSongViewHolder.image.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_volume_up_white_24dp, ColorUtil.resolveColor(activity, R.attr.icon_color)));
     }
 
-    private void updatePlayerMenu() {
+    private void updateIsFavorite() {
         boolean isFavorite = MusicUtil.isFavorite(activity, MusicPlayerRemote.getCurrentSong());
         Drawable favoriteIcon = Util.getTintedDrawable(activity, isFavorite ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_outline_white_24dp, ViewUtil.getToolbarIconColor(activity, false));
         toolbar.getMenu().findItem(R.id.action_toggle_favorite)
@@ -311,57 +247,28 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
     public boolean onMenuItemClick(MenuItem item) {
         final Song song = MusicPlayerRemote.getCurrentSong();
         switch (item.getItemId()) {
-            case R.id.action_sleep_timer:
-                new SleepTimerDialog().show(getFragmentManager(), "SET_SLEEP_TIMER");
-                return true;
             case R.id.action_toggle_favorite:
-                MusicUtil.toggleFavorite(activity, song);
+                super.onMenuItemClick(item);
                 if (MusicUtil.isFavorite(activity, song)) {
                     playerAlbumCoverFragment.showHeartAnimation();
                 }
-                updatePlayerMenu();
-                return true;
-            case R.id.action_share:
-                SongShareDialog.create(song).show(getFragmentManager(), "SHARE_SONG");
-                return true;
-            case R.id.action_equalizer:
-                NavigationUtil.openEqualizer(activity);
-                return true;
-            case R.id.action_shuffle_all:
-                MusicPlayerRemote.openAndShuffleQueue(SongLoader.getAllSongs(activity), true);
-                return true;
-            case R.id.action_add_to_playlist:
-                AddToPlaylistDialog.create(song).show(getFragmentManager(), "ADD_PLAYLIST");
-                return true;
-            case R.id.action_playing_queue:
-                PlayingQueueDialog.create().show(getFragmentManager(), "PLAY_QUEUE");
-                return true;
-            case R.id.action_tag_editor:
-                Intent intent = new Intent(activity, SongTagEditorActivity.class);
-                intent.putExtra(AbsTagEditorActivity.EXTRA_ID, song.id);
-                startActivity(intent);
-                return true;
-            case R.id.action_details:
-                SongDetailDialog.create(song).show(getFragmentManager(), "SONG_DETAIL");
-                return true;
-            case R.id.action_go_to_album:
-                NavigationUtil.goToAlbum(activity, song.albumId);
-                return true;
-            case R.id.action_go_to_artist:
-                NavigationUtil.goToArtist(activity, song.artistId);
+                updateIsFavorite();
                 return true;
         }
-        return false;
+        return super.onMenuItemClick(item);
     }
 
-    public void hide() {
+    @Override
+    public void onHide() {
         playbackControlsFragment.hide();
     }
 
-    public void show() {
+    @Override
+    public void onShow() {
         playbackControlsFragment.show();
     }
 
+    @Override
     public boolean onBackPressed() {
         if (slidingUpPanelLayout.getPanelState() != SlidingUpPanelLayout.PanelState.COLLAPSED) {
             slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
@@ -408,9 +315,5 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
     @Override
     public void onPanelHidden(View view) {
 
-    }
-
-    public interface Callbacks {
-        void onPaletteColorChanged();
     }
 }
