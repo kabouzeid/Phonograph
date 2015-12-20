@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
@@ -168,7 +169,7 @@ public class PlayerAlbumCoverFragment extends Fragment implements MusicServiceEv
         );
     }
 
-    public void showHeart() {
+    public void showHeartAnimation() {
         favoriteIcon.clearAnimation();
 
         favoriteIcon.setAlpha(0f);
@@ -179,8 +180,8 @@ public class PlayerAlbumCoverFragment extends Fragment implements MusicServiceEv
         favoriteIcon.setPivotY(favoriteIcon.getHeight() / 2);
 
         favoriteIcon.animate()
-                .setDuration(600)
-                .setInterpolator(new OvershootInterpolator())
+                .setDuration(500)
+                .setInterpolator(new DecelerateInterpolator())
                 .scaleX(1f)
                 .scaleY(1f)
                 .alpha(1f)
@@ -194,8 +195,10 @@ public class PlayerAlbumCoverFragment extends Fragment implements MusicServiceEv
                     @Override
                     public void run() {
                         favoriteIcon.animate()
-                                .setDuration(300)
-                                .setInterpolator(new DecelerateInterpolator())
+                                .setDuration(500)
+                                .setInterpolator(new AccelerateInterpolator())
+                                .scaleX(0f)
+                                .scaleY(0f)
                                 .alpha(0f)
                                 .start();
                     }
