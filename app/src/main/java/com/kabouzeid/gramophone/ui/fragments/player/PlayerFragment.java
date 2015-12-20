@@ -354,16 +354,16 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
         return false;
     }
 
-    public void showControls() {
-        playbackControlsFragment.showControls();
+    public void hide() {
+        playbackControlsFragment.hide();
     }
 
-    public void resetShowControlsAnimation() {
-        playbackControlsFragment.resetShowControlsAnimation();
+    public void show() {
+        playbackControlsFragment.show();
     }
 
     public boolean onBackPressed() {
-        if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
+        if (slidingUpPanelLayout.getPanelState() != SlidingUpPanelLayout.PanelState.COLLAPSED) {
             slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
             return true;
         }

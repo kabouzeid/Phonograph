@@ -56,7 +56,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         }
 
         slidingUpPanelLayout.setPanelSlideListener(this);
-        playerFragment.resetShowControlsAnimation();
+        playerFragment.show();
 
         slidingUpPanelLayout.post(new Runnable() {
             @Override
@@ -98,7 +98,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         if (shouldColorNavigationBar()) {
             super.setNavigationBarColor(navigationBarColor);
         }
-        playerFragment.resetShowControlsAnimation();
+        playerFragment.show();
     }
 
     @Override
@@ -108,7 +108,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         if (shouldColorNavigationBar()) {
             super.setNavigationBarColor(playerFragmentColor);
         }
-        playerFragment.showControls();
+        playerFragment.hide();
     }
 
     @Override
