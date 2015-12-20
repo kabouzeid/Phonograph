@@ -379,8 +379,8 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
 
     @Override
     public void onPanelSlide(View view, float slide) {
-        float density = getResources().getDisplayMetrics().density;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            float density = getResources().getDisplayMetrics().density;
             playingQueueCard.setCardElevation(density * 6 * slide + 2 * density);
         }
     }
