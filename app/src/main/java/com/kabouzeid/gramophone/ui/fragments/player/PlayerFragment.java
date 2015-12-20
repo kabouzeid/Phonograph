@@ -317,7 +317,7 @@ public class PlayerFragment extends Fragment implements MusicServiceEventListene
             case R.id.action_toggle_favorite:
                 MusicUtil.toggleFavorite(activity, song);
                 if (MusicUtil.isFavorite(activity, song)) {
-                    playerAlbumCoverFragment.showHeart();
+                    playerAlbumCoverFragment.showHeartAnimation();
                 }
                 updatePlayerMenu();
                 return true;
