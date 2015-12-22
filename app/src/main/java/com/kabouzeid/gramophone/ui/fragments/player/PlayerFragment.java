@@ -124,7 +124,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
     public void onPlayingMetaChanged() {
         updateIsFavorite();
         updateCurrentSong();
-        updateQueue();
+        updateQueuePosition();
     }
 
     @Override
@@ -134,6 +134,13 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
     private void updateQueue() {
         playingQueueAdapter.swapDataSet(MusicPlayerRemote.getPlayingQueue(), MusicPlayerRemote.getPosition());
+        if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+            resetToCurrentPosition();
+        }
+    }
+
+    private void updateQueuePosition() {
+        playingQueueAdapter.setCurrent(MusicPlayerRemote.getPosition());
         if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
             resetToCurrentPosition();
         }
@@ -156,7 +163,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
             albumCoverContainer.forceSquare(false);
         }
         slidingUpPanelLayout.setPanelHeight(Math.max(minPanelHeight, availablePanelHeight));
-        ((AbsSlidingMusicPanelActivity) activity).setAntiDragView(slidingUpPanelLayout.findViewById(R.id.player_panel));
+        ((AbsSlidingMusicPanelActivity) getActivity()).setAntiDragView(slidingUpPanelLayout.findViewById(R.id.player_panel));
     }
 
     private void setUpSubFragments() {
@@ -172,7 +179,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.onBackPressed();
+                getActivity().onBackPressed();
             }
         });
         toolbar.setOnMenuItemClickListener(this);
@@ -185,12 +192,12 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         currentSongViewHolder.separator.setVisibility(View.VISIBLE);
         currentSongViewHolder.shortSeparator.setVisibility(View.GONE);
         currentSongViewHolder.image.setScaleType(ImageView.ScaleType.CENTER);
-        currentSongViewHolder.image.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_volume_up_white_24dp, ColorUtil.resolveColor(activity, R.attr.icon_color)));
+        currentSongViewHolder.image.setImageDrawable(Util.getTintedDrawable(getActivity(), R.drawable.ic_volume_up_white_24dp, ColorUtil.resolveColor(getActivity(), R.attr.icon_color)));
     }
 
     private void updateIsFavorite() {
-        boolean isFavorite = MusicUtil.isFavorite(activity, MusicPlayerRemote.getCurrentSong());
-        Drawable favoriteIcon = Util.getTintedDrawable(activity, isFavorite ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_outline_white_24dp, ViewUtil.getToolbarIconColor(activity, false));
+        boolean isFavorite = MusicUtil.isFavorite(getActivity(), MusicPlayerRemote.getCurrentSong());
+        Drawable favoriteIcon = Util.getTintedDrawable(getActivity(), isFavorite ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_outline_white_24dp, ViewUtil.getToolbarIconColor(getActivity(), false));
         toolbar.getMenu().findItem(R.id.action_toggle_favorite)
                 .setIcon(favoriteIcon)
                 .setTitle(isFavorite ? getString(R.string.action_remove_from_favorites) : getString(R.string.action_add_to_favorites));
@@ -250,7 +257,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         switch (item.getItemId()) {
             case R.id.action_toggle_favorite:
                 super.onMenuItemClick(item);
-                if (MusicUtil.isFavorite(activity, song)) {
+                if (MusicUtil.isFavorite(getActivity(), song)) {
                     playerAlbumCoverFragment.showHeartAnimation();
                 }
                 updateIsFavorite();
@@ -282,7 +289,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
     public void onColorChanged(int color) {
         animateColorChange(color);
         playbackControlsFragment.setColor(color);
-        callbacks.onPaletteColorChanged();
+        getCallbacks().onPaletteColorChanged();
     }
 
     @Override
