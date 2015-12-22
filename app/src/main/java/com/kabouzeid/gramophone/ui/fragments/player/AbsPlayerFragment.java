@@ -10,7 +10,6 @@ import android.view.View;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
-import com.kabouzeid.gramophone.dialogs.PlayingQueueDialog;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
 import com.kabouzeid.gramophone.dialogs.SongShareDialog;
@@ -113,9 +112,8 @@ public abstract class AbsPlayerFragment extends Fragment implements MusicService
             case R.id.action_add_to_playlist:
                 AddToPlaylistDialog.create(song).show(getFragmentManager(), "ADD_PLAYLIST");
                 return true;
-            case R.id.action_playing_queue:
-                PlayingQueueDialog.create().show(getFragmentManager(), "PLAY_QUEUE");
-                return true;
+//            case R.id.action_playing_queue:
+//                return true;
             case R.id.action_tag_editor:
                 Intent intent = new Intent(activity, SongTagEditorActivity.class);
                 intent.putExtra(AbsTagEditorActivity.EXTRA_ID, song.id);
