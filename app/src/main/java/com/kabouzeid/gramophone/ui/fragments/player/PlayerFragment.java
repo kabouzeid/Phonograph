@@ -239,7 +239,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(backgroundAnimator, subHeaderAnimator);
-        animatorSet.setDuration(1000).start();
+        animatorSet.setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME).start();
 
         lastColor = newColor;
     }

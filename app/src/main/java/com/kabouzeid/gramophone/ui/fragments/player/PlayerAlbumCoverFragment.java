@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 
 import com.kabouzeid.gramophone.R;
@@ -148,12 +147,12 @@ public class PlayerAlbumCoverFragment extends Fragment implements MusicServiceEv
                                 return bitmap;
                             }
                         })
-                        .displayer(new FadeInBitmapDisplayer(ViewUtil.DEFAULT_COLOR_ANIMATION_DURATION))
+                        .displayer(new FadeInBitmapDisplayer(ViewUtil.PHONOGRAPH_ANIM_TIME))
                         .build(),
                 new SimpleImageLoadingListener() {
                     @Override
                     public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
-                        FadeInBitmapDisplayer.animate(view, ViewUtil.DEFAULT_COLOR_ANIMATION_DURATION);
+                        FadeInBitmapDisplayer.animate(view, ViewUtil.PHONOGRAPH_ANIM_TIME);
                         setColor(ColorUtil.resolveColor(activity, R.attr.default_bar_color));
                     }
 
@@ -180,7 +179,7 @@ public class PlayerAlbumCoverFragment extends Fragment implements MusicServiceEv
         favoriteIcon.setPivotY(favoriteIcon.getHeight() / 2);
 
         favoriteIcon.animate()
-                .setDuration(500)
+                .setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME / 2)
                 .setInterpolator(new DecelerateInterpolator())
                 .scaleX(1f)
                 .scaleY(1f)
@@ -195,7 +194,7 @@ public class PlayerAlbumCoverFragment extends Fragment implements MusicServiceEv
                     @Override
                     public void run() {
                         favoriteIcon.animate()
-                                .setDuration(500)
+                                .setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME / 2)
                                 .setInterpolator(new AccelerateInterpolator())
                                 .scaleX(0f)
                                 .scaleY(0f)

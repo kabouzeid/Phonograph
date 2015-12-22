@@ -46,7 +46,7 @@ public class ViewUtil {
         return createColorAnimator(v, "textColor", startColor, endColor);
     }
 
-    public final static int DEFAULT_COLOR_ANIMATION_DURATION = 500;
+    public final static int PHONOGRAPH_ANIM_TIME = 1000;
 
     private static Animator createColorAnimator(Object target, String propertyName, int startColor, int endColor) {
         ObjectAnimator animator;
@@ -60,7 +60,7 @@ public class ViewUtil {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             animator.setInterpolator(new PathInterpolator(0.4f, 0f, 1f, 1f));
         }
-        animator.setDuration(DEFAULT_COLOR_ANIMATION_DURATION);
+        animator.setDuration(PHONOGRAPH_ANIM_TIME);
         return animator;
     }
 
