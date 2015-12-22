@@ -23,7 +23,6 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     @Bind(R.id.player_album_cover_viewpager)
     ViewPager viewPager;
 
-    private AlbumCoverPagerAdapter pagerAdapter;
     private OnColorChangedListener onColorChangedListener;
 
     @Override
