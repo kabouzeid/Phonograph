@@ -224,9 +224,10 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         slidingUpPanelLayout.setBackgroundColor(lastColor);
         Animator backgroundAnimator;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int topMargin = getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
             int x = (int) (playbackControlsFragment.playPauseFab.getX() + playbackControlsFragment.playPauseFab.getWidth() / 2 + playbackControlsFragment.getView().getX());
-            int y = (int) (playbackControlsFragment.playPauseFab.getY() + playbackControlsFragment.playPauseFab.getHeight() / 2 + playbackControlsFragment.getView().getY());
-            float startRadius = 0;
+            int y = (int) (topMargin + playbackControlsFragment.playPauseFab.getY() + playbackControlsFragment.playPauseFab.getHeight() / 2 + playbackControlsFragment.getView().getY());
+            float startRadius = Math.max(playbackControlsFragment.playPauseFab.getWidth() / 2, playbackControlsFragment.playPauseFab.getHeight() / 2);
             float endRadius = Math.max(colorBackground.getWidth(), colorBackground.getHeight());
             colorBackground.setBackgroundColor(newColor);
             backgroundAnimator = ViewAnimationUtils.createCircularReveal(colorBackground, x, y, startRadius, endRadius);
