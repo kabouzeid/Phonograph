@@ -4,7 +4,9 @@ import android.animation.Animator;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.v4.view.ViewPager;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
@@ -32,7 +34,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     @Bind(R.id.player_favorite_icon)
     ImageView favoriteIcon;
 
-    private OnColorChangedListener onColorChangedListener;
+    private Callbacks callbacks;
     private int currentPosition;
 
     @Override
@@ -49,6 +51,23 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
         viewPager.setOffscreenPageLimit(2);
         updatePlayingQueue();
         viewPager.addOnPageChangeListener(this);
+        viewPager.setOnTouchListener(new View.OnTouchListener() {
+            GestureDetector gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onDoubleTap(MotionEvent e) {
+                    if (callbacks != null) {
+                        callbacks.onFavoriteToggled();
+                        return true;
+                    }
+                    return super.onDoubleTap(e);
+                }
+            });
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
+            }
+        });
     }
 
     @Override
@@ -144,14 +163,16 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     }
 
     private void notifyColorChange(int color) {
-        if (onColorChangedListener != null) onColorChangedListener.onColorChanged(color);
+        if (callbacks != null) callbacks.onColorChanged(color);
     }
 
-    public void setOnColorChangedListener(OnColorChangedListener listener) {
-        onColorChangedListener = listener;
+    public void setCallbacks(Callbacks listener) {
+        callbacks = listener;
     }
 
-    interface OnColorChangedListener {
+    interface Callbacks {
         void onColorChanged(int color);
+
+        void onFavoriteToggled();
     }
 }

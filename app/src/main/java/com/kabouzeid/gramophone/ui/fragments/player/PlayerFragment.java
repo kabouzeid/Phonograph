@@ -11,7 +11,6 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
@@ -39,7 +38,7 @@ import org.solovyev.android.views.llm.LinearLayoutManager;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCoverFragment.OnColorChangedListener, SlidingUpPanelLayout.PanelSlideListener {
+public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCoverFragment.Callbacks, SlidingUpPanelLayout.PanelSlideListener {
     public static final String TAG = PlayerFragment.class.getSimpleName();
 
     @Bind(R.id.player_toolbar)
@@ -172,7 +171,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         playbackControlsFragment = (PlaybackControlsFragment) getChildFragmentManager().findFragmentById(R.id.playback_controls_fragment);
         playerAlbumCoverFragment = (PlayerAlbumCoverFragment) getChildFragmentManager().findFragmentById(R.id.player_album_cover_fragment);
 
-        playerAlbumCoverFragment.setOnColorChangedListener(this);
+        playerAlbumCoverFragment.setCallbacks(this);
     }
 
     private void setUpPlayerToolbar() {
@@ -254,18 +253,14 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
     }
 
     @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        final Song song = MusicPlayerRemote.getCurrentSong();
-        switch (item.getItemId()) {
-            case R.id.action_toggle_favorite:
-                super.onMenuItemClick(item);
-                if (MusicUtil.isFavorite(getActivity(), song)) {
-                    playerAlbumCoverFragment.showHeartAnimation();
-                }
-                updateIsFavorite();
-                return true;
+    protected void toggleFavorite(Song song) {
+        super.toggleFavorite(song);
+        if (song.id == MusicPlayerRemote.getCurrentSong().id) {
+            if (MusicUtil.isFavorite(getActivity(), song)) {
+                playerAlbumCoverFragment.showHeartAnimation();
+            }
+            updateIsFavorite();
         }
-        return super.onMenuItemClick(item);
     }
 
     @Override
@@ -292,6 +287,11 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         animateColorChange(color);
         playbackControlsFragment.setColor(color);
         getCallbacks().onPaletteColorChanged();
+    }
+
+    @Override
+    public void onFavoriteToggled() {
+        toggleFavorite(MusicPlayerRemote.getCurrentSong());
     }
 
     @Override
