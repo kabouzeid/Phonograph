@@ -57,9 +57,9 @@ public class SleepTimerDialog extends LeakDetectDialogFragment {
         materialDialog = new MaterialDialog.Builder(getActivity())
                 .title(getActivity().getResources().getString(R.string.action_sleep_timer))
                 .positiveText(R.string.action_set)
-                .callback(new MaterialDialog.ButtonCallback() {
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onPositive(MaterialDialog dialog) {
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         if (getActivity() == null) {
                             return;
                         }
@@ -74,9 +74,10 @@ public class SleepTimerDialog extends LeakDetectDialogFragment {
 
                         Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_set, minutes), Toast.LENGTH_SHORT).show();
                     }
-
+                })
+                .onNeutral(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onNeutral(MaterialDialog dialog) {
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         if (getActivity() == null) {
                             return;
                         }

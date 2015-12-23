@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PlayingQueueAdapterDeprecated;
@@ -37,10 +38,9 @@ public class PlayingQueueDialog extends LeakDetectDialogFragment {
                 .title(getActivity().getResources().getString(R.string.label_current_playing_queue))
                 .customView(R.layout.dialog_playlist, false)
                 .positiveText(R.string.save_as_playlist)
-                .callback(new MaterialDialog.ButtonCallback() {
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onPositive(MaterialDialog dialog) {
-                        super.onPositive(dialog);
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         if (getActivity() == null)
                             return;
                         //noinspection unchecked

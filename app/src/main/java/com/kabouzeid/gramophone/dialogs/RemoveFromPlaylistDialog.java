@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.Html;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.model.PlaylistSong;
@@ -52,14 +53,14 @@ public class RemoveFromPlaylistDialog extends LeakDetectDialogFragment {
                 .content(content)
                 .positiveText(R.string.remove_action)
                 .negativeText(android.R.string.cancel)
-                .callback(new MaterialDialog.ButtonCallback() {
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onPositive(MaterialDialog dialog) {
-                        super.onPositive(dialog);
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         if (getActivity() == null)
                             return;
                         PlaylistsUtil.removeFromPlaylist(getActivity(), songs);
                     }
-                }).build();
+                })
+                .build();
     }
 }
