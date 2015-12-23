@@ -2,7 +2,6 @@ package com.kabouzeid.gramophone.ui.fragments.player;
 
 import android.animation.Animator;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
 import android.support.v4.view.ViewPager;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -90,6 +89,8 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     private void updatePlayingQueue() {
         viewPager.setAdapter(new AlbumCoverPagerAdapter(getFragmentManager(), MusicPlayerRemote.getPlayingQueue()));
         viewPager.setCurrentItem(MusicPlayerRemote.getPosition());
+        // doesn't get called automatically for some reason
+        onPageSelected(MusicPlayerRemote.getPosition());
     }
 
     @Override
@@ -118,11 +119,6 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     @Override
     public void onPageScrollStateChanged(int state) {
 
-    }
-
-    private static class ColorHolder {
-        @ColorInt
-        public int color;
     }
 
     public void showHeartAnimation() {
