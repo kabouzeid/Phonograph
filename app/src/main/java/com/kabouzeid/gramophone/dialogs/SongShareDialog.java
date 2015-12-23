@@ -19,7 +19,7 @@ public class SongShareDialog extends LeakDetectDialogFragment {
     public static SongShareDialog create(final Song song) {
         final SongShareDialog dialog = new SongShareDialog();
         final Bundle args = new Bundle();
-        args.putSerializable("song", song);
+        args.putParcelable("song", song);
         dialog.setArguments(args);
         return dialog;
     }
@@ -27,7 +27,7 @@ public class SongShareDialog extends LeakDetectDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final Song song = (Song) getArguments().getSerializable("song");
+        final Song song = (Song) getArguments().getParcelable("song");
         final String currentlyListening = getString(R.string.currently_listening_to_x_by_x, song.title, song.artistName);
         return new MaterialDialog.Builder(getActivity())
                 .title(R.string.what_do_you_want_to_share)

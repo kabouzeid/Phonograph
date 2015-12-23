@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.model.smartplaylist;
 
 import android.content.Context;
+import android.os.Parcel;
 import android.support.annotation.NonNull;
 
 import com.kabouzeid.gramophone.R;
@@ -29,4 +30,29 @@ public class HistoryPlaylist extends AbsSmartPlaylist {
     public void clear(@NonNull Context context) {
         HistoryStore.getInstance(context).clear();
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+    }
+
+    protected HistoryPlaylist(Parcel in) {
+        super(in);
+    }
+
+    public static final Creator<HistoryPlaylist> CREATOR = new Creator<HistoryPlaylist>() {
+        public HistoryPlaylist createFromParcel(Parcel source) {
+            return new HistoryPlaylist(source);
+        }
+
+        public HistoryPlaylist[] newArray(int size) {
+            return new HistoryPlaylist[size];
+        }
+    };
 }

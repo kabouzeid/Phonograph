@@ -18,7 +18,7 @@ public class ClearSmartPlaylistDialog extends LeakDetectDialogFragment {
     public static ClearSmartPlaylistDialog create(AbsSmartPlaylist playlist) {
         ClearSmartPlaylistDialog dialog = new ClearSmartPlaylistDialog();
         Bundle args = new Bundle();
-        args.putSerializable("playlist", playlist);
+        args.putParcelable("playlist", playlist);
         dialog.setArguments(args);
         return dialog;
     }
@@ -27,7 +27,7 @@ public class ClearSmartPlaylistDialog extends LeakDetectDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         //noinspection unchecked
-        final AbsSmartPlaylist playlist = (AbsSmartPlaylist) getArguments().getSerializable("playlist");
+        final AbsSmartPlaylist playlist = (AbsSmartPlaylist) getArguments().getParcelable("playlist");
         int title = R.string.clear_playlist_title;
         //noinspection ConstantConditions
         CharSequence content = Html.fromHtml(getString(R.string.clear_playlist_x, playlist.name));

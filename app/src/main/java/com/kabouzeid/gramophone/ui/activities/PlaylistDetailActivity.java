@@ -144,7 +144,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     private void getIntentExtras() {
         Bundle intentExtras = getIntent().getExtras();
         try {
-            playlist = (Playlist) intentExtras.getSerializable(EXTRA_PLAYLIST);
+            playlist = (Playlist) intentExtras.getParcelable(EXTRA_PLAYLIST);
         } catch (ClassCastException ignored) {
         }
         if (playlist == null) {

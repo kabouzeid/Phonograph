@@ -1,8 +1,8 @@
 package com.kabouzeid.gramophone.model;
 
-public class PlaylistSong extends Song {
+import android.os.Parcel;
 
-    private static final long serialVersionUID = 1098600801627571043L;
+public class PlaylistSong extends Song {
 
     public final int playlistId;
     public final int idInPlayList;
@@ -21,20 +21,61 @@ public class PlaylistSong extends Song {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        PlaylistSong that = (PlaylistSong) o;
+
+        if (playlistId != that.playlistId) return false;
+        return idInPlayList == that.idInPlayList;
+
+    }
+
+    @Override
     public int hashCode() {
-        final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + playlistId;
-        result = prime * result + idInPlayList;
+        result = 31 * result + playlistId;
+        result = 31 * result + idInPlayList;
         return result;
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (super.equals(obj)) {
-            final PlaylistSong other = (PlaylistSong) obj;
-            return playlistId == other.playlistId && idInPlayList == other.idInPlayList;
-        }
-        return false;
+    public String toString() {
+        return super.toString() +
+                "PlaylistSong{" +
+                "playlistId=" + playlistId +
+                ", idInPlayList=" + idInPlayList +
+                '}';
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(this.playlistId);
+        dest.writeInt(this.idInPlayList);
+    }
+
+    protected PlaylistSong(Parcel in) {
+        super(in);
+        this.playlistId = in.readInt();
+        this.idInPlayList = in.readInt();
+    }
+
+    public static final Creator<PlaylistSong> CREATOR = new Creator<PlaylistSong>() {
+        public PlaylistSong createFromParcel(Parcel source) {
+            return new PlaylistSong(source);
+        }
+
+        public PlaylistSong[] newArray(int size) {
+            return new PlaylistSong[size];
+        }
+    };
 }

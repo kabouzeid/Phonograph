@@ -93,7 +93,7 @@ public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
         public static AlbumCoverFragment newInstance(final Song song) {
             AlbumCoverFragment frag = new AlbumCoverFragment();
             final Bundle args = new Bundle();
-            args.putSerializable(SONG_ARG, song);
+            args.putParcelable(SONG_ARG, song);
             frag.setArguments(args);
             return frag;
         }
@@ -101,7 +101,7 @@ public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            song = (Song) getArguments().getSerializable(SONG_ARG);
+            song = (Song) getArguments().getParcelable(SONG_ARG);
         }
 
         @Override

@@ -1,17 +1,12 @@
 package com.kabouzeid.gramophone.model;
 
-import android.support.annotation.Nullable;
-import android.text.TextUtils;
-
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class Playlist implements Serializable {
-
-    private static final long serialVersionUID = 3013703495354856981L;
-
+public class Playlist implements Parcelable {
     public final int id;
     public final String name;
 
@@ -26,34 +21,47 @@ public class Playlist implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Playlist playlist = (Playlist) o;
+
+        if (id != playlist.id) return false;
+        return name != null ? name.equals(playlist.name) : playlist.name == null;
+
+    }
+
+    @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + id;
-        result = prime * result + (name == null ? 0 : name.hashCode());
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }
 
     @Override
-    public boolean equals(@Nullable final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Playlist other = (Playlist) obj;
-        if (id != other.id) {
-            return false;
-        }
-        return TextUtils.equals(name, other.name);
+    public String toString() {
+        return "Playlist{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     @Override
-    public String toString() {
-        return name;
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.name);
     }
+
+    protected Playlist(Parcel in) {
+        this.id = in.readInt();
+        this.name = in.readString();
+    }
+
 }

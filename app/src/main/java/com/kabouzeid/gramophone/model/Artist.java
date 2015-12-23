@@ -1,12 +1,12 @@
 package com.kabouzeid.gramophone.model;
 
-import android.support.annotation.Nullable;
-import android.text.TextUtils;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class Artist {
+public class Artist implements Parcelable {
     public final int id;
     public final String name;
     public final int albumCount;
@@ -27,42 +27,66 @@ public class Artist {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Artist artist = (Artist) o;
+
+        if (id != artist.id) return false;
+        if (albumCount != artist.albumCount) return false;
+        if (songCount != artist.songCount) return false;
+        return name != null ? name.equals(artist.name) : artist.name == null;
+
+    }
+
+    @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + albumCount;
-        result = prime * result + id;
-        result = prime * result + (name == null ? 0 : name.hashCode());
-        result = prime * result + songCount;
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + albumCount;
+        result = 31 * result + songCount;
         return result;
     }
 
     @Override
-    public boolean equals(@Nullable final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Artist other = (Artist) obj;
-        if (albumCount != other.albumCount) {
-            return false;
-        }
-        if (id != other.id) {
-            return false;
-        }
-        if (!TextUtils.equals(name, other.name)) {
-            return false;
-        }
-        return songCount == other.songCount;
+    public String toString() {
+        return "Artist{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", albumCount=" + albumCount +
+                ", songCount=" + songCount +
+                '}';
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     @Override
-    public String toString() {
-        return name;
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.name);
+        dest.writeInt(this.albumCount);
+        dest.writeInt(this.songCount);
     }
+
+    protected Artist(Parcel in) {
+        this.id = in.readInt();
+        this.name = in.readString();
+        this.albumCount = in.readInt();
+        this.songCount = in.readInt();
+    }
+
+    public static final Parcelable.Creator<Artist> CREATOR = new Parcelable.Creator<Artist>() {
+        public Artist createFromParcel(Parcel source) {
+            return new Artist(source);
+        }
+
+        public Artist[] newArray(int size) {
+            return new Artist[size];
+        }
+    };
 }

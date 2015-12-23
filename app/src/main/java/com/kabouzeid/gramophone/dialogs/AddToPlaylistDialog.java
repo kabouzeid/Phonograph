@@ -31,7 +31,7 @@ public class AddToPlaylistDialog extends LeakDetectDialogFragment {
     public static AddToPlaylistDialog create(ArrayList<Song> songs) {
         AddToPlaylistDialog dialog = new AddToPlaylistDialog();
         Bundle args = new Bundle();
-        args.putSerializable("songs", songs);
+        args.putParcelableArrayList("songs", songs);
         dialog.setArguments(args);
         return dialog;
     }
@@ -52,7 +52,7 @@ public class AddToPlaylistDialog extends LeakDetectDialogFragment {
                     @Override
                     public void onSelection(@NonNull MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
                         //noinspection unchecked
-                        final ArrayList<Song> songs = (ArrayList<Song>) getArguments().getSerializable("songs");
+                        final ArrayList<Song> songs = getArguments().getParcelableArrayList("songs");
                         if (songs == null) return;
                         if (i == 0) {
                             materialDialog.dismiss();
