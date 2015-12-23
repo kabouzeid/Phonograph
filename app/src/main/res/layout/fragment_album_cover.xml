@@ -4,13 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:background="@android:color/black">
 
-    <com.kabouzeid.gramophone.views.WidthFitSquareImageView
+    <ImageView
         android:id="@+id/player_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         tools:ignore="ContentDescription,UnusedAttribute" />
+
+    <!--<ImageView-->
+    <!--android:id="@+id/player_image_background"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:scaleType="centerCrop"-->
+    <!--tools:ignore="ContentDescription,UnusedAttribute" />-->
 
 </FrameLayout>

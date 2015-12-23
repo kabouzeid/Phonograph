@@ -9,24 +9,24 @@ import android.widget.FrameLayout;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class SquareLayout extends FrameLayout {
+public class WidthFitSquareLayout extends FrameLayout {
 
     private boolean forceSquare = true;
 
-    public SquareLayout(Context context) {
+    public WidthFitSquareLayout(Context context) {
         super(context);
     }
 
-    public SquareLayout(Context context, AttributeSet attrs) {
+    public WidthFitSquareLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public SquareLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public WidthFitSquareLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public SquareLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public WidthFitSquareLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 

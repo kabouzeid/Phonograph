@@ -29,7 +29,7 @@ import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.kabouzeid.gramophone.views.SquareLayout;
+import com.kabouzeid.gramophone.views.WidthFitSquareLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import org.solovyev.android.views.llm.LinearLayoutManager;
@@ -339,7 +339,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
         @Override
         public void setUpPanelAndAlbumCoverHeight(PlayerFragment fragment) {
-            SquareLayout albumCoverContainer = (SquareLayout) fragment.getView().findViewById(R.id.album_cover_container);
+            WidthFitSquareLayout albumCoverContainer = (WidthFitSquareLayout) fragment.getView().findViewById(R.id.album_cover_container);
             int topMargin = fragment.getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
 
             final int availablePanelHeight = fragment.slidingUpPanelLayout.getHeight() - fragment.getView().findViewById(R.id.player_content).getHeight() + topMargin;
