@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     ImageView favoriteIcon;
 
     private OnColorChangedListener onColorChangedListener;
-    private int currentRequest;
+    private int currentPosition;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,11 +80,8 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
 
     @Override
     public void onPageSelected(int position) {
-        currentRequest = position;
-        AlbumCoverPagerAdapter.AlbumCoverFragment albumCoverFragment = ((AlbumCoverPagerAdapter.AlbumCoverFragment) ((AlbumCoverPagerAdapter) viewPager.getAdapter()).getFragment(position));
-        if (albumCoverFragment != null) {
-            albumCoverFragment.receiveColor(colorReceiver, position);
-        }
+        currentPosition = position;
+        ((AlbumCoverPagerAdapter) viewPager.getAdapter()).receiveColor(colorReceiver, position);
         if (position != MusicPlayerRemote.getPosition()) {
             MusicPlayerRemote.playSongAt(position);
         }
@@ -93,9 +89,8 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
 
     private AlbumCoverPagerAdapter.AlbumCoverFragment.ColorReceiver colorReceiver = new AlbumCoverPagerAdapter.AlbumCoverFragment.ColorReceiver() {
         @Override
-        public void onColorReady(int color, int request) {
-            Log.d(TAG, "currentRequest == request : " + (currentRequest == request));
-            if (currentRequest == request) {
+        public void onColorReady(int color, int requestCode) {
+            if (currentPosition == requestCode) {
                 notifyColorChange(color);
             }
         }
