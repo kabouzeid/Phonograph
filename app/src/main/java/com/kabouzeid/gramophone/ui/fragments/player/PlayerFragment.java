@@ -111,6 +111,8 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
             }
         });
 
+        playingQueueCard.setCardBackgroundColor(ColorUtil.resolveColor(getActivity(), R.attr.cardBackgroundColor));
+
         setUpCurrentSongView();
     }
 
@@ -267,13 +269,13 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
     }
 
     @Override
-    public void onHide() {
-        playbackControlsFragment.hide();
+    public void onShow() {
+        playbackControlsFragment.show();
     }
 
     @Override
-    public void onShow() {
-        playbackControlsFragment.show();
+    public void onHide() {
+        playbackControlsFragment.hide();
     }
 
     @Override

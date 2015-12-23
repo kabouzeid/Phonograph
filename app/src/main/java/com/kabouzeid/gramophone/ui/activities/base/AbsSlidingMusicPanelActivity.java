@@ -57,7 +57,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         }
 
         slidingUpPanelLayout.setPanelSlideListener(this);
-        playerFragment.onShow();
+        playerFragment.onHide();
 
         slidingUpPanelLayout.post(new Runnable() {
             @Override
@@ -65,6 +65,8 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                 if (!isPanelCollapsed()) {
                     onPanelSlide(slidingUpPanelLayout, 1);
                     onPanelExpanded(slidingUpPanelLayout);
+                } else if (isPanelCollapsed()) {
+                    onPanelCollapsed(slidingUpPanelLayout);
                 }
             }
         });
@@ -99,7 +101,9 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         if (shouldColorNavigationBar()) {
             super.setNavigationBarColor(navigationBarColor);
         }
-        playerFragment.onShow();
+        playerFragment.setMenuVisibility(false);
+        playerFragment.setUserVisibleHint(false);
+        playerFragment.onHide();
     }
 
     @Override
@@ -109,7 +113,9 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         if (shouldColorNavigationBar()) {
             super.setNavigationBarColor(playerFragmentColor);
         }
-        playerFragment.onHide();
+        playerFragment.setMenuVisibility(true);
+        playerFragment.setUserVisibleHint(true);
+        playerFragment.onShow();
     }
 
     @Override
