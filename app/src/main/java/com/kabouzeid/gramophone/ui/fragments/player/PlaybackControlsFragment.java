@@ -267,7 +267,7 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
         }
     }
 
-    public void hide() {
+    public void show() {
         playPauseFab.animate()
                 .scaleX(1f)
                 .scaleY(1f)
@@ -276,7 +276,7 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
                 .start();
     }
 
-    public void show() {
+    public void hide() {
         playPauseFab.setScaleX(0f);
         playPauseFab.setScaleY(0f);
         playPauseFab.setRotation(0f);

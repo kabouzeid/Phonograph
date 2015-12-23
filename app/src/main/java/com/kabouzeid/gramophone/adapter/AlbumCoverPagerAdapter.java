@@ -1,27 +1,22 @@
 package com.kabouzeid.gramophone.adapter;
 
-import android.animation.Animator;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.misc.SimpleAnimatorListener;
+import com.kabouzeid.gramophone.misc.CustomFragmentStatePagerAdapter;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
-import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -36,7 +31,7 @@ import butterknife.ButterKnife;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class AlbumCoverPagerAdapter extends FragmentStatePagerAdapter {
+public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
     public static final String TAG = AlbumCoverPagerAdapter.class.getSimpleName();
 
     private ArrayList<Song> dataSet;
@@ -61,11 +56,12 @@ public class AlbumCoverPagerAdapter extends FragmentStatePagerAdapter {
 
         @Bind(R.id.player_image)
         ImageView albumCover;
-        @Bind(R.id.player_favorite_icon)
-        ImageView favoriteIcon;
 
+        private boolean isColorReady;
         private int color;
         private Song song;
+        private ColorReceiver colorReceiver;
+        private int request;
 
         public static AlbumCoverFragment newInstance(final Song song) {
             AlbumCoverFragment frag = new AlbumCoverFragment();
@@ -102,6 +98,7 @@ public class AlbumCoverPagerAdapter extends FragmentStatePagerAdapter {
             super.onDestroyView();
             PreferenceUtil.getInstance(getActivity()).unregisterOnSharedPreferenceChangedListener(this);
             ButterKnife.unbind(this);
+            colorReceiver = null;
         }
 
         private void loadAlbumCover() {
@@ -114,6 +111,7 @@ public class AlbumCoverPagerAdapter extends FragmentStatePagerAdapter {
                             .postProcessor(new BitmapProcessor() {
                                 @Override
                                 public Bitmap process(Bitmap bitmap) {
+                                    // don't use set color here, as this is not running on the ui-thread
                                     color = ColorUtil.generateColor(getActivity(), bitmap);
                                     return bitmap;
                                 }
@@ -122,8 +120,7 @@ public class AlbumCoverPagerAdapter extends FragmentStatePagerAdapter {
                     new SimpleImageLoadingListener() {
                         @Override
                         public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
-                            color = ColorUtil.resolveColor(getActivity(), R.attr.default_bar_color);
-                            notifyColorIsReady();
+                            setColor(ColorUtil.resolveColor(view.getContext(), R.attr.default_bar_color));
                         }
 
                         @Override
@@ -132,47 +129,10 @@ public class AlbumCoverPagerAdapter extends FragmentStatePagerAdapter {
                                 onLoadingFailed(imageUri, view, null);
                                 return;
                             }
-                            notifyColorIsReady();
+                            setColor(color);
                         }
                     }
             );
-        }
-
-        public void showHeartAnimation() {
-            favoriteIcon.clearAnimation();
-
-            favoriteIcon.setAlpha(0f);
-            favoriteIcon.setScaleX(0f);
-            favoriteIcon.setScaleY(0f);
-            favoriteIcon.setVisibility(View.VISIBLE);
-            favoriteIcon.setPivotX(favoriteIcon.getWidth() / 2);
-            favoriteIcon.setPivotY(favoriteIcon.getHeight() / 2);
-
-            favoriteIcon.animate()
-                    .setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME / 2)
-                    .setInterpolator(new DecelerateInterpolator())
-                    .scaleX(1f)
-                    .scaleY(1f)
-                    .alpha(1f)
-                    .setListener(new SimpleAnimatorListener() {
-                        @Override
-                        public void onAnimationCancel(Animator animation) {
-                            favoriteIcon.setVisibility(View.INVISIBLE);
-                        }
-                    })
-                    .withEndAction(new Runnable() {
-                        @Override
-                        public void run() {
-                            favoriteIcon.animate()
-                                    .setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME / 2)
-                                    .setInterpolator(new AccelerateInterpolator())
-                                    .scaleX(0f)
-                                    .scaleY(0f)
-                                    .alpha(0f)
-                                    .start();
-                        }
-                    })
-                    .start();
         }
 
         @Override
@@ -188,8 +148,26 @@ public class AlbumCoverPagerAdapter extends FragmentStatePagerAdapter {
             albumCover.setScaleType(forceSquareAlbumCover ? ImageView.ScaleType.FIT_CENTER : ImageView.ScaleType.CENTER_CROP);
         }
 
-        private void notifyColorIsReady() {
-            // TODO
+        private void setColor(int color) {
+            this.color = color;
+            isColorReady = true;
+            if (colorReceiver != null) {
+                colorReceiver.onColorReady(color, request);
+                colorReceiver = null;
+            }
+        }
+
+        public void receiveColor(ColorReceiver colorReceiver, int request) {
+            if (isColorReady) {
+                colorReceiver.onColorReady(color, request);
+            } else {
+                this.colorReceiver = colorReceiver;
+                this.request = request;
+            }
+        }
+
+        public interface ColorReceiver {
+            void onColorReady(int color, int request);
         }
     }
 }

@@ -83,9 +83,9 @@ public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implemen
         return false;
     }
 
-    public abstract void onHide();
-
     public abstract void onShow();
+
+    public abstract void onHide();
 
     public abstract boolean onBackPressed();
 

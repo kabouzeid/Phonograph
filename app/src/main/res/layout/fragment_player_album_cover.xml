@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -7,4 +8,14 @@
         android:id="@+id/player_album_cover_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/player_favorite_icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:padding="72dp"
+        android:src="@drawable/ic_favorite_red_a400_96dp"
+        android:visibility="invisible"
+        tools:ignore="ContentDescription" />
 </FrameLayout>

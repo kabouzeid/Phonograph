@@ -13,14 +13,4 @@
         android:scaleType="centerCrop"
         tools:ignore="ContentDescription,UnusedAttribute" />
 
-    <ImageView
-        android:id="@+id/player_favorite_icon"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:padding="72dp"
-        android:src="@drawable/ic_favorite_red_a400_96dp"
-        android:visibility="invisible"
-        tools:ignore="ContentDescription" />
-
 </FrameLayout>
