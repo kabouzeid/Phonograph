@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.kabouzeid.gramophone.views.SquareLayout
+                <com.kabouzeid.gramophone.views.WidthFitSquareLayout
                     android:id="@+id/album_cover_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-                </com.kabouzeid.gramophone.views.SquareLayout>
+                </com.kabouzeid.gramophone.views.WidthFitSquareLayout>
 
                 <fragment
                     android:id="@+id/playback_controls_fragment"
