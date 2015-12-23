@@ -28,7 +28,7 @@ public class ClearSmartPlaylistDialog extends LeakDetectDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         //noinspection unchecked
-        final AbsSmartPlaylist playlist = (AbsSmartPlaylist) getArguments().getParcelable("playlist");
+        final AbsSmartPlaylist playlist = getArguments().getParcelable("playlist");
         int title = R.string.clear_playlist_title;
         //noinspection ConstantConditions
         CharSequence content = Html.fromHtml(getString(R.string.clear_playlist_x, playlist.name));

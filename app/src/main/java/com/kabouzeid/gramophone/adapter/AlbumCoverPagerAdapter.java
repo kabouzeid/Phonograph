@@ -101,7 +101,7 @@ public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            song = (Song) getArguments().getParcelable(SONG_ARG);
+            song = getArguments().getParcelable(SONG_ARG);
         }
 
         @Override

@@ -57,7 +57,7 @@ public class SongDetailDialog extends LeakDetectDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Activity context = getActivity();
-        final Song song = (Song) getArguments().getParcelable("song");
+        final Song song = getArguments().getParcelable("song");
 
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .customView(R.layout.dialog_file_details, true)
