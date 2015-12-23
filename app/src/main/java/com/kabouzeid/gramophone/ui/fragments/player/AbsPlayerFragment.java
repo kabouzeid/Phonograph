@@ -49,7 +49,7 @@ public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implemen
                 new SleepTimerDialog().show(getFragmentManager(), "SET_SLEEP_TIMER");
                 return true;
             case R.id.action_toggle_favorite:
-                MusicUtil.toggleFavorite(getActivity(), song);
+                toggleFavorite(song);
                 return true;
             case R.id.action_share:
                 SongShareDialog.create(song).show(getFragmentManager(), "SHARE_SONG");
@@ -81,6 +81,10 @@ public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implemen
                 return true;
         }
         return false;
+    }
+
+    protected void toggleFavorite(Song song){
+        MusicUtil.toggleFavorite(getActivity(), song);
     }
 
     public abstract void onShow();
