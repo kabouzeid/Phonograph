@@ -36,6 +36,9 @@ public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
 
     private ArrayList<Song> dataSet;
 
+    private AlbumCoverFragment.ColorReceiver currentColorReceiver;
+    private int currentColorReceiverPosition = -1;
+
     public AlbumCoverPagerAdapter(FragmentManager fm, ArrayList<Song> dataSet) {
         super(fm);
         this.dataSet = dataSet;
@@ -49,6 +52,30 @@ public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return dataSet.size();
+    }
+
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        Object o = super.instantiateItem(container, position);
+        if (currentColorReceiver != null && currentColorReceiverPosition == position) {
+            receiveColor(currentColorReceiver, currentColorReceiverPosition);
+        }
+        return o;
+    }
+
+    /**
+     * Only the latest passed {@link AlbumCoverFragment.ColorReceiver} is guaranteed to receive a response
+     */
+    public void receiveColor(AlbumCoverFragment.ColorReceiver colorReceiver, int position) {
+        AlbumCoverFragment fragment = (AlbumCoverFragment) getFragment(position);
+        if (fragment != null) {
+            currentColorReceiver = null;
+            currentColorReceiverPosition = -1;
+            fragment.receiveColor(colorReceiver, position);
+        } else {
+            currentColorReceiver = colorReceiver;
+            currentColorReceiverPosition = position;
+        }
     }
 
     public static class AlbumCoverFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
