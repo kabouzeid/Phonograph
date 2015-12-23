@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.model.smartplaylist;
 
 import android.content.Context;
+import android.os.Parcel;
 import android.support.annotation.NonNull;
 
 import com.kabouzeid.gramophone.R;
@@ -29,4 +30,29 @@ public class MyTopTracksPlaylist extends AbsSmartPlaylist {
     public void clear(@NonNull Context context) {
         SongPlayCountStore.getInstance(context).clear();
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+    }
+
+    protected MyTopTracksPlaylist(Parcel in) {
+        super(in);
+    }
+
+    public static final Creator<MyTopTracksPlaylist> CREATOR = new Creator<MyTopTracksPlaylist>() {
+        public MyTopTracksPlaylist createFromParcel(Parcel source) {
+            return new MyTopTracksPlaylist(source);
+        }
+
+        public MyTopTracksPlaylist[] newArray(int size) {
+            return new MyTopTracksPlaylist[size];
+        }
+    };
 }

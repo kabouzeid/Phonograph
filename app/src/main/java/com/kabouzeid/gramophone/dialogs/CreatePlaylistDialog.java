@@ -35,7 +35,7 @@ public class CreatePlaylistDialog extends LeakDetectDialogFragment {
     public static CreatePlaylistDialog create(ArrayList<Song> songs) {
         CreatePlaylistDialog dialog = new CreatePlaylistDialog();
         Bundle args = new Bundle();
-        args.putSerializable("songs", songs);
+        args.putParcelableArrayList("songs", songs);
         dialog.setArguments(args);
         return dialog;
     }
@@ -59,7 +59,7 @@ public class CreatePlaylistDialog extends LeakDetectDialogFragment {
                             final int playlistId = PlaylistsUtil.createPlaylist(getActivity(), charSequence.toString());
                             if (playlistId != -1 && getActivity() != null) {
                                 //noinspection unchecked
-                                ArrayList<Song> songs = (ArrayList<Song>) getArguments().getSerializable("songs");
+                                ArrayList<Song> songs = getArguments().getParcelableArrayList("songs");
                                 if (songs != null) {
                                     PlaylistsUtil.addToPlaylist(getActivity(), songs, playlistId, true);
                                 }

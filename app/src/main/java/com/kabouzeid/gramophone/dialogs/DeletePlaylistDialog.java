@@ -28,7 +28,7 @@ public class DeletePlaylistDialog extends LeakDetectDialogFragment {
     public static DeletePlaylistDialog create(ArrayList<Playlist> playlists) {
         DeletePlaylistDialog dialog = new DeletePlaylistDialog();
         Bundle args = new Bundle();
-        args.putSerializable("playlists", playlists);
+        args.putParcelableArrayList("playlists", playlists);
         dialog.setArguments(args);
         return dialog;
     }
@@ -37,7 +37,7 @@ public class DeletePlaylistDialog extends LeakDetectDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         //noinspection unchecked
-        final ArrayList<Playlist> playlists = (ArrayList<Playlist>) getArguments().getSerializable("playlists");
+        final ArrayList<Playlist> playlists = getArguments().getParcelableArrayList("playlists");
         int title;
         CharSequence content;
         //noinspection ConstantConditions

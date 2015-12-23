@@ -38,7 +38,7 @@ public class SongDetailDialog extends LeakDetectDialogFragment {
     public static SongDetailDialog create(Song song) {
         SongDetailDialog dialog = new SongDetailDialog();
         Bundle args = new Bundle();
-        args.putSerializable("song", song);
+        args.putParcelable("song", song);
         dialog.setArguments(args);
         return dialog;
     }
@@ -57,7 +57,7 @@ public class SongDetailDialog extends LeakDetectDialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Activity context = getActivity();
-        final Song song = (Song) getArguments().getSerializable("song");
+        final Song song = (Song) getArguments().getParcelable("song");
 
         MaterialDialog dialog = new MaterialDialog.Builder(context)
                 .customView(R.layout.dialog_file_details, true)

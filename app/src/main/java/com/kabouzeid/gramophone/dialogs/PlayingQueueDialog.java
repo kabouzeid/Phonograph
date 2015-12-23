@@ -25,7 +25,7 @@ public class PlayingQueueDialog extends LeakDetectDialogFragment {
         final ArrayList<Song> playingQueue = MusicPlayerRemote.getPlayingQueue();
         PlayingQueueDialog dialog = new PlayingQueueDialog();
         Bundle args = new Bundle();
-        args.putSerializable("queue", playingQueue);
+        args.putParcelableArrayList("queue", playingQueue);
         dialog.setArguments(args);
         return dialog;
     }
@@ -44,14 +44,14 @@ public class PlayingQueueDialog extends LeakDetectDialogFragment {
                         if (getActivity() == null)
                             return;
                         //noinspection unchecked
-                        ArrayList<Song> playingQueue = (ArrayList<Song>) getArguments().getSerializable("queue");
+                        ArrayList<Song> playingQueue = getArguments().getParcelableArrayList("queue");
                         AddToPlaylistDialog.create(playingQueue).show(getActivity().getSupportFragmentManager(), "ADD_PLAYLIST");
                     }
                 })
                 .build();
 
         //noinspection unchecked
-        final ArrayList<Song> playingQueue = (ArrayList<Song>) getArguments().getSerializable("queue");
+        final ArrayList<Song> playingQueue = getArguments().getParcelableArrayList("queue");
         final DragSortListView dragSortListView = (DragSortListView) dialog.getCustomView().findViewById(R.id.dragSortListView);
         final PlayingQueueAdapterDeprecated playingQueueAdapterDeprecated =
                 new PlayingQueueAdapterDeprecated((AppCompatActivity) getActivity(), playingQueue);

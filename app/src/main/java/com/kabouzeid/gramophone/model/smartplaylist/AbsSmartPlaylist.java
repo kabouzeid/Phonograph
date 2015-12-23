@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.model.smartplaylist;
 
 import android.content.Context;
+import android.os.Parcel;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 
@@ -14,8 +15,6 @@ import java.util.ArrayList;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public abstract class AbsSmartPlaylist extends Playlist {
-    private static final long serialVersionUID = 3013701295356403681L;
-
     @DrawableRes
     public final int iconRes;
 
@@ -51,5 +50,22 @@ public abstract class AbsSmartPlaylist extends Playlist {
             return iconRes == other.iconRes;
         }
         return false;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(this.iconRes);
+    }
+
+    protected AbsSmartPlaylist(Parcel in) {
+        super(in);
+        this.iconRes = in.readInt();
     }
 }

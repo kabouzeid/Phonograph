@@ -157,7 +157,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
 
             final int size = checked.size();
             if (size <= 0) cab.finish();
-            else if (size == 1) cab.setTitle(checked.get(0).toString());
+            else if (size == 1) cab.setTitle(checked.get(0).title);
             else if (size > 1) cab.setTitle(String.valueOf(size));
         }
     }
