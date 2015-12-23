@@ -16,7 +16,6 @@ import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
@@ -49,17 +48,11 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
     RecyclerView recyclerView;
     @Bind(R.id.playing_queue_card)
     CardView playingQueueCard;
-    @Bind(R.id.album_cover_container)
-    SquareLayout albumCoverContainer;
-    @Bind(R.id.player_content)
-    RelativeLayout playerContent;
     @Bind(R.id.color_background)
     View colorBackground;
+    @Bind(R.id.player_queue_sub_header)
+    TextView playerQueueSubHeader;
 
-    @Bind(R.id.player_queue_subheader)
-    TextView playerQueueSubheader;
-
-    MediaEntryViewHolder currentSongViewHolder;
 
     private int lastColor;
 
@@ -70,8 +63,16 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
     private PlayingQueueAdapter playingQueueAdapter;
 
+    private Impl impl;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (Util.isLandscape(getResources())) {
+            impl = new LandscapeImpl();
+        } else {
+            impl = new PortraitImpl();
+        }
+
         View view = inflater.inflate(R.layout.fragment_player, container, false);
         ButterKnife.bind(this, view);
         return view;
@@ -81,24 +82,13 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        impl.init(this);
+
         setUpPlayerToolbar();
         setUpSubFragments();
 
-        playingQueueAdapter = new PlayingQueueAdapter(
-                ((AppCompatActivity) getActivity()),
-                MusicPlayerRemote.getPlayingQueue(),
-                R.layout.item_list,
-                false,
-                null);
-        recyclerView.setAdapter(playingQueueAdapter);
+        setUpRecyclerView();
 
-        layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setChildSize((int) (getResources().getDisplayMetrics().density * 72));
-        recyclerView.setLayoutManager(layoutManager);
-
-        setUpDragSort();
-
-        //slidingUpPanelLayout.setParallaxOffset(Util.resolveDimensionPixelSize(activity, R.attr.actionBarSize) + getResources().getDimensionPixelSize(R.dimen.status_bar_padding));
         slidingUpPanelLayout.setPanelSlideListener(this);
         slidingUpPanelLayout.setAntiDragView(view.findViewById(R.id.draggable_area));
 
@@ -106,13 +96,12 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
             @Override
             public void onGlobalLayout() {
                 view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                setUpPanelAndAlbumCoverHeight();
+                impl.setUpPanelAndAlbumCoverHeight(PlayerFragment.this);
             }
         });
 
+        // for some reason the xml attribute doesn't get applied here.
         playingQueueCard.setCardBackgroundColor(ColorUtil.resolveColor(getActivity(), R.attr.cardBackgroundColor));
-
-        setUpCurrentSongView();
     }
 
     @Override
@@ -149,22 +138,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
     @SuppressWarnings("ConstantConditions")
     private void updateCurrentSong() {
-        Song song = MusicPlayerRemote.getCurrentSong();
-        currentSongViewHolder.title.setText(song.title);
-        currentSongViewHolder.text.setText(song.artistName);
-    }
-
-    private void setUpPanelAndAlbumCoverHeight() {
-        int topMargin = getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
-
-        final int availablePanelHeight = slidingUpPanelLayout.getHeight() - playerContent.getHeight() + topMargin;
-        final int minPanelHeight = (int) getResources().getDisplayMetrics().density * (72 + 24) + topMargin;
-        if (availablePanelHeight < minPanelHeight) {
-            albumCoverContainer.getLayoutParams().height = albumCoverContainer.getHeight() - (minPanelHeight - availablePanelHeight);
-            albumCoverContainer.forceSquare(false);
-        }
-        slidingUpPanelLayout.setPanelHeight(Math.max(minPanelHeight, availablePanelHeight));
-        ((AbsSlidingMusicPanelActivity) getActivity()).setAntiDragView(slidingUpPanelLayout.findViewById(R.id.player_panel));
+        impl.updateCurrentSong(this, MusicPlayerRemote.getCurrentSong());
     }
 
     private void setUpSubFragments() {
@@ -186,15 +160,22 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         toolbar.setOnMenuItemClickListener(this);
     }
 
-    @SuppressWarnings("ConstantConditions")
-    private void setUpCurrentSongView() {
-        currentSongViewHolder = new MediaEntryViewHolder(getView().findViewById(R.id.current_song));
+    private void setUpRecyclerView() {
+        playingQueueAdapter = new PlayingQueueAdapter(
+                ((AppCompatActivity) getActivity()),
+                MusicPlayerRemote.getPlayingQueue(),
+                R.layout.item_list,
+                false,
+                null);
+        recyclerView.setAdapter(playingQueueAdapter);
 
-        currentSongViewHolder.separator.setVisibility(View.VISIBLE);
-        currentSongViewHolder.shortSeparator.setVisibility(View.GONE);
-        currentSongViewHolder.image.setScaleType(ImageView.ScaleType.CENTER);
-        currentSongViewHolder.image.setImageDrawable(Util.getTintedDrawable(getActivity(), R.drawable.ic_volume_up_white_24dp, ColorUtil.resolveColor(getActivity(), R.attr.icon_color)));
+        layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setChildSize((int) (getResources().getDisplayMetrics().density * 72));
+        recyclerView.setLayoutManager(layoutManager);
+
+        setUpDragSort();
     }
+
 
     private void updateIsFavorite() {
         boolean isFavorite = MusicUtil.isFavorite(getActivity(), MusicPlayerRemote.getCurrentSong());
@@ -227,28 +208,8 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         return lastColor;
     }
 
-    @SuppressWarnings("ConstantConditions")
     private void animateColorChange(final int newColor) {
-        slidingUpPanelLayout.setBackgroundColor(lastColor);
-        Animator backgroundAnimator;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            int topMargin = getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
-            int x = (int) (playbackControlsFragment.playPauseFab.getX() + playbackControlsFragment.playPauseFab.getWidth() / 2 + playbackControlsFragment.getView().getX());
-            int y = (int) (topMargin + playbackControlsFragment.playPauseFab.getY() + playbackControlsFragment.playPauseFab.getHeight() / 2 + playbackControlsFragment.getView().getY());
-            float startRadius = Math.max(playbackControlsFragment.playPauseFab.getWidth() / 2, playbackControlsFragment.playPauseFab.getHeight() / 2);
-            float endRadius = Math.max(colorBackground.getWidth(), colorBackground.getHeight());
-            colorBackground.setBackgroundColor(newColor);
-            backgroundAnimator = ViewAnimationUtils.createCircularReveal(colorBackground, x, y, startRadius, endRadius);
-        } else {
-            backgroundAnimator = ViewUtil.createBackgroundColorTransition(colorBackground, lastColor, newColor);
-        }
-
-        Animator subHeaderAnimator = ViewUtil.createTextColorTransition(playerQueueSubheader, lastColor, newColor);
-
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(backgroundAnimator, subHeaderAnimator);
-        animatorSet.setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME).start();
-
+        impl.animateColorChange(this, newColor);
         lastColor = newColor;
     }
 
@@ -298,7 +259,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
     public void onPanelSlide(View view, float slide) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             float density = getResources().getDisplayMetrics().density;
-            playingQueueCard.setCardElevation(density * 6 * slide + 2 * density);
+            playingQueueCard.setCardElevation((6 * slide + 2) * density);
         }
     }
 
@@ -325,5 +286,117 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
     @Override
     public void onPanelHidden(View view) {
 
+    }
+
+    interface Impl {
+        void init(PlayerFragment fragment);
+
+        void updateCurrentSong(PlayerFragment fragment, Song song);
+
+        void animateColorChange(PlayerFragment fragment, final int newColor);
+
+        void setUpPanelAndAlbumCoverHeight(PlayerFragment fragment);
+    }
+
+    private static abstract class BaseImpl implements Impl {
+        public AnimatorSet createDefaultColorChangeAnimatorSet(PlayerFragment fragment, int newColor) {
+            Animator backgroundAnimator;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                int topMargin = fragment.getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
+                //noinspection ConstantConditions
+                int x = (int) (fragment.playbackControlsFragment.playPauseFab.getX() + fragment.playbackControlsFragment.playPauseFab.getWidth() / 2 + fragment.playbackControlsFragment.getView().getX());
+                int y = (int) (topMargin + fragment.playbackControlsFragment.playPauseFab.getY() + fragment.playbackControlsFragment.playPauseFab.getHeight() / 2 + fragment.playbackControlsFragment.getView().getY());
+                float startRadius = Math.max(fragment.playbackControlsFragment.playPauseFab.getWidth() / 2, fragment.playbackControlsFragment.playPauseFab.getHeight() / 2);
+                float endRadius = Math.max(fragment.colorBackground.getWidth(), fragment.colorBackground.getHeight());
+                fragment.colorBackground.setBackgroundColor(newColor);
+                backgroundAnimator = ViewAnimationUtils.createCircularReveal(fragment.colorBackground, x, y, startRadius, endRadius);
+            } else {
+                backgroundAnimator = ViewUtil.createBackgroundColorTransition(fragment.colorBackground, fragment.lastColor, newColor);
+            }
+
+            Animator subHeaderAnimator = ViewUtil.createTextColorTransition(fragment.playerQueueSubHeader, fragment.lastColor, newColor);
+
+            AnimatorSet animatorSet = new AnimatorSet();
+            animatorSet.playTogether(backgroundAnimator, subHeaderAnimator);
+            animatorSet.setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME);
+            return animatorSet;
+        }
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    private static class PortraitImpl extends BaseImpl {
+        MediaEntryViewHolder currentSongViewHolder;
+
+        @Override
+        public void init(PlayerFragment fragment) {
+            currentSongViewHolder = new MediaEntryViewHolder(fragment.getView().findViewById(R.id.current_song));
+
+            currentSongViewHolder.separator.setVisibility(View.VISIBLE);
+            currentSongViewHolder.shortSeparator.setVisibility(View.GONE);
+            currentSongViewHolder.image.setScaleType(ImageView.ScaleType.CENTER);
+            currentSongViewHolder.image.setImageDrawable(Util.getTintedDrawable(fragment.getActivity(), R.drawable.ic_volume_up_white_24dp, ColorUtil.resolveColor(fragment.getActivity(), R.attr.icon_color)));
+        }
+
+        @Override
+        public void setUpPanelAndAlbumCoverHeight(PlayerFragment fragment) {
+            SquareLayout albumCoverContainer = (SquareLayout) fragment.getView().findViewById(R.id.album_cover_container);
+            int topMargin = fragment.getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
+
+            final int availablePanelHeight = fragment.slidingUpPanelLayout.getHeight() - fragment.getView().findViewById(R.id.player_content).getHeight() + topMargin;
+            final int minPanelHeight = (int) fragment.getResources().getDisplayMetrics().density * (72 + 24) + topMargin;
+            if (availablePanelHeight < minPanelHeight) {
+                albumCoverContainer.getLayoutParams().height = albumCoverContainer.getHeight() - (minPanelHeight - availablePanelHeight);
+                albumCoverContainer.forceSquare(false);
+            }
+            fragment.slidingUpPanelLayout.setPanelHeight(Math.max(minPanelHeight, availablePanelHeight));
+
+            ((AbsSlidingMusicPanelActivity) fragment.getActivity()).setAntiDragView(fragment.slidingUpPanelLayout.findViewById(R.id.player_panel));
+        }
+
+        @Override
+        public void updateCurrentSong(PlayerFragment fragment, Song song) {
+            currentSongViewHolder.title.setText(song.title);
+            currentSongViewHolder.text.setText(song.artistName);
+        }
+
+        @Override
+        public void animateColorChange(PlayerFragment fragment, int newColor) {
+            fragment.slidingUpPanelLayout.setBackgroundColor(fragment.lastColor);
+
+            createDefaultColorChangeAnimatorSet(fragment, newColor).start();
+        }
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    private static class LandscapeImpl extends BaseImpl {
+        @Override
+        public void init(PlayerFragment fragment) {
+
+        }
+
+        @Override
+        public void setUpPanelAndAlbumCoverHeight(PlayerFragment fragment) {
+            int topMargin = fragment.getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
+            int panelHeight = fragment.slidingUpPanelLayout.getHeight() - fragment.playbackControlsFragment.getView().getHeight() + topMargin;
+            fragment.slidingUpPanelLayout.setPanelHeight(panelHeight);
+
+            ((AbsSlidingMusicPanelActivity) fragment.getActivity()).setAntiDragView(fragment.slidingUpPanelLayout.findViewById(R.id.player_panel));
+        }
+
+        @Override
+        public void updateCurrentSong(PlayerFragment fragment, Song song) {
+            fragment.toolbar.setTitle(song.title);
+            fragment.toolbar.setSubtitle(song.artistName);
+        }
+
+        @Override
+        public void animateColorChange(PlayerFragment fragment, int newColor) {
+            fragment.slidingUpPanelLayout.setBackgroundColor(fragment.lastColor);
+
+            AnimatorSet animatorSet = createDefaultColorChangeAnimatorSet(fragment, newColor);
+            animatorSet.play(ViewUtil.createBackgroundColorTransition(fragment.toolbar, fragment.lastColor, newColor))
+                    .with(ViewUtil.createBackgroundColorTransition(fragment.getView().findViewById(R.id.status_bar), ColorUtil.shiftColorDown(fragment.lastColor), ColorUtil.shiftColorDown(newColor)));
+            animatorSet.start();
+        }
     }
 }

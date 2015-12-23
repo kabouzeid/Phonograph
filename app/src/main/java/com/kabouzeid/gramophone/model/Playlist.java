@@ -64,4 +64,13 @@ public class Playlist implements Parcelable {
         this.name = in.readString();
     }
 
+    public static final Creator<Playlist> CREATOR = new Creator<Playlist>() {
+        public Playlist createFromParcel(Parcel source) {
+            return new Playlist(source);
+        }
+
+        public Playlist[] newArray(int size) {
+            return new Playlist[size];
+        }
+    };
 }

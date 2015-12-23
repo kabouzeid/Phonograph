@@ -1,5 +1,4 @@
-<com.sothree.slidinguppanel.SlidingUpPanelLayout
-    android:id="@+id/sliding_layout"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout android:id="@+id/sliding_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:sothree="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -20,9 +19,9 @@
         android:layout_height="match_parent"
         android:background="?android:colorBackground">
 
-        <fragment
-            android:id="@+id/player_fragment"
+        <fragment android:id="@+id/player_fragment"
             class="com.kabouzeid.gramophone.ui.fragments.player.PlayerFragment"
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

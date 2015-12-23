@@ -147,7 +147,9 @@ public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
                     new SimpleImageLoadingListener() {
                         @Override
                         public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
-                            setColor(ColorUtil.resolveColor(view.getContext(), R.attr.default_bar_color));
+                            if(getActivity() != null) {
+                                setColor(ColorUtil.resolveColor(getActivity(), R.attr.default_bar_color));
+                            }
                         }
 
                         @Override
