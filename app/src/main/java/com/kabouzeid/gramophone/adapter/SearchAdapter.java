@@ -175,8 +175,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     setImageTransitionName(activity.getString(R.string.transition_artist_image));
                     break;
                 default:
-                    if (image != null) {
-                        image.setVisibility(View.GONE);
+                    View container = itemView.findViewById(R.id.image_container);
+                    if (container != null) {
+                        container.setVisibility(View.GONE);
                     }
                     break;
             }
