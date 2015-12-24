@@ -24,10 +24,12 @@ public class ArtistsFragment extends AbsMainActivityRecyclerViewCustomGridSizeFr
     @NonNull
     @Override
     protected ArtistAdapter createAdapter() {
+        int itemLayoutRes = getItemLayoutRes();
+        applyRecyclerViewPaddingForLayoutRes(itemLayoutRes);
         return new ArtistAdapter(
                 getMainActivity(),
                 ArtistLoader.getAllArtists(getActivity()),
-                getItemLayoutRes(),
+                itemLayoutRes,
                 loadUsePalette(),
                 getMainActivity());
     }

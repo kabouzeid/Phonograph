@@ -32,6 +32,7 @@ public class SongsFragment extends AbsMainActivityRecyclerViewCustomGridSizeFrag
         MainActivity mainActivity = getMainActivity();
         ArrayList<Song> songs = SongLoader.getAllSongs(getActivity());
         int itemLayoutRes = getItemLayoutRes();
+        applyRecyclerViewPaddingForLayoutRes(itemLayoutRes);
         boolean usePalette = loadUsePalette();
 
         if (getGridSize() <= getMaxGridSizeForList()) {
