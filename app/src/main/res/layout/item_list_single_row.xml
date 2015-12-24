@@ -15,6 +15,7 @@
         android:layout_marginStart="-8dp"
         android:src="@drawable/ic_drag_vertical_white_24dp"
         android:tint="?icon_color"
+        android:tintMode="src_in"
         android:visibility="gone"
         tools:ignore="ContentDescription" />
 

@@ -16,6 +16,7 @@
         android:src="@drawable/ic_drag_vertical_white_24dp"
         android:tint="?icon_color"
         android:visibility="gone"
+        android:tintMode="src_in"
         tools:ignore="ContentDescription" />
 
     <LinearLayout
