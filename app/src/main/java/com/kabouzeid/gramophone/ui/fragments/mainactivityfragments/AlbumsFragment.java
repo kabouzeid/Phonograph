@@ -22,10 +22,12 @@ public class AlbumsFragment extends AbsMainActivityRecyclerViewCustomGridSizeFra
     @NonNull
     @Override
     protected AlbumAdapter createAdapter() {
+        int itemLayoutRes = getItemLayoutRes();
+        applyRecyclerViewPaddingForLayoutRes(itemLayoutRes);
         return new AlbumAdapter(
                 getMainActivity(),
                 AlbumLoader.getAllAlbums(getActivity()),
-                getItemLayoutRes(),
+                itemLayoutRes,
                 loadUsePalette(),
                 getMainActivity());
     }

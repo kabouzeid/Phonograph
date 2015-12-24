@@ -88,6 +88,16 @@ public abstract class AbsMainActivityRecyclerViewCustomGridSizeFragment<A extend
         return R.layout.item_list;
     }
 
+    protected void applyRecyclerViewPaddingForLayoutRes(@LayoutRes int res) {
+        int padding;
+        if (res == R.layout.item_grid) {
+            padding = (int) (getResources().getDisplayMetrics().density * 2);
+        } else {
+            padding = 0;
+        }
+        getRecyclerView().setPadding(padding, padding, padding, padding);
+    }
+
     protected abstract int loadGridSize();
 
     protected abstract void saveGridSize(int gridColumns);
