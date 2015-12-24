@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center"
     app:cardBackgroundColor="?cardBackgroundColor"
     app:cardUseCompatPadding="true">
@@ -23,7 +23,8 @@
             android:paddingRight="16dp"
             android:paddingTop="24dp"
             android:text="@string/support_development"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="?android:textColorSecondary" />
 
         <LinearLayout
             android:id="@+id/report_bugs"
@@ -38,10 +39,10 @@
             android:paddingRight="16dp">
 
             <ImageView
+                android:id="@+id/icon_bug_report"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_bug_report_white_24dp"
-                android:id="@+id/icon_bug_report"
                 tools:ignore="ContentDescription" />
 
             <LinearLayout
@@ -81,10 +82,10 @@
             android:paddingRight="16dp">
 
             <ImageView
+                android:id="@+id/icon_google_plus_community"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_google_plus_box_white_24dp"
-                android:id="@+id/icon_google_plus_community"
+                android:src="@drawable/ic_google_circles_communities_white_24dp"
                 tools:ignore="ContentDescription" />
 
             <LinearLayout
@@ -124,10 +125,10 @@
             android:paddingRight="16dp">
 
             <ImageView
+                android:id="@+id/icon_flag"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_flag_white_24dp"
-                android:id="@+id/icon_flag"
                 tools:ignore="ContentDescription" />
 
             <LinearLayout
@@ -167,10 +168,10 @@
             android:paddingRight="16dp">
 
             <ImageView
+                android:id="@+id/icon_rate"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_play_shopping_bag_white_24dp"
-                android:id="@+id/icon_rate"
                 tools:ignore="ContentDescription" />
 
             <LinearLayout
@@ -210,10 +211,10 @@
             android:paddingRight="16dp">
 
             <ImageView
+                android:id="@+id/icon_donate"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_attach_money_white_24dp"
-                android:id="@+id/icon_donate"
                 tools:ignore="ContentDescription" />
 
             <LinearLayout

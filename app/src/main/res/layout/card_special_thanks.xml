@@ -21,7 +21,8 @@
             android:paddingRight="16dp"
             android:paddingTop="24dp"
             android:text="@string/special_thanks_to"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="?android:textColorSecondary" />
 
         <View
             android:layout_width="match_parent"

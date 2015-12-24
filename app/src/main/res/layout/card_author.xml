@@ -23,7 +23,8 @@
             android:paddingRight="16dp"
             android:paddingTop="24dp"
             android:text="@string/author"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="?android:textColorSecondary" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -83,7 +84,7 @@
                 android:id="@+id/icon_google_plus"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_google_plus_box_white_24dp"
+                android:src="@drawable/ic_google_circles_white_24dp"
                 tools:ignore="ContentDescription" />
 
             <TextView
