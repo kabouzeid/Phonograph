@@ -241,6 +241,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
     @Override
     public void onHide() {
         playbackControlsFragment.hide();
+        onBackPressed();
     }
 
     @Override
