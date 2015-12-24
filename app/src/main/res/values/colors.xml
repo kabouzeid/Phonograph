@@ -4,7 +4,10 @@
     <color name="pink_A400">#F50057</color>
     <color name="indigo_500">#3F51B5</color>
 
-    <color name="grey_700">#616161</color>
     <color name="grey_900">#212121</color>
+    <color name="grey_800">#424242</color>
+    <color name="grey_300">#E0E0E0</color>
+
+    <color name="white">#FFFFFF</color>
 
 </resources>
