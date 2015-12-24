@@ -550,7 +550,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
     }
 
-    public void openAndPlayQueue(@Nullable final ArrayList<Song> playingQueue, final int startPosition, final boolean startPlaying) {
+    public void openQueue(@Nullable final ArrayList<Song> playingQueue, final int startPosition, final boolean startPlaying) {
         if (playingQueue != null && !playingQueue.isEmpty() && startPosition >= 0 && startPosition < playingQueue.size()) {
             originalPlayingQueue = playingQueue;
             this.playingQueue = new ArrayList<>(originalPlayingQueue);
@@ -562,6 +562,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             }
             if (startPlaying) {
                 playSongAt(position);
+            } else {
+                setPosition(position);
             }
             notifyChange(QUEUE_CHANGED);
         }

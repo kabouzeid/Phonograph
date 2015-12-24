@@ -79,8 +79,8 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     protected abstract View createContentView();
 
     @Override
-    public void onPlayingMetaChanged() {
-        super.onPlayingMetaChanged();
+    public void onQueueChanged() {
+        super.onQueueChanged();
         hideBottomBar(MusicPlayerRemote.getPlayingQueue().isEmpty());
     }
 
@@ -148,24 +148,21 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         return slidingUpPanelLayout == null || slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED;
     }
 
-    public void hideBottomBar(boolean hide) {
-        if (hide) {
-            slidingUpPanelLayout.setPanelHeight(0);
-            slidingUpPanelLayout.post(new Runnable() {
-                @Override
-                public void run() {
+    public void hideBottomBar(final boolean hide) {
+        slidingUpPanelLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                if (hide) {
                     slidingUpPanelLayout.setPanelHeight(0);
-                }
-            });
-        } else {
-            slidingUpPanelLayout.setPanelHeight(getResources().getDimensionPixelSize(R.dimen.mini_player_height));
-            slidingUpPanelLayout.post(new Runnable() {
-                @Override
-                public void run() {
+                    if (slidingUpPanelLayout.getPanelState() != SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                    }
+                } else {
                     slidingUpPanelLayout.setPanelHeight(getResources().getDimensionPixelSize(R.dimen.mini_player_height));
                 }
-            });
-        }
+
+            }
+        });
     }
 
     protected View wrapSlidingMusicPanel(@LayoutRes int resId) {
