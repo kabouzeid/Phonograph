@@ -196,7 +196,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
     private void setUpDragSort() {
         DragSortRecycler dragSortRecycler = new DragSortRecycler();
-        dragSortRecycler.setViewHandleId(R.id.image);
+        dragSortRecycler.setViewHandleId(R.id.image_container);
         dragSortRecycler.setOnItemMovedListener(new DragSortRecycler.OnItemMovedListener() {
             @Override
             public void onItemMoved(int from, int to) {

@@ -80,11 +80,11 @@
     <style name="OverFlowButtonParent">
         <item name="android:tint">?icon_color</item>
         <item name="android:src">@drawable/abc_ic_menu_moreoverflow_mtrl_alpha</item>
-        <item name="android:padding">12dp</item>
+        <item name="android:layout_margin">8dp</item>
         <item name="android:layout_width">48dp</item>
         <item name="android:layout_height">48dp</item>
+        <item name="android:scaleType">center</item>
         <item name="android:background">?round_selector</item>
-        <item name="android:layout_centerVertical">true</item>
         <item name="android:focusableInTouchMode">false</item>
         <item name="android:focusable">false</item>
     </style>
