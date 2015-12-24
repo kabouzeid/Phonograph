@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  *         <p/>
- *         Do not use {@link #setContentView(int)} but wrap your layout with
+ *         Do not use {@link #setContentView(int)}. Instead wrap your layout with
  *         {@link #wrapSlidingMusicPanel(int)} first and then return it in {@link #createContentView()}
  */
 public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivity implements SlidingUpPanelLayout.PanelSlideListener, PlayerFragment.Callbacks {
@@ -70,8 +70,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
             }
         });
         slidingUpPanelLayout.setPanelSlideListener(this);
-
-        hideBottomBar(MusicPlayerRemote.getPlayingQueue().isEmpty());
 
         playerFragment.onHide();
     }
@@ -155,9 +153,10 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     public void hideBottomBar(final boolean hide) {
         if (hide) {
-            slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
-        } else if (getPanelState() == SlidingUpPanelLayout.PanelState.HIDDEN) {
+            slidingUpPanelLayout.setPanelHeight(0);
             collapsePanel();
+        } else {
+            slidingUpPanelLayout.setPanelHeight(getResources().getDimensionPixelSize(R.dimen.mini_player_height));
         }
     }
 
@@ -171,7 +170,8 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     @Override
     public void onBackPressed() {
-        if (playerFragment.onBackPressed()) return;
+        if (slidingUpPanelLayout.getPanelHeight() != 0 && playerFragment.onBackPressed())
+            return;
         if (getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
             collapsePanel();
             return;
