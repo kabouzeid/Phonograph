@@ -104,6 +104,16 @@ public class ColorUtil {
         return dark ? ContextCompat.getColor(context, R.color.secondary_text_default_material_light) : ContextCompat.getColor(context, R.color.secondary_text_default_material_dark);
     }
 
+    @ColorInt
+    public static int getPrimaryDisabledTextColor(final Context context, boolean dark) {
+        return dark ? ContextCompat.getColor(context, R.color.primary_text_disabled_material_light) : ContextCompat.getColor(context, R.color.primary_text_disabled_material_dark);
+    }
+
+    @ColorInt
+    public static int getSecondaryDisabledTextColor(final Context context, boolean dark) {
+        return dark ? ContextCompat.getColor(context, R.color.secondary_text_disabled_material_light) : ContextCompat.getColor(context, R.color.secondary_text_disabled_material_dark);
+    }
+
     public static float getLuminance(@ColorInt int color) {
         return (Color.red(color) * 0.299f + Color.green(color) * 0.587f + Color.blue(color) * 0.114f);
     }
@@ -120,6 +130,16 @@ public class ColorUtil {
     @ColorInt
     public static int getSecondaryTextColorForBackground(final Context context, @ColorInt int backgroundColor) {
         return getSecondaryTextColor(context, useDarkTextColorOnBackground(backgroundColor));
+    }
+
+    @ColorInt
+    public static int getPrimaryDisabledTextColorForBackground(final Context context, @ColorInt int backgroundColor) {
+        return getPrimaryDisabledTextColor(context, useDarkTextColorOnBackground(backgroundColor));
+    }
+
+    @ColorInt
+    public static int getSecondaryDisabledTextColorForBackground(final Context context, @ColorInt int backgroundColor) {
+        return getSecondaryDisabledTextColor(context, useDarkTextColorOnBackground(backgroundColor));
     }
 
     @ColorInt

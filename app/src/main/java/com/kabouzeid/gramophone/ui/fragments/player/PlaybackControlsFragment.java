@@ -58,6 +58,7 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
 
     private AbsMusicServiceActivity activity;
     private int lastPlaybackControlsColor;
+    private int lastDisabledPlaybackControlsColor;
 
     private MusicProgressViewUpdateHelper progressViewUpdateHelper;
 
@@ -147,7 +148,14 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
     }
 
     public void setColor(int color) {
-        lastPlaybackControlsColor = ColorUtil.getOpaqueColor(ColorUtil.getSecondaryTextColorForBackground(getContext(), color));
+        if (ColorUtil.useDarkTextColorOnBackground(color)) {
+            lastPlaybackControlsColor = ColorUtil.getSecondaryTextColor(getActivity(), true);
+            lastDisabledPlaybackControlsColor = ColorUtil.getSecondaryDisabledTextColor(getActivity(), true);
+        } else {
+            lastPlaybackControlsColor = ColorUtil.getPrimaryTextColor(getActivity(), false);
+            lastDisabledPlaybackControlsColor = ColorUtil.getPrimaryDisabledTextColor(getActivity(), false);
+        }
+
         updateRepeatState();
         updateShuffleState();
         updatePrevNextColor();
@@ -235,7 +243,7 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
                 break;
             default:
                 shuffleButton.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_shuffle_white_36dp,
-                        ColorUtil.getColorWithAlpha(0.5f, lastPlaybackControlsColor)));
+                        lastDisabledPlaybackControlsColor));
                 break;
         }
     }
@@ -262,7 +270,7 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
                 break;
             default:
                 repeatButton.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_repeat_white_36dp,
-                        ColorUtil.getColorWithAlpha(0.5f, lastPlaybackControlsColor)));
+                        lastDisabledPlaybackControlsColor));
                 break;
         }
     }
