@@ -615,17 +615,38 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         } else {
             originalPlayingQueue.remove(playingQueue.remove(position));
         }
+
+        rePosition(position);
+
         notifyChange(QUEUE_CHANGED);
     }
 
     public void removeSong(@NonNull Song song) {
         for (int i = 0; i < playingQueue.size(); i++) {
-            if (playingQueue.get(i).id == song.id) playingQueue.remove(i);
+            if (playingQueue.get(i).id == song.id) {
+                playingQueue.remove(i);
+                rePosition(i);
+            }
         }
         for (int i = 0; i < originalPlayingQueue.size(); i++) {
-            if (originalPlayingQueue.get(i).id == song.id) originalPlayingQueue.remove(i);
+            if (originalPlayingQueue.get(i).id == song.id) {
+                originalPlayingQueue.remove(i);
+            }
         }
         notifyChange(QUEUE_CHANGED);
+    }
+
+    private void rePosition(int deletedPosition) {
+        int currentPosition = getPosition();
+        if (deletedPosition < currentPosition) {
+            setPositionInternal(currentPosition - 1);
+        } else if (deletedPosition == currentPosition) {
+            if (playingQueue.size() > deletedPosition) {
+                setPosition(position);
+            } else {
+                setPosition(position - 1);
+            }
+        }
     }
 
     public void moveSong(int from, int to) {
@@ -638,9 +659,9 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             originalPlayingQueue.add(to, tmpSong);
         }
         if (from > currentPosition && to <= currentPosition) {
-            setPositionInternal(getPosition() + 1);
+            setPositionInternal(currentPosition + 1);
         } else if (from < currentPosition && to >= currentPosition) {
-            setPositionInternal(getPosition() - 1);
+            setPositionInternal(currentPosition - 1);
         } else if (from == currentPosition) {
             setPositionInternal(to);
         }
@@ -982,6 +1003,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
                 case SET_POSITION:
                     service.openTrackAndPrepareNextAt(msg.arg1);
+                    service.notifyChange(PLAY_STATE_CHANGED);
                     break;
 
                 case PREPARE_NEXT:
