@@ -153,7 +153,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
             @Override
             public void run() {
                 if (hide) {
-                    playerFragment.onBackPressed();
                     slidingUpPanelLayout.setPanelHeight(0);
                     slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                 } else {
