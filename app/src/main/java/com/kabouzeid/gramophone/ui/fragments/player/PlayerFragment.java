@@ -18,6 +18,7 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.adapter.song.PlayingQueueAdapter;
@@ -322,12 +323,22 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
                 backgroundAnimator = ViewUtil.createBackgroundColorTransition(fragment.colorBackground, fragment.lastColor, newColor);
             }
 
-            Animator subHeaderAnimator = ViewUtil.createTextColorTransition(fragment.playerQueueSubHeader, fragment.lastColor, newColor);
-
             AnimatorSet animatorSet = new AnimatorSet();
-            animatorSet.playTogether(backgroundAnimator, subHeaderAnimator);
+            animatorSet.play(backgroundAnimator);
+
+            if (!ThemeSingleton.get().darkTheme) {
+                animatorSet.play(ViewUtil.createTextColorTransition(fragment.playerQueueSubHeader, fragment.lastColor, newColor));
+            }
+
             animatorSet.setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME);
             return animatorSet;
+        }
+
+        @Override
+        public void animateColorChange(PlayerFragment fragment, int newColor) {
+            if (ThemeSingleton.get().darkTheme) {
+                fragment.playerQueueSubHeader.setTextColor(ColorUtil.getSecondaryTextColor(fragment.getActivity(), false));
+            }
         }
     }
 
@@ -369,6 +380,8 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
         @Override
         public void animateColorChange(PlayerFragment fragment, int newColor) {
+            super.animateColorChange(fragment, newColor);
+
             fragment.slidingUpPanelLayout.setBackgroundColor(fragment.lastColor);
 
             createDefaultColorChangeAnimatorSet(fragment, newColor).start();
@@ -399,6 +412,8 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
         @Override
         public void animateColorChange(PlayerFragment fragment, int newColor) {
+            super.animateColorChange(fragment, newColor);
+
             fragment.slidingUpPanelLayout.setBackgroundColor(fragment.lastColor);
 
             AnimatorSet animatorSet = createDefaultColorChangeAnimatorSet(fragment, newColor);
@@ -421,6 +436,8 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
         @Override
         public void animateColorChange(PlayerFragment fragment, int newColor) {
+            super.animateColorChange(fragment, newColor);
+
             fragment.slidingUpPanelLayout.setBackgroundColor(fragment.lastColor);
 
             AnimatorSet animatorSet = createDefaultColorChangeAnimatorSet(fragment, newColor);
