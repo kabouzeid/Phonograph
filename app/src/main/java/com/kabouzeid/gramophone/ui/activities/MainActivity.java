@@ -62,6 +62,7 @@ import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -260,8 +261,8 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                     @Override
                     public void onClick(View v) {
                         drawerLayout.closeDrawers();
-                        if (isPanelCollapsed()) {
-                            toggleSlidingPanel();
+                        if (getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                            expandPanel();
                         }
                     }
                 });

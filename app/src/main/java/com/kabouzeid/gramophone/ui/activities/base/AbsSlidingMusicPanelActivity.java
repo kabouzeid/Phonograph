@@ -9,6 +9,7 @@ import android.support.annotation.FloatRange;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -47,29 +48,32 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         playerFragment = (AbsPlayerFragment) getSupportFragmentManager().findFragmentById(R.id.player_fragment);
         miniPlayerFragment = (MiniPlayerFragment) getSupportFragmentManager().findFragmentById(R.id.mini_player_fragment);
 
-        if (miniPlayerFragment.getView() != null) {
-            miniPlayerFragment.getView().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    toggleSlidingPanel();
-                }
-            });
-        }
-
-        slidingUpPanelLayout.setPanelSlideListener(this);
-        playerFragment.onHide();
-
-        slidingUpPanelLayout.post(new Runnable() {
+        //noinspection ConstantConditions
+        miniPlayerFragment.getView().setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                if (!isPanelCollapsed()) {
+            public void onClick(View v) {
+                expandPanel();
+            }
+        });
+
+        slidingUpPanelLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                slidingUpPanelLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+                if (getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
                     onPanelSlide(slidingUpPanelLayout, 1);
                     onPanelExpanded(slidingUpPanelLayout);
-                } else if (isPanelCollapsed()) {
+                } else if (getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
                     onPanelCollapsed(slidingUpPanelLayout);
                 }
             }
         });
+        slidingUpPanelLayout.setPanelSlideListener(this);
+
+        hideBottomBar(MusicPlayerRemote.getPlayingQueue().isEmpty());
+
+        playerFragment.onHide();
     }
 
     public void setAntiDragView(View antiDragView) {
@@ -136,30 +140,25 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         miniPlayerFragment.getView().setVisibility(alpha == 0 ? View.GONE : View.VISIBLE);
     }
 
-    public void toggleSlidingPanel() {
-        if (isPanelCollapsed()) {
-            slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
-        } else {
-            slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-        }
+
+    public SlidingUpPanelLayout.PanelState getPanelState() {
+        return slidingUpPanelLayout == null ? null : slidingUpPanelLayout.getPanelState();
     }
 
-    public boolean isPanelCollapsed() {
-        return slidingUpPanelLayout == null || slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED;
+    public void collapsePanel() {
+        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+    }
+
+    public void expandPanel() {
+        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
     }
 
     public void hideBottomBar(final boolean hide) {
-        slidingUpPanelLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                if (hide) {
-                    slidingUpPanelLayout.setPanelHeight(0);
-                    slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                } else {
-                    slidingUpPanelLayout.setPanelHeight(getResources().getDimensionPixelSize(R.dimen.mini_player_height));
-                }
-            }
-        });
+        if (hide) {
+            slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.HIDDEN);
+        } else if (getPanelState() == SlidingUpPanelLayout.PanelState.HIDDEN) {
+            collapsePanel();
+        }
     }
 
     protected View wrapSlidingMusicPanel(@LayoutRes int resId) {
@@ -173,8 +172,8 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     @Override
     public void onBackPressed() {
         if (playerFragment.onBackPressed()) return;
-        if (!isPanelCollapsed()) {
-            slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+        if (getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
+            collapsePanel();
             return;
         }
         super.onBackPressed();
@@ -183,7 +182,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     @Override
     protected void setNavigationBarColor(@ColorInt int color) {
         this.navigationBarColor = color;
-        if (isPanelCollapsed()) {
+        if (getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
             super.setNavigationBarColor(color);
         }
     }
@@ -191,14 +190,14 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     @Override
     protected void notifyTaskColorChange(@ColorInt int color) {
         this.taskColor = color;
-        if (isPanelCollapsed()) {
+        if (getPanelState() == null || getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
             super.notifyTaskColorChange(color);
         }
     }
 
     @Override
     public void onPaletteColorChanged() {
-        if (!isPanelCollapsed()) {
+        if (getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
             int playerFragmentColor = playerFragment.getPaletteColor();
             super.notifyTaskColorChange(playerFragmentColor);
             if (shouldColorNavigationBar()) {
