@@ -879,7 +879,11 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 break;
             case QUEUE_CHANGED:
                 saveState();
-                prepareNext();
+                if (playingQueue.size() > 0) {
+                    prepareNext();
+                } else {
+                    playingNotificationHelper.killNotification();
+                }
                 break;
         }
     }

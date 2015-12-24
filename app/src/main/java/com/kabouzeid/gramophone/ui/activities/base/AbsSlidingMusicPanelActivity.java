@@ -153,14 +153,12 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
             @Override
             public void run() {
                 if (hide) {
+                    playerFragment.onBackPressed();
                     slidingUpPanelLayout.setPanelHeight(0);
-                    if (slidingUpPanelLayout.getPanelState() != SlidingUpPanelLayout.PanelState.COLLAPSED) {
-                        slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
-                    }
+                    slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                 } else {
                     slidingUpPanelLayout.setPanelHeight(getResources().getDimensionPixelSize(R.dimen.mini_player_height));
                 }
-
             }
         });
     }

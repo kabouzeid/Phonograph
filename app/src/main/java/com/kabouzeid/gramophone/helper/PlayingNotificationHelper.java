@@ -45,7 +45,7 @@ public class PlayingNotificationHelper {
 
     private final NotificationManager notificationManager;
     private Notification notification;
-    private int notificationId = hashCode();
+    private int notificationId = 1;
 
     private RemoteViews notificationLayout;
     private RemoteViews notificationLayoutBig;
@@ -262,7 +262,9 @@ public class PlayingNotificationHelper {
         if (notificationLayoutBig != null) {
             notificationLayoutBig.setImageViewResource(R.id.action_play_pause, playPauseRes);
         }
-        notificationManager.notify(notificationId, notification);
+        if (notification != null) {
+            notificationManager.notify(notificationId, notification);
+        }
     }
 
     private void setNotificationTextDark(boolean setDark) {
