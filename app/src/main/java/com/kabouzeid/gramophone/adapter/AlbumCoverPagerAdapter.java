@@ -115,7 +115,9 @@ public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
         @Override
         public void onViewCreated(View view, Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
-            forceSquareAlbumCover(PreferenceUtil.getInstance(getContext()).forceSquareAlbumCover());
+            forceSquareAlbumCover(false);
+            // TODO
+//            forceSquareAlbumCover(PreferenceUtil.getInstance(getContext()).forceSquareAlbumCover());
             PreferenceUtil.getInstance(getActivity()).registerOnSharedPreferenceChangedListener(this);
             loadAlbumCover();
         }
@@ -147,7 +149,7 @@ public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
                     new SimpleImageLoadingListener() {
                         @Override
                         public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
-                            if(getActivity() != null) {
+                            if (getActivity() != null) {
                                 setColor(ColorUtil.resolveColor(getActivity(), R.attr.default_bar_color));
                             }
                         }
@@ -168,7 +170,8 @@ public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             switch (key) {
                 case PreferenceUtil.FORCE_SQUARE_ALBUM_COVER:
-                    forceSquareAlbumCover(PreferenceUtil.getInstance(getActivity()).forceSquareAlbumCover());
+                    // TODO
+//                    forceSquareAlbumCover(PreferenceUtil.getInstance(getActivity()).forceSquareAlbumCover());
                     break;
             }
         }
