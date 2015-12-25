@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
@@ -27,6 +28,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.adapter.song.PlayingQueueAdapter;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
@@ -360,15 +362,30 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
     @SuppressWarnings("ConstantConditions")
     private static class PortraitImpl extends BaseImpl {
         MediaEntryViewHolder currentSongViewHolder;
+        Song currentSong = new Song();
 
         @Override
-        public void init(PlayerFragment fragment) {
+        public void init(final PlayerFragment fragment) {
             currentSongViewHolder = new MediaEntryViewHolder(fragment.getView().findViewById(R.id.current_song));
 
             currentSongViewHolder.separator.setVisibility(View.VISIBLE);
             currentSongViewHolder.shortSeparator.setVisibility(View.GONE);
             currentSongViewHolder.image.setScaleType(ImageView.ScaleType.CENTER);
             currentSongViewHolder.image.setImageDrawable(Util.getTintedDrawable(fragment.getActivity(), R.drawable.ic_volume_up_white_24dp, ColorUtil.resolveColor(fragment.getActivity(), R.attr.icon_color)));
+            // TODO only temporary solution
+            currentSongViewHolder.menu.setOnClickListener(new SongMenuHelper.OnClickSongMenu((AppCompatActivity) fragment.getActivity()) {
+
+                @Override
+                public void onClick(View v) {
+                    super.onClick(v);
+                    Toast.makeText(fragment.getActivity(), "This menu is not done yet.", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public Song getSong() {
+                    return currentSong;
+                }
+            });
         }
 
         @Override
@@ -389,6 +406,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
         @Override
         public void updateCurrentSong(PlayerFragment fragment, Song song) {
+            currentSong = song;
             currentSongViewHolder.title.setText(song.title);
             currentSongViewHolder.text.setText(song.artistName);
         }
