@@ -158,4 +158,11 @@
     <string name="sleep_timer_set">Přehrávání se ukončí za %d minut</string>
     <string name="action_new_playlist">Nový playlist...</string>
     <string name="new_playlist_title">Nový playlist</string>
+    <string name="version">Verze</string>
+    <string name="author">Autor</string>
+    <string name="add_to_google_plus_circles">Přidat do kruhů Google Plus</string>
+    <string name="visit_website">Navštívit stránku</string>
+    <string name="report_bugs">Ohlásit chybu</string>
+    <string name="rate_on_google_play">Ohodnotit</string>
+    <string name="donate">Dotovat</string>
 </resources>

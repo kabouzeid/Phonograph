@@ -18,7 +18,7 @@
     <string name="action_play">Reproducir</string>
     <string name="action_add_to_playing_queue">Añadir a cola de reproducción</string>
     <string name="action_remove_from_playing_queue">Eliminar de la cola de reproducción</string>
-    <string name="action_add_to_playlist">Agregar a la lista de reproducción...</string>
+    <string name="action_add_to_playlist">Añadir a la lista de reproducción...</string>
     <string name="action_tag_editor">Editor de etiquetas</string>
     <string name="action_delete_from_device">Eliminar del dispositivo</string>
     <string name="action_details">Detalles</string>
@@ -29,7 +29,7 @@
     <string name="unplayable_file">No se ha podido reproducir esta canci\u00f3n.</string>
     <string name="biography_unavailable">Lo sentimos, no encontramos una biograf\u00eda correspondiente a \u00e9ste artista</string>
     <string name="biography">Biografía</string>
-    <string name="audio_focus_denied">No se encontró el foco de audio.</string>
+    <string name="audio_focus_denied">Foco de audio denegado.</string>
     <string name="album">Álbum</string>
     <string name="artist">Artista</string>
     <string name="genre">Género</string>
@@ -152,7 +152,7 @@
     <string name="rescanning_media">Escaneando contenido...</string>
     <string name="favorites">Favoritos</string>
     <string name="last_added">Último agregado</string>
-    <string name="history">. . .</string>
+    <string name="history">Historial</string>
     <string name="my_top_tracks">Canciones más reproducidas</string>
     <string name="remove_cover">Eliminar carátula</string>
     <string name="download_from_last_fm">Descargar desde Last.fm</string>

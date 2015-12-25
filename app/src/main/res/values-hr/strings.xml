@@ -60,6 +60,8 @@
     <string name="added_title_to_playing_queue">"Pjesma dodana u red čekanja."</string>
     <string name="added_x_titles_to_playing_queue">Dodano %1$d pjesama u red čekanja.</string>
     <string name="action_remove_from_playlist">Ukloni s popisa pjesama</string>
+    <string name="action_grid_size">Veličina mreže</string>
+    <string name="action_grid_size_land">Veličina mreže (vodoravno)</string>
     <string name="inserted_x_songs_into_playlist_x">Umetnuto pjesama: %1$d na popis %2$s.</string>
     <string name="created_playlist_x">Stvoren popis pjesama %1$s.</string>
     <string name="deleted_playlist_x">Obrisan popis pjesama %1$s.</string>
@@ -150,6 +152,7 @@
     <string name="rescanning_media">Ponovno skeniram medijske datoteke</string>
     <string name="favorites">Favoriti</string>
     <string name="last_added">Posljednje dodano</string>
+    <string name="history">Povijest</string>
     <string name="my_top_tracks">Najslušanije pjesme</string>
     <string name="remove_cover">Ukloni omot</string>
     <string name="download_from_last_fm">Skini s lokacije Last.fm</string>
@@ -169,4 +172,29 @@
     <string name="back">natrag</string>
     <string name="support_development">Podržite razvoj</string>
     <string name="thank_you">Hvala vam!</string>
+    <string name="restored_previous_purchases">Povrati prošle kupnje.</string>
+    <string name="play_store_illustration_by">Play Store ilustraciju izradio</string>
+    <string name="version">Verzija</string>
+    <string name="application">Aplikacija</string>
+    <string name="author">Autor</string>
+    <string name="add_to_google_plus_circles">Dodaj u Google Plus krugove</string>
+    <string name="follow_on_twitter">Prati na Twitteru</string>
+    <string name="fork_on_git_hub">Kopiraj na GitHub</string>
+    <string name="visit_website">Posjeti web-stranicu</string>
+    <string name="report_bugs">Prijavi pogreške</string>
+    <string name="report_bugs_summary">Prijavi pogreške i zatraži nove mogućnosti</string>
+    <string name="join_community">Pridruži se Google Plus zajednici</string>
+    <string name="join_community_summary">Ako trebaš pomoć ili imaš pitanja, trebaš posjetiti Phonograph zajednicu na Google Plusu.</string>
+    <string name="translate">Prevedi</string>
+    <string name="translate_summary">Pomozi prevesti Phonograph na svoj izvorni jezik.</string>
+    <string name="rate_on_google_play">Ocijeni</string>
+    <string name="rate_on_google_play_summary">Ostavi pozitivnu ocjenu na Google Playu ako ti se Phonograph sviđa.</string>
+    <string name="donate">Doniraj</string>
+    <string name="donate_summary">Ako misliš da sam zaslužio biti plaćen za svoj rad, ostavi mi par dolara ovdje.</string>
+    <string name="aidan_follestad_summary">Za pokretač teme i ostale super stvari.</string>
+    <string name="michael_cook_summary">Za krasnu materijalnu ikonu.</string>
+    <string name="maarten_corpel_summary">Za izradu Play Store ilustracije i slike praznog omota albuma.</string>
+    <string name="aleksandar_tesic_summary">Za pomoć u dizajnu.</string>
+    <string name="website">Web-stranica</string>
+    <string name="loading_products">Učitavanje artikala...</string>
 </resources>

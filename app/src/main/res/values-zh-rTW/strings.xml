@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="what_do_you_want_to_share">您想分享那些內容？</string>
+    <string name="what_do_you_want_to_share">您想分享哪些內容？</string>
     <string name="currently_listening_to_x_by_x">正在播放 %2$s 的 %1$s 。</string>
     <string name="the_audio_file">音訊檔</string>
-    <string name="do_you_want_to_set_x_as_ringtone">您想要將 %1$s 設為鈴聲嗎？</string>
+    <string name="do_you_want_to_set_x_as_ringtone">你要將 %1$s 設為鈴聲嗎？</string>
     <string name="x_has_been_set_as_ringtone">已將 %1$s 設為鈴聲。</string>
     <string name="action_set_as_ringtone">設為鈴聲</string>
     <string name="action_share">分享</string>
@@ -60,6 +60,7 @@
     <string name="added_title_to_playing_queue">"已將 1 首歌加到播放佇列。"</string>
     <string name="added_x_titles_to_playing_queue">已將 %1$d 首歌加到播放佇列。</string>
     <string name="action_remove_from_playlist">從播放清單中移除</string>
+    <string name="action_grid_size">網格大小</string>
     <string name="inserted_x_songs_into_playlist_x">已將 %1$d 首歌加入播放清單 %2$s 中。</string>
     <string name="created_playlist_x">已新增播放清單 %1$s。</string>
     <string name="deleted_playlist_x">已刪除播放清單 %1$s 。</string>
@@ -169,4 +170,6 @@
     <string name="back">返回</string>
     <string name="support_development">支援開發</string>
     <string name="thank_you">感謝您！</string>
+    <string name="version">版本</string>
+    <string name="author">作者</string>
 </resources>
