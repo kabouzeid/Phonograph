@@ -19,12 +19,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
+import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
+import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
+import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
+import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.adapter.song.PlayingQueueAdapter;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
-import com.kabouzeid.gramophone.misc.DragSortRecycler;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
@@ -69,6 +72,9 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
     private LinearLayoutManager layoutManager;
 
     private PlayingQueueAdapter playingQueueAdapter;
+
+    private RecyclerView.Adapter wrappedAdapter;
+    private RecyclerViewDragDropManager recyclerViewDragDropManager;
 
     private Impl impl;
 
@@ -115,8 +121,31 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
     @Override
     public void onDestroyView() {
+        if (recyclerViewDragDropManager != null) {
+            recyclerViewDragDropManager.release();
+            recyclerViewDragDropManager = null;
+        }
+
+        if (recyclerView != null) {
+            recyclerView.setItemAnimator(null);
+            recyclerView.setAdapter(null);
+            recyclerView = null;
+        }
+
+        if (wrappedAdapter != null) {
+            WrapperAdapterUtils.releaseAll(wrappedAdapter);
+            wrappedAdapter = null;
+        }
+        playingQueueAdapter = null;
+        layoutManager = null;
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void onPause() {
+        recyclerViewDragDropManager.cancelDrag();
+        super.onPause();
     }
 
     @Override
@@ -170,19 +199,25 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
     }
 
     private void setUpRecyclerView() {
+        recyclerViewDragDropManager = new RecyclerViewDragDropManager();
+        final GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
+
         playingQueueAdapter = new PlayingQueueAdapter(
                 ((AppCompatActivity) getActivity()),
                 MusicPlayerRemote.getPlayingQueue(),
                 R.layout.item_list,
                 false,
                 null);
-        recyclerView.setAdapter(playingQueueAdapter);
+        wrappedAdapter = recyclerViewDragDropManager.createWrappedAdapter(playingQueueAdapter);
 
         layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setChildSize((int) (getResources().getDisplayMetrics().density * 72));
-        recyclerView.setLayoutManager(layoutManager);
 
-        setUpDragSort();
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(wrappedAdapter);
+        recyclerView.setItemAnimator(animator);
+
+        recyclerViewDragDropManager.attachRecyclerView(recyclerView);
     }
 
 
@@ -192,23 +227,6 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         toolbar.getMenu().findItem(R.id.action_toggle_favorite)
                 .setIcon(favoriteIcon)
                 .setTitle(isFavorite ? getString(R.string.action_remove_from_favorites) : getString(R.string.action_add_to_favorites));
-    }
-
-    private void setUpDragSort() {
-        DragSortRecycler dragSortRecycler = new DragSortRecycler();
-        dragSortRecycler.setViewHandleId(R.id.image_container);
-        dragSortRecycler.setOnItemMovedListener(new DragSortRecycler.OnItemMovedListener() {
-            @Override
-            public void onItemMoved(int from, int to) {
-                if (from == to) return;
-                MusicPlayerRemote.moveSong(from, to);
-            }
-        });
-
-        recyclerView.addItemDecoration(dragSortRecycler);
-        recyclerView.addOnItemTouchListener(dragSortRecycler);
-        recyclerView.addOnScrollListener(dragSortRecycler.getScrollListener());
-        recyclerView.setItemAnimator(null);
     }
 
     @Override
