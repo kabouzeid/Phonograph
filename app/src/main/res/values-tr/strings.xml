@@ -60,6 +60,8 @@
     <string name="added_title_to_playing_queue">"Çalma kuyruğuna 1 başlık eklendi."</string>
     <string name="added_x_titles_to_playing_queue">Çalma kuyruğuna %1$d başlıkları eklendi.</string>
     <string name="action_remove_from_playlist">Çalma listesinden kaldır</string>
+    <string name="action_grid_size">Kılavuz boyutu</string>
+    <string name="action_grid_size_land">Kılavuz boyutu (yatay)</string>
     <string name="inserted_x_songs_into_playlist_x">%2$s oynatma listesine%1$d şarkı eklendi.</string>
     <string name="created_playlist_x">Çalma listesi %1$s oluşturuldu.</string>
     <string name="deleted_playlist_x">Çalma listesi %1$s silindi.</string>
