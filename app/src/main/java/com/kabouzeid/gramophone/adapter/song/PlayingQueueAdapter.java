@@ -42,6 +42,9 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
     @Override
     public void onBindViewHolder(@NonNull SongAdapter.ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
+        if (holder.imageText != null) {
+            holder.imageText.setText(String.valueOf(position - current));
+        }
         if (holder.getItemViewType() == HISTORY) {
             setAlpha(holder, 0.5f);
         } else if (holder.getItemViewType() == CURRENT) {
@@ -57,6 +60,11 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
             return UP_NEXT;
         }
         return CURRENT;
+    }
+
+    @Override
+    protected void loadAlbumCover(Song song, SongAdapter.ViewHolder holder) {
+        // We don't need to load it in this adapter
     }
 
     public void swapDataSet(ArrayList<Song> dataSet, int position) {
@@ -90,7 +98,7 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
 
     @Override
     public boolean onCheckCanStartDrag(ViewHolder holder, int position, int x, int y) {
-        return ViewUtil.hitTest(holder.image, x, y);
+        return ViewUtil.hitTest(holder.imageText, x, y);
     }
 
     @Override
@@ -109,6 +117,12 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            if (imageText != null) {
+                imageText.setVisibility(View.VISIBLE);
+            }
+            if (image != null) {
+                image.setVisibility(View.GONE);
+            }
         }
 
         @Override
