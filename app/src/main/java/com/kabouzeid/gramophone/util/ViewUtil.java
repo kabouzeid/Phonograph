@@ -10,6 +10,7 @@ import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.view.menu.ListMenuItemView;
 import android.support.v7.view.menu.MenuPopupHelper;
 import android.support.v7.widget.ActionMenuView;
@@ -205,5 +206,16 @@ public class ViewUtil {
                 }
             }
         });
+    }
+
+    public static boolean hitTest(View v, int x, int y) {
+        final int tx = (int) (ViewCompat.getTranslationX(v) + 0.5f);
+        final int ty = (int) (ViewCompat.getTranslationY(v) + 0.5f);
+        final int left = v.getLeft() + tx;
+        final int right = v.getRight() + tx;
+        final int top = v.getTop() + ty;
+        final int bottom = v.getBottom() + ty;
+
+        return (x >= left) && (x <= right) && (y >= top) && (y <= bottom);
     }
 }

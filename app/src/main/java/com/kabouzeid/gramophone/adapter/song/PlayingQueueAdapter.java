@@ -7,17 +7,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemAdapter;
+import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemViewHolder;
+import com.h6ah4i.android.widget.advrecyclerview.draggable.ItemDraggableRange;
+import com.h6ah4i.android.widget.advrecyclerview.draggable.annotation.DraggableItemStateFlags;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.util.ViewUtil;
 
 import java.util.ArrayList;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class PlayingQueueAdapter extends SongAdapter {
+public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAdapter<PlayingQueueAdapter.ViewHolder> {
 
     private static final int HISTORY = 0;
     private static final int CURRENT = 1;
@@ -83,7 +88,24 @@ public class PlayingQueueAdapter extends SongAdapter {
         }
     }
 
-    public class ViewHolder extends SongAdapter.ViewHolder {
+    @Override
+    public boolean onCheckCanStartDrag(ViewHolder holder, int position, int x, int y) {
+        return ViewUtil.hitTest(holder.image, x, y);
+    }
+
+    @Override
+    public ItemDraggableRange onGetItemDraggableRange(ViewHolder holder, int position) {
+        return null;
+    }
+
+    @Override
+    public void onMoveItem(int fromPosition, int toPosition) {
+        MusicPlayerRemote.moveSong(fromPosition, toPosition);
+    }
+
+    public class ViewHolder extends SongAdapter.ViewHolder implements DraggableItemViewHolder {
+        @DraggableItemStateFlags
+        private int mDragStateFlags;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -102,6 +124,17 @@ public class PlayingQueueAdapter extends SongAdapter {
                     return true;
             }
             return super.onSongMenuItemClick(item);
+        }
+
+        @Override
+        public void setDragStateFlags(@DraggableItemStateFlags int flags) {
+            mDragStateFlags = flags;
+        }
+
+        @Override
+        @DraggableItemStateFlags
+        public int getDragStateFlags() {
+            return mDragStateFlags;
         }
     }
 }

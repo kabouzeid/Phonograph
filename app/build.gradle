@@ -94,6 +94,10 @@ dependencies {
         transitive = true;
     }
 
+    compile('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.8.5@aar') {
+        transitive = true
+    }
+
     compile('com.afollestad.material-dialogs:core:0.8.5.1@aar') {
         transitive = true
     }
