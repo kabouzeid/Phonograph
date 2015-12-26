@@ -165,6 +165,11 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     }
 
     @Override
+    protected String getName(Artist artist) {
+        return artist.name;
+    }
+
+    @Override
     protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Artist> selection) {
         switch (menuItem.getItemId()) {
             case R.id.action_delete_from_disk:

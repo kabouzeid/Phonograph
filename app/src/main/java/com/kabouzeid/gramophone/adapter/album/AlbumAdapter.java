@@ -176,6 +176,11 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     }
 
     @Override
+    protected String getName(Album album) {
+        return album.title;
+    }
+
+    @Override
     protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Album> selection) {
         switch (menuItem.getItemId()) {
             case R.id.action_delete_from_disk:

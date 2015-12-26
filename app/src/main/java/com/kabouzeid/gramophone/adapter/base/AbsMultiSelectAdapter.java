@@ -45,7 +45,7 @@ public abstract class AbsMultiSelectAdapter<VH extends RecyclerView.ViewHolder, 
 
             final int size = checked.size();
             if (size <= 0) cab.finish();
-            else if (size == 1) cab.setTitle(checked.get(0).toString());
+            else if (size == 1) cab.setTitle(getName(checked.get(0)));
             else if (size > 1) cab.setTitle(context.getString(R.string.x_selected, size));
 
             return true;
@@ -91,6 +91,10 @@ public abstract class AbsMultiSelectAdapter<VH extends RecyclerView.ViewHolder, 
     public boolean onCabFinished(MaterialCab materialCab) {
         unCheckAll();
         return true;
+    }
+
+    protected String getName(I object) {
+        return object.toString();
     }
 
     protected abstract I getIdentifier(int position);

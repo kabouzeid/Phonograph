@@ -183,6 +183,11 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
     }
 
     @Override
+    protected String getName(Song song) {
+        return song.title;
+    }
+
+    @Override
     protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Song> selection) {
         switch (menuItem.getItemId()) {
             case R.id.action_delete_from_disk:
