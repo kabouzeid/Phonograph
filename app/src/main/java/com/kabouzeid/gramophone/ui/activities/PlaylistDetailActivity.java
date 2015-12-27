@@ -2,7 +2,7 @@ package com.kabouzeid.gramophone.ui.activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -11,6 +11,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.afollestad.materialcab.MaterialCab;
+import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
+import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
+import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
+import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.song.PlaylistSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.SmartPlaylistSongAdapter;
@@ -19,7 +23,6 @@ import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
-import com.kabouzeid.gramophone.misc.DragSortRecycler;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
@@ -54,6 +57,9 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     private MaterialCab cab;
     private SongAdapter adapter;
 
+    private RecyclerView.Adapter wrappedAdapter;
+    private RecyclerViewDragDropManager recyclerViewDragDropManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,33 +85,30 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     }
 
     private void setUpRecyclerView() {
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         if (playlist instanceof AbsSmartPlaylist) {
             adapter = new SmartPlaylistSongAdapter(this, loadSmartPlaylistDataSet(), R.layout.item_list, false, this);
+            recyclerView.setAdapter(adapter);
         } else {
-            adapter = new PlaylistSongAdapter(this, loadPlaylistDataSet(), R.layout.item_list, false, this);
-
-            DragSortRecycler dragSortRecycler = new DragSortRecycler();
-            dragSortRecycler.setViewHandleId(R.id.drag_view);
-            dragSortRecycler.setOnItemMovedListener(new DragSortRecycler.OnItemMovedListener() {
+            recyclerViewDragDropManager = new RecyclerViewDragDropManager();
+            final GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
+            adapter = new PlaylistSongAdapter(this, loadPlaylistDataSet(), R.layout.item_list, false, this, new PlaylistSongAdapter.OnMoveItemListener() {
                 @Override
-                public void onItemMoved(int from, int to) {
-                    if (from == to) return;
-
-                    if (PlaylistsUtil.moveItem(PlaylistDetailActivity.this, playlist.id, from, to)) {
-                        Song song = adapter.getDataSet().remove(from);
-                        adapter.getDataSet().add(to, song);
-                        adapter.notifyItemMoved(from, to);
+                public void onMoveItem(int fromPosition, int toPosition) {
+                    if (PlaylistsUtil.moveItem(PlaylistDetailActivity.this, playlist.id, fromPosition, toPosition)) {
+                        Song song = adapter.getDataSet().remove(fromPosition);
+                        adapter.getDataSet().add(toPosition, song);
+                        adapter.notifyItemMoved(fromPosition, toPosition);
                     }
                 }
             });
+            wrappedAdapter = recyclerViewDragDropManager.createWrappedAdapter(adapter);
 
-            recyclerView.addItemDecoration(dragSortRecycler);
-            recyclerView.addOnItemTouchListener(dragSortRecycler);
-            recyclerView.addOnScrollListener(dragSortRecycler.getScrollListener());
-            recyclerView.setItemAnimator(null);
+            recyclerView.setAdapter(wrappedAdapter);
+            recyclerView.setItemAnimator(animator);
+
+            recyclerViewDragDropManager.attachRecyclerView(recyclerView);
         }
-        recyclerView.setAdapter(adapter);
 
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
@@ -210,5 +213,33 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         empty.setVisibility(
                 adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE
         );
+    }
+
+    @Override
+    public void onPause() {
+        recyclerViewDragDropManager.cancelDrag();
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (recyclerViewDragDropManager != null) {
+            recyclerViewDragDropManager.release();
+            recyclerViewDragDropManager = null;
+        }
+
+        if (recyclerView != null) {
+            recyclerView.setItemAnimator(null);
+            recyclerView.setAdapter(null);
+            recyclerView = null;
+        }
+
+        if (wrappedAdapter != null) {
+            WrapperAdapterUtils.releaseAll(wrappedAdapter);
+            wrappedAdapter = null;
+        }
+        adapter = null;
+
+        super.onDestroy();
     }
 }
