@@ -66,9 +66,9 @@ public class ChangelogDialog extends LeakDetectDialogFragment {
 
         final WebView webView = (WebView) customView.findViewById(R.id.web_view);
         try {
-            // Load from changelog.html in the assets folder
+            // Load from phonograph-changelog.html in the assets folder
             StringBuilder buf = new StringBuilder();
-            InputStream json = getActivity().getAssets().open("changelog.html");
+            InputStream json = getActivity().getAssets().open("phonograph-changelog.html");
             BufferedReader in = new BufferedReader(new InputStreamReader(json, "UTF-8"));
             String str;
             while ((str = in.readLine()) != null)
