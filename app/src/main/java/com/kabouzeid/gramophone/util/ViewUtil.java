@@ -171,7 +171,7 @@ public class ViewUtil {
         }
     }
 
-    public static void setToolbarIconColor(@NonNull final Context context, @Nullable final Toolbar toolbar, @ColorInt final int color) {
+    private static void setToolbarIconColor(@NonNull final Context context, @Nullable final Toolbar toolbar, @ColorInt final int color) {
         if (toolbar == null) return;
         toolbar.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
