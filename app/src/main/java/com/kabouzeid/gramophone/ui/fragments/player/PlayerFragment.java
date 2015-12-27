@@ -11,13 +11,13 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
@@ -27,6 +27,7 @@ import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.adapter.song.PlayingQueueAdapter;
+import com.kabouzeid.gramophone.dialogs.SongShareDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
@@ -372,20 +373,6 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
             currentSongViewHolder.shortSeparator.setVisibility(View.GONE);
             currentSongViewHolder.image.setScaleType(ImageView.ScaleType.CENTER);
             currentSongViewHolder.image.setImageDrawable(Util.getTintedDrawable(fragment.getActivity(), R.drawable.ic_volume_up_white_24dp, ColorUtil.resolveColor(fragment.getActivity(), R.attr.icon_color)));
-            // TODO only temporary solution
-            currentSongViewHolder.menu.setOnClickListener(new SongMenuHelper.OnClickSongMenu((AppCompatActivity) fragment.getActivity()) {
-
-                @Override
-                public void onClick(View v) {
-                    super.onClick(v);
-                    Toast.makeText(fragment.getActivity(), "This menu is not done yet.", Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public Song getSong() {
-                    return currentSong;
-                }
-            });
             currentSongViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -395,6 +382,29 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
                     } else if (fragment.slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
                         fragment.slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
                     }
+                }
+            });
+            currentSongViewHolder.menu.setOnClickListener(new SongMenuHelper.OnClickSongMenu((AppCompatActivity) fragment.getActivity()) {
+                @Override
+                public Song getSong() {
+                    return currentSong;
+                }
+
+                public int getMenuRes() {
+                    return R.menu.menu_item_playing_queue_song;
+                }
+
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.action_remove_from_playing_queue:
+                            MusicPlayerRemote.removeFromQueue(MusicPlayerRemote.getPosition());
+                            return true;
+                        case R.id.action_share:
+                            SongShareDialog.create(getSong()).show(fragment.getFragmentManager(), "SONG_SHARE_DIALOG");
+                            return true;
+                    }
+                    return super.onMenuItemClick(item);
                 }
             });
         }

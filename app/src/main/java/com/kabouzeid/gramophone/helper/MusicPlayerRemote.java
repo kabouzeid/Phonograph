@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.media.audiofx.AudioEffect;
 import android.os.IBinder;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -331,7 +330,7 @@ public class MusicPlayerRemote {
     }
 
     public static boolean removeFromQueue(int position) {
-        if (musicService != null) {
+        if (musicService != null && position >= 0 && position < getPlayingQueue().size()) {
             musicService.removeSong(position);
             return true;
         }
@@ -339,7 +338,7 @@ public class MusicPlayerRemote {
     }
 
     public static boolean moveSong(int from, int to) {
-        if (musicService != null) {
+        if (musicService != null && from >= 0 && to >= 0 && from < getPlayingQueue().size() && to < getPlayingQueue().size()) {
             musicService.moveSong(from, to);
             return true;
         }
@@ -350,7 +349,7 @@ public class MusicPlayerRemote {
         if (musicService != null) {
             return musicService.getAudioSessionId();
         }
-        return AudioEffect.ERROR_NO_INIT;
+        return -1;
     }
 
     public static void playFile(String path) {
