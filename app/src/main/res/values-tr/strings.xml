@@ -197,4 +197,6 @@
     <string name="aleksandar_tesic_summary">Tasarım için bana yardımı için.</string>
     <string name="website">Web sitesi</string>
     <string name="loading_products">İçerik yükleniyor...</string>
+    <string name="up_next">Sonrakini aç</string>
+    <string name="pref_title_now_playing_layout">Şimdiki çalma düzeni</string>
 </resources>

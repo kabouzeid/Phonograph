@@ -197,4 +197,6 @@
     <string name="aleksandar_tesic_summary">За допомогу в дизайні.</string>
     <string name="website">Веб-сайт</string>
     <string name="loading_products">Завантаження продуктів...</string>
+    <string name="up_next">До наступного</string>
+    <string name="pref_title_now_playing_layout">Зараз грає</string>
 </resources>

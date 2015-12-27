@@ -197,4 +197,6 @@
     <string name="aleksandar_tesic_summary">Za pomoc w pracach nad wyglądem wizualnym</string>
     <string name="website">Strona internetowa</string>
     <string name="loading_products">Ładowanie produktów...</string>
+    <string name="up_next">Za chwilę zagra</string>
+    <string name="pref_title_now_playing_layout">Układ ekranu \"Obecnie Grane\"</string>
 </resources>

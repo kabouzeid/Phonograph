@@ -197,4 +197,6 @@
     <string name="aleksandar_tesic_summary">"Untuk yang membantu saya dengan desainnya. "</string>
     <string name="website">Situs</string>
     <string name="loading_products">Memuat produk...</string>
+    <string name="up_next">Mendatang</string>
+    <string name="pref_title_now_playing_layout">Tampilan sedang diputar</string>
 </resources>
