@@ -23,7 +23,7 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class SongMenuHelper {
-    public static int MENU_RES = R.menu.menu_item_song;
+    public static final int MENU_RES = R.menu.menu_item_song;
 
     public static boolean handleMenuClick(@NonNull AppCompatActivity activity, @NonNull Song song, @NonNull MenuItem item) {
         switch (item.getItemId()) {
