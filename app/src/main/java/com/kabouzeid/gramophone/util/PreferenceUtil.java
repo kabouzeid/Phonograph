@@ -53,6 +53,7 @@ public final class PreferenceUtil {
     public static final String LAST_ADDED_CUTOFF_TIMESTAMP = "last_added_cutoff_timestamp";
 
     public static final String ALBUM_ART_ON_LOCKSCREEN = "album_art_on_lockscreen";
+    public static final String BLURRED_ALBUM_ART = "blurred_album_art";
 
     public static final String LAST_SLEEP_TIMER_VALUE = "last_sleep_timer_value";
     public static final String NEXT_SLEEP_TIMER_ELAPSED_REALTIME = "next_sleep_timer_elapsed_real_time";
@@ -193,6 +194,10 @@ public final class PreferenceUtil {
 
     public final boolean albumArtOnLockscreen() {
         return mPreferences.getBoolean(ALBUM_ART_ON_LOCKSCREEN, true);
+    }
+
+    public final boolean blurredAlbumArt() {
+        return mPreferences.getBoolean(BLURRED_ALBUM_ART, false);
     }
 
     public final boolean ignoreMediaStoreArtwork() {

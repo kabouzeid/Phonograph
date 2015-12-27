@@ -141,6 +141,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private boolean notHandledMetaChangedForCurrentTrack;
     private boolean isServiceInUse;
 
+    private BlurProcessor blurProcessor = new BlurProcessor.Builder(this).build();
+
     private static String getTrackUri(@NonNull Song song) {
         return MusicUtil.getSongUri(song.id).toString();
     }
@@ -430,10 +432,10 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     }
 
     private void updateRemoteControlClient() {
-        updateRemoteControlClientImpl(PreferenceUtil.getInstance(this).albumArtOnLockscreen());
+        updateRemoteControlClient(PreferenceUtil.getInstance(this).albumArtOnLockscreen(), PreferenceUtil.getInstance(this).blurredAlbumArt());
     }
 
-    private void updateRemoteControlClientImpl(boolean showAlbumArt) {
+    private void updateRemoteControlClient(boolean showAlbumArt, boolean blurAlbumArt) {
         final Song song = getCurrentSong();
         remoteControlClient
                 .editMetadata(!showAlbumArt)
@@ -447,7 +449,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             ImageLoader.getInstance().displayImage(
                     currentAlbumArtUri,
                     new NonViewAware(new ImageSize(screenSize.x, screenSize.y), ViewScaleType.CROP),
-                    new DisplayImageOptions.Builder().postProcessor(new BlurProcessor.Builder(this).build()).build(),
+                    new DisplayImageOptions.Builder().postProcessor(blurAlbumArt ? blurProcessor : null).build(),
                     new SimpleImageLoadingListener() {
                         @Override
                         public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
@@ -914,7 +916,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 }
                 break;
             case PreferenceUtil.ALBUM_ART_ON_LOCKSCREEN:
-                updateRemoteControlClientImpl(sharedPreferences.getBoolean(key, true));
+            case PreferenceUtil.BLURRED_ALBUM_ART:
+                updateRemoteControlClient();
                 break;
             case PreferenceUtil.COLORED_NOTIFICATION:
                 playingNotificationHelper.updateNotification(sharedPreferences.getBoolean(key, false));
