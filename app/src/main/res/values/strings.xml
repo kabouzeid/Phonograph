@@ -137,7 +137,7 @@
     <string name="song">Song</string>
     <string name="pref_only_lollipop">"Only available on Lollipop."</string>
     <string name="pref_summary_album_art_on_lockscreen">Uses the current songs album cover as lockscreen wallpaper.</string>
-    <string name="pref_summary_blurred_album_art">Blurs the album cover on the lockscreen. Can cause problems with third party widgets and apps.</string>
+    <string name="pref_summary_blurred_album_art">Blurs the album cover on the lockscreen. Can cause problems with third party apps and widgets.</string>
     <string name="pref_summary_colored_notification">"Colors the notification in the album cover\u2019s vibrant color."</string>
     <string name="pref_summary_gapless_playback">"Can cause playback issues on some devices."</string>
     <string name="pref_summary_force_square_album_art">Album covers in the now playing view are always squared.</string>
