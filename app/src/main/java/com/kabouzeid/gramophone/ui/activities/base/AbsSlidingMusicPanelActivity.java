@@ -35,6 +35,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     private int navigationBarColor;
     private int taskColor;
+    private boolean useDarkStatusBarIcons;
 
     private AbsPlayerFragment playerFragment;
     private MiniPlayerFragment miniPlayerFragment;
@@ -99,6 +100,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     @Override
     public void onPanelCollapsed(View view) {
+        super.setUseDarkStatusBarIcons(useDarkStatusBarIcons);
         super.notifyTaskColorChange(taskColor);
         if (shouldColorNavigationBar()) {
             super.setNavigationBarColor(navigationBarColor);
@@ -110,6 +112,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     @Override
     public void onPanelExpanded(View view) {
+        super.setUseDarkStatusBarIcons(false);
         int playerFragmentColor = playerFragment.getPaletteColor();
         super.notifyTaskColorChange(playerFragmentColor);
         if (shouldColorNavigationBar()) {
@@ -177,6 +180,14 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
             return;
         }
         super.onBackPressed();
+    }
+
+    @Override
+    protected void setUseDarkStatusBarIcons(boolean useDarkIcons) {
+        useDarkStatusBarIcons = useDarkIcons;
+        if (getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+            super.setUseDarkStatusBarIcons(useDarkIcons);
+        }
     }
 
     @Override

@@ -147,7 +147,9 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
     @Override
     public void onPause() {
-        recyclerViewDragDropManager.cancelDrag();
+        if (recyclerViewDragDropManager != null) {
+            recyclerViewDragDropManager.cancelDrag();
+        }
         super.onPause();
     }
 

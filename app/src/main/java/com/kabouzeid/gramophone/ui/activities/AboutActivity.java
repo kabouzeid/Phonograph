@@ -243,7 +243,9 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        ViewUtil.setToolbarContentColorForBackground(this, toolbar, getThemeColorPrimary());
+        boolean darkContent = ColorUtil.useDarkTextColorOnBackground(getThemeColorPrimary());
+        ViewUtil.setToolbarContentDark(this, toolbar, darkContent);
+        setUseDarkStatusBarIcons(darkContent);
         return super.onCreateOptionsMenu(menu);
     }
 }
