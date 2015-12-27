@@ -197,7 +197,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     @Override
     public void onPaletteColorChanged() {
-        if (getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+        if (getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
             int playerFragmentColor = playerFragment.getPaletteColor();
             super.notifyTaskColorChange(playerFragmentColor);
             if (shouldColorNavigationBar()) {
