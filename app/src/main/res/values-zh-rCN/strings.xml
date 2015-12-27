@@ -197,4 +197,6 @@
     <string name="aleksandar_tesic_summary">在设计风格上的帮助。</string>
     <string name="website">网站</string>
     <string name="loading_products">加载产品中…</string>
+    <string name="up_next">即将播放</string>
+    <string name="pref_title_now_playing_layout">播放界面样式</string>
 </resources>

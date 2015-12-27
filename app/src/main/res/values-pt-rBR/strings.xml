@@ -76,7 +76,7 @@
     <string name="remove_x_songs_from_playlist"><![CDATA[Remover <b>%1$d</b> músicas da playlist?]]></string>
     <string name="delete_song_title">Excluir música</string>
     <string name="delete_songs_title">Excluir músicas</string>
-    <string name="remove_song_from_playlist_title">Remover música da Playlist</string>
+    <string name="remove_song_from_playlist_title">Remover da lista de reprodução</string>
     <string name="remove_songs_from_playlist_title">Remover músicas da Playlist</string>
     <string name="rename_playlist_title">Renomear playlist</string>
     <string name="delete_playlist_title">Excluir playlist</string>
@@ -197,4 +197,6 @@
     <string name="aleksandar_tesic_summary">Por me ajudar com o design.</string>
     <string name="website">Website</string>
     <string name="loading_products">Carregando produtos...</string>
+    <string name="up_next">Próximo</string>
+    <string name="pref_title_now_playing_layout">Layout da tela de reprodução</string>
 </resources>

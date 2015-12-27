@@ -20,7 +20,7 @@
     <string name="action_remove_from_playing_queue">從播放佇列中移除</string>
     <string name="action_add_to_playlist">加入播放清單...</string>
     <string name="action_tag_editor">編輯音樂標籤</string>
-    <string name="action_delete_from_device">從裝置中刪除</string>
+    <string name="action_delete_from_device">从系统中删除</string>
     <string name="action_details">詳細資訊</string>
     <string name="albums">專輯</string>
     <string name="artists">歌手</string>

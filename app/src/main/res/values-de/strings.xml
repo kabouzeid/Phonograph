@@ -197,4 +197,6 @@
     <string name="aleksandar_tesic_summary">Für die Hilfe beim Design.</string>
     <string name="website">Website</string>
     <string name="loading_products">Produkte werden geladen...</string>
+    <string name="up_next">Als nächstes</string>
+    <string name="pref_title_now_playing_layout">Gestaltung der aktuellen Wiedergabe</string>
 </resources>

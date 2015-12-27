@@ -197,4 +197,6 @@
     <string name="aleksandar_tesic_summary">Voor de hulp met het design.</string>
     <string name="website">Website</string>
     <string name="loading_products">Producten laden…</string>
+    <string name="up_next">Als volgende</string>
+    <string name="pref_title_now_playing_layout">Afspeelscherm uiterlijk</string>
 </resources>
