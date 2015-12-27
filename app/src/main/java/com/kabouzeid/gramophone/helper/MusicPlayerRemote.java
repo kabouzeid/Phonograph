@@ -345,6 +345,14 @@ public class MusicPlayerRemote {
         return false;
     }
 
+    public static boolean clearQueue() {
+        if (musicService != null) {
+            musicService.clearQueue();
+            return true;
+        }
+        return false;
+    }
+
     public static int getAudioSessionId() {
         if (musicService != null) {
             return musicService.getAudioSessionId();

@@ -63,8 +63,9 @@ public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implemen
             case R.id.action_add_to_playlist:
                 AddToPlaylistDialog.create(song).show(getFragmentManager(), "ADD_PLAYLIST");
                 return true;
-//            case R.id.action_playing_queue:
-//                return true;
+            case R.id.action_clear_playing_queue:
+                MusicPlayerRemote.clearQueue();
+                return true;
             case R.id.action_tag_editor:
                 Intent intent = new Intent(getActivity(), SongTagEditorActivity.class);
                 intent.putExtra(AbsTagEditorActivity.EXTRA_ID, song.id);
@@ -83,7 +84,7 @@ public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implemen
         return false;
     }
 
-    protected void toggleFavorite(Song song){
+    protected void toggleFavorite(Song song) {
         MusicUtil.toggleFavorite(getActivity(), song);
     }
 
