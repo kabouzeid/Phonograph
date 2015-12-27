@@ -129,7 +129,7 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
 
     protected void setNavigationBarColor(@ColorInt int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-            getWindow().setNavigationBarColor(ColorUtil.shiftColorDown(color));
+            getWindow().setNavigationBarColor(color);
     }
 
     /**
