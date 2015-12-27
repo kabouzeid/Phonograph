@@ -673,6 +673,14 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         notifyChange(QUEUE_CHANGED);
     }
 
+    public void clearQueue() {
+        playingQueue.clear();
+        originalPlayingQueue.clear();
+
+        setPosition(-1);
+        notifyChange(QUEUE_CHANGED);
+    }
+
     public void playSongAt(final int position) {
         // handle this on the handlers thread to avoid blocking the ui thread
         playerHandler.removeMessages(PLAY_SONG);

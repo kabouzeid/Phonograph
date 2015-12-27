@@ -13,6 +13,11 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_clear_playing_queue"
+        android:title="@string/action_clear_playing_queue"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_sleep_timer"
         android:title="@string/action_sleep_timer"
         app:showAsAction="never" />
