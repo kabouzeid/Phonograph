@@ -208,7 +208,9 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         if (shouldColorNavigationBar())
             setNavigationBarColor(paletteColorPrimary);
         header.setBackgroundColor(paletteColorPrimary);
-        ViewUtil.setToolbarContentColorForBackground(this, toolbar, paletteColorPrimary);
+        boolean darkContent = ColorUtil.useDarkTextColorOnBackground(paletteColorPrimary);
+        ViewUtil.setToolbarContentDark(this, toolbar, darkContent);
+        setUseDarkStatusBarIcons(darkContent);
         notifyTaskColorChange(paletteColorPrimary);
     }
 
@@ -250,7 +252,9 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        ViewUtil.setToolbarContentColorForBackground(this, toolbar, paletteColorPrimary);
+        boolean darkContent = ColorUtil.useDarkTextColorOnBackground(paletteColorPrimary);
+        ViewUtil.setToolbarContentDark(this, toolbar, darkContent);
+        setUseDarkStatusBarIcons(darkContent);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -313,7 +317,9 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                                 setNavigationBarColor(paletteColorPrimary);
                             setStatusBarColor(paletteColorPrimary);
                             header.setBackgroundColor(paletteColorPrimary);
-                            ViewUtil.setToolbarContentColorForBackground(AbsTagEditorActivity.this, toolbar, paletteColorPrimary);
+                            boolean darkContent = ColorUtil.useDarkTextColorOnBackground(paletteColorPrimary);
+                            ViewUtil.setToolbarContentDark(AbsTagEditorActivity.this, toolbar, darkContent);
+                            setUseDarkStatusBarIcons(darkContent);
                             notifyTaskColorChange(paletteColorPrimary);
                         } else {
                             resetColors();

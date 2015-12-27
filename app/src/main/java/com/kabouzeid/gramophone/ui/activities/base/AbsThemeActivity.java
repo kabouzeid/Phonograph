@@ -151,6 +151,18 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
                 getWindow().setStatusBarColor(ColorUtil.shiftColorDown(color));
             }
         }
+
+    }
+
+    protected void setUseDarkStatusBarIcons(boolean useDarkIcons) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int systemUiVisibility = getWindow().getDecorView().getSystemUiVisibility();
+            if (useDarkIcons) {
+                getWindow().getDecorView().setSystemUiVisibility(systemUiVisibility | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            } else {
+                getWindow().getDecorView().setSystemUiVisibility(systemUiVisibility & ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            }
+        }
     }
 
     protected final void setNavigationBarThemeColor() {

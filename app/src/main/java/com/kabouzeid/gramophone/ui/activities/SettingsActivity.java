@@ -22,6 +22,7 @@ import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.prefs.ColorChooserPreference;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
+import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.ViewUtil;
@@ -80,7 +81,9 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        ViewUtil.setToolbarContentColorForBackground(this, toolbar, getThemeColorPrimary());
+        boolean darkContent = ColorUtil.useDarkTextColorOnBackground(getThemeColorPrimary());
+        ViewUtil.setToolbarContentDark(this, toolbar, darkContent);
+        setUseDarkStatusBarIcons(darkContent);
         return super.onCreateOptionsMenu(menu);
     }
 

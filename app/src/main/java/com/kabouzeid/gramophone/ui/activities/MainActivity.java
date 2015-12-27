@@ -71,7 +71,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AbsSlidingMusicPanelActivity
-        implements KabViewsDisableAble, CabHolder {
+        implements KabViewsDisableAble, CabHolder, DrawerLayout.DrawerListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -223,7 +223,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                             public void run() {
                                 DonationDialog.create().show(getSupportFragmentManager(), "DONATION_DIALOG");
                             }
-                        }, 300);
+                        }, 200);
                         break;
                     case R.id.nav_settings:
                         new Handler().postDelayed(new Runnable() {
@@ -239,7 +239,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                             public void run() {
                                 startActivity(new Intent(MainActivity.this, AboutActivity.class));
                             }
-                        }, 300);
+                        }, 200);
                         break;
                 }
                 return true;
@@ -249,6 +249,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 
     private void setUpDrawerLayout() {
         setUpNavigationView();
+        drawerLayout.setDrawerListener(this);
     }
 
     private void updateNavigationDrawerHeader() {
@@ -339,7 +340,9 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
             menu.removeItem(R.id.action_grid_size);
             menu.removeItem(R.id.action_colored_footers);
         }
-        ViewUtil.setToolbarContentColorForBackground(this, toolbar, getThemeColorPrimary());
+        boolean darkContent = ColorUtil.useDarkTextColorOnBackground(getThemeColorPrimary());
+        ViewUtil.setToolbarContentDark(this, toolbar, darkContent);
+        setUseDarkStatusBarIcons(darkContent);
         return true;
     }
 
@@ -613,5 +616,25 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onDrawerSlide(View drawerView, float slideOffset) {
+
+    }
+
+    @Override
+    public void onDrawerOpened(View drawerView) {
+        setUseDarkStatusBarIcons(false);
+    }
+
+    @Override
+    public void onDrawerClosed(View drawerView) {
+        setUseDarkStatusBarIcons(ColorUtil.useDarkTextColorOnBackground(getThemeColorPrimary()));
+    }
+
+    @Override
+    public void onDrawerStateChanged(int newState) {
+
     }
 }

@@ -159,7 +159,9 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_playlist_detail, menu);
-        ViewUtil.setToolbarContentColorForBackground(this, toolbar, getThemeColorPrimary());
+        boolean darkContent = ColorUtil.useDarkTextColorOnBackground(getThemeColorPrimary());
+        ViewUtil.setToolbarContentDark(this, toolbar, darkContent);
+        setUseDarkStatusBarIcons(darkContent);
         return true;
     }
 
@@ -217,7 +219,9 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
 
     @Override
     public void onPause() {
-        recyclerViewDragDropManager.cancelDrag();
+        if (recyclerViewDragDropManager != null) {
+            recyclerViewDragDropManager.cancelDrag();
+        }
         super.onPause();
     }
 
