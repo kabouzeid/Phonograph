@@ -87,6 +87,7 @@
     <string name="action_shuffle_album">Riproduzione casuale album</string>
     <string name="action_shuffle_artist">Riproduzione casuale artista</string>
     <string name="action_shuffle_playlist">Riproduzione casuale playlist</string>
+    <string name="action_clear_playing_queue">Cancella coda di riproduzione</string>
     <string name="last_opened">Ultima aperta</string>
     <string name="light_theme_name">Chiaro</string>
     <string name="dark_theme_name">Scuro</string>
@@ -101,6 +102,7 @@
     <string name="pref_title_navigation_bar">Barra di navigazione colorata</string>
     <string name="pref_title_set_default_start_page">Pagina iniziale</string>
     <string name="pref_title_album_art_on_lockscreen">Copertina nella schermata di sblocco</string>
+    <string name="pref_title_blurred_album_art">Sfocatura della copertina</string>
     <string name="pref_title_colored_notification">Notifica colorata</string>
     <string name="pref_title_ignore_media_store_artwork">Ignora le copertine del Media Store</string>
     <string name="pref_title_gapless_playback">Riproduzione senza intervalli</string>
@@ -136,6 +138,7 @@
     <string name="song">Brano</string>
     <string name="pref_only_lollipop">"Disponibile solo su Lollipop."</string>
     <string name="pref_summary_album_art_on_lockscreen">Usa la copertina dell\'album in riproduzione come sfondo della schermata di blocco.</string>
+    <string name="pref_summary_blurred_album_art">Applica una sfocatura sulla copertina nella schermata di blocco. Può causare problemi con app e widget di terze parti.</string>
     <string name="pref_summary_colored_notification">"La notifica \u00e8 colorata secondo la gamma di colori della copertina."</string>
     <string name="pref_summary_gapless_playback">"Può causare problemi di riproduzione su alcuni dispositivi."</string>
     <string name="pref_summary_force_square_album_art">La copertine nella schermata In riproduzione sono sempre quadrate.</string>
@@ -197,4 +200,6 @@
     <string name="aleksandar_tesic_summary">Per avermi aiutato col design.</string>
     <string name="website">Sito web</string>
     <string name="loading_products">Caricamento dei prodotti...</string>
+    <string name="up_next">Prossimi brani</string>
+    <string name="pref_title_now_playing_layout">Layout della schermata In riproduzione</string>
 </resources>

@@ -63,8 +63,8 @@ android {
         renderscriptTargetApi 23
 
         applicationId "com.kabouzeid.gramophone"
-        versionCode 82
-        versionName "0.9.50 PREVIEW 2"
+        versionCode 83
+        versionName "0.9.50 PREVIEW 3"
     }
     buildTypes {
         release {

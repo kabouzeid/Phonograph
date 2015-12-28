@@ -87,6 +87,7 @@
     <string name="action_shuffle_album">随机播放该专辑</string>
     <string name="action_shuffle_artist">随机播放该艺术家</string>
     <string name="action_shuffle_playlist">随机播放该播放列表</string>
+    <string name="action_clear_playing_queue">清空播放队列</string>
     <string name="last_opened">最后打开</string>
     <string name="light_theme_name">浅色</string>
     <string name="dark_theme_name">暗色</string>
@@ -101,6 +102,7 @@
     <string name="pref_title_navigation_bar">变色导航栏</string>
     <string name="pref_title_set_default_start_page">起始页</string>
     <string name="pref_title_album_art_on_lockscreen">锁屏显示专辑封面</string>
+    <string name="pref_title_blurred_album_art">专辑封面模糊化</string>
     <string name="pref_title_colored_notification">启用变色通知背景</string>
     <string name="pref_title_ignore_media_store_artwork">忽略媒体储存中的专辑封面</string>
     <string name="pref_title_gapless_playback">连续播放</string>
@@ -136,6 +138,7 @@
     <string name="song">歌曲</string>
     <string name="pref_only_lollipop">"仅适用于 Lollipop 。"</string>
     <string name="pref_summary_album_art_on_lockscreen">使用当前播放曲目的专辑封面作为锁屏壁纸。</string>
+    <string name="pref_summary_blurred_album_art">模糊化锁屏界面的专辑封面。此功能也许会与第三方应用和桌面插件冲突。</string>
     <string name="pref_summary_colored_notification">"\u4f7f\u7528\u4e0e\u4e13\u8f91\u5c01\u9762\u76f8\u5339\u914d\u7684\u901a\u77e5\u80cc\u666f\u8272\u3002"</string>
     <string name="pref_summary_gapless_playback">"在某些设备上会造成播放问题。"</string>
     <string name="pref_summary_force_square_album_art">正在播放界面中总是显示正方形的专辑封面。</string>
