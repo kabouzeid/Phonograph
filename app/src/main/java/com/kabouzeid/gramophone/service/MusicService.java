@@ -51,6 +51,7 @@ import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.assist.ViewScaleType;
 import com.nostra13.universalimageloader.core.imageaware.NonViewAware;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -142,6 +143,22 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private boolean isServiceInUse;
 
     private BlurProcessor blurProcessor = new BlurProcessor.Builder(this).build();
+    // we don't want to hand our bitmap to the remote control client, as it will recycle it
+    private BitmapProcessor copyProcessor = new BitmapProcessor() {
+        @Override
+        public Bitmap process(Bitmap bitmap) {
+            Bitmap.Config config = bitmap.getConfig();
+            if (config == null) {
+                config = Bitmap.Config.ARGB_8888;
+            }
+            try {
+                return bitmap.copy(config, false);
+            } catch (OutOfMemoryError e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+    };
 
     private static String getTrackUri(@NonNull Song song) {
         return MusicUtil.getSongUri(song.id).toString();
@@ -435,7 +452,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         updateRemoteControlClient(PreferenceUtil.getInstance(this).albumArtOnLockscreen(), PreferenceUtil.getInstance(this).blurredAlbumArt());
     }
 
-    private void updateRemoteControlClient(boolean showAlbumArt, boolean blurAlbumArt) {
+    private void updateRemoteControlClient(boolean showAlbumArt, final boolean blurAlbumArt) {
         final Song song = getCurrentSong();
         remoteControlClient
                 .editMetadata(!showAlbumArt)
@@ -449,7 +466,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             ImageLoader.getInstance().displayImage(
                     currentAlbumArtUri,
                     new NonViewAware(new ImageSize(screenSize.x, screenSize.y), ViewScaleType.CROP),
-                    new DisplayImageOptions.Builder().postProcessor(blurAlbumArt ? blurProcessor : null).build(),
+                    new DisplayImageOptions.Builder().postProcessor(blurAlbumArt ? blurProcessor : copyProcessor).build(),
                     new SimpleImageLoadingListener() {
                         @Override
                         public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
