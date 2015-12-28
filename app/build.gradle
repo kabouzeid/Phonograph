@@ -132,4 +132,5 @@ dependencies {
     compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
     //noinspection GradleDynamicVersion
     compile 'com.anjlab.android.iab.v3:library:1.0.+'
+    compile('de.psdev.licensesdialog:licensesdialog:1.8.0')
 }

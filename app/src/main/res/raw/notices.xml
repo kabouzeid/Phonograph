@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright 2013 Philip Schiffer
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+<notices>
+    <notice>
+        <name>Advanced RecyclerView</name>
+        <url>https://github.com/h6ah4i/android-advancedrecyclerview</url>
+        <copyright>Copyright (C) 2015 Haruki Hasegawa</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Material Contextual Action Bar</name>
+        <url>https://github.com/afollestad/material-cab</url>
+        <copyright>Copyright 2016 Aidan Follestad</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>LeakCanary</name>
+        <url>https://github.com/square/leakcanary</url>
+        <copyright>Copyright 2015 Square, Inc.</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Android Support Libraries</name>
+        <url>http://developer.android.com/tools/support-library/index.html</url>
+        <copyright>Copyright (C) 2015 The Android Open Source Project</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Android-ObservableScrollView</name>
+        <url>https://github.com/ksoichiro/Android-ObservableScrollView</url>
+        <copyright>Copyright 2014 Soichiro Kashima</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Android Sliding Up Panel</name>
+        <url>https://github.com/umano/AndroidSlidingUpPanel</url>
+        <copyright />
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Retrofit</name>
+        <url>https://github.com/square/retrofit</url>
+        <copyright>Copyright 2013 Square, Inc.</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>OkHttp</name>
+        <url>https://github.com/square/okhttp</url>
+        <copyright />
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Universal Image Loader</name>
+        <url>https://github.com/nostra13/Android-Universal-Image-Loader</url>
+        <copyright>Copyright 2011-2015 Sergey Tarasevich</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Butter Knife</name>
+        <url>https://github.com/JakeWharton/butterknife</url>
+        <copyright>Copyright 2013 Jake Wharton</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Linear Layout Manager</name>
+        <url>https://github.com/serso/android-linear-layout-manager</url>
+        <copyright>Copyright 2014 serso aka se.solovyev</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Android In-App Billing v3 Library</name>
+        <url>https://github.com/anjlab/android-inapp-billing-v3</url>
+        <copyright>Copyright 2014 AnjLab</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Material Dialogs</name>
+        <url>https://github.com/afollestad/material-dialogs</url>
+        <copyright>Copyright (c) 2015 Aidan Michael Follestad</copyright>
+        <license>MIT License</license>
+    </notice>
+    <notice>
+        <name>SeekArc</name>
+        <url>https://github.com/Triggertrap/SeekArc</url>
+        <copyright>Copyright (c) 2013 Triggertrap Ltd
+            Author Neil Davies
+        </copyright>
+        <license>MIT License</license>
+    </notice>
+</notices>

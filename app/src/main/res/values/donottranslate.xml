@@ -22,4 +22,18 @@
         <item>donation_5</item>
         <item>donation_6</item>
     </string-array>
+
+    <string name="license_dialog_style" translatable="false">
+        body {
+        background-color: #{bg-color};
+        color: #{text-color};
+        font-family: sans-serif;
+        overflow-wrap: break-word;
+        }
+        pre {
+        background-color: #{license-bg-color};
+        padding: 1em;
+        white-space: pre-wrap;
+        }
+    </string>
 </resources>
