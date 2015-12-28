@@ -76,8 +76,8 @@ public class ChangelogDialog extends LeakDetectDialogFragment {
             in.close();
 
             // Inject color values for WebView body background and links
-            final String backgroundColor = ThemeSingleton.get().darkTheme ? "444444" : "fff";
-            final String contentColor = ThemeSingleton.get().darkTheme ? "fff" : "000";
+            final String backgroundColor = ThemeSingleton.get().darkTheme ? "424242" : "ffffff";
+            final String contentColor = ThemeSingleton.get().darkTheme ? "ffffff" : "000000";
             webView.loadData(buf.toString()
                     .replace("{style-placeholder}",
                             String.format("body { background-color: #%s; color: #%s; }", backgroundColor, contentColor))

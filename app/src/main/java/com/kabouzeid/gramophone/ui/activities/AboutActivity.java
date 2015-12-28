@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
 import com.kabouzeid.gramophone.dialogs.DonationDialog;
@@ -24,6 +25,7 @@ import com.kabouzeid.gramophone.util.ViewUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.psdev.licensesdialog.LicensesDialog;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -57,6 +59,8 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     TextView appVersion;
     @Bind(R.id.changelog)
     LinearLayout changelog;
+    @Bind(R.id.licenses)
+    LinearLayout licenses;
     @Bind(R.id.add_to_google_plus_circles)
     LinearLayout addToGooglePlusCircles;
     @Bind(R.id.follow_on_twitter)
@@ -92,6 +96,8 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     ImageView iconInfo;
     @Bind(R.id.icon_changelog)
     ImageView iconChangelog;
+    @Bind(R.id.icon_licenses)
+    ImageView iconLicenses;
     @Bind(R.id.icon_bug_report)
     ImageView iconBugReport;
     @Bind(R.id.icon_google_plus_community)
@@ -147,6 +153,7 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
 
     private void setUpOnClickListeners() {
         changelog.setOnClickListener(this);
+        licenses.setOnClickListener(this);
         addToGooglePlusCircles.setOnClickListener(this);
         followOnTwitter.setOnClickListener(this);
         forkOnGitHub.setOnClickListener(this);
@@ -165,18 +172,20 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     }
 
     private void setUpIconTint() {
-        iconInfo.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
-        iconChangelog.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
-        iconBugReport.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
-        iconGooglePlusCommunity.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
-        iconFlag.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
-        iconRate.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
-        iconDonate.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
-        iconAuthor.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
-        iconGooglePlus.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
-        iconTwitter.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
-        iconGithub.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
-        iconWebsite.setColorFilter(ColorUtil.resolveColor(this, android.R.attr.textColorSecondary));
+        int iconColor = ColorUtil.resolveColor(this, R.attr.icon_color);
+        iconInfo.setColorFilter(iconColor);
+        iconChangelog.setColorFilter(iconColor);
+        iconLicenses.setColorFilter(iconColor);
+        iconBugReport.setColorFilter(iconColor);
+        iconGooglePlusCommunity.setColorFilter(iconColor);
+        iconFlag.setColorFilter(iconColor);
+        iconRate.setColorFilter(iconColor);
+        iconDonate.setColorFilter(iconColor);
+        iconAuthor.setColorFilter(iconColor);
+        iconGooglePlus.setColorFilter(iconColor);
+        iconTwitter.setColorFilter(iconColor);
+        iconGithub.setColorFilter(iconColor);
+        iconWebsite.setColorFilter(iconColor);
     }
 
     @Override
@@ -201,6 +210,8 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     public void onClick(View v) {
         if (v == changelog) {
             ChangelogDialog.create().show(getSupportFragmentManager(), "CHANGELOG_DIALOG");
+        } else if (v == licenses) {
+            showLicenseDialog();
         } else if (v == addToGooglePlusCircles) {
             openUrl(GOOGLE_PLUS);
         } else if (v == followOnTwitter) {
@@ -239,6 +250,20 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         i.setData(Uri.parse(url));
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
+    }
+
+    private void showLicenseDialog() {
+        new LicensesDialog.Builder(this)
+                .setNotices(R.raw.notices)
+                .setTitle(R.string.licenses)
+                .setNoticesCssStyle(getString(R.string.license_dialog_style)
+                        .replace("{bg-color}", ThemeSingleton.get().darkTheme ? "424242" : "ffffff")
+                        .replace("{text-color}", ThemeSingleton.get().darkTheme ? "ffffff" : "000000")
+                        .replace("{license-bg-color}", ThemeSingleton.get().darkTheme ? "535353" : "eeeeee")
+                )
+                .setIncludeOwnLicense(true)
+                .build()
+                .showAppCompat();
     }
 
     @Override
