@@ -87,6 +87,7 @@
     <string name="action_shuffle_album">Nasumična reprodukcija albuma</string>
     <string name="action_shuffle_artist">Nasumična reprodukcija izvođača</string>
     <string name="action_shuffle_playlist">Nasumična reprodukcija popisa pjesama</string>
+    <string name="action_clear_playing_queue">Očisti red reprodukcije</string>
     <string name="last_opened">Posljednje otvoreno</string>
     <string name="light_theme_name">Svijetla</string>
     <string name="dark_theme_name">Tamna</string>
@@ -101,6 +102,7 @@
     <string name="pref_title_navigation_bar">Obojena navigacijska traka</string>
     <string name="pref_title_set_default_start_page">Početni zaslon</string>
     <string name="pref_title_album_art_on_lockscreen">Omot Albuma na zaključanom zaslonu</string>
+    <string name="pref_title_blurred_album_art">Zamagli omot albuma</string>
     <string name="pref_title_colored_notification">Obojene obavijesti</string>
     <string name="pref_title_ignore_media_store_artwork">Ignoriraj Media Store omote</string>
     <string name="pref_title_gapless_playback">Reprodukcija bez prekida</string>
@@ -136,6 +138,7 @@
     <string name="song">Pjesma</string>
     <string name="pref_only_lollipop">"Dostupno samo na Lollipopu."</string>
     <string name="pref_summary_album_art_on_lockscreen">Koristi omot albuma trenutne pjesme kao pozadinu zaključanog zaslona.</string>
+    <string name="pref_summary_blurred_album_art">Zamagljuje omot albuma na zaključanom zaslonu. Može izazvati probleme za ostale aplikacije i widgete.</string>
     <string name="pref_summary_colored_notification">"Obavijesti su obojene istaknutom bojom omota albuma."</string>
     <string name="pref_summary_gapless_playback">"Može uzrokovati probleme s reproduciranjem na nekim uređajima."</string>
     <string name="pref_summary_force_square_album_art">Omoti albuma u prikazu trenutne reprodukcije uvijek su četvrtasti.</string>
@@ -179,7 +182,7 @@
     <string name="author">Autor</string>
     <string name="add_to_google_plus_circles">Dodaj u Google Plus krugove</string>
     <string name="follow_on_twitter">Prati na Twitteru</string>
-    <string name="fork_on_git_hub">Kopiraj na GitHub</string>
+    <string name="fork_on_git_hub">Pomozi na GitHub-u</string>
     <string name="visit_website">Posjeti web-stranicu</string>
     <string name="report_bugs">Prijavi pogreške</string>
     <string name="report_bugs_summary">Prijavi pogreške i zatraži nove mogućnosti</string>

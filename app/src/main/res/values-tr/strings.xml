@@ -87,6 +87,7 @@
     <string name="action_shuffle_album">Albümü karıştır</string>
     <string name="action_shuffle_artist">Sanatçıyı karıştır</string>
     <string name="action_shuffle_playlist">Çalma listesini karıştır</string>
+    <string name="action_clear_playing_queue">Oynatma kuyruğunu temizle</string>
     <string name="last_opened">Son dinlenenler</string>
     <string name="light_theme_name">Açık</string>
     <string name="dark_theme_name">Koyu</string>
@@ -100,7 +101,8 @@
     <string name="pref_header_lockscreen">Kilit ekranı</string>
     <string name="pref_title_navigation_bar">Renkli gezinti çubuğu</string>
     <string name="pref_title_set_default_start_page">Başlangıç sayfası</string>
-    <string name="pref_title_album_art_on_lockscreen">Kilit ekranında albüm kapağı</string>
+    <string name="pref_title_album_art_on_lockscreen">Albüm kapağını göster</string>
+    <string name="pref_title_blurred_album_art">Bulanık albüm kapağı</string>
     <string name="pref_title_colored_notification">Renkli bildirim</string>
     <string name="pref_title_ignore_media_store_artwork">Media Store albüm kapağını yoksay</string>
     <string name="pref_title_gapless_playback">Aralıksız çalma</string>
@@ -136,6 +138,7 @@
     <string name="song">Şarkı</string>
     <string name="pref_only_lollipop">"Sadece Lollipop için."</string>
     <string name="pref_summary_album_art_on_lockscreen">Kilit ekranı duvar kağıdı olarak çalan şarkının albüm kapağını kullanır.</string>
+    <string name="pref_summary_blurred_album_art">Kilit ekranındaki bulanık albüm kapağı. 3. parti uygulama ve araçlarda problem oluşturabilir.</string>
     <string name="pref_summary_colored_notification">"Bildirimler alb\u00fcm kapa\u011f\u0131n\u0131n canl\u0131 renkleriyle renklendirilir."</string>
     <string name="pref_summary_gapless_playback">"Bazı aygıtlarda oynatma sorunlarına neden olabilir."</string>
     <string name="pref_summary_force_square_album_art">Şu anda çalınan albüm kapağı görüntüsünü kare olmaya zorlar.</string>
@@ -184,19 +187,19 @@
     <string name="report_bugs">Hata raporlayınız</string>
     <string name="report_bugs_summary">Hata raporlayınız ya da yeni özellikler isteyiniz</string>
     <string name="join_community">Google+ grubuna katılın</string>
-    <string name="join_community_summary">Eğer yardma ihtiyacınız varsa veya sorunuz varsa Google+ Phonoraph grubu en iyi yer.</string>
+    <string name="join_community_summary">Eğer yardıma ihtiyacınız varsa veya sorunuz varsa Google+ Phonograph topluluğu en doğru yer.</string>
     <string name="translate">Çeviri</string>
     <string name="translate_summary">Yerel dilinize çeviri için yardımda bulunun.</string>
     <string name="rate_on_google_play">Oyla</string>
     <string name="rate_on_google_play_summary">Eğer Phonograph\'ı beğendiyseniz Google Play\'de olumlu oy verin</string>
     <string name="donate">Bağış yap</string>
     <string name="donate_summary">Eğer çalışmalarım için bağışta bulunmak istiyorsanız birkaç dolar bırakabilirsiniz.</string>
-    <string name="aidan_follestad_summary">Tema motoru ve bazı diğer muhteşem özellikler için.</string>
+    <string name="aidan_follestad_summary">Tema motoru ve diğer muhteşem özellikler için.</string>
     <string name="michael_cook_summary">Güzel materyal uygulama simgesi için.</string>
     <string name="maarten_corpel_summary">Play Store ve boş albüm kapağı düzenlemeleri için.</string>
-    <string name="aleksandar_tesic_summary">Tasarım için bana yardımı için.</string>
+    <string name="aleksandar_tesic_summary">Tasarımda bana yardımcı olduğu için.</string>
     <string name="website">Web sitesi</string>
     <string name="loading_products">İçerik yükleniyor...</string>
-    <string name="up_next">Sonrakini aç</string>
+    <string name="up_next">Sırada olanlar</string>
     <string name="pref_title_now_playing_layout">Şimdiki çalma düzeni</string>
 </resources>

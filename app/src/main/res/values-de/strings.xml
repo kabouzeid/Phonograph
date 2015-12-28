@@ -3,8 +3,8 @@
     <string name="what_do_you_want_to_share">Was willst du teilen?</string>
     <string name="currently_listening_to_x_by_x">Ich höre gerade %1$s von %2$s.</string>
     <string name="the_audio_file">Die Audiodatei</string>
-    <string name="do_you_want_to_set_x_as_ringtone">Willst du %1$s als Klingelton verwenden?</string>
-    <string name="x_has_been_set_as_ringtone">%1$s wird jetzt als Klingelton verwendet.</string>
+    <string name="do_you_want_to_set_x_as_ringtone">Willst du %1$s als deinen Klingelton verwenden?</string>
+    <string name="x_has_been_set_as_ringtone">%1$s wird jetzt als dein Klingelton verwendet.</string>
     <string name="action_set_as_ringtone">Als Klingelton verwenden</string>
     <string name="action_share">Teilen</string>
     <string name="action_settings">"Einstellungen"</string>
@@ -87,6 +87,7 @@
     <string name="action_shuffle_album">Album zufällig wiedergeben</string>
     <string name="action_shuffle_artist">Interpret zufällig wiedergeben</string>
     <string name="action_shuffle_playlist">Wiedergabeliste zufällig wiedergeben</string>
+    <string name="action_clear_playing_queue">Warteschlange leeren</string>
     <string name="last_opened">Zuletzt geöffnet</string>
     <string name="light_theme_name">Hell</string>
     <string name="dark_theme_name">Dunkel</string>
