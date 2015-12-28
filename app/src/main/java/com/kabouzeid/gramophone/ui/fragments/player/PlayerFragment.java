@@ -30,7 +30,6 @@ import com.kabouzeid.gramophone.adapter.song.PlayingQueueAdapter;
 import com.kabouzeid.gramophone.dialogs.SongShareDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
-import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
@@ -38,11 +37,6 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.kabouzeid.gramophone.views.WidthFitSquareLayout;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import org.solovyev.android.views.llm.LinearLayoutManager;
@@ -83,9 +77,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (Util.isTablet(getResources())) {
-            impl = new TabletImpl();
-        } else if (Util.isLandscape(getResources())) {
+        if (Util.isLandscape(getResources())) {
             impl = new LandscapeImpl();
         } else {
             impl = new PortraitImpl();
@@ -476,48 +468,6 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
             animatorSet.play(ViewUtil.createBackgroundColorTransition(fragment.toolbar, fragment.lastColor, newColor))
                     .with(ViewUtil.createBackgroundColorTransition(fragment.getView().findViewById(R.id.status_bar), ColorUtil.shiftColorDown(fragment.lastColor), ColorUtil.shiftColorDown(newColor)));
             animatorSet.start();
-        }
-    }
-
-    @SuppressWarnings("ConstantConditions")
-    private static class TabletImpl extends PortraitImpl {
-        ImageView playerBackground;
-
-        @Override
-        public void init(PlayerFragment fragment) {
-            super.init(fragment);
-            playerBackground = ((ImageView) fragment.getView().findViewById(R.id.player_background));
-            playerBackground.setAlpha(0.5f);
-        }
-
-        @Override
-        public void animateColorChange(PlayerFragment fragment, int newColor) {
-            super.animateColorChange(fragment, newColor);
-
-            fragment.slidingUpPanelLayout.setBackgroundColor(fragment.lastColor);
-
-            AnimatorSet animatorSet = createDefaultColorChangeAnimatorSet(fragment, newColor);
-            animatorSet.play(ViewUtil.createBackgroundColorTransition(fragment.getView(), ColorUtil.shiftColorDown(fragment.lastColor), ColorUtil.shiftColorDown(newColor)));
-            animatorSet.start();
-
-            ImageLoader.getInstance().displayImage(
-                    MusicUtil.getArtistImageLoaderString(ArtistLoader.getArtist(fragment.getActivity(), MusicPlayerRemote.getCurrentSong().artistId), false),
-                    playerBackground,
-                    new DisplayImageOptions.Builder()
-                            .cacheInMemory(true)
-                            .cacheOnDisk(true)
-                            .resetViewBeforeLoading(true)
-                            .showImageOnFail(R.drawable.default_artist_image)
-                            //.postProcessor(new BlurProcessor.Builder(fragment.getActivity()).build())
-                            .displayer(new FadeInBitmapDisplayer(ViewUtil.PHONOGRAPH_ANIM_TIME, true, true, false))
-                            .build(),
-                    new SimpleImageLoadingListener() {
-                        @Override
-                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                            FadeInBitmapDisplayer.animate(view, ViewUtil.PHONOGRAPH_ANIM_TIME);
-                        }
-                    }
-            );
         }
     }
 }
