@@ -53,7 +53,7 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
     }
 
     private void setupTheme() {
-        boolean dark = theme != R.style.Theme_MaterialMusic_Light;
+        boolean dark = theme != R.style.Theme_Phonograph_Light;
 
         colorPrimary = PreferenceUtil.getInstance(this).getThemeColorPrimary(this);
         colorPrimaryDarker = ColorUtil.shiftColorDown(colorPrimary);

@@ -101,16 +101,16 @@ public final class PreferenceUtil {
             int value = Integer.parseInt(mPreferences.getString(GENERAL_THEME, "0"));
             switch (value) {
                 case 0:
-                    return R.style.Theme_MaterialMusic_Light;
+                    return R.style.Theme_Phonograph_Light;
                 case 1:
-                    return R.style.Theme_MaterialMusic;
+                    return R.style.Theme_Phonograph;
                 case 2:
-                    return R.style.Theme_MaterialMusic_Black;
+                    return R.style.Theme_Phonograph_Black;
             }
         } catch (NumberFormatException ignored) {
         }
 
-        return R.style.Theme_MaterialMusic_Light;
+        return R.style.Theme_Phonograph_Light;
     }
 
     public int getThemeColorPrimary(Context context) {

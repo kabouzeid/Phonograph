@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.MaterialMusic.Base" parent="Theme.AppCompat.NoActionBar">
+    <style name="Theme.Phonograph.Base" parent="Theme.AppCompat.NoActionBar">
 
         <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
@@ -29,7 +29,7 @@
         <item name="android:actionOverflowButtonStyle">@style/Widget.ActionButton.Overflow</item>
     </style>
 
-    <style name="Theme.MaterialMusic.Base.Light" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.Phonograph.Base.Light" parent="Theme.AppCompat.Light.NoActionBar">
 
         <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
@@ -57,7 +57,7 @@
         <item name="android:actionOverflowButtonStyle">@style/Widget.ActionButton.Overflow</item>
     </style>
 
-    <style name="Theme.MaterialMusic.Base.Black" parent="@style/Theme.MaterialMusic.Base">
+    <style name="Theme.Phonograph.Base.Black" parent="@style/Theme.Phonograph.Base">
         <item name="android:windowBackground">@drawable/black</item>
         <item name="divider_color">#18FFFFFF</item>
         <item name="cardBackgroundColor">@color/grey_900</item>

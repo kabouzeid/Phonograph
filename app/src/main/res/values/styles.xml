@@ -1,14 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.MaterialMusic" parent="Theme.MaterialMusic.Base" />
+    <style name="Theme.Phonograph" parent="Theme.Phonograph.Base" />
 
-    <style name="Theme.MaterialMusic.Light" parent="Theme.MaterialMusic.Base.Light" />
+    <style name="Theme.Phonograph.Light" parent="Theme.Phonograph.Base.Light" />
 
-    <style name="Theme.MaterialMusic.Black" parent="Theme.MaterialMusic.Base.Black" />
+    <style name="Theme.Phonograph.Black" parent="Theme.Phonograph.Base.Black" />
 
-    <style name="Theme.MaterialMusic.Notification" parent="@android:style/TextAppearance.StatusBar.EventContent" />
+    <style name="Theme.Phonograph.Notification" parent="@android:style/TextAppearance.StatusBar.EventContent" />
 
-    <style name="Theme.MaterialMusic.Notification.Title" parent="@android:style/TextAppearance.StatusBar.EventContent.Title" />
+    <style name="Theme.Phonograph.Notification.Title" parent="@android:style/TextAppearance.StatusBar.EventContent.Title" />
 
     <style name="OverFlowButton" parent="OverFlowButtonParent" />
 
