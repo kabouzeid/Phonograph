@@ -26,7 +26,7 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
     private int colorPrimary;
     private int colorPrimaryDarker;
     private int colorAccent;
-    private boolean darkTheme;
+    private int theme;
     private boolean coloredNavigationBar;
 
     @Nullable
@@ -34,7 +34,8 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(PreferenceUtil.getInstance(this).getGeneralTheme());
+        theme = PreferenceUtil.getInstance(this).getGeneralTheme();
+        setTheme(theme);
         super.onCreate(savedInstanceState);
         setupTheme();
     }
@@ -52,16 +53,17 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
     }
 
     private void setupTheme() {
+        boolean dark = theme != R.style.Theme_MaterialMusic_Light;
+
         colorPrimary = PreferenceUtil.getInstance(this).getThemeColorPrimary(this);
         colorPrimaryDarker = ColorUtil.shiftColorDown(colorPrimary);
         colorAccent = PreferenceUtil.getInstance(this).getThemeColorAccent(this);
-        darkTheme = PreferenceUtil.getInstance(this).getGeneralTheme() == R.style.Theme_MaterialMusic;
         coloredNavigationBar = PreferenceUtil.getInstance(this).shouldUseColoredNavigationBar();
 
         final ColorStateList accentColorStateList;
-        if (colorAccent == Color.WHITE && !darkTheme) {
+        if (colorAccent == Color.WHITE && !dark) {
             accentColorStateList = ColorStateList.valueOf(Color.BLACK);
-        } else if (colorAccent == Color.BLACK && darkTheme) {
+        } else if (colorAccent == Color.BLACK && dark) {
             accentColorStateList = ColorStateList.valueOf(Color.WHITE);
         } else {
             accentColorStateList = ColorStateList.valueOf(colorAccent);
@@ -71,7 +73,8 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
         ThemeSingleton.get().negativeColor = accentColorStateList;
         ThemeSingleton.get().neutralColor = accentColorStateList;
         ThemeSingleton.get().widgetColor = accentColorStateList.getDefaultColor();
-        ThemeSingleton.get().darkTheme = darkTheme;
+        ThemeSingleton.get().darkTheme = dark;
+
 
         if (!overridesTaskColor()) {
             notifyTaskColorChange(getThemeColorPrimary());
@@ -88,7 +91,7 @@ public abstract class AbsThemeActivity extends AppCompatActivity implements KabV
         return coloredNavigationBar != PreferenceUtil.getInstance(this).shouldUseColoredNavigationBar() ||
                 colorPrimary != PreferenceUtil.getInstance(this).getThemeColorPrimary(this) ||
                 colorAccent != PreferenceUtil.getInstance(this).getThemeColorAccent(this) ||
-                darkTheme != (PreferenceUtil.getInstance(this).getGeneralTheme() == R.style.Theme_MaterialMusic);
+                theme != PreferenceUtil.getInstance(this).getGeneralTheme();
     }
 
     protected void notifyTaskColorChange(@ColorInt int color) {

@@ -104,6 +104,8 @@ public final class PreferenceUtil {
                     return R.style.Theme_MaterialMusic_Light;
                 case 1:
                     return R.style.Theme_MaterialMusic;
+                case 2:
+                    return R.style.Theme_MaterialMusic_Black;
             }
         } catch (NumberFormatException ignored) {
         }
