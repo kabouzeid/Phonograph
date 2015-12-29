@@ -8,9 +8,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.view.KeyEvent;
-import android.widget.Toast;
+import android.view.View;
 
+import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 
@@ -28,7 +30,7 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
-        checkExternalStoragePermissions();
+        hasExternalStoragePermission = hasExternalStoragePermission();
     }
 
     @Override
@@ -36,13 +38,17 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
         super.onResume();
         enableViews();
 
-        // the handler is necessary to avoid "java.lang.RuntimeException: Performing pause of activity that is not resumed"
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                recreateIfPermissionsChanged();
-            }
-        }, 200);
+        if (!hasExternalStoragePermission()) {
+            requestPermissions();
+        } else if (didPermissionsChanged()) {
+            // the handler is necessary to avoid "java.lang.RuntimeException: Performing pause of activity that is not resumed"
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    recreate();
+                }
+            }, 200);
+        }
     }
 
     @Override
@@ -83,22 +89,13 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
         return areViewsEnabled;
     }
 
-    protected void recreateIfPermissionsChanged() {
-        if (didPermissionsChanged()) {
-            recreate();
-        }
-    }
-
     private boolean didPermissionsChanged() {
         return hasExternalStoragePermission != hasExternalStoragePermission();
     }
 
-    private void checkExternalStoragePermissions() {
-        hasExternalStoragePermission = hasExternalStoragePermission();
-        if (!hasExternalStoragePermission) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_EXTERNAL_STORAGE_PERMISSION);
-            }
+    private void requestPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_EXTERNAL_STORAGE_PERMISSION);
         }
     }
 
@@ -117,7 +114,17 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
                     return;
                 }
             }
-            Toast.makeText(this, getResources().getString(R.string.permission_to_access_external_storage_denied), Toast.LENGTH_SHORT).show();
+            Snackbar.make(getWindow().getDecorView(), R.string.permission_to_access_external_storage_denied, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(getString(R.string.action_settings), onGoToPermissionSettingsClickListener)
+                    .setActionTextColor(ThemeSingleton.get().positiveColor)
+                    .show();
         }
     }
+
+    private View.OnClickListener onGoToPermissionSettingsClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //TODO
+        }
+    };
 }

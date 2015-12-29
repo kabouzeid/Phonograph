@@ -9,6 +9,7 @@
     <string name="action_share">Share</string>
     <string name="action_settings">"Settings"</string>
     <string name="action_about">About</string>
+    <string name="action_show_intro">Show intro</string>
     <string name="action_clear_playlist">Clear playlist</string>
     <string name="action_playing_queue">Playing queue</string>
     <string name="action_add_to_favorites">Add to favorites</string>
@@ -212,4 +213,5 @@
     <string name="loading_products">Loading products…</string>
     <string name="up_next">Up next</string>
     <string name="pref_title_now_playing_layout">Now playing layout</string>
+    <string name="intro_activity">Intro</string>
 </resources>

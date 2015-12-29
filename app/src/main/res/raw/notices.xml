@@ -89,6 +89,12 @@
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
+        <name>AppIntro</name>
+        <url>https://github.com/PaoloRotolo/AppIntro</url>
+        <copyright>Copyright {2015} {Paolo Rotolo}</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
         <name>Material Dialogs</name>
         <url>https://github.com/afollestad/material-dialogs</url>
         <copyright>Copyright (c) 2015 Aidan Michael Follestad</copyright>

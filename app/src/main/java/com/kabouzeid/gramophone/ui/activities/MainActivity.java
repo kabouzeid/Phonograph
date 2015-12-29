@@ -114,6 +114,17 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         setStatusBarThemeColor();
 
         checkChangelog();
+
+        PreferenceUtil.getInstance(this).incrementAppOpenCount();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (PreferenceUtil.getInstance(MainActivity.this).getAppOpenCount() == 1) {
+                    startActivity(new Intent(MainActivity.this, IntroActivity.class));
+                }
+            }
+        }).start();
     }
 
     @Override
