@@ -2,7 +2,6 @@ package com.kabouzeid.gramophone.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -61,8 +61,7 @@ public class SearchActivity extends AbsMusicServiceActivity {
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Util.hideSoftKeyboard(SearchActivity.this);
-                searchSrcText.clearFocus();
+                hideSoftKeyboard();
                 return false;
             }
         });
@@ -75,18 +74,19 @@ public class SearchActivity extends AbsMusicServiceActivity {
         setStatusBarThemeColor();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        boolean darkContent = ColorUtil.useDarkTextColorOnBackground(getThemeColorPrimary());
+        ViewUtil.setToolbarContentDark(this, toolbar, darkContent);
+        setUseDarkStatusBarIcons(darkContent);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     private void setUpToolBar() {
+        toolbar.setBackgroundColor(getThemeColorPrimary());
         setSupportActionBar(toolbar);
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        toolbar.setBackgroundColor(getThemeColorPrimary());
-        Drawable navigationIcon = toolbar.getNavigationIcon();
-        if (navigationIcon != null) {
-            navigationIcon = navigationIcon.mutate();
-            navigationIcon.setColorFilter(ViewUtil.getToolbarIconColor(this, ColorUtil.useDarkTextColorOnBackground(getThemeColorPrimary())), PorterDuff.Mode.SRC_IN);
-            toolbar.setNavigationIcon(navigationIcon);
-        }
     }
 
     private void setUpSearchBar() {
@@ -124,11 +124,17 @@ public class SearchActivity extends AbsMusicServiceActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     search(searchSrcText.getText().toString());
+                    hideSoftKeyboard();
                     return true;
                 }
                 return false;
             }
         });
+    }
+
+    private void hideSoftKeyboard() {
+        Util.hideSoftKeyboard(SearchActivity.this);
+        searchSrcText.clearFocus();
     }
 
     @Override
