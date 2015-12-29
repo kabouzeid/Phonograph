@@ -14,6 +14,13 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="Theme.MaterialMusic.Black" parent="Theme.MaterialMusic.Base.Black">
+        <item name="round_selector">@drawable/round_ripple_selector</item>
+        <item name="rect_selector">@drawable/rect_ripple_selector</item>
+
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
     <style name="Theme.MaterialMusic.Notification" parent="@android:style/TextAppearance.Material.Notification" />
 
     <style name="Theme.MaterialMusic.Notification.Title" parent="@android:style/TextAppearance.Material.Notification.Title" />

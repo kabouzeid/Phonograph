@@ -4,6 +4,8 @@
 
     <style name="Theme.MaterialMusic.Light" parent="Theme.MaterialMusic.Base.Light" />
 
+    <style name="Theme.MaterialMusic.Black" parent="Theme.MaterialMusic.Base.Black" />
+
     <style name="Theme.MaterialMusic.Notification" parent="@android:style/TextAppearance.StatusBar.EventContent" />
 
     <style name="Theme.MaterialMusic.Notification.Title" parent="@android:style/TextAppearance.StatusBar.EventContent.Title" />

@@ -91,6 +91,7 @@
     <string name="last_opened">Last opened</string>
     <string name="light_theme_name">Light</string>
     <string name="dark_theme_name">Dark</string>
+    <string name="black_theme_name">Black (AMOLED)</string>
     <string name="equalizer">Equalizer</string>
     <string name="pref_header_colors">Colors</string>
     <string name="pref_header_now_playing_screen">Now playing</string>
