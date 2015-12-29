@@ -62,6 +62,8 @@ public final class PreferenceUtil {
 
     public static final String LAST_CHANGELOG_VERSION = "last_changelog_version";
 
+    public static final String APP_OPEN_COUNT = "app_open_count";
+
     private static PreferenceUtil sInstance;
 
     private final SharedPreferences mPreferences;
@@ -360,5 +362,13 @@ public final class PreferenceUtil {
 
     public final int getLastChangelogVersion() {
         return mPreferences.getInt(LAST_CHANGELOG_VERSION, -1);
+    }
+
+    public void incrementAppOpenCount() {
+        mPreferences.edit().putInt(APP_OPEN_COUNT, getAppOpenCount() + 1).apply();
+    }
+
+    public final int getAppOpenCount() {
+        return mPreferences.getInt(APP_OPEN_COUNT, 0);
     }
 }

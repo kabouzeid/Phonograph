@@ -139,6 +139,10 @@
         <activity
             android:name=".ui.activities.AboutActivity"
             android:label="@string/action_about" />
+
+        <activity
+            android:name=".ui.activities.IntroActivity"
+            android:label="@string/intro_activity" />
     </application>
 
 </manifest>
