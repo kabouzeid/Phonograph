@@ -73,7 +73,7 @@
                 android:ellipsize="marquee"
                 android:fadingEdge="horizontal"
                 android:singleLine="true"
-                android:textAppearance="@style/Theme.MaterialMusic.Notification.Title" />
+                android:textAppearance="@style/Theme.Phonograph.Notification.Title" />
 
             <TextView
                 android:id="@+id/text"
@@ -85,7 +85,7 @@
                 android:ellipsize="marquee"
                 android:fadingEdge="horizontal"
                 android:singleLine="true"
-                android:textAppearance="@style/Theme.MaterialMusic.Notification" />
+                android:textAppearance="@style/Theme.Phonograph.Notification" />
 
             <TextView
                 android:id="@+id/text2"
@@ -96,7 +96,7 @@
                 android:ellipsize="marquee"
                 android:fadingEdge="horizontal"
                 android:singleLine="true"
-                android:textAppearance="@style/Theme.MaterialMusic.Notification" />
+                android:textAppearance="@style/Theme.Phonograph.Notification" />
         </LinearLayout>
 
         <LinearLayout
