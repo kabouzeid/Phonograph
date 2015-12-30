@@ -9,6 +9,7 @@
     <string name="action_share">Condividi</string>
     <string name="action_settings">"Impostazioni"</string>
     <string name="action_about">Informazioni</string>
+    <string name="action_show_intro">Mostra intro</string>
     <string name="action_clear_playlist">Svuota playlist</string>
     <string name="action_playing_queue">Brani in coda</string>
     <string name="action_add_to_favorites">Aggiungi ai preferiti</string>
@@ -91,6 +92,7 @@
     <string name="last_opened">Ultima aperta</string>
     <string name="light_theme_name">Chiaro</string>
     <string name="dark_theme_name">Scuro</string>
+    <string name="black_theme_name">Nero (AMOLED)</string>
     <string name="equalizer">Equalizzatore</string>
     <string name="pref_header_colors">Colori</string>
     <string name="pref_header_now_playing_screen">Schermata In riproduzione</string>
@@ -171,6 +173,7 @@
     <string name="colored_footers">Riquadri colorati</string>
     <string name="special_thanks_to">Ringraziamenti speciali a</string>
     <string name="changelog">Modifiche</string>
+    <string name="licenses">Licenze</string>
     <string name="permission_external_storage_denied">Permesso per accedere alla memoria esterna negato.</string>
     <string name="back">indietro</string>
     <string name="support_development">Supporta lo sviluppo</string>

@@ -87,9 +87,11 @@
     <string name="action_shuffle_album">Shuffle album</string>
     <string name="action_shuffle_artist">Shuffle artiest</string>
     <string name="action_shuffle_playlist">Shuffle afspeellijst</string>
+    <string name="action_clear_playing_queue">Leeg afspeelwachtrij</string>
     <string name="last_opened">Laatst geopend</string>
     <string name="light_theme_name">Licht</string>
     <string name="dark_theme_name">Donker</string>
+    <string name="black_theme_name">Zwart (AMOLED)</string>
     <string name="equalizer">Equalizer</string>
     <string name="pref_header_colors">Kleuren</string>
     <string name="pref_header_now_playing_screen">Afspeelscherm</string>
@@ -101,6 +103,7 @@
     <string name="pref_title_navigation_bar">Gekleurde navigatiebalk</string>
     <string name="pref_title_set_default_start_page">Startpagina</string>
     <string name="pref_title_album_art_on_lockscreen">Albumhoes op vergrendelscherm</string>
+    <string name="pref_title_blurred_album_art">Vervaag albumhoes</string>
     <string name="pref_title_colored_notification">Gekleurde notificatie</string>
     <string name="pref_title_ignore_media_store_artwork">Negeer Mediaopslag illustraties</string>
     <string name="pref_title_gapless_playback">Afspelen zonder pauzes</string>
@@ -136,6 +139,7 @@
     <string name="song">Nummer</string>
     <string name="pref_only_lollipop">"Alleen beschikbaar op Lollipop. "</string>
     <string name="pref_summary_album_art_on_lockscreen">Albumhoes wordt getoond op het vergrendelscherm.</string>
+    <string name="pref_summary_blurred_album_art">Vervaagt de albumhoes op het vergrendelscherm. Kan problemen met andere apps of widgets veroorzaken.</string>
     <string name="pref_summary_colored_notification">"Notificatie wordt gekleurd met het palet van de albumhoes."</string>
     <string name="pref_summary_gapless_playback">"Verwijdert de pauzes tussen nummers. Dit kan afspeelfouten veroorzaken."</string>
     <string name="pref_summary_force_square_album_art">Albumhoes in het afspeelscherm wordt vierkant.</string>
@@ -168,6 +172,7 @@
     <string name="colored_footers">Gekleurde voetkaders</string>
     <string name="special_thanks_to">Speciale dank aan</string>
     <string name="changelog">Changelog</string>
+    <string name="licenses">Licenties</string>
     <string name="permission_external_storage_denied">Toegang tot externe opslag geweigerd.</string>
     <string name="back">Terug</string>
     <string name="support_development">Ondersteun ontwikkeling</string>
