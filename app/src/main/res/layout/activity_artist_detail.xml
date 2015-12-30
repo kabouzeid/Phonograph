@@ -16,7 +16,7 @@
         android:id="@+id/list_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/colorBackground" />
+        android:background="?android:attr/windowBackground" />
 
     <com.github.ksoichiro.android.observablescrollview.ObservableListView
         android:id="@+id/list"
