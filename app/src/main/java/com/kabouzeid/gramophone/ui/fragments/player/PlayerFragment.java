@@ -340,7 +340,13 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
             }
 
             AnimatorSet animatorSet = new AnimatorSet();
-            animatorSet.play(backgroundAnimator).with(ViewUtil.createTextColorTransition(fragment.playerQueueSubHeader, fragment.lastColor, newColor));
+
+            animatorSet.play(backgroundAnimator);
+
+            Animator subHeaderAnimator = ThemeSingleton.get().darkTheme ? null : ViewUtil.createTextColorTransition(fragment.playerQueueSubHeader, fragment.lastColor, newColor);
+            if (subHeaderAnimator != null) {
+                animatorSet.play(subHeaderAnimator);
+            }
 
             animatorSet.setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME);
             return animatorSet;
