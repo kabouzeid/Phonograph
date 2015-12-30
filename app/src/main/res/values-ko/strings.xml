@@ -166,7 +166,7 @@
     <string name="colored_footers">색칠된 앨범 카드</string>
     <string name="special_thanks_to">"특별히 감사드립니다 : "</string>
     <string name="changelog">변경점</string>
-    <string name="permission_to_access_external_storage_denied">외장 메모리 접근 권한이 거부되었습니다.</string>
+    <string name="permission_external_storage_denied">외장 메모리 접근 권한이 거부되었습니다.</string>
     <string name="back">뒤로</string>
     <string name="support_development">개발자 지원하기</string>
     <string name="thank_you">감사합니다!</string>

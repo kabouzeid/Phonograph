@@ -168,7 +168,7 @@
     <string name="colored_footers">Rodapés coloridos</string>
     <string name="special_thanks_to">Agradecimentos especiais para</string>
     <string name="changelog">Novidades</string>
-    <string name="permission_to_access_external_storage_denied">Permissão para acessar armazenamento externo negado.</string>
+    <string name="permission_external_storage_denied">Permissão para acessar armazenamento externo negado.</string>
     <string name="back">voltar</string>
     <string name="support_development">Apoiar o desenvolvimento</string>
     <string name="thank_you">Obrigado!</string>

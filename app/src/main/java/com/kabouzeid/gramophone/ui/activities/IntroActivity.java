@@ -35,4 +35,9 @@ public class IntroActivity extends AppIntro {
         }
         return true;
     }
+
+    @Override
+    public void onBackPressed() {
+        previous();
+    }
 }

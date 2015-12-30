@@ -171,7 +171,7 @@
     <string name="colored_footers">Окрашенные нижние колонтитулы</string>
     <string name="special_thanks_to">Особая благодарность</string>
     <string name="changelog">Список изменений</string>
-    <string name="permission_to_access_external_storage_denied">В разрешении на доступ к внешнему хранилищу отказано.</string>
+    <string name="permission_external_storage_denied">В разрешении на доступ к внешнему хранилищу отказано.</string>
     <string name="back">назад</string>
     <string name="support_development">Поддержать разработку</string>
     <string name="thank_you">Спасибо!</string>

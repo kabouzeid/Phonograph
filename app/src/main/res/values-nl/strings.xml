@@ -168,7 +168,7 @@
     <string name="colored_footers">Gekleurde voetkaders</string>
     <string name="special_thanks_to">Speciale dank aan</string>
     <string name="changelog">Changelog</string>
-    <string name="permission_to_access_external_storage_denied">Toegang tot externe opslag geweigerd.</string>
+    <string name="permission_external_storage_denied">Toegang tot externe opslag geweigerd.</string>
     <string name="back">Terug</string>
     <string name="support_development">Ondersteun ontwikkeling</string>
     <string name="thank_you">Dankjewel!</string>

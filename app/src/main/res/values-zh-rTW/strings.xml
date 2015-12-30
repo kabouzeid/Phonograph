@@ -166,7 +166,7 @@
     <string name="colored_footers">彩色的註腳</string>
     <string name="special_thanks_to">特別感謝</string>
     <string name="changelog">新功能</string>
-    <string name="permission_to_access_external_storage_denied">無法取得存取外部儲存空間的權限。</string>
+    <string name="permission_external_storage_denied">無法取得存取外部儲存空間的權限。</string>
     <string name="back">返回</string>
     <string name="support_development">支援開發</string>
     <string name="thank_you">感謝您！</string>

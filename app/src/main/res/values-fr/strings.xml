@@ -172,7 +172,7 @@
     <string name="special_thanks_to">Un grand merci à</string>
     <string name="changelog">Changelog</string>
     <string name="licenses">Licences</string>
-    <string name="permission_to_access_external_storage_denied">Accès au stockage externe refusé.</string>
+    <string name="permission_external_storage_denied">Accès au stockage externe refusé.</string>
     <string name="back">Retour</string>
     <string name="support_development">Faire un don</string>
     <string name="thank_you">Merci !</string>

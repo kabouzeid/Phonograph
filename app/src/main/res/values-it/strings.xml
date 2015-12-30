@@ -171,7 +171,7 @@
     <string name="colored_footers">Riquadri colorati</string>
     <string name="special_thanks_to">Ringraziamenti speciali a</string>
     <string name="changelog">Modifiche</string>
-    <string name="permission_to_access_external_storage_denied">Permesso per accedere alla memoria esterna negato.</string>
+    <string name="permission_external_storage_denied">Permesso per accedere alla memoria esterna negato.</string>
     <string name="back">indietro</string>
     <string name="support_development">Supporta lo sviluppo</string>
     <string name="thank_you">Grazie!</string>

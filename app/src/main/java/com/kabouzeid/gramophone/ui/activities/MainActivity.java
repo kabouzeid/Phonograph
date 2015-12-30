@@ -74,6 +74,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         implements KabViewsDisableAble, CabHolder, DrawerLayout.DrawerListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+    public static final int APP_INTRO_REQUEST = 100;
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -118,14 +119,26 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         checkChangelog();
 
         PreferenceUtil.getInstance(this).incrementAppOpenCount();
-        if (PreferenceUtil.getInstance(MainActivity.this).getAppOpenCount() == 1) {
+        if (PreferenceUtil.getInstance(this).getAppOpenCount() == 1) {
+            // let the app intro handle getting the permissions first
             introActivityHandlingPermissions = true;
-            new Thread(new Runnable() {
+            new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    startActivity(new Intent(MainActivity.this, IntroActivity.class));
+                    startActivityForResult(new Intent(MainActivity.this, IntroActivity.class), APP_INTRO_REQUEST);
                 }
-            }).start();
+            }, 200);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == APP_INTRO_REQUEST) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                // app intro is done, recreate to refresh permissions
+                onPermissionsChanged();
+            }
         }
     }
 
@@ -343,7 +356,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
             menu.add(0, R.id.action_new_playlist, 0, R.string.new_playlist_title);
         }
         Fragment currentFragment = getCurrentFragment();
-        if (currentFragment instanceof AbsMainActivityRecyclerViewCustomGridSizeFragment) {
+        if (currentFragment instanceof AbsMainActivityRecyclerViewCustomGridSizeFragment && currentFragment.isAdded()) {
             AbsMainActivityRecyclerViewCustomGridSizeFragment absMainActivityRecyclerViewCustomGridSizeFragment = (AbsMainActivityRecyclerViewCustomGridSizeFragment) currentFragment;
 
             MenuItem gridSizeItem = menu.findItem(R.id.action_grid_size);

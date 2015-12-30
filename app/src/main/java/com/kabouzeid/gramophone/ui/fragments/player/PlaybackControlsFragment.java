@@ -171,8 +171,10 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
         playPauseFab.post(new Runnable() {
             @Override
             public void run() {
-                playPauseFab.setPivotX(playPauseFab.getWidth() / 2);
-                playPauseFab.setPivotY(playPauseFab.getHeight() / 2);
+                if (playPauseFab != null) {
+                    playPauseFab.setPivotX(playPauseFab.getWidth() / 2);
+                    playPauseFab.setPivotY(playPauseFab.getHeight() / 2);
+                }
             }
         });
     }

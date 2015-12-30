@@ -172,7 +172,7 @@
     <string name="special_thanks_to">Besonderes Dankeschön an</string>
     <string name="changelog">Änderungen</string>
     <string name="licenses">Lizenzen</string>
-    <string name="permission_to_access_external_storage_denied">Die Rechte um auf den externen Speicher zuzugreifen wurden verweigert.</string>
+    <string name="permission_external_storage_denied">Die Rechte um auf den externen Speicher zuzugreifen wurden verweigert.</string>
     <string name="back">zurück</string>
     <string name="support_development">Unterstütze die Entwicklung</string>
     <string name="thank_you">Vielen Dank!</string>

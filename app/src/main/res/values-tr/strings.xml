@@ -171,7 +171,7 @@
     <string name="colored_footers">Renkli alt bilgiler</string>
     <string name="special_thanks_to">Özel teşekkür</string>
     <string name="changelog">Sürüm Notları</string>
-    <string name="permission_to_access_external_storage_denied">Harici depolamaya erişmek için izin verilmedi</string>
+    <string name="permission_external_storage_denied">Harici depolamaya erişmek için izin verilmedi</string>
     <string name="back">geri</string>
     <string name="support_development">Geliştirmeyi destekleyin</string>
     <string name="thank_you">Teşekkürler</string>
