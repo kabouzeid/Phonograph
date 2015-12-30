@@ -1,13 +1,12 @@
 package com.kabouzeid.gramophone.ui.activities.base;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.view.KeyEvent;
 import android.view.View;
@@ -20,17 +19,20 @@ import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public abstract class AbsBaseActivity extends AbsThemeActivity implements KabViewsDisableAble {
-    public static final int REQUEST_EXTERNAL_STORAGE_PERMISSION = 0;
+    public static final int PERMISSION_REQUEST = 100;
 
     private boolean areViewsEnabled;
 
-    private boolean hasExternalStoragePermission;
+    private boolean createdWithPermissionsGranted;
+    private String[] permissions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
-        hasExternalStoragePermission = hasExternalStoragePermission();
+
+        permissions = getPermissionsToRequest();
+        createdWithPermissionsGranted = hasPermissions();
     }
 
     @Override
@@ -38,9 +40,9 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
         super.onResume();
         enableViews();
 
-        if (!hasExternalStoragePermission()) {
+        if (!hasPermissions()) {
             requestPermissions();
-        } else if (didPermissionsChanged()) {
+        } else if (!createdWithPermissionsGranted) {
             // the handler is necessary to avoid "java.lang.RuntimeException: Performing pause of activity that is not resumed"
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -89,39 +91,47 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
         return areViewsEnabled;
     }
 
-    private boolean didPermissionsChanged() {
-        return hasExternalStoragePermission != hasExternalStoragePermission();
+    @Nullable
+    protected String[] getPermissionsToRequest() {
+        return null;
     }
 
-    private void requestPermissions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_EXTERNAL_STORAGE_PERMISSION);
+    protected void requestPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && permissions != null) {
+            requestPermissions(permissions, PERMISSION_REQUEST);
         }
     }
 
-    @SuppressLint("NewApi")
-    private boolean hasExternalStoragePermission() {
-        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    protected boolean hasPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && permissions != null) {
+            for (String permission : permissions) {
+                if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_EXTERNAL_STORAGE_PERMISSION) {
+        if (requestCode == PERMISSION_REQUEST) {
             for (int grantResult : grantResults) {
                 if (grantResult == PackageManager.PERMISSION_GRANTED) {
                     recreate();
                     return;
                 }
             }
+            //TODO snack nachricht veralgemeinern
             Snackbar.make(getWindow().getDecorView(), R.string.permission_to_access_external_storage_denied, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(getString(R.string.action_settings), onGoToPermissionSettingsClickListener)
+                    .setAction(getString(R.string.action_settings), goToPermissionSettingsOnClick)
                     .setActionTextColor(ThemeSingleton.get().positiveColor)
                     .show();
         }
     }
 
-    private View.OnClickListener onGoToPermissionSettingsClickListener = new View.OnClickListener() {
+    private View.OnClickListener goToPermissionSettingsOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             //TODO

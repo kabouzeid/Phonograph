@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.ui.activities.base;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -9,6 +10,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
@@ -174,5 +176,11 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
                 }
             }
         }
+    }
+
+    @Nullable
+    @Override
+    protected String[] getPermissionsToRequest() {
+        return new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     }
 }

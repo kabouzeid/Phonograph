@@ -93,6 +93,8 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     private PagerAdapter pagerAdapter;
     private MaterialCab cab;
 
+    private boolean introActivityHandlingPermissions;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,15 +118,20 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         checkChangelog();
 
         PreferenceUtil.getInstance(this).incrementAppOpenCount();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (PreferenceUtil.getInstance(MainActivity.this).getAppOpenCount() == 1) {
+        if (PreferenceUtil.getInstance(MainActivity.this).getAppOpenCount() == 1) {
+            introActivityHandlingPermissions = true;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
                     startActivity(new Intent(MainActivity.this, IntroActivity.class));
                 }
-            }
-        }).start();
+            }).start();
+        }
+    }
+
+    @Override
+    protected void requestPermissions() {
+        if (!introActivityHandlingPermissions) super.requestPermissions();
     }
 
     @Override
