@@ -25,7 +25,8 @@ public class IntroActivity extends AppIntro {
             addSlide(AppIntroFragment.newInstance("Storage", "The storage permission is required for Phonograph to read your music library.", R.drawable.ic_folder_web, color));
             askForPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
-        addSlide(AppIntroFragment.newInstance(getString(R.string.label_current_playing_queue), "You can swipe the card in the now playing screen up to reveal to full playing queue.", R.drawable.intro_swipe_up, color));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.label_current_playing_queue), "You can swipe the card in the now playing screen up to reveal to full playing queue.", R.drawable.tutorial_queue_swipe_up, color));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.label_current_playing_queue), "You can rearrange the playing queue by dragging a song from its track number.", R.drawable.tutorial_rearrange_queue, color));
     }
 
     private boolean hasExternalStoragePermission() {
