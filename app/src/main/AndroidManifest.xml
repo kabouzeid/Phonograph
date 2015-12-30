@@ -142,7 +142,7 @@
 
         <activity
             android:name=".ui.activities.IntroActivity"
-            android:label="@string/intro_activity" />
+            android:label="@string/intro_label" />
     </application>
 
 </manifest>
