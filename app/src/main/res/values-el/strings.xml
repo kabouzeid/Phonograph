@@ -38,7 +38,7 @@
     <string name="label_sampling_rate">Ρυθμός δειγματοληψίας</string>
     <string name="action_go_to_artist">Πήγαινε στον καλλιτέχνη</string>
     <string name="action_go_to_album">Πήγαινε στο δίσκο</string>
-    <string name="label_current_playing_queue">Σειρά αναπαραγωγής</string>
+    <string name="label_playing_queue">Σειρά αναπαραγωγής</string>
     <string name="save_as_playlist">Αποθήκευση ως λίστα</string>
     <string name="no_results">Κανένα αποτέλεσμα</string>
     <string name="action_re_download_artist_image">Ανανέωση εικόνας καλλιτέχνη</string>

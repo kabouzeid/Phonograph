@@ -50,7 +50,7 @@
     <string name="label_sampling_rate">Częstotliwość próbkowania</string>
     <string name="action_go_to_artist">Przejdź do wykonawcy</string>
     <string name="action_go_to_album">Przejdź do albumu</string>
-    <string name="label_current_playing_queue">Kolejka odtwarzania</string>
+    <string name="label_playing_queue">Kolejka odtwarzania</string>
     <string name="save_as_playlist">Zapisz jako listę odtwarzania</string>
     <string name="no_results">Brak wyników</string>
     <string name="action_re_download_artist_image">Zaktualizuj zdjęcie wykonawcy</string>

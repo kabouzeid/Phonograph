@@ -51,7 +51,7 @@
     <string name="label_sampling_rate">Sampling rate</string>
     <string name="action_go_to_artist">Go to artist</string>
     <string name="action_go_to_album">Go to album</string>
-    <string name="label_current_playing_queue">Playing queue</string>
+    <string name="label_playing_queue">Playing queue</string>
     <string name="save_as_playlist">Save as playlist</string>
     <string name="no_results">No results</string>
     <string name="action_re_download_artist_image">Update artist image</string>
@@ -215,4 +215,10 @@
     <string name="up_next">Up next</string>
     <string name="pref_title_now_playing_layout">Now playing layout</string>
     <string name="intro_activity">Intro</string>
+    <string name="press_back_again_to_exit_intro">Press back again to skip the intro.</string>
+    <string name="welcome_to_phonograph">"Welcome to Phonograph, a beautiful and lightweight music player for Android. "</string>
+    <string name="label_storage">Storage</string>
+    <string name="open_playing_queue_instruction">You can swipe the card in the now playing screen up to reveal to full playing queue.</string>
+    <string name="rearrange_playing_queue_instruction">You can rearrange the playing queue by dragging a song from its track number.</string>
+    <string name="storage_permission_explaination">The storage permission is required for Phonograph to read your music library.</string>
 </resources>

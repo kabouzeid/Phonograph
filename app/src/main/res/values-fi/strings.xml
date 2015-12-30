@@ -38,7 +38,7 @@
     <string name="label_sampling_rate">Näytteenottotaajuus</string>
     <string name="action_go_to_artist">Näytä artisti</string>
     <string name="action_go_to_album">Näytä albumi</string>
-    <string name="label_current_playing_queue">Toistojono</string>
+    <string name="label_playing_queue">Toistojono</string>
     <string name="save_as_playlist">Tallenna soittolistana</string>
     <string name="no_results">Ei hakutulosta</string>
     <string name="action_re_download_artist_image">Päivitä artistin kuva</string>

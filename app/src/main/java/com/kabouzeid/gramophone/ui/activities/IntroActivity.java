@@ -4,7 +4,9 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.widget.Toast;
 
 import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
@@ -20,13 +22,13 @@ public class IntroActivity extends AppIntro {
         int color = ContextCompat.getColor(this, R.color.blue_grey_700);
         setStatusBarColor(ColorUtil.shiftColorDown(color));
 
-        addSlide(AppIntroFragment.newInstance(getString(R.string.app_name), "Welcome to Phonograph, a beautiful and lightweight music player for Android. ", R.drawable.icon_web, color));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.app_name), getString(R.string.welcome_to_phonograph), R.drawable.icon_web, color));
         if (!hasExternalStoragePermission()) {
-            addSlide(AppIntroFragment.newInstance("Storage", "The storage permission is required for Phonograph to read your music library.", R.drawable.ic_folder_web, color));
+            addSlide(AppIntroFragment.newInstance(getString(R.string.label_storage), getString(R.string.storage_permission_explaination), R.drawable.ic_folder_web, color));
             askForPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
-        addSlide(AppIntroFragment.newInstance(getString(R.string.label_current_playing_queue), "You can swipe the card in the now playing screen up to reveal to full playing queue.", R.drawable.tutorial_queue_swipe_up, color));
-        addSlide(AppIntroFragment.newInstance(getString(R.string.label_current_playing_queue), "You can rearrange the playing queue by dragging a song from its track number.", R.drawable.tutorial_rearrange_queue, color));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.label_playing_queue), getString(R.string.open_playing_queue_instruction), R.drawable.tutorial_queue_swipe_up, color));
+        addSlide(AppIntroFragment.newInstance(getString(R.string.label_playing_queue), getString(R.string.rearrange_playing_queue_instruction), R.drawable.tutorial_rearrange_queue, color));
     }
 
     private boolean hasExternalStoragePermission() {
@@ -36,8 +38,23 @@ public class IntroActivity extends AppIntro {
         return true;
     }
 
+    boolean doubleBackToExitPressedOnce = false;
+
     @Override
     public void onBackPressed() {
-        previous();
+        if (doubleBackToExitPressedOnce) {
+            onSkipPressed();
+            return;
+        }
+
+        doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, R.string.press_back_again_to_exit_intro, Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 }
