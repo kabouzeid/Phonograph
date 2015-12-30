@@ -59,6 +59,8 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     TextView appVersion;
     @Bind(R.id.changelog)
     LinearLayout changelog;
+    @Bind(R.id.intro)
+    LinearLayout intro;
     @Bind(R.id.licenses)
     LinearLayout licenses;
     @Bind(R.id.add_to_google_plus_circles)
@@ -96,6 +98,8 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     ImageView iconInfo;
     @Bind(R.id.icon_changelog)
     ImageView iconChangelog;
+    @Bind(R.id.icon_intro)
+    ImageView iconIntro;
     @Bind(R.id.icon_licenses)
     ImageView iconLicenses;
     @Bind(R.id.icon_bug_report)
@@ -153,6 +157,7 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
 
     private void setUpOnClickListeners() {
         changelog.setOnClickListener(this);
+        intro.setOnClickListener(this);
         licenses.setOnClickListener(this);
         addToGooglePlusCircles.setOnClickListener(this);
         followOnTwitter.setOnClickListener(this);
@@ -175,6 +180,7 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         int iconColor = ColorUtil.resolveColor(this, R.attr.icon_color);
         iconInfo.setColorFilter(iconColor);
         iconChangelog.setColorFilter(iconColor);
+        iconIntro.setColorFilter(iconColor);
         iconLicenses.setColorFilter(iconColor);
         iconBugReport.setColorFilter(iconColor);
         iconGooglePlusCommunity.setColorFilter(iconColor);
@@ -212,6 +218,8 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
             ChangelogDialog.create().show(getSupportFragmentManager(), "CHANGELOG_DIALOG");
         } else if (v == licenses) {
             showLicenseDialog();
+        } else if (v == intro) {
+            startActivity(new Intent(this, IntroActivity.class));
         } else if (v == addToGooglePlusCircles) {
             openUrl(GOOGLE_PLUS);
         } else if (v == followOnTwitter) {
