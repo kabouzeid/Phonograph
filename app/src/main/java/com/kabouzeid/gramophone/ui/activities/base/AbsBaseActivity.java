@@ -1,13 +1,18 @@
 package com.kabouzeid.gramophone.ui.activities.base;
 
+import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.view.KeyEvent;
 import android.view.View;
 
@@ -27,8 +32,6 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
     private boolean createdWithPermissionsGranted;
     private String[] permissions;
     private String permissionDeniedMessage;
-
-    private Snackbar goToPermissionsSnackbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,9 +130,6 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
         } else {
             permissionDeniedMessage = message;
         }
-        if (goToPermissionsSnackbar != null) {
-            goToPermissionsSnackbar.setText(permissionDeniedMessage);
-        }
     }
 
     protected void requestPermissions() {
@@ -155,27 +155,39 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
         if (requestCode == PERMISSION_REQUEST) {
             for (int grantResult : grantResults) {
                 if (grantResult != PackageManager.PERMISSION_GRANTED) {
-                    if (goToPermissionsSnackbar == null) {
-                        goToPermissionsSnackbar = Snackbar.make(getWindow().getDecorView(), permissionDeniedMessage, Snackbar.LENGTH_INDEFINITE)
-                                .setAction(getString(R.string.action_settings), goToPermissionSettingsOnClick)
-                                .setActionTextColor(ThemeSingleton.get().positiveColor);
-                        goToPermissionsSnackbar.show();
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(AbsBaseActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                        //User has deny from permission dialog
+                        Snackbar.make(getWindow().getDecorView(), permissionDeniedMessage,
+                                Snackbar.LENGTH_INDEFINITE)
+                                .setAction(R.string.action_grant, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        requestPermissions();
+                                    }
+                                })
+                                .setActionTextColor(ThemeSingleton.get().positiveColor)
+                                .show();
+                    } else {
+                        // User has deny permission and checked never show permission dialog so you can redirect to Application settings page
+                        Snackbar.make(getWindow().getDecorView(), permissionDeniedMessage,
+                                Snackbar.LENGTH_INDEFINITE)
+                                .setAction(R.string.action_settings, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent intent = new Intent();
+                                        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                        Uri uri = Uri.fromParts("package", AbsBaseActivity.this.getPackageName(), null);
+                                        intent.setData(uri);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .setActionTextColor(ThemeSingleton.get().positiveColor)
+                                .show();
                     }
                     return;
                 }
             }
-            if (goToPermissionsSnackbar != null) {
-                goToPermissionsSnackbar.dismiss();
-                goToPermissionsSnackbar = null;
-            }
             onPermissionsChanged();
         }
     }
-
-    private View.OnClickListener goToPermissionSettingsOnClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //TODO
-        }
-    };
 }
