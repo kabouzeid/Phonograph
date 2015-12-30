@@ -22,6 +22,7 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
     public static final int PERMISSION_REQUEST = 100;
 
     private boolean areViewsEnabled;
+    private boolean recreating;
 
     private boolean createdWithPermissionsGranted;
     private String[] permissions;
@@ -66,12 +67,15 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
     }
 
     protected void postRecreate() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                recreate();
-            }
-        }, 200);
+        if (!recreating) {
+            recreating = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    recreate();
+                }
+            }, 200);
+        }
     }
 
     @Override

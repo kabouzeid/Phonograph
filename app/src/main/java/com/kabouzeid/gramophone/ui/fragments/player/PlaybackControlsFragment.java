@@ -287,9 +287,11 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
     }
 
     public void hide() {
-        playPauseFab.setScaleX(0f);
-        playPauseFab.setScaleY(0f);
-        playPauseFab.setRotation(0f);
+        if (playPauseFab != null) {
+            playPauseFab.setScaleX(0f);
+            playPauseFab.setScaleY(0f);
+            playPauseFab.setRotation(0f);
+        }
     }
 
     private void updateProgressSliderTint() {
