@@ -50,7 +50,7 @@
     <string name="label_sampling_rate">Rată de sampling</string>
     <string name="action_go_to_artist">Du-te la artist</string>
     <string name="action_go_to_album">Du-te la album</string>
-    <string name="label_current_playing_queue">Lista de redare</string>
+    <string name="label_playing_queue">Lista de redare</string>
     <string name="save_as_playlist">Salvează ca și lista de redare</string>
     <string name="no_results">Niciun rezultat</string>
     <string name="action_re_download_artist_image">Actualizează imagine artist</string>

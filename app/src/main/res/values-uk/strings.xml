@@ -50,7 +50,7 @@
     <string name="label_sampling_rate">Частота дискретизації</string>
     <string name="action_go_to_artist">Перейти до виконавця</string>
     <string name="action_go_to_album">Перейти до альбому</string>
-    <string name="label_current_playing_queue">Черга відтворення</string>
+    <string name="label_playing_queue">Черга відтворення</string>
     <string name="save_as_playlist">Зберегти як список відтворення</string>
     <string name="no_results">Немає результатів</string>
     <string name="action_re_download_artist_image">Оновити зображення виконавця</string>

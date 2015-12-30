@@ -50,7 +50,7 @@
     <string name="label_sampling_rate">Taxa de amostragem</string>
     <string name="action_go_to_artist">Ir para o artista</string>
     <string name="action_go_to_album">Ir para o álbum</string>
-    <string name="label_current_playing_queue">Fila de execução</string>
+    <string name="label_playing_queue">Fila de execução</string>
     <string name="save_as_playlist">Salvar como playlist</string>
     <string name="no_results">Sem resultados</string>
     <string name="action_re_download_artist_image">Atualizar imagem do artista</string>

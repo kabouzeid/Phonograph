@@ -50,7 +50,7 @@
     <string name="label_sampling_rate">Laju-sampel</string>
     <string name="action_go_to_artist">Ke artis</string>
     <string name="action_go_to_album">Ke album</string>
-    <string name="label_current_playing_queue">Daftar antrian</string>
+    <string name="label_playing_queue">Daftar antrian</string>
     <string name="save_as_playlist">Simpan sebagai daftar putar</string>
     <string name="no_results">Tidak ada hasil</string>
     <string name="action_re_download_artist_image">Memperbarui gambar artis</string>

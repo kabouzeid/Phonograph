@@ -38,7 +38,7 @@
     <string name="label_sampling_rate">Samplingsfrekvens</string>
     <string name="action_go_to_artist">Gå til artist</string>
     <string name="action_go_to_album">Gå til album</string>
-    <string name="label_current_playing_queue">Songkø</string>
+    <string name="label_playing_queue">Songkø</string>
     <string name="save_as_playlist">Lagre som speleliste</string>
     <string name="no_results">Ingen resultat</string>
     <string name="action_re_download_artist_image">Oppdater artistbilete</string>
