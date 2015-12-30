@@ -9,6 +9,7 @@
     <string name="action_share">Compartir</string>
     <string name="action_settings">"Ajustes"</string>
     <string name="action_about">Acerca de</string>
+    <string name="action_show_intro">Mostrar intro</string>
     <string name="action_clear_playlist">Limpiar lista de reproducción</string>
     <string name="action_playing_queue">Cola de reproducción</string>
     <string name="action_add_to_favorites">Agregar a favoritos</string>
@@ -91,6 +92,7 @@
     <string name="last_opened">Última abierta</string>
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Oscuro</string>
+    <string name="black_theme_name">Negro (AMOLED)</string>
     <string name="equalizer">Ecualizador</string>
     <string name="pref_header_colors">Colores</string>
     <string name="pref_header_now_playing_screen">Reproducción Actual</string>

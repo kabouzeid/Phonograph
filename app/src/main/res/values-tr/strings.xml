@@ -9,6 +9,7 @@
     <string name="action_share">Paylaş</string>
     <string name="action_settings">"Ayarlar"</string>
     <string name="action_about">Hakkında</string>
+    <string name="action_show_intro">Girişi Göster</string>
     <string name="action_clear_playlist">Çalma listesini temizle</string>
     <string name="action_playing_queue">Çalma sırası</string>
     <string name="action_add_to_favorites">Favorilere ekle</string>
@@ -91,6 +92,7 @@
     <string name="last_opened">Son dinlenenler</string>
     <string name="light_theme_name">Açık</string>
     <string name="dark_theme_name">Koyu</string>
+    <string name="black_theme_name">SİYAH (AMOLED)</string>
     <string name="equalizer">Ekolayzer</string>
     <string name="pref_header_colors">Renkler</string>
     <string name="pref_header_now_playing_screen">Şuan çalınıyor ekranı</string>
@@ -171,6 +173,7 @@
     <string name="colored_footers">Renkli alt bilgiler</string>
     <string name="special_thanks_to">Özel teşekkür</string>
     <string name="changelog">Sürüm Notları</string>
+    <string name="licenses">Lisanslar</string>
     <string name="permission_external_storage_denied">Harici depolamaya erişmek için izin verilmedi</string>
     <string name="back">geri</string>
     <string name="support_development">Geliştirmeyi destekleyin</string>

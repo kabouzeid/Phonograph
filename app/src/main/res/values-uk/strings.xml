@@ -9,6 +9,7 @@
     <string name="action_share">Поділитися</string>
     <string name="action_settings">"Налаштування"</string>
     <string name="action_about">Про програму</string>
+    <string name="action_show_intro">Показати вступ</string>
     <string name="action_clear_playlist">Очистити список відтворення</string>
     <string name="action_playing_queue">Черга відтворення</string>
     <string name="action_add_to_favorites">Додати до улюблених</string>
@@ -87,6 +88,7 @@
     <string name="action_shuffle_album">Перемішати альбом</string>
     <string name="action_shuffle_artist">Перемішати виконавця</string>
     <string name="action_shuffle_playlist">Перемішати список відтворення</string>
+    <string name="action_clear_playing_queue">Очистити чергу відтворення</string>
     <string name="last_opened">Останні відкриті</string>
     <string name="light_theme_name">Світла</string>
     <string name="dark_theme_name">Темна</string>
@@ -168,6 +170,7 @@
     <string name="colored_footers">Фарбовані колонтитули</string>
     <string name="special_thanks_to">Особлива подяка</string>
     <string name="changelog">Список змін</string>
+    <string name="licenses">Ліцензії</string>
     <string name="permission_external_storage_denied">У дозволі на доступ до зовнішньої пам’яті відмовлено.</string>
     <string name="back">назад</string>
     <string name="support_development">Підтримати розробника</string>

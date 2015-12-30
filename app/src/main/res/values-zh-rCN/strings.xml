@@ -9,6 +9,7 @@
     <string name="action_share">分享</string>
     <string name="action_settings">"设置"</string>
     <string name="action_about">关于</string>
+    <string name="action_show_intro">显示介绍</string>
     <string name="action_clear_playlist">清除播放列表</string>
     <string name="action_playing_queue">正在播放队列</string>
     <string name="action_add_to_favorites">添加到收藏</string>
@@ -91,6 +92,7 @@
     <string name="last_opened">最后打开</string>
     <string name="light_theme_name">浅色</string>
     <string name="dark_theme_name">暗色</string>
+    <string name="black_theme_name">黑色 (AMOLED)</string>
     <string name="equalizer">均衡器</string>
     <string name="pref_header_colors">色彩</string>
     <string name="pref_header_now_playing_screen">正在播放界面</string>
@@ -171,6 +173,7 @@
     <string name="colored_footers">变色页脚</string>
     <string name="special_thanks_to">特别感谢</string>
     <string name="changelog">更新日志</string>
+    <string name="licenses">许可证</string>
     <string name="permission_external_storage_denied">访问外部存储的权限被拒绝。</string>
     <string name="back">返回</string>
     <string name="support_development">支持开发者</string>

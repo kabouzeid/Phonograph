@@ -9,6 +9,7 @@
     <string name="action_share">Udostępnij</string>
     <string name="action_settings">"Ustawienia"</string>
     <string name="action_about">O aplikacji</string>
+    <string name="action_show_intro">Pokaż intro</string>
     <string name="action_clear_playlist">Wyczyść listę odtwarzania</string>
     <string name="action_playing_queue">Kolejka odtwarzania</string>
     <string name="action_add_to_favorites">Dodaj do ulubionych</string>
@@ -87,9 +88,11 @@
     <string name="action_shuffle_album">Losowy album</string>
     <string name="action_shuffle_artist">Losowy wykonawca</string>
     <string name="action_shuffle_playlist">Losowa lista odtwarzania</string>
+    <string name="action_clear_playing_queue">Wyczyść kolejkę odtwarzania</string>
     <string name="last_opened">Ostatnio otwarte</string>
     <string name="light_theme_name">Jasny</string>
     <string name="dark_theme_name">Ciemny</string>
+    <string name="black_theme_name">Czarny (AMOLED)</string>
     <string name="equalizer">Korektor</string>
     <string name="pref_header_colors">Kolory</string>
     <string name="pref_header_now_playing_screen">\'\'Obecnie Grane\'\'</string>
@@ -170,6 +173,7 @@
     <string name="colored_footers">Kolorowe stopki</string>
     <string name="special_thanks_to">Specjalne podziękowania dla</string>
     <string name="changelog">Lista zmian</string>
+    <string name="licenses">Licencje</string>
     <string name="permission_external_storage_denied">Pozwolenie na dostęp do pamięci zewnętrznej odrzucone</string>
     <string name="back">Wróć</string>
     <string name="support_development">Wspomóż rozwój</string>

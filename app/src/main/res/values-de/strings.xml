@@ -9,6 +9,7 @@
     <string name="action_share">Teilen</string>
     <string name="action_settings">"Einstellungen"</string>
     <string name="action_about">Über</string>
+    <string name="action_show_intro">Zeige Einführung</string>
     <string name="action_clear_playlist">Wiedergabeliste leeren</string>
     <string name="action_playing_queue">Wiedergabeliste</string>
     <string name="action_add_to_favorites">Zu Favoriten hinzufügen</string>
@@ -91,6 +92,7 @@
     <string name="last_opened">Zuletzt geöffnet</string>
     <string name="light_theme_name">Hell</string>
     <string name="dark_theme_name">Dunkel</string>
+    <string name="black_theme_name">Schwarz (AMOLED)</string>
     <string name="equalizer">Equalizer</string>
     <string name="pref_header_colors">Farben</string>
     <string name="pref_header_now_playing_screen">Aktuelle Wiedergabe</string>

@@ -9,6 +9,7 @@
     <string name="action_share">Partager</string>
     <string name="action_settings">"Paramètres"</string>
     <string name="action_about">À propos</string>
+    <string name="action_show_intro">Afficher l\'introduction</string>
     <string name="action_clear_playlist">Effacer la liste de lecture</string>
     <string name="action_playing_queue">File de lecture</string>
     <string name="action_add_to_favorites">Ajouter aux favoris</string>
@@ -91,6 +92,7 @@
     <string name="last_opened">Récemment ouverts</string>
     <string name="light_theme_name">Clair</string>
     <string name="dark_theme_name">Sombre</string>
+    <string name="black_theme_name">Noir (AMOLED)</string>
     <string name="equalizer">Égaliseur</string>
     <string name="pref_header_colors">Couleurs</string>
     <string name="pref_header_now_playing_screen">Lecture en cours</string>
@@ -172,6 +174,7 @@
     <string name="special_thanks_to">Un grand merci à</string>
     <string name="changelog">Changelog</string>
     <string name="licenses">Licences</string>
+    <string name="permissions_denied">Permission refusée.</string>
     <string name="permission_external_storage_denied">Accès au stockage externe refusé.</string>
     <string name="back">Retour</string>
     <string name="support_development">Faire un don</string>
@@ -203,4 +206,10 @@
     <string name="loading_products">Chargement des produits...</string>
     <string name="up_next">Suivant</string>
     <string name="pref_title_now_playing_layout">Disposition Lecture en cours</string>
+    <string name="press_back_again_to_exit_intro">Appuyez à nouveau pour passer l\'introduction.</string>
+    <string name="welcome_to_phonograph">"Bienvenue chez Phonograph, un lecteur de musique beau et léger pour Android. "</string>
+    <string name="label_storage">Stockage</string>
+    <string name="open_playing_queue_instruction">Vous pouvez glisser la carte dans l\'écran de lecture en cours pour afficher la file d\'attente de lecture complète.</string>
+    <string name="rearrange_playing_queue_instruction">Vous pouvez réorganiser la file d\'attente de lecture en faisant glisser une chanson à partir de son numéro de piste.</string>
+    <string name="storage_permission_explaination">L\'autorisation de stockage est nécessaire pour que Phonograph puisse lire votre bibliothèque musicale.</string>
 </resources>
