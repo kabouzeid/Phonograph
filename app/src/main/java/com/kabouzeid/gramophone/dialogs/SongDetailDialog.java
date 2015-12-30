@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
@@ -30,7 +31,7 @@ import java.io.IOException;
 /**
  * @author Karim Abou Zeid (kabouzeid), Aidan Follestad (afollestad)
  */
-public class SongDetailDialog extends LeakDetectDialogFragment {
+public class SongDetailDialog extends DialogFragment {
 
     public static final String TAG = SongDetailDialog.class.getSimpleName();
 

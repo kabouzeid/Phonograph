@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -14,7 +15,7 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class SongShareDialog extends LeakDetectDialogFragment {
+public class SongShareDialog extends DialogFragment {
     @NonNull
     public static SongShareDialog create(final Song song) {
         final SongShareDialog dialog = new SongShareDialog();

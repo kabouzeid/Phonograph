@@ -7,6 +7,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +26,7 @@ import java.io.InputStreamReader;
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class ChangelogDialog extends LeakDetectDialogFragment {
+public class ChangelogDialog extends DialogFragment {
 
     public static ChangelogDialog create() {
         return new ChangelogDialog();

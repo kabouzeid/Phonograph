@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.dialogs;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.text.InputType;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -12,7 +13,7 @@ import com.kabouzeid.gramophone.util.PlaylistsUtil;
 /**
  * @author Karim Abou Zeid (kabouzeid), Aidan Follestad (afollestad)
  */
-public class RenamePlaylistDialog extends LeakDetectDialogFragment {
+public class RenamePlaylistDialog extends DialogFragment {
 
     @NonNull
     public static RenamePlaylistDialog create(long playlistId) {
