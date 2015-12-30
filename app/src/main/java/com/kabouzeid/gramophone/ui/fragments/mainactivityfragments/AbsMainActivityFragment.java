@@ -2,15 +2,15 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
-import com.kabouzeid.gramophone.ui.fragments.LeakDetectFragment;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class AbsMainActivityFragment extends LeakDetectFragment implements KabViewsDisableAble {
+public abstract class AbsMainActivityFragment extends Fragment implements KabViewsDisableAble {
     private boolean areViewsEnabled;
 
     @NonNull

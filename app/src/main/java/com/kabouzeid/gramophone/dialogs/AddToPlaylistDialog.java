@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.dialogs;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -18,7 +19,7 @@ import java.util.List;
 /**
  * @author Karim Abou Zeid (kabouzeid), Aidan Follestad (afollestad)
  */
-public class AddToPlaylistDialog extends LeakDetectDialogFragment {
+public class AddToPlaylistDialog extends DialogFragment {
 
     @NonNull
     public static AddToPlaylistDialog create(Song song) {

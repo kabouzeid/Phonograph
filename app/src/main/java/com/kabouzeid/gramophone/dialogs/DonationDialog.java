@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -39,7 +40,7 @@ import butterknife.ButterKnife;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class DonationDialog extends LeakDetectDialogFragment implements BillingProcessor.IBillingHandler {
+public class DonationDialog extends DialogFragment implements BillingProcessor.IBillingHandler {
     public static final String TAG = DonationDialog.class.getSimpleName();
 
     private static final int DONATION_PRODUCT_IDS = R.array.donation_ids;

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.text.InputType;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid), Aidan Follestad (afollestad)
  */
-public class CreatePlaylistDialog extends LeakDetectDialogFragment {
+public class CreatePlaylistDialog extends DialogFragment {
 
     @NonNull
     public static CreatePlaylistDialog create() {
