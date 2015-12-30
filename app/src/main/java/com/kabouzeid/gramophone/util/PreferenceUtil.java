@@ -61,8 +61,7 @@ public final class PreferenceUtil {
     public static final String IGNORE_MEDIA_STORE_ARTWORK = "ignore_media_store_artwork";
 
     public static final String LAST_CHANGELOG_VERSION = "last_changelog_version";
-
-    public static final String APP_OPEN_COUNT = "app_open_count";
+    public static final String INTRO_SHOWN = "intro_shown";
 
     private static PreferenceUtil sInstance;
 
@@ -364,11 +363,12 @@ public final class PreferenceUtil {
         return mPreferences.getInt(LAST_CHANGELOG_VERSION, -1);
     }
 
-    public void incrementAppOpenCount() {
-        mPreferences.edit().putInt(APP_OPEN_COUNT, getAppOpenCount() + 1).apply();
+    public void setIntroShown() {
+        // don't use apply here
+        mPreferences.edit().putBoolean(INTRO_SHOWN, true).commit();
     }
 
-    public final int getAppOpenCount() {
-        return mPreferences.getInt(APP_OPEN_COUNT, 0);
+    public final boolean introShown() {
+        return mPreferences.getBoolean(INTRO_SHOWN, false);
     }
 }
