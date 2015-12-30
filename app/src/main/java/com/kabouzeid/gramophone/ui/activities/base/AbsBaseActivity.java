@@ -25,6 +25,9 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
 
     private boolean createdWithPermissionsGranted;
     private String[] permissions;
+    private String permissionDeniedMessage;
+
+    private Snackbar goToPermissionsSnackbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,16 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
 
         permissions = getPermissionsToRequest();
         createdWithPermissionsGranted = hasPermissions();
+
+        setPermissionDeniedMessage(null);
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        if (!hasPermissions()) {
+            requestPermissions();
+        }
     }
 
     @Override
@@ -40,17 +53,25 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
         super.onResume();
         enableViews();
 
-        if (!hasPermissions()) {
-            requestPermissions();
-        } else if (!createdWithPermissionsGranted) {
-            // the handler is necessary to avoid "java.lang.RuntimeException: Performing pause of activity that is not resumed"
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    recreate();
-                }
-            }, 200);
+        if (hasPermissions() != createdWithPermissionsGranted) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                // the handler is necessary to avoid "java.lang.RuntimeException: Performing pause of activity that is not resumed"
+                onPermissionsChanged();
+            }
         }
+    }
+
+    protected void onPermissionsChanged() {
+        postRecreate();
+    }
+
+    protected void postRecreate() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                recreate();
+            }
+        }, 200);
     }
 
     @Override
@@ -96,6 +117,17 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
         return null;
     }
 
+    protected void setPermissionDeniedMessage(String message) {
+        if (message == null) {
+            permissionDeniedMessage = getString(R.string.permissions_denied);
+        } else {
+            permissionDeniedMessage = message;
+        }
+        if (goToPermissionsSnackbar != null) {
+            goToPermissionsSnackbar.setText(permissionDeniedMessage);
+        }
+    }
+
     protected void requestPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && permissions != null) {
             requestPermissions(permissions, PERMISSION_REQUEST);
@@ -118,16 +150,21 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSION_REQUEST) {
             for (int grantResult : grantResults) {
-                if (grantResult == PackageManager.PERMISSION_GRANTED) {
-                    recreate();
+                if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                    if (goToPermissionsSnackbar == null) {
+                        goToPermissionsSnackbar = Snackbar.make(getWindow().getDecorView(), permissionDeniedMessage, Snackbar.LENGTH_INDEFINITE)
+                                .setAction(getString(R.string.action_settings), goToPermissionSettingsOnClick)
+                                .setActionTextColor(ThemeSingleton.get().positiveColor);
+                        goToPermissionsSnackbar.show();
+                    }
                     return;
                 }
             }
-            //TODO snack nachricht veralgemeinern
-            Snackbar.make(getWindow().getDecorView(), R.string.permission_to_access_external_storage_denied, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(getString(R.string.action_settings), goToPermissionSettingsOnClick)
-                    .setActionTextColor(ThemeSingleton.get().positiveColor)
-                    .show();
+            if (goToPermissionsSnackbar != null) {
+                goToPermissionsSnackbar.dismiss();
+                goToPermissionsSnackbar = null;
+            }
+            onPermissionsChanged();
         }
     }
 

@@ -12,6 +12,7 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
 import com.kabouzeid.gramophone.service.MusicService;
@@ -36,6 +37,8 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         serviceToken = MusicPlayerRemote.bindToService(this, this);
+
+        setPermissionDeniedMessage(getString(R.string.permission_external_storage_denied));
     }
 
     @Override

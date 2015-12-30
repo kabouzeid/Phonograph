@@ -171,7 +171,7 @@
     <string name="colored_footers">Obojena podnožja</string>
     <string name="special_thanks_to">Posebna zahvala</string>
     <string name="changelog">Promjene</string>
-    <string name="permission_to_access_external_storage_denied">Dopuštenje za pristup vanjskoj pohrani je odbijeno.</string>
+    <string name="permission_external_storage_denied">Dopuštenje za pristup vanjskoj pohrani je odbijeno.</string>
     <string name="back">natrag</string>
     <string name="support_development">Podržite razvoj</string>
     <string name="thank_you">Hvala vam!</string>

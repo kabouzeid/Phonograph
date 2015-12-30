@@ -168,7 +168,7 @@
     <string name="colored_footers">Footer berwarna</string>
     <string name="special_thanks_to">Terima kasih khusus kepada</string>
     <string name="changelog">Log perubahan</string>
-    <string name="permission_to_access_external_storage_denied">"Izin akses memori eksternal ditolak. "</string>
+    <string name="permission_external_storage_denied">"Izin akses memori eksternal ditolak. "</string>
     <string name="back">kembali</string>
     <string name="support_development">Dukung pengembangan</string>
     <string name="thank_you">Terima kasih!</string>

@@ -168,7 +168,7 @@
     <string name="colored_footers">Фарбовані колонтитули</string>
     <string name="special_thanks_to">Особлива подяка</string>
     <string name="changelog">Список змін</string>
-    <string name="permission_to_access_external_storage_denied">У дозволі на доступ до зовнішньої пам’яті відмовлено.</string>
+    <string name="permission_external_storage_denied">У дозволі на доступ до зовнішньої пам’яті відмовлено.</string>
     <string name="back">назад</string>
     <string name="support_development">Підтримати розробника</string>
     <string name="thank_you">Щиро дякую!</string>
