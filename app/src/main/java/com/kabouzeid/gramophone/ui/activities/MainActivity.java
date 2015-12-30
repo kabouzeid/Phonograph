@@ -118,8 +118,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 
         checkChangelog();
 
-        PreferenceUtil.getInstance(this).incrementAppOpenCount();
-        if (PreferenceUtil.getInstance(this).getAppOpenCount() == 1) {
+        if (!PreferenceUtil.getInstance(this).introShown()) {
             // let the app intro handle getting the permissions first
             introActivityHandlingPermissions = true;
             new Handler().postDelayed(new Runnable() {

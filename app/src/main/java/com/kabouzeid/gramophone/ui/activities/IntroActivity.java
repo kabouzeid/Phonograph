@@ -14,6 +14,7 @@ import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.util.ColorUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -68,5 +69,17 @@ public class IntroActivity extends AppIntro {
                 doubleBackToExitPressedOnce = false;
             }
         }, 2000);
+    }
+
+    @Override
+    public void onSkipPressed() {
+        super.onSkipPressed();
+        PreferenceUtil.getInstance(this).setIntroShown();
+    }
+
+    @Override
+    public void onDonePressed() {
+        super.onDonePressed();
+        PreferenceUtil.getInstance(this).setIntroShown();
     }
 }
