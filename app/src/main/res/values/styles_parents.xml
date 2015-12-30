@@ -60,6 +60,7 @@
     <style name="Theme.Phonograph.Base.Black" parent="@style/Theme.Phonograph.Base">
         <item name="android:windowBackground">@drawable/black</item>
         <item name="divider_color">#18FFFFFF</item>
+        <item name="default_bar_color">@color/grey_800</item>
         <item name="cardBackgroundColor">@color/grey_900</item>
         <item name="md_background_color">@color/grey_900</item>
     </style>

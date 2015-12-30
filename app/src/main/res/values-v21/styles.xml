@@ -16,7 +16,7 @@
 
     <style name="Theme.Phonograph.Black" parent="Theme.Phonograph.Base.Black">
         <item name="round_selector">@drawable/round_ripple_selector</item>
-        <item name="rect_selector">@drawable/rect_ripple_selector</item>
+        <item name="rect_selector">@drawable/rect_ripple_selector_dark</item>
 
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
