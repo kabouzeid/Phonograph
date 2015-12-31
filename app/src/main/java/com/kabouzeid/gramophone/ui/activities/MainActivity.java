@@ -169,23 +169,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         tabs.setTabTextColors(ColorUtil.getSecondaryTextColorForBackground(this, getThemeColorPrimary()), ColorUtil.getPrimaryTextColorForBackground(this, getThemeColorPrimary()));
         tabs.setSelectedTabIndicatorColor(getThemeColorAccent() == Color.WHITE && !ColorUtil.useDarkTextColorOnBackground(getThemeColorPrimary()) ? Color.WHITE : ThemeSingleton.get().positiveColor.getDefaultColor());
 
-        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                navigationView.getMenu().getItem(position).setChecked(true);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
         pager.setCurrentItem(startPosition);
     }
 
@@ -201,6 +184,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     }
 
     private void setUpNavigationView() {
+        navigationView.setCheckedItem(R.id.nav_library);
         final int colorAccent = ThemeSingleton.get().positiveColor.getDefaultColor();
         navigationView.setItemTextColor(new ColorStateList(
                 new int[][]{
@@ -231,21 +215,11 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 drawerLayout.closeDrawers();
                 switch (menuItem.getItemId()) {
-                    case R.id.nav_songs:
-                        menuItem.setChecked(true);
-                        pager.setCurrentItem(PagerAdapter.MusicFragments.SONG.ordinal(), true);
+                    case R.id.nav_library:
+                        // TODO
                         break;
-                    case R.id.nav_albums:
-                        menuItem.setChecked(true);
-                        pager.setCurrentItem(PagerAdapter.MusicFragments.ALBUM.ordinal(), true);
-                        break;
-                    case R.id.nav_artists:
-                        menuItem.setChecked(true);
-                        pager.setCurrentItem(PagerAdapter.MusicFragments.ARTIST.ordinal(), true);
-                        break;
-                    case R.id.nav_playlists:
-                        menuItem.setChecked(true);
-                        pager.setCurrentItem(PagerAdapter.MusicFragments.PLAYLIST.ordinal(), true);
+                    case R.id.nav_folders:
+                        // TODO
                         break;
                     case R.id.support_development:
                         new Handler().postDelayed(new Runnable() {

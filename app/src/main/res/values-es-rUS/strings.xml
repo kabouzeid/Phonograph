@@ -8,6 +8,7 @@
     <string name="action_set_as_ringtone">Establecer como tono de llamada</string>
     <string name="action_share">Compartir</string>
     <string name="action_settings">"Ajustes"</string>
+    <string name="action_grant">Permitir</string>
     <string name="action_about">Acerca de</string>
     <string name="action_show_intro">Mostrar intro</string>
     <string name="action_clear_playlist">Limpiar lista de reproducción</string>
@@ -151,14 +152,14 @@
     <string name="pref_summary_playback_controller_card_now_playing">Muestra una tarjeta detrás de los botones reproducir/pausar, siguiente, previo, aleatorio y repetir.</string>
     <string name="pref_summary_ignore_media_store_artwork">Puede aumentar la calidad de la carátula del álbum pero a veces puede tardar en cargar. Sólo actívalo si tienes problemas con carátulas de baja resolución.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Colorea los botones de reproducir/pausar, aleatorio y repetir as\u00ed como la barra de progreso con el color vibrante de la car\u00e1tula del \u00e1lbum.</string>
-    <string name="pref_summary_colored_navigation_bar">Colorea la barra de navegación con el color principal.</string>
+    <string name="pref_summary_colored_navigation_bar">Colorear la barra de navegación con el color principal.</string>
     <string name="could_not_download_album_cover">"No se puede descargar una car\u00e1tula de \u00e1lbum coincidente."</string>
     <string name="search_hint">Buscar en la biblioteca...</string>
     <string name="rescanning_media">Escaneando contenido...</string>
     <string name="favorites">Favoritos</string>
     <string name="last_added">Agregadas recientemente</string>
     <string name="history">Historial</string>
-    <string name="my_top_tracks">Las más reproducidas</string>
+    <string name="my_top_tracks">Más reproducidas</string>
     <string name="remove_cover">Eliminar carátula</string>
     <string name="download_from_last_fm">Descargar de Last.fm</string>
     <string name="pick_from_local_storage">Seleccionar del almacenamiento interno</string>
@@ -174,6 +175,7 @@
     <string name="special_thanks_to">Agradecimientos especiales a</string>
     <string name="changelog">Lista de cambios</string>
     <string name="licenses">Licencias</string>
+    <string name="permissions_denied">Permisos negados.</string>
     <string name="permission_external_storage_denied">Permiso para acceder al almacenamiento externo denegado.</string>
     <string name="back">regresar</string>
     <string name="support_development">Apoyar el desarrollo</string>
@@ -205,4 +207,11 @@
     <string name="loading_products">Cargando productos...</string>
     <string name="up_next">En seguida</string>
     <string name="pref_title_now_playing_layout">Diseño de la pantalla Reproduciendo</string>
+    <string name="intro_label">Introducción</string>
+    <string name="press_back_again_to_exit_intro">Presione regresar de nuevo para saltar el intro.</string>
+    <string name="welcome_to_phonograph">Bienvenido a Phonograph, un reproductor de música hermoso y ligero para Android.</string>
+    <string name="label_storage">Almacenamiento</string>
+    <string name="open_playing_queue_instruction">Desliza la tarjeta en la pantalla de Reproducción Actual para desplegar la cola de reproducción completa.</string>
+    <string name="rearrange_playing_queue_instruction">Reorganiza la cola de reproducción arrastrando una canción desde su número de pista.</string>
+    <string name="storage_permission_explaination">El permiso de almacenamiento es necesario para que Phonograph pueda identificar la música de su biblioteca.</string>
 </resources>

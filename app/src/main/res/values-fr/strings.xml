@@ -8,6 +8,7 @@
     <string name="action_set_as_ringtone">Définir comme sonnerie</string>
     <string name="action_share">Partager</string>
     <string name="action_settings">"Paramètres"</string>
+    <string name="action_grant">Accorder</string>
     <string name="action_about">À propos</string>
     <string name="action_show_intro">Afficher l\'introduction</string>
     <string name="action_clear_playlist">Effacer la liste de lecture</string>
@@ -27,8 +28,8 @@
     <string name="artists">Artistes</string>
     <string name="songs">Titres</string>
     <string name="playlists">Listes de lecture</string>
-    <string name="unplayable_file">La lecture de ce titre a \u00e9chou\u00e9e.</string>
-    <string name="biography_unavailable">La biographie de l\'artiste est introuvable.</string>
+    <string name="unplayable_file">Impossible de lire ce titre.</string>
+    <string name="biography_unavailable">Impossible de trouver la biographie de l\'artiste.</string>
     <string name="biography">Biographie</string>
     <string name="audio_focus_denied">Focus audio refusé.</string>
     <string name="album">Album</string>
@@ -144,7 +145,7 @@
     <string name="pref_summary_colored_notification">"Colore la notification en fonction de la pochette de l'album."</string>
     <string name="pref_summary_gapless_playback">"Peut causer des problèmes de lecture sur certains appareils."</string>
     <string name="pref_summary_force_square_album_art">La pochette de l\'album dans l\'écran de lecture en cours est forcée à rester carrée.</string>
-    <string name="pref_summary_opaque_toolbar_now_playing">La barre d\'outil est opaque et ne recouvre pas la vignette de l\'album.</string>
+    <string name="pref_summary_opaque_toolbar_now_playing">Colore la barre d\'outil.</string>
     <string name="pref_summary_opaque_statusbar_now_playing">Colore la barre d\'état.</string>
     <string name="pref_summary_larger_title_box_now_playing">La boîte en dessous de la pochette de l\'album où se trouvent le titre de la musique et l\'artiste est plus large dans sa hauteur.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Utilise une barre de progression qui ne recouvre pas la pochette de l\'album à la place de la barre de progression normale.</string>
@@ -174,7 +175,7 @@
     <string name="special_thanks_to">Un grand merci à</string>
     <string name="changelog">Changelog</string>
     <string name="licenses">Licences</string>
-    <string name="permissions_denied">Permission refusée.</string>
+    <string name="permissions_denied">Autorisation refusée.</string>
     <string name="permission_external_storage_denied">Accès au stockage externe refusé.</string>
     <string name="back">Retour</string>
     <string name="support_development">Faire un don</string>
@@ -203,13 +204,14 @@
     <string name="maarten_corpel_summary">Pour avoir réalisé l\'illustration du Play Store ainsi que la pochette de l\'album vide.</string>
     <string name="aleksandar_tesic_summary">Pour m\'avoir aidé à la conception.</string>
     <string name="website">Site internet</string>
-    <string name="loading_products">Chargement des produits...</string>
+    <string name="loading_products">Chargement des produits…</string>
     <string name="up_next">Suivant</string>
     <string name="pref_title_now_playing_layout">Disposition Lecture en cours</string>
-    <string name="press_back_again_to_exit_intro">Appuyez à nouveau pour passer l\'introduction.</string>
-    <string name="welcome_to_phonograph">"Bienvenue chez Phonograph, un lecteur de musique beau et léger pour Android. "</string>
+    <string name="intro_label">Introduction</string>
+    <string name="press_back_again_to_exit_intro">Appuyez à nouveau pour ignorer l\'introduction.</string>
+    <string name="welcome_to_phonograph">"Bienvenue sur Phonograph, un lecteur de musique beau et léger pour Android. "</string>
     <string name="label_storage">Stockage</string>
-    <string name="open_playing_queue_instruction">Vous pouvez glisser la carte dans l\'écran de lecture en cours pour afficher la file d\'attente de lecture complète.</string>
-    <string name="rearrange_playing_queue_instruction">Vous pouvez réorganiser la file d\'attente de lecture en faisant glisser une chanson à partir de son numéro de piste.</string>
+    <string name="open_playing_queue_instruction">Vous pouvez glisser la carte dans l\'écran de lecture en cours pour afficher la file de lecture complète.</string>
+    <string name="rearrange_playing_queue_instruction">Vous pouvez réorganiser la file de lecture en faisant glisser une chanson à partir de son numéro de piste.</string>
     <string name="storage_permission_explaination">L\'autorisation de stockage est nécessaire pour que Phonograph puisse lire votre bibliothèque musicale.</string>
 </resources>

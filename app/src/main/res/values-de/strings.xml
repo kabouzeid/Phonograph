@@ -8,6 +8,7 @@
     <string name="action_set_as_ringtone">Als Klingelton verwenden</string>
     <string name="action_share">Teilen</string>
     <string name="action_settings">"Einstellungen"</string>
+    <string name="action_grant">Gewähren</string>
     <string name="action_about">Über</string>
     <string name="action_show_intro">Zeige Einführung</string>
     <string name="action_clear_playlist">Wiedergabeliste leeren</string>
@@ -20,7 +21,7 @@
     <string name="action_add_to_playing_queue">Zur Warteschlange hinzufügen</string>
     <string name="action_remove_from_playing_queue">Von Warteschlange entfernen</string>
     <string name="action_add_to_playlist">Zu Wiedergabeliste hinzufügen…</string>
-    <string name="action_tag_editor">Tags ändern…</string>
+    <string name="action_tag_editor">Tags ändern</string>
     <string name="action_delete_from_device">Von Gerät Löschen</string>
     <string name="action_details">Details</string>
     <string name="albums">Alben</string>
@@ -39,7 +40,7 @@
     <string name="track">Titel</string>
     <string name="track_hint">"Track (2 für Track 2 oder 3004 für CD 3 Track 4)"</string>
     <string name="album_or_artist_empty">Der Titel oder der Interpret ist leer.</string>
-    <string name="writing_file_number">Datei schreiben…</string>
+    <string name="writing_file_number">Datei schreiben</string>
     <string name="saving_changes">Speichere Änderungen…</string>
     <string name="label_details">Details</string>
     <string name="label_file_name">Dateiname</string>
@@ -166,14 +167,15 @@
     <string name="action_sleep_timer">Einschlaf Timer</string>
     <string name="action_set">Setze</string>
     <string name="cancel_current_timer">Aktuellen Timer abbrechen</string>
-    <string name="sleep_timer_canceled">Der Einschlaf Timer wurde abgebrochen</string>
-    <string name="sleep_timer_set">Der Einschlaf Timer wurde auf %d Minuten von jetzt gesetzt</string>
+    <string name="sleep_timer_canceled">Der Einschlaf Timer wurde abgebrochen.</string>
+    <string name="sleep_timer_set">Der Schlaf Timer geht ab jetzt %d Minuten lang.</string>
     <string name="action_new_playlist">Neue Wiedergabeliste…</string>
     <string name="new_playlist_title">Neue Wiedergabeliste</string>
     <string name="colored_footers">Farbige Balken</string>
     <string name="special_thanks_to">Besonderes Dankeschön an</string>
     <string name="changelog">Änderungen</string>
     <string name="licenses">Lizenzen</string>
+    <string name="permissions_denied">Erlaubnis verweigert.</string>
     <string name="permission_external_storage_denied">Die Rechte um auf den externen Speicher zuzugreifen wurden verweigert.</string>
     <string name="back">zurück</string>
     <string name="support_development">Unterstütze die Entwicklung</string>
@@ -205,4 +207,11 @@
     <string name="loading_products">Produkte werden geladen...</string>
     <string name="up_next">Als nächstes</string>
     <string name="pref_title_now_playing_layout">Gestaltung der aktuellen Wiedergabe</string>
+    <string name="intro_label">Einführung</string>
+    <string name="press_back_again_to_exit_intro">Drücke nochmal zurück  um die Einführung zu überspringen.</string>
+    <string name="welcome_to_phonograph">Willkommen bei Phonograph, ein wunderschöner und leichter Musik-Spieler für Android.</string>
+    <string name="label_storage">Speicher</string>
+    <string name="open_playing_queue_instruction">Ziehe die Karte in der aktuellen Wiedergabe hoch um die komplette Warteschlange anzeigen zu lassen.</string>
+    <string name="rearrange_playing_queue_instruction">Ziehe die Titelnummer eines Titels nach oben oder unten, um die Warteschlange neu anzuordnen.</string>
+    <string name="storage_permission_explaination">Die Speicher-Erlaubnis braucht Phonograph, um deine Musikbibliothek zu lesen.</string>
 </resources>
