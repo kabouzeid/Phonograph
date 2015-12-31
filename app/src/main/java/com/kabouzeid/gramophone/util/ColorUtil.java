@@ -20,6 +20,7 @@ import com.kabouzeid.gramophone.R;
 public class ColorUtil {
     public static final int PALETTE_BITMAP_SIZE = 100;
 
+    @Deprecated
     @ColorInt
     public static int generateColor(Context context, Bitmap bitmap) {
         return getColor(context, generatePalette(bitmap));
@@ -31,6 +32,7 @@ public class ColorUtil {
                 .generate();
     }
 
+    @Deprecated
     @ColorInt
     public static int getColor(Context context, @Nullable Palette palette) {
         if (palette != null) {
@@ -49,6 +51,26 @@ public class ColorUtil {
             }
         }
         return ColorUtil.resolveColor(context, R.attr.default_bar_color);
+    }
+
+    @ColorInt
+    public static int getColor(@Nullable Palette palette, int fallback) {
+        if (palette != null) {
+            if (palette.getVibrantSwatch() != null) {
+                return palette.getVibrantSwatch().getRgb();
+            } else if (palette.getMutedSwatch() != null) {
+                return palette.getMutedSwatch().getRgb();
+            } else if (palette.getDarkVibrantSwatch() != null) {
+                return palette.getDarkVibrantSwatch().getRgb();
+            } else if (palette.getDarkMutedSwatch() != null) {
+                return palette.getDarkMutedSwatch().getRgb();
+            } else if (palette.getLightVibrantSwatch() != null) {
+                return palette.getLightVibrantSwatch().getRgb();
+            } else if (palette.getLightMutedSwatch() != null) {
+                return palette.getLightMutedSwatch().getRgb();
+            }
+        }
+        return fallback;
     }
 
     @ColorInt

@@ -1,9 +1,7 @@
 package com.kabouzeid.gramophone.adapter;
 
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -11,17 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.glide.BitmapPaletteTranscoder;
+import com.kabouzeid.gramophone.glide.BitmapPaletteWrapper;
+import com.kabouzeid.gramophone.glide.PhonographPaletteTarget;
 import com.kabouzeid.gramophone.misc.CustomFragmentStatePagerAdapter;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 import java.util.ArrayList;
 
@@ -131,39 +127,51 @@ public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
         }
 
         private void loadAlbumCover() {
-            ImageLoader.getInstance().displayImage(
-                    MusicUtil.getSongImageLoaderString(song),
-                    albumCover,
-                    new DisplayImageOptions.Builder()
-                            .cacheInMemory(true)
-                            .showImageOnFail(R.drawable.default_album_art)
-                            .postProcessor(new BitmapProcessor() {
-                                @Override
-                                public Bitmap process(Bitmap bitmap) {
-                                    // don't use set color here, as this is not running on the ui-thread
-                                    color = ColorUtil.generateColor(getActivity(), bitmap);
-                                    return bitmap;
-                                }
-                            })
-                            .build(),
-                    new SimpleImageLoadingListener() {
+            Glide.with(this)
+                    .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
+                    .asBitmap()
+                    .transcode(new BitmapPaletteTranscoder(getActivity()), BitmapPaletteWrapper.class)
+                    .error(R.drawable.default_album_art)
+                    .into(new PhonographPaletteTarget(albumCover) {
                         @Override
-                        public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
-                            if (getActivity() != null) {
-                                setColor(ColorUtil.resolveColor(getActivity(), R.attr.default_bar_color));
-                            }
-                        }
-
-                        @Override
-                        public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
-                            if (loadedImage == null) {
-                                onLoadingFailed(imageUri, view, null);
-                                return;
-                            }
+                        public void onColorReady(int color) {
                             setColor(color);
                         }
-                    }
-            );
+                    });
+
+//            ImageLoader.getInstance().displayImage(
+//                    MusicUtil.getSongImageLoaderString(song),
+//                    albumCover,
+//                    new DisplayImageOptions.Builder()
+//                            .cacheInMemory(true)
+//                            .showImageOnFail(R.drawable.default_album_art)
+//                            .postProcessor(new BitmapProcessor() {
+//                                @Override
+//                                public Bitmap process(Bitmap bitmap) {
+//                                    // don't use set color here, as this is not running on the ui-thread
+//                                    color = ColorUtil.generateColor(getActivity(), bitmap);
+//                                    return bitmap;
+//                                }
+//                            })
+//                            .build(),
+//                    new SimpleImageLoadingListener() {
+//                        @Override
+//                        public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
+//                            if (getActivity() != null) {
+//                                setColor(ColorUtil.resolveColor(getActivity(), R.attr.default_bar_color));
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
+//                            if (loadedImage == null) {
+//                                onLoadingFailed(imageUri, view, null);
+//                                return;
+//                            }
+//                            setColor(color);
+//                        }
+//                    }
+//            );
         }
 
         @Override

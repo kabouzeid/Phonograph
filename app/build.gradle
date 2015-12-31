@@ -132,4 +132,5 @@ dependencies {
     compile 'com.anjlab.android.iab.v3:library:1.0.+'
     compile 'de.psdev.licensesdialog:licensesdialog:1.8.0'
     compile 'com.github.kabouzeid:AppIntro:3.3.0k'
+    compile 'com.github.bumptech.glide:glide:3.6.1'
 }
