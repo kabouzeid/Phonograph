@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -41,14 +40,8 @@ import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
-import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 import java.util.ArrayList;
 
@@ -249,52 +242,53 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     }
 
     private void setUpArtistImageAndApplyPalette(final boolean forceDownload) {
-        ImageLoader.getInstance().displayImage(MusicUtil.getArtistImageLoaderString(artist, forceDownload),
-                artistImage,
-                new DisplayImageOptions.Builder()
-                        .cacheInMemory(true)
-                        .cacheOnDisk(true)
-                        .showImageOnFail(R.drawable.default_artist_image)
-                        .resetViewBeforeLoading(true)
-                        .postProcessor(new BitmapProcessor() {
-                            @Override
-                            public Bitmap process(Bitmap bitmap) {
-                                final int color = ColorUtil.generateColor(ArtistDetailActivity.this, bitmap);
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        setColors(color);
-                                    }
-                                });
-                                return bitmap;
-                            }
-                        })
-                        .build(),
-                new SimpleImageLoadingListener() {
-                    @Override
-                    public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
-                        setColors(ColorUtil.resolveColor(ArtistDetailActivity.this, R.attr.default_bar_color));
-
-                        toastUpdatedArtistImageIfDownloadWasForced();
-                    }
-
-                    @Override
-                    public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
-                        if (loadedImage == null) {
-                            onLoadingFailed(imageUri, view, null);
-                            return;
-                        }
-
-                        toastUpdatedArtistImageIfDownloadWasForced();
-                    }
-
-                    private void toastUpdatedArtistImageIfDownloadWasForced() {
-                        if (forceDownload) {
-                            Toast.makeText(ArtistDetailActivity.this, getString(R.string.updated_artist_image), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-        );
+        // TODO Glide
+//        ImageLoader.getInstance().displayImage(MusicUtil.getArtistImageLoaderString(artist, forceDownload),
+//                artistImage,
+//                new DisplayImageOptions.Builder()
+//                        .cacheInMemory(true)
+//                        .cacheOnDisk(true)
+//                        .showImageOnFail(R.drawable.default_artist_image)
+//                        .resetViewBeforeLoading(true)
+//                        .postProcessor(new BitmapProcessor() {
+//                            @Override
+//                            public Bitmap process(Bitmap bitmap) {
+//                                final int color = ColorUtil.generateColor(ArtistDetailActivity.this, bitmap);
+//                                runOnUiThread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        setColors(color);
+//                                    }
+//                                });
+//                                return bitmap;
+//                            }
+//                        })
+//                        .build(),
+//                new SimpleImageLoadingListener() {
+//                    @Override
+//                    public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
+//                        setColors(ColorUtil.resolveColor(ArtistDetailActivity.this, R.attr.default_bar_color));
+//
+//                        toastUpdatedArtistImageIfDownloadWasForced();
+//                    }
+//
+//                    @Override
+//                    public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
+//                        if (loadedImage == null) {
+//                            onLoadingFailed(imageUri, view, null);
+//                            return;
+//                        }
+//
+//                        toastUpdatedArtistImageIfDownloadWasForced();
+//                    }
+//
+//                    private void toastUpdatedArtistImageIfDownloadWasForced() {
+//                        if (forceDownload) {
+//                            Toast.makeText(ArtistDetailActivity.this, getString(R.string.updated_artist_image), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                }
+//        );
     }
 
     @Override

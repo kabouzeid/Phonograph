@@ -1,6 +1,5 @@
 package com.kabouzeid.gramophone.adapter.album;
 
-import android.graphics.Bitmap;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,11 +10,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
+import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
+import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
+import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
@@ -24,14 +28,6 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.LoadedFrom;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.imageaware.ImageAware;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,38 +110,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
             holder.text.setText(getAlbumText(album));
         }
 
-        ImageLoader.getInstance().displayImage(
-                getAlbumImageLoaderUri(album),
-                holder.image,
-                new DisplayImageOptions.Builder()
-                        .cacheInMemory(true)
-                        .showImageOnFail(R.drawable.default_album_art)
-                        .resetViewBeforeLoading(true)
-                        .postProcessor(new BitmapProcessor() {
-                            @Override
-                            public Bitmap process(Bitmap bitmap) {
-                                holder.paletteColor = ColorUtil.generateColor(activity, bitmap);
-                                return bitmap;
-                            }
-                        })
-                        .displayer(new FadeInBitmapDisplayer(FADE_IN_TIME, true, true, false) {
-                            @Override
-                            public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
-                                super.display(bitmap, imageAware, loadedFrom);
-                                if (usePalette)
-                                    setColors(holder.paletteColor, holder);
-                            }
-                        })
-                        .build(),
-                new SimpleImageLoadingListener() {
-                    @Override
-                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                        FadeInBitmapDisplayer.animate(view, FADE_IN_TIME);
-                        if (usePalette)
-                            setColors(defaultBarColor, holder);
-                    }
-                }
-        );
+        loadAlbumCover(album, holder);
     }
 
     private void setColors(int color, ViewHolder holder) {
@@ -158,6 +123,23 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
                 holder.text.setTextColor(ColorUtil.getSecondaryTextColorForBackground(activity, color));
             }
         }
+    }
+
+    protected void loadAlbumCover(Album album, final ViewHolder holder) {
+        if (holder.image == null) return;
+        Glide.with(activity)
+                .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.id))
+                .asBitmap()
+                .transcode(new BitmapPaletteTranscoder(activity), BitmapPaletteWrapper.class)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .error(R.drawable.default_album_art)
+                .into(new PhonographColoredTarget(holder.image) {
+                    @Override
+                    public void onColorReady(int color) {
+                        if (usePalette)
+                            setColors(color, holder);
+                    }
+                });
     }
 
     @Override

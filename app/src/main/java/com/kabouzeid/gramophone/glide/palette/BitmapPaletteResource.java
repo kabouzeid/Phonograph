@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.glide;
+package com.kabouzeid.gramophone.glide.palette;
 
 import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;

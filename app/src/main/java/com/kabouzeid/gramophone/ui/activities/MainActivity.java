@@ -35,6 +35,8 @@ import android.widget.TextView;
 
 import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PagerAdapter;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
@@ -60,8 +62,6 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.io.File;
@@ -274,15 +274,11 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
             }
             ((TextView) navigationDrawerHeader.findViewById(R.id.title)).setText(song.title);
             ((TextView) navigationDrawerHeader.findViewById(R.id.text)).setText(song.artistName);
-            ImageLoader.getInstance().displayImage(
-                    MusicUtil.getSongImageLoaderString(song),
-                    ((ImageView) navigationDrawerHeader.findViewById(R.id.image)),
-                    new DisplayImageOptions.Builder()
-                            .cacheInMemory(true)
-                            .showImageOnFail(R.drawable.default_album_art)
-                            .resetViewBeforeLoading(true)
-                            .build()
-            );
+            Glide.with(this)
+                    .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .error(R.drawable.default_album_art)
+                    .into(((ImageView) navigationDrawerHeader.findViewById(R.id.image)));
         } else {
             if (navigationDrawerHeader != null) {
                 navigationView.removeHeaderView(navigationDrawerHeader);

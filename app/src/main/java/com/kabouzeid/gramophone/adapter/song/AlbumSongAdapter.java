@@ -64,4 +64,9 @@ public class AlbumSongAdapter extends SongAdapter {
             }
         }
     }
+
+    @Override
+    protected void loadAlbumCover(Song song, SongAdapter.ViewHolder holder) {
+        // We don't want to load it in this adapter
+    }
 }

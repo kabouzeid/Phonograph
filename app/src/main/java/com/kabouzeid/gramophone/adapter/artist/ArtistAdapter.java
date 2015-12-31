@@ -1,6 +1,5 @@
 package com.kabouzeid.gramophone.adapter.artist;
 
-import android.graphics.Bitmap;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,14 +23,6 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.LoadedFrom;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.imageaware.ImageAware;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,8 +78,8 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Artist artist = dataSet.get(position);
 
-        final int defaultBarColor = ColorUtil.resolveColor(activity, R.attr.default_bar_color);
-        setColors(defaultBarColor, holder);
+//        final int defaultBarColor = ColorUtil.resolveColor(activity, R.attr.default_bar_color);
+//        setColors(defaultBarColor, holder);
 
         boolean isChecked = isChecked(artist);
         holder.itemView.setActivated(isChecked);
@@ -104,42 +95,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
         }
         holder.itemView.setActivated(isChecked(artist));
 
-        if (holder.image == null) {
-            return;
-        }
-
-        ImageLoader.getInstance().displayImage(MusicUtil.getArtistImageLoaderString(artist, false),
-                holder.image,
-                new DisplayImageOptions.Builder()
-                        .cacheInMemory(true)
-                        .cacheOnDisk(true)
-                        .resetViewBeforeLoading(true)
-                        .showImageOnFail(R.drawable.default_artist_image)
-                        .postProcessor(new BitmapProcessor() {
-                            @Override
-                            public Bitmap process(Bitmap bitmap) {
-                                holder.paletteColor = ColorUtil.generateColor(activity, bitmap);
-                                return bitmap;
-                            }
-                        })
-                        .displayer(new FadeInBitmapDisplayer(FADE_IN_TIME, true, true, false) {
-                            @Override
-                            public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
-                                super.display(bitmap, imageAware, loadedFrom);
-                                if (usePalette)
-                                    setColors(holder.paletteColor, holder);
-                            }
-                        })
-                        .build(),
-                new SimpleImageLoadingListener() {
-                    @Override
-                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                        FadeInBitmapDisplayer.animate(view, FADE_IN_TIME);
-                        if (usePalette)
-                            setColors(defaultBarColor, holder);
-                    }
-                }
-        );
+        loadArtistImage(artist, holder);
     }
 
     private void setColors(int color, ViewHolder holder) {
@@ -152,6 +108,43 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
                 holder.text.setTextColor(ColorUtil.getSecondaryTextColorForBackground(activity, color));
             }
         }
+    }
+
+    protected void loadArtistImage(Artist artist, final ViewHolder holder) {
+        if (holder.image == null) return;
+        //TODO Glide
+//        ImageLoader.getInstance().displayImage(MusicUtil.getArtistImageLoaderString(artist, false),
+//                holder.image,
+//                new DisplayImageOptions.Builder()
+//                        .cacheInMemory(true)
+//                        .cacheOnDisk(true)
+//                        .resetViewBeforeLoading(true)
+//                        .showImageOnFail(R.drawable.default_artist_image)
+//                        .postProcessor(new BitmapProcessor() {
+//                            @Override
+//                            public Bitmap process(Bitmap bitmap) {
+//                                holder.paletteColor = ColorUtil.generateColor(activity, bitmap);
+//                                return bitmap;
+//                            }
+//                        })
+//                        .displayer(new FadeInBitmapDisplayer(FADE_IN_TIME, true, true, false) {
+//                            @Override
+//                            public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
+//                                super.display(bitmap, imageAware, loadedFrom);
+//                                if (usePalette)
+//                                    setColors(holder.paletteColor, holder);
+//                            }
+//                        })
+//                        .build(),
+//                new SimpleImageLoadingListener() {
+//                    @Override
+//                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+//                        FadeInBitmapDisplayer.animate(view, FADE_IN_TIME);
+//                        if (usePalette)
+//                            setColors(ColorUtil.resolveColor(activity, R.attr.default_bar_color), holder);
+//                    }
+//                }
+//        );
     }
 
     @Override

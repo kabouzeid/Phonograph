@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.glide;
+package com.kabouzeid.gramophone.glide.palette;
 
 import android.content.Context;
 import android.graphics.Bitmap;

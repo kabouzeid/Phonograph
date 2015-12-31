@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -22,8 +24,6 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -94,15 +94,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 final Album album = (Album) results.get(position);
                 holder.title.setText(album.title);
                 holder.text.setText(album.artistName);
-                ImageLoader.getInstance().displayImage(
-                        MusicUtil.getAlbumImageLoaderString(album),
-                        holder.image,
-                        new DisplayImageOptions.Builder()
-                                .cacheInMemory(true)
-                                .showImageOnFail(R.drawable.default_album_art)
-                                .resetViewBeforeLoading(true)
-                                .build()
-                );
+                Glide.with(activity)
+                        .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.id))
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .error(R.drawable.default_album_art)
+                        .into(holder.image);
                 break;
             case ARTIST:
                 final Artist artist = (Artist) results.get(position);
@@ -112,15 +108,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     holder.image.setImageResource(R.drawable.default_artist_image);
                     break;
                 }
-                ImageLoader.getInstance().displayImage(MusicUtil.getArtistImageLoaderString(artist, false),
-                        holder.image,
-                        new DisplayImageOptions.Builder()
-                                .cacheInMemory(true)
-                                .cacheOnDisk(true)
-                                .resetViewBeforeLoading(true)
-                                .showImageOnFail(R.drawable.default_artist_image)
-                                .build()
-                );
+                // TODO Glide
+//                ImageLoader.getInstance().displayImage(MusicUtil.getArtistImageLoaderString(artist, false),
+//                        holder.image,
+//                        new DisplayImageOptions.Builder()
+//                                .cacheInMemory(true)
+//                                .cacheOnDisk(true)
+//                                .resetViewBeforeLoading(true)
+//                                .showImageOnFail(R.drawable.default_artist_image)
+//                                .build()
+//                );
                 break;
             case SONG:
                 final Song song = (Song) results.get(position);
