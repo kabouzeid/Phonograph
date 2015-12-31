@@ -8,7 +8,9 @@
     <string name="action_set_as_ringtone">Установить как рингтон</string>
     <string name="action_share">Поделиться</string>
     <string name="action_settings">"Настройки"</string>
+    <string name="action_grant">Разрешить</string>
     <string name="action_about">О программе</string>
+    <string name="action_show_intro">Показать вступление</string>
     <string name="action_clear_playlist">Очистить плейлист</string>
     <string name="action_playing_queue">Очередь воспроизведения</string>
     <string name="action_add_to_favorites">Добавить в избранное</string>
@@ -91,6 +93,7 @@
     <string name="last_opened">Последнее открытое</string>
     <string name="light_theme_name">Светлая</string>
     <string name="dark_theme_name">Тёмная</string>
+    <string name="black_theme_name">Чёрная (для AMOLED-экранов)</string>
     <string name="equalizer">Эквалайзер</string>
     <string name="pref_header_colors">Цвета</string>
     <string name="pref_header_now_playing_screen">Экран воспроизведения</string>
@@ -171,6 +174,8 @@
     <string name="colored_footers">Окрашенные нижние колонтитулы</string>
     <string name="special_thanks_to">Особая благодарность</string>
     <string name="changelog">Список изменений</string>
+    <string name="licenses">Лицензии</string>
+    <string name="permissions_denied">"В разрешениях отказано "</string>
     <string name="permission_external_storage_denied">В разрешении на доступ к внешнему хранилищу отказано.</string>
     <string name="back">назад</string>
     <string name="support_development">Поддержать разработку</string>
@@ -202,4 +207,11 @@
     <string name="loading_products">Загрузка продуктов...</string>
     <string name="up_next">Далее</string>
     <string name="pref_title_now_playing_layout">"Макет экрана воспроизведения "</string>
+    <string name="intro_label">Вступление</string>
+    <string name="press_back_again_to_exit_intro">Ещё раз нажмите назад, чтобы пропустить вступление</string>
+    <string name="welcome_to_phonograph">Добро пожаловать в Phonograph, красивый и лёгкий плеер для Android</string>
+    <string name="label_storage">Хранилище</string>
+    <string name="open_playing_queue_instruction">Проведите по карточке на экране воспроизведения, чтобы просмотреть очередь</string>
+    <string name="rearrange_playing_queue_instruction">Редактируйте очередь воспроизведения, перетаскивая песни за их номер</string>
+    <string name="storage_permission_explaination">Нужен доступ к хранилищу, чтобы плеер мог читать Вашу библиотеку</string>
 </resources>

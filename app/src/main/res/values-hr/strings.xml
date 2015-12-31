@@ -8,7 +8,9 @@
     <string name="action_set_as_ringtone">Postavi kao zvuk zvona</string>
     <string name="action_share">Podijeli</string>
     <string name="action_settings">"Postavke"</string>
+    <string name="action_grant">Dozvoli</string>
     <string name="action_about">O Phonographu</string>
+    <string name="action_show_intro">Prikaži uvod</string>
     <string name="action_clear_playlist">Isprazni popis pjesama</string>
     <string name="action_playing_queue">Red čekanja</string>
     <string name="action_add_to_favorites">Dodaj u favorite</string>
@@ -173,11 +175,12 @@
     <string name="special_thanks_to">Posebna zahvala</string>
     <string name="changelog">Promjene</string>
     <string name="licenses">Licence</string>
+    <string name="permissions_denied">Pristup odbijen.</string>
     <string name="permission_external_storage_denied">Dopuštenje za pristup vanjskoj pohrani je odbijeno.</string>
     <string name="back">natrag</string>
     <string name="support_development">Podržite razvoj</string>
     <string name="thank_you">Hvala vam!</string>
-    <string name="restored_previous_purchases">Povrati prošle kupnje.</string>
+    <string name="restored_previous_purchases">Prošle kupovine vraćene.</string>
     <string name="play_store_illustration_by">Play Store ilustraciju izradio</string>
     <string name="version">Verzija</string>
     <string name="application">Aplikacija</string>
@@ -192,7 +195,7 @@
     <string name="join_community_summary">Ako trebaš pomoć ili imaš pitanja, trebaš posjetiti Phonograph zajednicu na Google Plusu.</string>
     <string name="translate">Prevedi</string>
     <string name="translate_summary">Pomozi prevesti Phonograph na svoj izvorni jezik.</string>
-    <string name="rate_on_google_play">Ocijeni</string>
+    <string name="rate_on_google_play">Ocjeni</string>
     <string name="rate_on_google_play_summary">Ostavi pozitivnu ocjenu na Google Playu ako ti se Phonograph sviđa.</string>
     <string name="donate">Doniraj</string>
     <string name="donate_summary">Ako misliš da sam zaslužio biti plaćen za svoj rad, ostavi mi par dolara ovdje.</string>
@@ -204,4 +207,11 @@
     <string name="loading_products">Učitavanje artikala...</string>
     <string name="up_next">Sljedeće</string>
     <string name="pref_title_now_playing_layout">Raspored zaslona za reprodukciju</string>
+    <string name="intro_label">Uvod</string>
+    <string name="press_back_again_to_exit_intro">Pritisni ponovno tipku natrag za preskakanje uvoda.</string>
+    <string name="welcome_to_phonograph">"Dobrodošli u Phonograph, prekrasan i lagan glazbeni player za Android. "</string>
+    <string name="label_storage">Pohrana</string>
+    <string name="open_playing_queue_instruction">Povucite karticu na zaslonu za reprodukciju kako bi otvorili cijeli red reprodukcije.</string>
+    <string name="rearrange_playing_queue_instruction">Preuredi red reprodukcije povlačenjem pjesme za njen broj.</string>
+    <string name="storage_permission_explaination">Dozvola pohrane je potrebna kako bi Phonograph pročitao vašu glazbenu biblioteku.</string>
 </resources>
