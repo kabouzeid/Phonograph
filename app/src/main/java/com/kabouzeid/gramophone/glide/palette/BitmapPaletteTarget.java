@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.glide;
+package com.kabouzeid.gramophone.glide.palette;
 
 import android.widget.ImageView;
 

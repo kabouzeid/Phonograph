@@ -10,7 +10,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.graphics.Bitmap;
-import android.graphics.Point;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.RemoteControlClient;
@@ -28,7 +27,6 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.View;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
@@ -36,22 +34,12 @@ import com.kabouzeid.gramophone.appwidget.WidgetMedium;
 import com.kabouzeid.gramophone.helper.PlayingNotificationHelper;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.helper.StopWatch;
-import com.kabouzeid.gramophone.imageloader.BlurProcessor;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.HistoryStore;
 import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
-import com.kabouzeid.gramophone.util.Util;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.ImageSize;
-import com.nostra13.universalimageloader.core.assist.ViewScaleType;
-import com.nostra13.universalimageloader.core.imageaware.NonViewAware;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -142,23 +130,24 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private boolean notHandledMetaChangedForCurrentTrack;
     private boolean isServiceInUse;
 
-    private BlurProcessor blurProcessor = new BlurProcessor.Builder(this).build();
-    // we don't want to hand our bitmap to the remote control client, as it will recycle it
-    private BitmapProcessor copyProcessor = new BitmapProcessor() {
-        @Override
-        public Bitmap process(Bitmap bitmap) {
-            Bitmap.Config config = bitmap.getConfig();
-            if (config == null) {
-                config = Bitmap.Config.ARGB_8888;
-            }
-            try {
-                return bitmap.copy(config, false);
-            } catch (OutOfMemoryError e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-    };
+    // TODO Glide
+//    private BlurProcessor blurProcessor = new BlurProcessor.Builder(this).build();
+//    // we don't want to hand our bitmap to the remote control client, as it will recycle it
+//    private BitmapProcessor copyProcessor = new BitmapProcessor() {
+//        @Override
+//        public Bitmap process(Bitmap bitmap) {
+//            Bitmap.Config config = bitmap.getConfig();
+//            if (config == null) {
+//                config = Bitmap.Config.ARGB_8888;
+//            }
+//            try {
+//                return bitmap.copy(config, false);
+//            } catch (OutOfMemoryError e) {
+//                e.printStackTrace();
+//                return null;
+//            }
+//        }
+//    };
 
     private static String getTrackUri(@NonNull Song song) {
         return MusicUtil.getSongUri(song.id).toString();
@@ -461,27 +450,44 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 .putLong(MediaMetadataRetriever.METADATA_KEY_DURATION, song.duration)
                 .apply();
         if (showAlbumArt) {
-            final String currentAlbumArtUri = MusicUtil.getSongImageLoaderString(song);
-            Point screenSize = Util.getScreenSize(this);
-            ImageLoader.getInstance().displayImage(
-                    currentAlbumArtUri,
-                    new NonViewAware(new ImageSize(screenSize.x, screenSize.y), ViewScaleType.CROP),
-                    new DisplayImageOptions.Builder().postProcessor(blurAlbumArt ? blurProcessor : copyProcessor).build(),
-                    new SimpleImageLoadingListener() {
-                        @Override
-                        public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
-                            if (currentAlbumArtUri.equals(imageUri)) {
-                                updateRemoteControlClientBitmap(loadedImage);
-                            }
-                        }
 
-                        @Override
-                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                            if (currentAlbumArtUri.equals(imageUri)) {
-                                updateRemoteControlClientBitmap(null);
-                            }
-                        }
-                    });
+//            ImageLoader.getInstance().displayImage(
+//                    currentAlbumArtUri,
+//                    new NonViewAware(new ImageSize(screenSize.x, screenSize.y), ViewScaleType.CROP),
+//                    new DisplayImageOptions.Builder().postProcessor(blurAlbumArt ? blurProcessor : copyProcessor).build(),
+//                    new SimpleImageLoadingListener() {
+//                        @Override
+//                        public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
+//                            if (currentAlbumArtUri.equals(imageUri)) {
+//                                updateRemoteControlClientBitmap(loadedImage);
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+//                            if (currentAlbumArtUri.equals(imageUri)) {
+//                                updateRemoteControlClientBitmap(null);
+//                            }
+//                        }
+//                    });
+            // NOTE THIS MIGHT NOT BE THE UI THREAD
+//            Point screenSize = Util.getScreenSize(this);
+//            Glide.with(this)
+//                    .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
+//                    .asBitmap()
+//                    // TODO transformations
+//                    .into(new SimpleTarget<Bitmap>(screenSize.x, screenSize.y) {
+//                        @Override
+//                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
+//                            super.onLoadFailed(e, errorDrawable);
+//                            updateRemoteControlClientBitmap(null);
+//                        }
+//
+//                        @Override
+//                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+//                            updateRemoteControlClientBitmap(resource);
+//                        }
+//                    });
         } else {
             updateRemoteControlClientBitmap(null);
         }

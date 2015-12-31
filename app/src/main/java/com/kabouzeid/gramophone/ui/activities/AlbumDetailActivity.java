@@ -1,11 +1,10 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -17,10 +16,16 @@ import android.widget.TextView;
 
 import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.util.DialogUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.animation.GlideAnimation;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.song.AlbumSongAdapter;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
+import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
+import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
+import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
@@ -36,11 +41,6 @@ import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 import java.util.ArrayList;
 
@@ -157,59 +157,43 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     }
 
     private void setUpAlbumArtAndApplyPalette() {
-        ImageLoader.getInstance().displayImage(
-                MusicUtil.getAlbumImageLoaderString(album),
-                albumArtImageView,
-                new DisplayImageOptions.Builder()
-                        .cacheInMemory(true)
-                        .showImageOnFail(R.drawable.default_album_art)
-                        .resetViewBeforeLoading(true)
-                        .postProcessor(new BitmapProcessor() {
-                            @Override
-                            public Bitmap process(Bitmap bitmap) {
-                                final int color = ColorUtil.generateColor(AlbumDetailActivity.this, bitmap);
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        setColors(color);
-                                    }
-                                });
-                                return bitmap;
-                            }
-                        })
-                        .build(),
-                new SimpleImageLoadingListener() {
+        Glide.with(this)
+                .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.id))
+                .asBitmap()
+                .transcode(new BitmapPaletteTranscoder(this), BitmapPaletteWrapper.class)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .error(R.drawable.default_album_art)
+                .into(new PhonographColoredTarget(albumArtImageView) {
                     @Override
-                    public void onLoadingFailed(String imageUri, View view, @Nullable FailReason failReason) {
-                        setColors(ColorUtil.resolveColor(AlbumDetailActivity.this, R.attr.default_bar_color));
-
+                    public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
+                        super.onResourceReady(resource, glideAnimation);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                             startPostponedEnterTransition();
                     }
 
                     @Override
-                    public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
-                        if (loadedImage == null) {
-                            onLoadingFailed(imageUri, view, null);
-                            return;
-                        }
-
+                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                        super.onLoadFailed(e, errorDrawable);
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                             startPostponedEnterTransition();
                     }
-                }
-        );
+
+                    @Override
+                    public void onColorReady(int color) {
+                        setColors(color);
+                    }
+                });
     }
 
-    private void setColors(int vibrantColor) {
-        toolbarColor = vibrantColor;
-        albumTitleView.setBackgroundColor(vibrantColor);
-        albumTitleView.setTextColor(ColorUtil.getPrimaryTextColorForBackground(this, vibrantColor));
+    private void setColors(int color) {
+        toolbarColor = color;
+        albumTitleView.setBackgroundColor(color);
+        albumTitleView.setTextColor(ColorUtil.getPrimaryTextColorForBackground(this, color));
 
         if (shouldColorNavigationBar())
-            setNavigationBarColor(vibrantColor);
+            setNavigationBarColor(color);
 
-        notifyTaskColorChange(vibrantColor);
+        notifyTaskColorChange(color);
     }
 
     @Override

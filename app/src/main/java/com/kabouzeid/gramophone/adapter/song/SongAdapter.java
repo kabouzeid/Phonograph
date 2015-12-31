@@ -1,6 +1,5 @@
 package com.kabouzeid.gramophone.adapter.song;
 
-import android.graphics.Bitmap;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,11 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.afollestad.materialcab.MaterialCab;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
+import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
+import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
+import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
@@ -24,14 +28,6 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.LoadedFrom;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.imageaware.ImageAware;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 import java.util.ArrayList;
 
@@ -93,7 +89,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Song song = dataSet.get(position);
 
-        setColors(ColorUtil.resolveColor(activity, R.attr.default_bar_color), holder);
+//        setColors(ColorUtil.resolveColor(activity, R.attr.default_bar_color), holder);
 
         boolean isChecked = isChecked(song);
         holder.itemView.setActivated(isChecked);
@@ -126,38 +122,19 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
 
     protected void loadAlbumCover(Song song, final ViewHolder holder) {
         if (holder.image == null) return;
-        ImageLoader.getInstance().displayImage(
-                getSongImageLoaderUri(song),
-                holder.image,
-                new DisplayImageOptions.Builder()
-                        .cacheInMemory(true)
-                        .showImageOnFail(R.drawable.default_album_art)
-                        .resetViewBeforeLoading(true)
-                        .postProcessor(new BitmapProcessor() {
-                            @Override
-                            public Bitmap process(Bitmap bitmap) {
-                                holder.paletteColor = ColorUtil.generateColor(activity, bitmap);
-                                return bitmap;
-                            }
-                        })
-                        .displayer(new FadeInBitmapDisplayer(FADE_IN_TIME, true, true, false) {
-                            @Override
-                            public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
-                                super.display(bitmap, imageAware, loadedFrom);
-                                if (usePalette)
-                                    setColors(holder.paletteColor, holder);
-                            }
-                        })
-                        .build(),
-                new SimpleImageLoadingListener() {
+        Glide.with(activity)
+                .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
+                .asBitmap()
+                .transcode(new BitmapPaletteTranscoder(activity), BitmapPaletteWrapper.class)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .error(R.drawable.default_album_art)
+                .into(new PhonographColoredTarget(holder.image) {
                     @Override
-                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                        FadeInBitmapDisplayer.animate(view, FADE_IN_TIME);
+                    public void onColorReady(int color) {
                         if (usePalette)
-                            setColors(ColorUtil.resolveColor(activity, R.attr.default_bar_color), holder);
+                            setColors(color, holder);
                     }
-                }
-        );
+                });
     }
 
     protected String getSongTitle(Song song) {

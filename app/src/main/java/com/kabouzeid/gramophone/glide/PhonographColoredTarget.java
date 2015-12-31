@@ -5,23 +5,21 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTarget;
+import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.util.ColorUtil;
 
-import hugo.weaving.DebugLog;
-
-public abstract class PhonographPaletteTarget extends BitmapPaletteTarget {
-    public PhonographPaletteTarget(ImageView view) {
+public abstract class PhonographColoredTarget extends BitmapPaletteTarget {
+    public PhonographColoredTarget(ImageView view) {
         super(view);
     }
 
-    @DebugLog
     @Override
     public void onLoadFailed(Exception e, Drawable errorDrawable) {
         super.onLoadFailed(e, errorDrawable);
         onColorReady(getDefaultBarColor());
     }
 
-    @DebugLog
     @Override
     public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
         super.onResourceReady(resource, glideAnimation);

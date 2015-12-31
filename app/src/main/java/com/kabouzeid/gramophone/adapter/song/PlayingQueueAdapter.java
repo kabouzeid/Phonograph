@@ -64,7 +64,7 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
 
     @Override
     protected void loadAlbumCover(Song song, SongAdapter.ViewHolder holder) {
-        // We don't need to load it in this adapter
+        // We don't want to load it in this adapter
     }
 
     public void swapDataSet(ArrayList<Song> dataSet, int position) {
