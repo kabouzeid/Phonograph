@@ -22,9 +22,9 @@
 -keepattributes Signature
 -keepattributes Exceptions
 
-# LeakCanary
--keep class org.eclipse.mat.** { *; }
--keep class com.squareup.leakcanary.** { *; }
+# Glide
+-keepnames class com.kabouzeid.gramophone.glide.PhonographGlideModule
+-keep public class * implements com.bumptech.glide.module.GlideModule
 
 # ButterKnife
 -keep class butterknife.** { *; }
