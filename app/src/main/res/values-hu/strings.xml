@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="what_do_you_want_to_share">Mit szeretnél megosztani?</string>
+    <string name="currently_listening_to_x_by_x">Jelenleg a(z) %1$s-t hallgatja %2$s-tól.</string>
+    <string name="the_audio_file">A hangfájl</string>
+    <string name="do_you_want_to_set_x_as_ringtone">Be szeretnéd állítani a %1$s-t csengőhangként?</string>
+    <string name="x_has_been_set_as_ringtone">A(z) %1$s be lett állítva csengőhangnak.</string>
+    <string name="action_set_as_ringtone">Beállítva csengőhangnak</string>
+    <string name="action_share">Megoszt</string>
+    <string name="action_settings">"Beállítások"</string>
+    <string name="action_grant">Engedélyez</string>
+    <string name="action_about">Névjegy</string>
+    <string name="action_show_intro">Intró mutatása</string>
+    <string name="action_clear_playlist">Lejátszási lista törlése</string>
+    <string name="action_playing_queue">Lejátszási sorhoz</string>
+    <string name="action_add_to_favorites">Hozzáadás a kedvencekhez</string>
+    <string name="action_remove_from_favorites">Eltávolítás a kedvencekből</string>
+    <string name="action_search">Keresés</string>
+    <string name="action_play_next">Lejátszás következőnek</string>
+    <string name="action_play">Lejátszás</string>
+    <string name="action_add_to_playing_queue">Hozzáadás a lejátszási sorhoz</string>
+    <string name="action_remove_from_playing_queue">Eltávolítás a lejátszási sorból</string>
+    <string name="action_add_to_playlist">Hozzáadás a lejátszási listához...</string>
+    <string name="action_tag_editor">Címkeszerkesztő</string>
+    <string name="action_delete_from_device">Törlés az eszközről</string>
+    <string name="action_details">Részletek</string>
+    <string name="albums">Albumok</string>
+    <string name="artists">Előadók</string>
+    <string name="songs">Dalok</string>
+    <string name="playlists">Lejátszási lista</string>
+</resources>

@@ -25,6 +25,9 @@ public class IntroActivity extends AppIntro {
         int color = ContextCompat.getColor(this, R.color.blue_grey_700);
         setStatusBarColor(ColorUtil.shiftColorDown(color));
         setTaskColor(color);
+        setSkipText(getString(R.string.action_skip).toUpperCase());
+        setDoneText(getString(R.string.action_done).toUpperCase());
+        setGrantText(getString(R.string.action_grant).toUpperCase());
 
         addSlide(AppIntroFragment.newInstance(getString(R.string.app_name), getString(R.string.welcome_to_phonograph), R.drawable.icon_web, color));
         if (!hasExternalStoragePermission()) {

@@ -8,7 +8,9 @@
     <string name="action_set_as_ringtone">Definir como toque</string>
     <string name="action_share">Compartilhar</string>
     <string name="action_settings">"Configurações"</string>
+    <string name="action_grant">Permitir</string>
     <string name="action_about">Sobre</string>
+    <string name="action_show_intro">Introdução</string>
     <string name="action_clear_playlist">Limpar playlist</string>
     <string name="action_playing_queue">Fila de execução</string>
     <string name="action_add_to_favorites">Adicionar aos favoritos</string>
@@ -26,7 +28,7 @@
     <string name="artists">Artistas</string>
     <string name="songs">Músicas</string>
     <string name="playlists">Playlists</string>
-    <string name="unplayable_file">N\u00e3o foi poss\u00edvel tocar essa m\u00fasica.</string>
+    <string name="unplayable_file">N\u00e3o foi poss\u00edvel reproduzir esta m\u00fasica.</string>
     <string name="biography_unavailable">N\u00e3o foi poss\u00edvel encontrar a biografia dos artistas.</string>
     <string name="biography">Biografia</string>
     <string name="audio_focus_denied">Foco do áudio negado.</string>
@@ -38,7 +40,7 @@
     <string name="track">Faixa</string>
     <string name="track_hint">"Faixa (2 para faixa 2 ou 3004 para CD3 faixa 4)"</string>
     <string name="album_or_artist_empty">O título ou artista está vazio.</string>
-    <string name="writing_file_number">Gravando no arquivo</string>
+    <string name="writing_file_number">Gravando arquivo</string>
     <string name="saving_changes">Salvando alterações...</string>
     <string name="label_details">Detalhes</string>
     <string name="label_file_name">Nome do arquivo</string>
@@ -87,9 +89,11 @@
     <string name="action_shuffle_album">Misturar álbum</string>
     <string name="action_shuffle_artist">Misturar artista</string>
     <string name="action_shuffle_playlist">Misturar playlist</string>
+    <string name="action_clear_playing_queue">Limpar fila de reprodução</string>
     <string name="last_opened">Última aberta</string>
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Escuro</string>
+    <string name="black_theme_name">Preto (AMOLED)</string>
     <string name="equalizer">Equalizador</string>
     <string name="pref_header_colors">Cores</string>
     <string name="pref_header_now_playing_screen">Tocando agora</string>
@@ -100,7 +104,8 @@
     <string name="pref_header_lockscreen">Bloqueio de tela</string>
     <string name="pref_title_navigation_bar">Barra de navegação colorida</string>
     <string name="pref_title_set_default_start_page">Página inicial</string>
-    <string name="pref_title_album_art_on_lockscreen">Capa do álbum no bloqueio de tela</string>
+    <string name="pref_title_album_art_on_lockscreen">Visualizar capa do álbum</string>
+    <string name="pref_title_blurred_album_art">Capa de álbum esmaecida</string>
     <string name="pref_title_colored_notification">Notificação colorida</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorar capas Media Store</string>
     <string name="pref_title_gapless_playback">Reprodução contínua</string>
@@ -136,6 +141,7 @@
     <string name="song">Música</string>
     <string name="pref_only_lollipop">"Apenas disponível no Lollipop."</string>
     <string name="pref_summary_album_art_on_lockscreen">A imagem do álbum está sendo mostrada no bloqueio de tela. Você deve reiniciar o Phonograph para as mudanças fazerem efeito.</string>
+    <string name="pref_summary_blurred_album_art">Esmaece a capa de álbum no bloqueio de tela. Pode causar problemas com apps de terceiros e widgets.</string>
     <string name="pref_summary_colored_notification">"A notifica\u00e7\u00e3o \u00e9 colorida com a cor mais vibrante do \u00e1lbum."</string>
     <string name="pref_summary_gapless_playback">"Pode causar problemas de reprodução em alguns dispositivos."</string>
     <string name="pref_summary_force_square_album_art">Capas de álbuns reproduzindo agora estão sempre ao quadrado.</string>
@@ -168,7 +174,9 @@
     <string name="colored_footers">Rodapés coloridos</string>
     <string name="special_thanks_to">Agradecimentos especiais para</string>
     <string name="changelog">Novidades</string>
-    <string name="permission_external_storage_denied">Permissão para acessar armazenamento externo negado.</string>
+    <string name="licenses">Licenças</string>
+    <string name="permissions_denied">Permissões negadas.</string>
+    <string name="permission_external_storage_denied">Permissão para acessar armazenamento externo negada.</string>
     <string name="back">voltar</string>
     <string name="support_development">Apoiar o desenvolvimento</string>
     <string name="thank_you">Obrigado!</string>
@@ -199,4 +207,11 @@
     <string name="loading_products">Carregando produtos...</string>
     <string name="up_next">Próximo</string>
     <string name="pref_title_now_playing_layout">Layout da tela de reprodução</string>
+    <string name="intro_label">Indrodução</string>
+    <string name="press_back_again_to_exit_intro">Pressione voltar novamente para pular a introdução.</string>
+    <string name="welcome_to_phonograph">"Seja bem-vindo ao Phonograph, um lindo e leve player de música para Android. "</string>
+    <string name="label_storage">Armazenamento</string>
+    <string name="open_playing_queue_instruction">Arraste para cima o card da tela de reprodução para mostrar a lista de reprodução completa.</string>
+    <string name="rearrange_playing_queue_instruction">Mude as músicas de lugar na fila pressionando-as e arrastando-as de seu número de faixa.</string>
+    <string name="storage_permission_explaination">A permissão de armazenamento é necessária para o Phonograph escanear suas músicas.</string>
 </resources>
