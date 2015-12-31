@@ -8,8 +8,9 @@
     <string name="action_set_as_ringtone">Ustaw jako dzwonek</string>
     <string name="action_share">Udostępnij</string>
     <string name="action_settings">"Ustawienia"</string>
+    <string name="action_grant">Przyznaj</string>
     <string name="action_about">O aplikacji</string>
-    <string name="action_show_intro">Pokaż intro</string>
+    <string name="action_show_intro">Pokaż wstęp</string>
     <string name="action_clear_playlist">Wyczyść listę odtwarzania</string>
     <string name="action_playing_queue">Kolejka odtwarzania</string>
     <string name="action_add_to_favorites">Dodaj do ulubionych</string>
@@ -174,6 +175,7 @@
     <string name="special_thanks_to">Specjalne podziękowania dla</string>
     <string name="changelog">Lista zmian</string>
     <string name="licenses">Licencje</string>
+    <string name="permissions_denied">Odmówiono zezwolenia</string>
     <string name="permission_external_storage_denied">Pozwolenie na dostęp do pamięci zewnętrznej odrzucone</string>
     <string name="back">Wróć</string>
     <string name="support_development">Wspomóż rozwój</string>
@@ -205,4 +207,11 @@
     <string name="loading_products">Ładowanie produktów...</string>
     <string name="up_next">Za chwilę zagra</string>
     <string name="pref_title_now_playing_layout">Układ ekranu \"Obecnie Grane\"</string>
+    <string name="intro_label">Wprowadzenie</string>
+    <string name="press_back_again_to_exit_intro">Naciśnij ponownie, aby pominąć wstęp</string>
+    <string name="welcome_to_phonograph">"Witaj w Phonograph, pięknym i lekkim odtwarzaczu muzyki na Androida "</string>
+    <string name="label_storage">Magazyn danych</string>
+    <string name="open_playing_queue_instruction">Przesuń kartę na ekranie \'\'Obecnie Grane\'\' w górę, aby odsłonić pełną kolejkę odtwarzania</string>
+    <string name="rearrange_playing_queue_instruction">Zmień kolejność odtwarzania, przeciągając numer utworu w górę lub w dół kolejki</string>
+    <string name="storage_permission_explaination">Phonograph wymaga zgody na dostep do magazynu danych, aby móc odczytać Twoją bibliotekę muzyczną</string>
 </resources>
