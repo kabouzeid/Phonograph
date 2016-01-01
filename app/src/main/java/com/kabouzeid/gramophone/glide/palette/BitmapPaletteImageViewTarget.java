@@ -4,8 +4,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.request.target.ImageViewTarget;
 
-public class BitmapPaletteTarget extends ImageViewTarget<BitmapPaletteWrapper> {
-    public BitmapPaletteTarget(ImageView view) {
+public class BitmapPaletteImageViewTarget extends ImageViewTarget<BitmapPaletteWrapper> {
+    public BitmapPaletteImageViewTarget(ImageView view) {
         super(view);
     }
 

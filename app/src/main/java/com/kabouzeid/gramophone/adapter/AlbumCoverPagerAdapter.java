@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
+import com.kabouzeid.gramophone.glide.PhonographColoredImageViewTarget;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.misc.CustomFragmentStatePagerAdapter;
@@ -134,7 +134,7 @@ public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
                     .transcode(new BitmapPaletteTranscoder(getActivity()), BitmapPaletteWrapper.class)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .error(R.drawable.default_album_art)
-                    .into(new PhonographColoredTarget(albumCover) {
+                    .into(new PhonographColoredImageViewTarget(albumCover) {
                         @Override
                         public void onColorReady(int color) {
                             setColor(color);
