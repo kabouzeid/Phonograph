@@ -53,9 +53,11 @@ public class SongLoader {
 
     @NonNull
     public static Song getSong(@Nullable Cursor cursor) {
-        Song song = new Song();
+        Song song;
         if (cursor != null && cursor.moveToFirst()) {
             song = getSongFromCursorImpl(cursor);
+        } else {
+            song = new Song();
         }
         if (cursor != null) {
             cursor.close();
@@ -66,15 +68,18 @@ public class SongLoader {
     @NonNull
     private static Song getSongFromCursorImpl(@NonNull Cursor cursor) {
         final int id = cursor.getInt(0);
-        final String songName = cursor.getString(1);
-        final String artist = cursor.getString(2);
-        final String album = cursor.getString(3);
+        final String title = cursor.getString(1);
+        final int trackNumber = cursor.getInt(2);
+        final int year = cursor.getInt(3);
         final long duration = cursor.getLong(4);
-        final int trackNumber = cursor.getInt(5);
-        final int artistId = cursor.getInt(6);
+        final String data = cursor.getString(5);
+        final long dateModified = cursor.getLong(6);
         final int albumId = cursor.getInt(7);
-        final String data = cursor.getString(8);
-        return new Song(id, albumId, artistId, songName, artist, album, duration, trackNumber, data);
+        final String albumName = cursor.getString(8);
+        final int artistId = cursor.getInt(9);
+        final String artistName = cursor.getString(10);
+
+        return new Song(id, title, trackNumber, year, duration, data, dateModified, albumId, albumName, artistId, artistName);
     }
 
     @Nullable
@@ -92,24 +97,18 @@ public class SongLoader {
         try {
             return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                     new String[]{
-                        /* 0 */
-                            BaseColumns._ID,
-                        /* 1 */
-                            AudioColumns.TITLE,
-                        /* 2 */
-                            AudioColumns.ARTIST,
-                        /* 3 */
-                            AudioColumns.ALBUM,
-                        /* 4 */
-                            AudioColumns.DURATION,
-                        /* 5 */
-                            AudioColumns.TRACK,
-                        /* 6 */
-                            AudioColumns.ARTIST_ID,
-                        /* 7 */
-                            AudioColumns.ALBUM_ID,
-                        /* 8 */
-                            AudioColumns.DATA
+                            BaseColumns._ID,// 0
+                            AudioColumns.TITLE,// 1
+                            AudioColumns.TRACK,// 2
+                            AudioColumns.YEAR,// 3
+                            AudioColumns.DURATION,// 4
+                            AudioColumns.DATA,// 5
+                            AudioColumns.DATE_MODIFIED,// 6
+                            AudioColumns.ALBUM_ID,// 7
+                            AudioColumns.ALBUM,// 8
+                            AudioColumns.ARTIST_ID,// 9
+                            AudioColumns.ARTIST,// 10
+
                     }, baseSelection, values, sortOrder);
         } catch (SecurityException e) {
             return null;

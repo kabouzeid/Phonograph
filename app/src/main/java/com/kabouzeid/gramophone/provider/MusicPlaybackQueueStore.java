@@ -41,7 +41,7 @@ public class MusicPlaybackQueueStore extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "music_playback_state.db";
     public static final String PLAYING_QUEUE_TABLE_NAME = "playing_queue";
     public static final String ORIGINAL_PLAYING_QUEUE_TABLE_NAME = "original_playing_queue";
-    private static final int VERSION = 2;
+    private static final int VERSION = 3;
 
     /**
      * Constructor of <code>MusicPlaybackState</code>
@@ -71,25 +71,31 @@ public class MusicPlaybackQueueStore extends SQLiteOpenHelper {
         builder.append(AudioColumns.TITLE);
         builder.append(" STRING NOT NULL,");
 
-        builder.append(AudioColumns.ARTIST);
-        builder.append(" STRING NOT NULL,");
+        builder.append(AudioColumns.TRACK);
+        builder.append(" INT NOT NULL,");
 
-        builder.append(AudioColumns.ALBUM);
-        builder.append(" STRING NOT NULL,");
+        builder.append(AudioColumns.YEAR);
+        builder.append(" INT NOT NULL,");
 
         builder.append(AudioColumns.DURATION);
         builder.append(" LONG NOT NULL,");
 
-        builder.append(AudioColumns.TRACK);
-        builder.append(" INT NOT NULL,");
+        builder.append(AudioColumns.DATA);
+        builder.append(" STRING NOT NULL,");
 
-        builder.append(AudioColumns.ARTIST_ID);
-        builder.append(" INT NOT NULL,");
+        builder.append(AudioColumns.DATE_MODIFIED);
+        builder.append(" LONG NOT NULL,");
 
         builder.append(AudioColumns.ALBUM_ID);
         builder.append(" INT NOT NULL,");
 
-        builder.append(AudioColumns.DATA);
+        builder.append(AudioColumns.ALBUM);
+        builder.append(" STRING NOT NULL,");
+
+        builder.append(AudioColumns.ARTIST_ID);
+        builder.append(" INT NOT NULL,");
+
+        builder.append(AudioColumns.ARTIST);
         builder.append(" STRING NOT NULL);");
 
         db.execSQL(builder.toString());
@@ -156,13 +162,15 @@ public class MusicPlaybackQueueStore extends SQLiteOpenHelper {
 
                     values.put(BaseColumns._ID, song.id);
                     values.put(AudioColumns.TITLE, song.title);
-                    values.put(AudioColumns.ARTIST, song.artistName);
-                    values.put(AudioColumns.ALBUM, song.albumName);
-                    values.put(AudioColumns.DURATION, song.duration);
                     values.put(AudioColumns.TRACK, song.trackNumber);
-                    values.put(AudioColumns.ARTIST_ID, song.artistId);
-                    values.put(AudioColumns.ALBUM_ID, song.albumId);
+                    values.put(AudioColumns.YEAR, song.year);
+                    values.put(AudioColumns.DURATION, song.duration);
                     values.put(AudioColumns.DATA, song.data);
+                    values.put(AudioColumns.DATE_MODIFIED, song.dateModified);
+                    values.put(AudioColumns.ALBUM_ID, song.albumId);
+                    values.put(AudioColumns.ALBUM, song.albumName);
+                    values.put(AudioColumns.ARTIST_ID, song.artistId);
+                    values.put(AudioColumns.ARTIST, song.artistName);
 
                     database.insert(tableName, null, values);
                 }

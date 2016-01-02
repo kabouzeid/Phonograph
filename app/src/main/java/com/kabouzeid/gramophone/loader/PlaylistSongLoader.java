@@ -31,17 +31,19 @@ public class PlaylistSongLoader {
     @NonNull
     private static PlaylistSong getPlaylistSongFromCursorImpl(@NonNull Cursor cursor, int playlistId) {
         final int id = cursor.getInt(0);
-        final String songName = cursor.getString(1);
-        final String artist = cursor.getString(2);
-        final String album = cursor.getString(3);
+        final String title = cursor.getString(1);
+        final int trackNumber = cursor.getInt(2);
+        final int year = cursor.getInt(3);
         final long duration = cursor.getLong(4);
-        final int trackNumber = cursor.getInt(5);
-        final int albumId = cursor.getInt(6);
-        final int artistId = cursor.getInt(7);
-        final String data = cursor.getString(8);
-        final int idInPlaylist = cursor.getInt(9);
+        final String data = cursor.getString(5);
+        final int dateModified = cursor.getInt(6);
+        final int albumId = cursor.getInt(7);
+        final String albumName = cursor.getString(8);
+        final int artistId = cursor.getInt(9);
+        final String artistName = cursor.getString(10);
+        final int idInPlaylist = cursor.getInt(11);
 
-        return new PlaylistSong(id, albumId, artistId, songName, artist, album, duration, trackNumber, data, playlistId, idInPlaylist);
+        return new PlaylistSong(id, title, trackNumber, year, duration, data, dateModified, albumId, albumName, artistId, artistName, playlistId, idInPlaylist);
     }
 
     public static Cursor makePlaylistSongCursor(@NonNull final Context context, final int playlistId) {
@@ -49,26 +51,18 @@ public class PlaylistSongLoader {
             return context.getContentResolver().query(
                     MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),
                     new String[]{
-                        /* 0 */
-                            MediaStore.Audio.Playlists.Members.AUDIO_ID,
-                        /* 1 */
-                            AudioColumns.TITLE,
-                        /* 2 */
-                            AudioColumns.ARTIST,
-                        /* 3 */
-                            AudioColumns.ALBUM,
-                        /* 4 */
-                            AudioColumns.DURATION,
-                        /* 5 */
-                            AudioColumns.TRACK,
-                        /* 6 */
-                            AudioColumns.ALBUM_ID,
-                        /* 7 */
-                            AudioColumns.ARTIST_ID,
-                        /* 8 */
-                            AudioColumns.DATA,
-                        /* 9 */
-                            MediaStore.Audio.Playlists.Members._ID
+                            MediaStore.Audio.Playlists.Members.AUDIO_ID,// 0
+                            AudioColumns.TITLE,// 1
+                            AudioColumns.TRACK,// 2
+                            AudioColumns.YEAR,// 3
+                            AudioColumns.DURATION,// 4
+                            AudioColumns.DATA,// 5
+                            AudioColumns.DATE_MODIFIED,// 6
+                            AudioColumns.ALBUM_ID,// 7
+                            AudioColumns.ALBUM,// 8
+                            AudioColumns.ARTIST_ID,// 9
+                            AudioColumns.ARTIST,// 10
+                            MediaStore.Audio.Playlists.Members._ID // 11
                     }, SongLoader.BASE_SELECTION, null,
                     MediaStore.Audio.Playlists.Members.DEFAULT_SORT_ORDER);
         } catch (SecurityException e) {

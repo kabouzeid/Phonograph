@@ -23,7 +23,6 @@ import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
-import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ColorUtil;
@@ -79,11 +78,11 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     }
 
     protected String getAlbumTitle(Album album) {
-        return album.title;
+        return album.getTitle();
     }
 
     protected String getAlbumText(Album album) {
-        return album.artistName;
+        return album.getArtistName();
     }
 
     @Override
@@ -121,7 +120,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     protected void loadAlbumCover(Album album, final ViewHolder holder) {
         if (holder.image == null) return;
         Glide.with(activity)
-                .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.id))
+                .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.getId()))
                 .asBitmap()
                 .transcode(new BitmapPaletteTranscoder(activity), BitmapPaletteWrapper.class)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -149,7 +148,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
 
     @Override
     public long getItemId(int position) {
-        return dataSet.get(position).id;
+        return dataSet.get(position).getId();
     }
 
     @Override
@@ -159,7 +158,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
 
     @Override
     protected String getName(Album album) {
-        return album.title;
+        return album.getTitle();
     }
 
     @Override
@@ -181,7 +180,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     private ArrayList<Song> getSongList(@NonNull List<Album> albums) {
         final ArrayList<Song> songs = new ArrayList<>();
         for (Album album : albums) {
-            songs.addAll(AlbumSongLoader.getAlbumSongList(activity, album.id));
+            songs.addAll(album.songs);
         }
         return songs;
     }
@@ -205,7 +204,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
                         Pair.create(image,
                                 activity.getResources().getString(R.string.transition_album_art)
                         )};
-                NavigationUtil.goToAlbum(activity, dataSet.get(getAdapterPosition()).id, albumPairs);
+                NavigationUtil.goToAlbum(activity, dataSet.get(getAdapterPosition()).getId(), albumPairs);
             }
         }
 

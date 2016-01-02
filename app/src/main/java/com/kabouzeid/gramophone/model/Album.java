@@ -3,34 +3,44 @@ package com.kabouzeid.gramophone.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class Album implements Parcelable {
-    public final int id;
-    public final int artistId;
-    public final String title;
-    public final String artistName;
-    public final int songCount;
-    public final int year;
+    public final ArrayList<Song> songs;
 
-    public Album(final int id, final String title, final String artistName, final int artistId,
-                 final int songNumber, final int albumYear) {
-        this.id = id;
-        this.title = title;
-        this.artistName = artistName;
-        this.artistId = artistId;
-        songCount = songNumber;
-        year = albumYear;
+    public Album(ArrayList<Song> songs) {
+        this.songs = songs;
     }
 
     public Album() {
-        this.id = -1;
-        this.title = "";
-        this.artistName = "";
-        this.artistId = -1;
-        songCount = -1;
-        year = -1;
+        this.songs = new ArrayList<>();
+    }
+
+    public int getId() {
+        return songs.get(0).albumId;
+    }
+
+    public String getTitle() {
+        return songs.get(0).albumName;
+    }
+
+    public int getArtistId() {
+        return songs.get(0).artistId;
+    }
+
+    public String getArtistName() {
+        return songs.get(0).artistName;
+    }
+
+    public int getYear() {
+        return songs.get(0).year;
+    }
+
+    public int getSongCount() {
+        return songs.size();
     }
 
     @Override
@@ -38,40 +48,23 @@ public class Album implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Album album = (Album) o;
+        Album that = (Album) o;
 
-        if (id != album.id) return false;
-        if (artistId != album.artistId) return false;
-        if (songCount != album.songCount) return false;
-        if (year != album.year) return false;
-        if (title != null ? !title.equals(album.title) : album.title != null) return false;
-        return artistName != null ? artistName.equals(album.artistName) : album.artistName == null;
+        return songs != null ? songs.equals(that.songs) : that.songs == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + artistId;
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (artistName != null ? artistName.hashCode() : 0);
-        result = 31 * result + songCount;
-        result = 31 * result + year;
-        return result;
+        return songs != null ? songs.hashCode() : 0;
     }
 
     @Override
     public String toString() {
         return "Album{" +
-                "id=" + id +
-                ", artistId=" + artistId +
-                ", title='" + title + '\'' +
-                ", artistName='" + artistName + '\'' +
-                ", songCount=" + songCount +
-                ", year=" + year +
+                "songs=" + songs +
                 '}';
     }
-
 
     @Override
     public int describeContents() {
@@ -80,24 +73,14 @@ public class Album implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
-        dest.writeInt(this.artistId);
-        dest.writeString(this.title);
-        dest.writeString(this.artistName);
-        dest.writeInt(this.songCount);
-        dest.writeInt(this.year);
+        dest.writeTypedList(songs);
     }
 
     protected Album(Parcel in) {
-        this.id = in.readInt();
-        this.artistId = in.readInt();
-        this.title = in.readString();
-        this.artistName = in.readString();
-        this.songCount = in.readInt();
-        this.year = in.readInt();
+        this.songs = in.createTypedArrayList(Song.CREATOR);
     }
 
-    public static final Parcelable.Creator<Album> CREATOR = new Parcelable.Creator<Album>() {
+    public static final Creator<Album> CREATOR = new Creator<Album>() {
         public Album createFromParcel(Parcel source) {
             return new Album(source);
         }
