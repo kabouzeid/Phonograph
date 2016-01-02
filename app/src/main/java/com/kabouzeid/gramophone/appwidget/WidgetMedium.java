@@ -19,6 +19,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.model.Song;
@@ -88,7 +89,8 @@ public class WidgetMedium extends AppWidgetProvider {
                 Glide.with(context)
                         .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
                         .asBitmap()
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .signature(new MediaStoreSignature("", song.dateModified, 0))
                         .into(target);
             }
         });

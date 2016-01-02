@@ -94,7 +94,7 @@ public class Song implements Parcelable {
                 ", year=" + year +
                 ", duration=" + duration +
                 ", data='" + data + '\'' +
-                ", dateModified=" + dateModified +
+                ", getDateModified=" + dateModified +
                 ", albumId=" + albumId +
                 ", albumName='" + albumName + '\'' +
                 ", artistId=" + artistId +

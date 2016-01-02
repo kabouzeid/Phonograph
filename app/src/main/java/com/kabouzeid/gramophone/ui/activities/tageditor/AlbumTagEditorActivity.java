@@ -128,8 +128,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
                                     @Override
                                     public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
-                                        ColorUtil.getColor(resource.getPalette(), Color.TRANSPARENT);
-                                        albumArtBitmap = resource.getBitmap();
+                                        albumArtBitmap = getResizedAlbumCover(resource.getBitmap(), 2048);
                                         setImageBitmap(albumArtBitmap, ColorUtil.getColor(resource.getPalette(), ColorUtil.resolveColor(AlbumTagEditorActivity.this, R.attr.default_bar_color)));
                                         deleteAlbumArt = false;
                                         dataChanged();
@@ -215,7 +214,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
                 .transcode(new BitmapPaletteTranscoder(AlbumTagEditorActivity.this), BitmapPaletteWrapper.class)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
-                .into(new SimpleTarget<BitmapPaletteWrapper>() {
+                .into(new SimpleTarget<BitmapPaletteWrapper>(4097, 4097) {
                     @Override
                     public void onLoadFailed(Exception e, Drawable errorDrawable) {
                         super.onLoadFailed(e, errorDrawable);
@@ -226,7 +225,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
                     @Override
                     public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
                         ColorUtil.getColor(resource.getPalette(), Color.TRANSPARENT);
-                        albumArtBitmap = resource.getBitmap();
+                        albumArtBitmap = getResizedAlbumCover(resource.getBitmap(), 2048);
                         setImageBitmap(albumArtBitmap, ColorUtil.getColor(resource.getPalette(), ColorUtil.resolveColor(AlbumTagEditorActivity.this, R.attr.default_bar_color)));
                         deleteAlbumArt = false;
                         dataChanged();

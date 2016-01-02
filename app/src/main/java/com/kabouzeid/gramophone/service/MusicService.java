@@ -36,6 +36,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appwidget.WidgetMedium;
 import com.kabouzeid.gramophone.glide.BlurTransformation;
@@ -448,7 +449,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             final BitmapRequestBuilder request = Glide.with(MusicService.this)
                     .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
                     .asBitmap()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE);
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .signature(new MediaStoreSignature("", song.dateModified, 0));
             if (blurAlbumArt) {
                 request.transform(new BlurTransformation.Builder(MusicService.this).build());
             }
