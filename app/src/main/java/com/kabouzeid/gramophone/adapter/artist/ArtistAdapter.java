@@ -27,6 +27,7 @@ import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.util.ArtistSignatureUtil;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -38,7 +39,6 @@ import java.util.List;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolder, Artist> {
-    private static final int FADE_IN_TIME = 500;
 
     protected final AppCompatActivity activity;
     protected ArrayList<Artist> dataSet;
@@ -126,6 +126,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.default_album_art)
                 .animate(android.R.anim.fade_in)
+                .signature(ArtistSignatureUtil.getInstance(activity).getArtistSignature(artist.name))
                 .into(new PhonographColoredTarget(holder.image) {
                     @Override
                     public void onLoadCleared(Drawable placeholder) {

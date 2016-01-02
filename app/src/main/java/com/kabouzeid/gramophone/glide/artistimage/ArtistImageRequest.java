@@ -5,10 +5,10 @@ package com.kabouzeid.gramophone.glide.artistimage;
  */
 public class ArtistImageRequest {
     public final String artistName;
-    public final boolean forceDownload;
+    public final boolean skipOkHttpCache;
 
-    public ArtistImageRequest(String artistName, boolean forceDownload) {
+    public ArtistImageRequest(String artistName, boolean skipOkHttpCache) {
         this.artistName = artistName;
-        this.forceDownload = forceDownload;
+        this.skipOkHttpCache = skipOkHttpCache;
     }
 }
