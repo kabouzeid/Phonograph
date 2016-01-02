@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
@@ -355,8 +356,10 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                 if (deleteArtwork) {
                     MusicUtil.deleteAlbumArt(AbsTagEditorActivity.this, getId());
                     Glide.get(AbsTagEditorActivity.this).clearMemory();
+                    Toast.makeText(AbsTagEditorActivity.this, R.string.tag_editor_restart_notice, Toast.LENGTH_SHORT).show();
                 } else if (artwork != null) {
                     Glide.get(AbsTagEditorActivity.this).clearMemory();
+                    Toast.makeText(AbsTagEditorActivity.this, R.string.tag_editor_restart_notice, Toast.LENGTH_SHORT).show();
                 }
                 rescanMediaAndQuitOnFinish();
             }
