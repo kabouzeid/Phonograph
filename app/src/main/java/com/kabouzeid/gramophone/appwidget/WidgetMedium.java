@@ -7,29 +7,27 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.View;
 import android.widget.RemoteViews;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.ImageSize;
-import com.nostra13.universalimageloader.core.assist.ViewScaleType;
-import com.nostra13.universalimageloader.core.imageaware.NonViewAware;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 public class WidgetMedium extends AppWidgetProvider {
     private static RemoteViews widgetLayout;
-    private static String currentAlbumArtUri;
 
     public static void updateWidgets(@NonNull final Context context, @NonNull final Song song, boolean isPlaying) {
         if (song.id == -1) return;
@@ -39,7 +37,7 @@ public class WidgetMedium extends AppWidgetProvider {
         widgetLayout.setTextViewText(R.id.song_secondary_information, song.artistName + " | " + song.albumName);
 
         updateWidgetsPlayState(context, isPlaying);
-        loadAlbumArt(context, song);
+        loadAlbumCover(context, song);
     }
 
     public static void updateWidgetsPlayState(@NonNull final Context context, boolean isPlaying) {
@@ -59,46 +57,44 @@ public class WidgetMedium extends AppWidgetProvider {
         }
     }
 
-    private static void loadAlbumArt(@NonNull final Context context, @Nullable final Song song) {
-        if (song != null) {
-            int widgetImageSize = context.getResources().getDimensionPixelSize(R.dimen.widget_medium_image_size);
-            currentAlbumArtUri = MusicUtil.getSongImageLoaderString(song);
-            ImageLoader.getInstance().displayImage(
-                    currentAlbumArtUri,
-                    new NonViewAware(new ImageSize(widgetImageSize, widgetImageSize), ViewScaleType.CROP),
-                    new DisplayImageOptions.Builder()
-                            .postProcessor(new BitmapProcessor() {
-                                @Override
-                                public Bitmap process(Bitmap bitmap) {
-                                    // The RemoteViews might wants to recycle the bitmaps thrown at it, so we need
-                                    // to make sure not to hand out our cache copy
-                                    Bitmap.Config config = bitmap.getConfig();
-                                    if (config == null) {
-                                        config = Bitmap.Config.ARGB_8888;
-                                    }
-                                    bitmap = bitmap.copy(config, false);
-                                    return bitmap.copy(bitmap.getConfig(), true);
-                                }
-                            }).build(),
-                    new SimpleImageLoadingListener() {
-                        @Override
-                        public void onLoadingComplete(String imageUri, View view, @Nullable Bitmap loadedImage) {
-                            if (currentAlbumArtUri.equals(imageUri)) {
-                                setAlbumArt(context, loadedImage);
-                            }
-                        }
+    private static Handler uiThreadHandler;
+    private static Target<Bitmap> target;
 
-                        @Override
-                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                            if (currentAlbumArtUri.equals(imageUri)) {
-                                setAlbumArt(context, null);
-                            }
-                        }
-                    });
+    private static void loadAlbumCover(@NonNull final Context context, @Nullable final Song song) {
+        if (song == null) return;
+
+        if (uiThreadHandler == null) {
+            uiThreadHandler = new Handler(Looper.getMainLooper());
         }
+        if (target == null) {
+            int widgetImageSize = context.getResources().getDimensionPixelSize(R.dimen.widget_medium_image_size);
+            target = new SimpleTarget<Bitmap>(widgetImageSize, widgetImageSize) {
+                @Override
+                public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                    super.onLoadFailed(e, errorDrawable);
+                    setAlbumCover(context, null);
+                }
+
+                @Override
+                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    setAlbumCover(context, resource);
+                }
+            };
+        }
+
+        uiThreadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                Glide.with(context)
+                        .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
+                        .asBitmap()
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .into(target);
+            }
+        });
     }
 
-    private static void setAlbumArt(@NonNull final Context context, @Nullable final Bitmap albumArt) {
+    private static void setAlbumCover(@NonNull final Context context, @Nullable final Bitmap albumArt) {
         if (albumArt != null) {
             widgetLayout.setImageViewBitmap(R.id.image, albumArt);
         } else {

@@ -1,29 +1,33 @@
 package com.kabouzeid.gramophone.ui.activities.tageditor;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
+import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
 import com.kabouzeid.gramophone.lastfm.rest.model.LastFmAlbum;
 import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.LastFMUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.kabouzeid.gramophone.util.Util;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.images.Artwork;
@@ -88,7 +92,8 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
     @Override
     protected void loadCurrentImage() {
-        setImageBitmap(getAlbumArt());
+        Bitmap bitmap = getAlbumArt();
+        setImageBitmap(bitmap, ColorUtil.getColor(ColorUtil.generatePalette(bitmap), ColorUtil.resolveColor(this, R.attr.default_bar_color)));
         deleteAlbumArt = false;
     }
 
@@ -105,32 +110,36 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
             public void onResponse(final Response<LastFmAlbum> response, Retrofit retrofit) {
                 LastFmAlbum lastFmAlbum = response.body();
                 if (lastFmAlbum.getAlbum() != null) {
-                    ImageLoader.getInstance().loadImage(LastFMUtil.getLargestAlbumImageUrl(lastFmAlbum.getAlbum().getImage()),
-                            new DisplayImageOptions.Builder()
-                                    .preProcessor(albumCoverProcessor)
-                                    .build(),
-                            new SimpleImageLoadingListener() {
-                                @Override
-                                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                                    if (loadedImage == null) {
-                                        onLoadingFailed(imageUri, view, null);
-                                        return;
+                    String url = LastFMUtil.getLargestAlbumImageUrl(lastFmAlbum.getAlbum().getImage());
+                    if (!TextUtils.isEmpty(url) && url.trim().length() > 0) {
+                        Glide.with(AlbumTagEditorActivity.this)
+                                .load(url)
+                                .asBitmap()
+                                .transcode(new BitmapPaletteTranscoder(AlbumTagEditorActivity.this), BitmapPaletteWrapper.class)
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .error(R.drawable.default_album_art)
+                                .into(new SimpleTarget<BitmapPaletteWrapper>() {
+                                    @Override
+                                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                                        super.onLoadFailed(e, errorDrawable);
+                                        e.printStackTrace();
+                                        Toast.makeText(AlbumTagEditorActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                                     }
-                                    albumArtBitmap = loadedImage;
-                                    setImageBitmap(albumArtBitmap);
-                                    deleteAlbumArt = false;
-                                    dataChanged();
-                                    setResult(RESULT_OK);
-                                }
 
-                                @Override
-                                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                                    handleFailReason(failReason);
-                                }
-                            });
-                } else {
-                    toastLoadingFailed();
+                                    @Override
+                                    public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
+                                        ColorUtil.getColor(resource.getPalette(), Color.TRANSPARENT);
+                                        albumArtBitmap = resource.getBitmap();
+                                        setImageBitmap(albumArtBitmap, ColorUtil.getColor(resource.getPalette(), ColorUtil.resolveColor(AlbumTagEditorActivity.this, R.attr.default_bar_color)));
+                                        deleteAlbumArt = false;
+                                        dataChanged();
+                                        setResult(RESULT_OK);
+                                    }
+                                });
+                        return;
+                    }
                 }
+                toastLoadingFailed();
             }
 
             @Override
@@ -152,7 +161,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
     @Override
     protected void deleteImage() {
-        setImageRes(R.drawable.default_album_art);
+        setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.default_album_art), ColorUtil.resolveColor(this, R.attr.default_bar_color));
         deleteAlbumArt = true;
         dataChanged();
     }
@@ -200,23 +209,28 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
     @Override
     protected void loadImageFromFile(@NonNull final Uri selectedFileUri) {
-        ImageLoader.getInstance().loadImage(selectedFileUri.toString(),
-                new DisplayImageOptions.Builder()
-                        .preProcessor(albumCoverProcessor)
-                        .build(),
-                new SimpleImageLoadingListener() {
+        Glide.with(AlbumTagEditorActivity.this)
+                .load(selectedFileUri)
+                .asBitmap()
+                .transcode(new BitmapPaletteTranscoder(AlbumTagEditorActivity.this), BitmapPaletteWrapper.class)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(new SimpleTarget<BitmapPaletteWrapper>() {
                     @Override
-                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                        albumArtBitmap = loadedImage;
-                        setImageBitmap(albumArtBitmap);
-                        deleteAlbumArt = false;
-                        dataChanged();
-                        setResult(RESULT_OK);
+                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                        super.onLoadFailed(e, errorDrawable);
+                        e.printStackTrace();
+                        Toast.makeText(AlbumTagEditorActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                     }
 
                     @Override
-                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                        handleFailReason(failReason);
+                    public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
+                        ColorUtil.getColor(resource.getPalette(), Color.TRANSPARENT);
+                        albumArtBitmap = resource.getBitmap();
+                        setImageBitmap(albumArtBitmap, ColorUtil.getColor(resource.getPalette(), ColorUtil.resolveColor(AlbumTagEditorActivity.this, R.attr.default_bar_color)));
+                        deleteAlbumArt = false;
+                        dataChanged();
+                        setResult(RESULT_OK);
                     }
                 });
     }
@@ -234,22 +248,6 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
     @Override
     public void afterTextChanged(Editable s) {
         dataChanged();
-    }
-
-    private BitmapProcessor albumCoverProcessor = new BitmapProcessor() {
-        @Override
-        public Bitmap process(Bitmap bitmap) {
-            return getResizedAlbumCover(bitmap, Util.getSmallerScreenSize(AlbumTagEditorActivity.this));
-        }
-    };
-
-    @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
-    private void handleFailReason(FailReason failReason) {
-        Throwable cause = failReason.getCause();
-        if (cause != null) {
-            cause.printStackTrace();
-            Toast.makeText(AlbumTagEditorActivity.this, cause.toString(), Toast.LENGTH_LONG).show();
-        }
     }
 
     private static Bitmap getResizedAlbumCover(@NonNull Bitmap src, int maxForSmallerSize) {

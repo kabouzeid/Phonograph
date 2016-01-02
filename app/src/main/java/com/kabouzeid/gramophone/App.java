@@ -3,11 +3,6 @@ package com.kabouzeid.gramophone;
 import android.app.Application;
 
 import com.crashlytics.android.Crashlytics;
-import com.kabouzeid.gramophone.imageloader.PhonographExecutor;
-import com.kabouzeid.gramophone.imageloader.PhonographImageDownloader;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.utils.L;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -24,12 +19,5 @@ public class App extends Application {
         super.onCreate();
 
         if (!BuildConfig.DEBUG) Fabric.with(this, new Crashlytics());
-
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
-                .imageDownloader(new PhonographImageDownloader(this))
-                .taskExecutor(new PhonographExecutor())
-                .build();
-        ImageLoader.getInstance().init(config);
-        L.writeLogs(false); // turns off UILs annoying LogCat output
     }
 }

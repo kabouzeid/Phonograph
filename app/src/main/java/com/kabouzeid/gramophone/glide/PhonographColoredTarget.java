@@ -26,7 +26,7 @@ public abstract class PhonographColoredTarget extends BitmapPaletteTarget {
         onColorReady(ColorUtil.getColor(resource.getPalette(), getDefaultBarColor()));
     }
 
-    private int getDefaultBarColor() {
+    protected int getDefaultBarColor() {
         return ColorUtil.resolveColor(getView().getContext(), R.attr.default_bar_color);
     }
 

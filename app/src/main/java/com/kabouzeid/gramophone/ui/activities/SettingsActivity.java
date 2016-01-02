@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
+import com.bumptech.glide.Glide;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.prefs.ColorChooserPreference;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
@@ -26,7 +27,6 @@ import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -198,7 +198,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             ignoreMediaStoreArtwork.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    ImageLoader.getInstance().clearMemoryCache();
+                    Glide.get(getActivity()).clearMemory();
                     return true;
                 }
             });

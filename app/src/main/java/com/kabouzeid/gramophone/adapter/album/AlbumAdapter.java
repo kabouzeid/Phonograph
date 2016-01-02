@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.adapter.album;
 
+import android.graphics.drawable.Drawable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -89,9 +90,6 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Album album = dataSet.get(position);
 
-        final int defaultBarColor = ColorUtil.resolveColor(activity, R.attr.default_bar_color);
-        setColors(defaultBarColor, holder);
-
         final boolean isChecked = isChecked(album);
         holder.itemView.setActivated(isChecked);
         if (holder.selectedIndicator != null) {
@@ -130,6 +128,12 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
                 .error(R.drawable.default_album_art)
                 .animate(android.R.anim.fade_in)
                 .into(new PhonographColoredTarget(holder.image) {
+                    @Override
+                    public void onLoadCleared(Drawable placeholder) {
+                        super.onLoadCleared(placeholder);
+                        setColors(getDefaultBarColor(), holder);
+                    }
+
                     @Override
                     public void onColorReady(int color) {
                         if (usePalette)
