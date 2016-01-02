@@ -7,8 +7,6 @@ import android.support.annotation.NonNull;
 
 import com.bumptech.glide.signature.StringSignature;
 
-import hugo.weaving.DebugLog;
-
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -30,13 +28,11 @@ public class ArtistSignatureUtil {
         return sInstance;
     }
 
-    @DebugLog
     @SuppressLint("CommitPrefEdits")
     public void updateArtistSignature(String artistName) {
         mPreferences.edit().putLong(artistName, System.currentTimeMillis()).commit();
     }
 
-    @DebugLog
     public long getArtistSignatureRaw(String artistName) {
         return mPreferences.getLong(artistName, 0);
     }

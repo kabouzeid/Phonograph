@@ -94,10 +94,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         switch (getItemViewType(position)) {
             case ALBUM:
                 final Album album = (Album) results.get(position);
-                holder.title.setText(album.title);
-                holder.text.setText(album.artistName);
+                holder.title.setText(album.getTitle());
+                holder.text.setText(album.getArtistName());
                 Glide.with(activity)
-                        .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.id))
+                        .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.getId()))
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .error(R.drawable.default_album_art)
                         .animate(android.R.anim.fade_in)
@@ -182,7 +182,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             switch (getItemViewType()) {
                 case ALBUM:
                     NavigationUtil.goToAlbum(activity,
-                            ((Album) item).id,
+                            ((Album) item).getId(),
                             Pair.create(image,
                                     activity.getResources().getString(R.string.transition_album_art)
                             ));

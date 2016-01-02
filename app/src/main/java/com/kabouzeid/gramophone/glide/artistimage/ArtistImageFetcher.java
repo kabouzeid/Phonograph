@@ -11,8 +11,6 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 
 import java.io.InputStream;
 
-import hugo.weaving.DebugLog;
-
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -32,7 +30,6 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
         return model.artistName;
     }
 
-    @DebugLog
     @Override
     public InputStream loadData(Priority priority) throws Exception {
         if (MusicUtil.isArtistNameUnknown(model.artistName)) return null;

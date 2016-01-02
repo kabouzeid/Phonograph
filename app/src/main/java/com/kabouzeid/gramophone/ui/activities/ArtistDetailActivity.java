@@ -216,7 +216,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     }
 
     private ArrayList<Album> loadAlbumDataSet() {
-        return ArtistAlbumLoader.getArtistAlbumList(this, artist.id);
+        return ArtistAlbumLoader.getAlbums(this, artist.id);
     }
 
     private void loadBiography() {

@@ -23,7 +23,7 @@ import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
 import com.kabouzeid.gramophone.lastfm.rest.model.LastFmAlbum;
-import com.kabouzeid.gramophone.loader.AlbumSongLoader;
+import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.LastFMUtil;
@@ -199,7 +199,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
     @NonNull
     @Override
     protected List<String> getSongPaths() {
-        ArrayList<Song> songs = AlbumSongLoader.getAlbumSongList(this, getId());
+        ArrayList<Song> songs = AlbumLoader.getAlbum(this, getId()).songs;
         ArrayList<String> paths = new ArrayList<>(songs.size());
         for (Song song : songs) {
             paths.add(song.data);

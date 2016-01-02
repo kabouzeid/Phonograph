@@ -30,10 +30,8 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
-import com.kabouzeid.gramophone.loader.AlbumSongLoader;
 import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.model.Album;
-import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AlbumTagEditorActivity;
@@ -41,8 +39,6 @@ import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
-
-import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -133,7 +129,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         Bundle intentExtras = getIntent().getExtras();
         final int albumId = intentExtras.getInt(EXTRA_ALBUM_ID);
         album = AlbumLoader.getAlbum(this, albumId);
-        if (album.id == -1) {
+        if (album.songs.isEmpty()) {
             finish();
         }
     }
@@ -150,7 +146,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     }
 
     private void setUpViews() {
-        albumTitleView.setText(album.title);
+        albumTitleView.setText(album.getTitle());
         setUpRecyclerViewView();
         setUpSongsAdapter();
         setUpAlbumArtAndApplyPalette();
@@ -158,7 +154,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
 
     private void setUpAlbumArtAndApplyPalette() {
         Glide.with(this)
-                .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.id))
+                .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.getId()))
                 .asBitmap()
                 .transcode(new BitmapPaletteTranscoder(this), BitmapPaletteWrapper.class)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -234,7 +230,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     }
 
     private void setUpSongsAdapter() {
-        adapter = new AlbumSongAdapter(this, loadSongDataSet(), R.layout.item_list, false, this);
+        adapter = new AlbumSongAdapter(this, album.songs, R.layout.item_list, false, this);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(adapter);
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
@@ -247,11 +243,11 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     }
 
     private void reloadDataSet() {
-        adapter.swapDataSet(loadSongDataSet());
+        adapter.swapDataSet(album.songs);
     }
 
-    private ArrayList<Song> loadSongDataSet() {
-        return AlbumSongLoader.getAlbumSongList(this, album.id);
+    private void reloadAlbum() {
+        album = AlbumLoader.getAlbum(this, album.getId());
     }
 
     @Override
@@ -292,11 +288,11 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                 return true;
             case R.id.action_tag_editor:
                 Intent intent = new Intent(this, AlbumTagEditorActivity.class);
-                intent.putExtra(AbsTagEditorActivity.EXTRA_ID, album.id);
+                intent.putExtra(AbsTagEditorActivity.EXTRA_ID, album.getId());
                 startActivityForResult(intent, TAG_EDITOR_REQUEST);
                 return true;
             case R.id.action_go_to_artist:
-                NavigationUtil.goToArtist(this, album.artistId);
+                NavigationUtil.goToArtist(this, album.getArtistId());
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -307,7 +303,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == TAG_EDITOR_REQUEST) {
             getAlbumFromIntentExtras();
-            albumTitleView.setText(album.title);
+            albumTitleView.setText(album.getTitle());
             setUpAlbumArtAndApplyPalette();
             setResult(RESULT_OK);
         }
