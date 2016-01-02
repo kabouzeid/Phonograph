@@ -10,11 +10,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
+import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
+import com.kabouzeid.gramophone.glide.artistimage.ArtistImageRequest;
+import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
+import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
@@ -112,39 +118,20 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
 
     protected void loadArtistImage(Artist artist, final ViewHolder holder) {
         if (holder.image == null) return;
-        //TODO Glide
-//        ImageLoader.getInstance().displayImage(MusicUtil.getArtistImageLoaderString(artist, false),
-//                holder.image,
-//                new DisplayImageOptions.Builder()
-//                        .cacheInMemory(true)
-//                        .cacheOnDisk(true)
-//                        .resetViewBeforeLoading(true)
-//                        .showImageOnFail(R.drawable.default_artist_image)
-//                        .postProcessor(new BitmapProcessor() {
-//                            @Override
-//                            public Bitmap process(Bitmap bitmap) {
-//                                holder.paletteColor = ColorUtil.generateColor(activity, bitmap);
-//                                return bitmap;
-//                            }
-//                        })
-//                        .displayer(new FadeInBitmapDisplayer(FADE_IN_TIME, true, true, false) {
-//                            @Override
-//                            public void display(Bitmap bitmap, ImageAware imageAware, LoadedFrom loadedFrom) {
-//                                super.display(bitmap, imageAware, loadedFrom);
-//                                if (usePalette)
-//                                    setColors(holder.paletteColor, holder);
-//                            }
-//                        })
-//                        .build(),
-//                new SimpleImageLoadingListener() {
-//                    @Override
-//                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-//                        FadeInBitmapDisplayer.animate(view, FADE_IN_TIME);
-//                        if (usePalette)
-//                            setColors(ColorUtil.resolveColor(activity, R.attr.default_bar_color), holder);
-//                    }
-//                }
-//        );
+        Glide.with(activity)
+                .load(new ArtistImageRequest(artist.name, false))
+                .asBitmap()
+                .transcode(new BitmapPaletteTranscoder(activity), BitmapPaletteWrapper.class)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .error(R.drawable.default_album_art)
+                .animate(android.R.anim.fade_in)
+                .into(new PhonographColoredTarget(holder.image) {
+                    @Override
+                    public void onColorReady(int color) {
+                        if (usePalette)
+                            setColors(color, holder);
+                    }
+                });
     }
 
     @Override

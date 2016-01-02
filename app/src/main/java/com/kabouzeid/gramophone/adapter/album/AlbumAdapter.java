@@ -17,7 +17,7 @@ import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
-import com.kabouzeid.gramophone.glide.PhonographColoredImageViewTarget;
+import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -38,7 +38,6 @@ import java.util.List;
 public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder, Album> {
 
     public static final String TAG = AlbumAdapter.class.getSimpleName();
-    private static final int FADE_IN_TIME = 500;
 
     protected final AppCompatActivity activity;
     protected List<Album> dataSet;
@@ -86,10 +85,6 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
         return album.artistName;
     }
 
-    protected String getAlbumImageLoaderUri(Album album) {
-        return MusicUtil.getAlbumImageLoaderString(album);
-    }
-
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Album album = dataSet.get(position);
@@ -133,7 +128,8 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
                 .transcode(new BitmapPaletteTranscoder(activity), BitmapPaletteWrapper.class)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .error(R.drawable.default_album_art)
-                .into(new PhonographColoredImageViewTarget(holder.image) {
+                .animate(android.R.anim.fade_in)
+                .into(new PhonographColoredTarget(holder.image) {
                     @Override
                     public void onColorReady(int color) {
                         if (usePalette)

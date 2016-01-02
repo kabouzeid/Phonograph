@@ -34,7 +34,6 @@ import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -387,14 +386,11 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                     @Override
                     public void run() {
                         progressDialog.setContent(getString(R.string.rescanning_media));
-                        if (deleteArtwork) {
-                            MusicUtil.deleteAlbumArt(AbsTagEditorActivity.this, getId());
-                            ImageLoader.getInstance().clearMemoryCache();
-                        } else if (artwork != null) {
-                            ImageLoader.getInstance().clearMemoryCache();
-                        }
                     }
                 });
+                if (deleteArtwork) {
+                    MusicUtil.deleteAlbumArt(AbsTagEditorActivity.this, getId());
+                }
                 rescanMediaAndQuitOnFinish();
             }
         }).start();

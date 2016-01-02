@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
+import com.kabouzeid.gramophone.glide.artistimage.ArtistImageRequest;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
@@ -98,26 +99,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                         .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.id))
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .error(R.drawable.default_album_art)
+                        .animate(android.R.anim.fade_in)
                         .into(holder.image);
                 break;
             case ARTIST:
                 final Artist artist = (Artist) results.get(position);
                 holder.title.setText(artist.name);
                 holder.text.setText(MusicUtil.getArtistInfoString(activity, artist));
-                if (MusicUtil.isArtistNameUnknown(artist.name)) {
-                    holder.image.setImageResource(R.drawable.default_artist_image);
-                    break;
-                }
-                // TODO Glide
-//                ImageLoader.getInstance().displayImage(MusicUtil.getArtistImageLoaderString(artist, false),
-//                        holder.image,
-//                        new DisplayImageOptions.Builder()
-//                                .cacheInMemory(true)
-//                                .cacheOnDisk(true)
-//                                .resetViewBeforeLoading(true)
-//                                .showImageOnFail(R.drawable.default_artist_image)
-//                                .build()
-//                );
+                Glide.with(activity)
+                        .load(new ArtistImageRequest(artist.name, false))
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .error(R.drawable.default_album_art)
+                        .animate(android.R.anim.fade_in)
+                        .into(holder.image);
                 break;
             case SONG:
                 final Song song = (Song) results.get(position);

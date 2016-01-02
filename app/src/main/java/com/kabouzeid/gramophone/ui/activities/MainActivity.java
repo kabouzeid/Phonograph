@@ -278,6 +278,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                     .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .error(R.drawable.default_album_art)
+                    .animate(android.R.anim.fade_in)
                     .into(((ImageView) navigationDrawerHeader.findViewById(R.id.image)));
         } else {
             if (navigationDrawerHeader != null) {
