@@ -47,6 +47,7 @@ import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
+import com.kabouzeid.gramophone.util.ArtistSignatureUtil;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
@@ -250,12 +251,16 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     }
 
     private void setUpArtistImageAndApplyPalette(final boolean forceDownload) {
+        if (forceDownload) {
+            ArtistSignatureUtil.getInstance(this).updateArtistSignature(artist.name);
+        }
         Glide.with(this)
                 .load(new ArtistImageRequest(artist.name, forceDownload))
                 .asBitmap()
                 .transcode(new BitmapPaletteTranscoder(this), BitmapPaletteWrapper.class)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.default_album_art)
+                .signature(ArtistSignatureUtil.getInstance(this).getArtistSignature(artist.name))
                 .into(new PhonographColoredTarget(artistImage) {
 
                     @Override

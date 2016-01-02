@@ -22,6 +22,7 @@ import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.util.ArtistSignatureUtil;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -111,6 +112,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .error(R.drawable.default_album_art)
                         .animate(android.R.anim.fade_in)
+                        .signature(ArtistSignatureUtil.getInstance(activity).getArtistSignature(artist.name))
                         .into(holder.image);
                 break;
             case SONG:

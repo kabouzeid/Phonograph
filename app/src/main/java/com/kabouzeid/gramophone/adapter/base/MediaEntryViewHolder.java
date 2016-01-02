@@ -56,7 +56,6 @@ public class MediaEntryViewHolder extends RecyclerView.ViewHolder implements Vie
     @Nullable
     @Bind(R.id.palette_color_container)
     public View paletteColorContainer;
-    public int paletteColor;
 
     public MediaEntryViewHolder(View itemView) {
         super(itemView);
