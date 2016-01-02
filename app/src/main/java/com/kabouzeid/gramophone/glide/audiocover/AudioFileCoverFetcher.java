@@ -1,12 +1,13 @@
 package com.kabouzeid.gramophone.glide.audiocover;
 
 import android.content.Context;
+import android.media.MediaMetadataRetriever;
 
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.data.DataFetcher;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.util.MusicUtil;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -33,19 +34,18 @@ public class AudioFileCoverFetcher implements DataFetcher<InputStream> {
 
     @Override
     public InputStream loadData(Priority priority) throws Exception {
-//        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-//        try {
-//            retriever.setDataSource(model.data);
-//            byte[] picture = retriever.getEmbeddedPicture();
-//            if (picture != null) {
-//                return new ByteArrayInputStream(picture);
-//            } else {
-//                return fallback(model.data);
-//            }
-//        } finally {
-//            retriever.release();
-//        }
-        return context.getContentResolver().openInputStream(MusicUtil.getAlbumArtUri(model.albumId));
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        try {
+            retriever.setDataSource(model.data);
+            byte[] picture = retriever.getEmbeddedPicture();
+            if (picture != null) {
+                return new ByteArrayInputStream(picture);
+            } else {
+                return fallback(model.data);
+            }
+        } finally {
+            retriever.release();
+        }
     }
 
     private static final String[] FALLBACKS = {"cover.jpg", "album.jpg", "folder.jpg"};

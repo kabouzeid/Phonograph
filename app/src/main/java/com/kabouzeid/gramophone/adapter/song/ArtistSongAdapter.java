@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.afollestad.materialcab.MaterialCab;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
@@ -76,9 +77,10 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
 
         Glide.with(activity)
                 .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.default_album_art)
                 .animate(android.R.anim.fade_in)
+                .signature(new MediaStoreSignature("", song.dateModified, 0))
                 .into(albumArt);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

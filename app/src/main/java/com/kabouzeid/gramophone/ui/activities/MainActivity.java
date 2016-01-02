@@ -37,6 +37,7 @@ import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PagerAdapter;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
@@ -276,9 +277,10 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
             ((TextView) navigationDrawerHeader.findViewById(R.id.text)).setText(song.artistName);
             Glide.with(this)
                     .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .error(R.drawable.default_album_art)
                     .animate(android.R.anim.fade_in)
+                    .signature(new MediaStoreSignature("", song.dateModified, 0))
                     .into(((ImageView) navigationDrawerHeader.findViewById(R.id.image)));
         } else {
             if (navigationDrawerHeader != null) {

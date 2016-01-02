@@ -15,14 +15,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import hugo.weaving.DebugLog;
-
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class AlbumLoader {
 
-    @DebugLog
     @NonNull
     public static ArrayList<Album> getAllAlbums(@NonNull final Context context) {
         ArrayList<Song> songs = SongLoader.getSongs(SongLoader.makeSongCursor(

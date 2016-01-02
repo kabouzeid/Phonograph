@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 
@@ -20,27 +21,32 @@ public class Album implements Parcelable {
     }
 
     public int getId() {
-        return songs.get(0).albumId;
+        return safeGetFirstSong().albumId;
     }
 
     public String getTitle() {
-        return songs.get(0).albumName;
+        return safeGetFirstSong().albumName;
     }
 
     public int getArtistId() {
-        return songs.get(0).artistId;
+        return safeGetFirstSong().artistId;
     }
 
     public String getArtistName() {
-        return songs.get(0).artistName;
+        return safeGetFirstSong().artistName;
     }
 
     public int getYear() {
-        return songs.get(0).year;
+        return safeGetFirstSong().year;
     }
 
-    public int getSongCount() {
-        return songs.size();
+    public long getDateModified() {
+        return safeGetFirstSong().dateModified;
+    }
+
+    @NonNull
+    public Song safeGetFirstSong() {
+        return songs.isEmpty() ? new Song() : songs.get(0);
     }
 
     @Override

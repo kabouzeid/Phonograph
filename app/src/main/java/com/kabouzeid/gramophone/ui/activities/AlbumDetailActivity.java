@@ -19,6 +19,7 @@ import com.afollestad.materialdialogs.util.DialogUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.song.AlbumSongAdapter;
@@ -149,16 +150,17 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         albumTitleView.setText(album.getTitle());
         setUpRecyclerViewView();
         setUpSongsAdapter();
-        setUpAlbumArtAndApplyPalette();
+        loadAlbumCover();
     }
 
-    private void setUpAlbumArtAndApplyPalette() {
+    private void loadAlbumCover() {
         Glide.with(this)
                 .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.getId()))
                 .asBitmap()
                 .transcode(new BitmapPaletteTranscoder(this), BitmapPaletteWrapper.class)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.default_album_art)
+                .signature(new MediaStoreSignature("", album.getDateModified(), 0))
                 .into(new PhonographColoredTarget(albumArtImageView) {
                     @Override
                     public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
@@ -242,12 +244,11 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         });
     }
 
-    private void reloadDataSet() {
-        adapter.swapDataSet(album.songs);
-    }
-
-    private void reloadAlbum() {
+    private void refresh() {
         album = AlbumLoader.getAlbum(this, album.getId());
+        albumTitleView.setText(album.getTitle());
+        loadAlbumCover();
+        adapter.swapDataSet(album.songs);
     }
 
     @Override
@@ -302,9 +303,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == TAG_EDITOR_REQUEST) {
-            getAlbumFromIntentExtras();
-            albumTitleView.setText(album.getTitle());
-            setUpAlbumArtAndApplyPalette();
+            refresh();
             setResult(RESULT_OK);
         }
     }
@@ -349,6 +348,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     @Override
     public void onMediaStoreChanged() {
         super.onMediaStoreChanged();
-        reloadDataSet();
+        refresh();
     }
 }

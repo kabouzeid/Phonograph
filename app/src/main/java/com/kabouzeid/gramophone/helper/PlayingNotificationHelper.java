@@ -25,6 +25,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
@@ -198,7 +199,8 @@ public class PlayingNotificationHelper {
                         .loadFromMediaStore(MusicUtil.getAlbumArtUri(currentSong.albumId))
                         .asBitmap()
                         .transcode(new BitmapPaletteTranscoder(service), BitmapPaletteWrapper.class)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .signature(new MediaStoreSignature("", currentSong.dateModified, 0))
                         .into(target);
             }
         });

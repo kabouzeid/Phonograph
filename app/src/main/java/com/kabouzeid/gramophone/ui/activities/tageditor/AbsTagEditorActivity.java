@@ -22,10 +22,8 @@ import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.bumptech.glide.Glide;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
@@ -275,7 +273,11 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     }
 
     protected void setImageBitmap(@Nullable final Bitmap bitmap, int bgColor) {
-        image.setImageBitmap(bitmap);
+        if (bitmap == null) {
+            image.setImageResource(R.drawable.default_album_art);
+        } else {
+            image.setImageBitmap(bitmap);
+        }
         setColors(bgColor);
     }
 
@@ -355,11 +357,8 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                 });
                 if (deleteArtwork) {
                     MusicUtil.deleteAlbumArt(AbsTagEditorActivity.this, getId());
-                    Glide.get(AbsTagEditorActivity.this).clearMemory();
-                    Toast.makeText(AbsTagEditorActivity.this, R.string.tag_editor_restart_notice, Toast.LENGTH_SHORT).show();
                 } else if (artwork != null) {
-                    Glide.get(AbsTagEditorActivity.this).clearMemory();
-                    Toast.makeText(AbsTagEditorActivity.this, R.string.tag_editor_restart_notice, Toast.LENGTH_SHORT).show();
+                    // AlbumTagEditorActivity already inserts the album cover for us
                 }
                 rescanMediaAndQuitOnFinish();
             }

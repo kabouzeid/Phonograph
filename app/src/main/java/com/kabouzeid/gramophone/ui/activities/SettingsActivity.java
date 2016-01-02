@@ -19,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
-import com.bumptech.glide.Glide;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.prefs.ColorChooserPreference;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
@@ -193,15 +192,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                     }
                 });
             }
-
-            Preference ignoreMediaStoreArtwork = findPreference("ignore_media_store_artwork");
-            ignoreMediaStoreArtwork.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    Glide.get(getActivity()).clearMemory();
-                    return true;
-                }
-            });
 
             Preference equalizer = findPreference("equalizer");
             if (!hasEqualizer()) {
