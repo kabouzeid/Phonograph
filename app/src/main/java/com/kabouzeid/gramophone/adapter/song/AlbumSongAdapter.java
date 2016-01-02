@@ -42,11 +42,6 @@ public class AlbumSongAdapter extends SongAdapter {
     }
 
     @Override
-    protected String getSongImageLoaderUri(Song song) {
-        return null;
-    }
-
-    @Override
     protected String getSongText(Song song) {
         return MusicUtil.getReadableDurationString(song.duration);
     }
