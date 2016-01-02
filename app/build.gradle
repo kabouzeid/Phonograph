@@ -125,7 +125,6 @@ dependencies {
     compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
     compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
     compile 'com.squareup.okhttp:okhttp:2.7.0'
-    compile 'com.github.kabouzeid:Android-Universal-Image-Loader:1.9.5'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
     //noinspection GradleDynamicVersion

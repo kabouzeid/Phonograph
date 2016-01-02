@@ -86,8 +86,8 @@ public class PlayingNotificationHelper {
             service.stopForeground(true);
             return;
         }
-        this.isColored = isColored;
         currentSong = song;
+        this.isColored = isColored;
         this.isPlaying = service.isPlaying();
 
         notificationLayout = new RemoteViews(service.getPackageName(), R.layout.notification);
@@ -179,19 +179,15 @@ public class PlayingNotificationHelper {
     }
 
     private void setUpCollapsedLayout() {
-        if (currentSong != null) {
-            notificationLayout.setTextViewText(R.id.title, currentSong.title);
-            notificationLayout.setTextViewText(R.id.text, currentSong.artistName);
-            notificationLayout.setTextViewText(R.id.text2, currentSong.albumName);
-        }
+        notificationLayout.setTextViewText(R.id.title, currentSong.title);
+        notificationLayout.setTextViewText(R.id.text, currentSong.artistName);
+        notificationLayout.setTextViewText(R.id.text2, currentSong.albumName);
     }
 
     private void setUpExpandedLayout() {
-        if (currentSong != null) {
-            notificationLayoutBig.setTextViewText(R.id.title, currentSong.title);
-            notificationLayoutBig.setTextViewText(R.id.text, currentSong.artistName);
-            notificationLayoutBig.setTextViewText(R.id.text2, currentSong.albumName);
-        }
+        notificationLayoutBig.setTextViewText(R.id.title, currentSong.title);
+        notificationLayoutBig.setTextViewText(R.id.text, currentSong.artistName);
+        notificationLayoutBig.setTextViewText(R.id.text2, currentSong.albumName);
     }
 
     private void loadAlbumArt() {
@@ -203,7 +199,6 @@ public class PlayingNotificationHelper {
                         .asBitmap()
                         .transcode(new BitmapPaletteTranscoder(service), BitmapPaletteWrapper.class)
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .error(R.drawable.default_album_art)
                         .into(target);
             }
         });

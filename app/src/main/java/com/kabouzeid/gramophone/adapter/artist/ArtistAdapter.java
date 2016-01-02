@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.adapter.artist;
 
+import android.graphics.drawable.Drawable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -126,6 +127,12 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
                 .error(R.drawable.default_album_art)
                 .animate(android.R.anim.fade_in)
                 .into(new PhonographColoredTarget(holder.image) {
+                    @Override
+                    public void onLoadCleared(Drawable placeholder) {
+                        super.onLoadCleared(placeholder);
+                        setColors(getDefaultBarColor(), holder);
+                    }
+
                     @Override
                     public void onColorReady(int color) {
                         if (usePalette)

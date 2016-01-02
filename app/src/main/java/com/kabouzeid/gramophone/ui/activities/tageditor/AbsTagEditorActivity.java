@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -25,7 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.util.DialogUtils;
+import com.bumptech.glide.Glide;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
@@ -120,7 +119,6 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     }
 
     private void setUpViews() {
-        resetColors();
         setUpScrollView();
         setUpFab();
         setUpImageView();
@@ -200,19 +198,6 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
 
     protected abstract void save();
 
-    private void resetColors() {
-        paletteColorPrimary = getThemeColorPrimary();
-        observableScrollViewCallbacks.onScrollChanged(observableScrollView.getCurrentScrollY(), false, false);
-        setStatusBarColor(paletteColorPrimary);
-        if (shouldColorNavigationBar())
-            setNavigationBarColor(paletteColorPrimary);
-        header.setBackgroundColor(paletteColorPrimary);
-        boolean darkContent = ColorUtil.useDarkTextColorOnBackground(paletteColorPrimary);
-        ViewUtil.setToolbarContentDark(this, toolbar, darkContent);
-        setUseDarkStatusBarIcons(darkContent);
-        notifyTaskColorChange(paletteColorPrimary);
-    }
-
     private void getIntentExtras() {
         Bundle intentExtras = getIntent().getExtras();
         if (intentExtras != null) {
@@ -288,43 +273,22 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         fab.setEnabled(true);
     }
 
-    protected void setImageRes(int resId) {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId);
-        setImageBitmap(bitmap);
+    protected void setImageBitmap(@Nullable final Bitmap bitmap, int bgColor) {
+        image.setImageBitmap(bitmap);
+        setColors(bgColor);
     }
 
-    protected void setImageBitmap(@Nullable final Bitmap bitmap) {
-        if (bitmap != null) {
-            image.setImageBitmap(bitmap);
-            applyPalette(bitmap);
-        } else {
-            resetColors();
-        }
-    }
-
-    private void applyPalette(@NonNull final Bitmap bitmap) {
-        Palette.from(bitmap)
-                .resizeBitmapSize(100)
-                .generate(new Palette.PaletteAsyncListener() {
-                    @Override
-                    public void onGenerated(@NonNull Palette palette) {
-                        final Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
-                        if (vibrantSwatch != null) {
-                            paletteColorPrimary = palette.getVibrantColor(DialogUtils.resolveColor(AbsTagEditorActivity.this, R.attr.default_bar_color));
-                            observableScrollViewCallbacks.onScrollChanged(observableScrollView.getCurrentScrollY(), false, false);
-                            if (shouldColorNavigationBar())
-                                setNavigationBarColor(paletteColorPrimary);
-                            setStatusBarColor(paletteColorPrimary);
-                            header.setBackgroundColor(paletteColorPrimary);
-                            boolean darkContent = ColorUtil.useDarkTextColorOnBackground(paletteColorPrimary);
-                            ViewUtil.setToolbarContentDark(AbsTagEditorActivity.this, toolbar, darkContent);
-                            setUseDarkStatusBarIcons(darkContent);
-                            notifyTaskColorChange(paletteColorPrimary);
-                        } else {
-                            resetColors();
-                        }
-                    }
-                });
+    private void setColors(int color) {
+        paletteColorPrimary = color;
+        observableScrollViewCallbacks.onScrollChanged(observableScrollView.getCurrentScrollY(), false, false);
+        if (shouldColorNavigationBar())
+            setNavigationBarColor(paletteColorPrimary);
+        setStatusBarColor(paletteColorPrimary);
+        header.setBackgroundColor(paletteColorPrimary);
+        boolean darkContent = ColorUtil.useDarkTextColorOnBackground(paletteColorPrimary);
+        ViewUtil.setToolbarContentDark(AbsTagEditorActivity.this, toolbar, darkContent);
+        setUseDarkStatusBarIcons(darkContent);
+        notifyTaskColorChange(paletteColorPrimary);
     }
 
     @Override
@@ -390,6 +354,9 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                 });
                 if (deleteArtwork) {
                     MusicUtil.deleteAlbumArt(AbsTagEditorActivity.this, getId());
+                    Glide.get(AbsTagEditorActivity.this).clearMemory();
+                } else if (artwork != null) {
+                    Glide.get(AbsTagEditorActivity.this).clearMemory();
                 }
                 rescanMediaAndQuitOnFinish();
             }

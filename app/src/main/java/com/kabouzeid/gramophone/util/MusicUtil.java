@@ -18,10 +18,8 @@ import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.imageloader.PhonographImageDownloader;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.SongLoader;
-import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
@@ -35,25 +33,6 @@ import java.util.List;
  */
 public class MusicUtil {
     public static final String TAG = MusicUtil.class.getSimpleName();
-
-    @NonNull
-    public static String getArtistImageLoaderString(@NonNull Artist artist, boolean forceDownload) {
-        if (forceDownload) {
-            return PhonographImageDownloader.SCHEME_ARTIST + "no-cache#" + artist.name;
-        } else {
-            return PhonographImageDownloader.SCHEME_ARTIST + "#" + artist.name;
-        }
-    }
-
-    @NonNull
-    public static String getAlbumImageLoaderString(@NonNull Album album) {
-        return PhonographImageDownloader.SCHEME_ALBUM + album.id;
-    }
-
-    @NonNull
-    public static String getSongImageLoaderString(@NonNull Song song) {
-        return PhonographImageDownloader.SCHEME_SONG + song.albumId + "#" + song.data;
-    }
 
     public static Uri getAlbumArtUri(int albumId) {
         final Uri sArtworkUri = Uri

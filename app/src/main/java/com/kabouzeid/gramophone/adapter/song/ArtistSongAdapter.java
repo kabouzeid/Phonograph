@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialcab.MaterialCab;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
@@ -24,9 +26,6 @@ import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.ArrayList;
 
@@ -34,8 +33,6 @@ import java.util.ArrayList;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab.Callback {
-    private static final int FADE_IN_TIME = 500;
-
     @Nullable
     private final CabHolder cabHolder;
     private MaterialCab cab;
@@ -77,16 +74,12 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
         songTitle.setText(song.title);
         songInfo.setText(song.albumName);
 
-        ImageLoader.getInstance().displayImage(
-                MusicUtil.getSongImageLoaderString(song),
-                albumArt,
-                new DisplayImageOptions.Builder()
-                        .cacheInMemory(true)
-                        .showImageOnFail(R.drawable.default_album_art)
-                        .resetViewBeforeLoading(true)
-                        .displayer(new FadeInBitmapDisplayer(FADE_IN_TIME, true, true, false))
-                        .build()
-        );
+        Glide.with(activity)
+                .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .error(R.drawable.default_album_art)
+                .animate(android.R.anim.fade_in)
+                .into(albumArt);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             albumArt.setTransitionName(activity.getString(R.string.transition_album_art));
