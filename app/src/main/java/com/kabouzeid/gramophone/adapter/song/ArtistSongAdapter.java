@@ -77,7 +77,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
 
         Glide.with(activity)
                 .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .error(R.drawable.default_album_art)
                 .animate(android.R.anim.fade_in)
                 .signature(new MediaStoreSignature("", song.dateModified, 0))

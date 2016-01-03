@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
@@ -123,9 +124,10 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
                 .load(new ArtistImageRequest(artist.name, false))
                 .asBitmap()
                 .transcode(new BitmapPaletteTranscoder(activity), BitmapPaletteWrapper.class)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .error(R.drawable.default_album_art)
                 .animate(android.R.anim.fade_in)
+                .priority(Priority.LOW)
                 .signature(ArtistSignatureUtil.getInstance(activity).getArtistSignature(artist.name))
                 .into(new PhonographColoredTarget(holder.image) {
                     @Override

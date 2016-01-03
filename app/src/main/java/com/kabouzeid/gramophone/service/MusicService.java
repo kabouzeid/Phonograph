@@ -449,7 +449,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             final BitmapRequestBuilder request = Glide.with(MusicService.this)
                     .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
                     .asBitmap()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .signature(new MediaStoreSignature("", song.dateModified, 0));
             if (blurAlbumArt) {
                 request.transform(new BlurTransformation.Builder(MusicService.this).build());

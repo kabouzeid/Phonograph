@@ -277,7 +277,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
             ((TextView) navigationDrawerHeader.findViewById(R.id.text)).setText(song.artistName);
             Glide.with(this)
                     .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .error(R.drawable.default_album_art)
                     .animate(android.R.anim.fade_in)
                     .signature(new MediaStoreSignature("", song.dateModified, 0))

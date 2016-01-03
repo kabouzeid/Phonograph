@@ -199,7 +199,7 @@ public class PlayingNotificationHelper {
                         .loadFromMediaStore(MusicUtil.getAlbumArtUri(currentSong.albumId))
                         .asBitmap()
                         .transcode(new BitmapPaletteTranscoder(service), BitmapPaletteWrapper.class)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .signature(new MediaStoreSignature("", currentSong.dateModified, 0))
                         .into(target);
             }

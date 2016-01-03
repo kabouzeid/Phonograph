@@ -258,7 +258,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                 .load(new ArtistImageRequest(artist.name, forceDownload))
                 .asBitmap()
                 .transcode(new BitmapPaletteTranscoder(this), BitmapPaletteWrapper.class)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .error(R.drawable.default_album_art)
                 .signature(ArtistSignatureUtil.getInstance(this).getArtistSignature(artist.name))
                 .into(new PhonographColoredTarget(artistImage) {

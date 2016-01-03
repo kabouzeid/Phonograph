@@ -124,7 +124,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
                 .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.getId()))
                 .asBitmap()
                 .transcode(new BitmapPaletteTranscoder(activity), BitmapPaletteWrapper.class)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .error(R.drawable.default_album_art)
                 .animate(android.R.anim.fade_in)
                 .signature(new MediaStoreSignature("", album.getDateModified(), 0))

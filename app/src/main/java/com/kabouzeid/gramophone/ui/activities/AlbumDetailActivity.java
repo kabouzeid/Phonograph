@@ -158,7 +158,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                 .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.getId()))
                 .asBitmap()
                 .transcode(new BitmapPaletteTranscoder(this), BitmapPaletteWrapper.class)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .error(R.drawable.default_album_art)
                 .signature(new MediaStoreSignature("", album.getDateModified(), 0))
                 .into(new PhonographColoredTarget(albumArtImageView) {

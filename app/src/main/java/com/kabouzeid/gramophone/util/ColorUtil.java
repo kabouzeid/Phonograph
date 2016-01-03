@@ -14,6 +14,9 @@ import android.support.v7.graphics.Palette;
 
 import com.kabouzeid.gramophone.R;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -43,9 +46,27 @@ public class ColorUtil {
                 return palette.getLightVibrantSwatch().getRgb();
             } else if (palette.getLightMutedSwatch() != null) {
                 return palette.getLightMutedSwatch().getRgb();
+            } else if (palette.getSwatches() != null && !palette.getSwatches().isEmpty()) {
+                return Collections.max(palette.getSwatches(), SwatchComparator.getInstance()).getRgb();
             }
         }
         return fallback;
+    }
+
+    private static class SwatchComparator implements Comparator<Palette.Swatch> {
+        private static SwatchComparator sInstance;
+
+        static SwatchComparator getInstance() {
+            if (sInstance == null) {
+                sInstance = new SwatchComparator();
+            }
+            return sInstance;
+        }
+
+        @Override
+        public int compare(Palette.Swatch lhs, Palette.Swatch rhs) {
+            return lhs.getPopulation() - rhs.getPopulation();
+        }
     }
 
     @ColorInt
