@@ -9,6 +9,8 @@
     <string name="action_share">Teilen</string>
     <string name="action_settings">"Einstellungen"</string>
     <string name="action_grant">Gewähren</string>
+    <string name="action_done">Fertig</string>
+    <string name="action_skip">Überspringen</string>
     <string name="action_about">Über</string>
     <string name="action_show_intro">Zeige Einführung</string>
     <string name="action_clear_playlist">Wiedergabeliste leeren</string>
@@ -94,6 +96,9 @@
     <string name="light_theme_name">Hell</string>
     <string name="dark_theme_name">Dunkel</string>
     <string name="black_theme_name">Schwarz (AMOLED)</string>
+    <string name="always">Immer</string>
+    <string name="only_on_wifi">Nur über WLAN</string>
+    <string name="never">Niemals</string>
     <string name="equalizer">Equalizer</string>
     <string name="pref_header_colors">Farben</string>
     <string name="pref_header_now_playing_screen">Aktuelle Wiedergabe</string>
@@ -105,6 +110,7 @@
     <string name="pref_title_navigation_bar">Farbige Navigationsleiste</string>
     <string name="pref_title_set_default_start_page">Startseite</string>
     <string name="pref_title_album_art_on_lockscreen">Zeige Album Cover</string>
+    <string name="pref_title_auto_download_artist_images">Interpreten Bilder automatisch herunterladen</string>
     <string name="pref_title_blurred_album_art">Album Cover weichzeichnen</string>
     <string name="pref_title_colored_notification">Gefärbte Benachrichtigung</string>
     <string name="pref_title_ignore_media_store_artwork">Media Store Cover ignorieren</string>
@@ -214,4 +220,6 @@
     <string name="open_playing_queue_instruction">Ziehe die Karte in der aktuellen Wiedergabe hoch um die komplette Warteschlange anzeigen zu lassen.</string>
     <string name="rearrange_playing_queue_instruction">Ziehe die Titelnummer eines Titels nach oben oder unten, um die Warteschlange neu anzuordnen.</string>
     <string name="storage_permission_explaination">Die Speicher-Erlaubnis braucht Phonograph, um deine Musikbibliothek zu lesen.</string>
+    <string name="library">Bibliothek</string>
+    <string name="folders">Ordner</string>
 </resources>

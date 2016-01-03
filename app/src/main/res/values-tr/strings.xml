@@ -8,8 +8,11 @@
     <string name="action_set_as_ringtone">Zil sesi olarak ayarla</string>
     <string name="action_share">Paylaş</string>
     <string name="action_settings">"Ayarlar"</string>
+    <string name="action_grant">İzin</string>
+    <string name="action_done">Bitti</string>
+    <string name="action_skip">Atla</string>
     <string name="action_about">Hakkında</string>
-    <string name="action_show_intro">Girişi Göster</string>
+    <string name="action_show_intro">Tanıtımı Göster</string>
     <string name="action_clear_playlist">Çalma listesini temizle</string>
     <string name="action_playing_queue">Çalma sırası</string>
     <string name="action_add_to_favorites">Favorilere ekle</string>
@@ -58,8 +61,8 @@
     <string name="updated_artist_image">Sanatçı resmi güncellendi.</string>
     <string name="could_not_update_artist_image">Sanat\u00e7\u0131 resmi g\u00fcncellenemedi.</string>
     <string name="updating">Güncelleniyor...</string>
-    <string name="added_title_to_playing_queue">"Çalma kuyruğuna 1 başlık eklendi."</string>
-    <string name="added_x_titles_to_playing_queue">Çalma kuyruğuna %1$d başlıkları eklendi.</string>
+    <string name="added_title_to_playing_queue">"Çalma sırasına 1 başlık eklendi."</string>
+    <string name="added_x_titles_to_playing_queue">Çalma sırasına %1$d başlıkları eklendi.</string>
     <string name="action_remove_from_playlist">Çalma listesinden kaldır</string>
     <string name="action_grid_size">Kılavuz boyutu</string>
     <string name="action_grid_size_land">Kılavuz boyutu (yatay)</string>
@@ -88,7 +91,7 @@
     <string name="action_shuffle_album">Albümü karıştır</string>
     <string name="action_shuffle_artist">Sanatçıyı karıştır</string>
     <string name="action_shuffle_playlist">Çalma listesini karıştır</string>
-    <string name="action_clear_playing_queue">Oynatma kuyruğunu temizle</string>
+    <string name="action_clear_playing_queue">Oynatma sırasını temizle</string>
     <string name="last_opened">Son dinlenenler</string>
     <string name="light_theme_name">Açık</string>
     <string name="dark_theme_name">Koyu</string>
@@ -174,6 +177,7 @@
     <string name="special_thanks_to">Özel teşekkür</string>
     <string name="changelog">Sürüm Notları</string>
     <string name="licenses">Lisanslar</string>
+    <string name="permissions_denied">İzinler reddedildi</string>
     <string name="permission_external_storage_denied">Harici depolamaya erişmek için izin verilmedi</string>
     <string name="back">geri</string>
     <string name="support_development">Geliştirmeyi destekleyin</string>
@@ -204,5 +208,14 @@
     <string name="website">Web sitesi</string>
     <string name="loading_products">İçerik yükleniyor...</string>
     <string name="up_next">Sırada olanlar</string>
-    <string name="pref_title_now_playing_layout">Şimdiki çalma düzeni</string>
+    <string name="pref_title_now_playing_layout">Şuan çalınıyor düzeni</string>
+    <string name="intro_label">Tanıtım</string>
+    <string name="press_back_again_to_exit_intro">Tanıtımı atlamak için geri tuşuna basın.</string>
+    <string name="welcome_to_phonograph">"Phonograph'a Hoşgeldiniz, Android için güzel ve hafif bir müzik çalar. "</string>
+    <string name="label_storage">Depolama</string>
+    <string name="open_playing_queue_instruction">Şuan çalınıyor ekranı kartını yukarı kaydırmak oynatma sırasının tamamını ortaya çıkarır.</string>
+    <string name="rearrange_playing_queue_instruction">Oynatma sırasını yeniden düzenlemek için şarkının parça numarasını kaydırın</string>
+    <string name="storage_permission_explaination">Depolama izni müzik kütüphanesi okumak için Phonograph\'a gereklidir.</string>
+    <string name="library">Kütüphane</string>
+    <string name="folders">Klasörler</string>
 </resources>

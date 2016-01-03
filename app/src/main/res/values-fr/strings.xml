@@ -9,6 +9,8 @@
     <string name="action_share">Partager</string>
     <string name="action_settings">"Paramètres"</string>
     <string name="action_grant">Accorder</string>
+    <string name="action_done">Terminé</string>
+    <string name="action_skip">Ignorer</string>
     <string name="action_about">À propos</string>
     <string name="action_show_intro">Afficher l\'introduction</string>
     <string name="action_clear_playlist">Effacer la liste de lecture</string>
@@ -21,7 +23,7 @@
     <string name="action_add_to_playing_queue">Ajouter à la file de lecture</string>
     <string name="action_remove_from_playing_queue">Retirer de la file de lecture</string>
     <string name="action_add_to_playlist">Ajouter à la liste de lecture...</string>
-    <string name="action_tag_editor">Éditeur d\'infos</string>
+    <string name="action_tag_editor">Éditeur d\'information</string>
     <string name="action_delete_from_device">Supprimer de l\'appareil</string>
     <string name="action_details">Détails</string>
     <string name="albums">Albums</string>
@@ -94,6 +96,9 @@
     <string name="light_theme_name">Clair</string>
     <string name="dark_theme_name">Sombre</string>
     <string name="black_theme_name">Noir (AMOLED)</string>
+    <string name="always">Toujours</string>
+    <string name="only_on_wifi">Via Wi-Fi uniquement</string>
+    <string name="never">Jamais</string>
     <string name="equalizer">Égaliseur</string>
     <string name="pref_header_colors">Couleurs</string>
     <string name="pref_header_now_playing_screen">Lecture en cours</string>
@@ -103,14 +108,15 @@
     <string name="pref_header_images">Images</string>
     <string name="pref_header_lockscreen">Écran de verrouillage</string>
     <string name="pref_title_navigation_bar">Barre de navigation colorée</string>
-    <string name="pref_title_set_default_start_page">Page d\'accueil par défaut</string>
+    <string name="pref_title_set_default_start_page">Page d\'accueil</string>
     <string name="pref_title_album_art_on_lockscreen">Afficher la pochette d\'album</string>
+    <string name="pref_title_auto_download_artist_images">Télécharger automatiquement les images d\'artiste</string>
     <string name="pref_title_blurred_album_art">Pochette d\'album floue</string>
     <string name="pref_title_colored_notification">Notification colorée</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorer le stockage des pochettes d\'album</string>
     <string name="pref_title_gapless_playback">Lecture sans coupure</string>
     <string name="pref_title_force_square_album_art">Pochette d\'album carrée</string>
-    <string name="pref_title_opaque_toolbar_now_playing">Barre d\'outils opaque</string>
+    <string name="pref_title_opaque_toolbar_now_playing">Barre d\'outil opaque</string>
     <string name="pref_title_opaque_statusbar_now_playing">Barre d\'état opaque</string>
     <string name="pref_title_larger_title_box_now_playing">Boîte de titre plus large</string>
     <string name="pref_title_alternative_progress_slider_now_playing">Barre de progression alternative</string>
@@ -163,7 +169,7 @@
     <string name="remove_cover">Supprimer la pochette</string>
     <string name="download_from_last_fm">Télécharger depuis Last.fm</string>
     <string name="pick_from_local_storage">Sélectionner depuis le stockage</string>
-    <string name="web_search">Recherche Internet</string>
+    <string name="web_search">Recherche internet</string>
     <string name="action_sleep_timer">Minuteur sommeil</string>
     <string name="action_set">Régler</string>
     <string name="cancel_current_timer">Annuler le minuteur actuel</string>
@@ -214,4 +220,6 @@
     <string name="open_playing_queue_instruction">Vous pouvez glisser la carte dans l\'écran de lecture en cours pour afficher la file de lecture complète.</string>
     <string name="rearrange_playing_queue_instruction">Vous pouvez réorganiser la file de lecture en faisant glisser une chanson à partir de son numéro de piste.</string>
     <string name="storage_permission_explaination">L\'autorisation de stockage est nécessaire pour que Phonograph puisse lire votre bibliothèque musicale.</string>
+    <string name="library">Bibliothèque</string>
+    <string name="folders">Dossiers</string>
 </resources>

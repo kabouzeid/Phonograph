@@ -8,7 +8,11 @@
     <string name="action_set_as_ringtone">Instellen als beltoon</string>
     <string name="action_share">Delen</string>
     <string name="action_settings">"Instellingen"</string>
+    <string name="action_grant">Toestaan</string>
+    <string name="action_done">Klaar</string>
+    <string name="action_skip">Overslaan</string>
     <string name="action_about">Over</string>
+    <string name="action_show_intro">Toon intro</string>
     <string name="action_clear_playlist">Afspeellijst legen</string>
     <string name="action_playing_queue">Afspeelwachtrij</string>
     <string name="action_add_to_favorites">Toevoegen aan favorieten</string>
@@ -27,7 +31,7 @@
     <string name="songs">Nummers</string>
     <string name="playlists">Afspeellijsten</string>
     <string name="unplayable_file">Kan dit nummer niet afspelen.</string>
-    <string name="biography_unavailable">Kan geen passende biografie vinden voor deze artiest.</string>
+    <string name="biography_unavailable">Kan geen biografie vinden voor deze artiest.</string>
     <string name="biography">Biografie</string>
     <string name="audio_focus_denied">Audiofocus geweigerd.</string>
     <string name="album">Album</string>
@@ -44,7 +48,7 @@
     <string name="label_file_name">Bestandsnaam</string>
     <string name="label_file_path">Bestandspad</string>
     <string name="label_file_size">Grootte</string>
-    <string name="label_file_format">Format</string>
+    <string name="label_file_format">Formaat</string>
     <string name="label_track_length">Lengte</string>
     <string name="label_bit_rate">Bitrate</string>
     <string name="label_sampling_rate">Sampling rate</string>
@@ -102,7 +106,7 @@
     <string name="pref_header_lockscreen">Vergrendelscherm</string>
     <string name="pref_title_navigation_bar">Gekleurde navigatiebalk</string>
     <string name="pref_title_set_default_start_page">Startpagina</string>
-    <string name="pref_title_album_art_on_lockscreen">Albumhoes op vergrendelscherm</string>
+    <string name="pref_title_album_art_on_lockscreen">Toon albumhoes</string>
     <string name="pref_title_blurred_album_art">Vervaag albumhoes</string>
     <string name="pref_title_colored_notification">Gekleurde notificatie</string>
     <string name="pref_title_ignore_media_store_artwork">Negeer Mediaopslag illustraties</string>
@@ -173,6 +177,7 @@
     <string name="special_thanks_to">Speciale dank aan</string>
     <string name="changelog">Changelog</string>
     <string name="licenses">Licenties</string>
+    <string name="permissions_denied">Machtiging geweigerd.</string>
     <string name="permission_external_storage_denied">Toegang tot externe opslag geweigerd.</string>
     <string name="back">Terug</string>
     <string name="support_development">Ondersteun ontwikkeling</string>
@@ -204,4 +209,13 @@
     <string name="loading_products">Producten laden…</string>
     <string name="up_next">Als volgende</string>
     <string name="pref_title_now_playing_layout">Afspeelscherm uiterlijk</string>
+    <string name="intro_label">Introductie</string>
+    <string name="press_back_again_to_exit_intro">Tik nogmaals terug om de intro over te slaan.</string>
+    <string name="welcome_to_phonograph">Welkom bij Phonograph, een mooie en lichte muziekspeler voor Android.</string>
+    <string name="label_storage">Opslag</string>
+    <string name="open_playing_queue_instruction">Veeg de kaart in het afspeelscherm om de afspeelwachtrij te weergeven.</string>
+    <string name="rearrange_playing_queue_instruction">Rangschik de afspeelwachtrij door nummers bij het afspeelnummer te slepen.</string>
+    <string name="storage_permission_explaination">De opslagmachtiging is nodig voor Phonograph om je muziekbibliotheek te lezen.</string>
+    <string name="library">Bibliotheek</string>
+    <string name="folders">Mappen</string>
 </resources>

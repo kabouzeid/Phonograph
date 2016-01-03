@@ -8,7 +8,11 @@
     <string name="action_set_as_ringtone">Definir como toque de telemóvel</string>
     <string name="action_share">Partilhar</string>
     <string name="action_settings">"Definições"</string>
+    <string name="action_grant">Permitir</string>
+    <string name="action_done">Concluído</string>
+    <string name="action_skip">Saltar</string>
     <string name="action_about">Sobre</string>
+    <string name="action_show_intro">Mostrar introdução</string>
     <string name="action_clear_playlist">Limpar Lista de Reprodução</string>
     <string name="action_playing_queue">Fila atual</string>
     <string name="action_add_to_favorites">Adicionar aos favoritos</string>
@@ -17,7 +21,7 @@
     <string name="action_play_next">Reproduzir a próxima</string>
     <string name="action_play">Reproduzir</string>
     <string name="action_add_to_playing_queue">Adicionar à fila de reprodução</string>
-    <string name="action_remove_from_playing_queue">Remover da fila de  reprodução</string>
+    <string name="action_remove_from_playing_queue">Remover da fila de reprodução</string>
     <string name="action_add_to_playlist">Adicionar à lista de reprodução...</string>
     <string name="action_tag_editor">Editor de etiquetas</string>
     <string name="action_delete_from_device">Eliminar do dispositivo</string>
@@ -87,9 +91,11 @@
     <string name="action_shuffle_album">Embaralhar Álbum</string>
     <string name="action_shuffle_artist">Embaralhar Artista</string>
     <string name="action_shuffle_playlist">Embaralhar lista de reprodução</string>
+    <string name="action_clear_playing_queue">Limpar fila de reprodução</string>
     <string name="last_opened">Abertas recentemente</string>
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Escuro</string>
+    <string name="black_theme_name">Preto (AMOLED)</string>
     <string name="equalizer">Equalizador</string>
     <string name="pref_header_colors">Cores</string>
     <string name="pref_header_now_playing_screen">A reproduzir</string>
@@ -101,6 +107,7 @@
     <string name="pref_title_navigation_bar">Barra de navegação colorida</string>
     <string name="pref_title_set_default_start_page">Página Inicial</string>
     <string name="pref_title_album_art_on_lockscreen">Capa do Álbum no ecrã de bloqueio</string>
+    <string name="pref_title_blurred_album_art">Desfocar capa do álbum</string>
     <string name="pref_title_colored_notification">Notificação colorida</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorar capas Media Store</string>
     <string name="pref_title_gapless_playback">Reprodução contínua</string>
@@ -136,6 +143,7 @@
     <string name="song">Música</string>
     <string name="pref_only_lollipop">"Só disponível para Lollipop."</string>
     <string name="pref_summary_album_art_on_lockscreen">Usa a capa de álbum da faixa atual como papel de parede da tela de bloqueio.</string>
+    <string name="pref_summary_blurred_album_art">Desfoca a capa do álbum no ecrã</string>
     <string name="pref_summary_colored_notification">"Colorir a notifica\u00e7\u00e3o na cor viva da capa de \u00e1lbum."</string>
     <string name="pref_summary_gapless_playback">"Pode causar problemas na reprodução em alguns dispositivos."</string>
     <string name="pref_summary_force_square_album_art">Capas dos álbuns na vista a tocar são sempre quadradas</string>
@@ -168,6 +176,8 @@
     <string name="colored_footers">Rodapés coloridos</string>
     <string name="special_thanks_to">Agradecimentos especiais a</string>
     <string name="changelog">Changelog</string>
+    <string name="licenses">"Licenças "</string>
+    <string name="permissions_denied">Permissões negadas.</string>
     <string name="permission_external_storage_denied">Permissão negada para aceder a armazenamento externo.</string>
     <string name="back">voltar</string>
     <string name="support_development">Apoiar o desenvolvimento</string>
@@ -199,4 +209,13 @@
     <string name="loading_products">Carregando produtos...</string>
     <string name="up_next">A seguir</string>
     <string name="pref_title_now_playing_layout">Layout da secção A Reproduzir</string>
+    <string name="intro_label">Introdução</string>
+    <string name="press_back_again_to_exit_intro">Pressione retroceder de novo para avançar a introdução.</string>
+    <string name="welcome_to_phonograph">"Bem vindo ao Phonograph, um belo e leve leitor de música para Android. "</string>
+    <string name="label_storage">Armazenamento</string>
+    <string name="open_playing_queue_instruction">Deslize o cartão no ecrã de \"a reproduzir\" para cima para mostrar a fila de reprodução completa.</string>
+    <string name="rearrange_playing_queue_instruction">Reorganizar a fila de reprodução arrastando a música desde o seu número</string>
+    <string name="storage_permission_explaination">É necessária permissão para o Phonograph ler a sua biblioteca.</string>
+    <string name="library">Biblioteca</string>
+    <string name="folders">Pastas</string>
 </resources>
