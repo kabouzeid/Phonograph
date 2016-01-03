@@ -27,4 +27,16 @@
         <item>2</item>
     </string-array>
 
+    <string-array name="pref_auto_download_images_titles">
+        <item>@string/always</item>
+        <item>@string/only_on_wifi</item>
+        <item>@string/never</item>
+    </string-array>
+
+    <string-array name="pref_auto_download_images_values">
+        <item>always</item>
+        <item>only_wifi</item>
+        <item>never</item>
+    </string-array>
+
 </resources>

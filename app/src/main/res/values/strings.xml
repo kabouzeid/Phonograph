@@ -96,6 +96,9 @@
     <string name="light_theme_name">Light</string>
     <string name="dark_theme_name">Dark</string>
     <string name="black_theme_name">Black (AMOLED)</string>
+    <string name="always">Always</string>
+    <string name="only_on_wifi">Only on wifi</string>
+    <string name="never">Never</string>
     <string name="equalizer">Equalizer</string>
     <string name="pref_header_colors">Colors</string>
     <string name="pref_header_now_playing_screen">Now playing</string>
@@ -107,6 +110,7 @@
     <string name="pref_title_navigation_bar">Colored navigation bar</string>
     <string name="pref_title_set_default_start_page">Start page</string>
     <string name="pref_title_album_art_on_lockscreen">Show album cover</string>
+    <string name="pref_title_auto_download_artist_images">Auto download artist images</string>
     <string name="pref_title_blurred_album_art">Blur album cover</string>
     <string name="pref_title_colored_notification">Colored notification</string>
     <string name="pref_title_ignore_media_store_artwork">Ignore Media Store covers</string>

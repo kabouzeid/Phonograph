@@ -9,6 +9,8 @@ import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.annotation.AttrRes;
 import android.support.annotation.DrawableRes;
@@ -114,4 +116,19 @@ public class Util {
             return config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
         } else return false;
     }
+
+    public static boolean isAllowedToAutoDownload(final Context context) {
+        switch (PreferenceUtil.getInstance(context).autoDownloadImagesPolicy()) {
+            case "always":
+                return true;
+            case "only_wifi":
+                final ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
+                return netInfo != null && netInfo.getType() == ConnectivityManager.TYPE_WIFI && netInfo.isConnectedOrConnecting();
+            case "never":
+            default:
+                return false;
+        }
+    }
+
 }
