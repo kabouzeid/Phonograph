@@ -9,6 +9,8 @@
     <string name="action_share">Udostępnij</string>
     <string name="action_settings">"Ustawienia"</string>
     <string name="action_grant">Przyznaj</string>
+    <string name="action_done">Gotowe</string>
+    <string name="action_skip">Pomiń</string>
     <string name="action_about">O aplikacji</string>
     <string name="action_show_intro">Pokaż wstęp</string>
     <string name="action_clear_playlist">Wyczyść listę odtwarzania</string>
@@ -94,6 +96,9 @@
     <string name="light_theme_name">Jasny</string>
     <string name="dark_theme_name">Ciemny</string>
     <string name="black_theme_name">Czarny (AMOLED)</string>
+    <string name="always">Zawsze</string>
+    <string name="only_on_wifi">Tylko na WiFi</string>
+    <string name="never">Nigdy</string>
     <string name="equalizer">Korektor</string>
     <string name="pref_header_colors">Kolory</string>
     <string name="pref_header_now_playing_screen">\'\'Obecnie Grane\'\'</string>
@@ -105,6 +110,7 @@
     <string name="pref_title_navigation_bar">Kolorowy pasek nawigacyjny</string>
     <string name="pref_title_set_default_start_page">Strona startowa</string>
     <string name="pref_title_album_art_on_lockscreen">Pokazuj okładki albumów</string>
+    <string name="pref_title_auto_download_artist_images">Automatyczne pobieranie zdjęć wykonawców</string>
     <string name="pref_title_blurred_album_art">Rozmywanie okładki albumu</string>
     <string name="pref_title_colored_notification">Kolorowy odtwarzacz w pasku powiadomień</string>
     <string name="pref_title_ignore_media_store_artwork">Ignoruj okładki z Media Store</string>
@@ -214,4 +220,6 @@
     <string name="open_playing_queue_instruction">Przesuń kartę na ekranie \'\'Obecnie Grane\'\' w górę, aby odsłonić pełną kolejkę odtwarzania</string>
     <string name="rearrange_playing_queue_instruction">Zmień kolejność odtwarzania, przeciągając numer utworu w górę lub w dół kolejki</string>
     <string name="storage_permission_explaination">Phonograph wymaga zgody na dostep do magazynu danych, aby móc odczytać Twoją bibliotekę muzyczną</string>
+    <string name="library">Biblioteka</string>
+    <string name="folders">Foldery</string>
 </resources>

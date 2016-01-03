@@ -9,6 +9,8 @@
     <string name="action_share">Поделиться</string>
     <string name="action_settings">"Настройки"</string>
     <string name="action_grant">Разрешить</string>
+    <string name="action_done">Готово</string>
+    <string name="action_skip">"Пропустить "</string>
     <string name="action_about">О программе</string>
     <string name="action_show_intro">Показать вступление</string>
     <string name="action_clear_playlist">Очистить плейлист</string>
@@ -214,4 +216,6 @@
     <string name="open_playing_queue_instruction">Проведите по карточке на экране воспроизведения, чтобы просмотреть очередь</string>
     <string name="rearrange_playing_queue_instruction">Редактируйте очередь воспроизведения, перетаскивая песни за их номер</string>
     <string name="storage_permission_explaination">Нужен доступ к хранилищу, чтобы плеер мог читать Вашу библиотеку</string>
+    <string name="library">"Библиотека "</string>
+    <string name="folders">Папки</string>
 </resources>

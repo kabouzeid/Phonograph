@@ -9,6 +9,8 @@
     <string name="action_share">Podijeli</string>
     <string name="action_settings">"Postavke"</string>
     <string name="action_grant">Dozvoli</string>
+    <string name="action_done">Dovršeno</string>
+    <string name="action_skip">Preskoči</string>
     <string name="action_about">O Phonographu</string>
     <string name="action_show_intro">Prikaži uvod</string>
     <string name="action_clear_playlist">Isprazni popis pjesama</string>
@@ -48,8 +50,8 @@
     <string name="label_file_size">Veličina</string>
     <string name="label_file_format">Format</string>
     <string name="label_track_length">Duljina</string>
-    <string name="label_bit_rate">Bitrate</string>
-    <string name="label_sampling_rate">Sampling rate</string>
+    <string name="label_bit_rate">Brzina prijenosa</string>
+    <string name="label_sampling_rate">Brzina uzorkovanja</string>
     <string name="action_go_to_artist">Idi na izvođača</string>
     <string name="action_go_to_album">Idi na album</string>
     <string name="label_playing_queue">Red čekanja</string>
@@ -214,4 +216,6 @@
     <string name="open_playing_queue_instruction">Povucite karticu na zaslonu za reprodukciju kako bi otvorili cijeli red reprodukcije.</string>
     <string name="rearrange_playing_queue_instruction">Preuredi red reprodukcije povlačenjem pjesme za njen broj.</string>
     <string name="storage_permission_explaination">Dozvola pohrane je potrebna kako bi Phonograph pročitao vašu glazbenu biblioteku.</string>
+    <string name="library">Biblioteka</string>
+    <string name="folders">Mape</string>
 </resources>

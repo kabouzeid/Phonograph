@@ -9,6 +9,8 @@
     <string name="action_share">Compartilhar</string>
     <string name="action_settings">"Configurações"</string>
     <string name="action_grant">Permitir</string>
+    <string name="action_done">Pronto</string>
+    <string name="action_skip">Pular</string>
     <string name="action_about">Sobre</string>
     <string name="action_show_intro">Introdução</string>
     <string name="action_clear_playlist">Limpar playlist</string>
@@ -214,4 +216,6 @@
     <string name="open_playing_queue_instruction">Arraste para cima o card da tela de reprodução para mostrar a lista de reprodução completa.</string>
     <string name="rearrange_playing_queue_instruction">Mude as músicas de lugar na fila pressionando-as e arrastando-as de seu número de faixa.</string>
     <string name="storage_permission_explaination">A permissão de armazenamento é necessária para o Phonograph escanear suas músicas.</string>
+    <string name="library">Biblioteca</string>
+    <string name="folders">Pastas</string>
 </resources>

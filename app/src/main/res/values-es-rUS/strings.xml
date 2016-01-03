@@ -9,6 +9,8 @@
     <string name="action_share">Compartir</string>
     <string name="action_settings">"Ajustes"</string>
     <string name="action_grant">Permitir</string>
+    <string name="action_done">Hecho</string>
+    <string name="action_skip">Omitir</string>
     <string name="action_about">Acerca de</string>
     <string name="action_show_intro">Mostrar intro</string>
     <string name="action_clear_playlist">Limpiar lista de reproducción</string>
@@ -55,7 +57,7 @@
     <string name="label_playing_queue">Cola de reproducción</string>
     <string name="save_as_playlist">Guardar como lista de reproducción</string>
     <string name="no_results">Sin resultados</string>
-    <string name="action_re_download_artist_image">Actualizar la imagen del artista</string>
+    <string name="action_re_download_artist_image">Actualizar imagen del artista.</string>
     <string name="updated_artist_image">Imagen del artista actualizada.</string>
     <string name="could_not_update_artist_image">No se pudo actualizar la imagen del artista.</string>
     <string name="updating">Actualizando...</string>
@@ -80,7 +82,7 @@
     <string name="delete_songs_title">Eliminar canciones</string>
     <string name="remove_song_from_playlist_title">Eliminar canción de la lista de reproducción</string>
     <string name="remove_songs_from_playlist_title">Eliminar canciones de la lista de reproducción</string>
-    <string name="rename_playlist_title">Cambiar el nombre de la lista de reproducción</string>
+    <string name="rename_playlist_title">Renombrar lista de reproducción</string>
     <string name="delete_playlist_title">Eliminar lista de reproducción</string>
     <string name="delete_playlists_title">Eliminar listas de reproducción</string>
     <string name="clear_playlist_title">Limpiar lista de reproducción</string>
@@ -94,6 +96,9 @@
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Oscuro</string>
     <string name="black_theme_name">Negro (AMOLED)</string>
+    <string name="always">Siempre</string>
+    <string name="only_on_wifi">Sólo en WiFi</string>
+    <string name="never">Nunca</string>
     <string name="equalizer">Ecualizador</string>
     <string name="pref_header_colors">Colores</string>
     <string name="pref_header_now_playing_screen">Reproducción Actual</string>
@@ -104,7 +109,8 @@
     <string name="pref_header_lockscreen">Pantalla de bloqueo</string>
     <string name="pref_title_navigation_bar">Barra de navegación coloreada</string>
     <string name="pref_title_set_default_start_page">Sección de inicio</string>
-    <string name="pref_title_album_art_on_lockscreen">Mostrar carátula de álbum</string>
+    <string name="pref_title_album_art_on_lockscreen">Mostrar carátula del álbum</string>
+    <string name="pref_title_auto_download_artist_images">Descarga automática de imágenes de artistas</string>
     <string name="pref_title_blurred_album_art">Desenfocar imagen de álbum</string>
     <string name="pref_title_colored_notification">Notificación coloreada</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorar imágenes de la librería del sistema</string>
@@ -142,17 +148,17 @@
     <string name="pref_only_lollipop">"Sólo disponible en Lollipop."</string>
     <string name="pref_summary_album_art_on_lockscreen">Utiliza la carátula del álbum que se reproduce como fondo de pantalla de bloqueo</string>
     <string name="pref_summary_blurred_album_art">Desenfoca la carátula del álbum en la pantalla de bloqueo. Puede causar problemas con aplicaciones de terceros y widgets.</string>
-    <string name="pref_summary_colored_notification">"Colorear la notificaci\u00f3n con el color vibrante de la car\u00e1tula del \u00e1lbum."</string>
+    <string name="pref_summary_colored_notification">"Colorea la notificaci\u00f3n con el color vibrante de la car\u00e1tula del \u00e1lbum."</string>
     <string name="pref_summary_gapless_playback">"Puede causar problemas durante la reproducción en algunos dispositivos."</string>
     <string name="pref_summary_force_square_album_art">Las caratulas de álbumes en Reproduciendo son siempre cuadradas.</string>
-    <string name="pref_summary_opaque_toolbar_now_playing">Colorear la barra de herramientas.</string>
-    <string name="pref_summary_opaque_statusbar_now_playing">Colorear la barra de estado.</string>
+    <string name="pref_summary_opaque_toolbar_now_playing">Colorea la barra de herramientas.</string>
+    <string name="pref_summary_opaque_statusbar_now_playing">Colorea la barra de estado.</string>
     <string name="pref_summary_larger_title_box_now_playing">La caja de título en Reproduciendo es más grande.</string>
     <string name="pref_summary_alternative_progress_slider_now_playing">Usa una barra de progreso que no cubre la carátula del álbum en lugar de la barra de progreso por defecto.</string>
     <string name="pref_summary_playback_controller_card_now_playing">Muestra una tarjeta detrás de los botones reproducir/pausar, siguiente, previo, aleatorio y repetir.</string>
     <string name="pref_summary_ignore_media_store_artwork">Puede aumentar la calidad de la carátula del álbum pero a veces puede tardar en cargar. Sólo actívalo si tienes problemas con carátulas de baja resolución.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Colorea los botones de reproducir/pausar, aleatorio y repetir as\u00ed como la barra de progreso con el color vibrante de la car\u00e1tula del \u00e1lbum.</string>
-    <string name="pref_summary_colored_navigation_bar">Colorear la barra de navegación con el color principal.</string>
+    <string name="pref_summary_colored_navigation_bar">Colorea la barra de navegación con el color principal.</string>
     <string name="could_not_download_album_cover">"No se puede descargar una car\u00e1tula de \u00e1lbum coincidente."</string>
     <string name="search_hint">Buscar en la biblioteca...</string>
     <string name="rescanning_media">Escaneando contenido...</string>
@@ -167,7 +173,7 @@
     <string name="action_sleep_timer">Temporizador de apagado</string>
     <string name="action_set">Fijar</string>
     <string name="cancel_current_timer">Cancelar temporizador actual</string>
-    <string name="sleep_timer_canceled">Temporizador de apagado cancelado.</string>
+    <string name="sleep_timer_canceled">Temporizador cancelado.</string>
     <string name="sleep_timer_set">La música se detendrá dentro de %d minuto(s) a partir de ahora.</string>
     <string name="action_new_playlist">Nueva lista de reproducción...</string>
     <string name="new_playlist_title">Nueva lista de reproducción</string>
@@ -175,7 +181,7 @@
     <string name="special_thanks_to">Agradecimientos especiales a</string>
     <string name="changelog">Lista de cambios</string>
     <string name="licenses">Licencias</string>
-    <string name="permissions_denied">Permisos negados.</string>
+    <string name="permissions_denied">Permisos denegados.</string>
     <string name="permission_external_storage_denied">Permiso para acceder al almacenamiento externo denegado.</string>
     <string name="back">regresar</string>
     <string name="support_development">Apoyar el desarrollo</string>
@@ -190,7 +196,7 @@
     <string name="fork_on_git_hub">Fork en GitHub</string>
     <string name="visit_website">Visitar sitio web</string>
     <string name="report_bugs">Reportar errores</string>
-    <string name="report_bugs_summary">Reportar errores o nuevas características.</string>
+    <string name="report_bugs_summary">Reportar errores o sugerir nuevas características.</string>
     <string name="join_community">Unirse a la comunidad de Google+</string>
     <string name="join_community_summary">Si necesitas ayuda o tienes preguntas, la comunidad Phonograph en Google+ es un buen lugar para ir.</string>
     <string name="translate">Traducir</string>
@@ -208,10 +214,12 @@
     <string name="up_next">En seguida</string>
     <string name="pref_title_now_playing_layout">Diseño de la pantalla Reproduciendo</string>
     <string name="intro_label">Introducción</string>
-    <string name="press_back_again_to_exit_intro">Presione regresar de nuevo para saltar el intro.</string>
+    <string name="press_back_again_to_exit_intro">Presione regresar de nuevo para omitir el intro.</string>
     <string name="welcome_to_phonograph">Bienvenido a Phonograph, un reproductor de música hermoso y ligero para Android.</string>
     <string name="label_storage">Almacenamiento</string>
     <string name="open_playing_queue_instruction">Desliza la tarjeta en la pantalla de Reproducción Actual para desplegar la cola de reproducción completa.</string>
     <string name="rearrange_playing_queue_instruction">Reorganiza la cola de reproducción arrastrando una canción desde su número de pista.</string>
     <string name="storage_permission_explaination">El permiso de almacenamiento es necesario para que Phonograph pueda identificar la música de su biblioteca.</string>
+    <string name="library">Biblioteca</string>
+    <string name="folders">Carpetas</string>
 </resources>

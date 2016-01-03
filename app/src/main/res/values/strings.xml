@@ -230,5 +230,4 @@
     <string name="storage_permission_explaination">The storage permission is required for Phonograph to read your music library.</string>
     <string name="library">Library</string>
     <string name="folders">Folders</string>
-    <string name="tag_editor_restart_notice">You may have to restart the app for changes to take affect.</string>
 </resources>

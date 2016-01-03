@@ -9,6 +9,8 @@
     <string name="action_share">分享</string>
     <string name="action_settings">"设置"</string>
     <string name="action_grant">授予</string>
+    <string name="action_done">完成</string>
+    <string name="action_skip">跳过</string>
     <string name="action_about">关于</string>
     <string name="action_show_intro">显示介绍</string>
     <string name="action_clear_playlist">清除播放列表</string>
@@ -214,4 +216,6 @@
     <string name="open_playing_queue_instruction">滑动播放界面的卡片即可展开当前播放队列</string>
     <string name="rearrange_playing_queue_instruction">通过拖动歌曲前的序号调整播放队列</string>
     <string name="storage_permission_explaination">Phonograph需要存储权限以读取你的音乐库</string>
+    <string name="library">曲库</string>
+    <string name="folders">文件夹</string>
 </resources>
