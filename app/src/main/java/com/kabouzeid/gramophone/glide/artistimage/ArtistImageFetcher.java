@@ -20,11 +20,11 @@ import java.io.InputStream;
 public class ArtistImageFetcher implements DataFetcher<InputStream> {
     private Context context;
     private final LastFMRestClient lastFMRestClient;
-    private final ArtistImageRequest model;
+    private final ArtistImage model;
     private HttpUrlFetcher urlFetcher;
     private volatile boolean isCancelled;
 
-    public ArtistImageFetcher(Context context, LastFMRestClient lastFMRestClient, ArtistImageRequest model) {
+    public ArtistImageFetcher(Context context, LastFMRestClient lastFMRestClient, ArtistImage model) {
         this.context = context;
         this.lastFMRestClient = lastFMRestClient;
         this.model = model;

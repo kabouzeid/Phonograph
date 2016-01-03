@@ -11,10 +11,10 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.signature.MediaStoreSignature;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
-import com.kabouzeid.gramophone.glide.artistimage.ArtistImageRequest;
+import com.kabouzeid.gramophone.glide.SongGlideRequest;
+import com.kabouzeid.gramophone.glide.artistimage.ArtistImage;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
@@ -97,12 +97,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 final Album album = (Album) results.get(position);
                 holder.title.setText(album.getTitle());
                 holder.text.setText(album.getArtistName());
-                Glide.with(activity)
-                        .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.getId()))
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .error(R.drawable.default_album_art)
-                        .animate(android.R.anim.fade_in)
-                        .signature(new MediaStoreSignature("", album.getDateModified(), 0))
+                SongGlideRequest.Builder.from(Glide.with(activity), album.safeGetFirstSong())
+                        .checkIgnoreMediaStore(activity).build()
                         .into(holder.image);
                 break;
             case ARTIST:
@@ -110,7 +106,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 holder.title.setText(artist.name);
                 holder.text.setText(MusicUtil.getArtistInfoString(activity, artist));
                 Glide.with(activity)
-                        .load(new ArtistImageRequest(artist.name, false))
+                        .load(new ArtistImage(artist.name, false))
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                         .error(R.drawable.default_album_art)
                         .animate(android.R.anim.fade_in)

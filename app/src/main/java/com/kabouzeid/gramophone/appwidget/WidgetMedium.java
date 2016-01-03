@@ -15,17 +15,15 @@ import android.support.annotation.Nullable;
 import android.widget.RemoteViews;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.signature.MediaStoreSignature;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
-import com.kabouzeid.gramophone.util.MusicUtil;
 
 public class WidgetMedium extends AppWidgetProvider {
     private static RemoteViews widgetLayout;
@@ -86,11 +84,9 @@ public class WidgetMedium extends AppWidgetProvider {
         uiThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                Glide.with(context)
-                        .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
-                        .asBitmap()
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .signature(new MediaStoreSignature("", song.dateModified, 0))
+                SongGlideRequest.Builder.from(Glide.with(context), song)
+                        .checkIgnoreMediaStore(context)
+                        .asBitmap().build()
                         .into(target);
             }
         });

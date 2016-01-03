@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,14 +23,15 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.album.HorizontalAlbumAdapter;
 import com.kabouzeid.gramophone.adapter.song.ArtistSongAdapter;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
-import com.kabouzeid.gramophone.glide.artistimage.ArtistImageRequest;
+import com.kabouzeid.gramophone.glide.artistimage.ArtistImage;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -255,35 +255,36 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
             ArtistSignatureUtil.getInstance(this).updateArtistSignature(artist.name);
         }
         Glide.with(this)
-                .load(new ArtistImageRequest(artist.name, forceDownload))
+                .load(new ArtistImage(artist.name, forceDownload))
                 .asBitmap()
                 .transcode(new BitmapPaletteTranscoder(this), BitmapPaletteWrapper.class)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .error(R.drawable.default_album_art)
                 .signature(ArtistSignatureUtil.getInstance(this).getArtistSignature(artist.name))
-                .into(new PhonographColoredTarget(artistImage) {
-
+                .dontAnimate()
+                .listener(new RequestListener<ArtistImage, BitmapPaletteWrapper>() {
                     @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        super.onLoadFailed(e, errorDrawable);
+                    public boolean onException(Exception e, ArtistImage model, Target<BitmapPaletteWrapper> target, boolean isFirstResource) {
                         toastUpdatedArtistImageIfDownloadWasForced();
+                        return false;
                     }
 
                     @Override
-                    public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
-                        super.onResourceReady(resource, glideAnimation);
+                    public boolean onResourceReady(BitmapPaletteWrapper resource, ArtistImage model, Target<BitmapPaletteWrapper> target, boolean isFromMemoryCache, boolean isFirstResource) {
                         toastUpdatedArtistImageIfDownloadWasForced();
-                    }
-
-                    @Override
-                    public void onColorReady(int color) {
-                        setColors(color);
+                        return false;
                     }
 
                     private void toastUpdatedArtistImageIfDownloadWasForced() {
                         if (forceDownload) {
                             Toast.makeText(ArtistDetailActivity.this, getString(R.string.updated_artist_image), Toast.LENGTH_SHORT).show();
                         }
+                    }
+                })
+                .into(new PhonographColoredTarget(artistImage) {
+                    @Override
+                    public void onColorReady(int color) {
+                        setColors(color);
                     }
                 });
     }

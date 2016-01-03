@@ -10,15 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.signature.MediaStoreSignature;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
-import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
-import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
+import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.misc.CustomFragmentStatePagerAdapter;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
@@ -129,13 +125,9 @@ public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
         }
 
         private void loadAlbumCover() {
-            Glide.with(this)
-                    .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
-                    .asBitmap()
-                    .transcode(new BitmapPaletteTranscoder(getActivity()), BitmapPaletteWrapper.class)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .error(R.drawable.default_album_art)
-                    .signature(new MediaStoreSignature("", song.dateModified, 0))
+            SongGlideRequest.Builder.from(Glide.with(this), song)
+                    .checkIgnoreMediaStore(getActivity())
+                    .generatePalette(getActivity()).build()
                     .into(new PhonographColoredTarget(albumCover) {
                         @Override
                         public void onColorReady(int color) {

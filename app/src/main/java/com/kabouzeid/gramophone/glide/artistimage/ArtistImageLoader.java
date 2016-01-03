@@ -15,7 +15,7 @@ import java.io.InputStream;
  * @author Karim Abou Zeid (kabouzeid)
  */
 
-public class ArtistImageLoader implements StreamModelLoader<ArtistImageRequest> {
+public class ArtistImageLoader implements StreamModelLoader<ArtistImage> {
     private Context context;
     private LastFMRestClient lastFMRestClient;
 
@@ -25,11 +25,11 @@ public class ArtistImageLoader implements StreamModelLoader<ArtistImageRequest> 
     }
 
     @Override
-    public DataFetcher<InputStream> getResourceFetcher(ArtistImageRequest model, int width, int height) {
+    public DataFetcher<InputStream> getResourceFetcher(ArtistImage model, int width, int height) {
         return new ArtistImageFetcher(context, lastFMRestClient, model);
     }
 
-    public static class Factory implements ModelLoaderFactory<ArtistImageRequest, InputStream> {
+    public static class Factory implements ModelLoaderFactory<ArtistImage, InputStream> {
         private static volatile LastFMRestClient internalClient;
         private LastFMRestClient client;
 
@@ -52,7 +52,7 @@ public class ArtistImageLoader implements StreamModelLoader<ArtistImageRequest> 
         }
 
         @Override
-        public ModelLoader<ArtistImageRequest, InputStream> build(Context context, GenericLoaderFactory factories) {
+        public ModelLoader<ArtistImage, InputStream> build(Context context, GenericLoaderFactory factories) {
             return new ArtistImageLoader(context, client);
         }
 
