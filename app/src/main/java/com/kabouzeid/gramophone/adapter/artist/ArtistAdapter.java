@@ -125,7 +125,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
                 .asBitmap()
                 .transcode(new BitmapPaletteTranscoder(activity), BitmapPaletteWrapper.class)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .error(R.drawable.default_album_art)
+                .error(R.drawable.default_artist_image)
                 .animate(android.R.anim.fade_in)
                 .priority(Priority.LOW)
                 .signature(ArtistSignatureUtil.getInstance(activity).getArtistSignature(artist.name))
