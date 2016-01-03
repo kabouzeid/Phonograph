@@ -99,7 +99,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 holder.text.setText(album.getArtistName());
                 Glide.with(activity)
                         .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.getId()))
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .error(R.drawable.default_album_art)
                         .animate(android.R.anim.fade_in)
                         .signature(new MediaStoreSignature("", album.getDateModified(), 0))
@@ -111,7 +111,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 holder.text.setText(MusicUtil.getArtistInfoString(activity, artist));
                 Glide.with(activity)
                         .load(new ArtistImageRequest(artist.name, false))
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                         .error(R.drawable.default_album_art)
                         .animate(android.R.anim.fade_in)
                         .signature(ArtistSignatureUtil.getInstance(activity).getArtistSignature(artist.name))

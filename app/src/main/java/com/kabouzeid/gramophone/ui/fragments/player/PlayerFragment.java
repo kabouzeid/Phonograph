@@ -157,6 +157,11 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         updateQueue();
     }
 
+    @Override
+    public void onMediaStoreChanged() {
+        updateQueue();
+    }
+
     private void updateQueue() {
         playingQueueAdapter.swapDataSet(MusicPlayerRemote.getPlayingQueue(), MusicPlayerRemote.getPosition());
         if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {

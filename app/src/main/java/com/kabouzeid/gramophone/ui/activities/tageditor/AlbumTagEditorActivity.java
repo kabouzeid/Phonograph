@@ -116,7 +116,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
                                 .load(url)
                                 .asBitmap()
                                 .transcode(new BitmapPaletteTranscoder(AlbumTagEditorActivity.this), BitmapPaletteWrapper.class)
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                                 .error(R.drawable.default_album_art)
                                 .into(new SimpleTarget<BitmapPaletteWrapper>() {
                                     @Override

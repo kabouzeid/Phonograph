@@ -133,7 +133,7 @@ public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
                     .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
                     .asBitmap()
                     .transcode(new BitmapPaletteTranscoder(getActivity()), BitmapPaletteWrapper.class)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .error(R.drawable.default_album_art)
                     .signature(new MediaStoreSignature("", song.dateModified, 0))
                     .into(new PhonographColoredTarget(albumCover) {

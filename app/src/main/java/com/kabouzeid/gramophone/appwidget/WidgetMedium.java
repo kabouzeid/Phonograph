@@ -89,7 +89,7 @@ public class WidgetMedium extends AppWidgetProvider {
                 Glide.with(context)
                         .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
                         .asBitmap()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .signature(new MediaStoreSignature("", song.dateModified, 0))
                         .into(target);
             }
