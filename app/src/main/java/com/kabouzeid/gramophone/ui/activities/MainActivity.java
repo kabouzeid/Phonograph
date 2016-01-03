@@ -157,17 +157,14 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     private void setUpViewPager() {
         pagerAdapter = new PagerAdapter(this, getSupportFragmentManager());
         pager.setAdapter(pagerAdapter);
-        pager.setOffscreenPageLimit(pagerAdapter.getCount() - 1);
-
-        int startPosition = PreferenceUtil.getInstance(this).getDefaultStartPage();
-        startPosition = startPosition == -1 ? PreferenceUtil.getInstance(this).getLastStartPage() : startPosition;
-
-        navigationView.getMenu().getItem(startPosition).setChecked(true);
+        pager.setOffscreenPageLimit(pagerAdapter.getCount() - 1); // => all
 
         tabs.setupWithViewPager(pager);
         tabs.setTabTextColors(ColorUtil.getSecondaryTextColorForBackground(this, getThemeColorPrimary()), ColorUtil.getPrimaryTextColorForBackground(this, getThemeColorPrimary()));
         tabs.setSelectedTabIndicatorColor(getThemeColorAccent() == Color.WHITE && !ColorUtil.useDarkTextColorOnBackground(getThemeColorPrimary()) ? Color.WHITE : ThemeSingleton.get().positiveColor.getDefaultColor());
 
+        int startPosition = PreferenceUtil.getInstance(this).getDefaultStartPage();
+        startPosition = startPosition == -1 ? PreferenceUtil.getInstance(this).getLastStartPage() : startPosition;
         pager.setCurrentItem(startPosition);
     }
 
