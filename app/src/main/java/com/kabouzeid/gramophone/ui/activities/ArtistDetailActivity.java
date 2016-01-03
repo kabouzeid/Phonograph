@@ -259,7 +259,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                 .asBitmap()
                 .transcode(new BitmapPaletteTranscoder(this), BitmapPaletteWrapper.class)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .error(R.drawable.default_album_art)
+                .error(R.drawable.default_artist_image)
                 .signature(ArtistSignatureUtil.getInstance(this).getArtistSignature(artist.name))
                 .dontAnimate()
                 .listener(new RequestListener<ArtistImage, BitmapPaletteWrapper>() {
