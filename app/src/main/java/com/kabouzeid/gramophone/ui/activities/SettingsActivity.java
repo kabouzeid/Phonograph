@@ -148,6 +148,16 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 }
             });
 
+            final Preference autoDownloadImagesPolicy = findPreference("auto_download_images_policy");
+            setSummary(autoDownloadImagesPolicy);
+            autoDownloadImagesPolicy.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, @NonNull Object o) {
+                    setSummary(autoDownloadImagesPolicy, o);
+                    return true;
+                }
+            });
+
             ColorChooserPreference primaryColor = (ColorChooserPreference) findPreference("primary_color");
             primaryColor.setColor(PreferenceUtil.getInstance(getActivity()).getThemeColorPrimary(getActivity()));
             primaryColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

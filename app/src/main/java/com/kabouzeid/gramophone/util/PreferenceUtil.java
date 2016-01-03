@@ -63,6 +63,8 @@ public final class PreferenceUtil {
     public static final String LAST_CHANGELOG_VERSION = "last_changelog_version";
     public static final String INTRO_SHOWN = "intro_shown";
 
+    public static final String AUTO_DOWNLOAD_IMAGES_POLICY = "auto_download_images_policy";
+
     private static PreferenceUtil sInstance;
 
     private final SharedPreferences mPreferences;
@@ -370,5 +372,9 @@ public final class PreferenceUtil {
 
     public final boolean introShown() {
         return mPreferences.getBoolean(INTRO_SHOWN, false);
+    }
+
+    public final String autoDownloadImagesPolicy() {
+        return mPreferences.getString(AUTO_DOWNLOAD_IMAGES_POLICY, "only_wifi");
     }
 }

@@ -16,15 +16,17 @@ import java.io.InputStream;
  */
 
 public class ArtistImageLoader implements StreamModelLoader<ArtistImageRequest> {
+    private Context context;
     private LastFMRestClient lastFMRestClient;
 
-    public ArtistImageLoader(LastFMRestClient lastFMRestClient) {
+    public ArtistImageLoader(Context context, LastFMRestClient lastFMRestClient) {
+        this.context = context;
         this.lastFMRestClient = lastFMRestClient;
     }
 
     @Override
     public DataFetcher<InputStream> getResourceFetcher(ArtistImageRequest model, int width, int height) {
-        return new ArtistImageFetcher(lastFMRestClient, model);
+        return new ArtistImageFetcher(context, lastFMRestClient, model);
     }
 
     public static class Factory implements ModelLoaderFactory<ArtistImageRequest, InputStream> {
@@ -51,7 +53,7 @@ public class ArtistImageLoader implements StreamModelLoader<ArtistImageRequest> 
 
         @Override
         public ModelLoader<ArtistImageRequest, InputStream> build(Context context, GenericLoaderFactory factories) {
-            return new ArtistImageLoader(client);
+            return new ArtistImageLoader(context, client);
         }
 
         @Override

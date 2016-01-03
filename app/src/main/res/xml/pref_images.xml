@@ -11,6 +11,16 @@
             android:title="@string/pref_title_ignore_media_store_artwork"
             android:widgetLayout="@layout/preference_dynamic_checkbox" />
 
+        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+            android:defaultValue="only_wifi"
+            android:entries="@array/pref_auto_download_images_titles"
+            android:entryValues="@array/pref_auto_download_images_values"
+            android:key="auto_download_images_policy"
+            android:layout="@layout/preference_custom"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_auto_download_artist_images" />
+
     </com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory>
 
 </PreferenceScreen>
