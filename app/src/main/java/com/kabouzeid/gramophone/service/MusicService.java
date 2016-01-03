@@ -33,13 +33,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.BitmapRequestBuilder;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.signature.MediaStoreSignature;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appwidget.WidgetMedium;
 import com.kabouzeid.gramophone.glide.BlurTransformation;
+import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.PlayingNotificationHelper;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.helper.StopWatch;
@@ -143,7 +142,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private Handler uiThreadHandler;
 
     private static String getTrackUri(@NonNull Song song) {
-        return MusicUtil.getSongUri(song.id).toString();
+        return MusicUtil.getSongFileUri(song.id).toString();
     }
 
     @Override
@@ -446,11 +445,9 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 .apply();
         if (showAlbumArt) {
             final Point screenSize = Util.getScreenSize(MusicService.this);
-            final BitmapRequestBuilder request = Glide.with(MusicService.this)
-                    .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
-                    .asBitmap()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .signature(new MediaStoreSignature("", song.dateModified, 0));
+            final BitmapRequestBuilder<?, Bitmap> request = SongGlideRequest.Builder.from(Glide.with(MusicService.this), song)
+                    .checkIgnoreMediaStore(MusicService.this)
+                    .asBitmap().build();
             if (blurAlbumArt) {
                 request.transform(new BlurTransformation.Builder(MusicService.this).build());
             }

@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,15 +16,14 @@ import android.widget.TextView;
 import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.signature.MediaStoreSignature;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.song.AlbumSongAdapter;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
-import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
+import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
@@ -37,7 +35,6 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AlbumTagEditorActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
-import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.Util;
 
@@ -82,9 +79,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         setStatusBarTransparent();
         ButterKnife.bind(this);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            postponeEnterTransition();
-        }
+        supportPostponeEnterTransition();
 
         if (shouldColorNavigationBar())
             setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
@@ -154,28 +149,24 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     }
 
     private void loadAlbumCover() {
-        Glide.with(this)
-                .loadFromMediaStore(MusicUtil.getAlbumArtUri(album.getId()))
-                .asBitmap()
-                .transcode(new BitmapPaletteTranscoder(this), BitmapPaletteWrapper.class)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .error(R.drawable.default_album_art)
-                .signature(new MediaStoreSignature("", album.getDateModified(), 0))
+        SongGlideRequest.Builder.from(Glide.with(this), album.safeGetFirstSong())
+                .checkIgnoreMediaStore(this)
+                .generatePalette(this).build()
+                .dontAnimate()
+                .listener(new RequestListener<Object, BitmapPaletteWrapper>() {
+                    @Override
+                    public boolean onException(Exception e, Object model, Target<BitmapPaletteWrapper> target, boolean isFirstResource) {
+                        supportStartPostponedEnterTransition();
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(BitmapPaletteWrapper resource, Object model, Target<BitmapPaletteWrapper> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        supportStartPostponedEnterTransition();
+                        return false;
+                    }
+                })
                 .into(new PhonographColoredTarget(albumArtImageView) {
-                    @Override
-                    public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
-                        super.onResourceReady(resource, glideAnimation);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                            startPostponedEnterTransition();
-                    }
-
-                    @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        super.onLoadFailed(e, errorDrawable);
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                            startPostponedEnterTransition();
-                    }
-
                     @Override
                     public void onColorReady(int color) {
                         setColors(color);

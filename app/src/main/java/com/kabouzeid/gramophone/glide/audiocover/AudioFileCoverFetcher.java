@@ -1,11 +1,9 @@
 package com.kabouzeid.gramophone.glide.audiocover;
 
-import android.content.Context;
 import android.media.MediaMetadataRetriever;
 
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.data.DataFetcher;
-import com.kabouzeid.gramophone.model.Song;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -14,34 +12,36 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import hugo.weaving.DebugLog;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class AudioFileCoverFetcher implements DataFetcher<InputStream> {
-    private final Song model;
+    private final AudioFileCover model;
     private FileInputStream stream;
-    private Context context;
 
-    public AudioFileCoverFetcher(Context context, Song model) {
-        this.context = context;
+    public AudioFileCoverFetcher(AudioFileCover model) {
         this.model = model;
     }
 
+    @DebugLog
     @Override
     public String getId() {
-        return model.data;
+        return model.filePath;
     }
 
+    @DebugLog
     @Override
     public InputStream loadData(Priority priority) throws Exception {
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
         try {
-            retriever.setDataSource(model.data);
+            retriever.setDataSource(model.filePath);
             byte[] picture = retriever.getEmbeddedPicture();
             if (picture != null) {
                 return new ByteArrayInputStream(picture);
             } else {
-                return fallback(model.data);
+                return fallback(model.filePath);
             }
         } finally {
             retriever.release();
@@ -50,6 +50,7 @@ public class AudioFileCoverFetcher implements DataFetcher<InputStream> {
 
     private static final String[] FALLBACKS = {"cover.jpg", "album.jpg", "folder.jpg"};
 
+    @DebugLog
     private InputStream fallback(String path) throws FileNotFoundException {
         File parent = new File(path).getParentFile();
         for (String fallback : FALLBACKS) {

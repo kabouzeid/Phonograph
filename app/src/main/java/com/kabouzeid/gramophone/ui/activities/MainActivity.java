@@ -36,14 +36,13 @@ import android.widget.TextView;
 import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.signature.MediaStoreSignature;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PagerAdapter;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
 import com.kabouzeid.gramophone.dialogs.CreatePlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DonationDialog;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
+import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.SearchQueryHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
@@ -58,7 +57,6 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityRecyclerViewCustomGridSizeFragment;
 import com.kabouzeid.gramophone.util.ColorUtil;
-import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
@@ -275,12 +273,8 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
             }
             ((TextView) navigationDrawerHeader.findViewById(R.id.title)).setText(song.title);
             ((TextView) navigationDrawerHeader.findViewById(R.id.text)).setText(song.artistName);
-            Glide.with(this)
-                    .loadFromMediaStore(MusicUtil.getAlbumArtUri(song.albumId))
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .error(R.drawable.default_album_art)
-                    .animate(android.R.anim.fade_in)
-                    .signature(new MediaStoreSignature("", song.dateModified, 0))
+            SongGlideRequest.Builder.from(Glide.with(this), song)
+                    .checkIgnoreMediaStore(this).build()
                     .into(((ImageView) navigationDrawerHeader.findViewById(R.id.image)));
         } else {
             if (navigationDrawerHeader != null) {

@@ -34,14 +34,14 @@ import java.util.List;
 public class MusicUtil {
     public static final String TAG = MusicUtil.class.getSimpleName();
 
-    public static Uri getAlbumArtUri(int albumId) {
+    public static Uri getMediaStoreAlbumCoverUri(int albumId) {
         final Uri sArtworkUri = Uri
                 .parse("content://media/external/audio/albumart");
 
         return ContentUris.withAppendedId(sArtworkUri, albumId);
     }
 
-    public static Uri getSongUri(int songId) {
+    public static Uri getSongFileUri(int songId) {
         return ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, songId);
     }
 
@@ -55,7 +55,7 @@ public class MusicUtil {
 
     public static void setRingtone(@NonNull final Context context, final int id) {
         final ContentResolver resolver = context.getContentResolver();
-        final Uri uri = getSongUri(id);
+        final Uri uri = getSongFileUri(id);
         try {
             final ContentValues values = new ContentValues(2);
             values.put(MediaStore.Audio.AudioColumns.IS_RINGTONE, "1");

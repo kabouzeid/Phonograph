@@ -20,7 +20,7 @@ import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
 import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
-import com.kabouzeid.gramophone.glide.artistimage.ArtistImageRequest;
+import com.kabouzeid.gramophone.glide.artistimage.ArtistImage;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -121,7 +121,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     protected void loadArtistImage(Artist artist, final ViewHolder holder) {
         if (holder.image == null) return;
         Glide.with(activity)
-                .load(new ArtistImageRequest(artist.name, false))
+                .load(new ArtistImage(artist.name, false))
                 .asBitmap()
                 .transcode(new BitmapPaletteTranscoder(activity), BitmapPaletteWrapper.class)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
@@ -129,6 +129,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
                 .animate(android.R.anim.fade_in)
                 .priority(Priority.LOW)
                 .signature(ArtistSignatureUtil.getInstance(activity).getArtistSignature(artist.name))
+                .thumbnail(0.001f)
                 .into(new PhonographColoredTarget(holder.image) {
                     @Override
                     public void onLoadCleared(Drawable placeholder) {

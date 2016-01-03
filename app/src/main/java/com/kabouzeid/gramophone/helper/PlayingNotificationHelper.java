@@ -21,19 +21,16 @@ import android.support.v4.content.ContextCompat;
 import android.widget.RemoteViews;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.signature.MediaStoreSignature;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
+import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
-import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 public class PlayingNotificationHelper {
@@ -195,12 +192,9 @@ public class PlayingNotificationHelper {
         service.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Glide.with(service)
-                        .loadFromMediaStore(MusicUtil.getAlbumArtUri(currentSong.albumId))
-                        .asBitmap()
-                        .transcode(new BitmapPaletteTranscoder(service), BitmapPaletteWrapper.class)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .signature(new MediaStoreSignature("", currentSong.dateModified, 0))
+                SongGlideRequest.Builder.from(Glide.with(service), currentSong)
+                        .checkIgnoreMediaStore(service)
+                        .generatePalette(service).build()
                         .into(target);
             }
         });
