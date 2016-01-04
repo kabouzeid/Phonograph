@@ -8,7 +8,11 @@
     <string name="action_set_as_ringtone">Establecer como tono de llamada</string>
     <string name="action_share">Compartir</string>
     <string name="action_settings">"Ajustes"</string>
+    <string name="action_grant">Otorgar</string>
+    <string name="action_done">Hecho</string>
+    <string name="action_skip">Saltar</string>
     <string name="action_about">Acerca de</string>
+    <string name="action_show_intro">Mostrar introducción</string>
     <string name="action_clear_playlist">Limpiar lista de reproducción</string>
     <string name="action_playing_queue">Cola de reproducción</string>
     <string name="action_add_to_favorites">Añadir a favoritos</string>
@@ -91,6 +95,10 @@
     <string name="last_opened">Última abierta</string>
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Oscuro</string>
+    <string name="black_theme_name">Negro (AMOLED)</string>
+    <string name="always">Siempre</string>
+    <string name="only_on_wifi">Solo con Wi-Fi</string>
+    <string name="never">Nunca</string>
     <string name="equalizer">Ecualizador</string>
     <string name="pref_header_colors">Colores</string>
     <string name="pref_header_now_playing_screen">Pantalla de reproducción</string>
@@ -102,6 +110,7 @@
     <string name="pref_title_navigation_bar">Barra de navegación coloreada</string>
     <string name="pref_title_set_default_start_page">Página de inicio</string>
     <string name="pref_title_album_art_on_lockscreen">Mostrar carátula del álbum</string>
+    <string name="pref_title_auto_download_artist_images">Descargar automaticamente las fotos de los artistas</string>
     <string name="pref_title_blurred_album_art">Desenfocar carátula de álbum</string>
     <string name="pref_title_colored_notification">Notificación coloreada</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorar carátulas provenientes del almacenamiento local</string>
@@ -172,6 +181,7 @@
     <string name="special_thanks_to">Agradecimientos especiales a</string>
     <string name="changelog">Lista de cambios</string>
     <string name="licenses">Licencias</string>
+    <string name="permissions_denied">Permisos denegados.</string>
     <string name="permission_external_storage_denied">Permiso para acceder al almacenamiento externo denegado.</string>
     <string name="back">regresar</string>
     <string name="support_development">Apoyar desarrollo</string>
@@ -203,4 +213,13 @@
     <string name="loading_products">Cargando productos...</string>
     <string name="up_next">A continuación</string>
     <string name="pref_title_now_playing_layout">Diseño de la pantalla de reproducción</string>
+    <string name="intro_label">Introducción</string>
+    <string name="press_back_again_to_exit_intro">Pulsa otra vez atrás para pasar la introducción.</string>
+    <string name="welcome_to_phonograph">Bienvenido a Phonograph, un bonito y ligero reproductor de música para Android.</string>
+    <string name="label_storage">Almacenamiento</string>
+    <string name="open_playing_queue_instruction">Desliza la carta hacia arriba en la pantalla de ahora reproduciendo para desvelar completamente la cola de reproducción.</string>
+    <string name="rearrange_playing_queue_instruction">Reproduce la cola de reproducción arrastrando la canción desde su número de pista.</string>
+    <string name="storage_permission_explaination">El permiso de almacenamiento es necesario para que Phonograph pueda leer tu biblioteca de música.</string>
+    <string name="library">Biblioteca</string>
+    <string name="folders">Carpetas</string>
 </resources>

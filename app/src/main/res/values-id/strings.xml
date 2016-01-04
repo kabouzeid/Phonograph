@@ -33,13 +33,13 @@
     <string name="unplayable_file">Tidak dapat memutar lagu ini.</string>
     <string name="biography_unavailable">Tidak dapat menemukan biografi artis</string>
     <string name="biography">Biografi</string>
-    <string name="audio_focus_denied">Fokus audio ditiadakan</string>
+    <string name="audio_focus_denied">Fokus audio ditolak.</string>
     <string name="album">Album</string>
     <string name="artist">Artis</string>
-    <string name="genre">Genre</string>
+    <string name="genre">Aliran</string>
     <string name="album_artist">Artis album</string>
     <string name="year">Tahun</string>
-    <string name="track">Lagu</string>
+    <string name="track">Trek</string>
     <string name="track_hint">"Trek (2 untuk trek ke-2 atau 3004 untuk CD3 trek ke-4)"</string>
     <string name="album_or_artist_empty">Judul atau artis kosong.</string>
     <string name="writing_file_number">Menggubah berkas</string>
@@ -95,6 +95,10 @@
     <string name="last_opened">Terakhir dibuka</string>
     <string name="light_theme_name">Terang</string>
     <string name="dark_theme_name">Gelap</string>
+    <string name="black_theme_name">Hitam (AMOLED)</string>
+    <string name="always">Selalu</string>
+    <string name="only_on_wifi">Hanya dengan wifi</string>
+    <string name="never">Jangan pernah</string>
     <string name="equalizer">Ekualiser</string>
     <string name="pref_header_colors">Warna</string>
     <string name="pref_header_now_playing_screen">Sedang diputar</string>
@@ -106,6 +110,8 @@
     <string name="pref_title_navigation_bar">Warnai alat navigasi di bagian bawah layar</string>
     <string name="pref_title_set_default_start_page">Halaman awal</string>
     <string name="pref_title_album_art_on_lockscreen">Perlihatkan sampul album pada layar kunci</string>
+    <string name="pref_title_auto_download_artist_images">Otomatis unduh gambar artis</string>
+    <string name="pref_title_blurred_album_art">Buramkan sampul album</string>
     <string name="pref_title_colored_notification">Notifikasi berwarna</string>
     <string name="pref_title_ignore_media_store_artwork">Abaikan sampul-sampul dari \'Media Store\' android.</string>
     <string name="pref_title_gapless_playback">Pemutaran tanpa jeda</string>
@@ -141,6 +147,7 @@
     <string name="song">Lagu</string>
     <string name="pref_only_lollipop">"Hanya tersedia pada Android Lollipop 5.0 atau lebih baru."</string>
     <string name="pref_summary_album_art_on_lockscreen">Gunakan sambul album lagu yang sedang diputar sebagai wallpaper layar kunci</string>
+    <string name="pref_summary_blurred_album_art">Buramkan sampul album di layar kunci. Dapat menyebabkan masalah dengan aplikasi pihak ke tiga dan widget</string>
     <string name="pref_summary_colored_notification">"Mewarnai notifikasi putar dengan warna yang cerah dari album."</string>
     <string name="pref_summary_gapless_playback">"Dapat menyebabkan masalah pemutaran pada beberapa perangkat."</string>
     <string name="pref_summary_force_square_album_art">Sampul album pada tampilan \'sedang diputar\' selalu kotak.</string>
@@ -158,7 +165,7 @@
     <string name="favorites">Favorit</string>
     <string name="last_added">Terakhir ditambahkan</string>
     <string name="history">Riwayat</string>
-    <string name="my_top_tracks">Lagu teratas saya</string>
+    <string name="my_top_tracks">Trek teratas saya</string>
     <string name="remove_cover">Hapus sampul</string>
     <string name="download_from_last_fm">Unduh dari Last.fm</string>
     <string name="pick_from_local_storage">Ambil dari penyimpanan lokal</string>
@@ -173,6 +180,8 @@
     <string name="colored_footers">Bawahan berwarna</string>
     <string name="special_thanks_to">Terima kasih khusus kepada</string>
     <string name="changelog">Log perubahan</string>
+    <string name="licenses">Lisensi</string>
+    <string name="permissions_denied">Izin ditolak</string>
     <string name="permission_external_storage_denied">"Izin akses memori eksternal ditolak. "</string>
     <string name="back">kembali</string>
     <string name="support_development">Dukung pengembangan</string>
@@ -204,6 +213,13 @@
     <string name="loading_products">Memuat produk...</string>
     <string name="up_next">Mendatang</string>
     <string name="pref_title_now_playing_layout">Tampilan sedang diputar</string>
+    <string name="intro_label">Pengenalan</string>
+    <string name="press_back_again_to_exit_intro">Tekan kembali lagi untuk melewati intro.</string>
+    <string name="welcome_to_phonograph">"Selamat datang di Phonograph, sebuah pemutar musik yang indah dan ringan untuk Android. "</string>
+    <string name="label_storage">Penyimpanan</string>
+    <string name="open_playing_queue_instruction">Geser kartu di layar sekarang memutar untuk memperlihatkan antrian pemutar penuh.</string>
+    <string name="rearrange_playing_queue_instruction">Mengatur ulang antrian pemutar dengan menyeret lagu dari nomor trek.</string>
+    <string name="storage_permission_explaination">Izin penyimpanan diperlukan untuk Phonograph untuk membaca perpustakaan musik Anda.</string>
     <string name="library">Pustaka</string>
     <string name="folders">Map-map</string>
 </resources>

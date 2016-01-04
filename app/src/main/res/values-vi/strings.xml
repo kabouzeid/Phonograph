@@ -26,9 +26,9 @@
     <string name="action_tag_editor">Biên tập thẻ</string>
     <string name="action_delete_from_device">Xóa từ thiết bị</string>
     <string name="action_details">Chi tiết</string>
-    <string name="albums">Albums</string>
-    <string name="artists">Nhiều nghệ sĩ</string>
-    <string name="songs">Tất cả bài hát</string>
+    <string name="albums">Album</string>
+    <string name="artists">Nghệ sĩ</string>
+    <string name="songs">Bài hát</string>
     <string name="playlists">Danh sách nhạc</string>
     <string name="unplayable_file">Kh\u00f4ng th\u1ec3 ph\u00e1t b\u00e0i h\u00e1t n\u00e0y.</string>
     <string name="biography_unavailable">Kh\u00f4ng t\u00ecm th\u1ea5y ti\u1ec3u s\u1eed c\u1ee7a ngh\u1ec7 s\u0129.</string>
@@ -171,7 +171,7 @@
     <string name="pick_from_local_storage">Chọn từ bộ nhớ máy</string>
     <string name="web_search">Tìm kiếm Web</string>
     <string name="action_sleep_timer">Hẹn giờ ngủ</string>
-    <string name="action_set">Cài</string>
+    <string name="action_set">Đặt</string>
     <string name="cancel_current_timer">Hủy hẹn giờ hiện tại</string>
     <string name="sleep_timer_canceled">Đã hủy hẹn giờ ngủ</string>
     <string name="sleep_timer_set">Hẹn giờ ngủ được cài cho %d phút từ bây giờ.</string>
@@ -200,7 +200,7 @@
     <string name="join_community">Tham gia cộng đồng Google Plus</string>
     <string name="join_community_summary">Nếu bạn cần trợ giúp hoặc có câu hỏi, hãy đến với cộng đồng Phonograph trên Google Plus.</string>
     <string name="translate">Dịch</string>
-    <string name="translate_summary">Hỗ trợ dịch Phonograph sang ngôn ngữ mẹ đẻ của bạn.</string>
+    <string name="translate_summary">Hỗ trợ dịch Phonograph sang ngôn ngữ của bạn.</string>
     <string name="rate_on_google_play">Đánh giá</string>
     <string name="rate_on_google_play_summary">Để lại một đánh giá tích cực trên Google Play nếu bạn thích Phonograph.</string>
     <string name="donate">Hỗ trợ</string>
