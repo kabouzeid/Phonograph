@@ -19,48 +19,32 @@ import java.io.InputStream;
 
 public class ArtistImageLoader implements StreamModelLoader<ArtistImage> {
     private Context context;
-    private LastFMRestClient lastFMRestClient;
+    private LastFMRestClient lastFMClient;
     private ModelLoader<GlideUrl, InputStream> urlLoader;
 
     public ArtistImageLoader(Context context, LastFMRestClient lastFMRestClient, ModelLoader<GlideUrl, InputStream> urlLoader) {
         this.context = context;
-        this.lastFMRestClient = lastFMRestClient;
+        this.lastFMClient = lastFMRestClient;
         this.urlLoader = urlLoader;
     }
 
     @Override
     public DataFetcher<InputStream> getResourceFetcher(ArtistImage model, int width, int height) {
-        return new ArtistImageFetcher(context, lastFMRestClient, model, urlLoader, width, height);
+        return new ArtistImageFetcher(context, lastFMClient, model, urlLoader, width, height);
     }
 
     public static class Factory implements ModelLoaderFactory<ArtistImage, InputStream> {
-        private static volatile LastFMRestClient internalClient;
-        private LastFMRestClient client;
+        private LastFMRestClient lastFMClient;
         private OkHttpUrlLoader.Factory okHttpFactory;
 
-
-        private static LastFMRestClient getInternalClient(Context context) {
-            if (internalClient == null) {
-                synchronized (Factory.class) {
-                    if (internalClient == null) {
-                        internalClient = new LastFMRestClient(context);
-                    }
-                }
-            }
-            return internalClient;
-        }
-
-        /**
-         * Constructor for a new Factory that runs requests using a static singleton client.
-         */
         public Factory(Context context) {
-            client = getInternalClient(context);
             okHttpFactory = new OkHttpUrlLoader.Factory();
+            lastFMClient = new LastFMRestClient(context);
         }
 
         @Override
         public ModelLoader<ArtistImage, InputStream> build(Context context, GenericLoaderFactory factories) {
-            return new ArtistImageLoader(context, client, okHttpFactory.build(context, factories));
+            return new ArtistImageLoader(context, lastFMClient, okHttpFactory.build(context, factories));
         }
 
         @Override

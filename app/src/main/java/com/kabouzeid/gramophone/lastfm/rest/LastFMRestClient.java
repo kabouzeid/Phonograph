@@ -12,7 +12,6 @@ import com.squareup.okhttp.Response;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -32,9 +31,6 @@ public class LastFMRestClient {
         if (cacheDir.mkdirs() || cacheDir.isDirectory()) {
             okHttpClient.setCache(new Cache(cacheDir, 1024 * 1024 * 10));
         }
-
-        okHttpClient.setConnectTimeout(15, TimeUnit.SECONDS);
-        okHttpClient.setReadTimeout(20, TimeUnit.SECONDS);
 
         okHttpClient.interceptors().add(new Interceptor() {
             @Override
