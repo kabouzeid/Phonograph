@@ -59,12 +59,6 @@
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
-        <name>Universal Image Loader</name>
-        <url>https://github.com/nostra13/Android-Universal-Image-Loader</url>
-        <copyright>Copyright 2011-2015 Sergey Tarasevich</copyright>
-        <license>Apache Software License 2.0</license>
-    </notice>
-    <notice>
         <name>Butter Knife</name>
         <url>https://github.com/JakeWharton/butterknife</url>
         <copyright>Copyright 2013 Jake Wharton</copyright>
@@ -101,5 +95,9 @@
             Author Neil Davies
         </copyright>
         <license>MIT License</license>
+    </notice>
+    <notice>
+        <name>Glide</name>
+        <url>https://github.com/bumptech/glide</url>
     </notice>
 </notices>
