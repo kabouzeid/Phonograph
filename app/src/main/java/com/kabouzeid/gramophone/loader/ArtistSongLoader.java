@@ -13,16 +13,16 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class ArtistSongLoader {
+public class ArtistSongLoader extends SongLoader {
 
     @NonNull
     public static ArrayList<Song> getArtistSongList(@NonNull final Context context, final int artistId) {
-        return SongLoader.getSongs(makeArtistSongCursor(context, artistId));
+        return getSongs(makeArtistSongCursor(context, artistId));
     }
 
     public static Cursor makeArtistSongCursor(@NonNull final Context context, final int artistId) {
         try {
-            return SongLoader.makeSongCursor(
+            return makeSongCursor(
                     context,
                     MediaStore.Audio.AudioColumns.ARTIST_ID + "=?",
                     new String[]{

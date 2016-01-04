@@ -5,20 +5,20 @@ import android.provider.MediaStore.Audio.AudioColumns;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.kabouzeid.gramophone.comparator.AlbumASCComparator;
-import com.kabouzeid.gramophone.comparator.SongTrackComparator;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class AlbumLoader {
+
+    public static String getSongLoaderSortOrder(Context context) {
+        return PreferenceUtil.getInstance(context).getAlbumSortOrder() + ", " + PreferenceUtil.getInstance(context).getAlbumSongSortOrder();
+    }
 
     @NonNull
     public static ArrayList<Album> getAllAlbums(@NonNull final Context context) {
@@ -26,9 +26,9 @@ public class AlbumLoader {
                 context,
                 null,
                 null,
-                PreferenceUtil.getInstance(context).getAlbumSongSortOrder())
+                getSongLoaderSortOrder(context))
         );
-        return splitIntoAlbums(songs, new AlbumASCComparator());
+        return splitIntoAlbums(songs);
     }
 
     @NonNull
@@ -37,23 +37,21 @@ public class AlbumLoader {
                 context,
                 AudioColumns.ALBUM + " LIKE ?",
                 new String[]{"%" + query + "%"},
-                PreferenceUtil.getInstance(context).getAlbumSongSortOrder())
+                getSongLoaderSortOrder(context))
         );
-        return splitIntoAlbums(songs, new AlbumASCComparator());
+        return splitIntoAlbums(songs);
     }
 
     @NonNull
     public static Album getAlbum(@NonNull final Context context, int albumId) {
-        ArrayList<Song> songs = SongLoader.getSongs(SongLoader.makeSongCursor(context, AudioColumns.ALBUM_ID + "=?", new String[]{String.valueOf(albumId)}, PreferenceUtil.getInstance(context).getAlbumSongSortOrder()));
-        Collections.sort(songs, new SongTrackComparator());
+        ArrayList<Song> songs = SongLoader.getSongs(SongLoader.makeSongCursor(context, AudioColumns.ALBUM_ID + "=?", new String[]{String.valueOf(albumId)}, getSongLoaderSortOrder(context)));
         return new Album(songs);
     }
 
     @NonNull
-    public static ArrayList<Album> splitIntoAlbums(@Nullable final ArrayList<Song> songs, Comparator<Album> albumComparator) {
+    public static ArrayList<Album> splitIntoAlbums(@Nullable final ArrayList<Song> songs) {
         ArrayList<Album> albums = new ArrayList<>();
         if (songs != null) {
-            Collections.sort(songs, new SongTrackComparator());
             for (Song song : songs) {
                 Album album = get(albums, song.albumId);
                 if (album == null) {
@@ -63,7 +61,6 @@ public class AlbumLoader {
                 album.songs.add(song);
             }
         }
-        Collections.sort(albums, albumComparator);
         return albums;
     }
 
