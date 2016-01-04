@@ -97,7 +97,7 @@
     <string name="dark_theme_name">Dark</string>
     <string name="black_theme_name">Black (AMOLED)</string>
     <string name="always">Always</string>
-    <string name="only_on_wifi">Only on wifi</string>
+    <string name="only_on_wifi">Only on Wi-Fi</string>
     <string name="never">Never</string>
     <string name="equalizer">Equalizer</string>
     <string name="pref_header_colors">Colors</string>
