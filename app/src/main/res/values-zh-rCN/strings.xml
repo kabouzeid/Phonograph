@@ -96,6 +96,9 @@
     <string name="light_theme_name">浅色</string>
     <string name="dark_theme_name">暗色</string>
     <string name="black_theme_name">黑色 (AMOLED)</string>
+    <string name="always">总是</string>
+    <string name="only_on_wifi">仅在 WiFi 下</string>
+    <string name="never">从不</string>
     <string name="equalizer">均衡器</string>
     <string name="pref_header_colors">色彩</string>
     <string name="pref_header_now_playing_screen">正在播放界面</string>
@@ -107,6 +110,7 @@
     <string name="pref_title_navigation_bar">变色导航栏</string>
     <string name="pref_title_set_default_start_page">起始页</string>
     <string name="pref_title_album_art_on_lockscreen">锁屏显示专辑封面</string>
+    <string name="pref_title_auto_download_artist_images">自动下载艺术家图像</string>
     <string name="pref_title_blurred_album_art">专辑封面模糊化</string>
     <string name="pref_title_colored_notification">启用变色通知背景</string>
     <string name="pref_title_ignore_media_store_artwork">忽略媒体储存中的专辑封面</string>

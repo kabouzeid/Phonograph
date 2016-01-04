@@ -40,7 +40,7 @@
     <string name="album_artist">Album artiest</string>
     <string name="year">Jaar</string>
     <string name="track">Nummer</string>
-    <string name="track_hint">"Nummer (2 voor nummer 2, of 3004 voor CD3 nummer 4)"</string>
+    <string name="track_hint">"Nummer (2 voor nr. 2, of 3004 voor CD3 nr. 4)"</string>
     <string name="album_or_artist_empty">De titel of artiest is leeg.</string>
     <string name="writing_file_number">Bestand wegschrijven</string>
     <string name="saving_changes">Wijzigingen opslaan…</string>
@@ -96,6 +96,9 @@
     <string name="light_theme_name">Licht</string>
     <string name="dark_theme_name">Donker</string>
     <string name="black_theme_name">Zwart (AMOLED)</string>
+    <string name="always">Altijd</string>
+    <string name="only_on_wifi">Alleen over wifi</string>
+    <string name="never">Nooit</string>
     <string name="equalizer">Equalizer</string>
     <string name="pref_header_colors">Kleuren</string>
     <string name="pref_header_now_playing_screen">Afspeelscherm</string>
@@ -107,6 +110,7 @@
     <string name="pref_title_navigation_bar">Gekleurde navigatiebalk</string>
     <string name="pref_title_set_default_start_page">Startpagina</string>
     <string name="pref_title_album_art_on_lockscreen">Toon albumhoes</string>
+    <string name="pref_title_auto_download_artist_images">Download artiesten afbeeldingen</string>
     <string name="pref_title_blurred_album_art">Vervaag albumhoes</string>
     <string name="pref_title_colored_notification">Gekleurde notificatie</string>
     <string name="pref_title_ignore_media_store_artwork">Negeer Mediaopslag illustraties</string>

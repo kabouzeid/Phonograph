@@ -96,6 +96,9 @@
     <string name="light_theme_name">Svijetla</string>
     <string name="dark_theme_name">Tamna</string>
     <string name="black_theme_name">Crna (AMOLED)</string>
+    <string name="always">Uvijek</string>
+    <string name="only_on_wifi">Samo na wifi-ju</string>
+    <string name="never">Nikad</string>
     <string name="equalizer">Ekvalizator</string>
     <string name="pref_header_colors">Boje</string>
     <string name="pref_header_now_playing_screen">Trenutna reprodukcija</string>
@@ -107,6 +110,7 @@
     <string name="pref_title_navigation_bar">Obojena navigacijska traka</string>
     <string name="pref_title_set_default_start_page">Početni zaslon</string>
     <string name="pref_title_album_art_on_lockscreen">Omot Albuma na zaključanom zaslonu</string>
+    <string name="pref_title_auto_download_artist_images">Automatski preuzmi omot albuma</string>
     <string name="pref_title_blurred_album_art">Zamagli omot albuma</string>
     <string name="pref_title_colored_notification">Obojene obavijesti</string>
     <string name="pref_title_ignore_media_store_artwork">Ignoriraj Media Store omote</string>
