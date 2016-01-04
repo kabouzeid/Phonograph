@@ -259,9 +259,10 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                 .asBitmap()
                 .transcode(new BitmapPaletteTranscoder(this), BitmapPaletteWrapper.class)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .error(R.drawable.default_artist_image)
+                .placeholder(R.drawable.default_artist_image)
                 .signature(ArtistSignatureUtil.getInstance(this).getArtistSignature(artist.name))
                 .dontAnimate()
+                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                 .listener(new RequestListener<ArtistImage, BitmapPaletteWrapper>() {
                     @Override
                     public boolean onException(Exception e, ArtistImage model, Target<BitmapPaletteWrapper> target, boolean isFirstResource) {

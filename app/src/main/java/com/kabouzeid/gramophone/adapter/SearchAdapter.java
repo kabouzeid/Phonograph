@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.Target;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
@@ -108,9 +110,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 Glide.with(activity)
                         .load(new ArtistImage(artist.name, false))
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .error(R.drawable.default_artist_image)
+                        .placeholder(R.drawable.default_artist_image)
                         .animate(android.R.anim.fade_in)
+                        .priority(Priority.LOW)
                         .signature(ArtistSignatureUtil.getInstance(activity).getArtistSignature(artist.name))
+                        .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                         .into(holder.image);
                 break;
             case SONG:

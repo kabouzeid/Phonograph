@@ -4,8 +4,8 @@ import android.content.Context;
 
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.data.DataFetcher;
-import com.bumptech.glide.load.data.HttpUrlFetcher;
 import com.bumptech.glide.load.model.GlideUrl;
+import com.bumptech.glide.load.model.ModelLoader;
 import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
 import com.kabouzeid.gramophone.lastfm.rest.model.LastFmArtist;
 import com.kabouzeid.gramophone.util.LastFMUtil;
@@ -18,16 +18,23 @@ import java.io.InputStream;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class ArtistImageFetcher implements DataFetcher<InputStream> {
+    public static final String TAG = ArtistImageFetcher.class.getSimpleName();
     private Context context;
     private final LastFMRestClient lastFMRestClient;
     private final ArtistImage model;
-    private HttpUrlFetcher urlFetcher;
+    private ModelLoader<GlideUrl, InputStream> urlLoader;
+    private final int width;
+    private final int height;
     private volatile boolean isCancelled;
+    private DataFetcher<InputStream> urlFetcher;
 
-    public ArtistImageFetcher(Context context, LastFMRestClient lastFMRestClient, ArtistImage model) {
+    public ArtistImageFetcher(Context context, LastFMRestClient lastFMRestClient, ArtistImage model, ModelLoader<GlideUrl, InputStream> urlLoader, int width, int height) {
         this.context = context;
         this.lastFMRestClient = lastFMRestClient;
         this.model = model;
+        this.urlLoader = urlLoader;
+        this.width = width;
+        this.height = height;
     }
 
     @Override
@@ -42,7 +49,7 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
 
             if (isCancelled) return null;
 
-            urlFetcher = new HttpUrlFetcher(new GlideUrl(LastFMUtil.getLargestArtistImageUrl(lastFmArtist.getArtist().getImage())));
+            urlFetcher = urlLoader.getResourceFetcher(new GlideUrl(LastFMUtil.getLargestArtistImageUrl(lastFmArtist.getArtist().getImage())), width, height);
             return urlFetcher.loadData(priority);
         }
         return null;

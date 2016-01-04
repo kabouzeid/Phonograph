@@ -22,8 +22,7 @@
 -keepattributes Signature
 -keepattributes Exceptions
 
-# Glide
--keepnames class com.kabouzeid.gramophone.glide.PhonographGlideModule
+# Glide Modules
 -keep public class * implements com.bumptech.glide.module.GlideModule
 
 # ButterKnife

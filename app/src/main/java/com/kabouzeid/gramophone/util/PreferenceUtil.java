@@ -294,7 +294,7 @@ public final class PreferenceUtil {
     }
 
     public final int getArtistGridSize(Context context) {
-        return mPreferences.getInt(ARTIST_GRID_SIZE, context.getResources().getInteger(R.integer.default_grid_columns));
+        return mPreferences.getInt(ARTIST_GRID_SIZE, context.getResources().getInteger(R.integer.default_list_columns));
     }
 
     public void setAlbumGridSizeLand(final int gridSize) {
@@ -324,7 +324,7 @@ public final class PreferenceUtil {
     }
 
     public final int getArtistGridSizeLand(Context context) {
-        return mPreferences.getInt(ARTIST_GRID_SIZE_LAND, context.getResources().getInteger(R.integer.default_grid_columns_land));
+        return mPreferences.getInt(ARTIST_GRID_SIZE_LAND, context.getResources().getInteger(R.integer.default_list_columns_land));
     }
 
     public void setAlbumColoredFooters(final boolean value) {
