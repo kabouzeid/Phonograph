@@ -164,7 +164,7 @@
     <string name="rescanning_media">Media herscannen…</string>
     <string name="favorites">Favorieten</string>
     <string name="last_added">Laatst toegevoegd</string>
-    <string name="history">Historie</string>
+    <string name="history">Geschiedenis</string>
     <string name="my_top_tracks">Mijn top nummers</string>
     <string name="remove_cover">Verwijder albumhoes</string>
     <string name="download_from_last_fm">Download van last.fm</string>
@@ -218,7 +218,7 @@
     <string name="welcome_to_phonograph">Welkom bij Phonograph, een mooie en lichte muziekspeler voor Android.</string>
     <string name="label_storage">Opslag</string>
     <string name="open_playing_queue_instruction">Veeg de kaart in het afspeelscherm om de afspeelwachtrij te weergeven.</string>
-    <string name="rearrange_playing_queue_instruction">Rangschik de afspeelwachtrij door nummers bij het afspeelnummer te slepen.</string>
+    <string name="rearrange_playing_queue_instruction">Rangschik de afspeelwachtrij door de afspeelnummers te verslepen.</string>
     <string name="storage_permission_explaination">De opslagmachtiging is nodig voor Phonograph om je muziekbibliotheek te lezen.</string>
     <string name="library">Bibliotheek</string>
     <string name="folders">Mappen</string>

@@ -97,7 +97,7 @@
     <string name="dark_theme_name">Tối</string>
     <string name="black_theme_name">Đen (AMOLED)</string>
     <string name="always">Luôn luôn</string>
-    <string name="only_on_wifi">Chỉ dùng wifi</string>
+    <string name="only_on_wifi">Chỉ dùng Wi-Fi</string>
     <string name="never">Không bao giờ</string>
     <string name="equalizer">Bộ lọc</string>
     <string name="pref_header_colors">Màu sắc</string>
@@ -139,7 +139,7 @@
     <string name="update_image">Cập nhật hình ảnh</string>
     <string name="playlist_empty_text">Danh sách nhạc trống</string>
     <string name="no_playlists">Không có danh sách nhạc</string>
-    <string name="no_albums">Không có albums</string>
+    <string name="no_albums">Không có album</string>
     <string name="no_songs">Không có bài hát</string>
     <string name="no_artists">Không có nghệ sĩ</string>
     <string name="empty">Trống</string>
@@ -160,7 +160,7 @@
     <string name="pref_summary_colored_playback_controls_now_playing">M\u00e0u s\u1eafc c\u1ee7a ph\u00e1t / t\u1ea1m d\u1eebng, tr\u1ed9n v\u00e0 l\u1eb7p l\u1ea1i c\u0169ng nh\u01b0 thanh ti\u1ebfn tr\u00ecnh trong m\u00e0u s\u1eafc r\u1ef1c r\u1ee1 c\u1ee7a b\u00eca album.</string>
     <string name="pref_summary_colored_navigation_bar">Màu sắc thanh điều hướng trong các màu cơ bản.</string>
     <string name="could_not_download_album_cover">"Kh\u00f4ng th\u1ec3 t\u1ea3i v\u1ec1 b\u00eca album ph\u00f9 h\u1ee3p."</string>
-    <string name="search_hint">Tìm kiếm thư viện của bạn ...</string>
+    <string name="search_hint">Tìm kiếm thư viện của bạn...</string>
     <string name="rescanning_media">Quét lại phương tiện...</string>
     <string name="favorites">Yêu thích</string>
     <string name="last_added">Được thêm sau cùng</string>
@@ -210,7 +210,7 @@
     <string name="maarten_corpel_summary">Minh họa trên Play Store và bìa album rỗng.</string>
     <string name="aleksandar_tesic_summary">Vì đã giúp tôi thiết kế.</string>
     <string name="website">Trang web</string>
-    <string name="loading_products">Đang tải sản phẩm ...</string>
+    <string name="loading_products">Đang tải sản phẩm...</string>
     <string name="up_next">Tiếp theo</string>
     <string name="pref_title_now_playing_layout">Bố trí trình phát hiện tại</string>
     <string name="intro_label">Giới thiệu</string>
