@@ -15,7 +15,6 @@ import com.kabouzeid.gramophone.util.Util;
 import java.io.IOException;
 import java.io.InputStream;
 
-import hugo.weaving.DebugLog;
 import retrofit.Response;
 
 /**
@@ -76,7 +75,6 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
         }
     }
 
-    @DebugLog
     @Override
     public void cancel() {
         isCancelled = true;
@@ -86,8 +84,8 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
         if (inputStream != null) {
             try {
                 inputStream.close();
-            } catch (Throwable t) {
-                t.printStackTrace();
+            } catch (IOException | IllegalStateException e) {
+                // do nothing
             }
         }
     }
