@@ -10,8 +10,10 @@ import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.stream.StreamModelLoader;
 import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
+import com.squareup.okhttp.OkHttpClient;
 
 import java.io.InputStream;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -38,8 +40,14 @@ public class ArtistImageLoader implements StreamModelLoader<ArtistImage> {
         private OkHttpUrlLoader.Factory okHttpFactory;
 
         public Factory(Context context) {
-            okHttpFactory = new OkHttpUrlLoader.Factory();
-            lastFMClient = new LastFMRestClient(context);
+            // we need these very low values to make sure our artist image loading calls doesn't block the image loading queue
+            OkHttpClient okHttpClient = new OkHttpClient();
+            okHttpClient.setConnectTimeout(500, TimeUnit.MILLISECONDS);
+            okHttpClient.setReadTimeout(500, TimeUnit.MILLISECONDS);
+            okHttpClient.setWriteTimeout(500, TimeUnit.MILLISECONDS);
+
+            okHttpFactory = new OkHttpUrlLoader.Factory(okHttpClient);
+            lastFMClient = new LastFMRestClient(context, okHttpClient);
         }
 
         @Override

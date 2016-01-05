@@ -265,21 +265,19 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                 .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                 .listener(new RequestListener<ArtistImage, BitmapPaletteWrapper>() {
                     @Override
-                    public boolean onException(Exception e, ArtistImage model, Target<BitmapPaletteWrapper> target, boolean isFirstResource) {
-                        toastUpdatedArtistImageIfDownloadWasForced();
+                    public boolean onException(@Nullable Exception e, ArtistImage model, Target<BitmapPaletteWrapper> target, boolean isFirstResource) {
+                        if (forceDownload) {
+                            Toast.makeText(ArtistDetailActivity.this, e != null ? e.getClass().getSimpleName() : "Error", Toast.LENGTH_SHORT).show();
+                        }
                         return false;
                     }
 
                     @Override
                     public boolean onResourceReady(BitmapPaletteWrapper resource, ArtistImage model, Target<BitmapPaletteWrapper> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        toastUpdatedArtistImageIfDownloadWasForced();
-                        return false;
-                    }
-
-                    private void toastUpdatedArtistImageIfDownloadWasForced() {
                         if (forceDownload) {
                             Toast.makeText(ArtistDetailActivity.this, getString(R.string.updated_artist_image), Toast.LENGTH_SHORT).show();
                         }
+                        return false;
                     }
                 })
                 .into(new PhonographColoredTarget(artistImage) {

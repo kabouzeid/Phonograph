@@ -12,7 +12,11 @@ import com.kabouzeid.gramophone.util.LastFMUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
 
+import java.io.IOException;
 import java.io.InputStream;
+
+import hugo.weaving.DebugLog;
+import retrofit.Response;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -27,6 +31,7 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
     private final int height;
     private volatile boolean isCancelled;
     private DataFetcher<InputStream> urlFetcher;
+    private InputStream inputStream;
 
     public ArtistImageFetcher(Context context, LastFMRestClient lastFMRestClient, ArtistImage model, ModelLoader<GlideUrl, InputStream> urlLoader, int width, int height) {
         this.context = context;
@@ -45,12 +50,21 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
     @Override
     public InputStream loadData(Priority priority) throws Exception {
         if (!MusicUtil.isArtistNameUnknown(model.artistName) && Util.isAllowedToAutoDownload(context)) {
-            LastFmArtist lastFmArtist = lastFMRestClient.getApiService().getArtistInfo(model.artistName, model.skipOkHttpCache ? "no-cache" : null).execute().body();
+            Response<LastFmArtist> response = lastFMRestClient.getApiService().getArtistInfo(model.artistName, model.skipOkHttpCache ? "no-cache" : null).execute();
+
+            if (!response.isSuccess()) {
+                throw new IOException("Request failed with code: " + response.code());
+            }
+
+            LastFmArtist lastFmArtist = response.body();
 
             if (isCancelled) return null;
 
-            urlFetcher = urlLoader.getResourceFetcher(new GlideUrl(LastFMUtil.getLargestArtistImageUrl(lastFmArtist.getArtist().getImage())), width, height);
-            return urlFetcher.loadData(priority);
+            GlideUrl url = new GlideUrl(LastFMUtil.getLargestArtistImageUrl(lastFmArtist.getArtist().getImage()));
+            urlFetcher = urlLoader.getResourceFetcher(url, width, height);
+            inputStream = urlFetcher.loadData(priority);
+
+            return inputStream;
         }
         return null;
     }
@@ -62,11 +76,19 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
         }
     }
 
+    @DebugLog
     @Override
     public void cancel() {
         isCancelled = true;
         if (urlFetcher != null) {
             urlFetcher.cancel();
+        }
+        if (inputStream != null) {
+            try {
+                inputStream.close();
+            } catch (Throwable t) {
+                t.printStackTrace();
+            }
         }
     }
 }

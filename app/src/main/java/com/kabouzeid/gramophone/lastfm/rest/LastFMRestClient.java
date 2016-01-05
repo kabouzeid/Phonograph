@@ -25,8 +25,10 @@ public class LastFMRestClient {
     private LastFMService apiService;
 
     public LastFMRestClient(@NonNull Context context) {
-        OkHttpClient okHttpClient = new OkHttpClient();
+        this(context, new OkHttpClient());
+    }
 
+    public LastFMRestClient(@NonNull Context context, @NonNull OkHttpClient okHttpClient) {
         File cacheDir = new File(context.getCacheDir().getAbsolutePath(), "/okhttp-lastfm/");
         if (cacheDir.mkdirs() || cacheDir.isDirectory()) {
             okHttpClient.setCache(new Cache(cacheDir, 1024 * 1024 * 10));
