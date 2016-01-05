@@ -8,6 +8,9 @@
     <string name="action_set_as_ringtone">Imposta come suoneria</string>
     <string name="action_share">Condividi</string>
     <string name="action_settings">"Impostazioni"</string>
+    <string name="action_grant">Permetti</string>
+    <string name="action_done">Fatto</string>
+    <string name="action_skip">Salta</string>
     <string name="action_about">Informazioni</string>
     <string name="action_show_intro">Mostra intro</string>
     <string name="action_clear_playlist">Svuota playlist</string>
@@ -93,6 +96,9 @@
     <string name="light_theme_name">Chiaro</string>
     <string name="dark_theme_name">Scuro</string>
     <string name="black_theme_name">Nero (AMOLED)</string>
+    <string name="always">Sempre</string>
+    <string name="only_on_wifi">Solo se connessi a WiFi</string>
+    <string name="never">Mai</string>
     <string name="equalizer">Equalizzatore</string>
     <string name="pref_header_colors">Colori</string>
     <string name="pref_header_now_playing_screen">Schermata In riproduzione</string>
@@ -104,6 +110,7 @@
     <string name="pref_title_navigation_bar">Barra di navigazione colorata</string>
     <string name="pref_title_set_default_start_page">Pagina iniziale</string>
     <string name="pref_title_album_art_on_lockscreen">Copertina nella schermata di sblocco</string>
+    <string name="pref_title_auto_download_artist_images">Scarica automaticamente le immagini degli artisti</string>
     <string name="pref_title_blurred_album_art">Sfocatura della copertina</string>
     <string name="pref_title_colored_notification">Notifica colorata</string>
     <string name="pref_title_ignore_media_store_artwork">Ignora le copertine del Media Store</string>
@@ -174,6 +181,7 @@
     <string name="special_thanks_to">Ringraziamenti speciali a</string>
     <string name="changelog">Modifiche</string>
     <string name="licenses">Licenze</string>
+    <string name="permissions_denied">Permesso negato.</string>
     <string name="permission_external_storage_denied">Permesso per accedere alla memoria esterna negato.</string>
     <string name="back">indietro</string>
     <string name="support_development">Supporta lo sviluppo</string>
@@ -203,6 +211,15 @@
     <string name="aleksandar_tesic_summary">Per avermi aiutato col design.</string>
     <string name="website">Sito web</string>
     <string name="loading_products">Caricamento dei prodotti...</string>
-    <string name="up_next">Prossimi brani</string>
+    <string name="up_next">A seguire</string>
     <string name="pref_title_now_playing_layout">Layout della schermata In riproduzione</string>
+    <string name="intro_label">Introduzione</string>
+    <string name="press_back_again_to_exit_intro">Premi di nuovo il tasto Indietro per saltare l\'intro.</string>
+    <string name="welcome_to_phonograph">"Benvenuto in Phonograph, un music player bellissimo e leggero per Android. "</string>
+    <string name="label_storage">Memoria</string>
+    <string name="open_playing_queue_instruction">Fai uno swipe sulla card nella schermata In riproduzione per mostrare l\'intera coda di riproduzione.</string>
+    <string name="rearrange_playing_queue_instruction">Riorganizza la coda di riproduzione trascinando una canzone dal suo numero di traccia.</string>
+    <string name="storage_permission_explaination">Affinché Phonograph legga la tua libreria musicale, è necessario il permesso per accedere alla memoria locale.</string>
+    <string name="library">Libreria</string>
+    <string name="folders">Cartelle</string>
 </resources>

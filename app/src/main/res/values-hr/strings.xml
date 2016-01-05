@@ -212,7 +212,7 @@
     <string name="website">Web-stranica</string>
     <string name="loading_products">Učitavanje artikala...</string>
     <string name="up_next">Sljedeće</string>
-    <string name="pref_title_now_playing_layout">Raspored zaslona za reprodukciju</string>
+    <string name="pref_title_now_playing_layout">Izgled zaslona za reprodukciju</string>
     <string name="intro_label">Uvod</string>
     <string name="press_back_again_to_exit_intro">Pritisni ponovno tipku natrag za preskakanje uvoda.</string>
     <string name="welcome_to_phonograph">"Dobrodošli u Phonograph, prekrasan i lagan glazbeni player za Android. "</string>
