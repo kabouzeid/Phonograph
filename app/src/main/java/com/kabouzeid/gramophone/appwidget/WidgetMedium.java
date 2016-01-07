@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.widget.RemoteViews;
 
 import com.bumptech.glide.Glide;
@@ -28,12 +29,14 @@ import com.kabouzeid.gramophone.ui.activities.MainActivity;
 public class WidgetMedium extends AppWidgetProvider {
     private static RemoteViews widgetLayout;
 
-    public static void updateWidgets(@NonNull final Context context, @NonNull final Song song, boolean isPlaying) {
-        if (song.id == -1) return;
-        widgetLayout = new RemoteViews(context.getPackageName(), R.layout.widget_medium);
+    public static void updateWidgets(@NonNull final Context context, @NonNull Song song, boolean isPlaying) {
+        if (widgetLayout == null) {
+            widgetLayout = new RemoteViews(context.getPackageName(), R.layout.widget_medium);
+        }
         linkButtons(context, widgetLayout);
         widgetLayout.setTextViewText(R.id.title, song.title);
-        widgetLayout.setTextViewText(R.id.song_secondary_information, song.artistName + " | " + song.albumName);
+        String separator = TextUtils.isEmpty(song.artistName) || TextUtils.isEmpty(song.albumName) ? "" : " | ";
+        widgetLayout.setTextViewText(R.id.song_secondary_information, song.artistName + separator + song.albumName);
 
         updateWidgetsPlayState(context, isPlaying);
         loadAlbumCover(context, song);
@@ -102,8 +105,7 @@ public class WidgetMedium extends AppWidgetProvider {
     }
 
     private static void linkButtons(@NonNull final Context context, @NonNull final RemoteViews views) {
-        views.setOnClickPendingIntent(R.id.image, retrievePlaybackActions(context, 0));
-        views.setOnClickPendingIntent(R.id.media_titles, retrievePlaybackActions(context, 0));
+        views.setOnClickPendingIntent(R.id.content, retrievePlaybackActions(context, 0));
         views.setOnClickPendingIntent(R.id.button_toggle_play_pause, retrievePlaybackActions(context, 1));
         views.setOnClickPendingIntent(R.id.button_next, retrievePlaybackActions(context, 2));
         views.setOnClickPendingIntent(R.id.button_prev, retrievePlaybackActions(context, 3));
@@ -115,7 +117,8 @@ public class WidgetMedium extends AppWidgetProvider {
         switch (which) {
             case 0:
                 intent = new Intent(context, MainActivity.class);
-                return PendingIntent.getActivity(context, 0, intent, 0);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             case 1:
                 intent = new Intent(MusicService.ACTION_TOGGLE_PAUSE);
                 intent.setComponent(serviceName);
