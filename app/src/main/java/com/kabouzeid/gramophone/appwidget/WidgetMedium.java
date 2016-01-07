@@ -10,9 +10,11 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.bumptech.glide.Glide;
@@ -23,15 +25,27 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
 
+import java.util.ArrayList;
+
 public class WidgetMedium extends AppWidgetProvider {
+    public static final String TAG = WidgetMedium.class.getSimpleName();
     private static RemoteViews widgetLayout;
 
     public static void updateWidgets(@NonNull final Context context, @NonNull Song song, boolean isPlaying) {
         if (widgetLayout == null) {
             widgetLayout = new RemoteViews(context.getPackageName(), R.layout.widget_medium);
+        }
+        if (song.id == -1) {
+            Log.d(TAG, "Had to download the current song from the SQL database.");
+            ArrayList<Song> restoredQueue = MusicPlaybackQueueStore.getInstance(context).getSavedPlayingQueue();
+            int restoredPosition = PreferenceManager.getDefaultSharedPreferences(context).getInt(MusicService.SAVED_POSITION, -1);
+            if (!restoredQueue.isEmpty() && restoredPosition >= 0 && restoredPosition < restoredQueue.size()) {
+                song = restoredQueue.get(restoredPosition);
+            }
         }
         linkButtons(context, widgetLayout);
         widgetLayout.setTextViewText(R.id.title, song.title);
