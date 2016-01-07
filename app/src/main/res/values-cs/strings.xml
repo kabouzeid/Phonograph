@@ -8,6 +8,8 @@
     <string name="action_set_as_ringtone">Nastavit jako vyzváněcí tón</string>
     <string name="action_share">Sdílet</string>
     <string name="action_settings">"Nastavení"</string>
+    <string name="action_done">Hotovo</string>
+    <string name="action_skip">Přeskočit</string>
     <string name="action_about">O aplikaci</string>
     <string name="action_clear_playlist">Vyčistit playlist</string>
     <string name="action_playing_queue">Fronta</string>
@@ -60,6 +62,8 @@
     <string name="added_title_to_playing_queue">"Přidána 1 skladba do fronty."</string>
     <string name="added_x_titles_to_playing_queue">Přidáno %1$d skladeb do fronty.</string>
     <string name="action_remove_from_playlist">Odstranit z playlistu</string>
+    <string name="action_grid_size">Velikost mřížky</string>
+    <string name="action_grid_size_land">Velikost mřížky (na šiřku)</string>
     <string name="inserted_x_songs_into_playlist_x">Vložit %1$d do playlistu %2$s.</string>
     <string name="created_playlist_x">Vytvořen playlist %1$s</string>
     <string name="deleted_playlist_x">Playlist %1$s smazán</string>
@@ -85,9 +89,14 @@
     <string name="action_shuffle_album">Přehrát album náhodně</string>
     <string name="action_shuffle_artist">Přehrát skladby interpreta náhodně</string>
     <string name="action_shuffle_playlist">Přehrát playlist náhodně</string>
+    <string name="action_clear_playing_queue">Vyčistit frontu přehrávání</string>
     <string name="last_opened">Naposledy otevřené</string>
     <string name="light_theme_name">Světlý</string>
     <string name="dark_theme_name">Tmavý</string>
+    <string name="black_theme_name">Černý (AMOLED)</string>
+    <string name="always">Vždy</string>
+    <string name="only_on_wifi">Jenom na Wi-Fi</string>
+    <string name="never">Nikdy</string>
     <string name="equalizer">Ekvalizér</string>
     <string name="pref_header_colors">Barvy</string>
     <string name="pref_header_now_playing_screen">Přehrávač</string>
@@ -99,7 +108,10 @@
     <string name="pref_title_navigation_bar">Barevné záhlaví</string>
     <string name="pref_title_set_default_start_page">Zvolit výchozí obrazovku</string>
     <string name="pref_title_album_art_on_lockscreen">Obal alba na odemykací obrazovce</string>
+    <string name="pref_title_auto_download_artist_images">Automaticky stahovat obrázky umělců</string>
+    <string name="pref_title_blurred_album_art">Rozostřit obal alba</string>
     <string name="pref_title_colored_notification">Barevné notifikace</string>
+    <string name="pref_title_ignore_media_store_artwork">Ignorovat obaly Media Storu</string>
     <string name="pref_title_gapless_playback">Přehrávání bez mezer</string>
     <string name="pref_title_force_square_album_art">Vynutit čtvercové obaly alb</string>
     <string name="pref_title_opaque_toolbar_now_playing">Neprůhledný toolbar</string>
@@ -133,6 +145,7 @@
     <string name="song">Skladba</string>
     <string name="pref_only_lollipop">"Dostupné pouze ve verzi Lollipop."</string>
     <string name="pref_summary_album_art_on_lockscreen">Obaly alb se budou zobrazovat na zamykací obrazovce. Pro aplikaci může být nutné aplikaci restartovat.</string>
+    <string name="pref_summary_blurred_album_art">Rozostří obal alba na uzamčené obrazovce. Může být problematické s aplikacemi a widgety třetích stran.</string>
     <string name="pref_summary_colored_notification">"Notifikace jsou zbarveny podle obalu alba."</string>
     <string name="pref_summary_gapless_playback">"Odstraní ticho mezi skladbami. Deaktivace může vyřešit problémy s přehráváním."</string>
     <string name="pref_summary_force_square_album_art">Obaly alb jsou v přehrávači vsazena do čtverce.</string>
@@ -147,6 +160,7 @@
     <string name="rescanning_media">Kontrola médií...</string>
     <string name="favorites">Oblíbené</string>
     <string name="last_added">Naposledy přidané</string>
+    <string name="history">Historie</string>
     <string name="remove_cover">Odstranit obal</string>
     <string name="download_from_last_fm">Stáhnout z Last.fm</string>
     <string name="pick_from_local_storage">Vybrat ze souborů</string>
@@ -158,11 +172,26 @@
     <string name="sleep_timer_set">Přehrávání se ukončí za %d minut</string>
     <string name="action_new_playlist">Nový playlist...</string>
     <string name="new_playlist_title">Nový playlist</string>
+    <string name="special_thanks_to">Zvláštní poděkování</string>
+    <string name="licenses">Licence</string>
+    <string name="back">zpět</string>
+    <string name="support_development">Podpořte vývoj</string>
+    <string name="thank_you">Děkuji</string>
+    <string name="play_store_illustration_by">Ilustrace v obchodu Play</string>
     <string name="version">Verze</string>
+    <string name="application">Aplikace</string>
     <string name="author">Autor</string>
     <string name="add_to_google_plus_circles">Přidat do kruhů Google Plus</string>
+    <string name="follow_on_twitter">Sledovat na Twitteru</string>
     <string name="visit_website">Navštívit stránku</string>
     <string name="report_bugs">Ohlásit chybu</string>
+    <string name="report_bugs_summary">Oznamte chyby a požádejte o nové funkce.</string>
+    <string name="join_community">Přidejte se ke komunitě Google Plus</string>
+    <string name="join_community_summary">Pokud potřebujete pomoc nebo máte otázky, komunita Phonographu na Google Plus je to správné místo.</string>
+    <string name="translate">Překládejte</string>
+    <string name="translate_summary">Pomozte přeložit Phonograph do svého mateřského jazyku.</string>
     <string name="rate_on_google_play">Ohodnotit</string>
+    <string name="rate_on_google_play_summary">Pokud máte Phonograph rádi, zanechte pozitivní hodnocení na Google Play.</string>
     <string name="donate">Dotovat</string>
+    <string name="donate_summary">Pokud si myslíte, že si za svou práci zasloužím dostat zaplaceno, tady mi můžete nechat pár korun.</string>
 </resources>
