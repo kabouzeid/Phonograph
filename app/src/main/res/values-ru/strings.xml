@@ -96,6 +96,9 @@
     <string name="light_theme_name">Светлая</string>
     <string name="dark_theme_name">Тёмная</string>
     <string name="black_theme_name">Чёрная (для AMOLED-экранов)</string>
+    <string name="always">Всегда</string>
+    <string name="only_on_wifi">Только по Wi-Fi</string>
+    <string name="never">Никогда</string>
     <string name="equalizer">Эквалайзер</string>
     <string name="pref_header_colors">Цвета</string>
     <string name="pref_header_now_playing_screen">Экран воспроизведения</string>
@@ -107,6 +110,7 @@
     <string name="pref_title_navigation_bar">Цветная панель управления</string>
     <string name="pref_title_set_default_start_page">Установить начальную страницу</string>
     <string name="pref_title_album_art_on_lockscreen">Обложка альбома на экране блокировки</string>
+    <string name="pref_title_auto_download_artist_images">Автоматически загружать изображения исполнителей</string>
     <string name="pref_title_blurred_album_art">"Размытая обложка альбома "</string>
     <string name="pref_title_colored_notification">Окрашенное уведомление</string>
     <string name="pref_title_ignore_media_store_artwork">Игнорировать хранилище обложек альбомов</string>

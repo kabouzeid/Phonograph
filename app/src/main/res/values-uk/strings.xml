@@ -8,6 +8,9 @@
     <string name="action_set_as_ringtone">Встановити як рінгтон</string>
     <string name="action_share">Поділитися</string>
     <string name="action_settings">"Налаштування"</string>
+    <string name="action_grant">Надати</string>
+    <string name="action_done">Зроблено</string>
+    <string name="action_skip">Пропустити</string>
     <string name="action_about">Про програму</string>
     <string name="action_show_intro">Показати вступ</string>
     <string name="action_clear_playlist">Очистити список відтворення</string>
@@ -92,6 +95,10 @@
     <string name="last_opened">Останні відкриті</string>
     <string name="light_theme_name">Світла</string>
     <string name="dark_theme_name">Темна</string>
+    <string name="black_theme_name">Чорна (AMOLED)</string>
+    <string name="always">Завжди</string>
+    <string name="only_on_wifi">Тільки через Wi-Fi</string>
+    <string name="never">Ніколи</string>
     <string name="equalizer">Еквалайзер</string>
     <string name="pref_header_colors">Кольори</string>
     <string name="pref_header_now_playing_screen">Відтворюється</string>
@@ -103,6 +110,8 @@
     <string name="pref_title_navigation_bar">Кольорова панель навігації</string>
     <string name="pref_title_set_default_start_page">Початкова сторінка</string>
     <string name="pref_title_album_art_on_lockscreen">Обкладинка альбому на екрані блокування</string>
+    <string name="pref_title_auto_download_artist_images">Автоматично завантажувати зображення виконавців</string>
+    <string name="pref_title_blurred_album_art">Розмити обкладинку альбому</string>
     <string name="pref_title_colored_notification">Кольорове сповіщення</string>
     <string name="pref_title_ignore_media_store_artwork">Ігнорувати обкладинки з Медіасховища.</string>
     <string name="pref_title_gapless_playback">Безперервне відтворення</string>
@@ -138,6 +147,7 @@
     <string name="song">Пісня</string>
     <string name="pref_only_lollipop">"Доступно тільки для Lollipop."</string>
     <string name="pref_summary_album_art_on_lockscreen">Використовувати обкладинку альбому поточної пісні як шпалери екрана блокування.</string>
+    <string name="pref_summary_blurred_album_art">Розмиває обладинку альбому на екрані блокування. Може конфліктувати зі сторонніми додатками та віджетами.</string>
     <string name="pref_summary_colored_notification">"\u0424\u0430\u0440\u0431\u0443\u0454 \u043f\u043e\u0432\u0456\u0434\u043e\u043c\u043b\u0435\u043d\u043d\u044f \u0432 \u043f\u0435\u0440\u0435\u0432\u0430\u0436\u043d\u0438\u0439 \u043a\u043e\u043b\u0456\u0440 \u043e\u0431\u043a\u043b\u0430\u0434\u0438\u043d\u043a\u0438 \u0430\u043b\u044c\u0431\u043e\u043c\u0443."</string>
     <string name="pref_summary_gapless_playback">"Може викликати проблеми з відтворенням на деяких пристроях."</string>
     <string name="pref_summary_force_square_album_art">Обкладинка альбому на екрані відтворення завжди буде квадратною.</string>
@@ -171,6 +181,7 @@
     <string name="special_thanks_to">Особлива подяка</string>
     <string name="changelog">Список змін</string>
     <string name="licenses">Ліцензії</string>
+    <string name="permissions_denied">У доступі відмовлено.</string>
     <string name="permission_external_storage_denied">У дозволі на доступ до зовнішньої пам’яті відмовлено.</string>
     <string name="back">назад</string>
     <string name="support_development">Підтримати розробника</string>
@@ -202,4 +213,13 @@
     <string name="loading_products">Завантаження продуктів...</string>
     <string name="up_next">До наступного</string>
     <string name="pref_title_now_playing_layout">Зараз грає</string>
+    <string name="intro_label">Знайомство</string>
+    <string name="press_back_again_to_exit_intro">Натисніть назад ще раз щоб пропустити знайомство.</string>
+    <string name="welcome_to_phonograph">"Вітаємо вас у Phonograph, красивому та легкому музичному програвачу на Android. "</string>
+    <string name="label_storage">Сховище</string>
+    <string name="open_playing_queue_instruction">Свайпніть картку на екрані \"Зараз грає\" щоб відкрити усю чергу відтворення.</string>
+    <string name="rearrange_playing_queue_instruction">Змініть чергу відтворення перетягнувши пісню за її номер.</string>
+    <string name="storage_permission_explaination">Доступ до сховища потрібен щоб Phonograph міг прочитати .вашу музичну бібліотеку.</string>
+    <string name="library">Бібліотека</string>
+    <string name="folders">Папки</string>
 </resources>
