@@ -81,12 +81,5 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
         if (urlFetcher != null) {
             urlFetcher.cancel();
         }
-        if (inputStream != null) {
-            try {
-                inputStream.close();
-            } catch (IOException | IllegalStateException e) {
-                // do nothing
-            }
-        }
     }
 }
