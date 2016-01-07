@@ -4,8 +4,10 @@ import android.content.Context;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 
+import com.kabouzeid.gramophone.helper.SortOrder;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
 
@@ -20,7 +22,7 @@ public class ArtistAlbumLoader extends AlbumLoader {
                 context,
                 MediaStore.Audio.AudioColumns.ARTIST_ID + "=?",
                 new String[]{String.valueOf(artistId)},
-                getSongLoaderSortOrder(context)
+                SortOrder.SongSortOrder.SONG_YEAR + ", " + PreferenceUtil.getInstance(context).getAlbumSongSortOrder()
         ));
         return splitIntoAlbums(songs);
     }
