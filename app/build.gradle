@@ -64,7 +64,7 @@ android {
 
         applicationId "com.kabouzeid.gramophone"
         versionCode 90
-        versionName "0.9.51 RC 4"
+        versionName "0.9.51"
     }
     buildTypes {
         release {
