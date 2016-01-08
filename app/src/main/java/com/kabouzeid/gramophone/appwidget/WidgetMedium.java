@@ -31,6 +31,8 @@ import com.kabouzeid.gramophone.ui.activities.MainActivity;
 
 import java.util.ArrayList;
 
+// TODO rewrite the whole class
+@Deprecated
 public class WidgetMedium extends AppWidgetProvider {
     public static final String TAG = WidgetMedium.class.getSimpleName();
     private static RemoteViews widgetLayout;
@@ -40,7 +42,7 @@ public class WidgetMedium extends AppWidgetProvider {
             widgetLayout = new RemoteViews(context.getPackageName(), R.layout.widget_medium);
         }
         if (song.id == -1) {
-            Log.d(TAG, "Had to download the current song from the SQL database.");
+            Log.d(TAG, "Had to load the current song from the SQL database.");
             ArrayList<Song> restoredQueue = MusicPlaybackQueueStore.getInstance(context).getSavedPlayingQueue();
             int restoredPosition = PreferenceManager.getDefaultSharedPreferences(context).getInt(MusicService.SAVED_POSITION, -1);
             if (!restoredQueue.isEmpty() && restoredPosition >= 0 && restoredPosition < restoredQueue.size()) {
@@ -65,11 +67,16 @@ public class WidgetMedium extends AppWidgetProvider {
     }
 
     private static void updateWidgets(@NonNull final Context context) {
-        AppWidgetManager man = AppWidgetManager.getInstance(context);
-        int[] ids = man.getAppWidgetIds(
-                new ComponentName(context, WidgetMedium.class));
-        for (int widgetId : ids) {
-            man.updateAppWidget(widgetId, widgetLayout);
+        // this is only a temporary solution until we rewrote this whole class.
+        try {
+            AppWidgetManager man = AppWidgetManager.getInstance(context);
+            int[] ids = man.getAppWidgetIds(
+                    new ComponentName(context, WidgetMedium.class));
+            for (int widgetId : ids) {
+                man.updateAppWidget(widgetId, widgetLayout);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -152,9 +159,6 @@ public class WidgetMedium extends AppWidgetProvider {
     @Override
     public void onUpdate(@NonNull Context context, @NonNull AppWidgetManager appWidgetManager, @NonNull int[] appWidgetIds) {
         updateWidgets(context, MusicPlayerRemote.getCurrentSong(), MusicPlayerRemote.isPlaying());
-        for (int widgetId : appWidgetIds) {
-            appWidgetManager.updateAppWidget(widgetId, widgetLayout);
-        }
     }
 }
 
