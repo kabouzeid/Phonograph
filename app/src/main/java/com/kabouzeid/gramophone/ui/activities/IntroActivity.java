@@ -25,7 +25,9 @@ public class IntroActivity extends AppIntro {
         int color = ContextCompat.getColor(this, R.color.blue_grey_700);
         setStatusBarColor(ColorUtil.shiftColorDown(color));
         setTaskColor(color);
-        setSkipText(getString(R.string.action_skip).toUpperCase());
+
+        showSkipButton(false);
+
         setDoneText(getString(R.string.action_done).toUpperCase());
         setGrantText(getString(R.string.action_grant).toUpperCase());
 
