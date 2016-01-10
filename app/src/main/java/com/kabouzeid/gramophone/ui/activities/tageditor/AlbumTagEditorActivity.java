@@ -43,9 +43,8 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AlbumTagEditorActivity extends AbsTagEditorActivity implements TextWatcher {
 
@@ -107,7 +106,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
         }
         lastFMRestClient.getApiService().getAlbumInfo(albumTitleStr, albumArtistNameStr).enqueue(new Callback<LastFmAlbum>() {
             @Override
-            public void onResponse(final Response<LastFmAlbum> response, Retrofit retrofit) {
+            public void onResponse(final Response<LastFmAlbum> response) {
                 LastFmAlbum lastFmAlbum = response.body();
                 if (lastFmAlbum.getAlbum() != null) {
                     String url = LastFMUtil.getLargestAlbumImageUrl(lastFmAlbum.getAlbum().getImage());

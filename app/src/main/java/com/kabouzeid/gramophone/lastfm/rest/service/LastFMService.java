@@ -5,10 +5,10 @@ import android.support.annotation.Nullable;
 import com.kabouzeid.gramophone.lastfm.rest.model.LastFmAlbum;
 import com.kabouzeid.gramophone.lastfm.rest.model.LastFmArtist;
 
-import retrofit.Call;
-import retrofit.http.GET;
-import retrofit.http.Header;
-import retrofit.http.Query;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Query;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.kabouzeid.gramophone">
+<manifest package="com.kabouzeid.gramophone"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -112,6 +112,10 @@
 
         <meta-data
             android:name="com.kabouzeid.gramophone.glide.PhonographGlideModule"
+            android:value="GlideModule" />
+
+        <meta-data
+            android:name="com.kabouzeid.gramophone.glide.okhttp.OkHttpGlideModule"
             android:value="GlideModule" />
 
         <activity

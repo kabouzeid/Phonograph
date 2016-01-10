@@ -2,24 +2,28 @@ package com.kabouzeid.gramophone.glide.artistimage;
 
 import android.content.Context;
 
-import com.bumptech.glide.integration.okhttp.OkHttpUrlLoader;
 import com.bumptech.glide.load.data.DataFetcher;
 import com.bumptech.glide.load.model.GenericLoaderFactory;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.stream.StreamModelLoader;
+import com.kabouzeid.gramophone.glide.okhttp.OkHttpUrlLoader;
 import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
-import com.squareup.okhttp.OkHttpClient;
 
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 
 public class ArtistImageLoader implements StreamModelLoader<ArtistImage> {
+    // we need these very low values to make sure our artist image loading calls doesn't block the image loading queue
+    private static final int TIMEOUT = 500;
+
     private Context context;
     private LastFMRestClient lastFMClient;
     private ModelLoader<GlideUrl, InputStream> urlLoader;
@@ -40,14 +44,16 @@ public class ArtistImageLoader implements StreamModelLoader<ArtistImage> {
         private OkHttpUrlLoader.Factory okHttpFactory;
 
         public Factory(Context context) {
-            // we need these very low values to make sure our artist image loading calls doesn't block the image loading queue
-            OkHttpClient okHttpClient = new OkHttpClient();
-            okHttpClient.setConnectTimeout(500, TimeUnit.MILLISECONDS);
-            okHttpClient.setReadTimeout(500, TimeUnit.MILLISECONDS);
-            okHttpClient.setWriteTimeout(500, TimeUnit.MILLISECONDS);
-
-            okHttpFactory = new OkHttpUrlLoader.Factory(okHttpClient);
-            lastFMClient = new LastFMRestClient(context, okHttpClient);
+            okHttpFactory = new OkHttpUrlLoader.Factory(new OkHttpClient.Builder()
+                    .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                    .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                    .writeTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                    .build());
+            lastFMClient = new LastFMRestClient(LastFMRestClient.createDefaultOkHttpClientBuilder(context)
+                    .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                    .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                    .writeTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                    .build());
         }
 
         @Override

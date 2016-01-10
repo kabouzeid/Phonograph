@@ -15,7 +15,7 @@ import com.kabouzeid.gramophone.util.Util;
 import java.io.IOException;
 import java.io.InputStream;
 
-import retrofit.Response;
+import retrofit2.Response;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -30,7 +30,6 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
     private final int height;
     private volatile boolean isCancelled;
     private DataFetcher<InputStream> urlFetcher;
-    private InputStream inputStream;
 
     public ArtistImageFetcher(Context context, LastFMRestClient lastFMRestClient, ArtistImage model, ModelLoader<GlideUrl, InputStream> urlLoader, int width, int height) {
         this.context = context;
@@ -61,9 +60,8 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
 
             GlideUrl url = new GlideUrl(LastFMUtil.getLargestArtistImageUrl(lastFmArtist.getArtist().getImage()));
             urlFetcher = urlLoader.getResourceFetcher(url, width, height);
-            inputStream = urlFetcher.loadData(priority);
 
-            return inputStream;
+            return urlFetcher.loadData(priority);
         }
         return null;
     }
