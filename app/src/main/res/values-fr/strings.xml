@@ -19,7 +19,7 @@
     <string name="action_remove_from_favorites">Retirer des favoris</string>
     <string name="action_search">Rechercher</string>
     <string name="action_play_next">Prochaine lecture</string>
-    <string name="action_play">Lecture</string>
+    <string name="action_play">Lire</string>
     <string name="action_add_to_playing_queue">Ajouter à la file de lecture</string>
     <string name="action_remove_from_playing_queue">Retirer de la file de lecture</string>
     <string name="action_add_to_playlist">Ajouter à la liste de lecture...</string>
