@@ -65,7 +65,6 @@ public class FastScroller extends FrameLayout {
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
-            setHandlePosition(event.getY());
             handle.setPressed(true);
             setRecyclerViewPosition(event.getY());
             showIfHidden();
@@ -87,7 +86,7 @@ public class FastScroller extends FrameLayout {
         if (recyclerView != null) {
             int itemCount = recyclerView.getAdapter().getItemCount();
             float proportion = y / (float) getHeightMinusPadding();
-            int targetPos = getValueInRange(0, itemCount - 1, (int) (proportion * (float) itemCount));
+            int targetPos = getValueInRange(0, itemCount - 1, Math.round(proportion * (float) itemCount));
             recyclerView.scrollToPosition(targetPos);
         }
     }
@@ -100,7 +99,7 @@ public class FastScroller extends FrameLayout {
     private void setHandlePosition(float y) {
         float position = y / getHeightMinusPadding();
         int handleHeight = handle.getHeight();
-        handle.setY(getValueInRange(0, getHeightMinusPadding() - handleHeight, (int) ((getHeightMinusPadding() - handleHeight) * position)));
+        handle.setY(getValueInRange(0, getHeightMinusPadding() - handleHeight, Math.round((getHeightMinusPadding() - handleHeight) * position)));
     }
 
     private void showImpl() {
@@ -160,19 +159,10 @@ public class FastScroller extends FrameLayout {
     private float computeHandlePosition() {
         View firstVisibleView = recyclerView.getChildAt(0);
         int firstVisiblePosition = recyclerView.getChildAdapterPosition(firstVisibleView);
-        int visibleRange = recyclerView.getChildCount();
-        int lastVisiblePosition = firstVisiblePosition + visibleRange;
         int itemCount = recyclerView.getAdapter().getItemCount();
-        int position;
-        if (firstVisiblePosition == 0) {
-            position = 0;
-        } else if (lastVisiblePosition == itemCount - 1) {
-            position = itemCount - 1;
-        } else {
-            position = firstVisiblePosition;
-        }
-        float proportion = (float) position / (float) itemCount;
-        return getHeightMinusPadding() * proportion;
+
+        float proportion = (float) firstVisiblePosition / (float) itemCount;
+        return getHeightMinusPadding() * proportion + recyclerView.getChildCount() * proportion;
     }
 
     public void updateHandlePosition() {
