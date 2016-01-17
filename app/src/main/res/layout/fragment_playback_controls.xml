@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -118,6 +119,8 @@
             android:layout_centerInParent="true" />
 
         <android.support.design.widget.FloatingActionButton
+            app:pressedTranslationZ="2dp"
+            app:elevation="4dp"
             android:id="@+id/player_play_pause_fab"
             style="@style/PlayPauseFab"
             android:layout_centerInParent="true" />
