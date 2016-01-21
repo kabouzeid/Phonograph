@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
-import com.kabouzeid.gramophone.views.FastScroller;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,14 +26,13 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
 
     public static final String TAG = AbsMainActivityRecyclerViewFragment.class.getSimpleName();
 
+    @Bind(R.id.container)
+    View container;
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
     @Nullable
     @Bind(android.R.id.empty)
     TextView empty;
-    @Nullable
-    @Bind(R.id.fast_scroller)
-    FastScroller fastScroller;
 
     private A adapter;
     private LM layoutManager;
@@ -49,10 +47,6 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        if (fastScroller != null) {
-            fastScroller.setRecyclerView(recyclerView);
-        }
 
         getMainActivity().addOnAppBarOffsetChangedListener(this);
         getMainActivity().addMusicServiceEventListener(this);
@@ -98,15 +92,7 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-        if (fastScroller != null) {
-            fastScroller.setPadding(
-                    fastScroller.getPaddingLeft(),
-                    fastScroller.getPaddingTop(),
-                    fastScroller.getPaddingRight(),
-                    getMainActivity().getTotalAppBarScrollingRange() + i
-            );
-            fastScroller.updateHandlePosition();
-        }
+        container.setPadding(container.getPaddingLeft(), container.getPaddingTop(), container.getPaddingRight(), container.getPaddingBottom() + getMainActivity().getTotalAppBarScrollingRange() + i);
     }
 
     @Override

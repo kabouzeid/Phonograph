@@ -35,9 +35,27 @@
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
+        <name>Launcher 3</name>
+        <url>https://android.googlesource.com/platform/packages/apps/Launcher3</url>
+        <copyright>Copyright (C) 2010 The Android Open Source Project</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>RecyclerView-FastScroll</name>
+        <url>https://github.com/timusus/RecyclerView-FastScroll</url>
+        <copyright>Copyright (C) 2016 Tim Malseed</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
         <name>Android-ObservableScrollView</name>
         <url>https://github.com/ksoichiro/Android-ObservableScrollView</url>
         <copyright>Copyright 2014 Soichiro Kashima</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Eleven</name>
+        <url>https://github.com/CyanogenMod/android_packages_apps_Eleven</url>
+        <copyright>Copyright (c) 2014, The CyanogenMod Project</copyright>
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
