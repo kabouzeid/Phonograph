@@ -13,8 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
+import com.kabouzeid.gramophone.util.ColorUtil;
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -57,6 +60,13 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
     }
 
     private void setUpRecyclerView() {
+        if (recyclerView instanceof FastScrollRecyclerView) {
+            int accentColor = ThemeSingleton.get().positiveColor.getDefaultColor();
+            ((FastScrollRecyclerView) recyclerView).setPopupBgColor(accentColor);
+            ((FastScrollRecyclerView) recyclerView).setPopupTextColor(ColorUtil.getPrimaryTextColorForBackground(getActivity(), accentColor));
+            ((FastScrollRecyclerView) recyclerView).setThumbColor(accentColor);
+            ((FastScrollRecyclerView) recyclerView).setTrackColor(ColorUtil.getColorWithAlpha(0.12f, ColorUtil.resolveColor(getContext(), R.attr.colorControlNormal)));
+        }
         invalidateLayoutManager();
         invalidateAdapter();
     }

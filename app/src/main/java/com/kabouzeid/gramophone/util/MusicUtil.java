@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -224,7 +225,22 @@ public class MusicUtil {
         }
     }
 
-    public static boolean isArtistNameUnknown(@Nullable final String artistName) {
-        return artistName != null && (artistName.trim().toLowerCase().equals("unknown") || artistName.trim().toLowerCase().equals("<unknown>"));
+    public static boolean isArtistNameUnknown(@Nullable String artistName) {
+        if (TextUtils.isEmpty(artistName)) return false;
+        artistName = artistName.trim().toLowerCase();
+        return artistName.equals("unknown") || artistName.equals("<unknown>");
+    }
+
+    @NonNull
+    public static String getSectionName(@Nullable String musicMediaTitle) {
+        if (TextUtils.isEmpty(musicMediaTitle)) return "";
+        musicMediaTitle = musicMediaTitle.trim().toLowerCase();
+        if (musicMediaTitle.startsWith("the ")) {
+            musicMediaTitle = musicMediaTitle.substring(4);
+        } else if (musicMediaTitle.startsWith("a ")) {
+            musicMediaTitle = musicMediaTitle.substring(2);
+        }
+        if (musicMediaTitle.isEmpty()) return "";
+        return String.valueOf(musicMediaTitle.charAt(0)).toUpperCase();
     }
 }
