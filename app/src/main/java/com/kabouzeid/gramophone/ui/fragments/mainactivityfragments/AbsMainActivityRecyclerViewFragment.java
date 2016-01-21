@@ -92,7 +92,7 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-        container.setPadding(container.getPaddingLeft(), container.getPaddingTop(), container.getPaddingRight(), container.getPaddingBottom() + getMainActivity().getTotalAppBarScrollingRange() + i);
+        container.setPadding(container.getPaddingLeft(), container.getPaddingTop(), container.getPaddingRight(), getMainActivity().getTotalAppBarScrollingRange() + i);
     }
 
     @Override
