@@ -99,6 +99,14 @@ public class ShuffleButtonSongAdapter extends SongAdapter {
         }
     }
 
+    @NonNull
+    @Override
+    public String getSectionName(int position) {
+        position--;
+        if (position < 0) return "";
+        return super.getSectionName(position);
+    }
+
     public class ViewHolder extends SongAdapter.ViewHolder {
 
         public ViewHolder(@NonNull View itemView) {

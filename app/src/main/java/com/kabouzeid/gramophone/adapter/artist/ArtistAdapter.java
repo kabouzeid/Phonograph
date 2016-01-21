@@ -33,6 +33,7 @@ import com.kabouzeid.gramophone.util.ArtistSignatureUtil;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ import java.util.List;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolder, Artist> {
+public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolder, Artist> implements FastScrollRecyclerView.SectionedAdapter {
 
     protected final AppCompatActivity activity;
     protected ArrayList<Artist> dataSet;
@@ -183,6 +184,12 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
             songs.addAll(ArtistSongLoader.getArtistSongList(activity, artist.id));
         }
         return songs;
+    }
+
+    @NonNull
+    @Override
+    public String getSectionName(int position) {
+        return MusicUtil.getSectionName(dataSet.get(position).name);
     }
 
     public class ViewHolder extends MediaEntryViewHolder {

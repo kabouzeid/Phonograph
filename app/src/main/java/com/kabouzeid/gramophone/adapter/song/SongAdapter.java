@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SectionIndexer;
 
 import com.afollestad.materialcab.MaterialCab;
 import com.bumptech.glide.Glide;
@@ -25,17 +26,19 @@ import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ColorUtil;
+import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
+import java.io.CharArrayReader;
 import java.util.ArrayList;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, Song> implements MaterialCab.Callback {
+public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, Song> implements MaterialCab.Callback, FastScrollRecyclerView.SectionedAdapter {
 
     public static final String TAG = AlbumSongAdapter.class.getSimpleName();
-    private static final int FADE_IN_TIME = 500;
 
     protected final AppCompatActivity activity;
     protected ArrayList<Song> dataSet;
@@ -173,6 +176,12 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
                 MusicPlayerRemote.enqueue(selection);
                 break;
         }
+    }
+
+    @NonNull
+    @Override
+    public String getSectionName(int position) {
+        return MusicUtil.getSectionName(dataSet.get(position).title);
     }
 
     public class ViewHolder extends MediaEntryViewHolder {
