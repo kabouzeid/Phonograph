@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.ui.fragments.player;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.internal.ThemeSingleton;
+import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.MusicProgressViewUpdateHelper;
@@ -99,7 +100,7 @@ public class MiniPlayerFragment extends Fragment implements MusicServiceEventLis
                 ColorUtil.resolveColor(activity, android.R.attr.textColorSecondary)));
         setUpPlayPauseButton();
 
-        progressBar.setProgressTintList(ThemeSingleton.get().positiveColor);
+        progressBar.setProgressTintList(ColorStateList.valueOf(ThemeStore.accentColor(activity)));
     }
 
     public void setMiniPlayerColor(int color) {

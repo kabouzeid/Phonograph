@@ -16,7 +16,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
@@ -25,13 +24,13 @@ import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
+import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
-import com.kabouzeid.gramophone.util.ViewUtil;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -189,9 +188,9 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
             }
         });
 
-        int fabColor = getThemeColorAccent();
-        int fabDrawableColor = ColorUtil.getPrimaryTextColorForBackground(this, fabColor);
-        fab.setBackgroundTintList(ColorStateList.valueOf(fabColor));
+        int accentColor = ThemeStore.accentColor(this);
+        int fabDrawableColor = ColorUtil.getPrimaryTextColorForBackground(this, accentColor);
+        fab.setBackgroundTintList(ColorStateList.valueOf(accentColor));
         fab.getDrawable().setColorFilter(fabDrawableColor, PorterDuff.Mode.SRC_IN);
     }
 
@@ -233,14 +232,6 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        boolean darkContent = ColorUtil.useDarkTextColorOnBackground(paletteColorPrimary);
-        ViewUtil.setToolbarContentDark(this, toolbar, darkContent);
-        setUseDarkStatusBarIcons(darkContent);
-        return super.onCreateOptionsMenu(menu);
-    }
-
     protected void setNoImageMode() {
         isInNoImageMode = true;
         image.setVisibility(View.GONE);
@@ -248,14 +239,13 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         observableScrollView.setPadding(0, Util.getActionBarSize(this), 0, 0);
         observableScrollViewCallbacks.onScrollChanged(observableScrollView.getCurrentScrollY(), false, false);
 
-        paletteColorPrimary = getIntent().getIntExtra(EXTRA_PALETTE,
-                getThemeColorPrimary());
+        paletteColorPrimary = getIntent().getIntExtra(EXTRA_PALETTE, ThemeStore.primaryColor(this));
         toolbar.setBackgroundColor(paletteColorPrimary);
         header.setBackgroundColor(paletteColorPrimary);
 
-        if (shouldColorNavigationBar())
-            setNavigationBarColor(paletteColorPrimary);
-        setStatusBarColor(paletteColorPrimary);
+        setStatusbarColor(paletteColorPrimary);
+        setNavigationbarColor(paletteColorPrimary);
+        setTaskDescriptionColor(paletteColorPrimary);
     }
 
     protected void dataChanged() {
@@ -284,19 +274,10 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     private void setColors(int color) {
         paletteColorPrimary = color;
         observableScrollViewCallbacks.onScrollChanged(observableScrollView.getCurrentScrollY(), false, false);
-        if (shouldColorNavigationBar())
-            setNavigationBarColor(paletteColorPrimary);
-        setStatusBarColor(paletteColorPrimary);
         header.setBackgroundColor(paletteColorPrimary);
-        boolean darkContent = ColorUtil.useDarkTextColorOnBackground(paletteColorPrimary);
-        ViewUtil.setToolbarContentDark(AbsTagEditorActivity.this, toolbar, darkContent);
-        setUseDarkStatusBarIcons(darkContent);
-        notifyTaskColorChange(paletteColorPrimary);
-    }
-
-    @Override
-    protected boolean overridesTaskColor() {
-        return true;
+        setStatusbarColor(paletteColorPrimary);
+        setNavigationbarColor(paletteColorPrimary);
+        setTaskDescriptionColor(paletteColorPrimary);
     }
 
     protected void writeValuesToFiles(@NonNull final Map<FieldKey, String> fieldKeyValueMap) {

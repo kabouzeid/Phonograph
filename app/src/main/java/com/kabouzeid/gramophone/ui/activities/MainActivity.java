@@ -5,8 +5,6 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,7 +18,6 @@ import android.support.design.widget.AppBarLayout.OnOffsetChangedListener;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
@@ -34,8 +31,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialcab.MaterialCab;
-import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.bumptech.glide.Glide;
+import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.appthemehelper.util.NavigationViewUtil;
+import com.kabouzeid.appthemehelper.util.TabLayoutUtil;
+import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.PagerAdapter;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
@@ -60,7 +60,6 @@ import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
-import com.kabouzeid.gramophone.util.ViewUtil;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.io.File;
@@ -107,13 +106,13 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
             findViewById(R.id.drawer_content_container).setFitsSystemWindows(false);
         }
 
+        setStatusbarColorAuto();
+        setNavigationbarColorAuto();
+        setTaskDescriptionColorAuto();
+
         setUpDrawerLayout();
         setUpToolbar();
         setUpViewPager();
-
-        if (shouldColorNavigationBar())
-            setNavigationBarThemeColor();
-        setStatusBarThemeColor();
 
         checkChangelog();
 
@@ -160,8 +159,8 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         pager.setOffscreenPageLimit(pagerAdapter.getCount() - 1); // => all
 
         tabs.setupWithViewPager(pager);
-        tabs.setTabTextColors(ColorUtil.getSecondaryTextColorForBackground(this, getThemeColorPrimary()), ColorUtil.getPrimaryTextColorForBackground(this, getThemeColorPrimary()));
-        tabs.setSelectedTabIndicatorColor(getThemeColorAccent() == Color.WHITE && !ColorUtil.useDarkTextColorOnBackground(getThemeColorPrimary()) ? Color.WHITE : ThemeSingleton.get().positiveColor.getDefaultColor());
+
+        TabLayoutUtil.setTabLayoutColors(tabs, ToolbarContentTintHelper.toolbarTitleColor(this, ThemeStore.primaryColor(this)), ThemeStore.accentColor(this));
 
         int startPosition = PreferenceUtil.getInstance(this).getDefaultStartPage();
         startPosition = startPosition == -1 ? PreferenceUtil.getInstance(this).getLastStartPage() : startPosition;
@@ -169,43 +168,21 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     }
 
     private void setUpToolbar() {
+        int primaryColor = ThemeStore.primaryColor(this);
+        appbar.setBackgroundColor(primaryColor);
+        toolbar.setBackgroundColor(primaryColor);
         toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
         setTitle(getResources().getString(R.string.app_name));
-        setAppBarColor();
         setSupportActionBar(toolbar);
-    }
-
-    private void setAppBarColor() {
-        appbar.setBackgroundColor(getThemeColorPrimary());
     }
 
     private void setUpNavigationView() {
         navigationView.setCheckedItem(R.id.nav_library);
-        final int colorAccent = ThemeSingleton.get().positiveColor.getDefaultColor();
-        navigationView.setItemTextColor(new ColorStateList(
-                new int[][]{
-                        //{-android.R.attr.state_enabled}, // disabled
-                        {android.R.attr.state_checked}, // checked
-                        {} // default
-                },
-                new int[]{
-                        // 0,
-                        colorAccent,
-                        ThemeSingleton.get().darkTheme ? ContextCompat.getColor(this, R.color.primary_text_default_material_dark) : ContextCompat.getColor(this, R.color.primary_text_default_material_light)
-                }
-        ));
-        navigationView.setItemIconTintList(new ColorStateList(
-                new int[][]{
-                        //{-android.R.attr.state_enabled}, // disabled
-                        {android.R.attr.state_checked}, // checked
-                        {} // default
-                },
-                new int[]{
-                        // 0,
-                        colorAccent,
-                        ThemeSingleton.get().darkTheme ? ContextCompat.getColor(this, R.color.secondary_text_default_material_dark) : ContextCompat.getColor(this, R.color.secondary_text_default_material_light)
-                }
-        ));
+
+        int accentColor = ThemeStore.accentColor(this);
+        NavigationViewUtil.setItemIconColors(navigationView, ThemeStore.textColorSecondary(this), accentColor);
+        NavigationViewUtil.setItemTextColors(navigationView, ThemeStore.textColorPrimary(this), accentColor);
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -334,16 +311,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
             menu.removeItem(R.id.action_grid_size);
             menu.removeItem(R.id.action_colored_footers);
         }
-        boolean darkContent = ColorUtil.useDarkTextColorOnBackground(getThemeColorPrimary());
-        ViewUtil.setToolbarContentDark(this, toolbar, darkContent);
-        setUseDarkStatusBarIcons(darkContent);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        ViewUtil.invalidateToolbarPopupMenuTint(toolbar);
-        return super.onPrepareOptionsMenu(menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -356,8 +324,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
             }
             return true;
         }
-
-        ViewUtil.invalidateToolbarPopupMenuTint(toolbar);
 
         Fragment currentFragment = getCurrentFragment();
         if (currentFragment instanceof AbsMainActivityRecyclerViewCustomGridSizeFragment) {
@@ -571,7 +537,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         cab = new MaterialCab(this, R.id.cab_stub)
                 .setMenu(menu)
                 .setCloseDrawableRes(R.drawable.ic_close_white_24dp)
-                .setBackgroundColor(ColorUtil.shiftBackgroundColorForLightText(getThemeColorPrimary()))
+                .setBackgroundColor(ColorUtil.shiftBackgroundColorForLightText(ThemeStore.primaryColor(this)))
                 .start(callback);
         return cab;
     }
@@ -619,12 +585,12 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 
     @Override
     public void onDrawerOpened(View drawerView) {
-        setUseDarkStatusBarIcons(false);
+        setLightStatusbar(false);
     }
 
     @Override
     public void onDrawerClosed(View drawerView) {
-        setUseDarkStatusBarIcons(ColorUtil.useDarkTextColorOnBackground(getThemeColorPrimary()));
+        setLightStatusbarAuto(ThemeStore.primaryColor(this));
     }
 
     @Override

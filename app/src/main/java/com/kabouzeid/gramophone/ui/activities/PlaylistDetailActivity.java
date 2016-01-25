@@ -15,6 +15,7 @@ import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
+import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.song.PlaylistSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.SmartPlaylistSongAdapter;
@@ -31,7 +32,6 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
-import com.kabouzeid.gramophone.util.ViewUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,8 +63,12 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStatusBarTransparent();
+        setDrawUnderStatusbar(true);
         ButterKnife.bind(this);
+
+        setStatusbarColorAuto();
+        setNavigationbarColorAuto();
+        setTaskDescriptionColorAuto();
 
         getIntentExtras();
 
@@ -73,10 +77,6 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         checkIsEmpty();
 
         setUpToolBar();
-
-        if (shouldColorNavigationBar())
-            setNavigationBarThemeColor();
-        setStatusBarThemeColor();
     }
 
     @Override
@@ -137,7 +137,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     }
 
     private void setUpToolBar() {
-        toolbar.setBackgroundColor(getThemeColorPrimary());
+        toolbar.setBackgroundColor(ThemeStore.primaryColor(this));
         setSupportActionBar(toolbar);
         //noinspection ConstantConditions
         getSupportActionBar().setTitle(playlist.name);
@@ -159,10 +159,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_playlist_detail, menu);
-        boolean darkContent = ColorUtil.useDarkTextColorOnBackground(getThemeColorPrimary());
-        ViewUtil.setToolbarContentDark(this, toolbar, darkContent);
-        setUseDarkStatusBarIcons(darkContent);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -191,7 +188,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         cab = new MaterialCab(this, R.id.cab_stub)
                 .setMenu(menu)
                 .setCloseDrawableRes(R.drawable.ic_close_white_24dp)
-                .setBackgroundColor(ColorUtil.shiftBackgroundColorForLightText(getThemeColorPrimary()))
+                .setBackgroundColor(ColorUtil.shiftBackgroundColorForLightText(ThemeStore.primaryColor(this)))
                 .start(callback);
         return cab;
     }

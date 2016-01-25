@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.afollestad.materialdialogs.internal.ThemeSingleton;
+import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
@@ -71,9 +71,10 @@ public class ShuffleButtonSongAdapter extends SongAdapter {
     @Override
     public void onBindViewHolder(@NonNull final SongAdapter.ViewHolder holder, int position) {
         if (holder.getItemViewType() == SHUFFLE_BUTTON) {
+            int accentColor = ThemeStore.accentColor(activity);
             if (holder.title != null) {
                 holder.title.setText(activity.getResources().getString(R.string.action_shuffle_all).toUpperCase());
-                holder.title.setTextColor(ThemeSingleton.get().positiveColor);
+                holder.title.setTextColor(accentColor);
                 holder.title.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
             }
             if (holder.text != null) {
@@ -85,7 +86,7 @@ public class ShuffleButtonSongAdapter extends SongAdapter {
             if (holder.image != null) {
                 final int padding = activity.getResources().getDimensionPixelSize(R.dimen.default_item_margin) / 2;
                 holder.image.setPadding(padding, padding, padding, padding);
-                holder.image.setColorFilter(ThemeSingleton.get().positiveColor.getDefaultColor());
+                holder.image.setColorFilter(accentColor);
                 holder.image.setImageResource(R.drawable.ic_shuffle_white_24dp);
             }
             if (holder.separator != null) {

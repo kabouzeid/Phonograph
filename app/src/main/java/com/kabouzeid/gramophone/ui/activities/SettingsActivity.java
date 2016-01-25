@@ -13,19 +13,19 @@ import android.preference.PreferenceManager;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
+import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.appthemehelper.common.prefs.ATEColorPreference;
+import com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference;
+import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.prefs.ColorChooserPreference;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
-import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.util.PreferenceUtil;
-import com.kabouzeid.gramophone.util.ViewUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,33 +40,37 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
-        setStatusBarTransparent();
+        setDrawUnderStatusbar(true);
         ButterKnife.bind(this);
 
-        toolbar.setBackgroundColor(getThemeColorPrimary());
+        setStatusbarColorAuto();
+        setNavigationbarColorAuto();
+        setTaskDescriptionColorAuto();
+
+        toolbar.setBackgroundColor(ThemeStore.primaryColor(this));
         setSupportActionBar(toolbar);
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null)
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
-
-        if (shouldColorNavigationBar())
-            setNavigationBarThemeColor();
-        setStatusBarThemeColor();
     }
 
     @Override
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int selectedColor) {
         switch (dialog.getTitle()) {
             case R.string.primary_color:
-                PreferenceUtil.getInstance(this).setThemeColorPrimary(selectedColor);
+                ThemeStore.editTheme(this)
+                        .primaryColor(selectedColor)
+                        .commit();
                 break;
             case R.string.accent_color:
-                PreferenceUtil.getInstance(this).setThemeColorAccent(selectedColor);
+                ThemeStore.editTheme(this)
+                        .accentColor(selectedColor)
+                        .commit();
                 break;
         }
-        recreateIfThemeChanged();
+        recreate();
     }
 
     @Override
@@ -76,14 +80,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        boolean darkContent = ColorUtil.useDarkTextColorOnBackground(getThemeColorPrimary());
-        ViewUtil.setToolbarContentDark(this, toolbar, darkContent);
-        setUseDarkStatusBarIcons(darkContent);
-        return super.onCreateOptionsMenu(menu);
     }
 
     public static class SettingsFragment extends PreferenceFragment {
@@ -142,8 +138,10 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 @Override
                 public boolean onPreferenceChange(Preference preference, @NonNull Object o) {
                     setSummary(generalTheme, o);
-                    PreferenceUtil.getInstance(getActivity()).setGeneralTheme(getActivity(), (String) o);
-                    ((SettingsActivity) getActivity()).recreateIfThemeChanged();
+                    ThemeStore.editTheme(getActivity())
+                            .activityTheme(getThemeResFromPrefValue((String) o))
+                            .commit();
+                    getActivity().recreate();
                     return true;
                 }
             });
@@ -158,46 +156,51 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 }
             });
 
-            ColorChooserPreference primaryColor = (ColorChooserPreference) findPreference("primary_color");
-            primaryColor.setColor(PreferenceUtil.getInstance(getActivity()).getThemeColorPrimary(getActivity()));
-            primaryColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            ATEColorPreference primaryColorPref = (ATEColorPreference) findPreference("primary_color");
+            final int primaryColor = ThemeStore.primaryColor(getActivity());
+            primaryColorPref.setColor(primaryColor, ColorUtil.darkenColor(primaryColor));
+            primaryColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull Preference preference) {
                     new ColorChooserDialog.Builder(((SettingsActivity) getActivity()), R.string.primary_color)
                             .accentMode(false)
                             .allowUserColorInput(true)
                             .allowUserColorInputAlpha(false)
-                            .preselect(PreferenceUtil.getInstance(getActivity()).getThemeColorPrimary(getActivity()))
+                            .preselect(primaryColor)
                             .show();
                     return true;
                 }
             });
 
-            ColorChooserPreference accentColor = (ColorChooserPreference) findPreference("accent_color");
-            accentColor.setColor(PreferenceUtil.getInstance(getActivity()).getThemeColorAccent(getActivity()));
-            accentColor.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            ATEColorPreference accentColorPref = (ATEColorPreference) findPreference("accent_color");
+            final int accentColor = ThemeStore.accentColor(getActivity());
+            accentColorPref.setColor(accentColor, ColorUtil.darkenColor(accentColor));
+            accentColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull Preference preference) {
                     new ColorChooserDialog.Builder(((SettingsActivity) getActivity()), R.string.accent_color)
                             .accentMode(true)
                             .allowUserColorInput(true)
                             .allowUserColorInputAlpha(false)
-                            .preselect(PreferenceUtil.getInstance(getActivity()).getThemeColorAccent(getActivity()))
+                            .preselect(accentColor)
                             .show();
                     return true;
                 }
             });
 
-            Preference colorNavBar = findPreference("should_color_navigation_bar");
+            ATESwitchPreference colorNavBar = (ATESwitchPreference) findPreference("should_color_navigation_bar");
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 colorNavBar.setEnabled(false);
                 colorNavBar.setSummary(R.string.pref_only_lollipop);
             } else {
+                colorNavBar.setChecked(ThemeStore.coloredNavigationBar(getActivity()));
                 colorNavBar.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        PreferenceUtil.getInstance(getActivity()).setColoredNavigationBar((boolean) newValue);
-                        ((SettingsActivity) getActivity()).recreateIfThemeChanged();
+                        ThemeStore.editTheme(getActivity())
+                                .coloredNavigationBar((Boolean) newValue)
+                                .commit();
+                        getActivity().recreate();
                         return true;
                     }
                 });
@@ -222,6 +225,19 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             PackageManager pm = getActivity().getPackageManager();
             ResolveInfo ri = pm.resolveActivity(effects, 0);
             return ri != null;
+        }
+
+        @StyleRes
+        public int getThemeResFromPrefValue(String themePrefValue) {
+            switch (themePrefValue) {
+                case "dark":
+                    return R.style.Theme_Phonograph;
+                case "black":
+                    return R.style.Theme_Phonograph_Black;
+                case "light":
+                default:
+                    return R.style.Theme_Phonograph_Light;
+            }
         }
     }
 }

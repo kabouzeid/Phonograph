@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.internal.ThemeSingleton;
+import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
 import com.kabouzeid.gramophone.util.ColorUtil;
@@ -61,7 +61,7 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
 
     private void setUpRecyclerView() {
         if (recyclerView instanceof FastScrollRecyclerView) {
-            int accentColor = ThemeSingleton.get().positiveColor.getDefaultColor();
+            int accentColor = ThemeStore.accentColor(getActivity());
             ((FastScrollRecyclerView) recyclerView).setPopupBgColor(accentColor);
             ((FastScrollRecyclerView) recyclerView).setPopupTextColor(ColorUtil.getPrimaryTextColorForBackground(getActivity(), accentColor));
             ((FastScrollRecyclerView) recyclerView).setThumbColor(accentColor);
