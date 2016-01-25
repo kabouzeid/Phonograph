@@ -1,24 +1,20 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory android:title="@string/pref_header_lockscreen">
+    <com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory android:title="@string/pref_header_lockscreen">
 
-        <CheckBoxPreference
+        <com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference
             android:defaultValue="true"
             android:key="album_art_on_lockscreen"
-            android:layout="@layout/preference_custom"
             android:summary="@string/pref_summary_album_art_on_lockscreen"
-            android:title="@string/pref_title_album_art_on_lockscreen"
-            android:widgetLayout="@layout/preference_dynamic_checkbox" />
+            android:title="@string/pref_title_album_art_on_lockscreen" />
 
-        <CheckBoxPreference
+        <com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference
             android:defaultValue="false"
             android:dependency="album_art_on_lockscreen"
             android:key="blurred_album_art"
-            android:layout="@layout/preference_custom"
             android:summary="@string/pref_summary_blurred_album_art"
-            android:title="@string/pref_title_blurred_album_art"
-            android:widgetLayout="@layout/preference_dynamic_checkbox" />
+            android:title="@string/pref_title_blurred_album_art" />
 
-    </com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory>
+    </com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory>
 
 </PreferenceScreen>

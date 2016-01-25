@@ -2,10 +2,12 @@ package com.kabouzeid.gramophone.ui.fragments.player;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -19,11 +21,13 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
+import com.kabouzeid.appthemehelper.util.ATHUtil;
+import com.kabouzeid.appthemehelper.util.TintHelper;
+import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.adapter.song.PlayingQueueAdapter;
@@ -225,7 +229,9 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
     private void updateIsFavorite() {
         boolean isFavorite = MusicUtil.isFavorite(getActivity(), MusicPlayerRemote.getCurrentSong());
-        Drawable favoriteIcon = Util.getTintedDrawable(getActivity(), isFavorite ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_outline_white_24dp, ViewUtil.getToolbarIconColor(getActivity(), false));
+        int res = isFavorite ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_outline_white_24dp;
+
+        Drawable favoriteIcon = TintHelper.tintDrawable(ContextCompat.getDrawable(getActivity(), res), ToolbarContentTintHelper.toolbarContentColor(getActivity(), Color.TRANSPARENT));
         toolbar.getMenu().findItem(R.id.action_toggle_favorite)
                 .setIcon(favoriteIcon)
                 .setTitle(isFavorite ? getString(R.string.action_remove_from_favorites) : getString(R.string.action_add_to_favorites));
@@ -347,7 +353,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
             animatorSet.play(backgroundAnimator);
 
-            Animator subHeaderAnimator = ThemeSingleton.get().darkTheme ? null : ViewUtil.createTextColorTransition(fragment.playerQueueSubHeader, fragment.lastColor, newColor);
+            Animator subHeaderAnimator = ATHUtil.isWindowBackgroundDark(fragment.getActivity()) ? null : ViewUtil.createTextColorTransition(fragment.playerQueueSubHeader, fragment.lastColor, newColor);
             if (subHeaderAnimator != null) {
                 animatorSet.play(subHeaderAnimator);
             }
@@ -358,7 +364,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
         @Override
         public void animateColorChange(PlayerFragment fragment, int newColor) {
-            if (ThemeSingleton.get().darkTheme) {
+            if (ATHUtil.isWindowBackgroundDark(fragment.getActivity())) {
                 fragment.playerQueueSubHeader.setTextColor(ColorUtil.getSecondaryTextColor(fragment.getActivity(), false));
             }
         }

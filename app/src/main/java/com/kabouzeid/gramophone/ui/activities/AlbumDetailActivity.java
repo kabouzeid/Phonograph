@@ -76,13 +76,10 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStatusBarTransparent();
+        setDrawUnderStatusbar(true);
         ButterKnife.bind(this);
 
         supportPostponeEnterTransition();
-
-        if (shouldColorNavigationBar())
-            setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
 
         getAlbumFromIntentExtras();
         setUpObservableListViewParams();
@@ -110,7 +107,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
             // Change alpha of overlay
             toolbarAlpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
             toolbar.setBackgroundColor(ColorUtil.getColorWithAlpha(toolbarAlpha, toolbarColor));
-            setStatusBarColor(ColorUtil.getColorWithAlpha(cab != null && cab.isActive() ? 1 : toolbarAlpha, toolbarColor));
+            setStatusbarColor(ColorUtil.getColorWithAlpha(cab != null && cab.isActive() ? 1 : toolbarAlpha, toolbarColor));
 
             // Translate name text
             int maxTitleTranslationY = albumArtViewHeight;
@@ -179,15 +176,8 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         albumTitleView.setBackgroundColor(color);
         albumTitleView.setTextColor(ColorUtil.getPrimaryTextColorForBackground(this, color));
 
-        if (shouldColorNavigationBar())
-            setNavigationBarColor(color);
-
-        notifyTaskColorChange(color);
-    }
-
-    @Override
-    protected boolean overridesTaskColor() {
-        return true;
+        setNavigationbarColor(color);
+        setTaskDescriptionColor(color);
     }
 
     @Override
@@ -309,7 +299,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                 .start(new MaterialCab.Callback() {
                     @Override
                     public boolean onCabCreated(MaterialCab materialCab, Menu menu) {
-                        setStatusBarColor(ColorUtil.getOpaqueColor(toolbarColor));
+                        setStatusbarColor(ColorUtil.getOpaqueColor(toolbarColor));
                         return callback.onCabCreated(materialCab, menu);
                     }
 
@@ -320,7 +310,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
 
                     @Override
                     public boolean onCabFinished(MaterialCab materialCab) {
-                        setStatusBarColor(ColorUtil.getColorWithAlpha(toolbarAlpha, toolbarColor));
+                        setStatusbarColor(ColorUtil.getColorWithAlpha(toolbarAlpha, toolbarColor));
                         return callback.onCabFinished(materialCab);
                     }
                 });
@@ -340,5 +330,11 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     public void onMediaStoreChanged() {
         super.onMediaStoreChanged();
         refresh();
+    }
+
+    @Override
+    public void setStatusbarColor(int color) {
+        super.setStatusbarColor(color);
+        setLightStatusbar(false);
     }
 }

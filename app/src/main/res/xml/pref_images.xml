@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory android:title="@string/pref_header_images">
+    <com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory android:title="@string/pref_header_images">
 
-        <CheckBoxPreference
+        <com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference
             android:defaultValue="false"
             android:key="ignore_media_store_artwork"
-            android:layout="@layout/preference_custom"
             android:summary="@string/pref_summary_ignore_media_store_artwork"
-            android:title="@string/pref_title_ignore_media_store_artwork"
-            android:widgetLayout="@layout/preference_dynamic_checkbox" />
+            android:title="@string/pref_title_ignore_media_store_artwork" />
 
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <com.kabouzeid.appthemehelper.common.prefs.ATEListPreference
             android:defaultValue="only_wifi"
             android:entries="@array/pref_auto_download_images_titles"
             android:entryValues="@array/pref_auto_download_images_values"
             android:key="auto_download_images_policy"
-            android:layout="@layout/preference_custom"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:title="@string/pref_title_auto_download_artist_images" />
 
-    </com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory>
+    </com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory>
 
 </PreferenceScreen>

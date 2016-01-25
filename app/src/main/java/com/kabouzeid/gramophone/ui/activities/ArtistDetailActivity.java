@@ -100,11 +100,8 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStatusBarTransparent();
+        setDrawUnderStatusbar(true);
         ButterKnife.bind(this);
-
-        if (shouldColorNavigationBar())
-            setNavigationBarColor(DialogUtils.resolveColor(this, R.attr.default_bar_color));
 
         lastFMRestClient = new LastFMRestClient(this);
 
@@ -135,7 +132,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
             // Change alpha of overlay
             toolbarAlpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
             toolbar.setBackgroundColor(ColorUtil.getColorWithAlpha(toolbarAlpha, toolbarColor));
-            setStatusBarColor(ColorUtil.getColorWithAlpha(cab != null && cab.isActive() ? 1 : toolbarAlpha, toolbarColor));
+            setStatusbarColor(ColorUtil.getColorWithAlpha(cab != null && cab.isActive() ? 1 : toolbarAlpha, toolbarColor));
 
             // Translate name text
             int maxTitleTranslationY = artistImageViewHeight;
@@ -288,11 +285,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     }
 
     @Override
-    protected boolean overridesTaskColor() {
-        return true;
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
@@ -309,11 +301,8 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         toolbarColor = vibrantColor;
         artistName.setBackgroundColor(vibrantColor);
         artistName.setTextColor(ColorUtil.getPrimaryTextColorForBackground(this, vibrantColor));
-
-        if (shouldColorNavigationBar())
-            setNavigationBarColor(vibrantColor);
-
-        notifyTaskColorChange(vibrantColor);
+        setNavigationbarColor(vibrantColor);
+        setTaskDescriptionColor(vibrantColor);
     }
 
     private void getArtistFromIntentExtras() {
@@ -395,7 +384,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                 .start(new MaterialCab.Callback() {
                     @Override
                     public boolean onCabCreated(MaterialCab materialCab, Menu menu) {
-                        setStatusBarColor(ColorUtil.getOpaqueColor(toolbarColor));
+                        setStatusbarColor(ColorUtil.getOpaqueColor(toolbarColor));
                         return callback.onCabCreated(materialCab, menu);
                     }
 
@@ -406,7 +395,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
                     @Override
                     public boolean onCabFinished(MaterialCab materialCab) {
-                        setStatusBarColor(ColorUtil.getColorWithAlpha(toolbarAlpha, toolbarColor));
+                        setStatusbarColor(ColorUtil.getColorWithAlpha(toolbarAlpha, toolbarColor));
                         return callback.onCabFinished(materialCab);
                     }
                 });
@@ -426,5 +415,11 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     public void onMediaStoreChanged() {
         super.onMediaStoreChanged();
         reloadDataSets();
+    }
+
+    @Override
+    public void setStatusbarColor(int color) {
+        super.setStatusbarColor(color);
+        setLightStatusbar(false);
     }
 }

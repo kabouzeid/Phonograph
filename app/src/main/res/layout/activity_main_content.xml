@@ -50,10 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tab_height"
                 app:tabContentStart="72dp"
-                app:tabIndicatorColor="@color/primary_text_default_material_dark"
-                app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/primary_text_default_material_dark"
-                app:tabTextColor="@color/secondary_text_default_material_dark" />
+                app:tabMode="scrollable" />
 
         </android.support.design.widget.AppBarLayout>
 

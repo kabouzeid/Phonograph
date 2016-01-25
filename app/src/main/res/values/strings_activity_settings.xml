@@ -22,9 +22,9 @@
     </string-array>
 
     <string-array name="pref_general_theme_list_values">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
+        <item>light</item>
+        <item>dark</item>
+        <item>black</item>
     </string-array>
 
     <string-array name="pref_auto_download_images_titles">

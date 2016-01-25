@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,12 +15,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
+import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
 import com.kabouzeid.gramophone.dialogs.DonationDialog;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.ColorUtil;
-import com.kabouzeid.gramophone.util.ViewUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -127,14 +126,14 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        setStatusBarTransparent();
+        setDrawUnderStatusbar(true);
         ButterKnife.bind(this);
 
-        setUpViews();
+        setStatusbarColorAuto();
+        setNavigationbarColorAuto();
+        setTaskDescriptionColorAuto();
 
-        if (shouldColorNavigationBar())
-            setNavigationBarThemeColor();
-        setStatusBarThemeColor();
+        setUpViews();
     }
 
     private void setUpViews() {
@@ -145,7 +144,7 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     }
 
     private void setUpToolbar() {
-        toolbar.setBackgroundColor(getThemeColorPrimary());
+        toolbar.setBackgroundColor(ThemeStore.primaryColor(this));
         setSupportActionBar(toolbar);
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -272,13 +271,5 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
                 .setIncludeOwnLicense(true)
                 .build()
                 .showAppCompat();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        boolean darkContent = ColorUtil.useDarkTextColorOnBackground(getThemeColorPrimary());
-        ViewUtil.setToolbarContentDark(this, toolbar, darkContent);
-        setUseDarkStatusBarIcons(darkContent);
-        return super.onCreateOptionsMenu(menu);
     }
 }
