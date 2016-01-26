@@ -33,6 +33,7 @@ import android.widget.TextView;
 import com.afollestad.materialcab.MaterialCab;
 import com.bumptech.glide.Glide;
 import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.NavigationViewUtil;
 import com.kabouzeid.appthemehelper.util.TabLayoutUtil;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
@@ -180,7 +181,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         navigationView.setCheckedItem(R.id.nav_library);
 
         int accentColor = ThemeStore.accentColor(this);
-        NavigationViewUtil.setItemIconColors(navigationView, ThemeStore.textColorSecondary(this), accentColor);
+        NavigationViewUtil.setItemIconColors(navigationView, ATHUtil.resolveColor(this, R.attr.icon_color, ThemeStore.textColorSecondary(this)), accentColor);
         NavigationViewUtil.setItemTextColors(navigationView, ThemeStore.textColorPrimary(this), accentColor);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
