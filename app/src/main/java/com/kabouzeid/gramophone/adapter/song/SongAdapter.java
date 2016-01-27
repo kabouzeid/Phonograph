@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SectionIndexer;
 
 import com.afollestad.materialcab.MaterialCab;
 import com.bumptech.glide.Glide;
@@ -25,12 +24,10 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
-import java.io.CharArrayReader;
 import java.util.ArrayList;
 
 /**
@@ -109,13 +106,14 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
 
     private void setColors(int color, ViewHolder holder) {
         if (holder.paletteColorContainer != null) {
-            holder.paletteColorContainer.setBackgroundColor(color);
-            if (holder.title != null) {
-                holder.title.setTextColor(ColorUtil.getPrimaryTextColorForBackground(activity, color));
-            }
-            if (holder.text != null) {
-                holder.text.setTextColor(ColorUtil.getSecondaryTextColorForBackground(activity, color));
-            }
+            // TODO
+//            holder.paletteColorContainer.setBackgroundColor(color);
+//            if (holder.title != null) {
+//                holder.title.setTextColor(PhonographColorUtil.getPrimaryTextColorForBackground(activity, color));
+//            }
+//            if (holder.text != null) {
+//                holder.text.setTextColor(PhonographColorUtil.getSecondaryTextColorForBackground(activity, color));
+//            }
         }
     }
 

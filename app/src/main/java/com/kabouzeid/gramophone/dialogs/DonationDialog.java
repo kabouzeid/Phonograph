@@ -25,9 +25,10 @@ import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.SkuDetails;
 import com.anjlab.android.iab.v3.TransactionDetails;
+import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.util.ColorUtil;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -168,12 +169,14 @@ public class DonationDialog extends DialogFragment implements BillingProcessor.I
             viewHolder.price.setText(skuDetails.priceText);
 
             final boolean purchased = donationDialog.billingProcessor.isPurchased(skuDetails.productId);
+            int titleTextColor = purchased ? ATHUtil.resolveColor(getContext(), android.R.attr.textColorHint) : ThemeStore.textColorPrimary(getContext());
+            int contentTextColor = purchased ? titleTextColor : ThemeStore.textColorSecondary(getContext());
 
-            int titleTextColor = purchased ? ColorUtil.resolveColor(getContext(), android.R.attr.textColorHint) : ColorUtil.resolveColor(getContext(), android.R.attr.textColorPrimary);
-            int contentTextColor = purchased ? titleTextColor : ColorUtil.resolveColor(getContext(), android.R.attr.textColorSecondary);
-
+            //noinspection ResourceAsColor
             viewHolder.title.setTextColor(titleTextColor);
+            //noinspection ResourceAsColor
             viewHolder.text.setTextColor(contentTextColor);
+            //noinspection ResourceAsColor
             viewHolder.price.setTextColor(titleTextColor);
 
             strikeThrough(viewHolder.title, purchased);

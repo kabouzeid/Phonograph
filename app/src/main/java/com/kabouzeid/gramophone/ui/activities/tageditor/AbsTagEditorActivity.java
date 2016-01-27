@@ -3,10 +3,8 @@ package com.kabouzeid.gramophone.ui.activities.tageditor;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.PorterDuff;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -25,10 +23,11 @@ import android.widget.LinearLayout;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.appthemehelper.util.ColorUtil;
+import com.kabouzeid.appthemehelper.util.TintHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
-import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
 
@@ -85,7 +84,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                 header.setTranslationY(scrollY);
                 alpha = 1;
             }
-            toolbar.setBackgroundColor(ColorUtil.getColorWithAlpha(alpha, paletteColorPrimary));
+            toolbar.setBackgroundColor(ColorUtil.withAlpha(paletteColorPrimary, alpha));
             image.setTranslationY(scrollY / 2);
         }
     };
@@ -188,10 +187,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
             }
         });
 
-        int accentColor = ThemeStore.accentColor(this);
-        int fabDrawableColor = ColorUtil.getPrimaryTextColorForBackground(this, accentColor);
-        fab.setBackgroundTintList(ColorStateList.valueOf(accentColor));
-        fab.getDrawable().setColorFilter(fabDrawableColor, PorterDuff.Mode.SRC_IN);
+        TintHelper.setTintAuto(fab, ThemeStore.accentColor(this), true);
     }
 
     protected abstract void save();

@@ -24,13 +24,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
-import com.kabouzeid.gramophone.util.ColorUtil;
+import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 public class PlayingNotificationHelper {
@@ -69,7 +70,7 @@ public class PlayingNotificationHelper {
 
             @Override
             public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
-                setAlbumCover(resource.getBitmap(), ColorUtil.getColor(resource.getPalette(), Color.TRANSPARENT));
+                setAlbumCover(resource.getBitmap(), PhonographColorUtil.getColor(resource.getPalette(), Color.TRANSPARENT));
             }
         };
     }
@@ -214,7 +215,7 @@ public class PlayingNotificationHelper {
             bgColor = Color.TRANSPARENT;
         }
         setBackgroundColor(bgColor);
-        setDarkNotificationContent(bgColor == Color.TRANSPARENT ? Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP : ColorUtil.useDarkTextColorOnBackground(bgColor));
+        setDarkNotificationContent(bgColor == Color.TRANSPARENT ? Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP : ColorUtil.isColorLight(bgColor));
 
         if (notification != null) {
             notificationManager.notify(notificationId, notification);

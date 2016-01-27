@@ -15,8 +15,8 @@ import android.webkit.WebView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
+import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.io.BufferedReader;
@@ -83,7 +83,7 @@ public class ChangelogDialog extends DialogFragment {
                     .replace("{style-placeholder}",
                             String.format("body { background-color: #%s; color: #%s; }", backgroundColor, contentColor))
                     .replace("{link-color}", colorToHex(ThemeSingleton.get().positiveColor.getDefaultColor()))
-                    .replace("{link-color-active}", colorToHex(ColorUtil.shiftColorUp(ThemeSingleton.get().positiveColor.getDefaultColor())))
+                            .replace("{link-color-active}", colorToHex(ColorUtil.lightenColor(ThemeSingleton.get().positiveColor.getDefaultColor())))
                     , "text/html", "UTF-8");
         } catch (Throwable e) {
             webView.loadData("<h1>Unable to load</h1><p>" + e.getLocalizedMessage() + "</p>", "text/html", "UTF-8");
