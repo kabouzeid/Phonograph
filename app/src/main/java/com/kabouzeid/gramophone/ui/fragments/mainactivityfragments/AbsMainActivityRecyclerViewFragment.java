@@ -14,9 +14,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.appthemehelper.util.ATHUtil;
+import com.kabouzeid.appthemehelper.util.ColorUtil;
+import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
-import com.kabouzeid.gramophone.util.ColorUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import butterknife.Bind;
@@ -63,9 +65,9 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
         if (recyclerView instanceof FastScrollRecyclerView) {
             int accentColor = ThemeStore.accentColor(getActivity());
             ((FastScrollRecyclerView) recyclerView).setPopupBgColor(accentColor);
-            ((FastScrollRecyclerView) recyclerView).setPopupTextColor(ColorUtil.getPrimaryTextColorForBackground(getActivity(), accentColor));
+            ((FastScrollRecyclerView) recyclerView).setPopupTextColor(MaterialValueHelper.getPrimaryTextColor(getActivity(), ColorUtil.isColorLight(accentColor)));
             ((FastScrollRecyclerView) recyclerView).setThumbColor(accentColor);
-            ((FastScrollRecyclerView) recyclerView).setTrackColor(ColorUtil.getColorWithAlpha(0.12f, ColorUtil.resolveColor(getContext(), R.attr.colorControlNormal)));
+            ((FastScrollRecyclerView) recyclerView).setTrackColor(ColorUtil.withAlpha(ATHUtil.resolveColor(getContext(), R.attr.colorControlNormal), 0.12f));
         }
         invalidateLayoutManager();
         invalidateAdapter();

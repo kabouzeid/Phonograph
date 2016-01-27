@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
@@ -25,9 +26,9 @@ import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
 import com.kabouzeid.gramophone.lastfm.rest.model.LastFmAlbum;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.LastFMUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
+import com.kabouzeid.gramophone.util.PhonographColorUtil;
 
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.images.Artwork;
@@ -92,7 +93,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
     @Override
     protected void loadCurrentImage() {
         Bitmap bitmap = getAlbumArt();
-        setImageBitmap(bitmap, ColorUtil.getColor(ColorUtil.generatePalette(bitmap), ColorUtil.resolveColor(this, R.attr.default_bar_color)));
+        setImageBitmap(bitmap, PhonographColorUtil.getColor(PhonographColorUtil.generatePalette(bitmap), ATHUtil.resolveColor(this, R.attr.default_bar_color)));
         deleteAlbumArt = false;
     }
 
@@ -128,7 +129,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
                                     @Override
                                     public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
                                         albumArtBitmap = getResizedAlbumCover(resource.getBitmap(), 2048);
-                                        setImageBitmap(albumArtBitmap, ColorUtil.getColor(resource.getPalette(), ColorUtil.resolveColor(AlbumTagEditorActivity.this, R.attr.default_bar_color)));
+                                        setImageBitmap(albumArtBitmap, PhonographColorUtil.getColor(resource.getPalette(), ATHUtil.resolveColor(AlbumTagEditorActivity.this, R.attr.default_bar_color)));
                                         deleteAlbumArt = false;
                                         dataChanged();
                                         setResult(RESULT_OK);
@@ -159,7 +160,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
     @Override
     protected void deleteImage() {
-        setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.default_album_art), ColorUtil.resolveColor(this, R.attr.default_bar_color));
+        setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.default_album_art), ATHUtil.resolveColor(this, R.attr.default_bar_color));
         deleteAlbumArt = true;
         dataChanged();
     }
@@ -223,9 +224,9 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
                     @Override
                     public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
-                        ColorUtil.getColor(resource.getPalette(), Color.TRANSPARENT);
+                        PhonographColorUtil.getColor(resource.getPalette(), Color.TRANSPARENT);
                         albumArtBitmap = getResizedAlbumCover(resource.getBitmap(), 2048);
-                        setImageBitmap(albumArtBitmap, ColorUtil.getColor(resource.getPalette(), ColorUtil.resolveColor(AlbumTagEditorActivity.this, R.attr.default_bar_color)));
+                        setImageBitmap(albumArtBitmap, PhonographColorUtil.getColor(resource.getPalette(), ATHUtil.resolveColor(AlbumTagEditorActivity.this, R.attr.default_bar_color)));
                         deleteAlbumArt = false;
                         dataChanged();
                         setResult(RESULT_OK);

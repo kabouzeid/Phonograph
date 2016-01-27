@@ -1,19 +1,18 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.Manifest;
-import android.app.ActivityManager;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
 import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
+import com.kabouzeid.appthemehelper.ATH;
+import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 /**
@@ -23,8 +22,9 @@ public class IntroActivity extends AppIntro {
     @Override
     public void init(Bundle savedInstanceState) {
         int color = ContextCompat.getColor(this, R.color.blue_grey_700);
-        setStatusBarColor(ColorUtil.shiftColorDown(color));
-        setTaskColor(color);
+
+        ATH.setStatusbarColor(this, ColorUtil.darkenColor(color));
+        ATH.setTaskDescriptionColor(this, color);
 
         showSkipButton(false);
 
@@ -38,15 +38,6 @@ public class IntroActivity extends AppIntro {
         }
         addSlide(AppIntroFragment.newInstance(getString(R.string.label_playing_queue), getString(R.string.open_playing_queue_instruction), R.drawable.tutorial_queue_swipe_up, color));
         addSlide(AppIntroFragment.newInstance(getString(R.string.label_playing_queue), getString(R.string.rearrange_playing_queue_instruction), R.drawable.tutorial_rearrange_queue, color));
-    }
-
-    private void setTaskColor(@ColorInt int color) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setTaskDescription(new ActivityManager.TaskDescription(
-                    null,
-                    null,
-                    ColorUtil.getOpaqueColor(color)));
-        }
     }
 
     private boolean hasExternalStoragePermission() {

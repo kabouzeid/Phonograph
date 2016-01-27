@@ -23,7 +23,6 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
@@ -105,15 +104,16 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     }
 
     private void setColors(int color, ViewHolder holder) {
-        if (holder.paletteColorContainer != null) {
-            holder.paletteColorContainer.setBackgroundColor(color);
-            if (holder.title != null) {
-                holder.title.setTextColor(ColorUtil.getPrimaryTextColorForBackground(activity, color));
-            }
-            if (holder.text != null) {
-                holder.text.setTextColor(ColorUtil.getSecondaryTextColorForBackground(activity, color));
-            }
-        }
+        // TODO
+//        if (holder.paletteColorContainer != null) {
+//            holder.paletteColorContainer.setBackgroundColor(color);
+//            if (holder.title != null) {
+//                holder.title.setTextColor(PhonographColorUtil.getPrimaryTextColorForBackground(activity, color));
+//            }
+//            if (holder.text != null) {
+//                holder.text.setTextColor(PhonographColorUtil.getSecondaryTextColorForBackground(activity, color));
+//            }
+//        }
     }
 
     protected void loadAlbumCover(Album album, final ViewHolder holder) {

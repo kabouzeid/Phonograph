@@ -16,11 +16,11 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
 import com.kabouzeid.gramophone.dialogs.DonationDialog;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
-import com.kabouzeid.gramophone.util.ColorUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -176,7 +176,7 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     }
 
     private void setUpIconTint() {
-        int iconColor = ColorUtil.resolveColor(this, R.attr.icon_color);
+        int iconColor = ATHUtil.resolveColor(this, R.attr.icon_color, ThemeStore.textColorSecondary(this));
         iconInfo.setColorFilter(iconColor);
         iconChangelog.setColorFilter(iconColor);
         iconIntro.setColorFilter(iconColor);
