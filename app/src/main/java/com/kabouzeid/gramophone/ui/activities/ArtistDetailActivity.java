@@ -28,6 +28,7 @@ import com.bumptech.glide.request.target.Target;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
+import com.kabouzeid.gramophone.BuildConfig;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.album.HorizontalAlbumAdapter;
 import com.kabouzeid.gramophone.adapter.song.ArtistSongAdapter;
@@ -218,6 +219,10 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     }
 
     private void loadBiography() {
+        if (BuildConfig.DEBUG) {
+            biography = Html.fromHtml("Not available in debug builds, because this is causing a crash for whatever reason.");
+            return;
+        }
         lastFMRestClient.getApiService().getArtistInfo(artist.name, null).enqueue(new Callback<LastFmArtist>() {
             @Override
             public void onResponse(Response<LastFmArtist> response) {
