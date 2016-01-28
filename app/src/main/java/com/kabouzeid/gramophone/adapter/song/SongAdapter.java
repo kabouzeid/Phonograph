@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 
 import com.afollestad.materialcab.MaterialCab;
 import com.bumptech.glide.Glide;
+import com.kabouzeid.appthemehelper.util.ColorUtil;
+import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
@@ -106,14 +108,13 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
 
     private void setColors(int color, ViewHolder holder) {
         if (holder.paletteColorContainer != null) {
-            // TODO
-//            holder.paletteColorContainer.setBackgroundColor(color);
-//            if (holder.title != null) {
-//                holder.title.setTextColor(PhonographColorUtil.getPrimaryTextColorForBackground(activity, color));
-//            }
-//            if (holder.text != null) {
-//                holder.text.setTextColor(PhonographColorUtil.getSecondaryTextColorForBackground(activity, color));
-//            }
+            holder.paletteColorContainer.setBackgroundColor(color);
+            if (holder.title != null) {
+                holder.title.setTextColor(MaterialValueHelper.getPrimaryTextColor(activity, ColorUtil.isColorLight(color)));
+            }
+            if (holder.text != null) {
+                holder.text.setTextColor(MaterialValueHelper.getSecondaryTextColor(activity, ColorUtil.isColorLight(color)));
+            }
         }
     }
 

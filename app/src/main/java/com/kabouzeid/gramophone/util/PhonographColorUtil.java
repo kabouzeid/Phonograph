@@ -14,7 +14,7 @@ import java.util.Comparator;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class PhonographColorUtil {
-    public static final int PALETTE_BITMAP_SIZE = 100;
+    public static final int PALETTE_BITMAP_SIZE = 10;
 
     @Nullable
     public static Palette generatePalette(Bitmap bitmap) {

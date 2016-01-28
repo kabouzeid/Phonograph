@@ -139,6 +139,4 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.6.1'
     compile 'com.github.kabouzeid:RecyclerView-FastScroll:v1.2-kmod'
     compile 'com.github.kabouzeid:app-theme-helper:0.7.8kmod'
-
-    compile 'com.github.kabouzeid:GlidePalette:e34717bced@aar'
 }
