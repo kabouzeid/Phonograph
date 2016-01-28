@@ -214,4 +214,12 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
             super.setTaskDescriptionColor(color);
         }
     }
+
+    public MiniPlayerFragment getMiniPlayerFragment() {
+        return miniPlayerFragment;
+    }
+
+    public AbsPlayerFragment getPlayerFragment() {
+        return playerFragment;
+    }
 }
