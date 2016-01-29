@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">¿Qué quieres compartir?</string>
-    <string name="currently_listening_to_x_by_x">Reproduciendo %1$s de %2$s</string>
+    <string name="currently_listening_to_x_by_x">Estás escuchando %1$s de %2$s</string>
     <string name="the_audio_file">El archivo de audio</string>
-    <string name="do_you_want_to_set_x_as_ringtone">¿Quieres establecer %1$s como tono de llamada?</string>
-    <string name="x_has_been_set_as_ringtone">%1$s se ha establecido como tono de llamada.</string>
+    <string name="do_you_want_to_set_x_as_ringtone">¿Te gustaría establecer %1$s como tono de llamada?</string>
+    <string name="x_has_been_set_as_ringtone">%1$s se estableció como tono de llamada</string>
     <string name="action_set_as_ringtone">Establecer como tono de llamada</string>
     <string name="action_share">Compartir</string>
     <string name="action_settings">"Ajustes"</string>
     <string name="action_grant">Otorgar</string>
     <string name="action_done">Hecho</string>
-    <string name="action_skip">Saltar</string>
+    <string name="action_skip">Omitir</string>
     <string name="action_about">Acerca de</string>
     <string name="action_show_intro">Mostrar introducción</string>
     <string name="action_clear_playlist">Limpiar lista de reproducción</string>
@@ -23,7 +23,7 @@
     <string name="action_add_to_playing_queue">Añadir a cola de reproducción</string>
     <string name="action_remove_from_playing_queue">Eliminar de la cola de reproducción</string>
     <string name="action_add_to_playlist">Añadir a la lista de reproducción...</string>
-    <string name="action_tag_editor">Editor de etiquetas</string>
+    <string name="action_tag_editor">Editor de información</string>
     <string name="action_delete_from_device">Eliminar del dispositivo</string>
     <string name="action_details">Detalles</string>
     <string name="albums">Álbumes</string>
@@ -42,7 +42,7 @@
     <string name="track">Pista</string>
     <string name="track_hint">"Pista (2 para pista 2 o 3004 para CD3 pista 4)"</string>
     <string name="album_or_artist_empty">El título o artista está vacío.</string>
-    <string name="writing_file_number">Escribiendo archivo...</string>
+    <string name="writing_file_number">Editando archivo</string>
     <string name="saving_changes">Guardando cambios...</string>
     <string name="label_details">Detalles</string>
     <string name="label_file_name">Nombre del archivo</string>
