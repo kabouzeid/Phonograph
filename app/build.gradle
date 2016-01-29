@@ -63,8 +63,8 @@ android {
         renderscriptTargetApi 23
 
         applicationId "com.kabouzeid.gramophone"
-        versionCode 93
-        versionName "0.9.54 beta 1"
+        versionCode 94
+        versionName "0.9.54 RC"
 
         manifestPlaceholders = [appName: "@string/app_name"]
     }

@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="what_do_you_want_to_share">Vad vill du dela?</string>
+    <string name="currently_listening_to_x_by_x">Lyssnar just nu på %1$s av %2$s.</string>
+    <string name="the_audio_file">Ljudfilen</string>
+    <string name="do_you_want_to_set_x_as_ringtone">"Vill du lägga till %1$s som din ringsignal? "</string>
+    <string name="x_has_been_set_as_ringtone">"Lägg till %1$s som din ringsignal. "</string>
+    <string name="action_set_as_ringtone">"Lägg till som ringsignal. "</string>
+    <string name="action_share">Dela</string>
     <string name="action_settings">"Inställningar"</string>
+    <string name="action_grant">Tillåt</string>
+    <string name="action_done">Färdig</string>
+    <string name="action_skip">Skippa</string>
     <string name="action_about">Om</string>
+    <string name="action_show_intro">Visa intro</string>
+    <string name="action_clear_playlist">"Rensa spellista "</string>
     <string name="action_playing_queue">Uppspelningskö</string>
     <string name="action_search">Sök</string>
     <string name="action_play_next">Spela nästa</string>
@@ -24,7 +36,7 @@
     <string name="album_artist">Album artist</string>
     <string name="year">År</string>
     <string name="track">Låt</string>
-    <string name="track_hint">"Låt"</string>
+    <string name="track_hint">"Spår"</string>
     <string name="album_or_artist_empty">Textfältet för albumtitel eller artist är tomt.</string>
     <string name="writing_file_number">Skriver till fil</string>
     <string name="saving_changes">Sparar ändringar ...</string>
