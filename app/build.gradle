@@ -63,8 +63,10 @@ android {
         renderscriptTargetApi 23
 
         applicationId "com.kabouzeid.gramophone"
-        versionCode 93
-        versionName "0.9.53 TEMP"
+        versionCode 94
+        versionName "0.9.54 RC"
+
+        manifestPlaceholders = [appName: "@string/app_name"]
     }
     buildTypes {
         release {
@@ -74,6 +76,9 @@ android {
             signingConfig signingConfigs.release
         }
         debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix ' DEBUG'
+            manifestPlaceholders = [appName: "Phonograph DEBUG"]
             signingConfig signingConfigs.debug
         }
     }
@@ -109,6 +114,10 @@ dependencies {
         transitive = true
     }
 
+    compile('com.github.kabouzeid:app-theme-helper:0.7.11kmod@aar'){
+        transitive = true
+    }
+
     compile 'com.android.support:support-v4:23.1.1'
     compile 'com.android.support:support-v13:23.1.1'
     compile 'com.android.support:appcompat-v7:23.1.1'
@@ -132,5 +141,5 @@ dependencies {
     compile 'de.psdev.licensesdialog:licensesdialog:1.8.0'
     compile 'com.github.kabouzeid:AppIntro:3.3.0k'
     compile 'com.github.bumptech.glide:glide:3.6.1'
-    compile 'com.github.kabouzeid:RecyclerView-FastScroll:4a2754f1d6'
+    compile 'com.github.kabouzeid:RecyclerView-FastScroll:v1.2-kmod'
 }

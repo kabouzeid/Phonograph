@@ -15,6 +15,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.Target;
+import com.kabouzeid.appthemehelper.util.ColorUtil;
+import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
@@ -30,7 +32,6 @@ import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ArtistSignatureUtil;
-import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
@@ -88,7 +89,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Artist artist = dataSet.get(position);
 
-//        final int defaultBarColor = ColorUtil.resolveColor(activity, R.attr.default_bar_color);
+//        final int defaultBarColor = PhonographColorUtil.resolveColor(activity, R.attr.default_bar_color);
 //        setColors(defaultBarColor, holder);
 
         boolean isChecked = isChecked(artist);
@@ -112,10 +113,10 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
         if (holder.paletteColorContainer != null) {
             holder.paletteColorContainer.setBackgroundColor(color);
             if (holder.title != null) {
-                holder.title.setTextColor(ColorUtil.getPrimaryTextColorForBackground(activity, color));
+                holder.title.setTextColor(MaterialValueHelper.getPrimaryTextColor(activity, ColorUtil.isColorLight(color)));
             }
             if (holder.text != null) {
-                holder.text.setTextColor(ColorUtil.getSecondaryTextColorForBackground(activity, color));
+                holder.text.setTextColor(MaterialValueHelper.getSecondaryTextColor(activity, ColorUtil.isColorLight(color)));
             }
         }
     }

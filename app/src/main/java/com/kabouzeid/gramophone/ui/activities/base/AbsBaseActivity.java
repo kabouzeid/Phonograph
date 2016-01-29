@@ -7,7 +7,6 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,7 +15,7 @@ import android.support.v4.app.ActivityCompat;
 import android.view.KeyEvent;
 import android.view.View;
 
-import com.afollestad.materialdialogs.internal.ThemeSingleton;
+import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 
@@ -66,18 +65,9 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
     }
 
     protected void onPermissionsChanged() {
-        postRecreate();
-    }
-
-    protected void postRecreate() {
         if (!recreating) {
             recreating = true;
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    recreate();
-                }
-            }, 200);
+            postRecreate();
         }
     }
 
@@ -165,7 +155,7 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
                                         requestPermissions();
                                     }
                                 })
-                                .setActionTextColor(ThemeSingleton.get().positiveColor)
+                                .setActionTextColor(ThemeStore.accentColor(this))
                                 .show();
                     } else {
                         // User has deny permission and checked never show permission dialog so you can redirect to Application settings page
@@ -181,7 +171,7 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
                                         startActivity(intent);
                                     }
                                 })
-                                .setActionTextColor(ThemeSingleton.get().positiveColor)
+                                .setActionTextColor(ThemeStore.accentColor(this))
                                 .show();
                     }
                     return;

@@ -1,17 +1,25 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory android:title="@string/pref_header_general">
+    <com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory android:title="@string/pref_header_general">
 
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <com.kabouzeid.appthemehelper.common.prefs.ATEListPreference
             android:defaultValue="-1"
             android:entries="@array/pref_start_page_list_titles"
             android:entryValues="@array/pref_start_page_list_values"
             android:key="default_start_page"
-            android:layout="@layout/preference_custom"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:title="@string/pref_title_set_default_start_page" />
 
-    </com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory>
+        <com.kabouzeid.appthemehelper.common.prefs.ATEListPreference
+            android:defaultValue="light"
+            android:entries="@array/pref_general_theme_list_titles"
+            android:entryValues="@array/pref_general_theme_list_values"
+            android:key="general_theme"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_general_theme" />
+
+    </com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory>
 
 </PreferenceScreen>
