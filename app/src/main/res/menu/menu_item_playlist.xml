@@ -9,8 +9,12 @@
         android:title="@string/action_add_to_playing_queue" />
     <item
         android:id="@+id/action_rename_playlist"
-        android:title="@string/rename_playlist_title" />
+        android:title="@string/action_rename" />
     <item
         android:id="@+id/action_delete_playlist"
-        android:title="@string/delete_playlist_title" />
+        android:title="@string/action_delete" />
+    <item
+        android:id="@+id/action_save_playlist"
+        android:title="@string/save_playlist_title" />
+
 </menu>
