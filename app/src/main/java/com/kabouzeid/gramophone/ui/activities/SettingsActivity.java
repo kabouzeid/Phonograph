@@ -10,6 +10,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.TwoStatePreference;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,7 +22,6 @@ import android.view.View;
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.common.prefs.ATEColorPreference;
-import com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
@@ -52,8 +52,12 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if (savedInstanceState == null)
+        if (savedInstanceState == null) {
             getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
+        } else {
+            SettingsFragment frag = (SettingsFragment) getFragmentManager().findFragmentById(R.id.content_frame);
+            if (frag != null) frag.invalidateSettings();
+        }
     }
 
     @Override
@@ -106,12 +110,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         }
 
         @Override
-        public void onViewCreated(View view, Bundle savedInstanceState) {
-            super.onViewCreated(view, savedInstanceState);
-            view.findViewById(android.R.id.list).setPadding(0, 0, 0, 0);
-        }
-
-        @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
@@ -121,7 +119,16 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             addPreferencesFromResource(R.xml.pref_images);
             addPreferencesFromResource(R.xml.pref_lockscreen);
             addPreferencesFromResource(R.xml.pref_audio);
+        }
 
+        @Override
+        public void onViewCreated(View view, Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+            view.findViewById(android.R.id.list).setPadding(0, 0, 0, 0);
+            invalidateSettings();
+        }
+
+        private void invalidateSettings() {
             final Preference defaultStartPage = findPreference("default_start_page");
             setSummary(defaultStartPage);
             defaultStartPage.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -188,7 +195,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 }
             });
 
-            ATESwitchPreference colorNavBar = (ATESwitchPreference) findPreference("should_color_navigation_bar");
+            TwoStatePreference colorNavBar = (TwoStatePreference) findPreference("should_color_navigation_bar");
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 colorNavBar.setEnabled(false);
                 colorNavBar.setSummary(R.string.pref_only_lollipop);
