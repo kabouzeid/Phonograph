@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,12 +18,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.SearchAdapter;
 import com.kabouzeid.gramophone.ui.activities.base.AbsMusicServiceActivity;
-import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.Util;
-import com.kabouzeid.gramophone.util.ViewUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -51,8 +50,12 @@ public class SearchActivity extends AbsMusicServiceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        setStatusBarTransparent();
+        setDrawUnderStatusbar(true);
         ButterKnife.bind(this);
+
+        setStatusbarColorAuto();
+        setNavigationbarColorAuto();
+        setTaskDescriptionColorAuto();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         searchAdapter = new SearchAdapter(this);
@@ -68,29 +71,17 @@ public class SearchActivity extends AbsMusicServiceActivity {
 
         setUpToolBar();
         setUpSearchBar();
-
-        if (shouldColorNavigationBar())
-            setNavigationBarThemeColor();
-        setStatusBarThemeColor();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        boolean darkContent = ColorUtil.useDarkTextColorOnBackground(getThemeColorPrimary());
-        ViewUtil.setToolbarContentDark(this, toolbar, darkContent);
-        setUseDarkStatusBarIcons(darkContent);
-        return super.onCreateOptionsMenu(menu);
     }
 
     private void setUpToolBar() {
-        toolbar.setBackgroundColor(getThemeColorPrimary());
+        toolbar.setBackgroundColor(ThemeStore.primaryColor(this));
         setSupportActionBar(toolbar);
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void setUpSearchBar() {
-        searchCloseBtn.setColorFilter(ViewUtil.getToolbarIconColor(this, ColorUtil.useDarkTextColorOnBackground(getThemeColorPrimary())), PorterDuff.Mode.SRC_IN);
+        searchCloseBtn.setColorFilter(ToolbarContentTintHelper.toolbarContentColor(this, ThemeStore.primaryColor(this)), PorterDuff.Mode.SRC_IN);
         searchCloseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,8 +89,8 @@ public class SearchActivity extends AbsMusicServiceActivity {
             }
         });
 
-        searchSrcText.setTextColor(ColorUtil.getPrimaryTextColorForBackground(this, getThemeColorPrimary()));
-        searchSrcText.setHintTextColor(ColorUtil.getSecondaryTextColorForBackground(this, getThemeColorPrimary()));
+        searchSrcText.setTextColor(ToolbarContentTintHelper.toolbarTitleColor(this, ThemeStore.primaryColor(this)));
+        searchSrcText.setHintTextColor(ToolbarContentTintHelper.toolbarSubtitleColor(this, ThemeStore.primaryColor(this)));
         searchSrcText.setHint(R.string.search_hint);
 
         searchSrcText.addTextChangedListener(new TextWatcher() {

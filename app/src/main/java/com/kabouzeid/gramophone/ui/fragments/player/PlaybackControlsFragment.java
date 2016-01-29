@@ -14,16 +14,17 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.kabouzeid.appthemehelper.util.ColorUtil;
+import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
+import com.kabouzeid.appthemehelper.util.TintHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.MusicProgressViewUpdateHelper;
 import com.kabouzeid.gramophone.helper.PlayPauseButtonOnClickHandler;
 import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
-import com.kabouzeid.gramophone.misc.FloatingActionButtonProperties;
 import com.kabouzeid.gramophone.misc.SimpleOnSeekbarChangeListener;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsMusicServiceActivity;
-import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.views.PlayPauseDrawable;
@@ -148,12 +149,12 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
     }
 
     public void setColor(int color) {
-        if (ColorUtil.useDarkTextColorOnBackground(color)) {
-            lastPlaybackControlsColor = ColorUtil.getSecondaryTextColor(getActivity(), true);
-            lastDisabledPlaybackControlsColor = ColorUtil.getSecondaryDisabledTextColor(getActivity(), true);
+        if (ColorUtil.isColorLight(color)) {
+            lastPlaybackControlsColor = MaterialValueHelper.getSecondaryTextColor(getActivity(), true);
+            lastDisabledPlaybackControlsColor = MaterialValueHelper.getSecondaryDisabledTextColor(getActivity(), true);
         } else {
-            lastPlaybackControlsColor = ColorUtil.getPrimaryTextColor(getActivity(), false);
-            lastDisabledPlaybackControlsColor = ColorUtil.getPrimaryDisabledTextColor(getActivity(), false);
+            lastPlaybackControlsColor = MaterialValueHelper.getPrimaryTextColor(getActivity(), false);
+            lastDisabledPlaybackControlsColor = MaterialValueHelper.getPrimaryDisabledTextColor(getActivity(), false);
         }
 
         updateRepeatState();
@@ -166,7 +167,10 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
     private void setUpPlayPauseFab() {
         updatePlayPauseDrawableState(false);
         playPauseFab.setImageDrawable(playerFabPlayPauseDrawable);
-        FloatingActionButtonProperties.COLOR.set(playPauseFab, Color.WHITE);
+        final int fabColor = Color.WHITE;
+        TintHelper.setTintAuto(playPauseFab, fabColor, true);
+        // because of our custom drawable we have to set the tint manually
+        playPauseFab.getDrawable().mutate().setColorFilter(MaterialValueHelper.getPrimaryTextColor(getContext(), ColorUtil.isColorLight(fabColor)), PorterDuff.Mode.SRC_IN);
         playPauseFab.setOnClickListener(new PlayPauseButtonOnClickHandler());
         playPauseFab.post(new Runnable() {
             @Override
@@ -215,7 +219,7 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
     }
 
     private void updateProgressTextColor() {
-        int color = ColorUtil.getPrimaryTextColor(getContext(), false);
+        int color = MaterialValueHelper.getPrimaryTextColor(getContext(), false);
         songTotalTime.setTextColor(color);
         songCurrentProgress.setTextColor(color);
     }
@@ -295,7 +299,7 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
     }
 
     private void updateProgressSliderTint() {
-        int color = ColorUtil.getPrimaryTextColor(getContext(), false);
+        int color = MaterialValueHelper.getPrimaryTextColor(getContext(), false);
         progressSlider.getThumb().mutate().setColorFilter(color, PorterDuff.Mode.SRC_IN);
         progressSlider.getProgressDrawable().mutate().setColorFilter(Color.TRANSPARENT, PorterDuff.Mode.SRC_IN);
     }

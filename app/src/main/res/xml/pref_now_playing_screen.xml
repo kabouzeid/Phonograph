@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory android:title="@string/pref_header_now_playing_screen">
+    <com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory android:title="@string/pref_header_now_playing_screen">
 
-        <com.afollestad.materialdialogs.prefs.MaterialListPreference
+        <com.kabouzeid.appthemehelper.common.prefs.ATEListPreference
             android:enabled="false"
             android:key="now_playing_layout"
-            android:layout="@layout/preference_custom"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
             android:summary="Coming soon"
             android:title="@string/pref_title_now_playing_layout" />
 
-    </com.kabouzeid.gramophone.prefs.DynamicPreferenceCategory>
+    </com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory>
 
 </PreferenceScreen>

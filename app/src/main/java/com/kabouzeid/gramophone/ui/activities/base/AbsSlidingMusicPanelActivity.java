@@ -33,9 +33,9 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     @Bind(R.id.sliding_layout)
     SlidingUpPanelLayout slidingUpPanelLayout;
 
-    private int navigationBarColor;
+    private int navigationbarColor;
     private int taskColor;
-    private boolean useDarkStatusBarIcons;
+    private boolean lightStatusbar;
 
     private AbsPlayerFragment playerFragment;
     private MiniPlayerFragment miniPlayerFragment;
@@ -100,11 +100,11 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     @Override
     public void onPanelCollapsed(View view) {
-        super.setUseDarkStatusBarIcons(useDarkStatusBarIcons);
-        super.notifyTaskColorChange(taskColor);
-        if (shouldColorNavigationBar()) {
-            super.setNavigationBarColor(navigationBarColor);
-        }
+        // restore values
+        super.setLightStatusbar(lightStatusbar);
+        super.setTaskDescriptionColor(taskColor);
+        super.setNavigationbarColor(navigationbarColor);
+
         playerFragment.setMenuVisibility(false);
         playerFragment.setUserVisibleHint(false);
         playerFragment.onHide();
@@ -112,12 +112,12 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     @Override
     public void onPanelExpanded(View view) {
-        super.setUseDarkStatusBarIcons(false);
+        // setting fragments values
         int playerFragmentColor = playerFragment.getPaletteColor();
-        super.notifyTaskColorChange(playerFragmentColor);
-        if (shouldColorNavigationBar()) {
-            super.setNavigationBarColor(playerFragmentColor);
-        }
+        super.setLightStatusbar(false);
+        super.setTaskDescriptionColor(playerFragmentColor);
+        super.setNavigationbarColor(playerFragmentColor);
+
         playerFragment.setMenuVisibility(true);
         playerFragment.setUserVisibleHint(true);
         playerFragment.onShow();
@@ -183,37 +183,43 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     @Override
-    protected void setUseDarkStatusBarIcons(boolean useDarkIcons) {
-        useDarkStatusBarIcons = useDarkIcons;
-        if (getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
-            super.setUseDarkStatusBarIcons(useDarkIcons);
-        }
-    }
-
-    @Override
-    protected void setNavigationBarColor(@ColorInt int color) {
-        this.navigationBarColor = color;
-        if (getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
-            super.setNavigationBarColor(color);
-        }
-    }
-
-    @Override
-    protected void notifyTaskColorChange(@ColorInt int color) {
-        this.taskColor = color;
-        if (getPanelState() == null || getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
-            super.notifyTaskColorChange(color);
-        }
-    }
-
-    @Override
     public void onPaletteColorChanged() {
         if (getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
             int playerFragmentColor = playerFragment.getPaletteColor();
-            super.notifyTaskColorChange(playerFragmentColor);
-            if (shouldColorNavigationBar()) {
-                super.setNavigationBarColor(playerFragmentColor);
-            }
+            super.setTaskDescriptionColor(playerFragmentColor);
+            super.setNavigationbarColor(playerFragmentColor);
         }
+    }
+
+    @Override
+    public void setLightStatusbar(boolean enabled) {
+        lightStatusbar = enabled;
+        if (getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+            super.setLightStatusbar(enabled);
+        }
+    }
+
+    @Override
+    public void setNavigationbarColor(int color) {
+        this.navigationbarColor = color;
+        if (getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+            super.setNavigationbarColor(color);
+        }
+    }
+
+    @Override
+    public void setTaskDescriptionColor(@ColorInt int color) {
+        this.taskColor = color;
+        if (getPanelState() == null || getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+            super.setTaskDescriptionColor(color);
+        }
+    }
+
+    public MiniPlayerFragment getMiniPlayerFragment() {
+        return miniPlayerFragment;
+    }
+
+    public AbsPlayerFragment getPlayerFragment() {
+        return playerFragment;
     }
 }

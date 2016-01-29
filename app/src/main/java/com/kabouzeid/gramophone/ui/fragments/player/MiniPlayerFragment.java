@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.ui.fragments.player;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,14 +14,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.internal.ThemeSingleton;
+import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.appthemehelper.util.ATHUtil;
+import com.kabouzeid.appthemehelper.util.ColorUtil;
+import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.MusicProgressViewUpdateHelper;
 import com.kabouzeid.gramophone.helper.PlayPauseButtonOnClickHandler;
 import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
 import com.kabouzeid.gramophone.ui.activities.base.AbsMusicServiceActivity;
-import com.kabouzeid.gramophone.util.ColorUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.views.PlayPauseDrawable;
 
@@ -94,24 +97,24 @@ public class MiniPlayerFragment extends Fragment implements MusicServiceEventLis
     }
 
     private void setUpMiniPlayer() {
-        setMiniPlayerColor(ColorUtil.resolveColor(activity, R.attr.cardBackgroundColor));
+        setMiniPlayerColor(ATHUtil.resolveColor(activity, R.attr.cardBackgroundColor));
         miniPlayerImage.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_keyboard_arrow_up_white_24dp,
-                ColorUtil.resolveColor(activity, android.R.attr.textColorSecondary)));
+                ATHUtil.resolveColor(activity, R.attr.icon_color, ThemeStore.textColorSecondary(getActivity()))));
         setUpPlayPauseButton();
 
-        progressBar.setProgressTintList(ThemeSingleton.get().positiveColor);
+        progressBar.setProgressTintList(ColorStateList.valueOf(ThemeStore.accentColor(activity)));
     }
 
     public void setMiniPlayerColor(int color) {
         if (getView() == null) return;
         getView().setBackgroundColor(color);
-        miniPlayerTitle.setTextColor(ColorUtil.getPrimaryTextColorForBackground(activity, color));
+        miniPlayerTitle.setTextColor(MaterialValueHelper.getPrimaryTextColor(activity, ColorUtil.isColorLight(color)));
     }
 
     private void setUpPlayPauseButton() {
         updatePlayPauseDrawableState(false);
         miniPlayerPlayPauseButton.setImageDrawable(miniPlayerPlayPauseDrawable);
-        miniPlayerPlayPauseButton.setColorFilter(ColorUtil.resolveColor(activity, android.R.attr.textColorSecondary), PorterDuff.Mode.SRC_IN);
+        miniPlayerPlayPauseButton.setColorFilter(ATHUtil.resolveColor(activity, R.attr.icon_color, ThemeStore.textColorSecondary(getActivity())), PorterDuff.Mode.SRC_IN);
         miniPlayerPlayPauseButton.setOnClickListener(new PlayPauseButtonOnClickHandler());
     }
 

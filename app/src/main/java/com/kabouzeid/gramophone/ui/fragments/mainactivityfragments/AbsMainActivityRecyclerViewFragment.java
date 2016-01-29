@@ -13,9 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.appthemehelper.util.ATHUtil;
+import com.kabouzeid.appthemehelper.util.ColorUtil;
+import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
-import com.kabouzeid.gramophone.views.FastScroller;
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,6 +31,8 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
 
     public static final String TAG = AbsMainActivityRecyclerViewFragment.class.getSimpleName();
 
+    @Bind(R.id.container)
+    View container;
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
     @Nullable
@@ -56,6 +62,13 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
     }
 
     private void setUpRecyclerView() {
+        if (recyclerView instanceof FastScrollRecyclerView) {
+            int accentColor = ThemeStore.accentColor(getActivity());
+            ((FastScrollRecyclerView) recyclerView).setPopupBgColor(accentColor);
+            ((FastScrollRecyclerView) recyclerView).setPopupTextColor(MaterialValueHelper.getPrimaryTextColor(getActivity(), ColorUtil.isColorLight(accentColor)));
+            ((FastScrollRecyclerView) recyclerView).setThumbColor(accentColor);
+            ((FastScrollRecyclerView) recyclerView).setTrackColor(ColorUtil.withAlpha(ATHUtil.resolveColor(getContext(), R.attr.colorControlNormal), 0.12f));
+        }
         invalidateLayoutManager();
         invalidateAdapter();
     }
@@ -91,7 +104,7 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-        int bottomPadding = getMainActivity().getTotalAppBarScrollingRange() + i;
+        container.setPadding(container.getPaddingLeft(), container.getPaddingTop(), container.getPaddingRight(), getMainActivity().getTotalAppBarScrollingRange() + i);
     }
 
     @Override
