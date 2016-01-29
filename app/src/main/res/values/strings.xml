@@ -26,6 +26,8 @@
     <string name="action_tag_editor">Tag editor</string>
     <string name="action_delete_from_device">Delete from device</string>
     <string name="action_details">Details</string>
+    <string name="action_rename">Rename</string>
+    <string name="action_delete">Delete</string>
     <string name="albums">Albums</string>
     <string name="artists">Artists</string>
     <string name="songs">Songs</string>
@@ -44,6 +46,7 @@
     <string name="album_or_artist_empty">The title or artist is empty.</string>
     <string name="writing_file_number">Writing file</string>
     <string name="saving_changes">Saving changes…</string>
+    <string name="saving_to_file">Saving to file…</string>
     <string name="label_details">Details</string>
     <string name="label_file_name">File name</string>
     <string name="label_file_path">File path</string>
@@ -86,6 +89,7 @@
     <string name="delete_playlist_title">Delete playlist</string>
     <string name="delete_playlists_title">Delete playlists</string>
     <string name="clear_playlist_title">Clear playlist</string>
+    <string name="save_playlist_title">Save as file</string>
     <string name="add_playlist_title">"Add to playlist"</string>
     <string name="action_shuffle_all">Shuffle all</string>
     <string name="action_shuffle_album">Shuffle album</string>
@@ -230,4 +234,6 @@
     <string name="storage_permission_explaination">The storage permission is required for Phonograph to read your music library.</string>
     <string name="library">Library</string>
     <string name="folders">Folders</string>
+    <string name="saved_playlist_to">Saved playlist to %s.</string>
+    <string name="failed_to_save_playlist">Failed to save playlist (%s).</string>
 </resources>
