@@ -86,7 +86,7 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
 
     /**
      * Should be overwritten and re enable all {@link android.view.View} to ensure they are accessible again
-     * <p/>
+     * <p>
      * This is necessary because of a bug with the shared element transition
      */
     @Override
@@ -96,7 +96,7 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
 
     /**
      * Should be overwritten and disable all views that start a new activity on click to prevent opening an activity multiple times
-     * <p/>
+     * <p>
      * This is necessary because of a bug with the shared element transition
      */
     @Override
