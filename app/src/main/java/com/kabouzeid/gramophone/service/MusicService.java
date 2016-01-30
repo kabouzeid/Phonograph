@@ -439,9 +439,16 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         final Song song = getCurrentSong();
         remoteControlClient
                 .editMetadata(!showAlbumArt)
-                .putString(MediaMetadataRetriever.METADATA_KEY_ARTIST, song.artistName)
+
                 .putString(MediaMetadataRetriever.METADATA_KEY_TITLE, song.title)
+                .putString(MediaMetadataRetriever.METADATA_KEY_ALBUM, song.albumName)
+                .putString(MediaMetadataRetriever.METADATA_KEY_ARTIST, song.artistName)
+                .putString(MediaMetadataRetriever.METADATA_KEY_ALBUMARTIST, song.artistName)
+
                 .putLong(MediaMetadataRetriever.METADATA_KEY_DURATION, song.duration)
+                .putLong(MediaMetadataRetriever.METADATA_KEY_CD_TRACK_NUMBER, song.trackNumber)
+                .putLong(MediaMetadataRetriever.METADATA_KEY_YEAR, song.year)
+
                 .apply();
         if (showAlbumArt) {
             final Point screenSize = Util.getScreenSize(MusicService.this);
