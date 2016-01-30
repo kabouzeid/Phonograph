@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.ui.activities.base;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -77,7 +78,11 @@ public abstract class AbsThemeActivity extends ATHToolbarActivity {
     }
 
     public void setNavigationbarColor(int color) {
-        ATH.setNavigationbarColor(this, color);
+        if (ThemeStore.coloredNavigationBar(this)) {
+            ATH.setNavigationbarColor(this, color);
+        } else {
+            ATH.setNavigationbarColor(this, Color.BLACK);
+        }
     }
 
     public void setNavigationbarColorAuto() {
