@@ -34,7 +34,6 @@
             android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
             android:layout_weight="1"
-            android:fontFamily="sans-serif-condensed"
             android:gravity="center_vertical"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
