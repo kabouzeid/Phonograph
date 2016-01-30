@@ -79,6 +79,7 @@ android {
             applicationIdSuffix '.debug'
             versionNameSuffix ' DEBUG'
             manifestPlaceholders = [appName: "Phonograph DEBUG"]
+
             signingConfig signingConfigs.debug
         }
     }
