@@ -138,7 +138,7 @@ public class WidgetMedium extends AppWidgetProvider {
         switch (which) {
             case 0:
                 intent = new Intent(context, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             case 1:
                 intent = new Intent(MusicService.ACTION_TOGGLE_PAUSE);

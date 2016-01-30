@@ -212,19 +212,15 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     @SuppressWarnings("deprecation")
     private void initRemoteControlClient() {
-        remoteControlClient = new RemoteControlClient(getMediaButtonIntent());
+        Intent mediaButtonIntent = new Intent(Intent.ACTION_MEDIA_BUTTON);
+        mediaButtonIntent.setComponent(new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class));
+        remoteControlClient = new RemoteControlClient(PendingIntent.getBroadcast(getApplicationContext(), 0, mediaButtonIntent, 0));
         remoteControlClient.setTransportControlFlags(
                 RemoteControlClient.FLAG_KEY_MEDIA_PLAY |
                         RemoteControlClient.FLAG_KEY_MEDIA_PAUSE |
                         RemoteControlClient.FLAG_KEY_MEDIA_NEXT |
                         RemoteControlClient.FLAG_KEY_MEDIA_PREVIOUS);
         getAudioManager().registerRemoteControlClient(remoteControlClient);
-    }
-
-    private PendingIntent getMediaButtonIntent() {
-        Intent mediaButtonIntent = new Intent(Intent.ACTION_MEDIA_BUTTON);
-        mediaButtonIntent.setComponent(new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class));
-        return PendingIntent.getBroadcast(getApplicationContext(), 0, mediaButtonIntent, 0);
     }
 
     @Override
