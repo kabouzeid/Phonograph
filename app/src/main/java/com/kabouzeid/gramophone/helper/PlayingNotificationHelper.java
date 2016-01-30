@@ -114,7 +114,7 @@ public class PlayingNotificationHelper {
 
     private PendingIntent getOpenMusicControllerPendingIntent() {
         Intent intent = new Intent(service, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         return PendingIntent.getActivity(service, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
