@@ -26,6 +26,8 @@
     <string name="action_tag_editor">音乐标签编辑器</string>
     <string name="action_delete_from_device">从设备中删除</string>
     <string name="action_details">详情</string>
+    <string name="action_rename">重命名</string>
+    <string name="action_delete">删除</string>
     <string name="albums">专辑</string>
     <string name="artists">艺术家</string>
     <string name="songs">歌曲</string>
@@ -44,6 +46,7 @@
     <string name="album_or_artist_empty">专辑和艺术家名称不能为空。</string>
     <string name="writing_file_number">正在写入文档</string>
     <string name="saving_changes">正在保存更改…</string>
+    <string name="saving_to_file">保存至文件...</string>
     <string name="label_details">详情</string>
     <string name="label_file_name">文件名</string>
     <string name="label_file_path">文件路径</string>
@@ -86,6 +89,7 @@
     <string name="delete_playlist_title">删除播放列表</string>
     <string name="delete_playlists_title">删除播放列表</string>
     <string name="clear_playlist_title">清空播放列表</string>
+    <string name="save_playlist_title">另存为</string>
     <string name="add_playlist_title">"添加到播放列表"</string>
     <string name="action_shuffle_all">随机播放所有曲目</string>
     <string name="action_shuffle_album">随机播放该专辑</string>
@@ -222,4 +226,6 @@
     <string name="storage_permission_explaination">Phonograph需要存储权限以读取你的音乐库</string>
     <string name="library">曲库</string>
     <string name="folders">文件夹</string>
+    <string name="saved_playlist_to">保存列表至 %s</string>
+    <string name="failed_to_save_playlist">保存列表失败(%s)</string>
 </resources>

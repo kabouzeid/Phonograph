@@ -26,6 +26,8 @@
     <string name="action_tag_editor">Редактор тэгов</string>
     <string name="action_delete_from_device">Удалить с устройства</string>
     <string name="action_details">Подробнее</string>
+    <string name="action_rename">Переименовать</string>
+    <string name="action_delete">Удалить</string>
     <string name="albums">Альбомы</string>
     <string name="artists">Исполнители</string>
     <string name="songs">Песни</string>
@@ -44,6 +46,7 @@
     <string name="album_or_artist_empty">Поля названия альбома или альбом исполнителя пусты</string>
     <string name="writing_file_number">Запись файла</string>
     <string name="saving_changes">Сохранение изменений...</string>
+    <string name="saving_to_file">Сохраняем файл...</string>
     <string name="label_details">Подробнее</string>
     <string name="label_file_name">Имя файла</string>
     <string name="label_file_path">Путь к файлу</string>
@@ -86,6 +89,7 @@
     <string name="delete_playlist_title">Удалить плейлист</string>
     <string name="delete_playlists_title">Удалить плейлисты</string>
     <string name="clear_playlist_title">Очистить плейлист</string>
+    <string name="save_playlist_title">Сохранить как файл</string>
     <string name="add_playlist_title">"Добавить в плейлист"</string>
     <string name="action_shuffle_all">Перемешать всё</string>
     <string name="action_shuffle_album">Перемешать альбом</string>
@@ -222,4 +226,6 @@
     <string name="storage_permission_explaination">Нужен доступ к хранилищу, чтобы плеер мог читать Вашу библиотеку</string>
     <string name="library">"Библиотека "</string>
     <string name="folders">Папки</string>
+    <string name="saved_playlist_to">Плейлист сохранён в %s.</string>
+    <string name="failed_to_save_playlist">Не удалось сохранить плейлист (%s).</string>
 </resources>

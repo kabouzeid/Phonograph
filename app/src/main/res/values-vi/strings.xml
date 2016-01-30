@@ -26,6 +26,8 @@
     <string name="action_tag_editor">Biên tập thẻ</string>
     <string name="action_delete_from_device">Xóa từ thiết bị</string>
     <string name="action_details">Chi tiết</string>
+    <string name="action_rename">Đổi tên</string>
+    <string name="action_delete">Xóa</string>
     <string name="albums">Album</string>
     <string name="artists">Nghệ sĩ</string>
     <string name="songs">Bài hát</string>
@@ -44,6 +46,7 @@
     <string name="album_or_artist_empty">Tiêu đề hoặc nghệ sĩ trống.</string>
     <string name="writing_file_number">Đang ghi tập tin</string>
     <string name="saving_changes">Đang lưu thay đổi...</string>
+    <string name="saving_to_file">Đang lưu tập tin...</string>
     <string name="label_details">Chi tiết</string>
     <string name="label_file_name">Tên tập tin</string>
     <string name="label_file_path">Đường dẫn tập tin</string>
@@ -86,6 +89,7 @@
     <string name="delete_playlist_title">Xóa danh sách nhạc</string>
     <string name="delete_playlists_title">Xóa các danh sách nhạc</string>
     <string name="clear_playlist_title">Dọn danh sách nhạc</string>
+    <string name="save_playlist_title">Lưu xuống tập tin</string>
     <string name="add_playlist_title">"Thêm vào danh sách nhạc"</string>
     <string name="action_shuffle_all">Trộn tất cả</string>
     <string name="action_shuffle_album">Trộn album</string>
@@ -222,4 +226,6 @@
     <string name="storage_permission_explaination">Quyền truy cập lưu trữ là cần thiết cho Phonograph đọc thư viện âm nhạc của bạn.</string>
     <string name="library">Thư viện</string>
     <string name="folders">Thư mục</string>
+    <string name="saved_playlist_to">Đã lưu danh sách nhạc đến %s.</string>
+    <string name="failed_to_save_playlist">Không thể lưu danh sách nhạc (%s).</string>
 </resources>

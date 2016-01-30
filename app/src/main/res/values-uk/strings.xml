@@ -26,6 +26,8 @@
     <string name="action_tag_editor">Редактор тегів</string>
     <string name="action_delete_from_device">Видалити з пристрою</string>
     <string name="action_details">Подробиці</string>
+    <string name="action_rename">Перейменувати</string>
+    <string name="action_delete">Видалити</string>
     <string name="albums">Альбоми</string>
     <string name="artists">Виконавці</string>
     <string name="songs">Пісні</string>
@@ -222,4 +224,5 @@
     <string name="storage_permission_explaination">Доступ до сховища потрібен щоб Phonograph міг прочитати .вашу музичну бібліотеку.</string>
     <string name="library">Бібліотека</string>
     <string name="folders">Папки</string>
+    <string name="failed_to_save_playlist">Не вдалося зберегти список відтворення (%s).</string>
 </resources>
