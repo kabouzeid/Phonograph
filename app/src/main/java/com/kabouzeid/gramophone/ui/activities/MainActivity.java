@@ -161,7 +161,12 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 
         tabs.setupWithViewPager(pager);
 
-        TabLayoutUtil.setTabLayoutColors(tabs, ToolbarContentTintHelper.toolbarTitleColor(this, ThemeStore.primaryColor(this)), ThemeStore.accentColor(this));
+        int primaryColor = ThemeStore.primaryColor(this);
+        int normalColor = ToolbarContentTintHelper.toolbarSubtitleColor(this, primaryColor);
+        int selectedColor = ToolbarContentTintHelper.toolbarTitleColor(this, primaryColor);
+        TabLayoutUtil.setTabIconColors(tabs, normalColor, selectedColor);
+        tabs.setTabTextColors(normalColor, selectedColor);
+        tabs.setSelectedTabIndicatorColor(ThemeStore.accentColor(this));
 
         int startPosition = PreferenceUtil.getInstance(this).getDefaultStartPage();
         startPosition = startPosition == -1 ? PreferenceUtil.getInstance(this).getLastStartPage() : startPosition;

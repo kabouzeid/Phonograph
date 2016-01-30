@@ -232,7 +232,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         boolean isFavorite = MusicUtil.isFavorite(getActivity(), MusicPlayerRemote.getCurrentSong());
         int res = isFavorite ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_outline_white_24dp;
 
-        Drawable favoriteIcon = TintHelper.tintDrawable(ContextCompat.getDrawable(getActivity(), res), ToolbarContentTintHelper.toolbarContentColor(getActivity(), Color.TRANSPARENT));
+        Drawable favoriteIcon = TintHelper.createTintedDrawable(ContextCompat.getDrawable(getActivity(), res), ToolbarContentTintHelper.toolbarContentColor(getActivity(), Color.TRANSPARENT));
         toolbar.getMenu().findItem(R.id.action_toggle_favorite)
                 .setIcon(favoriteIcon)
                 .setTitle(isFavorite ? getString(R.string.action_remove_from_favorites) : getString(R.string.action_add_to_favorites));
