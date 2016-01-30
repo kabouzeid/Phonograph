@@ -235,13 +235,8 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         observableScrollView.setPadding(0, Util.getActionBarSize(this), 0, 0);
         observableScrollViewCallbacks.onScrollChanged(observableScrollView.getCurrentScrollY(), false, false);
 
-        paletteColorPrimary = getIntent().getIntExtra(EXTRA_PALETTE, ThemeStore.primaryColor(this));
+        setColors(getIntent().getIntExtra(EXTRA_PALETTE, ThemeStore.primaryColor(this)));
         toolbar.setBackgroundColor(paletteColorPrimary);
-        header.setBackgroundColor(paletteColorPrimary);
-
-        setStatusbarColor(paletteColorPrimary);
-        setNavigationbarColor(paletteColorPrimary);
-        setTaskDescriptionColor(paletteColorPrimary);
     }
 
     protected void dataChanged() {
@@ -267,7 +262,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         setColors(bgColor);
     }
 
-    private void setColors(int color) {
+    protected void setColors(int color) {
         paletteColorPrimary = color;
         observableScrollViewCallbacks.onScrollChanged(observableScrollView.getCurrentScrollY(), false, false);
         header.setBackgroundColor(paletteColorPrimary);

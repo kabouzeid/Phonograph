@@ -19,6 +19,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
+import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
@@ -277,5 +278,11 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
             src.recycle();
         }
         return scaledBitmap;
+    }
+
+    @Override
+    protected void setColors(int color) {
+        super.setColors(color);
+        albumTitle.setTextColor(ToolbarContentTintHelper.toolbarTitleColor(this, color));
     }
 }
