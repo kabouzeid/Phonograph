@@ -26,6 +26,8 @@
     <string name="action_tag_editor">Edytor tagów</string>
     <string name="action_delete_from_device">Usuń z urządzenia</string>
     <string name="action_details">Szczegóły</string>
+    <string name="action_rename">Zmień nazwę</string>
+    <string name="action_delete">Usuń</string>
     <string name="albums">Albumy</string>
     <string name="artists">Wykonawcy</string>
     <string name="songs">Utwory</string>
@@ -44,6 +46,7 @@
     <string name="album_or_artist_empty">Pole tekstowe nazwy albumu lub wykonawcy jest puste</string>
     <string name="writing_file_number">Zapisywanie pliku</string>
     <string name="saving_changes">Zapisywanie zmian...</string>
+    <string name="saving_to_file">Zapisywanie do pliku...</string>
     <string name="label_details">Szczegóły</string>
     <string name="label_file_name">Nazwa pliku</string>
     <string name="label_file_path">Ścieżka pliku</string>
@@ -86,6 +89,7 @@
     <string name="delete_playlist_title">Usuń listę odtwarzania</string>
     <string name="delete_playlists_title">Usuń listy odtwarzania</string>
     <string name="clear_playlist_title">Wyczyść listę odtwarzania</string>
+    <string name="save_playlist_title">Zapisz jako plik</string>
     <string name="add_playlist_title">"Dodaj do listy odtwarzania"</string>
     <string name="action_shuffle_all">Wszystkie losowo</string>
     <string name="action_shuffle_album">Losowy album</string>
@@ -222,4 +226,6 @@
     <string name="storage_permission_explaination">Phonograph wymaga zgody na dostep do magazynu danych, aby móc odczytać Twoją bibliotekę muzyczną</string>
     <string name="library">Biblioteka</string>
     <string name="folders">Foldery</string>
+    <string name="saved_playlist_to">Zapisz listę odtwarzania do %s</string>
+    <string name="failed_to_save_playlist">Błąd podczas zapisywania listy odtwarzania (%s)</string>
 </resources>

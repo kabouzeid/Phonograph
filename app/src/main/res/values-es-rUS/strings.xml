@@ -26,6 +26,8 @@
     <string name="action_tag_editor">Editor de etiquetas</string>
     <string name="action_delete_from_device">Eliminar del dispositivo</string>
     <string name="action_details">Detalles</string>
+    <string name="action_rename">Renombrar</string>
+    <string name="action_delete">Borrar</string>
     <string name="albums">Álbumes</string>
     <string name="artists">Artistas</string>
     <string name="songs">Canciones</string>
@@ -44,6 +46,7 @@
     <string name="album_or_artist_empty">El título o artista está vacío.</string>
     <string name="writing_file_number">Escribiendo archivo...</string>
     <string name="saving_changes">Guardando cambios...</string>
+    <string name="saving_to_file">Guardar en archivo...</string>
     <string name="label_details">Detalles</string>
     <string name="label_file_name">Nombre del archivo</string>
     <string name="label_file_path">Ubicación del archivo</string>
@@ -86,6 +89,7 @@
     <string name="delete_playlist_title">Eliminar lista de reproducción</string>
     <string name="delete_playlists_title">Eliminar listas de reproducción</string>
     <string name="clear_playlist_title">Limpiar lista de reproducción</string>
+    <string name="save_playlist_title">Guardar como archivo</string>
     <string name="add_playlist_title">"Agregar a la lista de reproducción"</string>
     <string name="action_shuffle_all">Modo aleatorio</string>
     <string name="action_shuffle_album">Reproducción aleatoria del álbum</string>
@@ -222,4 +226,6 @@
     <string name="storage_permission_explaination">El permiso de almacenamiento es necesario para que Phonograph pueda identificar la música de su biblioteca.</string>
     <string name="library">Biblioteca</string>
     <string name="folders">Carpetas</string>
+    <string name="saved_playlist_to">Lista de reproducción guardada en %s.</string>
+    <string name="failed_to_save_playlist">No se pudo guardar lista de reproducción (%s).</string>
 </resources>

@@ -26,6 +26,8 @@
     <string name="action_tag_editor">Editor Tagů</string>
     <string name="action_delete_from_device">Smazat z telefonu</string>
     <string name="action_details">Podrobné informace o skladbě</string>
+    <string name="action_rename">Přejmenovat</string>
+    <string name="action_delete">Smazat</string>
     <string name="albums">Alba</string>
     <string name="artists">Interpreti</string>
     <string name="songs">Skladby</string>
@@ -44,6 +46,7 @@
     <string name="album_or_artist_empty">Název alba nebo interpreta je prázdný.</string>
     <string name="writing_file_number">Zapisování souboru</string>
     <string name="saving_changes">Ukládání změn...</string>
+    <string name="saving_to_file">Ukládání do souboru...</string>
     <string name="label_details">Podrobnosti</string>
     <string name="label_file_name">Název souboru</string>
     <string name="label_file_path">Umístění souboru</string>
@@ -86,6 +89,7 @@
     <string name="delete_playlist_title">Smazat playlist</string>
     <string name="delete_playlists_title">Smazat playlisty</string>
     <string name="clear_playlist_title">Vyčistit playlisty</string>
+    <string name="save_playlist_title">Uložit jako soubor</string>
     <string name="add_playlist_title">"Přidat do playlistu"</string>
     <string name="action_shuffle_all">Přehrát náhodně</string>
     <string name="action_shuffle_album">Přehrát album náhodně</string>
@@ -222,4 +226,6 @@
     <string name="storage_permission_explaination">"Pro přečtení vaší hudební knihovny je potřeba oprávnění k přístupu do vašeho úložiště. "</string>
     <string name="library">"Knihovna "</string>
     <string name="folders">"Složky "</string>
+    <string name="saved_playlist_to">Uloženo do playlistu %s.</string>
+    <string name="failed_to_save_playlist">Chyba v uložení playlistu (%s).</string>
 </resources>

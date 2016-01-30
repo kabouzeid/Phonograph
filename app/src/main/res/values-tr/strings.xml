@@ -26,6 +26,8 @@
     <string name="action_tag_editor">Etiket düzenleyici</string>
     <string name="action_delete_from_device">Cihazdan sil</string>
     <string name="action_details">Detaylar</string>
+    <string name="action_rename">Adlandır</string>
+    <string name="action_delete">Sil</string>
     <string name="albums">Albümler</string>
     <string name="artists">Sanatçılar</string>
     <string name="songs">Şarkılar</string>
@@ -44,6 +46,7 @@
     <string name="album_or_artist_empty">Albüm başlığı veya albüm sanatçısı bilgisi yok.</string>
     <string name="writing_file_number">Dosya yazılıyor</string>
     <string name="saving_changes">Değişiklikler kaydediliyor...</string>
+    <string name="saving_to_file">Dosyaya kaydediliyor...</string>
     <string name="label_details">Ayrıntılar</string>
     <string name="label_file_name">Dosya adı</string>
     <string name="label_file_path">Dosya yolu</string>
@@ -86,6 +89,7 @@
     <string name="delete_playlist_title">Çalma listesini sil</string>
     <string name="delete_playlists_title">Çalma listelerini sil</string>
     <string name="clear_playlist_title">Çalma Listesini Temizle</string>
+    <string name="save_playlist_title">Dosyaya kaydet</string>
     <string name="add_playlist_title">"Çalma listesine ekle"</string>
     <string name="action_shuffle_all">Tümünü karıştır</string>
     <string name="action_shuffle_album">Albümü karıştır</string>
@@ -222,4 +226,6 @@
     <string name="storage_permission_explaination">Depolama izni müzik kütüphanesi okumak için Phonograph\'a gereklidir.</string>
     <string name="library">Kütüphane</string>
     <string name="folders">Klasörler</string>
+    <string name="saved_playlist_to">Çalma Listesine %s Kaydedildi.</string>
+    <string name="failed_to_save_playlist">(%s) Çalma listesine kayıt başarısız.</string>
 </resources>

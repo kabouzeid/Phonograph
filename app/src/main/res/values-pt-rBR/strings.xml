@@ -26,6 +26,8 @@
     <string name="action_tag_editor">Editor de tags</string>
     <string name="action_delete_from_device">Apagar do dispositivo</string>
     <string name="action_details">Detalhes</string>
+    <string name="action_rename">Renomear</string>
+    <string name="action_delete">Apagar</string>
     <string name="albums">Álbuns</string>
     <string name="artists">Artistas</string>
     <string name="songs">Músicas</string>
@@ -44,6 +46,7 @@
     <string name="album_or_artist_empty">O título ou artista está vazio.</string>
     <string name="writing_file_number">Gravando arquivo</string>
     <string name="saving_changes">Salvando alterações...</string>
+    <string name="saving_to_file">Salvando no arquivo...</string>
     <string name="label_details">Detalhes</string>
     <string name="label_file_name">Nome do arquivo</string>
     <string name="label_file_path">Endereço do arquivo</string>
@@ -86,6 +89,7 @@
     <string name="delete_playlist_title">Excluir playlist</string>
     <string name="delete_playlists_title">Excluir playlists</string>
     <string name="clear_playlist_title">Limpar playlist</string>
+    <string name="save_playlist_title">Salvar como arquivo</string>
     <string name="add_playlist_title">"Adicionar à playlist"</string>
     <string name="action_shuffle_all">Misturar todas</string>
     <string name="action_shuffle_album">Misturar álbum</string>
@@ -222,4 +226,6 @@
     <string name="storage_permission_explaination">A permissão de armazenamento é necessária para o Phonograph escanear suas músicas.</string>
     <string name="library">Biblioteca</string>
     <string name="folders">Pastas</string>
+    <string name="saved_playlist_to">Salvo à playlist %s.</string>
+    <string name="failed_to_save_playlist">Erro ao salvar a playlist (%s).</string>
 </resources>
