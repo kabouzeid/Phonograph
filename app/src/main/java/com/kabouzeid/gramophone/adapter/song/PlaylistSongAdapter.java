@@ -48,8 +48,9 @@ public class PlaylistSongAdapter extends SongAdapter implements DraggableItemAda
         switch (menuItem.getItemId()) {
             case R.id.action_remove_from_playlist:
                 RemoveFromPlaylistDialog.create((ArrayList<PlaylistSong>) (List) selection).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");
-                break;
+                return;
         }
+        super.onMultipleItemAction(menuItem, selection);
     }
 
     @Override
