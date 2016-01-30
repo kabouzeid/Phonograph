@@ -59,7 +59,7 @@ public abstract class AbsThemeActivity extends ATHToolbarActivity {
                     statusBar.setBackgroundColor(color);
                 }
             } else if (Build.VERSION.SDK_INT >= 21) {
-                getWindow().setStatusBarColor(color);
+                getWindow().setStatusBarColor(ColorUtil.darkenColor(color));
                 setLightStatusbarAuto(color);
             }
         }

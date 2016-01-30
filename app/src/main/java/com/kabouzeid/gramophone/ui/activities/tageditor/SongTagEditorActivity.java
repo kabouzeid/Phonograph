@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.SongLoader;
 
@@ -131,5 +132,13 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
     @Override
     public void afterTextChanged(Editable s) {
         dataChanged();
+    }
+
+    @Override
+    protected void setColors(int color) {
+        super.setColors(color);
+        int toolbarTitleColor = ToolbarContentTintHelper.toolbarTitleColor(this, color);
+        songTitle.setTextColor(toolbarTitleColor);
+        albumTitle.setTextColor(toolbarTitleColor);
     }
 }
