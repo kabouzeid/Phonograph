@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
-import android.view.View;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
@@ -18,7 +17,6 @@ import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity;
 import com.kabouzeid.gramophone.ui.activities.ArtistDetailActivity;
 import com.kabouzeid.gramophone.ui.activities.PlaylistDetailActivity;
-import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -31,8 +29,6 @@ public class NavigationUtil {
         final Intent intent = new Intent(activity, ArtistDetailActivity.class);
         intent.putExtra(ArtistDetailActivity.EXTRA_ARTIST_ID, artistId);
 
-        sharedElements = addMiniPlayerSharedElement(activity, sharedElements);
-
         //noinspection unchecked
         activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedElements).toBundle());
     }
@@ -42,8 +38,6 @@ public class NavigationUtil {
 
         final Intent intent = new Intent(activity, AlbumDetailActivity.class);
         intent.putExtra(AlbumDetailActivity.EXTRA_ALBUM_ID, albumId);
-
-        sharedElements = addMiniPlayerSharedElement(activity, sharedElements);
 
         //noinspection unchecked
         activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedElements).toBundle());
@@ -55,29 +49,7 @@ public class NavigationUtil {
         final Intent intent = new Intent(activity, PlaylistDetailActivity.class);
         intent.putExtra(PlaylistDetailActivity.EXTRA_PLAYLIST, playlist);
 
-        sharedElements = addMiniPlayerSharedElement(activity, sharedElements);
-
-        //noinspection unchecked
-        activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedElements).toBundle());
-    }
-
-    private static Pair[] addMiniPlayerSharedElement(Activity activity, @Nullable Pair... sharedElements) {
-        if (activity instanceof AbsSlidingMusicPanelActivity) {
-            View miniPlayer = ((AbsSlidingMusicPanelActivity) activity).getMiniPlayerFragment().getView();
-            Pair miniPlayerSharedElement = Pair.create(miniPlayer, activity.getString(R.string.transition_mini_player));
-
-            if (sharedElements != null) {
-                Pair[] tmpSharedElements;
-                tmpSharedElements = new Pair[sharedElements.length + 1];
-                System.arraycopy(sharedElements, 0, tmpSharedElements, 0, sharedElements.length);
-                sharedElements = tmpSharedElements;
-
-                sharedElements[sharedElements.length - 1] = miniPlayerSharedElement;
-            } else {
-                sharedElements = new Pair[]{miniPlayerSharedElement};
-            }
-        }
-        return sharedElements;
+        activity.startActivity(intent);
     }
 
     private static boolean disableViewsAndCheckIsReadyForTransition(@NonNull final Activity activity) {
