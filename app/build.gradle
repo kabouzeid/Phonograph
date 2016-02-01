@@ -129,6 +129,7 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.android.support:support-annotations:23.1.1'
     compile 'com.android.support:percent:23.1.1'
+    compile 'com.android.support:preference-v7:23.1.1'
     compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
     compile 'asia.ivity.android:drag-sort-listview:1.0'
     compile 'com.github.semoncat.seekarc:library:0.1'
