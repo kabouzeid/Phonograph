@@ -1,4 +1,4 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<android. xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory android:title="@string/pref_header_colors">
 
@@ -29,4 +29,4 @@
 
     </com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory>
 
-</PreferenceScreen>
+</android.>

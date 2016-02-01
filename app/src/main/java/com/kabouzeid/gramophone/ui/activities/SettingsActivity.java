@@ -6,23 +6,21 @@ import android.content.pm.ResolveInfo;
 import android.media.audiofx.AudioEffect;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
-import android.preference.TwoStatePreference;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.support.v7.preference.ListPreference;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.preference.PreferenceManager;
+import android.support.v7.preference.TwoStatePreference;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.kabouzeid.appthemehelper.ThemeStore;
-import com.kabouzeid.appthemehelper.common.prefs.ATEColorPreference;
-import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -53,9 +51,9 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new SettingsFragment()).commit();
         } else {
-            SettingsFragment frag = (SettingsFragment) getFragmentManager().findFragmentById(R.id.content_frame);
+            SettingsFragment frag = (SettingsFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
             if (frag != null) frag.invalidateSettings();
         }
     }
@@ -86,7 +84,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         return super.onOptionsItemSelected(item);
     }
 
-    public static class SettingsFragment extends PreferenceFragment {
+    public static class SettingsFragment extends PreferenceFragmentCompat {
 
         private static void setSummary(@NonNull Preference preference) {
             setSummary(preference, PreferenceManager
@@ -110,9 +108,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         }
 
         @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
+        public void onCreatePreferences(Bundle bundle, String s) {
             addPreferencesFromResource(R.xml.pref_general);
             addPreferencesFromResource(R.xml.pref_colors);
             addPreferencesFromResource(R.xml.pref_now_playing_screen);
@@ -163,37 +159,37 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 }
             });
 
-            ATEColorPreference primaryColorPref = (ATEColorPreference) findPreference("primary_color");
-            final int primaryColor = ThemeStore.primaryColor(getActivity());
-            primaryColorPref.setColor(primaryColor, ColorUtil.darkenColor(primaryColor));
-            primaryColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(@NonNull Preference preference) {
-                    new ColorChooserDialog.Builder(((SettingsActivity) getActivity()), R.string.primary_color)
-                            .accentMode(false)
-                            .allowUserColorInput(true)
-                            .allowUserColorInputAlpha(false)
-                            .preselect(primaryColor)
-                            .show();
-                    return true;
-                }
-            });
-
-            ATEColorPreference accentColorPref = (ATEColorPreference) findPreference("accent_color");
-            final int accentColor = ThemeStore.accentColor(getActivity());
-            accentColorPref.setColor(accentColor, ColorUtil.darkenColor(accentColor));
-            accentColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(@NonNull Preference preference) {
-                    new ColorChooserDialog.Builder(((SettingsActivity) getActivity()), R.string.accent_color)
-                            .accentMode(true)
-                            .allowUserColorInput(true)
-                            .allowUserColorInputAlpha(false)
-                            .preselect(accentColor)
-                            .show();
-                    return true;
-                }
-            });
+//            ATEColorPreference primaryColorPref = (ATEColorPreference) findPreference("primary_color");
+//            final int primaryColor = ThemeStore.primaryColor(getActivity());
+//            primaryColorPref.setColor(primaryColor, ColorUtil.darkenColor(primaryColor));
+//            primaryColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+//                @Override
+//                public boolean onPreferenceClick(@NonNull Preference preference) {
+//                    new ColorChooserDialog.Builder(((SettingsActivity) getActivity()), R.string.primary_color)
+//                            .accentMode(false)
+//                            .allowUserColorInput(true)
+//                            .allowUserColorInputAlpha(false)
+//                            .preselect(primaryColor)
+//                            .show();
+//                    return true;
+//                }
+//            });
+//
+//            ATEColorPreference accentColorPref = (ATEColorPreference) findPreference("accent_color");
+//            final int accentColor = ThemeStore.accentColor(getActivity());
+//            accentColorPref.setColor(accentColor, ColorUtil.darkenColor(accentColor));
+//            accentColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+//                @Override
+//                public boolean onPreferenceClick(@NonNull Preference preference) {
+//                    new ColorChooserDialog.Builder(((SettingsActivity) getActivity()), R.string.accent_color)
+//                            .accentMode(true)
+//                            .allowUserColorInput(true)
+//                            .allowUserColorInputAlpha(false)
+//                            .preselect(accentColor)
+//                            .show();
+//                    return true;
+//                }
+//            });
 
             TwoStatePreference colorNavBar = (TwoStatePreference) findPreference("should_color_navigation_bar");
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
