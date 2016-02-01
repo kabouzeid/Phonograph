@@ -443,7 +443,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
                 .putLong(MediaMetadataRetriever.METADATA_KEY_DURATION, song.duration)
                 .putLong(MediaMetadataRetriever.METADATA_KEY_CD_TRACK_NUMBER, song.trackNumber)
-                .putLong(MediaMetadataRetriever.METADATA_KEY_YEAR, song.year)
+                // .putLong(MediaMetadataRetriever.METADATA_KEY_YEAR, song.year) // throws java.lang.IllegalArgumentException: Invalid type 'long' for key 8 on some Android versions
 
                 .apply();
         if (showAlbumArt) {
