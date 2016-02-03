@@ -115,7 +115,7 @@ dependencies {
         transitive = true
     }
 
-    compile('com.github.kabouzeid:app-theme-helper:0.7.12kmod@aar') {
+    compile('com.github.kabouzeid:app-theme-helper:0.7.13kmod@aar') {
         transitive = true
     }
 

@@ -1,32 +1,32 @@
-<android. xmlns:android="http://schemas.android.com/apk/res/android">
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory android:title="@string/pref_header_colors">
+    <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory android:title="@string/pref_header_colors">
 
-        <com.kabouzeid.appthemehelper.common.prefs.ATEColorPreference
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference
             android:key="primary_color"
             android:persistent="false"
             android:summary="@string/primary_color_desc"
             android:title="@string/primary_color" />
 
-        <com.kabouzeid.appthemehelper.common.prefs.ATEColorPreference
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference
             android:key="accent_color"
             android:persistent="false"
             android:summary="@string/accent_color_desc"
             android:title="@string/accent_color" />
 
-        <com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="true"
             android:key="colored_notification"
             android:summary="@string/pref_summary_colored_notification"
             android:title="@string/pref_title_colored_notification" />
 
-        <com.kabouzeid.appthemehelper.common.prefs.ATESwitchPreference
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
             android:defaultValue="false"
             android:key="should_color_navigation_bar"
             android:persistent="false"
             android:summary="@string/pref_summary_colored_navigation_bar"
             android:title="@string/pref_title_navigation_bar" />
 
-    </com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory>
+    </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
-</android.>
+</android.support.v7.preference.PreferenceScreen>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory android:title="@string/pref_header_now_playing_screen">
+    <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory android:title="@string/pref_header_now_playing_screen">
 
-        <com.kabouzeid.appthemehelper.common.prefs.ATEListPreference
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:enabled="false"
             android:key="now_playing_layout"
             android:negativeButtonText="@null"
@@ -11,6 +11,6 @@
             android:summary="Coming soon"
             android:title="@string/pref_title_now_playing_layout" />
 
-    </com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory>
+    </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
-</PreferenceScreen>
+</android.support.v7.preference.PreferenceScreen>
