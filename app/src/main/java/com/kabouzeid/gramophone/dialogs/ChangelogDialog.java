@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -15,6 +16,7 @@ import android.webkit.WebView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
+import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
@@ -77,12 +79,12 @@ public class ChangelogDialog extends DialogFragment {
             in.close();
 
             // Inject color values for WebView body background and links
-            final String backgroundColor = ThemeSingleton.get().darkTheme ? "424242" : "ffffff";
-            final String contentColor = ThemeSingleton.get().darkTheme ? "ffffff" : "000000";
+            final String backgroundColor = colorToHex(ATHUtil.resolveColor(getActivity(), R.attr.md_background_color, Color.parseColor(ThemeSingleton.get().darkTheme ? "#424242" : "#ffffff")));
+            final String contentColor = ThemeSingleton.get().darkTheme ? "#ffffff" : "#000000";
             webView.loadData(buf.toString()
-                    .replace("{style-placeholder}",
-                            String.format("body { background-color: #%s; color: #%s; }", backgroundColor, contentColor))
-                    .replace("{link-color}", colorToHex(ThemeSingleton.get().positiveColor.getDefaultColor()))
+                            .replace("{style-placeholder}",
+                                    String.format("body { background-color: %s; color: %s; }", backgroundColor, contentColor))
+                            .replace("{link-color}", colorToHex(ThemeSingleton.get().positiveColor.getDefaultColor()))
                             .replace("{link-color-active}", colorToHex(ColorUtil.lightenColor(ThemeSingleton.get().positiveColor.getDefaultColor())))
                     , "text/html", "UTF-8");
         } catch (Throwable e) {
