@@ -26,6 +26,8 @@
     <string name="action_tag_editor">Uređivač tagova</string>
     <string name="action_delete_from_device">Obriši s uređaja</string>
     <string name="action_details">Detalji</string>
+    <string name="action_rename">Preimenuj</string>
+    <string name="action_delete">Izbriši</string>
     <string name="albums">Albumi</string>
     <string name="artists">Izvođači</string>
     <string name="songs">Pjesme</string>
@@ -44,6 +46,7 @@
     <string name="album_or_artist_empty">Polje za naziv ili izvođača albuma je prazno.</string>
     <string name="writing_file_number">Spremam datoteku</string>
     <string name="saving_changes">Spremam promjene...</string>
+    <string name="saving_to_file">Spremanje u datoteku...</string>
     <string name="label_details">Detalji</string>
     <string name="label_file_name">Ime datoteke</string>
     <string name="label_file_path">Odredište datoteke</string>
@@ -86,6 +89,7 @@
     <string name="delete_playlist_title">Obriši popis naslova</string>
     <string name="delete_playlists_title">Obriši popise naslova</string>
     <string name="clear_playlist_title">Očisti popis naslova</string>
+    <string name="save_playlist_title">Spremi kao datoteku</string>
     <string name="add_playlist_title">"Dodaj na popis naslova"</string>
     <string name="action_shuffle_all">Nasumično reproduciraj sve</string>
     <string name="action_shuffle_album">Nasumična reprodukcija albuma</string>
@@ -222,4 +226,6 @@
     <string name="storage_permission_explaination">Dozvola pohrane je potrebna kako bi Phonograph pročitao vašu glazbenu biblioteku.</string>
     <string name="library">Biblioteka</string>
     <string name="folders">Mape</string>
+    <string name="saved_playlist_to">Popis naslova spremljen u %s.</string>
+    <string name="failed_to_save_playlist">Popis naslova nije spremljen (%s).</string>
 </resources>
