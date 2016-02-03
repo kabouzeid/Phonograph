@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.StyleRes;
 import android.support.v4.content.ContextCompat;
 
 import com.kabouzeid.gramophone.R;
@@ -100,20 +101,20 @@ public final class PreferenceUtil {
     }
 
     public int getGeneralTheme() {
-        try {
-            int value = Integer.parseInt(mPreferences.getString(GENERAL_THEME, "0"));
-            switch (value) {
-                case 0:
-                    return R.style.Theme_Phonograph_Light;
-                case 1:
-                    return R.style.Theme_Phonograph;
-                case 2:
-                    return R.style.Theme_Phonograph_Black;
-            }
-        } catch (NumberFormatException ignored) {
-        }
+        return getThemeResFromPrefValue(mPreferences.getString(GENERAL_THEME, ""));
+    }
 
-        return R.style.Theme_Phonograph_Light;
+    @StyleRes
+    public static int getThemeResFromPrefValue(String themePrefValue) {
+        switch (themePrefValue) {
+            case "dark":
+                return R.style.Theme_Phonograph;
+            case "black":
+                return R.style.Theme_Phonograph_Black;
+            case "light":
+            default:
+                return R.style.Theme_Phonograph_Light;
+        }
     }
 
     public int getThemeColorPrimary(Context context) {

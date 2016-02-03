@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceManager;
@@ -26,6 +25,7 @@ import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -144,7 +144,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 public boolean onPreferenceChange(Preference preference, @NonNull Object o) {
                     setSummary(generalTheme, o);
                     ThemeStore.editTheme(getActivity())
-                            .activityTheme(getThemeResFromPrefValue((String) o))
+                            .activityTheme(PreferenceUtil.getThemeResFromPrefValue((String) o))
                             .commit();
                     getActivity().recreate();
                     return true;
@@ -230,19 +230,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             PackageManager pm = getActivity().getPackageManager();
             ResolveInfo ri = pm.resolveActivity(effects, 0);
             return ri != null;
-        }
-
-        @StyleRes
-        public int getThemeResFromPrefValue(String themePrefValue) {
-            switch (themePrefValue) {
-                case "dark":
-                    return R.style.Theme_Phonograph;
-                case "black":
-                    return R.style.Theme_Phonograph_Black;
-                case "light":
-                default:
-                    return R.style.Theme_Phonograph_Light;
-            }
         }
     }
 }
