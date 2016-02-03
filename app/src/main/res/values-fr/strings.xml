@@ -28,7 +28,7 @@
     <string name="action_details">Détails</string>
     <string name="albums">Albums</string>
     <string name="artists">Artistes</string>
-    <string name="songs">Titres</string>
+    <string name="songs">Musiques</string>
     <string name="playlists">Listes de lecture</string>
     <string name="unplayable_file">Impossible de lire ce titre.</string>
     <string name="biography_unavailable">Impossible de trouver la biographie de l\'artiste.</string>
@@ -85,7 +85,7 @@
     <string name="rename_playlist_title">Renommer la liste de lecture</string>
     <string name="delete_playlist_title">Supprimer la liste de lecture</string>
     <string name="delete_playlists_title">Supprimer les listes de lecture</string>
-    <string name="clear_playlist_title">Effacer la liste de lecture</string>
+    <string name="clear_playlist_title">Vider la playlist</string>
     <string name="add_playlist_title">"Ajouter à la liste de lecture"</string>
     <string name="action_shuffle_all">Lecture aléatoire</string>
     <string name="action_shuffle_album">Lecture aléatoire</string>

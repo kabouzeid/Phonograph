@@ -24,7 +24,7 @@
     <string name="action_remove_from_playing_queue">Ukloni iz reda čekanja</string>
     <string name="action_add_to_playlist">Dodaj na popis naslova...</string>
     <string name="action_tag_editor">Uređivač tagova</string>
-    <string name="action_delete_from_device">Obriši s uređaja</string>
+    <string name="action_delete_from_device">Izbriši s uređaja</string>
     <string name="action_details">Detalji</string>
     <string name="action_rename">Preimenuj</string>
     <string name="action_delete">Izbriši</string>
