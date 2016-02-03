@@ -1,8 +1,8 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory android:title="@string/pref_header_general">
+    <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory android:title="@string/pref_header_general">
 
-        <com.kabouzeid.appthemehelper.common.prefs.ATEListPreference
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:defaultValue="-1"
             android:entries="@array/pref_start_page_list_titles"
             android:entryValues="@array/pref_start_page_list_values"
@@ -11,7 +11,7 @@
             android:positiveButtonText="@null"
             android:title="@string/pref_title_set_default_start_page" />
 
-        <com.kabouzeid.appthemehelper.common.prefs.ATEListPreference
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEListPreference
             android:defaultValue="light"
             android:entries="@array/pref_general_theme_list_titles"
             android:entryValues="@array/pref_general_theme_list_values"
@@ -20,6 +20,6 @@
             android:positiveButtonText="@null"
             android:title="@string/pref_title_general_theme" />
 
-    </com.kabouzeid.appthemehelper.common.prefs.ATEPreferenceCategory>
+    </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
-</PreferenceScreen>
+</android.support.v7.preference.PreferenceScreen>

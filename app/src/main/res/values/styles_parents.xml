@@ -27,6 +27,8 @@
 
         <!-- necessary to find the overflow button later in the layout-->
         <item name="android:actionOverflowButtonStyle">@style/Widget.ActionButton.Overflow</item>
+
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
     <style name="Theme.Phonograph.Base.Light" parent="Theme.AppCompat.Light.NoActionBar">
@@ -55,6 +57,8 @@
 
         <!-- necessary to find the overflow button later in the layout-->
         <item name="android:actionOverflowButtonStyle">@style/Widget.ActionButton.Overflow</item>
+
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
     <style name="Theme.Phonograph.Base.Black" parent="@style/Theme.Phonograph.Base">

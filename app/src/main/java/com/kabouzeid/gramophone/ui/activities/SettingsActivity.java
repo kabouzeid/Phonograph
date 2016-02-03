@@ -12,7 +12,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.preference.TwoStatePreference;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +20,9 @@ import android.view.View;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference;
+import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceFragmentCompat;
+import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -84,7 +86,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         return super.onOptionsItemSelected(item);
     }
 
-    public static class SettingsFragment extends PreferenceFragmentCompat {
+    public static class SettingsFragment extends ATEPreferenceFragmentCompat {
 
         private static void setSummary(@NonNull Preference preference) {
             setSummary(preference, PreferenceManager
@@ -120,7 +122,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         @Override
         public void onViewCreated(View view, Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
-            view.findViewById(android.R.id.list).setPadding(0, 0, 0, 0);
+            getListView().setPadding(0, 0, 0, 0);
             invalidateSettings();
         }
 
@@ -159,37 +161,37 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 }
             });
 
-//            ATEColorPreference primaryColorPref = (ATEColorPreference) findPreference("primary_color");
-//            final int primaryColor = ThemeStore.primaryColor(getActivity());
-//            primaryColorPref.setColor(primaryColor, ColorUtil.darkenColor(primaryColor));
-//            primaryColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-//                @Override
-//                public boolean onPreferenceClick(@NonNull Preference preference) {
-//                    new ColorChooserDialog.Builder(((SettingsActivity) getActivity()), R.string.primary_color)
-//                            .accentMode(false)
-//                            .allowUserColorInput(true)
-//                            .allowUserColorInputAlpha(false)
-//                            .preselect(primaryColor)
-//                            .show();
-//                    return true;
-//                }
-//            });
-//
-//            ATEColorPreference accentColorPref = (ATEColorPreference) findPreference("accent_color");
-//            final int accentColor = ThemeStore.accentColor(getActivity());
-//            accentColorPref.setColor(accentColor, ColorUtil.darkenColor(accentColor));
-//            accentColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-//                @Override
-//                public boolean onPreferenceClick(@NonNull Preference preference) {
-//                    new ColorChooserDialog.Builder(((SettingsActivity) getActivity()), R.string.accent_color)
-//                            .accentMode(true)
-//                            .allowUserColorInput(true)
-//                            .allowUserColorInputAlpha(false)
-//                            .preselect(accentColor)
-//                            .show();
-//                    return true;
-//                }
-//            });
+            ATEColorPreference primaryColorPref = (ATEColorPreference) findPreference("primary_color");
+            final int primaryColor = ThemeStore.primaryColor(getActivity());
+            primaryColorPref.setColor(primaryColor, ColorUtil.darkenColor(primaryColor));
+            primaryColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(@NonNull Preference preference) {
+                    new ColorChooserDialog.Builder(((SettingsActivity) getActivity()), R.string.primary_color)
+                            .accentMode(false)
+                            .allowUserColorInput(true)
+                            .allowUserColorInputAlpha(false)
+                            .preselect(primaryColor)
+                            .show();
+                    return true;
+                }
+            });
+
+            ATEColorPreference accentColorPref = (ATEColorPreference) findPreference("accent_color");
+            final int accentColor = ThemeStore.accentColor(getActivity());
+            accentColorPref.setColor(accentColor, ColorUtil.darkenColor(accentColor));
+            accentColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(@NonNull Preference preference) {
+                    new ColorChooserDialog.Builder(((SettingsActivity) getActivity()), R.string.accent_color)
+                            .accentMode(true)
+                            .allowUserColorInput(true)
+                            .allowUserColorInputAlpha(false)
+                            .preselect(accentColor)
+                            .show();
+                    return true;
+                }
+            });
 
             TwoStatePreference colorNavBar = (TwoStatePreference) findPreference("should_color_navigation_bar");
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
