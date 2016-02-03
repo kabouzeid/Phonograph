@@ -26,6 +26,8 @@
     <string name="action_tag_editor">Label bewerker</string>
     <string name="action_delete_from_device">Verwijderen van apparaat</string>
     <string name="action_details">Details</string>
+    <string name="action_rename">Hernoemen</string>
+    <string name="action_delete">Verwijderen</string>
     <string name="albums">Albums</string>
     <string name="artists">Artiesten</string>
     <string name="songs">Nummers</string>
@@ -44,6 +46,7 @@
     <string name="album_or_artist_empty">De titel of artiest is leeg.</string>
     <string name="writing_file_number">Bestand wegschrijven</string>
     <string name="saving_changes">Wijzigingen opslaan…</string>
+    <string name="saving_to_file">Opslaan in bestand...</string>
     <string name="label_details">Details</string>
     <string name="label_file_name">Bestandsnaam</string>
     <string name="label_file_path">Bestandspad</string>
@@ -86,6 +89,7 @@
     <string name="delete_playlist_title">Verwijder afspeellijst</string>
     <string name="delete_playlists_title">Verwijder afspeellijst</string>
     <string name="clear_playlist_title">Afspeellijst legen</string>
+    <string name="save_playlist_title">Opslaan als bestand</string>
     <string name="add_playlist_title">"Toevoegen aan afspeellijst"</string>
     <string name="action_shuffle_all">Shuffle alles</string>
     <string name="action_shuffle_album">Shuffle album</string>
@@ -222,4 +226,6 @@
     <string name="storage_permission_explaination">De opslagmachtiging is nodig voor Phonograph om je muziekbibliotheek te lezen.</string>
     <string name="library">Bibliotheek</string>
     <string name="folders">Mappen</string>
+    <string name="saved_playlist_to">Afspeellijst opgeslagen in %s.</string>
+    <string name="failed_to_save_playlist">Opslaan van afspeellijst (%s) mislukt.</string>
 </resources>
