@@ -28,7 +28,6 @@ import com.bumptech.glide.request.target.Target;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
-import com.kabouzeid.gramophone.BuildConfig;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.album.HorizontalAlbumAdapter;
 import com.kabouzeid.gramophone.adapter.song.ArtistSongAdapter;
@@ -59,6 +58,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -219,13 +219,9 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     }
 
     private void loadBiography() {
-        if (BuildConfig.DEBUG) {
-            biography = Html.fromHtml("Not available in debug builds, because this is causing a crash for whatever reason.");
-            return;
-        }
         lastFMRestClient.getApiService().getArtistInfo(artist.name, null).enqueue(new Callback<LastFmArtist>() {
             @Override
-            public void onResponse(Response<LastFmArtist> response) {
+            public void onResponse(Call<LastFmArtist> call, Response<LastFmArtist> response) {
                 LastFmArtist lastFmArtist = response.body();
                 if (lastFmArtist.getArtist() != null) {
                     String bio = lastFmArtist.getArtist().getBio().getContent();
@@ -238,7 +234,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<LastFmArtist> call, Throwable t) {
                 t.printStackTrace();
                 biography = null;
             }

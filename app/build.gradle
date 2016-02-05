@@ -104,10 +104,10 @@ dependencies {
         transitive = true
     }
 
-    compile('com.github.afollestad.material-dialogs:core:0.8.5.3@aar') {
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.4@aar') {
         transitive = true
     }
-    compile('com.github.afollestad.material-dialogs:commons:0.8.5.3@aar') {
+    compile('com.github.afollestad.material-dialogs:commons:0.8.5.4@aar') {
         transitive = true
     }
 
@@ -134,8 +134,8 @@ dependencies {
     compile 'asia.ivity.android:drag-sort-listview:1.0'
     compile 'com.github.semoncat.seekarc:library:0.1'
     compile 'com.github.kabouzeid:AndroidSlidingUpPanel:3.2.1'
-    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta3'
+    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'org.solovyev.android.views:linear-layout-manager:0.5@aar'
     //noinspection GradleDynamicVersion
@@ -143,5 +143,5 @@ dependencies {
     compile 'de.psdev.licensesdialog:licensesdialog:1.8.0'
     compile 'com.github.kabouzeid:AppIntro:3.3.0k'
     compile 'com.github.bumptech.glide:glide:3.6.1'
-    compile 'com.github.kabouzeid:RecyclerView-FastScroll:v1.2-kmod'
+    compile 'com.github.kabouzeid:RecyclerView-FastScroll:v1.4-kmod'
 }
