@@ -12,8 +12,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import hugo.weaving.DebugLog;
-
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -25,13 +23,12 @@ public class AudioFileCoverFetcher implements DataFetcher<InputStream> {
         this.model = model;
     }
 
-    @DebugLog
     @Override
     public String getId() {
-        return model.filePath;
+        // makes sure we never ever return null here
+        return String.valueOf(model.filePath);
     }
 
-    @DebugLog
     @Override
     public InputStream loadData(Priority priority) throws Exception {
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
@@ -50,7 +47,6 @@ public class AudioFileCoverFetcher implements DataFetcher<InputStream> {
 
     private static final String[] FALLBACKS = {"cover.jpg", "album.jpg", "folder.jpg"};
 
-    @DebugLog
     private InputStream fallback(String path) throws FileNotFoundException {
         File parent = new File(path).getParentFile();
         for (String fallback : FALLBACKS) {
