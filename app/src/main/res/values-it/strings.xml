@@ -12,7 +12,7 @@
     <string name="action_done">Fatto</string>
     <string name="action_skip">Salta</string>
     <string name="action_about">Informazioni</string>
-    <string name="action_show_intro">Mostra intro</string>
+    <string name="action_show_intro">Mostra introduzione</string>
     <string name="action_clear_playlist">Svuota playlist</string>
     <string name="action_playing_queue">Coda di riproduzione</string>
     <string name="action_add_to_favorites">Aggiungi ai preferiti</string>
@@ -20,9 +20,9 @@
     <string name="action_search">Cerca</string>
     <string name="action_play_next">Riproduci successivo</string>
     <string name="action_play">Riproduci</string>
-    <string name="action_add_to_playing_queue">Aggiungi alla coda fi riproduzione</string>
-    <string name="action_remove_from_playing_queue">Rimuovi dalla coda</string>
-    <string name="action_add_to_playlist">Aggiungi alla playlist</string>
+    <string name="action_add_to_playing_queue">Aggiungi alla coda di riproduzione</string>
+    <string name="action_remove_from_playing_queue">Rimuovi dalla coda di riproduzione</string>
+    <string name="action_add_to_playlist">Aggiungi alla playlist...</string>
     <string name="action_tag_editor">Modifica tag</string>
     <string name="action_delete_from_device">Elimina dal dispositivo</string>
     <string name="action_details">Dettagli</string>
@@ -39,7 +39,7 @@
     <string name="album">Album</string>
     <string name="artist">Artista</string>
     <string name="genre">Genere</string>
-    <string name="album_artist">Artista album</string>
+    <string name="album_artist">Artista dell\'album</string>
     <string name="year">Anno</string>
     <string name="track">Traccia</string>
     <string name="track_hint">"Traccia (2 per traccia 2, o 3004 per CD3 traccia 4)"</string>

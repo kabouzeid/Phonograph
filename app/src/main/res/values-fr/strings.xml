@@ -26,6 +26,8 @@
     <string name="action_tag_editor">Éditeur d\'information</string>
     <string name="action_delete_from_device">Supprimer de l\'appareil</string>
     <string name="action_details">Détails</string>
+    <string name="action_rename">Renommer</string>
+    <string name="action_delete">Supprimer</string>
     <string name="albums">Albums</string>
     <string name="artists">Artistes</string>
     <string name="songs">Musiques</string>
@@ -44,6 +46,7 @@
     <string name="album_or_artist_empty">Le champ \"titre\" ou \"artiste\" est vide.</string>
     <string name="writing_file_number">Fichier en cours d\'écriture</string>
     <string name="saving_changes">Sauvegarde en cours...</string>
+    <string name="saving_to_file">Sauvegarde dans le fichier…</string>
     <string name="label_details">Détails</string>
     <string name="label_file_name">Nom du fichier</string>
     <string name="label_file_path">Chemin du fichier</string>
@@ -86,6 +89,7 @@
     <string name="delete_playlist_title">Supprimer la liste de lecture</string>
     <string name="delete_playlists_title">Supprimer les listes de lecture</string>
     <string name="clear_playlist_title">Vider la playlist</string>
+    <string name="save_playlist_title">Sauvegarder en tant que fichier</string>
     <string name="add_playlist_title">"Ajouter à la liste de lecture"</string>
     <string name="action_shuffle_all">Lecture aléatoire</string>
     <string name="action_shuffle_album">Lecture aléatoire</string>
@@ -222,4 +226,6 @@
     <string name="storage_permission_explaination">L\'autorisation de stockage est nécessaire pour que Phonograph puisse lire votre bibliothèque musicale.</string>
     <string name="library">Bibliothèque</string>
     <string name="folders">Dossiers</string>
+    <string name="saved_playlist_to">Liste de lecture sauvegardée dans %s.</string>
+    <string name="failed_to_save_playlist">Impossible de sauvegarder la liste de lecture (%s).</string>
 </resources>

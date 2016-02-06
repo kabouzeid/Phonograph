@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">O que você quer compartilhar?</string>
-    <string name="currently_listening_to_x_by_x">Atualmente ouvindo %1$s por %2$s.</string>
+    <string name="currently_listening_to_x_by_x">Atualmente escutando %1$s por %2$s</string>
     <string name="the_audio_file">O arquivo de áudio</string>
-    <string name="do_you_want_to_set_x_as_ringtone">Deseja definir %1$s como seu toque de chamada?</string>
-    <string name="x_has_been_set_as_ringtone">Definir %1$s como seu toque.</string>
-    <string name="action_set_as_ringtone">Definir como toque</string>
+    <string name="do_you_want_to_set_x_as_ringtone">Você deseja definir %1$s como seu toque de chamada?</string>
+    <string name="x_has_been_set_as_ringtone">%1$s foi definido como seu toque de chamada</string>
+    <string name="action_set_as_ringtone">Definir como toque de chamada</string>
     <string name="action_share">Compartilhar</string>
     <string name="action_settings">"Configurações"</string>
     <string name="action_grant">Permitir</string>
     <string name="action_done">Pronto</string>
     <string name="action_skip">Pular</string>
     <string name="action_about">Sobre</string>
-    <string name="action_show_intro">Introdução</string>
+    <string name="action_show_intro">Mostrar introdução</string>
     <string name="action_clear_playlist">Limpar playlist</string>
     <string name="action_playing_queue">Fila de execução</string>
     <string name="action_add_to_favorites">Adicionar aos favoritos</string>
@@ -20,8 +20,8 @@
     <string name="action_search">Pesquisar</string>
     <string name="action_play_next">Reproduzir à seguir</string>
     <string name="action_play">Reproduzir</string>
-    <string name="action_add_to_playing_queue">Adicionar à fila</string>
-    <string name="action_remove_from_playing_queue">Remover da fila atual</string>
+    <string name="action_add_to_playing_queue">Adicionar à Fila de Reprodução</string>
+    <string name="action_remove_from_playing_queue">Remover da Lista de Reprodução</string>
     <string name="action_add_to_playlist">Adicionar à playlist...</string>
     <string name="action_tag_editor">Editor de tags</string>
     <string name="action_delete_from_device">Apagar do dispositivo</string>
@@ -42,7 +42,7 @@
     <string name="album_artist">Artista do álbum</string>
     <string name="year">Ano</string>
     <string name="track">Faixa</string>
-    <string name="track_hint">"Faixa (2 para faixa 2 ou 3004 para CD3 faixa 4)"</string>
+    <string name="track_hint">"Faixa (2 para à faixa 2 ou 3004 para a quarta faixa do CD3)"</string>
     <string name="album_or_artist_empty">O título ou artista está vazio.</string>
     <string name="writing_file_number">Gravando arquivo</string>
     <string name="saving_changes">Salvando alterações...</string>
@@ -57,14 +57,14 @@
     <string name="label_sampling_rate">Taxa de amostragem</string>
     <string name="action_go_to_artist">Ir para o artista</string>
     <string name="action_go_to_album">Ir para o álbum</string>
-    <string name="label_playing_queue">Fila de execução</string>
+    <string name="label_playing_queue">Fila de Reprodução</string>
     <string name="save_as_playlist">Salvar como playlist</string>
     <string name="no_results">Sem resultados</string>
     <string name="action_re_download_artist_image">Atualizar imagem do artista</string>
     <string name="updated_artist_image">Imagem do artista atualizado.</string>
     <string name="could_not_update_artist_image">N\u00e3o foi poss\u00edvel atualizar a imagem do artista.</string>
     <string name="updating">Atualizando...</string>
-    <string name="added_title_to_playing_queue">"1 título adicionado à fila de reprodução"</string>
+    <string name="added_title_to_playing_queue">"Adicionado 1 título à lista de reprodução"</string>
     <string name="added_x_titles_to_playing_queue">%1$d faixas adicionadas à fila de reprodução.</string>
     <string name="action_remove_from_playlist">Remover da playlist</string>
     <string name="action_grid_size">Número de colunas</string>
@@ -82,10 +82,10 @@
     <string name="remove_song_x_from_playlist"><![CDATA[Remover a música <b>%1$s</b> da playlist?]]></string>
     <string name="remove_x_songs_from_playlist"><![CDATA[Remover <b>%1$d</b> músicas da playlist?]]></string>
     <string name="delete_song_title">Excluir música</string>
-    <string name="delete_songs_title">Excluir músicas</string>
-    <string name="remove_song_from_playlist_title">Remover da lista de reprodução</string>
-    <string name="remove_songs_from_playlist_title">Remover músicas da Playlist</string>
-    <string name="rename_playlist_title">Renomear playlist</string>
+    <string name="delete_songs_title">Excluir Músicas</string>
+    <string name="remove_song_from_playlist_title">Remover Música da Lista de Reprodução</string>
+    <string name="remove_songs_from_playlist_title">Remover Músicas da Lista de Reprodução</string>
+    <string name="rename_playlist_title">Renomear a Lista de Reprodução</string>
     <string name="delete_playlist_title">Excluir playlist</string>
     <string name="delete_playlists_title">Excluir playlists</string>
     <string name="clear_playlist_title">Limpar playlist</string>
