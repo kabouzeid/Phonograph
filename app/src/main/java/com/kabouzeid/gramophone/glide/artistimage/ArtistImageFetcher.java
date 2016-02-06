@@ -42,7 +42,8 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
 
     @Override
     public String getId() {
-        return model.artistName;
+        // makes sure we never ever return null here
+        return String.valueOf(model.artistName);
     }
 
     @Override
