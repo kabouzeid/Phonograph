@@ -6,9 +6,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
@@ -26,8 +23,6 @@ import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.triggertrap.seekarc.SeekArc;
-
-import java.lang.reflect.Field;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -108,6 +103,9 @@ public class SleepTimerDialog extends DialogFragment {
 
         ButterKnife.bind(this, materialDialog.getCustomView());
 
+        seekArc.setProgressColor(ThemeSingleton.get().positiveColor.getDefaultColor());
+        seekArc.setThumbColor(ThemeSingleton.get().positiveColor.getDefaultColor());
+
         seekArc.post(new Runnable() {
             @Override
             public void run() {
@@ -118,20 +116,6 @@ public class SleepTimerDialog extends DialogFragment {
                 FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(seekArc.getLayoutParams());
                 layoutParams.height = small;
                 seekArc.setLayoutParams(layoutParams);
-
-                try {
-                    Field f1 = SeekArc.class.getDeclaredField("mThumb");
-                    f1.setAccessible(true);
-                    Drawable thumb = (Drawable) f1.get(seekArc);
-                    thumb.setColorFilter(ThemeSingleton.get().positiveColor.getDefaultColor(), PorterDuff.Mode.SRC_IN);
-
-                    Field f2 = SeekArc.class.getDeclaredField("mProgressPaint");
-                    f2.setAccessible(true);
-                    Paint progressPaint = (Paint) f2.get(seekArc);
-                    progressPaint.setColor(ThemeSingleton.get().positiveColor.getDefaultColor());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }
         });
 

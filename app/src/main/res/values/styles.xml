@@ -28,7 +28,6 @@
 
     <style name="TraditionalMusicProgressSlider" parent="TraditionalMusicProgressSliderParent">
         <item name="android:thumbOffset">0dp</item>
-        <item name="android:thumb">@drawable/traditional_slider_thumb</item>
     </style>
 
     <style name="Toolbar">
