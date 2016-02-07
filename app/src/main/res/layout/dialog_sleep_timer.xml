@@ -10,13 +10,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="30dp"
-        seekarc:clockwise="false"
-        seekarc:max="120"
-        seekarc:progressColor="?colorAccent"
-        seekarc:rotation="180"
-        seekarc:startAngle="30"
-        seekarc:sweepAngle="300"
-        seekarc:thumb="@drawable/traditional_slider_thumb" />
+        seekarc:SeekArc_clockwise="false"
+        seekarc:SeekArc_max="120"
+        seekarc:SeekArc_progressColor="?colorAccent"
+        seekarc:SeekArc_rotation="180"
+        seekarc:SeekArc_startAngle="30"
+        seekarc:SeekArc_sweepAngle="300" />
 
     <TextView
         android:id="@+id/timer_display"
