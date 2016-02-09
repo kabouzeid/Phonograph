@@ -40,4 +40,9 @@
         <item name="android:transitionName" tools:ignore="NewApi">toolbar</item>
     </style>
 
+    <style name="Theme.Phonograph.Light.MaterialColdStart" parent="Theme.Phonograph.Light">
+        <item name="android:windowBackground">@drawable/window_background_statusbar_toolbar_tab
+        </item>
+    </style>
+
 </resources>
