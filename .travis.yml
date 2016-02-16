@@ -1,4 +1,4 @@
-sudo: required # prevent Process 'command '/usr/lib/jvm/java-7-oracle/bin/java'' finished with non-zero exit value 137
+sudo: false
 language: android
 jdk: oraclejdk7
 before_cache:
@@ -47,6 +47,6 @@ android:
 #   - adb shell input keyevent 82 &
 
 script:
-  - echo $ADB_INSTALL_TIMEOUT
-  - android list target
-  - ./gradlew buildRelease
+  # - echo $ADB_INSTALL_TIMEOUT
+  # - android list target
+  - ./gradlew build
