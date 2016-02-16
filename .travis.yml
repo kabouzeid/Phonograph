@@ -17,4 +17,8 @@ android:
     #- sys-img-armeabi-v7a-android-19
     #- sys-img-x86-android-17
     
-sudo: required
+jdk:
+  - openjdk7
+  - oraclejdk7
+
+sudo: false
