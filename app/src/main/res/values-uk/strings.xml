@@ -46,6 +46,7 @@
     <string name="album_or_artist_empty">Назва або виконавець відсутні.</string>
     <string name="writing_file_number">Запису файлу</string>
     <string name="saving_changes">Збереження змін...</string>
+    <string name="saving_to_file">Збереження в файл...</string>
     <string name="label_details">Подробиці</string>
     <string name="label_file_name">Назва файлу</string>
     <string name="label_file_path">Шлях до файлу</string>
@@ -88,6 +89,7 @@
     <string name="delete_playlist_title">Видалити список відтворення</string>
     <string name="delete_playlists_title">Видалити списки відтворення</string>
     <string name="clear_playlist_title">Очистити список відтворення</string>
+    <string name="save_playlist_title">Зберегти як файл</string>
     <string name="add_playlist_title">"Додати до списку відтворення"</string>
     <string name="action_shuffle_all">Перемішати всі</string>
     <string name="action_shuffle_album">Перемішати альбом</string>
@@ -219,10 +221,11 @@
     <string name="press_back_again_to_exit_intro">Натисніть назад ще раз щоб пропустити знайомство.</string>
     <string name="welcome_to_phonograph">"Вітаємо вас у Phonograph, красивому та легкому музичному програвачу на Android. "</string>
     <string name="label_storage">Сховище</string>
-    <string name="open_playing_queue_instruction">Свайпніть картку на екрані \"Зараз грає\" щоб відкрити усю чергу відтворення.</string>
-    <string name="rearrange_playing_queue_instruction">Змініть чергу відтворення перетягнувши пісню за її номер.</string>
-    <string name="storage_permission_explaination">Доступ до сховища потрібен щоб Phonograph міг прочитати .вашу музичну бібліотеку.</string>
+    <string name="open_playing_queue_instruction">Свайпніть картку на екрані «Зараз грає» щоб відкрити всю чергу відтворення.</string>
+    <string name="rearrange_playing_queue_instruction">Змініть чергу відтворення, перетягнувши пісню за її номер.</string>
+    <string name="storage_permission_explaination">Доступ до сховища потрібен, щоб Phonograph міг прочитати вашу музичну бібліотеку.</string>
     <string name="library">Бібліотека</string>
     <string name="folders">Папки</string>
+    <string name="saved_playlist_to">Збережено список відтворення в %s.</string>
     <string name="failed_to_save_playlist">Не вдалося зберегти список відтворення (%s).</string>
 </resources>

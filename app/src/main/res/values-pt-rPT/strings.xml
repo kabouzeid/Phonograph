@@ -26,6 +26,8 @@
     <string name="action_tag_editor">Editor de etiquetas</string>
     <string name="action_delete_from_device">Eliminar do dispositivo</string>
     <string name="action_details">Detalhes</string>
+    <string name="action_rename">Mudar nome</string>
+    <string name="action_delete">Apagar</string>
     <string name="albums">Álbuns</string>
     <string name="artists">Artistas</string>
     <string name="songs">Faixas</string>
@@ -44,6 +46,7 @@
     <string name="album_or_artist_empty">O título do álbum ou o artista está vazio.</string>
     <string name="writing_file_number">A escrever ficheiro</string>
     <string name="saving_changes">Gravando alterações...</string>
+    <string name="saving_to_file">Gravando no ficheiro...</string>
     <string name="label_details">Detalhes</string>
     <string name="label_file_name">Nome do ficheiro</string>
     <string name="label_file_path">Local do ficheiro</string>
@@ -60,7 +63,7 @@
     <string name="action_re_download_artist_image">Actualizar imagem do artista</string>
     <string name="updated_artist_image">Imagem do artista atualizada</string>
     <string name="could_not_update_artist_image">Falha ao atualizar a imagem do artista</string>
-    <string name="updating">A actualizar...</string>
+    <string name="updating">A atualizar...</string>
     <string name="added_title_to_playing_queue">"Adicionada 1 música à fila reprodução"</string>
     <string name="added_x_titles_to_playing_queue">Adicionadas %1$d títulos à fila de reprodução.</string>
     <string name="action_remove_from_playlist">Remover da Playlist</string>
@@ -86,6 +89,7 @@
     <string name="delete_playlist_title">Eliminar lista de reprodução</string>
     <string name="delete_playlists_title">Eliminar listas de reprodução</string>
     <string name="clear_playlist_title">Limpar lista de reprodução</string>
+    <string name="save_playlist_title">Guardar como ficheiro</string>
     <string name="add_playlist_title">"Adicionar à lista de reprodução"</string>
     <string name="action_shuffle_all">Embaralhar Todas</string>
     <string name="action_shuffle_album">Embaralhar Álbum</string>
@@ -96,6 +100,9 @@
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Escuro</string>
     <string name="black_theme_name">Preto (AMOLED)</string>
+    <string name="always">Sempre</string>
+    <string name="only_on_wifi">Apenas com Wi-Fi</string>
+    <string name="never">Nunca</string>
     <string name="equalizer">Equalizador</string>
     <string name="pref_header_colors">Cores</string>
     <string name="pref_header_now_playing_screen">A reproduzir</string>
@@ -107,6 +114,7 @@
     <string name="pref_title_navigation_bar">Barra de navegação colorida</string>
     <string name="pref_title_set_default_start_page">Página Inicial</string>
     <string name="pref_title_album_art_on_lockscreen">Capa do Álbum no ecrã de bloqueio</string>
+    <string name="pref_title_auto_download_artist_images">Download automático das imagens dos artitas</string>
     <string name="pref_title_blurred_album_art">Desfocar capa do álbum</string>
     <string name="pref_title_colored_notification">Notificação colorida</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorar capas Media Store</string>
@@ -218,4 +226,6 @@
     <string name="storage_permission_explaination">É necessária permissão para o Phonograph ler a sua biblioteca.</string>
     <string name="library">Biblioteca</string>
     <string name="folders">Pastas</string>
+    <string name="saved_playlist_to">Lista de reprodução %s salva.</string>
+    <string name="failed_to_save_playlist">Erro a salvar a lista de reprodução (%s).</string>
 </resources>

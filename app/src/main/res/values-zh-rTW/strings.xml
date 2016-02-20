@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">您想分享哪些內容？</string>
-    <string name="currently_listening_to_x_by_x">正在播放 %2$s 的 %1$s 。</string>
+    <string name="currently_listening_to_x_by_x">現正播放 %2$s 的 %1$s 。</string>
     <string name="the_audio_file">音訊檔</string>
-    <string name="do_you_want_to_set_x_as_ringtone">您想將 %1$s 設為鈴聲嗎？</string>
+    <string name="do_you_want_to_set_x_as_ringtone">要將 %1$s 設為鈴聲嗎？</string>
     <string name="x_has_been_set_as_ringtone">已將 %1$s 設為鈴聲。</string>
     <string name="action_set_as_ringtone">設為鈴聲</string>
     <string name="action_share">分享</string>
@@ -24,7 +24,7 @@
     <string name="action_remove_from_playing_queue">從播放佇列中移除</string>
     <string name="action_add_to_playlist">加入播放清單...</string>
     <string name="action_tag_editor">編輯音樂資訊</string>
-    <string name="action_delete_from_device">从系统中删除</string>
+    <string name="action_delete_from_device">刪除這個音訊檔</string>
     <string name="action_details">詳細資訊</string>
     <string name="action_rename">"重新命名
 "</string>
@@ -58,7 +58,7 @@
     <string name="label_sampling_rate">取樣頻率</string>
     <string name="action_go_to_artist">前往該歌手頁面</string>
     <string name="action_go_to_album">打開專輯</string>
-    <string name="label_playing_queue">播放佇列</string>
+    <string name="label_playing_queue">待播佇列</string>
     <string name="save_as_playlist">儲存為播放清單</string>
     <string name="no_results">沒有搜尋結果</string>
     <string name="action_re_download_artist_image">更新歌手圖片</string>
@@ -92,11 +92,11 @@
     <string name="clear_playlist_title">清空播放清單</string>
     <string name="save_playlist_title">儲存為檔案</string>
     <string name="add_playlist_title">"加入播放清單"</string>
-    <string name="action_shuffle_all">隨機播放所有歌曲</string>
+    <string name="action_shuffle_all">隨機播放</string>
     <string name="action_shuffle_album">隨機播放專輯</string>
     <string name="action_shuffle_artist">歌手隨機播放</string>
     <string name="action_shuffle_playlist">播放清單隨機播放</string>
-    <string name="action_clear_playing_queue">清除播放佇列</string>
+    <string name="action_clear_playing_queue">清空播放佇列</string>
     <string name="last_opened">上次開啟</string>
     <string name="light_theme_name">明亮</string>
     <string name="dark_theme_name">暗沉</string>
@@ -123,8 +123,8 @@
     <string name="pref_title_force_square_album_art">方形專輯封面</string>
     <string name="pref_title_opaque_toolbar_now_playing">不透明工具列</string>
     <string name="pref_title_opaque_statusbar_now_playing">不透明狀態列</string>
-    <string name="pref_title_larger_title_box_now_playing">較大的標題框</string>
-    <string name="pref_title_alternative_progress_slider_now_playing">替代進度條</string>
+    <string name="pref_title_larger_title_box_now_playing">大標題框</string>
+    <string name="pref_title_alternative_progress_slider_now_playing">替代進度列</string>
     <string name="pref_title_playback_controller_card_now_playing">在播放控制器下顯示背景卡片</string>
     <string name="pref_title_colored_playback_controls_now_playing">彩色的播放控制器</string>
     <string name="no_equalizer">找不到等化器</string>
@@ -154,7 +154,7 @@
     <string name="pref_summary_album_art_on_lockscreen">將播放中歌曲的專輯封面設為鎖定螢幕背景。</string>
     <string name="pref_summary_blurred_album_art">模糊化專輯圖片 (在鎖定畫面上)。第三方程式和小工具可能不正常運作。</string>
     <string name="pref_summary_colored_notification">"\u72c0\u614b\u5217\u984f\u8272\u8207\u5c08\u8f2f\u5716\u7247\u984f\u8272\u4e00\u81f4"</string>
-    <string name="pref_summary_gapless_playback">"可能會在某些設備上出現播放問題。"</string>
+    <string name="pref_summary_gapless_playback">"可能會在某些裝置上出現播放問題。"</string>
     <string name="pref_summary_force_square_album_art">於正在播放介面中強制使用方形專輯封面。</string>
     <string name="pref_summary_opaque_toolbar_now_playing">使用彩色的工具列</string>
     <string name="pref_summary_opaque_statusbar_now_playing">使用彩色的狀態列。</string>
@@ -185,7 +185,7 @@
     <string name="colored_footers">彩色的註腳</string>
     <string name="special_thanks_to">特別感謝</string>
     <string name="changelog">新功能</string>
-    <string name="licenses">憑證</string>
+    <string name="licenses">原始碼授權</string>
     <string name="permissions_denied">存取被拒</string>
     <string name="permission_external_storage_denied">無法取得存取外部儲存空間的權限。</string>
     <string name="back">返回</string>
@@ -212,15 +212,18 @@
     <string name="donate_summary">您認為我的努力值得回報的話，請用您的零用錢讚賞我一下。</string>
     <string name="aidan_follestad_summary">給主題引擎及其他非常好的東西</string>
     <string name="michael_cook_summary">給那個美麗的程式圖標</string>
+    <string name="maarten_corpel_summary">製作 Play 商店的圖片及專輯圖片給沒有的歌曲</string>
     <string name="aleksandar_tesic_summary">幫助我做 UI 設計</string>
     <string name="website">網站</string>
     <string name="loading_products">正在載入</string>
-    <string name="up_next">即將播放</string>
+    <string name="up_next">播放佇列：即將播放</string>
     <string name="pref_title_now_playing_layout">正在播放頁面</string>
     <string name="intro_label">程式介紹</string>
     <string name="press_back_again_to_exit_intro">再點一下返回來跳過介紹</string>
+    <string name="welcome_to_phonograph">歡迎來臨 Phonograph，一個又美麗又細小的安卓音樂播放器。</string>
     <string name="label_storage">儲存空間</string>
     <string name="open_playing_queue_instruction">在現正播放卡片上滑來顯示播放佇列</string>
+    <string name="rearrange_playing_queue_instruction">您可以更改歌曲播放的順序，上下滑動播放佇列中的歌曲編號即可。</string>
     <string name="storage_permission_explaination">請賦予我們存與儲存空間的權限，這樣才能讀取您的音樂。</string>
     <string name="library">音樂庫</string>
     <string name="folders">文件夾</string>
