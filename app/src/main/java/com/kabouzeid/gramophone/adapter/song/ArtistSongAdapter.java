@@ -69,6 +69,17 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
         final TextView songTitle = (TextView) convertView.findViewById(R.id.title);
         final TextView songInfo = (TextView) convertView.findViewById(R.id.text);
         final ImageView albumArt = (ImageView) convertView.findViewById(R.id.image);
+        final View shortSeparator = convertView.findViewById(R.id.short_separator);
+
+        if (position == getCount() - 1) {
+            if (shortSeparator != null) {
+                shortSeparator.setVisibility(View.GONE);
+            }
+        } else {
+            if (shortSeparator != null) {
+                shortSeparator.setVisibility(View.VISIBLE);
+            }
+        }
 
         songTitle.setText(song.title);
         songInfo.setText(song.albumName);
