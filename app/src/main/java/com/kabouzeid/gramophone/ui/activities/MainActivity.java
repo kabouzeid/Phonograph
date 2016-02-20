@@ -34,6 +34,7 @@ import com.afollestad.materialcab.MaterialCab;
 import com.bumptech.glide.Glide;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
+import com.kabouzeid.appthemehelper.util.EdgeGlowUtil;
 import com.kabouzeid.appthemehelper.util.NavigationViewUtil;
 import com.kabouzeid.appthemehelper.util.TabLayoutUtil;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
@@ -155,6 +156,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     }
 
     private void setUpViewPager() {
+        EdgeGlowUtil.setEdgeGlowColor(pager, ThemeStore.primaryColor(this));
         pagerAdapter = new PagerAdapter(this, getSupportFragmentManager());
         pager.setAdapter(pagerAdapter);
         pager.setOffscreenPageLimit(pagerAdapter.getCount() - 1); // => all

@@ -27,6 +27,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
+import com.kabouzeid.appthemehelper.util.EdgeGlowUtil;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.album.HorizontalAlbumAdapter;
@@ -304,8 +305,12 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         toolbarColor = color;
         artistName.setBackgroundColor(color);
         artistName.setTextColor(MaterialValueHelper.getPrimaryTextColor(this, ColorUtil.isColorLight(color)));
+
         setNavigationbarColor(color);
         setTaskDescriptionColor(color);
+
+        EdgeGlowUtil.setEdgeGlowColor(songListView, color);
+        EdgeGlowUtil.setEdgeGlowColor(albumRecyclerView, color, null);
     }
 
     private void getArtistFromIntentExtras() {

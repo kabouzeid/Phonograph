@@ -22,6 +22,7 @@ import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference;
 import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceFragmentCompat;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
+import com.kabouzeid.appthemehelper.util.EdgeGlowUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -123,6 +124,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         public void onViewCreated(View view, Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
             getListView().setPadding(0, 0, 0, 0);
+            EdgeGlowUtil.setEdgeGlowColor(getListView(), ThemeStore.primaryColor(getActivity()), null);
             invalidateSettings();
         }
 

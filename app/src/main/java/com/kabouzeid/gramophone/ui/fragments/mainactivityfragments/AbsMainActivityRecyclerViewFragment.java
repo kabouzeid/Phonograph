@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
+import com.kabouzeid.appthemehelper.util.EdgeGlowUtil;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
@@ -62,6 +63,7 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
     }
 
     private void setUpRecyclerView() {
+        EdgeGlowUtil.setEdgeGlowColor(recyclerView, ThemeStore.primaryColor(getActivity()), null);
         if (recyclerView instanceof FastScrollRecyclerView) {
             int accentColor = ThemeStore.accentColor(getActivity());
             ((FastScrollRecyclerView) recyclerView).setPopupBgColor(accentColor);
