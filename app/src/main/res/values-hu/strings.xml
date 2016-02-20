@@ -30,7 +30,7 @@
     <string name="action_delete">Törlés</string>
     <string name="albums">Albumok</string>
     <string name="artists">Előadók</string>
-    <string name="songs">Dal</string>
+    <string name="songs">Dalok</string>
     <string name="playlists">Lejátszási listák</string>
     <string name="unplayable_file">Nem lehet lej\u00e1tszani ezt a dalt.</string>
     <string name="biography_unavailable">Nem tal\u00e1lhat\u00f3 az el\u0151ad\u00f3nak az \u00e9letrajza.</string>
@@ -68,7 +68,7 @@
     <string name="added_x_titles_to_playing_queue">%1$d hozzá lett adva a lejátszási sorhoz.</string>
     <string name="action_remove_from_playlist">Eltávolítás a lejátszási listából</string>
     <string name="action_grid_size">Rácsméret</string>
-    <string name="action_grid_size_land">Fektetett rácsméret</string>
+    <string name="action_grid_size_land">Rácsméret</string>
     <string name="inserted_x_songs_into_playlist_x">%1$d dal hozzá lett adva a(z) %2$s lejátszási listához.</string>
     <string name="created_playlist_x">%1$s lejátszási lista létrehozva.</string>
     <string name="deleted_playlist_x">%1$s lejátszási lista törölve.</string>
@@ -95,7 +95,7 @@
     <string name="action_shuffle_album">Album dalainak keverése</string>
     <string name="action_shuffle_artist">Előadó dalainak keverése</string>
     <string name="action_shuffle_playlist">Lejátszási lista keverése</string>
-    <string name="action_clear_playing_queue">Lejátszási sor törlése</string>
+    <string name="action_clear_playing_queue">Sor törlése</string>
     <string name="last_opened">Utoljára megnyitott</string>
     <string name="light_theme_name">Világos</string>
     <string name="dark_theme_name">Sötét</string>
@@ -148,7 +148,7 @@
     <string name="no_artists">Nincs előadó</string>
     <string name="empty">Üres</string>
     <string name="playlist_name_empty">Lejátszási lista neve</string>
-    <string name="song">Dalok</string>
+    <string name="song">Dal</string>
     <string name="pref_only_lollipop">"Csak Lollipoppon (Android 5.x) érhető el."</string>
     <string name="pref_summary_album_art_on_lockscreen">Jelenlegi dal albumborítójának használata a zárképernyő háttérképeként.</string>
     <string name="pref_summary_blurred_album_art">Albumborító elhomályosítása a zárképernyőn.Ez problémákat okozhat a harmadik féltől származó alkalmazásoknál és widgeteknél.</string>
@@ -199,13 +199,13 @@
     <string name="follow_on_twitter">Twitter</string>
     <string name="fork_on_git_hub">GitHub</string>
     <string name="visit_website">Weboldal</string>
-    <string name="report_bugs">Hiba jelentése</string>
-    <string name="report_bugs_summary">Hiba jelentése vagy új funkció kérése.</string>
-    <string name="join_community">Csatlakozz a Google Plus közösséghez</string>
+    <string name="report_bugs">Hibajelentés</string>
+    <string name="report_bugs_summary">Hibák jelentése vagy új funkciók kérése.</string>
+    <string name="join_community">Google Plus közösség</string>
     <string name="join_community_summary">Ha segítségre lenne szükséged, a Phonograph közösség között biztos válaszra találsz.</string>
     <string name="translate">Fordítás</string>
     <string name="translate_summary">Segíts lefordítani a Phonograph-ot a saját nyelvedre.</string>
-    <string name="rate_on_google_play">Értékeld</string>
+    <string name="rate_on_google_play">Értékelés</string>
     <string name="rate_on_google_play_summary">Értékeld pozitívan a Google Play-en ha tetszett az alkalmazás!</string>
     <string name="donate">Adományozás</string>
     <string name="donate_summary">Ha szerinted megéri a munkám, adományozz egy csekély összeget nekem.</string>
