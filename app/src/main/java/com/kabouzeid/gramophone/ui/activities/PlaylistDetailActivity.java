@@ -18,6 +18,7 @@ import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemA
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.appthemehelper.util.EdgeGlowUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.song.PlaylistSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.SmartPlaylistSongAdapter;
@@ -91,6 +92,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     }
 
     private void setUpRecyclerView() {
+        EdgeGlowUtil.setEdgeGlowColor(recyclerView, ThemeStore.primaryColor(this), null);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         if (playlist instanceof AbsSmartPlaylist) {
             adapter = new SmartPlaylistSongAdapter(this, loadSmartPlaylistDataSet(), R.layout.item_list, false, this);

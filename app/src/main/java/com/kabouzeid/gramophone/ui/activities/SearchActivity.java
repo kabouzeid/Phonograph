@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.appthemehelper.util.EdgeGlowUtil;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.SearchAdapter;
@@ -57,6 +58,7 @@ public class SearchActivity extends AbsMusicServiceActivity {
         setNavigationbarColorAuto();
         setTaskDescriptionColorAuto();
 
+        EdgeGlowUtil.setEdgeGlowColor(recyclerView, ThemeStore.primaryColor(this), null);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         searchAdapter = new SearchAdapter(this);
         recyclerView.setAdapter(searchAdapter);
