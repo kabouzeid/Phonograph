@@ -98,6 +98,16 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
             holder.selectedIndicator.setVisibility(isChecked ? View.VISIBLE : View.GONE);
         }
 
+        if (holder.getAdapterPosition() == getItemCount() - 1) {
+            if (holder.shortSeparator != null) {
+                holder.shortSeparator.setVisibility(View.GONE);
+            }
+        } else {
+            if (holder.shortSeparator != null) {
+                holder.shortSeparator.setVisibility(View.VISIBLE);
+            }
+        }
+
         if (holder.title != null) {
             holder.title.setText(artist.name);
         }
