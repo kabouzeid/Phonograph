@@ -149,7 +149,8 @@
             android:label="@string/action_about" />
 
         <activity
-            android:name=".ui.activities.IntroActivity"
+            android:theme="@style/Theme.Intro"
+            android:name=".ui.activities.intro.AppIntroActivity"
             android:label="@string/intro_label" />
     </application>
 

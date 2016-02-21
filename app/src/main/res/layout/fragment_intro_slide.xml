@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/mi_baseline">
+
+    <TextView
+        android:id="@id/mi_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/mi_baseline"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        tools:ignore="UnusedAttribute"
+        tools:text="Lorem ipsum" />
+
+    <TextView
+        android:id="@id/mi_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/mi_baseline"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        tools:text="Lorem ipsum dolor sit amet, consectetur, adipisci velit, …" />
+
+    <ImageView
+        android:id="@id/mi_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/mi_baseline"
+        android:gravity="center"
+        tools:ignore="ContentDescription"
+        android:paddingBottom="@dimen/mi_pager_margin_bottom"
+        tools:src="@drawable/tutorial_queue_swipe_up" />
+
+</LinearLayout>

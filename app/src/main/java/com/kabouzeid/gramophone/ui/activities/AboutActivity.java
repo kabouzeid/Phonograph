@@ -23,6 +23,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
 import com.kabouzeid.gramophone.dialogs.DonationDialog;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
+import com.kabouzeid.gramophone.ui.activities.intro.AppIntroActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -224,7 +225,7 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         } else if (v == licenses) {
             showLicenseDialog();
         } else if (v == intro) {
-            startActivity(new Intent(this, IntroActivity.class));
+            startActivity(new Intent(this, AppIntroActivity.class));
         } else if (v == addToGooglePlusCircles) {
             openUrl(GOOGLE_PLUS);
         } else if (v == followOnTwitter) {

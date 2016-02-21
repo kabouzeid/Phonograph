@@ -58,16 +58,20 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
 
         if (hasPermissions() != createdWithPermissionsGranted) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                // the handler is necessary to avoid "java.lang.RuntimeException: Performing pause of activity that is not resumed"
                 onPermissionsChanged();
             }
         }
     }
 
     protected void onPermissionsChanged() {
+        postRecreate();
+    }
+
+    @Override
+    public void postRecreate() {
         if (!recreating) {
             recreating = true;
-            postRecreate();
+            super.postRecreate();
         }
     }
 
@@ -86,7 +90,7 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
 
     /**
      * Should be overwritten and re enable all {@link android.view.View} to ensure they are accessible again
-     * <p>
+     * <p/>
      * This is necessary because of a bug with the shared element transition
      */
     @Override
@@ -96,7 +100,7 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
 
     /**
      * Should be overwritten and disable all views that start a new activity on click to prevent opening an activity multiple times
-     * <p>
+     * <p/>
      * This is necessary because of a bug with the shared element transition
      */
     @Override
