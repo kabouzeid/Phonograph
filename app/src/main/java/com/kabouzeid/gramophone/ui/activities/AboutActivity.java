@@ -12,13 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
-import com.kabouzeid.appthemehelper.util.EdgeGlowUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
 import com.kabouzeid.gramophone.dialogs.DonationDialog;
@@ -54,9 +52,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     private static String MAARTEN_CORPEL_GOOGLE_PLUS = "https://google.com/+MaartenCorpel";
 
     private static String ALEKSANDAR_TESIC_GOOGLE_PLUS = "https://google.com/+aleksandartešić";
-
-    @Bind(R.id.scroll_view)
-    ScrollView scrollView;
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -147,7 +142,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         setUpAppVersion();
         setUpIconTint();
         setUpOnClickListeners();
-        EdgeGlowUtil.setEdgeGlowColor(scrollView, ThemeStore.primaryColor(this));
     }
 
     private void setUpToolbar() {
