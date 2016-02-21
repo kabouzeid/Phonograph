@@ -26,6 +26,8 @@
     <string name="action_tag_editor">Tags ändern</string>
     <string name="action_delete_from_device">Von Gerät Löschen</string>
     <string name="action_details">Details</string>
+    <string name="action_rename">Umbenennen</string>
+    <string name="action_delete">Löschen</string>
     <string name="albums">Alben</string>
     <string name="artists">Interpreten</string>
     <string name="songs">Titel</string>
@@ -44,6 +46,7 @@
     <string name="album_or_artist_empty">Der Titel oder der Interpret ist leer.</string>
     <string name="writing_file_number">Datei schreiben</string>
     <string name="saving_changes">Speichere Änderungen…</string>
+    <string name="saving_to_file">In Datei speichern...</string>
     <string name="label_details">Details</string>
     <string name="label_file_name">Dateiname</string>
     <string name="label_file_path">Dateipfad</string>
@@ -86,6 +89,7 @@
     <string name="delete_playlist_title">Wiedergabeliste löschen</string>
     <string name="delete_playlists_title">Wiedergabelisten löschen</string>
     <string name="clear_playlist_title">Wiedergabeliste leeren</string>
+    <string name="save_playlist_title">Als Datei speichern</string>
     <string name="add_playlist_title">"Zu Wiedergabeliste hinzufügen"</string>
     <string name="action_shuffle_all">Zufällige Wiedergabe</string>
     <string name="action_shuffle_album">Album zufällig wiedergeben</string>
@@ -181,8 +185,8 @@
     <string name="special_thanks_to">Besonderes Dankeschön an</string>
     <string name="changelog">Änderungen</string>
     <string name="licenses">Lizenzen</string>
-    <string name="permissions_denied">Erlaubnis verweigert.</string>
-    <string name="permission_external_storage_denied">Die Rechte um auf den externen Speicher zuzugreifen wurden verweigert.</string>
+    <string name="permissions_denied">Berechtigungen verweigert.</string>
+    <string name="permission_external_storage_denied">Die Berechtigung für den Zugriff auf den externen Speicher wurde verweigert.</string>
     <string name="back">zurück</string>
     <string name="support_development">Unterstütze die Entwicklung</string>
     <string name="thank_you">Vielen Dank!</string>
@@ -215,11 +219,13 @@
     <string name="pref_title_now_playing_layout">Gestaltung der aktuellen Wiedergabe</string>
     <string name="intro_label">Einführung</string>
     <string name="press_back_again_to_exit_intro">Drücke nochmal zurück  um die Einführung zu überspringen.</string>
-    <string name="welcome_to_phonograph">Willkommen bei Phonograph, ein wunderschöner und leichter Musik-Spieler für Android.</string>
+    <string name="welcome_to_phonograph">"Willkommen bei Phonograph, ein einfacher und schöner Musik Player für Android. "</string>
     <string name="label_storage">Speicher</string>
     <string name="open_playing_queue_instruction">Ziehe die Karte in der aktuellen Wiedergabe hoch um die komplette Warteschlange anzeigen zu lassen.</string>
     <string name="rearrange_playing_queue_instruction">Ziehe die Titelnummer eines Titels nach oben oder unten, um die Warteschlange neu anzuordnen.</string>
-    <string name="storage_permission_explaination">Die Speicher-Erlaubnis braucht Phonograph, um deine Musikbibliothek zu lesen.</string>
+    <string name="storage_permission_explaination">Phonograph wird dich nun fragen die Berechtigung für den Zugriff auf den externen Speicher zu gewähren. Die Berechtigung wird benötigt um deine Musikbibliothek zu lesen.</string>
     <string name="library">Bibliothek</string>
     <string name="folders">Ordner</string>
+    <string name="saved_playlist_to">Playlist wurde in %s gespeichert.</string>
+    <string name="failed_to_save_playlist">Speichern der Playlist fehlgeschlagen (%s).</string>
 </resources>

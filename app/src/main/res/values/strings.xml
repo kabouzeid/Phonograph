@@ -231,7 +231,7 @@
     <string name="label_storage">Storage</string>
     <string name="open_playing_queue_instruction">Swipe the card in the now playing screen up to reveal the full playing queue.</string>
     <string name="rearrange_playing_queue_instruction">Rearrange the playing queue by dragging a song from its track number.</string>
-    <string name="storage_permission_explaination">Phonograph will now ask you to grant the storage permission. The permission is required in order to read your music library.</string>
+    <string name="storage_permission_explaination">Phonograph will ask you to grant the external storage permission now. The permission is required in order to read your music library.</string>
     <string name="library">Library</string>
     <string name="folders">Folders</string>
     <string name="saved_playlist_to">Saved playlist to %s.</string>

@@ -220,7 +220,7 @@
     <string name="pref_title_now_playing_layout">正在播放頁面</string>
     <string name="intro_label">程式介紹</string>
     <string name="press_back_again_to_exit_intro">再點一下返回來跳過介紹</string>
-    <string name="welcome_to_phonograph">歡迎來臨 Phonograph，一個又美麗又細小的安卓音樂播放器。</string>
+    <string name="welcome_to_phonograph">"歡迎來臨 Phonograph，一個又美麗又細小的安卓音樂播放器。"</string>
     <string name="label_storage">儲存空間</string>
     <string name="open_playing_queue_instruction">在現正播放卡片上滑來顯示播放佇列</string>
     <string name="rearrange_playing_queue_instruction">您可以更改歌曲播放的順序，上下滑動播放佇列中的歌曲編號即可。</string>

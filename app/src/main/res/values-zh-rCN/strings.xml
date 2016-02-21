@@ -219,7 +219,7 @@
     <string name="pref_title_now_playing_layout">播放界面样式</string>
     <string name="intro_label">介绍</string>
     <string name="press_back_again_to_exit_intro">再次点击后退键，跳过介绍页</string>
-    <string name="welcome_to_phonograph">欢迎使用 Phonohraph，这是一款精致而轻量的 Android 音乐播放器。</string>
+    <string name="welcome_to_phonograph">"欢迎使用 Phonohraph，这是一款精致而轻量的 Android 音乐播放器。"</string>
     <string name="label_storage">储存</string>
     <string name="open_playing_queue_instruction">滑动播放界面的卡片即可展开当前播放队列</string>
     <string name="rearrange_playing_queue_instruction">通过拖动歌曲前的序号调整播放队列</string>

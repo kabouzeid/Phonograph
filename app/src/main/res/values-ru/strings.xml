@@ -219,7 +219,7 @@
     <string name="pref_title_now_playing_layout">"Макет экрана воспроизведения "</string>
     <string name="intro_label">Вступление</string>
     <string name="press_back_again_to_exit_intro">Ещё раз нажмите назад, чтобы пропустить вступление</string>
-    <string name="welcome_to_phonograph">Добро пожаловать в Phonograph, красивый и лёгкий плеер для Android</string>
+    <string name="welcome_to_phonograph">"Добро пожаловать в Phonograph, красивый и лёгкий плеер для Android"</string>
     <string name="label_storage">Хранилище</string>
     <string name="open_playing_queue_instruction">Проведите по карточке на экране воспроизведения, чтобы просмотреть очередь</string>
     <string name="rearrange_playing_queue_instruction">Редактируйте очередь воспроизведения, перетаскивая песни за их номер</string>

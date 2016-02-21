@@ -219,7 +219,7 @@
     <string name="pref_title_now_playing_layout">Afspeelscherm uiterlijk</string>
     <string name="intro_label">Introductie</string>
     <string name="press_back_again_to_exit_intro">Tik nogmaals terug om de intro over te slaan.</string>
-    <string name="welcome_to_phonograph">Welkom bij Phonograph, een mooie en lichte muziekspeler voor Android.</string>
+    <string name="welcome_to_phonograph">"Welkom bij Phonograph, een mooie en lichte muziekspeler voor Android."</string>
     <string name="label_storage">Opslag</string>
     <string name="open_playing_queue_instruction">Veeg de kaart in het afspeelscherm om de afspeelwachtrij te weergeven.</string>
     <string name="rearrange_playing_queue_instruction">Rangschik de afspeelwachtrij door de afspeelnummers te verslepen.</string>

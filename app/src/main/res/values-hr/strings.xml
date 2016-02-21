@@ -35,7 +35,7 @@
     <string name="unplayable_file">Nije bilo mogu\u0107e reproducirati ovu pjesmu</string>
     <string name="biography_unavailable">Nismo mogli prona\u0107i biografiju ovog izvo\u0111a\u010da</string>
     <string name="biography">Biografija</string>
-    <string name="audio_focus_denied">Audio fokus zabranjen.</string>
+    <string name="audio_focus_denied">Audio fokus odbijen.</string>
     <string name="album">Album</string>
     <string name="artist">Izvođač</string>
     <string name="genre">Žanr</string>
@@ -43,9 +43,9 @@
     <string name="year">Godina</string>
     <string name="track">Redni broj</string>
     <string name="track_hint">"Redni broj (2 za pjesmu broj 2 ili 3004 za CD3 pjesmu broj 4)"</string>
-    <string name="album_or_artist_empty">Polje za naziv ili izvođača albuma je prazno.</string>
-    <string name="writing_file_number">Spremam datoteku</string>
-    <string name="saving_changes">Spremam promjene...</string>
+    <string name="album_or_artist_empty">Polje za naziv ili izvođača je prazno.</string>
+    <string name="writing_file_number">Spremanje datoteke</string>
+    <string name="saving_changes">Spremanje promjena...</string>
     <string name="saving_to_file">Spremanje u datoteku...</string>
     <string name="label_details">Detalji</string>
     <string name="label_file_name">Ime datoteke</string>
@@ -164,7 +164,7 @@
     <string name="pref_summary_colored_playback_controls_now_playing">Gumbi za reprodukciju/pauzu, nasumi\u010dnu reprodukciju i ponavljanje kao i kliza\u010d napretka su obojeni istaknutom bojom omota albuma.</string>
     <string name="pref_summary_colored_navigation_bar">Boji navigacijsku traku primarnom bojom.</string>
     <string name="could_not_download_album_cover">"Nije mogu\u0107e preuzeti odgovaraju\u0107i omot albuma."</string>
-    <string name="search_hint">Pretražite svoju fonoteku...</string>
+    <string name="search_hint">Pretražite svoju biblioteku...</string>
     <string name="rescanning_media">Ponovno skeniram medije...</string>
     <string name="favorites">Favoriti</string>
     <string name="last_added">Posljednje dodano</string>
