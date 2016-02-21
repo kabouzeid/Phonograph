@@ -23,39 +23,15 @@
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
-        <name>Material Contextual Action Bar</name>
-        <url>https://github.com/afollestad/material-cab</url>
-        <copyright>Copyright 2016 Aidan Follestad</copyright>
-        <license>Apache Software License 2.0</license>
-    </notice>
-    <notice>
-        <name>Android Support Libraries</name>
-        <url>http://developer.android.com/tools/support-library/index.html</url>
-        <copyright>Copyright (C) 2015 The Android Open Source Project</copyright>
-        <license>Apache Software License 2.0</license>
-    </notice>
-    <notice>
-        <name>Launcher 3</name>
-        <url>https://android.googlesource.com/platform/packages/apps/Launcher3</url>
-        <copyright>Copyright (C) 2010 The Android Open Source Project</copyright>
-        <license>Apache Software License 2.0</license>
-    </notice>
-    <notice>
-        <name>RecyclerView-FastScroll</name>
-        <url>https://github.com/timusus/RecyclerView-FastScroll</url>
-        <copyright>Copyright (C) 2016 Tim Malseed</copyright>
-        <license>Apache Software License 2.0</license>
-    </notice>
-    <notice>
         <name>Android-ObservableScrollView</name>
         <url>https://github.com/ksoichiro/Android-ObservableScrollView</url>
         <copyright>Copyright 2014 Soichiro Kashima</copyright>
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
-        <name>Eleven</name>
-        <url>https://github.com/CyanogenMod/android_packages_apps_Eleven</url>
-        <copyright>Copyright (c) 2014, The CyanogenMod Project</copyright>
+        <name>Android Open Source Project</name>
+        <url>http://developer.android.com/tools/support-library/index.html</url>
+        <copyright>Copyright (C) 2016 The Android Open Source Project</copyright>
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
@@ -65,27 +41,9 @@
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
-        <name>Retrofit</name>
-        <url>https://github.com/square/retrofit</url>
-        <copyright>Copyright 2013 Square, Inc.</copyright>
-        <license>Apache Software License 2.0</license>
-    </notice>
-    <notice>
-        <name>OkHttp</name>
-        <url>https://github.com/square/okhttp</url>
-        <copyright />
-        <license>Apache Software License 2.0</license>
-    </notice>
-    <notice>
-        <name>Butter Knife</name>
-        <url>https://github.com/JakeWharton/butterknife</url>
-        <copyright>Copyright 2013 Jake Wharton</copyright>
-        <license>Apache Software License 2.0</license>
-    </notice>
-    <notice>
-        <name>Linear Layout Manager</name>
-        <url>https://github.com/serso/android-linear-layout-manager</url>
-        <copyright>Copyright 2014 serso aka se.solovyev</copyright>
+        <name>Android Support Libraries</name>
+        <url>http://developer.android.com/tools/support-library/index.html</url>
+        <copyright>Copyright (C) 2016 The Android Open Source Project</copyright>
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
@@ -95,9 +53,37 @@
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
-        <name>AppIntro</name>
-        <url>https://github.com/PaoloRotolo/AppIntro</url>
-        <copyright>Copyright {2015} {Paolo Rotolo}</copyright>
+        <name>Butter Knife</name>
+        <url>https://github.com/JakeWharton/butterknife</url>
+        <copyright>Copyright 2013 Jake Wharton</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Eleven</name>
+        <url>https://github.com/CyanogenMod/android_packages_apps_Eleven</url>
+        <copyright>Copyright (c) 2014, The CyanogenMod Project</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Glide</name>
+        <url>https://github.com/bumptech/glide</url>
+    </notice>
+    <notice>
+        <name>Launcher 3</name>
+        <url>https://android.googlesource.com/platform/packages/apps/Launcher3</url>
+        <copyright>Copyright (C) 2010 The Android Open Source Project</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Linear Layout Manager</name>
+        <url>https://github.com/serso/android-linear-layout-manager</url>
+        <copyright>Copyright 2014 serso aka se.solovyev</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Material Contextual Action Bar</name>
+        <url>https://github.com/afollestad/material-cab</url>
+        <copyright>Copyright 2016 Aidan Follestad</copyright>
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
@@ -107,15 +93,35 @@
         <license>MIT License</license>
     </notice>
     <notice>
+        <name>Material Intro</name>
+        <url>https://github.com/HeinrichReimer/material-intro</url>
+        <copyright>Copyright 2016 Heinrich Reimer</copyright>
+        <license>MIT License</license>
+    </notice>
+    <notice>
+        <name>OkHttp</name>
+        <url>https://github.com/square/okhttp</url>
+        <copyright />
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>RecyclerView-FastScroll</name>
+        <url>https://github.com/timusus/RecyclerView-FastScroll</url>
+        <copyright>Copyright (C) 2016 Tim Malseed</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
+        <name>Retrofit</name>
+        <url>https://github.com/square/retrofit</url>
+        <copyright>Copyright 2013 Square, Inc.</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
         <name>SeekArc</name>
         <url>https://github.com/Triggertrap/SeekArc</url>
         <copyright>Copyright (c) 2013 Triggertrap Ltd
             Author Neil Davies
         </copyright>
         <license>MIT License</license>
-    </notice>
-    <notice>
-        <name>Glide</name>
-        <url>https://github.com/bumptech/glide</url>
     </notice>
 </notices>
