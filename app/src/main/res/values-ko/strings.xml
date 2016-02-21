@@ -192,7 +192,7 @@
     <string name="application">애플리케이션</string>
     <string name="translate">번역</string>
     <string name="intro_label">소개</string>
-    <string name="welcome_to_phonograph">Android를 위한 아름답고 가벼운 음악 플레이어인 Phonograph에 오신 것을 환영합니다.</string>
+    <string name="welcome_to_phonograph">"Android를 위한 아름답고 가벼운 음악 플레이어인 Phonograph에 오신 것을 환영합니다."</string>
     <string name="label_storage">저장소</string>
     <string name="storage_permission_explaination">Phonograph가 음악 라이브러리를 읽기 위해 저장소 권한이 필요합니다.</string>
     <string name="folders">폴더</string>

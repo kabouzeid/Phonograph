@@ -219,7 +219,7 @@
     <string name="pref_title_now_playing_layout">Diseño de la pantalla Reproduciendo</string>
     <string name="intro_label">Introducción</string>
     <string name="press_back_again_to_exit_intro">Presione regresar de nuevo para omitir el intro.</string>
-    <string name="welcome_to_phonograph">Bienvenido a Phonograph, un reproductor de música hermoso y ligero para Android.</string>
+    <string name="welcome_to_phonograph">"Bienvenido a Phonograph, un reproductor de música hermoso y ligero para Android."</string>
     <string name="label_storage">Almacenamiento</string>
     <string name="open_playing_queue_instruction">Desliza la tarjeta en la pantalla de Reproducción Actual para desplegar la cola de reproducción completa.</string>
     <string name="rearrange_playing_queue_instruction">Reorganiza la cola de reproducción arrastrando una canción desde su número de pista.</string>

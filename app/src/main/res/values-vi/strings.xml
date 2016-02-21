@@ -219,7 +219,7 @@
     <string name="pref_title_now_playing_layout">Bố trí trình phát hiện tại</string>
     <string name="intro_label">Giới thiệu</string>
     <string name="press_back_again_to_exit_intro">Nhấn trở lại lần nữa để bỏ qua phần giới thiệu.</string>
-    <string name="welcome_to_phonograph">Chào mừng bạn đến Phonograph, một máy nghe nhạc đẹp và nhẹ cho Android.</string>
+    <string name="welcome_to_phonograph">"Chào mừng bạn đến Phonograph, một máy nghe nhạc đẹp và nhẹ cho Android."</string>
     <string name="label_storage">Lưu trữ</string>
     <string name="open_playing_queue_instruction">Vuốt lên thẻ trong trình đang phát để đến với hàng đợi phát đầy đủ.</string>
     <string name="rearrange_playing_queue_instruction">Sắp xếp lại hàng đợi phát bằng cách kéo một bài hát từ số thứ tự của nó.</string>
