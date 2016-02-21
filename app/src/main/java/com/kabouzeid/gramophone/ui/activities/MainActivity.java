@@ -56,6 +56,7 @@ import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
+import com.kabouzeid.gramophone.ui.activities.intro.AppIntroActivity;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityRecyclerViewCustomGridSizeFragment;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -94,7 +95,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     private PagerAdapter pagerAdapter;
     private MaterialCab cab;
 
-    private boolean introActivityHandlingPermissions;
+    private boolean blockRequestPermissions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,17 +117,18 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         setUpToolbar();
         setUpViewPager();
 
-        checkChangelog();
-
         if (!PreferenceUtil.getInstance(this).introShown()) {
-            // let the app intro handle getting the permissions first
-            introActivityHandlingPermissions = true;
+            PreferenceUtil.getInstance(this).setIntroShown();
+            ChangelogDialog.setChangelogRead(this);
+            blockRequestPermissions = true;
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    startActivityForResult(new Intent(MainActivity.this, IntroActivity.class), APP_INTRO_REQUEST);
+                    startActivityForResult(new Intent(MainActivity.this, AppIntroActivity.class), APP_INTRO_REQUEST);
                 }
             }, 200);
+        } else {
+            checkShowChangelog();
         }
     }
 
@@ -134,16 +136,16 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == APP_INTRO_REQUEST) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                // app intro is done, recreate to refresh permissions
-                onPermissionsChanged();
+            blockRequestPermissions = false;
+            if (!hasPermissions()) {
+                requestPermissions();
             }
         }
     }
 
     @Override
     protected void requestPermissions() {
-        if (!introActivityHandlingPermissions) super.requestPermissions();
+        if (!blockRequestPermissions) super.requestPermissions();
     }
 
     @Override
@@ -574,7 +576,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 
-    private void checkChangelog() {
+    private void checkShowChangelog() {
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             int currentVersion = pInfo.versionCode;

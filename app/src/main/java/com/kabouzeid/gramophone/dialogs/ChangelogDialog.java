@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.dialogs;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -56,13 +57,8 @@ public class ChangelogDialog extends DialogFragment {
                 .showListener(new DialogInterface.OnShowListener() {
                     @Override
                     public void onShow(DialogInterface dialog) {
-                        try {
-                            PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
-                            int currentVersion = pInfo.versionCode;
-                            PreferenceUtil.getInstance(getActivity()).setLastChangeLogVersion(currentVersion);
-                        } catch (PackageManager.NameNotFoundException e) {
-                            e.printStackTrace();
-                        }
+                        if (getActivity() != null)
+                            setChangelogRead(getActivity());
                     }
                 })
                 .build();
@@ -91,6 +87,16 @@ public class ChangelogDialog extends DialogFragment {
             webView.loadData("<h1>Unable to load</h1><p>" + e.getLocalizedMessage() + "</p>", "text/html", "UTF-8");
         }
         return dialog;
+    }
+
+    public static void setChangelogRead(@NonNull Context context) {
+        try {
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            int currentVersion = pInfo.versionCode;
+            PreferenceUtil.getInstance(context).setLastChangeLogVersion(currentVersion);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private static String colorToHex(int color) {
