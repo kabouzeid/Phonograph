@@ -10,6 +10,7 @@ import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -43,8 +44,6 @@ import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.kabouzeid.gramophone.views.WidthFitSquareLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
-
-import org.solovyev.android.views.llm.LinearLayoutManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -218,7 +217,6 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         wrappedAdapter = recyclerViewDragDropManager.createWrappedAdapter(playingQueueAdapter);
 
         layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setChildSize((int) (getResources().getDisplayMetrics().density * 72));
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(wrappedAdapter);
