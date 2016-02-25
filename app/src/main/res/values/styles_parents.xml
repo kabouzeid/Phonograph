@@ -18,7 +18,7 @@
         <item name="default_bar_color">@color/grey_900</item>
 
         <item name="divider_color">@color/md_divider_white</item>
-        <item name="icon_color">@color/secondary_text_default_material_dark</item>
+        <item name="icon_color">@color/ate_secondary_text_dark</item>
 
         <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat</item>
 
@@ -48,7 +48,7 @@
         <item name="default_bar_color">@color/grey_300</item>
 
         <item name="divider_color">@color/md_divider_black</item>
-        <item name="icon_color">@color/secondary_text_default_material_light</item>
+        <item name="icon_color">@color/ate_secondary_text_light</item>
 
         <item name="toolbarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
 
@@ -91,7 +91,7 @@
 
     <style name="OverFlowButtonParent">
         <item name="android:tint">?icon_color</item>
-        <item name="android:src">@drawable/abc_ic_menu_moreoverflow_mtrl_alpha</item>
+        <item name="srcCompat">@drawable/abc_ic_menu_overflow_material</item>
         <item name="android:layout_margin">8dp</item>
         <item name="android:layout_width">48dp</item>
         <item name="android:layout_height">48dp</item>
