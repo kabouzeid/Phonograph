@@ -18,17 +18,17 @@ public abstract class PhonographColoredTarget extends BitmapPaletteTarget {
     @Override
     public void onLoadFailed(Exception e, Drawable errorDrawable) {
         super.onLoadFailed(e, errorDrawable);
-        onColorReady(getDefaultBarColor());
+        onColorReady(getDefaultFooterColor());
     }
 
     @Override
     public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
         super.onResourceReady(resource, glideAnimation);
-        onColorReady(PhonographColorUtil.getColor(resource.getPalette(), getDefaultBarColor()));
+        onColorReady(PhonographColorUtil.getColor(resource.getPalette(), getDefaultFooterColor()));
     }
 
-    protected int getDefaultBarColor() {
-        return ATHUtil.resolveColor(getView().getContext(), R.attr.default_bar_color);
+    protected int getDefaultFooterColor() {
+        return ATHUtil.resolveColor(getView().getContext(), R.attr.defaultFooterColor);
     }
 
     public abstract void onColorReady(int color);

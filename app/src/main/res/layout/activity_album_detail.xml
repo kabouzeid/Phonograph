@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_view_height"
             android:height="@dimen/title_view_height"
-            android:background="?default_bar_color"
+            android:background="?attr/defaultFooterColor"
             android:elevation="@dimen/toolbar_elevation"
             android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"

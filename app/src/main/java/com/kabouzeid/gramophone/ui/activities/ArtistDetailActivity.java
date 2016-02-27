@@ -148,7 +148,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
     private void setUpObservableListViewParams() {
         artistImageViewHeight = getResources().getDimensionPixelSize(R.dimen.header_image_height);
-        toolbarColor = DialogUtils.resolveColor(this, R.attr.default_bar_color);
+        toolbarColor = DialogUtils.resolveColor(this, R.attr.defaultFooterColor);
         int toolbarHeight = Util.getActionBarSize(this);
         titleViewHeight = getResources().getDimensionPixelSize(R.dimen.title_view_height);
         headerOffset = toolbarHeight;

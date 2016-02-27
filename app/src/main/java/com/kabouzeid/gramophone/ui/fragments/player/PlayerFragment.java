@@ -385,7 +385,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
             currentSongViewHolder.separator.setVisibility(View.VISIBLE);
             currentSongViewHolder.shortSeparator.setVisibility(View.GONE);
             currentSongViewHolder.image.setScaleType(ImageView.ScaleType.CENTER);
-            currentSongViewHolder.image.setImageDrawable(Util.getTintedDrawable(fragment.getActivity(), R.drawable.ic_volume_up_white_24dp, ATHUtil.resolveColor(fragment.getActivity(), R.attr.icon_color, ThemeStore.textColorSecondary(fragment.getActivity()))));
+            currentSongViewHolder.image.setImageDrawable(Util.getTintedDrawable(fragment.getActivity(), R.drawable.ic_volume_up_white_24dp, ATHUtil.resolveColor(fragment.getActivity(), R.attr.iconColor, ThemeStore.textColorSecondary(fragment.getActivity()))));
             currentSongViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

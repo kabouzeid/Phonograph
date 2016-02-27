@@ -138,7 +138,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
                     @Override
                     public void onLoadCleared(Drawable placeholder) {
                         super.onLoadCleared(placeholder);
-                        setColors(getDefaultBarColor(), holder);
+                        setColors(getDefaultFooterColor(), holder);
                     }
 
                     @Override

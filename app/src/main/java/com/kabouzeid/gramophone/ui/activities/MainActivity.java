@@ -188,7 +188,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         navigationView.setCheckedItem(R.id.nav_library);
 
         int accentColor = ThemeStore.accentColor(this);
-        NavigationViewUtil.setItemIconColors(navigationView, ATHUtil.resolveColor(this, R.attr.icon_color, ThemeStore.textColorSecondary(this)), accentColor);
+        NavigationViewUtil.setItemIconColors(navigationView, ATHUtil.resolveColor(this, R.attr.iconColor, ThemeStore.textColorSecondary(this)), accentColor);
         NavigationViewUtil.setItemTextColors(navigationView, ThemeStore.textColorPrimary(this), accentColor);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

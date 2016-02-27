@@ -109,7 +109,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
             holder.image.setImageDrawable(Util.getTintedDrawable(
                     activity,
                     getIconRes(playlist),
-                    ATHUtil.resolveColor(activity, R.attr.icon_color, ThemeStore.textColorSecondary(activity))
+                    ATHUtil.resolveColor(activity, R.attr.iconColor, ThemeStore.textColorSecondary(activity))
             ));
         }
     }

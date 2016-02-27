@@ -6,6 +6,7 @@
     android:layout_height="@dimen/mini_player_height"
     android:clickable="true"
     android:focusable="false"
+    android:background="?cardBackgroundColor"
     android:transitionName="@string/transition_mini_player"
     tools:ignore="UnusedAttribute">
 
@@ -23,6 +24,9 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="16dp"
             android:scaleType="centerCrop"
+            android:src="@drawable/ic_keyboard_arrow_up_white_24dp"
+            android:tint="?attr/iconColor"
+            android:tintMode="src_in"
             tools:ignore="ContentDescription" />
 
         <TextView
