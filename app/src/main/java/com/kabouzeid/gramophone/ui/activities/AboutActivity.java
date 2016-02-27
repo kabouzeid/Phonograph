@@ -10,13 +10,11 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.kabouzeid.appthemehelper.ThemeStore;
-import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
 import com.kabouzeid.gramophone.dialogs.DonationDialog;
@@ -94,35 +92,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     @Bind(R.id.aleksandar_tesic_google_plus)
     AppCompatButton aleksandarTesicGooglePlus;
 
-    @Bind(R.id.icon_info)
-    ImageView iconInfo;
-    @Bind(R.id.icon_changelog)
-    ImageView iconChangelog;
-    @Bind(R.id.icon_intro)
-    ImageView iconIntro;
-    @Bind(R.id.icon_licenses)
-    ImageView iconLicenses;
-    @Bind(R.id.icon_bug_report)
-    ImageView iconBugReport;
-    @Bind(R.id.icon_google_plus_community)
-    ImageView iconGooglePlusCommunity;
-    @Bind(R.id.icon_flag)
-    ImageView iconFlag;
-    @Bind(R.id.icon_rate)
-    ImageView iconRate;
-    @Bind(R.id.icon_donate)
-    ImageView iconDonate;
-    @Bind(R.id.icon_author)
-    ImageView iconAuthor;
-    @Bind(R.id.icon_google_plus)
-    ImageView iconGooglePlus;
-    @Bind(R.id.icon_twitter)
-    ImageView iconTwitter;
-    @Bind(R.id.icon_github)
-    ImageView iconGithub;
-    @Bind(R.id.icon_website)
-    ImageView iconWebsite;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,7 +109,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     private void setUpViews() {
         setUpToolbar();
         setUpAppVersion();
-        setUpIconTint();
         setUpOnClickListeners();
     }
 
@@ -174,24 +142,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         michaelCookWebsite.setOnClickListener(this);
         maartenCorpelGooglePlus.setOnClickListener(this);
         aleksandarTesicGooglePlus.setOnClickListener(this);
-    }
-
-    private void setUpIconTint() {
-        int iconColor = ATHUtil.resolveColor(this, R.attr.icon_color, ThemeStore.textColorSecondary(this));
-        iconInfo.setColorFilter(iconColor);
-        iconChangelog.setColorFilter(iconColor);
-        iconIntro.setColorFilter(iconColor);
-        iconLicenses.setColorFilter(iconColor);
-        iconBugReport.setColorFilter(iconColor);
-        iconGooglePlusCommunity.setColorFilter(iconColor);
-        iconFlag.setColorFilter(iconColor);
-        iconRate.setColorFilter(iconColor);
-        iconDonate.setColorFilter(iconColor);
-        iconAuthor.setColorFilter(iconColor);
-        iconGooglePlus.setColorFilter(iconColor);
-        iconTwitter.setColorFilter(iconColor);
-        iconGithub.setColorFilter(iconColor);
-        iconWebsite.setColorFilter(iconColor);
     }
 
     @Override

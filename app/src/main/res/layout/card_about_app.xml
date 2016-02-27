@@ -41,7 +41,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?rect_selector"
+            android:background="?attr/rectSelector"
             android:clickable="true"
             android:gravity="center_vertical"
             android:minHeight="@dimen/md_listitem_height"
@@ -54,7 +54,9 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_info_outline_white_24dp"
-                tools:ignore="ContentDescription" />
+                android:tint="?attr/iconColor"
+                android:tintMode="src_in"
+                tools:ignore="ContentDescription,UnusedAttribute" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,7 +88,7 @@
             android:id="@+id/changelog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?rect_selector"
+            android:background="?attr/rectSelector"
             android:clickable="true"
             android:gravity="center_vertical"
             android:minHeight="@dimen/md_listitem_height"
@@ -99,7 +101,9 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_history_white_24dp"
-                tools:ignore="ContentDescription" />
+                android:tint="?attr/iconColor"
+                android:tintMode="src_in"
+                tools:ignore="ContentDescription,UnusedAttribute" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -117,7 +121,7 @@
             android:id="@+id/intro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?rect_selector"
+            android:background="?attr/rectSelector"
             android:clickable="true"
             android:gravity="center_vertical"
             android:minHeight="@dimen/md_listitem_height"
@@ -130,7 +134,9 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_book_open_variant_white_24dp"
-                tools:ignore="ContentDescription" />
+                android:tint="?attr/iconColor"
+                android:tintMode="src_in"
+                tools:ignore="ContentDescription,UnusedAttribute" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -148,7 +154,7 @@
             android:id="@+id/licenses"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?rect_selector"
+            android:background="?attr/rectSelector"
             android:clickable="true"
             android:gravity="center_vertical"
             android:minHeight="@dimen/md_listitem_height"
@@ -161,7 +167,9 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_description_white_24dp"
-                tools:ignore="ContentDescription" />
+                android:tint="?attr/iconColor"
+                android:tintMode="src_in"
+                tools:ignore="ContentDescription,UnusedAttribute" />
 
             <TextView
                 android:layout_width="wrap_content"

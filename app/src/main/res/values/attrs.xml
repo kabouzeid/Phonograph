@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <attr name="music_controller_container_color" format="color" />
+    <attr name="roundSelector" format="reference" />
+    <attr name="rectSelector" format="reference" />
 
-    <attr name="round_selector" format="reference" />
-    <attr name="rect_selector" format="reference" />
-
-    <attr name="default_bar_color" format="color" />
+    <attr name="defaultFooterColor" format="color" />
 
     <attr name="toolbarPopupTheme" format="reference" />
 
-    <attr name="icon_color" format="color" />
-    <attr name="divider_color" format="color" />
+    <attr name="iconColor" format="color" />
+    <attr name="dividerColor" format="color" />
 
 </resources>

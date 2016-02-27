@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="64dp"
-    android:foreground="?rect_selector"
+    android:foreground="?attr/rectSelector"
     tools:ignore="UnusedAttribute">
 
     <ImageView
@@ -14,7 +14,7 @@
         android:layout_marginLeft="-8dp"
         android:layout_marginStart="-8dp"
         android:src="@drawable/ic_drag_vertical_white_24dp"
-        android:tint="?icon_color"
+        android:tint="?attr/iconColor"
         android:tintMode="src_in"
         android:visibility="gone"
         tools:ignore="ContentDescription" />
@@ -82,7 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_gravity="bottom"
-        android:background="?divider_color"
+        android:background="?attr/dividerColor"
         android:visibility="gone" />
 
     <View
@@ -92,6 +92,6 @@
         android:layout_gravity="bottom"
         android:layout_marginLeft="72dp"
         android:layout_marginStart="72dp"
-        android:background="?divider_color" />
+        android:background="?attr/dividerColor" />
 
 </FrameLayout>

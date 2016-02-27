@@ -16,15 +16,12 @@ import android.widget.TextView;
 
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
-import com.kabouzeid.appthemehelper.util.ColorUtil;
-import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.MusicProgressViewUpdateHelper;
 import com.kabouzeid.gramophone.helper.PlayPauseButtonOnClickHandler;
 import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
 import com.kabouzeid.gramophone.ui.activities.base.AbsMusicServiceActivity;
-import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.views.PlayPauseDrawable;
 
 import butterknife.Bind;
@@ -97,24 +94,14 @@ public class MiniPlayerFragment extends Fragment implements MusicServiceEventLis
     }
 
     private void setUpMiniPlayer() {
-        setMiniPlayerColor(ATHUtil.resolveColor(activity, R.attr.cardBackgroundColor));
-        miniPlayerImage.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_keyboard_arrow_up_white_24dp,
-                ATHUtil.resolveColor(activity, R.attr.icon_color, ThemeStore.textColorSecondary(getActivity()))));
         setUpPlayPauseButton();
-
         progressBar.setProgressTintList(ColorStateList.valueOf(ThemeStore.accentColor(activity)));
-    }
-
-    public void setMiniPlayerColor(int color) {
-        if (getView() == null) return;
-        getView().setBackgroundColor(color);
-        miniPlayerTitle.setTextColor(MaterialValueHelper.getPrimaryTextColor(activity, ColorUtil.isColorLight(color)));
     }
 
     private void setUpPlayPauseButton() {
         updatePlayPauseDrawableState(false);
         miniPlayerPlayPauseButton.setImageDrawable(miniPlayerPlayPauseDrawable);
-        miniPlayerPlayPauseButton.setColorFilter(ATHUtil.resolveColor(activity, R.attr.icon_color, ThemeStore.textColorSecondary(getActivity())), PorterDuff.Mode.SRC_IN);
+        miniPlayerPlayPauseButton.setColorFilter(ATHUtil.resolveColor(activity, R.attr.iconColor, ThemeStore.textColorSecondary(getActivity())), PorterDuff.Mode.SRC_IN);
         miniPlayerPlayPauseButton.setOnClickListener(new PlayPauseButtonOnClickHandler());
     }
 

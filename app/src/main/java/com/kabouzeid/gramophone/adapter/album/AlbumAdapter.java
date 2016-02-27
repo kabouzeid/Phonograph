@@ -137,7 +137,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
                     @Override
                     public void onLoadCleared(Drawable placeholder) {
                         super.onLoadCleared(placeholder);
-                        setColors(getDefaultBarColor(), holder);
+                        setColors(getDefaultFooterColor(), holder);
                     }
 
                     @Override

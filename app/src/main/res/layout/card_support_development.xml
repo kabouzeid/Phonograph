@@ -30,7 +30,7 @@
             android:id="@+id/report_bugs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?rect_selector"
+            android:background="?attr/rectSelector"
             android:clickable="true"
             android:gravity="center_vertical"
             android:minHeight="@dimen/md_listitem_height"
@@ -43,7 +43,9 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_bug_report_white_24dp"
-                tools:ignore="ContentDescription" />
+                android:tint="?attr/iconColor"
+                android:tintMode="src_in"
+                tools:ignore="ContentDescription,UnusedAttribute" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -73,7 +75,7 @@
             android:id="@+id/join_google_plus_community"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?rect_selector"
+            android:background="?attr/rectSelector"
             android:clickable="true"
             android:gravity="center_vertical"
             android:minHeight="@dimen/md_listitem_height"
@@ -86,7 +88,9 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_google_circles_communities_white_24dp"
-                tools:ignore="ContentDescription" />
+                android:tint="?attr/iconColor"
+                android:tintMode="src_in"
+                tools:ignore="ContentDescription,UnusedAttribute" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -116,7 +120,7 @@
             android:id="@+id/translate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?rect_selector"
+            android:background="?attr/rectSelector"
             android:clickable="true"
             android:gravity="center_vertical"
             android:minHeight="@dimen/md_listitem_height"
@@ -129,7 +133,9 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_flag_white_24dp"
-                tools:ignore="ContentDescription" />
+                android:tint="?attr/iconColor"
+                android:tintMode="src_in"
+                tools:ignore="ContentDescription,UnusedAttribute" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -159,7 +165,7 @@
             android:id="@+id/rate_on_google_play"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?rect_selector"
+            android:background="?attr/rectSelector"
             android:clickable="true"
             android:gravity="center_vertical"
             android:minHeight="@dimen/md_listitem_height"
@@ -172,7 +178,9 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_play_shopping_bag_white_24dp"
-                tools:ignore="ContentDescription" />
+                android:tint="?attr/iconColor"
+                android:tintMode="src_in"
+                tools:ignore="ContentDescription,UnusedAttribute" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -202,7 +210,7 @@
             android:id="@+id/donate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?rect_selector"
+            android:background="?attr/rectSelector"
             android:clickable="true"
             android:gravity="center_vertical"
             android:minHeight="@dimen/md_listitem_height"
@@ -215,7 +223,9 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_attach_money_white_24dp"
-                tools:ignore="ContentDescription" />
+                android:tint="?attr/iconColor"
+                android:tintMode="src_in"
+                tools:ignore="ContentDescription,UnusedAttribute" />
 
             <LinearLayout
                 android:layout_width="match_parent"
