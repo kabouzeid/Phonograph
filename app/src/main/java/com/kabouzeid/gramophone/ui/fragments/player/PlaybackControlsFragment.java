@@ -26,7 +26,6 @@ import com.kabouzeid.gramophone.misc.SimpleOnSeekbarChangeListener;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsMusicServiceActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
-import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.views.PlayPauseDrawable;
 
 import butterknife.Bind;
@@ -160,7 +159,6 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
         updateRepeatState();
         updateShuffleState();
         updatePrevNextColor();
-        updateProgressSliderTint();
         updateProgressTextColor();
     }
 
@@ -226,10 +224,10 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
     }
 
     private void updatePrevNextColor() {
-        nextButton.setImageDrawable(Util.getTintedDrawable(activity,
-                R.drawable.ic_skip_next_white_36dp, lastPlaybackControlsColor));
-        prevButton.setImageDrawable(Util.getTintedDrawable(activity,
-                R.drawable.ic_skip_previous_white_36dp, lastPlaybackControlsColor));
+        nextButton.setImageResource(R.drawable.ic_skip_next_white_36dp);
+        nextButton.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN);
+        prevButton.setImageResource(R.drawable.ic_skip_previous_white_36dp);
+        prevButton.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN);
     }
 
     private void setUpShuffleButton() {
@@ -245,12 +243,12 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
     private void updateShuffleState() {
         switch (MusicPlayerRemote.getShuffleMode()) {
             case MusicService.SHUFFLE_MODE_SHUFFLE:
-                shuffleButton.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_shuffle_white_36dp,
-                        lastPlaybackControlsColor));
+                shuffleButton.setImageResource(R.drawable.ic_shuffle_white_36dp);
+                shuffleButton.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN);
                 break;
             default:
-                shuffleButton.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_shuffle_white_36dp,
-                        lastDisabledPlaybackControlsColor));
+                shuffleButton.setImageResource(R.drawable.ic_shuffle_white_36dp);
+                shuffleButton.setColorFilter(lastDisabledPlaybackControlsColor, PorterDuff.Mode.SRC_IN);
                 break;
         }
     }
@@ -267,17 +265,17 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
 
     private void updateRepeatState() {
         switch (MusicPlayerRemote.getRepeatMode()) {
+            case MusicService.REPEAT_MODE_NONE:
+                repeatButton.setImageResource(R.drawable.ic_repeat_white_36dp);
+                repeatButton.setColorFilter(lastDisabledPlaybackControlsColor, PorterDuff.Mode.SRC_IN);
+                break;
             case MusicService.REPEAT_MODE_ALL:
-                repeatButton.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_repeat_white_36dp,
-                        lastPlaybackControlsColor));
+                repeatButton.setImageResource(R.drawable.ic_repeat_white_36dp);
+                repeatButton.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN);
                 break;
             case MusicService.REPEAT_MODE_THIS:
-                repeatButton.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_repeat_one_white_36dp,
-                        lastPlaybackControlsColor));
-                break;
-            default:
-                repeatButton.setImageDrawable(Util.getTintedDrawable(activity, R.drawable.ic_repeat_white_36dp,
-                        lastDisabledPlaybackControlsColor));
+                repeatButton.setImageResource(R.drawable.ic_repeat_one_white_36dp);
+                repeatButton.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN);
                 break;
         }
     }
@@ -299,14 +297,11 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
         }
     }
 
-    private void updateProgressSliderTint() {
+    private void setUpProgressSlider() {
         int color = MaterialValueHelper.getPrimaryTextColor(getContext(), false);
         progressSlider.getThumb().mutate().setColorFilter(color, PorterDuff.Mode.SRC_IN);
         progressSlider.getProgressDrawable().mutate().setColorFilter(Color.TRANSPARENT, PorterDuff.Mode.SRC_IN);
-    }
 
-    private void setUpProgressSlider() {
-        updateProgressSliderTint();
         progressSlider.setOnSeekBarChangeListener(new SimpleOnSeekbarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
