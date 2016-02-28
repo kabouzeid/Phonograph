@@ -5,7 +5,7 @@
     android:layout_height="148dp"
     android:layout_marginEnd="8dp"
     android:layout_marginRight="8dp"
-    android:foreground="?attr/rectSelector"
+    android:foreground="?attr/rectSelectorStrong"
     app:cardBackgroundColor="?cardBackgroundColor">
 
     <LinearLayout

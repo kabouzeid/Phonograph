@@ -16,20 +16,27 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.kabouzeid.gramophone.views.WidthFitSquareImageView
-                android:id="@+id/image"
+            <com.kabouzeid.gramophone.views.WidthFitSquareLayout
+                android:id="@+id/image_container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/default_album_art"
-                android:transitionName="@string/transition_album_art"
-                tools:ignore="UnusedAttribute" />
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_album_art"
+                    android:transitionName="@string/transition_album_art"
+                    tools:ignore="UnusedAttribute" />
+
+            </com.kabouzeid.gramophone.views.WidthFitSquareLayout>
 
             <LinearLayout
                 android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/image"
+                android:layout_below="@+id/image_container"
                 android:elevation="@dimen/toolbar_elevation"
                 android:minHeight="@dimen/title_view_height"
                 android:orientation="vertical"

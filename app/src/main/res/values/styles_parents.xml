@@ -10,6 +10,7 @@
 
         <item name="roundSelector">@drawable/round_selector_dark</item>
         <item name="rectSelector">@drawable/rect_selector_dark</item>
+        <item name="rectSelectorStrong">@drawable/rect_selector_strong_dark</item>
 
         <item name="cardBackgroundColor">@color/grey_800</item>
 
@@ -38,6 +39,7 @@
 
         <item name="roundSelector">@drawable/round_selector</item>
         <item name="rectSelector">@drawable/rect_selector</item>
+        <item name="rectSelectorStrong">@drawable/rect_selector_strong</item>
 
         <item name="cardBackgroundColor">@color/white</item>
 
