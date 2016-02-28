@@ -173,7 +173,7 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/play_pause_fab"
-        style="@style/PlayPauseFab"
+        style="@style/Fab"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin_top_left_right"
         app:srcCompat="@drawable/ic_done_white_24dp" />

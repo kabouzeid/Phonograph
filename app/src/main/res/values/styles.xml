@@ -28,7 +28,7 @@
         <item name="android:layout_gravity">center</item>
     </style>
 
-    <style name="PlayPauseFab" parent="PlayPauseFabParent" />
+    <style name="Fab" parent="FabParent" />
 
     <style name="MusicProgressSlider" parent="MusicProgressSliderParent">
         <item name="android:thumbOffset">0dp</item>

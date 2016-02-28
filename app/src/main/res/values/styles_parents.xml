@@ -67,7 +67,7 @@
         <item name="md_background_color">@color/grey_900</item>
     </style>
 
-    <style name="PlayPauseFabParent">
+    <style name="FabParent">
         <item name="borderWidth">0dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -85,18 +85,6 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">@dimen/seek_bar_margin_left_right</item>
         <item name="android:layout_marginRight">@dimen/seek_bar_margin_left_right</item>
-    </style>
-
-    <style name="OverFlowButtonParent">
-        <item name="android:tint">?attr/iconColor</item>
-        <item name="srcCompat">@drawable/abc_ic_menu_overflow_material</item>
-        <item name="android:layout_margin">8dp</item>
-        <item name="android:layout_width">48dp</item>
-        <item name="android:layout_height">48dp</item>
-        <item name="android:scaleType">center</item>
-        <item name="android:background">?attr/roundSelector</item>
-        <item name="android:focusableInTouchMode">false</item>
-        <item name="android:focusable">false</item>
     </style>
 
     <!-- content description is necessary to find the overflow button later in the layout-->
