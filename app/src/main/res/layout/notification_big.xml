@@ -47,7 +47,6 @@
             android:layout_marginRight="2dp"
             android:layout_marginTop="2dp"
             android:background="@drawable/notification_selector"
-            android:src="@drawable/ic_close_white_24dp"
             tools:ignore="ContentDescription" />
 
         <LinearLayout
@@ -124,7 +123,6 @@
                 android:gravity="center"
                 android:padding="8dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_skip_previous_white_36dp"
                 tools:ignore="ContentDescription" />
 
             <ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
@@ -139,7 +137,6 @@
                 android:gravity="center"
                 android:padding="8dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_play_arrow_white_36dp"
                 tools:ignore="ContentDescription" />
 
             <ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
@@ -154,7 +151,6 @@
                 android:gravity="center"
                 android:padding="8dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_skip_next_white_36dp"
                 tools:ignore="ContentDescription" />
         </LinearLayout>
     </RelativeLayout>

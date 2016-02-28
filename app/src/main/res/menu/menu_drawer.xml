@@ -6,12 +6,12 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_library"
-            android:icon="@drawable/ic_my_library_music_white_24dp"
+            android:icon="@drawable/ic_library_music_black_24dp"
             android:title="@string/library" />
         <item
             android:enabled="false"
             android:id="@+id/nav_folders"
-            android:icon="@drawable/ic_folder_white_24dp"
+            android:icon="@drawable/ic_folder_black_24dp"
             android:title="Folders (soon)" />
     </group>
 
@@ -20,15 +20,15 @@
         android:checkableBehavior="none">
         <item
             android:id="@+id/support_development"
-            android:icon="@drawable/ic_favorite_white_24dp"
+            android:icon="@drawable/ic_favorite_black_24dp"
             android:title="@string/support_development" />
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_settings_white_24dp"
+            android:icon="@drawable/ic_settings_black_24dp"
             android:title="@string/action_settings" />
         <item
             android:id="@+id/nav_about"
-            android:icon="@drawable/ic_help_white_24dp"
+            android:icon="@drawable/ic_help_black_24dp"
             android:title="@string/action_about" />
     </group>
 

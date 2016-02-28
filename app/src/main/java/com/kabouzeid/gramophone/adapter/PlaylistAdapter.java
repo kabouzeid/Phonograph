@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.adapter;
 
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
 
-import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
@@ -28,7 +28,6 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,11 +105,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         }
 
         if (holder.image != null) {
-            holder.image.setImageDrawable(Util.getTintedDrawable(
-                    activity,
-                    getIconRes(playlist),
-                    ATHUtil.resolveColor(activity, R.attr.iconColor, ThemeStore.textColorSecondary(activity))
-            ));
+            holder.image.setImageResource(getIconRes(playlist));
         }
     }
 
@@ -118,7 +113,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         if (playlist instanceof AbsSmartPlaylist) {
             return ((AbsSmartPlaylist) playlist).iconRes;
         }
-        return playlist.id == favoritePlaylistId ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_queue_music_white_24dp;
+        return playlist.id == favoritePlaylistId ? R.drawable.ic_favorite_black_24dp : R.drawable.ic_queue_music_black_24dp;
     }
 
     @Override
@@ -198,6 +193,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
             if (image != null) {
                 int iconPadding = activity.getResources().getDimensionPixelSize(R.dimen.list_item_image_icon_padding);
                 image.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
+                image.setColorFilter(ATHUtil.resolveColor(activity, R.attr.iconColor), PorterDuff.Mode.SRC_IN);
             }
 
             if (menu != null) {

@@ -15,7 +15,7 @@
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@mipmap/ic_launcher"
         android:label="${appName}"
         android:supportsRtl="true"
         android:theme="@style/Theme.Phonograph.Light"

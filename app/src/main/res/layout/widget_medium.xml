@@ -30,24 +30,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/notification_selector"
-                android:src="@drawable/ic_skip_previous_dark_36dp" />
+                android:background="@drawable/notification_selector" />
 
             <ImageButton
                 android:id="@+id/button_toggle_play_pause"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/notification_selector"
-                android:src="@drawable/ic_play_arrow_dark_36dp" />
+                android:background="@drawable/notification_selector" />
 
             <ImageButton
                 android:id="@+id/button_next"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/notification_selector"
-                android:src="@drawable/ic_skip_next_dark_36dp" />
+                android:background="@drawable/notification_selector" />
 
         </LinearLayout>
 
@@ -68,7 +65,7 @@
                 android:gravity="center_vertical"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/primary_text_default_material_light" />
+                android:textColor="@color/ate_primary_text_light" />
 
             <TextView
                 android:id="@+id/song_secondary_information"
@@ -78,7 +75,7 @@
                 android:gravity="center_vertical"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:textColor="@color/secondary_text_default_material_light" />
+                android:textColor="@color/ate_primary_text_light" />
 
         </LinearLayout>
 
