@@ -1,29 +1,17 @@
 <resources>
 
     <style name="Theme.Phonograph" parent="Theme.Phonograph.Base">
-        <item name="roundSelector">@drawable/round_ripple_selector</item>
-        <item name="rectSelector">@drawable/rect_ripple_selector_dark</item>
-
         <item name="android:statusBarColor">@android:color/transparent</item>
-
         <item name="android:windowSharedElementsUseOverlay">false</item>
     </style>
 
     <style name="Theme.Phonograph.Light" parent="Theme.Phonograph.Base.Light">
-        <item name="roundSelector">@drawable/round_ripple_selector</item>
-        <item name="rectSelector">@drawable/rect_ripple_selector</item>
-
         <item name="android:statusBarColor">@android:color/transparent</item>
-
         <item name="android:windowSharedElementsUseOverlay">false</item>
     </style>
 
     <style name="Theme.Phonograph.Black" parent="Theme.Phonograph.Base.Black">
-        <item name="roundSelector">@drawable/round_ripple_selector</item>
-        <item name="rectSelector">@drawable/rect_ripple_selector_dark</item>
-
         <item name="android:statusBarColor">@android:color/transparent</item>
-
         <item name="android:windowSharedElementsUseOverlay">false</item>
     </style>
 

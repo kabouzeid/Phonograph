@@ -46,10 +46,6 @@ public class MediaEntryViewHolder extends RecyclerView.ViewHolder implements Vie
     public View shortSeparator;
 
     @Nullable
-    @Bind(R.id.selected_indicator)
-    public View selectedIndicator;
-
-    @Nullable
     @Bind(R.id.drag_view)
     public View dragView;
 
