@@ -223,7 +223,7 @@
     <string name="label_storage">Stockage</string>
     <string name="open_playing_queue_instruction">Vous pouvez glisser la carte dans l\'écran de lecture en cours pour afficher la file de lecture complète.</string>
     <string name="rearrange_playing_queue_instruction">Vous pouvez réorganiser la file de lecture en faisant glisser une chanson à partir de son numéro de piste.</string>
-    <string name="storage_permission_explaination">L\'autorisation de stockage est nécessaire pour que Phonograph puisse lire votre bibliothèque musicale.</string>
+    <string name="storage_permission_explaination">Phonograph va maintenant vous demander l\'autorisation d\'accès au stockage externe. Cette autorisation est nécessaire pour accéder à votre bibliothèque musicale.</string>
     <string name="library">Bibliothèque</string>
     <string name="folders">Dossiers</string>
     <string name="saved_playlist_to">Liste de lecture sauvegardée dans %s.</string>
