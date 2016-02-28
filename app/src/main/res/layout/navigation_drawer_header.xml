@@ -1,19 +1,20 @@
-<android.support.percent.PercentFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.percent.PercentFrameLayout android:id="@+id/header"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/header"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
-    android:foreground="?attr/rectSelector">
+    android:foreground="?rectSelectorStrong">
 
+    <!--suppress AndroidDomInspection -->
     <ImageView
         android:id="@+id/image"
-        app:layout_widthPercent="100%"
-        app:layout_aspectRatio="178%"
         android:scaleType="centerCrop"
         android:src="@drawable/default_album_art"
         android:transitionName="@string/transition_album_art"
+        app:layout_aspectRatio="178%"
+        app:layout_widthPercent="100%"
         tools:ignore="ContentDescription,UnusedAttribute" />
 
     <View
@@ -39,7 +40,7 @@
             android:fontFamily="sans-serif-medium"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            android:textColor="@android:color/white"
+            android:textColor="@color/ate_primary_text_dark"
             android:textSize="14sp" />
 
         <TextView
@@ -51,7 +52,7 @@
             android:fontFamily="sans-serif"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@android:color/white"
+            android:textColor="@color/ate_secondary_text_dark"
             android:textSize="14sp" />
 
     </LinearLayout>
