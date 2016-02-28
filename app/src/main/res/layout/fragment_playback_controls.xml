@@ -68,7 +68,7 @@
             android:background="?attr/roundSelector"
             android:padding="22dp"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_skip_previous_black_24dp"
+            app:srcCompat="@drawable/ic_skip_previous_white_24dp"
             tools:ignore="MissingPrefix" />
 
         <ImageButton
@@ -83,7 +83,7 @@
             android:background="?attr/roundSelector"
             android:padding="22dp"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_skip_next_black_24dp"
+            app:srcCompat="@drawable/ic_skip_next_white_24dp"
             tools:ignore="MissingPrefix" />
 
         <ImageButton
@@ -98,7 +98,7 @@
             android:background="?attr/roundSelector"
             android:padding="22dp"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_repeat_black_24dp"
+            app:srcCompat="@drawable/ic_repeat_white_24dp"
             tools:ignore="MissingPrefix" />
 
         <ImageButton
@@ -113,7 +113,7 @@
             android:background="?attr/roundSelector"
             android:padding="22dp"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_shuffle_black_24dp"
+            app:srcCompat="@drawable/ic_shuffle_white_24dp"
             tools:ignore="MissingPrefix" />
 
         <Space

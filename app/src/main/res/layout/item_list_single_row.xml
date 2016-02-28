@@ -14,7 +14,7 @@
         android:layout_gravity="center_vertical|start"
         android:layout_marginLeft="-8dp"
         android:layout_marginStart="-8dp"
-        app:srcCompat="@drawable/ic_drag_vertical_black_24dp"
+        app:srcCompat="@drawable/ic_drag_vertical_white_24dp"
         android:visibility="gone"
         tools:ignore="ContentDescription" />
 

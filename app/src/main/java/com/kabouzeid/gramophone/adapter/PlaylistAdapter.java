@@ -113,7 +113,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         if (playlist instanceof AbsSmartPlaylist) {
             return ((AbsSmartPlaylist) playlist).iconRes;
         }
-        return playlist.id == favoritePlaylistId ? R.drawable.ic_favorite_black_24dp : R.drawable.ic_queue_music_black_24dp;
+        return playlist.id == favoritePlaylistId ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_queue_music_white_24dp;
     }
 
     @Override

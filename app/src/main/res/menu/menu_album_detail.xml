@@ -4,7 +4,7 @@
     tools:context="com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity">
 
     <item
-        android:icon="@drawable/ic_shuffle_black_24dp"
+        android:icon="@drawable/ic_shuffle_white_24dp"
         android:id="@+id/action_shuffle_album"
         android:title="@string/action_shuffle_album"
         app:showAsAction="ifRoom" />

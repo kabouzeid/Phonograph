@@ -262,15 +262,15 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
     private void updateRepeatState() {
         switch (MusicPlayerRemote.getRepeatMode()) {
             case MusicService.REPEAT_MODE_NONE:
-                repeatButton.setImageResource(R.drawable.ic_repeat_black_24dp);
+                repeatButton.setImageResource(R.drawable.ic_repeat_white_24dp);
                 repeatButton.setColorFilter(lastDisabledPlaybackControlsColor, PorterDuff.Mode.SRC_IN);
                 break;
             case MusicService.REPEAT_MODE_ALL:
-                repeatButton.setImageResource(R.drawable.ic_repeat_black_24dp);
+                repeatButton.setImageResource(R.drawable.ic_repeat_white_24dp);
                 repeatButton.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN);
                 break;
             case MusicService.REPEAT_MODE_THIS:
-                repeatButton.setImageResource(R.drawable.ic_repeat_one_black_24dp);
+                repeatButton.setImageResource(R.drawable.ic_repeat_one_white_24dp);
                 repeatButton.setColorFilter(lastPlaybackControlsColor, PorterDuff.Mode.SRC_IN);
                 break;
         }

@@ -32,7 +32,7 @@ import de.psdev.licensesdialog.LicensesDialog;
 public class AboutActivity extends AbsBaseActivity implements View.OnClickListener {
 
     private static String GOOGLE_PLUS = "https://google.com/+KarimAbouZeid23697";
-    private static String TWITTER = "https://twitter.com/karim23697";
+    private static String TWITTER = "https://ic_twitter_white_24dp.com/karim23697";
     private static String GITHUB = "https://github.com/kabouzeid";
     private static String WEBSITE = "http://kabouzeid.com/";
 

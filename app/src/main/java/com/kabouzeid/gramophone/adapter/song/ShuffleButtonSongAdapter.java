@@ -87,7 +87,7 @@ public class ShuffleButtonSongAdapter extends SongAdapter {
                 final int padding = activity.getResources().getDimensionPixelSize(R.dimen.default_item_margin) / 2;
                 holder.image.setPadding(padding, padding, padding, padding);
                 holder.image.setColorFilter(accentColor);
-                holder.image.setImageResource(R.drawable.ic_shuffle_black_24dp);
+                holder.image.setImageResource(R.drawable.ic_shuffle_white_24dp);
             }
             if (holder.separator != null) {
                 holder.separator.setVisibility(View.VISIBLE);

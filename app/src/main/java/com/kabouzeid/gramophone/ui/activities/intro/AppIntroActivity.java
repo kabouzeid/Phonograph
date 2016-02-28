@@ -43,7 +43,7 @@ public class AppIntroActivity extends com.heinrichreimersoftware.materialintro.a
             addSlide(new PhonographSimpleSlide.Builder()
                     .title(R.string.label_storage)
                     .description(R.string.storage_permission_explaination)
-                    .image(R.drawable.ic_folder_black_24dp)
+                    .image(R.drawable.ic_folder_white_24dp)
                     .background(R.color.md_indigo_500)
                     .backgroundDark(R.color.md_indigo_600)
                     .build());
