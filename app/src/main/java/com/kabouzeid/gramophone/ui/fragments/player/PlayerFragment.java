@@ -195,7 +195,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
     private void setUpPlayerToolbar() {
         toolbar.inflateMenu(R.menu.menu_player);
-        toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -229,7 +229,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
     private void updateIsFavorite() {
         boolean isFavorite = MusicUtil.isFavorite(getActivity(), MusicPlayerRemote.getCurrentSong());
-        int res = isFavorite ? R.drawable.ic_favorite_black_24dp : R.drawable.ic_favorite_border_black_24dp;
+        int res = isFavorite ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_border_white_24dp;
 
         Drawable favoriteIcon = TintHelper.createTintedDrawable(ContextCompat.getDrawable(getActivity(), res), ToolbarContentTintHelper.toolbarContentColor(getActivity(), Color.TRANSPARENT));
         toolbar.getMenu().findItem(R.id.action_toggle_favorite)
@@ -387,7 +387,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
             currentSongViewHolder.shortSeparator.setVisibility(View.GONE);
             currentSongViewHolder.image.setScaleType(ImageView.ScaleType.CENTER);
             currentSongViewHolder.image.setColorFilter(ATHUtil.resolveColor(fragment.getActivity(), R.attr.iconColor, ThemeStore.textColorSecondary(fragment.getActivity())), PorterDuff.Mode.SRC_IN);
-            currentSongViewHolder.image.setImageResource(R.drawable.ic_volume_up_black_24dp);
+            currentSongViewHolder.image.setImageResource(R.drawable.ic_volume_up_white_24dp);
             currentSongViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

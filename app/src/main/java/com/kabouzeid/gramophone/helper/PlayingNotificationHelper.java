@@ -250,9 +250,9 @@ public class PlayingNotificationHelper {
             int primary = MaterialValueHelper.getPrimaryTextColor(service, dark);
             int secondary = MaterialValueHelper.getSecondaryTextColor(service, dark);
 
-            Bitmap prev = createBitmap(Util.getTintedDrawable(service, R.drawable.ic_skip_previous_black_24dp, primary), 1.5f);
-            Bitmap next = createBitmap(Util.getTintedDrawable(service, R.drawable.ic_skip_next_black_24dp, primary), 1.5f);
-            Bitmap close = createBitmap(Util.getTintedDrawable(service, R.drawable.ic_close_black_24dp, secondary), 1f);
+            Bitmap prev = createBitmap(Util.getTintedDrawable(service, R.drawable.ic_skip_previous_white_24dp, primary), 1.5f);
+            Bitmap next = createBitmap(Util.getTintedDrawable(service, R.drawable.ic_skip_next_white_24dp, primary), 1.5f);
+            Bitmap close = createBitmap(Util.getTintedDrawable(service, R.drawable.ic_close_white_24dp, secondary), 1f);
 
             notificationLayout.setTextColor(R.id.title, primary);
             notificationLayout.setTextColor(R.id.text, secondary);
@@ -269,7 +269,7 @@ public class PlayingNotificationHelper {
     }
 
     private void setPlayPauseDrawable() {
-        Bitmap playPause = createBitmap(Util.getTintedDrawable(service, isPlaying ? R.drawable.ic_pause_black_24dp : R.drawable.ic_play_arrow_black_24dp, MaterialValueHelper.getPrimaryTextColor(service, isDark)), 1.5f);
+        Bitmap playPause = createBitmap(Util.getTintedDrawable(service, isPlaying ? R.drawable.ic_pause_white_24dp : R.drawable.ic_play_arrow_white_24dp, MaterialValueHelper.getPrimaryTextColor(service, isDark)), 1.5f);
         if (notificationLayout != null) {
             notificationLayout.setImageViewBitmap(R.id.action_play_pause, playPause);
         }

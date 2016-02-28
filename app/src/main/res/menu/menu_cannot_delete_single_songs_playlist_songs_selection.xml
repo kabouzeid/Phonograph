@@ -4,13 +4,13 @@
 
     <item
         android:id="@+id/action_add_to_playlist"
-        android:icon="@drawable/ic_playlist_add_black_24dp"
+        android:icon="@drawable/ic_playlist_add_white_24dp"
         android:title="@string/action_add_to_playlist"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_add_to_current_playing"
-        android:icon="@drawable/ic_library_add_black_24dp"
+        android:icon="@drawable/ic_library_add_white_24dp"
         android:title="@string/action_add_to_playing_queue"
         app:showAsAction="ifRoom" />
 

@@ -61,7 +61,7 @@ public class WidgetMedium extends AppWidgetProvider {
 
     public static void updateWidgetsPlayState(@NonNull final Context context, boolean isPlaying) {
         initLayoutIfNecessary(context);
-        int playPauseRes = isPlaying ? R.drawable.ic_pause_black_24dp : R.drawable.ic_play_arrow_black_24dp;
+        int playPauseRes = isPlaying ? R.drawable.ic_pause_white_24dp : R.drawable.ic_play_arrow_white_24dp;
         widgetLayout.setImageViewBitmap(R.id.button_toggle_play_pause, createBitmap(Util.getTintedDrawable(context, playPauseRes, MaterialValueHelper.getPrimaryTextColor(context, true)), 1.5f));
         updateWidgets(context);
     }
@@ -69,8 +69,8 @@ public class WidgetMedium extends AppWidgetProvider {
     private static void initLayoutIfNecessary(Context context) {
         if (widgetLayout == null)
             widgetLayout = new RemoteViews(context.getPackageName(), R.layout.widget_medium);
-        widgetLayout.setImageViewBitmap(R.id.button_next, createBitmap(Util.getTintedDrawable(context, R.drawable.ic_skip_next_black_24dp, MaterialValueHelper.getPrimaryTextColor(context, true)), 1.5f));
-        widgetLayout.setImageViewBitmap(R.id.button_prev, createBitmap(Util.getTintedDrawable(context, R.drawable.ic_skip_previous_black_24dp, MaterialValueHelper.getPrimaryTextColor(context, true)), 1.5f));
+        widgetLayout.setImageViewBitmap(R.id.button_next, createBitmap(Util.getTintedDrawable(context, R.drawable.ic_skip_next_white_24dp, MaterialValueHelper.getPrimaryTextColor(context, true)), 1.5f));
+        widgetLayout.setImageViewBitmap(R.id.button_prev, createBitmap(Util.getTintedDrawable(context, R.drawable.ic_skip_previous_white_24dp, MaterialValueHelper.getPrimaryTextColor(context, true)), 1.5f));
     }
 
     private static void updateWidgets(@NonNull final Context context) {

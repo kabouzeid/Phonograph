@@ -193,7 +193,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         if (cab != null && cab.isActive()) cab.finish();
         cab = new MaterialCab(this, R.id.cab_stub)
                 .setMenu(menu)
-                .setCloseDrawableRes(R.drawable.ic_close_black_24dp)
+                .setCloseDrawableRes(R.drawable.ic_close_white_24dp)
                 .setBackgroundColor(PhonographColorUtil.shiftBackgroundColorForLightText(ThemeStore.primaryColor(this)))
                 .start(callback);
         return cab;

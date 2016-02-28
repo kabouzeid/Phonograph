@@ -41,7 +41,7 @@
                 android:id="@+id/icon_author"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:srcCompat="@drawable/ic_person_black_24dp"
+                app:srcCompat="@drawable/ic_person_white_24dp"
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <LinearLayout
@@ -84,7 +84,7 @@
                 android:id="@+id/icon_google_plus"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:srcCompat="@drawable/ic_google_plus"
+                app:srcCompat="@drawable/ic_google_plus_white_24dp"
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <TextView
@@ -115,7 +115,7 @@
                 android:id="@+id/icon_twitter"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:srcCompat="@drawable/twitter"
+                app:srcCompat="@drawable/ic_twitter_white_24dp"
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <TextView
@@ -146,7 +146,7 @@
                 android:id="@+id/icon_github"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:srcCompat="@drawable/ic_github_circle"
+                app:srcCompat="@drawable/ic_github_circle_white_24dp"
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <TextView
@@ -177,7 +177,7 @@
                 android:id="@+id/icon_website"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:srcCompat="@drawable/ic_open_in_browser_black_24dp"
+                app:srcCompat="@drawable/ic_open_in_browser_white_24dp"
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <TextView
