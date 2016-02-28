@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
@@ -21,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -28,6 +30,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
+import com.kabouzeid.gramophone.util.Util;
 
 import java.util.ArrayList;
 
@@ -38,9 +41,7 @@ public class WidgetMedium extends AppWidgetProvider {
     private static RemoteViews widgetLayout;
 
     public static void updateWidgets(@NonNull final Context context, @NonNull Song song, boolean isPlaying) {
-        if (widgetLayout == null) {
-            widgetLayout = new RemoteViews(context.getPackageName(), R.layout.widget_medium);
-        }
+        initLayoutIfNecessary(context);
         if (song.id == -1) {
             Log.d(TAG, "Had to load the current song from the SQL database.");
             ArrayList<Song> restoredQueue = MusicPlaybackQueueStore.getInstance(context).getSavedPlayingQueue();
@@ -59,11 +60,17 @@ public class WidgetMedium extends AppWidgetProvider {
     }
 
     public static void updateWidgetsPlayState(@NonNull final Context context, boolean isPlaying) {
+        initLayoutIfNecessary(context);
+        int playPauseRes = isPlaying ? R.drawable.ic_pause_black_24dp : R.drawable.ic_play_arrow_black_24dp;
+        widgetLayout.setImageViewBitmap(R.id.button_toggle_play_pause, createBitmap(Util.getTintedDrawable(context, playPauseRes, MaterialValueHelper.getPrimaryTextColor(context, true)), 1.5f));
+        updateWidgets(context);
+    }
+
+    private static void initLayoutIfNecessary(Context context) {
         if (widgetLayout == null)
             widgetLayout = new RemoteViews(context.getPackageName(), R.layout.widget_medium);
-        int playPauseRes = isPlaying ? R.drawable.ic_pause_black_24dp : R.drawable.ic_play_arrow_black_24dp;
-        widgetLayout.setImageViewResource(R.id.button_toggle_play_pause, playPauseRes);
-        updateWidgets(context);
+        widgetLayout.setImageViewBitmap(R.id.button_next, createBitmap(Util.getTintedDrawable(context, R.drawable.ic_skip_next_black_24dp, MaterialValueHelper.getPrimaryTextColor(context, true)), 1.5f));
+        widgetLayout.setImageViewBitmap(R.id.button_prev, createBitmap(Util.getTintedDrawable(context, R.drawable.ic_skip_previous_black_24dp, MaterialValueHelper.getPrimaryTextColor(context, true)), 1.5f));
     }
 
     private static void updateWidgets(@NonNull final Context context) {
@@ -159,6 +166,14 @@ public class WidgetMedium extends AppWidgetProvider {
     @Override
     public void onUpdate(@NonNull Context context, @NonNull AppWidgetManager appWidgetManager, @NonNull int[] appWidgetIds) {
         updateWidgets(context, MusicPlayerRemote.getCurrentSong(), MusicPlayerRemote.isPlaying());
+    }
+
+    private static Bitmap createBitmap(Drawable drawable, float sizeMultiplier) {
+        Bitmap bitmap = Bitmap.createBitmap((int) (drawable.getIntrinsicWidth() * sizeMultiplier), (int) (drawable.getIntrinsicHeight() * sizeMultiplier), Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bitmap);
+        drawable.setBounds(0, 0, c.getWidth(), c.getHeight());
+        drawable.draw(c);
+        return bitmap;
     }
 }
 
