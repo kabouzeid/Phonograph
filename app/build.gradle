@@ -64,8 +64,8 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         applicationId "com.kabouzeid.gramophone"
-        versionCode 101
-        versionName "0.9.57"
+        versionCode 102
+        versionName "0.9.58"
 
         manifestPlaceholders = [appName: "@string/app_name"]
     }
