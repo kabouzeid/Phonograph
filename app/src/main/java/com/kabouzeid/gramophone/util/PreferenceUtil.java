@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
-import android.support.v4.content.ContextCompat;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.SortOrder;
@@ -23,9 +22,6 @@ public final class PreferenceUtil {
     public static final String ALBUM_SONG_SORT_ORDER = "album_song_sort_order";
     public static final String SONG_SORT_ORDER = "song_sort_order";
 
-    // don't use "colored_navigation_bar" key here as this causes a class cast exception for users upgrading from older versions
-    public static final String COLORED_NAVIGATION_BAR = "should_color_navigation_bar";
-
     public static final String ALBUM_GRID_SIZE = "album_grid_size";
     public static final String ALBUM_GRID_SIZE_LAND = "album_grid_size_land";
 
@@ -39,13 +35,7 @@ public final class PreferenceUtil {
     public static final String SONG_COLORED_FOOTERS = "song_colored_footers";
     public static final String ARTIST_COLORED_FOOTERS = "artist_colored_footers";
 
-    public static final String OPAQUE_TOOLBAR_NOW_PLAYING = "opaque_toolbar_now_playing";
-    public static final String OPAQUE_STATUSBAR_NOW_PLAYING = "opaque_statusbar_now_playing";
     public static final String FORCE_SQUARE_ALBUM_COVER = "force_square_album_art";
-    public static final String LARGER_TITLE_BOX_NOW_PLAYING = "larger_title_box_now_playing";
-    public static final String ALTERNATIVE_PROGRESS_SLIDER_NOW_PLAYING = "alternative_progress_slider_now_playing";
-    public static final String PLAYBACK_CONTROLLER_CARD_NOW_PLAYING = "playback_controller_card_now_playing";
-    public static final String COLOR_PLAYBACK_CONTROLS_NOW_PLAYING = "color_playback_controls_now_playing";
 
     public static final String COLORED_NOTIFICATION = "colored_notification";
 
@@ -89,17 +79,6 @@ public final class PreferenceUtil {
         mPreferences.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
     }
 
-    @SuppressLint("CommitPrefEdits")
-    public void setGeneralTheme(Context context, String value) {
-        String[] allowedValues = context.getResources().getStringArray(R.array.pref_general_theme_list_values);
-        for (String allowedValue : allowedValues) {
-            if (value.equals(allowedValue)) {
-                mPreferences.edit().putString(GENERAL_THEME, value).commit();
-                return;
-            }
-        }
-    }
-
     public int getGeneralTheme() {
         return getThemeResFromPrefValue(mPreferences.getString(GENERAL_THEME, ""));
     }
@@ -115,35 +94,6 @@ public final class PreferenceUtil {
             default:
                 return R.style.Theme_Phonograph_Light;
         }
-    }
-
-    public int getThemeColorPrimary(Context context) {
-        return mPreferences.getInt("primary_color", ContextCompat.getColor(context, R.color.indigo_500));
-    }
-
-    @SuppressLint("CommitPrefEdits")
-    public void setThemeColorPrimary(int color) {
-        mPreferences.edit().putInt("primary_color", color).commit();
-    }
-
-    public int getThemeColorAccent(Context context) {
-        return mPreferences.getInt("accent_color", ContextCompat.getColor(context, R.color.pink_A400));
-    }
-
-    @SuppressLint("CommitPrefEdits")
-    public void setThemeColorAccent(int color) {
-        mPreferences.edit().putInt("accent_color", color).commit();
-    }
-
-    public final boolean shouldUseColoredNavigationBar() {
-        return mPreferences.getBoolean(COLORED_NAVIGATION_BAR, false);
-    }
-
-    @SuppressLint("CommitPrefEdits")
-    public void setColoredNavigationBar(boolean coloredNavigationBar) {
-        final SharedPreferences.Editor editor = mPreferences.edit();
-        editor.putBoolean(COLORED_NAVIGATION_BAR, coloredNavigationBar);
-        editor.commit();
     }
 
     public final int getDefaultStartPage() {
@@ -164,34 +114,6 @@ public final class PreferenceUtil {
 
     public final boolean coloredNotification() {
         return mPreferences.getBoolean(COLORED_NOTIFICATION, true);
-    }
-
-    public final boolean opaqueStatusbarNowPlaying() {
-        return mPreferences.getBoolean(OPAQUE_STATUSBAR_NOW_PLAYING, false);
-    }
-
-    public final boolean opaqueToolbarNowPlaying() {
-        return mPreferences.getBoolean(OPAQUE_TOOLBAR_NOW_PLAYING, false);
-    }
-
-    public final boolean forceSquareAlbumCover() {
-        return mPreferences.getBoolean(FORCE_SQUARE_ALBUM_COVER, false);
-    }
-
-    public final boolean playbackControllerCardNowPlaying() {
-        return mPreferences.getBoolean(PLAYBACK_CONTROLLER_CARD_NOW_PLAYING, false);
-    }
-
-    public final boolean colorPlaybackControlsNowPlaying() {
-        return mPreferences.getBoolean(COLOR_PLAYBACK_CONTROLS_NOW_PLAYING, true);
-    }
-
-    public final boolean largerTitleBoxNowPlaying() {
-        return mPreferences.getBoolean(LARGER_TITLE_BOX_NOW_PLAYING, false);
-    }
-
-    public final boolean alternativeProgressSliderNowPlaying() {
-        return mPreferences.getBoolean(ALTERNATIVE_PROGRESS_SLIDER_NOW_PLAYING, false);
     }
 
     public final boolean gaplessPlayback() {
@@ -366,6 +288,7 @@ public final class PreferenceUtil {
         return mPreferences.getInt(LAST_CHANGELOG_VERSION, -1);
     }
 
+    @SuppressLint("CommitPrefEdits")
     public void setIntroShown() {
         // don't use apply here
         mPreferences.edit().putBoolean(INTRO_SHOWN, true).commit();

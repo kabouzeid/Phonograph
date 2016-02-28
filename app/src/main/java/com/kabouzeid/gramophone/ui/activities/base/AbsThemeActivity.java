@@ -27,8 +27,8 @@ public abstract class AbsThemeActivity extends ATHToolbarActivity {
         if (!ThemeStore.isConfigured(this, 1)) {
             ThemeStore.editTheme(this)
                     .activityTheme(R.style.Theme_Phonograph_Light)
-                    .primaryColorRes(R.color.indigo_500)
-                    .accentColorRes(R.color.pink_A400)
+                    .primaryColorRes(R.color.md_indigo_500)
+                    .accentColorRes(R.color.md_pink_A400)
                     .commit();
         }
         getSharedPreferences("[[kabouzeid_app-theme-helper]]", 0).edit().putInt("activity_theme", PreferenceUtil.getInstance(this).getGeneralTheme()).commit(); // TEMPORARY FIX
