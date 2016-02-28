@@ -105,7 +105,7 @@ public class PlayPauseDrawable extends Drawable {
         rightPauseBar.lineTo(2 * barWidth + barDist, 0);
         rightPauseBar.close();
 
-        canvas.save();
+        final int saveCount = canvas.save();
 
         // Translate the play button a tiny bit to the right so it looks more centered.
         canvas.translate(lerp(0, pauseBarHeight / 8f, progress), 0);
@@ -123,7 +123,7 @@ public class PlayPauseDrawable extends Drawable {
         canvas.drawPath(leftPauseBar, paint);
         canvas.drawPath(rightPauseBar, paint);
 
-        canvas.restore();
+        canvas.restoreToCount(saveCount);
     }
 
     @NonNull
