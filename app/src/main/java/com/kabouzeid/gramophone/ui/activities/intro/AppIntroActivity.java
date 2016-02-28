@@ -5,16 +5,16 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.heinrichreimersoftware.materialintro.app.IntroActivity;
 import com.kabouzeid.gramophone.R;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class AppIntroActivity extends com.heinrichreimersoftware.materialintro.app.IntroActivity {
+public class AppIntroActivity extends IntroActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setFullscreen(false);
         super.onCreate(savedInstanceState);
 
         addSlide(new PhonographSimpleSlide.Builder()
@@ -43,7 +43,7 @@ public class AppIntroActivity extends com.heinrichreimersoftware.materialintro.a
             addSlide(new PhonographSimpleSlide.Builder()
                     .title(R.string.label_storage)
                     .description(R.string.storage_permission_explaination)
-                    .image(R.drawable.ic_folder_white_24dp)
+                    .image(R.drawable.ic_folder_white_144dp)
                     .background(R.color.md_indigo_500)
                     .backgroundDark(R.color.md_indigo_600)
                     .build());
