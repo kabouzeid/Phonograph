@@ -112,7 +112,7 @@ dependencies {
         transitive = true
     }
 
-    compile('com.afollestad:material-cab:0.1.8@aar') {
+    compile('com.afollestad:material-cab:0.1.9@aar') {
         transitive = true
     }
 

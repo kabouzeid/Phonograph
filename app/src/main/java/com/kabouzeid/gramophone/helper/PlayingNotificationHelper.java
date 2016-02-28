@@ -13,18 +13,15 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.widget.RemoteViews;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
-import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
@@ -131,7 +128,7 @@ public class PlayingNotificationHelper {
         notificationLayoutBig.setOnClickPendingIntent(R.id.action_quit,
                 retrievePlaybackActions(4));
 
-        notificationLayoutBig.setImageViewResource(R.id.action_play_pause, getPlayPauseRes(isDark));
+//        notificationLayoutBig.setImageViewResource(R.id.action_play_pause, getPlayPauseRes(isDark));
     }
 
     private void setUpPlaybackActions() {
@@ -144,7 +141,7 @@ public class PlayingNotificationHelper {
         notificationLayout.setOnClickPendingIntent(R.id.action_prev,
                 retrievePlaybackActions(3));
 
-        notificationLayout.setImageViewResource(R.id.action_play_pause, getPlayPauseRes(isDark));
+//        notificationLayout.setImageViewResource(R.id.action_play_pause, getPlayPauseRes(isDark));
     }
 
     private PendingIntent retrievePlaybackActions(final int which) {
@@ -215,7 +212,7 @@ public class PlayingNotificationHelper {
             bgColor = Color.TRANSPARENT;
         }
         setBackgroundColor(bgColor);
-        setDarkNotificationContent(bgColor == Color.TRANSPARENT ? Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP : ColorUtil.isColorLight(bgColor));
+//        setDarkNotificationContent(bgColor == Color.TRANSPARENT ? Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP : ColorUtil.isColorLight(bgColor));
 
         if (notification != null) {
             notificationManager.notify(notificationId, notification);
@@ -238,44 +235,44 @@ public class PlayingNotificationHelper {
         if (notification == null) {
             updateNotification();
         }
-        int playPauseRes = getPlayPauseRes(isDark);
-        if (notificationLayout != null) {
-            notificationLayout.setImageViewResource(R.id.action_play_pause, playPauseRes);
-        }
-        if (notificationLayoutBig != null) {
-            notificationLayoutBig.setImageViewResource(R.id.action_play_pause, playPauseRes);
-        }
+//        int playPauseRes = getPlayPauseRes(isDark);
+//        if (notificationLayout != null) {
+//            notificationLayout.setImageViewResource(R.id.action_play_pause, playPauseRes);
+//        }
+//        if (notificationLayoutBig != null) {
+//            notificationLayoutBig.setImageViewResource(R.id.action_play_pause, playPauseRes);
+//        }
         if (notification != null) {
             notificationManager.notify(notificationId, notification);
         }
     }
 
-    private void setDarkNotificationContent(boolean dark) {
-        isDark = dark;
+//    private void setDarkNotificationContent(boolean dark) {
+//        isDark = dark;
+//
+//        if (notificationLayout != null && notificationLayoutBig != null) {
+//            int darkContentColor = ContextCompat.getColor(service, R.color.primary_text_default_material_light);
+//            int darkContentSecondaryColor = ContextCompat.getColor(service, R.color.secondary_text_default_material_light);
+//            int contentColor = ContextCompat.getColor(service, R.color.primary_text_default_material_dark);
+//            int contentSecondaryColor = ContextCompat.getColor(service, R.color.secondary_text_default_material_dark);
+//
+//            notificationLayout.setTextColor(R.id.title, dark ? darkContentColor : contentColor);
+//            notificationLayout.setTextColor(R.id.text, dark ? darkContentSecondaryColor : contentSecondaryColor);
+//            notificationLayout.setImageViewResource(R.id.action_prev, dark ? R.drawable.ic_skip_previous_dark_36dp : R.drawable.ic_skip_previous_white_36dp);
+//            notificationLayout.setImageViewResource(R.id.action_play_pause, getPlayPauseRes(dark));
+//            notificationLayout.setImageViewResource(R.id.action_next, dark ? R.drawable.ic_skip_next_dark_36dp : R.drawable.ic_skip_next_white_36dp);
+//
+//            notificationLayoutBig.setTextColor(R.id.title, dark ? darkContentColor : contentColor);
+//            notificationLayoutBig.setTextColor(R.id.text, dark ? darkContentSecondaryColor : contentSecondaryColor);
+//            notificationLayoutBig.setTextColor(R.id.text2, dark ? darkContentSecondaryColor : contentSecondaryColor);
+//            notificationLayoutBig.setImageViewResource(R.id.action_prev, dark ? R.drawable.ic_skip_previous_dark_36dp : R.drawable.ic_skip_previous_white_36dp);
+//            notificationLayoutBig.setImageViewResource(R.id.action_play_pause, getPlayPauseRes(dark));
+//            notificationLayoutBig.setImageViewResource(R.id.action_next, dark ? R.drawable.ic_skip_next_dark_36dp : R.drawable.ic_skip_next_white_36dp);
+//            notificationLayoutBig.setImageViewResource(R.id.action_quit, dark ? R.drawable.ic_close_dark_24dp : R.drawable.ic_close_white_24dp);
+//        }
+//    }
 
-        if (notificationLayout != null && notificationLayoutBig != null) {
-            int darkContentColor = ContextCompat.getColor(service, R.color.primary_text_default_material_light);
-            int darkContentSecondaryColor = ContextCompat.getColor(service, R.color.secondary_text_default_material_light);
-            int contentColor = ContextCompat.getColor(service, R.color.primary_text_default_material_dark);
-            int contentSecondaryColor = ContextCompat.getColor(service, R.color.secondary_text_default_material_dark);
-
-            notificationLayout.setTextColor(R.id.title, dark ? darkContentColor : contentColor);
-            notificationLayout.setTextColor(R.id.text, dark ? darkContentSecondaryColor : contentSecondaryColor);
-            notificationLayout.setImageViewResource(R.id.action_prev, dark ? R.drawable.ic_skip_previous_dark_36dp : R.drawable.ic_skip_previous_white_36dp);
-            notificationLayout.setImageViewResource(R.id.action_play_pause, getPlayPauseRes(dark));
-            notificationLayout.setImageViewResource(R.id.action_next, dark ? R.drawable.ic_skip_next_dark_36dp : R.drawable.ic_skip_next_white_36dp);
-
-            notificationLayoutBig.setTextColor(R.id.title, dark ? darkContentColor : contentColor);
-            notificationLayoutBig.setTextColor(R.id.text, dark ? darkContentSecondaryColor : contentSecondaryColor);
-            notificationLayoutBig.setTextColor(R.id.text2, dark ? darkContentSecondaryColor : contentSecondaryColor);
-            notificationLayoutBig.setImageViewResource(R.id.action_prev, dark ? R.drawable.ic_skip_previous_dark_36dp : R.drawable.ic_skip_previous_white_36dp);
-            notificationLayoutBig.setImageViewResource(R.id.action_play_pause, getPlayPauseRes(dark));
-            notificationLayoutBig.setImageViewResource(R.id.action_next, dark ? R.drawable.ic_skip_next_dark_36dp : R.drawable.ic_skip_next_white_36dp);
-            notificationLayoutBig.setImageViewResource(R.id.action_quit, dark ? R.drawable.ic_close_dark_24dp : R.drawable.ic_close_white_24dp);
-        }
-    }
-
-    private int getPlayPauseRes(boolean dark) {
-        return isPlaying ? (dark ? R.drawable.ic_pause_dark_36dp : R.drawable.ic_pause_white_36dp) : (dark ? R.drawable.ic_play_arrow_dark_36dp : R.drawable.ic_play_arrow_white_36dp);
-    }
+//    private int getPlayPauseRes(boolean dark) {
+//        return isPlaying ? (dark ? R.drawable.ic_pause_dark_36dp : R.drawable.ic_pause_white_36dp) : (dark ? R.drawable.ic_play_arrow_dark_36dp : R.drawable.ic_play_arrow_white_36dp);
+//    }
 }

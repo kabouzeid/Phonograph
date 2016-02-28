@@ -61,7 +61,7 @@ public class WidgetMedium extends AppWidgetProvider {
     public static void updateWidgetsPlayState(@NonNull final Context context, boolean isPlaying) {
         if (widgetLayout == null)
             widgetLayout = new RemoteViews(context.getPackageName(), R.layout.widget_medium);
-        int playPauseRes = isPlaying ? R.drawable.ic_pause_dark_36dp : R.drawable.ic_play_arrow_dark_36dp;
+        int playPauseRes = isPlaying ? R.drawable.ic_pause_black_24dp : R.drawable.ic_play_arrow_black_24dp;
         widgetLayout.setImageViewResource(R.id.button_toggle_play_pause, playPauseRes);
         updateWidgets(context);
     }

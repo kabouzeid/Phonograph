@@ -179,7 +179,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         int primaryColor = ThemeStore.primaryColor(this);
         appbar.setBackgroundColor(primaryColor);
         toolbar.setBackgroundColor(primaryColor);
-        toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
         setTitle(getResources().getString(R.string.app_name));
         setSupportActionBar(toolbar);
     }
@@ -544,7 +544,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         if (cab != null && cab.isActive()) cab.finish();
         cab = new MaterialCab(this, R.id.cab_stub)
                 .setMenu(menu)
-                .setCloseDrawableRes(R.drawable.ic_close_white_24dp)
+                .setCloseDrawableRes(R.drawable.ic_close_black_24dp)
                 .setBackgroundColor(PhonographColorUtil.shiftBackgroundColorForLightText(ThemeStore.primaryColor(this)))
                 .start(callback);
         return cab;

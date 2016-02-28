@@ -68,7 +68,8 @@
             android:background="?attr/roundSelector"
             android:padding="22dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_skip_previous_white_36dp" />
+            app:srcCompat="@drawable/ic_skip_previous_black_24dp"
+            tools:ignore="MissingPrefix" />
 
         <ImageButton
             android:id="@+id/player_next_button"
@@ -82,7 +83,8 @@
             android:background="?attr/roundSelector"
             android:padding="22dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_skip_next_white_36dp" />
+            app:srcCompat="@drawable/ic_skip_next_black_24dp"
+            tools:ignore="MissingPrefix" />
 
         <ImageButton
             android:id="@+id/player_repeat_button"
@@ -96,7 +98,8 @@
             android:background="?attr/roundSelector"
             android:padding="22dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_repeat_white_36dp" />
+            app:srcCompat="@drawable/ic_repeat_black_24dp"
+            tools:ignore="MissingPrefix" />
 
         <ImageButton
             android:id="@+id/player_shuffle_button"
@@ -110,7 +113,8 @@
             android:background="?attr/roundSelector"
             android:padding="22dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_shuffle_white_36dp" />
+            app:srcCompat="@drawable/ic_shuffle_black_24dp"
+            tools:ignore="MissingPrefix" />
 
         <Space
             android:id="@+id/dummy_fab"

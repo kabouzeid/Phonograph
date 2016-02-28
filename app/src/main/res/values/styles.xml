@@ -11,9 +11,7 @@
     <style name="Theme.Phonograph.Notification.Title" parent="@android:style/TextAppearance.StatusBar.EventContent.Title" />
 
     <style name="OverFlowButton">
-        <item name="srcCompat">@drawable/abc_ic_menu_overflow_material</item>
-        <item name="android:tint">?attr/iconColor</item>
-        <item name="android:tintMode" tools:ignore="NewApi">src_in</item>
+        <item name="srcCompat">@drawable/ic_more_vert_black_24dp</item>
         <item name="android:layout_margin">8dp</item>
         <item name="android:layout_width">48dp</item>
         <item name="android:layout_height">48dp</item>

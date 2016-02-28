@@ -3,19 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="64dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:foreground="?attr/rectSelector"
     tools:ignore="UnusedAttribute">
 
-    <ImageView
+    <com.kabouzeid.gramophone.views.IconImageView
         android:id="@+id/drag_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical|start"
         android:layout_marginLeft="-8dp"
         android:layout_marginStart="-8dp"
-        android:src="@drawable/ic_drag_vertical_white_24dp"
-        android:tint="?attr/iconColor"
-        android:tintMode="src_in"
+        app:srcCompat="@drawable/ic_drag_vertical_black_24dp"
         android:visibility="gone"
         tools:ignore="ContentDescription" />
 
@@ -69,7 +68,7 @@
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
-        <ImageView
+        <com.kabouzeid.gramophone.views.IconImageView
             android:id="@+id/menu"
             style="@style/OverFlowButton"
             android:layout_gravity="center_vertical"

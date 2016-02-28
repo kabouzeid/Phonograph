@@ -24,7 +24,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_launcher"
+                android:src="@drawable/icon_web"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -49,13 +49,11 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <ImageView
+            <com.kabouzeid.gramophone.views.IconImageView
                 android:id="@+id/icon_info"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_info_outline_white_24dp"
-                android:tint="?attr/iconColor"
-                android:tintMode="src_in"
+                app:srcCompat="@drawable/ic_info_outline_black_24dp"
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <LinearLayout
@@ -96,13 +94,11 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <ImageView
+            <com.kabouzeid.gramophone.views.IconImageView
                 android:id="@+id/icon_changelog"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_history_white_24dp"
-                android:tint="?attr/iconColor"
-                android:tintMode="src_in"
+                app:srcCompat="@drawable/ic_restore_black_24dp"
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <TextView
@@ -129,13 +125,11 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <ImageView
+            <com.kabouzeid.gramophone.views.IconImageView
                 android:id="@+id/icon_intro"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_book_open_variant_white_24dp"
-                android:tint="?attr/iconColor"
-                android:tintMode="src_in"
+                app:srcCompat="@drawable/ic_assignment_turned_in_black_24dp"
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <TextView
@@ -162,13 +156,11 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <ImageView
+            <com.kabouzeid.gramophone.views.IconImageView
                 android:id="@+id/icon_licenses"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_description_white_24dp"
-                android:tint="?attr/iconColor"
-                android:tintMode="src_in"
+                app:srcCompat="@drawable/ic_description_black_24dp"
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <TextView

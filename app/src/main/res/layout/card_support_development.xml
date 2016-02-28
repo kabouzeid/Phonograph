@@ -38,13 +38,11 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <ImageView
+            <com.kabouzeid.gramophone.views.IconImageView
                 android:id="@+id/icon_bug_report"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_bug_report_white_24dp"
-                android:tint="?attr/iconColor"
-                android:tintMode="src_in"
+                app:srcCompat="@drawable/ic_bug_report_black_24dp"
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <LinearLayout
@@ -83,13 +81,11 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <ImageView
+            <com.kabouzeid.gramophone.views.IconImageView
                 android:id="@+id/icon_google_plus_community"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_google_circles_communities_white_24dp"
-                android:tint="?attr/iconColor"
-                android:tintMode="src_in"
+                app:srcCompat="@drawable/ic_google_circles_communities"
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <LinearLayout
@@ -128,13 +124,11 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <ImageView
+            <com.kabouzeid.gramophone.views.IconImageView
                 android:id="@+id/icon_flag"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_flag_white_24dp"
-                android:tint="?attr/iconColor"
-                android:tintMode="src_in"
+                app:srcCompat="@drawable/ic_flag_black_24dp"
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <LinearLayout
@@ -173,13 +167,11 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <ImageView
+            <com.kabouzeid.gramophone.views.IconImageView
                 android:id="@+id/icon_rate"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_play_shopping_bag_white_24dp"
-                android:tint="?attr/iconColor"
-                android:tintMode="src_in"
+                app:srcCompat="@drawable/ic_star_black_24dp"
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <LinearLayout
@@ -218,13 +210,11 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <ImageView
+            <com.kabouzeid.gramophone.views.IconImageView
                 android:id="@+id/icon_donate"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_attach_money_white_24dp"
-                android:tint="?attr/iconColor"
-                android:tintMode="src_in"
+                app:srcCompat="@drawable/ic_card_giftcard_black_24dp"
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <LinearLayout

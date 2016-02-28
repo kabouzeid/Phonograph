@@ -37,13 +37,11 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <ImageView
+            <com.kabouzeid.gramophone.views.IconImageView
                 android:id="@+id/icon_author"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_person_white_24dp"
-                android:tint="?attr/iconColor"
-                android:tintMode="src_in"
+                app:srcCompat="@drawable/ic_person_black_24dp"
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <LinearLayout
@@ -82,13 +80,11 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <ImageView
+            <com.kabouzeid.gramophone.views.IconImageView
                 android:id="@+id/icon_google_plus"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_google_circles_white_24dp"
-                android:tint="?attr/iconColor"
-                android:tintMode="src_in"
+                app:srcCompat="@drawable/ic_google_plus"
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <TextView
@@ -115,13 +111,11 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <ImageView
+            <com.kabouzeid.gramophone.views.IconImageView
                 android:id="@+id/icon_twitter"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_twitter_box_white_24dp"
-                android:tint="?attr/iconColor"
-                android:tintMode="src_in"
+                app:srcCompat="@drawable/twitter"
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <TextView
@@ -148,13 +142,11 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <ImageView
+            <com.kabouzeid.gramophone.views.IconImageView
                 android:id="@+id/icon_github"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_github_circle_white_24dp"
-                android:tint="?attr/iconColor"
-                android:tintMode="src_in"
+                app:srcCompat="@drawable/ic_github_circle"
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <TextView
@@ -181,13 +173,11 @@
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
-            <ImageView
+            <com.kabouzeid.gramophone.views.IconImageView
                 android:id="@+id/icon_website"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_web_white_24dp"
-                android:tint="?attr/iconColor"
-                android:tintMode="src_in"
+                app:srcCompat="@drawable/ic_open_in_browser_black_24dp"
                 tools:ignore="ContentDescription,UnusedAttribute" />
 
             <TextView
