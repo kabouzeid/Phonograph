@@ -19,7 +19,7 @@
 
     <style name="Theme.Phonograph.Notification.Title" parent="@android:style/TextAppearance.Material.Notification.Title" />
 
-    <style name="PlayPauseFab" parent="PlayPauseFabParent">
+    <style name="Fab" parent="FabParent">
         <item name="android:transitionName">@string/transition_fab</item>
     </style>
 
