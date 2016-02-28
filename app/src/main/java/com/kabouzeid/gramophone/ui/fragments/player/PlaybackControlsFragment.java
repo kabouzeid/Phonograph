@@ -165,11 +165,12 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
     }
 
     private void setUpPlayPauseFab() {
-        updatePlayPauseDrawableState(false);
-        playPauseFab.setImageDrawable(playerFabPlayPauseDrawable);
         final int fabColor = Color.WHITE;
         TintHelper.setTintAuto(playPauseFab, fabColor, true);
-        // because of our custom drawable we have to set the tint manually
+
+        updatePlayPauseDrawableState(false);
+        // Note: set the drawable AFTER TintHelper.setTintAuto() is called
+        playPauseFab.setImageDrawable(playerFabPlayPauseDrawable);
         playPauseFab.getDrawable().mutate().setColorFilter(MaterialValueHelper.getPrimaryTextColor(getContext(), ColorUtil.isColorLight(fabColor)), PorterDuff.Mode.SRC_IN);
         playPauseFab.setOnClickListener(new PlayPauseButtonOnClickHandler());
         playPauseFab.post(new Runnable() {
