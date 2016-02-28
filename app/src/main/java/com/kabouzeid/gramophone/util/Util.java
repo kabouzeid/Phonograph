@@ -17,6 +17,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.TintContextWrapper;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
@@ -94,6 +95,10 @@ public class Util {
     }
 
     public static Drawable getTintedDrawable(@NonNull Context context, @DrawableRes int drawableResId, int color) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+            // vector support
+            context = TintContextWrapper.wrap(context);
+        }
         Drawable drawable = ContextCompat.getDrawable(context, drawableResId);
         if (drawable != null) {
             // If we don't mutate the drawable, then all drawables with this id will have a color

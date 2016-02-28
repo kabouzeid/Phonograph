@@ -11,8 +11,10 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
@@ -22,6 +24,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.kabouzeid.appthemehelper.util.ColorUtil;
+import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
@@ -30,6 +34,7 @@ import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
+import com.kabouzeid.gramophone.util.Util;
 
 public class PlayingNotificationHelper {
 
@@ -127,8 +132,6 @@ public class PlayingNotificationHelper {
 
         notificationLayoutBig.setOnClickPendingIntent(R.id.action_quit,
                 retrievePlaybackActions(4));
-
-//        notificationLayoutBig.setImageViewResource(R.id.action_play_pause, getPlayPauseRes(isDark));
     }
 
     private void setUpPlaybackActions() {
@@ -140,8 +143,6 @@ public class PlayingNotificationHelper {
 
         notificationLayout.setOnClickPendingIntent(R.id.action_prev,
                 retrievePlaybackActions(3));
-
-//        notificationLayout.setImageViewResource(R.id.action_play_pause, getPlayPauseRes(isDark));
     }
 
     private PendingIntent retrievePlaybackActions(final int which) {
@@ -212,7 +213,7 @@ public class PlayingNotificationHelper {
             bgColor = Color.TRANSPARENT;
         }
         setBackgroundColor(bgColor);
-//        setDarkNotificationContent(bgColor == Color.TRANSPARENT ? Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP : ColorUtil.isColorLight(bgColor));
+        setDarkNotificationContent(bgColor == Color.TRANSPARENT ? Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP : ColorUtil.isColorLight(bgColor));
 
         if (notification != null) {
             notificationManager.notify(notificationId, notification);
@@ -235,44 +236,53 @@ public class PlayingNotificationHelper {
         if (notification == null) {
             updateNotification();
         }
-//        int playPauseRes = getPlayPauseRes(isDark);
-//        if (notificationLayout != null) {
-//            notificationLayout.setImageViewResource(R.id.action_play_pause, playPauseRes);
-//        }
-//        if (notificationLayoutBig != null) {
-//            notificationLayoutBig.setImageViewResource(R.id.action_play_pause, playPauseRes);
-//        }
+        setPlayPauseDrawable();
         if (notification != null) {
             notificationManager.notify(notificationId, notification);
         }
     }
 
-//    private void setDarkNotificationContent(boolean dark) {
-//        isDark = dark;
-//
-//        if (notificationLayout != null && notificationLayoutBig != null) {
-//            int darkContentColor = ContextCompat.getColor(service, R.color.primary_text_default_material_light);
-//            int darkContentSecondaryColor = ContextCompat.getColor(service, R.color.secondary_text_default_material_light);
-//            int contentColor = ContextCompat.getColor(service, R.color.primary_text_default_material_dark);
-//            int contentSecondaryColor = ContextCompat.getColor(service, R.color.secondary_text_default_material_dark);
-//
-//            notificationLayout.setTextColor(R.id.title, dark ? darkContentColor : contentColor);
-//            notificationLayout.setTextColor(R.id.text, dark ? darkContentSecondaryColor : contentSecondaryColor);
-//            notificationLayout.setImageViewResource(R.id.action_prev, dark ? R.drawable.ic_skip_previous_dark_36dp : R.drawable.ic_skip_previous_white_36dp);
-//            notificationLayout.setImageViewResource(R.id.action_play_pause, getPlayPauseRes(dark));
-//            notificationLayout.setImageViewResource(R.id.action_next, dark ? R.drawable.ic_skip_next_dark_36dp : R.drawable.ic_skip_next_white_36dp);
-//
-//            notificationLayoutBig.setTextColor(R.id.title, dark ? darkContentColor : contentColor);
-//            notificationLayoutBig.setTextColor(R.id.text, dark ? darkContentSecondaryColor : contentSecondaryColor);
-//            notificationLayoutBig.setTextColor(R.id.text2, dark ? darkContentSecondaryColor : contentSecondaryColor);
-//            notificationLayoutBig.setImageViewResource(R.id.action_prev, dark ? R.drawable.ic_skip_previous_dark_36dp : R.drawable.ic_skip_previous_white_36dp);
-//            notificationLayoutBig.setImageViewResource(R.id.action_play_pause, getPlayPauseRes(dark));
-//            notificationLayoutBig.setImageViewResource(R.id.action_next, dark ? R.drawable.ic_skip_next_dark_36dp : R.drawable.ic_skip_next_white_36dp);
-//            notificationLayoutBig.setImageViewResource(R.id.action_quit, dark ? R.drawable.ic_close_dark_24dp : R.drawable.ic_close_white_24dp);
-//        }
-//    }
+    private void setDarkNotificationContent(boolean dark) {
+        isDark = dark;
+        setPlayPauseDrawable();
 
-//    private int getPlayPauseRes(boolean dark) {
-//        return isPlaying ? (dark ? R.drawable.ic_pause_dark_36dp : R.drawable.ic_pause_white_36dp) : (dark ? R.drawable.ic_play_arrow_dark_36dp : R.drawable.ic_play_arrow_white_36dp);
-//    }
+        if (notificationLayout != null && notificationLayoutBig != null) {
+            int primary = MaterialValueHelper.getPrimaryTextColor(service, dark);
+            int secondary = MaterialValueHelper.getSecondaryTextColor(service, dark);
+
+            Bitmap prev = createBitmap(Util.getTintedDrawable(service, R.drawable.ic_skip_previous_black_24dp, primary), 1.5f);
+            Bitmap next = createBitmap(Util.getTintedDrawable(service, R.drawable.ic_skip_next_black_24dp, primary), 1.5f);
+            Bitmap close = createBitmap(Util.getTintedDrawable(service, R.drawable.ic_close_black_24dp, secondary), 1f);
+
+            notificationLayout.setTextColor(R.id.title, primary);
+            notificationLayout.setTextColor(R.id.text, secondary);
+            notificationLayout.setImageViewBitmap(R.id.action_prev, prev);
+            notificationLayout.setImageViewBitmap(R.id.action_next, next);
+
+            notificationLayoutBig.setTextColor(R.id.title, primary);
+            notificationLayoutBig.setTextColor(R.id.text, secondary);
+            notificationLayoutBig.setTextColor(R.id.text2, secondary);
+            notificationLayoutBig.setImageViewBitmap(R.id.action_prev, prev);
+            notificationLayoutBig.setImageViewBitmap(R.id.action_next, next);
+            notificationLayoutBig.setImageViewBitmap(R.id.action_quit, close);
+        }
+    }
+
+    private void setPlayPauseDrawable() {
+        Bitmap playPause = createBitmap(Util.getTintedDrawable(service, isPlaying ? R.drawable.ic_pause_black_24dp : R.drawable.ic_play_arrow_black_24dp, MaterialValueHelper.getPrimaryTextColor(service, isDark)), 1.5f);
+        if (notificationLayout != null) {
+            notificationLayout.setImageViewBitmap(R.id.action_play_pause, playPause);
+        }
+        if (notificationLayoutBig != null) {
+            notificationLayoutBig.setImageViewBitmap(R.id.action_play_pause, playPause);
+        }
+    }
+
+    private static Bitmap createBitmap(Drawable drawable, float sizeMultiplier) {
+        Bitmap bitmap = Bitmap.createBitmap((int) (drawable.getIntrinsicWidth() * sizeMultiplier), (int) (drawable.getIntrinsicHeight() * sizeMultiplier), Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bitmap);
+        drawable.setBounds(0, 0, c.getWidth(), c.getHeight());
+        drawable.draw(c);
+        return bitmap;
+    }
 }
