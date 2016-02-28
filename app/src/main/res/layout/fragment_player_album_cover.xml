@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,13 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/player_favorite_icon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:padding="72dp"
-        android:src="@drawable/ic_favorite_red_a400_96dp"
+        android:tint="@color/md_pink_A400"
+        android:tintMode="src_in"
         android:visibility="invisible"
-        tools:ignore="ContentDescription" />
+        app:srcCompat="@drawable/ic_favorite_white_24dp"
+        tools:ignore="ContentDescription,UnusedAttribute" />
 </FrameLayout>
