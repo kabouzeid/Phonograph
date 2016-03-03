@@ -18,6 +18,7 @@
         android:padding="72dp"
         android:tint="@color/md_pink_A400"
         android:tintMode="src_in"
+        android:scaleType="fitXY"
         android:visibility="invisible"
         app:srcCompat="@drawable/ic_favorite_white_24dp"
         tools:ignore="ContentDescription,UnusedAttribute" />
