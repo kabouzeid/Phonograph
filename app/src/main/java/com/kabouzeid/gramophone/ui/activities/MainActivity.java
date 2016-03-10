@@ -38,7 +38,7 @@ import com.kabouzeid.appthemehelper.util.NavigationViewUtil;
 import com.kabouzeid.appthemehelper.util.TabLayoutUtil;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.PagerAdapter;
+import com.kabouzeid.gramophone.adapter.MusicLibraryPagerAdapter;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
 import com.kabouzeid.gramophone.dialogs.CreatePlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DonationDialog;
@@ -91,7 +91,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 
     @Nullable
     private View navigationDrawerHeader;
-    private PagerAdapter pagerAdapter;
+    private MusicLibraryPagerAdapter pagerAdapter;
     private MaterialCab cab;
 
     private boolean blockRequestPermissions;
@@ -157,7 +157,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     }
 
     private void setUpViewPager() {
-        pagerAdapter = new PagerAdapter(this, getSupportFragmentManager());
+        pagerAdapter = new MusicLibraryPagerAdapter(this, getSupportFragmentManager());
         pager.setAdapter(pagerAdapter);
         pager.setOffscreenPageLimit(pagerAdapter.getCount() - 1); // => all
 
@@ -536,7 +536,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     }
 
     private boolean isPlaylistPage() {
-        return pager.getCurrentItem() == PagerAdapter.MusicFragments.PLAYLIST.ordinal();
+        return pager.getCurrentItem() == MusicLibraryPagerAdapter.MusicFragments.PLAYLIST.ordinal();
     }
 
     @Override

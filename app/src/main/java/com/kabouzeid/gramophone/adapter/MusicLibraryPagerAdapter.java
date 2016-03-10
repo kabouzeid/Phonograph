@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class PagerAdapter extends FragmentPagerAdapter {
+public class MusicLibraryPagerAdapter extends FragmentPagerAdapter {
 
     private final SparseArray<WeakReference<Fragment>> mFragmentArray = new SparseArray<>();
 
@@ -32,7 +32,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
     @NonNull
     private final String[] titles;
 
-    public PagerAdapter(@NonNull final Context context, final FragmentManager fragmentManager) {
+    public MusicLibraryPagerAdapter(@NonNull final Context context, final FragmentManager fragmentManager) {
         super(fragmentManager);
         mContext = context;
         titles = new String[]{
@@ -42,7 +42,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
                 context.getResources().getString(R.string.playlists)
         };
         final MusicFragments[] fragments = MusicFragments.values();
-        for (final PagerAdapter.MusicFragments fragment : fragments) {
+        for (final MusicLibraryPagerAdapter.MusicFragments fragment : fragments) {
             add(fragment.getFragmentClass(), null);
         }
     }
