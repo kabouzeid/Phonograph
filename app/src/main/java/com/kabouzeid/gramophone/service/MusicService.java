@@ -46,6 +46,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.HistoryStore;
 import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
+import com.kabouzeid.gramophone.service.Playback.Playback;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
@@ -57,7 +58,7 @@ import java.util.List;
 /**
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal
  */
-public class MusicService extends Service implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class MusicService extends Service implements SharedPreferences.OnSharedPreferenceChangeListener, Playback.PlaybackCallbacks {
     public static final String TAG = MusicService.class.getSimpleName();
 
     public static final String PHONOGRAPH_PACKAGE_NAME = "com.kabouzeid.gramophone";
@@ -100,7 +101,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private static final int UNDUCK = 7;
     private final IBinder musicBind = new MusicBinder();
 
-    private MultiPlayer player;
+    private Playback playback;
     private ArrayList<Song> playingQueue = new ArrayList<>();
     private ArrayList<Song> originalPlayingQueue = new ArrayList<>();
     private int position = -1;
@@ -114,7 +115,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     @SuppressWarnings("deprecation")
     private RemoteControlClient remoteControlClient;
     private PowerManager.WakeLock wakeLock;
-    private MusicPlayerHandler playerHandler;
+    private PlaybackHandler playerHandler;
     private final AudioManager.OnAudioFocusChangeListener audioFocusListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(final int focusChange) {
@@ -161,17 +162,15 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
         wakeLock.setReferenceCounted(false);
 
-        musicPlayerHandlerThread = new HandlerThread("MusicPlayerHandler",
-                Process.THREAD_PRIORITY_BACKGROUND);
+        musicPlayerHandlerThread = new HandlerThread("PlaybackHandler");
         musicPlayerHandlerThread.start();
-        playerHandler = new MusicPlayerHandler(this, musicPlayerHandlerThread.getLooper());
+        playerHandler = new PlaybackHandler(this, musicPlayerHandlerThread.getLooper());
 
-        player = new MultiPlayer(this);
-        player.setHandler(playerHandler);
+        playback = new MultiPlayer(this);
+        playback.setCallbacks(this);
 
-        // queue saving needs to run on a separate thread so that it doesn't block the player handler events
-        queueSaveHandlerThread = new HandlerThread("QueueSaveHandler",
-                Process.THREAD_PRIORITY_BACKGROUND);
+        // queue saving needs to run on a separate thread so that it doesn't block the playback handler events
+        queueSaveHandlerThread = new HandlerThread("QueueSaveHandler", Process.THREAD_PRIORITY_BACKGROUND);
         queueSaveHandlerThread.start();
         queueSaveHandler = new QueueSaveHandler(this, queueSaveHandlerThread.getLooper());
 
@@ -326,20 +325,20 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         } else {
             queueSaveHandlerThread.quit();
         }
-        player.release();
-        player = null;
+        playback.release();
+        playback = null;
     }
 
     public void stop() {
         pausedByTransientLossOfFocus = false;
         savePositionInTrack();
-        player.stop();
+        playback.stop();
         notifyChange(PLAY_STATE_CHANGED);
         getAudioManager().abandonAudioFocus(audioFocusListener);
     }
 
     public boolean isPlaying() {
-        return player.isPlaying();
+        return playback.isPlaying();
     }
 
     public void saveState() {
@@ -369,17 +368,13 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         return position;
     }
 
-    private void setPositionInternal(int position) {
-        this.position = position;
-    }
-
     public void playNextSong(boolean force) {
         playSongAt(getNextPosition(force));
     }
 
     private boolean openTrackAndPrepareNextAt(int position) {
         synchronized (this) {
-            setPositionInternal(position);
+            this.position = position;
             boolean prepared = openCurrent();
             if (prepared) prepareNextImpl();
             notifyChange(META_CHANGED);
@@ -391,7 +386,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private boolean openCurrent() {
         synchronized (this) {
             try {
-                return player.setDataSource(getTrackUri(getCurrentSong()));
+                return playback.setDataSource(getTrackUri(getCurrentSong()));
             } catch (Exception e) {
                 return false;
             }
@@ -407,7 +402,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         synchronized (this) {
             try {
                 int nextPosition = getNextPosition(false);
-                player.setNextDataSource(getTrackUri(getSongAt(nextPosition)));
+                playback.setNextDataSource(getTrackUri(getSongAt(nextPosition)));
                 this.nextPosition = nextPosition;
                 return true;
             } catch (Exception e) {
@@ -418,7 +413,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     private void closeAudioEffectSession() {
         final Intent audioEffectsIntent = new Intent(AudioEffect.ACTION_CLOSE_AUDIO_EFFECT_CONTROL_SESSION);
-        audioEffectsIntent.putExtra(AudioEffect.EXTRA_AUDIO_SESSION, player.getAudioSessionId());
+        audioEffectsIntent.putExtra(AudioEffect.EXTRA_AUDIO_SESSION, playback.getAudioSessionId());
         audioEffectsIntent.putExtra(AudioEffect.EXTRA_PACKAGE_NAME, getPackageName());
         sendBroadcast(audioEffectsIntent);
     }
@@ -606,7 +601,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             this.originalPlayingQueue = restoredOriginalQueue;
             this.playingQueue = restoredQueue;
 
-            setPositionInternal(restoredPosition);
+            position = restoredPosition;
             openCurrent();
             prepareNext();
 
@@ -668,7 +663,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private void rePosition(int deletedPosition) {
         int currentPosition = getPosition();
         if (deletedPosition < currentPosition) {
-            setPositionInternal(currentPosition - 1);
+            position = currentPosition - 1;
         } else if (deletedPosition == currentPosition) {
             if (playingQueue.size() > deletedPosition) {
                 setPosition(position);
@@ -688,11 +683,11 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             originalPlayingQueue.add(to, tmpSong);
         }
         if (from > currentPosition && to <= currentPosition) {
-            setPositionInternal(currentPosition + 1);
+            position = currentPosition + 1;
         } else if (from < currentPosition && to >= currentPosition) {
-            setPositionInternal(currentPosition - 1);
+            position = currentPosition - 1;
         } else if (from == currentPosition) {
-            setPositionInternal(to);
+            position = to;
         }
         notifyChange(QUEUE_CHANGED);
     }
@@ -727,8 +722,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     public void pause() {
         pausedByTransientLossOfFocus = false;
-        if (player.isPlaying()) {
-            player.pause();
+        if (playback.isPlaying()) {
+            playback.pause();
             notifyChange(PLAY_STATE_CHANGED);
         }
     }
@@ -736,12 +731,12 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public void play() {
         synchronized (this) {
             if (requestFocus()) {
-                if (!player.isPlaying()) {
-                    if (!player.isInitialized()) {
+                if (!playback.isPlaying()) {
+                    if (!playback.isInitialized()) {
                         playSongAt(getPosition());
                     } else {
                         registerReceiversAndRemoteControlClient();
-                        player.start();
+                        playback.start();
                         if (notHandledMetaChangedForCurrentTrack) {
                             handleChange(META_CHANGED);
                             notHandledMetaChangedForCurrentTrack = false;
@@ -795,15 +790,15 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     }
 
     public int getSongProgressMillis() {
-        return player.position();
+        return playback.position();
     }
 
     public int getSongDurationMillis() {
-        return player.duration();
+        return playback.duration();
     }
 
     public int seek(int millis) {
-        int newPosition = player.seek(millis);
+        int newPosition = playback.seek(millis);
         savePositionInTrack();
         return newPosition;
     }
@@ -842,7 +837,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             case SHUFFLE_MODE_SHUFFLE:
                 this.shuffleMode = shuffleMode;
                 ShuffleHelper.makeShuffleList(this.getPlayingQueue(), getPosition());
-                setPositionInternal(0);
+                position = 0;
                 break;
             case SHUFFLE_MODE_NONE:
                 this.shuffleMode = shuffleMode;
@@ -854,7 +849,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         newPosition = getPlayingQueue().indexOf(song);
                     }
                 }
-                setPositionInternal(newPosition);
+                position = newPosition;
                 break;
         }
         notifyChange(SHUFFLE_MODE_CHANGED);
@@ -924,7 +919,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     }
 
     public int getAudioSessionId() {
-        return player.getAudioSessionId();
+        return playback.getAudioSessionId();
     }
 
     public void releaseWakeLock() {
@@ -944,7 +939,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 if (sharedPreferences.getBoolean(key, false)) {
                     prepareNext();
                 } else {
-                    player.setNextDataSource(null);
+                    playback.setNextDataSource(null);
                 }
                 break;
             case PreferenceUtil.ALBUM_ART_ON_LOCKSCREEN:
@@ -955,6 +950,17 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 playingNotificationHelper.updateNotification(sharedPreferences.getBoolean(key, false));
                 break;
         }
+    }
+
+    @Override
+    public void onTrackWentToNext() {
+        playerHandler.sendEmptyMessage(TRACK_WENT_TO_NEXT);
+    }
+
+    @Override
+    public void onTrackEnded() {
+        acquireWakeLock(30000);
+        playerHandler.sendEmptyMessage(TRACK_ENDED);
     }
 
     private static final class QueueSaveHandler extends Handler {
@@ -977,12 +983,12 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
     }
 
-    private static final class MusicPlayerHandler extends Handler {
+    private static final class PlaybackHandler extends Handler {
         @NonNull
         private final WeakReference<MusicService> mService;
         private float currentDuckVolume = 1.0f;
 
-        public MusicPlayerHandler(final MusicService service, @NonNull final Looper looper) {
+        public PlaybackHandler(final MusicService service, @NonNull final Looper looper) {
             super(looper);
             mService = new WeakReference<>(service);
         }
@@ -1002,7 +1008,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                     } else {
                         currentDuckVolume = .2f;
                     }
-                    service.player.setVolume(currentDuckVolume);
+                    service.playback.setVolume(currentDuckVolume);
                     break;
 
                 case UNDUCK:
@@ -1012,7 +1018,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                     } else {
                         currentDuckVolume = 1.0f;
                     }
-                    service.player.setVolume(currentDuckVolume);
+                    service.playback.setVolume(currentDuckVolume);
                     break;
 
                 case TRACK_WENT_TO_NEXT:
@@ -1020,7 +1026,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         service.pause();
                         service.seek(0);
                     } else {
-                        service.setPositionInternal(service.nextPosition);
+                        service.position = service.nextPosition;
                         service.prepareNextImpl();
                         service.notifyChange(META_CHANGED);
                     }
@@ -1033,6 +1039,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                     } else {
                         service.playNextSong(false);
                     }
+                    sendEmptyMessage(RELEASE_WAKELOCK);
                     break;
 
                 case RELEASE_WAKELOCK:
@@ -1065,14 +1072,14 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                             break;
 
                         case AudioManager.AUDIOFOCUS_LOSS:
-                            // Lost focus for an unbounded amount of time: stop playback and release media player
+                            // Lost focus for an unbounded amount of time: stop playback and release media playback
                             service.pause();
                             service.unregisterReceiversAndRemoteControlClient();
                             break;
 
                         case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
                             // Lost focus for a short time, but we have to stop
-                            // playback. We don't release the media player because playback
+                            // playback. We don't release the media playback because playback
                             // is likely to resume
                             boolean wasPlaying = service.isPlaying();
                             service.pause();
