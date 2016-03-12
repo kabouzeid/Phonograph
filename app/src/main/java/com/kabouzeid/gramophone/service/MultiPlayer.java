@@ -1,11 +1,11 @@
 package com.kabouzeid.gramophone.service;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.audiofx.AudioEffect;
 import android.net.Uri;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,32 +13,30 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.service.Playback.Playback;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
-
-import java.lang.ref.WeakReference;
 
 /**
  * @author Andrew Neal, Karim Abou Zeid (kabouzeid)
  */
-public class MultiPlayer implements MediaPlayer.OnErrorListener,
-        MediaPlayer.OnCompletionListener {
+public class MultiPlayer implements Playback, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
     public static final String TAG = MultiPlayer.class.getSimpleName();
 
-    private final WeakReference<MusicService> mService;
+    private DoubleMediaPlayer mCurrentMediaPlayer = new DoubleMediaPlayer();
+    private DoubleMediaPlayer mNextMediaPlayer;
 
-    private MediaPlayer mCurrentMediaPlayer = new MediaPlayer();
-    private MediaPlayer mNextMediaPlayer;
-
-    private Handler mHandler;
+    private Context context;
+    @Nullable
+    private Playback.PlaybackCallbacks callbacks;
 
     private boolean mIsInitialized = false;
 
     /**
      * Constructor of <code>MultiPlayer</code>
      */
-    public MultiPlayer(final MusicService service) {
-        mService = new WeakReference<>(service);
-        mCurrentMediaPlayer.setWakeMode(service, PowerManager.PARTIAL_WAKE_LOCK);
+    public MultiPlayer(final Context context) {
+        this.context = context;
+        mCurrentMediaPlayer.setWakeMode(context, PowerManager.PARTIAL_WAKE_LOCK);
     }
 
     /**
@@ -47,6 +45,7 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      * @return True if the <code>player</code> has been prepared and is
      * ready to play, false otherwise
      */
+    @Override
     public boolean setDataSource(@NonNull final String path) {
         mIsInitialized = false;
         mIsInitialized = setDataSourceImpl(mCurrentMediaPlayer, path);
@@ -64,15 +63,14 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      * ready to play, false otherwise
      */
     private boolean setDataSourceImpl(@NonNull final MediaPlayer player, @NonNull final String path) {
-        MusicService service = mService.get();
-        if (service == null) {
+        if (context == null) {
             return false;
         }
         try {
             player.reset();
             player.setOnPreparedListener(null);
             if (path.startsWith("content://")) {
-                player.setDataSource(service, Uri.parse(path));
+                player.setDataSource(context, Uri.parse(path));
             } else {
                 player.setDataSource(path);
             }
@@ -85,9 +83,9 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
         player.setOnErrorListener(this);
         final Intent intent = new Intent(AudioEffect.ACTION_OPEN_AUDIO_EFFECT_CONTROL_SESSION);
         intent.putExtra(AudioEffect.EXTRA_AUDIO_SESSION, getAudioSessionId());
-        intent.putExtra(AudioEffect.EXTRA_PACKAGE_NAME, service.getPackageName());
+        intent.putExtra(AudioEffect.EXTRA_PACKAGE_NAME, context.getPackageName());
         intent.putExtra(AudioEffect.EXTRA_CONTENT_TYPE, AudioEffect.CONTENT_TYPE_MUSIC);
-        service.sendBroadcast(intent);
+        context.sendBroadcast(intent);
         return true;
     }
 
@@ -97,9 +95,9 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      * @param path The path of the file, or the http/rtsp URL of the stream
      *             you want to play
      */
+    @Override
     public void setNextDataSource(@Nullable final String path) {
-        MusicService service = mService.get();
-        if (service == null) {
+        if (context == null) {
             return;
         }
         try {
@@ -117,9 +115,9 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
         if (path == null) {
             return;
         }
-        if (PreferenceUtil.getInstance(mService.get()).gaplessPlayback()) {
-            mNextMediaPlayer = new MediaPlayer();
-            mNextMediaPlayer.setWakeMode(mService.get(), PowerManager.PARTIAL_WAKE_LOCK);
+        if (PreferenceUtil.getInstance(context).gaplessPlayback()) {
+            mNextMediaPlayer = new DoubleMediaPlayer();
+            mNextMediaPlayer.setWakeMode(context, PowerManager.PARTIAL_WAKE_LOCK);
             mNextMediaPlayer.setAudioSessionId(getAudioSessionId());
             if (setDataSourceImpl(mNextMediaPlayer, path)) {
                 try {
@@ -141,17 +139,19 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
     }
 
     /**
-     * Sets the handler
+     * Sets the callbacks
      *
-     * @param handler The handler to use
+     * @param callbacks The callbacks to use
      */
-    public void setHandler(final Handler handler) {
-        mHandler = handler;
+    @Override
+    public void setCallbacks(final Playback.PlaybackCallbacks callbacks) {
+        this.callbacks = callbacks;
     }
 
     /**
      * @return True if the player is ready to go, false otherwise
      */
+    @Override
     public boolean isInitialized() {
         return mIsInitialized;
     }
@@ -159,6 +159,7 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
     /**
      * Starts or resumes playback.
      */
+    @Override
     public boolean start() {
         try {
             mCurrentMediaPlayer.start();
@@ -171,6 +172,7 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
     /**
      * Resets the MediaPlayer to its uninitialized state.
      */
+    @Override
     public void stop() {
         mCurrentMediaPlayer.reset();
         mIsInitialized = false;
@@ -179,6 +181,7 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
     /**
      * Releases resources associated with this MediaPlayer object.
      */
+    @Override
     public void release() {
         stop();
         mCurrentMediaPlayer.release();
@@ -190,6 +193,7 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
     /**
      * Pauses playback. Call start() to resume.
      */
+    @Override
     public boolean pause() {
         try {
             mCurrentMediaPlayer.pause();
@@ -202,6 +206,7 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
     /**
      * Checks whether the MultiPlayer is playing.
      */
+    @Override
     public boolean isPlaying() {
         return mIsInitialized && mCurrentMediaPlayer.isPlaying();
     }
@@ -211,6 +216,7 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      *
      * @return The duration in milliseconds
      */
+    @Override
     public int duration() {
         if (!mIsInitialized) {
             return -1;
@@ -227,6 +233,7 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      *
      * @return The current position in milliseconds
      */
+    @Override
     public int position() {
         if (!mIsInitialized) {
             return -1;
@@ -244,6 +251,7 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      * @param whereto The offset in milliseconds from the start to seek to
      * @return The offset in milliseconds from the start to seek to
      */
+    @Override
     public int seek(final int whereto) {
         try {
             mCurrentMediaPlayer.seekTo(whereto);
@@ -253,6 +261,7 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
         }
     }
 
+    @Override
     public boolean setVolume(final float vol) {
         try {
             mCurrentMediaPlayer.setVolume(vol, vol);
@@ -267,6 +276,7 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      *
      * @param sessionId The audio session ID
      */
+    @Override
     public boolean setAudioSessionId(final int sessionId) {
         try {
             mCurrentMediaPlayer.setAudioSessionId(sessionId);
@@ -281,6 +291,7 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      *
      * @return The current audio session ID.
      */
+    @Override
     public int getAudioSessionId() {
         return mCurrentMediaPlayer.getAudioSessionId();
     }
@@ -292,9 +303,11 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
     public boolean onError(final MediaPlayer mp, final int what, final int extra) {
         mIsInitialized = false;
         mCurrentMediaPlayer.release();
-        mCurrentMediaPlayer = new MediaPlayer();
-        mCurrentMediaPlayer.setWakeMode(mService.get(), PowerManager.PARTIAL_WAKE_LOCK);
-        Toast.makeText(mService.get(), mService.get().getResources().getString(R.string.unplayable_file), Toast.LENGTH_SHORT).show();
+        mCurrentMediaPlayer = new DoubleMediaPlayer();
+        mCurrentMediaPlayer.setWakeMode(context, PowerManager.PARTIAL_WAKE_LOCK);
+        if (context != null) {
+            Toast.makeText(context, context.getResources().getString(R.string.unplayable_file), Toast.LENGTH_SHORT).show();
+        }
         return false;
     }
 
@@ -303,21 +316,46 @@ public class MultiPlayer implements MediaPlayer.OnErrorListener,
      */
     @Override
     public void onCompletion(final MediaPlayer mp) {
-        MusicService service = mService.get();
-        if (service == null) {
-            return;
-        }
         if (mp == mCurrentMediaPlayer && mNextMediaPlayer != null) {
             mIsInitialized = false;
             mCurrentMediaPlayer.release();
             mCurrentMediaPlayer = mNextMediaPlayer;
             mIsInitialized = true;
             mNextMediaPlayer = null;
-            mHandler.sendEmptyMessage(MusicService.TRACK_WENT_TO_NEXT);
+            if (callbacks != null)
+                callbacks.onTrackWentToNext();
         } else {
-            service.acquireWakeLock(30000);
-            mHandler.sendEmptyMessage(MusicService.TRACK_ENDED);
-            mHandler.sendEmptyMessage(MusicService.RELEASE_WAKELOCK);
+            if (callbacks != null)
+                callbacks.onTrackEnded();
+        }
+    }
+
+    private static final class DoubleMediaPlayer extends MediaPlayer implements MediaPlayer.OnCompletionListener {
+        private MediaPlayer mNextPlayer;
+
+        private OnCompletionListener mCompletion;
+
+        public DoubleMediaPlayer() {
+            super.setOnCompletionListener(this);
+        }
+
+        @Override
+        public void setNextMediaPlayer(final MediaPlayer next) {
+            mNextPlayer = next;
+        }
+
+        @Override
+        public void setOnCompletionListener(final OnCompletionListener listener) {
+            mCompletion = listener;
+        }
+
+        @Override
+        public void onCompletion(final MediaPlayer mp) {
+            if (mNextPlayer != null) {
+                // SystemClock.sleep(25);
+                mNextPlayer.start();
+            }
+            mCompletion.onCompletion(this);
         }
     }
 }
