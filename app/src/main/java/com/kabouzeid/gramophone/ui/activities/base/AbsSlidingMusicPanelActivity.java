@@ -70,7 +70,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                 }
             }
         });
-        slidingUpPanelLayout.setPanelSlideListener(this);
+        slidingUpPanelLayout.addPanelSlideListener(this);
 
         playerFragment.onHide();
     }
@@ -94,12 +94,23 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     }
 
     @Override
-    public void onPanelSlide(View view, @FloatRange(from = 0, to = 1) float slideOffset) {
+    public void onPanelSlide(View panel, @FloatRange(from = 0, to = 1) float slideOffset) {
         setMiniPlayerAlphaProgress(slideOffset);
     }
 
     @Override
-    public void onPanelCollapsed(View view) {
+    public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
+        switch (newState) {
+            case COLLAPSED:
+                onPanelCollapsed(panel);
+                break;
+            case EXPANDED:
+                onPanelExpanded(panel);
+                break;
+        }
+    }
+
+    public void onPanelCollapsed(View panel) {
         // restore values
         super.setLightStatusbar(lightStatusbar);
         super.setTaskDescriptionColor(taskColor);
@@ -110,8 +121,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         playerFragment.onHide();
     }
 
-    @Override
-    public void onPanelExpanded(View view) {
+    public void onPanelExpanded(View panel) {
         // setting fragments values
         int playerFragmentColor = playerFragment.getPaletteColor();
         super.setLightStatusbar(false);
@@ -121,16 +131,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         playerFragment.setMenuVisibility(true);
         playerFragment.setUserVisibleHint(true);
         playerFragment.onShow();
-    }
-
-    @Override
-    public void onPanelAnchored(View view) {
-
-    }
-
-    @Override
-    public void onPanelHidden(View view) {
-
     }
 
     private void setMiniPlayerAlphaProgress(@FloatRange(from = 0, to = 1) float progress) {

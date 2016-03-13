@@ -51,7 +51,7 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
         if (!MusicUtil.isArtistNameUnknown(model.artistName) && Util.isAllowedToAutoDownload(context)) {
             Response<LastFmArtist> response = lastFMRestClient.getApiService().getArtistInfo(model.artistName, model.skipOkHttpCache ? "no-cache" : null).execute();
 
-            if (!response.isSuccess()) {
+            if (!response.isSuccessful()) {
                 throw new IOException("Request failed with code: " + response.code());
             }
 
