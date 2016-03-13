@@ -362,22 +362,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     }
 
     @Override
-    public void enableViews() {
-        super.enableViews();
-        songListView.setEnabled(true);
-        toolbar.setEnabled(true);
-        albumRecyclerView.setEnabled(true);
-    }
-
-    @Override
-    public void disableViews() {
-        super.disableViews();
-        songListView.setEnabled(false);
-        toolbar.setEnabled(false);
-        albumRecyclerView.setEnabled(false);
-    }
-
-    @Override
     public MaterialCab openCab(int menuRes, @NonNull final MaterialCab.Callback callback) {
         if (cab != null && cab.isActive()) cab.finish();
         cab = new MaterialCab(this, R.id.cab_stub)

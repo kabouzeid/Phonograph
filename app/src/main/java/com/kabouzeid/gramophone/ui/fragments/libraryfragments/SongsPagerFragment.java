@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
+package com.kabouzeid.gramophone.ui.fragments.libraryfragments;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
@@ -8,7 +8,6 @@ import com.kabouzeid.gramophone.adapter.song.ShuffleButtonSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.SongAdapter;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
@@ -16,9 +15,9 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class SongsFragment extends AbsMainActivityRecyclerViewCustomGridSizeFragment<SongAdapter, GridLayoutManager> {
+public class SongsPagerFragment extends AbsLibraryRecyclerViewCustomGridSizePagerFragment<SongAdapter, GridLayoutManager> {
 
-    public static final String TAG = SongsFragment.class.getSimpleName();
+    public static final String TAG = SongsPagerFragment.class.getSimpleName();
 
     @NonNull
     @Override
@@ -29,7 +28,6 @@ public class SongsFragment extends AbsMainActivityRecyclerViewCustomGridSizeFrag
     @NonNull
     @Override
     protected SongAdapter createAdapter() {
-        MainActivity mainActivity = getMainActivity();
         ArrayList<Song> songs = SongLoader.getAllSongs(getActivity());
         int itemLayoutRes = getItemLayoutRes();
         applyRecyclerViewPaddingForLayoutRes(itemLayoutRes);
@@ -37,18 +35,18 @@ public class SongsFragment extends AbsMainActivityRecyclerViewCustomGridSizeFrag
 
         if (getGridSize() <= getMaxGridSizeForList()) {
             return new ShuffleButtonSongAdapter(
-                    mainActivity,
+                    getLibraryFragment().getMainActivity(),
                     songs,
                     itemLayoutRes,
                     usePalette,
-                    mainActivity);
+                    getLibraryFragment());
         }
         return new SongAdapter(
-                mainActivity,
+                getLibraryFragment().getMainActivity(),
                 songs,
                 itemLayoutRes,
                 usePalette,
-                mainActivity);
+                getLibraryFragment());
     }
 
     @Override

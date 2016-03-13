@@ -120,6 +120,7 @@ dependencies {
         transitive = true
     }
 
+    //noinspection GradleDynamicVersion
     compile 'com.android.support:support-v4:23.2.1'
     compile 'com.android.support:support-v13:23.2.1'
     compile 'com.android.support:appcompat-v7:23.2.1'
@@ -137,7 +138,6 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.0.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0'
     compile 'com.jakewharton:butterknife:7.0.1'
-    //noinspection GradleDynamicVersion
     compile 'com.anjlab.android.iab.v3:library:1.0.+'
     compile 'de.psdev.licensesdialog:licensesdialog:1.8.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'

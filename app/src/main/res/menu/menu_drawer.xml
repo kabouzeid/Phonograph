@@ -9,10 +9,9 @@
             android:icon="@drawable/ic_library_music_white_24dp"
             android:title="@string/library" />
         <item
-            android:enabled="false"
             android:id="@+id/nav_folders"
             android:icon="@drawable/ic_folder_white_24dp"
-            android:title="Folders (soon)" />
+            android:title="@string/folders" />
     </group>
 
     <group

@@ -13,53 +13,35 @@ import android.os.IBinder;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.AppBarLayout.OnOffsetChangedListener;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.afollestad.materialcab.MaterialCab;
 import com.bumptech.glide.Glide;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.NavigationViewUtil;
-import com.kabouzeid.appthemehelper.util.TabLayoutUtil;
-import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.MusicLibraryPagerAdapter;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
-import com.kabouzeid.gramophone.dialogs.CreatePlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DonationDialog;
-import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.SearchQueryHelper;
-import com.kabouzeid.gramophone.interfaces.CabHolder;
-import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
-import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.activities.intro.AppIntroActivity;
-import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityFragment;
-import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AbsMainActivityRecyclerViewCustomGridSizeFragment;
-import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.util.PhonographColorUtil;
+import com.kabouzeid.gramophone.ui.fragments.FolderFragment;
+import com.kabouzeid.gramophone.ui.fragments.LibraryFragment;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -71,28 +53,23 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AbsSlidingMusicPanelActivity
-        implements KabViewsDisableAble, CabHolder, DrawerLayout.DrawerListener {
+        implements DrawerLayout.DrawerListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
     public static final int APP_INTRO_REQUEST = 100;
 
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
-    @Bind(R.id.tabs)
-    TabLayout tabs;
-    @Bind(R.id.appbar)
-    AppBarLayout appbar;
-    @Bind(R.id.pager)
-    ViewPager pager;
+    private static final int LIBRARY = 0;
+    private static final int FOLDERS = 1;
+
     @Bind(R.id.navigation_view)
     NavigationView navigationView;
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
+    MainActivityFragmentCallbacks currentFragment;
+
     @Nullable
     private View navigationDrawerHeader;
-    private MusicLibraryPagerAdapter pagerAdapter;
-    private MaterialCab cab;
 
     private boolean blockRequestPermissions;
 
@@ -105,30 +82,36 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
             Util.setStatusBarTranslucent(getWindow());
             drawerLayout.setFitsSystemWindows(false);
             navigationView.setFitsSystemWindows(false);
+            //noinspection ConstantConditions
             findViewById(R.id.drawer_content_container).setFitsSystemWindows(false);
         }
 
-        setStatusbarColorAuto();
-        setNavigationbarColorAuto();
-        setTaskDescriptionColorAuto();
-
         setUpDrawerLayout();
-        setUpToolbar();
-        setUpViewPager();
 
-        if (!PreferenceUtil.getInstance(this).introShown()) {
-            PreferenceUtil.getInstance(this).setIntroShown();
-            ChangelogDialog.setChangelogRead(this);
-            blockRequestPermissions = true;
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startActivityForResult(new Intent(MainActivity.this, AppIntroActivity.class), APP_INTRO_REQUEST);
-                }
-            }, 200);
-        } else {
+        setMusicChooser(PreferenceUtil.getInstance(this).getLastMusicChooser());
+
+        if (!checkShowIntro()) {
             checkShowChangelog();
         }
+    }
+
+    private void setMusicChooser(int key) {
+        PreferenceUtil.getInstance(this).setLastMusicChooser(key);
+        switch (key) {
+            case LIBRARY:
+                navigationView.setCheckedItem(R.id.nav_library);
+                setCurrentFragment(new LibraryFragment());
+                break;
+            case FOLDERS:
+                navigationView.setCheckedItem(R.id.nav_folders);
+                setCurrentFragment(new FolderFragment());
+                break;
+        }
+    }
+
+    private void setCurrentFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment, LibraryFragment.TAG).commit();
+        currentFragment = (MainActivityFragmentCallbacks) fragment;
     }
 
     @Override
@@ -156,37 +139,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         return contentView;
     }
 
-    private void setUpViewPager() {
-        pagerAdapter = new MusicLibraryPagerAdapter(this, getSupportFragmentManager());
-        pager.setAdapter(pagerAdapter);
-        pager.setOffscreenPageLimit(pagerAdapter.getCount() - 1); // => all
-
-        tabs.setupWithViewPager(pager);
-
-        int primaryColor = ThemeStore.primaryColor(this);
-        int normalColor = ToolbarContentTintHelper.toolbarSubtitleColor(this, primaryColor);
-        int selectedColor = ToolbarContentTintHelper.toolbarTitleColor(this, primaryColor);
-        TabLayoutUtil.setTabIconColors(tabs, normalColor, selectedColor);
-        tabs.setTabTextColors(normalColor, selectedColor);
-        tabs.setSelectedTabIndicatorColor(ThemeStore.accentColor(this));
-
-        int startPosition = PreferenceUtil.getInstance(this).getDefaultStartPage();
-        startPosition = startPosition == -1 ? PreferenceUtil.getInstance(this).getLastStartPage() : startPosition;
-        pager.setCurrentItem(startPosition);
-    }
-
-    private void setUpToolbar() {
-        int primaryColor = ThemeStore.primaryColor(this);
-        appbar.setBackgroundColor(primaryColor);
-        toolbar.setBackgroundColor(primaryColor);
-        toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
-        setTitle(getResources().getString(R.string.app_name));
-        setSupportActionBar(toolbar);
-    }
-
     private void setUpNavigationView() {
-        navigationView.setCheckedItem(R.id.nav_library);
-
         int accentColor = ThemeStore.accentColor(this);
         NavigationViewUtil.setItemIconColors(navigationView, ATHUtil.resolveColor(this, R.attr.iconColor, ThemeStore.textColorSecondary(this)), accentColor);
         NavigationViewUtil.setItemTextColors(navigationView, ThemeStore.textColorPrimary(this), accentColor);
@@ -197,10 +150,20 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                 drawerLayout.closeDrawers();
                 switch (menuItem.getItemId()) {
                     case R.id.nav_library:
-                        // TODO
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                setMusicChooser(LIBRARY);
+                            }
+                        }, 300);
                         break;
                     case R.id.nav_folders:
-                        // TODO
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                setMusicChooser(FOLDERS);
+                            }
+                        }, 300);
                         break;
                     case R.id.support_development:
                         new Handler().postDelayed(new Runnable() {
@@ -234,7 +197,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 
     private void setUpDrawerLayout() {
         setUpNavigationView();
-        drawerLayout.setDrawerListener(this);
+        drawerLayout.addDrawerListener(this);
     }
 
     private void updateNavigationDrawerHeader() {
@@ -267,25 +230,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     }
 
     @Override
-    public void enableViews() {
-        try {
-            super.enableViews();
-            toolbar.setEnabled(true);
-            ((AbsMainActivityFragment) getCurrentFragment()).enableViews();
-        } catch (NullPointerException ignored) {
-        }
-    }
-
-    @Override
-    public void disableViews() {
-        try {
-            super.disableViews();
-            ((AbsMainActivityFragment) getCurrentFragment()).disableViews();
-        } catch (NullPointerException ignored) {
-        }
-    }
-
-    @Override
     public void onPlayingMetaChanged() {
         super.onPlayingMetaChanged();
         updateNavigationDrawerHeader();
@@ -298,31 +242,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        if (isPlaylistPage()) {
-            menu.add(0, R.id.action_new_playlist, 0, R.string.new_playlist_title);
-        }
-        Fragment currentFragment = getCurrentFragment();
-        if (currentFragment instanceof AbsMainActivityRecyclerViewCustomGridSizeFragment && currentFragment.isAdded()) {
-            AbsMainActivityRecyclerViewCustomGridSizeFragment absMainActivityRecyclerViewCustomGridSizeFragment = (AbsMainActivityRecyclerViewCustomGridSizeFragment) currentFragment;
-
-            MenuItem gridSizeItem = menu.findItem(R.id.action_grid_size);
-            if (Util.isLandscape(getResources())) {
-                gridSizeItem.setTitle(R.string.action_grid_size_land);
-            }
-            setUpGridSizeMenu(absMainActivityRecyclerViewCustomGridSizeFragment, gridSizeItem.getSubMenu());
-
-            menu.findItem(R.id.action_colored_footers).setChecked(absMainActivityRecyclerViewCustomGridSizeFragment.usePalette());
-            menu.findItem(R.id.action_colored_footers).setEnabled(absMainActivityRecyclerViewCustomGridSizeFragment.canUsePalette());
-        } else {
-            menu.removeItem(R.id.action_grid_size);
-            menu.removeItem(R.id.action_colored_footers);
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             if (drawerLayout.isDrawerOpen(navigationView)) {
@@ -332,137 +251,15 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
             }
             return true;
         }
-
-        Fragment currentFragment = getCurrentFragment();
-        if (currentFragment instanceof AbsMainActivityRecyclerViewCustomGridSizeFragment) {
-            AbsMainActivityRecyclerViewCustomGridSizeFragment absMainActivityRecyclerViewCustomGridSizeFragment = (AbsMainActivityRecyclerViewCustomGridSizeFragment) currentFragment;
-            if (item.getItemId() == R.id.action_colored_footers) {
-                item.setChecked(!item.isChecked());
-                absMainActivityRecyclerViewCustomGridSizeFragment.setAndSaveUsePalette(item.isChecked());
-                return true;
-            }
-            if (handleGridSizeMenuItem(absMainActivityRecyclerViewCustomGridSizeFragment, item)) {
-                return true;
-            }
-        }
-
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.action_sleep_timer:
-                new SleepTimerDialog().show(getSupportFragmentManager(), "SET_SLEEP_TIMER");
-                return true;
-            case R.id.action_equalizer:
-                NavigationUtil.openEqualizer(this);
-                return true;
-            case R.id.action_shuffle_all:
-                MusicPlayerRemote.openAndShuffleQueue(SongLoader.getAllSongs(this), true);
-                return true;
-            case R.id.action_new_playlist:
-                CreatePlaylistDialog.create().show(getSupportFragmentManager(), "CREATE_PLAYLIST");
-                return true;
-            case R.id.action_search:
-                startActivity(new Intent(MainActivity.this, SearchActivity.class));
-                return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
-    private void setUpGridSizeMenu(@NonNull AbsMainActivityRecyclerViewCustomGridSizeFragment fragment, @NonNull SubMenu gridSizeMenu) {
-        switch (fragment.getGridSize()) {
-            case 1:
-                gridSizeMenu.findItem(R.id.action_grid_size_1).setChecked(true);
-                break;
-            case 2:
-                gridSizeMenu.findItem(R.id.action_grid_size_2).setChecked(true);
-                break;
-            case 3:
-                gridSizeMenu.findItem(R.id.action_grid_size_3).setChecked(true);
-                break;
-            case 4:
-                gridSizeMenu.findItem(R.id.action_grid_size_4).setChecked(true);
-                break;
-            case 5:
-                gridSizeMenu.findItem(R.id.action_grid_size_5).setChecked(true);
-                break;
-            case 6:
-                gridSizeMenu.findItem(R.id.action_grid_size_6).setChecked(true);
-                break;
-            case 7:
-                gridSizeMenu.findItem(R.id.action_grid_size_7).setChecked(true);
-                break;
-            case 8:
-                gridSizeMenu.findItem(R.id.action_grid_size_8).setChecked(true);
-                break;
-        }
-        int maxGridSize = fragment.getMaxGridSize();
-        if (maxGridSize < 8) {
-            gridSizeMenu.findItem(R.id.action_grid_size_8).setVisible(false);
-        }
-        if (maxGridSize < 7) {
-            gridSizeMenu.findItem(R.id.action_grid_size_7).setVisible(false);
-        }
-        if (maxGridSize < 6) {
-            gridSizeMenu.findItem(R.id.action_grid_size_6).setVisible(false);
-        }
-        if (maxGridSize < 5) {
-            gridSizeMenu.findItem(R.id.action_grid_size_5).setVisible(false);
-        }
-        if (maxGridSize < 4) {
-            gridSizeMenu.findItem(R.id.action_grid_size_4).setVisible(false);
-        }
-        if (maxGridSize < 3) {
-            gridSizeMenu.findItem(R.id.action_grid_size_3).setVisible(false);
-        }
-    }
-
-    private boolean handleGridSizeMenuItem(@NonNull AbsMainActivityRecyclerViewCustomGridSizeFragment fragment, @NonNull MenuItem item) {
-        int gridSize = 0;
-        switch (item.getItemId()) {
-            case R.id.action_grid_size_1:
-                gridSize = 1;
-                break;
-            case R.id.action_grid_size_2:
-                gridSize = 2;
-                break;
-            case R.id.action_grid_size_3:
-                gridSize = 3;
-                break;
-            case R.id.action_grid_size_4:
-                gridSize = 4;
-                break;
-            case R.id.action_grid_size_5:
-                gridSize = 5;
-                break;
-            case R.id.action_grid_size_6:
-                gridSize = 6;
-                break;
-            case R.id.action_grid_size_7:
-                gridSize = 7;
-                break;
-            case R.id.action_grid_size_8:
-                gridSize = 8;
-                break;
-        }
-        if (gridSize > 0) {
-            item.setChecked(true);
-            fragment.setAndSaveGridSize(gridSize);
-            toolbar.getMenu().findItem(R.id.action_colored_footers).setEnabled(fragment.canUsePalette());
-            return true;
-        }
-        return false;
-    }
 
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(navigationView)) drawerLayout.closeDrawers();
-        else if (cab != null && cab.isActive()) cab.finish();
-        else super.onBackPressed();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        PreferenceUtil.getInstance(MainActivity.this).setLastStartPage(pager.getCurrentItem());
+        else if (currentFragment == null || !currentFragment.onBackPressed())
+            super.onBackPressed();
     }
 
     private void handlePlaybackIntent(@Nullable Intent intent) {
@@ -531,37 +328,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         return id;
     }
 
-    public Fragment getCurrentFragment() {
-        return pagerAdapter.getFragment(pager.getCurrentItem());
-    }
-
-    private boolean isPlaylistPage() {
-        return pager.getCurrentItem() == MusicLibraryPagerAdapter.MusicFragments.PLAYLIST.ordinal();
-    }
-
-    @Override
-    public MaterialCab openCab(final int menu, final MaterialCab.Callback callback) {
-        if (cab != null && cab.isActive()) cab.finish();
-        cab = new MaterialCab(this, R.id.cab_stub)
-                .setMenu(menu)
-                .setCloseDrawableRes(R.drawable.ic_close_white_24dp)
-                .setBackgroundColor(PhonographColorUtil.shiftBackgroundColorForLightText(ThemeStore.primaryColor(this)))
-                .start(callback);
-        return cab;
-    }
-
-    public void addOnAppBarOffsetChangedListener(OnOffsetChangedListener onOffsetChangedListener) {
-        appbar.addOnOffsetChangedListener(onOffsetChangedListener);
-    }
-
-    public void removeOnAppBarOffsetChangedListener(OnOffsetChangedListener onOffsetChangedListener) {
-        appbar.removeOnOffsetChangedListener(onOffsetChangedListener);
-    }
-
-    public int getTotalAppBarScrollingRange() {
-        return appbar.getTotalScrollRange();
-    }
-
     @Override
     public void onPanelExpanded(View view) {
         super.onPanelExpanded(view);
@@ -574,16 +340,34 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 
-    private void checkShowChangelog() {
+    private boolean checkShowIntro() {
+        if (!PreferenceUtil.getInstance(this).introShown()) {
+            PreferenceUtil.getInstance(this).setIntroShown();
+            ChangelogDialog.setChangelogRead(this);
+            blockRequestPermissions = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivityForResult(new Intent(MainActivity.this, AppIntroActivity.class), APP_INTRO_REQUEST);
+                }
+            }, 50);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkShowChangelog() {
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             int currentVersion = pInfo.versionCode;
             if (currentVersion != PreferenceUtil.getInstance(this).getLastChangelogVersion()) {
                 ChangelogDialog.create().show(getSupportFragmentManager(), "CHANGE_LOG_DIALOG");
+                return true;
             }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override
@@ -604,5 +388,9 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     @Override
     public void onDrawerStateChanged(int newState) {
 
+    }
+
+    public interface MainActivityFragmentCallbacks {
+        boolean onBackPressed();
     }
 }

@@ -10,10 +10,10 @@ import android.util.SparseArray;
 import android.view.ViewGroup;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.AlbumsFragment;
-import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.ArtistsFragment;
-import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.PlaylistsFragment;
-import com.kabouzeid.gramophone.ui.fragments.mainactivityfragments.SongsFragment;
+import com.kabouzeid.gramophone.ui.fragments.libraryfragments.AlbumsPagerFragment;
+import com.kabouzeid.gramophone.ui.fragments.libraryfragments.ArtistsPagerFragment;
+import com.kabouzeid.gramophone.ui.fragments.libraryfragments.PlaylistsPagerFragment;
+import com.kabouzeid.gramophone.ui.fragments.libraryfragments.SongsPagerFragment;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -107,10 +107,10 @@ public class MusicLibraryPagerAdapter extends FragmentPagerAdapter {
     }
 
     public enum MusicFragments {
-        SONG(SongsFragment.class),
-        ALBUM(AlbumsFragment.class),
-        ARTIST(ArtistsFragment.class),
-        PLAYLIST(PlaylistsFragment.class);
+        SONG(SongsPagerFragment.class),
+        ALBUM(AlbumsPagerFragment.class),
+        ARTIST(ArtistsPagerFragment.class),
+        PLAYLIST(PlaylistsPagerFragment.class);
 
         private final Class<? extends Fragment> mFragmentClass;
 
