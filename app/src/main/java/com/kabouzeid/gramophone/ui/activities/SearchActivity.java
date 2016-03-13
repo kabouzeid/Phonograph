@@ -72,18 +72,6 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
     }
 
     @Override
-    public void enableViews() {
-        super.enableViews();
-        recyclerView.setEnabled(true);
-    }
-
-    @Override
-    public void disableViews() {
-        super.disableViews();
-        recyclerView.setEnabled(false);
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
 

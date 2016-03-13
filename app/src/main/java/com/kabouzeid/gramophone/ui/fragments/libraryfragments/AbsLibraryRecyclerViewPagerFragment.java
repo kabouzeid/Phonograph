@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
+package com.kabouzeid.gramophone.ui.fragments.libraryfragments;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -27,9 +27,9 @@ import butterknife.ButterKnife;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView.Adapter, LM extends RecyclerView.LayoutManager> extends AbsMainActivityFragment implements OnOffsetChangedListener, MusicServiceEventListener {
+public abstract class AbsLibraryRecyclerViewPagerFragment<A extends RecyclerView.Adapter, LM extends RecyclerView.LayoutManager> extends AbsLibraryPagerFragment implements OnOffsetChangedListener, MusicServiceEventListener {
 
-    public static final String TAG = AbsMainActivityRecyclerViewFragment.class.getSimpleName();
+    public static final String TAG = AbsLibraryRecyclerViewPagerFragment.class.getSimpleName();
 
     @Bind(R.id.container)
     View container;
@@ -53,8 +53,8 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getMainActivity().addOnAppBarOffsetChangedListener(this);
-        getMainActivity().addMusicServiceEventListener(this);
+        getLibraryFragment().addOnAppBarOffsetChangedListener(this);
+        getLibraryFragment().getMainActivity().addMusicServiceEventListener(this);
 
         setUpRecyclerView();
 
@@ -104,7 +104,7 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
-        container.setPadding(container.getPaddingLeft(), container.getPaddingTop(), container.getPaddingRight(), getMainActivity().getTotalAppBarScrollingRange() + i);
+        container.setPadding(container.getPaddingLeft(), container.getPaddingTop(), container.getPaddingRight(), getLibraryFragment().getTotalAppBarScrollingRange() + i);
     }
 
     @Override
@@ -130,18 +130,6 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
     @Override
     public void onRepeatModeChanged() {
 
-    }
-
-    @Override
-    public void enableViews() {
-        super.enableViews();
-        recyclerView.setEnabled(true);
-    }
-
-    @Override
-    public void disableViews() {
-        super.disableViews();
-        recyclerView.setEnabled(false);
     }
 
     private void checkIsEmpty() {
@@ -171,8 +159,8 @@ public abstract class AbsMainActivityRecyclerViewFragment<A extends RecyclerView
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        getMainActivity().removeOnAppBarOffsetChangedListener(this);
-        getMainActivity().removeMusicServiceEventListener(this);
+        getLibraryFragment().removeOnAppBarOffsetChangedListener(this);
+        getLibraryFragment().getMainActivity().removeMusicServiceEventListener(this);
         ButterKnife.unbind(this);
     }
 }

@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity;
 import com.kabouzeid.gramophone.ui.activities.ArtistDetailActivity;
@@ -24,8 +23,6 @@ import com.kabouzeid.gramophone.ui.activities.PlaylistDetailActivity;
 public class NavigationUtil {
 
     public static void goToArtist(@NonNull final Activity activity, final int artistId, @Nullable Pair... sharedElements) {
-        if (!disableViewsAndCheckIsReadyForTransition(activity)) return;
-
         final Intent intent = new Intent(activity, ArtistDetailActivity.class);
         intent.putExtra(ArtistDetailActivity.EXTRA_ARTIST_ID, artistId);
 
@@ -34,8 +31,6 @@ public class NavigationUtil {
     }
 
     public static void goToAlbum(@NonNull final Activity activity, final int albumId, @Nullable Pair... sharedElements) {
-        if (!disableViewsAndCheckIsReadyForTransition(activity)) return;
-
         final Intent intent = new Intent(activity, AlbumDetailActivity.class);
         intent.putExtra(AlbumDetailActivity.EXTRA_ALBUM_ID, albumId);
 
@@ -44,22 +39,10 @@ public class NavigationUtil {
     }
 
     public static void goToPlaylist(@NonNull final Activity activity, final Playlist playlist, @Nullable Pair... sharedElements) {
-        if (!disableViewsAndCheckIsReadyForTransition(activity)) return;
-
         final Intent intent = new Intent(activity, PlaylistDetailActivity.class);
         intent.putExtra(PlaylistDetailActivity.EXTRA_PLAYLIST, playlist);
 
         activity.startActivity(intent);
-    }
-
-    private static boolean disableViewsAndCheckIsReadyForTransition(@NonNull final Activity activity) {
-        if (activity instanceof KabViewsDisableAble) {
-            if (((KabViewsDisableAble) activity).areViewsEnabled()) {
-                ((KabViewsDisableAble) activity).disableViews();
-                return true;
-            }
-        }
-        return false;
     }
 
     public static void openEqualizer(@NonNull final Activity activity) {

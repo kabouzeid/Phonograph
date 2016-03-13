@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
+package com.kabouzeid.gramophone.ui.fragments.libraryfragments;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,9 +16,9 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class PlaylistsFragment extends AbsMainActivityRecyclerViewFragment<PlaylistAdapter, LinearLayoutManager> {
+public class PlaylistsPagerFragment extends AbsLibraryRecyclerViewPagerFragment<PlaylistAdapter, LinearLayoutManager> {
 
-    public static final String TAG = PlaylistsFragment.class.getSimpleName();
+    public static final String TAG = PlaylistsPagerFragment.class.getSimpleName();
 
     @NonNull
     @Override
@@ -29,7 +29,7 @@ public class PlaylistsFragment extends AbsMainActivityRecyclerViewFragment<Playl
     @NonNull
     @Override
     protected PlaylistAdapter createAdapter() {
-        return new PlaylistAdapter(getMainActivity(), getAllPlaylists(), R.layout.item_list_single_row, getMainActivity());
+        return new PlaylistAdapter(getLibraryFragment().getMainActivity(), getAllPlaylists(), R.layout.item_list_single_row, getLibraryFragment());
     }
 
     @Override

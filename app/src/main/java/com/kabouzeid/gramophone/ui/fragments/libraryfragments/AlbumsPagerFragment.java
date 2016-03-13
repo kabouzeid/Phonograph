@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
+package com.kabouzeid.gramophone.ui.fragments.libraryfragments;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,8 +11,8 @@ import com.kabouzeid.gramophone.util.PreferenceUtil;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class AlbumsFragment extends AbsMainActivityRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridLayoutManager> {
-    public static final String TAG = AlbumsFragment.class.getSimpleName();
+public class AlbumsPagerFragment extends AbsLibraryRecyclerViewCustomGridSizePagerFragment<AlbumAdapter, GridLayoutManager> {
+    public static final String TAG = AlbumsPagerFragment.class.getSimpleName();
 
     @Override
     protected GridLayoutManager createLayoutManager() {
@@ -25,11 +25,11 @@ public class AlbumsFragment extends AbsMainActivityRecyclerViewCustomGridSizeFra
         int itemLayoutRes = getItemLayoutRes();
         applyRecyclerViewPaddingForLayoutRes(itemLayoutRes);
         return new AlbumAdapter(
-                getMainActivity(),
+                getLibraryFragment().getMainActivity(),
                 AlbumLoader.getAllAlbums(getActivity()),
                 itemLayoutRes,
                 loadUsePalette(),
-                getMainActivity());
+                getLibraryFragment());
     }
 
     @Override

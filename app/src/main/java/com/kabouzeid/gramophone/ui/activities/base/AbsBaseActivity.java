@@ -17,12 +17,11 @@ import android.view.View;
 
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.interfaces.KabViewsDisableAble;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class AbsBaseActivity extends AbsThemeActivity implements KabViewsDisableAble {
+public abstract class AbsBaseActivity extends AbsThemeActivity {
     public static final int PERMISSION_REQUEST = 100;
 
     private boolean areViewsEnabled;
@@ -54,7 +53,6 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
     @Override
     protected void onResume() {
         super.onResume();
-        enableViews();
 
         if (hasPermissions() != createdWithPermissionsGranted) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -86,31 +84,6 @@ public abstract class AbsBaseActivity extends AbsThemeActivity implements KabVie
 
     protected void showOverflowMenu() {
 
-    }
-
-    /**
-     * Should be overwritten and re enable all {@link android.view.View} to ensure they are accessible again
-     * <p/>
-     * This is necessary because of a bug with the shared element transition
-     */
-    @Override
-    public void enableViews() {
-        areViewsEnabled = true;
-    }
-
-    /**
-     * Should be overwritten and disable all views that start a new activity on click to prevent opening an activity multiple times
-     * <p/>
-     * This is necessary because of a bug with the shared element transition
-     */
-    @Override
-    public void disableViews() {
-        areViewsEnabled = false;
-    }
-
-    @Override
-    public boolean areViewsEnabled() {
-        return areViewsEnabled;
     }
 
     @Nullable

@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.ui.fragments.mainactivityfragments;
+package com.kabouzeid.gramophone.ui.fragments.libraryfragments;
 
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +9,7 @@ import com.kabouzeid.gramophone.util.Util;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class AbsMainActivityRecyclerViewCustomGridSizeFragment<A extends RecyclerView.Adapter, LM extends RecyclerView.LayoutManager> extends AbsMainActivityRecyclerViewFragment<A, LM> {
+public abstract class AbsLibraryRecyclerViewCustomGridSizePagerFragment<A extends RecyclerView.Adapter, LM extends RecyclerView.LayoutManager> extends AbsLibraryRecyclerViewPagerFragment<A, LM> {
     private int gridSize;
 
     private boolean usePaletteInitialized;

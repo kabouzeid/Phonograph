@@ -13,7 +13,8 @@ import com.kabouzeid.gramophone.helper.SortOrder;
 public final class PreferenceUtil {
     public static final String GENERAL_THEME = "general_theme";
     public static final String DEFAULT_START_PAGE = "default_start_page";
-    public static final String LAST_START_PAGE = "last_start_page";
+    public static final String LAST_PAGE = "last_start_page";
+    public static final String LAST_MUSIC_CHOOSER = "last_music_chooser";
 
     public static final String ARTIST_SORT_ORDER = "artist_sort_order";
     public static final String ARTIST_SONG_SORT_ORDER = "artist_song_sort_order";
@@ -100,16 +101,24 @@ public final class PreferenceUtil {
         return Integer.parseInt(mPreferences.getString(DEFAULT_START_PAGE, "-1"));
     }
 
-    public void setLastStartPage(final int value) {
+    public void setLastPage(final int value) {
         final SharedPreferences.Editor editor = mPreferences.edit();
-        editor.putInt(LAST_START_PAGE, value);
+        editor.putInt(LAST_PAGE, value);
         editor.apply();
     }
 
-    public static final int DEFAULT_PAGE = 0;
+    public final int getLastPage() {
+        return mPreferences.getInt(LAST_PAGE, 0);
+    }
 
-    public final int getLastStartPage() {
-        return mPreferences.getInt(LAST_START_PAGE, DEFAULT_PAGE);
+    public void setLastMusicChooser(final int value) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putInt(LAST_MUSIC_CHOOSER, value);
+        editor.apply();
+    }
+
+    public final int getLastMusicChooser() {
+        return mPreferences.getInt(LAST_MUSIC_CHOOSER, 0);
     }
 
     public final boolean coloredNotification() {

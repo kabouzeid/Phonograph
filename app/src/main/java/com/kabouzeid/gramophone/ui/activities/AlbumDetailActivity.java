@@ -235,20 +235,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     }
 
     @Override
-    public void enableViews() {
-        super.enableViews();
-        recyclerView.setEnabled(true);
-        toolbar.setEnabled(true);
-    }
-
-    @Override
-    public void disableViews() {
-        super.disableViews();
-        recyclerView.setEnabled(false);
-        toolbar.setEnabled(false);
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_album_detail, menu);
         return true;
