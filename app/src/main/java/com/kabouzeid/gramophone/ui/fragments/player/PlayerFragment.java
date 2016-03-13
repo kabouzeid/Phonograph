@@ -104,7 +104,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
         setUpRecyclerView();
 
-        slidingUpPanelLayout.setPanelSlideListener(this);
+        slidingUpPanelLayout.addPanelSlideListener(this);
         slidingUpPanelLayout.setAntiDragView(view.findViewById(R.id.draggable_area));
 
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -121,6 +121,9 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
     @Override
     public void onDestroyView() {
+        if (slidingUpPanelLayout != null) {
+            slidingUpPanelLayout.removePanelSlideListener(this);
+        }
         if (recyclerViewDragDropManager != null) {
             recyclerViewDragDropManager.release();
             recyclerViewDragDropManager = null;
@@ -303,28 +306,21 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
     }
 
     @Override
-    public void onPanelCollapsed(View view) {
+    public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
+        switch (newState) {
+            case COLLAPSED:
+                onPanelCollapsed(panel);
+                break;
+        }
+    }
+
+    public void onPanelCollapsed(View panel) {
         resetToCurrentPosition();
     }
 
     private void resetToCurrentPosition() {
         recyclerView.stopScroll();
         layoutManager.scrollToPositionWithOffset(MusicPlayerRemote.getPosition() + 1, 0);
-    }
-
-    @Override
-    public void onPanelExpanded(View view) {
-
-    }
-
-    @Override
-    public void onPanelAnchored(View view) {
-
-    }
-
-    @Override
-    public void onPanelHidden(View view) {
-
     }
 
     interface Impl {
