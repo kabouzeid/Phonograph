@@ -173,7 +173,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     @Override
     protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Artist> selection) {
         switch (menuItem.getItemId()) {
-            case R.id.action_delete_from_disk:
+            case R.id.action_delete_from_device:
                 DeleteSongsDialog.create(getSongList(selection)).show(activity.getSupportFragmentManager(), "DELETE_SONGS");
                 break;
             case R.id.action_add_to_playlist:

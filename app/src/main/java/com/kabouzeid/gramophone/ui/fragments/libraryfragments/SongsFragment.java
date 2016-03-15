@@ -15,9 +15,9 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class SongsPagerFragment extends AbsLibraryRecyclerViewCustomGridSizePagerFragment<SongAdapter, GridLayoutManager> {
+public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFragment<SongAdapter, GridLayoutManager> {
 
-    public static final String TAG = SongsPagerFragment.class.getSimpleName();
+    public static final String TAG = SongsFragment.class.getSimpleName();
 
     @NonNull
     @Override

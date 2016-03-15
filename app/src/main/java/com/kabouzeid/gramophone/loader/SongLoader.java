@@ -83,12 +83,12 @@ public class SongLoader {
     }
 
     @Nullable
-    public static Cursor makeSongCursor(@NonNull final Context context, final String selection, final String[] values) {
-        return makeSongCursor(context, selection, values, PreferenceUtil.getInstance(context).getSongSortOrder());
+    public static Cursor makeSongCursor(@NonNull final Context context, @Nullable final String selection, final String[] selectionValues) {
+        return makeSongCursor(context, selection, selectionValues, PreferenceUtil.getInstance(context).getSongSortOrder());
     }
 
     @Nullable
-    public static Cursor makeSongCursor(@NonNull final Context context, @Nullable final String selection, final String[] values, final String sortOrder) {
+    public static Cursor makeSongCursor(@NonNull final Context context, @Nullable final String selection, final String[] selectionValues, final String sortOrder) {
         String baseSelection = BASE_SELECTION;
         if (selection != null && !selection.trim().equals("")) {
             baseSelection += " AND " + selection;
@@ -109,7 +109,7 @@ public class SongLoader {
                             AudioColumns.ARTIST_ID,// 9
                             AudioColumns.ARTIST,// 10
 
-                    }, baseSelection, values, sortOrder);
+                    }, baseSelection, selectionValues, sortOrder);
         } catch (SecurityException e) {
             return null;
         }

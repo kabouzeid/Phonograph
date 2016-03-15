@@ -16,9 +16,9 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class PlaylistsPagerFragment extends AbsLibraryRecyclerViewPagerFragment<PlaylistAdapter, LinearLayoutManager> {
+public class PlaylistsFragment extends AbsLibraryPagerRecyclerViewFragment<PlaylistAdapter, LinearLayoutManager> {
 
-    public static final String TAG = PlaylistsPagerFragment.class.getSimpleName();
+    public static final String TAG = PlaylistsFragment.class.getSimpleName();
 
     @NonNull
     @Override

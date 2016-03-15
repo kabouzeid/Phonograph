@@ -38,7 +38,7 @@
         android:title="@string/action_set_as_ringtone"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_delete_from_disk"
+        android:id="@+id/action_delete_from_device"
         android:title="@string/action_delete_from_device"
         app:showAsAction="never" />
 </menu>

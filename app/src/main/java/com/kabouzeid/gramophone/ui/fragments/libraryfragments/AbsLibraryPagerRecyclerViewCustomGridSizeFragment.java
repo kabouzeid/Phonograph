@@ -9,7 +9,7 @@ import com.kabouzeid.gramophone.util.Util;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class AbsLibraryRecyclerViewCustomGridSizePagerFragment<A extends RecyclerView.Adapter, LM extends RecyclerView.LayoutManager> extends AbsLibraryRecyclerViewPagerFragment<A, LM> {
+public abstract class AbsLibraryPagerRecyclerViewCustomGridSizeFragment<A extends RecyclerView.Adapter, LM extends RecyclerView.LayoutManager> extends AbsLibraryPagerRecyclerViewFragment<A, LM> {
     private int gridSize;
 
     private boolean usePaletteInitialized;

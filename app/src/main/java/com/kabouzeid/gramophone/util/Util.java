@@ -13,6 +13,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.annotation.AttrRes;
+import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -94,7 +95,7 @@ public class Util {
         return dimensionPixelSize;
     }
 
-    public static Drawable getTintedDrawable(@NonNull Context context, @DrawableRes int drawableResId, int color) {
+    public static Drawable getTintedDrawable(@NonNull Context context, @DrawableRes int drawableResId, @ColorInt int color) {
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
             // vector support
             context = TintContextWrapper.wrap(context);

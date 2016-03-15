@@ -43,7 +43,7 @@ public class TopAndRecentlyPlayedTracksLoader {
 
     @Nullable
     public static Cursor makeRecentTracksCursorAndClearUpDatabase(@NonNull final Context context) {
-        SortedCursor retCursor = makeRecentTracksCursorImpl(context);
+        SortedLongCursor retCursor = makeRecentTracksCursorImpl(context);
 
         // clean up the databases with any ids not found
         if (retCursor != null) {
@@ -59,7 +59,7 @@ public class TopAndRecentlyPlayedTracksLoader {
 
     @Nullable
     public static Cursor makeTopTracksCursorAndClearUpDatabase(@NonNull final Context context) {
-        SortedCursor retCursor = makeTopTracksCursorImpl(context);
+        SortedLongCursor retCursor = makeTopTracksCursorImpl(context);
 
         // clean up the databases with any ids not found
         if (retCursor != null) {
@@ -74,7 +74,7 @@ public class TopAndRecentlyPlayedTracksLoader {
     }
 
     @Nullable
-    private static SortedCursor makeRecentTracksCursorImpl(@NonNull final Context context) {
+    private static SortedLongCursor makeRecentTracksCursorImpl(@NonNull final Context context) {
         // first get the top results ids from the internal database
         Cursor songs = HistoryStore.getInstance(context).queryRecentIds();
 
@@ -89,7 +89,7 @@ public class TopAndRecentlyPlayedTracksLoader {
     }
 
     @Nullable
-    private static SortedCursor makeTopTracksCursorImpl(@NonNull final Context context) {
+    private static SortedLongCursor makeTopTracksCursorImpl(@NonNull final Context context) {
         // first get the top results ids from the internal database
         Cursor songs = SongPlayCountStore.getInstance(context).getTopPlayedResults(NUMBER_OF_TOP_TRACKS);
 
@@ -104,8 +104,7 @@ public class TopAndRecentlyPlayedTracksLoader {
     }
 
     @Nullable
-    private static SortedCursor makeSortedCursor(@NonNull final Context context, @Nullable final Cursor cursor,
-                                                 final int idColumn) {
+    private static SortedLongCursor makeSortedCursor(@NonNull final Context context, @Nullable final Cursor cursor, final int idColumn) {
         if (cursor != null && cursor.moveToFirst()) {
             // create the list of ids to select against
             StringBuilder selection = new StringBuilder();
@@ -133,7 +132,7 @@ public class TopAndRecentlyPlayedTracksLoader {
             Cursor songCursor = SongLoader.makeSongCursor(context, selection.toString(), null);
             if (songCursor != null) {
                 // now return the wrapped TopTracksCursor to handle sorting given order
-                return new SortedCursor(songCursor, order, BaseColumns._ID, null);
+                return new SortedLongCursor(songCursor, order, BaseColumns._ID);
             }
         }
 

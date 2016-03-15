@@ -24,32 +24,30 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-import hugo.weaving.DebugLog;
-
 /**
  * This cursor basically wraps a song cursor and is given a list of the order of the ids of the
  * contents of the cursor. It wraps the Cursor and simulates the internal cursor being sorted
  * by moving the point to the appropriate spot
  */
-public class SortedCursor extends AbstractCursor {
+public class SortedLongCursor extends AbstractCursor {
     // cursor to wrap
     private final Cursor mCursor;
     // the map of external indices to internal indices
     private ArrayList<Integer> mOrderedPositions;
     // this contains the ids that weren't found in the underlying cursor
-    private ArrayList<String> mMissingValues;
+    private ArrayList<Long> mMissingIds;
     // this contains the mapped cursor positions and afterwards the extra ids that weren't found
-    private HashMap<String, Integer> mMapCursorPositions;
+    private HashMap<Long, Integer> mMapCursorPositions;
 
     /**
      * @param cursor     to wrap
      * @param order      the list of unique ids in sorted order to display
      * @param columnName the column name of the id to look up in the internal cursor
      */
-    @DebugLog
-    public SortedCursor(@NonNull final Cursor cursor, @Nullable final String[] order, final String columnName) {
+    public SortedLongCursor(final Cursor cursor, final long[] order, final String columnName) {
+
         mCursor = cursor;
-        mMissingValues = buildCursorPositionMapping(order, columnName);
+        mMissingIds = buildCursorPositionMapping(order, columnName);
     }
 
     /**
@@ -60,51 +58,50 @@ public class SortedCursor extends AbstractCursor {
      * @return returns the ids that aren't found in the underlying cursor
      */
     @NonNull
-    private ArrayList<String> buildCursorPositionMapping(@Nullable final String[] order, final String columnName) {
-        ArrayList<String> missingValues = new ArrayList<>();
+    private ArrayList<Long> buildCursorPositionMapping(@Nullable final long[] order, final String columnName) {
+        ArrayList<Long> missingIds = new ArrayList<>();
 
         mOrderedPositions = new ArrayList<>(mCursor.getCount());
 
         mMapCursorPositions = new HashMap<>(mCursor.getCount());
-        final int valueColumnIndex = mCursor.getColumnIndex(columnName);
+        final int idPosition = mCursor.getColumnIndex(columnName);
 
         if (mCursor.moveToFirst()) {
             // first figure out where each of the ids are in the cursor
             do {
-                mMapCursorPositions.put(mCursor.getString(valueColumnIndex), mCursor.getPosition());
+                mMapCursorPositions.put(mCursor.getLong(idPosition), mCursor.getPosition());
             } while (mCursor.moveToNext());
 
-            if (order != null) {
-                // now create the ordered positions to map to the internal cursor given the
-                // external sort order
-                for (final String value : order) {
-                    if (mMapCursorPositions.containsKey(value)) {
-                        mOrderedPositions.add(mMapCursorPositions.get(value));
-                        mMapCursorPositions.remove(value);
-                    } else {
-                        missingValues.add(value);
-                    }
+            // now create the ordered positions to map to the internal cursor given the
+            // external sort order
+            for (int i = 0; order != null && i < order.length; i++) {
+                final long id = order[i];
+                if (mMapCursorPositions.containsKey(id)) {
+                    mOrderedPositions.add(mMapCursorPositions.get(id));
+                    mMapCursorPositions.remove(id);
+                } else {
+                    missingIds.add(id);
                 }
             }
 
             mCursor.moveToFirst();
         }
 
-        return missingValues;
+        return missingIds;
     }
 
     /**
      * @return the list of ids that weren't found in the underlying cursor
      */
-    public ArrayList<String> getMissingValues() {
-        return mMissingValues;
+    public ArrayList<Long> getMissingIds() {
+        return mMissingIds;
     }
 
     /**
      * @return the list of ids that were in the underlying cursor but not part of the ordered list
      */
     @NonNull
-    public Collection<String> getExtraValues() {
+    public Collection<Long> getExtraIds() {
         return mMapCursorPositions.keySet();
     }
 
