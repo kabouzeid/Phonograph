@@ -17,6 +17,12 @@ import android.view.View;
 import android.view.animation.PathInterpolator;
 import android.widget.TextView;
 
+import com.kabouzeid.appthemehelper.util.ATHUtil;
+import com.kabouzeid.appthemehelper.util.ColorUtil;
+import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
+import com.kabouzeid.gramophone.R;
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -70,5 +76,12 @@ public class ViewUtil {
         final int bottom = v.getBottom() + ty;
 
         return (x >= left) && (x <= right) && (y >= top) && (y <= bottom);
+    }
+
+    public static void setUpFastScrollRecyclerViewColor(Context context, FastScrollRecyclerView recyclerView, int accentColor) {
+        recyclerView.setPopupBgColor(accentColor);
+        recyclerView.setPopupTextColor(MaterialValueHelper.getPrimaryTextColor(context, ColorUtil.isColorLight(accentColor)));
+        recyclerView.setThumbColor(accentColor);
+        recyclerView.setTrackColor(ColorUtil.withAlpha(ATHUtil.resolveColor(context, R.attr.colorControlNormal), 0.12f));
     }
 }

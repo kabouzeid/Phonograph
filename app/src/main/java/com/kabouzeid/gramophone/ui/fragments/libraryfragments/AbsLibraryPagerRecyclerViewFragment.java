@@ -14,11 +14,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kabouzeid.appthemehelper.ThemeStore;
-import com.kabouzeid.appthemehelper.util.ATHUtil;
-import com.kabouzeid.appthemehelper.util.ColorUtil;
-import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
+import com.kabouzeid.gramophone.util.ViewUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import butterknife.Bind;
@@ -27,9 +25,9 @@ import butterknife.ButterKnife;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class AbsLibraryRecyclerViewPagerFragment<A extends RecyclerView.Adapter, LM extends RecyclerView.LayoutManager> extends AbsLibraryPagerFragment implements OnOffsetChangedListener, MusicServiceEventListener {
+public abstract class AbsLibraryPagerRecyclerViewFragment<A extends RecyclerView.Adapter, LM extends RecyclerView.LayoutManager> extends AbsLibraryPagerFragment implements OnOffsetChangedListener, MusicServiceEventListener {
 
-    public static final String TAG = AbsLibraryRecyclerViewPagerFragment.class.getSimpleName();
+    public static final String TAG = AbsLibraryPagerRecyclerViewFragment.class.getSimpleName();
 
     @Bind(R.id.container)
     View container;
@@ -63,11 +61,7 @@ public abstract class AbsLibraryRecyclerViewPagerFragment<A extends RecyclerView
 
     private void setUpRecyclerView() {
         if (recyclerView instanceof FastScrollRecyclerView) {
-            int accentColor = ThemeStore.accentColor(getActivity());
-            ((FastScrollRecyclerView) recyclerView).setPopupBgColor(accentColor);
-            ((FastScrollRecyclerView) recyclerView).setPopupTextColor(MaterialValueHelper.getPrimaryTextColor(getActivity(), ColorUtil.isColorLight(accentColor)));
-            ((FastScrollRecyclerView) recyclerView).setThumbColor(accentColor);
-            ((FastScrollRecyclerView) recyclerView).setTrackColor(ColorUtil.withAlpha(ATHUtil.resolveColor(getContext(), R.attr.colorControlNormal), 0.12f));
+            ViewUtil.setUpFastScrollRecyclerViewColor(getActivity(), ((FastScrollRecyclerView) recyclerView), ThemeStore.accentColor(getActivity()));
         }
         invalidateLayoutManager();
         invalidateAdapter();

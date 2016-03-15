@@ -33,7 +33,7 @@ public class SongMenuHelper {
             case R.id.action_share:
                 activity.startActivity(Intent.createChooser(MusicUtil.createShareSongFileIntent(song), null));
                 return true;
-            case R.id.action_delete_from_disk:
+            case R.id.action_delete_from_device:
                 DeleteSongsDialog.create(song).show(activity.getSupportFragmentManager(), "DELETE_SONGS");
                 return true;
             case R.id.action_add_to_playlist:

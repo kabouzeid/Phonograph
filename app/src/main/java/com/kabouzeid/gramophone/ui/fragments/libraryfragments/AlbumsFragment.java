@@ -11,8 +11,8 @@ import com.kabouzeid.gramophone.util.PreferenceUtil;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class AlbumsPagerFragment extends AbsLibraryRecyclerViewCustomGridSizePagerFragment<AlbumAdapter, GridLayoutManager> {
-    public static final String TAG = AlbumsPagerFragment.class.getSimpleName();
+public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridLayoutManager> {
+    public static final String TAG = AlbumsFragment.class.getSimpleName();
 
     @Override
     protected GridLayoutManager createLayoutManager() {

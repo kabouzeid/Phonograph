@@ -173,13 +173,18 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     @Override
     public void onBackPressed() {
+        if (!handleBackPress())
+            super.onBackPressed();
+    }
+
+    public boolean handleBackPress() {
         if (slidingUpPanelLayout.getPanelHeight() != 0 && playerFragment.onBackPressed())
-            return;
+            return true;
         if (getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
             collapsePanel();
-            return;
+            return true;
         }
-        super.onBackPressed();
+        return false;
     }
 
     @Override

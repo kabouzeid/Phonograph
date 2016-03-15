@@ -31,7 +31,7 @@ import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.ui.activities.SearchActivity;
-import com.kabouzeid.gramophone.ui.fragments.libraryfragments.AbsLibraryRecyclerViewCustomGridSizePagerFragment;
+import com.kabouzeid.gramophone.ui.fragments.libraryfragments.AbsLibraryPagerRecyclerViewCustomGridSizeFragment;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
@@ -54,6 +54,10 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
 
     private MusicLibraryPagerAdapter pagerAdapter;
     private MaterialCab cab;
+
+    public static LibraryFragment newInstance() {
+        return new LibraryFragment();
+    }
 
     public LibraryFragment() {
     }
@@ -87,7 +91,7 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
         appbar.setBackgroundColor(primaryColor);
         toolbar.setBackgroundColor(primaryColor);
         toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
-        getActivity().setTitle(getResources().getString(R.string.app_name));
+        getActivity().setTitle(R.string.app_name);
         getMainActivity().setSupportActionBar(toolbar);
     }
 
@@ -120,11 +124,12 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
         return pager.getCurrentItem() == MusicLibraryPagerAdapter.MusicFragments.PLAYLIST.ordinal();
     }
 
+    @NonNull
     @Override
-    public MaterialCab openCab(final int menu, final MaterialCab.Callback callback) {
+    public MaterialCab openCab(final int menuRes, final MaterialCab.Callback callback) {
         if (cab != null && cab.isActive()) cab.finish();
         cab = new MaterialCab(getMainActivity(), R.id.cab_stub)
-                .setMenu(menu)
+                .setMenu(menuRes)
                 .setCloseDrawableRes(R.drawable.ic_close_white_24dp)
                 .setBackgroundColor(PhonographColorUtil.shiftBackgroundColorForLightText(ThemeStore.primaryColor(getActivity())))
                 .start(callback);
@@ -151,8 +156,8 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
             menu.add(0, R.id.action_new_playlist, 0, R.string.new_playlist_title);
         }
         Fragment currentFragment = getCurrentFragment();
-        if (currentFragment instanceof AbsLibraryRecyclerViewCustomGridSizePagerFragment && currentFragment.isAdded()) {
-            AbsLibraryRecyclerViewCustomGridSizePagerFragment absLibraryRecyclerViewCustomGridSizeFragment = (AbsLibraryRecyclerViewCustomGridSizePagerFragment) currentFragment;
+        if (currentFragment instanceof AbsLibraryPagerRecyclerViewCustomGridSizeFragment && currentFragment.isAdded()) {
+            AbsLibraryPagerRecyclerViewCustomGridSizeFragment absLibraryRecyclerViewCustomGridSizeFragment = (AbsLibraryPagerRecyclerViewCustomGridSizeFragment) currentFragment;
 
             MenuItem gridSizeItem = menu.findItem(R.id.action_grid_size);
             if (Util.isLandscape(getResources())) {
@@ -171,8 +176,8 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Fragment currentFragment = getCurrentFragment();
-        if (currentFragment instanceof AbsLibraryRecyclerViewCustomGridSizePagerFragment) {
-            AbsLibraryRecyclerViewCustomGridSizePagerFragment absLibraryRecyclerViewCustomGridSizeFragment = (AbsLibraryRecyclerViewCustomGridSizePagerFragment) currentFragment;
+        if (currentFragment instanceof AbsLibraryPagerRecyclerViewCustomGridSizeFragment) {
+            AbsLibraryPagerRecyclerViewCustomGridSizeFragment absLibraryRecyclerViewCustomGridSizeFragment = (AbsLibraryPagerRecyclerViewCustomGridSizeFragment) currentFragment;
             if (item.getItemId() == R.id.action_colored_footers) {
                 item.setChecked(!item.isChecked());
                 absLibraryRecyclerViewCustomGridSizeFragment.setAndSaveUsePalette(item.isChecked());
@@ -204,7 +209,7 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
         return super.onOptionsItemSelected(item);
     }
 
-    private void setUpGridSizeMenu(@NonNull AbsLibraryRecyclerViewCustomGridSizePagerFragment fragment, @NonNull SubMenu gridSizeMenu) {
+    private void setUpGridSizeMenu(@NonNull AbsLibraryPagerRecyclerViewCustomGridSizeFragment fragment, @NonNull SubMenu gridSizeMenu) {
         switch (fragment.getGridSize()) {
             case 1:
                 gridSizeMenu.findItem(R.id.action_grid_size_1).setChecked(true);
@@ -252,7 +257,7 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
         }
     }
 
-    private boolean handleGridSizeMenuItem(@NonNull AbsLibraryRecyclerViewCustomGridSizePagerFragment fragment, @NonNull MenuItem item) {
+    private boolean handleGridSizeMenuItem(@NonNull AbsLibraryPagerRecyclerViewCustomGridSizeFragment fragment, @NonNull MenuItem item) {
         int gridSize = 0;
         switch (item.getItemId()) {
             case R.id.action_grid_size_1:
@@ -290,7 +295,7 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
     }
 
     @Override
-    public boolean onBackPressed() {
+    public boolean handleBackPress() {
         if (cab != null && cab.isActive()) {
             cab.finish();
             return true;

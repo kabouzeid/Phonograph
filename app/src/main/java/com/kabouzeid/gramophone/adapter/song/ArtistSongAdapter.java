@@ -136,7 +136,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
 
     private void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Song> selection) {
         switch (menuItem.getItemId()) {
-            case R.id.action_delete_from_disk:
+            case R.id.action_delete_from_device:
                 DeleteSongsDialog.create(selection).show(activity.getSupportFragmentManager(), "DELETE_SONGS");
                 break;
             case R.id.action_add_to_playlist:

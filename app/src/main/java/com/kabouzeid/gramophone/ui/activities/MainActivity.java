@@ -66,6 +66,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
+    @Nullable
     MainActivityFragmentCallbacks currentFragment;
 
     @Nullable
@@ -88,7 +89,11 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 
         setUpDrawerLayout();
 
-        setMusicChooser(PreferenceUtil.getInstance(this).getLastMusicChooser());
+        if (savedInstanceState == null) {
+            setMusicChooser(PreferenceUtil.getInstance(this).getLastMusicChooser());
+        } else {
+            restoreCurrentFragment();
+        }
 
         if (!checkShowIntro()) {
             checkShowChangelog();
@@ -100,18 +105,22 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         switch (key) {
             case LIBRARY:
                 navigationView.setCheckedItem(R.id.nav_library);
-                setCurrentFragment(new LibraryFragment());
+                setCurrentFragment(LibraryFragment.newInstance());
                 break;
             case FOLDERS:
                 navigationView.setCheckedItem(R.id.nav_folders);
-                setCurrentFragment(new FolderFragment());
+                setCurrentFragment(FolderFragment.newInstance());
                 break;
         }
     }
 
-    private void setCurrentFragment(Fragment fragment) {
+    private void setCurrentFragment(@SuppressWarnings("NullableProblems") Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment, LibraryFragment.TAG).commit();
         currentFragment = (MainActivityFragmentCallbacks) fragment;
+    }
+
+    private void restoreCurrentFragment() {
+        currentFragment = (MainActivityFragmentCallbacks) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
     }
 
     @Override
@@ -254,12 +263,13 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(navigationView)) drawerLayout.closeDrawers();
-        else if (currentFragment == null || !currentFragment.onBackPressed())
-            super.onBackPressed();
+    public boolean handleBackPress() {
+        if (drawerLayout.isDrawerOpen(navigationView)) {
+            drawerLayout.closeDrawers();
+            return true;
+        }
+        return super.handleBackPress() || (currentFragment != null && currentFragment.handleBackPress());
     }
 
     private void handlePlaybackIntent(@Nullable Intent intent) {
@@ -391,6 +401,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     }
 
     public interface MainActivityFragmentCallbacks {
-        boolean onBackPressed();
+        boolean handleBackPress();
     }
 }
