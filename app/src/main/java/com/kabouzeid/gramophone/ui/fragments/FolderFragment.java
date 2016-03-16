@@ -42,8 +42,9 @@ import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -270,12 +271,12 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
         if (file.isDirectory()) {
             setCrumb(new BreadCrumbLayout.Crumb(file), true);
         } else {
-            ArrayList<Song> songs = getAllSongs(file.getParentFile(), new FileFilter() {
+            ArrayList<Song> songs = matchFilesWithMediaStore(listFilesIncludingSubFolders(file.getParentFile(), new FileFilter() {
                 @Override
                 public boolean accept(File pathname) {
                     return !pathname.isDirectory();
                 }
-            });
+            }));
 
             int startIndex = -1;
             for (int i = 0; i < songs.size(); i++) {
@@ -292,23 +293,26 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
         }
     }
 
+    @DebugLog
     @Nullable
     private static SortedCursor makeSongCursor(@NonNull final Context context, @Nullable final List<File> files) {
         String selection = null;
-        String[] values = null;
+        String[] paths = null;
 
-        if (files != null && files.size() > 0 && files.size() < 999) { // 999 is the max amount Androids SQL implementation can handle.
-            selection = AudioColumns.DATA + " IN (" + makePlaceholders(files.size()) + ")";
-
-            values = new String[files.size()];
+        if (files != null) {
+            paths = new String[files.size()];
             for (int i = 0; i < files.size(); i++) {
-                values[i] = files.get(i).getPath();
+                paths[i] = files.get(i).getPath();
+            }
+
+            if (files.size() > 0 && files.size() < 999) { // 999 is the max amount Androids SQL implementation can handle.
+                selection = AudioColumns.DATA + " IN (" + makePlaceholders(files.size()) + ")";
             }
         }
 
-        Cursor songCursor = SongLoader.makeSongCursor(context, selection, values);
+        Cursor songCursor = SongLoader.makeSongCursor(context, selection, selection == null ? null : paths);
 
-        return songCursor == null ? null : new SortedCursor(songCursor, values, AudioColumns.DATA);
+        return songCursor == null ? null : new SortedCursor(songCursor, paths, AudioColumns.DATA);
     }
 
     private static String makePlaceholders(int len) {
@@ -327,59 +331,57 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
 
     @Override
     public void onAddToPlaylist(ArrayList<File> files) {
-        AddToPlaylistDialog.create(getAllSongs(files, null)).show(getFragmentManager(), "ADD_PLAYLIST");
+        ArrayList<Song> songs = matchFilesWithMediaStore(listFilesIncludingSubFolders(files, null));
+        if (!songs.isEmpty())
+            AddToPlaylistDialog.create(songs).show(getFragmentManager(), "ADD_PLAYLIST");
     }
 
     @Override
     public void onAddToCurrentPlaying(ArrayList<File> files) {
-        MusicPlayerRemote.enqueue(getAllSongs(files, null));
+        ArrayList<Song> songs = matchFilesWithMediaStore(listFilesIncludingSubFolders(files, null));
+        if (!songs.isEmpty())
+            MusicPlayerRemote.enqueue(songs);
     }
 
     @Override
     public void onDeleteFromDevice(ArrayList<File> files) {
-        DeleteSongsDialog.create(getAllSongs(files, null)).show(getFragmentManager(), "DELETE_SONGS");
+        ArrayList<Song> songs = matchFilesWithMediaStore(listFilesIncludingSubFolders(files, null));
+        if (!songs.isEmpty())
+            DeleteSongsDialog.create(songs).show(getFragmentManager(), "DELETE_SONGS");
     }
 
-    private ArrayList<Song> getAllSongs(File dir, @Nullable FileFilter fileFilter) {
-        ArrayList<Song> songs = new ArrayList<>();
-
-        ArrayList<File> files = new ArrayList<>();
-        File[] fileArray = dir.listFiles(fileFilter);
-        if (fileArray != null) Collections.addAll(files, fileArray);
-        Iterator<File> iterator = files.iterator();
-        while (iterator.hasNext()) {
-            File file = iterator.next();
-            if (file.isDirectory()) {
-                songs.addAll(getAllSongs(file, fileFilter));
-                iterator.remove();
-            }
-        }
-
-        SortedCursor cursor = makeSongCursor(getActivity(), files);
-        songs.addAll(SongLoader.getSongs(cursor));
-
-        return songs;
+    private ArrayList<Song> matchFilesWithMediaStore(@Nullable List<File> files) {
+        return SongLoader.getSongs(makeSongCursor(getActivity(), files));
     }
 
-    @DebugLog
-    private ArrayList<Song> getAllSongs(List<File> files, @Nullable FileFilter fileFilter) {
-        ArrayList<Song> songs = new ArrayList<>();
+    @NonNull
+    private static List<File> listFilesIncludingSubFolders(@NonNull File dir, @Nullable FileFilter fileFilter) {
+        List<File> files = new LinkedList<>();
+        internalListFiles(files, dir, fileFilter);
+        return files;
+    }
 
-        Iterator<File> iterator = files.iterator();
-        while (iterator.hasNext()) {
-            File file = iterator.next();
-            if (fileFilter != null && !fileFilter.accept(file)) {
-                iterator.remove();
-            } else if (file.isDirectory()) {
-                iterator.remove();
-                songs.addAll(getAllSongs(file, fileFilter));
+    @NonNull
+    private static List<File> listFilesIncludingSubFolders(@NonNull List<File> dirs, @Nullable FileFilter fileFilter) {
+        List<File> files = new LinkedList<>();
+        for (File file : dirs) {
+            internalListFiles(files, file, fileFilter);
+        }
+        return files;
+    }
+
+    private static void internalListFiles(@NonNull Collection<File> files, @NonNull File directory, @Nullable FileFilter fileFilter) {
+        File[] found = directory.listFiles(fileFilter);
+
+        if (found != null) {
+            for (File file : found) {
+                if (file.isDirectory()) {
+                    internalListFiles(files, file, fileFilter);
+                } else {
+                    files.add(file);
+                }
             }
         }
-
-        SortedCursor cursor = makeSongCursor(getActivity(), files);
-        songs.addAll(SongLoader.getSongs(cursor));
-
-        return songs;
     }
 
     @Override
