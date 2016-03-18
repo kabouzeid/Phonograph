@@ -38,26 +38,26 @@ public class BreadCrumbLayout extends HorizontalScrollView implements View.OnCli
     public static class Crumb implements Parcelable {
 
         public Crumb(File file) {
-            mFile = file;
+            this.file = file;
         }
 
-        private final File mFile;
-        private int mScrollPos;
+        private final File file;
+        private int scrollPos;
 
         public int getScrollPosition() {
-            return mScrollPos;
+            return scrollPos;
         }
 
         public void setScrollPosition(int scrollY) {
-            this.mScrollPos = scrollY;
+            this.scrollPos = scrollY;
         }
 
         public String getTitle() {
-            return mFile.getPath().equals("/") ? "root" : mFile.getName();
+            return file.getPath().equals("/") ? "root" : file.getName();
         }
 
         public File getFile() {
-            return mFile;
+            return file;
         }
 
         @Override
@@ -66,6 +66,13 @@ public class BreadCrumbLayout extends HorizontalScrollView implements View.OnCli
                     ((Crumb) o).getFile().equals(getFile());
         }
 
+        @Override
+        public String toString() {
+            return "Crumb{" +
+                    "file=" + file +
+                    ", scrollPos=" + scrollPos +
+                    '}';
+        }
 
         @Override
         public int describeContents() {
@@ -74,20 +81,22 @@ public class BreadCrumbLayout extends HorizontalScrollView implements View.OnCli
 
         @Override
         public void writeToParcel(Parcel dest, int flags) {
-            dest.writeSerializable(this.mFile);
-            dest.writeInt(this.mScrollPos);
+            dest.writeSerializable(this.file);
+            dest.writeInt(this.scrollPos);
         }
 
         protected Crumb(Parcel in) {
-            this.mFile = (File) in.readSerializable();
-            this.mScrollPos = in.readInt();
+            this.file = (File) in.readSerializable();
+            this.scrollPos = in.readInt();
         }
 
         public static final Creator<Crumb> CREATOR = new Creator<Crumb>() {
+            @Override
             public Crumb createFromParcel(Parcel source) {
                 return new Crumb(source);
             }
 
+            @Override
             public Crumb[] newArray(int size) {
                 return new Crumb[size];
             }
