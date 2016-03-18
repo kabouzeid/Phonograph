@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import com.afollestad.materialcab.MaterialCab;
@@ -44,12 +45,12 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import hugo.weaving.DebugLog;
 
 public class FolderFragment extends AbsMainActivityFragment implements MainActivity.MainActivityFragmentCallbacks, CabHolder, BreadCrumbLayout.SelectionCallback, SongFileAdapter.Callbacks, AppBarLayout.OnOffsetChangedListener {
     public static final String TAG = FolderFragment.class.getSimpleName();
@@ -111,7 +112,7 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
     }
 
     private void updateAdapter(File directory) {
-        ArrayList<File> files = loadFiles(directory);
+        List<File> files = sort(listFiles(directory, getFileFilter()));
         if (adapter == null) {
             adapter = new SongFileAdapter(getMainActivity(), files, R.layout.item_list, this, this);
             adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
@@ -126,16 +127,6 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
         } else {
             adapter.swapDataSet(files);
         }
-    }
-
-    @NonNull
-    private ArrayList<File> loadFiles(File directory) {
-        ArrayList<File> fileList = new ArrayList<>();
-        File[] files = directory.listFiles();
-        if (files != null) {
-            Collections.addAll(fileList, files);
-        }
-        return fileList;
     }
 
     @Override
@@ -271,12 +262,12 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
         if (file.isDirectory()) {
             setCrumb(new BreadCrumbLayout.Crumb(file), true);
         } else {
-            ArrayList<Song> songs = matchFilesWithMediaStore(listFilesIncludingSubFolders(file.getParentFile(), new FileFilter() {
+            ArrayList<Song> songs = matchFilesWithMediaStore(sort(listFilesDeep(file.getParentFile(), new FileFilter() {
                 @Override
                 public boolean accept(File pathname) {
-                    return !pathname.isDirectory();
+                    return !pathname.isDirectory() && getFileFilter().accept(pathname);
                 }
-            }));
+            })));
 
             int startIndex = -1;
             for (int i = 0; i < songs.size(); i++) {
@@ -288,12 +279,11 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
             if (startIndex > -1) {
                 MusicPlayerRemote.openQueue(songs, startIndex, true);
             } else {
-                Toast.makeText(getActivity(), "Could not play selected file.", Toast.LENGTH_SHORT).show(); // TODO replace with proper text.
+                Toast.makeText(getActivity(), "Selected file is not listed in the media store. You might have to scan the folder first.", Toast.LENGTH_SHORT).show(); // TODO replace with proper text.
             }
         }
     }
 
-    @DebugLog
     @Nullable
     private static SortedCursor makeSongCursor(@NonNull final Context context, @Nullable final List<File> files) {
         String selection = null;
@@ -331,21 +321,21 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
 
     @Override
     public void onAddToPlaylist(ArrayList<File> files) {
-        ArrayList<Song> songs = matchFilesWithMediaStore(listFilesIncludingSubFolders(files, null));
+        ArrayList<Song> songs = matchFilesWithMediaStore(sort(listFilesDeep(files, getFileFilter())));
         if (!songs.isEmpty())
             AddToPlaylistDialog.create(songs).show(getFragmentManager(), "ADD_PLAYLIST");
     }
 
     @Override
     public void onAddToCurrentPlaying(ArrayList<File> files) {
-        ArrayList<Song> songs = matchFilesWithMediaStore(listFilesIncludingSubFolders(files, null));
+        ArrayList<Song> songs = matchFilesWithMediaStore(sort(listFilesDeep(files, getFileFilter())));
         if (!songs.isEmpty())
             MusicPlayerRemote.enqueue(songs);
     }
 
     @Override
     public void onDeleteFromDevice(ArrayList<File> files) {
-        ArrayList<Song> songs = matchFilesWithMediaStore(listFilesIncludingSubFolders(files, null));
+        ArrayList<Song> songs = matchFilesWithMediaStore(sort(listFilesDeep(files, getFileFilter())));
         if (!songs.isEmpty())
             DeleteSongsDialog.create(songs).show(getFragmentManager(), "DELETE_SONGS");
     }
@@ -355,28 +345,42 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
     }
 
     @NonNull
-    private static List<File> listFilesIncludingSubFolders(@NonNull File dir, @Nullable FileFilter fileFilter) {
+    private List<File> listFiles(@NonNull File directory, @Nullable FileFilter fileFilter) {
+        List<File> fileList = new LinkedList<>();
+        File[] found = directory.listFiles(fileFilter);
+        if (found != null) {
+            Collections.addAll(fileList, found);
+        }
+        return fileList;
+    }
+
+    @NonNull
+    private static List<File> listFilesDeep(@NonNull File directory, @Nullable FileFilter fileFilter) {
         List<File> files = new LinkedList<>();
-        internalListFiles(files, dir, fileFilter);
+        internalListFilesDeep(files, directory, fileFilter);
         return files;
     }
 
     @NonNull
-    private static List<File> listFilesIncludingSubFolders(@NonNull List<File> dirs, @Nullable FileFilter fileFilter) {
-        List<File> files = new LinkedList<>();
-        for (File file : dirs) {
-            internalListFiles(files, file, fileFilter);
+    private static List<File> listFilesDeep(@NonNull List<File> files, @Nullable FileFilter fileFilter) {
+        List<File> resFiles = new LinkedList<>();
+        for (File file : files) {
+            if (file.isDirectory()) {
+                internalListFilesDeep(resFiles, file, fileFilter);
+            } else if (fileFilter == null || fileFilter.accept(file)) {
+                resFiles.add(file);
+            }
         }
-        return files;
+        return resFiles;
     }
 
-    private static void internalListFiles(@NonNull Collection<File> files, @NonNull File directory, @Nullable FileFilter fileFilter) {
+    private static void internalListFilesDeep(@NonNull Collection<File> files, @NonNull File directory, @Nullable FileFilter fileFilter) {
         File[] found = directory.listFiles(fileFilter);
 
         if (found != null) {
             for (File file : found) {
                 if (file.isDirectory()) {
-                    internalListFiles(files, file, fileFilter);
+                    internalListFilesDeep(files, file, fileFilter);
                 } else {
                     files.add(file);
                 }
@@ -392,6 +396,76 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
     private void checkIsEmpty() {
         if (empty != null) {
             empty.setVisibility(adapter == null || adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    private List<File> sort(List<File> files) {
+        Collections.sort(files, new FileSorter());
+        return files;
+    }
+
+    FileFilter audioFileFilter = new FileFilter() {
+        @Override
+        public boolean accept(File pathname) {
+            return pathname.isDirectory() || fileIsMimeType(pathname, "audio/*", MimeTypeMap.getSingleton());
+        }
+    };
+
+    private FileFilter getFileFilter() {
+        return audioFileFilter;
+    }
+
+    static boolean fileIsMimeType(File file, String mimeType, MimeTypeMap mimeTypeMap) {
+        if (mimeType == null || mimeType.equals("*/*")) {
+            return true;
+        } else {
+            // get the file mime type
+            String filename = file.toURI().toString();
+            int dotPos = filename.lastIndexOf('.');
+            if (dotPos == -1) {
+                return false;
+            }
+            String fileExtension = filename.substring(dotPos + 1);
+            String fileType = mimeTypeMap.getMimeTypeFromExtension(fileExtension);
+            if (fileType == null) {
+                return false;
+            }
+            // check the 'type/subtype' pattern
+            if (fileType.equals(mimeType)) {
+                return true;
+            }
+            // check the 'type/*' pattern
+            int mimeTypeDelimiter = mimeType.lastIndexOf('/');
+            if (mimeTypeDelimiter == -1) {
+                return false;
+            }
+            String mimeTypeMainType = mimeType.substring(0, mimeTypeDelimiter);
+            String mimeTypeSubtype = mimeType.substring(mimeTypeDelimiter + 1);
+            if (!mimeTypeSubtype.equals("*")) {
+                return false;
+            }
+            int fileTypeDelimiter = fileType.lastIndexOf('/');
+            if (fileTypeDelimiter == -1) {
+                return false;
+            }
+            String fileTypeMainType = fileType.substring(0, fileTypeDelimiter);
+            if (fileTypeMainType.equals(mimeTypeMainType)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static class FileSorter implements Comparator<File> {
+        @Override
+        public int compare(File lhs, File rhs) {
+            if (lhs.isDirectory() && !rhs.isDirectory()) {
+                return -1;
+            } else if (!lhs.isDirectory() && rhs.isDirectory()) {
+                return 1;
+            } else {
+                return lhs.getName().compareToIgnoreCase(rhs.getName());
+            }
         }
     }
 }

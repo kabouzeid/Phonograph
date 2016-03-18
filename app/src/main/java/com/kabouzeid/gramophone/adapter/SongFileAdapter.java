@@ -25,6 +25,7 @@ import com.kabouzeid.gramophone.util.Util;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewHolder, File> {
 
@@ -32,20 +33,17 @@ public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewH
     private static final int FOLDER = 1;
 
     private final AppCompatActivity activity;
-    private ArrayList<File> dataSet;
+    private List<File> dataSet;
     private final int itemLayoutRes;
     @Nullable
     private final Callbacks callbacks;
-    @Nullable
-    private final CabHolder cabHolder;
 
-    public SongFileAdapter(@NonNull AppCompatActivity activity, @NonNull ArrayList<File> dataSet, @LayoutRes int itemLayoutRes, @Nullable Callbacks callback, @Nullable CabHolder cabHolder) {
+    public SongFileAdapter(@NonNull AppCompatActivity activity, @NonNull List<File> songFiles, @LayoutRes int itemLayoutRes, @Nullable Callbacks callback, @Nullable CabHolder cabHolder) {
         super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
-        this.dataSet = dataSet;
+        this.dataSet = songFiles;
         this.itemLayoutRes = itemLayoutRes;
         this.callbacks = callback;
-        this.cabHolder = cabHolder;
         setHasStableIds(true);
     }
 
@@ -59,8 +57,8 @@ public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewH
         return dataSet.get(position).hashCode();
     }
 
-    public void swapDataSet(@NonNull ArrayList<File> files) {
-        this.dataSet = files;
+    public void swapDataSet(@NonNull List<File> songFiles) {
+        this.dataSet = songFiles;
         notifyDataSetChanged();
     }
 
