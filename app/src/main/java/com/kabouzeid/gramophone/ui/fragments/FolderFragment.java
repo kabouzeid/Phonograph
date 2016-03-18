@@ -51,6 +51,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import hugo.weaving.DebugLog;
 
 public class FolderFragment extends AbsMainActivityFragment implements MainActivity.MainActivityFragmentCallbacks, CabHolder, BreadCrumbLayout.SelectionCallback, SongFileAdapter.Callbacks, AppBarLayout.OnOffsetChangedListener {
     public static final String TAG = FolderFragment.class.getSimpleName();
@@ -89,13 +90,15 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
         return frag;
     }
 
+    @DebugLog
     public void setCrumb(BreadCrumbLayout.Crumb crumb, boolean addToHistory) {
         saveScrollPosition();
         updateAdapter(crumb.getFile());
-        recyclerView.getLayoutManager().scrollToPosition(crumb.getScrollPosition());
         breadCrumbs.setActiveOrAdd(crumb, false);
         if (addToHistory)
             breadCrumbs.addHistory(crumb);
+        crumb = breadCrumbs.findCrumb(crumb.getFile()); // get the real reference so we can restore previous scroll states
+        ((LinearLayoutManager) recyclerView.getLayoutManager()).scrollToPositionWithOffset(crumb.getScrollPosition(), 0);
     }
 
     private void saveScrollPosition() {
