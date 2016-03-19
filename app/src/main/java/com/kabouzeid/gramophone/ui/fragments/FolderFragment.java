@@ -1,17 +1,23 @@
 package com.kabouzeid.gramophone.ui.fragments;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore.Audio.AudioColumns;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.afollestad.materialcab.MaterialCab;
@@ -52,6 +59,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import hugo.weaving.DebugLog;
 
 public class FolderFragment extends AbsMainActivityFragment implements MainActivity.MainActivityFragmentCallbacks, CabHolder, BreadCrumbLayout.SelectionCallback, SongFileAdapter.Callbacks, AppBarLayout.OnOffsetChangedListener {
     public static final String TAG = FolderFragment.class.getSimpleName();
@@ -59,6 +67,8 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
     protected static final String PATH = "path";
     protected static final String CRUMBS = "crumbs";
 
+    @Bind(R.id.coordinator_layout)
+    CoordinatorLayout coordinatorLayout;
     @Bind(R.id.container)
     View container;
     @Bind(android.R.id.empty)
@@ -265,12 +275,14 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
         if (file.isDirectory()) {
             setCrumb(new BreadCrumbLayout.Crumb(file), true);
         } else {
-            ArrayList<Song> songs = matchFilesWithMediaStore(sort(listFilesDeep(file.getParentFile(), new FileFilter() {
+            List<File> files = listFilesDeep(file.getParentFile(), new FileFilter() {
                 @Override
                 public boolean accept(File pathname) {
                     return !pathname.isDirectory() && getFileFilter().accept(pathname);
                 }
-            })));
+            });
+            sort(files);
+            ArrayList<Song> songs = matchFilesWithMediaStore(files);
 
             int startIndex = -1;
             for (int i = 0; i < songs.size(); i++) {
@@ -282,7 +294,16 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
             if (startIndex > -1) {
                 MusicPlayerRemote.openQueue(songs, startIndex, true);
             } else {
-                Toast.makeText(getActivity(), "Selected file is not listed in the media store. You might have to scan the folder first.", Toast.LENGTH_SHORT).show(); // TODO replace with proper text.
+                final File finalFile = file;
+                Snackbar.make(coordinatorLayout, Html.fromHtml(String.format(getString(R.string.not_listed_in_media_store), file.getName())), Snackbar.LENGTH_LONG)
+                        .setAction(R.string.action_scan, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                scan(finalFile);
+                            }
+                        })
+                        .setActionTextColor(ThemeStore.accentColor(getActivity()))
+                        .show();
             }
         }
     }
@@ -293,15 +314,7 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
         String[] paths = null;
 
         if (files != null) {
-            paths = new String[files.size()];
-            for (int i = 0; i < files.size(); i++) {
-                try {
-                    paths[i] = files.get(i).getCanonicalPath(); // canonical path is important here because we want to compare the path with the media store entry later
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    paths[i] = files.get(i).getPath();
-                }
-            }
+            paths = toPathArray(files);
 
             if (files.size() > 0 && files.size() < 999) { // 999 is the max amount Androids SQL implementation can handle.
                 selection = AudioColumns.DATA + " IN (" + makePlaceholders(files.size()) + ")";
@@ -322,9 +335,90 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
         return sb.toString();
     }
 
-    @Override
-    public void onFileMenuClicked(File file) {
+    @Nullable
+    private static String[] toPathArray(@Nullable List<File> files) {
+        if (files != null) {
+            String[] paths = new String[files.size()];
+            for (int i = 0; i < files.size(); i++) {
+                try {
+                    paths[i] = files.get(i).getCanonicalPath(); // canonical path is important here because we want to compare the path with the media store entry later
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    paths[i] = files.get(i).getPath();
+                }
+            }
+            return paths;
+        }
+        return null;
+    }
 
+    @Override
+    public void onFileMenuClicked(final File file, View view) {
+        PopupMenu popupMenu = new PopupMenu(getActivity(), view);
+        popupMenu.inflate(R.menu.menu_item_directory);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_scan:
+                        scan(file);
+                        return true;
+                }
+                return false;
+            }
+        });
+        popupMenu.show();
+    }
+
+    private void scan(File file) {
+        final String[] toBeScanned;
+
+        if (file.isDirectory()) {
+            List<File> files = listFilesDeep(file, getFileFilter());
+            toBeScanned = new String[files.size()];
+            for (int i = 0; i < files.size(); i++) {
+                File f = files.get(i);
+                try {
+                    toBeScanned[i] = f.getCanonicalPath(); // canonical path is important here because we want to compare the path with the media store entry later
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    toBeScanned[i] = f.getPath();
+                }
+            }
+        } else {
+            toBeScanned = new String[1];
+            toBeScanned[0] = file.getPath();
+        }
+
+        if (toBeScanned.length < 1) {
+            Toast.makeText(getActivity(), R.string.nothing_to_scan, Toast.LENGTH_SHORT).show();
+        } else {
+            final Toast toast = Toast.makeText(getActivity(), String.format(getString(R.string.scanning), file), Toast.LENGTH_SHORT);
+            toast.show();
+
+            MediaScannerConnection.scanFile(getActivity(), toBeScanned, null, new MediaScannerConnection.OnScanCompletedListener() {
+                int scanned = 0;
+                int failed = 0;
+
+                @DebugLog
+                @Override
+                public void onScanCompleted(final String path, final Uri uri) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @SuppressLint("DefaultLocale")
+                        @Override
+                        public void run() {
+                            if (uri == null) {
+                                failed++;
+                            } else {
+                                scanned++;
+                            }
+                            toast.setText(" " + String.format(getString(R.string.scanned_files), scanned, toBeScanned.length) + (failed > 0 ? " " + String.format(getString(R.string.could_not_scan_files), failed) : ""));
+                            toast.show();
+                        }
+                    });
+                }
+            });
+        }
     }
 
     @Override
@@ -348,6 +442,7 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
             DeleteSongsDialog.create(songs).show(getFragmentManager(), "DELETE_SONGS");
     }
 
+    @NonNull
     private ArrayList<Song> matchFilesWithMediaStore(@Nullable List<File> files) {
         return SongLoader.getSongs(makeSongCursor(getActivity(), files));
     }
@@ -475,6 +570,16 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
             }
         }
         return false;
+    }
+
+    @Nullable
+    private static String getMimeType(String fileName, MimeTypeMap mimeTypeMap) {
+        int dotPos = fileName.lastIndexOf('.');
+        if (dotPos == -1) {
+            return null;
+        }
+        String fileExtension = fileName.substring(dotPos + 1);
+        return mimeTypeMap.getMimeTypeFromExtension(fileExtension);
     }
 
     private static File tryGetCanonicalFile(File file) {

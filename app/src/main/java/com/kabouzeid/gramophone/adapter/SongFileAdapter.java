@@ -181,7 +181,7 @@ public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewH
                     public void onClick(View v) {
                         int position = getAdapterPosition();
                         if (isPositionInRange(position)) {
-                            callbacks.onFileMenuClicked(dataSet.get(position));
+                            callbacks.onFileMenuClicked(dataSet.get(position), v);
                         }
                     }
                 });
@@ -216,7 +216,7 @@ public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewH
     public interface Callbacks {
         void onFileSelected(File file);
 
-        void onFileMenuClicked(File file);
+        void onFileMenuClicked(File file, View view);
 
         void onAddToPlaylist(ArrayList<File> files);
 

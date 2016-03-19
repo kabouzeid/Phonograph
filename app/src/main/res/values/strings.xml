@@ -28,6 +28,7 @@
     <string name="action_details">Details</string>
     <string name="action_rename">Rename</string>
     <string name="action_delete">Delete</string>
+    <string name="action_scan">Scan</string>
     <string name="albums">Albums</string>
     <string name="artists">Artists</string>
     <string name="songs">Songs</string>
@@ -237,7 +238,9 @@
     <string name="folders">Folders</string>
     <string name="saved_playlist_to">Saved playlist to %s.</string>
     <string name="failed_to_save_playlist">Failed to save playlist (%s).</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> is not listed in the media store.]]></string>
+    <string name="nothing_to_scan">Nothing to scan.</string>
+    <string name="scanning">Scanning %s</string>
+    <string name="scanned_files">Scanned %1$d of %2$d files.</string>
+    <string name="could_not_scan_files">Could not scan %d files.</string>
 </resources>
