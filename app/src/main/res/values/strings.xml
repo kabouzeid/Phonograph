@@ -96,7 +96,7 @@
     <string name="action_shuffle_artist">Shuffle artist</string>
     <string name="action_shuffle_playlist">Shuffle playlist</string>
     <string name="action_clear_playing_queue">Clear playing queue</string>
-    <string name="action_go_to_standard_folder">Go to standard folder</string>
+    <string name="action_go_to_music_folder">Go to music folder</string>
     <string name="last_opened">Last opened</string>
     <string name="light_theme_name">Light</string>
     <string name="dark_theme_name">Dark</string>

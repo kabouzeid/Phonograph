@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_go_to_standard_folder"
-        android:icon="@drawable/ic_folder_special_white_24dp"
-        android:title="@string/action_go_to_standard_folder"
+        android:id="@+id/action_go_to_music_folder"
+        android:icon="@drawable/ic_music_note_white_24dp"
+        android:title="@string/action_go_to_music_folder"
         app:showAsAction="ifRoom" />
 
 </menu>
