@@ -179,7 +179,10 @@ public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewH
                 menu.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        callbacks.onFileMenuClicked(dataSet.get(getAdapterPosition()));
+                        int position = getAdapterPosition();
+                        if (isPositionInRange(position)) {
+                            callbacks.onFileMenuClicked(dataSet.get(position));
+                        }
                     }
                 });
             }
@@ -187,18 +190,26 @@ public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewH
 
         @Override
         public void onClick(View v) {
-            if (isInQuickSelectMode()) {
-                toggleChecked(getAdapterPosition());
-            } else {
-                if (callbacks != null) {
-                    callbacks.onFileSelected(dataSet.get(getAdapterPosition()));
+            int position = getAdapterPosition();
+            if (isPositionInRange(position)) {
+                if (isInQuickSelectMode()) {
+                    toggleChecked(position);
+                } else {
+                    if (callbacks != null) {
+                        callbacks.onFileSelected(dataSet.get(position));
+                    }
                 }
             }
         }
 
         @Override
         public boolean onLongClick(View view) {
-            return toggleChecked(getAdapterPosition());
+            int position = getAdapterPosition();
+            return isPositionInRange(position) && toggleChecked(position);
+        }
+
+        private boolean isPositionInRange(int position) {
+            return position >= 0 && position < dataSet.size();
         }
     }
 
