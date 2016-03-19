@@ -42,6 +42,7 @@ import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -51,7 +52,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import hugo.weaving.DebugLog;
 
 public class FolderFragment extends AbsMainActivityFragment implements MainActivity.MainActivityFragmentCallbacks, CabHolder, BreadCrumbLayout.SelectionCallback, SongFileAdapter.Callbacks, AppBarLayout.OnOffsetChangedListener {
     public static final String TAG = FolderFragment.class.getSimpleName();
@@ -90,7 +90,6 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
         return frag;
     }
 
-    @DebugLog
     public void setCrumb(BreadCrumbLayout.Crumb crumb, boolean addToHistory) {
         saveScrollPosition();
         updateAdapter(crumb.getFile());
@@ -153,7 +152,7 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
         setUpRecyclerView();
 
         if (savedInstanceState == null) {
-            setCrumb(new BreadCrumbLayout.Crumb((File) getArguments().getSerializable(PATH)), true);
+            setCrumb(new BreadCrumbLayout.Crumb(tryGetCanonicalFile((File) getArguments().getSerializable(PATH))), true);
         } else {
             breadCrumbs.restoreFromStateWrapper((BreadCrumbLayout.SavedStateWrapper) savedInstanceState.getParcelable(CRUMBS));
             setCrumb(breadCrumbs.getCrumb(breadCrumbs.getActiveIndex()), true);
@@ -234,8 +233,8 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_go_to_standard_folder:
-                setCrumb(new BreadCrumbLayout.Crumb(getDefaultStartFolder()), true);
+            case R.id.action_go_to_music_folder:
+                setCrumb(new BreadCrumbLayout.Crumb(tryGetCanonicalFile(getDefaultStartFolder())), true);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -262,6 +261,7 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
 
     @Override
     public void onFileSelected(File file) {
+        file = tryGetCanonicalFile(file); // important as we compare the path value later
         if (file.isDirectory()) {
             setCrumb(new BreadCrumbLayout.Crumb(file), true);
         } else {
@@ -274,7 +274,7 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
 
             int startIndex = -1;
             for (int i = 0; i < songs.size(); i++) {
-                if (file.getPath().equals(songs.get(i).data)) {
+                if (file.getPath().equals(songs.get(i).data)) { // path is already canonical here
                     startIndex = i;
                     break;
                 }
@@ -295,7 +295,12 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
         if (files != null) {
             paths = new String[files.size()];
             for (int i = 0; i < files.size(); i++) {
-                paths[i] = files.get(i).getPath();
+                try {
+                    paths[i] = files.get(i).getCanonicalPath(); // canonical path is important here because we want to compare the path with the media store entry later
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    paths[i] = files.get(i).getPath();
+                }
             }
 
             if (files.size() > 0 && files.size() < 999) { // 999 is the max amount Androids SQL implementation can handle.
@@ -402,15 +407,28 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
         }
     }
 
+    Comparator<File> fileComparator = new Comparator<File>() {
+        @Override
+        public int compare(File lhs, File rhs) {
+            if (lhs.isDirectory() && !rhs.isDirectory()) {
+                return -1;
+            } else if (!lhs.isDirectory() && rhs.isDirectory()) {
+                return 1;
+            } else {
+                return lhs.getName().compareToIgnoreCase(rhs.getName());
+            }
+        }
+    };
+
     private List<File> sort(List<File> files) {
-        Collections.sort(files, new FileSorter());
+        Collections.sort(files, fileComparator);
         return files;
     }
 
     FileFilter audioFileFilter = new FileFilter() {
         @Override
-        public boolean accept(File pathname) {
-            return pathname.isDirectory() || fileIsMimeType(pathname, "audio/*", MimeTypeMap.getSingleton());
+        public boolean accept(File file) {
+            return !file.isHidden() && (file.isDirectory() || fileIsMimeType(file, "audio/*", MimeTypeMap.getSingleton()));
         }
     };
 
@@ -418,7 +436,7 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
         return audioFileFilter;
     }
 
-    static boolean fileIsMimeType(File file, String mimeType, MimeTypeMap mimeTypeMap) {
+    private static boolean fileIsMimeType(File file, String mimeType, MimeTypeMap mimeTypeMap) {
         if (mimeType == null || mimeType.equals("*/*")) {
             return true;
         } else {
@@ -459,16 +477,12 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
         return false;
     }
 
-    private static class FileSorter implements Comparator<File> {
-        @Override
-        public int compare(File lhs, File rhs) {
-            if (lhs.isDirectory() && !rhs.isDirectory()) {
-                return -1;
-            } else if (!lhs.isDirectory() && rhs.isDirectory()) {
-                return 1;
-            } else {
-                return lhs.getName().compareToIgnoreCase(rhs.getName());
-            }
+    private static File tryGetCanonicalFile(File file) {
+        try {
+            return file.getCanonicalFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return file;
         }
     }
 }

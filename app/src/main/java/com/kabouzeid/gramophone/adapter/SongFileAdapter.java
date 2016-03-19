@@ -21,13 +21,14 @@ import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.glide.audiocover.AudioFileCover;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.util.Util;
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewHolder, File> {
+public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewHolder, File> implements FastScrollRecyclerView.SectionedAdapter {
 
     private static final int FILE = 0;
     private static final int FOLDER = 1;
@@ -114,7 +115,7 @@ public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewH
             holder.image.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
             holder.image.setImageResource(R.drawable.ic_folder_white_24dp);
         } else {
-            Drawable error = Util.getTintedDrawable(activity, R.drawable.ic_music_note_white_24dp, iconColor);
+            Drawable error = Util.getTintedDrawable(activity, R.drawable.ic_file_music_white_24dp, iconColor);
             Glide.with(activity)
                     .load(new AudioFileCover(file.getPath()))
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -162,6 +163,12 @@ public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewH
                 callbacks.onDeleteFromDevice(selection);
                 break;
         }
+    }
+
+    @NonNull
+    @Override
+    public String getSectionName(int position) {
+        return String.valueOf(dataSet.get(position).getName().charAt(0)).toUpperCase();
     }
 
     public class ViewHolder extends MediaEntryViewHolder {
