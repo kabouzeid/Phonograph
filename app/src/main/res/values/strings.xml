@@ -29,6 +29,7 @@
     <string name="action_rename">Rename</string>
     <string name="action_delete">Delete</string>
     <string name="action_scan">Scan</string>
+    <string name="action_set_as_start_directory">Set as start directory</string>
     <string name="albums">Albums</string>
     <string name="artists">Artists</string>
     <string name="songs">Songs</string>
@@ -97,7 +98,7 @@
     <string name="action_shuffle_artist">Shuffle artist</string>
     <string name="action_shuffle_playlist">Shuffle playlist</string>
     <string name="action_clear_playing_queue">Clear playing queue</string>
-    <string name="action_go_to_music_folder">Go to music folder</string>
+    <string name="action_go_to_start_directory">Go to start directory</string>
     <string name="last_opened">Last opened</string>
     <string name="light_theme_name">Light</string>
     <string name="dark_theme_name">Dark</string>

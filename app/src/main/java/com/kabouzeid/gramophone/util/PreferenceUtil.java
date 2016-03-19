@@ -9,6 +9,9 @@ import android.support.annotation.StyleRes;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.SortOrder;
+import com.kabouzeid.gramophone.ui.fragments.FolderFragment;
+
+import java.io.File;
 
 public final class PreferenceUtil {
     public static final String GENERAL_THEME = "general_theme";
@@ -56,6 +59,8 @@ public final class PreferenceUtil {
     public static final String INTRO_SHOWN = "intro_shown";
 
     public static final String AUTO_DOWNLOAD_IMAGES_POLICY = "auto_download_images_policy";
+
+    public static final String START_DIRECTORY = "start_directory";
 
     private static PreferenceUtil sInstance;
 
@@ -309,5 +314,15 @@ public final class PreferenceUtil {
 
     public final String autoDownloadImagesPolicy() {
         return mPreferences.getString(AUTO_DOWNLOAD_IMAGES_POLICY, "only_wifi");
+    }
+
+    public final File getStartDirectory() {
+        return new File(mPreferences.getString(START_DIRECTORY, FolderFragment.getDefaultStartDirectory().getPath()));
+    }
+
+    public void setStartDirectory(File file) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putString(START_DIRECTORY, file.getPath());
+        editor.apply();
     }
 }

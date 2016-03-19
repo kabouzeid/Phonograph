@@ -88,8 +88,8 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
     public FolderFragment() {
     }
 
-    public static FolderFragment newInstance() {
-        return newInstance(getDefaultStartFolder());
+    public static FolderFragment newInstance(Context context) {
+        return newInstance(PreferenceUtil.getInstance(context).getStartDirectory());
     }
 
     public static FolderFragment newInstance(File directory) {
@@ -243,8 +243,8 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_go_to_music_folder:
-                setCrumb(new BreadCrumbLayout.Crumb(tryGetCanonicalFile(getDefaultStartFolder())), true);
+            case R.id.action_go_to_start_directory:
+                setCrumb(new BreadCrumbLayout.Crumb(tryGetCanonicalFile(PreferenceUtil.getInstance(getActivity()).getStartDirectory())), true);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -255,7 +255,7 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
         setCrumb(crumb, true);
     }
 
-    public static File getDefaultStartFolder() {
+    public static File getDefaultStartDirectory() {
         File externalStorageDir = Environment.getExternalStorageDirectory();
         File musicFolder = new File(externalStorageDir, "Music");
         File startFolder;
@@ -355,18 +355,36 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
     @Override
     public void onFileMenuClicked(final File file, View view) {
         PopupMenu popupMenu = new PopupMenu(getActivity(), view);
-        popupMenu.inflate(R.menu.menu_item_directory);
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_scan:
-                        scan(file);
-                        return true;
+        if (file.isDirectory()) {
+            popupMenu.inflate(R.menu.menu_item_directory);
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.action_set_as_start_directory:
+                            PreferenceUtil.getInstance(getActivity()).setStartDirectory(file);
+                            return true;
+                        case R.id.action_scan:
+                            scan(file);
+                            return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+        } else {
+            popupMenu.inflate(R.menu.menu_item_file);
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.action_scan:
+                            scan(file);
+                            return true;
+                    }
+                    return false;
+                }
+            });
+        }
         popupMenu.show();
     }
 
