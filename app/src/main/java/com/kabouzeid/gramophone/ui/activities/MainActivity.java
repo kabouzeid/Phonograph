@@ -109,7 +109,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                 break;
             case FOLDERS:
                 navigationView.setCheckedItem(R.id.nav_folders);
-                setCurrentFragment(FolderFragment.newInstance());
+                setCurrentFragment(FolderFragment.newInstance(this));
                 break;
         }
     }

@@ -2,10 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_set_as_start_directory"
-        android:title="@string/action_set_as_start_directory"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_scan"
         android:title="@string/action_scan"
         app:showAsAction="never" />
