@@ -40,7 +40,7 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     public static final String TAG = AlbumAdapter.class.getSimpleName();
 
     protected final AppCompatActivity activity;
-    protected List<Album> dataSet;
+    protected ArrayList<Album> dataSet;
 
     protected int itemLayoutRes;
 
@@ -61,9 +61,13 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
         notifyDataSetChanged();
     }
 
-    public void swapDataSet(List<Album> dataSet) {
+    public void swapDataSet(ArrayList<Album> dataSet) {
         this.dataSet = dataSet;
         notifyDataSetChanged();
+    }
+
+    public ArrayList<Album> getDataSet() {
+        return dataSet;
     }
 
     @NonNull

@@ -1,18 +1,37 @@
 package com.kabouzeid.gramophone.ui.fragments.libraryfragments;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.adapter.MusicLibraryPagerAdapter;
 import com.kabouzeid.gramophone.adapter.album.AlbumAdapter;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
+import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
+import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
+
+import java.util.ArrayList;
+
+import hugo.weaving.DebugLog;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridLayoutManager> {
+public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridLayoutManager> implements LoaderManager.LoaderCallbacks<ArrayList<Album>> {
     public static final String TAG = AlbumsFragment.class.getSimpleName();
+
+    private static final int LOADER_ID = MusicLibraryPagerAdapter.MusicFragments.ALBUM.ordinal();
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLoaderManager().initLoader(LOADER_ID, null, this);
+    }
 
     @Override
     protected GridLayoutManager createLayoutManager() {
@@ -23,10 +42,11 @@ public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFra
     @Override
     protected AlbumAdapter createAdapter() {
         int itemLayoutRes = getItemLayoutRes();
-        applyRecyclerViewPaddingForLayoutRes(itemLayoutRes);
+        notifyLayoutResChanged(itemLayoutRes);
+        ArrayList<Album> dataSet = getAdapter() == null ? new ArrayList<Album>() : getAdapter().getDataSet();
         return new AlbumAdapter(
                 getLibraryFragment().getMainActivity(),
-                AlbumLoader.getAllAlbums(getActivity()),
+                dataSet,
                 itemLayoutRes,
                 loadUsePalette(),
                 getLibraryFragment());
@@ -80,6 +100,36 @@ public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFra
 
     @Override
     public void onMediaStoreChanged() {
-        getAdapter().swapDataSet(AlbumLoader.getAllAlbums(getActivity()));
+        getLoaderManager().restartLoader(LOADER_ID, null, this);
+    }
+
+    @DebugLog
+    @Override
+    public Loader<ArrayList<Album>> onCreateLoader(int id, Bundle args) {
+        return new AsyncAlbumLoader(getActivity());
+    }
+
+    @DebugLog
+    @Override
+    public void onLoadFinished(Loader<ArrayList<Album>> loader, ArrayList<Album> data) {
+        getAdapter().swapDataSet(data);
+    }
+
+    @DebugLog
+    @Override
+    public void onLoaderReset(Loader<ArrayList<Album>> loader) {
+        getAdapter().swapDataSet(new ArrayList<Album>());
+    }
+
+    private static class AsyncAlbumLoader extends WrappedAsyncTaskLoader<ArrayList<Album>> {
+        public AsyncAlbumLoader(Context context) {
+            super(context);
+        }
+
+        @DebugLog
+        @Override
+        public ArrayList<Album> loadInBackground() {
+            return AlbumLoader.getAllAlbums(getContext());
+        }
     }
 }

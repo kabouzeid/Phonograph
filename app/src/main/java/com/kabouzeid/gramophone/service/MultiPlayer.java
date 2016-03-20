@@ -355,7 +355,8 @@ public class MultiPlayer implements Playback, MediaPlayer.OnErrorListener, Media
                 // SystemClock.sleep(25);
                 mNextPlayer.start();
             }
-            mCompletion.onCompletion(this);
+            if (mCompletion != null)
+                mCompletion.onCompletion(this);
         }
     }
 }

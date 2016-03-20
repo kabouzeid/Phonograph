@@ -45,16 +45,12 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
     protected final AppCompatActivity activity;
     protected ArrayList<Playlist> dataSet;
     protected int itemLayoutRes;
-    protected int favoritePlaylistId;
 
     public PlaylistAdapter(AppCompatActivity activity, ArrayList<Playlist> dataSet, @LayoutRes int itemLayoutRes, @Nullable CabHolder cabHolder) {
         super(activity, cabHolder, R.menu.menu_playlists_selection);
         this.activity = activity;
         this.dataSet = dataSet;
         this.itemLayoutRes = itemLayoutRes;
-
-        favoritePlaylistId = MusicUtil.getFavoritesPlaylist(activity).id;
-
         setHasStableIds(true);
     }
 
@@ -64,7 +60,6 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
 
     public void swapDataSet(ArrayList<Playlist> dataSet) {
         this.dataSet = dataSet;
-        favoritePlaylistId = MusicUtil.getFavoritesPlaylist(activity).id;
         notifyDataSetChanged();
     }
 
@@ -113,7 +108,7 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
         if (playlist instanceof AbsSmartPlaylist) {
             return ((AbsSmartPlaylist) playlist).iconRes;
         }
-        return playlist.id == favoritePlaylistId ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_queue_music_white_24dp;
+        return MusicUtil.isFavoritePlaylist(activity, playlist) ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_queue_music_white_24dp;
     }
 
     @Override

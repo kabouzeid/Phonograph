@@ -1,7 +1,10 @@
 package com.kabouzeid.gramophone.ui.fragments.libraryfragments;
 
+import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.util.Util;
@@ -14,6 +17,7 @@ public abstract class AbsLibraryPagerRecyclerViewCustomGridSizeFragment<A extend
 
     private boolean usePaletteInitialized;
     private boolean usePalette;
+    private int currentLayoutRes;
 
     public final int getGridSize() {
         if (gridSize == 0) {
@@ -53,7 +57,7 @@ public abstract class AbsLibraryPagerRecyclerViewCustomGridSizeFragment<A extend
         } else {
             saveGridSize(gridSize);
         }
-        // only recreate the adapter and layout manager if the layout res has changed
+        // only recreate the adapter and layout manager if the layout currentLayoutRes has changed
         if (oldLayoutRes != getItemLayoutRes()) {
             invalidateLayoutManager();
             invalidateAdapter();
@@ -76,7 +80,7 @@ public abstract class AbsLibraryPagerRecyclerViewCustomGridSizeFragment<A extend
     }
 
     /**
-     * Override to customize which item layout res should be used. You might also want to override {@link #canUsePalette()} then.
+     * Override to customize which item layout currentLayoutRes should be used. You might also want to override {@link #canUsePalette()} then.
      *
      * @see #getGridSize()
      */
@@ -88,14 +92,28 @@ public abstract class AbsLibraryPagerRecyclerViewCustomGridSizeFragment<A extend
         return R.layout.item_list;
     }
 
-    protected void applyRecyclerViewPaddingForLayoutRes(@LayoutRes int res) {
+    protected final void notifyLayoutResChanged(@LayoutRes int res) {
+        this.currentLayoutRes = res;
+        RecyclerView recyclerView = getRecyclerView();
+        if (recyclerView != null) {
+            applyRecyclerViewPaddingForLayoutRes(recyclerView, currentLayoutRes);
+        }
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        applyRecyclerViewPaddingForLayoutRes(getRecyclerView(), currentLayoutRes);
+    }
+
+    protected void applyRecyclerViewPaddingForLayoutRes(@NonNull RecyclerView recyclerView, @LayoutRes int res) {
         int padding;
         if (res == R.layout.item_grid) {
             padding = (int) (getResources().getDisplayMetrics().density * 2);
         } else {
             padding = 0;
         }
-        getRecyclerView().setPadding(padding, padding, padding, padding);
+        recyclerView.setPadding(padding, padding, padding, padding);
     }
 
     protected abstract int loadGridSize();
