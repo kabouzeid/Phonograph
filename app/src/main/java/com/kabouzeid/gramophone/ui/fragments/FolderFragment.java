@@ -150,8 +150,6 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        PreferenceUtil.getInstance(getActivity()).setLastPage(-2);
-
         getMainActivity().setStatusbarColorAuto();
         getMainActivity().setNavigationbarColorAuto();
         getMainActivity().setTaskDescriptionColorAuto();

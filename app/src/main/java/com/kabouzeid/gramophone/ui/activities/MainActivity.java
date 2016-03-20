@@ -174,7 +174,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                             public void run() {
                                 setMusicChooser(LIBRARY);
                             }
-                        }, 300);
+                        }, 200);
                         break;
                     case R.id.nav_folders:
                         new Handler().postDelayed(new Runnable() {
@@ -182,7 +182,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                             public void run() {
                                 setMusicChooser(FOLDERS);
                             }
-                        }, 300);
+                        }, 200);
                         break;
                     case R.id.support_development:
                         new Handler().postDelayed(new Runnable() {
