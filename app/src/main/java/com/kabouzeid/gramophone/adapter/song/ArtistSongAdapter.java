@@ -55,6 +55,8 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
 
     public void swapDataSet(ArrayList<Song> dataSet) {
         this.dataSet = dataSet;
+        clear();
+        addAll(dataSet);
         notifyDataSetChanged();
     }
 

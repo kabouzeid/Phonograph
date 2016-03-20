@@ -1,9 +1,12 @@
 package com.kabouzeid.gramophone.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +35,7 @@ import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
+import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
@@ -42,14 +46,16 @@ import com.kabouzeid.gramophone.util.Util;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import hugo.weaving.DebugLog;
 
 /**
  * Be careful when changing things in this Activity!
  */
-public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements PaletteColorHolder, CabHolder {
+public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements PaletteColorHolder, CabHolder, LoaderManager.LoaderCallbacks<Album> {
 
     public static final String TAG = AlbumDetailActivity.class.getSimpleName();
     private static final int TAG_EDITOR_REQUEST = 2001;
+    private static final int LOADER_ID = 1;
 
     public static final String EXTRA_ALBUM_ID = "extra_album_id";
 
@@ -83,10 +89,11 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
 
         supportPostponeEnterTransition();
 
-        getAlbumFromIntentExtras();
         setUpObservableListViewParams();
         setUpToolBar();
         setUpViews();
+
+        getSupportLoaderManager().initLoader(LOADER_ID, getIntent().getExtras(), this);
     }
 
     @Override
@@ -120,15 +127,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         }
     };
 
-    private void getAlbumFromIntentExtras() {
-        Bundle intentExtras = getIntent().getExtras();
-        final int albumId = intentExtras.getInt(EXTRA_ALBUM_ID);
-        album = AlbumLoader.getAlbum(this, albumId);
-        if (album.songs.isEmpty()) {
-            finish();
-        }
-    }
-
     private void setUpObservableListViewParams() {
         albumArtViewHeight = getResources().getDimensionPixelSize(R.dimen.header_image_height);
         toolbarColor = DialogUtils.resolveColor(this, R.attr.defaultFooterColor);
@@ -141,14 +139,12 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     }
 
     private void setUpViews() {
-        albumTitleView.setText(album.getTitle());
-        setUpRecyclerViewView();
+        setUpRecyclerView();
         setUpSongsAdapter();
-        loadAlbumCover();
     }
 
     private void loadAlbumCover() {
-        SongGlideRequest.Builder.from(Glide.with(this), album.safeGetFirstSong())
+        SongGlideRequest.Builder.from(Glide.with(this), getAlbum().safeGetFirstSong())
                 .checkIgnoreMediaStore(this)
                 .generatePalette(this).build()
                 .dontAnimate()
@@ -187,7 +183,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         return toolbarColor;
     }
 
-    private void setUpRecyclerViewView() {
+    private void setUpRecyclerView() {
         setUpRecyclerViewPadding();
         recyclerView.setScrollViewCallbacks(observableScrollViewCallbacks);
         final View contentView = getWindow().getDecorView().findViewById(android.R.id.content);
@@ -215,7 +211,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     }
 
     private void setUpSongsAdapter() {
-        adapter = new AlbumSongAdapter(this, album.songs, R.layout.item_list, false, this);
+        adapter = new AlbumSongAdapter(this, getAlbum().songs, R.layout.item_list, false, this);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         recyclerView.setAdapter(adapter);
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
@@ -227,11 +223,8 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         });
     }
 
-    private void refresh() {
-        album = AlbumLoader.getAlbum(this, album.getId());
-        albumTitleView.setText(album.getTitle());
-        loadAlbumCover();
-        adapter.swapDataSet(album.songs);
+    private void reload() {
+        getSupportLoaderManager().restartLoader(LOADER_ID, getIntent().getExtras(), this);
     }
 
     @Override
@@ -258,11 +251,11 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                 return true;
             case R.id.action_tag_editor:
                 Intent intent = new Intent(this, AlbumTagEditorActivity.class);
-                intent.putExtra(AbsTagEditorActivity.EXTRA_ID, album.getId());
+                intent.putExtra(AbsTagEditorActivity.EXTRA_ID, getAlbum().getId());
                 startActivityForResult(intent, TAG_EDITOR_REQUEST);
                 return true;
             case R.id.action_go_to_artist:
-                NavigationUtil.goToArtist(this, album.getArtistId());
+                NavigationUtil.goToArtist(this, getAlbum().getArtistId());
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -272,11 +265,12 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == TAG_EDITOR_REQUEST) {
-            refresh();
+            reload();
             setResult(RESULT_OK);
         }
     }
 
+    @NonNull
     @Override
     public MaterialCab openCab(int menuRes, @NonNull final MaterialCab.Callback callback) {
         if (cab != null && cab.isActive()) cab.finish();
@@ -317,12 +311,61 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     @Override
     public void onMediaStoreChanged() {
         super.onMediaStoreChanged();
-        refresh();
+        reload();
     }
 
     @Override
     public void setStatusbarColor(int color) {
         super.setStatusbarColor(color);
         setLightStatusbar(false);
+    }
+
+    private void setAlbum(Album album) {
+        this.album = album;
+        loadAlbumCover();
+        albumTitleView.setText(album.getTitle());
+        adapter.swapDataSet(album.songs);
+    }
+
+    private Album getAlbum() {
+        if (album == null) album = new Album();
+        return album;
+    }
+
+    @Override
+    public Loader<Album> onCreateLoader(int id, Bundle args) {
+        return new AsyncAlbumLoader(this, args.getInt(EXTRA_ALBUM_ID));
+    }
+
+    @DebugLog
+    @Override
+    public void onLoadFinished(Loader<Album> loader, Album data) {
+        supportStartPostponedEnterTransition();
+        setAlbum(data);
+        if (getAlbum().songs.isEmpty()) {
+            finish();
+        }
+    }
+
+    @DebugLog
+    @Override
+    public void onLoaderReset(Loader<Album> loader) {
+        this.album = new Album();
+        adapter.swapDataSet(album.songs);
+    }
+
+    private static class AsyncAlbumLoader extends WrappedAsyncTaskLoader<Album> {
+        private final int albumId;
+
+        public AsyncAlbumLoader(Context context, int albumId) {
+            super(context);
+            this.albumId = albumId;
+        }
+
+        @DebugLog
+        @Override
+        public Album loadInBackground() {
+            return AlbumLoader.getAlbum(getContext(), albumId);
+        }
     }
 }
