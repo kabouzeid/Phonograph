@@ -74,6 +74,9 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 
     private boolean blockRequestPermissions;
 
+    private boolean bottomBarSupposedToBeHidden = true;
+    private boolean keepBottomBarHidden = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,8 +94,15 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 
         if (savedInstanceState == null) {
             setMusicChooser(PreferenceUtil.getInstance(this).getLastMusicChooser());
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    initDelayedBottomBar();
+                }
+            }, 500);
         } else {
             restoreCurrentFragment();
+            initDelayedBottomBar();
         }
 
         if (!checkShowIntro()) {
@@ -398,6 +408,17 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     @Override
     public void onDrawerStateChanged(int newState) {
 
+    }
+
+    @Override
+    public void hideBottomBar(boolean hide) {
+        bottomBarSupposedToBeHidden = hide;
+        super.hideBottomBar(hide || keepBottomBarHidden);
+    }
+
+    private void initDelayedBottomBar() {
+        keepBottomBarHidden = false;
+        hideBottomBar(bottomBarSupposedToBeHidden);
     }
 
     public interface MainActivityFragmentCallbacks {
