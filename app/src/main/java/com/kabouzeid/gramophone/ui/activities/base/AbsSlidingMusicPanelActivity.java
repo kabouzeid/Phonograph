@@ -1,9 +1,7 @@
 package com.kabouzeid.gramophone.ui.activities.base;
 
 import android.annotation.SuppressLint;
-import android.content.ComponentName;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
 import android.support.annotation.LayoutRes;
@@ -84,12 +82,6 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     @Override
     public void onQueueChanged() {
         super.onQueueChanged();
-        hideBottomBar(MusicPlayerRemote.getPlayingQueue().isEmpty());
-    }
-
-    @Override
-    public void onServiceConnected(ComponentName name, IBinder service) {
-        super.onServiceConnected(name, service);
         hideBottomBar(MusicPlayerRemote.getPlayingQueue().isEmpty());
     }
 
