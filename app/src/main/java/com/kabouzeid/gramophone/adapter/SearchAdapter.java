@@ -20,9 +20,6 @@ import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.glide.artistimage.ArtistImage;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
-import com.kabouzeid.gramophone.loader.AlbumLoader;
-import com.kabouzeid.gramophone.loader.ArtistLoader;
-import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Song;
@@ -31,55 +28,36 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
+
     private static final int HEADER = 0;
     private static final int ALBUM = 1;
     private static final int ARTIST = 2;
     private static final int SONG = 3;
 
     private final AppCompatActivity activity;
-    private List results = Collections.emptyList();
+    private List<Object> dataSet;
 
-    public SearchAdapter(@NonNull AppCompatActivity activity) {
+    public SearchAdapter(@NonNull AppCompatActivity activity, @NonNull List<Object> dataSet) {
         this.activity = activity;
+        this.dataSet = dataSet;
     }
 
-    @SuppressWarnings("unchecked")
-    public void search(@NonNull String query) {
-        results = new ArrayList();
-        if (!query.trim().equals("")) {
-            List songs = SongLoader.getSongs(activity, query);
-            if (!songs.isEmpty()) {
-                results.add(activity.getResources().getString(R.string.songs));
-                results.addAll(songs);
-            }
-
-            List artists = ArtistLoader.getArtists(activity, query);
-            if (!artists.isEmpty()) {
-                results.add(activity.getResources().getString(R.string.artists));
-                results.addAll(artists);
-            }
-
-            List albums = AlbumLoader.getAlbums(activity, query);
-            if (!albums.isEmpty()) {
-                results.add(activity.getResources().getString(R.string.albums));
-                results.addAll(albums);
-            }
-        }
+    public void swapDataSet(@NonNull List<Object> dataSet) {
+        this.dataSet = dataSet;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (results.get(position) instanceof Album) return ALBUM;
-        if (results.get(position) instanceof Artist) return ARTIST;
-        if (results.get(position) instanceof Song) return SONG;
+        if (dataSet.get(position) instanceof Album) return ALBUM;
+        if (dataSet.get(position) instanceof Artist) return ARTIST;
+        if (dataSet.get(position) instanceof Song) return SONG;
         return HEADER;
     }
 
@@ -96,7 +74,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case ALBUM:
-                final Album album = (Album) results.get(position);
+                final Album album = (Album) dataSet.get(position);
                 holder.title.setText(album.getTitle());
                 holder.text.setText(album.getArtistName());
                 SongGlideRequest.Builder.from(Glide.with(activity), album.safeGetFirstSong())
@@ -104,7 +82,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                         .into(holder.image);
                 break;
             case ARTIST:
-                final Artist artist = (Artist) results.get(position);
+                final Artist artist = (Artist) dataSet.get(position);
                 holder.title.setText(artist.name);
                 holder.text.setText(MusicUtil.getArtistInfoString(activity, artist));
                 Glide.with(activity)
@@ -118,19 +96,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                         .into(holder.image);
                 break;
             case SONG:
-                final Song song = (Song) results.get(position);
+                final Song song = (Song) dataSet.get(position);
                 holder.title.setText(song.title);
                 holder.text.setText(song.albumName);
                 break;
             default:
-                holder.title.setText(results.get(position).toString());
+                holder.title.setText(dataSet.get(position).toString());
                 break;
         }
     }
 
     @Override
     public int getItemCount() {
-        return results.size();
+        return dataSet.size();
     }
 
     public class ViewHolder extends MediaEntryViewHolder {
@@ -154,7 +132,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     menu.setOnClickListener(new SongMenuHelper.OnClickSongMenu(activity) {
                         @Override
                         public Song getSong() {
-                            return (Song) results.get(getAdapterPosition());
+                            return (Song) dataSet.get(getAdapterPosition());
                         }
                     });
                 } else {
@@ -180,7 +158,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
         @Override
         public void onClick(View view) {
-            Object item = results.get(getAdapterPosition());
+            Object item = dataSet.get(getAdapterPosition());
             switch (getItemViewType()) {
                 case ALBUM:
                     NavigationUtil.goToAlbum(activity,

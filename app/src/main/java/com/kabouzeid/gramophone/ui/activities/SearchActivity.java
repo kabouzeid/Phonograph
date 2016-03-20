@@ -1,7 +1,11 @@
 package com.kabouzeid.gramophone.ui.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,15 +20,24 @@ import android.widget.TextView;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.SearchAdapter;
+import com.kabouzeid.gramophone.loader.AlbumLoader;
+import com.kabouzeid.gramophone.loader.ArtistLoader;
+import com.kabouzeid.gramophone.loader.SongLoader;
+import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.ui.activities.base.AbsMusicServiceActivity;
 import com.kabouzeid.gramophone.util.Util;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SearchActivity extends AbsMusicServiceActivity implements SearchView.OnQueryTextListener {
-
+public class SearchActivity extends AbsMusicServiceActivity implements SearchView.OnQueryTextListener, LoaderManager.LoaderCallbacks<List<Object>> {
     public static final String TAG = SearchActivity.class.getSimpleName();
+    private static final int LOADER_ID = 1;
+
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;
     @Bind(R.id.toolbar)
@@ -34,9 +47,7 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
 
     SearchView searchView;
 
-    private SearchAdapter searchAdapter;
-
-    private String lastQuery = "";
+    private SearchAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +61,15 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         setTaskDescriptionColorAuto();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        searchAdapter = new SearchAdapter(this);
-        recyclerView.setAdapter(searchAdapter);
+        adapter = new SearchAdapter(this, Collections.emptyList());
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                empty.setVisibility(adapter.getItemCount() < 1 ? View.VISIBLE : View.GONE);
+            }
+        });
+        recyclerView.setAdapter(adapter);
 
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -62,6 +80,8 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         });
 
         setUpToolBar();
+
+        getSupportLoaderManager().initLoader(LOADER_ID, null, this);
     }
 
     private void setUpToolBar() {
@@ -106,17 +126,18 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
     }
 
     private void search(@NonNull String query) {
-        lastQuery = query;
-        if (searchAdapter != null) {
-            searchAdapter.search(query);
-            empty.setVisibility(searchAdapter.getItemCount() < 1 ? View.VISIBLE : View.GONE);
-        }
+        Loader loader = getSupportLoaderManager().getLoader(LOADER_ID);
+        AsyncSearchResultLoader asyncSearchResultLoader = (AsyncSearchResultLoader) loader;
+        asyncSearchResultLoader.setQuery(query);
+        asyncSearchResultLoader.forceLoad();
     }
 
     @Override
     public void onMediaStoreChanged() {
         super.onMediaStoreChanged();
-        search(lastQuery);
+        Loader loader = getSupportLoaderManager().getLoader(LOADER_ID);
+        AsyncSearchResultLoader asyncSearchResultLoader = (AsyncSearchResultLoader) loader;
+        asyncSearchResultLoader.forceLoad();
     }
 
     @Override
@@ -135,6 +156,59 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         Util.hideSoftKeyboard(SearchActivity.this);
         if (searchView != null) {
             searchView.clearFocus();
+        }
+    }
+
+    @Override
+    public Loader<List<Object>> onCreateLoader(int id, Bundle args) {
+        return new AsyncSearchResultLoader(this);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<Object>> loader, List<Object> data) {
+        adapter.swapDataSet(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<Object>> loader) {
+        adapter.swapDataSet(Collections.emptyList());
+    }
+
+    private static class AsyncSearchResultLoader extends WrappedAsyncTaskLoader<List<Object>> {
+        private String query;
+
+        public AsyncSearchResultLoader(Context context) {
+            super(context);
+            setUpdateThrottle(200);
+        }
+
+        public void setQuery(@Nullable String query) {
+            this.query = query;
+        }
+
+        @Override
+        public List<Object> loadInBackground() {
+            List<Object> results = new ArrayList<>();
+            if (query != null && !query.trim().equals("")) {
+                List songs = SongLoader.getSongs(getContext(), query);
+                if (!songs.isEmpty()) {
+                    results.add(getContext().getResources().getString(R.string.songs));
+                    results.addAll(songs);
+                }
+
+                List artists = ArtistLoader.getArtists(getContext(), query);
+                if (!artists.isEmpty()) {
+                    results.add(getContext().getResources().getString(R.string.artists));
+                    results.addAll(artists);
+                }
+
+                List albums = AlbumLoader.getAlbums(getContext(), query);
+                if (!albums.isEmpty()) {
+                    results.add(getContext().getResources().getString(R.string.albums));
+                    results.addAll(albums);
+                }
+            }
+            return results;
         }
     }
 }
