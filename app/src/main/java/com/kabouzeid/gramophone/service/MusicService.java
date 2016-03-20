@@ -55,6 +55,8 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import hugo.weaving.DebugLog;
+
 /**
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal
  */
@@ -84,21 +86,27 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final String SAVED_POSITION_IN_TRACK = "POSITION_IN_TRACK";
     public static final String SAVED_SHUFFLE_MODE = "SHUFFLE_MODE";
     public static final String SAVED_REPEAT_MODE = "REPEAT_MODE";
-    public static final int RELEASE_WAKELOCK = 10;
-    public static final int TRACK_ENDED = 11;
-    public static final int TRACK_WENT_TO_NEXT = 12;
-    public static final int PLAY_SONG = 13;
-    public static final int SAVE_QUEUES = 14;
-    public static final int PREPARE_NEXT = 15;
-    public static final int SET_POSITION = 16;
+
+    public static final int RELEASE_WAKELOCK = 0;
+    public static final int TRACK_ENDED = 1;
+    public static final int TRACK_WENT_TO_NEXT = 2;
+    public static final int PLAY_SONG = 3;
+    public static final int PREPARE_NEXT = 4;
+    public static final int SET_POSITION = 5;
+    private static final int FOCUS_CHANGE = 6;
+    private static final int DUCK = 7;
+    private static final int UNDUCK = 8;
+    public static final int RESTORE_QUEUES = 9;
+
     public static final int SHUFFLE_MODE_NONE = 0;
     public static final int SHUFFLE_MODE_SHUFFLE = 1;
+
     public static final int REPEAT_MODE_NONE = 0;
     public static final int REPEAT_MODE_ALL = 1;
     public static final int REPEAT_MODE_THIS = 2;
-    private static final int FOCUS_CHANGE = 5;
-    private static final int DUCK = 6;
-    private static final int UNDUCK = 7;
+
+    public static final int SAVE_QUEUES = 0;
+
     private final IBinder musicBind = new MusicBinder();
 
     private Playback playback;
@@ -178,7 +186,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
         registerReceiversAndRemoteControlClient();
 
-        restoreQueueAndPosition();
+        restoreState();
 
         mediaStoreObserver = new MediaStoreObserver(playerHandler);
         getContentResolver().registerContentObserver(
@@ -298,6 +306,78 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
     }
 
+    private static final class QueueSaveHandler extends Handler {
+        @NonNull
+        private final WeakReference<MusicService> mService;
+
+        public QueueSaveHandler(final MusicService service, @NonNull final Looper looper) {
+            super(looper);
+            mService = new WeakReference<>(service);
+        }
+
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            final MusicService service = mService.get();
+            switch (msg.what) {
+                case SAVE_QUEUES:
+                    service.saveQueuesImpl();
+                    break;
+            }
+        }
+    }
+
+    private void saveQueuesImpl() {
+        MusicPlaybackQueueStore.getInstance(this).saveQueues(playingQueue, originalPlayingQueue);
+    }
+
+    private void savePosition() {
+        PreferenceManager.getDefaultSharedPreferences(this).edit().putInt(SAVED_POSITION, getPosition()).apply();
+    }
+
+    private void savePositionInTrack() {
+        PreferenceManager.getDefaultSharedPreferences(this).edit().putInt(SAVED_POSITION_IN_TRACK, getSongProgressMillis()).apply();
+    }
+
+    public void saveState() {
+        saveQueues();
+        savePosition();
+        savePositionInTrack();
+    }
+
+    private void saveQueues() {
+        queueSaveHandler.removeMessages(SAVE_QUEUES);
+        queueSaveHandler.sendEmptyMessage(SAVE_QUEUES);
+    }
+
+    private void restoreState() {
+        playerHandler.removeMessages(RESTORE_QUEUES);
+        playerHandler.sendEmptyMessage(RESTORE_QUEUES);
+    }
+
+    @DebugLog
+    private void restoreQueuesAndPositionImpl() {
+        ArrayList<Song> restoredQueue = MusicPlaybackQueueStore.getInstance(this).getSavedPlayingQueue();
+        ArrayList<Song> restoredOriginalQueue = MusicPlaybackQueueStore.getInstance(this).getSavedOriginalPlayingQueue();
+        int restoredPosition = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_POSITION, -1);
+        int restoredPositionInTrack = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_POSITION_IN_TRACK, -1);
+
+        if (restoredQueue.size() > 0 && restoredQueue.size() == restoredOriginalQueue.size() && restoredPosition != -1) {
+            this.originalPlayingQueue = restoredOriginalQueue;
+            this.playingQueue = restoredQueue;
+
+            position = restoredPosition;
+            openCurrent();
+            prepareNext();
+
+            if (restoredPositionInTrack > 0) seek(restoredPositionInTrack);
+
+            notHandledMetaChangedForCurrentTrack = true;
+            sendChangeIntent(META_CHANGED);
+            sendChangeIntent(QUEUE_CHANGED);
+            updateWidgets();
+        }
+    }
+
     private int quit() {
         unregisterReceiversAndRemoteControlClient();
         pause();
@@ -339,29 +419,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     public boolean isPlaying() {
         return playback.isPlaying();
-    }
-
-    public void saveState() {
-        saveQueues();
-        savePosition();
-        savePositionInTrack();
-    }
-
-    private void saveQueues() {
-        queueSaveHandler.removeMessages(SAVE_QUEUES);
-        queueSaveHandler.sendEmptyMessage(SAVE_QUEUES);
-    }
-
-    private void saveQueuesImpl() {
-        MusicPlaybackQueueStore.getInstance(this).saveQueues(playingQueue, originalPlayingQueue);
-    }
-
-    private void savePosition() {
-        PreferenceManager.getDefaultSharedPreferences(this).edit().putInt(SAVED_POSITION, getPosition()).apply();
-    }
-
-    private void savePositionInTrack() {
-        PreferenceManager.getDefaultSharedPreferences(this).edit().putInt(SAVED_POSITION_IN_TRACK, getSongProgressMillis()).apply();
     }
 
     public int getPosition() {
@@ -588,29 +645,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 setPosition(position);
             }
             notifyChange(QUEUE_CHANGED);
-        }
-    }
-
-    private void restoreQueueAndPosition() {
-        ArrayList<Song> restoredQueue = MusicPlaybackQueueStore.getInstance(this).getSavedPlayingQueue();
-        ArrayList<Song> restoredOriginalQueue = MusicPlaybackQueueStore.getInstance(this).getSavedOriginalPlayingQueue();
-        int restoredPosition = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_POSITION, -1);
-        int restoredPositionInTrack = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_POSITION_IN_TRACK, -1);
-
-        if (restoredQueue.size() > 0 && restoredQueue.size() == restoredOriginalQueue.size() && restoredPosition != -1) {
-            this.originalPlayingQueue = restoredOriginalQueue;
-            this.playingQueue = restoredQueue;
-
-            position = restoredPosition;
-            openCurrent();
-            prepareNext();
-
-            if (restoredPositionInTrack > 0) seek(restoredPositionInTrack);
-
-            notHandledMetaChangedForCurrentTrack = true;
-            sendChangeIntent(META_CHANGED);
-            sendChangeIntent(QUEUE_CHANGED);
-            updateWidgets();
         }
     }
 
@@ -963,26 +997,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         playerHandler.sendEmptyMessage(TRACK_ENDED);
     }
 
-    private static final class QueueSaveHandler extends Handler {
-        @NonNull
-        private final WeakReference<MusicService> mService;
-
-        public QueueSaveHandler(final MusicService service, @NonNull final Looper looper) {
-            super(looper);
-            mService = new WeakReference<>(service);
-        }
-
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            final MusicService service = mService.get();
-            switch (msg.what) {
-                case SAVE_QUEUES:
-                    service.saveQueuesImpl();
-                    break;
-            }
-        }
-    }
-
     private static final class PlaybackHandler extends Handler {
         @NonNull
         private final WeakReference<MusicService> mService;
@@ -1057,6 +1071,10 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
                 case PREPARE_NEXT:
                     service.prepareNextImpl();
+                    break;
+
+                case RESTORE_QUEUES:
+                    service.restoreQueuesAndPositionImpl();
                     break;
 
                 case FOCUS_CHANGE:
