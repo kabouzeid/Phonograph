@@ -41,6 +41,13 @@ public abstract class AbsLibraryPagerRecyclerViewFragment<A extends RecyclerView
     private LM layoutManager;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initLayoutManager();
+        initAdapter(); // makes sure the adapter is not null when the loader finishes loading
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutRes(), container, false);
         ButterKnife.bind(this, view);
@@ -55,19 +62,27 @@ public abstract class AbsLibraryPagerRecyclerViewFragment<A extends RecyclerView
         getLibraryFragment().getMainActivity().addMusicServiceEventListener(this);
 
         setUpRecyclerView();
-
-        checkIsEmpty();
     }
 
     private void setUpRecyclerView() {
         if (recyclerView instanceof FastScrollRecyclerView) {
             ViewUtil.setUpFastScrollRecyclerViewColor(getActivity(), ((FastScrollRecyclerView) recyclerView), ThemeStore.accentColor(getActivity()));
         }
-        invalidateLayoutManager();
-        invalidateAdapter();
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+    }
+
+    protected void invalidateLayoutManager() {
+        initLayoutManager();
+        recyclerView.setLayoutManager(layoutManager);
     }
 
     protected void invalidateAdapter() {
+        initAdapter();
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void initAdapter() {
         adapter = createAdapter();
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
@@ -76,12 +91,11 @@ public abstract class AbsLibraryPagerRecyclerViewFragment<A extends RecyclerView
                 checkIsEmpty();
             }
         });
-        recyclerView.setAdapter(adapter);
+        checkIsEmpty();
     }
 
-    protected void invalidateLayoutManager() {
+    private void initLayoutManager() {
         layoutManager = createLayoutManager();
-        recyclerView.setLayoutManager(layoutManager);
     }
 
     protected A getAdapter() {
@@ -128,11 +142,8 @@ public abstract class AbsLibraryPagerRecyclerViewFragment<A extends RecyclerView
 
     private void checkIsEmpty() {
         if (empty != null) {
-            RecyclerView.Adapter adapter = getAdapter();
-            if (adapter != null) {
-                empty.setText(getEmptyMessage());
-                empty.setVisibility(adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
-            }
+            empty.setText(getEmptyMessage());
+            empty.setVisibility(adapter == null || adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
         }
     }
 
@@ -148,6 +159,7 @@ public abstract class AbsLibraryPagerRecyclerViewFragment<A extends RecyclerView
 
     protected abstract LM createLayoutManager();
 
+    @NonNull
     protected abstract A createAdapter();
 
     @Override

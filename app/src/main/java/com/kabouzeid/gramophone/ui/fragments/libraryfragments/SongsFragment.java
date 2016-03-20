@@ -1,23 +1,39 @@
 package com.kabouzeid.gramophone.ui.fragments.libraryfragments;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.adapter.MusicLibraryPagerAdapter;
 import com.kabouzeid.gramophone.adapter.song.ShuffleButtonSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.SongAdapter;
 import com.kabouzeid.gramophone.loader.SongLoader;
+import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
 
+import hugo.weaving.DebugLog;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFragment<SongAdapter, GridLayoutManager> {
+public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFragment<SongAdapter, GridLayoutManager> implements LoaderManager.LoaderCallbacks<ArrayList<Song>> {
 
     public static final String TAG = SongsFragment.class.getSimpleName();
+
+    private static final int LOADER_ID = MusicLibraryPagerAdapter.MusicFragments.SONG.ordinal();
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLoaderManager().initLoader(LOADER_ID, null, this);
+    }
 
     @NonNull
     @Override
@@ -28,22 +44,22 @@ public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFrag
     @NonNull
     @Override
     protected SongAdapter createAdapter() {
-        ArrayList<Song> songs = SongLoader.getAllSongs(getActivity());
         int itemLayoutRes = getItemLayoutRes();
-        applyRecyclerViewPaddingForLayoutRes(itemLayoutRes);
+        notifyLayoutResChanged(itemLayoutRes);
         boolean usePalette = loadUsePalette();
+        ArrayList<Song> dataSet = getAdapter() == null ? new ArrayList<Song>() : getAdapter().getDataSet();
 
         if (getGridSize() <= getMaxGridSizeForList()) {
             return new ShuffleButtonSongAdapter(
                     getLibraryFragment().getMainActivity(),
-                    songs,
+                    dataSet,
                     itemLayoutRes,
                     usePalette,
                     getLibraryFragment());
         }
         return new SongAdapter(
                 getLibraryFragment().getMainActivity(),
-                songs,
+                dataSet,
                 itemLayoutRes,
                 usePalette,
                 getLibraryFragment());
@@ -56,7 +72,7 @@ public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFrag
 
     @Override
     public void onMediaStoreChanged() {
-        getAdapter().swapDataSet(SongLoader.getAllSongs(getActivity()));
+        getLoaderManager().restartLoader(LOADER_ID, null, this);
     }
 
     @Override
@@ -98,5 +114,35 @@ public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFrag
     protected void setGridSize(int gridSize) {
         getLayoutManager().setSpanCount(gridSize);
         getAdapter().notifyDataSetChanged();
+    }
+
+    @DebugLog
+    @Override
+    public Loader<ArrayList<Song>> onCreateLoader(int id, Bundle args) {
+        return new AsyncSongLoader(getActivity());
+    }
+
+    @DebugLog
+    @Override
+    public void onLoadFinished(Loader<ArrayList<Song>> loader, ArrayList<Song> data) {
+        getAdapter().swapDataSet(data);
+    }
+
+    @DebugLog
+    @Override
+    public void onLoaderReset(Loader<ArrayList<Song>> loader) {
+        getAdapter().swapDataSet(new ArrayList<Song>());
+    }
+
+    private static class AsyncSongLoader extends WrappedAsyncTaskLoader<ArrayList<Song>> {
+        public AsyncSongLoader(Context context) {
+            super(context);
+        }
+
+        @DebugLog
+        @Override
+        public ArrayList<Song> loadInBackground() {
+            return SongLoader.getAllSongs(getContext());
+        }
     }
 }

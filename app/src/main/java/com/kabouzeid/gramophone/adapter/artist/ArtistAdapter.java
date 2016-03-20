@@ -65,6 +65,10 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
         notifyDataSetChanged();
     }
 
+    public ArrayList<Artist> getDataSet() {
+        return dataSet;
+    }
+
     public void usePalette(boolean usePalette) {
         this.usePalette = usePalette;
         notifyDataSetChanged();

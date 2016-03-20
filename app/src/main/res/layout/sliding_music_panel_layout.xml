@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="bottom"
     sothree:umanoOverlay="false"
-    sothree:umanoPanelHeight="@dimen/mini_player_height"
+    sothree:umanoPanelHeight="0dp"
     sothree:umanoShadowHeight="@dimen/card_elevation">
 
     <FrameLayout
