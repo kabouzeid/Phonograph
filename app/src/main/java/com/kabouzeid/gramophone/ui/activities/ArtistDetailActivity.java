@@ -1,10 +1,13 @@
 package com.kabouzeid.gramophone.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -45,6 +48,7 @@ import com.kabouzeid.gramophone.loader.ArtistAlbumLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
+import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Song;
@@ -58,6 +62,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import hugo.weaving.DebugLog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -65,9 +70,10 @@ import retrofit2.Response;
 /**
  * Be careful when changing things in this Activity!
  */
-public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implements PaletteColorHolder, CabHolder {
+public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implements PaletteColorHolder, CabHolder, LoaderManager.LoaderCallbacks<ArtistDetailActivity.ArtistData> {
 
     public static final String TAG = ArtistDetailActivity.class.getSimpleName();
+    private static final int LOADER_ID = 1;
 
     public static final String EXTRA_ARTIST_ID = "extra_artist_id";
 
@@ -92,7 +98,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     private int toolbarColor;
     private float toolbarAlpha;
 
-    private Artist artist;
+    private ArtistData artistData;
     @Nullable
     private Spanned biography;
     private HorizontalAlbumAdapter albumAdapter;
@@ -106,13 +112,16 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         setDrawUnderStatusbar(true);
         ButterKnife.bind(this);
 
+        supportPostponeEnterTransition();
+
         lastFMRestClient = new LastFMRestClient(this);
 
-        getArtistFromIntentExtras();
         initViews();
         setUpObservableListViewParams();
         setUpViews();
         setUpToolbar();
+
+        getSupportLoaderManager().initLoader(LOADER_ID, getIntent().getExtras(), this);
     }
 
     @Override
@@ -163,11 +172,8 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     }
 
     private void setUpViews() {
-        artistName.setText(artist.name);
-        setUpArtistImageAndApplyPalette(false);
         setUpSongListView();
         setUpAlbumRecyclerView();
-        loadBiography();
     }
 
     private void setUpSongListView() {
@@ -175,7 +181,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         songListView.setScrollViewCallbacks(observableScrollViewCallbacks);
         songListView.addHeaderView(songListHeader);
 
-        songAdapter = new ArtistSongAdapter(this, loadSongDataSet(), this);
+        songAdapter = new ArtistSongAdapter(this, getArtistData().songs, this);
         songListView.setAdapter(songAdapter);
 
         final View contentView = getWindow().getDecorView().findViewById(android.R.id.content);
@@ -194,7 +200,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
     private void setUpAlbumRecyclerView() {
         albumRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        albumAdapter = new HorizontalAlbumAdapter(this, loadAlbumDataSet(), this);
+        albumAdapter = new HorizontalAlbumAdapter(this, getArtistData().albums, this);
         albumRecyclerView.setAdapter(albumAdapter);
         albumAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
@@ -205,21 +211,12 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         });
     }
 
-    private void reloadDataSets() {
-        songAdapter.swapDataSet(loadSongDataSet());
-        albumAdapter.swapDataSet(loadAlbumDataSet());
-    }
-
-    private ArrayList<Song> loadSongDataSet() {
-        return ArtistSongLoader.getArtistSongList(this, artist.id);
-    }
-
-    private ArrayList<Album> loadAlbumDataSet() {
-        return ArtistAlbumLoader.getAlbums(this, artist.id);
+    private void reload() {
+        getSupportLoaderManager().restartLoader(LOADER_ID, getIntent().getExtras(), this);
     }
 
     private void loadBiography() {
-        lastFMRestClient.getApiService().getArtistInfo(artist.name, null).enqueue(new Callback<LastFmArtist>() {
+        lastFMRestClient.getApiService().getArtistInfo(getArtistData().artist.name, null).enqueue(new Callback<LastFmArtist>() {
             @Override
             public void onResponse(Call<LastFmArtist> call, Response<LastFmArtist> response) {
                 LastFmArtist lastFmArtist = response.body();
@@ -243,23 +240,23 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
     private MaterialDialog getBiographyDialog() {
         return new MaterialDialog.Builder(ArtistDetailActivity.this)
-                .title(artist.name)
+                .title(getArtistData().artist.name)
                 .content(biography != null ? biography : "")
                 .positiveText(android.R.string.ok)
                 .build();
     }
 
-    private void setUpArtistImageAndApplyPalette(final boolean forceDownload) {
+    private void loadArtistImage(final boolean forceDownload) {
         if (forceDownload) {
-            ArtistSignatureUtil.getInstance(this).updateArtistSignature(artist.name);
+            ArtistSignatureUtil.getInstance(this).updateArtistSignature(getArtistData().artist.name);
         }
         Glide.with(this)
-                .load(new ArtistImage(artist.name, forceDownload))
+                .load(new ArtistImage(getArtistData().artist.name, forceDownload))
                 .asBitmap()
                 .transcode(new BitmapPaletteTranscoder(this), BitmapPaletteWrapper.class)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .placeholder(R.drawable.default_artist_image)
-                .signature(ArtistSignatureUtil.getInstance(this).getArtistSignature(artist.name))
+                .signature(ArtistSignatureUtil.getInstance(this).getArtistSignature(getArtistData().artist.name))
                 .dontAnimate()
                 .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                 .listener(new RequestListener<ArtistImage, BitmapPaletteWrapper>() {
@@ -291,7 +288,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            reloadDataSets();
+            reload();
         }
     }
 
@@ -306,15 +303,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         artistName.setTextColor(MaterialValueHelper.getPrimaryTextColor(this, ColorUtil.isColorLight(color)));
         setNavigationbarColor(color);
         setTaskDescriptionColor(color);
-    }
-
-    private void getArtistFromIntentExtras() {
-        Bundle intentExtras = getIntent().getExtras();
-        final int artistId = intentExtras.getInt(EXTRA_ARTIST_ID);
-        artist = ArtistLoader.getArtist(this, artistId);
-        if (artist.id == -1) {
-            finish();
-        }
     }
 
     private void setUpToolbar() {
@@ -355,12 +343,13 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                 return true;
             case R.id.action_re_download_artist_image:
                 Toast.makeText(ArtistDetailActivity.this, getResources().getString(R.string.updating), Toast.LENGTH_SHORT).show();
-                setUpArtistImageAndApplyPalette(true);
+                loadArtistImage(true);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    @NonNull
     @Override
     public MaterialCab openCab(int menuRes, @NonNull final MaterialCab.Callback callback) {
         if (cab != null && cab.isActive()) cab.finish();
@@ -401,12 +390,85 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     @Override
     public void onMediaStoreChanged() {
         super.onMediaStoreChanged();
-        reloadDataSets();
+        reload();
     }
 
     @Override
     public void setStatusbarColor(int color) {
         super.setStatusbarColor(color);
         setLightStatusbar(false);
+    }
+
+    private void setArtistData(ArtistData artistData) {
+        this.artistData = artistData;
+        loadArtistImage(false);
+        loadBiography();
+        artistName.setText(artistData.artist.name);
+        songAdapter.swapDataSet(artistData.songs);
+        albumAdapter.swapDataSet(artistData.albums);
+    }
+
+    private ArtistData getArtistData() {
+        if (artistData == null) artistData = new ArtistData();
+        return artistData;
+    }
+
+    @Override
+    public Loader<ArtistData> onCreateLoader(int id, Bundle args) {
+        return new AsyncArtistDataLoader(this, args.getInt(EXTRA_ARTIST_ID));
+    }
+
+    @DebugLog
+    @Override
+    public void onLoadFinished(Loader<ArtistData> loader, ArtistData data) {
+        supportStartPostponedEnterTransition();
+        setArtistData(data);
+        if (getArtistData().albums.isEmpty()) {
+            finish();
+        }
+    }
+
+    @DebugLog
+    @Override
+    public void onLoaderReset(Loader<ArtistData> loader) {
+        this.artistData = new ArtistData();
+        songAdapter.swapDataSet(artistData.songs);
+        albumAdapter.swapDataSet(artistData.albums);
+    }
+
+    private static class AsyncArtistDataLoader extends WrappedAsyncTaskLoader<ArtistData> {
+        private final int artistId;
+
+        public AsyncArtistDataLoader(Context context, int artistId) {
+            super(context);
+            this.artistId = artistId;
+        }
+
+        @DebugLog
+        @Override
+        public ArtistData loadInBackground() {
+            Artist artist = ArtistLoader.getArtist(getContext(), artistId);
+            ArrayList<Song> songs = ArtistSongLoader.getArtistSongList(getContext(), artist.id);
+            ArrayList<Album> albums = ArtistAlbumLoader.getAlbums(getContext(), artist.id);
+            return new ArtistData(artist, songs, albums);
+        }
+    }
+
+    static class ArtistData {
+        public final Artist artist;
+        public final ArrayList<Song> songs;
+        public final ArrayList<Album> albums;
+
+        private ArtistData() {
+            artist = new Artist();
+            songs = new ArrayList<>();
+            albums = new ArrayList<>();
+        }
+
+        private ArtistData(Artist artist, ArrayList<Song> songs, ArrayList<Album> albums) {
+            this.artist = artist;
+            this.songs = songs;
+            this.albums = albums;
+        }
     }
 }
