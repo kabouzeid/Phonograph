@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.ui.fragments.libraryfragments;
+package com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,8 +18,6 @@ import com.kabouzeid.gramophone.model.smartplaylist.LastAddedPlaylist;
 import com.kabouzeid.gramophone.model.smartplaylist.MyTopTracksPlaylist;
 
 import java.util.ArrayList;
-
-import hugo.weaving.DebugLog;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -59,19 +57,16 @@ public class PlaylistsFragment extends AbsLibraryPagerRecyclerViewFragment<Playl
         getLoaderManager().restartLoader(LOADER_ID, null, this);
     }
 
-    @DebugLog
     @Override
     public Loader<ArrayList<Playlist>> onCreateLoader(int id, Bundle args) {
         return new AsyncPlaylistLoader(getActivity());
     }
 
-    @DebugLog
     @Override
     public void onLoadFinished(Loader<ArrayList<Playlist>> loader, ArrayList<Playlist> data) {
         getAdapter().swapDataSet(data);
     }
 
-    @DebugLog
     @Override
     public void onLoaderReset(Loader<ArrayList<Playlist>> loader) {
         getAdapter().swapDataSet(new ArrayList<Playlist>());
@@ -94,7 +89,6 @@ public class PlaylistsFragment extends AbsLibraryPagerRecyclerViewFragment<Playl
             return playlists;
         }
 
-        @DebugLog
         @Override
         public ArrayList<Playlist> loadInBackground() {
             return getAllPlaylists(getContext());

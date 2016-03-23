@@ -1,11 +1,9 @@
 package com.kabouzeid.gramophone.ui.fragments.player;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +19,9 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.MusicProgressViewUpdateHelper;
 import com.kabouzeid.gramophone.helper.PlayPauseButtonOnClickHandler;
-import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
 import com.kabouzeid.gramophone.misc.SimpleOnSeekbarChangeListener;
 import com.kabouzeid.gramophone.service.MusicService;
-import com.kabouzeid.gramophone.ui.activities.base.AbsMusicServiceActivity;
+import com.kabouzeid.gramophone.ui.fragments.AbsMusicServiceFragment;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.views.PlayPauseDrawable;
 
@@ -34,7 +31,7 @@ import butterknife.ButterKnife;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class PlaybackControlsFragment extends Fragment implements MusicServiceEventListener, MusicProgressViewUpdateHelper.Callback {
+public class PlaybackControlsFragment extends AbsMusicServiceFragment implements MusicProgressViewUpdateHelper.Callback {
 
     @Bind(R.id.player_play_pause_fab)
     FloatingActionButton playPauseFab;
@@ -56,27 +53,10 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
 
     private PlayPauseDrawable playerFabPlayPauseDrawable;
 
-    private AbsMusicServiceActivity activity;
     private int lastPlaybackControlsColor;
     private int lastDisabledPlaybackControlsColor;
 
     private MusicProgressViewUpdateHelper progressViewUpdateHelper;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            activity = (AbsMusicServiceActivity) context;
-        } catch (ClassCastException e) {
-            throw new RuntimeException(context.getClass().getSimpleName() + " must be an instance of " + AbsMusicServiceActivity.class.getSimpleName());
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        activity = null;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,7 +74,6 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-        activity.addMusicServiceEventListener(this);
         setUpMusicControllers();
         updateProgressTextColor();
     }
@@ -102,7 +81,6 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        activity.removeMusicServiceEventListener(this);
         ButterKnife.unbind(this);
     }
 
@@ -119,12 +97,10 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
     }
 
     @Override
-    public void onPlayingMetaChanged() {
-    }
-
-    @Override
-    public void onQueueChanged() {
-
+    public void onServiceConnected() {
+        updatePlayPauseDrawableState(false);
+        updateRepeatState();
+        updateShuffleState();
     }
 
     @Override
@@ -142,13 +118,8 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
         updateShuffleState();
     }
 
-    @Override
-    public void onMediaStoreChanged() {
-
-    }
-
-    public void setColor(int color) {
-        if (ColorUtil.isColorLight(color)) {
+    public void setDark(boolean dark) {
+        if (dark) {
             lastPlaybackControlsColor = MaterialValueHelper.getSecondaryTextColor(getActivity(), true);
             lastDisabledPlaybackControlsColor = MaterialValueHelper.getSecondaryDisabledTextColor(getActivity(), true);
         } else {
@@ -166,9 +137,9 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
         final int fabColor = Color.WHITE;
         TintHelper.setTintAuto(playPauseFab, fabColor, true);
 
-        updatePlayPauseDrawableState(false);
-        // Note: set the drawable AFTER TintHelper.setTintAuto() was called
-        playPauseFab.setImageDrawable(playerFabPlayPauseDrawable);
+        playerFabPlayPauseDrawable = new PlayPauseDrawable(getActivity());
+
+        playPauseFab.setImageDrawable(playerFabPlayPauseDrawable); // Note: set the drawable AFTER TintHelper.setTintAuto() was called
         playPauseFab.setColorFilter(MaterialValueHelper.getPrimaryTextColor(getContext(), ColorUtil.isColorLight(fabColor)), PorterDuff.Mode.SRC_IN);
         playPauseFab.setOnClickListener(new PlayPauseButtonOnClickHandler());
         playPauseFab.post(new Runnable() {
@@ -183,9 +154,6 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
     }
 
     protected void updatePlayPauseDrawableState(boolean animate) {
-        if (playerFabPlayPauseDrawable == null) {
-            playerFabPlayPauseDrawable = new PlayPauseDrawable(activity);
-        }
         if (MusicPlayerRemote.isPlaying()) {
             playerFabPlayPauseDrawable.setPause(animate);
         } else {
@@ -229,7 +197,6 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
     }
 
     private void setUpShuffleButton() {
-        updateShuffleState();
         shuffleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -250,7 +217,6 @@ public class PlaybackControlsFragment extends Fragment implements MusicServiceEv
     }
 
     private void setUpRepeatButton() {
-        updateRepeatState();
         repeatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

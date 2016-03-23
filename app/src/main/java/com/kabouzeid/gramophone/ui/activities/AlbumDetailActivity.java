@@ -46,7 +46,6 @@ import com.kabouzeid.gramophone.util.Util;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import hugo.weaving.DebugLog;
 
 /**
  * Be careful when changing things in this Activity!
@@ -337,7 +336,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         return new AsyncAlbumLoader(this, args.getInt(EXTRA_ALBUM_ID));
     }
 
-    @DebugLog
     @Override
     public void onLoadFinished(Loader<Album> loader, Album data) {
         supportStartPostponedEnterTransition();
@@ -347,7 +345,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         }
     }
 
-    @DebugLog
     @Override
     public void onLoaderReset(Loader<Album> loader) {
         this.album = new Album();
@@ -362,7 +359,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
             this.albumId = albumId;
         }
 
-        @DebugLog
         @Override
         public Album loadInBackground() {
             return AlbumLoader.getAlbum(getContext(), albumId);

@@ -24,8 +24,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-import hugo.weaving.DebugLog;
-
 /**
  * This cursor basically wraps a song cursor and is given a list of the order of the ids of the
  * contents of the cursor. It wraps the Cursor and simulates the internal cursor being sorted
@@ -46,7 +44,6 @@ public class SortedCursor extends AbstractCursor {
      * @param order      the list of unique ids in sorted order to display
      * @param columnName the column name of the id to look up in the internal cursor
      */
-    @DebugLog
     public SortedCursor(@NonNull final Cursor cursor, @Nullable final String[] order, final String columnName) {
         mCursor = cursor;
         mMissingValues = buildCursorPositionMapping(order, columnName);

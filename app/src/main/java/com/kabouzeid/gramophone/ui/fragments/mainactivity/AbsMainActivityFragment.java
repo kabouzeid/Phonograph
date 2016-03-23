@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.ui.fragments;
+package com.kabouzeid.gramophone.ui.fragments.mainactivity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

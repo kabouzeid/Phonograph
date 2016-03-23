@@ -4,8 +4,6 @@ package com.kabouzeid.gramophone.misc;
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
-import hugo.weaving.DebugLog;
-
 /**
  * <a href="http://code.google.com/p/android/issues/detail?id=14944">Issue
  * 14944</a>
@@ -28,7 +26,6 @@ public abstract class WrappedAsyncTaskLoader<D> extends AsyncTaskLoader<D> {
     /**
      * {@inheritDoc}
      */
-    @DebugLog
     @Override
     public void deliverResult(D data) {
         if (!isReset()) {
@@ -42,7 +39,6 @@ public abstract class WrappedAsyncTaskLoader<D> extends AsyncTaskLoader<D> {
     /**
      * {@inheritDoc}
      */
-    @DebugLog
     @Override
     protected void onStartLoading() {
         if (this.mData != null) {
@@ -55,7 +51,6 @@ public abstract class WrappedAsyncTaskLoader<D> extends AsyncTaskLoader<D> {
     /**
      * {@inheritDoc}
      */
-    @DebugLog
     @Override
     protected void onStopLoading() {
         // Attempt to cancel the current load task if possible
@@ -65,7 +60,6 @@ public abstract class WrappedAsyncTaskLoader<D> extends AsyncTaskLoader<D> {
     /**
      * {@inheritDoc}
      */
-    @DebugLog
     @Override
     protected void onReset() {
         super.onReset();

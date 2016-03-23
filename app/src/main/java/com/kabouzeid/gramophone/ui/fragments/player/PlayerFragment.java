@@ -65,7 +65,6 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
     @Bind(R.id.player_queue_sub_header)
     TextView playerQueueSubHeader;
 
-
     private int lastColor;
 
     private PlaybackControlsFragment playbackControlsFragment;
@@ -154,9 +153,16 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
     }
 
     @Override
-    public void onPlayingMetaChanged() {
-        updateIsFavorite();
+    public void onServiceConnected() {
+        updateQueue();
         updateCurrentSong();
+        updateIsFavorite();
+    }
+
+    @Override
+    public void onPlayingMetaChanged() {
+        updateCurrentSong();
+        updateIsFavorite();
         updateQueuePosition();
     }
 
@@ -215,6 +221,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         playingQueueAdapter = new PlayingQueueAdapter(
                 ((AppCompatActivity) getActivity()),
                 MusicPlayerRemote.getPlayingQueue(),
+                MusicPlayerRemote.getPosition(),
                 R.layout.item_list,
                 false,
                 null);
@@ -227,6 +234,8 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         recyclerView.setItemAnimator(animator);
 
         recyclerViewDragDropManager.attachRecyclerView(recyclerView);
+
+        layoutManager.scrollToPositionWithOffset(MusicPlayerRemote.getPosition() + 1, 0);
     }
 
 
@@ -287,7 +296,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
     @Override
     public void onColorChanged(int color) {
         animateColorChange(color);
-        playbackControlsFragment.setColor(color);
+        playbackControlsFragment.setDark(ColorUtil.isColorLight(color));
         getCallbacks().onPaletteColorChanged();
     }
 

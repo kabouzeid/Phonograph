@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.ui.fragments.libraryfragments;
+package com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,8 +16,6 @@ import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
-
-import hugo.weaving.DebugLog;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -103,19 +101,16 @@ public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFra
         getLoaderManager().restartLoader(LOADER_ID, null, this);
     }
 
-    @DebugLog
     @Override
     public Loader<ArrayList<Album>> onCreateLoader(int id, Bundle args) {
         return new AsyncAlbumLoader(getActivity());
     }
 
-    @DebugLog
     @Override
     public void onLoadFinished(Loader<ArrayList<Album>> loader, ArrayList<Album> data) {
         getAdapter().swapDataSet(data);
     }
 
-    @DebugLog
     @Override
     public void onLoaderReset(Loader<ArrayList<Album>> loader) {
         getAdapter().swapDataSet(new ArrayList<Album>());
@@ -126,7 +121,6 @@ public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFra
             super(context);
         }
 
-        @DebugLog
         @Override
         public ArrayList<Album> loadInBackground() {
             return AlbumLoader.getAllAlbums(getContext());

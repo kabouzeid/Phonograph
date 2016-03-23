@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.ui.fragments;
+package com.kabouzeid.gramophone.ui.fragments.mainactivity.folders;
 
 
 import android.annotation.SuppressLint;
@@ -41,6 +41,7 @@ import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.loader.SortedCursor;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
+import com.kabouzeid.gramophone.ui.fragments.mainactivity.AbsMainActivityFragment;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.ViewUtil;
@@ -59,10 +60,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import hugo.weaving.DebugLog;
 
-public class FolderFragment extends AbsMainActivityFragment implements MainActivity.MainActivityFragmentCallbacks, CabHolder, BreadCrumbLayout.SelectionCallback, SongFileAdapter.Callbacks, AppBarLayout.OnOffsetChangedListener {
-    public static final String TAG = FolderFragment.class.getSimpleName();
+public class FoldersFragment extends AbsMainActivityFragment implements MainActivity.MainActivityFragmentCallbacks, CabHolder, BreadCrumbLayout.SelectionCallback, SongFileAdapter.Callbacks, AppBarLayout.OnOffsetChangedListener {
+    public static final String TAG = FoldersFragment.class.getSimpleName();
 
     protected static final String PATH = "path";
     protected static final String CRUMBS = "crumbs";
@@ -85,15 +85,15 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
     private SongFileAdapter adapter;
     private MaterialCab cab;
 
-    public FolderFragment() {
+    public FoldersFragment() {
     }
 
-    public static FolderFragment newInstance(Context context) {
+    public static FoldersFragment newInstance(Context context) {
         return newInstance(PreferenceUtil.getInstance(context).getStartDirectory());
     }
 
-    public static FolderFragment newInstance(File directory) {
-        FolderFragment frag = new FolderFragment();
+    public static FoldersFragment newInstance(File directory) {
+        FoldersFragment frag = new FoldersFragment();
         Bundle b = new Bundle();
         b.putSerializable(PATH, directory);
         frag.setArguments(b);
@@ -416,7 +416,6 @@ public class FolderFragment extends AbsMainActivityFragment implements MainActiv
                 int scanned = 0;
                 int failed = 0;
 
-                @DebugLog
                 @Override
                 public void onScanCompleted(final String path, final Uri uri) {
                     getActivity().runOnUiThread(new Runnable() {

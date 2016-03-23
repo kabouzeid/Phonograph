@@ -48,6 +48,16 @@ public class AbsMusicServiceFragment extends Fragment implements MusicServiceEve
     }
 
     @Override
+    public void onServiceConnected() {
+
+    }
+
+    @Override
+    public void onServiceDisconnected() {
+
+    }
+
+    @Override
     public void onQueueChanged() {
 
     }

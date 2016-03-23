@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.ui.fragments.libraryfragments;
+package com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.interfaces.MusicServiceEventListener;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
@@ -25,7 +24,7 @@ import butterknife.ButterKnife;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class AbsLibraryPagerRecyclerViewFragment<A extends RecyclerView.Adapter, LM extends RecyclerView.LayoutManager> extends AbsLibraryPagerFragment implements OnOffsetChangedListener, MusicServiceEventListener {
+public abstract class AbsLibraryPagerRecyclerViewFragment<A extends RecyclerView.Adapter, LM extends RecyclerView.LayoutManager> extends AbsLibraryPagerFragment implements OnOffsetChangedListener {
 
     public static final String TAG = AbsLibraryPagerRecyclerViewFragment.class.getSimpleName();
 
@@ -59,7 +58,6 @@ public abstract class AbsLibraryPagerRecyclerViewFragment<A extends RecyclerView
         super.onViewCreated(view, savedInstanceState);
 
         getLibraryFragment().addOnAppBarOffsetChangedListener(this);
-        getLibraryFragment().getMainActivity().addMusicServiceEventListener(this);
 
         setUpRecyclerView();
     }
@@ -115,31 +113,6 @@ public abstract class AbsLibraryPagerRecyclerViewFragment<A extends RecyclerView
         container.setPadding(container.getPaddingLeft(), container.getPaddingTop(), container.getPaddingRight(), getLibraryFragment().getTotalAppBarScrollingRange() + i);
     }
 
-    @Override
-    public void onPlayingMetaChanged() {
-
-    }
-
-    @Override
-    public void onQueueChanged() {
-
-    }
-
-    @Override
-    public void onPlayStateChanged() {
-
-    }
-
-    @Override
-    public void onShuffleModeChanged() {
-
-    }
-
-    @Override
-    public void onRepeatModeChanged() {
-
-    }
-
     private void checkIsEmpty() {
         if (empty != null) {
             empty.setText(getEmptyMessage());
@@ -166,7 +139,6 @@ public abstract class AbsLibraryPagerRecyclerViewFragment<A extends RecyclerView
     public void onDestroyView() {
         super.onDestroyView();
         getLibraryFragment().removeOnAppBarOffsetChangedListener(this);
-        getLibraryFragment().getMainActivity().removeMusicServiceEventListener(this);
         ButterKnife.unbind(this);
     }
 }

@@ -4,9 +4,13 @@ package com.kabouzeid.gramophone.interfaces;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public interface MusicServiceEventListener {
-    void onPlayingMetaChanged();
+    void onServiceConnected();
+
+    void onServiceDisconnected();
 
     void onQueueChanged();
+
+    void onPlayingMetaChanged();
 
     void onPlayStateChanged();
 
