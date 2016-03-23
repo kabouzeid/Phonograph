@@ -9,7 +9,7 @@ import android.support.annotation.StyleRes;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.SortOrder;
-import com.kabouzeid.gramophone.ui.fragments.FolderFragment;
+import com.kabouzeid.gramophone.ui.fragments.mainactivity.folders.FoldersFragment;
 
 import java.io.File;
 
@@ -317,7 +317,7 @@ public final class PreferenceUtil {
     }
 
     public final File getStartDirectory() {
-        return new File(mPreferences.getString(START_DIRECTORY, FolderFragment.getDefaultStartDirectory().getPath()));
+        return new File(mPreferences.getString(START_DIRECTORY, FoldersFragment.getDefaultStartDirectory().getPath()));
     }
 
     public void setStartDirectory(File file) {

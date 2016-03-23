@@ -10,10 +10,10 @@ import android.util.SparseArray;
 import android.view.ViewGroup;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.ui.fragments.libraryfragments.AlbumsFragment;
-import com.kabouzeid.gramophone.ui.fragments.libraryfragments.ArtistsFragment;
-import com.kabouzeid.gramophone.ui.fragments.libraryfragments.PlaylistsFragment;
-import com.kabouzeid.gramophone.ui.fragments.libraryfragments.SongsFragment;
+import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.AlbumsFragment;
+import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.ArtistsFragment;
+import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.PlaylistsFragment;
+import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.SongsFragment;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

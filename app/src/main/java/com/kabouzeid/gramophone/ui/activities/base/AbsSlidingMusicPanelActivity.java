@@ -80,6 +80,14 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     protected abstract View createContentView();
 
     @Override
+    public void onServiceConnected() {
+        super.onServiceConnected();
+        if (!MusicPlayerRemote.getPlayingQueue().isEmpty()) {
+            hideBottomBar(false);
+        } // don't call hideBottomBar(true) here as it causes a bug with the SlidingUpPanelLayout
+    }
+
+    @Override
     public void onQueueChanged() {
         super.onQueueChanged();
         hideBottomBar(MusicPlayerRemote.getPlayingQueue().isEmpty());
@@ -210,6 +218,10 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         if (getPanelState() == null || getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
             super.setTaskDescriptionColor(color);
         }
+    }
+
+    public SlidingUpPanelLayout getSlidingUpPanelLayout() {
+        return slidingUpPanelLayout;
     }
 
     public MiniPlayerFragment getMiniPlayerFragment() {

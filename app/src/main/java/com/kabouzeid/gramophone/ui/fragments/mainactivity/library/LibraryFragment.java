@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.ui.fragments;
+package com.kabouzeid.gramophone.ui.fragments.mainactivity.library;
 
 
 import android.content.Intent;
@@ -31,7 +31,8 @@ import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.ui.activities.SearchActivity;
-import com.kabouzeid.gramophone.ui.fragments.libraryfragments.AbsLibraryPagerRecyclerViewCustomGridSizeFragment;
+import com.kabouzeid.gramophone.ui.fragments.mainactivity.AbsMainActivityFragment;
+import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.AbsLibraryPagerRecyclerViewCustomGridSizeFragment;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
@@ -151,6 +152,7 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        if (pager == null) return;
         inflater.inflate(R.menu.menu_main, menu);
         if (isPlaylistPage()) {
             menu.add(0, R.id.action_new_playlist, 0, R.string.new_playlist_title);
@@ -175,6 +177,7 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (pager == null) return false;
         Fragment currentFragment = getCurrentFragment();
         if (currentFragment instanceof AbsLibraryPagerRecyclerViewCustomGridSizeFragment) {
             AbsLibraryPagerRecyclerViewCustomGridSizeFragment absLibraryRecyclerViewCustomGridSizeFragment = (AbsLibraryPagerRecyclerViewCustomGridSizeFragment) currentFragment;

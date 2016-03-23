@@ -29,12 +29,15 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.bumptech.glide.BitmapRequestBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appwidget.WidgetMedium;
 import com.kabouzeid.gramophone.glide.BlurTransformation;
@@ -74,10 +77,11 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final String ACTION_REWIND = "com.kabouzeid.gramophone.rewind";
     public static final String ACTION_QUIT = "com.kabouzeid.gramophone.quitservice";
 
-    // do not change this strings as it will break support with other apps (e.g. last.fm scrobbling)
+    // do not change these three strings as it will break support with other apps (e.g. last.fm scrobbling)
     public static final String META_CHANGED = "com.kabouzeid.gramophone.metachanged";
     public static final String QUEUE_CHANGED = "com.kabouzeid.gramophone.queuechanged";
     public static final String PLAY_STATE_CHANGED = "com.kabouzeid.gramophone.playstatechanged";
+
     public static final String REPEAT_MODE_CHANGED = "com.kabouzeid.gramophone.repeatmodechanged";
     public static final String SHUFFLE_MODE_CHANGED = "com.kabouzeid.gramophone.shufflemodechanged";
     public static final String MEDIA_STORE_CHANGED = "com.kabouzeid.gramophone.mediastorechanged";
@@ -133,8 +137,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private QueueSaveHandler queueSaveHandler;
     private HandlerThread musicPlayerHandlerThread;
     private HandlerThread queueSaveHandlerThread;
-    private HistoryStore historyStore;
-    private SongPlayCountStore songPlayCountStore;
     private SongPlayCountHelper songPlayCountHelper = new SongPlayCountHelper();
     private final BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
         @Override
@@ -146,7 +148,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     };
     private ContentObserver mediaStoreObserver;
     private boolean notHandledMetaChangedForCurrentTrack;
-    private boolean isServiceInUse;
+    private boolean isServiceBound;
 
     private Handler uiThreadHandler;
 
@@ -154,23 +156,25 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         return MusicUtil.getSongFileUri(song.id).toString();
     }
 
+    @DebugLog
     @Override
     public void onCreate() {
         super.onCreate();
 
         playingNotificationHelper = new PlayingNotificationHelper(this);
 
-        historyStore = HistoryStore.getInstance(this);
-        songPlayCountStore = SongPlayCountStore.getInstance(this);
-
-        shuffleMode = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_SHUFFLE_MODE, 0);
-        repeatMode = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_REPEAT_MODE, 0);
-
         final PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
         wakeLock.setReferenceCounted(false);
 
-        musicPlayerHandlerThread = new HandlerThread("PlaybackHandler");
+        String playbackHandlerName = "PlaybackHandler";
+        try {
+            musicPlayerHandlerThread = new HandlerThread(playbackHandlerName, Process.THREAD_PRIORITY_AUDIO);
+        } catch (SecurityException e) {
+            Log.e(TAG, "Failed to create HandlerThread with Process.THREAD_PRIORITY_AUDIO", e);
+            Answers.getInstance().logCustom(new CustomEvent("SecurityException: Process.THREAD_PRIORITY_AUDIO")); // TODO remove in future update
+            musicPlayerHandlerThread = new HandlerThread(playbackHandlerName, Process.THREAD_PRIORITY_FOREGROUND);
+        }
         musicPlayerHandlerThread.start();
         playerHandler = new PlaybackHandler(this, musicPlayerHandlerThread.getLooper());
 
@@ -186,8 +190,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
         registerReceiversAndRemoteControlClient();
 
-        restoreState();
-
         mediaStoreObserver = new MediaStoreObserver(playerHandler);
         getContentResolver().registerContentObserver(
                 MediaStore.Audio.Media.INTERNAL_CONTENT_URI, true, mediaStoreObserver);
@@ -196,8 +198,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
         PreferenceUtil.getInstance(this).registerOnSharedPreferenceChangedListener(this);
 
-        notifyChange(SHUFFLE_MODE_CHANGED);
-        notifyChange(REPEAT_MODE_CHANGED);
+        restoreState();
     }
 
     private void registerReceiversAndRemoteControlClient() {
@@ -230,6 +231,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         getAudioManager().registerRemoteControlClient(remoteControlClient);
     }
 
+    @DebugLog
     @Override
     public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
         if (intent != null) {
@@ -266,6 +268,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         return START_STICKY;
     }
 
+    @DebugLog
     @Override
     public void onDestroy() {
         quit();
@@ -275,20 +278,23 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         wakeLock.release();
     }
 
+    @DebugLog
     @Override
     public IBinder onBind(Intent intent) {
-        isServiceInUse = true;
+        isServiceBound = true;
         return musicBind;
     }
 
+    @DebugLog
     @Override
     public void onRebind(Intent intent) {
-        isServiceInUse = true;
+        isServiceBound = true;
     }
 
+    @DebugLog
     @Override
     public boolean onUnbind(Intent intent) {
-        isServiceInUse = false;
+        isServiceBound = false;
         if (!isPlaying()) {
             stopSelf();
         }
@@ -350,6 +356,11 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     }
 
     private void restoreState() {
+        shuffleMode = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_SHUFFLE_MODE, 0);
+        repeatMode = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_REPEAT_MODE, 0);
+        notifyPrivateChange(SHUFFLE_MODE_CHANGED);
+        notifyPrivateChange(REPEAT_MODE_CHANGED);
+
         playerHandler.removeMessages(RESTORE_QUEUES);
         playerHandler.sendEmptyMessage(RESTORE_QUEUES);
     }
@@ -372,8 +383,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             if (restoredPositionInTrack > 0) seek(restoredPositionInTrack);
 
             notHandledMetaChangedForCurrentTrack = true;
-            sendChangeIntent(META_CHANGED);
-            sendChangeIntent(QUEUE_CHANGED);
+            sendPrivateIntent(META_CHANGED);
+            sendPrivateIntent(QUEUE_CHANGED);
             updateWidgets();
         }
     }
@@ -383,7 +394,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         pause();
         playingNotificationHelper.killNotification();
 
-        if (isServiceInUse) {
+        if (isServiceBound) {
             return START_STICKY;
         } else {
             closeAudioEffectSession();
@@ -623,7 +634,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         .putInt(SAVED_REPEAT_MODE, repeatMode)
                         .apply();
                 prepareNext();
-                notifyChange(REPEAT_MODE_CHANGED);
+                notifyPrivateChange(REPEAT_MODE_CHANGED);
                 break;
         }
     }
@@ -886,33 +897,43 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 position = newPosition;
                 break;
         }
-        notifyChange(SHUFFLE_MODE_CHANGED);
+        notifyPrivateChange(SHUFFLE_MODE_CHANGED);
         notifyChange(QUEUE_CHANGED);
     }
 
+    @DebugLog
     private void notifyChange(@NonNull final String what) {
-        handleChange(what);
-        sendChangeIntent(what);
+        notifyPrivateChange(what);
+        sendPublicIntent(what);
     }
 
-    private void sendChangeIntent(@NonNull final String what) {
-        final Intent internalIntent = new Intent(what);
+    @DebugLog
+    private void notifyPrivateChange(@NonNull final String what) {
+        handleChange(what);
+        sendPrivateIntent(what);
+    }
+
+    // to let other apps know whats playing. i.E. last.fm (scrobbling) or musixmatch
+    @DebugLog
+    private void sendPublicIntent(@NonNull final String what) {
+        final Intent intent = new Intent(what.replace(PHONOGRAPH_PACKAGE_NAME, MUSIC_PACKAGE_NAME));
 
         final Song currentSong = getCurrentSong();
         if (currentSong.id != -1) {
-            internalIntent.putExtra("id", currentSong.id);
-            internalIntent.putExtra("artist", currentSong.artistName);
-            internalIntent.putExtra("album", currentSong.albumName);
-            internalIntent.putExtra("track", currentSong.title);
-            internalIntent.putExtra("duration", currentSong.duration);
+            intent.putExtra("id", currentSong.id);
+            intent.putExtra("artist", currentSong.artistName);
+            intent.putExtra("album", currentSong.albumName);
+            intent.putExtra("track", currentSong.title);
+            intent.putExtra("duration", currentSong.duration);
         }
-        internalIntent.putExtra("playing", isPlaying());
-        sendStickyBroadcast(internalIntent);
+        intent.putExtra("playing", isPlaying());
 
-        // to let other apps know whats playing. i.E. last.fm (scrobbling) or musixmatch
-        final Intent publicMusicIntent = new Intent(internalIntent);
-        publicMusicIntent.setAction(what.replace(PHONOGRAPH_PACKAGE_NAME, MUSIC_PACKAGE_NAME));
-        sendStickyBroadcast(publicMusicIntent);
+        sendStickyBroadcast(intent);
+    }
+
+    @DebugLog
+    private void sendPrivateIntent(final String what) {
+        sendBroadcast(new Intent(what));
     }
 
     private void handleChange(@NonNull final String what) {
@@ -935,9 +956,9 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 savePosition();
                 savePositionInTrack();
                 final Song currentSong = getCurrentSong();
-                historyStore.addSongId(currentSong.id);
+                HistoryStore.getInstance(this).addSongId(currentSong.id);
                 if (songPlayCountHelper.shouldBumpPlayCount()) {
-                    songPlayCountStore.bumpPlayCount(songPlayCountHelper.getSong().id);
+                    SongPlayCountStore.getInstance(this).bumpPlayCount(songPlayCountHelper.getSong().id);
                 }
                 songPlayCountHelper.notifySongChanged(currentSong);
                 break;
@@ -1146,7 +1167,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         public void run() {
             // actually call refresh when the delayed callback fires
             // do not send a sticky broadcast here
-            sendBroadcast(new Intent(MEDIA_STORE_CHANGED));
+            notifyPrivateChange(MEDIA_STORE_CHANGED);
         }
     }
 

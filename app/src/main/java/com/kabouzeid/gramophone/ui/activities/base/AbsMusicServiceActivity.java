@@ -20,10 +20,12 @@ import com.kabouzeid.gramophone.service.MusicService;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
+import hugo.weaving.DebugLog;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements ServiceConnection, MusicServiceEventListener {
+public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements MusicServiceEventListener {
     public static final String TAG = AbsMusicServiceActivity.class.getSimpleName();
 
     private final ArrayList<MusicServiceEventListener> mMusicServiceEventListeners = new ArrayList<>();
@@ -33,41 +35,26 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
     private boolean receiverRegistered;
 
 
+    @DebugLog
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        serviceToken = MusicPlayerRemote.bindToService(this, this);
+        serviceToken = MusicPlayerRemote.bindToService(this, new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                AbsMusicServiceActivity.this.onServiceConnected();
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                AbsMusicServiceActivity.this.onServiceDisconnected();
+            }
+        });
 
         setPermissionDeniedMessage(getString(R.string.permission_external_storage_denied));
     }
 
-    @Override
-    public void onServiceConnected(ComponentName name, IBinder service) {
-        if (!receiverRegistered) {
-            musicStateReceiver = new MusicStateReceiver(this);
-
-            final IntentFilter filter = new IntentFilter();
-            filter.addAction(MusicService.PLAY_STATE_CHANGED);
-            filter.addAction(MusicService.SHUFFLE_MODE_CHANGED);
-            filter.addAction(MusicService.REPEAT_MODE_CHANGED);
-            filter.addAction(MusicService.META_CHANGED);
-            filter.addAction(MusicService.QUEUE_CHANGED);
-            filter.addAction(MusicService.MEDIA_STORE_CHANGED);
-
-            registerReceiver(musicStateReceiver, filter);
-
-            receiverRegistered = true;
-        }
-    }
-
-    @Override
-    public void onServiceDisconnected(ComponentName name) {
-        if (receiverRegistered) {
-            unregisterReceiver(musicStateReceiver);
-            receiverRegistered = false;
-        }
-    }
-
+    @DebugLog
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -87,6 +74,45 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
     public void removeMusicServiceEventListener(final MusicServiceEventListener listener) {
         if (listener != null) {
             mMusicServiceEventListeners.remove(listener);
+        }
+    }
+
+    @Override
+    public void onServiceConnected() {
+        if (!receiverRegistered) {
+            musicStateReceiver = new MusicStateReceiver(this);
+
+            final IntentFilter filter = new IntentFilter();
+            filter.addAction(MusicService.PLAY_STATE_CHANGED);
+            filter.addAction(MusicService.SHUFFLE_MODE_CHANGED);
+            filter.addAction(MusicService.REPEAT_MODE_CHANGED);
+            filter.addAction(MusicService.META_CHANGED);
+            filter.addAction(MusicService.QUEUE_CHANGED);
+            filter.addAction(MusicService.MEDIA_STORE_CHANGED);
+
+            registerReceiver(musicStateReceiver, filter);
+
+            receiverRegistered = true;
+        }
+
+        for (MusicServiceEventListener listener : mMusicServiceEventListeners) {
+            if (listener != null) {
+                listener.onServiceConnected();
+            }
+        }
+    }
+
+    @Override
+    public void onServiceDisconnected() {
+        if (receiverRegistered) {
+            unregisterReceiver(musicStateReceiver);
+            receiverRegistered = false;
+        }
+
+        for (MusicServiceEventListener listener : mMusicServiceEventListeners) {
+            if (listener != null) {
+                listener.onServiceDisconnected();
+            }
         }
     }
 
@@ -152,6 +178,7 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
             reference = new WeakReference<>(activity);
         }
 
+        @DebugLog
         @Override
         public void onReceive(final Context context, @NonNull final Intent intent) {
             final String action = intent.getAction();

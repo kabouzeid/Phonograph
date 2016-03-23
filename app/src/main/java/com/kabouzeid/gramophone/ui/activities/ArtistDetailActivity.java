@@ -62,7 +62,6 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import hugo.weaving.DebugLog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -418,7 +417,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         return new AsyncArtistDataLoader(this, args.getInt(EXTRA_ARTIST_ID));
     }
 
-    @DebugLog
     @Override
     public void onLoadFinished(Loader<ArtistData> loader, ArtistData data) {
         supportStartPostponedEnterTransition();
@@ -428,7 +426,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         }
     }
 
-    @DebugLog
     @Override
     public void onLoaderReset(Loader<ArtistData> loader) {
         this.artistData = new ArtistData();
@@ -444,7 +441,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
             this.artistId = artistId;
         }
 
-        @DebugLog
         @Override
         public ArtistData loadInBackground() {
             Artist artist = ArtistLoader.getArtist(getContext(), artistId);

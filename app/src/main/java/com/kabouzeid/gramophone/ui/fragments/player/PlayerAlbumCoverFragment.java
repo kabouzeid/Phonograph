@@ -47,7 +47,6 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        updatePlayingQueue();
         viewPager.addOnPageChangeListener(this);
         viewPager.setOnTouchListener(new View.OnTouchListener() {
             GestureDetector gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {
@@ -76,6 +75,11 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     }
 
     @Override
+    public void onServiceConnected() {
+        updatePlayingQueue();
+    }
+
+    @Override
     public void onPlayingMetaChanged() {
         viewPager.setCurrentItem(MusicPlayerRemote.getPosition());
     }
@@ -88,7 +92,6 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     private void updatePlayingQueue() {
         viewPager.setAdapter(new AlbumCoverPagerAdapter(getFragmentManager(), MusicPlayerRemote.getPlayingQueue()));
         viewPager.setCurrentItem(MusicPlayerRemote.getPosition());
-        // doesn't get called automatically for some reason
         onPageSelected(MusicPlayerRemote.getPosition());
     }
 

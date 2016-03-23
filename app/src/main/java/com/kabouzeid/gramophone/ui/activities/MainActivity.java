@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.annotation.SuppressLint;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -9,7 +8,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.NavigationViewUtil;
@@ -40,8 +40,8 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.activities.intro.AppIntroActivity;
-import com.kabouzeid.gramophone.ui.fragments.FolderFragment;
-import com.kabouzeid.gramophone.ui.fragments.LibraryFragment;
+import com.kabouzeid.gramophone.ui.fragments.mainactivity.folders.FoldersFragment;
+import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.LibraryFragment;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
@@ -74,13 +74,12 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 
     private boolean blockRequestPermissions;
 
-    private boolean bottomBarSupposedToBeHidden = true;
-    private boolean keepBottomBarHidden = true;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+
+        Answers.getInstance().logCustom(new CustomEvent("TEST")); // TODO remove in future update
 
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
             Util.setStatusBarTranslucent(getWindow());
@@ -94,15 +93,8 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 
         if (savedInstanceState == null) {
             setMusicChooser(PreferenceUtil.getInstance(this).getLastMusicChooser());
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    initDelayedBottomBar();
-                }
-            }, 500);
         } else {
             restoreCurrentFragment();
-            initDelayedBottomBar();
         }
 
         if (!checkShowIntro()) {
@@ -119,7 +111,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
                 break;
             case FOLDERS:
                 navigationView.setCheckedItem(R.id.nav_folders);
-                setCurrentFragment(FolderFragment.newInstance(this));
+                setCurrentFragment(FoldersFragment.newInstance(this));
                 break;
         }
     }
@@ -255,8 +247,9 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     }
 
     @Override
-    public void onServiceConnected(ComponentName name, IBinder service) {
-        super.onServiceConnected(name, service);
+    public void onServiceConnected() {
+        super.onServiceConnected();
+        updateNavigationDrawerHeader();
         handlePlaybackIntent(getIntent());
     }
 
@@ -408,17 +401,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
     @Override
     public void onDrawerStateChanged(int newState) {
 
-    }
-
-    @Override
-    public void hideBottomBar(boolean hide) {
-        bottomBarSupposedToBeHidden = hide;
-        super.hideBottomBar(hide || keepBottomBarHidden);
-    }
-
-    private void initDelayedBottomBar() {
-        keepBottomBarHidden = false;
-        hideBottomBar(bottomBarSupposedToBeHidden);
     }
 
     public interface MainActivityFragmentCallbacks {

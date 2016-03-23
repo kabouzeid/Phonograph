@@ -81,6 +81,8 @@ android {
             versionNameSuffix ' DEBUG'
             manifestPlaceholders = [appName: "Phonograph DEBUG"]
 
+            ext.enableCrashlytics = false // Disable fabric build ID generation for debug builds
+
             signingConfig signingConfigs.debug
         }
     }
