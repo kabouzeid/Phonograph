@@ -39,6 +39,11 @@ public class PlaylistSongAdapter extends SongAdapter implements DraggableItemAda
     }
 
     @Override
+    public long getItemId(int position) {
+        return ((ArrayList<PlaylistSong>) (List) dataSet).get(position).idInPlayList; // important!
+    }
+
+    @Override
     protected SongAdapter.ViewHolder createViewHolder(View view) {
         return new ViewHolder(view);
     }
