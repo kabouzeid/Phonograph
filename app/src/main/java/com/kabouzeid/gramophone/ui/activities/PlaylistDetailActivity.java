@@ -1,12 +1,13 @@
 package com.kabouzeid.gramophone.ui.activities;
 
-import android.os.Build;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.transition.Slide;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
+import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
@@ -41,9 +43,11 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity implements CabHolder {
+public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity implements CabHolder, LoaderManager.LoaderCallbacks<ArrayList<Song>> {
 
     public static final String TAG = PlaylistDetailActivity.class.getSimpleName();
+
+    private static final int LOADER_ID = 1;
 
     @NonNull
     public static String EXTRA_PLAYLIST = "extra_playlist";
@@ -56,6 +60,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     TextView empty;
 
     private Playlist playlist;
+
     private MaterialCab cab;
     private SongAdapter adapter;
 
@@ -72,17 +77,13 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         setNavigationbarColorAuto();
         setTaskDescriptionColorAuto();
 
-        getIntentExtras();
+        playlist = getIntent().getExtras().getParcelable(EXTRA_PLAYLIST);
 
         setUpRecyclerView();
 
-        checkIsEmpty();
-
         setUpToolBar();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setEnterTransition(new Slide());
-        }
+        getSupportLoaderManager().initLoader(LOADER_ID, null, this);
     }
 
     @Override
@@ -93,12 +94,12 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     private void setUpRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         if (playlist instanceof AbsSmartPlaylist) {
-            adapter = new SmartPlaylistSongAdapter(this, loadSmartPlaylistDataSet(), R.layout.item_list, false, this);
+            adapter = new SmartPlaylistSongAdapter(this, new ArrayList<Song>(), R.layout.item_list, false, this);
             recyclerView.setAdapter(adapter);
         } else {
             recyclerViewDragDropManager = new RecyclerViewDragDropManager();
             final GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
-            adapter = new PlaylistSongAdapter(this, loadPlaylistDataSet(), R.layout.item_list, false, this, new PlaylistSongAdapter.OnMoveItemListener() {
+            adapter = new PlaylistSongAdapter(this, new ArrayList<PlaylistSong>(), R.layout.item_list, false, this, new PlaylistSongAdapter.OnMoveItemListener() {
                 @Override
                 public void onMoveItem(int fromPosition, int toPosition) {
                     if (PlaylistsUtil.moveItem(PlaylistDetailActivity.this, playlist.id, fromPosition, toPosition)) {
@@ -125,41 +126,12 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         });
     }
 
-    private void reloadDataSet() {
-        if (playlist instanceof AbsSmartPlaylist) {
-            adapter.swapDataSet(loadSmartPlaylistDataSet());
-        } else {
-            //noinspection unchecked
-            adapter.swapDataSet((ArrayList<Song>) (List) loadPlaylistDataSet());
-        }
-    }
-
-    private ArrayList<PlaylistSong> loadPlaylistDataSet() {
-        return PlaylistSongLoader.getPlaylistSongList(this, playlist.id);
-    }
-
-    private ArrayList<Song> loadSmartPlaylistDataSet() {
-        return ((AbsSmartPlaylist) playlist).getSongs(this);
-    }
-
     private void setUpToolBar() {
         toolbar.setBackgroundColor(ThemeStore.primaryColor(this));
         setSupportActionBar(toolbar);
         //noinspection ConstantConditions
         getSupportActionBar().setTitle(playlist.name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    private void getIntentExtras() {
-        Bundle intentExtras = getIntent().getExtras();
-        try {
-            playlist = intentExtras.getParcelable(EXTRA_PLAYLIST);
-        } catch (ClassCastException ignored) {
-        }
-        if (playlist == null) {
-            playlist = new Playlist();
-            finish();
-        }
     }
 
     @Override
@@ -188,6 +160,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         return super.onOptionsItemSelected(item);
     }
 
+    @NonNull
     @Override
     public MaterialCab openCab(final int menu, final MaterialCab.Callback callback) {
         if (cab != null && cab.isActive()) cab.finish();
@@ -211,7 +184,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     @Override
     public void onMediaStoreChanged() {
         super.onMediaStoreChanged();
-        reloadDataSet();
+        getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
     }
 
     private void checkIsEmpty() {
@@ -248,5 +221,41 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         adapter = null;
 
         super.onDestroy();
+    }
+
+    @Override
+    public Loader<ArrayList<Song>> onCreateLoader(int id, Bundle args) {
+        return new AsyncPlaylistSongLoader(this, playlist);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<ArrayList<Song>> loader, ArrayList<Song> data) {
+        if (adapter != null)
+            adapter.swapDataSet(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<ArrayList<Song>> loader) {
+        if (adapter != null)
+            adapter.swapDataSet(new ArrayList<Song>());
+    }
+
+    private static class AsyncPlaylistSongLoader extends WrappedAsyncTaskLoader<ArrayList<Song>> {
+        private final Playlist playlist;
+
+        public AsyncPlaylistSongLoader(Context context, Playlist playlist) {
+            super(context);
+            this.playlist = playlist;
+        }
+
+        @Override
+        public ArrayList<Song> loadInBackground() {
+            if (playlist instanceof AbsSmartPlaylist) {
+                return ((AbsSmartPlaylist) playlist).getSongs(getContext());
+            } else {
+                //noinspection unchecked
+                return (ArrayList<Song>) (List) PlaylistSongLoader.getPlaylistSongList(getContext(), playlist.id);
+            }
+        }
     }
 }

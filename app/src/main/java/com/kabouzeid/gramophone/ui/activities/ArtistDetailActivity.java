@@ -421,9 +421,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     public void onLoadFinished(Loader<ArtistData> loader, ArtistData data) {
         supportStartPostponedEnterTransition();
         setArtistData(data);
-        if (getArtistData().albums.isEmpty()) {
-            finish();
-        }
     }
 
     @Override
