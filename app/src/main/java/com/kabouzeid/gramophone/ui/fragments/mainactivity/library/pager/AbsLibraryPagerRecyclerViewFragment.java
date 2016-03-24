@@ -77,6 +77,7 @@ public abstract class AbsLibraryPagerRecyclerViewFragment<A extends RecyclerView
 
     protected void invalidateAdapter() {
         initAdapter();
+        checkIsEmpty();
         recyclerView.setAdapter(adapter);
     }
 
@@ -89,7 +90,6 @@ public abstract class AbsLibraryPagerRecyclerViewFragment<A extends RecyclerView
                 checkIsEmpty();
             }
         });
-        checkIsEmpty();
     }
 
     private void initLayoutManager() {

@@ -340,9 +340,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     public void onLoadFinished(Loader<Album> loader, Album data) {
         supportStartPostponedEnterTransition();
         setAlbum(data);
-        if (getAlbum().songs.isEmpty()) {
-            finish();
-        }
     }
 
     @Override
