@@ -29,15 +29,12 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.bumptech.glide.BitmapRequestBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.CustomEvent;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appwidget.WidgetMedium;
 import com.kabouzeid.gramophone.glide.BlurTransformation;
@@ -165,13 +162,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         wakeLock.setReferenceCounted(false);
 
         String playbackHandlerName = "PlaybackHandler";
-        try {
-            musicPlayerHandlerThread = new HandlerThread(playbackHandlerName, Process.THREAD_PRIORITY_AUDIO);
-        } catch (SecurityException e) {
-            Log.e(TAG, "Failed to create HandlerThread with Process.THREAD_PRIORITY_AUDIO", e);
-            Answers.getInstance().logCustom(new CustomEvent("SecurityException: Process.THREAD_PRIORITY_AUDIO")); // TODO remove in future update
-            musicPlayerHandlerThread = new HandlerThread(playbackHandlerName, Process.THREAD_PRIORITY_FOREGROUND);
-        }
+        musicPlayerHandlerThread = new HandlerThread(playbackHandlerName);
         musicPlayerHandlerThread.start();
         playerHandler = new PlaybackHandler(this, musicPlayerHandlerThread.getLooper());
 
