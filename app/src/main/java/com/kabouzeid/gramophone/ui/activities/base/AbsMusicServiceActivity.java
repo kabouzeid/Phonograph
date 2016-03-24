@@ -35,7 +35,6 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
     private boolean receiverRegistered;
 
 
-    @DebugLog
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +53,6 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
         setPermissionDeniedMessage(getString(R.string.permission_external_storage_denied));
     }
 
-    @DebugLog
     @Override
     protected void onDestroy() {
         super.onDestroy();

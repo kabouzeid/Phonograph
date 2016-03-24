@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.WeakHashMap;
 
-import hugo.weaving.DebugLog;
-
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -35,7 +33,6 @@ public class MusicPlayerRemote {
 
     private static final WeakHashMap<Context, ServiceBinder> mConnectionMap = new WeakHashMap<>();
 
-    @DebugLog
     public static ServiceToken bindToService(@NonNull final Context context,
                                              final ServiceConnection callback) {
         Activity realActivity = ((Activity) context).getParent();
@@ -55,7 +52,6 @@ public class MusicPlayerRemote {
         return null;
     }
 
-    @DebugLog
     public static void unbindFromService(@Nullable final ServiceToken token) {
         if (token == null) {
             return;
