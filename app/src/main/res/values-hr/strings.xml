@@ -8,7 +8,7 @@
     <string name="action_set_as_ringtone">Postavi kao zvuk zvona</string>
     <string name="action_share">Podijeli</string>
     <string name="action_settings">"Postavke"</string>
-    <string name="action_grant">Dozvoli</string>
+    <string name="action_grant">Dopusti</string>
     <string name="action_done">Završi</string>
     <string name="action_skip">Preskoči</string>
     <string name="action_about">O Phonographu</string>
@@ -205,7 +205,7 @@
     <string name="join_community_summary">Ako trebate pomoć ili imate pitanja, trebate posjetiti Phonograph zajednicu na Google Plusu.</string>
     <string name="translate">"Prevedite "</string>
     <string name="translate_summary">Pomozite prevesti Phonograph na svoj izvorni jezik.</string>
-    <string name="rate_on_google_play">Ocjenite</string>
+    <string name="rate_on_google_play">Ocijenite</string>
     <string name="rate_on_google_play_summary">Ostavite pozitivnu ocjenu na Google Playu ako vam se sviđa Phonograph.</string>
     <string name="donate">Donirajte</string>
     <string name="donate_summary">Ako mislite da sam zaslužio biti plaćen za svoj rad, ostavite mi par dolara ovdje.</string>

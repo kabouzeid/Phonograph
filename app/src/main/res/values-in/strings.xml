@@ -26,9 +26,11 @@
     <string name="action_tag_editor">Ubah label</string>
     <string name="action_delete_from_device">Hapus dari perangkat</string>
     <string name="action_details">Rincian</string>
+    <string name="action_rename">Ganti nama</string>
+    <string name="action_delete">Hapus</string>
     <string name="albums">Album-album</string>
-    <string name="artists">Artis-artis</string>
-    <string name="songs">Lagu-lagu</string>
+    <string name="artists">Artis</string>
+    <string name="songs">Lagu</string>
     <string name="playlists">Daftar putar</string>
     <string name="unplayable_file">Tidak dapat memutar lagu ini.</string>
     <string name="biography_unavailable">Tidak dapat menemukan biografi artis</string>
@@ -44,8 +46,9 @@
     <string name="album_or_artist_empty">Judul atau artis kosong.</string>
     <string name="writing_file_number">Menggubah berkas</string>
     <string name="saving_changes">Menyimpan perubahan...</string>
+    <string name="saving_to_file">Menyimpan ke file ...</string>
     <string name="label_details">Rincian</string>
-    <string name="label_file_name">Nama berkas</string>
+    <string name="label_file_name">Nama file</string>
     <string name="label_file_path">Lokasi berkas</string>
     <string name="label_file_size">Ukuran</string>
     <string name="label_file_format">Jenis</string>
@@ -86,6 +89,7 @@
     <string name="delete_playlist_title">Hapus daftar putar</string>
     <string name="delete_playlists_title">Hapus daftar putar</string>
     <string name="clear_playlist_title">Kosongkan daftar putar</string>
+    <string name="save_playlist_title">Simpan sebagai berkas</string>
     <string name="add_playlist_title">"Tambahkan ke daftar putar"</string>
     <string name="action_shuffle_all">Acak semua</string>
     <string name="action_shuffle_album">Putar album dengan acak</string>
@@ -222,4 +226,6 @@
     <string name="storage_permission_explaination">Izin penyimpanan diperlukan untuk Phonograph untuk membaca perpustakaan musik Anda.</string>
     <string name="library">Pustaka</string>
     <string name="folders">Map-map</string>
+    <string name="saved_playlist_to">Simpan daftar putar ke %s.</string>
+    <string name="failed_to_save_playlist">Gagal untuk menyimpan daftar putar (%s).</string>
 </resources>
