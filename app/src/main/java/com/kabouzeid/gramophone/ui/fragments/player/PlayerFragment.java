@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -76,6 +77,8 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
     private RecyclerView.Adapter wrappedAdapter;
     private RecyclerViewDragDropManager recyclerViewDragDropManager;
+
+    private AsyncTask updateIsFavoriteTask;
 
     private Impl impl;
 
@@ -240,13 +243,23 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
 
     private void updateIsFavorite() {
-        boolean isFavorite = MusicUtil.isFavorite(getActivity(), MusicPlayerRemote.getCurrentSong());
-        int res = isFavorite ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_border_white_24dp;
+        if (updateIsFavoriteTask != null) updateIsFavoriteTask.cancel(false);
+        updateIsFavoriteTask = new AsyncTask<Song, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(Song... params) {
+                return MusicUtil.isFavorite(getActivity(), params[0]);
+            }
 
-        Drawable favoriteIcon = TintHelper.createTintedDrawable(ContextCompat.getDrawable(getActivity(), res), ToolbarContentTintHelper.toolbarContentColor(getActivity(), Color.TRANSPARENT));
-        toolbar.getMenu().findItem(R.id.action_toggle_favorite)
-                .setIcon(favoriteIcon)
-                .setTitle(isFavorite ? getString(R.string.action_remove_from_favorites) : getString(R.string.action_add_to_favorites));
+            @Override
+            protected void onPostExecute(Boolean isFavorite) {
+                int res = isFavorite ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_border_white_24dp;
+                int color = ToolbarContentTintHelper.toolbarContentColor(getActivity(), Color.TRANSPARENT);
+                Drawable drawable = TintHelper.createTintedDrawable(ContextCompat.getDrawable(getActivity(), res), color);
+                toolbar.getMenu().findItem(R.id.action_toggle_favorite)
+                        .setIcon(drawable)
+                        .setTitle(isFavorite ? getString(R.string.action_remove_from_favorites) : getString(R.string.action_add_to_favorites));
+            }
+        }.execute(MusicPlayerRemote.getCurrentSong());
     }
 
     @Override
