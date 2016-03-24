@@ -379,7 +379,7 @@ public class MusicPlayerRemote {
         }
     }
 
-    public static boolean isServiceAvailable() {
+    public static boolean isServiceConnected() {
         return musicService != null;
     }
 }

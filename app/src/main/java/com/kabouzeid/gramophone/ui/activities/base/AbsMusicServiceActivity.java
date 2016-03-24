@@ -208,6 +208,14 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
         }
     }
 
+    @Override
+    protected void onHasPermissionsChanged(boolean hasPermissions) {
+        super.onHasPermissionsChanged(hasPermissions);
+        Intent intent = new Intent(MusicService.MEDIA_STORE_CHANGED);
+        intent.putExtra("from_permissions_changed", true); // just in case we need to know this at some point
+        sendBroadcast(intent);
+    }
+
     @Nullable
     @Override
     protected String[] getPermissionsToRequest() {

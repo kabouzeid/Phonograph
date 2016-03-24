@@ -220,6 +220,11 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         }
     }
 
+    @Override
+    protected View getSnackBarContainer() {
+        return findViewById(R.id.content_container);
+    }
+
     public SlidingUpPanelLayout getSlidingUpPanelLayout() {
         return slidingUpPanelLayout;
     }
