@@ -76,48 +76,48 @@ public class PlayPauseDrawable extends Drawable {
         rightPauseBar.rewind();
 
         // The current distance between the two pause bars.
-        final float barDist = lerp(pauseBarDistance, 0, progress);
+        final float barDist = lerp(pauseBarDistance, 0f, progress);
         // The current width of each pause bar.
         float rawBarWidth = lerp(pauseBarWidth, pauseBarHeight / 1.75f, progress);
         // We have to round the bar width when finishing the progress to prevent the gap
         // that might occur onDraw because of a pixel is lost when casting float to int instead of rounding it.
-        final float barWidth = progress == 1 ? Math.round(rawBarWidth) : rawBarWidth;
+        final float barWidth = progress == 1f ? Math.round(rawBarWidth) : rawBarWidth;
         // The current position of the left pause bar's top left coordinate.
-        final float firstBarTopLeft = lerp(0, barWidth, progress);
+        final float firstBarTopLeft = lerp(0f, barWidth, progress);
         // The current position of the right pause bar's top right coordinate.
-        final float secondBarTopRight = lerp(2 * barWidth + barDist, barWidth + barDist, progress);
+        final float secondBarTopRight = lerp(2f * barWidth + barDist, barWidth + barDist, progress);
 
         // Draw the left pause bar. The left pause bar transforms into the
         // top half of the play button triangle by animating the position of the
         // rectangle's top left coordinate and expanding its bottom width.
-        leftPauseBar.moveTo(0, 0);
+        leftPauseBar.moveTo(0f, 0f);
         leftPauseBar.lineTo(firstBarTopLeft, -pauseBarHeight);
         leftPauseBar.lineTo(barWidth, -pauseBarHeight);
-        leftPauseBar.lineTo(barWidth, 0);
+        leftPauseBar.lineTo(barWidth, 0f);
         leftPauseBar.close();
 
         // Draw the right pause bar. The right pause bar transforms into the
         // bottom half of the play button triangle by animating the position of the
         // rectangle's top right coordinate and expanding its bottom width.
-        rightPauseBar.moveTo(barWidth + barDist, 0);
+        rightPauseBar.moveTo(barWidth + barDist, 0f);
         rightPauseBar.lineTo(barWidth + barDist, -pauseBarHeight);
         rightPauseBar.lineTo(secondBarTopRight, -pauseBarHeight);
-        rightPauseBar.lineTo(2 * barWidth + barDist, 0);
+        rightPauseBar.lineTo(2 * barWidth + barDist, 0f);
         rightPauseBar.close();
 
         final int saveCount = canvas.save();
 
         // Translate the play button a tiny bit to the right so it looks more centered.
-        canvas.translate(lerp(0, pauseBarHeight / 8f, progress), 0);
+        canvas.translate(lerp(0f, pauseBarHeight / 8f, progress), 0f);
 
         // (1) Pause --> Play: rotate 0 to 90 degrees clockwise.
         // (2) Play --> Pause: rotate 90 to 180 degrees clockwise.
-        final float rotationProgress = isPlay ? 1 - progress : progress;
-        final float startingRotation = isPlay ? 90 : 0;
-        canvas.rotate(lerp(startingRotation, startingRotation + 90, rotationProgress), width / 2f, height / 2f);
+        final float rotationProgress = isPlay ? 1f - progress : progress;
+        final float startingRotation = isPlay ? 90f : 0f;
+        canvas.rotate(lerp(startingRotation, startingRotation + 90f, rotationProgress), width / 2f, height / 2f);
 
         // Position the pause/play button in the center of the drawable's bounds.
-        canvas.translate(width / 2f - ((2 * barWidth + barDist) / 2f), height / 2f + (pauseBarHeight / 2f));
+        canvas.translate(Math.round(width / 2f - ((2f * barWidth + barDist) / 2f)), Math.round(height / 2f + (pauseBarHeight / 2f)));
 
         // Draw the two bars that form the animated pause/play button.
         canvas.drawPath(leftPauseBar, paint);
@@ -129,7 +129,7 @@ public class PlayPauseDrawable extends Drawable {
     @NonNull
     private Animator getPausePlayAnimator() {
         isPlaySet = !isPlaySet;
-        final Animator anim = ObjectAnimator.ofFloat(this, PROGRESS, isPlay ? 1 : 0, isPlay ? 0 : 1);
+        final Animator anim = ObjectAnimator.ofFloat(this, PROGRESS, isPlay ? 1f : 0f, isPlay ? 0f : 1f);
         anim.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -180,7 +180,7 @@ public class PlayPauseDrawable extends Drawable {
         } else {
             isPlaySet = true;
             isPlay = true;
-            setProgress(1);
+            setProgress(1f);
         }
     }
 
@@ -192,7 +192,7 @@ public class PlayPauseDrawable extends Drawable {
         } else {
             isPlaySet = false;
             isPlay = false;
-            setProgress(0);
+            setProgress(0f);
         }
     }
 
