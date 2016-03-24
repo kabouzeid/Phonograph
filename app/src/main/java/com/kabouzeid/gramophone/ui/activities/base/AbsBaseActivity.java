@@ -24,10 +24,7 @@ import com.kabouzeid.gramophone.R;
 public abstract class AbsBaseActivity extends AbsThemeActivity {
     public static final int PERMISSION_REQUEST = 100;
 
-    private boolean areViewsEnabled;
-    private boolean recreating;
-
-    private boolean createdWithPermissionsGranted;
+    private boolean hadPermissions;
     private String[] permissions;
     private String permissionDeniedMessage;
 
@@ -37,7 +34,7 @@ public abstract class AbsBaseActivity extends AbsThemeActivity {
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         permissions = getPermissionsToRequest();
-        createdWithPermissionsGranted = hasPermissions();
+        hadPermissions = hasPermissions();
 
         setPermissionDeniedMessage(null);
     }
@@ -53,24 +50,17 @@ public abstract class AbsBaseActivity extends AbsThemeActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        if (hasPermissions() != createdWithPermissionsGranted) {
+        final boolean hasPermissions = hasPermissions();
+        if (hasPermissions != hadPermissions) {
+            hadPermissions = hasPermissions;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                onPermissionsChanged();
+                onHasPermissionsChanged(hasPermissions);
             }
         }
     }
 
-    protected void onPermissionsChanged() {
-        postRecreate();
-    }
-
-    @Override
-    public void postRecreate() {
-        if (!recreating) {
-            recreating = true;
-            super.postRecreate();
-        }
+    protected void onHasPermissionsChanged(boolean hasPermissions) {
+        // implemented by sub classes
     }
 
     @Override
@@ -91,12 +81,16 @@ public abstract class AbsBaseActivity extends AbsThemeActivity {
         return null;
     }
 
+    protected View getSnackBarContainer() {
+        return getWindow().getDecorView();
+    }
+
     protected void setPermissionDeniedMessage(String message) {
-        if (message == null) {
-            permissionDeniedMessage = getString(R.string.permissions_denied);
-        } else {
-            permissionDeniedMessage = message;
-        }
+        permissionDeniedMessage = message;
+    }
+
+    private String getPermissionDeniedMessage() {
+        return permissionDeniedMessage == null ? getString(R.string.permissions_denied) : permissionDeniedMessage;
     }
 
     protected void requestPermissions() {
@@ -124,7 +118,7 @@ public abstract class AbsBaseActivity extends AbsThemeActivity {
                 if (grantResult != PackageManager.PERMISSION_GRANTED) {
                     if (ActivityCompat.shouldShowRequestPermissionRationale(AbsBaseActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                         //User has deny from permission dialog
-                        Snackbar.make(getWindow().getDecorView(), permissionDeniedMessage,
+                        Snackbar.make(getSnackBarContainer(), getPermissionDeniedMessage(),
                                 Snackbar.LENGTH_INDEFINITE)
                                 .setAction(R.string.action_grant, new View.OnClickListener() {
                                     @Override
@@ -136,7 +130,7 @@ public abstract class AbsBaseActivity extends AbsThemeActivity {
                                 .show();
                     } else {
                         // User has deny permission and checked never show permission dialog so you can redirect to Application settings page
-                        Snackbar.make(getWindow().getDecorView(), permissionDeniedMessage,
+                        Snackbar.make(getSnackBarContainer(), getPermissionDeniedMessage(),
                                 Snackbar.LENGTH_INDEFINITE)
                                 .setAction(R.string.action_settings, new View.OnClickListener() {
                                     @Override
@@ -154,7 +148,8 @@ public abstract class AbsBaseActivity extends AbsThemeActivity {
                     return;
                 }
             }
-            onPermissionsChanged();
+            hadPermissions = true;
+            onHasPermissionsChanged(true);
         }
     }
 }

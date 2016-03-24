@@ -66,25 +66,25 @@ import hugo.weaving.DebugLog;
 public class MusicService extends Service implements SharedPreferences.OnSharedPreferenceChangeListener, Playback.PlaybackCallbacks {
     public static final String TAG = MusicService.class.getSimpleName();
 
-    public static final String PHONOGRAPH_PACKAGE_NAME = "com.kabouzeid.gramophone";
+    public static final String PHONOGRAPH_PACKAGE_NAME = "com.kabouzeid.gramophone" + ".temp_sticky_intent_fix"; // TODO remove ".temp_sticky_intent_fix" in a future update.
     public static final String MUSIC_PACKAGE_NAME = "com.android.music";
 
-    public static final String ACTION_TOGGLE_PAUSE = "com.kabouzeid.gramophone.togglepause";
-    public static final String ACTION_PLAY = "com.kabouzeid.gramophone.play";
-    public static final String ACTION_PAUSE = "com.kabouzeid.gramophone.pause";
-    public static final String ACTION_STOP = "com.kabouzeid.gramophone.stop";
-    public static final String ACTION_SKIP = "com.kabouzeid.gramophone.skip";
-    public static final String ACTION_REWIND = "com.kabouzeid.gramophone.rewind";
-    public static final String ACTION_QUIT = "com.kabouzeid.gramophone.quitservice";
+    public static final String ACTION_TOGGLE_PAUSE = PHONOGRAPH_PACKAGE_NAME + ".togglepause";
+    public static final String ACTION_PLAY = PHONOGRAPH_PACKAGE_NAME + ".play";
+    public static final String ACTION_PAUSE = PHONOGRAPH_PACKAGE_NAME + ".pause";
+    public static final String ACTION_STOP = PHONOGRAPH_PACKAGE_NAME + ".stop";
+    public static final String ACTION_SKIP = PHONOGRAPH_PACKAGE_NAME + ".skip";
+    public static final String ACTION_REWIND = PHONOGRAPH_PACKAGE_NAME + ".rewind";
+    public static final String ACTION_QUIT = PHONOGRAPH_PACKAGE_NAME + ".quitservice";
 
     // do not change these three strings as it will break support with other apps (e.g. last.fm scrobbling)
-    public static final String META_CHANGED = "com.kabouzeid.gramophone.metachanged";
-    public static final String QUEUE_CHANGED = "com.kabouzeid.gramophone.queuechanged";
-    public static final String PLAY_STATE_CHANGED = "com.kabouzeid.gramophone.playstatechanged";
+    public static final String META_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".metachanged";
+    public static final String QUEUE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".queuechanged";
+    public static final String PLAY_STATE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".playstatechanged";
 
-    public static final String REPEAT_MODE_CHANGED = "com.kabouzeid.gramophone.repeatmodechanged";
-    public static final String SHUFFLE_MODE_CHANGED = "com.kabouzeid.gramophone.shufflemodechanged";
-    public static final String MEDIA_STORE_CHANGED = "com.kabouzeid.gramophone.mediastorechanged";
+    public static final String REPEAT_MODE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".repeatmodechanged";
+    public static final String SHUFFLE_MODE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".shufflemodechanged";
+    public static final String MEDIA_STORE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".mediastorechanged";
 
     public static final String SAVED_POSITION = "POSITION";
     public static final String SAVED_POSITION_IN_TRACK = "POSITION_IN_TRACK";
