@@ -22,6 +22,8 @@
     <string name="action_tag_editor">タグの編集</string>
     <string name="action_delete_from_device">端末からファイルを削除</string>
     <string name="action_details">詳細情報</string>
+    <string name="action_rename">名前の変更</string>
+    <string name="action_delete">削除</string>
     <string name="albums">アルバム</string>
     <string name="artists">アーティスト</string>
     <string name="songs">楽曲</string>
@@ -87,6 +89,7 @@
     <string name="last_opened">最後に使用した画面</string>
     <string name="light_theme_name">ライト</string>
     <string name="dark_theme_name">ダーク</string>
+    <string name="only_on_wifi">Wi-Fiのみ</string>
     <string name="equalizer">イコライザー</string>
     <string name="pref_header_colors">配色設定</string>
     <string name="pref_header_now_playing_screen">NowPlaying画面の設定</string>
@@ -98,6 +101,8 @@
     <string name="pref_title_navigation_bar">ナビゲーションバーの彩色設定</string>
     <string name="pref_title_set_default_start_page">起動時の画面</string>
     <string name="pref_title_album_art_on_lockscreen">アルバムアートをロック画面に表示する</string>
+    <string name="pref_title_auto_download_artist_images">アーティスト画像の自動ダウンロード</string>
+    <string name="pref_title_blurred_album_art">アルバムアートにぼかし効果をかける</string>
     <string name="pref_title_colored_notification">通知コントロールに色を付ける</string>
     <string name="pref_title_ignore_media_store_artwork">アルバムアートを直接読み込む</string>
     <string name="pref_title_gapless_playback">ギャップレス再生</string>
@@ -132,6 +137,7 @@
     <string name="song">タイトル</string>
     <string name="pref_only_lollipop">"Lollipop(Android 5.0~)でのみ利用可能"</string>
     <string name="pref_summary_album_art_on_lockscreen">アルバムアートをロック画面に表示します(適用するにはアプリの再起動が必要です)</string>
+    <string name="pref_summary_blurred_album_art">ロック画面上に表示するアルバムアートにぼかし効果かけます。サードパーティ製のアプリやウィジェットが問題を引き起こす可能性があります。</string>
     <string name="pref_summary_colored_notification">"\u901a\u77e5\u30d0\u30fc\u306e\u518d\u751f\u30b3\u30f3\u30c8\u30ed\u30fc\u30eb\u306e\u8272\u3092\u30a2\u30eb\u30d0\u30e0\u30a2\u30fc\u30c8\u304b\u3089\u62bd\u51fa\u3057\u3066\u4f7f\u7528\u3057\u307e\u3059"</string>
     <string name="pref_summary_gapless_playback">"曲と曲の間の無音部分をスキップします(再生時に問題が生じる場合は無効にして下さい)"</string>
     <string name="pref_summary_force_square_album_art">NowPlaying画面で正方形でないアルバムアートを画面の中に収めます</string>

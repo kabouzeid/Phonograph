@@ -21,7 +21,7 @@
     <string name="action_play_next">播放下一首</string>
     <string name="action_play">播放</string>
     <string name="action_add_to_playing_queue">加入播放队列</string>
-    <string name="action_remove_from_playing_queue">从正在播放队列中移除</string>
+    <string name="action_remove_from_playing_queue">从播放队列中移除</string>
     <string name="action_add_to_playlist">加入到播放列表…</string>
     <string name="action_tag_editor">音乐标签编辑器</string>
     <string name="action_delete_from_device">从设备中删除</string>
@@ -50,7 +50,7 @@
     <string name="label_details">详情</string>
     <string name="label_file_name">文件名</string>
     <string name="label_file_path">文件路径</string>
-    <string name="label_file_size">大小</string>
+    <string name="label_file_size">文件大小</string>
     <string name="label_file_format">格式</string>
     <string name="label_track_length">长度</string>
     <string name="label_bit_rate">比特率</string>
@@ -97,7 +97,7 @@
     <string name="action_shuffle_playlist">随机播放该播放列表</string>
     <string name="action_clear_playing_queue">清空播放队列</string>
     <string name="last_opened">最后打开时的页面</string>
-    <string name="light_theme_name">浅色</string>
+    <string name="light_theme_name">亮色</string>
     <string name="dark_theme_name">暗色</string>
     <string name="black_theme_name">黑色 (AMOLED)</string>
     <string name="always">总是</string>
@@ -108,12 +108,12 @@
     <string name="pref_header_now_playing_screen">正在播放界面</string>
     <string name="pref_title_general_theme">全局主题</string>
     <string name="pref_header_audio">声音</string>
-    <string name="pref_header_general">通用</string>
+    <string name="pref_header_general">常规</string>
     <string name="pref_header_images">图片</string>
     <string name="pref_header_lockscreen">锁屏</string>
     <string name="pref_title_navigation_bar">变色导航栏</string>
     <string name="pref_title_set_default_start_page">起始页</string>
-    <string name="pref_title_album_art_on_lockscreen">锁屏显示专辑封面</string>
+    <string name="pref_title_album_art_on_lockscreen">显示专辑封面</string>
     <string name="pref_title_auto_download_artist_images">自动下载艺术家图像</string>
     <string name="pref_title_blurred_album_art">专辑封面模糊化</string>
     <string name="pref_title_colored_notification">启用变色通知背景</string>
@@ -151,7 +151,7 @@
     <string name="song">歌曲</string>
     <string name="pref_only_lollipop">"仅适用于 Lollipop"</string>
     <string name="pref_summary_album_art_on_lockscreen">使用当前播放曲目的专辑封面作为锁屏壁纸。</string>
-    <string name="pref_summary_blurred_album_art">模糊化显示锁屏界面内的专辑封面。该功能或与第三方应用和桌面插件发生冲突。</string>
+    <string name="pref_summary_blurred_album_art">模糊化显示锁屏界面内的专辑封面。该功能或与第三方应用及桌面插件产生冲突。</string>
     <string name="pref_summary_colored_notification">"\u4f7f\u7528\u4e0e\u4e13\u8f91\u5c01\u9762\u76f8\u5339\u914d\u7684\u989c\u8272\u4f5c\u4e3a\u901a\u77e5\u80cc\u666f\u8272\u3002"</string>
     <string name="pref_summary_gapless_playback">"在某些设备上会造成播放问题。"</string>
     <string name="pref_summary_force_square_album_art">在正在播放界面中总是显示方形的专辑封面。</string>
@@ -190,7 +190,7 @@
     <string name="back">返回</string>
     <string name="support_development">支持开发者</string>
     <string name="thank_you">非常感谢您！</string>
-    <string name="restored_previous_purchases">恢复已购买项目。</string>
+    <string name="restored_previous_purchases">已恢复购买的项目。</string>
     <string name="play_store_illustration_by">Play Store 标题图设计</string>
     <string name="version">版本</string>
     <string name="application">应用</string>
@@ -216,14 +216,14 @@
     <string name="website">网站</string>
     <string name="loading_products">加载产品中…</string>
     <string name="up_next">即将播放</string>
-    <string name="pref_title_now_playing_layout">正在播放界面样式</string>
-    <string name="intro_label">介绍</string>
+    <string name="pref_title_now_playing_layout">界面样式</string>
+    <string name="intro_label">介绍页</string>
     <string name="press_back_again_to_exit_intro">再次点击后退键可跳过介绍页。</string>
     <string name="welcome_to_phonograph">"欢迎使用 Phonohraph ，这是一款精致且简洁的 Android 音乐播放器。 "</string>
     <string name="label_storage">储存</string>
     <string name="open_playing_queue_instruction">上滑正在播放界面内的卡片即可展开播放队列。</string>
     <string name="rearrange_playing_queue_instruction">通过拖动曲目名前面的序列号来调整播放队列的顺序。</string>
-    <string name="storage_permission_explaination">现在 Phonograph 将需要获取存储权限以读取您的音乐库</string>
+    <string name="storage_permission_explaination">现在 Phonograph 将需要获取存储空间权限以读取您的音乐库</string>
     <string name="library">曲库</string>
     <string name="folders">文件夹</string>
     <string name="saved_playlist_to">保存播放列表至 %s</string>

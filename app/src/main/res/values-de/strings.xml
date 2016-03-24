@@ -219,7 +219,7 @@
     <string name="pref_title_now_playing_layout">Gestaltung der aktuellen Wiedergabe</string>
     <string name="intro_label">Einführung</string>
     <string name="press_back_again_to_exit_intro">Drücke nochmal zurück  um die Einführung zu überspringen.</string>
-    <string name="welcome_to_phonograph">"Willkommen bei Phonograph, ein einfacher und schöner Musik Player für Android. "</string>
+    <string name="welcome_to_phonograph">"Willkommen bei Phonograph, ein einfacher und schöner Musik-Player für Android. "</string>
     <string name="label_storage">Speicher</string>
     <string name="open_playing_queue_instruction">Ziehe die Karte in der aktuellen Wiedergabe hoch um die komplette Warteschlange anzeigen zu lassen.</string>
     <string name="rearrange_playing_queue_instruction">Ziehe die Titelnummer eines Titels nach oben oder unten, um die Warteschlange neu anzuordnen.</string>

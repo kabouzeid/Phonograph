@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">Ce doriți să distribuiți?</string>
-    <string name="currently_listening_to_x_by_x">Momentat ascultați %1$s de %2$s</string>
+    <string name="currently_listening_to_x_by_x">Momentan ascultaţi %1$s din %2$s</string>
     <string name="the_audio_file">Fișierul audio</string>
-    <string name="do_you_want_to_set_x_as_ringtone">Doriți să setați %1$s ca soneria dumneavoastră?</string>
-    <string name="x_has_been_set_as_ringtone">%1$s a fost setat/ă ca soneria dumneavoastră.</string>
+    <string name="do_you_want_to_set_x_as_ringtone">Vrei să setezi %1$s ca sonerie de apel?</string>
+    <string name="x_has_been_set_as_ringtone">Setează %1$s ca sonerie.</string>
     <string name="action_set_as_ringtone">Setați ca Sonerie</string>
     <string name="action_share">Distribuiți</string>
     <string name="action_settings">"Setări"</string>
