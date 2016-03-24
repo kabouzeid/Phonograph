@@ -58,8 +58,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import hugo.weaving.DebugLog;
-
 /**
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal
  */
@@ -156,7 +154,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         return MusicUtil.getSongFileUri(song.id).toString();
     }
 
-    @DebugLog
     @Override
     public void onCreate() {
         super.onCreate();
@@ -231,7 +228,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         getAudioManager().registerRemoteControlClient(remoteControlClient);
     }
 
-    @DebugLog
     @Override
     public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
         if (intent != null) {
@@ -268,7 +264,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         return START_STICKY;
     }
 
-    @DebugLog
     @Override
     public void onDestroy() {
         quit();
@@ -278,20 +273,17 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         wakeLock.release();
     }
 
-    @DebugLog
     @Override
     public IBinder onBind(Intent intent) {
         isServiceBound = true;
         return musicBind;
     }
 
-    @DebugLog
     @Override
     public void onRebind(Intent intent) {
         isServiceBound = true;
     }
 
-    @DebugLog
     @Override
     public boolean onUnbind(Intent intent) {
         isServiceBound = false;
@@ -365,7 +357,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         playerHandler.sendEmptyMessage(RESTORE_QUEUES);
     }
 
-    @DebugLog
     private void restoreQueuesAndPositionImpl() {
         ArrayList<Song> restoredQueue = MusicPlaybackQueueStore.getInstance(this).getSavedPlayingQueue();
         ArrayList<Song> restoredOriginalQueue = MusicPlaybackQueueStore.getInstance(this).getSavedOriginalPlayingQueue();
@@ -901,20 +892,17 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         notifyChange(QUEUE_CHANGED);
     }
 
-    @DebugLog
     private void notifyChange(@NonNull final String what) {
         notifyPrivateChange(what);
         sendPublicIntent(what);
     }
 
-    @DebugLog
     private void notifyPrivateChange(@NonNull final String what) {
         handleChange(what);
         sendPrivateIntent(what);
     }
 
     // to let other apps know whats playing. i.E. last.fm (scrobbling) or musixmatch
-    @DebugLog
     private void sendPublicIntent(@NonNull final String what) {
         final Intent intent = new Intent(what.replace(PHONOGRAPH_PACKAGE_NAME, MUSIC_PACKAGE_NAME));
 
@@ -931,7 +919,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         sendStickyBroadcast(intent);
     }
 
-    @DebugLog
     private void sendPrivateIntent(final String what) {
         sendBroadcast(new Intent(what));
     }
