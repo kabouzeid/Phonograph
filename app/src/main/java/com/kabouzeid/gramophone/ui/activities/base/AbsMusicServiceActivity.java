@@ -20,8 +20,6 @@ import com.kabouzeid.gramophone.service.MusicService;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-import hugo.weaving.DebugLog;
-
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -176,7 +174,6 @@ public abstract class AbsMusicServiceActivity extends AbsBaseActivity implements
             reference = new WeakReference<>(activity);
         }
 
-        @DebugLog
         @Override
         public void onReceive(final Context context, @NonNull final Intent intent) {
             final String action = intent.getAction();
