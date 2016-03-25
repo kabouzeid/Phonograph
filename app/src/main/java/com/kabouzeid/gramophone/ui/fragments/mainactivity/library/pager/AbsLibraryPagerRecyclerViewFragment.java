@@ -40,13 +40,6 @@ public abstract class AbsLibraryPagerRecyclerViewFragment<A extends RecyclerView
     private LM layoutManager;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initLayoutManager();
-        initAdapter(); // makes sure the adapter is not null when the loader finishes loading
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutRes(), container, false);
         ButterKnife.bind(this, view);
@@ -59,6 +52,8 @@ public abstract class AbsLibraryPagerRecyclerViewFragment<A extends RecyclerView
 
         getLibraryFragment().addOnAppBarOffsetChangedListener(this);
 
+        initLayoutManager();
+        initAdapter();
         setUpRecyclerView();
     }
 
