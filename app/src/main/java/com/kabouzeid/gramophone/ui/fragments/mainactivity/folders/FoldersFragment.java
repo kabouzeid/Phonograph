@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialcab.MaterialCab;
 import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.SongFileAdapter;
@@ -247,6 +248,13 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_folders, menu);
+        ToolbarContentTintHelper.handleOnCreateOptionsMenu(getActivity(), toolbar, menu, ATHToolbarActivity.getToolbarBackgroundColor(toolbar));
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        ToolbarContentTintHelper.handleOnPrepareOptionsMenu(getActivity(), toolbar);
     }
 
     @Override

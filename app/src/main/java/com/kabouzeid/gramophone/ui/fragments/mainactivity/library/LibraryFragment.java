@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 
 import com.afollestad.materialcab.MaterialCab;
 import com.kabouzeid.appthemehelper.ThemeStore;
+import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.TabLayoutUtil;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.kabouzeid.gramophone.R;
@@ -173,6 +174,13 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
             menu.removeItem(R.id.action_grid_size);
             menu.removeItem(R.id.action_colored_footers);
         }
+        ToolbarContentTintHelper.handleOnCreateOptionsMenu(getActivity(), toolbar, menu, ATHToolbarActivity.getToolbarBackgroundColor(toolbar));
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        ToolbarContentTintHelper.handleOnPrepareOptionsMenu(getActivity(), toolbar);
     }
 
     @Override
