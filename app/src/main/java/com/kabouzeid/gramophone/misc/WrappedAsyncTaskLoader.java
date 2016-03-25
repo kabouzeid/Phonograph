@@ -41,6 +41,7 @@ public abstract class WrappedAsyncTaskLoader<D> extends AsyncTaskLoader<D> {
      */
     @Override
     protected void onStartLoading() {
+        super.onStartLoading();
         if (this.mData != null) {
             deliverResult(this.mData);
         } else if (takeContentChanged() || this.mData == null) {
@@ -53,6 +54,7 @@ public abstract class WrappedAsyncTaskLoader<D> extends AsyncTaskLoader<D> {
      */
     @Override
     protected void onStopLoading() {
+        super.onStopLoading();
         // Attempt to cancel the current load task if possible
         cancelLoad();
     }
