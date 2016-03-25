@@ -52,8 +52,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AbsSlidingMusicPanelActivity
-        implements DrawerLayout.DrawerListener {
+public class MainActivity extends AbsSlidingMusicPanelActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
     public static final int APP_INTRO_REQUEST = 100;
@@ -208,7 +207,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
 
     private void setUpDrawerLayout() {
         setUpNavigationView();
-        drawerLayout.addDrawerListener(this);
     }
 
     private void updateNavigationDrawerHeader() {
@@ -381,26 +379,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity
             e.printStackTrace();
         }
         return false;
-    }
-
-    @Override
-    public void onDrawerSlide(View drawerView, float slideOffset) {
-
-    }
-
-    @Override
-    public void onDrawerOpened(View drawerView) {
-        setLightStatusbar(false);
-    }
-
-    @Override
-    public void onDrawerClosed(View drawerView) {
-        setLightStatusbarAuto(ThemeStore.primaryColor(this));
-    }
-
-    @Override
-    public void onDrawerStateChanged(int newState) {
-
     }
 
     public interface MainActivityFragmentCallbacks {
