@@ -3,7 +3,6 @@ package com.kabouzeid.gramophone.ui.activities;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
@@ -11,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -33,9 +33,11 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import hugo.weaving.DebugLog;
 
 public class SearchActivity extends AbsMusicServiceActivity implements SearchView.OnQueryTextListener, LoaderManager.LoaderCallbacks<List<Object>> {
     public static final String TAG = SearchActivity.class.getSimpleName();
+    public static final String QUERY = "query";
     private static final int LOADER_ID = 1;
 
     @Bind(R.id.recycler_view)
@@ -48,7 +50,9 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
     SearchView searchView;
 
     private SearchAdapter adapter;
+    private String query;
 
+    @DebugLog
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +85,22 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
 
         setUpToolBar();
 
+        if (savedInstanceState != null) {
+            query = savedInstanceState.getString(QUERY);
+        }
+
         getSupportLoaderManager().initLoader(LOADER_ID, null, this);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(QUERY, query);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     private void setUpToolBar() {
@@ -91,6 +110,7 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    @DebugLog
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
@@ -98,7 +118,7 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         final MenuItem searchItem = menu.findItem(R.id.search);
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setQueryHint(getString(R.string.search_hint));
-        searchView.setOnQueryTextListener(this);
+        searchView.setMaxWidth(Integer.MAX_VALUE);
 
         MenuItemCompat.expandActionView(searchItem);
         MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
@@ -114,6 +134,14 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
             }
         });
 
+        searchView.setQuery(query, false);
+        searchView.post(new Runnable() {
+            @Override
+            public void run() {
+                searchView.setOnQueryTextListener(SearchActivity.this);
+            }
+        });
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -126,18 +154,14 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
     }
 
     private void search(@NonNull String query) {
-        Loader loader = getSupportLoaderManager().getLoader(LOADER_ID);
-        AsyncSearchResultLoader asyncSearchResultLoader = (AsyncSearchResultLoader) loader;
-        asyncSearchResultLoader.setQuery(query);
-        asyncSearchResultLoader.forceLoad();
+        this.query = query;
+        getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
     }
 
     @Override
     public void onMediaStoreChanged() {
         super.onMediaStoreChanged();
-        Loader loader = getSupportLoaderManager().getLoader(LOADER_ID);
-        AsyncSearchResultLoader asyncSearchResultLoader = (AsyncSearchResultLoader) loader;
-        asyncSearchResultLoader.forceLoad();
+        getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
     }
 
     @Override
@@ -146,6 +170,7 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         return false;
     }
 
+    @DebugLog
     @Override
     public boolean onQueryTextChange(String newText) {
         search(newText);
@@ -161,7 +186,7 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
 
     @Override
     public Loader<List<Object>> onCreateLoader(int id, Bundle args) {
-        return new AsyncSearchResultLoader(this);
+        return new AsyncSearchResultLoader(this, query);
     }
 
     @Override
@@ -175,21 +200,17 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
     }
 
     private static class AsyncSearchResultLoader extends WrappedAsyncTaskLoader<List<Object>> {
-        private String query;
+        private final String query;
 
-        public AsyncSearchResultLoader(Context context) {
+        public AsyncSearchResultLoader(Context context, String query) {
             super(context);
-            setUpdateThrottle(200);
-        }
-
-        public void setQuery(@Nullable String query) {
             this.query = query;
         }
 
         @Override
         public List<Object> loadInBackground() {
             List<Object> results = new ArrayList<>();
-            if (query != null && !query.trim().equals("")) {
+            if (!TextUtils.isEmpty(query)) {
                 List songs = SongLoader.getSongs(getContext(), query);
                 if (!songs.isEmpty()) {
                     results.add(getContext().getResources().getString(R.string.songs));
