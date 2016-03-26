@@ -155,6 +155,8 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
                     public void onColorReady(int color) {
                         if (usePalette)
                             setColors(color, holder);
+                        else
+                            setColors(getDefaultFooterColor(), holder);
                     }
                 });
     }

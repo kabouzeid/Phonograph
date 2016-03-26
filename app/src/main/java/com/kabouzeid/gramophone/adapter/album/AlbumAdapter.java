@@ -145,6 +145,8 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
                     public void onColorReady(int color) {
                         if (usePalette)
                             setColors(color, holder);
+                        else
+                            setColors(getDefaultFooterColor(), holder);
                     }
                 });
     }
