@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivity.folders;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -68,7 +69,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import hugo.weaving.DebugLog;
 
 public class FoldersFragment extends AbsMainActivityFragment implements MainActivity.MainActivityFragmentCallbacks, CabHolder, BreadCrumbLayout.SelectionCallback, SongFileAdapter.Callbacks, AppBarLayout.OnOffsetChangedListener, LoaderManager.LoaderCallbacks<List<File>> {
     public static final String TAG = FoldersFragment.class.getSimpleName();
@@ -352,54 +352,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
     }
 
     private void scan(File file) {
-        final String[] toBeScanned;
-
-        if (file.isDirectory()) {
-            // TODO load async
-            List<File> files = FileUtil.listFilesDeep(file, getFileFilter());
-            toBeScanned = new String[files.size()];
-            for (int i = 0; i < files.size(); i++) {
-                File f = files.get(i);
-                try {
-                    toBeScanned[i] = f.getCanonicalPath(); // canonical path is important here because we want to compare the path with the media store entry later
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    toBeScanned[i] = f.getPath();
-                }
-            }
-        } else {
-            toBeScanned = new String[1];
-            toBeScanned[0] = file.getPath();
-        }
-
-        if (toBeScanned.length < 1) {
-            Toast.makeText(getActivity(), R.string.nothing_to_scan, Toast.LENGTH_SHORT).show();
-        } else {
-            final Toast toast = Toast.makeText(getActivity(), String.format(getString(R.string.scanning), file), Toast.LENGTH_SHORT);
-            toast.show();
-
-            MediaScannerConnection.scanFile(getActivity(), toBeScanned, null, new MediaScannerConnection.OnScanCompletedListener() {
-                int scanned = 0;
-                int failed = 0;
-
-                @Override
-                public void onScanCompleted(final String path, final Uri uri) {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @SuppressLint("DefaultLocale")
-                        @Override
-                        public void run() {
-                            if (uri == null) {
-                                failed++;
-                            } else {
-                                scanned++;
-                            }
-                            toast.setText(" " + String.format(getString(R.string.scanned_files), scanned, toBeScanned.length) + (failed > 0 ? " " + String.format(getString(R.string.could_not_scan_files), failed) : ""));
-                            toast.show();
-                        }
-                    });
-                }
-            });
-        }
+        new ScanFilesAsyncTask(this, file).execute(getFileFilter());
     }
 
     @Override
@@ -578,10 +531,15 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
             try {
                 LoadingInfo info = params[0];
                 List<File> files = FileUtil.listFilesDeep(info.files, info.fileFilter);
-                if (isCancelled() || checkFragmentReference()) return null;
+
+                if (isCancelled() || checkFragmentReference() == null) return null;
+
                 Collections.sort(files, info.fileComparator);
-                if (isCancelled() || checkFragmentReference()) return null;
-                return FileUtil.matchFilesWithMediaStore(fragmentWeakReference.get().getActivity(), files);
+
+                FoldersFragment fragment = checkFragmentReference();
+                if (isCancelled() || fragment == null) return null;
+
+                return FileUtil.matchFilesWithMediaStore(fragment.getActivity(), files);
             } catch (Exception e) {
                 e.printStackTrace();
                 cancel(false);
@@ -592,8 +550,9 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         @Override
         protected void onPostExecute(ArrayList<Song> songs) {
             super.onPostExecute(songs);
-            if (!songs.isEmpty() && !checkFragmentReference())
-                fragmentWeakReference.get().onSongsListed(requestCode, songs, extra);
+            FoldersFragment fragment = checkFragmentReference();
+            if (!songs.isEmpty() && fragment != null)
+                fragment.onSongsListed(requestCode, songs, extra);
         }
 
         public static class LoadingInfo {
@@ -611,12 +570,137 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         /**
          * @return true if the task was canceled
          */
-        private boolean checkFragmentReference() {
-            if (fragmentWeakReference.get() == null) {
+        private FoldersFragment checkFragmentReference() {
+            FoldersFragment fragment = fragmentWeakReference.get();
+            if (fragment == null) {
                 cancel(false);
-                return true;
             }
-            return false;
+            return fragment;
+        }
+    }
+
+    private void onScanPaths(final String[] toBeScanned) {
+        if (getActivity() == null) return;
+        if (toBeScanned == null || toBeScanned.length < 1) {
+            Toast.makeText(getActivity(), R.string.nothing_to_scan, Toast.LENGTH_SHORT).show();
+        } else {
+            MediaScannerConnection.scanFile(getActivity().getApplicationContext(), toBeScanned, null, new UpdateToastCompletionListener(getActivity(), toBeScanned));
+        }
+    }
+
+    private static class UpdateToastCompletionListener implements MediaScannerConnection.OnScanCompletedListener {
+        int scanned = 0;
+        int failed = 0;
+
+        private final String[] toBeScanned;
+
+        private final String scannedFiles;
+        private final String couldNotScanFiles;
+
+        private final WeakReference<Toast> toastWeakReference;
+        private final WeakReference<Activity> activityWeakReference;
+
+        @SuppressLint("ShowToast")
+        public UpdateToastCompletionListener(Activity activity, String[] toBeScanned) {
+            this.toBeScanned = toBeScanned;
+            scannedFiles = activity.getString(R.string.scanned_files);
+            couldNotScanFiles = activity.getString(R.string.could_not_scan_files);
+            toastWeakReference = new WeakReference<>(Toast.makeText(activity, "", Toast.LENGTH_SHORT));
+            activityWeakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void onScanCompleted(final String path, final Uri uri) {
+            Activity activity = activityWeakReference.get();
+            if (activity != null) {
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast toast = toastWeakReference.get();
+                        if (toast != null) {
+                            if (uri == null) {
+                                failed++;
+                            } else {
+                                scanned++;
+                            }
+                            String text = " " + String.format(scannedFiles, scanned, toBeScanned.length) + (failed > 0 ? " " + String.format(couldNotScanFiles, failed) : "");
+                            toast.setText(text);
+                            toast.show();
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    private static class ScanFilesAsyncTask extends DialogAsyncTask<FileFilter, String, String[]> {
+        private final File file;
+        private WeakReference<FoldersFragment> fragmentWeakReference;
+
+        public ScanFilesAsyncTask(FoldersFragment foldersFragment, File file) {
+            super(foldersFragment.getActivity(), R.string.listing_files);
+            this.file = file;
+            fragmentWeakReference = new WeakReference<>(foldersFragment);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            checkFragmentReference();
+        }
+
+        @Override
+        protected String[] doInBackground(FileFilter... params) {
+            try {
+                if (isCancelled() || checkFragmentReference() == null) return null;
+
+                final String[] toBeScanned;
+
+                if (file.isDirectory()) {
+                    List<File> files = FileUtil.listFilesDeep(file, params[0]);
+
+                    if (isCancelled() || checkFragmentReference() == null) return null;
+
+                    toBeScanned = new String[files.size()];
+                    for (int i = 0; i < files.size(); i++) {
+                        File f = files.get(i);
+                        try {
+                            toBeScanned[i] = f.getCanonicalPath(); // canonical path is important here because we want to compare the path with the media store entry later
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            toBeScanned[i] = f.getPath();
+                        }
+
+                        if (isCancelled() || checkFragmentReference() == null) return toBeScanned;
+                    }
+                } else {
+                    toBeScanned = new String[1];
+                    toBeScanned[0] = file.getPath();
+                }
+
+                return toBeScanned;
+            } catch (Exception e) {
+                e.printStackTrace();
+                cancel(false);
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String[] toBeScanned) {
+            super.onPostExecute(toBeScanned);
+            FoldersFragment fragment = checkFragmentReference();
+            if (fragment != null) {
+                fragment.onScanPaths(toBeScanned);
+            }
+        }
+
+        private FoldersFragment checkFragmentReference() {
+            FoldersFragment fragment = fragmentWeakReference.get();
+            if (fragment == null) {
+                cancel(false);
+            }
+            return fragment;
         }
     }
 
@@ -670,14 +754,12 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
             }, 200);
         }
 
-        @DebugLog
         @Override
         protected void onCancelled(Result result) {
             super.onCancelled(result);
             tryToDismiss();
         }
 
-        @DebugLog
         @Override
         protected void onPostExecute(Result result) {
             super.onPostExecute(result);
