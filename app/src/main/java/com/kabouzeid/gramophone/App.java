@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone;
 import android.app.Application;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -18,8 +19,9 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
+        // Set up Crashlytics, disabled for debug builds
         Crashlytics crashlyticsKit = new Crashlytics.Builder()
-//                .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build()) // Set up Crashlytics, disabled for debug builds
+                .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
                 .build();
         Fabric.with(this, crashlyticsKit);
     }
