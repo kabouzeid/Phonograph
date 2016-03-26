@@ -2,15 +2,18 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivity.folders;
 
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
-import android.database.Cursor;
+import android.content.DialogInterface;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore.Audio.AudioColumns;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -31,6 +34,8 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.afollestad.materialcab.MaterialCab;
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
@@ -40,12 +45,11 @@ import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
-import com.kabouzeid.gramophone.loader.SongLoader;
-import com.kabouzeid.gramophone.loader.SortedCursor;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.AbsMainActivityFragment;
+import com.kabouzeid.gramophone.util.FileUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.ViewUtil;
@@ -57,7 +61,6 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -65,11 +68,17 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import hugo.weaving.DebugLog;
 
 public class FoldersFragment extends AbsMainActivityFragment implements MainActivity.MainActivityFragmentCallbacks, CabHolder, BreadCrumbLayout.SelectionCallback, SongFileAdapter.Callbacks, AppBarLayout.OnOffsetChangedListener, LoaderManager.LoaderCallbacks<List<File>> {
     public static final String TAG = FoldersFragment.class.getSimpleName();
 
     private static final int LOADER_ID = 1;
+
+    private static final int ADD_TO_PLAYLIST = 0;
+    private static final int ADD_TO_CURRENT_PLAYING = 1;
+    private static final int DELETE = 2;
+    private static final int PLAY = 3;
 
     protected static final String PATH = "path";
     protected static final String CRUMBS = "crumbs";
@@ -292,81 +301,18 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         if (file.isDirectory()) {
             setCrumb(new BreadCrumbLayout.Crumb(file), true);
         } else {
-            List<File> files = listFilesDeep(file.getParentFile(), new FileFilter() {
+            List<File> files = new LinkedList<>();
+            files.add(file.getParentFile());
+
+            FileFilter fileFilter = new FileFilter() {
                 @Override
                 public boolean accept(File pathname) {
                     return !pathname.isDirectory() && getFileFilter().accept(pathname);
                 }
-            });
-            sort(files);
-            ArrayList<Song> songs = matchFilesWithMediaStore(files);
+            };
 
-            int startIndex = -1;
-            for (int i = 0; i < songs.size(); i++) {
-                if (file.getPath().equals(songs.get(i).data)) { // path is already canonical here
-                    startIndex = i;
-                    break;
-                }
-            }
-            if (startIndex > -1) {
-                MusicPlayerRemote.openQueue(songs, startIndex, true);
-            } else {
-                final File finalFile = file;
-                Snackbar.make(coordinatorLayout, Html.fromHtml(String.format(getString(R.string.not_listed_in_media_store), file.getName())), Snackbar.LENGTH_LONG)
-                        .setAction(R.string.action_scan, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                scan(finalFile);
-                            }
-                        })
-                        .setActionTextColor(ThemeStore.accentColor(getActivity()))
-                        .show();
-            }
+            new ListSongsAsyncTask(this, PLAY, file).execute(new ListSongsAsyncTask.LoadingInfo(files, fileFilter, getFileComparator()));
         }
-    }
-
-    @Nullable
-    private static SortedCursor makeSongCursor(@NonNull final Context context, @Nullable final List<File> files) {
-        String selection = null;
-        String[] paths = null;
-
-        if (files != null) {
-            paths = toPathArray(files);
-
-            if (files.size() > 0 && files.size() < 999) { // 999 is the max amount Androids SQL implementation can handle.
-                selection = AudioColumns.DATA + " IN (" + makePlaceholders(files.size()) + ")";
-            }
-        }
-
-        Cursor songCursor = SongLoader.makeSongCursor(context, selection, selection == null ? null : paths);
-
-        return songCursor == null ? null : new SortedCursor(songCursor, paths, AudioColumns.DATA);
-    }
-
-    private static String makePlaceholders(int len) {
-        StringBuilder sb = new StringBuilder(len * 2 - 1);
-        sb.append("?");
-        for (int i = 1; i < len; i++) {
-            sb.append(",?");
-        }
-        return sb.toString();
-    }
-
-    @Nullable
-    private static String[] toPathArray(@Nullable List<File> files) {
-        if (files != null) {
-            String[] paths = new String[files.size()];
-            for (int i = 0; i < files.size(); i++) {
-                try {
-                    paths[i] = files.get(i).getCanonicalPath(); // canonical path is important here because we want to compare the path with the media store entry later
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    paths[i] = files.get(i).getPath();
-                }
-            }
-            return paths;
-        }
-        return null;
     }
 
     @Override
@@ -409,7 +355,8 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         final String[] toBeScanned;
 
         if (file.isDirectory()) {
-            List<File> files = listFilesDeep(file, getFileFilter());
+            // TODO load async
+            List<File> files = FileUtil.listFilesDeep(file, getFileFilter());
             toBeScanned = new String[files.size()];
             for (int i = 0; i < files.size(); i++) {
                 File f = files.get(i);
@@ -457,72 +404,46 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
 
     @Override
     public void onAddToPlaylist(ArrayList<File> files) {
-        ArrayList<Song> songs = matchFilesWithMediaStore(sort(listFilesDeep(files, getFileFilter())));
-        if (!songs.isEmpty())
-            AddToPlaylistDialog.create(songs).show(getFragmentManager(), "ADD_PLAYLIST");
+        new ListSongsAsyncTask(this, ADD_TO_PLAYLIST, null).execute(new ListSongsAsyncTask.LoadingInfo(files, getFileFilter(), getFileComparator()));
     }
 
     @Override
     public void onAddToCurrentPlaying(ArrayList<File> files) {
-        ArrayList<Song> songs = matchFilesWithMediaStore(sort(listFilesDeep(files, getFileFilter())));
-        if (!songs.isEmpty())
-            MusicPlayerRemote.enqueue(songs);
+        new ListSongsAsyncTask(this, ADD_TO_CURRENT_PLAYING, null).execute(new ListSongsAsyncTask.LoadingInfo(files, getFileFilter(), getFileComparator()));
     }
 
     @Override
     public void onDeleteFromDevice(ArrayList<File> files) {
-        ArrayList<Song> songs = matchFilesWithMediaStore(sort(listFilesDeep(files, getFileFilter())));
-        if (!songs.isEmpty())
-            DeleteSongsDialog.create(songs).show(getFragmentManager(), "DELETE_SONGS");
+        new ListSongsAsyncTask(this, DELETE, null).execute(new ListSongsAsyncTask.LoadingInfo(files, getFileFilter(), getFileComparator()));
     }
 
-    @NonNull
-    private ArrayList<Song> matchFilesWithMediaStore(@Nullable List<File> files) {
-        return SongLoader.getSongs(makeSongCursor(getActivity(), files));
-    }
-
-    @NonNull
-    private static List<File> listFiles(@NonNull File directory, @Nullable FileFilter fileFilter) {
-        List<File> fileList = new LinkedList<>();
-        File[] found = directory.listFiles(fileFilter);
-        if (found != null) {
-            Collections.addAll(fileList, found);
-        }
-        return fileList;
-    }
-
-    @NonNull
-    private static List<File> listFilesDeep(@NonNull File directory, @Nullable FileFilter fileFilter) {
-        List<File> files = new LinkedList<>();
-        internalListFilesDeep(files, directory, fileFilter);
-        return files;
-    }
-
-    @NonNull
-    private static List<File> listFilesDeep(@NonNull List<File> files, @Nullable FileFilter fileFilter) {
-        List<File> resFiles = new LinkedList<>();
-        for (File file : files) {
-            if (file.isDirectory()) {
-                internalListFilesDeep(resFiles, file, fileFilter);
-            } else if (fileFilter == null || fileFilter.accept(file)) {
-                resFiles.add(file);
+    Comparator<File> fileComparator = new Comparator<File>() {
+        @Override
+        public int compare(File lhs, File rhs) {
+            if (lhs.isDirectory() && !rhs.isDirectory()) {
+                return -1;
+            } else if (!lhs.isDirectory() && rhs.isDirectory()) {
+                return 1;
+            } else {
+                return lhs.getName().compareToIgnoreCase
+                        (rhs.getName());
             }
         }
-        return resFiles;
+    };
+
+    private Comparator<File> getFileComparator() {
+        return fileComparator;
     }
 
-    private static void internalListFilesDeep(@NonNull Collection<File> files, @NonNull File directory, @Nullable FileFilter fileFilter) {
-        File[] found = directory.listFiles(fileFilter);
-
-        if (found != null) {
-            for (File file : found) {
-                if (file.isDirectory()) {
-                    internalListFilesDeep(files, file, fileFilter);
-                } else {
-                    files.add(file);
-                }
-            }
+    FileFilter audioFileFilter = new FileFilter() {
+        @Override
+        public boolean accept(File file) {
+            return !file.isHidden() && (file.isDirectory() || FileUtil.fileIsMimeType(file, "audio/*", MimeTypeMap.getSingleton()));
         }
+    };
+
+    private FileFilter getFileFilter() {
+        return audioFileFilter;
     }
 
     @Override
@@ -534,86 +455,6 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         if (empty != null) {
             empty.setVisibility(adapter == null || adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
         }
-    }
-
-    Comparator<File> fileComparator = new Comparator<File>() {
-        @Override
-        public int compare(File lhs, File rhs) {
-            if (lhs.isDirectory() && !rhs.isDirectory()) {
-                return -1;
-            } else if (!lhs.isDirectory() && rhs.isDirectory()) {
-                return 1;
-            } else {
-                return lhs.getName().compareToIgnoreCase(rhs.getName());
-            }
-        }
-    };
-
-    private List<File> sort(List<File> files) {
-        Collections.sort(files, fileComparator);
-        return files;
-    }
-
-    FileFilter audioFileFilter = new FileFilter() {
-        @Override
-        public boolean accept(File file) {
-            return !file.isHidden() && (file.isDirectory() || fileIsMimeType(file, "audio/*", MimeTypeMap.getSingleton()));
-        }
-    };
-
-    private FileFilter getFileFilter() {
-        return audioFileFilter;
-    }
-
-    private static boolean fileIsMimeType(File file, String mimeType, MimeTypeMap mimeTypeMap) {
-        if (mimeType == null || mimeType.equals("*/*")) {
-            return true;
-        } else {
-            // get the file mime type
-            String filename = file.toURI().toString();
-            int dotPos = filename.lastIndexOf('.');
-            if (dotPos == -1) {
-                return false;
-            }
-            String fileExtension = filename.substring(dotPos + 1);
-            String fileType = mimeTypeMap.getMimeTypeFromExtension(fileExtension);
-            if (fileType == null) {
-                return false;
-            }
-            // check the 'type/subtype' pattern
-            if (fileType.equals(mimeType)) {
-                return true;
-            }
-            // check the 'type/*' pattern
-            int mimeTypeDelimiter = mimeType.lastIndexOf('/');
-            if (mimeTypeDelimiter == -1) {
-                return false;
-            }
-            String mimeTypeMainType = mimeType.substring(0, mimeTypeDelimiter);
-            String mimeTypeSubtype = mimeType.substring(mimeTypeDelimiter + 1);
-            if (!mimeTypeSubtype.equals("*")) {
-                return false;
-            }
-            int fileTypeDelimiter = fileType.lastIndexOf('/');
-            if (fileTypeDelimiter == -1) {
-                return false;
-            }
-            String fileTypeMainType = fileType.substring(0, fileTypeDelimiter);
-            if (fileTypeMainType.equals(mimeTypeMainType)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Nullable
-    private static String getMimeType(String fileName, MimeTypeMap mimeTypeMap) {
-        int dotPos = fileName.lastIndexOf('.');
-        if (dotPos == -1) {
-            return null;
-        }
-        String fileExtension = fileName.substring(dotPos + 1);
-        return mimeTypeMap.getMimeTypeFromExtension(fileExtension);
     }
 
     private static File tryGetCanonicalFile(File file) {
@@ -666,7 +507,191 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
                     directory = crumb.getFile();
                 }
             }
-            return directory != null ? foldersFragment.sort(listFiles(directory, foldersFragment.getFileFilter())) : new LinkedList<File>();
+            if (directory != null) {
+                List<File> files = FileUtil.listFiles(directory, foldersFragment.getFileFilter());
+                Collections.sort(files, foldersFragment.getFileComparator());
+                return files;
+            } else {
+                return new LinkedList<>();
+            }
+        }
+    }
+
+    private void onSongsListed(int requestCode, ArrayList<Song> songs, Object extra) {
+        switch (requestCode) {
+            case ADD_TO_PLAYLIST:
+                AddToPlaylistDialog.create(songs).show(getFragmentManager(), "ADD_PLAYLIST");
+                break;
+            case ADD_TO_CURRENT_PLAYING:
+                MusicPlayerRemote.enqueue(songs);
+                break;
+            case DELETE:
+                DeleteSongsDialog.create(songs).show(getFragmentManager(), "DELETE_SONGS");
+                break;
+            case PLAY:
+                File file = (File) extra;
+                int startIndex = -1;
+                for (int i = 0; i < songs.size(); i++) {
+                    if (file.getPath().equals(songs.get(i).data)) { // path is already canonical here
+                        startIndex = i;
+                        break;
+                    }
+                }
+                if (startIndex > -1) {
+                    MusicPlayerRemote.openQueue(songs, startIndex, true);
+                } else {
+                    final File finalFile = file;
+                    Snackbar.make(coordinatorLayout, Html.fromHtml(String.format(getString(R.string.not_listed_in_media_store), file.getName())), Snackbar.LENGTH_LONG)
+                            .setAction(R.string.action_scan, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    scan(finalFile);
+                                }
+                            })
+                            .setActionTextColor(ThemeStore.accentColor(getActivity()))
+                            .show();
+                }
+                break;
+        }
+    }
+
+    private static class ListSongsAsyncTask extends DialogAsyncTask<ListSongsAsyncTask.LoadingInfo, Void, ArrayList<Song>> {
+        private WeakReference<FoldersFragment> fragmentWeakReference;
+        private final int requestCode;
+        private final Object extra;
+
+        public ListSongsAsyncTask(FoldersFragment foldersFragment, int requestCode, Object extra) {
+            super(foldersFragment.getActivity(), R.string.listing_files);
+            this.requestCode = requestCode;
+            this.extra = extra;
+            fragmentWeakReference = new WeakReference<>(foldersFragment);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            checkFragmentReference();
+        }
+
+        @Override
+        protected ArrayList<Song> doInBackground(LoadingInfo... params) {
+            try {
+                LoadingInfo info = params[0];
+                List<File> files = FileUtil.listFilesDeep(info.files, info.fileFilter);
+                if (isCancelled() || checkFragmentReference()) return null;
+                Collections.sort(files, info.fileComparator);
+                if (isCancelled() || checkFragmentReference()) return null;
+                return FileUtil.matchFilesWithMediaStore(fragmentWeakReference.get().getActivity(), files);
+            } catch (Exception e) {
+                e.printStackTrace();
+                cancel(false);
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Song> songs) {
+            super.onPostExecute(songs);
+            if (!songs.isEmpty() && !checkFragmentReference())
+                fragmentWeakReference.get().onSongsListed(requestCode, songs, extra);
+        }
+
+        public static class LoadingInfo {
+            public final Comparator<File> fileComparator;
+            public final FileFilter fileFilter;
+            public final List<File> files;
+
+            public LoadingInfo(@NonNull List<File> files, @NonNull FileFilter fileFilter, @NonNull Comparator<File> fileComparator) {
+                this.fileComparator = fileComparator;
+                this.fileFilter = fileFilter;
+                this.files = files;
+            }
+        }
+
+        /**
+         * @return true if the task was canceled
+         */
+        private boolean checkFragmentReference() {
+            if (fragmentWeakReference.get() == null) {
+                cancel(false);
+                return true;
+            }
+            return false;
+        }
+    }
+
+    private static abstract class DialogAsyncTask<Params, Progress, Result> extends AsyncTask<Params, Progress, Result> {
+        private final int title;
+        private WeakReference<Context> contextWeakReference;
+        private WeakReference<Dialog> dialogWeakReference;
+
+        private boolean supposedToBeDismissed;
+
+        public DialogAsyncTask(Context context, @StringRes int title) {
+            contextWeakReference = new WeakReference<>(context);
+            dialogWeakReference = new WeakReference<>(null);
+            this.title = title;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (!supposedToBeDismissed && contextWeakReference.get() != null) {
+                        Dialog dialog = new MaterialDialog.Builder(contextWeakReference.get())
+                                .title(title)
+                                .progress(true, 0)
+                                .progressIndeterminateStyle(true)
+                                .cancelListener(new DialogInterface.OnCancelListener() {
+                                    @Override
+                                    public void onCancel(DialogInterface dialog) {
+                                        cancel(false);
+                                    }
+                                })
+                                .dismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        cancel(false);
+                                    }
+                                })
+                                .negativeText(android.R.string.cancel)
+                                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        cancel(false);
+                                    }
+                                })
+                                .show();
+                        dialogWeakReference = new WeakReference<>(dialog);
+                    }
+                }
+            }, 200);
+        }
+
+        @DebugLog
+        @Override
+        protected void onCancelled(Result result) {
+            super.onCancelled(result);
+            tryToDismiss();
+        }
+
+        @DebugLog
+        @Override
+        protected void onPostExecute(Result result) {
+            super.onPostExecute(result);
+            tryToDismiss();
+        }
+
+        private void tryToDismiss() {
+            supposedToBeDismissed = true;
+            try {
+                if (dialogWeakReference.get() != null)
+                    dialogWeakReference.get().dismiss();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
