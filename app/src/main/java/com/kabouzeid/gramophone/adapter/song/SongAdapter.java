@@ -142,6 +142,8 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
                     public void onColorReady(int color) {
                         if (usePalette)
                             setColors(color, holder);
+                        else
+                            setColors(getDefaultFooterColor(), holder);
                     }
                 });
     }
