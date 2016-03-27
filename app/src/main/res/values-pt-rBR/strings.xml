@@ -233,7 +233,6 @@
     <string name="failed_to_save_playlist">Erro ao salvar a playlist (%s).</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> não está listado no armazenamento de mídia.]]></string>
     <string name="nothing_to_scan">Nada para escanear.</string>
-    <string name="scanning">Escaneando %s</string>
     <string name="scanned_files">Foram escaneados %1$d dos arquivos %2$d.</string>
     <string name="could_not_scan_files">Não foi possível escanear  od arquivos em %d.</string>
 </resources>
