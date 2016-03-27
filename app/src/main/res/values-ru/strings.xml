@@ -233,7 +233,6 @@
     <string name="failed_to_save_playlist">Не удалось сохранить плейлист (%s).</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> не указано в медиа хранилище.]]></string>
     <string name="nothing_to_scan">Нечего сканировать.</string>
-    <string name="scanning">Сканируем %s</string>
     <string name="scanned_files">Просканировано %1$d из %2$d файлов.</string>
     <string name="could_not_scan_files">Не удалось просканировать %d файлов.</string>
 </resources>

@@ -233,7 +233,6 @@
     <string name="failed_to_save_playlist">Błąd podczas zapisywania listy odtwarzania (%s)</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> nie figuruje w Media Store]]></string>
     <string name="nothing_to_scan">Nie ma nic do skanowania</string>
-    <string name="scanning">Skanowanie %s</string>
     <string name="scanned_files">Przeskanowano %1$d z %2$d plików</string>
     <string name="could_not_scan_files">Nie można przeskanować %d plików</string>
 </resources>

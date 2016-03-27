@@ -233,7 +233,6 @@
     <string name="failed_to_save_playlist">(%s) Çalma listesine kayıt başarısız.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> medya deposu listesinde yok.]]></string>
     <string name="nothing_to_scan">Taranamadı.</string>
-    <string name="scanning">Taranıyor %s</string>
     <string name="scanned_files">%1$d - %2$d dosya taranıyor.</string>
     <string name="could_not_scan_files">%d dosyalar taranmadı.</string>
 </resources>

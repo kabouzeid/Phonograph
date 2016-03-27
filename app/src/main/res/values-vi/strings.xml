@@ -233,7 +233,6 @@
     <string name="failed_to_save_playlist">Không thể lưu danh sách nhạc (%s).</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> không được liệt kê trong cửa hàng đa phương tiện.]]></string>
     <string name="nothing_to_scan">Không có gì để quét.</string>
-    <string name="scanning">Đang quét %s</string>
     <string name="scanned_files">Đã quét %1$d của %2$d tập tin.</string>
     <string name="could_not_scan_files">Không thể quét %d tập tin.</string>
 </resources>

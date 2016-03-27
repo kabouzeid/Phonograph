@@ -233,7 +233,6 @@
     <string name="failed_to_save_playlist">保存播放列表 (%s) 失败</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> 没有列在媒体储存中。]]></string>
     <string name="nothing_to_scan">没有可扫描的对象。</string>
-    <string name="scanning">正在扫描 %s</string>
     <string name="scanned_files">已扫描 %1$d / %2$d 个文件。</string>
     <string name="could_not_scan_files">%d 个文件无法扫描。</string>
 </resources>
