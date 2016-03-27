@@ -55,7 +55,7 @@ android {
         }
     }
     compileSdkVersion 23
-    buildToolsVersion '24.0.0 rc1'
+    buildToolsVersion '23.0.3'
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 23
@@ -64,8 +64,8 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         applicationId "com.kabouzeid.gramophone"
-        versionCode 105
-        versionName "0.10.0 PREVIEW 2"
+        versionCode 106
+        versionName "0.10.0 RC"
     }
     buildTypes {
         release {
