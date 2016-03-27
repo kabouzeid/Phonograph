@@ -10,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -28,16 +27,10 @@ import com.kabouzeid.gramophone.lastfm.rest.model.LastFmAlbum;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.LastFMUtil;
-import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 
 import org.jaudiotagger.tag.FieldKey;
-import org.jaudiotagger.tag.images.Artwork;
-import org.jaudiotagger.tag.images.ArtworkFactory;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -45,6 +38,7 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import hugo.weaving.DebugLog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -169,7 +163,6 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
     @Override
     protected void save() {
-        Artwork artwork = null;
         Map<FieldKey, String> fieldKeyValueMap = new EnumMap<>(FieldKey.class);
         fieldKeyValueMap.put(FieldKey.ALBUM, albumTitle.getText().toString());
         //android seems not to recognize album_artist field so we additionally write the normal artist field
@@ -178,18 +171,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
         fieldKeyValueMap.put(FieldKey.GENRE, genre.getText().toString());
         fieldKeyValueMap.put(FieldKey.YEAR, year.getText().toString());
 
-        File albumArtFile = MusicUtil.createAlbumArtFile(String.valueOf(getId()));
-
-        if (albumArtBitmap != null) {
-            try {
-                albumArtBitmap.compress(Bitmap.CompressFormat.PNG, 0, new FileOutputStream(albumArtFile));
-                artwork = ArtworkFactory.createArtworkFromFile(albumArtFile);
-                MusicUtil.insertAlbumArt(this, getId(), albumArtFile.getAbsolutePath());
-            } catch (IOException e) {
-                Log.e(TAG, "error while trying to create the artwork from file", e);
-            }
-        }
-        writeValuesToFiles(fieldKeyValueMap, artwork, deleteAlbumArt);
+        writeValuesToFiles(fieldKeyValueMap, deleteAlbumArt ? new ArtworkInfo(getId(), null) : albumArtBitmap == null ? null : new ArtworkInfo(getId(), albumArtBitmap));
     }
 
     @Override
@@ -216,7 +198,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
                 .transcode(new BitmapPaletteTranscoder(AlbumTagEditorActivity.this), BitmapPaletteWrapper.class)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
-                .into(new SimpleTarget<BitmapPaletteWrapper>(4097, 4097) {
+                .into(new SimpleTarget<BitmapPaletteWrapper>() {
                     @Override
                     public void onLoadFailed(Exception e, Drawable errorDrawable) {
                         super.onLoadFailed(e, errorDrawable);
@@ -251,6 +233,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
         dataChanged();
     }
 
+    @DebugLog
     private static Bitmap getResizedAlbumCover(@NonNull Bitmap src, int maxForSmallerSize) {
         int width = src.getWidth();
         int height = src.getHeight();
@@ -274,11 +257,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
             dstHeight = maxForSmallerSize;
         }
 
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(src, dstWidth, dstHeight, false);
-        if (scaledBitmap != src) {
-            src.recycle();
-        }
-        return scaledBitmap;
+        return Bitmap.createScaledBitmap(src, dstWidth, dstHeight, false);
     }
 
     @Override

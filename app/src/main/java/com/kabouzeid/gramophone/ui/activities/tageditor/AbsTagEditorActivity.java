@@ -1,13 +1,14 @@
 package com.kabouzeid.gramophone.ui.activities.tageditor;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,7 +27,9 @@ import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.TintHelper;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.misc.DialogAsyncTask;
 import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
+import com.kabouzeid.gramophone.misc.UpdateToastMediaScannerCompletionListener;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
@@ -41,10 +44,12 @@ import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.TagException;
 import org.jaudiotagger.tag.images.Artwork;
+import org.jaudiotagger.tag.images.ArtworkFactory;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.ref.WeakReference;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -89,7 +94,6 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         }
     };
     private List<String> songPaths;
-    private MaterialDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -271,133 +275,145 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         setTaskDescriptionColor(paletteColorPrimary);
     }
 
-    protected void writeValuesToFiles(@NonNull final Map<FieldKey, String> fieldKeyValueMap) {
-        writeValuesToFiles(fieldKeyValueMap, null, false);
+    protected void writeValuesToFiles(@NonNull final Map<FieldKey, String> fieldKeyValueMap, @Nullable final ArtworkInfo artworkInfo) {
+        Util.hideSoftKeyboard(this);
+
+        new WriteTagsAsyncTask(this).execute(new WriteTagsAsyncTask.LoadingInfo(getSongPaths(), fieldKeyValueMap, artworkInfo));
     }
 
-    protected void writeValuesToFiles(@NonNull final Map<FieldKey, String> fieldKeyValueMap, @Nullable final Artwork artwork, final boolean deleteArtwork) {
-        Util.hideSoftKeyboard(this);
-        final String writingFileStr = getResources().getString(R.string.writing_file_number);
-        progressDialog = new MaterialDialog.Builder(AbsTagEditorActivity.this)
-                .title(R.string.saving_changes)
-                .cancelable(false)
-                .progress(true, 0)
-                .build();
-        if (Build.VERSION.SDK_INT >= 18)
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-        progressDialog.show();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i < songPaths.size(); i++) {
-                    String songPath = songPaths.get(i);
-                    final int finalI = i;
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressDialog.setContent(writingFileStr + " " + ((finalI + 1) + "/" + songPaths.size()));
-                        }
-                    });
+    private static class WriteTagsAsyncTask extends DialogAsyncTask<WriteTagsAsyncTask.LoadingInfo, Integer, String[]> {
+        Context applicationContext;
+
+        public WriteTagsAsyncTask(Context context) {
+            super(context);
+            applicationContext = context;
+        }
+
+        @Override
+        protected String[] doInBackground(LoadingInfo... params) {
+            try {
+                LoadingInfo info = params[0];
+
+                Artwork artwork = null;
+                File albumArtFile = null;
+                if (info.artworkInfo != null && info.artworkInfo.artwork != null) {
                     try {
-                        AudioFile audioFile = AudioFileIO.read(new File(songPath));
+                        albumArtFile = MusicUtil.createAlbumArtFile(String.valueOf(info.artworkInfo.albumId)).getCanonicalFile();
+                        info.artworkInfo.artwork.compress(Bitmap.CompressFormat.PNG, 0, new FileOutputStream(albumArtFile));
+                        artwork = ArtworkFactory.createArtworkFromFile(albumArtFile);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                int counter = 0;
+                boolean wroteArtwork = false;
+                boolean deletedArtwork = false;
+                for (String filePath : info.filePaths) {
+                    publishProgress(++counter, info.filePaths.size());
+                    try {
+                        AudioFile audioFile = AudioFileIO.read(new File(filePath));
                         Tag tag = audioFile.getTagOrCreateAndSetDefault();
-                        for (Map.Entry<FieldKey, String> entry : fieldKeyValueMap.entrySet()) {
-                            try {
-                                tag.setField(entry.getKey(), entry.getValue());
-                            } catch (NumberFormatException e) {
-                                tag.deleteField(entry.getKey());
+
+                        if (info.fieldKeyValueMap != null) {
+                            for (Map.Entry<FieldKey, String> entry : info.fieldKeyValueMap.entrySet()) {
+                                try {
+                                    tag.setField(entry.getKey(), entry.getValue());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
-                        if (deleteArtwork) {
-                            tag.deleteArtworkField();
-                        } else if (artwork != null) {
-                            tag.deleteArtworkField();
-                            tag.setField(artwork);
+
+                        if (info.artworkInfo != null) {
+                            if (info.artworkInfo.artwork == null) {
+                                tag.deleteArtworkField();
+                                deletedArtwork = true;
+                            } else if (artwork != null) {
+                                tag.deleteArtworkField();
+                                tag.setField(artwork);
+                                wroteArtwork = true;
+                            }
                         }
+
                         audioFile.commit();
-                    } catch (@NonNull CannotReadException | IOException | TagException | ReadOnlyFileException | InvalidAudioFrameException e) {
-                        Log.e(TAG, "Error while reading audio file.", e);
-                    } catch (CannotWriteException e) {
-                        Log.e(TAG, "Error while writing audio file.", e);
+                    } catch (@NonNull CannotReadException | IOException | CannotWriteException | TagException | ReadOnlyFileException | InvalidAudioFrameException e) {
+                        e.printStackTrace();
                     }
                 }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressDialog.setContent(getString(R.string.rescanning_media));
+
+                Context context = getContext();
+                if (context != null) {
+                    if (wroteArtwork) {
+                        MusicUtil.insertAlbumArt(context, info.artworkInfo.albumId, albumArtFile.getPath());
+                    } else if (deletedArtwork) {
+                        MusicUtil.deleteAlbumArt(context, info.artworkInfo.albumId);
                     }
-                });
-                if (deleteArtwork) {
-                    MusicUtil.deleteAlbumArt(AbsTagEditorActivity.this, getId());
-                } else if (artwork != null) {
-                    // AlbumTagEditorActivity already inserts the album cover for us
                 }
-                rescanMediaAndQuitOnFinish();
+
+                return info.filePaths.toArray(new String[info.filePaths.size()]);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
             }
-        }).start();
-    }
-
-    private static class FinishOnCompletedMediaScanner implements MediaScannerConnection.MediaScannerConnectionClient {
-
-        private WeakReference<AbsTagEditorActivity> activityWeakReference;
-        private MediaScannerConnection connection;
-        private String[] toBeScanned;
-        private int position;
-
-
-        private FinishOnCompletedMediaScanner(AbsTagEditorActivity activity, String[] toBeScanned) {
-            activityWeakReference = new WeakReference<>(activity);
-            this.toBeScanned = toBeScanned;
-            connection = new MediaScannerConnection(activity.getApplicationContext(), this);
-        }
-
-        public void scan() {
-            connection.connect();
         }
 
         @Override
-        public void onMediaScannerConnected() {
-            scanNextPath();
+        protected void onPostExecute(String[] toBeScanned) {
+            super.onPostExecute(toBeScanned);
+            scan(toBeScanned);
         }
 
         @Override
-        public void onScanCompleted(String path, Uri uri) {
-            scanNextPath();
+        protected void onCancelled(String[] toBeScanned) {
+            super.onCancelled(toBeScanned);
+            scan(toBeScanned);
         }
 
-        private void scanNextPath() {
-            if (position < toBeScanned.length) {
-                connection.scanFile(toBeScanned[position], null);
-            }
-            checkIsDone();
-            position++;
+        private void scan(String[] toBeScanned) {
+            Context context = getContext();
+            MediaScannerConnection.scanFile(applicationContext, toBeScanned, null, context instanceof Activity ? new UpdateToastMediaScannerCompletionListener((Activity) context, toBeScanned) : null);
         }
 
-        private void checkIsDone() {
-            if (position >= toBeScanned.length - 1) {
-                connection.disconnect();
-                AbsTagEditorActivity activity = activityWeakReference.get();
-                if (activity != null) {
-                    activity.dismissDialogAndFinish();
-                }
+        @Override
+        protected Dialog createDialog(@NonNull Context context) {
+            return new MaterialDialog.Builder(context)
+                    .title(R.string.writing_files)
+                    .cancelable(false)
+                    .progress(false, 0)
+                    .build();
+        }
+
+        @Override
+        protected void onProgressUpdate(@NonNull Dialog dialog, Integer... values) {
+            super.onProgressUpdate(dialog, values);
+            ((MaterialDialog) dialog).setMaxProgress(values[1]);
+            ((MaterialDialog) dialog).setProgress(values[0]);
+        }
+
+        public static class LoadingInfo {
+            public final Collection<String> filePaths;
+            @Nullable
+            public final Map<FieldKey, String> fieldKeyValueMap;
+            @Nullable
+            private ArtworkInfo artworkInfo;
+
+            private LoadingInfo(Collection<String> filePaths, @Nullable Map<FieldKey, String> fieldKeyValueMap, @Nullable ArtworkInfo artworkInfo) {
+                this.filePaths = filePaths;
+                this.fieldKeyValueMap = fieldKeyValueMap;
+                this.artworkInfo = artworkInfo;
             }
         }
     }
 
-    public void dismissDialogAndFinish() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progressDialog.dismiss();
-                finish();
-            }
-        });
-    }
+    public static class ArtworkInfo {
+        public final int albumId;
+        public final Bitmap artwork;
 
-    private void rescanMediaAndQuitOnFinish() {
-        String[] toBeScanned = new String[songPaths.size()];
-        toBeScanned = songPaths.toArray(toBeScanned);
-        new FinishOnCompletedMediaScanner(this, toBeScanned).scan();
+        public ArtworkInfo(int albumId, Bitmap artwork) {
+            this.albumId = albumId;
+            this.artwork = artwork;
+        }
     }
 
     protected int getId() {
