@@ -92,7 +92,7 @@ public class MusicUtil {
     public static String getArtistInfoString(@NonNull final Context context, @NonNull final Artist artist) {
         String albumString = artist.albumCount == 1 ? context.getResources().getString(R.string.album) : context.getResources().getString(R.string.albums);
         String songString = artist.songCount == 1 ? context.getResources().getString(R.string.song) : context.getResources().getString(R.string.songs);
-        return artist.albumCount + " " + albumString + " | " + artist.songCount + " " + songString;
+        return artist.albumCount + " " + albumString + " • " + artist.songCount + " " + songString;
     }
 
     public static String getReadableDurationString(long songDurationMillis) {

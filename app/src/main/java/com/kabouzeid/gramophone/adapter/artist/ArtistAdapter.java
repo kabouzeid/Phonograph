@@ -93,9 +93,6 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Artist artist = dataSet.get(position);
 
-//        final int defaultBarColor = PhonographColorUtil.resolveColor(activity, R.attr.default_bar_color);
-//        setColors(defaultBarColor, holder);
-
         boolean isChecked = isChecked(artist);
         holder.itemView.setActivated(isChecked);
 
