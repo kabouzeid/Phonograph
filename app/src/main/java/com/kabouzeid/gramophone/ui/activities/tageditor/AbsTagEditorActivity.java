@@ -298,7 +298,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                 File albumArtFile = null;
                 if (info.artworkInfo != null && info.artworkInfo.artwork != null) {
                     try {
-                        albumArtFile = MusicUtil.createAlbumArtFile(String.valueOf(info.artworkInfo.albumId)).getCanonicalFile();
+                        albumArtFile = MusicUtil.createAlbumArtFile().getCanonicalFile();
                         info.artworkInfo.artwork.compress(Bitmap.CompressFormat.PNG, 0, new FileOutputStream(albumArtFile));
                         artwork = ArtworkFactory.createArtworkFromFile(albumArtFile);
                     } catch (IOException e) {
