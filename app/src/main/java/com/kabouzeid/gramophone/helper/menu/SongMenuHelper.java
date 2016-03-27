@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.helper.menu;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,8 +26,8 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 public class SongMenuHelper {
     public static final int MENU_RES = R.menu.menu_item_song;
 
-    public static boolean handleMenuClick(@NonNull AppCompatActivity activity, @NonNull Song song, @NonNull MenuItem item) {
-        switch (item.getItemId()) {
+    public static boolean handleMenuClick(@NonNull FragmentActivity activity, @NonNull Song song, int menuItemId) {
+        switch (menuItemId) {
             case R.id.action_set_as_ringtone:
                 MusicUtil.setRingtone(activity, song.id);
                 return true;
@@ -86,7 +87,7 @@ public class SongMenuHelper {
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
-            return handleMenuClick(activity, getSong(), item);
+            return handleMenuClick(activity, getSong(), item.getItemId());
         }
 
         public abstract Song getSong();

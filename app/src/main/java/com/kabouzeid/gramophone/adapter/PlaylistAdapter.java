@@ -16,11 +16,10 @@ import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
-import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.ClearSmartPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeletePlaylistDialog;
-import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.PlaylistMenuHelper;
+import com.kabouzeid.gramophone.helper.menu.SongsMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.model.Playlist;
@@ -148,11 +147,8 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
                     DeletePlaylistDialog.create(selection).show(activity.getSupportFragmentManager(), "DELETE_PLAYLIST");
                 }
                 break;
-            case R.id.action_add_to_playlist:
-                AddToPlaylistDialog.create(getSongList(selection)).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");
-                break;
-            case R.id.action_add_to_current_playing:
-                MusicPlayerRemote.enqueue(getSongList(selection));
+            default:
+                SongsMenuHelper.handleMenuClick(activity, getSongList(selection), menuItem.getItemId());
                 break;
         }
     }
