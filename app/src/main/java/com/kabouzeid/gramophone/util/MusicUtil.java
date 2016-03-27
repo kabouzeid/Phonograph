@@ -127,20 +127,20 @@ public class MusicUtil {
     }
 
     @NonNull
-    public static File createAlbumArtFile(String name) {
-        return new File(createAlbumArtDir(), name + System.currentTimeMillis());
+    public static File createAlbumArtFile() {
+        return new File(createAlbumArtDir(), String.valueOf(System.currentTimeMillis()));
     }
 
     @NonNull
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public static File createAlbumArtDir() {
-        File albumArtDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "/.albumart/");
+        File albumArtDir = new File(Environment.getExternalStorageDirectory(), "/albumthumbs/");
         if (!albumArtDir.exists()) {
             albumArtDir.mkdirs();
             try {
                 new File(albumArtDir, ".nomedia").createNewFile();
             } catch (IOException e) {
-                Log.e(TAG, "error while creating .nomedia file", e);
+                e.printStackTrace();
             }
         }
         return albumArtDir;
