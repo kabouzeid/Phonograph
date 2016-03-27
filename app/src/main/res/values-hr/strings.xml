@@ -28,6 +28,8 @@
     <string name="action_details">Detalji</string>
     <string name="action_rename">Preimenuj</string>
     <string name="action_delete">Izbriši</string>
+    <string name="action_scan">Skeniraj</string>
+    <string name="action_set_as_start_directory">Postavi kao početni direktorij</string>
     <string name="albums">Albumi</string>
     <string name="artists">Izvođači</string>
     <string name="songs">Pjesme</string>
@@ -96,6 +98,7 @@
     <string name="action_shuffle_artist">Nasumična reprodukcija izvođača</string>
     <string name="action_shuffle_playlist">Nasumična reprodukcija popisa naslova</string>
     <string name="action_clear_playing_queue">Očisti red reprodukcije</string>
+    <string name="action_go_to_start_directory">Idi na početni direktorij</string>
     <string name="last_opened">Posljednje otvoreno</string>
     <string name="light_theme_name">Svijetla</string>
     <string name="dark_theme_name">Tamna</string>
@@ -228,4 +231,9 @@
     <string name="folders">Mape</string>
     <string name="saved_playlist_to">Popis naslova spremljen u %s.</string>
     <string name="failed_to_save_playlist">Popis naslova nije spremljen (%s).</string>
+    <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> nije na popisu media storea.]]></string>
+    <string name="nothing_to_scan">Nema ništa za skeniranje.</string>
+    <string name="scanning">Skeniranje %s</string>
+    <string name="scanned_files">Skenirano %1$d od %2$d datoteka</string>
+    <string name="could_not_scan_files">Nije moguće skenirati %d datoteka.</string>
 </resources>

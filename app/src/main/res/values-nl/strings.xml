@@ -28,6 +28,8 @@
     <string name="action_details">Details</string>
     <string name="action_rename">Hernoemen</string>
     <string name="action_delete">Verwijderen</string>
+    <string name="action_scan">Scannen</string>
+    <string name="action_set_as_start_directory">Instellen als startmap</string>
     <string name="albums">Albums</string>
     <string name="artists">Artiesten</string>
     <string name="songs">Nummers</string>
@@ -96,6 +98,7 @@
     <string name="action_shuffle_artist">Shuffle artiest</string>
     <string name="action_shuffle_playlist">Shuffle afspeellijst</string>
     <string name="action_clear_playing_queue">Leeg afspeelwachtrij</string>
+    <string name="action_go_to_start_directory">Ga naar startmap</string>
     <string name="last_opened">Laatst geopend</string>
     <string name="light_theme_name">Licht</string>
     <string name="dark_theme_name">Donker</string>
@@ -205,8 +208,8 @@
     <string name="join_community_summary">Als je hulp nodig hebt of vragen hebt, is de Phonograph community op Google Plus een goede bron om te raadplegen.</string>
     <string name="translate">Vertalen</string>
     <string name="translate_summary">Help Phonograph te vertalen naar jouw moedertaal.</string>
-    <string name="rate_on_google_play">Waarderen</string>
-    <string name="rate_on_google_play_summary">Laat een positieve waardering achter op Google Play als je Phonograph leuk vindt.</string>
+    <string name="rate_on_google_play">Beoordelen</string>
+    <string name="rate_on_google_play_summary">Laat een positieve beoordeling achter op Google Play als je Phonograph leuk vindt.</string>
     <string name="donate">Doneer</string>
     <string name="donate_summary">Als je vindt dat ik het verdient heb, mag je mij hier een paar dollar achterlaten.</string>
     <string name="aidan_follestad_summary">Voor de themamogelijkheden en andere goede functies.</string>
@@ -228,4 +231,9 @@
     <string name="folders">Mappen</string>
     <string name="saved_playlist_to">Afspeellijst opgeslagen in %s.</string>
     <string name="failed_to_save_playlist">Opslaan van afspeellijst (%s) mislukt.</string>
+    <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> is niet aanwezig in mediaopslag.]]></string>
+    <string name="nothing_to_scan">Niets te scannen.</string>
+    <string name="scanning">Scannen %s</string>
+    <string name="scanned_files">%1$d van de %2$d bestanden gescand.</string>
+    <string name="could_not_scan_files">Kan %d bestanden niet scannen.</string>
 </resources>

@@ -28,6 +28,8 @@
     <string name="action_details">Szczegóły</string>
     <string name="action_rename">Zmień nazwę</string>
     <string name="action_delete">Usuń</string>
+    <string name="action_scan">Skanuj</string>
+    <string name="action_set_as_start_directory">Ustaw jako katalog startowy</string>
     <string name="albums">Albumy</string>
     <string name="artists">Wykonawcy</string>
     <string name="songs">Utwory</string>
@@ -96,6 +98,7 @@
     <string name="action_shuffle_artist">Losowy wykonawca</string>
     <string name="action_shuffle_playlist">Losowa lista odtwarzania</string>
     <string name="action_clear_playing_queue">Wyczyść kolejkę odtwarzania</string>
+    <string name="action_go_to_start_directory">Przejdź do katalogu startowego</string>
     <string name="last_opened">Ostatnio otwarte</string>
     <string name="light_theme_name">Jasny</string>
     <string name="dark_theme_name">Ciemny</string>
@@ -228,4 +231,9 @@
     <string name="folders">Foldery</string>
     <string name="saved_playlist_to">Zapisz listę odtwarzania do %s</string>
     <string name="failed_to_save_playlist">Błąd podczas zapisywania listy odtwarzania (%s)</string>
+    <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> nie figuruje w Media Store]]></string>
+    <string name="nothing_to_scan">Nie ma nic do skanowania</string>
+    <string name="scanning">Skanowanie %s</string>
+    <string name="scanned_files">Przeskanowano %1$d z %2$d plików</string>
+    <string name="could_not_scan_files">Nie można przeskanować %d plików</string>
 </resources>
