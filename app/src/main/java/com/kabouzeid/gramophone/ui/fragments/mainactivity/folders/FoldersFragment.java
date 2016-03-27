@@ -1,20 +1,14 @@
 package com.kabouzeid.gramophone.ui.fragments.mainactivity.folders;
 
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.media.MediaScannerConnection;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -46,6 +40,8 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.helper.menu.SongsMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
+import com.kabouzeid.gramophone.misc.DialogAsyncTask;
+import com.kabouzeid.gramophone.misc.UpdateToastMediaScannerCompletionListener;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
@@ -485,52 +481,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         if (toBeScanned == null || toBeScanned.length < 1) {
             Toast.makeText(getActivity(), R.string.nothing_to_scan, Toast.LENGTH_SHORT).show();
         } else {
-            MediaScannerConnection.scanFile(getActivity().getApplicationContext(), toBeScanned, null, new UpdateToastCompletionListener(getActivity(), toBeScanned));
-        }
-    }
-
-    private static class UpdateToastCompletionListener implements MediaScannerConnection.OnScanCompletedListener {
-        int scanned = 0;
-        int failed = 0;
-
-        private final String[] toBeScanned;
-
-        private final String scannedFiles;
-        private final String couldNotScanFiles;
-
-        private final WeakReference<Toast> toastWeakReference;
-        private final WeakReference<Activity> activityWeakReference;
-
-        @SuppressLint("ShowToast")
-        public UpdateToastCompletionListener(Activity activity, String[] toBeScanned) {
-            this.toBeScanned = toBeScanned;
-            scannedFiles = activity.getString(R.string.scanned_files);
-            couldNotScanFiles = activity.getString(R.string.could_not_scan_files);
-            toastWeakReference = new WeakReference<>(Toast.makeText(activity, "", Toast.LENGTH_SHORT));
-            activityWeakReference = new WeakReference<>(activity);
-        }
-
-        @Override
-        public void onScanCompleted(final String path, final Uri uri) {
-            Activity activity = activityWeakReference.get();
-            if (activity != null) {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast toast = toastWeakReference.get();
-                        if (toast != null) {
-                            if (uri == null) {
-                                failed++;
-                            } else {
-                                scanned++;
-                            }
-                            String text = " " + String.format(scannedFiles, scanned, toBeScanned.length) + (failed > 0 ? " " + String.format(couldNotScanFiles, failed) : "");
-                            toast.setText(text);
-                            toast.show();
-                        }
-                    }
-                });
-            }
+            MediaScannerConnection.scanFile(getActivity().getApplicationContext(), toBeScanned, null, new UpdateToastMediaScannerCompletionListener(getActivity(), toBeScanned));
         }
     }
 
@@ -585,13 +536,13 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         }
     }
 
-    private static class ListSongsAsyncTask extends DialogAsyncTask<ListSongsAsyncTask.LoadingInfo, Void, ArrayList<Song>> {
+    private static class ListSongsAsyncTask extends ListingFilesDialogAsyncTask<ListSongsAsyncTask.LoadingInfo, Void, ArrayList<Song>> {
         private WeakReference<Context> contextWeakReference;
         private WeakReference<OnSongsListedCallback> callbackWeakReference;
         private final Object extra;
 
         public ListSongsAsyncTask(Context context, Object extra, OnSongsListedCallback callback) {
-            super(context, R.string.listing_files);
+            super(context);
             this.extra = extra;
             contextWeakReference = new WeakReference<>(context);
             callbackWeakReference = new WeakReference<>(callback);
@@ -668,11 +619,11 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         }
     }
 
-    private static class ListPathsAsyncTask extends DialogAsyncTask<ListPathsAsyncTask.LoadingInfo, String, String[]> {
+    private static class ListPathsAsyncTask extends ListingFilesDialogAsyncTask<ListPathsAsyncTask.LoadingInfo, String, String[]> {
         private WeakReference<OnPathsListedCallback> onPathsListedCallbackWeakReference;
 
         public ListPathsAsyncTask(Context context, OnPathsListedCallback callback) {
-            super(context, R.string.listing_files);
+            super(context);
             onPathsListedCallbackWeakReference = new WeakReference<>(callback);
         }
 
@@ -753,76 +704,41 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         }
     }
 
-    private static abstract class DialogAsyncTask<Params, Progress, Result> extends AsyncTask<Params, Progress, Result> {
-        private final int title;
-        private WeakReference<Context> contextWeakReference;
-        private WeakReference<Dialog> dialogWeakReference;
+    private static abstract class ListingFilesDialogAsyncTask<Params, Progress, Result> extends DialogAsyncTask<Params, Progress, Result> {
+        public ListingFilesDialogAsyncTask(Context context) {
+            super(context);
+        }
 
-        private boolean supposedToBeDismissed;
-
-        public DialogAsyncTask(Context context, @StringRes int title) {
-            contextWeakReference = new WeakReference<>(context);
-            dialogWeakReference = new WeakReference<>(null);
-            this.title = title;
+        public ListingFilesDialogAsyncTask(Context context, int showDelay) {
+            super(context, showDelay);
         }
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (!supposedToBeDismissed && contextWeakReference.get() != null) {
-                        Dialog dialog = new MaterialDialog.Builder(contextWeakReference.get())
-                                .title(title)
-                                .progress(true, 0)
-                                .progressIndeterminateStyle(true)
-                                .cancelListener(new DialogInterface.OnCancelListener() {
-                                    @Override
-                                    public void onCancel(DialogInterface dialog) {
-                                        cancel(false);
-                                    }
-                                })
-                                .dismissListener(new DialogInterface.OnDismissListener() {
-                                    @Override
-                                    public void onDismiss(DialogInterface dialog) {
-                                        cancel(false);
-                                    }
-                                })
-                                .negativeText(android.R.string.cancel)
-                                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                                    @Override
-                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                        cancel(false);
-                                    }
-                                })
-                                .show();
-                        dialogWeakReference = new WeakReference<>(dialog);
-                    }
-                }
-            }, 200);
-        }
-
-        @Override
-        protected void onCancelled(Result result) {
-            super.onCancelled(result);
-            tryToDismiss();
-        }
-
-        @Override
-        protected void onPostExecute(Result result) {
-            super.onPostExecute(result);
-            tryToDismiss();
-        }
-
-        private void tryToDismiss() {
-            supposedToBeDismissed = true;
-            try {
-                if (dialogWeakReference.get() != null)
-                    dialogWeakReference.get().dismiss();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        protected Dialog createDialog(@NonNull Context context) {
+            return new MaterialDialog.Builder(context)
+                    .title(R.string.listing_files)
+                    .progress(true, 0)
+                    .progressIndeterminateStyle(true)
+                    .cancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            cancel(false);
+                        }
+                    })
+                    .dismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            cancel(false);
+                        }
+                    })
+                    .negativeText(android.R.string.cancel)
+                    .onNegative(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            cancel(false);
+                        }
+                    })
+                    .show();
         }
     }
 }

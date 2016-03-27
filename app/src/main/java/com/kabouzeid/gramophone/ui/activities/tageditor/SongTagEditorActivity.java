@@ -98,7 +98,7 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
         fieldKeyValueMap.put(FieldKey.GENRE, genre.getText().toString());
         fieldKeyValueMap.put(FieldKey.YEAR, year.getText().toString());
         fieldKeyValueMap.put(FieldKey.TRACK, trackNumber.getText().toString());
-        writeValuesToFiles(fieldKeyValueMap);
+        writeValuesToFiles(fieldKeyValueMap, null);
     }
 
     @Override
