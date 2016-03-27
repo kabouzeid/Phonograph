@@ -17,11 +17,10 @@ import android.widget.TextView;
 import com.afollestad.materialcab.MaterialCab;
 import com.bumptech.glide.Glide;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
-import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
+import com.kabouzeid.gramophone.helper.menu.SongsMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -137,17 +136,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
     }
 
     private void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Song> selection) {
-        switch (menuItem.getItemId()) {
-            case R.id.action_delete_from_device:
-                DeleteSongsDialog.create(selection).show(activity.getSupportFragmentManager(), "DELETE_SONGS");
-                break;
-            case R.id.action_add_to_playlist:
-                AddToPlaylistDialog.create(selection).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");
-                break;
-            case R.id.action_add_to_current_playing:
-                MusicPlayerRemote.enqueue(selection);
-                break;
-        }
+        SongsMenuHelper.handleMenuClick(activity, selection, menuItem.getItemId());
     }
 
     protected void toggleChecked(Song song) {

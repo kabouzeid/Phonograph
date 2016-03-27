@@ -152,17 +152,7 @@ public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewH
     @Override
     protected void onMultipleItemAction(MenuItem menuItem, ArrayList<File> selection) {
         if (callbacks == null) return;
-        switch (menuItem.getItemId()) {
-            case R.id.action_add_to_current_playing:
-                callbacks.onAddToCurrentPlaying(selection);
-                break;
-            case R.id.action_add_to_playlist:
-                callbacks.onAddToPlaylist(selection);
-                break;
-            case R.id.action_delete_from_device:
-                callbacks.onDeleteFromDevice(selection);
-                break;
-        }
+        callbacks.onMultipleItemAction(menuItem, selection);
     }
 
     @NonNull
@@ -218,10 +208,6 @@ public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewH
 
         void onFileMenuClicked(File file, View view);
 
-        void onAddToPlaylist(ArrayList<File> files);
-
-        void onAddToCurrentPlaying(ArrayList<File> files);
-
-        void onDeleteFromDevice(ArrayList<File> files);
+        void onMultipleItemAction(MenuItem item, ArrayList<File> files);
     }
 }

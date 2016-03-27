@@ -653,6 +653,12 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         notifyChange(QUEUE_CHANGED);
     }
 
+    public void addSongs(int position, List<Song> songs) {
+        playingQueue.addAll(position, songs);
+        originalPlayingQueue.addAll(position, songs);
+        notifyChange(QUEUE_CHANGED);
+    }
+
     public void addSongs(List<Song> songs) {
         playingQueue.addAll(songs);
         originalPlayingQueue.addAll(songs);
