@@ -28,6 +28,8 @@
     <string name="action_details">Részletek</string>
     <string name="action_rename">Átnevezés</string>
     <string name="action_delete">Törlés</string>
+    <string name="action_scan">Beolvasás</string>
+    <string name="action_set_as_start_directory">Beállítás kezdő könyvtárként</string>
     <string name="albums">Albumok</string>
     <string name="artists">Előadók</string>
     <string name="songs">Dalok</string>
@@ -96,6 +98,7 @@
     <string name="action_shuffle_artist">Előadó dalainak keverése</string>
     <string name="action_shuffle_playlist">Lejátszási lista keverése</string>
     <string name="action_clear_playing_queue">Sor törlése</string>
+    <string name="action_go_to_start_directory">Ugrás a kezdő könyvtárra</string>
     <string name="last_opened">Utoljára megnyitott</string>
     <string name="light_theme_name">Világos</string>
     <string name="dark_theme_name">Sötét</string>
@@ -223,9 +226,14 @@
     <string name="label_storage">Tárhely</string>
     <string name="open_playing_queue_instruction">Húzd fel a kártyát a most játszás képernyőnél, hogy megnyisd a lejátszási sort.</string>
     <string name="rearrange_playing_queue_instruction">Rendezd át a lejátszási sort, azzal hogy megfogod a dalokat a sorszámuknál fogva.</string>
-    <string name="storage_permission_explaination">Engedélyezned kell a tárhely használatát, hogy a Phonograph meg tudja találni a zeneszámaidat.</string>
+    <string name="storage_permission_explaination">Engedélyezned kell a tárhely használatát. Az engedély a zenei könyvtár beolvasásához szükséges.</string>
     <string name="library">Könyvtár</string>
     <string name="folders">Mappák</string>
     <string name="saved_playlist_to">Lejátszási lista %s-ba(-be) mentése.</string>
     <string name="failed_to_save_playlist">Nem sikerült menteni a(z) (%s) lejátszási listát.</string>
+    <string name="not_listed_in_media_store"><![CDATA[A(z) <b>%s</b> nem szerepel a média listán.]]></string>
+    <string name="nothing_to_scan">Nincs mit beolvasni.</string>
+    <string name="scanning">Beolvasás: %s</string>
+    <string name="scanned_files">Beolvasva %1$d a(z) %2$d fájlból.</string>
+    <string name="could_not_scan_files">Nem sikerült beolvasni a(z) %d fájlokat.</string>
 </resources>

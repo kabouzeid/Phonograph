@@ -28,6 +28,8 @@
     <string name="action_details">Подробнее</string>
     <string name="action_rename">Переименовать</string>
     <string name="action_delete">Удалить</string>
+    <string name="action_scan">Сканировать</string>
+    <string name="action_set_as_start_directory">Назначить начальной директорией.</string>
     <string name="albums">Альбомы</string>
     <string name="artists">Исполнители</string>
     <string name="songs">Песни</string>
@@ -96,6 +98,7 @@
     <string name="action_shuffle_artist">Перемешать исполнителя</string>
     <string name="action_shuffle_playlist">Перемешать плейлист</string>
     <string name="action_clear_playing_queue">"Очистить очередь воспроизведения "</string>
+    <string name="action_go_to_start_directory">Перейти к начальной директории</string>
     <string name="last_opened">Последнее открытое</string>
     <string name="light_theme_name">Светлая</string>
     <string name="dark_theme_name">Тёмная</string>
@@ -228,4 +231,9 @@
     <string name="folders">Папки</string>
     <string name="saved_playlist_to">Плейлист сохранён в %s.</string>
     <string name="failed_to_save_playlist">Не удалось сохранить плейлист (%s).</string>
+    <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> не указано в медиа хранилище.]]></string>
+    <string name="nothing_to_scan">Нечего сканировать.</string>
+    <string name="scanning">Сканируем %s</string>
+    <string name="scanned_files">Просканировано %1$d из %2$d файлов.</string>
+    <string name="could_not_scan_files">Не удалось просканировать %d файлов.</string>
 </resources>
