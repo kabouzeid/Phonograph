@@ -133,6 +133,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private HandlerThread musicPlayerHandlerThread;
     private HandlerThread queueSaveHandlerThread;
     private SongPlayCountHelper songPlayCountHelper = new SongPlayCountHelper();
+    private ThrottledPublicPlayStateChangedNotifier throttledPublicPlayStateChangedNotifier;
     private final BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, @NonNull Intent intent) {
@@ -161,8 +162,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
         wakeLock.setReferenceCounted(false);
 
-        String playbackHandlerName = "PlaybackHandler";
-        musicPlayerHandlerThread = new HandlerThread(playbackHandlerName);
+        musicPlayerHandlerThread = new HandlerThread("PlaybackHandler");
         musicPlayerHandlerThread.start();
         playerHandler = new PlaybackHandler(this, musicPlayerHandlerThread.getLooper());
 
@@ -179,6 +179,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         registerReceiversAndRemoteControlClient();
 
         mediaStoreObserver = new MediaStoreObserver(playerHandler);
+        throttledPublicPlayStateChangedNotifier = new ThrottledPublicPlayStateChangedNotifier(playerHandler);
         getContentResolver().registerContentObserver(
                 MediaStore.Audio.Media.INTERNAL_CONTENT_URI, true, mediaStoreObserver);
         getContentResolver().registerContentObserver(
@@ -833,6 +834,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public int seek(int millis) {
         int newPosition = playback.seek(millis);
         savePositionInTrack();
+        throttledPublicPlayStateChangedNotifier.scheduleIntent();
         return newPosition;
     }
 
@@ -903,15 +905,20 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private void sendPublicIntent(@NonNull final String what) {
         final Intent intent = new Intent(what.replace(PHONOGRAPH_PACKAGE_NAME, MUSIC_PACKAGE_NAME));
 
-        final Song currentSong = getCurrentSong();
-        if (currentSong.id != -1) {
-            intent.putExtra("id", currentSong.id);
-            intent.putExtra("artist", currentSong.artistName);
-            intent.putExtra("album", currentSong.albumName);
-            intent.putExtra("track", currentSong.title);
-            intent.putExtra("duration", currentSong.duration);
-        }
+        final Song song = getCurrentSong();
+
+        intent.putExtra("id", song.id);
+
+        intent.putExtra("artist", song.artistName);
+        intent.putExtra("album", song.albumName);
+        intent.putExtra("track", song.title);
+
+        intent.putExtra("duration", song.duration);
+        intent.putExtra("position", (long) getSongProgressMillis());
+
         intent.putExtra("playing", isPlaying());
+
+        intent.putExtra("scrobbling_source", PHONOGRAPH_PACKAGE_NAME);
 
         sendStickyBroadcast(intent);
     }
@@ -1152,6 +1159,26 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             // actually call refresh when the delayed callback fires
             // do not send a sticky broadcast here
             notifyPrivateChange(MEDIA_STORE_CHANGED);
+        }
+    }
+
+    private class ThrottledPublicPlayStateChangedNotifier implements Runnable {
+        // milliseconds to delay before calling refresh to aggregate events
+        private static final long REFRESH_DELAY = 500;
+        private Handler mHandler;
+
+        public ThrottledPublicPlayStateChangedNotifier(Handler handler) {
+            mHandler = handler;
+        }
+
+        public void scheduleIntent() {
+            mHandler.removeCallbacks(this);
+            mHandler.postDelayed(this, REFRESH_DELAY);
+        }
+
+        @Override
+        public void run() {
+            sendPublicIntent(PLAY_STATE_CHANGED);
         }
     }
 
