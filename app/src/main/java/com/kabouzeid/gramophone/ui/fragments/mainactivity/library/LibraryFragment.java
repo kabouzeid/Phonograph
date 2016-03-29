@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.ui.fragments.mainactivity.library;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -174,13 +175,17 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
             menu.removeItem(R.id.action_grid_size);
             menu.removeItem(R.id.action_colored_footers);
         }
+        Activity activity = getActivity();
+        if (activity == null) return;
         ToolbarContentTintHelper.handleOnCreateOptionsMenu(getActivity(), toolbar, menu, ATHToolbarActivity.getToolbarBackgroundColor(toolbar));
     }
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        ToolbarContentTintHelper.handleOnPrepareOptionsMenu(getActivity(), toolbar);
+        Activity activity = getActivity();
+        if (activity == null) return;
+        ToolbarContentTintHelper.handleOnPrepareOptionsMenu(activity, toolbar);
     }
 
     @Override
