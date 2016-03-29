@@ -43,7 +43,6 @@
     <string name="track">트랙</string>
     <string name="track_hint">"트랙 (트랙 2는 2, CD 3의 트랙 4는 3004로 입력)"</string>
     <string name="album_or_artist_empty">제목이나 아티스트 란이 비었습니다.</string>
-    <string name="writing_file_number">파일에 정보 기록 중...</string>
     <string name="saving_changes">변경 사항 저장 중...</string>
     <string name="saving_to_file">파일에 저장 중...</string>
     <string name="label_details">세부 정보</string>
@@ -193,7 +192,5 @@
     <string name="translate">번역</string>
     <string name="intro_label">소개</string>
     <string name="welcome_to_phonograph">"Android를 위한 아름답고 가벼운 음악 플레이어인 Phonograph에 오신 것을 환영합니다."</string>
-    <string name="label_storage">저장소</string>
-    <string name="storage_permission_explaination">Phonograph가 음악 라이브러리를 읽기 위해 저장소 권한이 필요합니다.</string>
     <string name="folders">폴더</string>
 </resources>

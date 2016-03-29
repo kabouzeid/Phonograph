@@ -46,7 +46,6 @@
     <string name="track">Track</string>
     <string name="track_hint">"Track (2 for track 2 or 3004 for CD3 track 4)"</string>
     <string name="album_or_artist_empty">Tiêu đề hoặc nghệ sĩ trống.</string>
-    <string name="writing_file_number">Đang ghi tập tin</string>
     <string name="saving_changes">Đang lưu thay đổi...</string>
     <string name="saving_to_file">Đang lưu tập tin...</string>
     <string name="label_details">Chi tiết</string>
@@ -223,10 +222,8 @@
     <string name="intro_label">Giới thiệu</string>
     <string name="press_back_again_to_exit_intro">Nhấn trở lại lần nữa để bỏ qua phần giới thiệu.</string>
     <string name="welcome_to_phonograph">"Chào mừng bạn đến Phonograph, một máy nghe nhạc đẹp và nhẹ cho Android."</string>
-    <string name="label_storage">Lưu trữ</string>
     <string name="open_playing_queue_instruction">Vuốt lên thẻ trong trình đang phát để đến với hàng đợi phát đầy đủ.</string>
     <string name="rearrange_playing_queue_instruction">Sắp xếp lại hàng đợi phát bằng cách kéo một bài hát từ số thứ tự của nó.</string>
-    <string name="storage_permission_explaination">Phonograph sẽ yêu cầu bạn cấp phép lưu trữ bên ngoài. Việc cho phép là cần thiết để đọc thư viện âm nhạc của bạn.</string>
     <string name="library">Thư viện</string>
     <string name="folders">Thư mục</string>
     <string name="saved_playlist_to">Đã lưu danh sách nhạc đến %s.</string>
@@ -235,4 +232,6 @@
     <string name="nothing_to_scan">Không có gì để quét.</string>
     <string name="scanned_files">Đã quét %1$d của %2$d tập tin.</string>
     <string name="could_not_scan_files">Không thể quét %d tập tin.</string>
+    <string name="listing_files">Liệt kê các tập tin</string>
+    <string name="new_start_directory">%s là thư mục khởi đầu.</string>
 </resources>

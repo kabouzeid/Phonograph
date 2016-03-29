@@ -44,7 +44,6 @@
     <string name="track">Skladba</string>
     <string name="track_hint">"Stopa (2 pro stopu 2; 3004 pro stopu 4 na CD3)"</string>
     <string name="album_or_artist_empty">Název alba nebo interpreta je prázdný.</string>
-    <string name="writing_file_number">Zapisování souboru</string>
     <string name="saving_changes">Ukládání změn...</string>
     <string name="saving_to_file">Ukládání do souboru...</string>
     <string name="label_details">Podrobnosti</string>
@@ -220,10 +219,8 @@
     <string name="intro_label">"Úvod "</string>
     <string name="press_back_again_to_exit_intro">"Znovu zmáčkněte tlačítko Zpět pro přeskočení úvodu. "</string>
     <string name="welcome_to_phonograph">"Vítejte ve Phonographu, krásném a lehkém přehrávači pro Android. "</string>
-    <string name="label_storage">"Úložiště "</string>
     <string name="open_playing_queue_instruction">"Potáhněte kartu v obrazovce Právě přehrávané nahoru pro zobrazení celé fronty přehrávání. "</string>
     <string name="rearrange_playing_queue_instruction">"Změňte pořadí fronty přetažením skladby za její číslo. "</string>
-    <string name="storage_permission_explaination">"Pro přečtení vaší hudební knihovny je potřeba oprávnění k přístupu do vašeho úložiště. "</string>
     <string name="library">"Knihovna "</string>
     <string name="folders">"Složky "</string>
     <string name="saved_playlist_to">Uloženo do playlistu %s.</string>

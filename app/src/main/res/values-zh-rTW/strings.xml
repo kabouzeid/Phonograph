@@ -29,6 +29,8 @@
     <string name="action_rename">"重新命名
 "</string>
     <string name="action_delete">刪除</string>
+    <string name="action_scan">掃描</string>
+    <string name="action_set_as_start_directory">設為起始目錄</string>
     <string name="albums">專輯</string>
     <string name="artists">演出者</string>
     <string name="songs">歌曲</string>
@@ -45,7 +47,6 @@
     <string name="track">音軌</string>
     <string name="track_hint">"音軌（用2表示第2首歌或3004表示CD3的第4首歌）"</string>
     <string name="album_or_artist_empty">專輯名稱或演出者欄是空的</string>
-    <string name="writing_file_number">正在寫入檔案</string>
     <string name="saving_changes">正在儲存變更…</string>
     <string name="saving_to_file">正在儲存為檔案...</string>
     <string name="label_details">詳細資訊</string>
@@ -97,6 +98,7 @@
     <string name="action_shuffle_artist">歌手隨機播放</string>
     <string name="action_shuffle_playlist">播放清單隨機播放</string>
     <string name="action_clear_playing_queue">清空播放佇列</string>
+    <string name="action_go_to_start_directory">前往起始目錄</string>
     <string name="last_opened">上次開啟</string>
     <string name="light_theme_name">明亮</string>
     <string name="dark_theme_name">暗沉</string>
@@ -208,10 +210,10 @@
     <string name="translate_summary">幫助我們翻譯這款App成您的語言</string>
     <string name="rate_on_google_play">評分</string>
     <string name="rate_on_google_play_summary">如果您喜歡這款App (Phonograph)，在 Play商店給個好評吧 !</string>
-    <string name="donate">捐贈我們</string>
+    <string name="donate">捐贈給我們</string>
     <string name="donate_summary">您認為我的努力值得回報的話，請用您的零用錢讚賞我一下。</string>
-    <string name="aidan_follestad_summary">給主題引擎及其他非常好的東西</string>
-    <string name="michael_cook_summary">給那個美麗的程式圖標</string>
+    <string name="aidan_follestad_summary">製作主題引擎及其他非常好的東西</string>
+    <string name="michael_cook_summary">製作那個美麗的程式圖標</string>
     <string name="maarten_corpel_summary">製作 Play 商店的圖片及專輯圖片給沒有的歌曲</string>
     <string name="aleksandar_tesic_summary">幫助我做 UI 設計</string>
     <string name="website">網站</string>
@@ -221,12 +223,16 @@
     <string name="intro_label">程式介紹</string>
     <string name="press_back_again_to_exit_intro">再點一下返回來跳過介紹</string>
     <string name="welcome_to_phonograph">"歡迎來臨 Phonograph，一個又美麗又細小的安卓音樂播放器。"</string>
-    <string name="label_storage">儲存空間</string>
     <string name="open_playing_queue_instruction">在現正播放卡片上滑來顯示播放佇列</string>
     <string name="rearrange_playing_queue_instruction">您可以更改歌曲播放的順序，上下滑動播放佇列中的歌曲編號即可。</string>
-    <string name="storage_permission_explaination">請賦予我們存與儲存空間的權限，這樣才能讀取您的音樂。</string>
     <string name="library">音樂庫</string>
     <string name="folders">文件夾</string>
     <string name="saved_playlist_to">已儲存播放清單至%s</string>
     <string name="failed_to_save_playlist">無法儲存播放清單 \"%s\"</string>
+    <string name="not_listed_in_media_store"><![CDATA[<b>%s</b>未被列在音樂庫裡。]]></string>
+    <string name="nothing_to_scan">沒有東西可掃描。</string>
+    <string name="scanned_files">已掃描%2$d個檔案夾中的%1$d個。</string>
+    <string name="could_not_scan_files">不能掃描%d。</string>
+    <string name="listing_files">列出文件</string>
+    <string name="new_start_directory">%s是新的起始目錄</string>
 </resources>

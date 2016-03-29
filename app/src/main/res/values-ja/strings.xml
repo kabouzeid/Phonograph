@@ -40,7 +40,6 @@
     <string name="track">トラック</string>
     <string name="track_hint">"トラック (例: '2'ならトラック2, '3004'ならCD3のトラック4)"</string>
     <string name="album_or_artist_empty">アルバム名またはアルバムアーティストの欄が空白です</string>
-    <string name="writing_file_number">書き込み中のファイル</string>
     <string name="saving_changes">変更を保存しています…</string>
     <string name="label_details">詳細情報</string>
     <string name="label_file_name">ファイル名</string>

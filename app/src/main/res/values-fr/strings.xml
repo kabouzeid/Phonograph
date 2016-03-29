@@ -44,7 +44,6 @@
     <string name="track">Piste</string>
     <string name="track_hint">"Piste (2 pour piste 2 ou 3004 pour CD3 piste 4)"</string>
     <string name="album_or_artist_empty">Le champ \"titre\" ou \"artiste\" est vide.</string>
-    <string name="writing_file_number">Fichier en cours d\'écriture</string>
     <string name="saving_changes">Sauvegarde en cours...</string>
     <string name="saving_to_file">Sauvegarde dans le fichier…</string>
     <string name="label_details">Détails</string>
@@ -220,10 +219,8 @@
     <string name="intro_label">Introduction</string>
     <string name="press_back_again_to_exit_intro">Appuyez à nouveau pour passer l\'introduction.</string>
     <string name="welcome_to_phonograph">"Bienvenue sur Phonograph, un lecteur de musique beau et léger pour Android. "</string>
-    <string name="label_storage">Stockage</string>
     <string name="open_playing_queue_instruction">Vous pouvez glisser la carte dans l\'écran de lecture en cours pour afficher la file de lecture complète.</string>
     <string name="rearrange_playing_queue_instruction">Vous pouvez réorganiser la file de lecture en faisant glisser une chanson à partir de son numéro de piste.</string>
-    <string name="storage_permission_explaination">Phonograph va maintenant vous demander l\'autorisation d\'accès au stockage externe. Cette autorisation est nécessaire pour accéder à votre bibliothèque musicale.</string>
     <string name="library">Bibliothèque</string>
     <string name="folders">Dossiers</string>
     <string name="saved_playlist_to">Liste de lecture sauvegardée dans %s.</string>

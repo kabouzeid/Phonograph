@@ -42,7 +42,6 @@
     <string name="track">"المقطع "</string>
     <string name="track_hint">"مقطع (2 للمقطع 2 أو 3004 لـCD3 للمقطع 4)"</string>
     <string name="album_or_artist_empty">حقل اسم الألبوم أو اسم الفنان فارغ</string>
-    <string name="writing_file_number">تتم كتابة الملف</string>
     <string name="saving_changes">يتم حفظ التغييرات...</string>
     <string name="label_details">التفاصيل</string>
     <string name="label_file_name">اسم الملف</string>
@@ -216,10 +215,8 @@
     <string name="intro_label">المقدمة</string>
     <string name="press_back_again_to_exit_intro">اضغط زر الخلف مجدداً لتجاوز المقدمة</string>
     <string name="welcome_to_phonograph">"مرحباً في Phonograph، مشغل موسيقى خفيف وأنيق على منصة أندرويد."</string>
-    <string name="label_storage">الذاكرة.</string>
     <string name="open_playing_queue_instruction">اسحب البطاقة في شاشة \"تستمع الآن\" لإظهار جميع المقطوعات على قائمة الانتظار</string>
     <string name="rearrange_playing_queue_instruction">إعادة ترتيب القائمة بواسطة سحب المقطوعة من رقمها</string>
-    <string name="storage_permission_explaination">صلاحية الوصول إلى الذاكرة مطلوبة لجلب جميع مقاطع الصوت تلقائياً من الذاكرة</string>
     <string name="library">المكتبة</string>
     <string name="folders">الملفات</string>
 </resources>

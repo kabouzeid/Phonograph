@@ -28,6 +28,8 @@
     <string name="action_details">"Λεπτομέρειες "</string>
     <string name="action_rename">Μετονομασία</string>
     <string name="action_delete">Διαγραφή</string>
+    <string name="action_scan">Σάρωση</string>
+    <string name="action_set_as_start_directory">Ορισμός ως κατάλογος έναρξης</string>
     <string name="albums">Άλμπουμ</string>
     <string name="artists">Καλλιτέχνες</string>
     <string name="songs">Τραγούδια</string>
@@ -44,7 +46,6 @@
     <string name="track">Κομμάτι</string>
     <string name="track_hint">"Κομμάτι (2 για κομμάτι 2 ή 3004 από CD3 κομμάτι 4)"</string>
     <string name="album_or_artist_empty">Το πεδίο \"Τίτλος\" ή \"Καλλιτέχνης\" είναι άδειο</string>
-    <string name="writing_file_number">Γίνεται εγγραφή</string>
     <string name="saving_changes">Γίνεται αποθήκευση αλλαγών...</string>
     <string name="saving_to_file">Αποθήκευση στο αρχείο...</string>
     <string name="label_details">Λεπτομέρειες</string>
@@ -98,6 +99,7 @@
     <string name="action_shuffle_artist">Τυχαίος καλλιτέχνης</string>
     <string name="action_shuffle_playlist">Τυχαία λίστα αναπαραγωγής</string>
     <string name="action_clear_playing_queue">Εκκαθάριση της ουράς αναπαραγωγής</string>
+    <string name="action_go_to_start_directory">Πηγαίνετε στον κατάλογο έναρξης</string>
     <string name="last_opened">Τελευταίο</string>
     <string name="light_theme_name">Ανοιχτό</string>
     <string name="dark_theme_name">Σκούρο</string>
@@ -222,12 +224,16 @@
     <string name="intro_label">Εισαγωγή</string>
     <string name="press_back_again_to_exit_intro">Πατήστε πίσω πάλι για να παραλείψετε την εισαγωγή.</string>
     <string name="welcome_to_phonograph">"Καλώς ήρθατε στο Phonograph, ένα όμορφο και ελαφρύ πρόγραμμα αναπαραγωγής μουσικής για το Android.  "</string>
-    <string name="label_storage">Χώρος αποθήκευσης</string>
     <string name="open_playing_queue_instruction">Σύρετε την κάρτα στην οθόνη \"παίζει τώρα\" μέχρι να αποκαλυφθεί ολόκληρη η σειρά τραγουδιών.</string>
     <string name="rearrange_playing_queue_instruction">Κάντε αναδιάταξη της σειράς τραγουδιών  σύροντας ένα τραγούδι από τον αριθμό του.</string>
-    <string name="storage_permission_explaination">Η άδεια αποθήκευσης απαιτείται για το Phonograph ώστε να διαβάσει τη μουσική σας βιβλιοθήκη.</string>
     <string name="library">Βιβλιοθήκη</string>
     <string name="folders">Φάκελοι</string>
     <string name="saved_playlist_to">Η λίστα αναπαραγωγής αποθηκεύτηκε στο %s.</string>
     <string name="failed_to_save_playlist">Η λίστα αναπαραγωγής απέτυχε να αποθηκευτεί (%s).</string>
+    <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> δεν είναι καταχωρημένο στο κατάστημα.]]></string>
+    <string name="nothing_to_scan">Δεν υπάρχει κάτι για σάρωση.</string>
+    <string name="scanned_files">Έγινε σάρωση σε %1$d από %2$d αρχεία.</string>
+    <string name="could_not_scan_files">Δεν μπόρεσε να πραγματοποιηθεί σάρωση σε %d αρχεία.</string>
+    <string name="listing_files">Λίστα αρχείων</string>
+    <string name="new_start_directory">%s είναι ο νέος κατάλογος έναρξης.</string>
 </resources>

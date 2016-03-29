@@ -378,7 +378,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         @Override
         protected Dialog createDialog(@NonNull Context context) {
             return new MaterialDialog.Builder(context)
-                    .title(R.string.writing_files)
+                    .title(R.string.saving_changes)
                     .cancelable(false)
                     .progress(false, 0)
                     .build();

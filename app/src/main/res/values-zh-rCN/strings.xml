@@ -46,7 +46,6 @@
     <string name="track">音轨</string>
     <string name="track_hint">"音轨（如用 2 表示第 2 首歌或用 3004 表示 CD3 里的第 4 首歌）"</string>
     <string name="album_or_artist_empty">标题或艺术家名称为空</string>
-    <string name="writing_file_number">正在写入文档</string>
     <string name="saving_changes">正在保存更改…</string>
     <string name="saving_to_file">保存至文件...</string>
     <string name="label_details">详情</string>
@@ -223,10 +222,8 @@
     <string name="intro_label">介绍页</string>
     <string name="press_back_again_to_exit_intro">再次点击后退键可跳过介绍页。</string>
     <string name="welcome_to_phonograph">"欢迎使用 Phonohraph ，这是一款精致且简洁的 Android 音乐播放器。 "</string>
-    <string name="label_storage">储存</string>
     <string name="open_playing_queue_instruction">上滑正在播放界面内的卡片即可展开播放队列。</string>
     <string name="rearrange_playing_queue_instruction">通过拖动曲目名前面的序列号来调整播放队列的顺序。</string>
-    <string name="storage_permission_explaination">现在 Phonograph 将需要获取存储空间权限以读取您的音乐库</string>
     <string name="library">曲库</string>
     <string name="folders">文件夹</string>
     <string name="saved_playlist_to">保存播放列表至 %s</string>
@@ -235,4 +232,6 @@
     <string name="nothing_to_scan">没有可扫描的对象。</string>
     <string name="scanned_files">已扫描 %1$d / %2$d 个文件。</string>
     <string name="could_not_scan_files">%d 个文件无法扫描。</string>
+    <string name="listing_files">正在列举文件</string>
+    <string name="new_start_directory">%s 是新的初始目录。</string>
 </resources>

@@ -46,7 +46,6 @@
     <string name="track">Titel</string>
     <string name="track_hint">"Track (2 für Track 2 oder 3004 für CD 3 Track 4)"</string>
     <string name="album_or_artist_empty">Der Titel oder der Interpret ist leer.</string>
-    <string name="writing_file_number">Datei schreiben</string>
     <string name="saving_changes">Speichere Änderungen…</string>
     <string name="saving_to_file">In Datei speichern...</string>
     <string name="label_details">Details</string>
@@ -116,7 +115,7 @@
     <string name="pref_header_lockscreen">Sperrbildschirm</string>
     <string name="pref_title_navigation_bar">Farbige Navigationsleiste</string>
     <string name="pref_title_set_default_start_page">Startseite</string>
-    <string name="pref_title_album_art_on_lockscreen">Zeige Album Cover</string>
+    <string name="pref_title_album_art_on_lockscreen">Album-Cover anzeigen</string>
     <string name="pref_title_auto_download_artist_images">Interpreten Bilder automatisch herunterladen</string>
     <string name="pref_title_blurred_album_art">Album Cover weichzeichnen</string>
     <string name="pref_title_colored_notification">Gefärbte Benachrichtigung</string>
@@ -223,10 +222,8 @@
     <string name="intro_label">Einführung</string>
     <string name="press_back_again_to_exit_intro">Drücke nochmal zurück  um die Einführung zu überspringen.</string>
     <string name="welcome_to_phonograph">"Willkommen bei Phonograph, ein einfacher und schöner Musik-Player für Android. "</string>
-    <string name="label_storage">Speicher</string>
     <string name="open_playing_queue_instruction">Ziehe die Karte in der aktuellen Wiedergabe hoch um die komplette Warteschlange anzeigen zu lassen.</string>
     <string name="rearrange_playing_queue_instruction">Ziehe die Titelnummer eines Titels nach oben oder unten, um die Warteschlange neu anzuordnen.</string>
-    <string name="storage_permission_explaination">Phonograph wird dich nun fragen die Berechtigung für den Zugriff auf den externen Speicher zu gewähren. Die Berechtigung wird benötigt um deine Musikbibliothek zu lesen.</string>
     <string name="library">Bibliothek</string>
     <string name="folders">Ordner</string>
     <string name="saved_playlist_to">Playlist wurde in %s gespeichert.</string>
@@ -235,4 +232,5 @@
     <string name="nothing_to_scan">Nichts zu scannen.</string>
     <string name="scanned_files">%1$d von %2$d Dateien gescannt.</string>
     <string name="could_not_scan_files">%d Dateien konnten nicht gescannt werden.</string>
+    <string name="new_start_directory">%s ist das neue Start-Verzeichnis.</string>
 </resources>
