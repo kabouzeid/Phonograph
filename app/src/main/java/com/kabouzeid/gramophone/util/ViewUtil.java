@@ -5,6 +5,7 @@ import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -13,6 +14,7 @@ import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.v4.view.ViewCompat;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.PathInterpolator;
 import android.widget.TextView;
@@ -83,5 +85,15 @@ public class ViewUtil {
         recyclerView.setPopupTextColor(MaterialValueHelper.getPrimaryTextColor(context, ColorUtil.isColorLight(accentColor)));
         recyclerView.setThumbColor(accentColor);
         recyclerView.setTrackColor(ColorUtil.withAlpha(ATHUtil.resolveColor(context, R.attr.colorControlNormal), 0.12f));
+    }
+
+    public static float convertDpToPixel(float dp, Resources resources) {
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        return dp * metrics.density;
+    }
+
+    public static float convertPixelsToDp(float px, Resources resources) {
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        return px / metrics.density;
     }
 }

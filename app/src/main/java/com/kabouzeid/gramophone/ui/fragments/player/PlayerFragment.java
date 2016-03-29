@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.ui.fragments.player;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
+import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -15,7 +16,9 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -36,6 +39,7 @@ import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.adapter.song.PlayingQueueAdapter;
+import com.kabouzeid.gramophone.dialogs.LyricsDialog;
 import com.kabouzeid.gramophone.dialogs.SongShareDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
@@ -46,6 +50,16 @@ import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.kabouzeid.gramophone.views.WidthFitSquareLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import org.jaudiotagger.tag.FieldKey;
+import org.jaudiotagger.tag.TagException;
+
+import java.io.File;
+import java.io.IOException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -79,6 +93,9 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
     private RecyclerViewDragDropManager recyclerViewDragDropManager;
 
     private AsyncTask updateIsFavoriteTask;
+    private AsyncTask updateLyricsAsyncTask;
+
+    private LyricsDialog.LyricInfo lyricsInfo;
 
     private Impl impl;
 
@@ -160,6 +177,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         updateQueue();
         updateCurrentSong();
         updateIsFavorite();
+        updateLyrics();
     }
 
     @Override
@@ -167,6 +185,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         updateCurrentSong();
         updateIsFavorite();
         updateQueuePosition();
+        updateLyrics();
     }
 
     @Override
@@ -217,6 +236,17 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         toolbar.setOnMenuItemClickListener(this);
     }
 
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_show_lyrics:
+                if (lyricsInfo != null)
+                    LyricsDialog.create(lyricsInfo).show(getFragmentManager(), "LYRICS");
+                return true;
+        }
+        return super.onMenuItemClick(item);
+    }
+
     private void setUpRecyclerView() {
         recyclerViewDragDropManager = new RecyclerViewDragDropManager();
         final GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
@@ -252,14 +282,63 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
             @Override
             protected void onPostExecute(Boolean isFavorite) {
-                int res = isFavorite ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_border_white_24dp;
-                int color = ToolbarContentTintHelper.toolbarContentColor(getActivity(), Color.TRANSPARENT);
-                Drawable drawable = TintHelper.createTintedDrawable(ContextCompat.getDrawable(getActivity(), res), color);
-                toolbar.getMenu().findItem(R.id.action_toggle_favorite)
-                        .setIcon(drawable)
-                        .setTitle(isFavorite ? getString(R.string.action_remove_from_favorites) : getString(R.string.action_add_to_favorites));
+                Activity activity = getActivity();
+                if (activity != null) {
+                    int res = isFavorite ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_border_white_24dp;
+                    int color = ToolbarContentTintHelper.toolbarContentColor(activity, Color.TRANSPARENT);
+                    Drawable drawable = TintHelper.createTintedDrawable(ContextCompat.getDrawable(activity, res), color);
+                    toolbar.getMenu().findItem(R.id.action_toggle_favorite)
+                            .setIcon(drawable)
+                            .setTitle(isFavorite ? getString(R.string.action_remove_from_favorites) : getString(R.string.action_add_to_favorites));
+                }
             }
         }.execute(MusicPlayerRemote.getCurrentSong());
+    }
+
+    private void updateLyrics() {
+        if (updateLyricsAsyncTask != null) updateLyricsAsyncTask.cancel(false);
+        final Song song = MusicPlayerRemote.getCurrentSong();
+        updateLyricsAsyncTask = new AsyncTask<Void, Void, String>() {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                lyricsInfo = null;
+                toolbar.getMenu().removeItem(R.id.action_show_lyrics);
+            }
+
+            @Override
+            protected String doInBackground(Void... params) {
+                try {
+                    return AudioFileIO.read(new File(song.data)).getTagOrCreateDefault().getFirst(FieldKey.LYRICS);
+                } catch (IOException | CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String lyrics) {
+                super.onPostExecute(lyrics);
+                if (TextUtils.isEmpty(lyrics)) {
+                    lyricsInfo = null;
+                    if (toolbar != null) {
+                        toolbar.getMenu().removeItem(R.id.action_show_lyrics);
+                    }
+                } else {
+                    lyricsInfo = new LyricsDialog.LyricInfo(song.title, lyrics);
+                    Activity activity = getActivity();
+                    if (toolbar != null && activity != null)
+                        if (toolbar.getMenu().findItem(R.id.action_show_lyrics) == null) {
+                            int color = ToolbarContentTintHelper.toolbarContentColor(activity, Color.TRANSPARENT);
+                            Drawable drawable = TintHelper.createTintedDrawable(ContextCompat.getDrawable(activity, R.drawable.ic_comment_text_outline_white_24dp), color);
+                            toolbar.getMenu()
+                                    .add(Menu.NONE, R.id.action_show_lyrics, Menu.NONE, R.string.action_show_lyrics)
+                                    .setIcon(drawable)
+                                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                        }
+                }
+            }
+        }.execute();
     }
 
     @Override
@@ -332,6 +411,9 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         switch (newState) {
             case COLLAPSED:
                 onPanelCollapsed(panel);
+                break;
+            case ANCHORED:
+                slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED); // this fixes a bug where the panel would get stuck for some reason
                 break;
         }
     }
@@ -448,7 +530,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
             int topMargin = fragment.getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
 
             final int availablePanelHeight = fragment.slidingUpPanelLayout.getHeight() - fragment.getView().findViewById(R.id.player_content).getHeight() + topMargin;
-            final int minPanelHeight = (int) fragment.getResources().getDisplayMetrics().density * (72 + 24) + topMargin;
+            final int minPanelHeight = (int) ViewUtil.convertDpToPixel(72 + 24, fragment.getResources()) + topMargin;
             if (availablePanelHeight < minPanelHeight) {
                 albumCoverContainer.getLayoutParams().height = albumCoverContainer.getHeight() - (minPanelHeight - availablePanelHeight);
                 albumCoverContainer.forceSquare(false);

@@ -4,21 +4,25 @@
     <item
         android:id="@+id/action_toggle_favorite"
         android:icon="@drawable/ic_favorite_border_white_24dp"
+        android:orderInCategory="1"
         android:title="@string/action_add_to_favorites"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_shuffle_all"
+        android:orderInCategory="1"
         android:title="@string/action_shuffle_all"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_clear_playing_queue"
+        android:orderInCategory="1"
         android:title="@string/action_clear_playing_queue"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_sleep_timer"
+        android:orderInCategory="1"
         android:title="@string/action_sleep_timer"
         app:showAsAction="never" />
 
