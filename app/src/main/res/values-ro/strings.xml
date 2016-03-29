@@ -38,7 +38,6 @@
     <string name="track">Număr</string>
     <string name="track_hint">"Număr (2 pentru melodia a doua sau 3004 pentru CD3 melodia 4)"</string>
     <string name="album_or_artist_empty">Campul titlului albumului sau artistul albumului este gol.</string>
-    <string name="writing_file_number">Scriere fișier</string>
     <string name="saving_changes">Se salvează schimbările...</string>
     <string name="label_details">Detalii</string>
     <string name="label_file_name">Nume fișier</string>

@@ -42,7 +42,6 @@
     <string name="track">שיר</string>
     <string name="track_hint">"שיר (2 בשביל שיר 2 או 3004 בשביל דיסק 3 שיר 4)"</string>
     <string name="album_or_artist_empty">הכותרת או האמן ריקים</string>
-    <string name="writing_file_number">כותב קובץ</string>
     <string name="saving_changes">שומר שינויים...</string>
     <string name="saving_to_file">שומר לקובץ...</string>
     <string name="label_details">פרטים</string>
@@ -163,7 +162,6 @@
     <string name="donate_summary">אם אתם חושבים שמגיע לי לקבל תשלום על עבודתי, אתם יכולים להשאיר לי כמה שקלים כאן.</string>
     <string name="website">אתר</string>
     <string name="loading_products">מעלה מוצרים...</string>
-    <string name="label_storage">אחסון</string>
     <string name="library">ספריה</string>
     <string name="folders">תיקיות</string>
 </resources>

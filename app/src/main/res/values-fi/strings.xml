@@ -44,7 +44,6 @@
     <string name="track">Raita</string>
     <string name="track_hint">"Raita(2 raidalle 2 tai 3004 CD3 raidalle 4)"</string>
     <string name="album_or_artist_empty">Nimi- tai artistikenttä on tyhjä.</string>
-    <string name="writing_file_number">Tiedostoa tallennetaan</string>
     <string name="saving_changes">Tallennetaan muutokset...</string>
     <string name="saving_to_file">Tallennetaan tiedostoon...</string>
     <string name="label_details">Yksityiskohdat</string>
@@ -220,10 +219,8 @@
     <string name="intro_label">Esittely</string>
     <string name="press_back_again_to_exit_intro">Paina takaisin-nappia uudelleen ohittaaksesi esittelyn</string>
     <string name="welcome_to_phonograph">"Tervetuloa Phonographiin, kauniiseen ja kevyeen musiikkisoittimeen Androidille. "</string>
-    <string name="label_storage">Tallennustila</string>
     <string name="open_playing_queue_instruction">Vedä korttia Toistetaan parhaillaan -ikkunassa ylös, nähdäksesi koko toistojonon.</string>
     <string name="rearrange_playing_queue_instruction">Järjestä toistojonoa vetämällä kappaletta sen raitanumerosta.</string>
-    <string name="storage_permission_explaination">Tallennustilan käytön oikeus vaaditaan Phonographin käyttöön, jotta voimme lukea sinun musiikkikirjastosi.</string>
     <string name="library">Kirjasto</string>
     <string name="folders">Kansiot</string>
     <string name="saved_playlist_to">Soittolista tallennettu paikkaan %s.</string>

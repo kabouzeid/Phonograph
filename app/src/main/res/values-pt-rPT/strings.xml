@@ -44,7 +44,6 @@
     <string name="track">Faixa</string>
     <string name="track_hint">"Faixa (2 para faixa 2 ou 3004 para CD3 faixa 4)"</string>
     <string name="album_or_artist_empty">O título do álbum ou o artista está vazio.</string>
-    <string name="writing_file_number">A escrever ficheiro</string>
     <string name="saving_changes">Gravando alterações...</string>
     <string name="saving_to_file">Gravando no ficheiro...</string>
     <string name="label_details">Detalhes</string>
@@ -220,10 +219,8 @@
     <string name="intro_label">Introdução</string>
     <string name="press_back_again_to_exit_intro">Pressione retroceder de novo para avançar a introdução.</string>
     <string name="welcome_to_phonograph">"Bem vindo ao Phonograph, um belo e leve leitor de música para Android. "</string>
-    <string name="label_storage">Armazenamento</string>
     <string name="open_playing_queue_instruction">Deslize o cartão no ecrã de \"a reproduzir\" para cima para mostrar a fila de reprodução completa.</string>
     <string name="rearrange_playing_queue_instruction">Reorganizar a fila de reprodução arrastando a música desde o seu número</string>
-    <string name="storage_permission_explaination">É necessária permissão para o Phonograph ler a sua biblioteca.</string>
     <string name="library">Biblioteca</string>
     <string name="folders">Pastas</string>
     <string name="saved_playlist_to">Lista de reprodução %s salva.</string>

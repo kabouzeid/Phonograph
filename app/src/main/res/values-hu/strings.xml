@@ -46,7 +46,6 @@
     <string name="track">Zeneszám</string>
     <string name="track_hint">"Zeneszám (a zeneszámhoz 2-től 3004-ig a CD3 zeneszámokhoz 4)"</string>
     <string name="album_or_artist_empty">A cím vagy az előadó üres.</string>
-    <string name="writing_file_number">Fájl írása</string>
     <string name="saving_changes">Változások mentése...</string>
     <string name="saving_to_file">Mentés fájlba ...</string>
     <string name="label_details">Részletek</string>
@@ -223,10 +222,8 @@
     <string name="intro_label">Bemutató</string>
     <string name="press_back_again_to_exit_intro">Nyomj a visszára megint, hogy átugord a bemutatót.</string>
     <string name="welcome_to_phonograph">"Üdvözöl a Phonograph! Egy kisméretű, szép zenelejátszó Android-ra. "</string>
-    <string name="label_storage">Tárhely</string>
     <string name="open_playing_queue_instruction">Húzd fel a kártyát a most játszás képernyőnél, hogy megnyisd a lejátszási sort.</string>
     <string name="rearrange_playing_queue_instruction">Rendezd át a lejátszási sort, azzal hogy megfogod a dalokat a sorszámuknál fogva.</string>
-    <string name="storage_permission_explaination">Engedélyezned kell a tárhely használatát. Az engedély a zenei könyvtár beolvasásához szükséges.</string>
     <string name="library">Könyvtár</string>
     <string name="folders">Mappák</string>
     <string name="saved_playlist_to">Lejátszási lista %s-ba(-be) mentése.</string>
@@ -235,4 +232,6 @@
     <string name="nothing_to_scan">Nincs mit beolvasni.</string>
     <string name="scanned_files">Beolvasva %1$d a(z) %2$d fájlból.</string>
     <string name="could_not_scan_files">Nem sikerült beolvasni a(z) %d fájlokat.</string>
+    <string name="listing_files">Felsorolt fájlok</string>
+    <string name="new_start_directory">A(z) %s az új kezdő könyvtár.</string>
 </resources>

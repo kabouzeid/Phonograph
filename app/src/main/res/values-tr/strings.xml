@@ -46,7 +46,6 @@
     <string name="track">Şarkı</string>
     <string name="track_hint">"Parça (2. parça için 2 ya da CD3 4. parça için 3004)"</string>
     <string name="album_or_artist_empty">Albüm başlığı veya albüm sanatçısı bilgisi yok.</string>
-    <string name="writing_file_number">Dosya yazılıyor</string>
     <string name="saving_changes">Değişiklikler kaydediliyor...</string>
     <string name="saving_to_file">Dosyaya kaydediliyor...</string>
     <string name="label_details">Ayrıntılar</string>
@@ -223,10 +222,8 @@
     <string name="intro_label">Tanıtım</string>
     <string name="press_back_again_to_exit_intro">Tanıtımı atlamak için geri tuşuna basın.</string>
     <string name="welcome_to_phonograph">"Phonograph'a Hoşgeldiniz, Android için güzel ve hafif bir müzik çalar. "</string>
-    <string name="label_storage">Depolama</string>
     <string name="open_playing_queue_instruction">Şuan çalınıyor ekranı kartını yukarı kaydırmak çalma sırasının tamamını ortaya çıkarır.</string>
     <string name="rearrange_playing_queue_instruction">Çalma sırasını yeniden düzenlemek için şarkının parça numarasını kaydırın</string>
-    <string name="storage_permission_explaination">Phonograph şimdi harici depolama izni isteyecektir. İzin müzik kütüphanesini okumak için  gereklidir.</string>
     <string name="library">Kütüphane</string>
     <string name="folders">Klasörler</string>
     <string name="saved_playlist_to">Çalma Listesine %s Kaydedildi.</string>

@@ -28,6 +28,8 @@
     <string name="action_details">Rincian</string>
     <string name="action_rename">Ganti nama</string>
     <string name="action_delete">Hapus</string>
+    <string name="action_scan">Pindai</string>
+    <string name="action_set_as_start_directory">Diatur sebagai direktori awal</string>
     <string name="albums">Album-album</string>
     <string name="artists">Artis</string>
     <string name="songs">Lagu</string>
@@ -44,7 +46,6 @@
     <string name="track">Trek</string>
     <string name="track_hint">"Trek (2 untuk trek ke-2 atau 3004 untuk CD3 trek ke-4)"</string>
     <string name="album_or_artist_empty">Judul atau artis kosong.</string>
-    <string name="writing_file_number">Menggubah berkas</string>
     <string name="saving_changes">Menyimpan perubahan...</string>
     <string name="saving_to_file">Menyimpan ke file ...</string>
     <string name="label_details">Rincian</string>
@@ -96,6 +97,7 @@
     <string name="action_shuffle_artist">Putar artis dengan diacak</string>
     <string name="action_shuffle_playlist">Putar daftar putar dengan diacak</string>
     <string name="action_clear_playing_queue">Bersihkan antrian putar</string>
+    <string name="action_go_to_start_directory">Ke direktori awal</string>
     <string name="last_opened">Terakhir dibuka</string>
     <string name="light_theme_name">Terang</string>
     <string name="dark_theme_name">Gelap</string>
@@ -220,12 +222,16 @@
     <string name="intro_label">Pengenalan</string>
     <string name="press_back_again_to_exit_intro">Tekan kembali lagi untuk melewati intro.</string>
     <string name="welcome_to_phonograph">"Selamat datang di Phonograph, sebuah pemutar musik yang indah dan ringan untuk Android. "</string>
-    <string name="label_storage">Penyimpanan</string>
     <string name="open_playing_queue_instruction">Geser kartu di layar sekarang memutar untuk memperlihatkan antrian pemutar penuh.</string>
     <string name="rearrange_playing_queue_instruction">Mengatur ulang antrian pemutar dengan menyeret lagu dari nomor trek.</string>
-    <string name="storage_permission_explaination">Izin penyimpanan diperlukan untuk Phonograph untuk membaca perpustakaan musik Anda.</string>
     <string name="library">Pustaka</string>
     <string name="folders">Map-map</string>
     <string name="saved_playlist_to">Simpan daftar putar ke %s.</string>
     <string name="failed_to_save_playlist">Gagal untuk menyimpan daftar putar (%s).</string>
+    <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> tidak tercatat di toko media.]]></string>
+    <string name="nothing_to_scan">Tidak ada untuk di pindai.</string>
+    <string name="scanned_files">%1$d dari %2$d berkas terpindai.</string>
+    <string name="could_not_scan_files">Tidak dapat memindai %d berkas.</string>
+    <string name="listing_files">Mencatat berkas-berkas</string>
+    <string name="new_start_directory">%s adalah direktori awal yang baru.</string>
 </resources>

@@ -46,7 +46,6 @@
     <string name="track">Трек</string>
     <string name="track_hint">"Трек (2 для трека 2 или 3004 для трека 4 CD3)"</string>
     <string name="album_or_artist_empty">Поля названия альбома или альбом исполнителя пусты</string>
-    <string name="writing_file_number">Запись файла</string>
     <string name="saving_changes">Сохранение изменений...</string>
     <string name="saving_to_file">Сохраняем файл...</string>
     <string name="label_details">Подробнее</string>
@@ -223,10 +222,8 @@
     <string name="intro_label">Вступление</string>
     <string name="press_back_again_to_exit_intro">Ещё раз нажмите назад, чтобы пропустить вступление</string>
     <string name="welcome_to_phonograph">"Добро пожаловать в Phonograph, красивый и лёгкий плеер для Android"</string>
-    <string name="label_storage">Хранилище</string>
     <string name="open_playing_queue_instruction">Проведите по карточке на экране воспроизведения, чтобы просмотреть очередь</string>
     <string name="rearrange_playing_queue_instruction">Редактируйте очередь воспроизведения, перетаскивая песни за их номер</string>
-    <string name="storage_permission_explaination">Нужен доступ к хранилищу, чтобы плеер мог читать Вашу библиотеку</string>
     <string name="library">"Библиотека "</string>
     <string name="folders">Папки</string>
     <string name="saved_playlist_to">Плейлист сохранён в %s.</string>
@@ -235,4 +232,5 @@
     <string name="nothing_to_scan">Нечего сканировать.</string>
     <string name="scanned_files">Просканировано %1$d из %2$d файлов.</string>
     <string name="could_not_scan_files">Не удалось просканировать %d файлов.</string>
+    <string name="new_start_directory">%s новая начальная директория.</string>
 </resources>

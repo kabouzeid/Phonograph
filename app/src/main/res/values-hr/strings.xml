@@ -46,7 +46,6 @@
     <string name="track">Redni broj</string>
     <string name="track_hint">"Redni broj (2 za pjesmu broj 2 ili 3004 za CD3 pjesmu broj 4)"</string>
     <string name="album_or_artist_empty">Polje za naziv ili izvođača je prazno.</string>
-    <string name="writing_file_number">Spremanje datoteke</string>
     <string name="saving_changes">Spremanje promjena...</string>
     <string name="saving_to_file">Spremanje u datoteku...</string>
     <string name="label_details">Detalji</string>
@@ -223,10 +222,8 @@
     <string name="intro_label">Uvod</string>
     <string name="press_back_again_to_exit_intro">Pritisni ponovno tipku natrag za preskakanje uvoda.</string>
     <string name="welcome_to_phonograph">"Dobrodošli u Phonograph, prekrasan i lagan glazbeni player za Android. "</string>
-    <string name="label_storage">Pohrana</string>
     <string name="open_playing_queue_instruction">Povucite karticu na zaslonu za reprodukciju kako bi otvorili cijeli red reprodukcije.</string>
     <string name="rearrange_playing_queue_instruction">Preuredite red reprodukcije povlačenjem pjesme za njen broj.</string>
-    <string name="storage_permission_explaination">Dozvola pohrane je potrebna kako bi Phonograph pročitao vašu glazbenu biblioteku.</string>
     <string name="library">Biblioteka</string>
     <string name="folders">Mape</string>
     <string name="saved_playlist_to">Popis naslova spremljen u %s.</string>

@@ -46,7 +46,6 @@
     <string name="track">Доріжка</string>
     <string name="track_hint">"Доріжка (2 для доріжки 2 або 3004 для CD3 доріжки 4)"</string>
     <string name="album_or_artist_empty">Назва або виконавець відсутні.</string>
-    <string name="writing_file_number">Запису файлу</string>
     <string name="saving_changes">Збереження змін...</string>
     <string name="saving_to_file">Збереження в файл...</string>
     <string name="label_details">Подробиці</string>
@@ -223,10 +222,8 @@
     <string name="intro_label">Знайомство</string>
     <string name="press_back_again_to_exit_intro">Натисніть назад ще раз щоб пропустити знайомство.</string>
     <string name="welcome_to_phonograph">"Вітаємо вас у Phonograph, красивому та легкому музичному програвачу на Android. "</string>
-    <string name="label_storage">Сховище</string>
     <string name="open_playing_queue_instruction">Свайпніть картку на екрані «Зараз грає» щоб відкрити всю чергу відтворення.</string>
     <string name="rearrange_playing_queue_instruction">Змініть чергу відтворення, перетягнувши пісню за її номер.</string>
-    <string name="storage_permission_explaination">Доступ до сховища потрібен, щоб Phonograph міг прочитати вашу музичну бібліотеку.</string>
     <string name="library">Бібліотека</string>
     <string name="folders">Папки</string>
     <string name="saved_playlist_to">Збережено список відтворення в %s.</string>
