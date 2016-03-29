@@ -46,8 +46,7 @@
     <string name="track">Track</string>
     <string name="track_hint">"Track (2 for track 2 or 3004 for CD3 track 4)"</string>
     <string name="album_or_artist_empty">The title or artist is empty.</string>
-    <string name="writing_files">Writing files</string>
-    <string name="saving_changes">Saving changes…</string>
+    <string name="saving_changes">Saving changes</string>
     <string name="saving_to_file">Saving to file…</string>
     <string name="label_details">Details</string>
     <string name="label_file_name">File name</string>
