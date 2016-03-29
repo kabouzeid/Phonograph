@@ -832,10 +832,16 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     }
 
     public int seek(int millis) {
-        int newPosition = playback.seek(millis);
-        savePositionInTrack();
-        throttledPublicPlayStateChangedNotifier.scheduleIntent();
-        return newPosition;
+        synchronized (this) {
+            try {
+                int newPosition = playback.seek(millis);
+                savePositionInTrack();
+                throttledPublicPlayStateChangedNotifier.scheduleIntent();
+                return newPosition;
+            } catch (Exception e) {
+                return -1;
+            }
+        }
     }
 
     public void cycleRepeatMode() {
