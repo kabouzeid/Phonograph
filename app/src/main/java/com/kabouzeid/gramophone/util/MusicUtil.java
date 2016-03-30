@@ -206,7 +206,7 @@ public class MusicUtil {
     }
 
     public static boolean isFavoritePlaylist(@NonNull final Context context, @NonNull final Playlist playlist) {
-        return playlist.name.equals(context.getString(R.string.favorites));
+        return playlist.name != null && playlist.name.equals(context.getString(R.string.favorites));
     }
 
     public static Playlist getFavoritesPlaylist(@NonNull final Context context) {
