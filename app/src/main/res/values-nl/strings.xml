@@ -46,7 +46,7 @@
     <string name="track">Nummer</string>
     <string name="track_hint">"Nummer (2 voor nr. 2, of 3004 voor CD3 nr. 4)"</string>
     <string name="album_or_artist_empty">De titel of artiest is leeg.</string>
-    <string name="saving_changes">Wijzigingen opslaan…</string>
+    <string name="saving_changes">Wijzigingen opslaan</string>
     <string name="saving_to_file">Opslaan in bestand...</string>
     <string name="label_details">Details</string>
     <string name="label_file_name">Bestandsnaam</string>
@@ -98,6 +98,7 @@
     <string name="action_shuffle_playlist">Shuffle afspeellijst</string>
     <string name="action_clear_playing_queue">Leeg afspeelwachtrij</string>
     <string name="action_go_to_start_directory">Ga naar startmap</string>
+    <string name="action_show_lyrics">Toon songtekst</string>
     <string name="last_opened">Laatst geopend</string>
     <string name="light_theme_name">Licht</string>
     <string name="dark_theme_name">Donker</string>
@@ -232,4 +233,6 @@
     <string name="nothing_to_scan">Niets te scannen.</string>
     <string name="scanned_files">%1$d van de %2$d bestanden gescand.</string>
     <string name="could_not_scan_files">Kan %d bestanden niet scannen.</string>
+    <string name="listing_files">Bestandslijst maken</string>
+    <string name="new_start_directory">%s is de nieuwe startmap</string>
 </resources>

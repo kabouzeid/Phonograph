@@ -98,6 +98,7 @@
     <string name="action_shuffle_playlist">Nasumična reprodukcija popisa naslova</string>
     <string name="action_clear_playing_queue">Očisti red reprodukcije</string>
     <string name="action_go_to_start_directory">Idi na početni direktorij</string>
+    <string name="action_show_lyrics">Prikaži stihove</string>
     <string name="last_opened">Posljednje otvoreno</string>
     <string name="light_theme_name">Svijetla</string>
     <string name="dark_theme_name">Tamna</string>
