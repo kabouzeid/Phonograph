@@ -4,8 +4,8 @@
     <string name="currently_listening_to_x_by_x">Obecnie słuchasz %1$s autorstwa %2$s</string>
     <string name="the_audio_file">Plik audio</string>
     <string name="do_you_want_to_set_x_as_ringtone">Czy chcesz ustawić %1$s jako dzwonek?</string>
-    <string name="x_has_been_set_as_ringtone">Ustaw %1$s jako dzwonek</string>
-    <string name="action_set_as_ringtone">Ustawiono jako dzwonek</string>
+    <string name="x_has_been_set_as_ringtone">Ustawiono %1$s jako dzwonek</string>
+    <string name="action_set_as_ringtone">Ustaw jako dzwonek</string>
     <string name="action_share">Udostępnij</string>
     <string name="action_settings">"Ustawienia"</string>
     <string name="action_grant">Przyznaj</string>
@@ -13,7 +13,7 @@
     <string name="action_skip">Pomiń</string>
     <string name="action_about">O aplikacji</string>
     <string name="action_show_intro">Pokaż wstęp</string>
-    <string name="action_clear_playlist">Wyczyść playlistę</string>
+    <string name="action_clear_playlist">Wyczyść listę odtwarzania</string>
     <string name="action_playing_queue">Kolejka odtwarzania</string>
     <string name="action_add_to_favorites">Dodaj do ulubionych</string>
     <string name="action_remove_from_favorites">Usuń z ulubionych</string>
@@ -98,6 +98,7 @@
     <string name="action_shuffle_playlist">Losowa lista odtwarzania</string>
     <string name="action_clear_playing_queue">Wyczyść kolejkę odtwarzania</string>
     <string name="action_go_to_start_directory">Przejdź do katalogu startowego</string>
+    <string name="action_show_lyrics">Pokaż teksty</string>
     <string name="last_opened">Ostatnio otwarte</string>
     <string name="light_theme_name">Jasny</string>
     <string name="dark_theme_name">Ciemny</string>
@@ -232,4 +233,6 @@
     <string name="nothing_to_scan">Nie ma nic do skanowania</string>
     <string name="scanned_files">Przeskanowano %1$d z %2$d plików</string>
     <string name="could_not_scan_files">Nie można przeskanować %d plików</string>
+    <string name="listing_files">Lista plików</string>
+    <string name="new_start_directory">%s jest nowym folderem startowym</string>
 </resources>

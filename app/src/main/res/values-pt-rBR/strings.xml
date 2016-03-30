@@ -98,6 +98,7 @@
     <string name="action_shuffle_playlist">Misturar playlist</string>
     <string name="action_clear_playing_queue">Limpar fila de reprodução</string>
     <string name="action_go_to_start_directory">Ir para a pasta inicial</string>
+    <string name="action_show_lyrics">Mostrar letras</string>
     <string name="last_opened">Última aberta</string>
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Escuro</string>
@@ -232,4 +233,6 @@
     <string name="nothing_to_scan">Nada para escanear.</string>
     <string name="scanned_files">Foram escaneados %1$d dos arquivos %2$d.</string>
     <string name="could_not_scan_files">Não foi possível escanear  od arquivos em %d.</string>
+    <string name="listing_files">Listando arquivos</string>
+    <string name="new_start_directory">%s é a nova pasta inicial.</string>
 </resources>

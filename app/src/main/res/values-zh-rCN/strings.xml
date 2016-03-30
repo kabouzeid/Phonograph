@@ -98,6 +98,7 @@
     <string name="action_shuffle_playlist">随机播放该播放列表</string>
     <string name="action_clear_playing_queue">清空播放队列</string>
     <string name="action_go_to_start_directory">跳转至起始目录</string>
+    <string name="action_show_lyrics">显示歌词</string>
     <string name="last_opened">最后打开时的页面</string>
     <string name="light_theme_name">亮色</string>
     <string name="dark_theme_name">暗色</string>

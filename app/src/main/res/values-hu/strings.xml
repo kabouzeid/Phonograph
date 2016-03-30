@@ -46,7 +46,7 @@
     <string name="track">Zeneszám</string>
     <string name="track_hint">"Zeneszám (a zeneszámhoz 2-től 3004-ig a CD3 zeneszámokhoz 4)"</string>
     <string name="album_or_artist_empty">A cím vagy az előadó üres.</string>
-    <string name="saving_changes">Változások mentése...</string>
+    <string name="saving_changes">Változások mentése</string>
     <string name="saving_to_file">Mentés fájlba ...</string>
     <string name="label_details">Részletek</string>
     <string name="label_file_name">Fájlnév</string>
@@ -98,6 +98,7 @@
     <string name="action_shuffle_playlist">Lejátszási lista keverése</string>
     <string name="action_clear_playing_queue">Sor törlése</string>
     <string name="action_go_to_start_directory">Ugrás a kezdő könyvtárra</string>
+    <string name="action_show_lyrics">Dalszöveg</string>
     <string name="last_opened">Utoljára megnyitott</string>
     <string name="light_theme_name">Világos</string>
     <string name="dark_theme_name">Sötét</string>
