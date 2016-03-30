@@ -313,8 +313,9 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
                     return AudioFileIO.read(new File(song.data)).getTagOrCreateDefault().getFirst(FieldKey.LYRICS);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    cancel(false);
+                    return null;
                 }
-                return null;
             }
 
             @Override
@@ -338,6 +339,11 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
                                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
                         }
                 }
+            }
+
+            @Override
+            protected void onCancelled(String s) {
+                onPostExecute(null);
             }
         }.execute();
     }
