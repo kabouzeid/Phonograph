@@ -272,7 +272,13 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         updateIsFavoriteTask = new AsyncTask<Song, Void, Boolean>() {
             @Override
             protected Boolean doInBackground(Song... params) {
-                return MusicUtil.isFavorite(getActivity(), params[0]);
+                Activity activity = getActivity();
+                if (activity != null) {
+                    return MusicUtil.isFavorite(getActivity(), params[0]);
+                } else {
+                    cancel(false);
+                    return null;
+                }
             }
 
             @Override
