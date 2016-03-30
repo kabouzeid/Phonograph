@@ -52,14 +52,9 @@ import com.kabouzeid.gramophone.views.WidthFitSquareLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
-import org.jaudiotagger.tag.TagException;
 
 import java.io.File;
-import java.io.IOException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -310,7 +305,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
             protected String doInBackground(Void... params) {
                 try {
                     return AudioFileIO.read(new File(song.data)).getTagOrCreateDefault().getFirst(FieldKey.LYRICS);
-                } catch (IOException | CannotReadException | TagException | InvalidAudioFrameException | ReadOnlyFileException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 return null;
