@@ -44,7 +44,7 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     private static String AIDAN_FOLLESTAD_GOOGLE_PLUS = "https://google.com/+AidanFollestad";
     private static String AIDAN_FOLLESTAD_GITHUB = "https://github.com/afollestad";
 
-    private static String MICHAEL_COOK_GOOGLE_PLUS = "https://google.com/+michaelcook";
+    private static String MICHAEL_COOK_GOOGLE_PLUS = "https://plus.google.com/102718493746376292361";
     private static String MICHAEL_COOK_WEBSITE = "http://cookicons.co/";
 
     private static String MAARTEN_CORPEL_GOOGLE_PLUS = "https://google.com/+MaartenCorpel";
