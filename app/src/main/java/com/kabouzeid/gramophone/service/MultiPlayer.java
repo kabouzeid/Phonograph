@@ -22,8 +22,8 @@ import com.kabouzeid.gramophone.util.PreferenceUtil;
 public class MultiPlayer implements Playback, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
     public static final String TAG = MultiPlayer.class.getSimpleName();
 
-    private DoubleMediaPlayer mCurrentMediaPlayer = new DoubleMediaPlayer();
-    private DoubleMediaPlayer mNextMediaPlayer;
+    private MediaPlayer mCurrentMediaPlayer = new MediaPlayer();
+    private MediaPlayer mNextMediaPlayer;
 
     private Context context;
     @Nullable
@@ -116,7 +116,7 @@ public class MultiPlayer implements Playback, MediaPlayer.OnErrorListener, Media
             return;
         }
         if (PreferenceUtil.getInstance(context).gaplessPlayback()) {
-            mNextMediaPlayer = new DoubleMediaPlayer();
+            mNextMediaPlayer = new MediaPlayer();
             mNextMediaPlayer.setWakeMode(context, PowerManager.PARTIAL_WAKE_LOCK);
             mNextMediaPlayer.setAudioSessionId(getAudioSessionId());
             if (setDataSourceImpl(mNextMediaPlayer, path)) {
@@ -303,7 +303,7 @@ public class MultiPlayer implements Playback, MediaPlayer.OnErrorListener, Media
     public boolean onError(final MediaPlayer mp, final int what, final int extra) {
         mIsInitialized = false;
         mCurrentMediaPlayer.release();
-        mCurrentMediaPlayer = new DoubleMediaPlayer();
+        mCurrentMediaPlayer = new MediaPlayer();
         mCurrentMediaPlayer.setWakeMode(context, PowerManager.PARTIAL_WAKE_LOCK);
         if (context != null) {
             Toast.makeText(context, context.getResources().getString(R.string.unplayable_file), Toast.LENGTH_SHORT).show();
@@ -327,36 +327,6 @@ public class MultiPlayer implements Playback, MediaPlayer.OnErrorListener, Media
         } else {
             if (callbacks != null)
                 callbacks.onTrackEnded();
-        }
-    }
-
-    private static final class DoubleMediaPlayer extends MediaPlayer implements MediaPlayer.OnCompletionListener {
-        private MediaPlayer mNextPlayer;
-
-        private OnCompletionListener mCompletion;
-
-        public DoubleMediaPlayer() {
-            super.setOnCompletionListener(this);
-        }
-
-        @Override
-        public void setNextMediaPlayer(final MediaPlayer next) {
-            mNextPlayer = next;
-        }
-
-        @Override
-        public void setOnCompletionListener(final OnCompletionListener listener) {
-            mCompletion = listener;
-        }
-
-        @Override
-        public void onCompletion(final MediaPlayer mp) {
-            if (mNextPlayer != null) {
-                // SystemClock.sleep(25);
-                mNextPlayer.start();
-            }
-            if (mCompletion != null)
-                mCompletion.onCompletion(this);
         }
     }
 }
