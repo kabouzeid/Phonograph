@@ -10,8 +10,9 @@ import android.support.annotation.NonNull;
 public class MusicProgressViewUpdateHelper extends Handler {
     private static final int CMD_REFRESH_PROGRESS_VIEWS = 1;
 
-    private static final int UPDATE_INTERVAL_PLAYING = 100;
-    private static final int UPDATE_INTERVAL_PAUSED = 250;
+    private static final int MIN_INTERVAL = 20;
+    private static final int UPDATE_INTERVAL_PLAYING = 1000;
+    private static final int UPDATE_INTERVAL_PAUSED = 500;
 
     private Callback callback;
 
@@ -47,7 +48,7 @@ public class MusicProgressViewUpdateHelper extends Handler {
 
         final int remainingMillis = UPDATE_INTERVAL_PLAYING - progressMillis % UPDATE_INTERVAL_PLAYING;
 
-        return remainingMillis < 20 ? 20 : remainingMillis;
+        return Math.max(MIN_INTERVAL, remainingMillis);
     }
 
     private void queueNextRefresh(final long delay) {
