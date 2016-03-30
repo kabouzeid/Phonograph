@@ -10,6 +10,9 @@ import android.support.annotation.NonNull;
 public class MusicProgressViewUpdateHelper extends Handler {
     private static final int CMD_REFRESH_PROGRESS_VIEWS = 1;
 
+    private static final int UPDATE_INTERVAL_PLAYING = 100;
+    private static final int UPDATE_INTERVAL_PAUSED = 250;
+
     private Callback callback;
 
     public void start() {
@@ -32,25 +35,19 @@ public class MusicProgressViewUpdateHelper extends Handler {
         }
     }
 
-    private long refreshProgressViews() {
+    private int refreshProgressViews() {
         final int progressMillis = MusicPlayerRemote.getSongProgressMillis();
         final int totalMillis = MusicPlayerRemote.getSongDurationMillis();
 
         callback.onUpdateProgressViews(progressMillis, totalMillis);
 
         if (!MusicPlayerRemote.isPlaying()) {
-            return 500;
+            return UPDATE_INTERVAL_PAUSED;
         }
 
-        // calculate the number of milliseconds until the next full second,
-        // so
-        // the counter can be updated at just the right time
-        final long remainingMillis = 1000 - progressMillis % 1000;
-        if (remainingMillis < 20) {
-            return 20;
-        }
+        final int remainingMillis = UPDATE_INTERVAL_PLAYING - progressMillis % UPDATE_INTERVAL_PLAYING;
 
-        return remainingMillis;
+        return remainingMillis < 20 ? 20 : remainingMillis;
     }
 
     private void queueNextRefresh(final long delay) {
