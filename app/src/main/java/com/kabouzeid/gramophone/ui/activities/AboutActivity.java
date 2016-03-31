@@ -17,7 +17,7 @@ import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
-import com.kabouzeid.gramophone.dialogs.DonationDialog;
+import com.kabouzeid.gramophone.dialogs.DonationsDialog;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.ui.activities.intro.AppIntroActivity;
 
@@ -187,7 +187,7 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         } else if (v == rateOnGooglePlay) {
             openUrl(RATE_ON_GOOGLE_PLAY);
         } else if (v == donate) {
-            DonationDialog.create().show(getSupportFragmentManager(), "DONATION_DIALOG");
+            DonationsDialog.create().show(getSupportFragmentManager(), "DONATION_DIALOG");
         } else if (v == aidanFollestadGooglePlus) {
             openUrl(AIDAN_FOLLESTAD_GOOGLE_PLUS);
         } else if (v == aidanFollestadGitHub) {
