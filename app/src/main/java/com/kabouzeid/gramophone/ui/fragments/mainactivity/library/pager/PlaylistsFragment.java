@@ -8,9 +8,9 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.MusicLibraryPagerAdapter;
 import com.kabouzeid.gramophone.adapter.PlaylistAdapter;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
+import com.kabouzeid.gramophone.interfaces.LoaderIds;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.smartplaylist.HistoryPlaylist;
@@ -26,7 +26,7 @@ public class PlaylistsFragment extends AbsLibraryPagerRecyclerViewFragment<Playl
 
     public static final String TAG = PlaylistsFragment.class.getSimpleName();
 
-    private static final int LOADER_ID = MusicLibraryPagerAdapter.MusicFragments.PLAYLIST.ordinal();
+    private static final int LOADER_ID = LoaderIds.PLAYLISTS_FRAGMENT;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

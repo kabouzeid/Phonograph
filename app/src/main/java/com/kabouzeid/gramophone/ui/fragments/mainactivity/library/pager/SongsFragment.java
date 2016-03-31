@@ -8,10 +8,10 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.MusicLibraryPagerAdapter;
 import com.kabouzeid.gramophone.adapter.song.ShuffleButtonSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.SongAdapter;
 import com.kabouzeid.gramophone.loader.SongLoader;
+import com.kabouzeid.gramophone.interfaces.LoaderIds;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
@@ -25,7 +25,7 @@ public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFrag
 
     public static final String TAG = SongsFragment.class.getSimpleName();
 
-    private static final int LOADER_ID = MusicLibraryPagerAdapter.MusicFragments.SONG.ordinal();
+    private static final int LOADER_ID = LoaderIds.SONGS_FRAGMENT;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
