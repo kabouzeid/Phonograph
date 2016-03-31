@@ -29,7 +29,7 @@ import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.NavigationViewUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
-import com.kabouzeid.gramophone.dialogs.DonationDialog;
+import com.kabouzeid.gramophone.dialogs.DonationsDialog;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.SearchQueryHelper;
@@ -179,7 +179,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                DonationDialog.create().show(getSupportFragmentManager(), "DONATION_DIALOG");
+                                DonationsDialog.create().show(getSupportFragmentManager(), "DONATION_DIALOG");
                             }
                         }, 200);
                         break;

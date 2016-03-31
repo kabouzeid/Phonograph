@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -41,15 +42,17 @@ import butterknife.ButterKnife;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class DonationDialog extends DialogFragment implements BillingProcessor.IBillingHandler {
-    public static final String TAG = DonationDialog.class.getSimpleName();
+public class DonationsDialog extends DialogFragment implements BillingProcessor.IBillingHandler {
+    public static final String TAG = DonationsDialog.class.getSimpleName();
 
     private static final int DONATION_PRODUCT_IDS = R.array.donation_ids;
 
     private BillingProcessor billingProcessor;
 
-    public static DonationDialog create() {
-        return new DonationDialog();
+    private AsyncTask skuDetailsLoadAsyncTask;
+
+    public static DonationsDialog create() {
+        return new DonationsDialog();
     }
 
     @NonNull
@@ -68,7 +71,7 @@ public class DonationDialog extends DialogFragment implements BillingProcessor.I
                 .build();
     }
 
-    void donate(int i) {
+    private void donate(int i) {
         final String[] ids = getResources().getStringArray(DONATION_PRODUCT_IDS);
         billingProcessor.purchase(getActivity(), ids[i]);
     }
@@ -82,11 +85,13 @@ public class DonationDialog extends DialogFragment implements BillingProcessor.I
 
     @Override
     public void onProductPurchased(String productId, TransactionDetails details) {
+        loadSkuDetails();
         Toast.makeText(getContext(), R.string.thank_you, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onPurchaseHistoryRestored() {
+        loadSkuDetails();
         Toast.makeText(getContext(), R.string.restored_previous_purchases, Toast.LENGTH_SHORT).show();
     }
 
@@ -97,7 +102,7 @@ public class DonationDialog extends DialogFragment implements BillingProcessor.I
 
     @Override
     public void onBillingInitialized() {
-        new Thread(new LoadAndDisplayPurchasesRunnable(this)).start();
+        loadSkuDetails();
     }
 
     @Override
@@ -105,42 +110,66 @@ public class DonationDialog extends DialogFragment implements BillingProcessor.I
         if (billingProcessor != null) {
             billingProcessor.release();
         }
+        if (skuDetailsLoadAsyncTask != null) {
+            skuDetailsLoadAsyncTask.cancel(true);
+        }
         super.onDestroy();
     }
 
-    static class LoadAndDisplayPurchasesRunnable implements Runnable {
-        WeakReference<DonationDialog> dialogWeakReference;
+    private void loadSkuDetails() {
+        if (skuDetailsLoadAsyncTask != null) {
+            skuDetailsLoadAsyncTask.cancel(false);
+        }
+        skuDetailsLoadAsyncTask = new SkuDetailsLoadAsyncTask(this).execute();
+    }
 
-        public LoadAndDisplayPurchasesRunnable(DonationDialog donationDialog) {
-            dialogWeakReference = new WeakReference<>(donationDialog);
+    private static class SkuDetailsLoadAsyncTask extends AsyncTask<Void, Void, List<SkuDetails>> {
+        private final WeakReference<DonationsDialog> donationDialogWeakReference;
+
+        public SkuDetailsLoadAsyncTask(DonationsDialog donationsDialog) {
+            this.donationDialogWeakReference = new WeakReference<>(donationsDialog);
         }
 
         @Override
-        public void run() {
-            try {
-                final DonationDialog donationDialog = dialogWeakReference.get();
-                final String[] ids = donationDialog.getResources().getStringArray(DONATION_PRODUCT_IDS);
-                final List<SkuDetails> skuDetailsList = donationDialog.billingProcessor.getPurchaseListingDetails(new ArrayList<>(Arrays.asList(ids)));
+        protected void onPreExecute() {
+            super.onPreExecute();
+            DonationsDialog dialog = donationDialogWeakReference.get();
+            if (dialog == null) return;
 
-                donationDialog.getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (skuDetailsList == null || skuDetailsList.isEmpty()) {
-                            donationDialog.dismiss();
-                            return;
-                        }
-                        View customView = ((MaterialDialog) donationDialog.getDialog()).getCustomView();
-                        if (customView != null) {
-                            customView.findViewById(R.id.progress_container).setVisibility(View.GONE);
-                            ListView listView = ButterKnife.findById(customView, R.id.list);
-                            listView.setAdapter(new SkuDetailsAdapter(donationDialog, skuDetailsList));
-                            listView.setVisibility(View.VISIBLE);
-                        }
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
+            View customView = ((MaterialDialog) dialog.getDialog()).getCustomView();
+            //noinspection ConstantConditions
+            customView.findViewById(R.id.progress_container).setVisibility(View.VISIBLE);
+            customView.findViewById(R.id.list).setVisibility(View.GONE);
+        }
+
+        @Override
+        protected List<SkuDetails> doInBackground(Void... params) {
+            DonationsDialog dialog = donationDialogWeakReference.get();
+            if (dialog != null) {
+                final String[] ids = dialog.getResources().getStringArray(DONATION_PRODUCT_IDS);
+                return dialog.billingProcessor.getPurchaseListingDetails(new ArrayList<>(Arrays.asList(ids)));
             }
+            cancel(false);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(List<SkuDetails> skuDetails) {
+            super.onPostExecute(skuDetails);
+            DonationsDialog dialog = donationDialogWeakReference.get();
+            if (dialog == null) return;
+
+            if (skuDetails == null || skuDetails.isEmpty()) {
+                dialog.dismiss();
+                return;
+            }
+
+            View customView = ((MaterialDialog) dialog.getDialog()).getCustomView();
+            //noinspection ConstantConditions
+            customView.findViewById(R.id.progress_container).setVisibility(View.GONE);
+            ListView listView = ButterKnife.findById(customView, R.id.list);
+            listView.setAdapter(new SkuDetailsAdapter(dialog, skuDetails));
+            listView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -148,11 +177,11 @@ public class DonationDialog extends DialogFragment implements BillingProcessor.I
         @LayoutRes
         private static int LAYOUT_RES_ID = R.layout.item_donation_option;
 
-        DonationDialog donationDialog;
+        DonationsDialog donationsDialog;
 
-        public SkuDetailsAdapter(@NonNull DonationDialog donationDialog, @NonNull List<SkuDetails> objects) {
-            super(donationDialog.getContext(), LAYOUT_RES_ID, objects);
-            this.donationDialog = donationDialog;
+        public SkuDetailsAdapter(@NonNull DonationsDialog donationsDialog, @NonNull List<SkuDetails> objects) {
+            super(donationsDialog.getContext(), LAYOUT_RES_ID, objects);
+            this.donationsDialog = donationsDialog;
         }
 
         @Override
@@ -168,7 +197,7 @@ public class DonationDialog extends DialogFragment implements BillingProcessor.I
             viewHolder.text.setText(skuDetails.description);
             viewHolder.price.setText(skuDetails.priceText);
 
-            final boolean purchased = donationDialog.billingProcessor.isPurchased(skuDetails.productId);
+            final boolean purchased = donationsDialog.billingProcessor.isPurchased(skuDetails.productId);
             int titleTextColor = purchased ? ATHUtil.resolveColor(getContext(), android.R.attr.textColorHint) : ThemeStore.textColorPrimary(getContext());
             int contentTextColor = purchased ? titleTextColor : ThemeStore.textColorSecondary(getContext());
 
@@ -193,7 +222,7 @@ public class DonationDialog extends DialogFragment implements BillingProcessor.I
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    donationDialog.donate(position);
+                    donationsDialog.donate(position);
                 }
             });
 
