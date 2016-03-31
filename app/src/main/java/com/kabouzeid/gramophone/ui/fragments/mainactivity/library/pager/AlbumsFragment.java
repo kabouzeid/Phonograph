@@ -8,9 +8,9 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.MusicLibraryPagerAdapter;
 import com.kabouzeid.gramophone.adapter.album.AlbumAdapter;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
+import com.kabouzeid.gramophone.interfaces.LoaderIds;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFragment<AlbumAdapter, GridLayoutManager> implements LoaderManager.LoaderCallbacks<ArrayList<Album>> {
     public static final String TAG = AlbumsFragment.class.getSimpleName();
 
-    private static final int LOADER_ID = MusicLibraryPagerAdapter.MusicFragments.ALBUM.ordinal();
+    private static final int LOADER_ID = LoaderIds.ALBUMS_FRAGMENT;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

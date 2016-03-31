@@ -8,9 +8,9 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.MusicLibraryPagerAdapter;
 import com.kabouzeid.gramophone.adapter.artist.ArtistAdapter;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
+import com.kabouzeid.gramophone.interfaces.LoaderIds;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
@@ -24,7 +24,7 @@ public class ArtistsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFr
 
     public static final String TAG = ArtistsFragment.class.getSimpleName();
 
-    private static final int LOADER_ID = MusicLibraryPagerAdapter.MusicFragments.ARTIST.ordinal();
+    private static final int LOADER_ID = LoaderIds.ARTISTS_FRAGMENT;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

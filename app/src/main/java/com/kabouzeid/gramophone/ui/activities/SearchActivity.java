@@ -23,6 +23,7 @@ import com.kabouzeid.gramophone.adapter.SearchAdapter;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.SongLoader;
+import com.kabouzeid.gramophone.interfaces.LoaderIds;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.ui.activities.base.AbsMusicServiceActivity;
 import com.kabouzeid.gramophone.util.Util;
@@ -38,7 +39,7 @@ import hugo.weaving.DebugLog;
 public class SearchActivity extends AbsMusicServiceActivity implements SearchView.OnQueryTextListener, LoaderManager.LoaderCallbacks<List<Object>> {
     public static final String TAG = SearchActivity.class.getSimpleName();
     public static final String QUERY = "query";
-    private static final int LOADER_ID = 1;
+    private static final int LOADER_ID = LoaderIds.SEARCH_ACTIVITY;
 
     @Bind(R.id.recycler_view)
     RecyclerView recyclerView;

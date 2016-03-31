@@ -34,6 +34,7 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
+import com.kabouzeid.gramophone.interfaces.LoaderIds;
 import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Album;
@@ -54,7 +55,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
 
     public static final String TAG = AlbumDetailActivity.class.getSimpleName();
     private static final int TAG_EDITOR_REQUEST = 2001;
-    private static final int LOADER_ID = 1;
+    private static final int LOADER_ID = LoaderIds.ALBUM_DETAIL_ACTIVITY;
 
     public static final String EXTRA_ALBUM_ID = "extra_album_id";
 

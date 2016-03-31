@@ -41,6 +41,7 @@ import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.helper.menu.SongsMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.misc.DialogAsyncTask;
+import com.kabouzeid.gramophone.interfaces.LoaderIds;
 import com.kabouzeid.gramophone.misc.UpdateToastMediaScannerCompletionListener;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Song;
@@ -69,7 +70,7 @@ import butterknife.ButterKnife;
 public class FoldersFragment extends AbsMainActivityFragment implements MainActivity.MainActivityFragmentCallbacks, CabHolder, BreadCrumbLayout.SelectionCallback, SongFileAdapter.Callbacks, AppBarLayout.OnOffsetChangedListener, LoaderManager.LoaderCallbacks<List<File>> {
     public static final String TAG = FoldersFragment.class.getSimpleName();
 
-    private static final int LOADER_ID = 1;
+    private static final int LOADER_ID = LoaderIds.FOLDERS_FRAGMENT;
 
     protected static final String PATH = "path";
     protected static final String CRUMBS = "crumbs";

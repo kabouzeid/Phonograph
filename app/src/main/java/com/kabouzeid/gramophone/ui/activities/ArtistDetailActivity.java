@@ -47,6 +47,7 @@ import com.kabouzeid.gramophone.lastfm.rest.model.LastFmArtist;
 import com.kabouzeid.gramophone.loader.ArtistAlbumLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.ArtistSongLoader;
+import com.kabouzeid.gramophone.interfaces.LoaderIds;
 import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Album;
@@ -72,7 +73,7 @@ import retrofit2.Response;
 public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implements PaletteColorHolder, CabHolder, LoaderManager.LoaderCallbacks<ArtistDetailActivity.ArtistData> {
 
     public static final String TAG = ArtistDetailActivity.class.getSimpleName();
-    private static final int LOADER_ID = 1;
+    private static final int LOADER_ID = LoaderIds.ARTIST_DETAIL_ACTIVITY;
 
     public static final String EXTRA_ARTIST_ID = "extra_artist_id";
 

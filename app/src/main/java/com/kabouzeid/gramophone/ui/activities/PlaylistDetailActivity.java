@@ -27,6 +27,7 @@ import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
+import com.kabouzeid.gramophone.interfaces.LoaderIds;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
@@ -47,7 +48,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
 
     public static final String TAG = PlaylistDetailActivity.class.getSimpleName();
 
-    private static final int LOADER_ID = 1;
+    private static final int LOADER_ID = LoaderIds.PLAYLIST_DETAIL_ACTIVITY;
 
     @NonNull
     public static String EXTRA_PLAYLIST = "extra_playlist";
