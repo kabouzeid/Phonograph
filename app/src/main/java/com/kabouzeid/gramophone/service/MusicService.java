@@ -55,8 +55,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import hugo.weaving.DebugLog;
-
 /**
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal
  */
@@ -781,6 +779,10 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                             notHandledMetaChangedForCurrentTrack = false;
                         }
                         notifyChange(PLAY_STATE_CHANGED);
+
+                        // fixes a bug where the volume would stay ducked because the AudioManager.AUDIOFOCUS_GAIN event is not sent
+                        playerHandler.removeMessages(DUCK);
+                        playerHandler.sendEmptyMessage(UNDUCK);
                     }
                 }
             } else {
@@ -1033,7 +1035,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             mService = new WeakReference<>(service);
         }
 
-        @DebugLog
         @Override
         public void handleMessage(@NonNull final Message msg) {
             final MusicService service = mService.get();
