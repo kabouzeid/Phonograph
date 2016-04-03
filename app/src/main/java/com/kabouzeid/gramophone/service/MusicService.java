@@ -55,6 +55,8 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import hugo.weaving.DebugLog;
+
 /**
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal
  */
@@ -115,6 +117,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private int nextPosition = -1;
     private int shuffleMode;
     private int repeatMode;
+    private boolean audioDucking;
     private boolean pausedByTransientLossOfFocus;
     private boolean receiversAndRemoteControlClientRegistered;
     private PlayingNotificationHelper playingNotificationHelper;
@@ -161,6 +164,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         final PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
         wakeLock.setReferenceCounted(false);
+
+        audioDucking = PreferenceUtil.getInstance(this).audioDucking();
 
         musicPlayerHandlerThread = new HandlerThread("PlaybackHandler");
         musicPlayerHandlerThread.start();
@@ -987,6 +992,9 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         switch (key) {
+            case PreferenceUtil.AUDIO_DUCKING:
+                audioDucking = sharedPreferences.getBoolean(key, true);
+                break;
             case PreferenceUtil.GAPLESS_PLAYBACK:
                 if (sharedPreferences.getBoolean(key, false)) {
                     prepareNext();
@@ -1025,6 +1033,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             mService = new WeakReference<>(service);
         }
 
+        @DebugLog
         @Override
         public void handleMessage(@NonNull final Message msg) {
             final MusicService service = mService.get();
@@ -1034,21 +1043,29 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
             switch (msg.what) {
                 case DUCK:
-                    currentDuckVolume -= .05f;
-                    if (currentDuckVolume > .2f) {
-                        sendEmptyMessageDelayed(DUCK, 10);
+                    if (service.audioDucking) {
+                        currentDuckVolume -= .05f;
+                        if (currentDuckVolume > .2f) {
+                            sendEmptyMessageDelayed(DUCK, 10);
+                        } else {
+                            currentDuckVolume = .2f;
+                        }
                     } else {
-                        currentDuckVolume = .2f;
+                        currentDuckVolume = 1f;
                     }
                     service.playback.setVolume(currentDuckVolume);
                     break;
 
                 case UNDUCK:
-                    currentDuckVolume += .03f;
-                    if (currentDuckVolume < 1.0f) {
-                        sendEmptyMessageDelayed(UNDUCK, 10);
+                    if (service.audioDucking) {
+                        currentDuckVolume += .03f;
+                        if (currentDuckVolume < 1f) {
+                            sendEmptyMessageDelayed(UNDUCK, 10);
+                        } else {
+                            currentDuckVolume = 1f;
+                        }
                     } else {
-                        currentDuckVolume = 1.0f;
+                        currentDuckVolume = 1f;
                     }
                     service.playback.setVolume(currentDuckVolume);
                     break;
