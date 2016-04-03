@@ -141,7 +141,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private HandlerThread musicPlayerHandlerThread;
     private HandlerThread queueSaveHandlerThread;
     private SongPlayCountHelper songPlayCountHelper = new SongPlayCountHelper();
-    private ThrottledPublicPlayStateChangedNotifier throttledPublicPlayStateChangedNotifier;
+    private ThrottledSeekHandler throttledSeekHandler;
     private final BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, @NonNull Intent intent) {
@@ -191,7 +191,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         registerReceiver(widgetIntentReceiver, new IntentFilter(APP_WIDGET_UPDATE));
 
         mediaStoreObserver = new MediaStoreObserver(playerHandler);
-        throttledPublicPlayStateChangedNotifier = new ThrottledPublicPlayStateChangedNotifier(playerHandler);
+        throttledSeekHandler = new ThrottledSeekHandler(playerHandler);
         getContentResolver().registerContentObserver(
                 MediaStore.Audio.Media.INTERNAL_CONTENT_URI, true, mediaStoreObserver);
         getContentResolver().registerContentObserver(
@@ -848,8 +848,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         synchronized (this) {
             try {
                 int newPosition = playback.seek(millis);
-                savePositionInTrack();
-                throttledPublicPlayStateChangedNotifier.scheduleIntent();
+                throttledSeekHandler.notifySeek();
                 return newPosition;
             } catch (Exception e) {
                 return -1;
@@ -1203,23 +1202,24 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
     }
 
-    private class ThrottledPublicPlayStateChangedNotifier implements Runnable {
-        // milliseconds to delay before calling refresh to aggregate events
-        private static final long REFRESH_DELAY = 500;
+    private class ThrottledSeekHandler implements Runnable {
+        // milliseconds to throttle before calling run() to aggregate events
+        private static final long THROTTLE = 500;
         private Handler mHandler;
 
-        public ThrottledPublicPlayStateChangedNotifier(Handler handler) {
+        public ThrottledSeekHandler(Handler handler) {
             mHandler = handler;
         }
 
-        public void scheduleIntent() {
+        public void notifySeek() {
             mHandler.removeCallbacks(this);
-            mHandler.postDelayed(this, REFRESH_DELAY);
+            mHandler.postDelayed(this, THROTTLE);
         }
 
         @Override
         public void run() {
-            sendPublicIntent(PLAY_STATE_CHANGED);
+            savePositionInTrack();
+            sendPublicIntent(PLAY_STATE_CHANGED); // for musixmatch synced lyrics
         }
     }
 
