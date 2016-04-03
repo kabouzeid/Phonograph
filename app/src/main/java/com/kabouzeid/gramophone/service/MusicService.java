@@ -122,7 +122,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private int shuffleMode;
     private int repeatMode;
     private boolean queuesRestored;
-    private boolean audioDucking;
     private boolean pausedByTransientLossOfFocus;
     private boolean receiversAndRemoteControlClientRegistered;
     private PlayingNotificationHelper playingNotificationHelper;
@@ -169,8 +168,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         final PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
         wakeLock.setReferenceCounted(false);
-
-        audioDucking = PreferenceUtil.getInstance(this).audioDucking();
 
         musicPlayerHandlerThread = new HandlerThread("PlaybackHandler");
         musicPlayerHandlerThread.start();
@@ -573,10 +570,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
     }
 
-    private void updateNotification() {
-        playingNotificationHelper.updateNotification();
-    }
-
     public int getNextPosition(boolean force) {
         int position = getPosition() + 1;
         switch (getRepeatMode()) {
@@ -950,7 +943,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         switch (what) {
             case PLAY_STATE_CHANGED:
                 final boolean isPlaying = isPlaying();
-                playingNotificationHelper.updatePlayState(isPlaying);
+                playingNotificationHelper.updateNotification();
                 //noinspection deprecation
                 remoteControlClient.setPlaybackState(isPlaying ? RemoteControlClient.PLAYSTATE_PLAYING : RemoteControlClient.PLAYSTATE_PAUSED);
                 if (!isPlaying && getSongProgressMillis() > 0) {
@@ -959,7 +952,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 songPlayCountHelper.notifyPlayStateChanged(isPlaying);
                 break;
             case META_CHANGED:
-                updateNotification();
+                playingNotificationHelper.updateNotification();
                 updateRemoteControlClient();
                 savePosition();
                 savePositionInTrack();
@@ -998,9 +991,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         switch (key) {
-            case PreferenceUtil.AUDIO_DUCKING:
-                audioDucking = sharedPreferences.getBoolean(key, true);
-                break;
             case PreferenceUtil.GAPLESS_PLAYBACK:
                 if (sharedPreferences.getBoolean(key, false)) {
                     prepareNext();
@@ -1013,7 +1003,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 updateRemoteControlClient();
                 break;
             case PreferenceUtil.COLORED_NOTIFICATION:
-                playingNotificationHelper.updateNotification(sharedPreferences.getBoolean(key, false));
+                playingNotificationHelper.updateNotification();
                 break;
         }
     }
@@ -1048,7 +1038,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
             switch (msg.what) {
                 case DUCK:
-                    if (service.audioDucking) {
+                    if (PreferenceUtil.getInstance(service).audioDucking()) {
                         currentDuckVolume -= .05f;
                         if (currentDuckVolume > .2f) {
                             sendEmptyMessageDelayed(DUCK, 10);
@@ -1062,7 +1052,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                     break;
 
                 case UNDUCK:
-                    if (service.audioDucking) {
+                    if (PreferenceUtil.getInstance(service).audioDucking()) {
                         currentDuckVolume += .03f;
                         if (currentDuckVolume < 1f) {
                             sendEmptyMessageDelayed(UNDUCK, 10);
