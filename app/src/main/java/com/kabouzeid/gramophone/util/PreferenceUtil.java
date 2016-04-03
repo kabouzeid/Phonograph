@@ -43,6 +43,7 @@ public final class PreferenceUtil {
 
     public static final String COLORED_NOTIFICATION = "colored_notification";
 
+    public static final String AUDIO_DUCKING = "audio_ducking";
     public static final String GAPLESS_PLAYBACK = "gapless_playback";
 
     public static final String LAST_ADDED_CUTOFF_TIMESTAMP = "last_added_cutoff_timestamp";
@@ -132,6 +133,10 @@ public final class PreferenceUtil {
 
     public final boolean gaplessPlayback() {
         return mPreferences.getBoolean(GAPLESS_PLAYBACK, false);
+    }
+
+    public final boolean audioDucking() {
+        return mPreferences.getBoolean(AUDIO_DUCKING, true);
     }
 
     public final boolean albumArtOnLockscreen() {
