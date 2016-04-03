@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.service;
 
 import android.app.PendingIntent;
 import android.app.Service;
+import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -36,7 +37,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.appwidget.WidgetMedium;
+import com.kabouzeid.gramophone.appwidgets.AppWidgetSmall;
 import com.kabouzeid.gramophone.glide.BlurTransformation;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.PlayingNotificationHelper;
@@ -71,6 +72,9 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final String ACTION_SKIP = PHONOGRAPH_PACKAGE_NAME + ".skip";
     public static final String ACTION_REWIND = PHONOGRAPH_PACKAGE_NAME + ".rewind";
     public static final String ACTION_QUIT = PHONOGRAPH_PACKAGE_NAME + ".quitservice";
+
+    public static final String APP_WIDGET_UPDATE = PHONOGRAPH_PACKAGE_NAME + ".appwidgetupdate";
+    public static final String EXTRA_APP_WIDGET_NAME = PHONOGRAPH_PACKAGE_NAME + "app_widget_name";
 
     // do not change these three strings as it will break support with other apps (e.g. last.fm scrobbling)
     public static final String META_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".metachanged";
@@ -108,6 +112,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     private final IBinder musicBind = new MusicBinder();
 
+    private AppWidgetSmall appWidgetSmall = AppWidgetSmall.getInstance();
+
     private Playback playback;
     private ArrayList<Song> playingQueue = new ArrayList<>();
     private ArrayList<Song> originalPlayingQueue = new ArrayList<>();
@@ -115,6 +121,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private int nextPosition = -1;
     private int shuffleMode;
     private int repeatMode;
+    private boolean queuesRestored;
     private boolean audioDucking;
     private boolean pausedByTransientLossOfFocus;
     private boolean receiversAndRemoteControlClientRegistered;
@@ -181,6 +188,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
         registerReceiversAndRemoteControlClient();
 
+        registerReceiver(widgetIntentReceiver, new IntentFilter(APP_WIDGET_UPDATE));
+
         mediaStoreObserver = new MediaStoreObserver(playerHandler);
         throttledPublicPlayStateChangedNotifier = new ThrottledPublicPlayStateChangedNotifier(playerHandler);
         getContentResolver().registerContentObserver(
@@ -196,7 +205,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private void registerReceiversAndRemoteControlClient() {
         if (!receiversAndRemoteControlClientRegistered) {
             registerReceiver(becomingNoisyReceiver, new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY));
-            //noinspection deprecation
             getAudioManager().registerMediaButtonEventReceiver(new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class));
             initRemoteControlClient();
             receiversAndRemoteControlClientRegistered = true;
@@ -227,6 +235,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
         if (intent != null) {
             if (intent.getAction() != null) {
+                restoreQueuesAndPositionIfNecessary();
                 String action = intent.getAction();
                 switch (action) {
                     case ACTION_TOGGLE_PAUSE:
@@ -261,6 +270,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     @Override
     public void onDestroy() {
+        unregisterReceiver(widgetIntentReceiver);
         quit();
         releaseResources();
         getContentResolver().unregisterContentObserver(mediaStoreObserver);
@@ -291,9 +301,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private void unregisterReceiversAndRemoteControlClient() {
         if (receiversAndRemoteControlClientRegistered) {
             unregisterReceiver(becomingNoisyReceiver);
-            //noinspection deprecation
             getAudioManager().unregisterRemoteControlClient(remoteControlClient);
-            //noinspection deprecation
             getAudioManager().unregisterMediaButtonEventReceiver(new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class));
             receiversAndRemoteControlClientRegistered = false;
         }
@@ -345,34 +353,36 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private void restoreState() {
         shuffleMode = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_SHUFFLE_MODE, 0);
         repeatMode = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_REPEAT_MODE, 0);
-        notifyPrivateChange(SHUFFLE_MODE_CHANGED);
-        notifyPrivateChange(REPEAT_MODE_CHANGED);
+        handleAndSendChangeInternal(SHUFFLE_MODE_CHANGED);
+        handleAndSendChangeInternal(REPEAT_MODE_CHANGED);
 
         playerHandler.removeMessages(RESTORE_QUEUES);
         playerHandler.sendEmptyMessage(RESTORE_QUEUES);
     }
 
-    private void restoreQueuesAndPositionImpl() {
-        ArrayList<Song> restoredQueue = MusicPlaybackQueueStore.getInstance(this).getSavedPlayingQueue();
-        ArrayList<Song> restoredOriginalQueue = MusicPlaybackQueueStore.getInstance(this).getSavedOriginalPlayingQueue();
-        int restoredPosition = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_POSITION, -1);
-        int restoredPositionInTrack = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_POSITION_IN_TRACK, -1);
+    private synchronized void restoreQueuesAndPositionIfNecessary() {
+        if (!queuesRestored && playingQueue.isEmpty()) {
+            ArrayList<Song> restoredQueue = MusicPlaybackQueueStore.getInstance(this).getSavedPlayingQueue();
+            ArrayList<Song> restoredOriginalQueue = MusicPlaybackQueueStore.getInstance(this).getSavedOriginalPlayingQueue();
+            int restoredPosition = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_POSITION, -1);
+            int restoredPositionInTrack = PreferenceManager.getDefaultSharedPreferences(this).getInt(SAVED_POSITION_IN_TRACK, -1);
 
-        if (restoredQueue.size() > 0 && restoredQueue.size() == restoredOriginalQueue.size() && restoredPosition != -1) {
-            this.originalPlayingQueue = restoredOriginalQueue;
-            this.playingQueue = restoredQueue;
+            if (restoredQueue.size() > 0 && restoredQueue.size() == restoredOriginalQueue.size() && restoredPosition != -1) {
+                this.originalPlayingQueue = restoredOriginalQueue;
+                this.playingQueue = restoredQueue;
 
-            position = restoredPosition;
-            openCurrent();
-            prepareNext();
+                position = restoredPosition;
+                openCurrent();
+                prepareNext();
 
-            if (restoredPositionInTrack > 0) seek(restoredPositionInTrack);
+                if (restoredPositionInTrack > 0) seek(restoredPositionInTrack);
 
-            notHandledMetaChangedForCurrentTrack = true;
-            sendPrivateIntent(META_CHANGED);
-            sendPrivateIntent(QUEUE_CHANGED);
-            updateWidgets();
+                notHandledMetaChangedForCurrentTrack = true;
+                sendChangeInternal(META_CHANGED);
+                sendChangeInternal(QUEUE_CHANGED);
+            }
         }
+        queuesRestored = true;
     }
 
     private int quit() {
@@ -415,7 +425,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     }
 
     public boolean isPlaying() {
-        return playback.isPlaying();
+        return playback != null && playback.isPlaying();
     }
 
     public int getPosition() {
@@ -567,10 +577,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         playingNotificationHelper.updateNotification();
     }
 
-    private void updateWidgets() {
-        WidgetMedium.updateWidgets(this, getCurrentSong(), isPlaying());
-    }
-
     public int getNextPosition(boolean force) {
         int position = getPosition() + 1;
         switch (getRepeatMode()) {
@@ -620,7 +626,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         .putInt(SAVED_REPEAT_MODE, repeatMode)
                         .apply();
                 prepareNext();
-                notifyPrivateChange(REPEAT_MODE_CHANGED);
+                handleAndSendChangeInternal(REPEAT_MODE_CHANGED);
                 break;
         }
     }
@@ -775,7 +781,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         registerReceiversAndRemoteControlClient();
                         playback.start();
                         if (notHandledMetaChangedForCurrentTrack) {
-                            handleChange(META_CHANGED);
+                            handleChangeInternal(META_CHANGED);
                             notHandledMetaChangedForCurrentTrack = false;
                         }
                         notifyChange(PLAY_STATE_CHANGED);
@@ -900,18 +906,18 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 position = newPosition;
                 break;
         }
-        notifyPrivateChange(SHUFFLE_MODE_CHANGED);
+        handleAndSendChangeInternal(SHUFFLE_MODE_CHANGED);
         notifyChange(QUEUE_CHANGED);
     }
 
     private void notifyChange(@NonNull final String what) {
-        notifyPrivateChange(what);
+        handleAndSendChangeInternal(what);
         sendPublicIntent(what);
     }
 
-    private void notifyPrivateChange(@NonNull final String what) {
-        handleChange(what);
-        sendPrivateIntent(what);
+    private void handleAndSendChangeInternal(@NonNull final String what) {
+        handleChangeInternal(what);
+        sendChangeInternal(what);
     }
 
     // to let other apps know whats playing. i.E. last.fm (scrobbling) or musixmatch
@@ -936,16 +942,16 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         sendStickyBroadcast(intent);
     }
 
-    private void sendPrivateIntent(final String what) {
+    private void sendChangeInternal(final String what) {
         sendBroadcast(new Intent(what));
+        appWidgetSmall.notifyChange(this, what);
     }
 
-    private void handleChange(@NonNull final String what) {
+    private void handleChangeInternal(@NonNull final String what) {
         switch (what) {
             case PLAY_STATE_CHANGED:
                 final boolean isPlaying = isPlaying();
                 playingNotificationHelper.updatePlayState(isPlaying);
-                WidgetMedium.updateWidgetsPlayState(this, isPlaying);
                 //noinspection deprecation
                 remoteControlClient.setPlaybackState(isPlaying ? RemoteControlClient.PLAYSTATE_PLAYING : RemoteControlClient.PLAYSTATE_PAUSED);
                 if (!isPlaying && getSongProgressMillis() > 0) {
@@ -955,7 +961,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 break;
             case META_CHANGED:
                 updateNotification();
-                updateWidgets();
                 updateRemoteControlClient();
                 savePosition();
                 savePositionInTrack();
@@ -1110,7 +1115,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                     break;
 
                 case RESTORE_QUEUES:
-                    service.restoreQueuesAndPositionImpl();
+                    service.restoreQueuesAndPositionIfNecessary();
                     break;
 
                 case FOCUS_CHANGE:
@@ -1159,6 +1164,18 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
     }
 
+    private final BroadcastReceiver widgetIntentReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(final Context context, final Intent intent) {
+            final String command = intent.getStringExtra(EXTRA_APP_WIDGET_NAME);
+
+            if (AppWidgetSmall.NAME.equals(command)) {
+                final int[] small = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
+                appWidgetSmall.performUpdate(MusicService.this, small);
+            }
+        }
+    };
+
     private class MediaStoreObserver extends ContentObserver implements Runnable {
         // milliseconds to delay before calling refresh to aggregate events
         private static final long REFRESH_DELAY = 500;
@@ -1182,7 +1199,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         public void run() {
             // actually call refresh when the delayed callback fires
             // do not send a sticky broadcast here
-            notifyPrivateChange(MEDIA_STORE_CHANGED);
+            handleAndSendChangeInternal(MEDIA_STORE_CHANGED);
         }
     }
 
