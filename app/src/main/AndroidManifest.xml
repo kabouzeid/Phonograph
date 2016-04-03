@@ -126,14 +126,17 @@
 
         <activity android:name=".ui.activities.SearchActivity" />
 
-        <receiver android:name=".appwidget.WidgetMedium">
+        <receiver
+            android:name=".appwidgets.AppWidgetSmall"
+            android:exported="false"
+            android:label="@string/app_widget_small_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/widget_medium_info" />
+                android:resource="@xml/app_widget_small_info" />
         </receiver>
 
         <activity
