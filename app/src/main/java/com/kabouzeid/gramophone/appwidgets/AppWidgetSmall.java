@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -63,6 +64,7 @@ public class AppWidgetSmall extends BaseAppWidget {
         appWidgetView.setViewVisibility(R.id.image, View.INVISIBLE);
         appWidgetView.setImageViewBitmap(R.id.button_next, createBitmap(Util.getTintedDrawable(context, R.drawable.ic_skip_next_white_24dp, MaterialValueHelper.getPrimaryTextColor(context, true)), 1f));
         appWidgetView.setImageViewBitmap(R.id.button_prev, createBitmap(Util.getTintedDrawable(context, R.drawable.ic_skip_previous_white_24dp, MaterialValueHelper.getPrimaryTextColor(context, true)), 1f));
+        appWidgetView.setImageViewBitmap(R.id.button_toggle_play_pause, createBitmap(Util.getTintedDrawable(context, R.drawable.ic_play_arrow_white_24dp, MaterialValueHelper.getPrimaryTextColor(context, true)), 1f));
 
         linkButtons(context, appWidgetView);
         pushUpdate(context, appWidgetIds, appWidgetView);
@@ -140,16 +142,22 @@ public class AppWidgetSmall extends BaseAppWidget {
                         .into(new SimpleTarget<Bitmap>(widgetImageSize, widgetImageSize) {
                             @Override
                             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                                appWidgetView.setViewVisibility(R.id.image, View.VISIBLE);
-                                appWidgetView.setImageViewBitmap(R.id.image, resource);
-                                pushUpdate(appContext, appWidgetIds, appWidgetView);
+                                update(resource);
                             }
 
                             @Override
                             public void onLoadFailed(Exception e, Drawable errorDrawable) {
                                 super.onLoadFailed(e, errorDrawable);
+                                update(null);
+                            }
+
+                            private void update(@Nullable Bitmap bitmap) {
                                 appWidgetView.setViewVisibility(R.id.image, View.VISIBLE);
-                                appWidgetView.setImageViewResource(R.id.image, R.drawable.default_album_art);
+                                if (bitmap == null) {
+                                    appWidgetView.setImageViewResource(R.id.image, R.drawable.default_album_art);
+                                } else {
+                                    appWidgetView.setImageViewBitmap(R.id.image, bitmap);
+                                }
                                 pushUpdate(appContext, appWidgetIds, appWidgetView);
                             }
                         });
