@@ -32,27 +32,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/notification_selector"
+                android:background="@drawable/widget_selector"
                 tools:src="@drawable/ic_skip_previous_white_24dp"
-                tools:tint="#fff" />
+                tools:tint="@color/ate_secondary_text_dark" />
 
             <ImageButton
                 android:id="@+id/button_toggle_play_pause"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/notification_selector"
+                android:background="@drawable/widget_selector"
                 tools:src="@drawable/ic_play_arrow_white_24dp"
-                tools:tint="#fff" />
+                tools:tint="@color/ate_secondary_text_dark" />
 
             <ImageButton
                 android:id="@+id/button_next"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/notification_selector"
+                android:background="@drawable/widget_selector"
                 tools:src="@drawable/ic_skip_next_white_24dp"
-                tools:tint="#fff" />
+                tools:tint="@color/ate_secondary_text_dark" />
 
         </LinearLayout>
 

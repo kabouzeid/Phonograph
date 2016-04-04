@@ -29,6 +29,6 @@ public class BitmapPaletteTranscoder implements ResourceTranscoder<Bitmap, Bitma
 
     @Override
     public String getId() {
-        return "";
+        return "BitmapPaletteTranscoder.com.kabouzeid.gramophone.glide.palette";
     }
 }

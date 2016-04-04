@@ -37,6 +37,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.appwidgets.AppWidgetBig;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetClassic;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetSmall;
 import com.kabouzeid.gramophone.glide.BlurTransformation;
@@ -113,8 +114,9 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     private final IBinder musicBind = new MusicBinder();
 
-    private AppWidgetSmall appWidgetSmall = AppWidgetSmall.getInstance();
+    private AppWidgetBig appWidgetBig = AppWidgetBig.getInstance();
     private AppWidgetClassic appWidgetClassic = AppWidgetClassic.getInstance();
+    private AppWidgetSmall appWidgetSmall = AppWidgetSmall.getInstance();
 
     private Playback playback;
     private ArrayList<Song> playingQueue = new ArrayList<>();
@@ -938,6 +940,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     private void sendChangeInternal(final String what) {
         sendBroadcast(new Intent(what));
+        appWidgetBig.notifyChange(this, what);
         appWidgetClassic.notifyChange(this, what);
         appWidgetSmall.notifyChange(this, what);
     }
@@ -1162,11 +1165,14 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             final String command = intent.getStringExtra(EXTRA_APP_WIDGET_NAME);
 
             if (AppWidgetClassic.NAME.equals(command)) {
-                final int[] small = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
-                appWidgetClassic.performUpdate(MusicService.this, small);
+                final int[] ids = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
+                appWidgetClassic.performUpdate(MusicService.this, ids);
             } else if (AppWidgetSmall.NAME.equals(command)) {
-                final int[] small = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
-                appWidgetSmall.performUpdate(MusicService.this, small);
+                final int[] ids = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
+                appWidgetSmall.performUpdate(MusicService.this, ids);
+            } else if (AppWidgetBig.NAME.equals(command)) {
+                final int[] ids = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
+                appWidgetBig.performUpdate(MusicService.this, ids);
             }
         }
     };

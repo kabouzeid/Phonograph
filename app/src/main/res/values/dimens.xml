@@ -69,4 +69,7 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <dimen name="app_widget_small_min_width">250dp</dimen>
     <dimen name="app_widget_small_min_height">40dp</dimen>
 
+    <dimen name="app_widget_big_min_width">250dp</dimen>
+    <dimen name="app_widget_big_min_height">110dp</dimen>
+
 </resources>
