@@ -2,15 +2,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/app_widget_small_image_size"
+    android:layout_height="@dimen/app_widget_classic_height"
     android:background="#AAFFFFFF"
     android:orientation="horizontal"
     tools:ignore="ContentDescription">
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="@dimen/app_widget_small_image_size"
-        android:layout_height="@dimen/app_widget_small_image_size"
+        android:layout_width="@dimen/app_widget_classic_image_size"
+        android:layout_height="@dimen/app_widget_classic_image_size"
         android:background="@drawable/default_album_art"
         android:scaleType="centerCrop" />
 
@@ -19,12 +19,12 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_margin="8dp"
             android:id="@+id/media_actions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
+            android:layout_margin="8dp"
             android:orientation="horizontal">
 
             <ImageButton
