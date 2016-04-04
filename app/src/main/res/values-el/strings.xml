@@ -100,6 +100,7 @@
     <string name="action_shuffle_playlist">Τυχαία λίστα αναπαραγωγής</string>
     <string name="action_clear_playing_queue">Εκκαθάριση της ουράς αναπαραγωγής</string>
     <string name="action_go_to_start_directory">Πηγαίνετε στον κατάλογο έναρξης</string>
+    <string name="action_show_lyrics">Εμφάνιση στίχων</string>
     <string name="last_opened">Τελευταίο</string>
     <string name="light_theme_name">Ανοιχτό</string>
     <string name="dark_theme_name">Σκούρο</string>

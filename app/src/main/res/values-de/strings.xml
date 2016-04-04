@@ -98,6 +98,7 @@
     <string name="action_shuffle_playlist">Wiedergabeliste zufällig wiedergeben</string>
     <string name="action_clear_playing_queue">Warteschlange leeren</string>
     <string name="action_go_to_start_directory">Zum Start-Verzeichnis gehen</string>
+    <string name="action_show_lyrics">Songtext anzeigen</string>
     <string name="last_opened">Zuletzt geöffnet</string>
     <string name="light_theme_name">Hell</string>
     <string name="dark_theme_name">Dunkel</string>
