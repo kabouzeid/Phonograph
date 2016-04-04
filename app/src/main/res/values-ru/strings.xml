@@ -98,6 +98,7 @@
     <string name="action_shuffle_playlist">Перемешать плейлист</string>
     <string name="action_clear_playing_queue">"Очистить очередь воспроизведения "</string>
     <string name="action_go_to_start_directory">Перейти к начальной директории</string>
+    <string name="action_show_lyrics">Показать текст песни</string>
     <string name="last_opened">Последнее открытое</string>
     <string name="light_theme_name">Светлая</string>
     <string name="dark_theme_name">Тёмная</string>
@@ -232,5 +233,6 @@
     <string name="nothing_to_scan">Нечего сканировать.</string>
     <string name="scanned_files">Просканировано %1$d из %2$d файлов.</string>
     <string name="could_not_scan_files">Не удалось просканировать %d файлов.</string>
+    <string name="listing_files">Листинг файлов</string>
     <string name="new_start_directory">%s новая начальная директория.</string>
 </resources>

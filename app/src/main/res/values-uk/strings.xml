@@ -46,7 +46,7 @@
     <string name="track">Доріжка</string>
     <string name="track_hint">"Доріжка (2 для доріжки 2 або 3004 для CD3 доріжки 4)"</string>
     <string name="album_or_artist_empty">Назва або виконавець відсутні.</string>
-    <string name="saving_changes">Збереження змін...</string>
+    <string name="saving_changes">Збереження змін</string>
     <string name="saving_to_file">Збереження в файл...</string>
     <string name="label_details">Подробиці</string>
     <string name="label_file_name">Назва файлу</string>
@@ -98,6 +98,7 @@
     <string name="action_shuffle_playlist">Перемішати список відтворення</string>
     <string name="action_clear_playing_queue">Очистити чергу відтворення</string>
     <string name="action_go_to_start_directory">Перейти до початкової теки</string>
+    <string name="action_show_lyrics">Показати текст</string>
     <string name="last_opened">Останні відкриті</string>
     <string name="light_theme_name">Світла</string>
     <string name="dark_theme_name">Темна</string>
@@ -115,7 +116,7 @@
     <string name="pref_header_lockscreen">Екран блокування</string>
     <string name="pref_title_navigation_bar">Кольорова панель навігації</string>
     <string name="pref_title_set_default_start_page">Початкова сторінка</string>
-    <string name="pref_title_album_art_on_lockscreen">Обкладинка альбому на екрані блокування</string>
+    <string name="pref_title_album_art_on_lockscreen">Показати обкладинку альбому</string>
     <string name="pref_title_auto_download_artist_images">Автоматично завантажувати зображення виконавців</string>
     <string name="pref_title_blurred_album_art">Розмити обкладинку альбому</string>
     <string name="pref_title_colored_notification">Кольорове сповіщення</string>
@@ -188,7 +189,7 @@
     <string name="changelog">Список змін</string>
     <string name="licenses">Ліцензії</string>
     <string name="permissions_denied">У доступі відмовлено.</string>
-    <string name="permission_external_storage_denied">У дозволі на доступ до зовнішньої пам’яті відмовлено.</string>
+    <string name="permission_external_storage_denied">Дозвіл на доступ до зовнішньої пам\'яті відмовлено.</string>
     <string name="back">назад</string>
     <string name="support_development">Підтримати розробника</string>
     <string name="thank_you">Щиро дякую!</string>
@@ -232,4 +233,6 @@
     <string name="nothing_to_scan">Нічого сканувати.</string>
     <string name="scanned_files">Проскановано %1$d з %2$d файлів.</string>
     <string name="could_not_scan_files">Не вдалося просканувати %d файлів.</string>
+    <string name="listing_files">Лістинг файлів</string>
+    <string name="new_start_directory">%s є новий каталог запуску.</string>
 </resources>

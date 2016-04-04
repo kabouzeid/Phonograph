@@ -77,9 +77,9 @@
     <string name="could_not_create_playlist">Nije mogu\u0107e stvoriti popis naslova.</string>
     <string name="delete_playlist_x"><![CDATA[Izbrisati popis naslova <b>%1$s</b>?]]></string>
     <string name="clear_playlist_x"><![CDATA[Isprazniti popis naslova <b>%1$s</b>? Ovaj postupak se ne mo\u017ee poni\u0161titi!]]></string>
-    <string name="delete_x_playlists"><![CDATA[Izbrisati popise naslova <b>%1$d</b>?]]></string>
+    <string name="delete_x_playlists"><![CDATA[Izbrisati  <b>%1$d</b> popisa naslova?]]></string>
     <string name="delete_song_x"><![CDATA[Izbrisati pjesmu <b>%1$s</b>?]]></string>
-    <string name="delete_x_songs"><![CDATA[Izbrisati pjesme <b>%1$d</b>?]]></string>
+    <string name="delete_x_songs"><![CDATA[Izbrisati <b>%1$d</b> pjesme?]]></string>
     <string name="remove_song_x_from_playlist"><![CDATA[Ukloniti pjesmu <b>%1$s</b> s popisa?]]></string>
     <string name="remove_x_songs_from_playlist"><![CDATA[Ukloniti pjesme <b>%1$d</b> s popisa?]]></string>
     <string name="delete_song_title">Izbriši pjesmu</string>
