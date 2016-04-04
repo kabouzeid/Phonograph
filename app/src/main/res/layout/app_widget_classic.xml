@@ -24,8 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
-            android:layout_margin="8dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="8dp">
 
             <ImageButton
                 android:id="@+id/button_prev"
@@ -62,8 +62,8 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/media_actions"
             android:layout_alignParentTop="true"
-            android:layout_margin="8dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="8dp">
 
             <TextView
                 android:id="@+id/title"

@@ -184,7 +184,8 @@ public class AppWidgetClassic extends BaseAppWidget {
         action = new Intent(context, MainActivity.class);
         action.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         pendingIntent = PendingIntent.getActivity(context, 0, action, 0);
-        views.setOnClickPendingIntent(R.id.content, pendingIntent);
+        views.setOnClickPendingIntent(R.id.image, pendingIntent);
+        views.setOnClickPendingIntent(R.id.media_titles, pendingIntent);
 
         // Previous track
         pendingIntent = buildPendingIntent(context, MusicService.ACTION_REWIND, serviceName);
