@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/app_widget_classic_height"
-    android:background="#AAFFFFFF"
+    android:background="#AA000000"
     android:orientation="horizontal"
     tools:ignore="ContentDescription">
 
@@ -34,7 +34,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/notification_selector"
                 tools:src="@drawable/ic_skip_previous_white_24dp"
-                tools:tint="#000" />
+                tools:tint="#fff" />
 
             <ImageButton
                 android:id="@+id/button_toggle_play_pause"
@@ -43,7 +43,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/notification_selector"
                 tools:src="@drawable/ic_play_arrow_white_24dp"
-                tools:tint="#000" />
+                tools:tint="#fff" />
 
             <ImageButton
                 android:id="@+id/button_next"
@@ -52,7 +52,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/notification_selector"
                 tools:src="@drawable/ic_skip_next_white_24dp"
-                tools:tint="#000" />
+                tools:tint="#fff" />
 
         </LinearLayout>
 
@@ -73,7 +73,7 @@
                 android:gravity="center_vertical"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/ate_primary_text_light"
+                android:textColor="@color/ate_primary_text_dark"
                 tools:text="Title" />
 
             <TextView
@@ -84,7 +84,7 @@
                 android:gravity="center_vertical"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:textColor="@color/ate_primary_text_light"
+                android:textColor="@color/ate_secondary_text_dark"
                 tools:text="Text" />
 
         </LinearLayout>

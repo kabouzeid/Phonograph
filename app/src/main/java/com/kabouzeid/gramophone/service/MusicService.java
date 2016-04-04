@@ -38,6 +38,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetClassic;
+import com.kabouzeid.gramophone.appwidgets.AppWidgetSmall;
 import com.kabouzeid.gramophone.glide.BlurTransformation;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.PlayingNotificationHelper;
@@ -112,6 +113,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     private final IBinder musicBind = new MusicBinder();
 
+    private AppWidgetSmall appWidgetSmall = AppWidgetSmall.getInstance();
     private AppWidgetClassic appWidgetClassic = AppWidgetClassic.getInstance();
 
     private Playback playback;
@@ -937,6 +939,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private void sendChangeInternal(final String what) {
         sendBroadcast(new Intent(what));
         appWidgetClassic.notifyChange(this, what);
+        appWidgetSmall.notifyChange(this, what);
     }
 
     private void handleChangeInternal(@NonNull final String what) {
@@ -1161,6 +1164,9 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             if (AppWidgetClassic.NAME.equals(command)) {
                 final int[] small = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
                 appWidgetClassic.performUpdate(MusicService.this, small);
+            } else if (AppWidgetSmall.NAME.equals(command)) {
+                final int[] small = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
+                appWidgetSmall.performUpdate(MusicService.this, small);
             }
         }
     };
