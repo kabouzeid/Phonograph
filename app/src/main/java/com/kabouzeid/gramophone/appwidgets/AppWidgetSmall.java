@@ -27,14 +27,14 @@ import com.kabouzeid.gramophone.util.Util;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class AppWidgetClassic extends BaseAppWidget {
-    public static final String NAME = "app_widget_classic";
+public class AppWidgetSmall extends BaseAppWidget {
+    public static final String NAME = "app_widget_small";
 
-    private static AppWidgetClassic mInstance;
+    private static AppWidgetSmall mInstance;
 
-    public static synchronized AppWidgetClassic getInstance() {
+    public static synchronized AppWidgetSmall getInstance() {
         if (mInstance == null) {
-            mInstance = new AppWidgetClassic();
+            mInstance = new AppWidgetSmall();
         }
         return mInstance;
     }
@@ -58,7 +58,7 @@ public class AppWidgetClassic extends BaseAppWidget {
      * default click and hide actions if service not running.
      */
     private void defaultAppWidget(final Context context, final int[] appWidgetIds) {
-        final RemoteViews appWidgetView = new RemoteViews(context.getPackageName(), R.layout.app_widget_classic);
+        final RemoteViews appWidgetView = new RemoteViews(context.getPackageName(), R.layout.app_widget_small);
 
         appWidgetView.setViewVisibility(R.id.media_titles, View.INVISIBLE);
         appWidgetView.setViewVisibility(R.id.image, View.INVISIBLE);
@@ -106,7 +106,7 @@ public class AppWidgetClassic extends BaseAppWidget {
      * Update all active widget instances by pushing changes
      */
     public void performUpdate(final MusicService service, final int[] appWidgetIds) {
-        final RemoteViews appWidgetView = new RemoteViews(service.getPackageName(), R.layout.app_widget_classic);
+        final RemoteViews appWidgetView = new RemoteViews(service.getPackageName(), R.layout.app_widget_small);
 
         final boolean isPlaying = service.isPlaying();
         final Song song = service.getCurrentSong();
@@ -115,6 +115,12 @@ public class AppWidgetClassic extends BaseAppWidget {
         if (TextUtils.isEmpty(song.title) && TextUtils.isEmpty(song.artistName)) {
             appWidgetView.setViewVisibility(R.id.media_titles, View.INVISIBLE);
         } else {
+            if (TextUtils.isEmpty(song.title) || TextUtils.isEmpty(song.artistName)) {
+                appWidgetView.setTextViewText(R.id.text_separator, "");
+            } else {
+                appWidgetView.setTextViewText(R.id.text_separator, "•");
+            }
+
             appWidgetView.setViewVisibility(R.id.media_titles, View.VISIBLE);
             appWidgetView.setTextViewText(R.id.title, song.title);
             appWidgetView.setTextViewText(R.id.text, song.artistName);
@@ -133,7 +139,7 @@ public class AppWidgetClassic extends BaseAppWidget {
 
         // load the album cover async and push the update on completion
         final Context appContext = service.getApplicationContext();
-        final int widgetImageSize = service.getResources().getDimensionPixelSize(R.dimen.app_widget_classic_image_size);
+        final int widgetImageSize = service.getResources().getDimensionPixelSize(R.dimen.app_widget_small_image_size);
         service.runOnUiThread(new Runnable() {
             @Override
             public void run() {
