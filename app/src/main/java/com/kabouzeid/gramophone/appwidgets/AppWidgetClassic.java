@@ -27,14 +27,14 @@ import com.kabouzeid.gramophone.util.Util;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class AppWidgetSmall extends BaseAppWidget {
-    public static final String NAME = "app_widget_small";
+public class AppWidgetClassic extends BaseAppWidget {
+    public static final String NAME = "app_widget_classic";
 
-    private static AppWidgetSmall mInstance;
+    private static AppWidgetClassic mInstance;
 
-    public static synchronized AppWidgetSmall getInstance() {
+    public static synchronized AppWidgetClassic getInstance() {
         if (mInstance == null) {
-            mInstance = new AppWidgetSmall();
+            mInstance = new AppWidgetClassic();
         }
         return mInstance;
     }
@@ -58,7 +58,7 @@ public class AppWidgetSmall extends BaseAppWidget {
      * default click and hide actions if service not running.
      */
     private void defaultAppWidget(final Context context, final int[] appWidgetIds) {
-        final RemoteViews appWidgetView = new RemoteViews(context.getPackageName(), R.layout.app_widget_small);
+        final RemoteViews appWidgetView = new RemoteViews(context.getPackageName(), R.layout.app_widget_classic);
 
         appWidgetView.setViewVisibility(R.id.media_titles, View.INVISIBLE);
         appWidgetView.setViewVisibility(R.id.image, View.INVISIBLE);
@@ -106,7 +106,7 @@ public class AppWidgetSmall extends BaseAppWidget {
      * Update all active widget instances by pushing changes
      */
     public void performUpdate(final MusicService service, final int[] appWidgetIds) {
-        final RemoteViews appWidgetView = new RemoteViews(service.getPackageName(), R.layout.app_widget_small);
+        final RemoteViews appWidgetView = new RemoteViews(service.getPackageName(), R.layout.app_widget_classic);
 
         final boolean isPlaying = service.isPlaying();
         final Song song = service.getCurrentSong();
@@ -124,12 +124,16 @@ public class AppWidgetSmall extends BaseAppWidget {
         int playPauseRes = isPlaying ? R.drawable.ic_pause_white_24dp : R.drawable.ic_play_arrow_white_24dp;
         appWidgetView.setImageViewBitmap(R.id.button_toggle_play_pause, createBitmap(Util.getTintedDrawable(service, playPauseRes, MaterialValueHelper.getPrimaryTextColor(service, true)), 1f));
 
+        // set prev/next button drawables
+        appWidgetView.setImageViewBitmap(R.id.button_next, createBitmap(Util.getTintedDrawable(service, R.drawable.ic_skip_next_white_24dp, MaterialValueHelper.getPrimaryTextColor(service, true)), 1f));
+        appWidgetView.setImageViewBitmap(R.id.button_prev, createBitmap(Util.getTintedDrawable(service, R.drawable.ic_skip_previous_white_24dp, MaterialValueHelper.getPrimaryTextColor(service, true)), 1f));
+
         // Link actions buttons to intents
         linkButtons(service, appWidgetView);
 
         // load the album cover async and push the update on completion
         final Context appContext = service.getApplicationContext();
-        final int widgetImageSize = service.getResources().getDimensionPixelSize(R.dimen.app_widget_small_image_size);
+        final int widgetImageSize = service.getResources().getDimensionPixelSize(R.dimen.app_widget_classic_image_size);
         service.runOnUiThread(new Runnable() {
             @Override
             public void run() {
