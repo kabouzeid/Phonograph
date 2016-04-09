@@ -129,6 +129,7 @@
     <string name="pref_title_alternative_progress_slider_now_playing">Alternativer Progress Slider</string>
     <string name="pref_title_playback_controller_card_now_playing">Karte hinter Wiedergabesteuerung</string>
     <string name="pref_title_colored_playback_controls_now_playing">Farbige Wiedergabesteuerung</string>
+    <string name="pref_title_audio_ducking">Lautstärke bei Fokusverlust verringern</string>
     <string name="no_equalizer">Kein Equalizer gefunden.</string>
     <string name="no_audio_ID">"Keine Audio ID, spiele etwas ab und versuche es erneut."</string>
     <string name="delete_action">Löschen</string>
@@ -166,6 +167,7 @@
     <string name="pref_summary_ignore_media_store_artwork">Kann die Album Cover Qualität verbessern was jedoch die Ladezeit beeinträchtigt. Nur aktivieren falls Probleme mit niedrig aufgelösten Album Covern auftreten.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Der Play/Pause, Shuffle und Repeat Schalter sowie der Progress Slider sind in der Farbe des Album Covers gef\u00e4rbt.</string>
     <string name="pref_summary_colored_navigation_bar">Färbt die Navigationsleiste mit der Hauptfarbe.</string>
+    <string name="pref_summary_audio_ducking">Benachrichtigungen, Navigation etc.</string>
     <string name="could_not_download_album_cover">"Es konnte kein passendes Album Cover heruntergeladen werden."</string>
     <string name="search_hint">Durchsuche deine Mediathek</string>
     <string name="rescanning_media">Medien neu scannen…</string>
@@ -234,4 +236,7 @@
     <string name="scanned_files">%1$d von %2$d Dateien gescannt.</string>
     <string name="could_not_scan_files">%d Dateien konnten nicht gescannt werden.</string>
     <string name="new_start_directory">%s ist das neue Start-Verzeichnis.</string>
+    <string name="app_widget_big_name">Phonograph - Groß</string>
+    <string name="app_widget_classic_name">Phonograph - Klassisch</string>
+    <string name="app_widget_small_name">Phonograph - Klein</string>
 </resources>

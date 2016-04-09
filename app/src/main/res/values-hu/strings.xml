@@ -129,6 +129,7 @@
     <string name="pref_title_alternative_progress_slider_now_playing">Alternatív haladási csúszka</string>
     <string name="pref_title_playback_controller_card_now_playing">Kártya megjelenítése a lejátszást irányító gombok alatt</string>
     <string name="pref_title_colored_playback_controls_now_playing">Színezett lejátszást irányító gombok</string>
+    <string name="pref_title_audio_ducking">Hangerő csökkentése</string>
     <string name="no_equalizer">Ekvalizer nem található.</string>
     <string name="no_audio_ID">"Először játsz le egy dalt, majd próbáld újra"</string>
     <string name="delete_action">Törlés</string>
@@ -166,6 +167,7 @@
     <string name="pref_summary_ignore_media_store_artwork">Növelheti az album borító minőségét, de lassabban tölti be a képeket. Csak akkor engedélyezze, ha az albumborítók rossz minőségben jelennek meg.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Lej\u00e1tsz\u00e1s/sz\u00fcnet, kever\u00e9s \u00e9s ism\u00e9tl\u00e9s gombok sz\u00ednez\u00e9se, bele\u00e9rtve a halad\u00e1si cs\u00faszk\u00e1t is, az albumbor\u00edt\u00f3 sz\u00edn\u00e9vel.</string>
     <string name="pref_summary_colored_navigation_bar">Navigációs sáv színezése az alapértelmezett színnel.</string>
+    <string name="pref_summary_audio_ducking">Beérkező értesítéskor a lejátszás hangereje lecsökken, majd az értesítés végén visszaáll az eredeti hangerőre.</string>
     <string name="could_not_download_album_cover">"Nem siker\u00fclt let\u00f6lteni a megfelel\u0151 albumbor\u00edt\u00f3t."</string>
     <string name="search_hint">Keresés a könyvtáradban...</string>
     <string name="rescanning_media">Média újraszkennelése...</string>
@@ -235,4 +237,7 @@
     <string name="could_not_scan_files">Nem sikerült beolvasni a(z) %d fájlokat.</string>
     <string name="listing_files">Felsorolt fájlok</string>
     <string name="new_start_directory">A(z) %s az új kezdő könyvtár.</string>
+    <string name="app_widget_big_name">Nagy</string>
+    <string name="app_widget_classic_name">Klasszikus</string>
+    <string name="app_widget_small_name">Kicsi</string>
 </resources>

@@ -2,7 +2,7 @@
 <resources>
     <string name="what_do_you_want_to_share">Što želite podijeliti?</string>
     <string name="currently_listening_to_x_by_x">Trenutno slušate %1$s od %2$s.</string>
-    <string name="the_audio_file">Audio datoteka</string>
+    <string name="the_audio_file">Zvučna datoteka</string>
     <string name="do_you_want_to_set_x_as_ringtone">Želite li postaviti %1$s kao zvuk zvona?</string>
     <string name="x_has_been_set_as_ringtone">Postavili ste %1$s kao zvuk zvona.</string>
     <string name="action_set_as_ringtone">Postavi kao zvuk zvona</string>
@@ -37,7 +37,7 @@
     <string name="unplayable_file">Nije mogu\u0107e reproducirati ovu pjesmu.</string>
     <string name="biography_unavailable">Nismo mogli prona\u0107i biografiju ovog izvo\u0111a\u010da.</string>
     <string name="biography">Biografija</string>
-    <string name="audio_focus_denied">Audio fokus odbijen.</string>
+    <string name="audio_focus_denied">Zvučni fokus odbijen.</string>
     <string name="album">Album</string>
     <string name="artist">Izvođač</string>
     <string name="genre">Žanr</string>
@@ -110,7 +110,7 @@
     <string name="pref_header_colors">Boje</string>
     <string name="pref_header_now_playing_screen">Trenutna reprodukcija</string>
     <string name="pref_title_general_theme">Zadana tema</string>
-    <string name="pref_header_audio">Audio</string>
+    <string name="pref_header_audio">Zvuk</string>
     <string name="pref_header_general">Općenito</string>
     <string name="pref_header_images">Slike</string>
     <string name="pref_header_lockscreen">Zaključani zaslon</string>
@@ -129,6 +129,7 @@
     <string name="pref_title_alternative_progress_slider_now_playing">Alternativni klizač napretka</string>
     <string name="pref_title_playback_controller_card_now_playing">Kartica ispod kontrola reprodukcije</string>
     <string name="pref_title_colored_playback_controls_now_playing">Obojene kontrole reprodukcije</string>
+    <string name="pref_title_audio_ducking">Smanji glasnoću prilikom drugih zvukova</string>
     <string name="no_equalizer">Ekvalizator nije pronađen.</string>
     <string name="no_audio_ID">"Reproducirajte nešto i pokušajte opet."</string>
     <string name="delete_action">Izbriši</string>
@@ -166,6 +167,7 @@
     <string name="pref_summary_ignore_media_store_artwork">Može povećati kvalitetu omota albuma, ali povećava vrijeme učitavanja. Omogućite ovo jedino ako imate problema s omotima niske rezolucije.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Gumbi za reprodukciju/pauzu, nasumi\u010dnu reprodukciju i ponavljanje kao i kliza\u010d napretka su obojeni istaknutom bojom omota albuma.</string>
     <string name="pref_summary_colored_navigation_bar">Boji navigacijsku traku primarnom bojom.</string>
+    <string name="pref_summary_audio_ducking">Obavijesti, navigacija itd.</string>
     <string name="could_not_download_album_cover">"Nije mogu\u0107e preuzeti odgovaraju\u0107i omot albuma."</string>
     <string name="search_hint">Pretražite svoju biblioteku...</string>
     <string name="rescanning_media">Ponovno skeniram medije...</string>
@@ -235,4 +237,7 @@
     <string name="could_not_scan_files">Nije moguće skenirati %d datoteka.</string>
     <string name="listing_files">Listanje datoteka</string>
     <string name="new_start_directory">%s je novi početni direktorij.</string>
+    <string name="app_widget_big_name">Phonograph - Veliki</string>
+    <string name="app_widget_classic_name">Phonograph - Klasični</string>
+    <string name="app_widget_small_name">Phonograph - Mali</string>
 </resources>

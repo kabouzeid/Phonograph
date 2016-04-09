@@ -98,6 +98,7 @@
     <string name="action_shuffle_playlist">Reproducción aleatoria de la lista de reproducción</string>
     <string name="action_clear_playing_queue">Vaciar cola de reproducción</string>
     <string name="action_go_to_start_directory">Ir al directorio de inicio</string>
+    <string name="action_show_lyrics">Mostrar letras</string>
     <string name="last_opened">Última abierta</string>
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Oscuro</string>
@@ -128,6 +129,7 @@
     <string name="pref_title_alternative_progress_slider_now_playing">Barra de progreso alternativa</string>
     <string name="pref_title_playback_controller_card_now_playing">Mostrar tarjeta detrás de los controles de reproducción</string>
     <string name="pref_title_colored_playback_controls_now_playing">Controles de reproducción coloreados</string>
+    <string name="pref_title_audio_ducking">Reducir volumen en la pérdida del enfoque</string>
     <string name="no_equalizer">No se encontró ningún ecualizador</string>
     <string name="no_audio_ID">"Reproduce una canción primero, luego intentalo otra vez."</string>
     <string name="delete_action">Borrar</string>
@@ -165,6 +167,7 @@
     <string name="pref_summary_ignore_media_store_artwork">Puede aumentar la calidad de la carátula del álbum pero causa que las imágenes carguen mas lento. Sólo activalo si tienes problemas con carátulas de baja resolución.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Colorea los botones de reproducir/pausar, aleatorio y repetir as\u00ed como la barra de progreso con el color vibrante de la car\u00e1tula del \u00e1lbum.</string>
     <string name="pref_summary_colored_navigation_bar">Colorea la barra de navegación con el color principal.</string>
+    <string name="pref_summary_audio_ducking">Notificaciones, navegación etc.</string>
     <string name="could_not_download_album_cover">"No se puede descargar una car\u00e1tula de \u00e1lbum que coincida."</string>
     <string name="search_hint">Buscar en la biblioteca...</string>
     <string name="rescanning_media">Escaneando contenido...</string>
@@ -232,4 +235,9 @@
     <string name="nothing_to_scan">Nada para analizar</string>
     <string name="scanned_files">%1$d de %2$d archivos analizados</string>
     <string name="could_not_scan_files">No se pudieron analizar los archivos %d</string>
+    <string name="listing_files">Listado de archivos</string>
+    <string name="new_start_directory">%s es el nuevo directorio de inicio.</string>
+    <string name="app_widget_big_name">Phonograph - Grande</string>
+    <string name="app_widget_classic_name">Phonograph - Clásico</string>
+    <string name="app_widget_small_name">Phonograph - Pequeño</string>
 </resources>
