@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.ui.fragments.player;
+package com.kabouzeid.gramophone.ui.fragments.player.card;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -43,6 +43,8 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
+import com.kabouzeid.gramophone.ui.fragments.player.AbsPlayerFragment;
+import com.kabouzeid.gramophone.ui.fragments.player.PlayerAlbumCoverFragment;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
@@ -57,8 +59,8 @@ import java.io.File;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCoverFragment.Callbacks, SlidingUpPanelLayout.PanelSlideListener {
-    public static final String TAG = PlayerFragment.class.getSimpleName();
+public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbumCoverFragment.Callbacks, SlidingUpPanelLayout.PanelSlideListener {
+    public static final String TAG = CardPlayerFragment.class.getSimpleName();
 
     @Bind(R.id.player_toolbar)
     Toolbar toolbar;
@@ -75,7 +77,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
     private int lastColor;
 
-    private PlaybackControlsFragment playbackControlsFragment;
+    private CardPlayerPlaybackControlsFragment playbackControlsFragment;
     private PlayerAlbumCoverFragment playerAlbumCoverFragment;
 
     private LinearLayoutManager layoutManager;
@@ -100,7 +102,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
             impl = new PortraitImpl();
         }
 
-        View view = inflater.inflate(R.layout.fragment_player, container, false);
+        View view = inflater.inflate(R.layout.fragment_card_player, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -123,7 +125,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
             @Override
             public void onGlobalLayout() {
                 view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                impl.setUpPanelAndAlbumCoverHeight(PlayerFragment.this);
+                impl.setUpPanelAndAlbumCoverHeight(CardPlayerFragment.this);
             }
         });
 
@@ -211,7 +213,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
     }
 
     private void setUpSubFragments() {
-        playbackControlsFragment = (PlaybackControlsFragment) getChildFragmentManager().findFragmentById(R.id.playback_controls_fragment);
+        playbackControlsFragment = (CardPlayerPlaybackControlsFragment) getChildFragmentManager().findFragmentById(R.id.playback_controls_fragment);
         playerAlbumCoverFragment = (PlayerAlbumCoverFragment) getChildFragmentManager().findFragmentById(R.id.player_album_cover_fragment);
 
         playerAlbumCoverFragment.setCallbacks(this);
@@ -433,17 +435,17 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
     }
 
     interface Impl {
-        void init(PlayerFragment fragment);
+        void init(CardPlayerFragment fragment);
 
-        void updateCurrentSong(PlayerFragment fragment, Song song);
+        void updateCurrentSong(CardPlayerFragment fragment, Song song);
 
-        void animateColorChange(PlayerFragment fragment, final int newColor);
+        void animateColorChange(CardPlayerFragment fragment, final int newColor);
 
-        void setUpPanelAndAlbumCoverHeight(PlayerFragment fragment);
+        void setUpPanelAndAlbumCoverHeight(CardPlayerFragment fragment);
     }
 
     private static abstract class BaseImpl implements Impl {
-        public AnimatorSet createDefaultColorChangeAnimatorSet(PlayerFragment fragment, int newColor) {
+        public AnimatorSet createDefaultColorChangeAnimatorSet(CardPlayerFragment fragment, int newColor) {
             Animator backgroundAnimator;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 int topMargin = fragment.getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
@@ -462,8 +464,10 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
 
             animatorSet.play(backgroundAnimator);
 
-            Animator subHeaderAnimator = ATHUtil.isWindowBackgroundDark(fragment.getActivity()) ? null : ViewUtil.createTextColorTransition(fragment.playerQueueSubHeader, fragment.lastColor, newColor);
-            if (subHeaderAnimator != null) {
+            if (!ATHUtil.isWindowBackgroundDark(fragment.getActivity())) {
+                int adjustedLastColor = ColorUtil.isColorLight(fragment.lastColor) ? ColorUtil.darkenColor(fragment.lastColor) : fragment.lastColor;
+                int adjustedNewColor = ColorUtil.isColorLight(newColor) ? ColorUtil.darkenColor(newColor) : newColor;
+                Animator subHeaderAnimator = ViewUtil.createTextColorTransition(fragment.playerQueueSubHeader, adjustedLastColor, adjustedNewColor);
                 animatorSet.play(subHeaderAnimator);
             }
 
@@ -472,7 +476,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         }
 
         @Override
-        public void animateColorChange(PlayerFragment fragment, int newColor) {
+        public void animateColorChange(CardPlayerFragment fragment, int newColor) {
             if (ATHUtil.isWindowBackgroundDark(fragment.getActivity())) {
                 fragment.playerQueueSubHeader.setTextColor(ThemeStore.textColorSecondary(fragment.getActivity()));
             }
@@ -485,7 +489,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         Song currentSong = new Song();
 
         @Override
-        public void init(final PlayerFragment fragment) {
+        public void init(final CardPlayerFragment fragment) {
             currentSongViewHolder = new MediaEntryViewHolder(fragment.getView().findViewById(R.id.current_song));
 
             currentSongViewHolder.separator.setVisibility(View.VISIBLE);
@@ -530,7 +534,7 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         }
 
         @Override
-        public void setUpPanelAndAlbumCoverHeight(PlayerFragment fragment) {
+        public void setUpPanelAndAlbumCoverHeight(CardPlayerFragment fragment) {
             WidthFitSquareLayout albumCoverContainer = (WidthFitSquareLayout) fragment.getView().findViewById(R.id.album_cover_container);
             int topMargin = fragment.getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
 
@@ -546,14 +550,14 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         }
 
         @Override
-        public void updateCurrentSong(PlayerFragment fragment, Song song) {
+        public void updateCurrentSong(CardPlayerFragment fragment, Song song) {
             currentSong = song;
             currentSongViewHolder.title.setText(song.title);
             currentSongViewHolder.text.setText(song.artistName);
         }
 
         @Override
-        public void animateColorChange(PlayerFragment fragment, int newColor) {
+        public void animateColorChange(CardPlayerFragment fragment, int newColor) {
             super.animateColorChange(fragment, newColor);
 
             fragment.slidingUpPanelLayout.setBackgroundColor(fragment.lastColor);
@@ -565,12 +569,12 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
     @SuppressWarnings("ConstantConditions")
     private static class LandscapeImpl extends BaseImpl {
         @Override
-        public void init(PlayerFragment fragment) {
+        public void init(CardPlayerFragment fragment) {
 
         }
 
         @Override
-        public void setUpPanelAndAlbumCoverHeight(PlayerFragment fragment) {
+        public void setUpPanelAndAlbumCoverHeight(CardPlayerFragment fragment) {
             int topMargin = fragment.getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
             int panelHeight = fragment.slidingUpPanelLayout.getHeight() - fragment.playbackControlsFragment.getView().getHeight() + topMargin;
             fragment.slidingUpPanelLayout.setPanelHeight(panelHeight);
@@ -579,13 +583,13 @@ public class PlayerFragment extends AbsPlayerFragment implements PlayerAlbumCove
         }
 
         @Override
-        public void updateCurrentSong(PlayerFragment fragment, Song song) {
+        public void updateCurrentSong(CardPlayerFragment fragment, Song song) {
             fragment.toolbar.setTitle(song.title);
             fragment.toolbar.setSubtitle(song.artistName);
         }
 
         @Override
-        public void animateColorChange(PlayerFragment fragment, int newColor) {
+        public void animateColorChange(CardPlayerFragment fragment, int newColor) {
             super.animateColorChange(fragment, newColor);
 
             fragment.slidingUpPanelLayout.setBackgroundColor(fragment.lastColor);
