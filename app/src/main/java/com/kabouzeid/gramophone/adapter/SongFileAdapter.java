@@ -115,7 +115,7 @@ public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewH
             holder.image.setColorFilter(iconColor, PorterDuff.Mode.SRC_IN);
             holder.image.setImageResource(R.drawable.ic_folder_white_24dp);
         } else {
-            Drawable error = Util.getTintedDrawable(activity, R.drawable.ic_file_music_white_24dp, iconColor);
+            Drawable error = Util.getTintedVectorDrawable(activity, R.drawable.ic_file_music_white_24dp, iconColor);
             Glide.with(activity)
                     .load(new AudioFileCover(file.getPath()))
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
