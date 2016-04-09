@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">您想分享哪些內容？</string>
-    <string name="currently_listening_to_x_by_x">現正播放 %2$s 的 %1$s 。</string>
-    <string name="the_audio_file">音訊檔</string>
+    <string name="currently_listening_to_x_by_x">我正在聽 %2$s 的 %1$s ！</string>
+    <string name="the_audio_file">音訊檔案</string>
     <string name="do_you_want_to_set_x_as_ringtone">要將 %1$s 設為鈴聲嗎？</string>
     <string name="x_has_been_set_as_ringtone">已將 %1$s 設為鈴聲。</string>
     <string name="action_set_as_ringtone">設為鈴聲</string>
@@ -18,13 +18,13 @@
     <string name="action_add_to_favorites">加到最愛</string>
     <string name="action_remove_from_favorites">從最愛中移除</string>
     <string name="action_search">搜尋</string>
-    <string name="action_play_next">下一首</string>
+    <string name="action_play_next">下一首播放</string>
     <string name="action_play">播放</string>
     <string name="action_add_to_playing_queue">加入播放佇列</string>
     <string name="action_remove_from_playing_queue">從播放佇列中移除</string>
     <string name="action_add_to_playlist">加入播放清單...</string>
     <string name="action_tag_editor">編輯音樂資訊</string>
-    <string name="action_delete_from_device">刪除這個音訊檔</string>
+    <string name="action_delete_from_device">刪除</string>
     <string name="action_details">詳細資訊</string>
     <string name="action_rename">"重新命名
 "</string>
@@ -96,7 +96,7 @@
     <string name="action_shuffle_all">隨機播放</string>
     <string name="action_shuffle_album">隨機播放專輯</string>
     <string name="action_shuffle_artist">歌手隨機播放</string>
-    <string name="action_shuffle_playlist">播放清單隨機播放</string>
+    <string name="action_shuffle_playlist">隨機播放清單</string>
     <string name="action_clear_playing_queue">清空播放佇列</string>
     <string name="action_go_to_start_directory">前往起始目錄</string>
     <string name="action_show_lyrics">顯示歌詞</string>
@@ -130,6 +130,7 @@
     <string name="pref_title_alternative_progress_slider_now_playing">替代進度列</string>
     <string name="pref_title_playback_controller_card_now_playing">在播放控制器下顯示背景卡片</string>
     <string name="pref_title_colored_playback_controls_now_playing">彩色的播放控制器</string>
+    <string name="pref_title_audio_ducking">在焦點音訊響起時降低音量</string>
     <string name="no_equalizer">找不到等化器</string>
     <string name="no_audio_ID">"請先播放一首歌後再重試一遍。"</string>
     <string name="delete_action">刪除</string>
@@ -155,7 +156,7 @@
     <string name="song">歌曲</string>
     <string name="pref_only_lollipop">"只適用於 Lollipop。"</string>
     <string name="pref_summary_album_art_on_lockscreen">將播放中歌曲的專輯封面設為鎖定螢幕背景。</string>
-    <string name="pref_summary_blurred_album_art">模糊化專輯圖片 (在鎖定畫面上)。第三方程式和小工具可能不正常運作。</string>
+    <string name="pref_summary_blurred_album_art">在鎖定畫面上模糊化專輯圖片。第三方程式和小工具可能不正常運作。</string>
     <string name="pref_summary_colored_notification">"\u72c0\u614b\u5217\u984f\u8272\u8207\u5c08\u8f2f\u5716\u7247\u984f\u8272\u4e00\u81f4"</string>
     <string name="pref_summary_gapless_playback">"可能會在某些裝置上出現播放問題。"</string>
     <string name="pref_summary_force_square_album_art">於正在播放介面中強制使用方形專輯封面。</string>
@@ -167,8 +168,9 @@
     <string name="pref_summary_ignore_media_store_artwork">提高專輯封面的成像品質，但會造成較長的讀取時間。建議只有在您對低畫質的專輯封面有問題時才開啟此選項。</string>
     <string name="pref_summary_colored_playback_controls_now_playing">\u5c07\u5c08\u8f2f\u5c01\u9762\u7684\u4e3b\u8272\u8abf\u8a2d\u70ba\u64ad\u653e\uff0f\u66ab\u505c\u3001\u96a8\u6a5f\u64ad\u653e\u3001\u91cd\u64ad\u548c\u9032\u5ea6\u5217\u7684\u984f\u8272\u3002</string>
     <string name="pref_summary_colored_navigation_bar">將專輯封面的主色調設為導航列的顏色。</string>
+    <string name="pref_summary_audio_ducking">通知鈴聲、導航語音等。</string>
     <string name="could_not_download_album_cover">"\u7121\u6cd5\u4e0b\u8f09\u5408\u9069\u7684\u5c08\u8f2f\u5c01\u9762\u3002"</string>
-    <string name="search_hint">正在掃描…</string>
+    <string name="search_hint">掃描音樂庫…</string>
     <string name="rescanning_media">正在重新掃描媒體庫…</string>
     <string name="favorites">最愛</string>
     <string name="last_added">最後新增</string>
@@ -176,7 +178,7 @@
     <string name="my_top_tracks">我的最佳單曲</string>
     <string name="remove_cover">移除封面</string>
     <string name="download_from_last_fm">從 Last.fm 下載</string>
-    <string name="pick_from_local_storage">從手機裡選擇(SD卡或記憶體)</string>
+    <string name="pick_from_local_storage">從手機裡選擇（SD卡或記憶體）</string>
     <string name="web_search">網路搜尋</string>
     <string name="action_sleep_timer">睡眠定時器</string>
     <string name="action_set">設定</string>
@@ -195,27 +197,27 @@
     <string name="support_development">支援開發</string>
     <string name="thank_you">感謝您！</string>
     <string name="restored_previous_purchases">回復購買</string>
-    <string name="play_store_illustration_by">Play 商店圖片作者:</string>
+    <string name="play_store_illustration_by">Play 商店圖片作者：</string>
     <string name="version">版本</string>
     <string name="application">程式</string>
     <string name="author">作者</string>
-    <string name="add_to_google_plus_circles">加入Google+ 社交圈</string>
-    <string name="follow_on_twitter">在Twitter上追隨我們</string>
+    <string name="add_to_google_plus_circles">加入 Google+ 社交圈</string>
+    <string name="follow_on_twitter">在 Twitter 上追蹤我們</string>
     <string name="fork_on_git_hub">在 GitHub 上幫助開發</string>
     <string name="visit_website">造訪網站</string>
     <string name="report_bugs">回報程式錯誤</string>
     <string name="report_bugs_summary">建議新功能或回報問題</string>
-    <string name="join_community">加入 Google + 社交圈</string>
-    <string name="join_community_summary">如果您需要幫助或遇到問題，在 Google + 的(Phonograph) 社交圈是個發問的好地方。</string>
+    <string name="join_community">加入 Google+ 社交圈</string>
+    <string name="join_community_summary">如果您需要幫助或遇到問題，Google+ 社交圈的 Phonograph 社群是個發問的好地方。</string>
     <string name="translate">翻譯</string>
-    <string name="translate_summary">幫助我們翻譯這款App成您的語言</string>
+    <string name="translate_summary">幫助我們將這款 App 翻譯成您的語言</string>
     <string name="rate_on_google_play">評分</string>
-    <string name="rate_on_google_play_summary">如果您喜歡這款App (Phonograph)，在 Play商店給個好評吧 !</string>
-    <string name="donate">捐贈給我們</string>
-    <string name="donate_summary">您認為我的努力值得回報的話，請用您的零用錢讚賞我一下。</string>
-    <string name="aidan_follestad_summary">製作主題引擎及其他非常好的東西</string>
-    <string name="michael_cook_summary">製作那個美麗的程式圖標</string>
-    <string name="maarten_corpel_summary">製作 Play 商店的圖片及專輯圖片給沒有的歌曲</string>
+    <string name="rate_on_google_play_summary">如果您喜歡 Phonograph，在 Play商店給個好評吧 ！</string>
+    <string name="donate">捐助我們</string>
+    <string name="donate_summary">如果您認為我的努力值得回報，請用您的零用錢讚賞我一下。</string>
+    <string name="aidan_follestad_summary">製作主題引擎及其他超棒的東西</string>
+    <string name="michael_cook_summary">繪製美麗的程式圖標</string>
+    <string name="maarten_corpel_summary">為沒有專輯封面的歌曲繪製圖片與製作 Play 商店上的插圖</string>
     <string name="aleksandar_tesic_summary">幫助我做 UI 設計</string>
     <string name="website">網站</string>
     <string name="loading_products">正在載入</string>
@@ -223,9 +225,9 @@
     <string name="pref_title_now_playing_layout">正在播放頁面</string>
     <string name="intro_label">程式介紹</string>
     <string name="press_back_again_to_exit_intro">再點一下返回來跳過介紹</string>
-    <string name="welcome_to_phonograph">"歡迎來臨 Phonograph，一個又美麗又細小的安卓音樂播放器。"</string>
+    <string name="welcome_to_phonograph">"歡迎光臨 Phonograph，一個美麗又輕量的音樂播放器。"</string>
     <string name="open_playing_queue_instruction">在現正播放卡片上滑來顯示播放佇列</string>
-    <string name="rearrange_playing_queue_instruction">您可以更改歌曲播放的順序，上下滑動播放佇列中的歌曲編號即可。</string>
+    <string name="rearrange_playing_queue_instruction">您可以更改歌曲播放的順序，上下拖曳播放佇列中的歌曲編號即可。</string>
     <string name="library">音樂庫</string>
     <string name="folders">文件夾</string>
     <string name="saved_playlist_to">已儲存播放清單至%s</string>
@@ -236,4 +238,7 @@
     <string name="could_not_scan_files">不能掃描%d。</string>
     <string name="listing_files">列出文件</string>
     <string name="new_start_directory">%s是新的起始目錄</string>
+    <string name="app_widget_big_name">Phonograph - 大型</string>
+    <string name="app_widget_classic_name">Phonograph - 經典</string>
+    <string name="app_widget_small_name">Phonograph - 小型</string>
 </resources>

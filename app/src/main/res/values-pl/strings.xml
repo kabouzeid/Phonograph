@@ -129,6 +129,7 @@
     <string name="pref_title_alternative_progress_slider_now_playing">Alternatywny pasek postępu</string>
     <string name="pref_title_playback_controller_card_now_playing">Pokazuje kartę pod przyciskami odtwarzania</string>
     <string name="pref_title_colored_playback_controls_now_playing">Kolorowe przyciski odtwarzania</string>
+    <string name="pref_title_audio_ducking">Zmniejszaj głośność przy powiadomieniach</string>
     <string name="no_equalizer">Nie znaleziono korektora</string>
     <string name="no_audio_ID">"Odegraj utwór, następnie ponów próbę"</string>
     <string name="delete_action">Usuń</string>
@@ -166,6 +167,7 @@
     <string name="pref_summary_ignore_media_store_artwork">Polepszy to jakość okładek, ale może spowodować ich wolniejsze ładowanie. Zaznacz tylko wtedy, gdy masz kłopoty z niską jakością grafik</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Przyciski \'\'Graj/Pauzuj\'\', \'\'Losowo\'\', \'\'Powt\u00f3rz\'\' oraz pasek post\u0119pu, b\u0119d\u0105 w tonacjach ok\u0142adek album\u00f3w</string>
     <string name="pref_summary_colored_navigation_bar">Kolory paska nawigacyjnego będą odpowiadały kolorowi podstawowemu</string>
+    <string name="pref_summary_audio_ducking">Notyfikacje, nawigacja, itp.</string>
     <string name="could_not_download_album_cover">"Nie uda\u0142o si\u0119 pobra\u0107 pasuj\u0105cej ok\u0142adki albumu"</string>
     <string name="search_hint">Szukaj w bibliotece...</string>
     <string name="rescanning_media">Ponowny skan nośnika...</string>
@@ -235,4 +237,7 @@
     <string name="could_not_scan_files">Nie można przeskanować %d plików</string>
     <string name="listing_files">Lista plików</string>
     <string name="new_start_directory">%s jest nowym folderem startowym</string>
+    <string name="app_widget_big_name">Phonograph - Duży</string>
+    <string name="app_widget_classic_name">Phonograph - Klasyczny</string>
+    <string name="app_widget_small_name">Phonograph - Mały</string>
 </resources>

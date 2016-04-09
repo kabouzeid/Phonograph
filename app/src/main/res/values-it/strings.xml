@@ -3,7 +3,7 @@
     <string name="what_do_you_want_to_share">Cosa vuoi condividere?</string>
     <string name="currently_listening_to_x_by_x">Stai ascoltando %1$s di %2$s.</string>
     <string name="the_audio_file">Il file audio</string>
-    <string name="do_you_want_to_set_x_as_ringtone">Vuoi impostare %1$s come suoneria?</string>
+    <string name="do_you_want_to_set_x_as_ringtone">Vuoi impostare %1$s come tua suoneria?</string>
     <string name="x_has_been_set_as_ringtone">Imposta %1$s come suoneria.</string>
     <string name="action_set_as_ringtone">Imposta come suoneria</string>
     <string name="action_share">Condividi</string>
@@ -33,7 +33,7 @@
     <string name="albums">Album</string>
     <string name="artists">Artisti</string>
     <string name="songs">Brani</string>
-    <string name="playlists">Playlist</string>
+    <string name="playlists">Playlists</string>
     <string name="unplayable_file">Impossibile riprodurre questo brano.</string>
     <string name="biography_unavailable">Impossibile trovare una biografia corrispondente a questo artista.</string>
     <string name="biography">Biografia</string>
@@ -129,6 +129,7 @@
     <string name="pref_title_alternative_progress_slider_now_playing">Barra di scorrimento alternativa</string>
     <string name="pref_title_playback_controller_card_now_playing">Sfondo card per i controlli di riproduzione</string>
     <string name="pref_title_colored_playback_controls_now_playing">Controlli di riproduzione colorati</string>
+    <string name="pref_title_audio_ducking">Riduci volume in caso di perdita di focus audio</string>
     <string name="no_equalizer">Nessun equalizzatore trovato</string>
     <string name="no_audio_ID">"Riproduci un brano e prova di nuovo."</string>
     <string name="delete_action">Elimina</string>
@@ -166,6 +167,7 @@
     <string name="pref_summary_ignore_media_store_artwork">Può incrementare la qualità delle copertine, ma causa rallentamenti nei tempi di caricamento delle immagini. Abilita soltanto se hai problemi con copertine a bassa risoluzione.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Colora i pulsanti play/pausa, casuale e ripeti cos\u00ec come la barra d\'avanzamento secondo la gamma di colori della copertina.</string>
     <string name="pref_summary_colored_navigation_bar">Colora la barra di navigazione del colore principale.</string>
+    <string name="pref_summary_audio_ducking">Notifiche, navigazione ecc.</string>
     <string name="could_not_download_album_cover">"Impossibile scaricare una copertina adatta."</string>
     <string name="search_hint">Cercando nella tua libreria...</string>
     <string name="rescanning_media">Nuova scannerizzazione media in corso...</string>
@@ -235,4 +237,7 @@
     <string name="could_not_scan_files">Non è stato possibile effettuare la scansione di %d file.</string>
     <string name="listing_files">Creazione elenco dei file</string>
     <string name="new_start_directory">%s è la nuova directory iniziale.</string>
+    <string name="app_widget_big_name">Phonograph - Grande</string>
+    <string name="app_widget_classic_name">Phonograph - Classico</string>
+    <string name="app_widget_small_name">Phonograph - Piccolo</string>
 </resources>

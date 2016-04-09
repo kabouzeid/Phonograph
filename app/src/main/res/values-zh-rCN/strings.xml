@@ -129,6 +129,7 @@
     <string name="pref_title_alternative_progress_slider_now_playing">备选进度条样式</string>
     <string name="pref_title_playback_controller_card_now_playing">启用卡片式播放控制面板</string>
     <string name="pref_title_colored_playback_controls_now_playing">启用播放控制面板变色</string>
+    <string name="pref_title_audio_ducking">音频焦点丢失时降低音量</string>
     <string name="no_equalizer">没有找到均衡器</string>
     <string name="no_audio_ID">"请在播放曲目后再次尝试该操作"</string>
     <string name="delete_action">删除</string>
@@ -166,6 +167,7 @@
     <string name="pref_summary_ignore_media_store_artwork">可以提高专辑封面图片的质量但加载时间也会更长。仅当遇到专辑封面像素过低时建议开启。</string>
     <string name="pref_summary_colored_playback_controls_now_playing">\u64ad\u653e/\u6682\u505c\u3001\u968f\u673a\u64ad\u653e\u3001\u5faa\u73af\u64ad\u653e\u6309\u952e\u4ee5\u53ca\u6b4c\u66f2\u8fdb\u5ea6\u6761\u7684\u989c\u8272\u90fd\u5c06\u6839\u636e\u4e13\u8f91\u5c01\u9762\u8272\u8fdb\u884c\u53d8\u8272\u3002</string>
     <string name="pref_summary_colored_navigation_bar">导航栏颜色与主色调保持一致。</string>
+    <string name="pref_summary_audio_ducking">通知，导航等</string>
     <string name="could_not_download_album_cover">"\u65e0\u6cd5\u4e0b\u8f7d\u5230\u5339\u914d\u7684\u4e13\u8f91\u5c01\u9762\u3002"</string>
     <string name="search_hint">正在扫描</string>
     <string name="rescanning_media">正在重新扫描媒体储存…</string>
@@ -235,4 +237,7 @@
     <string name="could_not_scan_files">%d 个文件无法扫描。</string>
     <string name="listing_files">正在列举文件</string>
     <string name="new_start_directory">%s 是新的初始目录。</string>
+    <string name="app_widget_big_name">Phonograph - 大尺寸</string>
+    <string name="app_widget_classic_name">Phonograph - 经典</string>
+    <string name="app_widget_small_name">Phonograph - 小尺寸</string>
 </resources>

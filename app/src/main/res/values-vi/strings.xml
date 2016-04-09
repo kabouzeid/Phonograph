@@ -98,6 +98,7 @@
     <string name="action_shuffle_playlist">Trộn danh sách nhạc</string>
     <string name="action_clear_playing_queue">Dọn hàng đợi phát</string>
     <string name="action_go_to_start_directory">Tới thư mục đầu</string>
+    <string name="action_show_lyrics">Hiện lời bài hát</string>
     <string name="last_opened">Được mở sau cùng</string>
     <string name="light_theme_name">Sáng</string>
     <string name="dark_theme_name">Tối</string>
@@ -128,6 +129,7 @@
     <string name="pref_title_alternative_progress_slider_now_playing">Thanh tiến trình thay thế</string>
     <string name="pref_title_playback_controller_card_now_playing">Hiện thẻ bên dưới trình điều khiển phát lại</string>
     <string name="pref_title_colored_playback_controls_now_playing">Màu sắc trình điều khiển phát lại</string>
+    <string name="pref_title_audio_ducking">Giảm âm lượng tránh mất tập trung</string>
     <string name="no_equalizer">Không tìm thấy bộ lọc.</string>
     <string name="no_audio_ID">"Phát một bài hát đầu tiên, sau đó thử lại."</string>
     <string name="delete_action">Xóa</string>
@@ -165,6 +167,7 @@
     <string name="pref_summary_ignore_media_store_artwork">Có thể làm tăng chất lượng bìa album nhưng làm chậm quá trình tải hình ảnh. Chỉ cho phép điều này nếu bạn có vấn đề với hình ảnh có độ phân giải thấp.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">M\u00e0u s\u1eafc c\u1ee7a ph\u00e1t / t\u1ea1m d\u1eebng, tr\u1ed9n v\u00e0 l\u1eb7p l\u1ea1i c\u0169ng nh\u01b0 thanh ti\u1ebfn tr\u00ecnh trong m\u00e0u s\u1eafc r\u1ef1c r\u1ee1 c\u1ee7a b\u00eca album.</string>
     <string name="pref_summary_colored_navigation_bar">Màu sắc thanh điều hướng trong các màu cơ bản.</string>
+    <string name="pref_summary_audio_ducking">Thông báo, chuyển hướng, vv.</string>
     <string name="could_not_download_album_cover">"Kh\u00f4ng th\u1ec3 t\u1ea3i v\u1ec1 b\u00eca album ph\u00f9 h\u1ee3p."</string>
     <string name="search_hint">Tìm kiếm thư viện của bạn...</string>
     <string name="rescanning_media">Quét lại phương tiện...</string>
@@ -234,4 +237,7 @@
     <string name="could_not_scan_files">Không thể quét %d tập tin.</string>
     <string name="listing_files">Liệt kê các tập tin</string>
     <string name="new_start_directory">%s là thư mục khởi đầu.</string>
+    <string name="app_widget_big_name">Phonograph - Lớn</string>
+    <string name="app_widget_classic_name">Phonograph - Cổ điển</string>
+    <string name="app_widget_small_name">Phonograph - Nhỏ</string>
 </resources>
