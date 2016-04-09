@@ -7,7 +7,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Point;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -17,8 +16,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.TintContextWrapper;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
@@ -26,6 +24,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import com.kabouzeid.appthemehelper.util.TintHelper;
 import com.kabouzeid.gramophone.R;
 
 /**
@@ -95,19 +94,20 @@ public class Util {
         return dimensionPixelSize;
     }
 
-    public static Drawable getTintedDrawable(@NonNull Context context, @DrawableRes int drawableResId, @ColorInt int color) {
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
-            // vector support
-            context = TintContextWrapper.wrap(context);
-        }
-        Drawable drawable = ContextCompat.getDrawable(context, drawableResId);
-        if (drawable != null) {
-            // If we don't mutate the drawable, then all drawables with this id will have a color
-            // filter applied to it.
-            drawable.mutate();
-            drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
-        }
-        return drawable;
+    public static Drawable getVectorDrawable(@NonNull Context context, @DrawableRes int id) {
+        return getVectorDrawable(context.getResources(), id, context.getTheme());
+    }
+
+    public static Drawable getVectorDrawable(@NonNull Resources res, @DrawableRes int resId, @Nullable Resources.Theme theme) {
+        return VectorDrawableCompat.create(res, resId, theme);
+    }
+
+    public static Drawable getTintedVectorDrawable(@NonNull Context context, @DrawableRes int id, @ColorInt int color) {
+        return TintHelper.createTintedDrawable(getVectorDrawable(context.getResources(), id, context.getTheme()), color);
+    }
+
+    public static Drawable getTintedVectorDrawable(@NonNull Resources res, @DrawableRes int resId, @Nullable Resources.Theme theme, @ColorInt int color) {
+        return TintHelper.createTintedDrawable(getVectorDrawable(res, resId, theme), color);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
