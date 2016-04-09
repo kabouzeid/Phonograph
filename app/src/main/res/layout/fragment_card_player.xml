@@ -51,14 +51,14 @@
 
                 <fragment
                     android:id="@+id/playback_controls_fragment"
-                    class="com.kabouzeid.gramophone.ui.fragments.player.PlaybackControlsFragment"
+                    class="com.kabouzeid.gramophone.ui.fragments.player.card.CardPlayerPlaybackControlsFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/album_cover_container" />
 
             </RelativeLayout>
 
-            <include layout="@layout/shadow_statusbar_actionbar" />
+            <include layout="@layout/shadow_statusbar_toolbar" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/player_toolbar"

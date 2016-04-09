@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.ui.fragments.player;
+package com.kabouzeid.gramophone.ui.fragments.player.card;
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class PlaybackControlsFragment extends AbsMusicServiceFragment implements MusicProgressViewUpdateHelper.Callback {
+public class CardPlayerPlaybackControlsFragment extends AbsMusicServiceFragment implements MusicProgressViewUpdateHelper.Callback {
 
     @Bind(R.id.player_play_pause_fab)
     FloatingActionButton playPauseFab;
@@ -67,7 +67,7 @@ public class PlaybackControlsFragment extends AbsMusicServiceFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_playback_controls, container, false);
+        return inflater.inflate(R.layout.fragment_card_player_playback_controls, container, false);
     }
 
     @Override

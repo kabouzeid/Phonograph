@@ -13,7 +13,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.ui.fragments.player.AbsPlayerFragment;
 import com.kabouzeid.gramophone.ui.fragments.player.MiniPlayerFragment;
-import com.kabouzeid.gramophone.ui.fragments.player.PlayerFragment;
+import com.kabouzeid.gramophone.ui.fragments.player.card.CardPlayerFragment;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import butterknife.Bind;
@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
  *         Do not use {@link #setContentView(int)}. Instead wrap your layout with
  *         {@link #wrapSlidingMusicPanel(int)} first and then return it in {@link #createContentView()}
  */
-public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivity implements SlidingUpPanelLayout.PanelSlideListener, PlayerFragment.Callbacks {
+public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivity implements SlidingUpPanelLayout.PanelSlideListener, CardPlayerFragment.Callbacks {
     public static final String TAG = AbsSlidingMusicPanelActivity.class.getSimpleName();
 
     @Bind(R.id.sliding_layout)

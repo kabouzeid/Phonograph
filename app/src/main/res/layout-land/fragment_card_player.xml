@@ -65,7 +65,7 @@
 
                     <fragment
                         android:id="@+id/playback_controls_fragment"
-                        class="com.kabouzeid.gramophone.ui.fragments.player.PlaybackControlsFragment"
+                        class="com.kabouzeid.gramophone.ui.fragments.player.card.CardPlayerPlaybackControlsFragment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
