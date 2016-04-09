@@ -99,6 +99,9 @@ public class Util {
     }
 
     public static Drawable getVectorDrawable(@NonNull Resources res, @DrawableRes int resId, @Nullable Resources.Theme theme) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            return res.getDrawable(resId, theme);
+        }
         return VectorDrawableCompat.create(res, resId, theme);
     }
 
