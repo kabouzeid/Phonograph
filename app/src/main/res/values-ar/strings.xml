@@ -211,7 +211,6 @@
     <string name="website">الموقع</string>
     <string name="loading_products">يتم تحميل المنتجات...</string>
     <string name="up_next">التالي</string>
-    <string name="pref_title_now_playing_layout">تصميم قائمة \"تستمع الآن\"</string>
     <string name="intro_label">المقدمة</string>
     <string name="press_back_again_to_exit_intro">اضغط زر الخلف مجدداً لتجاوز المقدمة</string>
     <string name="welcome_to_phonograph">"مرحباً في Phonograph، مشغل موسيقى خفيف وأنيق على منصة أندرويد."</string>

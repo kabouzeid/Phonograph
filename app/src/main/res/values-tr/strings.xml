@@ -221,7 +221,6 @@
     <string name="website">Web sitesi</string>
     <string name="loading_products">İçerik yükleniyor...</string>
     <string name="up_next">Sırada olanlar</string>
-    <string name="pref_title_now_playing_layout">Şuan çalınıyor düzeni</string>
     <string name="intro_label">Tanıtım</string>
     <string name="press_back_again_to_exit_intro">Tanıtımı atlamak için geri tuşuna basın.</string>
     <string name="welcome_to_phonograph">"Phonograph'a Hoşgeldiniz, Android için güzel ve hafif bir müzik çalar. "</string>

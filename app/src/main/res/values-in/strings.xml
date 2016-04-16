@@ -98,6 +98,7 @@
     <string name="action_shuffle_playlist">Putar daftar putar dengan diacak</string>
     <string name="action_clear_playing_queue">Bersihkan antrian putar</string>
     <string name="action_go_to_start_directory">Ke direktori awal</string>
+    <string name="action_show_lyrics">Tampilkan lirik</string>
     <string name="last_opened">Terakhir dibuka</string>
     <string name="light_theme_name">Terang</string>
     <string name="dark_theme_name">Gelap</string>
@@ -128,6 +129,7 @@
     <string name="pref_title_alternative_progress_slider_now_playing">Penggeser pemutaran lagu alternatif</string>
     <string name="pref_title_playback_controller_card_now_playing">Tampilkan kartu di bawah kontrol pemutar</string>
     <string name="pref_title_colored_playback_controls_now_playing">Kontrol pemutar berwarna</string>
+    <string name="pref_title_audio_ducking">Kurangi suara saat ada pemberitahuan</string>
     <string name="no_equalizer">Tidak ada pengatur suara yang ditemukan.</string>
     <string name="no_audio_ID">"Silahkan mainkan sebuah lagu dan coba lagi. "</string>
     <string name="delete_action">Hapus</string>
@@ -165,6 +167,7 @@
     <string name="pref_summary_ignore_media_store_artwork">"Dapat meningkatkan kualitas sampul album, namun menyebabkan waktu pemuatan lebih lambat. Aktifkan jika Anda bermasalah dengan resolusi gambar album yang rendah. "</string>
     <string name="pref_summary_colored_playback_controls_now_playing">"Mewarnai tombol kontrol pemutar dengan warna yang sama pada penggeser progres dengan menggunakan warna carah pada sampul album. "</string>
     <string name="pref_summary_colored_navigation_bar">"Mewarnai bilah navigasi dengan warna primer. "</string>
+    <string name="pref_summary_audio_ducking">Pemberitahuan, navigasi dll.</string>
     <string name="could_not_download_album_cover">"Tidak dapat mengunduh sampul album yang cocok."</string>
     <string name="search_hint">Mencari pustaka Anda...</string>
     <string name="rescanning_media">Memindai ulang media...</string>
@@ -218,7 +221,6 @@
     <string name="website">Situs</string>
     <string name="loading_products">Memuat produk...</string>
     <string name="up_next">Mendatang</string>
-    <string name="pref_title_now_playing_layout">Tampilan sedang diputar</string>
     <string name="intro_label">Pengenalan</string>
     <string name="press_back_again_to_exit_intro">Tekan kembali lagi untuk melewati intro.</string>
     <string name="welcome_to_phonograph">"Selamat datang di Phonograph, sebuah pemutar musik yang indah dan ringan untuk Android. "</string>
@@ -234,4 +236,7 @@
     <string name="could_not_scan_files">Tidak dapat memindai %d berkas.</string>
     <string name="listing_files">Mencatat berkas-berkas</string>
     <string name="new_start_directory">%s adalah direktori awal yang baru.</string>
+    <string name="app_widget_big_name">Phonograph - Besar</string>
+    <string name="app_widget_classic_name">Phonograph - Klasik</string>
+    <string name="app_widget_small_name">Phonograph - Kecil</string>
 </resources>

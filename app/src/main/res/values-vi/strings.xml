@@ -221,7 +221,6 @@
     <string name="website">Trang web</string>
     <string name="loading_products">Đang tải sản phẩm...</string>
     <string name="up_next">Tiếp theo</string>
-    <string name="pref_title_now_playing_layout">Bố trí trình phát hiện tại</string>
     <string name="intro_label">Giới thiệu</string>
     <string name="press_back_again_to_exit_intro">Nhấn trở lại lần nữa để bỏ qua phần giới thiệu.</string>
     <string name="welcome_to_phonograph">"Chào mừng bạn đến Phonograph, một máy nghe nhạc đẹp và nhẹ cho Android."</string>

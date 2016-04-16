@@ -221,7 +221,6 @@
     <string name="website">Weboldal</string>
     <string name="loading_products">Termékek betöltése...</string>
     <string name="up_next">Következő</string>
-    <string name="pref_title_now_playing_layout">Most játszás elrendezése</string>
     <string name="intro_label">Bemutató</string>
     <string name="press_back_again_to_exit_intro">Nyomj a visszára megint, hogy átugord a bemutatót.</string>
     <string name="welcome_to_phonograph">"Üdvözöl a Phonograph! Egy kisméretű, szép zenelejátszó Android-ra. "</string>
