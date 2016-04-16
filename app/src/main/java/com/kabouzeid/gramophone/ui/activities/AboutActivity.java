@@ -19,6 +19,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
 import com.kabouzeid.gramophone.dialogs.DonationsDialog;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
+import com.kabouzeid.gramophone.ui.activities.bugreport.BugReportActivity;
 import com.kabouzeid.gramophone.ui.activities.intro.AppIntroActivity;
 
 import butterknife.Bind;
@@ -36,7 +37,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     private static String GITHUB = "https://github.com/kabouzeid";
     private static String WEBSITE = "http://kabouzeid.com/";
 
-    private static String REPORT_BUGS = "https://github.com/kabouzeid/phonograph-issue-tracker";
     private static String GOOGLE_PLUS_COMMUNITY = "https://plus.google.com/u/0/communities/106227738496107108513";
     private static String TRANSLATE = "https://phonograph.oneskyapp.com/collaboration/project?id=26521";
     private static String RATE_ON_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.kabouzeid.gramophone";
@@ -179,7 +179,7 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         } else if (v == visitWebsite) {
             openUrl(WEBSITE);
         } else if (v == reportBugs) {
-            openUrl(REPORT_BUGS);
+            startActivity(new Intent(this, BugReportActivity.class));
         } else if (v == joinGooglePlusCommunity) {
             openUrl(GOOGLE_PLUS_COMMUNITY);
         } else if (v == translate) {

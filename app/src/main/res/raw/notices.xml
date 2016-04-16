@@ -23,6 +23,12 @@
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
+        <name>android-issue-reporter</name>
+        <url>https://github.com/HeinrichReimer/android-issue-reporter</url>
+        <copyright>Copyright 2016 Heinrich Reimer</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
         <name>Android-ObservableScrollView</name>
         <url>https://github.com/ksoichiro/Android-ObservableScrollView</url>
         <copyright>Copyright 2014 Soichiro Kashima</copyright>

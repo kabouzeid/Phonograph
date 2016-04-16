@@ -107,11 +107,9 @@
         <meta-data
             android:name="com.crashlytics.ApiKey"
             android:value="b23725bd3d266aa65c5a3dd1816b2f801524a189" />
-
         <meta-data
             android:name="com.kabouzeid.gramophone.glide.PhonographGlideModule"
             android:value="GlideModule" />
-
         <meta-data
             android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
             android:value="GlideModule" />
@@ -119,11 +117,9 @@
         <activity
             android:name=".ui.activities.tageditor.SongTagEditorActivity"
             android:windowSoftInputMode="adjustResize" />
-
         <activity
             android:name=".ui.activities.tageditor.AlbumTagEditorActivity"
             android:windowSoftInputMode="adjustResize" />
-
         <activity android:name=".ui.activities.SearchActivity" />
 
         <receiver
@@ -138,7 +134,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/app_widget_big_info" />
         </receiver>
-
         <receiver
             android:name=".appwidgets.AppWidgetClassic"
             android:exported="false"
@@ -151,7 +146,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/app_widget_classic_info" />
         </receiver>
-
         <receiver
             android:name=".appwidgets.AppWidgetSmall"
             android:exported="false"
@@ -168,17 +162,17 @@
         <activity
             android:name=".ui.activities.SettingsActivity"
             android:label="@string/action_settings" />
-
         <activity android:name=".ui.activities.PlaylistDetailActivity" />
-
         <activity
             android:name=".ui.activities.AboutActivity"
             android:label="@string/action_about" />
-
         <activity
             android:name=".ui.activities.intro.AppIntroActivity"
             android:label="@string/intro_label"
             android:theme="@style/Theme.Intro" />
+        <activity
+            android:name=".ui.activities.bugreport.BugReportActivity"
+            android:label="@string/report_an_issue" />
     </application>
 
 </manifest>
