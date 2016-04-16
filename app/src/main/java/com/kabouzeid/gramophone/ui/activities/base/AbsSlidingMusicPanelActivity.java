@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
 import android.support.annotation.LayoutRes;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -18,7 +19,10 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.ui.fragments.player.AbsPlayerFragment;
 import com.kabouzeid.gramophone.ui.fragments.player.MiniPlayerFragment;
+import com.kabouzeid.gramophone.ui.fragments.player.NowPlayingScreen;
 import com.kabouzeid.gramophone.ui.fragments.player.card.CardPlayerFragment;
+import com.kabouzeid.gramophone.ui.fragments.player.flat.FlatPlayerFragment;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
@@ -41,6 +45,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     private int taskColor;
     private boolean lightStatusbar;
 
+    private NowPlayingScreen currentNowPlayingScreen;
     private AbsPlayerFragment playerFragment;
     private MiniPlayerFragment miniPlayerFragment;
 
@@ -53,7 +58,21 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         setContentView(createContentView());
         ButterKnife.bind(this);
 
-        playerFragment = (AbsPlayerFragment) getSupportFragmentManager().findFragmentById(R.id.player_fragment);
+        currentNowPlayingScreen = PreferenceUtil.getInstance(this).getNowPlayingScreen();
+        Fragment fragment; // must implement AbsPlayerFragment
+        switch (currentNowPlayingScreen) {
+            case FLAT:
+                fragment = new FlatPlayerFragment();
+                break;
+            case CARD:
+            default:
+                fragment = new CardPlayerFragment();
+                break;
+        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.player_fragment_container, fragment).commit();
+        getSupportFragmentManager().executePendingTransactions();
+
+        playerFragment = (AbsPlayerFragment) getSupportFragmentManager().findFragmentById(R.id.player_fragment_container);
         miniPlayerFragment = (MiniPlayerFragment) getSupportFragmentManager().findFragmentById(R.id.mini_player_fragment);
 
         //noinspection ConstantConditions
@@ -74,12 +93,20 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                     onPanelExpanded(slidingUpPanelLayout);
                 } else if (getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
                     onPanelCollapsed(slidingUpPanelLayout);
+                } else {
+                    playerFragment.onHide();
                 }
             }
         });
         slidingUpPanelLayout.addPanelSlideListener(this);
+    }
 
-        playerFragment.onHide();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (currentNowPlayingScreen != PreferenceUtil.getInstance(this).getNowPlayingScreen()) {
+            postRecreate();
+        }
     }
 
     public void setAntiDragView(View antiDragView) {

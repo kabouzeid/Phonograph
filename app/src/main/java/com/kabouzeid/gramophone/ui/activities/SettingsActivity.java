@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.media.audiofx.AudioEffect;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceManager;
@@ -23,6 +25,8 @@ import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference;
 import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceFragmentCompat;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreference;
+import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreferenceDialog;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
@@ -86,7 +90,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         return super.onOptionsItemSelected(item);
     }
 
-    public static class SettingsFragment extends ATEPreferenceFragmentCompat {
+    public static class SettingsFragment extends ATEPreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
 
         private static void setSummary(@NonNull Preference preference) {
             setSummary(preference, PreferenceManager
@@ -119,11 +123,27 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             addPreferencesFromResource(R.xml.pref_audio);
         }
 
+        @Nullable
+        @Override
+        public DialogFragment onCreatePreferenceDialog(Preference preference) {
+            if (preference instanceof NowPlayingScreenPreference) {
+                return NowPlayingScreenPreferenceDialog.newInstance();
+            }
+            return super.onCreatePreferenceDialog(preference);
+        }
+
         @Override
         public void onViewCreated(View view, Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
             getListView().setPadding(0, 0, 0, 0);
             invalidateSettings();
+            PreferenceUtil.getInstance(getActivity()).registerOnSharedPreferenceChangedListener(this);
+        }
+
+        @Override
+        public void onDestroyView() {
+            super.onDestroyView();
+            PreferenceUtil.getInstance(getActivity()).unregisterOnSharedPreferenceChangedListener(this);
         }
 
         private void invalidateSettings() {
@@ -223,6 +243,8 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                     return true;
                 }
             });
+
+            updateNowPlayingScreenSummary();
         }
 
         private boolean hasEqualizer() {
@@ -230,6 +252,19 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             PackageManager pm = getActivity().getPackageManager();
             ResolveInfo ri = pm.resolveActivity(effects, 0);
             return ri != null;
+        }
+
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            switch (key) {
+                case PreferenceUtil.NOW_PLAYING_SCREEN_ID:
+                    updateNowPlayingScreenSummary();
+                    break;
+            }
+        }
+
+        private void updateNowPlayingScreenSummary() {
+            findPreference("now_playing_screen_id").setSummary(PreferenceUtil.getInstance(getActivity()).getNowPlayingScreen().titleRes);
         }
     }
 }

@@ -19,9 +19,8 @@
         android:layout_height="match_parent"
         android:background="?android:colorBackground">
 
-        <fragment android:id="@+id/player_fragment"
-            class="com.kabouzeid.gramophone.ui.fragments.player.flat.FlatPlayerFragment"
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <FrameLayout
+            android:id="@+id/player_fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

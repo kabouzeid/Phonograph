@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/now_playing_screen_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingLeft="72dp"
+        android:paddingRight="72dp" />
+
+    <com.heinrichreimersoftware.materialintro.view.InkPageIndicator
+        android:id="@+id/page_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        app:currentPageIndicatorColor="?android:textColorPrimary"
+        app:dotDiameter="8dp"
+        app:dotGap="8dp"
+        app:pageIndicatorColor="?android:textColorHint" />
+
+</LinearLayout>
