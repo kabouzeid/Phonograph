@@ -10,6 +10,7 @@ import android.support.annotation.StyleRes;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.SortOrder;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.folders.FoldersFragment;
+import com.kabouzeid.gramophone.ui.fragments.player.NowPlayingScreen;
 
 import java.io.File;
 
@@ -18,6 +19,7 @@ public final class PreferenceUtil {
     public static final String DEFAULT_START_PAGE = "default_start_page";
     public static final String LAST_PAGE = "last_start_page";
     public static final String LAST_MUSIC_CHOOSER = "last_music_chooser";
+    public static final String NOW_PLAYING_SCREEN_ID = "now_playing_screen_id";
 
     public static final String ARTIST_SORT_ORDER = "artist_sort_order";
     public static final String ARTIST_SONG_SORT_ORDER = "artist_song_sort_order";
@@ -125,6 +127,21 @@ public final class PreferenceUtil {
 
     public final int getLastMusicChooser() {
         return mPreferences.getInt(LAST_MUSIC_CHOOSER, 0);
+    }
+
+    public final NowPlayingScreen getNowPlayingScreen() {
+        int id = mPreferences.getInt(NOW_PLAYING_SCREEN_ID, 0);
+        for (NowPlayingScreen nowPlayingScreen : NowPlayingScreen.values()) {
+            if (nowPlayingScreen.id == id) return nowPlayingScreen;
+        }
+        return NowPlayingScreen.CARD;
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    public void setNowPlayingScreen(NowPlayingScreen nowPlayingScreen) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putInt(NOW_PLAYING_SCREEN_ID, nowPlayingScreen.id);
+        editor.commit();
     }
 
     public final boolean coloredNotification() {

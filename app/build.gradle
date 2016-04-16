@@ -106,18 +106,18 @@ dependencies {
         transitive = true
     }
 
-    compile('com.github.afollestad.material-dialogs:core:0.8.5.6@aar') {
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.8@aar') {
         transitive = true
     }
-    compile('com.github.afollestad.material-dialogs:commons:0.8.5.6@aar') {
-        transitive = true
-    }
-
-    compile('com.afollestad:material-cab:0.1.9@aar') {
+    compile('com.github.afollestad.material-dialogs:commons:0.8.5.8@aar') {
         transitive = true
     }
 
-    compile('com.github.kabouzeid:app-theme-helper:1.0.1@aar') {
+    compile('com.afollestad:material-cab:0.1.11@aar') {
+        transitive = true
+    }
+
+    compile('com.github.kabouzeid:app-theme-helper:454b062475@aar') {
         transitive = true
     }
 
