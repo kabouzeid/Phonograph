@@ -1,6 +1,10 @@
 package com.kabouzeid.gramophone.ui.activities.base;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.FloatRange;
@@ -8,12 +12,14 @@ import android.support.annotation.LayoutRes;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.PathInterpolator;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.ui.fragments.player.AbsPlayerFragment;
 import com.kabouzeid.gramophone.ui.fragments.player.MiniPlayerFragment;
 import com.kabouzeid.gramophone.ui.fragments.player.card.CardPlayerFragment;
+import com.kabouzeid.gramophone.util.ViewUtil;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import butterknife.Bind;
@@ -37,6 +43,9 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
 
     private AbsPlayerFragment playerFragment;
     private MiniPlayerFragment miniPlayerFragment;
+
+    private ValueAnimator navigationBarColorAnimator;
+    private ArgbEvaluator argbEvaluator = new ArgbEvaluator();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +105,8 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     @Override
     public void onPanelSlide(View panel, @FloatRange(from = 0, to = 1) float slideOffset) {
         setMiniPlayerAlphaProgress(slideOffset);
+        if (navigationBarColorAnimator != null) navigationBarColorAnimator.cancel();
+        super.setNavigationbarColor((int) argbEvaluator.evaluate(slideOffset, navigationbarColor, playerFragment.getPaletteColor()));
     }
 
     @Override
@@ -195,7 +206,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         if (getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
             int playerFragmentColor = playerFragment.getPaletteColor();
             super.setTaskDescriptionColor(playerFragmentColor);
-            super.setNavigationbarColor(playerFragmentColor);
+            animateNavigationBarColor(playerFragmentColor);
         }
     }
 
@@ -211,8 +222,33 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
     public void setNavigationbarColor(int color) {
         this.navigationbarColor = color;
         if (getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+            if (navigationBarColorAnimator != null) navigationBarColorAnimator.cancel();
             super.setNavigationbarColor(color);
         }
+    }
+
+    private void animateNavigationBarColor(int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (navigationBarColorAnimator != null) navigationBarColorAnimator.cancel();
+            navigationBarColorAnimator = ValueAnimator
+                    .ofArgb(getWindow().getNavigationBarColor(), color)
+                    .setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME);
+            navigationBarColorAnimator.setInterpolator(new PathInterpolator(0.4f, 0f, 1f, 1f));
+            navigationBarColorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    AbsSlidingMusicPanelActivity.super.setNavigationbarColor((Integer) animation.getAnimatedValue());
+                }
+            });
+            navigationBarColorAnimator.start();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (navigationBarColorAnimator != null) navigationBarColorAnimator.cancel(); // just in case
     }
 
     @Override
