@@ -215,7 +215,6 @@
     <string name="website">Verkkosivu</string>
     <string name="loading_products">Ladataan tuotteita...</string>
     <string name="up_next">Seuraavaksi</string>
-    <string name="pref_title_now_playing_layout">Toistetaan parhaillaan layouttia</string>
     <string name="intro_label">Esittely</string>
     <string name="press_back_again_to_exit_intro">Paina takaisin-nappia uudelleen ohittaaksesi esittelyn</string>
     <string name="welcome_to_phonograph">"Tervetuloa Phonographiin, kauniiseen ja kevyeen musiikkisoittimeen Androidille. "</string>

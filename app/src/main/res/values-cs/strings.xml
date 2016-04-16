@@ -215,7 +215,6 @@
     <string name="website">"Stránka "</string>
     <string name="loading_products">"Načítání výrobků... "</string>
     <string name="up_next">"Další "</string>
-    <string name="pref_title_now_playing_layout">"Obrazovka Právě přehrávané "</string>
     <string name="intro_label">"Úvod "</string>
     <string name="press_back_again_to_exit_intro">"Znovu zmáčkněte tlačítko Zpět pro přeskočení úvodu. "</string>
     <string name="welcome_to_phonograph">"Vítejte ve Phonographu, krásném a lehkém přehrávači pro Android. "</string>

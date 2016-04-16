@@ -222,7 +222,6 @@
     <string name="website">網站</string>
     <string name="loading_products">正在載入</string>
     <string name="up_next">播放佇列：即將播放</string>
-    <string name="pref_title_now_playing_layout">正在播放頁面</string>
     <string name="intro_label">程式介紹</string>
     <string name="press_back_again_to_exit_intro">再點一下返回來跳過介紹</string>
     <string name="welcome_to_phonograph">"歡迎光臨 Phonograph，一個美麗又輕量的音樂播放器。"</string>

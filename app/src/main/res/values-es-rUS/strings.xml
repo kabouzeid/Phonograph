@@ -8,7 +8,7 @@
     <string name="action_set_as_ringtone">Establecer como tono de llamada</string>
     <string name="action_share">Compartir</string>
     <string name="action_settings">"Ajustes"</string>
-    <string name="action_grant">Permitir</string>
+    <string name="action_grant">Aceptar</string>
     <string name="action_done">Hecho</string>
     <string name="action_skip">Omitir</string>
     <string name="action_about">Acerca de</string>
@@ -101,7 +101,7 @@
     <string name="last_opened">Última abierta</string>
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Oscuro</string>
-    <string name="black_theme_name">Negro (AMOLED)</string>
+    <string name="black_theme_name">Negro</string>
     <string name="always">Siempre</string>
     <string name="only_on_wifi">Sólo en WiFi</string>
     <string name="never">Nunca</string>
@@ -128,6 +128,7 @@
     <string name="pref_title_alternative_progress_slider_now_playing">Barra de progreso alternativa</string>
     <string name="pref_title_playback_controller_card_now_playing">Mostrar tarjeta detrás de los controles de reproducción</string>
     <string name="pref_title_colored_playback_controls_now_playing">Controles de reproducción coloreados</string>
+    <string name="pref_title_audio_ducking">Reducir el volumen, cuando llegue una notificación, etc.</string>
     <string name="no_equalizer">No se encontró ningún ecualizador.</string>
     <string name="no_audio_ID">"Reproduce una canción primero, e intenta de nuevo."</string>
     <string name="delete_action">Eliminar</string>
@@ -156,7 +157,7 @@
     <string name="pref_summary_blurred_album_art">Desenfoca la carátula del álbum en la pantalla de bloqueo. Puede causar problemas con aplicaciones de terceros y widgets.</string>
     <string name="pref_summary_colored_notification">"Colorea la notificaci\u00f3n con el color vibrante de la car\u00e1tula del \u00e1lbum."</string>
     <string name="pref_summary_gapless_playback">"Puede causar problemas durante la reproducción en algunos dispositivos."</string>
-    <string name="pref_summary_force_square_album_art">Las caratulas de álbumes en Reproduciendo son siempre cuadradas.</string>
+    <string name="pref_summary_force_square_album_art">La carátula en la pantalla reproducción siempre sera cuadrado</string>
     <string name="pref_summary_opaque_toolbar_now_playing">Colorea la barra de herramientas.</string>
     <string name="pref_summary_opaque_statusbar_now_playing">Colorea la barra de estado.</string>
     <string name="pref_summary_larger_title_box_now_playing">La caja de título en Reproduciendo es más grande.</string>
@@ -165,6 +166,7 @@
     <string name="pref_summary_ignore_media_store_artwork">Puede aumentar la calidad de la carátula del álbum pero a veces puede tardar en cargar. Sólo actívalo si tienes problemas con carátulas de baja resolución.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Colorea los botones de reproducir/pausar, aleatorio y repetir as\u00ed como la barra de progreso con el color vibrante de la car\u00e1tula del \u00e1lbum.</string>
     <string name="pref_summary_colored_navigation_bar">Colorea la barra de navegación con el color principal.</string>
+    <string name="pref_summary_audio_ducking">Notificaciónes,navegación, etc.</string>
     <string name="could_not_download_album_cover">"No se puede descargar una car\u00e1tula de \u00e1lbum coincidente."</string>
     <string name="search_hint">Buscar en la biblioteca...</string>
     <string name="rescanning_media">Escaneando contenido...</string>
@@ -218,10 +220,9 @@
     <string name="website">Sitio web</string>
     <string name="loading_products">Cargando productos...</string>
     <string name="up_next">En seguida</string>
-    <string name="pref_title_now_playing_layout">Diseño de la pantalla Reproduciendo</string>
     <string name="intro_label">Introducción</string>
-    <string name="press_back_again_to_exit_intro">Presione regresar de nuevo para omitir el intro.</string>
-    <string name="welcome_to_phonograph">"Bienvenido a Phonograph, un reproductor de música hermoso y ligero para Android."</string>
+    <string name="press_back_again_to_exit_intro">Presione de nuevo para salir del intro</string>
+    <string name="welcome_to_phonograph">"Bienvenido a Phonograho, un reproductor de música hermoso y ligero para Android."</string>
     <string name="open_playing_queue_instruction">Desliza la tarjeta en la pantalla de Reproducción Actual para desplegar la cola de reproducción completa.</string>
     <string name="rearrange_playing_queue_instruction">Reorganiza la cola de reproducción arrastrando una canción desde su número de pista.</string>
     <string name="library">Biblioteca</string>

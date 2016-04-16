@@ -221,7 +221,6 @@
     <string name="website">Sito web</string>
     <string name="loading_products">Caricamento prezzi</string>
     <string name="up_next">A seguire</string>
-    <string name="pref_title_now_playing_layout">Layout della schermata In riproduzione</string>
     <string name="intro_label">Introduzione</string>
     <string name="press_back_again_to_exit_intro">Premi di nuovo il tasto Indietro per saltare l\'intro.</string>
     <string name="welcome_to_phonograph">"Benvenuto in Phonograph, un music player bellissimo e leggero per Android. "</string>

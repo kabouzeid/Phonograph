@@ -221,7 +221,6 @@
     <string name="website">Website</string>
     <string name="loading_products">Produkte werden geladen...</string>
     <string name="up_next">Als nächstes</string>
-    <string name="pref_title_now_playing_layout">Gestaltung der aktuellen Wiedergabe</string>
     <string name="intro_label">Einführung</string>
     <string name="press_back_again_to_exit_intro">Drücke nochmal zurück  um die Einführung zu überspringen.</string>
     <string name="welcome_to_phonograph">"Willkommen bei Phonograph, ein einfacher und schöner Musik-Player für Android. "</string>

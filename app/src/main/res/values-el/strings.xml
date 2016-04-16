@@ -46,7 +46,7 @@
     <string name="track">Κομμάτι</string>
     <string name="track_hint">"Κομμάτι (2 για κομμάτι 2 ή 3004 από CD3 κομμάτι 4)"</string>
     <string name="album_or_artist_empty">Το πεδίο \"Τίτλος\" ή \"Καλλιτέχνης\" είναι άδειο</string>
-    <string name="saving_changes">Γίνεται αποθήκευση αλλαγών...</string>
+    <string name="saving_changes">"Γίνεται αποθήκευση αλλαγών... "</string>
     <string name="saving_to_file">Αποθήκευση στο αρχείο...</string>
     <string name="label_details">Λεπτομέρειες</string>
     <string name="label_file_name">Όνομα αρχείου</string>
@@ -72,13 +72,12 @@
     <string name="action_grid_size_land">Μέγεθος πλέγματος</string>
     <string name="inserted_x_songs_into_playlist_x">Προστέθηκαν %1$d τραγούδια στην λίστα αναπαραγωγής%2$s</string>
     <string name="created_playlist_x">Δημιουργήθηκε η λίστα αναπαραγωγής %1$s</string>
-    <string name="deleted_playlist_x">Διεγράφη η λίστα αναπαραγωγής %1$s</string>
+    <string name="deleted_playlist_x">Διεγράφη η λίστα αναπαραγωγής %1$s.</string>
     <string name="deleted_x_songs">Διεγράφησαν %1$d τραγούδια</string>
     <string name="could_not_create_playlist">\u0394\u03b5\u03bd \u03b5\u03af\u03bd\u03b1\u03b9 \u03b4\u03c5\u03bd\u03b1\u03c4\u03ae \u03b7 \u03b4\u03b7\u03bc\u03b9\u03bf\u03c5\u03c1\u03b3\u03af\u03b1 \u03bb\u03af\u03c3\u03c4\u03b1\u03c2 \u03b1\u03bd\u03b1\u03c0\u03b1\u03c1\u03b1\u03b3\u03c9\u03b3\u03ae\u03c2</string>
     <string name="delete_playlist_x"><![CDATA[Διαγραφή της λίστας <b>%1$s</b>;]]></string>
     <string name="clear_playlist_x"><![CDATA[\u0395\u03ba\u03ba\u03b1\u03b8\u03ac\u03c1\u03b9\u03c3\u03b7 \u03c4\u03b7\u03c2 \u03bb\u03af\u03c3\u03c4\u03b1\u03c2  <b>%1$s</b> ; (\u039c\u03b7 \u03b1\u03bd\u03b1\u03c3\u03c4\u03c1\u03ad\u03c8\u03b9\u03bc\u03bf!)]]></string>
-    <string name="delete_x_playlists"><![CDATA[
-        Θα θέλατε να διαγράψετε <b>%1$d</b> λίστες αναπαραγωγής; 
+    <string name="delete_x_playlists"><![CDATA[Θα θέλατε να διαγράψετε <b>%1$d</b> λίστες αναπαραγωγής; 
     ]]></string>
     <string name="delete_song_x"><![CDATA[Θέλετε να διαγράψετε το τραγούδι <b>%1$s</b>;]]></string>
     <string name="delete_x_songs"><![CDATA[Θέλετε να διαγράψετε <b>%1$d</b> τραγούδια;]]></string>
@@ -131,6 +130,7 @@
     <string name="pref_title_alternative_progress_slider_now_playing">Εναλακτικός χρονοδείκτης</string>
     <string name="pref_title_playback_controller_card_now_playing">Εμφάνηση καρτέλας πίσω από τα κουμπιά αναπαραγωγής</string>
     <string name="pref_title_colored_playback_controls_now_playing">Χρωματιστά κουμπιά αναπαραγωγής</string>
+    <string name="pref_title_audio_ducking">Μειώστε την ένταση στην απώλεια εστίασης</string>
     <string name="no_equalizer">Δε βρέθηκε ισοσταθμιστής</string>
     <string name="no_audio_ID">"Αναπαράγετε ένα τραγούδι πρώτα και δοκιμάστε ξανά."</string>
     <string name="delete_action">Διαγραφή</string>
@@ -168,6 +168,7 @@
     <string name="pref_summary_ignore_media_store_artwork">Μπορεί να αυξήσει την ποιότητα του εξώφυλλου του άλμπουμ, αλλά προκαλεί αργούς χρόνους φόρτωσης της εικόνας. Ενεργοποιήστε το μόνο αν έχετε προβλήματα με εξώφυλλα  χαμηλής ανάλυσης.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">\u03a7\u03c1\u03c9\u03bc\u03b1\u03c4\u03af\u03b6\u03b5\u03b9 \u03c4\u03b7\u03bd \u03b1\u03bd\u03b1\u03c0\u03b1\u03c1\u03b1\u03b3\u03c9\u03b3\u03ae / \u03c0\u03b1\u03cd\u03c3\u03b7, \u03c4\u03c5\u03c7\u03b1\u03af\u03b1 \u03c3\u03b5\u03b9\u03c1\u03ac \u03ba\u03b1\u03b9 \u03b5\u03c0\u03b1\u03bd\u03ac\u03bb\u03b7\u03c8\u03b7 \u03ba\u03b1\u03b8\u03ce\u03c2 \u03ba\u03b1\u03b9 \u03c4\u03b7\u03bd \u03bc\u03c0\u03ac\u03c1\u03b1 \u03c0\u03c1\u03bf\u03cc\u03b4\u03bf\u03c5 \u03c3\u03c4\u03bf \u03b5\u03be\u03ce\u03c6\u03c5\u03bb\u03bb\u03bf \u03c4\u03bf\u03c5 \u03ac\u03bb\u03bc\u03c0\u03bf\u03c5\u03bc \u03bc\u03b5 \u03b6\u03c9\u03bd\u03c4\u03b1\u03bd\u03ac \u03c7\u03c1\u03ce\u03bc\u03b1\u03c4\u03b1.</string>
     <string name="pref_summary_colored_navigation_bar">Χρωματίζει την μπάρα πλοήγησης στο πρωτεύον χρώμα</string>
+    <string name="pref_summary_audio_ducking">Ειδοποιήσεις, πλοήγηση κ.λπ.</string>
     <string name="could_not_download_album_cover">"\u0394\u03b5\u03bd \u03ae\u03c4\u03b1\u03bd \u03b4\u03c5\u03bd\u03b1\u03c4\u03ae \u03b7 \u03b5\u03cd\u03c1\u03b5\u03c3\u03b7 \u03ba\u03b1\u03b9 \u03b7 \u03bb\u03ae\u03c8\u03b7 \u03b5\u03bd\u03cc\u03c2 \u03b5\u03be\u03ce\u03c6\u03c5\u03bb\u03bb\u03bf\u03c5 \u03c0\u03bf\u03c5 \u03bd\u03b1 \u03c4\u03b1\u03b9\u03c1\u03b9\u03ac\u03b6\u03b5\u03b9."</string>
     <string name="search_hint">Αναζήτηση στη βιβλιοθήκη...</string>
     <string name="rescanning_media">Σάρωση αρχείων πολυμέσων...</string>
@@ -221,7 +222,6 @@
     <string name="website">Ιστοσελίδα</string>
     <string name="loading_products">Φόρτωση προϊόντων...</string>
     <string name="up_next">Επόμενο</string>
-    <string name="pref_title_now_playing_layout">Διάταξη \"παίζει τώρα\"</string>
     <string name="intro_label">Εισαγωγή</string>
     <string name="press_back_again_to_exit_intro">Πατήστε πίσω πάλι για να παραλείψετε την εισαγωγή.</string>
     <string name="welcome_to_phonograph">"Καλώς ήρθατε στο Phonograph, ένα όμορφο και ελαφρύ πρόγραμμα αναπαραγωγής μουσικής για το Android.  "</string>
@@ -237,4 +237,7 @@
     <string name="could_not_scan_files">Δεν μπόρεσε να πραγματοποιηθεί σάρωση σε %d αρχεία.</string>
     <string name="listing_files">Λίστα αρχείων</string>
     <string name="new_start_directory">%s είναι ο νέος κατάλογος έναρξης.</string>
+    <string name="app_widget_big_name">Phonograph - Μεγάλο</string>
+    <string name="app_widget_classic_name">Phonograph - Κλασικό</string>
+    <string name="app_widget_small_name">Phonograph - Μικρό</string>
 </resources>
