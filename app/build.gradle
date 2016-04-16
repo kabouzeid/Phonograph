@@ -145,4 +145,5 @@ dependencies {
     compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
     compile 'com.github.kabouzeid:RecyclerView-FastScroll:1.8-kmod'
     compile 'com.heinrichreimersoftware:material-intro:b8ec16d3d6'
+    compile 'org.eclipse.mylyn.github:org.eclipse.egit.github.core:2.1.5'
 }
