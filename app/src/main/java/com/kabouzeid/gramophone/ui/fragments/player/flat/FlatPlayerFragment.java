@@ -91,7 +91,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        impl = new PortraitImpl();
+        impl = new PortraitImpl(this);
 
         View view = inflater.inflate(R.layout.fragment_flat_player, container, false);
         ButterKnife.bind(this, view);
@@ -102,7 +102,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        impl.init(this);
+        impl.init();
 
         setUpPlayerToolbar();
         setUpSubFragments();
@@ -116,7 +116,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
             @Override
             public void onGlobalLayout() {
                 view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                impl.setUpPanelAndAlbumCoverHeight(FlatPlayerFragment.this);
+                impl.setUpPanelAndAlbumCoverHeight();
             }
         });
     }
@@ -197,7 +197,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
     @SuppressWarnings("ConstantConditions")
     private void updateCurrentSong() {
-        impl.updateCurrentSong(this, MusicPlayerRemote.getCurrentSong());
+        impl.updateCurrentSong(MusicPlayerRemote.getCurrentSong());
     }
 
     private void setUpSubFragments() {
@@ -343,7 +343,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     }
 
     private void animateColorChange(final int newColor) {
-        impl.animateColorChange(this, newColor);
+        impl.animateColorChange(newColor);
         lastColor = newColor;
     }
 
@@ -418,17 +418,23 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     }
 
     interface Impl {
-        void init(FlatPlayerFragment fragment);
+        void init();
 
-        void updateCurrentSong(FlatPlayerFragment fragment, Song song);
+        void updateCurrentSong(Song song);
 
-        void animateColorChange(FlatPlayerFragment fragment, final int newColor);
+        void animateColorChange(final int newColor);
 
-        void setUpPanelAndAlbumCoverHeight(FlatPlayerFragment fragment);
+        void setUpPanelAndAlbumCoverHeight();
     }
 
     private static abstract class BaseImpl implements Impl {
-        public AnimatorSet createDefaultColorChangeAnimatorSet(FlatPlayerFragment fragment, int newColor) {
+        protected FlatPlayerFragment fragment;
+
+        public BaseImpl(FlatPlayerFragment fragment) {
+            this.fragment = fragment;
+        }
+
+        public AnimatorSet createDefaultColorChangeAnimatorSet(int newColor) {
             Animator backgroundAnimator = ViewUtil.createBackgroundColorTransition(fragment.playbackControlsFragment.getView(), fragment.lastColor, newColor);
             Animator statusBarAnimator = ViewUtil.createBackgroundColorTransition(fragment.playerStatusBar, ColorUtil.darkenColor(fragment.lastColor), ColorUtil.darkenColor(newColor));
 
@@ -447,7 +453,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         }
 
         @Override
-        public void animateColorChange(FlatPlayerFragment fragment, int newColor) {
+        public void animateColorChange(int newColor) {
             if (ATHUtil.isWindowBackgroundDark(fragment.getActivity())) {
                 fragment.playerQueueSubHeader.setTextColor(ThemeStore.textColorSecondary(fragment.getActivity()));
             }
@@ -459,8 +465,12 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         MediaEntryViewHolder currentSongViewHolder;
         Song currentSong = new Song();
 
+        public PortraitImpl(FlatPlayerFragment fragment) {
+            super(fragment);
+        }
+
         @Override
-        public void init(final FlatPlayerFragment fragment) {
+        public void init() {
             currentSongViewHolder = new MediaEntryViewHolder(fragment.getView().findViewById(R.id.current_song));
 
             currentSongViewHolder.separator.setVisibility(View.VISIBLE);
@@ -505,7 +515,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         }
 
         @Override
-        public void setUpPanelAndAlbumCoverHeight(FlatPlayerFragment fragment) {
+        public void setUpPanelAndAlbumCoverHeight() {
             WidthFitSquareLayout albumCoverContainer = (WidthFitSquareLayout) fragment.getView().findViewById(R.id.album_cover_container);
 
             final int availablePanelHeight = fragment.slidingUpPanelLayout.getHeight() - fragment.getView().findViewById(R.id.player_content).getHeight();
@@ -520,16 +530,16 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         }
 
         @Override
-        public void updateCurrentSong(FlatPlayerFragment fragment, Song song) {
+        public void updateCurrentSong(Song song) {
             currentSong = song;
             currentSongViewHolder.title.setText(song.title);
             currentSongViewHolder.text.setText(song.artistName);
         }
 
         @Override
-        public void animateColorChange(FlatPlayerFragment fragment, int newColor) {
-            super.animateColorChange(fragment, newColor);
-            createDefaultColorChangeAnimatorSet(fragment, newColor).start();
+        public void animateColorChange(int newColor) {
+            super.animateColorChange(newColor);
+            createDefaultColorChangeAnimatorSet(newColor).start();
         }
     }
 }
