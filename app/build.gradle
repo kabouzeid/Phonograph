@@ -135,8 +135,8 @@ dependencies {
     compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
     compile 'com.github.kabouzeid:SeekArc:1.2-kmod'
     compile 'com.github.kabouzeid:AndroidSlidingUpPanel:3.3.0-kmod3'
-    compile 'com.squareup.retrofit2:retrofit:2.0.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.0'
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.jakewharton:butterknife:7.0.1'
     //noinspection GradleDynamicVersion
     compile 'com.anjlab.android.iab.v3:library:1.0.+'
