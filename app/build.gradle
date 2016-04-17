@@ -64,8 +64,8 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         applicationId "com.kabouzeid.gramophone"
-        versionCode 111
-        versionName "0.13.0 BETA 1"
+        versionCode 112
+        versionName "0.13.0 BETA 2"
     }
     buildTypes {
         release {
