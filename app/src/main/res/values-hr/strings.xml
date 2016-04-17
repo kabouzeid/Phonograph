@@ -116,7 +116,7 @@
     <string name="pref_header_lockscreen">Zaključani zaslon</string>
     <string name="pref_title_navigation_bar">Obojena navigacijska traka</string>
     <string name="pref_title_set_default_start_page">Početni zaslon</string>
-    <string name="pref_title_album_art_on_lockscreen">Prikaži omot albuma na zaključanom zaslonu</string>
+    <string name="pref_title_album_art_on_lockscreen">Prikaži omot na zaključanom zaslonu</string>
     <string name="pref_title_auto_download_artist_images">Automatski preuzmi omot albuma</string>
     <string name="pref_title_blurred_album_art">Zamagli omot albuma</string>
     <string name="pref_title_colored_notification">Obojene obavijesti</string>
@@ -129,7 +129,7 @@
     <string name="pref_title_alternative_progress_slider_now_playing">Alternativni klizač napretka</string>
     <string name="pref_title_playback_controller_card_now_playing">Kartica ispod kontrola reprodukcije</string>
     <string name="pref_title_colored_playback_controls_now_playing">Obojene kontrole reprodukcije</string>
-    <string name="pref_title_audio_ducking">Smanji glasnoću prilikom drugih zvukova</string>
+    <string name="pref_title_audio_ducking">Smanji glasn. prilikom drugih zvukova</string>
     <string name="no_equalizer">Ekvalizator nije pronađen.</string>
     <string name="no_audio_ID">"Reproducirajte nešto i pokušajte opet."</string>
     <string name="delete_action">Izbriši</string>
@@ -166,7 +166,7 @@
     <string name="pref_summary_playback_controller_card_now_playing">Prikazuje karticu gumbića za kontrolu reprodukcije.</string>
     <string name="pref_summary_ignore_media_store_artwork">Može povećati kvalitetu omota albuma, ali povećava vrijeme učitavanja. Omogućite ovo jedino ako imate problema s omotima niske rezolucije.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Gumbi za reprodukciju/pauzu, nasumi\u010dnu reprodukciju i ponavljanje kao i kliza\u010d napretka su obojeni istaknutom bojom omota albuma.</string>
-    <string name="pref_summary_colored_navigation_bar">Boji navigacijsku traku primarnom bojom.</string>
+    <string name="pref_summary_colored_navigation_bar">Boja navigacijsku traku primarnom bojom.</string>
     <string name="pref_summary_audio_ducking">Obavijesti, navigacija itd.</string>
     <string name="could_not_download_album_cover">"Nije mogu\u0107e preuzeti odgovaraju\u0107i omot albuma."</string>
     <string name="search_hint">Pretražite svoju biblioteku...</string>
@@ -221,6 +221,7 @@
     <string name="website">Web-stranica</string>
     <string name="loading_products">Učitavanje artikala...</string>
     <string name="up_next">Sljedeće</string>
+    <string name="pref_title_now_playing_screen_appearance">Izgled</string>
     <string name="intro_label">Uvod</string>
     <string name="press_back_again_to_exit_intro">Pritisni ponovno tipku natrag za preskakanje uvoda.</string>
     <string name="welcome_to_phonograph">"Dobrodošli u Phonograph, prekrasan i lagan glazbeni player za Android. "</string>
@@ -239,4 +240,27 @@
     <string name="app_widget_big_name">Phonograph - Veliki</string>
     <string name="app_widget_classic_name">Phonograph - Klasični</string>
     <string name="app_widget_small_name">Phonograph - Mali</string>
+    <string name="report_an_issue">Prijavi poteškoću</string>
+    <string name="bug_report_issue">Poteškoća</string>
+    <string name="login">Prijava</string>
+    <string name="title">Naslov</string>
+    <string name="description">Opis</string>
+    <string name="device_info">Informacije o uređaju</string>
+    <string name="bug_report_use_account">Pošalji pomoću GitHub računa</string>
+    <string name="bug_report_manual">Pošalji ručno</string>
+    <string name="username">Korisničko ime</string>
+    <string name="password">Lozinka</string>
+    <string name="bug_report_no_title">Molimo unesite naslov poteškoće</string>
+    <string name="bug_report_no_description">Molimo unesite opis poteškoće</string>
+    <string name="bug_report_no_username">Molimo unesite valjano GitHub korisničko ime</string>
+    <string name="bug_report_no_password">Molimo unesite valjanu GitHub lozinku</string>
+    <string name="bug_report_uploading">Učitavanje izvješća na GitHub...</string>
+    <string name="bug_report_failed">Nije moguće poslati izvješće</string>
+    <string name="bug_report_failed_wrong_credentials">Krivo korisničko ime i lozinka</string>
+    <string name="bug_report_failed_invalid_token">Nevažeći pristupni token. Molimo kontaktirajte razvojnog programera aplikacije.</string>
+    <string name="bug_report_failed_issues_not_available">Poteškoće nisu omogućene za odabrani direktorij. Molimo kontaktirajte razvojnog programera aplikacije.</string>
+    <string name="bug_report_failed_unknown">Dogodila se nepoznata pogreška. Molimo kontaktirajte razvojnog programera aplikacije.</string>
+    <string name="copied_device_info_to_clipboard">Informacije o uređaju su kopirane u međuspremnik.</string>
+    <string name="your_account_data_is_only_used_for_authentication">Podatci vašeg računa su korišteni samo za autentikaciju.</string>
+    <string name="you_will_be_forwarded_to_the_issue_tracker_website">Biti ćete preusmjereni na web-stranicu pratitelja za poteškoće.</string>
 </resources>

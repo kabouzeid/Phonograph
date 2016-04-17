@@ -221,6 +221,7 @@
     <string name="website">Site</string>
     <string name="loading_products">Carregando produtos...</string>
     <string name="up_next">Próximo</string>
+    <string name="pref_title_now_playing_screen_appearance">Aparência</string>
     <string name="intro_label">Introdução</string>
     <string name="press_back_again_to_exit_intro">Pressione voltar novamente para pular a introdução.</string>
     <string name="welcome_to_phonograph">"Seja bem-vindo ao Phonograph, um lindo e leve player de música para Android. "</string>
@@ -239,4 +240,27 @@
     <string name="app_widget_big_name">Phonograph - Grande</string>
     <string name="app_widget_classic_name">Phonograph - Clássico</string>
     <string name="app_widget_small_name">Phonograph - Pequeno</string>
+    <string name="report_an_issue">Reportar alguma falha</string>
+    <string name="bug_report_issue">Falha</string>
+    <string name="login">Login</string>
+    <string name="title">Título</string>
+    <string name="description">Descrição</string>
+    <string name="device_info">Informações do aparelho</string>
+    <string name="bug_report_use_account">Enviar usando a conta do GitHub</string>
+    <string name="bug_report_manual">Enviar manualmente</string>
+    <string name="username">Nome de usuário</string>
+    <string name="password">Senha</string>
+    <string name="bug_report_no_title">Por favor digite um nome do erro</string>
+    <string name="bug_report_no_description">Por favor descreva o erro</string>
+    <string name="bug_report_no_username">Por favor, digite seu nome de usuário do GitHub</string>
+    <string name="bug_report_no_password">Por favor, digite sua senha do GitHub</string>
+    <string name="bug_report_uploading">Enviando o reporte ao GitHub...</string>
+    <string name="bug_report_failed">Não foi possível enviar o relatório</string>
+    <string name="bug_report_failed_wrong_credentials">Nome de usuário ou senha errada</string>
+    <string name="bug_report_failed_invalid_token">Chave de acesso inválido. Por favor contate o desenvolvedor do aplicativo.</string>
+    <string name="bug_report_failed_issues_not_available">Erros não estão habilitados para o repositório selecionado. Por favor contate o desenvolvedor do aplicativo.</string>
+    <string name="bug_report_failed_unknown">Um erro inesperado ocorreu. Por favor contate o desenvolvedor do aplicativo.</string>
+    <string name="copied_device_info_to_clipboard">As informações do aparelho foram copiadas para a área de transferência.</string>
+    <string name="your_account_data_is_only_used_for_authentication">Os dados de sua conta são usados apenas para autenticação.</string>
+    <string name="you_will_be_forwarded_to_the_issue_tracker_website">Você será encaminhado ao nosso site de registro de erros.</string>
 </resources>

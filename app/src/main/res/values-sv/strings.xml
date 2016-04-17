@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">Vad vill du dela?</string>
-    <string name="currently_listening_to_x_by_x">Lyssnar just nu på %1$s av %2$s.</string>
+    <string name="currently_listening_to_x_by_x">Nu spelas %1$s av %2$s</string>
     <string name="the_audio_file">Ljudfilen</string>
-    <string name="do_you_want_to_set_x_as_ringtone">"Vill du lägga till %1$s som din ringsignal? "</string>
+    <string name="do_you_want_to_set_x_as_ringtone">Vill du använda %1$s som din ringsignal?</string>
     <string name="x_has_been_set_as_ringtone">"Lägg till %1$s som din ringsignal. "</string>
-    <string name="action_set_as_ringtone">"Lägg till som ringsignal. "</string>
+    <string name="action_set_as_ringtone">Använd som ringsignal.</string>
     <string name="action_share">Dela</string>
     <string name="action_settings">"Inställningar"</string>
     <string name="action_grant">Tillåt</string>
@@ -20,12 +20,12 @@
     <string name="action_add_to_playing_queue">Lägg till i uppspelningskön</string>
     <string name="action_remove_from_playing_queue">Ta bort från uppspelningskön</string>
     <string name="action_add_to_playlist">Lägg till i spellista</string>
-    <string name="action_tag_editor">Tagredigering</string>
+    <string name="action_tag_editor">Tagredigerare</string>
     <string name="action_details">Detaljer</string>
     <string name="albums">Album</string>
     <string name="artists">Artister</string>
     <string name="songs">Låtar</string>
-    <string name="playlists">Spellista</string>
+    <string name="playlists">Spellistor</string>
     <string name="unplayable_file">Urs\u00e4kta - ett problem uppstod vid spelningen av denna l\u00e5t</string>
     <string name="biography_unavailable">Urs\u00e4kta, vi kunde inte hitta biografin f\u00f6r den h\u00e4r artisten</string>
     <string name="biography">Biografi</string>
@@ -33,7 +33,7 @@
     <string name="album">Album</string>
     <string name="artist">Artister</string>
     <string name="genre">Genre</string>
-    <string name="album_artist">Album artist</string>
+    <string name="album_artist">Albumartist</string>
     <string name="year">År</string>
     <string name="track">Låt</string>
     <string name="track_hint">"Spår"</string>

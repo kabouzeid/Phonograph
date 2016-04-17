@@ -10,7 +10,7 @@
     <string name="action_settings">"Ajustes"</string>
     <string name="action_grant">Otorgar</string>
     <string name="action_done">Hecho</string>
-    <string name="action_skip">Omitir</string>
+    <string name="action_skip">Saltar</string>
     <string name="action_about">Acerca de</string>
     <string name="action_show_intro">Mostrar introducción</string>
     <string name="action_clear_playlist">Limpiar lista de reproducción</string>
@@ -21,7 +21,7 @@
     <string name="action_play_next">Siguiente</string>
     <string name="action_play">Reproducir</string>
     <string name="action_add_to_playing_queue">Añadir a cola de reproducción</string>
-    <string name="action_remove_from_playing_queue">Eliminar de cola de reproducción</string>
+    <string name="action_remove_from_playing_queue">Eliminar de la cola de reproducción</string>
     <string name="action_add_to_playlist">Añadir a la lista de reproducción...</string>
     <string name="action_tag_editor">Editor de información</string>
     <string name="action_delete_from_device">Eliminar del dispositivo</string>

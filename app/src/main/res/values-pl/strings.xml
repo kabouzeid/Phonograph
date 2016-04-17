@@ -221,6 +221,7 @@
     <string name="website">Strona internetowa</string>
     <string name="loading_products">Ładowanie produktów...</string>
     <string name="up_next">Za chwilę zagra</string>
+    <string name="pref_title_now_playing_screen_appearance">Wygląd</string>
     <string name="intro_label">Wprowadzenie</string>
     <string name="press_back_again_to_exit_intro">Naciśnij ponownie, aby pominąć wstęp</string>
     <string name="welcome_to_phonograph">"Witaj w Phonograph, pięknym i lekkim odtwarzaczu muzyki na Androida "</string>
@@ -239,4 +240,27 @@
     <string name="app_widget_big_name">Phonograph - Duży</string>
     <string name="app_widget_classic_name">Phonograph - Klasyczny</string>
     <string name="app_widget_small_name">Phonograph - Mały</string>
+    <string name="report_an_issue">Zgłoś problem</string>
+    <string name="bug_report_issue">Problem</string>
+    <string name="login">Zaloguj się</string>
+    <string name="title">Tytuł</string>
+    <string name="description">Opis</string>
+    <string name="device_info">Informacje o urządzeniu</string>
+    <string name="bug_report_use_account">Wyślij używając konta GitHub</string>
+    <string name="bug_report_manual">Wyślij ręcznie</string>
+    <string name="username">Nazwa użytkownika</string>
+    <string name="password">Hasło</string>
+    <string name="bug_report_no_title">Wpisz tytuł problemu</string>
+    <string name="bug_report_no_description">Dodaj opis problemu</string>
+    <string name="bug_report_no_username">Podaj swój login z GitHub</string>
+    <string name="bug_report_no_password">Wpisz swoje hasło z GitHub</string>
+    <string name="bug_report_uploading">Wysyłanie raportu do GitHub...</string>
+    <string name="bug_report_failed">Nie można wysłać raportu</string>
+    <string name="bug_report_failed_wrong_credentials">Błędna nazwa użytkownika lub hasło</string>
+    <string name="bug_report_failed_invalid_token">Niepoprawny token dostępu. Skontaktuj się z twórcą aplikacji</string>
+    <string name="bug_report_failed_issues_not_available">Raportowanie problemów nie jest włączone dla wybranego repozytorium. Skontaktuj się z twórcą aplikacji</string>
+    <string name="bug_report_failed_unknown">Wystąpił nieoczekiwany błąd. Skontaktuj się z twórcą aplikacji</string>
+    <string name="copied_device_info_to_clipboard">Kopiowanie informacji o urządzeniu do schowka</string>
+    <string name="your_account_data_is_only_used_for_authentication">Twoje dane konta używane są tylko do uwierzytelniania</string>
+    <string name="you_will_be_forwarded_to_the_issue_tracker_website">Zostaniesz przekierowany do strony umożliwiającej śledzenie błędów</string>
 </resources>

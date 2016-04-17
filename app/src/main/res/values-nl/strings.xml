@@ -221,6 +221,7 @@
     <string name="website">Website</string>
     <string name="loading_products">Producten laden…</string>
     <string name="up_next">Als volgende</string>
+    <string name="pref_title_now_playing_screen_appearance">Uiterlijk</string>
     <string name="intro_label">Introductie</string>
     <string name="press_back_again_to_exit_intro">Tik nogmaals terug om de intro over te slaan.</string>
     <string name="welcome_to_phonograph">"Welkom bij Phonograph, een mooie en lichte muziekspeler voor Android."</string>
@@ -239,4 +240,27 @@
     <string name="app_widget_big_name">Phonograph - Groot</string>
     <string name="app_widget_classic_name">Phonograph - Klassiek</string>
     <string name="app_widget_small_name">Phonograph - Klein</string>
+    <string name="report_an_issue">Rapporteer een probleem</string>
+    <string name="bug_report_issue">Probleem</string>
+    <string name="login">Login</string>
+    <string name="title">Titel</string>
+    <string name="description">Omschrijving</string>
+    <string name="device_info">Apparaat info</string>
+    <string name="bug_report_use_account">Versturen via GitHub account</string>
+    <string name="bug_report_manual">Handmatig versturen</string>
+    <string name="username">Gebruikersnaam</string>
+    <string name="password">Wachtwoord</string>
+    <string name="bug_report_no_title">Voer een probleemtitel in</string>
+    <string name="bug_report_no_description">Voer een probleemomschrijving in</string>
+    <string name="bug_report_no_username">Voer je GitHub gebruikersnaam in</string>
+    <string name="bug_report_no_password">Voer je GitHub wachtwoord in</string>
+    <string name="bug_report_uploading">Rapport uploaden naar GitHub…</string>
+    <string name="bug_report_failed">Kan rapport niet verzenden</string>
+    <string name="bug_report_failed_wrong_credentials">Foutieve gebruikersnaam of wachtwoord</string>
+    <string name="bug_report_failed_invalid_token">Ongeldige toegangstoken. Neem contact op met de app ontwikkelaar.</string>
+    <string name="bug_report_failed_issues_not_available">Problemen zijn niet ingeschakeld voor de geselecteerde opslagplaats. Neem contact op met de app ontwikkelaar.</string>
+    <string name="bug_report_failed_unknown">Een onverwachte fout is opgetreden. Neem contact op met de app ontwikkelaar.</string>
+    <string name="copied_device_info_to_clipboard">Apparaat info gekopieerd naar klembord.</string>
+    <string name="your_account_data_is_only_used_for_authentication">Je accountgegevens worden alleen gebruikt voor authenticatie.</string>
+    <string name="you_will_be_forwarded_to_the_issue_tracker_website">Je wordt doorverwezen naar de probleem bijhoud website.</string>
 </resources>
