@@ -9,8 +9,6 @@ import android.support.v4.app.DialogFragment;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
-import hugo.weaving.DebugLog;
-
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -24,7 +22,6 @@ public class LyricsDialog extends DialogFragment {
         return dialog;
     }
 
-    @DebugLog
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
