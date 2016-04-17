@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/progress_container_height"
-        android:background="#33000000">
+        android:background="@color/twenty_percent_black_overlay">
 
         <TextView
             android:id="@+id/player_song_current_progress"

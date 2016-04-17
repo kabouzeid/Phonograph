@@ -436,7 +436,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
         public AnimatorSet createDefaultColorChangeAnimatorSet(int newColor) {
             Animator backgroundAnimator = ViewUtil.createBackgroundColorTransition(fragment.playbackControlsFragment.getView(), fragment.lastColor, newColor);
-            Animator statusBarAnimator = ViewUtil.createBackgroundColorTransition(fragment.playerStatusBar, ColorUtil.darkenColor(fragment.lastColor), ColorUtil.darkenColor(newColor));
+            Animator statusBarAnimator = ViewUtil.createBackgroundColorTransition(fragment.playerStatusBar, fragment.lastColor, newColor);
 
             AnimatorSet animatorSet = new AnimatorSet();
             animatorSet.playTogether(backgroundAnimator, statusBarAnimator);
