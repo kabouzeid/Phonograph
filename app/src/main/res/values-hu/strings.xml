@@ -221,6 +221,7 @@
     <string name="website">Weboldal</string>
     <string name="loading_products">Termékek betöltése...</string>
     <string name="up_next">Következő</string>
+    <string name="pref_title_now_playing_screen_appearance">Kinézet</string>
     <string name="intro_label">Bemutató</string>
     <string name="press_back_again_to_exit_intro">Nyomj a visszára megint, hogy átugord a bemutatót.</string>
     <string name="welcome_to_phonograph">"Üdvözöl a Phonograph! Egy kisméretű, szép zenelejátszó Android-ra. "</string>
@@ -239,4 +240,27 @@
     <string name="app_widget_big_name">Nagy</string>
     <string name="app_widget_classic_name">Klasszikus</string>
     <string name="app_widget_small_name">Kicsi</string>
+    <string name="report_an_issue">Probléma jelentése</string>
+    <string name="bug_report_issue">Probléma</string>
+    <string name="login">Bejelentkezés</string>
+    <string name="title">Cím</string>
+    <string name="description">Leírás</string>
+    <string name="device_info">Készülék információ</string>
+    <string name="bug_report_use_account">Küldés GitHub fiók használatával</string>
+    <string name="bug_report_manual">Manuális küldés</string>
+    <string name="username">Felhasználónév</string>
+    <string name="password">Jelszó</string>
+    <string name="bug_report_no_title">Kérjük, add meg a probléma címét</string>
+    <string name="bug_report_no_description">Kérjük, add meg a probléma leírását</string>
+    <string name="bug_report_no_username">Kérjük, add meg az érvényes GitHub felhasználóneved</string>
+    <string name="bug_report_no_password">Kérjük, add meg az érvényes GitHub jelszódat</string>
+    <string name="bug_report_uploading">Jelentés feltöltése GitHub-ra...</string>
+    <string name="bug_report_failed">Nem sikerült elküldeni a jelentést</string>
+    <string name="bug_report_failed_wrong_credentials">Hibás felhasználónév vagy jelszó</string>
+    <string name="bug_report_failed_invalid_token">Érvénytelen belépési token. Kérjük, lépj kapcsolatba az alkalmazás fejlesztőjével.</string>
+    <string name="bug_report_failed_issues_not_available">A problémák nem engedélyezettek a tárolón. Kérjük, lépj kapcsolatba az alkalmazás fejlesztőjével.</string>
+    <string name="bug_report_failed_unknown">Egy váratlan hiba történt. Kérjük, lépj kapcsolatba az alkalmazás fejlesztőjével.</string>
+    <string name="copied_device_info_to_clipboard">A készülék információ a vágólapra másolva.</string>
+    <string name="your_account_data_is_only_used_for_authentication">Fiókod adatait kizárólag hitelesítéshez használjuk.</string>
+    <string name="you_will_be_forwarded_to_the_issue_tracker_website">Továbbítani fogunk a problémakezelő oldalra.</string>
 </resources>
