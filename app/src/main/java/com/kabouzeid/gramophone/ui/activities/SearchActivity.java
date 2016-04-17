@@ -20,10 +20,10 @@ import android.widget.TextView;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.SearchAdapter;
+import com.kabouzeid.gramophone.interfaces.LoaderIds;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.SongLoader;
-import com.kabouzeid.gramophone.interfaces.LoaderIds;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.ui.activities.base.AbsMusicServiceActivity;
 import com.kabouzeid.gramophone.util.Util;
@@ -34,7 +34,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import hugo.weaving.DebugLog;
 
 public class SearchActivity extends AbsMusicServiceActivity implements SearchView.OnQueryTextListener, LoaderManager.LoaderCallbacks<List<Object>> {
     public static final String TAG = SearchActivity.class.getSimpleName();
@@ -53,7 +52,6 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
     private SearchAdapter adapter;
     private String query;
 
-    @DebugLog
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,7 +109,6 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    @DebugLog
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
@@ -171,7 +168,6 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         return false;
     }
 
-    @DebugLog
     @Override
     public boolean onQueryTextChange(String newText) {
         search(newText);
