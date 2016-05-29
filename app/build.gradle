@@ -132,6 +132,7 @@ dependencies {
     compile 'com.android.support:support-annotations:23.4.0'
     compile 'com.android.support:percent:23.4.0'
     compile 'com.android.support:preference-v7:23.4.0'
+    compile 'com.android.support:preference-v14:23.4.0'
     compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
     compile 'com.github.kabouzeid:SeekArc:1.2-kmod'
     compile 'com.github.kabouzeid:AndroidSlidingUpPanel:3.3.0-kmod3'
