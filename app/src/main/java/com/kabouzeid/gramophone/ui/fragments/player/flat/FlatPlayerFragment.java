@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -63,6 +64,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     View playerStatusBar;
     @Bind(R.id.player_toolbar)
     Toolbar toolbar;
+    @Nullable
     @Bind(R.id.player_sliding_layout)
     SlidingUpPanelLayout slidingUpPanelLayout;
     @Bind(R.id.player_recycler_view)
@@ -91,7 +93,11 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        impl = new PortraitImpl(this);
+        if (Util.isLandscape(getResources())) {
+            impl = new LandscapeImpl(this);
+        } else {
+            impl = new PortraitImpl(this);
+        }
 
         View view = inflater.inflate(R.layout.fragment_flat_player, container, false);
         ButterKnife.bind(this, view);
@@ -109,8 +115,10 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
         setUpRecyclerView();
 
-        slidingUpPanelLayout.addPanelSlideListener(this);
-        slidingUpPanelLayout.setAntiDragView(view.findViewById(R.id.draggable_area));
+        if (slidingUpPanelLayout != null) {
+            slidingUpPanelLayout.addPanelSlideListener(this);
+            slidingUpPanelLayout.setAntiDragView(view.findViewById(R.id.draggable_area));
+        }
 
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -183,14 +191,14 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
     private void updateQueue() {
         playingQueueAdapter.swapDataSet(MusicPlayerRemote.getPlayingQueue(), MusicPlayerRemote.getPosition());
-        if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+        if (slidingUpPanelLayout == null || slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
             resetToCurrentPosition();
         }
     }
 
     private void updateQueuePosition() {
         playingQueueAdapter.setCurrent(MusicPlayerRemote.getPosition());
-        if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+        if (slidingUpPanelLayout == null || slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
             resetToCurrentPosition();
         }
     }
@@ -403,6 +411,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
                 onPanelCollapsed(panel);
                 break;
             case ANCHORED:
+                //noinspection ConstantConditions
                 slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED); // this fixes a bug where the panel would get stuck for some reason
                 break;
         }
@@ -540,6 +549,37 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         public void animateColorChange(int newColor) {
             super.animateColorChange(newColor);
             createDefaultColorChangeAnimatorSet(newColor).start();
+        }
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    private static class LandscapeImpl extends BaseImpl {
+        public LandscapeImpl(FlatPlayerFragment fragment) {
+            super(fragment);
+        }
+
+        @Override
+        public void init() {
+        }
+
+        @Override
+        public void setUpPanelAndAlbumCoverHeight() {
+            ((AbsSlidingMusicPanelActivity) fragment.getActivity()).setAntiDragView(fragment.getView().findViewById(R.id.player_panel));
+        }
+
+        @Override
+        public void updateCurrentSong(Song song) {
+            fragment.toolbar.setTitle(song.title);
+            fragment.toolbar.setSubtitle(song.artistName);
+        }
+
+        @Override
+        public void animateColorChange(int newColor) {
+            super.animateColorChange(newColor);
+
+            AnimatorSet animatorSet = createDefaultColorChangeAnimatorSet(newColor);
+            animatorSet.play(ViewUtil.createBackgroundColorTransition(fragment.toolbar, fragment.lastColor, newColor));
+            animatorSet.start();
         }
     }
 }
