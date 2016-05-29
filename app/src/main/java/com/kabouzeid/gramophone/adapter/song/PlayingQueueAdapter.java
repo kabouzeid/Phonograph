@@ -110,6 +110,11 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
         MusicPlayerRemote.moveSong(fromPosition, toPosition);
     }
 
+    @Override
+    public boolean onCheckCanDrop(int draggingPosition, int dropPosition) {
+        return true;
+    }
+
     public class ViewHolder extends SongAdapter.ViewHolder implements DraggableItemViewHolder {
         @DraggableItemStateFlags
         private int mDragStateFlags;
