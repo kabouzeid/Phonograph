@@ -451,7 +451,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
             this.fragment = fragment;
         }
 
-        public AnimatorSet createDefaultColorChangeAnimatorSet(CardPlayerFragment fragment, int newColor) {
+        public AnimatorSet createDefaultColorChangeAnimatorSet(int newColor) {
             Animator backgroundAnimator;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 int topMargin = fragment.getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
@@ -572,7 +572,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
             fragment.slidingUpPanelLayout.setBackgroundColor(fragment.lastColor);
 
-            createDefaultColorChangeAnimatorSet(fragment, newColor).start();
+            createDefaultColorChangeAnimatorSet(newColor).start();
         }
     }
 
@@ -608,7 +608,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
             fragment.slidingUpPanelLayout.setBackgroundColor(fragment.lastColor);
 
-            AnimatorSet animatorSet = createDefaultColorChangeAnimatorSet(fragment, newColor);
+            AnimatorSet animatorSet = createDefaultColorChangeAnimatorSet(newColor);
             animatorSet.play(ViewUtil.createBackgroundColorTransition(fragment.toolbar, fragment.lastColor, newColor))
                     .with(ViewUtil.createBackgroundColorTransition(fragment.getView().findViewById(R.id.status_bar), ColorUtil.darkenColor(fragment.lastColor), ColorUtil.darkenColor(newColor)));
             animatorSet.start();

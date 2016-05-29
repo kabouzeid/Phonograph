@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/toolbar_elevation"
+        tools:ignore="UnusedAttribute">
+
+        <View
+            android:id="@+id/player_status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/status_bar_padding" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/status_bar_padding"
+            android:background="@color/twenty_percent_black_overlay" />
+
+    </FrameLayout>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/player_toolbar"
+        style="@style/Toolbar"
+        android:background="@android:color/transparent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.kabouzeid.gramophone.views.HeightFitSquareLayout
+            android:id="@+id/cover_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <fragment
+                android:id="@+id/player_album_cover_fragment"
+                class="com.kabouzeid.gramophone.ui.fragments.player.PlayerAlbumCoverFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.kabouzeid.gramophone.views.HeightFitSquareLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@+id/cover_container"
+            android:layout_toRightOf="@+id/cover_container"
+            android:orientation="vertical">
+
+            <fragment
+                android:id="@+id/playback_controls_fragment"
+                class="com.kabouzeid.gramophone.ui.fragments.player.flat.FlatPlayerPlaybackControlsFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:id="@+id/player_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--This is necessary for the drag sorting to work at the top-->
+                <View
+                    android:id="@+id/draggable_area"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/player_panel_content"
+                    android:layout_alignTop="@+id/player_panel_content"
+                    android:layout_marginTop="8dp" />
+
+                <LinearLayout
+                    android:id="@+id/player_panel_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:background="@drawable/shadow_down" />
+
+                    <TextView
+                        android:id="@+id/player_queue_sub_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:text="@string/up_next"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                        android:textColor="?android:textColorSecondary" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/player_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:requiresFadingEdge="vertical" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
