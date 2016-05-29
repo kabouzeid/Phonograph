@@ -221,6 +221,7 @@
     <string name="website">Sito web</string>
     <string name="loading_products">Caricamento prezzi</string>
     <string name="up_next">A seguire</string>
+    <string name="pref_title_now_playing_screen_appearance">Aspetto</string>
     <string name="intro_label">Introduzione</string>
     <string name="press_back_again_to_exit_intro">Premi di nuovo il tasto Indietro per saltare l\'intro.</string>
     <string name="welcome_to_phonograph">"Benvenuto in Phonograph, un music player bellissimo e leggero per Android. "</string>
@@ -239,4 +240,28 @@
     <string name="app_widget_big_name">Phonograph - Grande</string>
     <string name="app_widget_classic_name">Phonograph - Classico</string>
     <string name="app_widget_small_name">Phonograph - Piccolo</string>
+    <string name="report_an_issue">Segnala un problema</string>
+    <string name="bug_report_issue">Problema</string>
+    <string name="login">Accesso</string>
+    <string name="title">Titolo</string>
+    <string name="description">Descrizione</string>
+    <string name="device_info">Informazioni dispositivo</string>
+    <string name="bug_report_use_account">Invia tramite account GitHub</string>
+    <string name="bug_report_manual">"Invia manualmente
+"</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="bug_report_no_title">Si prega di inserire un titolo valido</string>
+    <string name="bug_report_no_description">Si prega di inserire una descrizione valida</string>
+    <string name="bug_report_no_username">Si prega di inserire un username GitHub valido</string>
+    <string name="bug_report_no_password">Si prega di inserire una password GitHub valida</string>
+    <string name="bug_report_uploading">Caricamento del rapporto su GitHub...</string>
+    <string name="bug_report_failed">Impossibile inviare un rapporto</string>
+    <string name="bug_report_failed_wrong_credentials">Username o password errata</string>
+    <string name="bug_report_failed_invalid_token">Token di accesso non valido. Si prega di contattare lo sviluppatore.</string>
+    <string name="bug_report_failed_issues_not_available">I problemi non sono abilitati per la repository selezionata. Si prega di contattare lo sviluppatore.</string>
+    <string name="bug_report_failed_unknown">Si è verificato un errore imprevisto. Si prega di contattare lo sviluppatore.</string>
+    <string name="copied_device_info_to_clipboard">Informazioni dispositivo copiate negli appunti.</string>
+    <string name="your_account_data_is_only_used_for_authentication">I tuoi dati account sono usati solo per l\'autenticazione.</string>
+    <string name="you_will_be_forwarded_to_the_issue_tracker_website">Verrai indirizzato al sito di bugtracking.</string>
 </resources>

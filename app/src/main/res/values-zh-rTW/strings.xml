@@ -248,6 +248,7 @@
     <string name="description">內容敘述</string>
     <string name="device_info">裝置資訊</string>
     <string name="bug_report_use_account">透過 GitHub 帳戶傳送</string>
+    <string name="bug_report_manual">手動傳送</string>
     <string name="username">帳號</string>
     <string name="password">密碼</string>
     <string name="bug_report_no_title">請輸入問題的標題</string>
