@@ -22,6 +22,7 @@
     <string name="action_tag_editor">Editor Etichete</string>
     <string name="action_delete_from_device">Ștergeți din telefon</string>
     <string name="action_details">Detalii</string>
+    <string name="action_delete">Şterge</string>
     <string name="albums">Albume</string>
     <string name="artists">Artiști</string>
     <string name="songs">Melodii</string>

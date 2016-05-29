@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">Bạn muốn chia sẻ điều gì?</string>
-    <string name="currently_listening_to_x_by_x">Đang nghe đến %1$s của %2$s.</string>
+    <string name="currently_listening_to_x_by_x">Đang nghe ca khúc %1$s bởi %2$s.</string>
     <string name="the_audio_file">Tập tin âm thanh</string>
     <string name="do_you_want_to_set_x_as_ringtone">Bạn muốn cài %1$s làm nhạc chuông?</string>
     <string name="x_has_been_set_as_ringtone">Cài %1$s làm nhạc chuông.</string>
@@ -16,7 +16,7 @@
     <string name="action_clear_playlist">Dọn danh sách nhạc</string>
     <string name="action_playing_queue">Danh sách phát</string>
     <string name="action_add_to_favorites">Thêm vào yêu thích</string>
-    <string name="action_remove_from_favorites">Di chuyển từ mục ưa thích</string>
+    <string name="action_remove_from_favorites">Xóa khỏi yêu thích</string>
     <string name="action_search">Tìm kiếm</string>
     <string name="action_play_next">Phát kế tiếp</string>
     <string name="action_play">Phát</string>
@@ -43,7 +43,7 @@
     <string name="genre">Thể loại</string>
     <string name="album_artist">Album nghệ sĩ</string>
     <string name="year">Năm</string>
-    <string name="track">Track</string>
+    <string name="track">Ca khúc</string>
     <string name="track_hint">"Track (2 for track 2 or 3004 for CD3 track 4)"</string>
     <string name="album_or_artist_empty">Tiêu đề hoặc nghệ sĩ trống.</string>
     <string name="saving_changes">Đang lưu thay đổi</string>

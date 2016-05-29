@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="what_do_you_want_to_share">Was willst du teilen?</string>
+    <string name="what_do_you_want_to_share">Was möchtest du teilen?</string>
     <string name="currently_listening_to_x_by_x">Ich höre gerade %1$s von %2$s.</string>
     <string name="the_audio_file">Die Audiodatei</string>
     <string name="do_you_want_to_set_x_as_ringtone">Willst du %1$s als deinen Klingelton verwenden?</string>

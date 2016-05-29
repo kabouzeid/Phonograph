@@ -99,7 +99,7 @@
     <string name="action_clear_playing_queue">Çalma sırasını temizle</string>
     <string name="action_go_to_start_directory">Başlangıç dizinine git</string>
     <string name="action_show_lyrics">Şarkı sözlerini göster</string>
-    <string name="last_opened">Son dinlenenler</string>
+    <string name="last_opened">Son çalınanlar</string>
     <string name="light_theme_name">Açık</string>
     <string name="dark_theme_name">Koyu</string>
     <string name="black_theme_name">SİYAH (AMOLED)</string>
@@ -129,7 +129,7 @@
     <string name="pref_title_alternative_progress_slider_now_playing">Alternatif İlerleme Kaydırma</string>
     <string name="pref_title_playback_controller_card_now_playing">Çalma kontrolleri altında kartı göster</string>
     <string name="pref_title_colored_playback_controls_now_playing">Çalma kontrollerini renklendir</string>
-    <string name="pref_title_audio_ducking">Odak kaybı sağlayacak sesi azalt</string>
+    <string name="pref_title_audio_ducking">Odak kaybına neden olacak sesi azalt</string>
     <string name="no_equalizer">Ekolayzer bulunamadı.</string>
     <string name="no_audio_ID">"ilk şarkıyı çalın, daha sonra tekrar deneyin."</string>
     <string name="delete_action">Sil</string>
@@ -205,7 +205,7 @@
     <string name="fork_on_git_hub">GitHub da katkıda bulunun</string>
     <string name="visit_website">Websitesini ziyaret ediniz</string>
     <string name="report_bugs">Hata raporlayınız</string>
-    <string name="report_bugs_summary">Hata raporlayınız ya da yeni özellikler isteyiniz</string>
+    <string name="report_bugs_summary">Hata raporlayın ya da yeni özellikler talep edin</string>
     <string name="join_community">Google+ grubuna katılın</string>
     <string name="join_community_summary">Eğer yardıma ihtiyacınız varsa veya sorunuz varsa Google+ Phonograph topluluğu en doğru yer.</string>
     <string name="translate">Çeviri</string>
@@ -221,6 +221,7 @@
     <string name="website">Web sitesi</string>
     <string name="loading_products">İçerik yükleniyor...</string>
     <string name="up_next">Sırada olanlar</string>
+    <string name="pref_title_now_playing_screen_appearance">Görünüm</string>
     <string name="intro_label">Tanıtım</string>
     <string name="press_back_again_to_exit_intro">Tanıtımı atlamak için geri tuşuna basın.</string>
     <string name="welcome_to_phonograph">"Phonograph'a Hoşgeldiniz, Android için güzel ve hafif bir müzik çalar. "</string>
@@ -239,4 +240,27 @@
     <string name="app_widget_big_name">Phonograph - Büyük</string>
     <string name="app_widget_classic_name">Phonograph - Klasik</string>
     <string name="app_widget_small_name">Phonograph - Küçük</string>
+    <string name="report_an_issue">Sorun bildir</string>
+    <string name="bug_report_issue">Sorun</string>
+    <string name="login">Oturum aç</string>
+    <string name="title">Başlık</string>
+    <string name="description">Açıklama</string>
+    <string name="device_info">Cihaz bilgisi</string>
+    <string name="bug_report_use_account">GitHub hesabını kullanarak gönder</string>
+    <string name="bug_report_manual">El ile gönder</string>
+    <string name="username">Kullanıcı adı</string>
+    <string name="password">Şifre</string>
+    <string name="bug_report_no_title">Bir sorun başlığı girin</string>
+    <string name="bug_report_no_description">Sorun ile ilgili açıklama girin</string>
+    <string name="bug_report_no_username">Lütfen geçerli GitHub kullanıcı adınızı girin</string>
+    <string name="bug_report_no_password">Lütfen geçerli GitHub şifrenizi girin</string>
+    <string name="bug_report_uploading">Github raporu yükleniyor...</string>
+    <string name="bug_report_failed">Rapor gönderilemiyor</string>
+    <string name="bug_report_failed_wrong_credentials">Kullanıcı adı veya şifre yanlış</string>
+    <string name="bug_report_failed_invalid_token">Geçersiz erişim belirtisi. Uygulamanın geliştiricisi ile irtibata geçiniz.</string>
+    <string name="bug_report_failed_issues_not_available">Sorunlar seçilen depo için etkin değil. Uygulamanın geliştiricisi ile irtibata geçiniz.</string>
+    <string name="bug_report_failed_unknown">Beklenmedik bir hata oluştu. Uygulamanın geliştiricisi ile irtibata geçiniz.</string>
+    <string name="copied_device_info_to_clipboard">Cihaz bilgisi panoya kopyalandı.</string>
+    <string name="your_account_data_is_only_used_for_authentication">Hesabınız ile ilgili veriler yalnızca kimlik doğrulaması için kullanılır.</string>
+    <string name="you_will_be_forwarded_to_the_issue_tracker_website">Sorununuz sorun takip web sitesine iletilir.</string>
 </resources>

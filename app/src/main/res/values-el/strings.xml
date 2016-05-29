@@ -222,6 +222,7 @@
     <string name="website">Ιστοσελίδα</string>
     <string name="loading_products">Φόρτωση προϊόντων...</string>
     <string name="up_next">Επόμενο</string>
+    <string name="pref_title_now_playing_screen_appearance">Εμφάνιση</string>
     <string name="intro_label">Εισαγωγή</string>
     <string name="press_back_again_to_exit_intro">Πατήστε πίσω πάλι για να παραλείψετε την εισαγωγή.</string>
     <string name="welcome_to_phonograph">"Καλώς ήρθατε στο Phonograph, ένα όμορφο και ελαφρύ πρόγραμμα αναπαραγωγής μουσικής για το Android.  "</string>
@@ -240,4 +241,27 @@
     <string name="app_widget_big_name">Phonograph - Μεγάλο</string>
     <string name="app_widget_classic_name">Phonograph - Κλασικό</string>
     <string name="app_widget_small_name">Phonograph - Μικρό</string>
+    <string name="report_an_issue">Αναφέρετε ένα πρόβλημα</string>
+    <string name="bug_report_issue">Πρόβλημα</string>
+    <string name="login">Είσοδος</string>
+    <string name="title">Τίτλος</string>
+    <string name="description">Περιγραφή</string>
+    <string name="device_info">Πληροφορίες συσκευής</string>
+    <string name="bug_report_use_account">Αποστολή χρησιμοποιώντας τον λογαριασμό GitHub</string>
+    <string name="bug_report_manual">Χειροκίνητη αποστολή</string>
+    <string name="username">Όνομα Χρήστη</string>
+    <string name="password">Κωδικός Πρόσβασης</string>
+    <string name="bug_report_no_title">"Παρακαλώ εισάγετε έναν τίτλο για το πρόβλημα "</string>
+    <string name="bug_report_no_description">Παρακαλώ εισάγετε μια περιγραφή του προβλήματος</string>
+    <string name="bug_report_no_username">Παρακαλώ εισάγετε έγκυρο όνομα χρήστη GitHub</string>
+    <string name="bug_report_no_password">Παρακαλώ εισάγετε έγκυρο κωδικό πρόσβασης GitHub</string>
+    <string name="bug_report_uploading">Αποστολή αναφοράς στο GitHub...</string>
+    <string name="bug_report_failed">Δεν είναι δυνατή η αποστολή της αναφοράς</string>
+    <string name="bug_report_failed_wrong_credentials">Λάθος όνομα χρήστη ή κωδικός πρόσβασης</string>
+    <string name="bug_report_failed_invalid_token">Μη έγκυρο διακριτικό πρόσβασης. Παρακαλώ επικοινωνήστε με τον προγραμματιστή της εφαρμογής.</string>
+    <string name="bug_report_failed_issues_not_available">Τα ζητήματα δεν έχουν ενεργοποιηθεί για τον επιλεγμένο χώρο αποθήκευσης. Παρακαλώ επικοινωνήστε με τον προγραμματιστή της εφαρμογής.</string>
+    <string name="bug_report_failed_unknown">Προέκυψε ένα μη αναμενόμενο σφάλμα. Παρακαλώ επικοινωνήστε με τον προγραμματιστή της εφαρμογής.</string>
+    <string name="copied_device_info_to_clipboard">Αντιγράφτηκαν οι πληροφορίες συσκευής στο πρόχειρο.</string>
+    <string name="your_account_data_is_only_used_for_authentication">Τα στοιχεία του λογαριασμού σας χρησιμοποιούνται μόνο για τον έλεγχο της ταυτότητάς σας.</string>
+    <string name="you_will_be_forwarded_to_the_issue_tracker_website">Θα μεταφερθείτε στην ιστοσελίδα του εντοπιστή ζητημάτων.</string>
 </resources>

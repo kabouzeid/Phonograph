@@ -167,7 +167,7 @@
     <string name="pref_summary_ignore_media_store_artwork">可以提高专辑封面图片的质量但加载时间也会更长。仅当遇到专辑封面像素过低时建议开启。</string>
     <string name="pref_summary_colored_playback_controls_now_playing">\u64ad\u653e/\u6682\u505c\u3001\u968f\u673a\u64ad\u653e\u3001\u5faa\u73af\u64ad\u653e\u6309\u952e\u4ee5\u53ca\u6b4c\u66f2\u8fdb\u5ea6\u6761\u7684\u989c\u8272\u90fd\u5c06\u6839\u636e\u4e13\u8f91\u5c01\u9762\u8272\u8fdb\u884c\u53d8\u8272\u3002</string>
     <string name="pref_summary_colored_navigation_bar">导航栏颜色与主色调保持一致。</string>
-    <string name="pref_summary_audio_ducking">通知，导航等</string>
+    <string name="pref_summary_audio_ducking">如通知，导航等</string>
     <string name="could_not_download_album_cover">"\u65e0\u6cd5\u4e0b\u8f7d\u5230\u5339\u914d\u7684\u4e13\u8f91\u5c01\u9762\u3002"</string>
     <string name="search_hint">正在扫描</string>
     <string name="rescanning_media">正在重新扫描媒体储存…</string>
@@ -221,6 +221,7 @@
     <string name="website">网站</string>
     <string name="loading_products">加载产品中…</string>
     <string name="up_next">即将播放</string>
+    <string name="pref_title_now_playing_screen_appearance">外观</string>
     <string name="intro_label">介绍页</string>
     <string name="press_back_again_to_exit_intro">再次点击后退键可跳过介绍页。</string>
     <string name="welcome_to_phonograph">"欢迎使用 Phonohraph ，这是一款精致且简洁的 Android 音乐播放器。 "</string>
@@ -239,4 +240,27 @@
     <string name="app_widget_big_name">Phonograph - 大尺寸</string>
     <string name="app_widget_classic_name">Phonograph - 经典</string>
     <string name="app_widget_small_name">Phonograph - 小尺寸</string>
+    <string name="report_an_issue">报告问题</string>
+    <string name="bug_report_issue">问题</string>
+    <string name="login">登录</string>
+    <string name="title">标题</string>
+    <string name="description">说明</string>
+    <string name="device_info">设备信息</string>
+    <string name="bug_report_use_account">通过 Github 帐号发送</string>
+    <string name="bug_report_manual">手动发送</string>
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="bug_report_no_title">请输入问题的标题</string>
+    <string name="bug_report_no_description">请输入问题的说明</string>
+    <string name="bug_report_no_username">请输入您在 Github 上的有效用户名</string>
+    <string name="bug_report_no_password">请输入您在 Github 上的有效密码</string>
+    <string name="bug_report_uploading">正在将报告上传至 Github...</string>
+    <string name="bug_report_failed">无法发送报告</string>
+    <string name="bug_report_failed_wrong_credentials">错误的用户名或密码</string>
+    <string name="bug_report_failed_invalid_token">无效的访问令牌。请联系应用开发者</string>
+    <string name="bug_report_failed_issues_not_available">所选的资源库中未启用错误报告。请联系应用开发者</string>
+    <string name="bug_report_failed_unknown">发生了一个意外错误。请联系应用开发者</string>
+    <string name="copied_device_info_to_clipboard">设备信息已复制到剪贴板</string>
+    <string name="your_account_data_is_only_used_for_authentication">您的帐号信息仅用于身份认证</string>
+    <string name="you_will_be_forwarded_to_the_issue_tracker_website">将带您跳转至报告问题的网站</string>
 </resources>
