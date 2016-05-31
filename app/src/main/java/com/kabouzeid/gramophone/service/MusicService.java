@@ -201,6 +201,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         PreferenceUtil.getInstance(this).registerOnSharedPreferenceChangedListener(this);
 
         restoreState();
+
+        sendBroadcast(new Intent("com.kabouzeid.gramophone.PHONOGRAPH_MUSIC_SERVICE_CREATED"));
     }
 
     private void registerReceiversAndRemoteControlClient() {
@@ -277,6 +279,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         getContentResolver().unregisterContentObserver(mediaStoreObserver);
         PreferenceUtil.getInstance(this).unregisterOnSharedPreferenceChangedListener(this);
         wakeLock.release();
+
+        sendBroadcast(new Intent("com.kabouzeid.gramophone.PHONOGRAPH_MUSIC_SERVICE_DESTROYED"));
     }
 
     @Override
