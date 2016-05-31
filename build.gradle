@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-alpha1'
+        classpath 'com.android.tools.build:gradle:2.2.0-alpha2'
         classpath 'com.github.triplet.gradle:play-publisher:1.1.4'
     }
 }
