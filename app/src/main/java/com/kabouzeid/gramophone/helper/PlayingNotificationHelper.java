@@ -56,6 +56,10 @@ public class PlayingNotificationHelper {
         stopped = false;
 
         final Song song = service.getCurrentSong();
+        if (song.id == -1) {
+            killNotification();
+            return;
+        }
 
         final boolean isPlaying = service.isPlaying();
 
