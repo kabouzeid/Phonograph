@@ -36,7 +36,6 @@ public abstract class AbsThemeActivity extends ATHToolbarActivity {
         MaterialDialogsUtil.updateMaterialDialogsThemeSingleton(this);
     }
 
-    // TODO see "materialize" library for setting window flags
     protected void setDrawUnderStatusbar(boolean drawUnderStatusbar) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             Util.setAllowDrawUnderStatusBar(getWindow());

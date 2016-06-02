@@ -22,8 +22,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.CustomEvent;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.NavigationViewUtil;
@@ -77,8 +75,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-
-        Answers.getInstance().logCustom(new CustomEvent("TEST")); // TODO remove in future update
 
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
             Util.setStatusBarTranslucent(getWindow());
