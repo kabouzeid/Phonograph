@@ -174,7 +174,7 @@
     <string name="favorites">Favoriten</string>
     <string name="last_added">Zuletzt hinzugefügt</string>
     <string name="history">Verlauf</string>
-    <string name="my_top_tracks">Meine lieblings Titel</string>
+    <string name="my_top_tracks">Meine Lieblingstitel</string>
     <string name="remove_cover">Cover entfernen</string>
     <string name="download_from_last_fm">Von Last.fm herunterladen</string>
     <string name="pick_from_local_storage">Aus lokalem Speicher wählen</string>
