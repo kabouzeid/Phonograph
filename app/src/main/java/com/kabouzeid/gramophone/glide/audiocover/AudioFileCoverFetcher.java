@@ -50,8 +50,6 @@ public class AudioFileCoverFetcher implements DataFetcher<InputStream> {
     private InputStream fallback(String path) throws FileNotFoundException {
         File parent = new File(path).getParentFile();
         for (String fallback : FALLBACKS) {
-            // TODO make it smarter by enumerating folder contents and filtering for files
-            // example algorithm for that: http://askubuntu.com/questions/123612/how-do-i-set-album-artwork
             File cover = new File(parent, fallback);
             if (cover.exists()) {
                 return stream = new FileInputStream(cover);
