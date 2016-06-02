@@ -2,20 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="false"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="@dimen/mi_baseline">
+
+    <ImageView
+        android:id="@id/mi_image"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/mi_baseline"
+        android:layout_weight="1"
+        android:gravity="center"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/tutorial_queue_swipe_up" />
 
     <TextView
         android:id="@id/mi_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/mi_baseline"
-        android:fontFamily="sans-serif-light"
+        android:layout_marginTop="@dimen/mi_baseline"
+        android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         tools:ignore="UnusedAttribute"
         tools:text="Lorem ipsum" />
 
@@ -23,20 +34,9 @@
         android:id="@id/mi_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/mi_baseline"
+        android:layout_marginTop="@dimen/mi_baseline"
         android:gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         tools:text="Lorem ipsum dolor sit amet, consectetur, adipisci velit, …" />
-
-    <ImageView
-        android:id="@id/mi_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/mi_baseline"
-        android:gravity="center"
-        tools:ignore="ContentDescription"
-        android:paddingBottom="@dimen/mi_pager_margin_bottom"
-        tools:src="@drawable/tutorial_queue_swipe_up" />
 
 </LinearLayout>
