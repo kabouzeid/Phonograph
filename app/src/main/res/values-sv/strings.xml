@@ -42,7 +42,7 @@
     <string name="genre">Genre</string>
     <string name="album_artist">Albumartist</string>
     <string name="year">År</string>
-    <string name="track">Låt</string>
+    <string name="track">Spår</string>
     <string name="track_hint">"Spår"</string>
     <string name="album_or_artist_empty">Textfältet för albumtitel eller artist är tomt.</string>
     <string name="saving_changes">Sparar ändringar ...</string>

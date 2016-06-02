@@ -26,6 +26,9 @@
     <string name="action_tag_editor">تعديل معلومات الملف</string>
     <string name="action_delete_from_device">حذف من الجهاز</string>
     <string name="action_details">التفاصيل</string>
+    <string name="action_rename">إعادة التسمية</string>
+    <string name="action_delete">حذف</string>
+    <string name="action_scan">فحص</string>
     <string name="albums">الألبومات</string>
     <string name="artists">الفنانون</string>
     <string name="songs">الأغاني</string>
@@ -43,6 +46,7 @@
     <string name="track_hint">"مقطع (2 للمقطع 2 أو 3004 لـCD3 للمقطع 4)"</string>
     <string name="album_or_artist_empty">حقل اسم الألبوم أو اسم الفنان فارغ</string>
     <string name="saving_changes">يتم حفظ التغييرات...</string>
+    <string name="saving_to_file">حفظ إلى الملف...</string>
     <string name="label_details">التفاصيل</string>
     <string name="label_file_name">اسم الملف</string>
     <string name="label_file_path">مسار الملف</string>
@@ -85,12 +89,14 @@
     <string name="delete_playlist_title">حذف قائمة التشغيل</string>
     <string name="delete_playlists_title">حذف قوائم التشغيل</string>
     <string name="clear_playlist_title">مسح قائمة التشغيل</string>
+    <string name="save_playlist_title">حفظ كملف</string>
     <string name="add_playlist_title">"أضف إلى قائمة التشغيل"</string>
     <string name="action_shuffle_all">بعثرة الكل</string>
     <string name="action_shuffle_album">بعثرة الألبوم</string>
     <string name="action_shuffle_artist">تشغيل أغاني الفنان عشوائيا</string>
     <string name="action_shuffle_playlist">تشغيل قائمة التشغيل عشوائيا</string>
     <string name="action_clear_playing_queue">مسح قائمة الانتظار</string>
+    <string name="action_show_lyrics">اعرض كلمات الأغنية</string>
     <string name="last_opened">آخر ما تم فتحه</string>
     <string name="light_theme_name">فاتح</string>
     <string name="dark_theme_name">داكن</string>
@@ -121,6 +127,7 @@
     <string name="pref_title_alternative_progress_slider_now_playing">شريط تحكم بديل</string>
     <string name="pref_title_playback_controller_card_now_playing">أظهر بطاقة تحت شريط التحكم</string>
     <string name="pref_title_colored_playback_controls_now_playing">شريط تشغيل ملون</string>
+    <string name="pref_title_audio_ducking">خفض الصوت عند فقدان التركيز</string>
     <string name="no_equalizer">لا يوجد معدل صوت</string>
     <string name="no_audio_ID">"شغل مقطعاً، ثم حاول مجدداً"</string>
     <string name="delete_action">حذف</string>
@@ -158,6 +165,7 @@
     <string name="pref_summary_ignore_media_store_artwork">قد يرفع جودة صورة الألبوم ولكن يبطء من سرعة تحميلها. فعلها فقط إذا تواجه مشكلة في جودة صور الألبوم</string>
     <string name="pref_summary_colored_playback_controls_now_playing">\u062a\u0644\u0648\u064a\u0646 \u0623\u0632\u0631\u0627\u0631 \u0627\u0644\u062a\u0648\u062c\u064a\u0647 \u0641\u064a \u0634\u0631\u064a\u0637 \u0627\u0644\u062a\u062d\u0643\u0645 \u0628\u0644\u0648\u0646 \u0628\u0627\u0631\u0632</string>
     <string name="pref_summary_colored_navigation_bar">تلوين شريط التنقل باللون الأساسي</string>
+    <string name="pref_summary_audio_ducking">الإشعارات، التنقل، إلى آخره.</string>
     <string name="could_not_download_album_cover">"\u0644\u0627 \u064a\u0645\u0643\u0646 \u062a\u062d\u0645\u064a\u0644 \u063a\u0644\u0627\u0641 \u0623\u0644\u0628\u0648\u0645 \u0645\u0637\u0627\u0628\u0642 ."</string>
     <string name="search_hint">إبحث في مكتبتك...</string>
     <string name="rescanning_media">إعادة تفحص الوسائط...</string>
@@ -211,6 +219,7 @@
     <string name="website">الموقع</string>
     <string name="loading_products">يتم تحميل المنتجات...</string>
     <string name="up_next">التالي</string>
+    <string name="pref_title_now_playing_screen_appearance">المظهر</string>
     <string name="intro_label">المقدمة</string>
     <string name="press_back_again_to_exit_intro">اضغط زر الخلف مجدداً لتجاوز المقدمة</string>
     <string name="welcome_to_phonograph">"مرحباً في Phonograph، مشغل موسيقى خفيف وأنيق على منصة أندرويد."</string>
@@ -218,4 +227,23 @@
     <string name="rearrange_playing_queue_instruction">إعادة ترتيب القائمة بواسطة سحب المقطوعة من رقمها</string>
     <string name="library">المكتبة</string>
     <string name="folders">الملفات</string>
+    <string name="saved_playlist_to">تم الحفظ في قائمة التشغيل %s.</string>
+    <string name="failed_to_save_playlist">فشل الحفظ في القائمة التشغيل (%s).</string>
+    <string name="nothing_to_scan">لا يوجد شيء للفحص</string>
+    <string name="could_not_scan_files">لم يتم فحص ملفات %d.</string>
+    <string name="report_an_issue">بلغ عن مشكلة</string>
+    <string name="bug_report_issue">المشكلة</string>
+    <string name="login">تسجيل دخول</string>
+    <string name="title">العنوان</string>
+    <string name="description">الوصف</string>
+    <string name="device_info">معلومات الجهاز</string>
+    <string name="bug_report_use_account">أرسل باستخدام حساب GitHub</string>
+    <string name="bug_report_manual">أرسل يدوياً</string>
+    <string name="username">اسم المستخدم</string>
+    <string name="password">كلمة المرور</string>
+    <string name="bug_report_no_title">فضلاً أدخل عنوان المشكلة</string>
+    <string name="bug_report_no_description">فضلاً أدخل وصف المشكلة</string>
+    <string name="bug_report_no_username">فضلاً أدخل اسم مستخدم صالح لحساب GitHub</string>
+    <string name="bug_report_no_password">فضلاً أدخل كلمة مرور صالح لحساب GitHub</string>
+    <string name="bug_report_uploading">يتم رفع المشكلة إلى GitHub</string>
 </resources>
