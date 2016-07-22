@@ -83,15 +83,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 break;
             case ARTIST:
                 final Artist artist = (Artist) dataSet.get(position);
-                holder.title.setText(artist.name);
+                holder.title.setText(artist.getName());
                 holder.text.setText(MusicUtil.getArtistInfoString(activity, artist));
                 Glide.with(activity)
-                        .load(new ArtistImage(artist.name, false))
+                        .load(new ArtistImage(artist.getName(), false))
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                         .placeholder(R.drawable.default_artist_image)
                         .animate(android.R.anim.fade_in)
                         .priority(Priority.LOW)
-                        .signature(ArtistSignatureUtil.getInstance(activity).getArtistSignature(artist.name))
+                        .signature(ArtistSignatureUtil.getInstance(activity).getArtistSignature(artist.getName()))
                         .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                         .into(holder.image);
                 break;
@@ -169,7 +169,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     break;
                 case ARTIST:
                     NavigationUtil.goToArtist(activity,
-                            ((Artist) item).id,
+                            ((Artist) item).getId(),
                             Pair.create(image,
                                     activity.getResources().getString(R.string.transition_artist_image)
                             ));

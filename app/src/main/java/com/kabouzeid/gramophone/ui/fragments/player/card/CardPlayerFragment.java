@@ -492,7 +492,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     @SuppressWarnings("ConstantConditions")
     private static class PortraitImpl extends BaseImpl {
         MediaEntryViewHolder currentSongViewHolder;
-        Song currentSong = new Song();
+        Song currentSong = Song.EMPTY_SONG;
 
         public PortraitImpl(CardPlayerFragment fragment) {
             super(fragment);

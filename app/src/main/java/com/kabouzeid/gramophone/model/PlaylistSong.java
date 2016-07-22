@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.model;
 import android.os.Parcel;
 
 public class PlaylistSong extends Song {
+    public static final PlaylistSong EMPTY_PLAYLIST_SONG = new PlaylistSong(-1, "", -1, -1, -1, "", -1, -1, "", -1, "", -1, -1);
 
     public final int playlistId;
     public final int idInPlayList;
@@ -11,12 +12,6 @@ public class PlaylistSong extends Song {
         super(id, title, trackNumber, year, duration, data, dateModified, albumId, albumName, artistId, artistName);
         this.playlistId = playlistId;
         this.idInPlayList = idInPlayList;
-    }
-
-    public PlaylistSong() {
-        super();
-        playlistId = -1;
-        idInPlayList = -1;
     }
 
     @Override

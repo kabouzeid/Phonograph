@@ -53,7 +53,7 @@ public class ShuffleButtonSongAdapter extends SongAdapter {
     @Override
     protected Song getIdentifier(int position) {
         position--;
-        if (position < 0) return new Song();
+        if (position < 0) return Song.EMPTY_SONG;
         return super.getIdentifier(position);
     }
 
@@ -116,7 +116,7 @@ public class ShuffleButtonSongAdapter extends SongAdapter {
 
         @Override
         protected Song getSong() {
-            if (getItemViewType() == SHUFFLE_BUTTON) return new Song();
+            if (getItemViewType() == SHUFFLE_BUTTON) return Song.EMPTY_SONG;
             return dataSet.get(getAdapterPosition() - 1);
         }
 
