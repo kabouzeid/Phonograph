@@ -41,11 +41,11 @@
     <string name="album">Album</string>
     <string name="artist">Nghệ sĩ</string>
     <string name="genre">Thể loại</string>
-    <string name="album_artist">Album nghệ sĩ</string>
+    <string name="album_artist">Album của Nghệ sĩ</string>
     <string name="year">Năm</string>
     <string name="track">Ca khúc</string>
     <string name="track_hint">"Số thứ tự (ghi 2 nếu là bài thứ 2 hoặc ghi 3004 nếu là CD 3, bài thứ 4)"</string>
-    <string name="album_or_artist_empty">Tiêu đề hoặc nghệ sĩ trống.</string>
+    <string name="album_or_artist_empty">Tiêu đề hoặc nghệ sĩ rỗng.</string>
     <string name="saving_changes">Đang lưu thay đổi</string>
     <string name="saving_to_file">Đang lưu tập tin...</string>
     <string name="label_details">Chi tiết</string>
@@ -53,7 +53,7 @@
     <string name="label_file_path">Đường dẫn tập tin</string>
     <string name="label_file_size">Kích thước</string>
     <string name="label_file_format">Định dạng</string>
-    <string name="label_track_length">Chiều dài</string>
+    <string name="label_track_length">Độ dài</string>
     <string name="label_bit_rate">Lượng dữ liệu</string>
     <string name="label_sampling_rate">Tỷ lệ lấy mẫu</string>
     <string name="action_go_to_artist">Đi đến nghệ sĩ</string>

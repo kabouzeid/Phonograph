@@ -26,6 +26,9 @@
     <string name="action_tag_editor">עריכת תווית</string>
     <string name="action_delete_from_device">מחק מהמכשיר</string>
     <string name="action_details">פרטים</string>
+    <string name="action_rename">שנה שם</string>
+    <string name="action_delete">מחק</string>
+    <string name="action_scan">סרוק</string>
     <string name="albums">אלבומים</string>
     <string name="artists">אמנים</string>
     <string name="songs">שירים</string>
@@ -42,7 +45,7 @@
     <string name="track">שיר</string>
     <string name="track_hint">"שיר (2 בשביל שיר 2 או 3004 בשביל דיסק 3 שיר 4)"</string>
     <string name="album_or_artist_empty">הכותרת או האמן ריקים</string>
-    <string name="saving_changes">שומר שינויים...</string>
+    <string name="saving_changes">שומר שינויים</string>
     <string name="saving_to_file">שומר לקובץ...</string>
     <string name="label_details">פרטים</string>
     <string name="label_file_name">שם הקובץ</string>
@@ -93,6 +96,8 @@
     <string name="action_shuffle_artist">ערבב אמן</string>
     <string name="action_shuffle_playlist">ערבב רשימת השמעה</string>
     <string name="action_clear_playing_queue">איפוס רשימת השמעה</string>
+    <string name="action_go_to_start_directory">עבור לנתיב התחלתי</string>
+    <string name="action_show_lyrics">הצג מילים</string>
     <string name="last_opened">נפתח לאחרונה</string>
     <string name="light_theme_name">בהיר</string>
     <string name="dark_theme_name">כהה</string>
@@ -137,12 +142,22 @@
     <string name="playlist_name_empty">שם רשימת שמע</string>
     <string name="song">שיר</string>
     <string name="pref_only_lollipop">"ניתן רק ב-Lollipop."</string>
+    <string name="pref_summary_album_art_on_lockscreen">השתמש בתמונת האלבום של השיר הנוכחי כרקע מסך הנעילה.</string>
+    <string name="pref_summary_gapless_playback">"עלול לגרום לבעיות בהשמעה בחלק מן המכשירים."</string>
+    <string name="pref_summary_audio_ducking">התראות, ניווט וכו\'</string>
+    <string name="could_not_download_album_cover">"\u05dc\u05d0 \u05d9\u05db\u05d5\u05dc \u05dc\u05d4\u05d5\u05e8\u05d9\u05d3 \u05ea\u05de\u05d5\u05e0\u05ea \u05d0\u05dc\u05d1\u05d5\u05dd \u05de\u05ea\u05d9\u05d0\u05de\u05d4."</string>
+    <string name="search_hint">חפש בספרייה שלך...</string>
+    <string name="rescanning_media">סורק מחדש מדיה...</string>
     <string name="favorites">מועדפים</string>
+    <string name="last_added">נוספו לאחרונה</string>
     <string name="history">היסטוריה</string>
     <string name="remove_cover">הסרת עטיפה</string>
     <string name="download_from_last_fm">הורדה מ-Last.fm</string>
+    <string name="pick_from_local_storage">בחר מאחסון מקומי</string>
     <string name="web_search">חיפוש באינטרנט</string>
     <string name="action_set">קבע</string>
+    <string name="cancel_current_timer">בטל טיימר נוכחי</string>
+    <string name="action_new_playlist">פלייליסט חדש...</string>
     <string name="new_playlist_title">רשימת שמע חדשה</string>
     <string name="special_thanks_to">תודות מיוחדות ל</string>
     <string name="changelog">רשימת שינויים</string>
@@ -155,8 +170,10 @@
     <string name="restored_previous_purchases">שחזור רכישות קודמות.</string>
     <string name="version">גרסה</string>
     <string name="application">אפליקציה</string>
+    <string name="follow_on_twitter">עקוב בטוויטר</string>
     <string name="visit_website">ביקור באתר</string>
     <string name="report_bugs">דווח על באגים</string>
+    <string name="report_bugs_summary">דווח על באגים או בקש פיצ\'רים חדשים.</string>
     <string name="translate">תרגם</string>
     <string name="donate">תרומה</string>
     <string name="donate_summary">אם אתם חושבים שמגיע לי לקבל תשלום על עבודתי, אתם יכולים להשאיר לי כמה שקלים כאן.</string>
@@ -164,4 +181,13 @@
     <string name="loading_products">מעלה מוצרים...</string>
     <string name="library">ספריה</string>
     <string name="folders">תיקיות</string>
+    <string name="report_an_issue">דווח על בעיה</string>
+    <string name="login">התחבר</string>
+    <string name="title">כותרת</string>
+    <string name="description">תיאור</string>
+    <string name="device_info">מידע על המכשיר</string>
+    <string name="username">שם משתמש</string>
+    <string name="password">סיסמא</string>
+    <string name="bug_report_uploading">מעלה דיווח לGitHub…</string>
+    <string name="bug_report_failed_wrong_credentials">שם משתמש או סיסמא שגויים</string>
 </resources>
