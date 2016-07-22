@@ -574,7 +574,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         if (position >= 0 && position < getPlayingQueue().size()) {
             return getPlayingQueue().get(position);
         } else {
-            return new Song();
+            return Song.EMPTY_SONG;
         }
     }
 
@@ -1233,7 +1233,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         public static final String TAG = SongPlayCountHelper.class.getSimpleName();
 
         private StopWatch stopWatch = new StopWatch();
-        private Song song = new Song();
+        private Song song = Song.EMPTY_SONG;
 
         public Song getSong() {
             return song;

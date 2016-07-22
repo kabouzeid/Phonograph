@@ -53,23 +53,20 @@ public class AlbumLoader {
         ArrayList<Album> albums = new ArrayList<>();
         if (songs != null) {
             for (Song song : songs) {
-                Album album = get(albums, song.albumId);
-                if (album == null) {
-                    album = new Album();
-                    albums.add(album);
-                }
-                album.songs.add(song);
+                getOrCreateAlbum(albums, song.albumId).songs.add(song);
             }
         }
         return albums;
     }
 
-    private static Album get(ArrayList<Album> albums, int albumId) {
+    private static Album getOrCreateAlbum(ArrayList<Album> albums, int albumId) {
         for (Album album : albums) {
             if (!album.songs.isEmpty() && album.songs.get(0).albumId == albumId) {
                 return album;
             }
         }
-        return null;
+        Album album = new Album();
+        albums.add(album);
+        return album;
     }
 }

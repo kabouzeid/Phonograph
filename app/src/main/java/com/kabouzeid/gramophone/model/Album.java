@@ -44,9 +44,13 @@ public class Album implements Parcelable {
         return safeGetFirstSong().dateModified;
     }
 
+    public int getSongCount() {
+        return songs.size();
+    }
+
     @NonNull
     public Song safeGetFirstSong() {
-        return songs.isEmpty() ? new Song() : songs.get(0);
+        return songs.isEmpty() ? Song.EMPTY_SONG : songs.get(0);
     }
 
     @Override

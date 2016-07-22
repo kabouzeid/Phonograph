@@ -472,7 +472,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     @SuppressWarnings("ConstantConditions")
     private static class PortraitImpl extends BaseImpl {
         MediaEntryViewHolder currentSongViewHolder;
-        Song currentSong = new Song();
+        Song currentSong = Song.EMPTY_SONG;
 
         public PortraitImpl(FlatPlayerFragment fragment) {
             super(fragment);

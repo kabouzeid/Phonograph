@@ -26,7 +26,6 @@ import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.helper.menu.SongsMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
-import com.kabouzeid.gramophone.loader.ArtistSongLoader;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ArtistSignatureUtil;
@@ -74,7 +73,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
 
     @Override
     public long getItemId(int position) {
-        return dataSet.get(position).id;
+        return dataSet.get(position).getId();
     }
 
     @Override
@@ -105,7 +104,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
         }
 
         if (holder.title != null) {
-            holder.title.setText(artist.name);
+            holder.title.setText(artist.getName());
         }
         if (holder.text != null) {
             holder.text.setText(MusicUtil.getArtistInfoString(activity, artist));
@@ -130,14 +129,14 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     protected void loadArtistImage(Artist artist, final ViewHolder holder) {
         if (holder.image == null) return;
         Glide.with(activity)
-                .load(new ArtistImage(artist.name, false))
+                .load(new ArtistImage(artist.getName(), false))
                 .asBitmap()
                 .transcode(new BitmapPaletteTranscoder(activity), BitmapPaletteWrapper.class)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .placeholder(R.drawable.default_artist_image)
                 .animate(android.R.anim.fade_in)
                 .priority(Priority.LOW)
-                .signature(ArtistSignatureUtil.getInstance(activity).getArtistSignature(artist.name))
+                .signature(ArtistSignatureUtil.getInstance(activity).getArtistSignature(artist.getName()))
                 .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                 .into(new PhonographColoredTarget(holder.image) {
                     @Override
@@ -168,7 +167,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
 
     @Override
     protected String getName(Artist artist) {
-        return artist.name;
+        return artist.getName();
     }
 
     @Override
@@ -180,7 +179,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     private ArrayList<Song> getSongList(@NonNull List<Artist> artists) {
         final ArrayList<Song> songs = new ArrayList<>();
         for (Artist artist : artists) {
-            songs.addAll(ArtistSongLoader.getArtistSongList(activity, artist.id)); // maybe async in future?
+            songs.addAll(artist.getSongs()); // maybe async in future?
         }
         return songs;
     }
@@ -188,7 +187,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     @NonNull
     @Override
     public String getSectionName(int position) {
-        return MusicUtil.getSectionName(dataSet.get(position).name);
+        return MusicUtil.getSectionName(dataSet.get(position).getName());
     }
 
     public class ViewHolder extends MediaEntryViewHolder {
@@ -210,7 +209,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
                         Pair.create(image,
                                 activity.getResources().getString(R.string.transition_artist_image)
                         )};
-                NavigationUtil.goToArtist(activity, dataSet.get(getAdapterPosition()).id, artistPairs);
+                NavigationUtil.goToArtist(activity, dataSet.get(getAdapterPosition()).getId(), artistPairs);
             }
         }
 

@@ -7,6 +7,8 @@ import android.os.Parcelable;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class Song implements Parcelable {
+    public static final Song EMPTY_SONG = new Song(-1, "", -1, -1, -1, "", -1, -1, "", -1, "");
+
     public final int id;
     public final String title;
     public final int trackNumber;
@@ -31,20 +33,6 @@ public class Song implements Parcelable {
         this.albumName = albumName;
         this.artistId = artistId;
         this.artistName = artistName;
-    }
-
-    public Song() {
-        this.id = -1;
-        this.title = "";
-        this.trackNumber = -1;
-        this.year = -1;
-        this.duration = -1;
-        this.data = "";
-        this.dateModified = -1;
-        this.albumId = -1;
-        this.albumName = "";
-        this.artistId = -1;
-        this.artistName = "";
     }
 
     @Override

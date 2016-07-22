@@ -144,16 +144,12 @@ public final class SortOrder {
         /* Artist album sort order Z-A */
         String ALBUM_Z_A = ALBUM_A_Z + " DESC";
 
-        /* Artist album sort order songs */
-        String ALBUM_NUMBER_OF_SONGS = MediaStore.Audio.Artists.Albums.NUMBER_OF_SONGS
+        /* Artist album sort order year */
+        String ALBUM_YEAR = MediaStore.Audio.Media.YEAR
                 + " DESC";
 
         /* Artist album sort order year */
-        String ALBUM_YEAR = MediaStore.Audio.Artists.Albums.FIRST_YEAR
-                + " DESC";
-
-        /* Artist album sort order year */
-        String ALBUM_YEAR_ASC = MediaStore.Audio.Artists.Albums.FIRST_YEAR
+        String ALBUM_YEAR_ASC = MediaStore.Audio.Media.YEAR
                 + " ASC";
     }
 

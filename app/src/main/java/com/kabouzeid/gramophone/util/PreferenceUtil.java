@@ -179,7 +179,7 @@ public final class PreferenceUtil {
 
     public final String getArtistAlbumSortOrder() {
         return mPreferences.getString(ARTIST_ALBUM_SORT_ORDER,
-                SortOrder.ArtistAlbumSortOrder.ALBUM_YEAR_ASC);
+                SortOrder.ArtistAlbumSortOrder.ALBUM_YEAR);
     }
 
     public final String getAlbumSortOrder() {
