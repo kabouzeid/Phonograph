@@ -29,7 +29,6 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        app:layout_parallaxFactor="0"
         tools:ignore="UnusedAttribute"
         tools:text="Lorem ipsum" />
 
@@ -40,7 +39,6 @@
         android:layout_marginTop="@dimen/mi_baseline"
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        app:layout_parallaxFactor="0"
         tools:text="Lorem ipsum dolor sit amet, consectetur, adipisci velit, …" />
 
 </com.heinrichreimersoftware.materialintro.view.parallax.ParallaxLinearLayout>
