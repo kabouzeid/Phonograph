@@ -246,4 +246,6 @@
     <string name="bug_report_no_username">فضلاً أدخل اسم مستخدم صالح لحساب GitHub</string>
     <string name="bug_report_no_password">فضلاً أدخل كلمة مرور صالح لحساب GitHub</string>
     <string name="bug_report_uploading">يتم رفع المشكلة إلى GitHub</string>
+    <string name="bug_report_failed">غير قادر علي إرسال تقرير</string>
+    <string name="bug_report_failed_wrong_credentials">اسم مستخدم او كلمة مرور خاطئه</string>
 </resources>
