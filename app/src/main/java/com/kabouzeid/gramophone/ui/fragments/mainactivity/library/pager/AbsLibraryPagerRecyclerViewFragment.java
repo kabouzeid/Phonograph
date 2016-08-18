@@ -18,8 +18,9 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -28,12 +29,14 @@ public abstract class AbsLibraryPagerRecyclerViewFragment<A extends RecyclerView
 
     public static final String TAG = AbsLibraryPagerRecyclerViewFragment.class.getSimpleName();
 
-    @Bind(R.id.container)
+    private Unbinder unbinder;
+
+    @BindView(R.id.container)
     View container;
-    @Bind(R.id.recycler_view)
+    @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
     @Nullable
-    @Bind(android.R.id.empty)
+    @BindView(android.R.id.empty)
     TextView empty;
 
     private A adapter;
@@ -42,7 +45,7 @@ public abstract class AbsLibraryPagerRecyclerViewFragment<A extends RecyclerView
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutRes(), container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -134,6 +137,6 @@ public abstract class AbsLibraryPagerRecyclerViewFragment<A extends RecyclerView
     public void onDestroyView() {
         super.onDestroyView();
         getLibraryFragment().removeOnAppBarOffsetChangedListener(this);
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 }

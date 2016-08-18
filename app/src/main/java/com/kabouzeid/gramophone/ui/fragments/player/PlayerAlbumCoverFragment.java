@@ -19,8 +19,9 @@ import com.kabouzeid.gramophone.misc.SimpleAnimatorListener;
 import com.kabouzeid.gramophone.ui.fragments.AbsMusicServiceFragment;
 import com.kabouzeid.gramophone.util.ViewUtil;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -28,9 +29,11 @@ import butterknife.ButterKnife;
 public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements ViewPager.OnPageChangeListener {
     public static final String TAG = PlayerAlbumCoverFragment.class.getSimpleName();
 
-    @Bind(R.id.player_album_cover_viewpager)
+    private Unbinder unbinder;
+
+    @BindView(R.id.player_album_cover_viewpager)
     ViewPager viewPager;
-    @Bind(R.id.player_favorite_icon)
+    @BindView(R.id.player_favorite_icon)
     ImageView favoriteIcon;
 
     private Callbacks callbacks;
@@ -40,7 +43,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_player_album_cover, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -71,7 +74,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     public void onDestroyView() {
         super.onDestroyView();
         viewPager.removeOnPageChangeListener(this);
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     @Override

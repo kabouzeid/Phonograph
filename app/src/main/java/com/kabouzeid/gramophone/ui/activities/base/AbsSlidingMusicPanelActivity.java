@@ -26,7 +26,7 @@ import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -38,7 +38,7 @@ import butterknife.ButterKnife;
 public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivity implements SlidingUpPanelLayout.PanelSlideListener, CardPlayerFragment.Callbacks {
     public static final String TAG = AbsSlidingMusicPanelActivity.class.getSimpleName();
 
-    @Bind(R.id.sliding_layout)
+    @BindView(R.id.sliding_layout)
     SlidingUpPanelLayout slidingUpPanelLayout;
 
     private int navigationbarColor;

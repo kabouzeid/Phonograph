@@ -54,22 +54,25 @@ import org.jaudiotagger.tag.FieldKey;
 
 import java.io.File;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbumCoverFragment.Callbacks, SlidingUpPanelLayout.PanelSlideListener {
     public static final String TAG = FlatPlayerFragment.class.getSimpleName();
 
-    @Bind(R.id.player_status_bar)
+    private Unbinder unbinder;
+
+    @BindView(R.id.player_status_bar)
     View playerStatusBar;
-    @Bind(R.id.player_toolbar)
+    @BindView(R.id.player_toolbar)
     Toolbar toolbar;
     @Nullable
-    @Bind(R.id.player_sliding_layout)
+    @BindView(R.id.player_sliding_layout)
     SlidingUpPanelLayout slidingUpPanelLayout;
-    @Bind(R.id.player_recycler_view)
+    @BindView(R.id.player_recycler_view)
     RecyclerView recyclerView;
-    @Bind(R.id.player_queue_sub_header)
+    @BindView(R.id.player_queue_sub_header)
     TextView playerQueueSubHeader;
 
     private int lastColor;
@@ -100,7 +103,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         }
 
         View view = inflater.inflate(R.layout.fragment_flat_player, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -152,7 +155,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         playingQueueAdapter = null;
         layoutManager = null;
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     @Override

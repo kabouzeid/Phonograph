@@ -40,19 +40,22 @@ import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class LibraryFragment extends AbsMainActivityFragment implements CabHolder, MainActivity.MainActivityFragmentCallbacks, ViewPager.OnPageChangeListener {
     public static final String TAG = LibraryFragment.class.getSimpleName();
 
-    @Bind(R.id.toolbar)
+    private Unbinder unbinder;
+
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.tabs)
+    @BindView(R.id.tabs)
     TabLayout tabs;
-    @Bind(R.id.appbar)
+    @BindView(R.id.appbar)
     AppBarLayout appbar;
-    @Bind(R.id.pager)
+    @BindView(R.id.pager)
     ViewPager pager;
 
     private MusicLibraryPagerAdapter pagerAdapter;
@@ -68,7 +71,7 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_library, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -76,7 +79,7 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
     public void onDestroyView() {
         super.onDestroyView();
         pager.removeOnPageChangeListener(this);
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     @Override

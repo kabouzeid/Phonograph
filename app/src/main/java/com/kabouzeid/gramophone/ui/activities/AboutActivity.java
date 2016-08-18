@@ -22,7 +22,7 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.ui.activities.bugreport.BugReportActivity;
 import com.kabouzeid.gramophone.ui.activities.intro.AppIntroActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.psdev.licensesdialog.LicensesDialog;
 
@@ -51,45 +51,45 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
 
     private static String ALEKSANDAR_TESIC_GOOGLE_PLUS = "https://google.com/+aleksandartešić";
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.app_version)
+    @BindView(R.id.app_version)
     TextView appVersion;
-    @Bind(R.id.changelog)
+    @BindView(R.id.changelog)
     LinearLayout changelog;
-    @Bind(R.id.intro)
+    @BindView(R.id.intro)
     LinearLayout intro;
-    @Bind(R.id.licenses)
+    @BindView(R.id.licenses)
     LinearLayout licenses;
-    @Bind(R.id.add_to_google_plus_circles)
+    @BindView(R.id.add_to_google_plus_circles)
     LinearLayout addToGooglePlusCircles;
-    @Bind(R.id.follow_on_twitter)
+    @BindView(R.id.follow_on_twitter)
     LinearLayout followOnTwitter;
-    @Bind(R.id.fork_on_git_hub)
+    @BindView(R.id.fork_on_git_hub)
     LinearLayout forkOnGitHub;
-    @Bind(R.id.visit_website)
+    @BindView(R.id.visit_website)
     LinearLayout visitWebsite;
-    @Bind(R.id.report_bugs)
+    @BindView(R.id.report_bugs)
     LinearLayout reportBugs;
-    @Bind(R.id.join_google_plus_community)
+    @BindView(R.id.join_google_plus_community)
     LinearLayout joinGooglePlusCommunity;
-    @Bind(R.id.translate)
+    @BindView(R.id.translate)
     LinearLayout translate;
-    @Bind(R.id.donate)
+    @BindView(R.id.donate)
     LinearLayout donate;
-    @Bind(R.id.rate_on_google_play)
+    @BindView(R.id.rate_on_google_play)
     LinearLayout rateOnGooglePlay;
-    @Bind(R.id.aidan_follestad_google_plus)
+    @BindView(R.id.aidan_follestad_google_plus)
     AppCompatButton aidanFollestadGooglePlus;
-    @Bind(R.id.aidan_follestad_git_hub)
+    @BindView(R.id.aidan_follestad_git_hub)
     AppCompatButton aidanFollestadGitHub;
-    @Bind(R.id.michael_cook_google_plus)
+    @BindView(R.id.michael_cook_google_plus)
     AppCompatButton michaelCookGooglePlus;
-    @Bind(R.id.michael_cook_website)
+    @BindView(R.id.michael_cook_website)
     AppCompatButton michaelCookWebsite;
-    @Bind(R.id.maarten_corpel_google_plus)
+    @BindView(R.id.maarten_corpel_google_plus)
     AppCompatButton maartenCorpelGooglePlus;
-    @Bind(R.id.aleksandar_tesic_google_plus)
+    @BindView(R.id.aleksandar_tesic_google_plus)
     AppCompatButton aleksandarTesicGooglePlus;
 
     @Override

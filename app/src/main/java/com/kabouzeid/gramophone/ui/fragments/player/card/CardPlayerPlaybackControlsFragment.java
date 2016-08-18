@@ -25,30 +25,33 @@ import com.kabouzeid.gramophone.ui.fragments.AbsMusicServiceFragment;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.views.PlayPauseDrawable;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class CardPlayerPlaybackControlsFragment extends AbsMusicServiceFragment implements MusicProgressViewUpdateHelper.Callback {
 
-    @Bind(R.id.player_play_pause_fab)
+    private Unbinder unbinder;
+
+    @BindView(R.id.player_play_pause_fab)
     FloatingActionButton playPauseFab;
-    @Bind(R.id.player_prev_button)
+    @BindView(R.id.player_prev_button)
     ImageButton prevButton;
-    @Bind(R.id.player_next_button)
+    @BindView(R.id.player_next_button)
     ImageButton nextButton;
-    @Bind(R.id.player_repeat_button)
+    @BindView(R.id.player_repeat_button)
     ImageButton repeatButton;
-    @Bind(R.id.player_shuffle_button)
+    @BindView(R.id.player_shuffle_button)
     ImageButton shuffleButton;
 
-    @Bind(R.id.player_progress_slider)
+    @BindView(R.id.player_progress_slider)
     SeekBar progressSlider;
-    @Bind(R.id.player_song_total_time)
+    @BindView(R.id.player_song_total_time)
     TextView songTotalTime;
-    @Bind(R.id.player_song_current_progress)
+    @BindView(R.id.player_song_current_progress)
     TextView songCurrentProgress;
 
     private PlayPauseDrawable playerFabPlayPauseDrawable;
@@ -73,7 +76,7 @@ public class CardPlayerPlaybackControlsFragment extends AbsMusicServiceFragment 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         setUpMusicControllers();
         updateProgressTextColor();
     }
@@ -81,7 +84,7 @@ public class CardPlayerPlaybackControlsFragment extends AbsMusicServiceFragment 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     @Override

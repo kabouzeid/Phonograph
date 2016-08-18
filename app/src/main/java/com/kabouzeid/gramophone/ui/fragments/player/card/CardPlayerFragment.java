@@ -56,23 +56,26 @@ import org.jaudiotagger.tag.FieldKey;
 
 import java.io.File;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbumCoverFragment.Callbacks, SlidingUpPanelLayout.PanelSlideListener {
     public static final String TAG = CardPlayerFragment.class.getSimpleName();
 
-    @Bind(R.id.player_toolbar)
+    private Unbinder unbinder;
+
+    @BindView(R.id.player_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.player_sliding_layout)
+    @BindView(R.id.player_sliding_layout)
     SlidingUpPanelLayout slidingUpPanelLayout;
-    @Bind(R.id.player_recycler_view)
+    @BindView(R.id.player_recycler_view)
     RecyclerView recyclerView;
-    @Bind(R.id.playing_queue_card)
+    @BindView(R.id.playing_queue_card)
     CardView playingQueueCard;
-    @Bind(R.id.color_background)
+    @BindView(R.id.color_background)
     View colorBackground;
-    @Bind(R.id.player_queue_sub_header)
+    @BindView(R.id.player_queue_sub_header)
     TextView playerQueueSubHeader;
 
     private int lastColor;
@@ -103,7 +106,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         }
 
         View view = inflater.inflate(R.layout.fragment_card_player, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -156,7 +159,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         playingQueueAdapter = null;
         layoutManager = null;
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     @Override

@@ -53,7 +53,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -65,15 +65,15 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     public static final String EXTRA_PALETTE = "extra_palette";
     private static final String TAG = AbsTagEditorActivity.class.getSimpleName();
     private static final int REQUEST_CODE_SELECT_IMAGE = 1337;
-    @Bind(R.id.play_pause_fab)
+    @BindView(R.id.play_pause_fab)
     FloatingActionButton fab;
-    @Bind(R.id.observableScrollView)
+    @BindView(R.id.observableScrollView)
     ObservableScrollView observableScrollView;
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.image)
+    @BindView(R.id.image)
     ImageView image;
-    @Bind(R.id.header)
+    @BindView(R.id.header)
     LinearLayout header;
     private int id;
     private int headerVariableSpace;

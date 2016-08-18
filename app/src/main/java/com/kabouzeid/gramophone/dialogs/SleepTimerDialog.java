@@ -24,16 +24,16 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.triggertrap.seekarc.SeekArc;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class SleepTimerDialog extends DialogFragment {
-    @Bind(R.id.seek_arc)
+    @BindView(R.id.seek_arc)
     SeekArc seekArc;
-    @Bind(R.id.timer_display)
+    @BindView(R.id.timer_display)
     TextView timerDisplay;
 
     private int seekArcProgress;
