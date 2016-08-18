@@ -14,14 +14,11 @@ import java.util.Comparator;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class PhonographColorUtil {
-    public static final int PALETTE_BITMAP_AREA = 50 * 50;
 
     @Nullable
     public static Palette generatePalette(Bitmap bitmap) {
         if (bitmap == null) return null;
-        return Palette.from(bitmap)
-                .resizeBitmapArea(PALETTE_BITMAP_AREA)
-                .generate();
+        return Palette.from(bitmap).generate();
     }
 
     @ColorInt
