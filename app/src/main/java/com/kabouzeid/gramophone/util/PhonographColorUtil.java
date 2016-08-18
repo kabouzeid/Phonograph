@@ -14,13 +14,13 @@ import java.util.Comparator;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class PhonographColorUtil {
-    public static final int PALETTE_BITMAP_SIZE = 10;
+    public static final int PALETTE_BITMAP_AREA = 50 * 50;
 
     @Nullable
     public static Palette generatePalette(Bitmap bitmap) {
         if (bitmap == null) return null;
         return Palette.from(bitmap)
-                .resizeBitmapSize(PALETTE_BITMAP_SIZE)
+                .resizeBitmapArea(PALETTE_BITMAP_AREA)
                 .generate();
     }
 
@@ -39,7 +39,7 @@ public class PhonographColorUtil {
                 return palette.getLightVibrantSwatch().getRgb();
             } else if (palette.getLightMutedSwatch() != null) {
                 return palette.getLightMutedSwatch().getRgb();
-            } else if (palette.getSwatches() != null && !palette.getSwatches().isEmpty()) {
+            } else if (!palette.getSwatches().isEmpty()) {
                 return Collections.max(palette.getSwatches(), SwatchComparator.getInstance()).getRgb();
             }
         }
