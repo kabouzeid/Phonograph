@@ -127,8 +127,8 @@ dependencies {
     compile 'com.android.support:preference-v7:24.2.0'
     compile 'com.android.support:preference-v14:24.2.0'
 
-    compile 'com.afollestad.material-dialogs:core:0.8.6.2@aar'
-    compile 'com.afollestad.material-dialogs:commons:0.8.6.2@aar'
+    compile 'com.afollestad.material-dialogs:core:0.9.0.1@aar'
+    compile 'com.afollestad.material-dialogs:commons:0.9.0.1@aar'
     compile 'com.afollestad:material-cab:0.1.12@aar'
 
     compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
