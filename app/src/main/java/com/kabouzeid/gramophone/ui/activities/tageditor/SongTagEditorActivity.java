@@ -18,24 +18,24 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SongTagEditorActivity extends AbsTagEditorActivity implements TextWatcher {
 
     public static final String TAG = SongTagEditorActivity.class.getSimpleName();
 
-    @Bind(R.id.title1)
+    @BindView(R.id.title1)
     EditText songTitle;
-    @Bind(R.id.title2)
+    @BindView(R.id.title2)
     EditText albumTitle;
-    @Bind(R.id.artist)
+    @BindView(R.id.artist)
     EditText artist;
-    @Bind(R.id.genre)
+    @BindView(R.id.genre)
     EditText genre;
-    @Bind(R.id.year)
+    @BindView(R.id.year)
     EditText year;
-    @Bind(R.id.image_text)
+    @BindView(R.id.image_text)
     EditText trackNumber;
 
     @Override

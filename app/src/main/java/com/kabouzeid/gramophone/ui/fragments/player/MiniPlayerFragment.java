@@ -22,19 +22,23 @@ import com.kabouzeid.gramophone.helper.PlayPauseButtonOnClickHandler;
 import com.kabouzeid.gramophone.ui.fragments.AbsMusicServiceFragment;
 import com.kabouzeid.gramophone.views.PlayPauseDrawable;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class MiniPlayerFragment extends AbsMusicServiceFragment implements MusicProgressViewUpdateHelper.Callback {
-    @Bind(R.id.mini_player_title)
+
+    private Unbinder unbinder;
+
+    @BindView(R.id.mini_player_title)
     TextView miniPlayerTitle;
-    @Bind(R.id.mini_player_play_pause_button)
+    @BindView(R.id.mini_player_play_pause_button)
     ImageView miniPlayerPlayPauseButton;
-    @Bind(R.id.progress_bar)
+    @BindView(R.id.progress_bar)
     MaterialProgressBar progressBar;
 
     private PlayPauseDrawable miniPlayerPlayPauseDrawable;
@@ -56,7 +60,7 @@ public class MiniPlayerFragment extends AbsMusicServiceFragment implements Music
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
         view.setOnTouchListener(new FlingPlayBackController(getActivity()));
         setUpMiniPlayer();
@@ -65,7 +69,7 @@ public class MiniPlayerFragment extends AbsMusicServiceFragment implements Music
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     private void setUpMiniPlayer() {

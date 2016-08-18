@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -234,11 +234,11 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
         }
 
         static class ViewHolder {
-            @Bind(R.id.title)
+            @BindView(R.id.title)
             TextView title;
-            @Bind(R.id.text)
+            @BindView(R.id.text)
             TextView text;
-            @Bind(R.id.price)
+            @BindView(R.id.price)
             TextView price;
 
             public ViewHolder(View view) {

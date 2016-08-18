@@ -55,7 +55,7 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.Util;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,15 +71,15 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
     public static final String EXTRA_ARTIST_ID = "extra_artist_id";
 
-    @Bind(R.id.image)
+    @BindView(R.id.image)
     ImageView artistImage;
-    @Bind(R.id.list_background)
+    @BindView(R.id.list_background)
     View songListBackground;
-    @Bind(R.id.list)
+    @BindView(R.id.list)
     ObservableListView songListView;
-    @Bind(R.id.title)
+    @BindView(R.id.title)
     TextView artistName;
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
 
     View songListHeader;

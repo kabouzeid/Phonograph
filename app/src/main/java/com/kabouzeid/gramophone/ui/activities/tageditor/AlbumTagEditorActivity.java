@@ -36,7 +36,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,13 +46,13 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
     public static final String TAG = AlbumTagEditorActivity.class.getSimpleName();
 
-    @Bind(R.id.title)
+    @BindView(R.id.title)
     EditText albumTitle;
-    @Bind(R.id.album_artist)
+    @BindView(R.id.album_artist)
     EditText albumArtist;
-    @Bind(R.id.genre)
+    @BindView(R.id.genre)
     EditText genre;
-    @Bind(R.id.year)
+    @BindView(R.id.year)
     EditText year;
 
     private Bitmap albumArtBitmap;

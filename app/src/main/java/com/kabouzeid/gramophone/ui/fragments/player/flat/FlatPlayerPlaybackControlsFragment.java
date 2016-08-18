@@ -29,30 +29,33 @@ import com.kabouzeid.gramophone.views.PlayPauseDrawable;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class FlatPlayerPlaybackControlsFragment extends AbsMusicServiceFragment implements MusicProgressViewUpdateHelper.Callback {
 
-    @Bind(R.id.player_play_pause__button)
+    private Unbinder unbinder;
+
+    @BindView(R.id.player_play_pause__button)
     ImageButton playPauseButton;
-    @Bind(R.id.player_prev_button)
+    @BindView(R.id.player_prev_button)
     ImageButton prevButton;
-    @Bind(R.id.player_next_button)
+    @BindView(R.id.player_next_button)
     ImageButton nextButton;
-    @Bind(R.id.player_repeat_button)
+    @BindView(R.id.player_repeat_button)
     ImageButton repeatButton;
-    @Bind(R.id.player_shuffle_button)
+    @BindView(R.id.player_shuffle_button)
     ImageButton shuffleButton;
 
-    @Bind(R.id.player_progress_slider)
+    @BindView(R.id.player_progress_slider)
     SeekBar progressSlider;
-    @Bind(R.id.player_song_total_time)
+    @BindView(R.id.player_song_total_time)
     TextView songTotalTime;
-    @Bind(R.id.player_song_current_progress)
+    @BindView(R.id.player_song_current_progress)
     TextView songCurrentProgress;
 
     private PlayPauseDrawable playPauseDrawable;
@@ -79,7 +82,7 @@ public class FlatPlayerPlaybackControlsFragment extends AbsMusicServiceFragment 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         setUpMusicControllers();
         updateProgressTextColor();
     }
@@ -87,7 +90,7 @@ public class FlatPlayerPlaybackControlsFragment extends AbsMusicServiceFragment 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
     }
 
     @Override

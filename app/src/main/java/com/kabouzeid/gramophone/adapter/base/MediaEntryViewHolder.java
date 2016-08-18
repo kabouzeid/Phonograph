@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -18,39 +18,39 @@ import butterknife.ButterKnife;
  */
 public class MediaEntryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
     @Nullable
-    @Bind(R.id.image)
+    @BindView(R.id.image)
     public ImageView image;
 
     @Nullable
-    @Bind(R.id.image_text)
+    @BindView(R.id.image_text)
     public TextView imageText;
 
     @Nullable
-    @Bind(R.id.title)
+    @BindView(R.id.title)
     public TextView title;
 
     @Nullable
-    @Bind(R.id.text)
+    @BindView(R.id.text)
     public TextView text;
 
     @Nullable
-    @Bind(R.id.menu)
+    @BindView(R.id.menu)
     public View menu;
 
     @Nullable
-    @Bind(R.id.separator)
+    @BindView(R.id.separator)
     public View separator;
 
     @Nullable
-    @Bind(R.id.short_separator)
+    @BindView(R.id.short_separator)
     public View shortSeparator;
 
     @Nullable
-    @Bind(R.id.drag_view)
+    @BindView(R.id.drag_view)
     public View dragView;
 
     @Nullable
-    @Bind(R.id.palette_color_container)
+    @BindView(R.id.palette_color_container)
     public View paletteColorContainer;
 
     public MediaEntryViewHolder(View itemView) {

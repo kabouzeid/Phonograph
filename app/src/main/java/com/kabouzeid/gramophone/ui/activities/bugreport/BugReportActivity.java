@@ -47,7 +47,7 @@ import java.io.IOException;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class BugReportActivity extends AbsThemeActivity {
@@ -69,26 +69,26 @@ public class BugReportActivity extends AbsThemeActivity {
 
     private DeviceInfo deviceInfo;
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @Bind(R.id.input_title)
+    @BindView(R.id.input_title)
     TextInputEditText inputTitle;
-    @Bind(R.id.input_description)
+    @BindView(R.id.input_description)
     TextInputEditText inputDescription;
-    @Bind(R.id.air_textDeviceInfo)
+    @BindView(R.id.air_textDeviceInfo)
     TextView textDeviceInfo;
 
-    @Bind(R.id.input_username)
+    @BindView(R.id.input_username)
     TextInputEditText inputUsername;
-    @Bind(R.id.input_password)
+    @BindView(R.id.input_password)
     TextInputEditText inputPassword;
-    @Bind(R.id.option_use_account)
+    @BindView(R.id.option_use_account)
     RadioButton optionUseAccount;
-    @Bind(R.id.option_anonymous)
+    @BindView(R.id.option_anonymous)
     RadioButton optionManual;
 
-    @Bind(R.id.button_send)
+    @BindView(R.id.button_send)
     FloatingActionButton sendFab;
 
     private static final String ISSUE_TRACKER_LINK = "https://github.com/kabouzeid/phonograph-issue-tracker";
