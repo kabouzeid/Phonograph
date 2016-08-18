@@ -37,7 +37,7 @@
     <string name="unplayable_file">Impossible de lire ce titre.</string>
     <string name="biography_unavailable">Impossible de trouver la biographie de l\'artiste.</string>
     <string name="biography">Biographie</string>
-    <string name="audio_focus_denied">Focus audio refusé.</string>
+    <string name="audio_focus_denied">Accès à l\'Audio Focus refusé.</string>
     <string name="album">Album</string>
     <string name="artist">Artiste</string>
     <string name="genre">Genre</string>
@@ -60,10 +60,10 @@
     <string name="action_go_to_album">Voir l\'album</string>
     <string name="label_playing_queue">File de lecture</string>
     <string name="save_as_playlist">Sauvegarder en tant que playlist</string>
-    <string name="no_results">Aucun résultat</string>
+    <string name="no_results">Aucun résultats</string>
     <string name="action_re_download_artist_image">Actualiser l\'image de l\'artiste</string>
     <string name="updated_artist_image">Image de l\'artiste mise à jour.</string>
-    <string name="could_not_update_artist_image">La mise \u00e0 jour de l\'image de l\'artiste a \u00e9chou\u00e9e.</string>
+    <string name="could_not_update_artist_image">La mise \u00e0 jour de l\'image de l\'artiste a \u00e9chou\u00e9.</string>
     <string name="updating">Actualisation…</string>
     <string name="added_title_to_playing_queue">"1 titre ajouté à la file de lecture."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titres ajoutés à la file de lecture.</string>
