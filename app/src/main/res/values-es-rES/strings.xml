@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">¿Qué quieres compartir?</string>
-    <string name="currently_listening_to_x_by_x">Estás escuchando %1$s de %2$s</string>
+    <string name="currently_listening_to_x_by_x">Escuchando %1$s de %2$s</string>
     <string name="the_audio_file">El archivo de audio</string>
     <string name="do_you_want_to_set_x_as_ringtone">¿Te gustaría establecer %1$s como tono de llamada?</string>
     <string name="x_has_been_set_as_ringtone">"Establecer %1$s como tono de llamada "</string>
