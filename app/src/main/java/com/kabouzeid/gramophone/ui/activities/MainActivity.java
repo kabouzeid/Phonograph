@@ -82,6 +82,8 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             navigationView.setFitsSystemWindows(false);
             //noinspection ConstantConditions
             findViewById(R.id.drawer_content_container).setFitsSystemWindows(false);
+        } else {
+            drawerLayout.setFitsSystemWindows(false);
         }
 
         setUpDrawerLayout();
