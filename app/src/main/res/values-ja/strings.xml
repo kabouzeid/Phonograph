@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">どれを共有しますか？</string>
-    <string name="currently_listening_to_x_by_x">NowPlaying %1$s - %2$s</string>
+    <string name="currently_listening_to_x_by_x">ただいま%2$sの%1$sを再生しています</string>
     <string name="the_audio_file">オーディオファイル</string>
     <string name="do_you_want_to_set_x_as_ringtone">%1$sを着信音に設定してもよろしいですか？</string>
     <string name="x_has_been_set_as_ringtone">%1$sを着信音に設定しました</string>
@@ -14,7 +14,7 @@
     <string name="action_clear_playlist">プレイリストの初期化</string>
     <string name="action_playing_queue">キュー</string>
     <string name="action_add_to_favorites">お気に入りに追加</string>
-    <string name="action_remove_from_favorites">お気に入りを解除</string>
+    <string name="action_remove_from_favorites">お気に入りから解除</string>
     <string name="action_search">検索</string>
     <string name="action_play_next">次に再生</string>
     <string name="action_play">再生</string>
@@ -26,15 +26,15 @@
     <string name="action_details">詳細情報</string>
     <string name="action_rename">名前の変更</string>
     <string name="action_delete">削除</string>
-    <string name="action_scan">スキャン</string>
+    <string name="action_scan">端末をスキャン</string>
     <string name="albums">アルバム</string>
     <string name="artists">アーティスト</string>
-    <string name="songs">楽曲</string>
+    <string name="songs">曲</string>
     <string name="playlists">プレイリスト</string>
     <string name="unplayable_file">\u697d\u66f2\u306e\u518d\u751f\u6642\u306b\u30a8\u30e9\u30fc\u304c\u767a\u751f\u3057\u307e\u3057\u305f</string>
-    <string name="biography_unavailable">\u30d0\u30a4\u30aa\u30b0\u30e9\u30d5\u30a3\u30fc\u304c\u898b\u3064\u304b\u308a\u307e\u305b\u3093</string>
+    <string name="biography_unavailable">\u30a2\u30fc\u30c6\u30a3\u30b9\u30c8\u306e\u30d0\u30a4\u30aa\u30b0\u30e9\u30d5\u30a3\u30fc\u304c\u898b\u3064\u304b\u308a\u307e\u305b\u3093</string>
     <string name="biography">バイオグラフィー</string>
-    <string name="audio_focus_denied">オーディオが選択されていません</string>
+    <string name="audio_focus_denied">オーディオフォーカスが禁止されています</string>
     <string name="album">アルバム</string>
     <string name="artist">アーティスト</string>
     <string name="genre">ジャンル</string>
@@ -48,7 +48,7 @@
     <string name="label_file_name">ファイル名</string>
     <string name="label_file_path">パス</string>
     <string name="label_file_size">サイズ</string>
-    <string name="label_file_format">形式</string>
+    <string name="label_file_format">ファイル形式</string>
     <string name="label_track_length">長さ</string>
     <string name="label_bit_rate">ビットレート</string>
     <string name="label_sampling_rate">サンプリングレート</string>
@@ -168,7 +168,7 @@
     <string name="action_sleep_timer">スリープタイマー</string>
     <string name="action_set">セット</string>
     <string name="cancel_current_timer">スリープタイマーを解除</string>
-    <string name="sleep_timer_canceled">スリープタイマーは解除されました</string>
+    <string name="sleep_timer_canceled">スリープタイマーを解除しました</string>
     <string name="sleep_timer_set">%d分後にスリープタイマーをセットしました</string>
     <string name="action_new_playlist">プレイリストの新規作成</string>
     <string name="new_playlist_title">プレイリストの新規作成</string>
@@ -179,7 +179,7 @@
     <string name="application">アプリケーション</string>
     <string name="author">製作者</string>
     <string name="follow_on_twitter">Twitterをフォロー</string>
-    <string name="visit_website">ウェブサイトを訪れる</string>
+    <string name="visit_website">ウェブサイトを開く</string>
     <string name="report_bugs">バグを報告</string>
     <string name="report_bugs_summary">パグの報告または新機能のリクエスト</string>
     <string name="join_community">GooglePlusコミュニティに参加する</string>
