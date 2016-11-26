@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">Co chcete sdílet?</string>
-    <string name="currently_listening_to_x_by_x">Nyní hraje %1$s od %2$s</string>
+    <string name="currently_listening_to_x_by_x">Nyní hraje %1$s od %2$s.</string>
     <string name="the_audio_file">Hudební soubor</string>
     <string name="do_you_want_to_set_x_as_ringtone">Opravdu chcete nastavit %1$s jako vyzváněcí tón?</string>
-    <string name="x_has_been_set_as_ringtone">%1$s byl nastaven jako vyzváněcí tón.</string>
-    <string name="action_set_as_ringtone">Nastavit jako vyzváněcí tón</string>
+    <string name="x_has_been_set_as_ringtone">Nastavit %1$s jako vyzváněcí tón.</string>
+    <string name="action_set_as_ringtone">Nastavit jako Vyzváněcí tón</string>
     <string name="action_share">Sdílet</string>
     <string name="action_settings">"Nastavení"</string>
     <string name="action_grant">"Příspěvek "</string>
@@ -24,10 +24,12 @@
     <string name="action_remove_from_playing_queue">Odebrat z fronty</string>
     <string name="action_add_to_playlist">Přidat do playlistu...</string>
     <string name="action_tag_editor">Editor Tagů</string>
-    <string name="action_delete_from_device">Smazat z telefonu</string>
+    <string name="action_delete_from_device">Smazat ze zařízení</string>
     <string name="action_details">Podrobné informace o skladbě</string>
     <string name="action_rename">Přejmenovat</string>
     <string name="action_delete">Smazat</string>
+    <string name="action_scan">Skenovat</string>
+    <string name="action_set_as_start_directory">Nastavit jako domovskou složku</string>
     <string name="albums">Alba</string>
     <string name="artists">Interpreti</string>
     <string name="songs">Skladby</string>
@@ -95,6 +97,8 @@
     <string name="action_shuffle_artist">Přehrát skladby interpreta náhodně</string>
     <string name="action_shuffle_playlist">Přehrát playlist náhodně</string>
     <string name="action_clear_playing_queue">Vyčistit frontu přehrávání</string>
+    <string name="action_go_to_start_directory">Jít na domovskou složku</string>
+    <string name="action_show_lyrics">Zobrazit text</string>
     <string name="last_opened">Naposledy otevřené</string>
     <string name="light_theme_name">Světlý</string>
     <string name="dark_theme_name">Tmavý</string>
@@ -162,6 +166,7 @@
     <string name="pref_summary_ignore_media_store_artwork">"Může zvýšit kvalitu obalu alba, ale způsobí pomalejší načítání. Povolte pouze pokud máte problémy s nízkým rozlišením obalu. "</string>
     <string name="pref_summary_colored_playback_controls_now_playing">"Zabarv\u00ed tla\u010d\u00edtka p\u0159ehr\u00e1t/pozastavit, n\u00e1hodn\u011b a opakovat a tak\u00e9 ukazatel \u010dasu do barvy obalu. "</string>
     <string name="pref_summary_colored_navigation_bar">Zvolte, kde se má zobrazovat barevné záhlaví.</string>
+    <string name="pref_summary_audio_ducking">Oznámení, navigace atd.</string>
     <string name="could_not_download_album_cover">"Nelze st\u00e1hnout obal alba."</string>
     <string name="search_hint">Vyhledat zvukové soubory...</string>
     <string name="rescanning_media">Kontrola médií...</string>
@@ -215,6 +220,7 @@
     <string name="website">"Stránka "</string>
     <string name="loading_products">"Načítání výrobků... "</string>
     <string name="up_next">"Další "</string>
+    <string name="pref_title_now_playing_screen_appearance">Vzhled</string>
     <string name="intro_label">"Úvod "</string>
     <string name="press_back_again_to_exit_intro">"Znovu zmáčkněte tlačítko Zpět pro přeskočení úvodu. "</string>
     <string name="welcome_to_phonograph">"Vítejte ve Phonographu, krásném a lehkém přehrávači pro Android. "</string>
@@ -224,4 +230,34 @@
     <string name="folders">"Složky "</string>
     <string name="saved_playlist_to">Uloženo do playlistu %s.</string>
     <string name="failed_to_save_playlist">Chyba v uložení playlistu (%s).</string>
+    <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> není zobrazeno v seznamu souborů.]]></string>
+    <string name="nothing_to_scan">Nic ke skenování.</string>
+    <string name="scanned_files">Naskenováno %1$d z %2$d souborů.</string>
+    <string name="could_not_scan_files">Nelze skenovat %d souborů.</string>
+    <string name="listing_files">Načítání souborů</string>
+    <string name="new_start_directory">%s je nová domovská složka.</string>
+    <string name="app_widget_big_name">Phonograph - Velký</string>
+    <string name="app_widget_classic_name">Phonograph - Klasický</string>
+    <string name="app_widget_small_name">Phonograph - Malý</string>
+    <string name="report_an_issue">Nahlásit problém</string>
+    <string name="bug_report_issue">Problém</string>
+    <string name="login">Přihlášení</string>
+    <string name="title">Název</string>
+    <string name="description">Popis</string>
+    <string name="device_info">Informace o zařízení</string>
+    <string name="bug_report_use_account">Poslat pomocí GitHub účtu</string>
+    <string name="bug_report_manual">Poslat ručně</string>
+    <string name="username">Uživatelské jméno</string>
+    <string name="password">Heslo</string>
+    <string name="bug_report_no_title">Zadejte název problému</string>
+    <string name="bug_report_no_description">Zadejte popis problému</string>
+    <string name="bug_report_no_username">Zadejte své GitHub uživatelské jméno</string>
+    <string name="bug_report_no_password">Zadejte své GitHub heslo</string>
+    <string name="bug_report_uploading">Nahrávání hlášení na GitHub...</string>
+    <string name="bug_report_failed">Nelze poslat hlášení</string>
+    <string name="bug_report_failed_wrong_credentials">Nesprávné uživatelské jméno nebo heslo</string>
+    <string name="bug_report_failed_unknown">Vyskytla se neočekávaná chyba. Kontaktujte vývojáře aplikace.</string>
+    <string name="copied_device_info_to_clipboard">Informace o zařízení zkopírovány do schránky.</string>
+    <string name="your_account_data_is_only_used_for_authentication">Vaše údaje k účtu jsou použity pouze k ověření.</string>
+    <string name="you_will_be_forwarded_to_the_issue_tracker_website">Budete přesměrováni na webovou stránku pro zadání problému.</string>
 </resources>
