@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -18,6 +19,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsets;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -82,8 +84,15 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             navigationView.setFitsSystemWindows(false);
             //noinspection ConstantConditions
             findViewById(R.id.drawer_content_container).setFitsSystemWindows(false);
-        } else {
-            drawerLayout.setFitsSystemWindows(false);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            drawerLayout.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public WindowInsets onApplyWindowInsets(View view, WindowInsets windowInsets) {
+                    navigationView.dispatchApplyWindowInsets(windowInsets);
+                    return windowInsets.replaceSystemWindowInsets(0, 0, 0, 0);
+                }
+            });
         }
 
         setUpDrawerLayout();
