@@ -21,39 +21,7 @@ repositories {
     maven { url "https://jitpack.io" }
 }
 
-// For pushing APKs directly to Google Play. Won't work without the .p12 key.
-play {
-    serviceAccountEmail = '992499570703-v2bp8sl246qm0tblmfv4s45v6njhdfr2@developer.gserviceaccount.com'
-    pk12File = project.rootProject.file('privatekeys/play-developer-key.p12')
-    track = 'beta'
-}
-
 android {
-    signingConfigs {
-        debug {
-            keyAlias 'phonograph-debug'
-            keyPassword 'debugkey'
-            storeFile file('../phonograph.keystore')
-            storePassword 'kabouzeid'
-        }
-        release {
-            keyAlias 'phonograph'
-            storeFile file('../phonograph.keystore')
-            storePassword 'kabouzeid'
-
-            // "keystore.properties" file containing the release keys password is needed in order to sign the apk for release
-            File propFile = project.rootProject.file('privatekeys/keystore.properties')
-            if (propFile.exists()) {
-                Properties properties = new Properties()
-                properties.load(propFile.newDataInputStream())
-
-                keyPassword properties.getProperty('keyPassword')
-            } else {
-                println 'keystore.properties not found'
-                keyPassword null
-            }
-        }
-    }
     compileSdkVersion 25
     buildToolsVersion '25.0.1'
     defaultConfig {
@@ -72,15 +40,12 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
         }
         debug {
             applicationIdSuffix '.debug'
             versionNameSuffix ' DEBUG'
 
             ext.enableCrashlytics = false // Disable fabric build ID generation for debug builds
-
-            signingConfig signingConfigs.debug
         }
     }
     packagingOptions {
