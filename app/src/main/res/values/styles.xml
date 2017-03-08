@@ -10,6 +10,8 @@
 
     <style name="Theme.Phonograph.Notification.Title" parent="@android:style/TextAppearance.StatusBar.EventContent.Title" />
 
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar" />
+    
     <style name="OverFlowButton">
         <item name="srcCompat">@drawable/ic_more_vert_white_24dp</item>
         <item name="android:layout_margin">8dp</item>
