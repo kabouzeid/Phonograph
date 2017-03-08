@@ -24,7 +24,7 @@ repositories {
 // For pushing APKs directly to Google Play. Won't work without the .p12 key.
 play {
     serviceAccountEmail = '992499570703-v2bp8sl246qm0tblmfv4s45v6njhdfr2@developer.gserviceaccount.com'
-    pk12File = file('../privatekeys/play-developer-key.p12')
+    pk12File = project.rootProject.file('privatekeys/play-developer-key.p12')
     track = 'beta'
 }
 
