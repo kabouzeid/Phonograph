@@ -7,10 +7,6 @@ import android.content.pm.ShortcutInfo;
 import android.os.Bundle;
 
 import com.kabouzeid.gramophone.appshortcuts.AppShortcutLauncherActivity;
-import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.ui.activities.MainActivity;
-
-import java.util.ArrayList;
 
 /**
  * @author Adrian Campos
@@ -29,7 +25,6 @@ public abstract class BaseShortcutType {
 
 
     abstract ShortcutInfo getShortcutInfo();
-
 
 
     /**

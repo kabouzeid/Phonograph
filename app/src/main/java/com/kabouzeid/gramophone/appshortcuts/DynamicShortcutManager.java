@@ -8,7 +8,9 @@ import android.content.pm.ShortcutManager;
 import android.graphics.Color;
 import android.graphics.drawable.Icon;
 
-import com.kabouzeid.gramophone.appshortcuts.shortcuttype.*;
+import com.kabouzeid.gramophone.appshortcuts.shortcuttype.LastAddedShortcutType;
+import com.kabouzeid.gramophone.appshortcuts.shortcuttype.ShuffleAllShortcutType;
+import com.kabouzeid.gramophone.appshortcuts.shortcuttype.TopTracksShortcutType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,29 +25,13 @@ public class DynamicShortcutManager {
 
     Context mContext;
     ShortcutManager shortcutManager;
-    public DynamicShortcutManager(Context context){
+
+    public DynamicShortcutManager(Context context) {
         mContext = context;
         shortcutManager = mContext.getSystemService(ShortcutManager.class);
     }
 
-
-    public void initDynamicShortcuts(){
-        if (shortcutManager.getDynamicShortcuts().size() == 0){
-            shortcutManager.setDynamicShortcuts(getDefaultShortcuts());
-        }
-    }
-
-    public List<ShortcutInfo> getDefaultShortcuts(){
-        return (Arrays.asList(
-                new ShuffleAllShortcutType(mContext).getShortcutInfo(),
-                new TopTracksShortcutType(mContext).getShortcutInfo(),
-                new LastAddedShortcutType(mContext).getShortcutInfo()
-        ));
-    }
-
-
-
-    public static ShortcutInfo createShortcut(Context context, String id, String shortLabel, String longLabel, Icon icon, Intent intent){
+    public static ShortcutInfo createShortcut(Context context, String id, String shortLabel, String longLabel, Icon icon, Intent intent) {
         return new ShortcutInfo.Builder(context, id)
                 .setShortLabel(shortLabel)
                 .setLongLabel(longLabel)
@@ -54,12 +40,27 @@ public class DynamicShortcutManager {
                 .build();
     }
 
-    public void tintShortcutIcons(ArrayList<ShortcutInfo> shortcutInfos, Color color){
+    public void initDynamicShortcuts() {
+        if (shortcutManager.getDynamicShortcuts().size() == 0) {
+            shortcutManager.setDynamicShortcuts(getDefaultShortcuts());
+        }
+    }
+
+    public List<ShortcutInfo> getDefaultShortcuts() {
+        return (Arrays.asList(
+                new ShuffleAllShortcutType(mContext).getShortcutInfo(),
+                new TopTracksShortcutType(mContext).getShortcutInfo(),
+                new LastAddedShortcutType(mContext).getShortcutInfo()
+        ));
+    }
+
+    public void tintShortcutIcons(ArrayList<ShortcutInfo> shortcutInfos, Color color) {
         for (ShortcutInfo shortcutInfo : shortcutInfos) {
             tintShortcutIcon(shortcutInfo, color);
         }
     }
-    public void tintShortcutIcon(ShortcutInfo shortcutInfo, Color color){
+
+    public void tintShortcutIcon(ShortcutInfo shortcutInfo, Color color) {
         //TODO Tint icons here
     }
 

@@ -20,6 +20,8 @@ import java.util.ArrayList;
 
 public class AppShortcutLauncherActivity extends Activity {
 
+    public static final String KEY_SHORTCUT_TYPE = "com.kabouzeid.gramophone.appshortcuts.ShortcutType";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +30,10 @@ public class AppShortcutLauncherActivity extends Activity {
 
         //Set shortcutType from the intent extras
         Bundle extras = getIntent().getExtras();
-        if (extras!=null){
+        if (extras != null) {
             try {
                 shortcutType = ShortcutType.valueOf(extras.getString(KEY_SHORTCUT_TYPE));
-            } catch (IllegalArgumentException e){ //In the event we're somehow passed an invalid enum string, don't crash.
+            } catch (IllegalArgumentException e) { //In the event we're somehow passed an invalid enum string, don't crash.
                 e.printStackTrace();
                 shortcutType = ShortcutType.NONE;
             }
@@ -60,15 +62,12 @@ public class AppShortcutLauncherActivity extends Activity {
         }
 
         finish();
-
     }
 
-
-    private enum PlayMode {NORMAL, SHUFFLE}
-    private void launchMainActivityWithSongs(PlayMode playMode, ArrayList<Song> songs){
+    private void launchMainActivityWithSongs(PlayMode playMode, ArrayList<Song> songs) {
         //Create a new intent to launch MainActivity
         Intent intent = new Intent(this, MainActivity.class);
-        switch (playMode){
+        switch (playMode) {
             case NORMAL:
                 intent.setAction(MainActivity.INTENT_ACTION_MEDIA_PLAY);
                 break;
@@ -89,11 +88,12 @@ public class AppShortcutLauncherActivity extends Activity {
         startActivity(intent);
     }
 
-    private void shortcutError(){
+    private void shortcutError() {
         Toast.makeText(getApplicationContext(), R.string.error_launching_shortcut, Toast.LENGTH_LONG).show();
     }
 
-    public static final String KEY_SHORTCUT_TYPE = "com.kabouzeid.gramophone.appshortcuts.ShortcutType";
+    private enum PlayMode {NORMAL, SHUFFLE}
+
     public enum ShortcutType {
         SHUFFLE_ALL, TOP_TRACKS, LAST_ADDED, NONE
     }
