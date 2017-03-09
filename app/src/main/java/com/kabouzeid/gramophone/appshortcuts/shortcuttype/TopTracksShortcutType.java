@@ -23,7 +23,7 @@ public final class TopTracksShortcutType extends BaseShortcutType {
         return new ShortcutInfo.Builder(mContext, ID_PREFIX + "top_tracks")
                 .setShortLabel(mContext.getString(R.string.appshortcut_toptracks_short))
                 .setLongLabel(mContext.getString(R.string.appshortcut_toptracks_long))
-                .setIcon(Icon.createWithResource(mContext, R.drawable.ic_trending_up_white_24dp))
+                .setIcon(Icon.createWithResource(mContext, R.drawable.ic_app_shortcut_top_tracks))
                 .setIntent(getPlaySongsIntent(AppShortcutLauncherActivity.ShortcutType.TOP_TRACKS))
                 .build();
     }

@@ -22,7 +22,7 @@ public final class LastAddedShortcutType extends BaseShortcutType {
         return new ShortcutInfo.Builder(mContext, ID_PREFIX + "last_added")
                 .setShortLabel(mContext.getString(R.string.appshortcut_lastadded_short))
                 .setLongLabel(mContext.getString(R.string.appshortcut_lastadded_long))
-                .setIcon(Icon.createWithResource(mContext, R.drawable.ic_library_add_white_24dp))
+                .setIcon(Icon.createWithResource(mContext, R.drawable.ic_app_shortcut_last_added))
                 .setIntent(getPlaySongsIntent(AppShortcutLauncherActivity.ShortcutType.LAST_ADDED))
                 .build();
     }
