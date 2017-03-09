@@ -114,3 +114,37 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 }
+
+// Add support for placeholders in resource files.
+// Required so that packagename can be referenced in xml. https://code.google.com/p/android/issues/detail?id=69224#c12
+def replacePlaceholdersInFile(basePath, fileName, placeholders) {
+    def file = new File(basePath, fileName);
+
+    if (!file.exists()) {
+        logger.quiet("Unable to replace placeholders in " + file.toString() + ". File cannot be found.")
+        return;
+    }
+
+    logger.debug("Replacing placeholders in " + file.toString())
+    logger.debug("Placeholders: " + placeholders.toString())
+
+    def content = file.getText('UTF-8')
+
+    placeholders.each { entry ->
+        content = content.replaceAll("\\\$\\{${entry.key}\\}", entry.value)
+    }
+
+    file.write(content, 'UTF-8')
+}
+
+afterEvaluate {
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.processResources.doFirst {
+                // prepare placeholder map from manifestPlaceholders including applicationId placeholder
+                def placeholders = variant.mergedFlavor.manifestPlaceholders + [applicationId: variant.applicationId]
+                replacePlaceholdersInFile(resDir, 'xml/launcher_shortcuts.xml', placeholders)
+            }
+        }
+    }
+}

@@ -60,6 +60,12 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
     private static final int LIBRARY = 0;
     private static final int FOLDERS = 1;
 
+    public static final String PHONOGRAPH_PACKAGE_NAME = "com.kabouzeid.gramophone";
+    public static final String INTENT_ACTION_MEDIA_PLAY_SHUFFLED = PHONOGRAPH_PACKAGE_NAME + ".intent_action.play_shuffled";
+    public static final String INTENT_ACTION_MEDIA_PLAY = PHONOGRAPH_PACKAGE_NAME + ".intent_action.play";
+    public static final String INTENT_EXTRA_SONGS = PHONOGRAPH_PACKAGE_NAME + ".intent_extra.songs";
+
+
     @BindView(R.id.navigation_view)
     NavigationView navigationView;
     @BindView(R.id.drawer_layout)
@@ -291,6 +297,24 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
 
         if (intent.getAction() != null && intent.getAction().equals(MediaStore.INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH)) {
             final ArrayList<Song> songs = SearchQueryHelper.getSongs(this, intent.getExtras());
+            if (MusicPlayerRemote.getShuffleMode() == MusicService.SHUFFLE_MODE_SHUFFLE) {
+                MusicPlayerRemote.openAndShuffleQueue(songs, true);
+            } else {
+                MusicPlayerRemote.openQueue(songs, 0, true);
+            }
+
+        } else if (intent.getAction() != null && intent.getAction().equals(MainActivity.INTENT_ACTION_MEDIA_PLAY_SHUFFLED)){
+            //Shuffle songs in extras
+            final ArrayList<Song> songs = intent.getExtras().getParcelableArrayList(INTENT_EXTRA_SONGS);
+
+            //Start the songs, setting the shuffle mode to shuffle
+            MusicPlayerRemote.openAndShuffleQueue(songs, true);
+
+        } else if (intent.getAction() != null && intent.getAction().equals(MainActivity.INTENT_ACTION_MEDIA_PLAY)){
+            //Shuffle songs in extras
+            final ArrayList<Song> songs = intent.getExtras().getParcelableArrayList(INTENT_EXTRA_SONGS);
+
+            //Start the songs, preserving the user's shuffle mode
             if (MusicPlayerRemote.getShuffleMode() == MusicService.SHUFFLE_MODE_SHUFFLE) {
                 MusicPlayerRemote.openAndShuffleQueue(songs, true);
             } else {

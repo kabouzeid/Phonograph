@@ -1,0 +1,55 @@
+<shortcuts
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:targetApi="25">
+    
+    <shortcut
+        android:shortcutId="shuffle_all"
+        android:enabled="true"
+        android:icon="@drawable/ic_shuffle_white_24dp"
+        android:shortcutShortLabel="@string/appshortcut_shuffleall_short"
+        android:shortcutLongLabel="@string/appshortcut_shuffleall_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.kabouzeid.gramophone.appshortcuts.AppShortcutLauncherActivity"
+            android:targetPackage="${applicationId}">
+            <extra
+                android:name="com.kabouzeid.gramophone.appshortcuts.ShortcutType"
+                android:value="SHUFFLE_ALL" />
+        </intent>
+    </shortcut>
+
+    <shortcut
+        android:shortcutId="top_tracks"
+        android:enabled="true"
+        android:icon="@drawable/ic_trending_up_white_24dp"
+        android:shortcutShortLabel="@string/appshortcut_toptracks_short"
+        android:shortcutLongLabel="@string/appshortcut_toptracks_long"
+        >
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.kabouzeid.gramophone.appshortcuts.AppShortcutLauncherActivity"
+            android:targetPackage="${applicationId}">
+            <extra
+                android:name="com.kabouzeid.gramophone.appshortcuts.ShortcutType"
+                android:value="TOP_TRACKS" />
+        </intent>
+    </shortcut>
+
+    <shortcut
+        android:shortcutId="last_added"
+        android:enabled="true"
+        android:icon="@drawable/ic_library_add_white_24dp"
+        android:shortcutShortLabel="@string/appshortcut_lastadded_short"
+        android:shortcutLongLabel="@string/appshortcut_lastadded_long"
+        >
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.kabouzeid.gramophone.appshortcuts.AppShortcutLauncherActivity"
+            android:targetPackage="${applicationId}">
+            <extra
+                android:name="com.kabouzeid.gramophone.appshortcuts.ShortcutType"
+                android:value="LAST_ADDED" />
+        </intent>
+    </shortcut>
+</shortcuts>
