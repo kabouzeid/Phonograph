@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.kabouzeid.gramophone"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.kabouzeid.gramophone">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -175,8 +175,7 @@
             android:label="@string/report_an_issue" />
         <activity
             android:name=".appshortcuts.AppShortcutLauncherActivity"
-            android:exported="true"
-            />
+            android:exported="true" />
     </application>
 
 </manifest>
