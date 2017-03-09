@@ -30,7 +30,7 @@ public class AppShortcutLauncherActivity extends Activity {
         Bundle extras = getIntent().getExtras();
         if (extras!=null){
             try {
-                shortcutType = ShortcutType.valueOf(extras.getString(getString(R.string.id_shortcuttype)));
+                shortcutType = ShortcutType.valueOf(extras.getString(KEY_SHORTCUT_TYPE));
             } catch (IllegalArgumentException e){ //In the event we're somehow passed an invalid enum string, don't crash.
                 e.printStackTrace();
                 shortcutType = ShortcutType.NONE;
@@ -64,7 +64,7 @@ public class AppShortcutLauncherActivity extends Activity {
     }
 
 
-    enum PlayMode {NORMAL, SHUFFLE}
+    private enum PlayMode {NORMAL, SHUFFLE}
     private void launchMainActivityWithSongs(PlayMode playMode, ArrayList<Song> songs){
         //Create a new intent to launch MainActivity
         Intent intent = new Intent(this, MainActivity.class);
@@ -93,6 +93,7 @@ public class AppShortcutLauncherActivity extends Activity {
         Toast.makeText(getApplicationContext(), R.string.error_launching_shortcut, Toast.LENGTH_LONG).show();
     }
 
+    public static final String KEY_SHORTCUT_TYPE = "com.kabouzeid.gramophone.appshortcuts.ShortcutType";
     public enum ShortcutType {
         SHUFFLE_ALL, TOP_TRACKS, LAST_ADDED, NONE
     }
