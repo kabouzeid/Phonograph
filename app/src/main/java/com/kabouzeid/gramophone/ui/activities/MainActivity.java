@@ -268,6 +268,13 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
         handlePlaybackIntent(getIntent());
     }
 
+    //Called when there's already an instance of MainActivity
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        handlePlaybackIntent(intent);
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
