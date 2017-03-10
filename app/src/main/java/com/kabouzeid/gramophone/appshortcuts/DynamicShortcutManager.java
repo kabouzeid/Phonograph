@@ -7,6 +7,7 @@ import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.graphics.Color;
 import android.graphics.drawable.Icon;
+import android.os.Build;
 
 import com.kabouzeid.gramophone.appshortcuts.shortcuttype.LastAddedShortcutType;
 import com.kabouzeid.gramophone.appshortcuts.shortcuttype.ShuffleAllShortcutType;
@@ -20,7 +21,7 @@ import java.util.List;
  * @author Adrian Campos
  */
 
-@TargetApi(25)
+@TargetApi(Build.VERSION_CODES.N_MR1)
 public class DynamicShortcutManager {
 
     Context mContext;
