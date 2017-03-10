@@ -20,7 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Phonograph.Light"
         tools:ignore="UnusedAttribute">
-        <activity android:name=".ui.activities.MainActivity">
+        <activity android:name=".ui.activities.MainActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.MUSIC_PLAYER" />
@@ -175,7 +176,7 @@
             android:label="@string/report_an_issue" />
         <activity
             android:name=".appshortcuts.AppShortcutLauncherActivity"
-            android:exported="true" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
     </application>
 
 </manifest>
