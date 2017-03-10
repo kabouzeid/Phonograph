@@ -313,6 +313,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
 
             //Start the songs, setting the shuffle mode to shuffle
             MusicPlayerRemote.openAndShuffleQueue(songs, true);
+            handled = true;
 
         } else if (intent.getAction() != null && intent.getAction().equals(MainActivity.INTENT_ACTION_MEDIA_PLAY)){
             //Shuffle songs in extras
@@ -324,6 +325,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             } else {
                 MusicPlayerRemote.openQueue(songs, 0, true);
             }
+            handled = true;
         }
 
         if (uri != null && uri.toString().length() > 0) {
