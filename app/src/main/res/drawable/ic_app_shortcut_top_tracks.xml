@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="176dp"
+    android:height="176dp"
+    android:viewportHeight="176"
+    android:viewportWidth="176">
+
+    <group
+        android:pivotX="88"
+        android:pivotY="88"
+        android:scaleX="0.916"
+        android:scaleY="0.916">
+        <path
+            android:name="ic_app_shortcut_top_tracks_bg"
+            android:fillColor="#f5f5f5"
+            android:pathData="M 88 0 C 136.601057985 0 176 39.3989420149 176 88 C 176 136.601057985 136.601057985 176 88 176 C 39.3989420149 176 0 136.601057985 0 88 C 0 39.3989420149 39.3989420149 0 88 0 Z" />
+    </group>
+    <group
+        android:pivotX="88"
+        android:pivotY="88"
+        android:scaleX="0.916"
+        android:scaleY="0.916"
+        android:translateX="-8"
+        android:translateY="-8">
+        <path
+            android:name="ic_app_shortcut_top_tracks_ic"
+            android:fillColor="#607d8b"
+            android:pathData="M113.7,69.45l10.13,10.13-21.59,21.59-17.7-17.7L51.75,116.31,58,122.55,84.54,96l17.7,17.7,27.88-27.83L140.25,96V69.45Z" />
+    </group>
+</vector>
