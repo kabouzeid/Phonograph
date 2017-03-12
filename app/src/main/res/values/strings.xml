@@ -20,6 +20,9 @@
     <string name="action_search">Search</string>
     <string name="action_play_next">Play next</string>
     <string name="action_play">Play</string>
+    <string name="action_play_pause">Play/Pause</string>
+    <string name="action_previous">Previous</string>
+    <string name="action_next">Next</string>
     <string name="action_add_to_playing_queue">Add to playing queue</string>
     <string name="action_remove_from_playing_queue">Remove from playing queue</string>
     <string name="action_add_to_playlist">Add to playlist…</string>
