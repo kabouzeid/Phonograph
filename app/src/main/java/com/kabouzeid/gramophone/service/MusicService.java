@@ -120,6 +120,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final int REPEAT_MODE_THIS = 2;
 
     public static final int SAVE_QUEUES = 0;
+    private static final int NOTIFY_MODE_FOREGROUND = 1;
+    private static final int NOTIFY_MODE_BACKGROUND = 0;
 
     private final IBinder musicBind = new MusicBinder();
 
@@ -169,6 +171,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private boolean isServiceBound;
 
     private Handler uiThreadHandler;
+    private int mNotifyMode = NOTIFY_MODE_BACKGROUND;
 
     private static String getTrackUri(@NonNull Song song) {
         return MusicUtil.getSongFileUri(song.id).toString();
@@ -970,7 +973,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         switch (what) {
             case PLAY_STATE_CHANGED:
                 final boolean isPlaying = isPlaying();
-                updateNotification();
+                buildNotification();
                 //noinspection deprecation
                 remoteControlClient.setPlaybackState(isPlaying ? RemoteControlClient.PLAYSTATE_PLAYING : RemoteControlClient.PLAYSTATE_PAUSED);
                 if (!isPlaying && getSongProgressMillis() > 0) {
@@ -979,7 +982,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 songPlayCountHelper.notifyPlayStateChanged(isPlaying);
                 break;
             case META_CHANGED:
-                updateNotification();
+                buildNotification();
                 updateRemoteControlClient();
                 savePosition();
                 savePositionInTrack();
@@ -1030,7 +1033,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 updateRemoteControlClient();
                 break;
             case PreferenceUtil.COLORED_NOTIFICATION:
-                updateNotification();
+                buildNotification();
                 break;
         }
     }
@@ -1087,12 +1090,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
     }
 
-    private synchronized void updateNotification() {
+    private synchronized void buildNotification() {
         final Song song = getCurrentSong();
-        if (song.id == -1) {
-            killNotification();
-            return;
-        }
 
         final String albumName = song.albumName;
         final String artistName = song.artistName;
@@ -1160,13 +1159,34 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         }
 
                         notification = builder.build();
-                        startForeground(1, notification);
+                        updateNotification(notification);
                     }
 
                 });
 
             }
         });
+    }
+
+    private void updateNotification(Notification notification) {
+        int newNotifyMode;
+        if (isPlaying()) {
+            newNotifyMode = NOTIFY_MODE_FOREGROUND;
+        } else {
+            newNotifyMode = NOTIFY_MODE_BACKGROUND;
+        }
+
+        if (mNotifyMode != newNotifyMode && mNotifyMode == NOTIFY_MODE_FOREGROUND) {
+            stopForeground(false);
+        }
+
+        if (newNotifyMode == NOTIFY_MODE_FOREGROUND) {
+            startForeground(1, notification);
+        } else if (newNotifyMode == NOTIFY_MODE_BACKGROUND) {
+            notificationManager.notify(1, notification);
+        }
+
+        mNotifyMode = newNotifyMode;
     }
 
     private PendingIntent retrievePlaybackAction(final String action) {
@@ -1179,6 +1199,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     public synchronized void killNotification() {
         this.stopForeground(true);
+        notificationManager.cancelAll();
     }
 
     private static final class PlaybackHandler extends Handler {
