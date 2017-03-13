@@ -1150,6 +1150,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                                 .setContentTitle(song.title)
                                 .setContentText(text)
                                 .setOngoing(isPlaying)
+                                .setShowWhen(false)
                                 .addAction(previousAction)
                                 .addAction(playPauseAction)
                                 .addAction(nextAction);
