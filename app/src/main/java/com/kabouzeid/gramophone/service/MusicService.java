@@ -1160,7 +1160,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         }
 
                         notification = builder.build();
-                        notificationManager.notify(0, notification);
+                        startForeground(1, notification);
                     }
 
                 });
