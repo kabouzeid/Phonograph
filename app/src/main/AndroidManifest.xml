@@ -98,12 +98,6 @@
             android:name=".service.MusicService"
             android:enabled="true" />
 
-        <receiver android:name=".service.MediaButtonIntentReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.MEDIA_BUTTON" />
-            </intent-filter>
-        </receiver>
-
         <meta-data
             android:name="com.crashlytics.ApiKey"
             android:value="b23725bd3d266aa65c5a3dd1816b2f801524a189" />

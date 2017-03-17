@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.helper;
+package com.kabouzeid.gramophone.service.notification;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -14,7 +14,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
@@ -37,10 +36,7 @@ import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 
-public class PlayingNotificationHelper {
-
-    public static final String TAG = PlayingNotificationHelper.class.getSimpleName();
-    private static final int NOTIFICATION_ID = 1;
+public class PlayingNotificationImpl implements PlayingNotification {
 
     private MusicService service;
 
@@ -48,18 +44,16 @@ public class PlayingNotificationHelper {
 
     private boolean stopped;
 
-    public PlayingNotificationHelper(@NonNull final MusicService service) {
+    @Override
+    public synchronized void init(MusicService service) {
         this.service = service;
     }
 
-    public synchronized void updateNotification() {
+    @Override
+    public synchronized void update() {
         stopped = false;
 
         final Song song = service.getCurrentSong();
-        if (song.id == -1) {
-            killNotification();
-            return;
-        }
 
         final boolean isPlaying = service.isPlaying();
 
@@ -137,8 +131,9 @@ public class PlayingNotificationHelper {
                                 setBackgroundColor(bgColor);
                                 setNotificationContent(bgColor == Color.TRANSPARENT ? Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP : ColorUtil.isColorLight(bgColor));
 
-                                if (stopped) return;
-                                service.startForeground(NOTIFICATION_ID, notification);
+                                if (stopped)
+                                    return; // notification has been stopped before loading was finished
+                                service.startForeground(1, notification);
                             }
 
                             private void setBackgroundColor(int color) {
@@ -172,10 +167,10 @@ public class PlayingNotificationHelper {
                         });
             }
         });
-
     }
 
-    public synchronized void killNotification() {
+    @Override
+    public synchronized void stop() {
         stopped = true;
         service.stopForeground(true);
     }
@@ -205,7 +200,7 @@ public class PlayingNotificationHelper {
         notificationLayoutBig.setOnClickPendingIntent(R.id.action_quit, pendingIntent);
     }
 
-    protected PendingIntent buildPendingIntent(Context context, final String action, final ComponentName serviceName) {
+    private PendingIntent buildPendingIntent(Context context, final String action, final ComponentName serviceName) {
         Intent intent = new Intent(action);
         intent.setComponent(serviceName);
         return PendingIntent.getService(context, 0, intent, 0);

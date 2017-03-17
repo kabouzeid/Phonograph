@@ -23,7 +23,7 @@ repositories {
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.1'
+    buildToolsVersion '25.0.2'
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 25
@@ -32,8 +32,8 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         applicationId "com.kabouzeid.gramophone"
-        versionCode 125
-        versionName "0.13.6"
+        versionCode 126
+        versionName "0.14.0 BETA 1"
     }
     buildTypes {
         release {
@@ -75,22 +75,22 @@ dependencies {
         transitive = true
     }
 
-    compile 'com.android.support:support-compat:25.2.0'
-    compile 'com.android.support:support-core-utils:25.2.0'
-    compile 'com.android.support:support-core-ui:25.2.0'
-    compile 'com.android.support:support-media-compat:25.2.0'
-    compile 'com.android.support:support-fragment:25.2.0'
-    compile 'com.android.support:support-v13:25.2.0'
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.android.support:recyclerview-v7:25.2.0'
-    compile 'com.android.support:gridlayout-v7:25.2.0'
-    compile 'com.android.support:cardview-v7:25.2.0'
-    compile 'com.android.support:palette-v7:25.2.0'
-    compile 'com.android.support:design:25.2.0'
-    compile 'com.android.support:support-annotations:25.2.0'
-    compile 'com.android.support:percent:25.2.0'
-    compile 'com.android.support:preference-v7:25.2.0'
-    compile 'com.android.support:preference-v14:25.2.0'
+    compile 'com.android.support:support-compat:25.3.0'
+    compile 'com.android.support:support-core-utils:25.3.0'
+    compile 'com.android.support:support-core-ui:25.3.0'
+    compile 'com.android.support:support-media-compat:25.3.0'
+    compile 'com.android.support:support-fragment:25.3.0'
+    compile 'com.android.support:support-v13:25.3.0'
+    compile 'com.android.support:appcompat-v7:25.3.0'
+    compile 'com.android.support:recyclerview-v7:25.3.0'
+    compile 'com.android.support:gridlayout-v7:25.3.0'
+    compile 'com.android.support:cardview-v7:25.3.0'
+    compile 'com.android.support:palette-v7:25.3.0'
+    compile 'com.android.support:design:25.3.0'
+    compile 'com.android.support:support-annotations:25.3.0'
+    compile 'com.android.support:percent:25.3.0'
+    compile 'com.android.support:preference-v7:25.3.0'
+    compile 'com.android.support:preference-v14:25.3.0'
 
     compile 'com.afollestad.material-dialogs:core:0.9.3.0@aar'
     compile 'com.afollestad.material-dialogs:commons:0.9.3.0@aar'
