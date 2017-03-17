@@ -20,7 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Phonograph.Light"
         tools:ignore="UnusedAttribute">
-        <activity android:name=".ui.activities.MainActivity">
+        <activity android:name=".ui.activities.MainActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.MUSIC_PLAYER" />

@@ -96,6 +96,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final String SAVED_POSITION_IN_TRACK = "POSITION_IN_TRACK";
     public static final String SAVED_SHUFFLE_MODE = "SHUFFLE_MODE";
     public static final String SAVED_REPEAT_MODE = "REPEAT_MODE";
+    public static final String OPEN_NOW_PLAYING = "OPEN_NOW_PLAYING";
 
     public static final int RELEASE_WAKELOCK = 0;
     public static final int TRACK_ENDED = 1;
