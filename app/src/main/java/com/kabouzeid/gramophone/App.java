@@ -2,11 +2,6 @@ package com.kabouzeid.gramophone;
 
 import android.app.Application;
 
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.core.CrashlyticsCore;
-
-import io.fabric.sdk.android.Fabric;
-
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -18,11 +13,5 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        // Set up Crashlytics, disabled for debug builds
-        Crashlytics crashlyticsKit = new Crashlytics.Builder()
-                .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
-                .build();
-        Fabric.with(this, crashlyticsKit);
     }
 }
