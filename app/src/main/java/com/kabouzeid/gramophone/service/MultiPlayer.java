@@ -13,7 +13,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.service.Playback.Playback;
+import com.kabouzeid.gramophone.service.playback.Playback;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 /**

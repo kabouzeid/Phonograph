@@ -42,14 +42,16 @@ import com.kabouzeid.gramophone.appwidgets.AppWidgetClassic;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetSmall;
 import com.kabouzeid.gramophone.glide.BlurTransformation;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
-import com.kabouzeid.gramophone.helper.PlayingNotificationHelper;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.helper.StopWatch;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.HistoryStore;
 import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
-import com.kabouzeid.gramophone.service.Playback.Playback;
+import com.kabouzeid.gramophone.service.notification.PlayingNotification;
+import com.kabouzeid.gramophone.service.notification.PlayingNotificationImpl;
+import com.kabouzeid.gramophone.service.notification.PlayingNotificationImpl21;
+import com.kabouzeid.gramophone.service.playback.Playback;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
@@ -128,7 +130,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private boolean queuesRestored;
     private boolean pausedByTransientLossOfFocus;
     private boolean receiversAndRemoteControlClientRegistered;
-    private PlayingNotificationHelper playingNotificationHelper;
+    private PlayingNotification playingNotification;
     private AudioManager audioManager;
     @SuppressWarnings("deprecation")
     private RemoteControlClient remoteControlClient;
@@ -167,8 +169,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public void onCreate() {
         super.onCreate();
 
-        playingNotificationHelper = new PlayingNotificationHelper(this);
-
         final PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
         wakeLock.setReferenceCounted(false);
@@ -190,6 +190,13 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         registerReceiversAndRemoteControlClient();
 
         registerReceiver(widgetIntentReceiver, new IntentFilter(APP_WIDGET_UPDATE));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            playingNotification = new PlayingNotificationImpl21();
+        } else {
+            playingNotification = new PlayingNotificationImpl();
+        }
+        playingNotification.init(this);
 
         mediaStoreObserver = new MediaStoreObserver(playerHandler);
         throttledSeekHandler = new ThrottledSeekHandler(playerHandler);
@@ -268,6 +275,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 }
             }
         }
+
         return START_STICKY;
     }
 
@@ -393,7 +401,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private int quit() {
         unregisterReceiversAndRemoteControlClient();
         pause();
-        playingNotificationHelper.killNotification();
+        playingNotification.stop();
 
         if (isServiceBound) {
             return START_STICKY;
@@ -953,7 +961,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         switch (what) {
             case PLAY_STATE_CHANGED:
                 final boolean isPlaying = isPlaying();
-                playingNotificationHelper.updateNotification();
+                playingNotification.update();
                 //noinspection deprecation
                 remoteControlClient.setPlaybackState(isPlaying ? RemoteControlClient.PLAYSTATE_PLAYING : RemoteControlClient.PLAYSTATE_PAUSED);
                 if (!isPlaying && getSongProgressMillis() > 0) {
@@ -962,7 +970,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 songPlayCountHelper.notifyPlayStateChanged(isPlaying);
                 break;
             case META_CHANGED:
-                playingNotificationHelper.updateNotification();
+                playingNotification.update();
                 updateRemoteControlClient();
                 savePosition();
                 savePositionInTrack();
@@ -978,7 +986,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 if (playingQueue.size() > 0) {
                     prepareNext();
                 } else {
-                    playingNotificationHelper.killNotification();
+                    quit();
                 }
                 break;
         }
@@ -1013,7 +1021,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 updateRemoteControlClient();
                 break;
             case PreferenceUtil.COLORED_NOTIFICATION:
-                playingNotificationHelper.updateNotification();
+                playingNotification.update();
                 break;
         }
     }
