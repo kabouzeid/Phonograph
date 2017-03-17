@@ -1,7 +1,5 @@
 package com.kabouzeid.gramophone.service;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
@@ -13,15 +11,12 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.RemoteControlClient;
 import android.media.audiofx.AudioEffect;
-import android.media.session.MediaSession;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
@@ -35,10 +30,6 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.media.session.MediaSessionCompat;
-import android.support.v7.app.NotificationCompat;
-import android.support.v7.graphics.Palette;
-import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.bumptech.glide.BitmapRequestBuilder;
@@ -51,15 +42,16 @@ import com.kabouzeid.gramophone.appwidgets.AppWidgetClassic;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetSmall;
 import com.kabouzeid.gramophone.glide.BlurTransformation;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
-import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.helper.StopWatch;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.HistoryStore;
 import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
-import com.kabouzeid.gramophone.service.Playback.Playback;
-import com.kabouzeid.gramophone.ui.activities.MainActivity;
+import com.kabouzeid.gramophone.service.notification.PlayingNotification;
+import com.kabouzeid.gramophone.service.notification.PlayingNotificationImpl;
+import com.kabouzeid.gramophone.service.notification.PlayingNotificationImpl21;
+import com.kabouzeid.gramophone.service.playback.Playback;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
@@ -121,8 +113,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final int REPEAT_MODE_THIS = 2;
 
     public static final int SAVE_QUEUES = 0;
-    private static final int NOTIFY_MODE_FOREGROUND = 1;
-    private static final int NOTIFY_MODE_BACKGROUND = 0;
 
     private final IBinder musicBind = new MusicBinder();
 
@@ -140,9 +130,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private boolean queuesRestored;
     private boolean pausedByTransientLossOfFocus;
     private boolean receiversAndRemoteControlClientRegistered;
-    private MediaSessionCompat mediaSession;
-    private NotificationManager notificationManager;
-    private Notification notification;
+    private PlayingNotification playingNotification;
     private AudioManager audioManager;
     @SuppressWarnings("deprecation")
     private RemoteControlClient remoteControlClient;
@@ -172,7 +160,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private boolean isServiceBound;
 
     private Handler uiThreadHandler;
-    private int mNotifyMode = NOTIFY_MODE_BACKGROUND;
 
     private static String getTrackUri(@NonNull Song song) {
         return MusicUtil.getSongFileUri(song.id).toString();
@@ -204,8 +191,12 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
         registerReceiver(widgetIntentReceiver, new IntentFilter(APP_WIDGET_UPDATE));
 
-        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        setupMediaSession();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            playingNotification = new PlayingNotificationImpl21();
+        } else {
+            playingNotification = new PlayingNotificationImpl();
+        }
+        playingNotification.init(this);
 
         mediaStoreObserver = new MediaStoreObserver(playerHandler);
         throttledSeekHandler = new ThrottledSeekHandler(playerHandler);
@@ -296,9 +287,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         getContentResolver().unregisterContentObserver(mediaStoreObserver);
         PreferenceUtil.getInstance(this).unregisterOnSharedPreferenceChangedListener(this);
         wakeLock.release();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mediaSession.release();
-        }
 
         sendBroadcast(new Intent("com.kabouzeid.gramophone.PHONOGRAPH_MUSIC_SERVICE_DESTROYED"));
     }
@@ -413,8 +401,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private int quit() {
         unregisterReceiversAndRemoteControlClient();
         pause();
-        notificationManager.cancelAll();
-        killNotification();
+        playingNotification.stop();
 
         if (isServiceBound) {
             return START_STICKY;
@@ -974,7 +961,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         switch (what) {
             case PLAY_STATE_CHANGED:
                 final boolean isPlaying = isPlaying();
-                buildNotification();
+                playingNotification.update();
                 //noinspection deprecation
                 remoteControlClient.setPlaybackState(isPlaying ? RemoteControlClient.PLAYSTATE_PLAYING : RemoteControlClient.PLAYSTATE_PAUSED);
                 if (!isPlaying && getSongProgressMillis() > 0) {
@@ -983,7 +970,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 songPlayCountHelper.notifyPlayStateChanged(isPlaying);
                 break;
             case META_CHANGED:
-                buildNotification();
+                playingNotification.update();
                 updateRemoteControlClient();
                 savePosition();
                 savePositionInTrack();
@@ -999,7 +986,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 if (playingQueue.size() > 0) {
                     prepareNext();
                 } else {
-                    notificationManager.cancelAll();
+                    quit();
                 }
                 break;
         }
@@ -1034,7 +1021,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 updateRemoteControlClient();
                 break;
             case PreferenceUtil.COLORED_NOTIFICATION:
-                buildNotification();
+                playingNotification.update();
                 break;
         }
     }
@@ -1048,161 +1035,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public void onTrackEnded() {
         acquireWakeLock(30000);
         playerHandler.sendEmptyMessage(TRACK_ENDED);
-    }
-
-    private void setupMediaSession() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mediaSession = new MediaSessionCompat(this, "Phonograph");
-            mediaSession.setCallback(new MediaSessionCompat.Callback() {
-                @Override
-                public void onPlay() {
-                    play();
-                }
-
-                @Override
-                public void onPause() {
-                    pause();
-                }
-
-                @Override
-                public void onSkipToNext() {
-                    playNextSong(true);
-                }
-
-                @Override
-                public void onSkipToPrevious() {
-                    back(true);
-                }
-
-                @Override
-                public void onStop() {
-                    stop();
-                }
-
-            });
-
-            PendingIntent pi = PendingIntent.getBroadcast(this, 0,
-                    new Intent(this, MediaButtonIntentReceiver.class),
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-            mediaSession.setMediaButtonReceiver(pi);
-
-            mediaSession.setFlags(MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS
-                    | MediaSession.FLAG_HANDLES_MEDIA_BUTTONS);
-        }
-    }
-
-    private synchronized void buildNotification() {
-        final Song song = getCurrentSong();
-
-        final String albumName = song.albumName;
-        final String artistName = song.artistName;
-        final boolean isPlaying = isPlaying();
-        final String text = TextUtils.isEmpty(albumName)
-                ? artistName : artistName + " - " + albumName;
-
-        final int playButtonResId = isPlaying
-                ? R.drawable.ic_pause_white_24dp : R.drawable.ic_play_arrow_white_24dp;
-
-        Intent action = new Intent(this, MainActivity.class);
-        action.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        final PendingIntent clickIntent = PendingIntent.getActivity(this, 0, action, 0);
-
-        final ComponentName serviceName = new ComponentName(this, MusicService.class);
-        Intent intent = new Intent(MusicService.ACTION_QUIT);
-        intent.setComponent(serviceName);
-        final PendingIntent deleteIntent = PendingIntent.getService(this, 0, intent, 0);
-
-        final BitmapRequestBuilder<?, BitmapPaletteWrapper> request = SongGlideRequest.Builder.from(Glide.with(MusicService.this), song)
-                .checkIgnoreMediaStore(MusicService.this)
-                .generatePalette(this).build();
-
-        final int bigNotificationImageSize = getResources().getDimensionPixelSize(R.dimen.notification_big_image_size);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                request.into(new SimpleTarget<BitmapPaletteWrapper>(bigNotificationImageSize, bigNotificationImageSize) {
-                    @Override
-                    public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
-                        Palette palette = resource.getPalette();
-                        update(resource.getBitmap(), palette.getVibrantColor(palette.getMutedColor(Color.TRANSPARENT)));
-                    }
-                    @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        update(null, Color.TRANSPARENT);
-                    }
-
-                    void update(Bitmap bitmap, int color) {
-                        if (bitmap == null) bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.default_album_art);
-                        NotificationCompat.Action playPauseAction = new NotificationCompat.Action(playButtonResId,
-                                getString(R.string.action_play_pause),
-                                retrievePlaybackAction(ACTION_TOGGLE_PAUSE));
-                        NotificationCompat.Action previousAction = new NotificationCompat.Action(R.drawable.ic_skip_previous_white_24dp,
-                                getString(R.string.action_previous),
-                                retrievePlaybackAction(ACTION_REWIND));
-                        NotificationCompat.Action nextAction = new NotificationCompat.Action(R.drawable.ic_skip_next_white_24dp,
-                                getString(R.string.action_next),
-                                retrievePlaybackAction(ACTION_SKIP));
-                        NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(MusicService.this)
-                                .setSmallIcon(R.drawable.ic_notification)
-                                .setLargeIcon(bitmap)
-                                .setContentIntent(clickIntent)
-                                .setDeleteIntent(deleteIntent)
-                                .setContentTitle(song.title)
-                                .setContentText(text)
-                                .setOngoing(isPlaying)
-                                .setShowWhen(false)
-                                .addAction(previousAction)
-                                .addAction(playPauseAction)
-                                .addAction(nextAction);
-
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            builder.setStyle(new NotificationCompat.MediaStyle().setMediaSession(mediaSession.getSessionToken()).setShowActionsInCompactView(0, 1, 2))
-                                    .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-                            if (PreferenceUtil.getInstance(MusicService.this).coloredNotification()) builder.setColor(color);
-                        }
-
-                        notification = builder.build();
-                        updateNotification(notification);
-                    }
-
-                });
-
-            }
-        });
-    }
-
-    private void updateNotification(Notification notification) {
-        int newNotifyMode;
-        if (isPlaying()) {
-            newNotifyMode = NOTIFY_MODE_FOREGROUND;
-        } else {
-            newNotifyMode = NOTIFY_MODE_BACKGROUND;
-        }
-
-        if (mNotifyMode != newNotifyMode && mNotifyMode == NOTIFY_MODE_FOREGROUND) {
-            stopForeground(false);
-        }
-
-        if (newNotifyMode == NOTIFY_MODE_FOREGROUND) {
-            startForeground(1, notification);
-        } else if (newNotifyMode == NOTIFY_MODE_BACKGROUND) {
-            notificationManager.notify(1, notification);
-        }
-
-        mNotifyMode = newNotifyMode;
-    }
-
-    private PendingIntent retrievePlaybackAction(final String action) {
-        final ComponentName serviceName = new ComponentName(this, MusicService.class);
-        Intent intent = new Intent(action);
-        intent.setComponent(serviceName);
-
-        return PendingIntent.getService(this, 0, intent, 0);
-    }
-
-    public synchronized void killNotification() {
-        this.stopForeground(true);
-        notificationManager.cancelAll();
     }
 
     private static final class PlaybackHandler extends Handler {

@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.service.Playback;
+package com.kabouzeid.gramophone.service.playback;
 
 import android.support.annotation.Nullable;
 
