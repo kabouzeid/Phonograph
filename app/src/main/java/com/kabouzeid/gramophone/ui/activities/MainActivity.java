@@ -116,7 +116,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
 
         //Set up dynamic shortcuts
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-            new DynamicShortcutManager(getApplicationContext()).initDynamicShortcuts();
+            new DynamicShortcutManager(this).initDynamicShortcuts();
         }
     }
 

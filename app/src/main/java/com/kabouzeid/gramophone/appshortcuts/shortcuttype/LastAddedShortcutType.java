@@ -3,9 +3,9 @@ package com.kabouzeid.gramophone.appshortcuts.shortcuttype;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.ShortcutInfo;
-import android.graphics.drawable.Icon;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.appshortcuts.AppShortcutIconGenerator;
 import com.kabouzeid.gramophone.appshortcuts.AppShortcutLauncherActivity;
 
 /**
@@ -22,7 +22,7 @@ public final class LastAddedShortcutType extends BaseShortcutType {
         return new ShortcutInfo.Builder(mContext, ID_PREFIX + "last_added")
                 .setShortLabel(mContext.getString(R.string.app_shortcut_last_added_short))
                 .setLongLabel(mContext.getString(R.string.app_shortcut_last_added_long))
-                .setIcon(Icon.createWithResource(mContext, R.drawable.ic_app_shortcut_last_added))
+                .setIcon(AppShortcutIconGenerator.generateThemedIcon(mContext, R.drawable.ic_app_shortcut_last_added))
                 .setIntent(getPlaySongsIntent(AppShortcutLauncherActivity.ShortcutType.LAST_ADDED))
                 .build();
     }

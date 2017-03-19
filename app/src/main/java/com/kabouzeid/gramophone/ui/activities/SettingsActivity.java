@@ -25,6 +25,7 @@ import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference;
 import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceFragmentCompat;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.appshortcuts.DynamicShortcutManager;
 import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreference;
 import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreferenceDialog;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
@@ -77,6 +78,10 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                         .accentColor(selectedColor)
                         .commit();
                 break;
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            new DynamicShortcutManager(this).updateDynamicShortcuts();
         }
         recreate();
     }
@@ -171,6 +176,13 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                     ThemeStore.editTheme(getActivity())
                             .activityTheme(PreferenceUtil.getThemeResFromPrefValue((String) o))
                             .commit();
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                        //Set the new theme so that updateAppShortcuts can pull it
+                        getActivity().setTheme(PreferenceUtil.getThemeResFromPrefValue((String) o));
+                        new DynamicShortcutManager(getActivity()).updateDynamicShortcuts();
+                    }
+
                     getActivity().recreate();
                     return true;
                 }
