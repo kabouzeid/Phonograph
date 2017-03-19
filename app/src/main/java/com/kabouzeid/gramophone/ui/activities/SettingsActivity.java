@@ -248,6 +248,28 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 });
             }
 
+            TwoStatePreference colorAppShortcuts = (TwoStatePreference) findPreference("should_color_app_shortcuts");
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
+                colorAppShortcuts.setEnabled(false);
+                colorAppShortcuts.setSummary(R.string.pref_only_nougat_mr1);
+            } else {
+                colorAppShortcuts.setChecked(PreferenceUtil.getInstance(getActivity()).coloredAppShortcuts());
+                colorAppShortcuts.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        //Save preference
+                        PreferenceUtil.getInstance(getActivity()).setColoredAppShortcuts((Boolean)newValue);
+
+                        //Update app shortcuts
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                            new DynamicShortcutManager(getActivity()).updateDynamicShortcuts();
+                        }
+
+                        return true;
+                    }
+                });
+            }
+
             Preference equalizer = findPreference("equalizer");
             if (!hasEqualizer()) {
                 equalizer.setEnabled(false);
