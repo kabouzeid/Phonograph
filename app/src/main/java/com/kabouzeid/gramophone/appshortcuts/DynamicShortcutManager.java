@@ -47,6 +47,10 @@ public class DynamicShortcutManager {
         }
     }
 
+    public void updateDynamicShortcuts() {
+        shortcutManager.updateShortcuts(getDefaultShortcuts());
+    }
+
     public List<ShortcutInfo> getDefaultShortcuts() {
         return (Arrays.asList(
                 new ShuffleAllShortcutType(mContext).getShortcutInfo(),
@@ -54,15 +58,4 @@ public class DynamicShortcutManager {
                 new LastAddedShortcutType(mContext).getShortcutInfo()
         ));
     }
-
-    public void tintShortcutIcons(ArrayList<ShortcutInfo> shortcutInfos, Color color) {
-        for (ShortcutInfo shortcutInfo : shortcutInfos) {
-            tintShortcutIcon(shortcutInfo, color);
-        }
-    }
-
-    public void tintShortcutIcon(ShortcutInfo shortcutInfo, Color color) {
-        //TODO Tint icons here
-    }
-
 }
