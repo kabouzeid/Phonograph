@@ -12,6 +12,7 @@ import android.util.TypedValue;
 
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 
 /**
@@ -21,6 +22,22 @@ import com.kabouzeid.gramophone.util.Util;
 @RequiresApi(Build.VERSION_CODES.N_MR1)
 public final class AppShortcutIconGenerator {
     public static Icon generateThemedIcon(Context context, int iconId) {
+        if (PreferenceUtil.getInstance(context).coloredAppShortcuts()){
+            return generateUserThemedIcon(context, iconId);
+        } else {
+            return generateDefaultThemedIcon(context, iconId);
+        }
+    }
+
+    private static Icon generateDefaultThemedIcon(Context context, int iconId) {
+        //Return an Icon of iconId with default colors
+        return generateThemedIcon(context, iconId,
+                context.getColor(R.color.app_shortcut_default_foreground),
+                context.getColor(R.color.app_shortcut_default_background)
+        );
+    }
+
+    private static Icon generateUserThemedIcon(Context context, int iconId) {
         //Get background color from context's theme
         final TypedValue typedColorBackground = new TypedValue();
         context.getTheme().resolveAttribute(android.R.attr.colorBackground, typedColorBackground, true);
@@ -32,7 +49,7 @@ public final class AppShortcutIconGenerator {
         );
     }
 
-    public static Icon generateThemedIcon(Context context, int iconId, int foregroundColor, int backgroundColor) {
+    private static Icon generateThemedIcon(Context context, int iconId, int foregroundColor, int backgroundColor) {
         //Get and tint foreground and background drawables
         Drawable vectorDrawable = Util.getTintedVectorDrawable(context, iconId, foregroundColor);
         Drawable backgroundDrawable = Util.getTintedVectorDrawable(context, R.drawable.ic_app_shortcut_background, backgroundColor);
