@@ -83,11 +83,17 @@ public class MediaButtonIntentReceiver extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(final Context context, final Intent intent) {
         if (DEBUG) Log.v(TAG, "Received intent: " + intent);
+        if (handleIntent(context, intent) && isOrderedBroadcast()) {
+            abortBroadcast();
+        }
+    }
+
+    public static boolean handleIntent(final Context context, final Intent intent) {
         final String intentAction = intent.getAction();
         if (Intent.ACTION_MEDIA_BUTTON.equals(intentAction)) {
             final KeyEvent event = intent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
             if (event == null) {
-                return;
+                return false;
             }
 
             final int keycode = event.getKeyCode();
@@ -147,14 +153,12 @@ public class MediaButtonIntentReceiver extends WakefulBroadcastReceiver {
                         } else {
                             startService(context, command);
                         }
+                        return true;
                     }
                 }
-                if (isOrderedBroadcast()) {
-                    abortBroadcast();
-                }
-                releaseWakeLockIfHandlerIdle();
             }
         }
+        return false;
     }
 
     private static void startService(Context context, String command) {

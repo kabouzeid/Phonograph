@@ -136,7 +136,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private AudioManager audioManager;
     @SuppressWarnings("deprecation")
     private MediaSessionCompat mediaSession;
-    private MediaButtonIntentReceiver mediaButtonIntentReceiver = new MediaButtonIntentReceiver();
     private PowerManager.WakeLock wakeLock;
     private PlaybackHandler playerHandler;
     private final AudioManager.OnAudioFocusChangeListener audioFocusListener = new AudioManager.OnAudioFocusChangeListener() {
@@ -268,8 +267,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
             @Override
             public boolean onMediaButtonEvent(Intent mediaButtonEvent) {
-                mediaButtonIntentReceiver.onReceive(MusicService.this, mediaButtonEvent);
-                return true;
+                return MediaButtonIntentReceiver.handleIntent(MusicService.this, mediaButtonEvent);
             }
         });
 
@@ -281,7 +279,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     @Override
     public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
-        MediaButtonReceiver.handleIntent(mediaSession, intent);
         if (intent != null) {
             if (intent.getAction() != null) {
                 restoreQueuesAndPositionIfNecessary();
