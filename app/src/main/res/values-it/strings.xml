@@ -33,7 +33,7 @@
     <string name="albums">Album</string>
     <string name="artists">Artisti</string>
     <string name="songs">Brani</string>
-    <string name="playlists">Playlists</string>
+    <string name="playlists">Playlist</string>
     <string name="unplayable_file">Impossibile riprodurre questo brano.</string>
     <string name="biography_unavailable">Impossibile trovare una biografia corrispondente a questo artista.</string>
     <string name="biography">Biografia</string>

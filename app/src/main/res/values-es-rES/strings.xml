@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">¿Qué quieres compartir?</string>
-    <string name="currently_listening_to_x_by_x">Song</string>
-    <string name="the_audio_file">El archivo de audio</string>
+    <string name="currently_listening_to_x_by_x">Estás escuchando %1$s por %2$s.</string>
+    <string name="the_audio_file">W</string>
     <string name="do_you_want_to_set_x_as_ringtone">¿Te gustaría establecer %1$s como tono de llamada?</string>
     <string name="x_has_been_set_as_ringtone">"Establecer %1$s como tono de llamada "</string>
     <string name="action_set_as_ringtone">Establecer como tono de llamada</string>
@@ -18,7 +18,7 @@
     <string name="action_add_to_favorites">Añadir a favoritos</string>
     <string name="action_remove_from_favorites">Eliminar de favoritos</string>
     <string name="action_search">Buscar</string>
-    <string name="action_play_next">Siguiente</string>
+    <string name="action_play_next">Reproducir a Continuación</string>
     <string name="action_play">Reproducir</string>
     <string name="action_add_to_playing_queue">Añadir a cola de reproducción</string>
     <string name="action_remove_from_playing_queue">Eliminar de la cola de reproducción</string>
@@ -37,7 +37,7 @@
     <string name="unplayable_file">No es posible reproducir esta canci\u00f3n.</string>
     <string name="biography_unavailable">Lo sentimos, no encontramos una biograf\u00eda correspondiente a \u00e9ste artista</string>
     <string name="biography">Biografía</string>
-    <string name="audio_focus_denied">Foco de audio denegado.</string>
+    <string name="audio_focus_denied">Análisis de Audio denegado</string>
     <string name="album">Álbum</string>
     <string name="artist">Artista</string>
     <string name="genre">Género</string>

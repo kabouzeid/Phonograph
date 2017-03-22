@@ -24,7 +24,7 @@
     <string name="action_add_to_playlist">재생 목록에 추가...</string>
     <string name="action_tag_editor">태그 편집기</string>
     <string name="action_delete_from_device">기기에서 삭제</string>
-    <string name="action_details">세부 정보</string>
+    <string name="action_details">상세정보</string>
     <string name="action_rename">이름 바꾸기</string>
     <string name="action_delete">삭제</string>
     <string name="albums">앨범</string>
@@ -34,7 +34,7 @@
     <string name="unplayable_file">\uc774 \ub178\ub798\ub97c \uc7ac\uc0dd\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.</string>
     <string name="biography_unavailable">\uc544\ud2f0\uc2a4\ud2b8 \uc815\ubcf4\ub97c \ucc3e\uc744 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.</string>
     <string name="biography">정보</string>
-    <string name="audio_focus_denied">Audio focus 권한을 얻을 수 없습니다.</string>
+    <string name="audio_focus_denied">음악 선택이 거부되었습니다.</string>
     <string name="album">앨범</string>
     <string name="artist">아티스트</string>
     <string name="genre">장르</string>
