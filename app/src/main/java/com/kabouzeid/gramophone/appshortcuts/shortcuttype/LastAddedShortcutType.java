@@ -19,11 +19,15 @@ public final class LastAddedShortcutType extends BaseShortcutType {
     }
 
     public ShortcutInfo getShortcutInfo() {
-        return new ShortcutInfo.Builder(mContext, ID_PREFIX + "last_added")
+        return new ShortcutInfo.Builder(mContext, getId())
                 .setShortLabel(mContext.getString(R.string.app_shortcut_last_added_short))
                 .setLongLabel(mContext.getString(R.string.app_shortcut_last_added_long))
                 .setIcon(AppShortcutIconGenerator.generateThemedIcon(mContext, R.drawable.ic_app_shortcut_last_added))
                 .setIntent(getPlaySongsIntent(AppShortcutLauncherActivity.ShortcutType.LAST_ADDED))
                 .build();
+    }
+
+    public static String getId(){
+        return ID_PREFIX + "last_added";
     }
 }
