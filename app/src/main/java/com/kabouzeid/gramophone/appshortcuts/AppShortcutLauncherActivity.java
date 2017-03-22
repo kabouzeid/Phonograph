@@ -84,6 +84,9 @@ public class AppShortcutLauncherActivity extends Activity {
         //Put the bundle in the intent
         intent.putExtras(bundle);
 
+        //If MainActivity's already running, don't launch another instance. Instead, bring it to the top and deliver the intent to onNewIntent()
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
         //Finally, start MainActivity with those extras
         startActivity(intent);
     }
