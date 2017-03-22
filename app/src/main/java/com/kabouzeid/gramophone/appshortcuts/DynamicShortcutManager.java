@@ -58,4 +58,8 @@ public class DynamicShortcutManager {
                 new LastAddedShortcutType(mContext).getShortcutInfo()
         ));
     }
+
+    public static void reportShortcutUsed(Context context, String shortcutId){
+        context.getSystemService(ShortcutManager.class).reportShortcutUsed(shortcutId);
+    }
 }

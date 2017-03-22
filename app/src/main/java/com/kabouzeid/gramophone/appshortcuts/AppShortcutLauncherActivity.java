@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.appshortcuts.shortcuttype.LastAddedShortcutType;
+import com.kabouzeid.gramophone.appshortcuts.shortcuttype.ShuffleAllShortcutType;
+import com.kabouzeid.gramophone.appshortcuts.shortcuttype.TopTracksShortcutType;
 import com.kabouzeid.gramophone.loader.LastAddedLoader;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.loader.TopAndRecentlyPlayedTracksLoader;
@@ -44,14 +47,17 @@ public class AppShortcutLauncherActivity extends Activity {
             case SHUFFLE_ALL:
                 launchMainActivityWithSongs(PlayMode.SHUFFLE,
                         SongLoader.getAllSongs(getApplicationContext()));
+                DynamicShortcutManager.reportShortcutUsed(this, ShuffleAllShortcutType.getId());
                 break;
             case TOP_TRACKS:
                 launchMainActivityWithSongs(PlayMode.NORMAL,
                         TopAndRecentlyPlayedTracksLoader.getRecentlyPlayedTracks(getApplicationContext()));
+                DynamicShortcutManager.reportShortcutUsed(this, TopTracksShortcutType.getId());
                 break;
             case LAST_ADDED:
                 launchMainActivityWithSongs(PlayMode.NORMAL,
                         LastAddedLoader.getLastAddedSongs(getApplicationContext()));
+                DynamicShortcutManager.reportShortcutUsed(this, LastAddedShortcutType.getId());
                 break;
             case NONE:
                 shortcutError();

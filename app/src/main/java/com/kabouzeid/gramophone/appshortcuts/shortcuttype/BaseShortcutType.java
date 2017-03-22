@@ -26,6 +26,10 @@ public abstract class BaseShortcutType {
 
     abstract ShortcutInfo getShortcutInfo();
 
+    static public String getId(){
+        return ID_PREFIX + "invalid";
+    }
+
 
     /**
      * Creates an Intent that will launch MainActivtiy and immediately play {@param songs} in either shuffle or normal mode
