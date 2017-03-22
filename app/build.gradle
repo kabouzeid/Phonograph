@@ -1,23 +1,18 @@
 buildscript {
     repositories {
-        maven { url 'https://maven.fabric.io/public' }
         mavenCentral()
     }
 
     dependencies {
-        //noinspection GradleDynamicVersion
-        classpath 'io.fabric.tools:gradle:1.+'
         classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
     }
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
 apply plugin: 'com.jakewharton.hugo'
-apply plugin: 'com.github.triplet.play'
+apply plugin: 'com.google.gms.google-services'
 
 repositories {
-    maven { url 'https://maven.fabric.io/public' }
     maven { url "https://jitpack.io" }
 }
 
@@ -44,8 +39,6 @@ android {
         debug {
             applicationIdSuffix '.debug'
             versionNameSuffix ' DEBUG'
-
-            ext.enableCrashlytics = false // Disable fabric build ID generation for debug builds
         }
     }
     packagingOptions {
@@ -63,15 +56,11 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
 
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.2@aar') {
+    compile('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.10.4@aar') {
         transitive = true
     }
 
-    compile('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.10.0@aar') {
-        transitive = true
-    }
-
-    compile('com.github.kabouzeid:app-theme-helper:1.3.4') {
+    compile('com.github.kabouzeid:app-theme-helper:1.3.5') {
         transitive = true
     }
 
@@ -92,8 +81,8 @@ dependencies {
     compile 'com.android.support:preference-v7:25.3.0'
     compile 'com.android.support:preference-v14:25.3.0'
 
-    compile 'com.afollestad.material-dialogs:core:0.9.3.0@aar'
-    compile 'com.afollestad.material-dialogs:commons:0.9.3.0@aar'
+    compile 'com.afollestad.material-dialogs:core:0.9.4.2@aar'
+    compile 'com.afollestad.material-dialogs:commons:0.9.4.2@aar'
     compile 'com.afollestad:material-cab:0.1.12@aar'
 
     compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
@@ -111,6 +100,6 @@ dependencies {
     compile 'me.zhanghai.android.materialprogressbar:library:1.3.0'
     compile 'org.eclipse.mylyn.github:org.eclipse.egit.github.core:2.1.5'
 
-    compile 'com.jakewharton:butterknife:8.4.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }

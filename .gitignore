@@ -41,5 +41,4 @@ captures/
 # Mac
 .DS_Store
 
-# Private Keys
-/privatekeys
+/app/google-services.json
