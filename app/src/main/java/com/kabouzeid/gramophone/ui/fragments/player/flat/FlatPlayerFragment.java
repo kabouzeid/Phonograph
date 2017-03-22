@@ -114,6 +114,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         impl.init();
 
         setUpPlayerToolbar();
+        setUpStatusBar();
         setUpSubFragments();
 
         setUpRecyclerView();
@@ -228,6 +229,12 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
             }
         });
         toolbar.setOnMenuItemClickListener(this);
+    }
+
+    private void setUpStatusBar() {
+        ViewGroup.LayoutParams layoutParams = playerStatusBar.getLayoutParams();
+        layoutParams.height = Util.getStatusBarHeight(getActivity());
+        playerStatusBar.setLayoutParams(layoutParams);
     }
 
     @Override

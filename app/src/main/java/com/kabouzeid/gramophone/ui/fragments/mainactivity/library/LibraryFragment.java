@@ -57,6 +57,8 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
     AppBarLayout appbar;
     @BindView(R.id.pager)
     ViewPager pager;
+    @BindView(R.id.status_bar)
+    View statusBar;
 
     private MusicLibraryPagerAdapter pagerAdapter;
     private MaterialCab cab;
@@ -90,6 +92,7 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
 
         setUpToolbar();
         setUpViewPager();
+        setUpStatusBar();
     }
 
     private void setUpToolbar() {
@@ -120,6 +123,12 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
         pager.setCurrentItem(startPosition);
         PreferenceUtil.getInstance(getActivity()).setLastPage(startPosition); // just in case
         pager.addOnPageChangeListener(this);
+    }
+
+    private void setUpStatusBar() {
+        ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
+        layoutParams.height = Util.getStatusBarHeight(getMainActivity());
+        statusBar.setLayoutParams(layoutParams);
     }
 
     public Fragment getCurrentFragment() {
