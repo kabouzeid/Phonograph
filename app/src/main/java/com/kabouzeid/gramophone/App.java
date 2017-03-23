@@ -1,9 +1,11 @@
 package com.kabouzeid.gramophone;
 
 import android.app.Application;
+import android.os.Build;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
+import com.kabouzeid.gramophone.appshortcuts.DynamicShortcutManager;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -22,5 +24,10 @@ public class App extends Application {
                 .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
                 .build();
         Fabric.with(this, crashlyticsKit);
+
+        //Set up dynamic shortcuts
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            new DynamicShortcutManager(this).initDynamicShortcuts();
+        }
     }
 }

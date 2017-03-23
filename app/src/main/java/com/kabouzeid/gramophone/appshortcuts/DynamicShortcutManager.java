@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
-import android.graphics.Color;
 import android.graphics.drawable.Icon;
 import android.os.Build;
 
@@ -13,7 +12,6 @@ import com.kabouzeid.gramophone.appshortcuts.shortcuttype.LastAddedShortcutType;
 import com.kabouzeid.gramophone.appshortcuts.shortcuttype.ShuffleAllShortcutType;
 import com.kabouzeid.gramophone.appshortcuts.shortcuttype.TopTracksShortcutType;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,12 +22,12 @@ import java.util.List;
 @TargetApi(Build.VERSION_CODES.N_MR1)
 public class DynamicShortcutManager {
 
-    Context mContext;
-    ShortcutManager shortcutManager;
+    private Context context;
+    private ShortcutManager shortcutManager;
 
     public DynamicShortcutManager(Context context) {
-        mContext = context;
-        shortcutManager = mContext.getSystemService(ShortcutManager.class);
+        this.context = context;
+        shortcutManager = this.context.getSystemService(ShortcutManager.class);
     }
 
     public static ShortcutInfo createShortcut(Context context, String id, String shortLabel, String longLabel, Icon icon, Intent intent) {
@@ -53,9 +51,9 @@ public class DynamicShortcutManager {
 
     public List<ShortcutInfo> getDefaultShortcuts() {
         return (Arrays.asList(
-                new ShuffleAllShortcutType(mContext).getShortcutInfo(),
-                new TopTracksShortcutType(mContext).getShortcutInfo(),
-                new LastAddedShortcutType(mContext).getShortcutInfo()
+                new ShuffleAllShortcutType(context).getShortcutInfo(),
+                new TopTracksShortcutType(context).getShortcutInfo(),
+                new LastAddedShortcutType(context).getShortcutInfo()
         ));
     }
 

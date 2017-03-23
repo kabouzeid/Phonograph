@@ -28,7 +28,6 @@ import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.NavigationViewUtil;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.appshortcuts.DynamicShortcutManager;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
 import com.kabouzeid.gramophone.dialogs.DonationsDialog;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
@@ -112,11 +111,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
 
         if (!checkShowIntro()) {
             checkShowChangelog();
-        }
-
-        //Set up dynamic shortcuts
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-            new DynamicShortcutManager(this).initDynamicShortcuts();
         }
     }
 

@@ -17,10 +17,10 @@ public abstract class BaseShortcutType {
 
     static final String ID_PREFIX = "com.kabouzeid.gramophone.appshortcuts.id.";
 
-    Context mContext;
+    Context context;
 
     public BaseShortcutType(Context context) {
-        mContext = context;
+        this.context = context;
     }
 
 
@@ -39,7 +39,7 @@ public abstract class BaseShortcutType {
      */
     Intent getPlaySongsIntent(AppShortcutLauncherActivity.ShortcutType shortcutType) {
         //Create a new intent to launch MainActivity
-        Intent intent = new Intent(mContext, AppShortcutLauncherActivity.class);
+        Intent intent = new Intent(context, AppShortcutLauncherActivity.class);
         intent.setAction(Intent.ACTION_VIEW);
 
         //Create a bundle to store instructions for AppShortcutLauncherActivity

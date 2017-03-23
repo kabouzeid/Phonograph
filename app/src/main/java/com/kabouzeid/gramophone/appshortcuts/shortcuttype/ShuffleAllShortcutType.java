@@ -19,10 +19,10 @@ public final class ShuffleAllShortcutType extends BaseShortcutType {
     }
 
     public ShortcutInfo getShortcutInfo() {
-        return new ShortcutInfo.Builder(mContext, getId())
-                .setShortLabel(mContext.getString(R.string.app_shortcut_shuffle_all_short))
-                .setLongLabel(mContext.getString(R.string.app_shortcut_shuffle_all_long))
-                .setIcon(AppShortcutIconGenerator.generateThemedIcon(mContext, R.drawable.ic_app_shortcut_shuffle_all))
+        return new ShortcutInfo.Builder(context, getId())
+                .setShortLabel(context.getString(R.string.app_shortcut_shuffle_all_short))
+                .setLongLabel(context.getString(R.string.app_shortcut_shuffle_all_long))
+                .setIcon(AppShortcutIconGenerator.generateThemedIcon(context, R.drawable.ic_app_shortcut_shuffle_all))
                 .setIntent(getPlaySongsIntent(AppShortcutLauncherActivity.ShortcutType.SHUFFLE_ALL))
                 .build();
     }

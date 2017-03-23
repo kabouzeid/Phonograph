@@ -19,10 +19,10 @@ public final class TopTracksShortcutType extends BaseShortcutType {
     }
 
     public ShortcutInfo getShortcutInfo() {
-        return new ShortcutInfo.Builder(mContext, getId())
-                .setShortLabel(mContext.getString(R.string.app_shortcut_top_tracks_short))
-                .setLongLabel(mContext.getString(R.string.app_shortcut_top_tracks_long))
-                .setIcon(AppShortcutIconGenerator.generateThemedIcon(mContext, R.drawable.ic_app_shortcut_top_tracks))
+        return new ShortcutInfo.Builder(context, getId())
+                .setShortLabel(context.getString(R.string.app_shortcut_top_tracks_short))
+                .setLongLabel(context.getString(R.string.app_shortcut_top_tracks_long))
+                .setIcon(AppShortcutIconGenerator.generateThemedIcon(context, R.drawable.ic_app_shortcut_top_tracks))
                 .setIntent(getPlaySongsIntent(AppShortcutLauncherActivity.ShortcutType.TOP_TRACKS))
                 .build();
     }
