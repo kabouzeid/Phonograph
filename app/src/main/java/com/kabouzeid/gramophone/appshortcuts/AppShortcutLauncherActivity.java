@@ -3,9 +3,7 @@ package com.kabouzeid.gramophone.appshortcuts;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
-import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appshortcuts.shortcuttype.LastAddedShortcutType;
 import com.kabouzeid.gramophone.appshortcuts.shortcuttype.ShuffleAllShortcutType;
 import com.kabouzeid.gramophone.appshortcuts.shortcuttype.TopTracksShortcutType;
@@ -59,12 +57,6 @@ public class AppShortcutLauncherActivity extends Activity {
                         LastAddedLoader.getLastAddedSongs(getApplicationContext()));
                 DynamicShortcutManager.reportShortcutUsed(this, LastAddedShortcutType.getId());
                 break;
-            case NONE:
-                shortcutError();
-                break;
-            default:
-                shortcutError();
-                break;
         }
 
         finish();
@@ -95,10 +87,6 @@ public class AppShortcutLauncherActivity extends Activity {
 
         //Finally, start MainActivity with those extras
         startActivity(intent);
-    }
-
-    private void shortcutError() {
-        Toast.makeText(getApplicationContext(), R.string.error_launching_shortcut, Toast.LENGTH_LONG).show();
     }
 
     private enum PlayMode {NORMAL, SHUFFLE}
