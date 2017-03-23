@@ -30,7 +30,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.media.MediaMetadataCompat;
-import android.support.v4.media.session.MediaButtonReceiver;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.widget.Toast;
@@ -522,8 +521,28 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         return (getAudioManager().requestAudioFocus(audioFocusListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED);
     }
 
-    private void updateMediaSession() {
+    private void updateNotification() {
+        if (getCurrentSong().id != -1) {
+            playingNotification.update();
+        }
+    }
+
+    private void updateMediaSessionPlaybackState() {
+        mediaSession.setPlaybackState(
+                new PlaybackStateCompat.Builder()
+                        .setActions(MEDIA_SESSION_ACTIONS)
+                        .setState(isPlaying() ? PlaybackStateCompat.STATE_PLAYING : PlaybackStateCompat.STATE_PAUSED,
+                                getPosition(), 1)
+                        .build());
+    }
+
+    private void updateMediaSessionMetaData() {
         final Song song = getCurrentSong();
+
+        if (song.id == -1) {
+            mediaSession.setMetadata(null);
+            return;
+        }
 
         final MediaMetadataCompat.Builder metaData = new MediaMetadataCompat.Builder()
                 .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, song.artistName)
@@ -568,7 +587,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         } else {
             mediaSession.setMetadata(metaData.build());
         }
-
     }
 
     private static Bitmap copy(Bitmap bitmap) {
@@ -985,22 +1003,17 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private void handleChangeInternal(@NonNull final String what) {
         switch (what) {
             case PLAY_STATE_CHANGED:
+                updateNotification();
+                updateMediaSessionPlaybackState();
                 final boolean isPlaying = isPlaying();
-                playingNotification.update();
-                mediaSession.setPlaybackState(
-                        new PlaybackStateCompat.Builder()
-                                .setActions(MEDIA_SESSION_ACTIONS)
-                                .setState(isPlaying ? PlaybackStateCompat.STATE_PLAYING : PlaybackStateCompat.STATE_PAUSED,
-                                        getPosition(), 1)
-                                .build());
                 if (!isPlaying && getSongProgressMillis() > 0) {
                     savePositionInTrack();
                 }
                 songPlayCountHelper.notifyPlayStateChanged(isPlaying);
                 break;
             case META_CHANGED:
-                playingNotification.update();
-                updateMediaSession();
+                updateNotification();
+                updateMediaSessionMetaData();
                 savePosition();
                 savePositionInTrack();
                 final Song currentSong = getCurrentSong();
@@ -1011,12 +1024,12 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 songPlayCountHelper.notifySongChanged(currentSong);
                 break;
             case QUEUE_CHANGED:
-                updateMediaSession();
+                updateMediaSessionMetaData(); // because playing queue size might have changed
                 saveState();
                 if (playingQueue.size() > 0) {
                     prepareNext();
                 } else {
-                    quit();
+                    playingNotification.stop();
                 }
                 break;
         }
@@ -1052,10 +1065,10 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 break;
             case PreferenceUtil.ALBUM_ART_ON_LOCKSCREEN:
             case PreferenceUtil.BLURRED_ALBUM_ART:
-                updateMediaSession();
+                updateMediaSessionMetaData();
                 break;
             case PreferenceUtil.COLORED_NOTIFICATION:
-                playingNotification.update();
+                updateNotification();
                 break;
         }
     }
