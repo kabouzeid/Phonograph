@@ -39,4 +39,6 @@
         white-space: pre-wrap;
         }
     </string>
+
+    <string name="id_shortcuttype">com.kabouzeid.gramophone.appshortcuts.ShortcutType</string>
 </resources>
