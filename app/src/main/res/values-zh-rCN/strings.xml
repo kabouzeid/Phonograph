@@ -20,6 +20,9 @@
     <string name="action_search">搜索</string>
     <string name="action_play_next">作为下一首播放</string>
     <string name="action_play">播放</string>
+    <string name="action_play_pause">播放/暂停</string>
+    <string name="action_previous">上一首</string>
+    <string name="action_next">下一首</string>
     <string name="action_add_to_playing_queue">加入播放队列</string>
     <string name="action_remove_from_playing_queue">从播放队列中移除</string>
     <string name="action_add_to_playlist">加入播放列表</string>
@@ -45,6 +48,7 @@
     <string name="year">年份</string>
     <string name="track">音轨</string>
     <string name="track_hint">"音轨（如用 2 表示第 2 首歌或用 3004 表示 CD3 里的第 4 首歌）"</string>
+    <string name="lyrics">歌词</string>
     <string name="album_or_artist_empty">标题或艺术家名称为空</string>
     <string name="saving_changes">正在保存更改…</string>
     <string name="saving_to_file">保存至文件...</string>
