@@ -1,18 +1,22 @@
 buildscript {
     repositories {
+        maven { url 'https://maven.fabric.io/public' }
         mavenCentral()
     }
 
     dependencies {
+        //noinspection GradleDynamicVersion
+        classpath 'io.fabric.tools:gradle:1.+'
         classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
     }
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 apply plugin: 'com.jakewharton.hugo'
-apply plugin: 'com.google.gms.google-services'
 
 repositories {
+    maven { url 'https://maven.fabric.io/public' }
     maven { url "https://jitpack.io" }
 }
 
@@ -39,6 +43,8 @@ android {
         debug {
             applicationIdSuffix '.debug'
             versionNameSuffix ' DEBUG'
+
+            ext.enableCrashlytics = false // Disable fabric build ID generation for debug builds
         }
     }
     packagingOptions {
@@ -55,6 +61,10 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.2@aar') {
+        transitive = true
+    }
 
     compile('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.10.4@aar') {
         transitive = true
