@@ -49,7 +49,7 @@ public class AppShortcutLauncherActivity extends Activity {
                 break;
             case TOP_TRACKS:
                 launchMainActivityWithSongs(PlayMode.NORMAL,
-                        TopAndRecentlyPlayedTracksLoader.getRecentlyPlayedTracks(getApplicationContext()));
+                        TopAndRecentlyPlayedTracksLoader.getTopTracks(getApplicationContext()));
                 DynamicShortcutManager.reportShortcutUsed(this, TopTracksShortcutType.getId());
                 break;
             case LAST_ADDED:
