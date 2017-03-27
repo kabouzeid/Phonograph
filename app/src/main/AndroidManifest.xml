@@ -114,6 +114,8 @@
         <meta-data
                 android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
                 android:value="GlideModule"/>
+
+        <!-- Android Auto meta-data -->
         <meta-data
                 android:name="com.google.android.gms.car.application"
                 android:resource="@xml/automotive_app_desc"/>
