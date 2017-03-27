@@ -37,16 +37,13 @@ public abstract class BaseShortcutType {
      * @param shortcutType Describes the type of shortcut to create (ShuffleAll, TopTracks, custom playlist, etc.)
      * @return
      */
-    Intent getPlaySongsIntent(AppShortcutLauncherActivity.ShortcutType shortcutType) {
-        //Create a new intent to launch MainActivity
+    Intent getPlaySongsIntent(@AppShortcutLauncherActivity.ShortcutType int shortcutType) {
         Intent intent = new Intent(context, AppShortcutLauncherActivity.class);
         intent.setAction(Intent.ACTION_VIEW);
 
-        //Create a bundle to store instructions for AppShortcutLauncherActivity
         Bundle b = new Bundle();
-        b.putString(AppShortcutLauncherActivity.KEY_SHORTCUT_TYPE, shortcutType.toString());
+        b.putInt(AppShortcutLauncherActivity.KEY_SHORTCUT_TYPE, shortcutType);
 
-        //Put bundle in intent
         intent.putExtras(b);
 
         return intent;

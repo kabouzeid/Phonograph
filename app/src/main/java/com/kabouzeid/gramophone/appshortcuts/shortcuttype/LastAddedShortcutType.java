@@ -23,7 +23,7 @@ public final class LastAddedShortcutType extends BaseShortcutType {
                 .setShortLabel(context.getString(R.string.app_shortcut_last_added_short))
                 .setLongLabel(context.getString(R.string.app_shortcut_last_added_long))
                 .setIcon(AppShortcutIconGenerator.generateThemedIcon(context, R.drawable.ic_app_shortcut_last_added))
-                .setIntent(getPlaySongsIntent(AppShortcutLauncherActivity.ShortcutType.LAST_ADDED))
+                .setIntent(getPlaySongsIntent(AppShortcutLauncherActivity.SHORTCUT_TYPE_LAST_ADDED))
                 .build();
     }
 

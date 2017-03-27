@@ -23,7 +23,7 @@ public final class ShuffleAllShortcutType extends BaseShortcutType {
                 .setShortLabel(context.getString(R.string.app_shortcut_shuffle_all_short))
                 .setLongLabel(context.getString(R.string.app_shortcut_shuffle_all_long))
                 .setIcon(AppShortcutIconGenerator.generateThemedIcon(context, R.drawable.ic_app_shortcut_shuffle_all))
-                .setIntent(getPlaySongsIntent(AppShortcutLauncherActivity.ShortcutType.SHUFFLE_ALL))
+                .setIntent(getPlaySongsIntent(AppShortcutLauncherActivity.SHORTCUT_TYPE_SHUFFLE_ALL))
                 .build();
     }
 

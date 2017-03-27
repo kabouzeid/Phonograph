@@ -61,6 +61,7 @@ import com.kabouzeid.gramophone.util.Util;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal
@@ -78,6 +79,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final String ACTION_SKIP = PHONOGRAPH_PACKAGE_NAME + ".skip";
     public static final String ACTION_REWIND = PHONOGRAPH_PACKAGE_NAME + ".rewind";
     public static final String ACTION_QUIT = PHONOGRAPH_PACKAGE_NAME + ".quitservice";
+    public static final String INTENT_EXTRA_SONGS = PHONOGRAPH_PACKAGE_NAME + ".intentextra.songs";
+    public static final String INTENT_EXTRA_SHUFFLE_MODE = PHONOGRAPH_PACKAGE_NAME + ".intentextra.shufflemode";
 
     public static final String APP_WIDGET_UPDATE = PHONOGRAPH_PACKAGE_NAME + ".appwidgetupdate";
     public static final String EXTRA_APP_WIDGET_NAME = PHONOGRAPH_PACKAGE_NAME + "app_widget_name";
@@ -294,6 +297,20 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         pause();
                         break;
                     case ACTION_PLAY:
+                        ArrayList<Song> songs = intent.getParcelableArrayListExtra(INTENT_EXTRA_SONGS);
+                        if (songs != null) {
+                            int shuffleMode = intent.getIntExtra(INTENT_EXTRA_SHUFFLE_MODE, getShuffleMode());
+                            if (intent.hasExtra(INTENT_EXTRA_SHUFFLE_MODE) && intent.getIntExtra(INTENT_EXTRA_SHUFFLE_MODE, 0) == SHUFFLE_MODE_SHUFFLE) {
+                                int startPosition = 0;
+                                if (!songs.isEmpty()) {
+                                    startPosition = new Random().nextInt(songs.size());
+                                }
+                                openQueue(songs, startPosition, false);
+                                setShuffleMode(shuffleMode);
+                            } else {
+                                openQueue(songs, 0, false);
+                            }
+                        }
                         play();
                         break;
                     case ACTION_REWIND:
