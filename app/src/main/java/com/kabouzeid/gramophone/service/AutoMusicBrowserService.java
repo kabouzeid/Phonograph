@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.SystemClock;
+import android.provider.MediaStore;
 import android.service.media.MediaBrowserService;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ import android.support.v4.media.session.PlaybackStateCompat;
 import android.util.Log;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.service.automusicmodel.AutoMusicProvider;
 import com.kabouzeid.gramophone.service.playback.Playback;
 import com.kabouzeid.gramophone.util.PackageValidator;
 
@@ -36,6 +38,7 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat {
 
     private final static String TAG = AutoMusicBrowserService.class.getCanonicalName();
 
+    private AutoMusicProvider mMusicProvider;
     private MediaSessionCallback mMediaSessionCallback;
     private PackageValidator mPackageValidator;
     private MediaSessionCompat mMediaSession;
@@ -55,9 +58,13 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat {
     @Override
     public void onCreate() {
         super.onCreate();
+        mMusicProvider = new AutoMusicProvider(this);
+
         mMediaSessionCallback = new MediaSessionCallback();
         mPackageValidator = new PackageValidator(this);
         //TODO: create and register a MediaSession object and its callback object
+
+        Log.v(TAG, "audio path: " + MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
 
         //Test tree of music catalog
         mMusicList = new ArrayList<>();
@@ -104,7 +111,7 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat {
     }
 
     @Override
-    public void onLoadChildren(@NonNull String parentId, @NonNull Result<List<MediaBrowserCompat.MediaItem>> result) {
+    public void onLoadChildren(@NonNull final String parentId, @NonNull final Result<List<MediaBrowserCompat.MediaItem>> result) {
         //TODO: get the children of root node, these children are used as a menu to the user
 
         List<MediaBrowserCompat.MediaItem> list = new ArrayList<>();
@@ -117,22 +124,19 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat {
         if (MEDIA_ID_EMPTY_ROOT.equals(parentId)) {
            // result.sendResult(new ArrayList<MediaBrowserCompat.MediaItem>());
             result.sendResult(list);
-        }else {
-            result.sendResult(list);
-        }
-            /*else if (mMusicProvider.isInitialized()) {
+        }else if (mMusicProvider.isInitialized()) {
             // if music library is ready, return immediately
             result.sendResult(mMusicProvider.getChildren(parentId, getResources()));
         } else {
             // otherwise, only return results when the music library is retrieved
             result.detach();
-            mMusicProvider.retrieveMediaAsync(new MusicProvider.Callback() {
+            mMusicProvider.retrieveMediaAsync(new AutoMusicProvider.Callback() {
                 @Override
                 public void onMusicCatalogReady(boolean success) {
                     result.sendResult(mMusicProvider.getChildren(parentId, getResources()));
                 }
             });
-        }*/
+        }
     }
 
     //TODO: implement playback controls with the appropriate methods in MusicServiceRemote
