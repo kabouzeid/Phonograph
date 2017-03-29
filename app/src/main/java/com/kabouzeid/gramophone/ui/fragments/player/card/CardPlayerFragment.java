@@ -232,6 +232,10 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
             }
         });
         toolbar.setOnMenuItemClickListener(this);
+
+        ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams)toolbar.getLayoutParams();
+        lp.setMargins(lp.leftMargin, Util.getStatusBarHeight(getActivity()), lp.rightMargin, lp.bottomMargin);
+        toolbar.requestLayout();
     }
 
     @Override

@@ -116,6 +116,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         setUpPlayerToolbar();
         setUpStatusBar();
         setUpSubFragments();
+        ViewUtil.setStatusBarHeight(getActivity(), playerStatusBar);
 
         setUpRecyclerView();
 

@@ -37,6 +37,7 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
+import com.kabouzeid.gramophone.util.ViewUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,8 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     Toolbar toolbar;
     @BindView(android.R.id.empty)
     TextView empty;
+    @BindView(R.id.status_bar)
+    View statusBar;
 
     private Playlist playlist;
 
@@ -77,6 +80,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         setStatusbarColorAuto();
         setNavigationbarColorAuto();
         setTaskDescriptionColorAuto();
+        ViewUtil.setStatusBarHeight(this, statusBar);
 
         playlist = getIntent().getExtras().getParcelable(EXTRA_PLAYLIST);
 
