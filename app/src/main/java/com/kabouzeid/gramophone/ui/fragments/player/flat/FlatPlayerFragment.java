@@ -319,7 +319,6 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
                 try {
                     return AudioFileIO.read(new File(song.data)).getTagOrCreateDefault().getFirst(FieldKey.LYRICS);
                 } catch (Exception e) {
-                    e.printStackTrace();
                     cancel(false);
                     return null;
                 }

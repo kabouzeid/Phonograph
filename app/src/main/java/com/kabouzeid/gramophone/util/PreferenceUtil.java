@@ -44,6 +44,7 @@ public final class PreferenceUtil {
     public static final String FORCE_SQUARE_ALBUM_COVER = "force_square_album_art";
 
     public static final String COLORED_NOTIFICATION = "colored_notification";
+    public static final String COLORED_APP_SHORTCUTS = "colored_app_shortcuts";
 
     public static final String AUDIO_DUCKING = "audio_ducking";
     public static final String GAPLESS_PLAYBACK = "gapless_playback";
@@ -146,6 +147,16 @@ public final class PreferenceUtil {
 
     public final boolean coloredNotification() {
         return mPreferences.getBoolean(COLORED_NOTIFICATION, true);
+    }
+
+    public void setColoredAppShortcuts(final boolean value) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putBoolean(COLORED_APP_SHORTCUTS, value);
+        editor.apply();
+    }
+
+    public final boolean coloredAppShortcuts() {
+        return mPreferences.getBoolean(COLORED_APP_SHORTCUTS, true);
     }
 
     public final boolean gaplessPlayback() {

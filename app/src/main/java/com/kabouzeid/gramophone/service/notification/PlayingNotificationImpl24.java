@@ -157,9 +157,9 @@ public class PlayingNotificationImpl24 implements PlayingNotification {
         }
 
         if (newNotifyMode == NOTIFY_MODE_FOREGROUND) {
-            service.startForeground(1, notification);
+            service.startForeground(NOTIFICATION_ID, notification);
         } else if (newNotifyMode == NOTIFY_MODE_BACKGROUND) {
-            notificationManager.notify(1, notification);
+            notificationManager.notify(NOTIFICATION_ID, notification);
         }
 
         notifyMode = newNotifyMode;
@@ -169,5 +169,6 @@ public class PlayingNotificationImpl24 implements PlayingNotification {
     public synchronized void stop() {
         stopped = true;
         service.stopForeground(true);
+        notificationManager.cancel(NOTIFICATION_ID);
     }
 }
