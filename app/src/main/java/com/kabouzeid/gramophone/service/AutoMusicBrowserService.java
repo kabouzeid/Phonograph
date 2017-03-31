@@ -2,8 +2,11 @@ package com.kabouzeid.gramophone.service;
 
 import android.annotation.TargetApi;
 import android.app.Service;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.media.AudioManager;
 import android.media.MediaMetadata;
 import android.media.MediaPlayer;
 import android.media.browse.MediaBrowser;
@@ -25,13 +28,18 @@ import android.util.Log;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.service.automusicmodel.AutoMusicProvider;
+import com.kabouzeid.gramophone.service.automusicmodel.MusicProviderSource;
 import com.kabouzeid.gramophone.service.playback.Playback;
+import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PackageValidator;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.colorMultiSelectHighlight;
 import static android.R.attr.handle;
+import static android.R.attr.id;
 
 @TargetApi(21)
 public class AutoMusicBrowserService extends MediaBrowserServiceCompat {
@@ -66,19 +74,13 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat {
 
         Log.v(TAG, "audio path: " + MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
 
-        //Test tree of music catalog
-        mMusicList = new ArrayList<>();
-        mMusicList.add(new MediaMetadataCompat.Builder()
-                .putString(MediaMetadata.METADATA_KEY_MEDIA_ID, "/media/audio")
-                    .putString(MediaMetadata.METADATA_KEY_TITLE, "track 1")
-                    .putString(MediaMetadata.METADATA_KEY_ARTIST, "artist")
-                .putLong(MediaMetadata.METADATA_KEY_DURATION, 30000)
-                    .build());
+
+        ComponentName componentName = new ComponentName(this, MusicService.class);
 
         //Responsible for music playback
         mMediaPlayer = new MediaPlayer();
 
-        mMediaSession = new MediaSessionCompat(this, TAG);
+        mMediaSession = new MediaSessionCompat(this, TAG, componentName, null);
         mMediaSession.setCallback(mMediaSessionCallback);
         mMediaSession.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS | MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
         mMediaSession.setActive(true);
@@ -113,17 +115,18 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat {
     @Override
     public void onLoadChildren(@NonNull final String parentId, @NonNull final Result<List<MediaBrowserCompat.MediaItem>> result) {
         //TODO: get the children of root node, these children are used as a menu to the user
+/*
 
-        List<MediaBrowserCompat.MediaItem> list = new ArrayList<>();
+        List<MediaBrowserCompat.MediaItem> list = mMusicProvider.getChildren(parentId, getResources());
         for(MediaMetadataCompat m : mMusicList){
             list.add(new MediaBrowserCompat.MediaItem(m.getDescription(),
                     MediaBrowserCompat.MediaItem.FLAG_PLAYABLE));
         }
+*/
 
         Log.d(TAG, "OnLoadChildren: parentMediaId=" + parentId);
         if (MEDIA_ID_EMPTY_ROOT.equals(parentId)) {
-           // result.sendResult(new ArrayList<MediaBrowserCompat.MediaItem>());
-            result.sendResult(list);
+            result.sendResult(new ArrayList<MediaBrowserCompat.MediaItem>());
         }else if (mMusicProvider.isInitialized()) {
             // if music library is ready, return immediately
             result.sendResult(mMusicProvider.getChildren(parentId, getResources()));
@@ -139,13 +142,14 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat {
         }
     }
 
-    //TODO: implement playback controls with the appropriate methods in MusicServiceRemote
+    //TODO: implement playback controls with the appropriate methods
     private class MediaSessionCallback extends MediaSessionCompat.Callback{
         @Override
         public void onPlay() {
+            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             if(mCurrentTrack == null){
                 mCurrentTrack = mMusicList.get(0);
-                handlePlay();
+                //handlePlay();
             }else{
                 mMediaPlayer.start();
                 mMediaSession.setPlaybackState(buildState(PlaybackStateCompat.STATE_PLAYING));
@@ -154,13 +158,61 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat {
 
         @Override
         public void onPlayFromMediaId(String mediaId, Bundle extras) {
-            for(MediaMetadataCompat item: mMusicList){
+            /*for(MediaMetadataCompat item: mMusicList){
                 if(item.getDescription().getMediaId().equals(mediaId)){
                     mCurrentTrack = item;
                     break;
                 }
+            }*/
+
+            Log.v(TAG, "MediaID: " + mediaId);
+
+            Uri mediaIDUri = Uri.parse(mediaId);
+            String[] tokens = mediaIDUri.getPathSegments().get(1).split("\\|");
+            int mediaID = Integer.parseInt(tokens[1]);
+
+            Uri songUri = MusicUtil.getSongFileUri(mediaID);
+
+            Uri mediaContentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+            String[] projection = new String[] { MediaStore.Audio.Media._ID,
+                    MediaStore.Audio.Media.ARTIST,
+                    MediaStore.Audio.Media.TITLE,
+                    MediaStore.Audio.Media.ALBUM,
+                    MediaStore.Audio.Media.DURATION,
+                    MediaStore.Audio.Media.DATA,
+                    MediaStore.Audio.Media.ALBUM_ID};
+            String selection = MediaStore.Audio.Media._ID + "=?";
+            String[] selectionArgs = new String[] {"" + mediaID}; //This is the id you are looking for
+
+            Cursor c = getContentResolver().query(mediaContentUri, projection, selection, selectionArgs, null);
+            MediaMetadataCompat musicMetadata = null;
+            if(c.moveToFirst()) {
+
+                String _ID = c.getString(c.getColumnIndex(MediaStore.Audio.Media._ID));
+                String title = c.getString(c.getColumnIndex(MediaStore.Audio.Media.TITLE));
+                String album =c.getString(c.getColumnIndex(MediaStore.Audio.Media.ALBUM));
+                String artist = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ARTIST));
+                String genre = "RANDOM";//c.getString(c.getColumnIndex(android.provider.MediaStore.Audio.Media.));
+                String source = c.getString(c.getColumnIndex(MediaStore.Audio.Media.DATA));
+                //String iconUrl = c.getString(c.getColumnIndex(android.provider.MediaStore.Audio.Media.TITLE));
+                //int trackNumber = c.getInt(c.getColumnIndex(MediaStore.Audio.Media.TRACK));
+                //int totalTrackCount = c.getInt(c.getColumnIndex(android.provider.MediaStore.Audio.Media.TITLE));
+                int duration = c.getInt(c.getColumnIndex(MediaStore.Audio.Media.DURATION)) * 1000; // ms
+
+                musicMetadata = new MediaMetadataCompat.Builder()
+                        .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, _ID)
+                        .putString(MusicProviderSource.CUSTOM_METADATA_TRACK_SOURCE, source)
+                        .putString(MediaMetadataCompat.METADATA_KEY_ALBUM, album)
+                        .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, artist)
+                        .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, duration)
+                        .putString(MediaMetadataCompat.METADATA_KEY_GENRE, genre)
+                        //.putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI, iconUrl)
+                        .putString(MediaMetadataCompat.METADATA_KEY_TITLE, title)
+                        //.putLong(MediaMetadataCompat.METADATA_KEY_TRACK_NUMBER, trackNumber)
+                        //.putLong(MediaMetadataCompat.METADATA_KEY_NUM_TRACKS, totalTrackCount)
+                        .build();
             }
-            handlePlay();
+            handlePlay(songUri, musicMetadata);
         }
 
         @Override
@@ -200,9 +252,25 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat {
                 .build();
     }
 
-    private void handlePlay(){
+    private void handlePlay(Uri songUri, MediaMetadataCompat mediaMetadataCompat){
         mMediaSession.setPlaybackState(buildState(PlaybackStateCompat.STATE_PLAYING));
-        mMediaSession.setMetadata(mCurrentTrack);
+        mMediaSession.setMetadata(mediaMetadataCompat);
+
+        try{
+            Log.v(TAG, "media Uri: " + mediaMetadataCompat.getDescription().getMediaUri());
+            mMediaPlayer.reset();
+            mMediaPlayer.setDataSource(this, songUri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                mediaPlayer.start();
+            }
+        });
+        mMediaPlayer.prepareAsync();
 
         //TODO: complete handle playback implementation
     }
