@@ -27,6 +27,12 @@
             android:summary="@string/pref_summary_colored_navigation_bar"
             android:title="@string/pref_title_navigation_bar" />
 
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="true"
+            android:key="should_color_app_shortcuts"
+            android:summary="@string/pref_summary_colored_app_shortcuts"
+            android:title="@string/pref_title_app_shortcuts" />
+
     </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
 </android.support.v7.preference.PreferenceScreen>

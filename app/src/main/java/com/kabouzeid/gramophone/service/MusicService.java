@@ -14,9 +14,8 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
-import android.media.MediaMetadataRetriever;
-import android.media.RemoteControlClient;
 import android.media.audiofx.AudioEffect;
+import android.media.session.MediaSession;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
@@ -30,6 +29,9 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.media.MediaMetadataCompat;
+import android.support.v4.media.session.MediaSessionCompat;
+import android.support.v4.media.session.PlaybackStateCompat;
 import android.widget.Toast;
 
 import com.bumptech.glide.BitmapRequestBuilder;
@@ -50,7 +52,7 @@ import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
 import com.kabouzeid.gramophone.service.notification.PlayingNotification;
 import com.kabouzeid.gramophone.service.notification.PlayingNotificationImpl;
-import com.kabouzeid.gramophone.service.notification.PlayingNotificationImpl21;
+import com.kabouzeid.gramophone.service.notification.PlayingNotificationImpl24;
 import com.kabouzeid.gramophone.service.playback.Playback;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
@@ -59,6 +61,7 @@ import com.kabouzeid.gramophone.util.Util;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal
@@ -76,6 +79,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final String ACTION_SKIP = PHONOGRAPH_PACKAGE_NAME + ".skip";
     public static final String ACTION_REWIND = PHONOGRAPH_PACKAGE_NAME + ".rewind";
     public static final String ACTION_QUIT = PHONOGRAPH_PACKAGE_NAME + ".quitservice";
+    public static final String INTENT_EXTRA_SONGS = PHONOGRAPH_PACKAGE_NAME + ".intentextra.songs";
+    public static final String INTENT_EXTRA_SHUFFLE_MODE = PHONOGRAPH_PACKAGE_NAME + ".intentextra.shufflemode";
 
     public static final String APP_WIDGET_UPDATE = PHONOGRAPH_PACKAGE_NAME + ".appwidgetupdate";
     public static final String EXTRA_APP_WIDGET_NAME = PHONOGRAPH_PACKAGE_NAME + "app_widget_name";
@@ -129,11 +134,10 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private int repeatMode;
     private boolean queuesRestored;
     private boolean pausedByTransientLossOfFocus;
-    private boolean receiversAndRemoteControlClientRegistered;
     private PlayingNotification playingNotification;
     private AudioManager audioManager;
     @SuppressWarnings("deprecation")
-    private RemoteControlClient remoteControlClient;
+    private MediaSessionCompat mediaSession;
     private PowerManager.WakeLock wakeLock;
     private PlaybackHandler playerHandler;
     private final AudioManager.OnAudioFocusChangeListener audioFocusListener = new AudioManager.OnAudioFocusChangeListener() {
@@ -147,6 +151,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private HandlerThread queueSaveHandlerThread;
     private SongPlayCountHelper songPlayCountHelper = new SongPlayCountHelper();
     private ThrottledSeekHandler throttledSeekHandler;
+    private boolean becomingNoisyReceiverRegistered;
+    private IntentFilter becomingNoisyReceiverIntentFilter = new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
     private final BroadcastReceiver becomingNoisyReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, @NonNull Intent intent) {
@@ -180,6 +186,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         playback = new MultiPlayer(this);
         playback.setCallbacks(this);
 
+        setupMediaSession();
+
         // queue saving needs to run on a separate thread so that it doesn't block the playback handler events
         queueSaveHandlerThread = new HandlerThread("QueueSaveHandler", Process.THREAD_PRIORITY_BACKGROUND);
         queueSaveHandlerThread.start();
@@ -187,12 +195,10 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
         uiThreadHandler = new Handler();
 
-        registerReceiversAndRemoteControlClient();
-
         registerReceiver(widgetIntentReceiver, new IntentFilter(APP_WIDGET_UPDATE));
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            playingNotification = new PlayingNotificationImpl21();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            playingNotification = new PlayingNotificationImpl24();
         } else {
             playingNotification = new PlayingNotificationImpl();
         }
@@ -209,16 +215,9 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
         restoreState();
 
-        sendBroadcast(new Intent("com.kabouzeid.gramophone.PHONOGRAPH_MUSIC_SERVICE_CREATED"));
-    }
+        mediaSession.setActive(true);
 
-    private void registerReceiversAndRemoteControlClient() {
-        if (!receiversAndRemoteControlClientRegistered) {
-            registerReceiver(becomingNoisyReceiver, new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY));
-            getAudioManager().registerMediaButtonEventReceiver(new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class));
-            initRemoteControlClient();
-            receiversAndRemoteControlClientRegistered = true;
-        }
+        sendBroadcast(new Intent("com.kabouzeid.gramophone.PHONOGRAPH_MUSIC_SERVICE_CREATED"));
     }
 
     private AudioManager getAudioManager() {
@@ -228,17 +227,56 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         return audioManager;
     }
 
-    @SuppressWarnings("deprecation")
-    private void initRemoteControlClient() {
+    private void setupMediaSession() {
+        ComponentName mediaButtonReceiverComponentName = new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class);
+
         Intent mediaButtonIntent = new Intent(Intent.ACTION_MEDIA_BUTTON);
-        mediaButtonIntent.setComponent(new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class));
-        remoteControlClient = new RemoteControlClient(PendingIntent.getBroadcast(getApplicationContext(), 0, mediaButtonIntent, 0));
-        remoteControlClient.setTransportControlFlags(
-                RemoteControlClient.FLAG_KEY_MEDIA_PLAY |
-                        RemoteControlClient.FLAG_KEY_MEDIA_PAUSE |
-                        RemoteControlClient.FLAG_KEY_MEDIA_NEXT |
-                        RemoteControlClient.FLAG_KEY_MEDIA_PREVIOUS);
-        getAudioManager().registerRemoteControlClient(remoteControlClient);
+        mediaButtonIntent.setComponent(mediaButtonReceiverComponentName);
+
+        PendingIntent mediaButtonReceiverPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, mediaButtonIntent, 0);
+
+        mediaSession = new MediaSessionCompat(this, "Phonograph", mediaButtonReceiverComponentName, mediaButtonReceiverPendingIntent);
+        mediaSession.setCallback(new MediaSessionCompat.Callback() {
+            @Override
+            public void onPlay() {
+                play();
+            }
+
+            @Override
+            public void onPause() {
+                pause();
+            }
+
+            @Override
+            public void onSkipToNext() {
+                playNextSong(true);
+            }
+
+            @Override
+            public void onSkipToPrevious() {
+                back(true);
+            }
+
+            @Override
+            public void onStop() {
+                quit();
+            }
+
+            @Override
+            public void onSeekTo(long pos) {
+                seek((int) pos);
+            }
+
+            @Override
+            public boolean onMediaButtonEvent(Intent mediaButtonEvent) {
+                return MediaButtonIntentReceiver.handleIntent(MusicService.this, mediaButtonEvent);
+            }
+        });
+
+        mediaSession.setFlags(MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS
+                | MediaSession.FLAG_HANDLES_MEDIA_BUTTONS);
+
+        mediaSession.setMediaButtonReceiver(mediaButtonReceiverPendingIntent);
     }
 
     @Override
@@ -259,6 +297,20 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         pause();
                         break;
                     case ACTION_PLAY:
+                        ArrayList<Song> songs = intent.getParcelableArrayListExtra(INTENT_EXTRA_SONGS);
+                        if (songs != null) {
+                            int shuffleMode = intent.getIntExtra(INTENT_EXTRA_SHUFFLE_MODE, getShuffleMode());
+                            if (intent.hasExtra(INTENT_EXTRA_SHUFFLE_MODE) && intent.getIntExtra(INTENT_EXTRA_SHUFFLE_MODE, 0) == SHUFFLE_MODE_SHUFFLE) {
+                                int startPosition = 0;
+                                if (!songs.isEmpty()) {
+                                    startPosition = new Random().nextInt(songs.size());
+                                }
+                                openQueue(songs, startPosition, false);
+                                setShuffleMode(shuffleMode);
+                            } else {
+                                openQueue(songs, 0, false);
+                            }
+                        }
                         play();
                         break;
                     case ACTION_REWIND:
@@ -268,8 +320,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         playNextSong(true);
                         break;
                     case ACTION_STOP:
-                        stop();
-                        break;
                     case ACTION_QUIT:
                         return quit();
                 }
@@ -282,6 +332,11 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     @Override
     public void onDestroy() {
         unregisterReceiver(widgetIntentReceiver);
+        if (becomingNoisyReceiverRegistered) {
+            unregisterReceiver(becomingNoisyReceiver);
+            becomingNoisyReceiverRegistered = false;
+        }
+        mediaSession.setActive(false);
         quit();
         releaseResources();
         getContentResolver().unregisterContentObserver(mediaStoreObserver);
@@ -309,15 +364,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             stopSelf();
         }
         return true;
-    }
-
-    private void unregisterReceiversAndRemoteControlClient() {
-        if (receiversAndRemoteControlClientRegistered) {
-            unregisterReceiver(becomingNoisyReceiver);
-            getAudioManager().unregisterRemoteControlClient(remoteControlClient);
-            getAudioManager().unregisterMediaButtonEventReceiver(new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class));
-            receiversAndRemoteControlClientRegistered = false;
-        }
     }
 
     private static final class QueueSaveHandler extends Handler {
@@ -399,7 +445,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     }
 
     private int quit() {
-        unregisterReceiversAndRemoteControlClient();
         pause();
         playingNotification.stop();
 
@@ -407,6 +452,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             return START_STICKY;
         } else {
             closeAudioEffectSession();
+            getAudioManager().abandonAudioFocus(audioFocusListener);
             stopSelf();
             return START_NOT_STICKY;
         }
@@ -427,14 +473,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         }
         playback.release();
         playback = null;
-    }
-
-    public void stop() {
-        pausedByTransientLossOfFocus = false;
-        savePositionInTrack();
-        playback.stop();
-        notifyChange(PLAY_STATE_CHANGED);
-        getAudioManager().abandonAudioFocus(audioFocusListener);
+        mediaSession.release();
     }
 
     public boolean isPlaying() {
@@ -499,31 +538,49 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         return (getAudioManager().requestAudioFocus(audioFocusListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED);
     }
 
-    private void updateRemoteControlClient() {
-        updateRemoteControlClient(PreferenceUtil.getInstance(this).albumArtOnLockscreen(), PreferenceUtil.getInstance(this).blurredAlbumArt());
+    private void updateNotification() {
+        if (getCurrentSong().id != -1) {
+            playingNotification.update();
+        }
     }
 
-    private void updateRemoteControlClient(boolean showAlbumArt, final boolean blurAlbumArt) {
+    private void updateMediaSessionPlaybackState() {
+        mediaSession.setPlaybackState(
+                new PlaybackStateCompat.Builder()
+                        .setActions(MEDIA_SESSION_ACTIONS)
+                        .setState(isPlaying() ? PlaybackStateCompat.STATE_PLAYING : PlaybackStateCompat.STATE_PAUSED,
+                                getPosition(), 1)
+                        .build());
+    }
+
+    private void updateMediaSessionMetaData() {
         final Song song = getCurrentSong();
-        remoteControlClient
-                .editMetadata(!showAlbumArt)
 
-                .putString(MediaMetadataRetriever.METADATA_KEY_TITLE, song.title)
-                .putString(MediaMetadataRetriever.METADATA_KEY_ALBUM, song.albumName)
-                .putString(MediaMetadataRetriever.METADATA_KEY_ARTIST, song.artistName)
-                .putString(MediaMetadataRetriever.METADATA_KEY_ALBUMARTIST, song.artistName)
+        if (song.id == -1) {
+            mediaSession.setMetadata(null);
+            return;
+        }
 
-                .putLong(MediaMetadataRetriever.METADATA_KEY_DURATION, song.duration)
-                .putLong(MediaMetadataRetriever.METADATA_KEY_CD_TRACK_NUMBER, song.trackNumber)
-                // .putLong(MediaMetadataRetriever.METADATA_KEY_YEAR, song.year) // throws java.lang.IllegalArgumentException: Invalid type 'long' for key 8 on some Android versions
+        final MediaMetadataCompat.Builder metaData = new MediaMetadataCompat.Builder()
+                .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, song.artistName)
+                .putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ARTIST, song.artistName)
+                .putString(MediaMetadataCompat.METADATA_KEY_ALBUM, song.albumName)
+                .putString(MediaMetadataCompat.METADATA_KEY_TITLE, song.title)
+                .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, song.duration)
+                .putLong(MediaMetadataCompat.METADATA_KEY_TRACK_NUMBER, getPosition() + 1)
+                .putLong(MediaMetadataCompat.METADATA_KEY_YEAR, song.year)
+                .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, null);
 
-                .apply();
-        if (showAlbumArt) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            metaData.putLong(MediaMetadataCompat.METADATA_KEY_NUM_TRACKS, getPlayingQueue().size());
+        }
+
+        if (PreferenceUtil.getInstance(this).albumArtOnLockscreen()) {
             final Point screenSize = Util.getScreenSize(MusicService.this);
             final BitmapRequestBuilder<?, Bitmap> request = SongGlideRequest.Builder.from(Glide.with(MusicService.this), song)
                     .checkIgnoreMediaStore(MusicService.this)
                     .asBitmap().build();
-            if (blurAlbumArt) {
+            if (PreferenceUtil.getInstance(this).blurredAlbumArt()) {
                 request.transform(new BlurTransformation.Builder(MusicService.this).build());
             }
             runOnUiThread(new Runnable() {
@@ -533,28 +590,20 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         @Override
                         public void onLoadFailed(Exception e, Drawable errorDrawable) {
                             super.onLoadFailed(e, errorDrawable);
-                            updateRemoteControlClientBitmap(null);
+                            mediaSession.setMetadata(metaData.build());
                         }
 
                         @Override
                         public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                            updateRemoteControlClientBitmap(copy(resource));
+                            metaData.putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, copy(resource));
+                            mediaSession.setMetadata(metaData.build());
                         }
                     });
                 }
             });
-
         } else {
-            updateRemoteControlClientBitmap(null);
+            mediaSession.setMetadata(metaData.build());
         }
-    }
-
-    private void updateRemoteControlClientBitmap(final Bitmap albumArt) {
-        //noinspection deprecation
-        remoteControlClient
-                .editMetadata(false)
-                .putBitmap(RemoteControlClient.MetadataEditor.BITMAP_KEY_ARTWORK, albumArt)
-                .apply();
     }
 
     private static Bitmap copy(Bitmap bitmap) {
@@ -787,8 +836,11 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                     if (!playback.isInitialized()) {
                         playSongAt(getPosition());
                     } else {
-                        registerReceiversAndRemoteControlClient();
                         playback.start();
+                        if (!becomingNoisyReceiverRegistered) {
+                            registerReceiver(becomingNoisyReceiver, becomingNoisyReceiverIntentFilter);
+                            becomingNoisyReceiverRegistered = true;
+                        }
                         if (notHandledMetaChangedForCurrentTrack) {
                             handleChangeInternal(META_CHANGED);
                             notHandledMetaChangedForCurrentTrack = false;
@@ -957,21 +1009,28 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         appWidgetSmall.notifyChange(this, what);
     }
 
+    private static final long MEDIA_SESSION_ACTIONS = PlaybackStateCompat.ACTION_PLAY
+            | PlaybackStateCompat.ACTION_PAUSE
+            | PlaybackStateCompat.ACTION_PLAY_PAUSE
+            | PlaybackStateCompat.ACTION_SKIP_TO_NEXT
+            | PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS
+            | PlaybackStateCompat.ACTION_STOP
+            | PlaybackStateCompat.ACTION_SEEK_TO;
+
     private void handleChangeInternal(@NonNull final String what) {
         switch (what) {
             case PLAY_STATE_CHANGED:
+                updateNotification();
+                updateMediaSessionPlaybackState();
                 final boolean isPlaying = isPlaying();
-                playingNotification.update();
-                //noinspection deprecation
-                remoteControlClient.setPlaybackState(isPlaying ? RemoteControlClient.PLAYSTATE_PLAYING : RemoteControlClient.PLAYSTATE_PAUSED);
                 if (!isPlaying && getSongProgressMillis() > 0) {
                     savePositionInTrack();
                 }
                 songPlayCountHelper.notifyPlayStateChanged(isPlaying);
                 break;
             case META_CHANGED:
-                playingNotification.update();
-                updateRemoteControlClient();
+                updateNotification();
+                updateMediaSessionMetaData();
                 savePosition();
                 savePositionInTrack();
                 final Song currentSong = getCurrentSong();
@@ -982,11 +1041,12 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 songPlayCountHelper.notifySongChanged(currentSong);
                 break;
             case QUEUE_CHANGED:
+                updateMediaSessionMetaData(); // because playing queue size might have changed
                 saveState();
                 if (playingQueue.size() > 0) {
                     prepareNext();
                 } else {
-                    quit();
+                    playingNotification.stop();
                 }
                 break;
         }
@@ -994,6 +1054,10 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     public int getAudioSessionId() {
         return playback.getAudioSessionId();
+    }
+
+    public MediaSessionCompat getMediaSession() {
+        return mediaSession;
     }
 
     public void releaseWakeLock() {
@@ -1018,10 +1082,10 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 break;
             case PreferenceUtil.ALBUM_ART_ON_LOCKSCREEN:
             case PreferenceUtil.BLURRED_ALBUM_ART:
-                updateRemoteControlClient();
+                updateMediaSessionMetaData();
                 break;
             case PreferenceUtil.COLORED_NOTIFICATION:
-                playingNotification.update();
+                updateNotification();
                 break;
         }
     }
@@ -1128,7 +1192,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 case FOCUS_CHANGE:
                     switch (msg.arg1) {
                         case AudioManager.AUDIOFOCUS_GAIN:
-                            service.registerReceiversAndRemoteControlClient();
                             if (!service.isPlaying() && service.pausedByTransientLossOfFocus) {
                                 service.play();
                                 service.pausedByTransientLossOfFocus = false;
@@ -1140,7 +1203,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         case AudioManager.AUDIOFOCUS_LOSS:
                             // Lost focus for an unbounded amount of time: stop playback and release media playback
                             service.pause();
-                            service.unregisterReceiversAndRemoteControlClient();
                             break;
 
                         case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:

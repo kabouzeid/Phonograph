@@ -25,6 +25,7 @@ import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference;
 import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceFragmentCompat;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.appshortcuts.DynamicShortcutManager;
 import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreference;
 import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreferenceDialog;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
@@ -77,6 +78,10 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                         .accentColor(selectedColor)
                         .commit();
                 break;
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            new DynamicShortcutManager(this).updateDynamicShortcuts();
         }
         recreate();
     }
@@ -171,6 +176,13 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                     ThemeStore.editTheme(getActivity())
                             .activityTheme(PreferenceUtil.getThemeResFromPrefValue((String) o))
                             .commit();
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                        //Set the new theme so that updateAppShortcuts can pull it
+                        getActivity().setTheme(PreferenceUtil.getThemeResFromPrefValue((String) o));
+                        new DynamicShortcutManager(getActivity()).updateDynamicShortcuts();
+                    }
+
                     getActivity().recreate();
                     return true;
                 }
@@ -231,6 +243,28 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                                 .coloredNavigationBar((Boolean) newValue)
                                 .commit();
                         getActivity().recreate();
+                        return true;
+                    }
+                });
+            }
+
+            TwoStatePreference colorAppShortcuts = (TwoStatePreference) findPreference("should_color_app_shortcuts");
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
+                colorAppShortcuts.setEnabled(false);
+                colorAppShortcuts.setSummary(R.string.pref_only_nougat_mr1);
+            } else {
+                colorAppShortcuts.setChecked(PreferenceUtil.getInstance(getActivity()).coloredAppShortcuts());
+                colorAppShortcuts.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        //Save preference
+                        PreferenceUtil.getInstance(getActivity()).setColoredAppShortcuts((Boolean)newValue);
+
+                        //Update app shortcuts
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                            new DynamicShortcutManager(getActivity()).updateDynamicShortcuts();
+                        }
+
                         return true;
                     }
                 });

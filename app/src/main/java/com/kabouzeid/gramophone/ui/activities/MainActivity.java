@@ -296,6 +296,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             } else {
                 MusicPlayerRemote.openQueue(songs, 0, true);
             }
+            handled = true;
         }
 
         if (uri != null && uri.toString().length() > 0) {

@@ -14,16 +14,19 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'com.jakewharton.hugo'
-apply plugin: 'com.github.triplet.play'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
     maven { url "https://jitpack.io" }
+    maven {
+        name 'glide-snapshot'
+        url 'http://oss.sonatype.org/content/repositories/snapshots'
+    }
 }
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.1'
+    buildToolsVersion '25.0.2'
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 25
@@ -32,8 +35,8 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         applicationId "com.kabouzeid.gramophone"
-        versionCode 125
-        versionName "0.13.6"
+        versionCode 130
+        versionName "0.15.0 BETA 1"
     }
     buildTypes {
         release {
@@ -67,50 +70,50 @@ dependencies {
         transitive = true
     }
 
-    compile('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.10.0@aar') {
+    compile('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.10.4@aar') {
         transitive = true
     }
 
-    compile('com.github.kabouzeid:app-theme-helper:1.3.4') {
+    compile('com.github.kabouzeid:app-theme-helper:1.3.5') {
         transitive = true
     }
 
-    compile 'com.android.support:support-compat:25.2.0'
-    compile 'com.android.support:support-core-utils:25.2.0'
-    compile 'com.android.support:support-core-ui:25.2.0'
-    compile 'com.android.support:support-media-compat:25.2.0'
-    compile 'com.android.support:support-fragment:25.2.0'
-    compile 'com.android.support:support-v13:25.2.0'
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.android.support:recyclerview-v7:25.2.0'
-    compile 'com.android.support:gridlayout-v7:25.2.0'
-    compile 'com.android.support:cardview-v7:25.2.0'
-    compile 'com.android.support:palette-v7:25.2.0'
-    compile 'com.android.support:design:25.2.0'
-    compile 'com.android.support:support-annotations:25.2.0'
-    compile 'com.android.support:percent:25.2.0'
-    compile 'com.android.support:preference-v7:25.2.0'
-    compile 'com.android.support:preference-v14:25.2.0'
+    compile 'com.android.support:support-compat:25.3.0'
+    compile 'com.android.support:support-core-utils:25.3.0'
+    compile 'com.android.support:support-core-ui:25.3.0'
+    compile 'com.android.support:support-media-compat:25.3.0'
+    compile 'com.android.support:support-fragment:25.3.0'
+    compile 'com.android.support:support-v13:25.3.0'
+    compile 'com.android.support:appcompat-v7:25.3.0'
+    compile 'com.android.support:recyclerview-v7:25.3.0'
+    compile 'com.android.support:gridlayout-v7:25.3.0'
+    compile 'com.android.support:cardview-v7:25.3.0'
+    compile 'com.android.support:palette-v7:25.3.0'
+    compile 'com.android.support:design:25.3.0'
+    compile 'com.android.support:support-annotations:25.3.0'
+    compile 'com.android.support:percent:25.3.0'
+    compile 'com.android.support:preference-v7:25.3.0'
+    compile 'com.android.support:preference-v14:25.3.0'
 
-    compile 'com.afollestad.material-dialogs:core:0.9.3.0@aar'
-    compile 'com.afollestad.material-dialogs:commons:0.9.3.0@aar'
+    compile 'com.afollestad.material-dialogs:core:0.9.4.2@aar'
+    compile 'com.afollestad.material-dialogs:commons:0.9.4.2@aar'
     compile 'com.afollestad:material-cab:0.1.12@aar'
 
     compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
     compile 'com.github.kabouzeid:SeekArc:1.2-kmod'
     compile 'com.github.kabouzeid:AndroidSlidingUpPanel:3.3.0-kmod3'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     //noinspection GradleDynamicVersion
     compile 'com.anjlab.android.iab.v3:library:1.0.+'
     compile 'de.psdev.licensesdialog:licensesdialog:1.8.1'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    compile 'com.github.bumptech.glide:glide:3.8.0-SNAPSHOT'
+    compile 'com.github.bumptech.glide:okhttp3-integration:1.5.0-SNAPSHOT'
     compile 'com.github.kabouzeid:RecyclerView-FastScroll:1.9-kmod'
     compile 'com.heinrichreimersoftware:material-intro:1.6'
     compile 'me.zhanghai.android.materialprogressbar:library:1.3.0'
     compile 'org.eclipse.mylyn.github:org.eclipse.egit.github.core:2.1.5'
 
-    compile 'com.jakewharton:butterknife:8.4.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }

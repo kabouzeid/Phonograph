@@ -37,6 +37,8 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
     EditText year;
     @BindView(R.id.image_text)
     EditText trackNumber;
+    @BindView(R.id.lyrics)
+    EditText lyrics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
         genre.addTextChangedListener(this);
         year.addTextChangedListener(this);
         trackNumber.addTextChangedListener(this);
+        lyrics.addTextChangedListener(this);
     }
 
     private void fillViewsWithFileTags() {
@@ -67,6 +70,7 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
         genre.setText(getGenreName());
         year.setText(getSongYear());
         trackNumber.setText(getTrackNumber());
+        lyrics.setText(getLyrics());
     }
 
     @Override
@@ -98,6 +102,7 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
         fieldKeyValueMap.put(FieldKey.GENRE, genre.getText().toString());
         fieldKeyValueMap.put(FieldKey.YEAR, year.getText().toString());
         fieldKeyValueMap.put(FieldKey.TRACK, trackNumber.getText().toString());
+        fieldKeyValueMap.put(FieldKey.LYRICS, lyrics.getText().toString());
         writeValuesToFiles(fieldKeyValueMap, null);
     }
 

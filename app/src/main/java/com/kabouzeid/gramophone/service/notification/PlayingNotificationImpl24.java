@@ -9,9 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.media.session.MediaSession;
 import android.os.Build;
-import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.graphics.Palette;
 import android.text.TextUtils;
@@ -23,12 +21,9 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.service.MediaButtonIntentReceiver;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
-
-import hugo.weaving.DebugLog;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 import static com.kabouzeid.gramophone.service.MusicService.ACTION_REWIND;
@@ -39,13 +34,12 @@ import static com.kabouzeid.gramophone.service.MusicService.ACTION_TOGGLE_PAUSE;
  * @author Karim Abou Zeid (kabouzeid)
  */
 
-public class PlayingNotificationImpl21 implements PlayingNotification {
+public class PlayingNotificationImpl24 implements PlayingNotification {
     private static final int NOTIFY_MODE_FOREGROUND = 1;
     private static final int NOTIFY_MODE_BACKGROUND = 0;
 
     private MusicService service;
 
-    private MediaSessionCompat mediaSession;
     private NotificationManager notificationManager;
 
     private int notifyMode = NOTIFY_MODE_BACKGROUND;
@@ -56,53 +50,6 @@ public class PlayingNotificationImpl21 implements PlayingNotification {
     public synchronized void init(MusicService service) {
         this.service = service;
         notificationManager = (NotificationManager) service.getSystemService(NOTIFICATION_SERVICE);
-        setupMediaSession();
-    }
-
-    @DebugLog
-    private void setupMediaSession() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mediaSession = new MediaSessionCompat(service, "Phonograph");
-            mediaSession.setCallback(new MediaSessionCompat.Callback() {
-                @Override
-                public void onPlay() {
-                    service.play();
-                }
-
-                @Override
-                public void onPause() {
-                    service.pause();
-                }
-
-                @Override
-                public void onSkipToNext() {
-                    service.playNextSong(true);
-                }
-
-                @Override
-                public void onSkipToPrevious() {
-                    service.back(true);
-                }
-
-                @Override
-                public void onStop() {
-                    service.stop();
-                }
-
-                @Override
-                public void onSeekTo(long pos) {
-                    service.seek((int) pos);
-                }
-            });
-
-            PendingIntent pi = PendingIntent.getBroadcast(service, 0,
-                    new Intent(service, MediaButtonIntentReceiver.class),
-                    PendingIntent.FLAG_UPDATE_CURRENT);
-            mediaSession.setMediaButtonReceiver(pi);
-
-            mediaSession.setFlags(MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS
-                    | MediaSession.FLAG_HANDLES_MEDIA_BUTTONS);
-        }
     }
 
     @Override
@@ -174,7 +121,7 @@ public class PlayingNotificationImpl21 implements PlayingNotification {
                                         .addAction(nextAction);
 
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                    builder.setStyle(new NotificationCompat.MediaStyle().setMediaSession(mediaSession.getSessionToken()).setShowActionsInCompactView(0, 1, 2))
+                                    builder.setStyle(new NotificationCompat.MediaStyle().setMediaSession(service.getMediaSession().getSessionToken()).setShowActionsInCompactView(0, 1, 2))
                                             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
                                     if (PreferenceUtil.getInstance(service).coloredNotification())
                                         builder.setColor(color);
@@ -184,9 +131,7 @@ public class PlayingNotificationImpl21 implements PlayingNotification {
                                     return; // notification has been stopped before loading was finished
                                 updateNotifyModeAndPostNotification(builder.build());
                             }
-
                         });
-
             }
         });
     }
@@ -212,9 +157,9 @@ public class PlayingNotificationImpl21 implements PlayingNotification {
         }
 
         if (newNotifyMode == NOTIFY_MODE_FOREGROUND) {
-            service.startForeground(1, notification);
+            service.startForeground(NOTIFICATION_ID, notification);
         } else if (newNotifyMode == NOTIFY_MODE_BACKGROUND) {
-            notificationManager.notify(1, notification);
+            notificationManager.notify(NOTIFICATION_ID, notification);
         }
 
         notifyMode = newNotifyMode;
@@ -224,6 +169,6 @@ public class PlayingNotificationImpl21 implements PlayingNotification {
     public synchronized void stop() {
         stopped = true;
         service.stopForeground(true);
-        mediaSession.release();
+        notificationManager.cancel(NOTIFICATION_ID);
     }
 }
