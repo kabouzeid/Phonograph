@@ -7,6 +7,8 @@ import com.kabouzeid.gramophone.service.MusicService;
  */
 
 public interface PlayingNotification {
+    int NOTIFICATION_ID = 1;
+
     void init(MusicService service);
 
     void update();

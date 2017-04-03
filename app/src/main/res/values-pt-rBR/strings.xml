@@ -8,7 +8,7 @@
     <string name="action_set_as_ringtone">Definir como toque de chamada</string>
     <string name="action_share">Compartilhar</string>
     <string name="action_settings">"Configurações"</string>
-    <string name="action_grant">Permitir</string>
+    <string name="action_grant">Confirmar</string>
     <string name="action_done">Pronto</string>
     <string name="action_skip">Pular</string>
     <string name="action_about">Sobre</string>

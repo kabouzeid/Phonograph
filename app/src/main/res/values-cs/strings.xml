@@ -2,7 +2,7 @@
 <resources>
     <string name="what_do_you_want_to_share">Co chcete sdílet?</string>
     <string name="currently_listening_to_x_by_x">Nyní hraje %1$s od %2$s.</string>
-    <string name="the_audio_file">Hudební soubor</string>
+    <string name="the_audio_file">Zvukový soubor</string>
     <string name="do_you_want_to_set_x_as_ringtone">Opravdu chcete nastavit %1$s jako vyzváněcí tón?</string>
     <string name="x_has_been_set_as_ringtone">Nastavit %1$s jako vyzváněcí tón.</string>
     <string name="action_set_as_ringtone">Nastavit jako Vyzváněcí tón</string>

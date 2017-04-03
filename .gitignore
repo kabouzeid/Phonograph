@@ -40,6 +40,3 @@ captures/
 
 # Mac
 .DS_Store
-
-# Private Keys
-/privatekeys

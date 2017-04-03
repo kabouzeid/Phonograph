@@ -130,7 +130,7 @@ public final class FileUtil {
             if (dotPos == -1) {
                 return false;
             }
-            String fileExtension = filename.substring(dotPos + 1);
+            String fileExtension = filename.substring(dotPos + 1).toLowerCase();
             String fileType = mimeTypeMap.getMimeTypeFromExtension(fileExtension);
             if (fileType == null) {
                 return false;

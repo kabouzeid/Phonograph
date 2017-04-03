@@ -23,7 +23,7 @@
     <string name="action_add_to_playing_queue">Dodaj u red čekanja</string>
     <string name="action_remove_from_playing_queue">Ukloni iz reda čekanja</string>
     <string name="action_add_to_playlist">Dodaj na popis naslova...</string>
-    <string name="action_tag_editor">Uređivač tagova</string>
+    <string name="action_tag_editor">Uređivač oznaka</string>
     <string name="action_delete_from_device">Izbriši s uređaja</string>
     <string name="action_details">Detalji</string>
     <string name="action_rename">Preimenuj</string>
@@ -179,11 +179,11 @@
     <string name="download_from_last_fm">Skini s lokacije Last.fm</string>
     <string name="pick_from_local_storage">Odaberi s pohrane uređaja</string>
     <string name="web_search">Web pretraga</string>
-    <string name="action_sleep_timer">Timer isključivanja</string>
+    <string name="action_sleep_timer">Tajmer za spavanje</string>
     <string name="action_set">Postavi</string>
-    <string name="cancel_current_timer">Otkaži trenutni timer</string>
-    <string name="sleep_timer_canceled">Timer isključivanja je otkazan.</string>
-    <string name="sleep_timer_set">Tajmer isključivanja postavljen je za %d min od sada.</string>
+    <string name="cancel_current_timer">Otkaži trenutni tajmer</string>
+    <string name="sleep_timer_canceled">Tajmer za spavanje je otkazan.</string>
+    <string name="sleep_timer_set">Tajmer za spavanje postavljen je %d min od sada.</string>
     <string name="action_new_playlist">Novi popis naslova...</string>
     <string name="new_playlist_title">Novi popis naslova</string>
     <string name="colored_footers">Obojena podnožja</string>
