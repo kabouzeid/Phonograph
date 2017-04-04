@@ -298,7 +298,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         break;
                     case ACTION_PLAY:
                         ArrayList<Song> songs = intent.getParcelableArrayListExtra(INTENT_EXTRA_SONGS);
-                        if (songs != null) {
+                        if (songs != null && !songs.isEmpty()) {
                             int shuffleMode = intent.getIntExtra(INTENT_EXTRA_SHUFFLE_MODE, getShuffleMode());
                             if (intent.hasExtra(INTENT_EXTRA_SHUFFLE_MODE) && intent.getIntExtra(INTENT_EXTRA_SHUFFLE_MODE, 0) == SHUFFLE_MODE_SHUFFLE) {
                                 int startPosition = 0;
@@ -310,8 +310,10 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                             } else {
                                 openQueue(songs, 0, false);
                             }
+                            play();
+                        } else {
+                            Toast.makeText(getApplicationContext(), R.string.no_songs_in_playlist, Toast.LENGTH_LONG).show();
                         }
-                        play();
                         break;
                     case ACTION_REWIND:
                         back(true);

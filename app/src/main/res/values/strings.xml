@@ -288,4 +288,6 @@
     
     <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
+
+    <string name="no_songs_in_playlist">No songs in playlist</string>
 </resources>
