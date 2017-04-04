@@ -9,7 +9,7 @@ import android.support.v4.media.MediaDescriptionCompat;
 import android.support.v4.media.MediaMetadataCompat;
 import android.util.Log;
 
-import com.kabouzeid.gramophone.R;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,8 +18,9 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import static com.kabouzeid.gramophone.service.AutoMusicBrowserService.MEDIA_ID_ROOT;
+
 import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_MUSICS_BY_GENRE;
+import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_ROOT;
 import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.createMediaID;
 
 /**

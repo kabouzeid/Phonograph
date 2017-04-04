@@ -1,35 +1,31 @@
 package com.kabouzeid.gramophone.service;
 
-import android.annotation.TargetApi;
-import android.app.Service;
+
+import android.app.PendingIntent;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
+import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.media.AudioManager;
-import android.media.MediaMetadata;
 import android.media.MediaPlayer;
-import android.media.browse.MediaBrowser;
+import android.media.session.MediaSession;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.provider.MediaStore;
-import android.service.media.MediaBrowserService;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.MediaBrowserServiceCompat;
-import android.support.v4.media.MediaDescriptionCompat;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.util.Log;
 
-import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.service.automusicmodel.AutoMusicProvider;
 import com.kabouzeid.gramophone.service.automusicmodel.MusicProviderSource;
-import com.kabouzeid.gramophone.service.playback.Playback;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PackageValidator;
 
@@ -37,12 +33,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.attr.colorMultiSelectHighlight;
-import static android.R.attr.handle;
-import static android.R.attr.id;
+import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_EMPTY_ROOT;
+import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_ROOT;
 
-@TargetApi(21)
-public class AutoMusicBrowserService extends MediaBrowserServiceCompat {
+public class AutoMusicBrowserService extends MediaBrowserServiceCompat implements ServiceConnection {
 
     private final static String TAG = AutoMusicBrowserService.class.getCanonicalName();
 
@@ -50,15 +44,7 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat {
     private MediaSessionCallback mMediaSessionCallback;
     private PackageValidator mPackageValidator;
     private MediaSessionCompat mMediaSession;
-    private MediaMetadataCompat mCurrentTrack;
     private MediaPlayer mMediaPlayer;
-
-    private List<MediaMetadataCompat> mMusicList;
-
-
-    // Media IDs used on browseable items of MediaBrowser
-    public static final String MEDIA_ID_EMPTY_ROOT = "__EMPTY_ROOT__";
-    public static final String MEDIA_ID_ROOT = "__ROOT__";
 
     public AutoMusicBrowserService() {
     }
@@ -68,22 +54,39 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat {
         super.onCreate();
         mMusicProvider = new AutoMusicProvider(this);
 
-        mMediaSessionCallback = new MediaSessionCallback();
+
         mPackageValidator = new PackageValidator(this);
         //TODO: create and register a MediaSession object and its callback object
-
-        Log.v(TAG, "audio path: " + MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
-
-
-        ComponentName componentName = new ComponentName(this, MusicService.class);
 
         //Responsible for music playback
         mMediaPlayer = new MediaPlayer();
 
-        mMediaSession = new MediaSessionCompat(this, TAG, componentName, null);
+
+        mMediaSessionCallback = new MediaSessionCallback();
+
+
+
+        Intent intent = new Intent(this, MusicService.class);
+        bindService(intent, this, Context.BIND_AUTO_CREATE);
+    }
+
+    private void createMediaSession(){
+        ComponentName mediaButtonReceiverComponentName = new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class);
+
+        Intent mediaButtonIntent = new Intent(Intent.ACTION_MEDIA_BUTTON);
+        mediaButtonIntent.setComponent(mediaButtonReceiverComponentName);
+
+        PendingIntent mediaButtonReceiverPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, mediaButtonIntent, 0);
+
+        //mMediaSessionCallback = new MediaSessionCallback();
+       /* mMediaSession = new MediaSessionCompat(this, "Phonograph", mediaButtonReceiverComponentName, mediaButtonReceiverPendingIntent);
         mMediaSession.setCallback(mMediaSessionCallback);
-        mMediaSession.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS | MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
-        mMediaSession.setActive(true);
+        mMediaSession.setFlags(MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS
+                | MediaSession.FLAG_HANDLES_MEDIA_BUTTONS);
+
+        mMediaSession.setMediaButtonReceiver(mediaButtonReceiverPendingIntent);
+        mMediaSession.setActive(true);*/
+
         setSessionToken(mMediaSession.getSessionToken());
     }
 
@@ -142,29 +145,33 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat {
         }
     }
 
+    @Override
+    public void onServiceConnected(ComponentName componentName, IBinder service) {
+        MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
+        MusicService musicService = ((MusicService.MusicBinder) binder).getService();
+        mMediaSession = musicService.getMediaSession();
+        createMediaSession();
+
+        Log.v(TAG, "we bound");
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName componentName) {
+
+    }
+
     //TODO: implement playback controls with the appropriate methods
     private class MediaSessionCallback extends MediaSessionCompat.Callback{
         @Override
         public void onPlay() {
             mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            if(mCurrentTrack == null){
-                mCurrentTrack = mMusicList.get(0);
-                //handlePlay();
-            }else{
-                mMediaPlayer.start();
-                mMediaSession.setPlaybackState(buildState(PlaybackStateCompat.STATE_PLAYING));
-            }
+
+            mMediaPlayer.start();
+            mMediaSession.setPlaybackState(buildState(PlaybackStateCompat.STATE_PLAYING));
         }
 
         @Override
         public void onPlayFromMediaId(String mediaId, Bundle extras) {
-            /*for(MediaMetadataCompat item: mMusicList){
-                if(item.getDescription().getMediaId().equals(mediaId)){
-                    mCurrentTrack = item;
-                    break;
-                }
-            }*/
-
             Log.v(TAG, "MediaID: " + mediaId);
 
             Uri mediaIDUri = Uri.parse(mediaId);
@@ -172,6 +179,7 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat {
             int mediaID = Integer.parseInt(tokens[1]);
 
             Uri songUri = MusicUtil.getSongFileUri(mediaID);
+
 
             Uri mediaContentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
             String[] projection = new String[] { MediaStore.Audio.Media._ID,
@@ -244,7 +252,8 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat {
 
     private PlaybackStateCompat buildState(int state){
         return new PlaybackStateCompat.Builder().setActions(
-                PlaybackStateCompat.ACTION_PLAY | PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS
+                PlaybackStateCompat.ACTION_PLAY
+                        | PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS
                         | PlaybackStateCompat.ACTION_SKIP_TO_NEXT
                         | PlaybackStateCompat.ACTION_PLAY_FROM_MEDIA_ID
                         | PlaybackStateCompat.ACTION_PLAY_PAUSE)

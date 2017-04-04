@@ -167,6 +167,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     private Handler uiThreadHandler;
 
+    private MediaSessionCallback mMediaSessionCallback;
+
     private static String getTrackUri(@NonNull Song song) {
         return MusicUtil.getSongFileUri(song.id).toString();
     }
@@ -234,45 +236,9 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         mediaButtonIntent.setComponent(mediaButtonReceiverComponentName);
 
         PendingIntent mediaButtonReceiverPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, mediaButtonIntent, 0);
-
+        mMediaSessionCallback = new MediaSessionCallback();
         mediaSession = new MediaSessionCompat(this, "Phonograph", mediaButtonReceiverComponentName, mediaButtonReceiverPendingIntent);
-        mediaSession.setCallback(new MediaSessionCompat.Callback() {
-            @Override
-            public void onPlay() {
-                play();
-            }
-
-            @Override
-            public void onPause() {
-                pause();
-            }
-
-            @Override
-            public void onSkipToNext() {
-                playNextSong(true);
-            }
-
-            @Override
-            public void onSkipToPrevious() {
-                back(true);
-            }
-
-            @Override
-            public void onStop() {
-                quit();
-            }
-
-            @Override
-            public void onSeekTo(long pos) {
-                seek((int) pos);
-            }
-
-            @Override
-            public boolean onMediaButtonEvent(Intent mediaButtonEvent) {
-                return MediaButtonIntentReceiver.handleIntent(MusicService.this, mediaButtonEvent);
-            }
-        });
-
+        mediaSession.setCallback(mMediaSessionCallback);
         mediaSession.setFlags(MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS
                 | MediaSession.FLAG_HANDLES_MEDIA_BUTTONS);
 
@@ -1099,6 +1065,43 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public void onTrackEnded() {
         acquireWakeLock(30000);
         playerHandler.sendEmptyMessage(TRACK_ENDED);
+    }
+
+    public class MediaSessionCallback extends MediaSessionCompat.Callback{
+        @Override
+        public void onPlay() {
+            play();
+        }
+
+        @Override
+        public void onPause() {
+            pause();
+        }
+
+        @Override
+        public void onSkipToNext() {
+            playNextSong(true);
+        }
+
+        @Override
+        public void onSkipToPrevious() {
+            back(true);
+        }
+
+        @Override
+        public void onStop() {
+            quit();
+        }
+
+        @Override
+        public void onSeekTo(long pos) {
+            seek((int) pos);
+        }
+
+        @Override
+        public boolean onMediaButtonEvent(Intent mediaButtonEvent) {
+            return MediaButtonIntentReceiver.handleIntent(MusicService.this, mediaButtonEvent);
+        }
     }
 
     private static final class PlaybackHandler extends Handler {
