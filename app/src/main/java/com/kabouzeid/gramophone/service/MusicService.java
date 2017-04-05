@@ -46,7 +46,10 @@ import com.kabouzeid.gramophone.glide.BlurTransformation;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.helper.StopWatch;
+import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
+import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
 import com.kabouzeid.gramophone.provider.HistoryStore;
 import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
@@ -74,12 +77,14 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     public static final String ACTION_TOGGLE_PAUSE = PHONOGRAPH_PACKAGE_NAME + ".togglepause";
     public static final String ACTION_PLAY = PHONOGRAPH_PACKAGE_NAME + ".play";
+    public static final String ACTION_PLAY_PLAYLIST = PHONOGRAPH_PACKAGE_NAME + ".play.playlist";
     public static final String ACTION_PAUSE = PHONOGRAPH_PACKAGE_NAME + ".pause";
     public static final String ACTION_STOP = PHONOGRAPH_PACKAGE_NAME + ".stop";
     public static final String ACTION_SKIP = PHONOGRAPH_PACKAGE_NAME + ".skip";
     public static final String ACTION_REWIND = PHONOGRAPH_PACKAGE_NAME + ".rewind";
     public static final String ACTION_QUIT = PHONOGRAPH_PACKAGE_NAME + ".quitservice";
     public static final String INTENT_EXTRA_SONGS = PHONOGRAPH_PACKAGE_NAME + ".intentextra.songs";
+    public static final String INTENT_EXTRA_PLAYLIST = PHONOGRAPH_PACKAGE_NAME + "intentextra.playlist";
     public static final String INTENT_EXTRA_SHUFFLE_MODE = PHONOGRAPH_PACKAGE_NAME + ".intentextra.shufflemode";
 
     public static final String APP_WIDGET_UPDATE = PHONOGRAPH_PACKAGE_NAME + ".appwidgetupdate";
@@ -297,20 +302,29 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         pause();
                         break;
                     case ACTION_PLAY:
+                        //Load songs from intent
                         ArrayList<Song> songs = intent.getParcelableArrayListExtra(INTENT_EXTRA_SONGS);
-                        if (songs != null && !songs.isEmpty()) {
-                            int shuffleMode = intent.getIntExtra(INTENT_EXTRA_SHUFFLE_MODE, getShuffleMode());
-                            if (intent.hasExtra(INTENT_EXTRA_SHUFFLE_MODE) && intent.getIntExtra(INTENT_EXTRA_SHUFFLE_MODE, 0) == SHUFFLE_MODE_SHUFFLE) {
-                                int startPosition = 0;
-                                if (!songs.isEmpty()) {
-                                    startPosition = new Random().nextInt(songs.size());
-                                }
-                                openQueue(songs, startPosition, false);
-                                setShuffleMode(shuffleMode);
+
+                        //Play songs with the intent's shuffle mode, if it has one
+                        playSongs(songs,
+                                intent.getIntExtra(INTENT_EXTRA_SHUFFLE_MODE, getShuffleMode()));
+                        break;
+                    case ACTION_PLAY_PLAYLIST:
+                        //Load playlist from intent
+                        Playlist playlist = intent.getParcelableExtra(INTENT_EXTRA_PLAYLIST);
+                        if (playlist != null) {
+                            //Get songs from playlist
+                            ArrayList<Song> playlistSongs;
+                            if (playlist instanceof AbsSmartPlaylist) {
+                                playlistSongs = ((AbsSmartPlaylist) playlist).getSongs(getApplicationContext());
                             } else {
-                                openQueue(songs, 0, false);
+                                //noinspection unchecked
+                                playlistSongs = (ArrayList<Song>) (List) PlaylistSongLoader.getPlaylistSongList(getApplicationContext(), playlist.id);
                             }
-                            play();
+
+                            //Play songs with the intent's shuffle mode, if it has one
+                            playSongs(playlistSongs,
+                                    intent.getIntExtra(INTENT_EXTRA_SHUFFLE_MODE, getShuffleMode()));
                         } else {
                             Toast.makeText(getApplicationContext(), R.string.no_songs_in_playlist, Toast.LENGTH_LONG).show();
                         }
@@ -857,6 +871,24 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             } else {
                 Toast.makeText(this, getResources().getString(R.string.audio_focus_denied), Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    public void playSongs(ArrayList<Song> songs, int shuffleMode) {
+        if (songs != null && !songs.isEmpty()) {
+            if (shuffleMode == SHUFFLE_MODE_SHUFFLE) {
+                int startPosition = 0;
+                if (!songs.isEmpty()) {
+                    startPosition = new Random().nextInt(songs.size());
+                }
+                openQueue(songs, startPosition, false);
+                setShuffleMode(shuffleMode);
+            } else {
+                openQueue(songs, 0, false);
+            }
+            play();
+        } else {
+            Toast.makeText(getApplicationContext(), R.string.no_songs_in_playlist, Toast.LENGTH_LONG).show();
         }
     }
 
