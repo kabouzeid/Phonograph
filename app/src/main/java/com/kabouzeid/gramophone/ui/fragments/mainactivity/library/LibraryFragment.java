@@ -39,6 +39,7 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
+import com.kabouzeid.gramophone.util.ViewUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -93,6 +94,7 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
         setUpToolbar();
         setUpViewPager();
         setUpStatusBar();
+        ViewUtil.setStatusBarHeight(getActivity(), statusBar);
     }
 
     private void setUpToolbar() {
