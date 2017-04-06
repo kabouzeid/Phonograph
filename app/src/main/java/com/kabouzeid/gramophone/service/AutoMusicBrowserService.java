@@ -41,10 +41,10 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat implement
     private final static String TAG = AutoMusicBrowserService.class.getCanonicalName();
 
     private AutoMusicProvider mMusicProvider;
-    private MediaSessionCallback mMediaSessionCallback;
     private PackageValidator mPackageValidator;
     private MediaSessionCompat mMediaSession;
-    private MediaPlayer mMediaPlayer;
+
+    private boolean mBound;
 
     public AutoMusicBrowserService() {
     }
@@ -53,40 +53,13 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat implement
     public void onCreate() {
         super.onCreate();
         mMusicProvider = new AutoMusicProvider(this);
-
-
         mPackageValidator = new PackageValidator(this);
-        //TODO: create and register a MediaSession object and its callback object
-
-        //Responsible for music playback
-        mMediaPlayer = new MediaPlayer();
-
-
-        mMediaSessionCallback = new MediaSessionCallback();
-
-
 
         Intent intent = new Intent(this, MusicService.class);
         bindService(intent, this, Context.BIND_AUTO_CREATE);
     }
 
     private void createMediaSession(){
-        ComponentName mediaButtonReceiverComponentName = new ComponentName(getApplicationContext(), MediaButtonIntentReceiver.class);
-
-        Intent mediaButtonIntent = new Intent(Intent.ACTION_MEDIA_BUTTON);
-        mediaButtonIntent.setComponent(mediaButtonReceiverComponentName);
-
-        PendingIntent mediaButtonReceiverPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, mediaButtonIntent, 0);
-
-        //mMediaSessionCallback = new MediaSessionCallback();
-       /* mMediaSession = new MediaSessionCompat(this, "Phonograph", mediaButtonReceiverComponentName, mediaButtonReceiverPendingIntent);
-        mMediaSession.setCallback(mMediaSessionCallback);
-        mMediaSession.setFlags(MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS
-                | MediaSession.FLAG_HANDLES_MEDIA_BUTTONS);
-
-        mMediaSession.setMediaButtonReceiver(mediaButtonReceiverPendingIntent);
-        mMediaSession.setActive(true);*/
-
         setSessionToken(mMediaSession.getSessionToken());
     }
 
@@ -148,20 +121,19 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat implement
     @Override
     public void onServiceConnected(ComponentName componentName, IBinder service) {
         MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
-        MusicService musicService = ((MusicService.MusicBinder) binder).getService();
+        MusicService musicService = binder.getService();
         mMediaSession = musicService.getMediaSession();
         createMediaSession();
-
-        Log.v(TAG, "we bound");
+        mBound = true;
     }
 
     @Override
     public void onServiceDisconnected(ComponentName componentName) {
-
+        mBound = false;
     }
 
     //TODO: implement playback controls with the appropriate methods
-    private class MediaSessionCallback extends MediaSessionCompat.Callback{
+/*    private class MediaSessionCallback extends MediaSessionCompat.Callback{
         @Override
         public void onPlay() {
             mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -282,5 +254,5 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat implement
         mMediaPlayer.prepareAsync();
 
         //TODO: complete handle playback implementation
-    }
+    }*/
 }

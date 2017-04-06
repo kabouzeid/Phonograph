@@ -19,7 +19,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 
+import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM;
 import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_MUSICS_BY_GENRE;
+import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST;
 import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_ROOT;
 import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.createMediaID;
 
@@ -34,7 +36,9 @@ public class AutoMusicProvider {
 
     //Categorized caches for music track data
     private ConcurrentMap<String, List<MediaMetadataCompat>> mMusicListByGenre;
-    private ConcurrentMap<String, List<MediaMetadataCompat>> mMusicByPlaylist;
+    private ConcurrentMap<String, List<MediaMetadataCompat>> mMusicListByPlaylist;
+    private ConcurrentMap<String, List<MediaMetadataCompat>> mMusicListByAlbum;
+
     private final ConcurrentMap<String, MutableMediaMetadata> mMusicListById;
 
 
@@ -56,7 +60,8 @@ public class AutoMusicProvider {
         mSource = source;
 
         mMusicListByGenre = new ConcurrentHashMap<>();
-        mMusicByPlaylist = new ConcurrentHashMap<>();
+        mMusicListByPlaylist = new ConcurrentHashMap<>();
+        mMusicListByAlbum = new ConcurrentHashMap<>();
         mMusicListById = new ConcurrentHashMap<>();
     }
 
@@ -174,7 +179,10 @@ public class AutoMusicProvider {
         }
 
         if (MEDIA_ID_ROOT.equals(mediaId)) {
-            mediaItems.add(createBrowsableMediaItemForRoot(resources));
+            mediaItems.add(createBrowsableMediaItemForRoot(MEDIA_ID_MUSICS_BY_GENRE, resources));
+            mediaItems.add(createBrowsableMediaItemForRoot(MEDIA_ID_MUSICS_BY_PLAYLIST, resources));
+            mediaItems.add(createBrowsableMediaItemForRoot(MEDIA_ID_MUSICS_BY_ALBUM, resources));
+
 
         } else if (MEDIA_ID_MUSICS_BY_GENRE.equals(mediaId)) {
             for (String genre : getGenres()) {
@@ -194,14 +202,46 @@ public class AutoMusicProvider {
     }
 
     //TODO: move hardcoded strings; add iconUri
-    private MediaBrowserCompat.MediaItem createBrowsableMediaItemForRoot(Resources resources) {
-        MediaDescriptionCompat description = new MediaDescriptionCompat.Builder()
-                .setMediaId(MEDIA_ID_MUSICS_BY_GENRE)
-                .setTitle("Genres")
-                .setSubtitle("Browse genres")
-                .build();
-        return new MediaBrowserCompat.MediaItem(description,
-                MediaBrowserCompat.MediaItem.FLAG_BROWSABLE);
+    private MediaBrowserCompat.MediaItem createBrowsableMediaItemForRoot(String mediaId, Resources resources) {
+        MediaDescriptionCompat description;
+        switch (mediaId){
+            case (MEDIA_ID_MUSICS_BY_GENRE):
+                description = new MediaDescriptionCompat.Builder()
+                        .setMediaId(mediaId)//MEDIA_ID_MUSICS_BY_GENRE)
+                        .setTitle("Genres") // .setTitle(resources.getString(R.string.browse_genres))
+                        .setSubtitle("Browse genres")
+                        //.setIconUri(Uri.parse("android.resource://" +
+                        //  "com.example.android.uamp/drawable/ic_by_genre"))
+                        .build();
+
+                return new MediaBrowserCompat.MediaItem(description,
+                        MediaBrowserCompat.MediaItem.FLAG_BROWSABLE);
+
+            case (MEDIA_ID_MUSICS_BY_PLAYLIST):
+                description = new MediaDescriptionCompat.Builder()
+                    .setMediaId(mediaId)//MEDIA_ID_MUSICS_BY_PLAYLIST
+                    .setTitle("Playlists") // .setTitle(resources.getString(R.string.browse_genres))
+                    .setSubtitle("Browse playlists")
+                    //.setIconUri(Uri.parse("android.resource://" +
+                    //  "com.example.android.uamp/drawable/ic_by_genre"))
+                    .build();
+
+                return new MediaBrowserCompat.MediaItem(description,
+                        MediaBrowserCompat.MediaItem.FLAG_BROWSABLE);
+
+            case (MEDIA_ID_MUSICS_BY_ALBUM):
+                description = new MediaDescriptionCompat.Builder()
+                        .setMediaId(mediaId)//MEDIA_ID_MUSICS_BY_ALBUM
+                        .setTitle("Albums") // .setTitle(resources.getString(R.string.browse_genres))
+                        .setSubtitle("Browse albums")
+                        //.setIconUri(Uri.parse("android.resource://" +
+                        //  "com.example.android.uamp/drawable/ic_by_genre"))
+                        .build();
+
+                return new MediaBrowserCompat.MediaItem(description,
+                        MediaBrowserCompat.MediaItem.FLAG_BROWSABLE);
+        }
+        return null;
     }
 
     private MediaBrowserCompat.MediaItem createBrowsableMediaItemForGenre(String genre,

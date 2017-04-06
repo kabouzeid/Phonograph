@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.media.MediaMetadataCompat;
+import android.text.TextUtils;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -17,6 +18,8 @@ import android.provider.MediaStore.Audio.AudioColumns;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import static android.R.attr.duration;
+
 /**
  * Created by Beesham on 3/28/2017.
  */
@@ -24,10 +27,6 @@ import java.util.Iterator;
 public class AutoMusicSource implements MusicProviderSource{
 
     private static final String TAG = AutoMusicSource.class.getName();
-
-    protected static final String CATALOG_URL =
-            "http://storage.googleapis.com/automotive-media/music.json";
-
     private Context mContext;
 
     public AutoMusicSource(Context context) {
@@ -37,13 +36,24 @@ public class AutoMusicSource implements MusicProviderSource{
     @Override
     public Iterator<MediaMetadataCompat> iterator() {
 
+        //All songs
         ContentResolver contentResolver = mContext.getContentResolver();
-        Uri uri = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-        Cursor cursor = contentResolver.query(uri, null, null, null, null);
+        Uri uriSongs = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        Cursor cursor = contentResolver.query(uriSongs, null, null, null, null);
 
-        Log.v(TAG, "Cursor uri: " + uri);
+        //Playlists
+        Uri uriPlaylists = MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI;
+        Cursor playlistCursor = contentResolver.query(uriPlaylists, null, null, null, null);
+        Log.v(TAG, "playlist cur size: " + playlistCursor.getCount());
+
+        playlistCursor.moveToFirst();
+        while (playlistCursor.moveToNext()){
+            Log.v(TAG, "playlist cur content: " +
+                    playlistCursor.getString(playlistCursor.getColumnIndex(MediaStore.Audio.PlaylistsColumns.NAME)));
+        }
+
+
         ArrayList<MediaMetadataCompat> tracks = new ArrayList<>();
-
 
         if(cursor == null){
             return null;
@@ -51,31 +61,31 @@ public class AutoMusicSource implements MusicProviderSource{
             //Cursor empty, no media
         }else{
 
-            for(int i = 0;i<10;i++){
-                Log.v(TAG, "item at " + i + " " + cursor.getString(cursor.getColumnIndex(android.provider.MediaStore.Audio.Media.TITLE)));
-                Log.v(TAG, "item path at " + i + " " +
-                        cursor.getString(cursor.getColumnIndex(android.provider.MediaStore.Audio.Media.DATA)));
-                tracks.add(buildMediaMetadata(cursor));
+            for(int i = 0;i<cursor.getCount();i++){
+                tracks.add(buildSongsMediaMetadata(cursor));
                 cursor.moveToNext();
             }
         }
 
-        Log.v(TAG, "Cursor size: " + cursor.getCount());
-
         return tracks.iterator();
     }
 
-    private MediaMetadataCompat buildMediaMetadata(Cursor c){
+    private MediaMetadataCompat buildSongsMediaMetadata(Cursor c){
         String _ID = c.getString(c.getColumnIndex(MediaStore.Audio.Media._ID));
         String title = c.getString(c.getColumnIndex(MediaStore.Audio.Media.TITLE));
         String album =c.getString(c.getColumnIndex(MediaStore.Audio.Media.ALBUM));
         String artist = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ARTIST));
-        String genre = "RANDOM";//c.getString(c.getColumnIndex(android.provider.MediaStore.Audio.Media.));
+        String genre = "<Unknown>";//c.getString(c.getColumnIndex(android.provider.MediaStore.Audio.Media.));
         String source = c.getString(c.getColumnIndex(MediaStore.Audio.Media.DATA));
-        //String iconUrl = c.getString(c.getColumnIndex(android.provider.MediaStore.Audio.Media.TITLE));
+        //String iconUrl = "";
         int trackNumber = c.getInt(c.getColumnIndex(MediaStore.Audio.Media.TRACK));
         //int totalTrackCount = c.getInt(c.getColumnIndex(android.provider.MediaStore.Audio.Media.TITLE));
         int duration = c.getInt(c.getColumnIndex(MediaStore.Audio.Media.DURATION)) * 1000; // ms
+
+        /*if(!TextUtils.isEmpty(c.getString(c.getColumnIndex(MediaStore.Audio.Genres.NAME)))){
+            //iconUrl = c.getString(c.getColumnIndex(MediaStore.Audio.Albums.ALBUM_ART));
+            genre = c.getString(c.getColumnIndex(MediaStore.Audio.Genres.NAME));
+        }*/
 
         return new MediaMetadataCompat.Builder()
                 .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, _ID)
