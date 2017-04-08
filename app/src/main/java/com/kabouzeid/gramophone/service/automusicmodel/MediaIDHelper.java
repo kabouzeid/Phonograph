@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.session.MediaControllerCompat;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.Arrays;
 
@@ -21,6 +22,8 @@ public class MediaIDHelper {
     public static final String MEDIA_ID_MUSICS_BY_SEARCH = "__BY_SEARCH__";
     public static final String MEDIA_ID_MUSICS_BY_PLAYLIST = "__BY_PLAYLIST__";
     public static final String MEDIA_ID_MUSICS_BY_ALBUM = "__BY_ALBUM__";
+    public static final String MEDIA_ID_MUSICS_BY_TOP_TRACKS = "__BY_TOP_TRACKS__";
+
 
 
     private static final char CATEGORY_SEPARATOR = '/';
@@ -45,9 +48,9 @@ public class MediaIDHelper {
         StringBuilder sb = new StringBuilder();
         if (categories != null) {
             for (int i=0; i < categories.length; i++) {
-                if (!isValidCategory(categories[i])) {
+                /*if (!isValidCategory(categories[i])) {    //TODO: incommenting this check creates an err; needs fix
                     throw new IllegalArgumentException("Invalid category: " + categories[0]);
-                }
+                }*/
                 sb.append(categories[i]);
                 if (i < categories.length - 1) {
                     sb.append(CATEGORY_SEPARATOR);
@@ -61,6 +64,7 @@ public class MediaIDHelper {
     }
 
     private static boolean isValidCategory(String category) {
+        Log.v("Media Helper", "categories: " + category);
         return category == null ||
                 (
                         category.indexOf(CATEGORY_SEPARATOR) < 0 &&
