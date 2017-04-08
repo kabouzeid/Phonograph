@@ -340,9 +340,6 @@ public class AutoMusicProvider {
                 }
         }
 
-
-
-
         return mediaItems;
     }
 
@@ -412,29 +409,35 @@ public class AutoMusicProvider {
                     .setTitle(musicSelection)
                     .setSubtitle(musicSelection);
                 description = builder.build();
-                break;
+                return new MediaBrowserCompat.MediaItem(description,
+                        MediaBrowserCompat.MediaItem.FLAG_BROWSABLE);
+
             case(MEDIA_ID_MUSICS_BY_PLAYLIST):
                 builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_PLAYLIST, musicSelection))
                         .setTitle(musicSelection)
                         .setSubtitle(musicSelection);
                 description = builder.build();
-                break;
+                return new MediaBrowserCompat.MediaItem(description,
+                        MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);
+
             case(MEDIA_ID_MUSICS_BY_ALBUM):
                 builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_ALBUM, musicSelection))
                         .setTitle(musicSelection)
                         .setSubtitle(musicSelection);
                 description = builder.build();
-                break;
+                return new MediaBrowserCompat.MediaItem(description,
+                        MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);
+
             case(MEDIA_ID_MUSICS_BY_TOP_TRACKS):
                 builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_TOP_TRACKS, musicSelection))
                         .setTitle(musicSelection)
                         .setSubtitle(musicSelection);
                 description = builder.build();
-                break;
+                return new MediaBrowserCompat.MediaItem(description,
+                        MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);
         }
 
-        return new MediaBrowserCompat.MediaItem(description,
-                MediaBrowserCompat.MediaItem.FLAG_BROWSABLE);
+        return null;
     }
 
     private MediaBrowserCompat.MediaItem createMediaItem(MediaMetadataCompat metadata) {

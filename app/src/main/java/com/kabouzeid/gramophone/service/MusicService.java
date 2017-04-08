@@ -48,12 +48,17 @@ import com.kabouzeid.gramophone.appwidgets.AppWidgetClassic;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetSmall;
 import com.kabouzeid.gramophone.glide.BlurTransformation;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.helper.StopWatch;
+import com.kabouzeid.gramophone.loader.PlaylistLoader;
+import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
+import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.HistoryStore;
 import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
+import com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper;
 import com.kabouzeid.gramophone.service.automusicmodel.MusicProviderSource;
 import com.kabouzeid.gramophone.service.notification.PlayingNotification;
 import com.kabouzeid.gramophone.service.notification.PlayingNotificationImpl;
@@ -67,6 +72,11 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM;
+import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_MUSICS_BY_GENRE;
+import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST;
+import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS;
 
 /**
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal
@@ -1075,6 +1085,32 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public class MediaSessionCallback extends MediaSessionCompat.Callback{
         @Override
         public void onPlay() {
+            play();
+        }
+
+        @Override
+        public void onPlayFromMediaId(String mediaId, Bundle extras) {
+            super.onPlayFromMediaId(mediaId, extras);
+            Log.v(TAG, "playFromMediaId called with id: " + mediaId);
+
+            if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_GENRE)) {
+                String genre = MediaIDHelper.getHierarchy(mediaId)[1];
+
+            }else if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_ALBUM)) {
+                String album = MediaIDHelper.getHierarchy(mediaId)[1];
+
+            }else if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_PLAYLIST)) {
+                String playlistName = MediaIDHelper.getHierarchy(mediaId)[1];
+                Playlist playlist = PlaylistLoader.getPlaylist(getApplicationContext(), playlistName);
+                ArrayList<Song> songs = new ArrayList<>();
+                songs.addAll(PlaylistSongLoader.getPlaylistSongList(getApplicationContext(), playlist.id));
+                clearQueue();
+                MusicPlayerRemote.enqueue(songs);
+
+            }else if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_TOP_TRACKS)) {
+                String topTrack = MediaIDHelper.getHierarchy(mediaId)[1];
+            }
+
             play();
         }
 
