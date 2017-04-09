@@ -53,6 +53,7 @@ import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.helper.StopWatch;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
+import com.kabouzeid.gramophone.loader.TopAndRecentlyPlayedTracksLoader;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.HistoryStore;
@@ -73,6 +74,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.kabouzeid.gramophone.R.string.songs;
 import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM;
 import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_MUSICS_BY_GENRE;
 import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST;
@@ -1095,9 +1097,11 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
             if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_GENRE)) {
                 String genre = MediaIDHelper.getHierarchy(mediaId)[1];
+                //TODO
 
             }else if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_ALBUM)) {
                 String album = MediaIDHelper.getHierarchy(mediaId)[1];
+                //TODO
 
             }else if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_PLAYLIST)) {
                 String playlistName = MediaIDHelper.getHierarchy(mediaId)[1];
@@ -1108,7 +1112,10 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 MusicPlayerRemote.enqueue(songs);
 
             }else if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_TOP_TRACKS)) {
-                String topTrack = MediaIDHelper.getHierarchy(mediaId)[1];
+                ArrayList<Song> songs = new ArrayList<>();
+                songs.addAll(TopAndRecentlyPlayedTracksLoader.getTopTracks(getApplicationContext()));
+                clearQueue();
+                MusicPlayerRemote.enqueue(songs);
             }
 
             play();

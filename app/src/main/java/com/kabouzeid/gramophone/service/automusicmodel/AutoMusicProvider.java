@@ -208,7 +208,6 @@ public class AutoMusicProvider {
 
     private synchronized void buildListsByPlaylist() {
         ConcurrentMap<String, List<PlaylistSong>> newMusicListByPlaylist = new ConcurrentHashMap<>();
-        //TODO
         for(Playlist p: PlaylistLoader.getAllPlaylists(mContext)){
             String playlistName = p.name;
             List<PlaylistSong> list = newMusicListByPlaylist.get(playlistName);
@@ -261,27 +260,6 @@ public class AutoMusicProvider {
             return mediaItems;
         }
 
-        /*if (MEDIA_ID_ROOT.equals(mediaId)) {
-            mediaItems.add(createBrowsableMediaItemForRoot(MEDIA_ID_MUSICS_BY_GENRE, resources));
-            mediaItems.add(createBrowsableMediaItemForRoot(MEDIA_ID_MUSICS_BY_PLAYLIST, resources));
-            mediaItems.add(createBrowsableMediaItemForRoot(MEDIA_ID_MUSICS_BY_ALBUM, resources));
-            mediaItems.add(createBrowsableMediaItemForRoot(MEDIA_ID_MUSICS_BY_TOP_TRACKS, resources));
-
-        } else if (MEDIA_ID_MUSICS_BY_GENRE.equals(mediaId)) {
-            for (String genre : getGenres()) {
-                mediaItems.add(createBrowsableMediaItem(mediaId, genre, resources));
-            }
-
-        } else if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_GENRE)) {
-            String genre = MediaIDHelper.getHierarchy(mediaId)[1];
-            for (MediaMetadataCompat metadata : getMusicsByGenre(genre)) {
-                mediaItems.add(createMediaItem(metadata));
-            }
-
-        } else {
-            Log.w(TAG, "Skipping unmatched mediaId: " + mediaId);
-        }
-        */
         switch (mediaId){
             case (MEDIA_ID_ROOT):
                 mediaItems.add(createBrowsableMediaItemForRoot(MEDIA_ID_MUSICS_BY_GENRE, resources));
@@ -393,7 +371,7 @@ public class AutoMusicProvider {
                         .build();
 
                 return new MediaBrowserCompat.MediaItem(description,
-                        MediaBrowserCompat.MediaItem.FLAG_BROWSABLE);
+                        MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);
         }
         return null;
     }
