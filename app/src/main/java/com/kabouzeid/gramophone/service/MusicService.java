@@ -51,9 +51,11 @@ import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.helper.StopWatch;
+import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.loader.TopAndRecentlyPlayedTracksLoader;
+import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.HistoryStore;
@@ -1100,8 +1102,12 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 //TODO
 
             }else if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_ALBUM)) {
-                String album = MediaIDHelper.getHierarchy(mediaId)[1];
-                //TODO
+                String albumName = MediaIDHelper.getHierarchy(mediaId)[1];
+                Album album = AlbumLoader.getAlbum(getApplicationContext(), albumName);
+                ArrayList<Song> songs = new ArrayList<>();
+                songs.addAll(album.songs);
+                clearQueue();
+                MusicPlayerRemote.enqueue(songs);
 
             }else if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_PLAYLIST)) {
                 String playlistName = MediaIDHelper.getHierarchy(mediaId)[1];

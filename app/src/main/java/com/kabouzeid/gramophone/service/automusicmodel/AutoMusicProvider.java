@@ -10,10 +10,13 @@ import android.support.v4.media.MediaMetadataCompat;
 import android.util.Log;
 
 
+import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
+import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
+import com.kabouzeid.gramophone.model.Song;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,6 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 
+import static android.R.attr.name;
 import static com.kabouzeid.gramophone.R.string.album;
 import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM;
 import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_MUSICS_BY_GENRE;
@@ -43,7 +47,7 @@ public class AutoMusicProvider {
     //Categorized caches for music track data
     private ConcurrentMap<String, List<MediaMetadataCompat>> mMusicListByGenre;
     private ConcurrentMap<String, List<PlaylistSong>> mMusicListByPlaylist;
-    private ConcurrentMap<String, List<MediaMetadataCompat>> mMusicListByAlbum;
+    private ConcurrentMap<String, List<Song>> mMusicListByAlbum;
     private ConcurrentMap<String, List<MediaMetadataCompat>> mMusicListByTopTracks;
 
     private final ConcurrentMap<String, MutableMediaMetadata> mMusicListById;
@@ -124,7 +128,7 @@ public class AutoMusicProvider {
         if (mCurrentState != State.INITIALIZED || !mMusicListByAlbum.containsKey(album)) {
             return Collections.emptyList();
         }
-        return mMusicListByAlbum.get(album);
+        return null;//mMusicListByAlbum.get(album);
     }
 
     public Iterable<MediaMetadataCompat> getMusicsByPlaylist(String playlist) {
@@ -201,9 +205,18 @@ public class AutoMusicProvider {
     }
 
     private synchronized void buildListsByAlbum() {
-        ConcurrentMap<String, List<MediaMetadataCompat>> newMusicListByAlbum = new ConcurrentHashMap<>();
+        ConcurrentMap<String, List<Song>> newMusicListByAlbum = new ConcurrentHashMap<>();
         //TODO
-        mMusicListByGenre = newMusicListByAlbum;
+        for(Album a: AlbumLoader.getAllAlbums(mContext)){
+            String albumName = a.getTitle();
+            List<Song> list = newMusicListByAlbum.get(albumName);
+            if (list == null) {
+                list = new ArrayList<>();
+                list.addAll(a.songs);   //adds the songs in the playlist
+                newMusicListByAlbum.put(albumName, list);
+            }
+        }
+        mMusicListByAlbum = newMusicListByAlbum;
     }
 
     private synchronized void buildListsByPlaylist() {
@@ -241,6 +254,8 @@ public class AutoMusicProvider {
 
                 buildListsByGenre();
                 buildListsByPlaylist();
+                buildListsByAlbum();
+                buildListsByTopTracks();
                 mCurrentState = State.INITIALIZED;
             }
         } finally {
@@ -300,9 +315,9 @@ public class AutoMusicProvider {
                     }
                 }else if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_ALBUM)) {
                     String album = MediaIDHelper.getHierarchy(mediaId)[1];
-                    for (MediaMetadataCompat metadata : getMusicsByAlbum(album)) {
+                    /*for (MediaMetadataCompat metadata : getMusicsByAlbum(album)) {
                         mediaItems.add(createMediaItem(metadata));
-                    }
+                    }*/
                 }else if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_PLAYLIST)) {
                     String playlist = MediaIDHelper.getHierarchy(mediaId)[1];
                     /*for (MediaMetadataCompat metadata : getMusicsByPlaylist(playlist)) {
