@@ -90,9 +90,8 @@ public class PlayingNotificationImpl implements PlayingNotification {
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setContent(notificationLayout)
+                .setCustomBigContentView(notificationLayoutBig)
                 .build();
-
-        notification.bigContentView = notificationLayoutBig;
 
         final int bigNotificationImageSize = service.getResources().getDimensionPixelSize(R.dimen.notification_big_image_size);
         service.runOnUiThread(new Runnable() {
