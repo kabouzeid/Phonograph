@@ -66,6 +66,8 @@ public final class PreferenceUtil {
 
     public static final String START_DIRECTORY = "start_directory";
 
+    public static final String CUSTOM_FOLDER_LIBRARY = "custom_folder_library";
+
     private static PreferenceUtil sInstance;
 
     private final SharedPreferences mPreferences;
@@ -356,6 +358,16 @@ public final class PreferenceUtil {
     public void setStartDirectory(File file) {
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.putString(START_DIRECTORY, file.getPath());
+        editor.apply();
+    }
+
+    public final boolean customFolderLibrary() {
+        return mPreferences.getBoolean(CUSTOM_FOLDER_LIBRARY, false);
+    }
+
+    public void setCustomFolderLibrary(final boolean value) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putBoolean(CUSTOM_FOLDER_LIBRARY, value);
         editor.apply();
     }
 }

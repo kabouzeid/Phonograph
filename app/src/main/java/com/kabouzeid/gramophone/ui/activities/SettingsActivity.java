@@ -283,6 +283,18 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 }
             });
 
+            TwoStatePreference customFolderLibrary = (TwoStatePreference) findPreference("custom_folder_library");
+            customFolderLibrary.setChecked(PreferenceUtil.getInstance(getActivity()).customFolderLibrary());
+            customFolderLibrary.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    //Save preference
+                    PreferenceUtil.getInstance(getActivity()).setCustomFolderLibrary((Boolean)newValue);
+
+                    return true;
+                }
+            });
+
             updateNowPlayingScreenSummary();
         }
 

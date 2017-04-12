@@ -17,7 +17,7 @@ public class ArtistSongLoader extends SongLoader {
 
     @NonNull
     public static ArrayList<Song> getArtistSongList(@NonNull final Context context, final int artistId) {
-        return getSongs(makeArtistSongCursor(context, artistId));
+        return getSongs(makeArtistSongCursor(context, artistId), context);
     }
 
     public static Cursor makeArtistSongCursor(@NonNull final Context context, final int artistId) {

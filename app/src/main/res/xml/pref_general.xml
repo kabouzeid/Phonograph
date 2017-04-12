@@ -20,6 +20,12 @@
             android:positiveButtonText="@null"
             android:title="@string/pref_title_general_theme" />
 
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="custom_folder_library"
+            android:summary="@string/pref_custom_folder_library_summary"
+            android:title="@string/pref_custom_folder_library_title" />
+
     </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
 </android.support.v7.preference.PreferenceScreen>

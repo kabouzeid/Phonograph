@@ -14,7 +14,7 @@ public class LastAddedLoader {
 
     @NonNull
     public static ArrayList<Song> getLastAddedSongs(@NonNull Context context) {
-        return SongLoader.getSongs(makeLastAddedCursor(context));
+        return SongLoader.getSongs(makeLastAddedCursor(context), context);
     }
 
     public static Cursor makeLastAddedCursor(@NonNull final Context context) {

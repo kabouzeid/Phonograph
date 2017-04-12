@@ -22,13 +22,13 @@ public class SongLoader {
     @NonNull
     public static ArrayList<Song> getAllSongs(@NonNull Context context) {
         Cursor cursor = makeSongCursor(context, null, null);
-        return getSongs(cursor);
+        return getSongs(cursor, context);
     }
 
     @NonNull
     public static ArrayList<Song> getSongs(@NonNull final Context context, final String query) {
         Cursor cursor = makeSongCursor(context, AudioColumns.TITLE + " LIKE ?", new String[]{"%" + query + "%"});
-        return getSongs(cursor);
+        return getSongs(cursor, context);
     }
 
     @NonNull
@@ -38,11 +38,19 @@ public class SongLoader {
     }
 
     @NonNull
-    public static ArrayList<Song> getSongs(@Nullable final Cursor cursor) {
+    public static ArrayList<Song> getSongs(@Nullable final Cursor cursor, Context context) {
         ArrayList<Song> songs = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
+            String userPath = PreferenceUtil.getInstance(context).getStartDirectory().getPath();
             do {
-                songs.add(getSongFromCursorImpl(cursor));
+                if (PreferenceUtil.getInstance(context).customFolderLibrary()) {
+                    String filePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA));
+                    if (filePath.contains(userPath)) {
+                        songs.add(getSongFromCursorImpl(cursor));
+                    }
+                } else {
+                    songs.add(getSongFromCursorImpl(cursor));
+                }
             } while (cursor.moveToNext());
         }
 
