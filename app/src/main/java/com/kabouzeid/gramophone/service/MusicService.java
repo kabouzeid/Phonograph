@@ -10,14 +10,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.ContentObserver;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.audiofx.AudioEffect;
 import android.media.session.MediaSession;
-import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,7 +33,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.bumptech.glide.BitmapRequestBuilder;
@@ -61,8 +58,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.HistoryStore;
 import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
-import com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper;
-import com.kabouzeid.gramophone.service.automusicmodel.MusicProviderSource;
+import com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper;
 import com.kabouzeid.gramophone.service.notification.PlayingNotification;
 import com.kabouzeid.gramophone.service.notification.PlayingNotificationImpl;
 import com.kabouzeid.gramophone.service.notification.PlayingNotificationImpl24;
@@ -76,11 +72,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static com.kabouzeid.gramophone.R.string.songs;
-import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM;
-import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_MUSICS_BY_GENRE;
-import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST;
-import static com.kabouzeid.gramophone.service.automusicmodel.MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS;
+import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM;
+import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST;
+import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS;
 
 /**
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal
@@ -1095,13 +1089,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         @Override
         public void onPlayFromMediaId(String mediaId, Bundle extras) {
             super.onPlayFromMediaId(mediaId, extras);
-            Log.v(TAG, "playFromMediaId called with id: " + mediaId);
 
-            if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_GENRE)) {
-                String genre = MediaIDHelper.getHierarchy(mediaId)[1];
-                //TODO
-
-            }else if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_ALBUM)) {
+            if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_ALBUM)) {
                 String albumName = MediaIDHelper.getHierarchy(mediaId)[1];
                 Album album = AlbumLoader.getAlbum(getApplicationContext(), albumName);
                 ArrayList<Song> songs = new ArrayList<>();

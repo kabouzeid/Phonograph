@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.service.automusicmodel;
+package com.kabouzeid.gramophone.modelAndroidAuto;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -8,19 +8,9 @@ import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.media.MediaMetadataCompat;
-import android.text.TextUtils;
-import android.util.Log;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.provider.MediaStore.Audio.AudioColumns;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import static android.R.attr.duration;
 
 /**
  * Created by Beesham on 3/28/2017.

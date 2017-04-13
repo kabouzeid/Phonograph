@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.service.automusicmodel;
+package com.kabouzeid.gramophone.modelAndroidAuto;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.service.automusicmodel;
+package com.kabouzeid.gramophone.modelAndroidAuto;
 
 import android.support.v4.media.MediaMetadataCompat;
 
