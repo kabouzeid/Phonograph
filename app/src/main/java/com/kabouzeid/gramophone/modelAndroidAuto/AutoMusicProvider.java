@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.modelAndroidAuto;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.MediaDescriptionCompat;
@@ -9,6 +10,7 @@ import android.support.v4.media.MediaMetadataCompat;
 import android.util.Log;
 
 
+import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
@@ -77,7 +79,7 @@ public class AutoMusicProvider {
     }
 
     /**
-     * Get an iterator over the list of genres
+     * Get an iterator over the list of albums
      *
      * @return genres
      */
@@ -139,7 +141,7 @@ public class AutoMusicProvider {
 
     private synchronized void buildListsByAlbum() {
         ConcurrentMap<String, List<Song>> newMusicListByAlbum = new ConcurrentHashMap<>();
-        //TODO
+
         for(Album a: AlbumLoader.getAllAlbums(mContext)){
             String albumName = a.getTitle();
             List<Song> list = newMusicListByAlbum.get(albumName);
@@ -229,29 +231,30 @@ public class AutoMusicProvider {
         return mediaItems;
     }
 
-    //TODO: move hardcoded strings; add iconUri
     private MediaBrowserCompat.MediaItem createBrowsableMediaItemForRoot(String mediaId, Resources resources) {
         MediaDescriptionCompat description;
         switch (mediaId){
             case (MEDIA_ID_MUSICS_BY_PLAYLIST):
                 description = new MediaDescriptionCompat.Builder()
-                    .setMediaId(mediaId)//MEDIA_ID_MUSICS_BY_PLAYLIST
-                    .setTitle("Playlists") // .setTitle(resources.getString(R.string.browse_genres))
-                    .setSubtitle("Browse playlists")
-                    //.setIconUri(Uri.parse("android.resource://" +
-                    //  "com.example.android.uamp/drawable/ic_by_genre"))
-                    .build();
+                    .setMediaId(mediaId)
+                    .setTitle(resources.getString(R.string.playlists_label))
+                    .setSubtitle(resources.getString(R.string.browse_by_playlist_description))
+                        .setIconUri(Uri.parse("android.resource://" +
+                                mContext.getPackageName() + "/drawable/" +
+                                resources.getResourceEntryName(R.drawable.ic_playlist_play_black_24dp)))
+                        .build();
 
                 return new MediaBrowserCompat.MediaItem(description,
                         MediaBrowserCompat.MediaItem.FLAG_BROWSABLE);
 
             case (MEDIA_ID_MUSICS_BY_ALBUM):
                 description = new MediaDescriptionCompat.Builder()
-                        .setMediaId(mediaId)//MEDIA_ID_MUSICS_BY_ALBUM
-                        .setTitle("Albums") // .setTitle(resources.getString(R.string.browse_genres))
-                        .setSubtitle("Browse albums")
-                        //.setIconUri(Uri.parse("android.resource://" +
-                        //  "com.example.android.uamp/drawable/ic_by_genre"))
+                        .setMediaId(mediaId)
+                        .setTitle(resources.getString(R.string.albums_label))
+                        .setSubtitle(resources.getString(R.string.browse_by_albums_description))
+                        .setIconUri(Uri.parse("android.resource://" +
+                                mContext.getPackageName() + "/drawable/" +
+                                resources.getResourceEntryName(R.drawable.default_album_art)))
                         .build();
 
                 return new MediaBrowserCompat.MediaItem(description,
@@ -259,11 +262,11 @@ public class AutoMusicProvider {
 
             case (MEDIA_ID_MUSICS_BY_TOP_TRACKS):
                 description = new MediaDescriptionCompat.Builder()
-                        .setMediaId(mediaId)//MEDIA_ID_MUSICS_BY_ALBUM
-                        .setTitle("Top Tracks") // .setTitle(resources.getString(R.string.browse_genres))
-                        .setSubtitle("Browse Top Tracks")
-                        //.setIconUri(Uri.parse("android.resource://" +
-                        //  "com.example.android.uamp/drawable/ic_by_genre"))
+                        .setMediaId(mediaId)
+                        .setTitle(resources.getString(R.string.top_tracks_label))
+                        .setIconUri(Uri.parse("android.resource://" +
+                                mContext.getPackageName() + "/drawable/" +
+                                resources.getResourceEntryName(R.drawable.ic_trending_up_black_24dp))) //drawable/ic_trending_up_white_24dp"))
                         .build();
 
                 return new MediaBrowserCompat.MediaItem(description,
