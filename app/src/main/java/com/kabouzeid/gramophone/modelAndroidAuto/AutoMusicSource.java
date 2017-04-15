@@ -54,7 +54,7 @@ public class AutoMusicSource implements MusicProviderSource{
             //Cursor empty, no media
         }else{
 
-            for(int i = 0;i<50;i++){
+            for(int i = 0;i<cursor.getCount();i++){
                 tracks.add(buildSongsMediaMetadata(cursor));
                 cursor.moveToNext();
             }

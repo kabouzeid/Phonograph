@@ -18,6 +18,7 @@ import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.util.MusicUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,7 +44,6 @@ public class AutoMusicProvider {
     private MusicProviderSource mSource;
 
     //Categorized caches for music data
-    private ConcurrentMap<String, List<MediaMetadataCompat>> mMusicListByGenre;
     private ConcurrentMap<String, List<PlaylistSong>> mMusicListByPlaylist;
     private ConcurrentMap<String, List<Song>> mMusicListByAlbum;
     private ConcurrentMap<String, List<MediaMetadataCompat>> mMusicListByTopTracks;
@@ -70,7 +70,6 @@ public class AutoMusicProvider {
     public AutoMusicProvider(AutoMusicSource source){
         mSource = source;
 
-        mMusicListByGenre = new ConcurrentHashMap<>();
         mMusicListByPlaylist = new ConcurrentHashMap<>();
         mMusicListByAlbum = new ConcurrentHashMap<>();
         mMusicListByTopTracks = new ConcurrentHashMap<>();
@@ -143,7 +142,7 @@ public class AutoMusicProvider {
         ConcurrentMap<String, List<Song>> newMusicListByAlbum = new ConcurrentHashMap<>();
 
         for(Album a: AlbumLoader.getAllAlbums(mContext)){
-            String albumName = a.getTitle();
+            String albumName = a.getTitle() + "|" + a.getId();
             List<Song> list = newMusicListByAlbum.get(albumName);
             if (list == null) {
                 list = new ArrayList<>();
@@ -174,12 +173,12 @@ public class AutoMusicProvider {
             if (mCurrentState == State.NON_INITIALIZED) {
                 mCurrentState = State.INITIALIZING;
 
-                Iterator<MediaMetadataCompat> tracks = mSource.iterator();
+                /*Iterator<MediaMetadataCompat> tracks = mSource.iterator();
                 while (tracks.hasNext()) {
                     MediaMetadataCompat item = tracks.next();
                     String musicId = item.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID);
                     mMusicListById.put(musicId, new MutableMediaMetadata(musicId, item));
-                }
+                }*/
 
                 buildListsByPlaylist();
                 buildListsByAlbum();
@@ -284,15 +283,23 @@ public class AutoMusicProvider {
             case(MEDIA_ID_MUSICS_BY_PLAYLIST):
                 builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_PLAYLIST, musicSelection))
                         .setTitle(musicSelection)
-                        .setSubtitle(musicSelection);
+                        .setSubtitle(musicSelection)
+                        .setIconUri(Uri.parse("android.resource://" +
+                                mContext.getPackageName() + "/drawable/" +
+                                resources.getResourceEntryName(R.drawable.ic_playlist_play_black_24dp)));
                 description = builder.build();
                 return new MediaBrowserCompat.MediaItem(description,
                         MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);
 
             case(MEDIA_ID_MUSICS_BY_ALBUM):
                 builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_ALBUM, musicSelection))
-                        .setTitle(musicSelection)
-                        .setSubtitle(musicSelection);
+                        .setTitle(musicSelection.substring(0, musicSelection.indexOf("|")))
+                        .setSubtitle(musicSelection)
+                        .setIconUri(MusicUtil.getMediaStoreAlbumCoverUri(
+                                Integer.parseInt(
+                                    musicSelection.substring(musicSelection.indexOf("|")+1, musicSelection.length())
+                                )
+                        ));
                 description = builder.build();
                 return new MediaBrowserCompat.MediaItem(description,
                         MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);
@@ -300,7 +307,10 @@ public class AutoMusicProvider {
             case(MEDIA_ID_MUSICS_BY_TOP_TRACKS):
                 builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_TOP_TRACKS, musicSelection))
                         .setTitle(musicSelection)
-                        .setSubtitle(musicSelection);
+                        .setSubtitle(musicSelection)
+                        .setIconUri(Uri.parse("android.resource://" +
+                                mContext.getPackageName() + "/drawable/" +
+                                resources.getResourceEntryName(R.drawable.ic_trending_up_black_24dp)));
                 description = builder.build();
                 return new MediaBrowserCompat.MediaItem(description,
                         MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);
