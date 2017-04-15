@@ -105,7 +105,10 @@
                 <action android:name="android.intent.action.MEDIA_BUTTON"/>
             </intent-filter>
         </receiver>
-        
+
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1" />
         <meta-data
                 android:name="com.crashlytics.ApiKey"
                 android:value="b23725bd3d266aa65c5a3dd1816b2f801524a189"/>
