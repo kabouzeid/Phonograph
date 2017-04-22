@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.IBinder;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
@@ -400,12 +401,21 @@ public class MusicPlayerRemote {
                     }
                 }
             }
-            if (songs == null && uri.getPath() != null) {
-                songs = SongLoader.getSongs(SongLoader.makeSongCursor(
-                        musicService,
-                        MediaStore.Audio.AudioColumns.DATA + "=?",
-                        new String[]{new File(uri.getPath()).getAbsolutePath()}
-                ));
+            if (songs == null) {
+                File songFile = null;
+                if (uri.getAuthority() != null && uri.getAuthority().equals("com.android.externalstorage.documents")) {
+                    songFile = new File(Environment.getExternalStorageDirectory(), uri.getPath().split(":", 2)[1]);
+                }
+                if (songFile == null && uri.getPath() != null) {
+                    songFile = new File(uri.getPath());
+                }
+                if (songFile != null) {
+                    songs = SongLoader.getSongs(SongLoader.makeSongCursor(
+                            musicService,
+                            MediaStore.Audio.AudioColumns.DATA + "=?",
+                            new String[]{songFile.getAbsolutePath()}
+                    ));
+                }
             }
             if (songs != null && !songs.isEmpty()) {
                 openQueue(songs, 0, true);
@@ -414,6 +424,7 @@ public class MusicPlayerRemote {
             }
         }
     }
+
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private static String getSongIdFromMediaProvider(Uri uri) {
         return DocumentsContract.getDocumentId(uri).split(":")[1];
