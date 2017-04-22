@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class ShuffleAllPlaylist extends AbsSmartPlaylist {
 
     public ShuffleAllPlaylist(@NonNull Context context) {
-        super(context.getString(R.string.shuffle_all), R.drawable.ic_shuffle_white_24dp);
+        super(context.getString(R.string.action_shuffle_all), R.drawable.ic_shuffle_white_24dp);
     }
 
     @NonNull
@@ -24,9 +24,8 @@ public class ShuffleAllPlaylist extends AbsSmartPlaylist {
 
     @Override
     public void clear(@NonNull Context context) {
-        //Can't clear all songs. Don't do anything here?
+        // Shuffle all is not a real "Smart Playlist"
     }
-
 
     @Override
     public int describeContents() {

@@ -14,9 +14,9 @@ import com.kabouzeid.gramophone.dialogs.DeletePlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.RenamePlaylistDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
+import com.kabouzeid.gramophone.model.AbsCustomPlaylist;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
 
 import java.io.IOException;
@@ -77,8 +77,8 @@ public class PlaylistMenuHelper {
 
     @NonNull
     private static ArrayList<? extends Song> getPlaylistSongs(@NonNull Activity activity, Playlist playlist) {
-        return playlist instanceof AbsSmartPlaylist ?
-                ((AbsSmartPlaylist) playlist).getSongs(activity) :
+        return playlist instanceof AbsCustomPlaylist ?
+                ((AbsCustomPlaylist) playlist).getSongs(activity) :
                 PlaylistSongLoader.getPlaylistSongList(activity, playlist.id);
     }
 }

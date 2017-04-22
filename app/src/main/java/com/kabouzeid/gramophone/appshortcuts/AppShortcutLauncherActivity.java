@@ -3,7 +3,6 @@ package com.kabouzeid.gramophone.appshortcuts;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IntDef;
 
 import com.kabouzeid.gramophone.appshortcuts.shortcuttype.LastAddedShortcutType;
 import com.kabouzeid.gramophone.appshortcuts.shortcuttype.ShuffleAllShortcutType;
@@ -13,9 +12,6 @@ import com.kabouzeid.gramophone.model.smartplaylist.LastAddedPlaylist;
 import com.kabouzeid.gramophone.model.smartplaylist.MyTopTracksPlaylist;
 import com.kabouzeid.gramophone.model.smartplaylist.ShuffleAllPlaylist;
 import com.kabouzeid.gramophone.service.MusicService;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
 /**
  * @author Adrian Campos
@@ -33,7 +29,6 @@ public class AppShortcutLauncherActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        @ShortcutType
         int shortcutType = SHORTCUT_TYPE_NONE;
 
         //Set shortcutType from the intent extras
@@ -75,10 +70,5 @@ public class AppShortcutLauncherActivity extends Activity {
         intent.putExtras(bundle);
 
         startService(intent);
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @IntDef({SHORTCUT_TYPE_SHUFFLE_ALL, SHORTCUT_TYPE_TOP_TRACKS, SHORTCUT_TYPE_LAST_ADDED, SHORTCUT_TYPE_NONE})
-    public @interface ShortcutType {
     }
 }

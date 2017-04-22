@@ -20,8 +20,8 @@ import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropM
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.adapter.song.CustomPlaylistSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.PlaylistSongAdapter;
-import com.kabouzeid.gramophone.adapter.song.SmartPlaylistSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.SongAdapter;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -29,10 +29,10 @@ import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.LoaderIds;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
+import com.kabouzeid.gramophone.model.AbsCustomPlaylist;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
@@ -94,8 +94,8 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
 
     private void setUpRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        if (playlist instanceof AbsSmartPlaylist) {
-            adapter = new SmartPlaylistSongAdapter(this, new ArrayList<Song>(), R.layout.item_list, false, this);
+        if (playlist instanceof AbsCustomPlaylist) {
+            adapter = new CustomPlaylistSongAdapter(this, new ArrayList<Song>(), R.layout.item_list, false, this);
             recyclerView.setAdapter(adapter);
         } else {
             recyclerViewDragDropManager = new RecyclerViewDragDropManager();
@@ -251,8 +251,8 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
 
         @Override
         public ArrayList<Song> loadInBackground() {
-            if (playlist instanceof AbsSmartPlaylist) {
-                return ((AbsSmartPlaylist) playlist).getSongs(getContext());
+            if (playlist instanceof AbsCustomPlaylist) {
+                return ((AbsCustomPlaylist) playlist).getSongs(getContext());
             } else {
                 //noinspection unchecked
                 return (ArrayList<Song>) (List) PlaylistSongLoader.getPlaylistSongList(getContext(), playlist.id);

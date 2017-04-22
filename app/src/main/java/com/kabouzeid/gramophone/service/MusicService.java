@@ -47,9 +47,9 @@ import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.helper.StopWatch;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
+import com.kabouzeid.gramophone.model.AbsCustomPlaylist;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
 import com.kabouzeid.gramophone.provider.HistoryStore;
 import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
@@ -83,7 +83,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final String ACTION_SKIP = PHONOGRAPH_PACKAGE_NAME + ".skip";
     public static final String ACTION_REWIND = PHONOGRAPH_PACKAGE_NAME + ".rewind";
     public static final String ACTION_QUIT = PHONOGRAPH_PACKAGE_NAME + ".quitservice";
-    public static final String INTENT_EXTRA_SONGS = PHONOGRAPH_PACKAGE_NAME + ".intentextra.songs";
     public static final String INTENT_EXTRA_PLAYLIST = PHONOGRAPH_PACKAGE_NAME + "intentextra.playlist";
     public static final String INTENT_EXTRA_SHUFFLE_MODE = PHONOGRAPH_PACKAGE_NAME + ".intentextra.shufflemode";
 
@@ -302,31 +301,35 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         pause();
                         break;
                     case ACTION_PLAY:
-                        //Load songs from intent
-                        ArrayList<Song> songs = intent.getParcelableArrayListExtra(INTENT_EXTRA_SONGS);
-
-                        //Play songs with the intent's shuffle mode, if it has one
-                        playSongs(songs,
-                                intent.getIntExtra(INTENT_EXTRA_SHUFFLE_MODE, getShuffleMode()));
+                        play();
                         break;
                     case ACTION_PLAY_PLAYLIST:
-                        //Load playlist from intent
                         Playlist playlist = intent.getParcelableExtra(INTENT_EXTRA_PLAYLIST);
+                        int shuffleMode = intent.getIntExtra(INTENT_EXTRA_SHUFFLE_MODE, getShuffleMode());
                         if (playlist != null) {
-                            //Get songs from playlist
                             ArrayList<Song> playlistSongs;
-                            if (playlist instanceof AbsSmartPlaylist) {
-                                playlistSongs = ((AbsSmartPlaylist) playlist).getSongs(getApplicationContext());
+                            if (playlist instanceof AbsCustomPlaylist) {
+                                playlistSongs = ((AbsCustomPlaylist) playlist).getSongs(getApplicationContext());
                             } else {
                                 //noinspection unchecked
                                 playlistSongs = (ArrayList<Song>) (List) PlaylistSongLoader.getPlaylistSongList(getApplicationContext(), playlist.id);
                             }
-
-                            //Play songs with the intent's shuffle mode, if it has one
-                            playSongs(playlistSongs,
-                                    intent.getIntExtra(INTENT_EXTRA_SHUFFLE_MODE, getShuffleMode()));
+                            if (!playlistSongs.isEmpty()) {
+                                if (shuffleMode == SHUFFLE_MODE_SHUFFLE) {
+                                    int startPosition = 0;
+                                    if (!playlistSongs.isEmpty()) {
+                                        startPosition = new Random().nextInt(playlistSongs.size());
+                                    }
+                                    openQueue(playlistSongs, startPosition, true);
+                                    setShuffleMode(shuffleMode);
+                                } else {
+                                    openQueue(playlistSongs, 0, true);
+                                }
+                            } else {
+                                Toast.makeText(getApplicationContext(), R.string.playlist_is_empty, Toast.LENGTH_LONG).show();
+                            }
                         } else {
-                            Toast.makeText(getApplicationContext(), R.string.no_songs_in_playlist, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), R.string.playlist_is_empty, Toast.LENGTH_LONG).show();
                         }
                         break;
                     case ACTION_REWIND:
@@ -888,7 +891,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             }
             play();
         } else {
-            Toast.makeText(getApplicationContext(), R.string.no_songs_in_playlist, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), R.string.playlist_is_empty, Toast.LENGTH_LONG).show();
         }
     }
 

@@ -18,11 +18,11 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class SmartPlaylistSongAdapter extends SongAdapter {
+public class CustomPlaylistSongAdapter extends SongAdapter {
 
-    public static final String TAG = SmartPlaylistSongAdapter.class.getSimpleName();
+    public static final String TAG = CustomPlaylistSongAdapter.class.getSimpleName();
 
-    public SmartPlaylistSongAdapter(AppCompatActivity activity, @NonNull ArrayList<Song> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
+    public CustomPlaylistSongAdapter(AppCompatActivity activity, @NonNull ArrayList<Song> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
         super(activity, dataSet, itemLayoutRes, usePalette, cabHolder);
         overrideMultiSelectMenuRes(R.menu.menu_cannot_delete_single_songs_playlist_songs_selection);
     }

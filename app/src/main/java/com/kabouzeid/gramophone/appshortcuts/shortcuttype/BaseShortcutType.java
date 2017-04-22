@@ -26,7 +26,7 @@ public abstract class BaseShortcutType {
 
     abstract ShortcutInfo getShortcutInfo();
 
-    static public String getId(){
+    static public String getId() {
         return ID_PREFIX + "invalid";
     }
 
@@ -37,7 +37,7 @@ public abstract class BaseShortcutType {
      * @param shortcutType Describes the type of shortcut to create (ShuffleAll, TopTracks, custom playlist, etc.)
      * @return
      */
-    Intent getPlaySongsIntent(@AppShortcutLauncherActivity.ShortcutType int shortcutType) {
+    Intent getPlaySongsIntent(int shortcutType) {
         Intent intent = new Intent(context, AppShortcutLauncherActivity.class);
         intent.setAction(Intent.ACTION_VIEW);
 

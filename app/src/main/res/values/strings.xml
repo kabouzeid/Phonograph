@@ -181,7 +181,6 @@
     <string name="favorites">Favorites</string>
     <string name="last_added">Last added</string>
     <string name="history">History</string>
-    <string name="shuffle_all">Shuffle All</string>
     <string name="my_top_tracks">My top tracks</string>
     <string name="remove_cover">Remove cover</string>
     <string name="download_from_last_fm">Download from Last.fm</string>
@@ -290,5 +289,5 @@
     <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
 
-    <string name="no_songs_in_playlist">No songs in playlist</string>
+    <string name="playlist_is_empty">Playlist is empty</string>
 </resources>
