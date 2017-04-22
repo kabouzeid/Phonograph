@@ -1,12 +1,19 @@
 package com.kabouzeid.gramophone.modelAndroidAuto;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.provider.MediaStore;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.MediaDescriptionCompat;
 import android.support.v4.media.MediaMetadataCompat;
+import android.text.TextUtils;
 import android.util.Log;
 
 
@@ -19,7 +26,10 @@ import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
+import com.kabouzeid.gramophone.util.ScalingUtilities;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -27,11 +37,13 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import static android.provider.MediaStore.Images.Media.getBitmap;
 import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM;
 import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST;
 import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS;
 import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_ROOT;
 import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.createMediaID;
+import static com.kabouzeid.gramophone.util.MusicUtil.getMediaStoreAlbumCoverUri;
 
 
 /**
@@ -193,7 +205,6 @@ public class AutoMusicProvider {
         }
     }
 
-
     public List<MediaBrowserCompat.MediaItem> getChildren(String mediaId, Resources resources) {
         List<MediaBrowserCompat.MediaItem> mediaItems = new ArrayList<>();
 
@@ -294,12 +305,19 @@ public class AutoMusicProvider {
             case(MEDIA_ID_MUSICS_BY_ALBUM):
                 builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_ALBUM, musicSelection))
                         .setTitle(musicSelection.substring(0, musicSelection.indexOf("|")))
-                        .setSubtitle(musicSelection)
-                        .setIconUri(MusicUtil.getMediaStoreAlbumCoverUri(
-                                Integer.parseInt(
-                                    musicSelection.substring(musicSelection.indexOf("|")+1, musicSelection.length())
-                                )
-                        ));
+                        .setSubtitle(musicSelection);
+
+                Bitmap bitmap = MusicUtil.getAlbumArtForAlbum(mContext, Integer.parseInt(
+                        musicSelection.substring(musicSelection.indexOf("|")+1, musicSelection.length())));
+
+                if(bitmap != null){
+                    builder.setIconBitmap(bitmap);
+                }else {
+                    builder.setIconUri(Uri.parse("android.resource://" +
+                            mContext.getPackageName() + "/drawable/" +
+                            resources.getResourceEntryName(R.drawable.default_album_art)));
+                }
+
                 description = builder.build();
                 return new MediaBrowserCompat.MediaItem(description,
                         MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);
