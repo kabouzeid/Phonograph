@@ -374,13 +374,13 @@ public class MusicPlayerRemote {
         return -1;
     }
 
-    public static void playFile(String path) {
+    public static void playFile(String path, Context context) {
         if (musicService != null) {
             ArrayList<Song> songs = SongLoader.getSongs(SongLoader.makeSongCursor(
                     musicService,
                     MediaStore.Audio.AudioColumns.DATA + "=?",
                     new String[]{path}
-            ));
+            ), context);
             if (!songs.isEmpty()) {
                 openQueue(songs, 0, true);
             } else {

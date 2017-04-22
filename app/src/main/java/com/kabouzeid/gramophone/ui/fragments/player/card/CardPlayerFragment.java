@@ -79,6 +79,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     TextView playerQueueSubHeader;
 
     private int lastColor;
+    private float toolbarAlpha = 0.1f;
 
     private CardPlayerPlaybackControlsFragment playbackControlsFragment;
     private PlayerAlbumCoverFragment playerAlbumCoverFragment;
@@ -113,6 +114,8 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        setStatusbarColor(ColorUtil.withAlpha(Color.BLACK, toolbarAlpha));
 
         impl.init();
 
@@ -225,6 +228,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     private void setUpPlayerToolbar() {
         toolbar.inflateMenu(R.menu.menu_player);
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
+        toolbar.setBackgroundColor(ColorUtil.withAlpha(Color.BLACK, toolbarAlpha));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

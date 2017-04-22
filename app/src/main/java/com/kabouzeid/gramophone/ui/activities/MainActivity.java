@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -300,7 +301,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
         }
 
         if (uri != null && uri.toString().length() > 0) {
-            MusicPlayerRemote.playFile(new File(uri.getPath()).getAbsolutePath());
+            MusicPlayerRemote.playFile(new File(uri.getPath()).getAbsolutePath(), this);
             handled = true;
         } else if (MediaStore.Audio.Playlists.CONTENT_TYPE.equals(mimeType)) {
             final int id = (int) parseIdFromIntent(intent, "playlistId", "playlist");

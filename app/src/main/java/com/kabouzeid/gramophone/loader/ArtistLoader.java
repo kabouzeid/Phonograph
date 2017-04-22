@@ -27,7 +27,7 @@ public class ArtistLoader {
                 null,
                 null,
                 getSongLoaderSortOrder(context))
-        );
+                , context);
         return splitIntoArtists(AlbumLoader.splitIntoAlbums(songs));
     }
 
@@ -38,7 +38,7 @@ public class ArtistLoader {
                 AudioColumns.ARTIST + " LIKE ?",
                 new String[]{"%" + query + "%"},
                 getSongLoaderSortOrder(context))
-        );
+                , context);
         return splitIntoArtists(AlbumLoader.splitIntoAlbums(songs));
     }
 
@@ -49,7 +49,7 @@ public class ArtistLoader {
                 AudioColumns.ARTIST_ID + "=?",
                 new String[]{String.valueOf(artistId)},
                 getSongLoaderSortOrder(context))
-        );
+                , context);
         return new Artist(AlbumLoader.splitIntoAlbums(songs));
     }
 

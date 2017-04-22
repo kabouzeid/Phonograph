@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -90,7 +91,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     private int titleViewHeight;
     private int artistImageViewHeight;
     private int toolbarColor;
-    private float toolbarAlpha;
+    private float toolbarAlpha = 0.1f;
 
     private Artist artist;
     @Nullable
@@ -136,9 +137,9 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
             songListBackground.setTranslationY(Math.max(0, -scrollY + artistImageViewHeight));
 
             // Change alpha of overlay
-            toolbarAlpha = Math.max(0, Math.min(1, (float) scrollY / flexibleRange));
-            toolbar.setBackgroundColor(ColorUtil.withAlpha(toolbarColor, toolbarAlpha));
-            setStatusbarColor(ColorUtil.withAlpha(toolbarColor, cab != null && cab.isActive() ? 1 : toolbarAlpha));
+            toolbar.setBackgroundColor(ColorUtil.withAlpha(Color.BLACK, toolbarAlpha));
+            setStatusbarColor(ColorUtil.withAlpha(cab != null && cab.isActive() ? toolbarColor
+                    : Color.BLACK, cab != null && cab.isActive() ? 1 : toolbarAlpha));
 
             // Translate name text
             int maxTitleTranslationY = artistImageViewHeight;
@@ -365,7 +366,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
                     @Override
                     public boolean onCabFinished(MaterialCab materialCab) {
-                        setStatusbarColor(ColorUtil.withAlpha(toolbarColor, toolbarAlpha));
+                        setStatusbarColor(ColorUtil.withAlpha(Color.BLACK, toolbarAlpha));
                         return callback.onCabFinished(materialCab);
                     }
                 });

@@ -27,7 +27,7 @@ public class AlbumLoader {
                 null,
                 null,
                 getSongLoaderSortOrder(context))
-        );
+                , context);
         return splitIntoAlbums(songs);
     }
 
@@ -38,13 +38,13 @@ public class AlbumLoader {
                 AudioColumns.ALBUM + " LIKE ?",
                 new String[]{"%" + query + "%"},
                 getSongLoaderSortOrder(context))
-        );
+                , context);
         return splitIntoAlbums(songs);
     }
 
     @NonNull
     public static Album getAlbum(@NonNull final Context context, int albumId) {
-        ArrayList<Song> songs = SongLoader.getSongs(SongLoader.makeSongCursor(context, AudioColumns.ALBUM_ID + "=?", new String[]{String.valueOf(albumId)}, getSongLoaderSortOrder(context)));
+        ArrayList<Song> songs = SongLoader.getSongs(SongLoader.makeSongCursor(context, AudioColumns.ALBUM_ID + "=?", new String[]{String.valueOf(albumId)}, getSongLoaderSortOrder(context)), context);
         return new Album(songs);
     }
 

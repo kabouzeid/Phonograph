@@ -264,4 +264,6 @@
     <string name="copied_device_info_to_clipboard">Informazioni dispositivo copiate negli appunti.</string>
     <string name="your_account_data_is_only_used_for_authentication">I tuoi dati account sono usati solo per l\'autenticazione.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Verrai indirizzato al sito di bugtracking.</string>
+    <string name="pref_custom_folder_library_summary">Usa il percorso scelto come predefinito nella vista Cartelle come percorso per la Libreria</string>
+    <string name="pref_custom_folder_library_title">Attiva percorso Libreria personalizzato</string>
 </resources>

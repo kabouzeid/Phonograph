@@ -33,12 +33,12 @@ public class TopAndRecentlyPlayedTracksLoader {
 
     @NonNull
     public static ArrayList<Song> getRecentlyPlayedTracks(@NonNull Context context) {
-        return SongLoader.getSongs(makeRecentTracksCursorAndClearUpDatabase(context));
+        return SongLoader.getSongs(makeRecentTracksCursorAndClearUpDatabase(context), context);
     }
 
     @NonNull
     public static ArrayList<Song> getTopTracks(@NonNull Context context) {
-        return SongLoader.getSongs(makeTopTracksCursorAndClearUpDatabase(context));
+        return SongLoader.getSongs(makeTopTracksCursorAndClearUpDatabase(context), context);
     }
 
     @Nullable
