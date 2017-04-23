@@ -6,15 +6,12 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.model.Playlist;
-import com.kabouzeid.gramophone.model.Song;
-
-import java.util.ArrayList;
+import com.kabouzeid.gramophone.model.AbsCustomPlaylist;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class AbsSmartPlaylist extends Playlist {
+public abstract class AbsSmartPlaylist extends AbsCustomPlaylist {
     @DrawableRes
     public final int iconRes;
 
@@ -27,8 +24,6 @@ public abstract class AbsSmartPlaylist extends Playlist {
         super();
         this.iconRes = R.drawable.ic_queue_music_white_24dp;
     }
-
-    public abstract ArrayList<Song> getSongs(Context context);
 
     public abstract void clear(Context context);
 
