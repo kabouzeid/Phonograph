@@ -3,20 +3,15 @@ package com.kabouzeid.gramophone.appshortcuts;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IntDef;
 
 import com.kabouzeid.gramophone.appshortcuts.shortcuttype.LastAddedShortcutType;
 import com.kabouzeid.gramophone.appshortcuts.shortcuttype.ShuffleAllShortcutType;
 import com.kabouzeid.gramophone.appshortcuts.shortcuttype.TopTracksShortcutType;
-import com.kabouzeid.gramophone.loader.LastAddedLoader;
-import com.kabouzeid.gramophone.loader.SongLoader;
-import com.kabouzeid.gramophone.loader.TopAndRecentlyPlayedTracksLoader;
-import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.model.Playlist;
+import com.kabouzeid.gramophone.model.smartplaylist.LastAddedPlaylist;
+import com.kabouzeid.gramophone.model.smartplaylist.MyTopTracksPlaylist;
+import com.kabouzeid.gramophone.model.smartplaylist.ShuffleAllPlaylist;
 import com.kabouzeid.gramophone.service.MusicService;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.util.ArrayList;
 
 /**
  * @author Adrian Campos
@@ -34,7 +29,6 @@ public class AppShortcutLauncherActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        @ShortcutType
         int shortcutType = SHORTCUT_TYPE_NONE;
 
         //Set shortcutType from the intent extras
@@ -46,18 +40,18 @@ public class AppShortcutLauncherActivity extends Activity {
 
         switch (shortcutType) {
             case SHORTCUT_TYPE_SHUFFLE_ALL:
-                startServiceWithSongs(MusicService.SHUFFLE_MODE_SHUFFLE,
-                        SongLoader.getAllSongs(getApplicationContext()));
+                startServiceWithPlaylist(MusicService.SHUFFLE_MODE_SHUFFLE,
+                        new ShuffleAllPlaylist(getApplicationContext()));
                 DynamicShortcutManager.reportShortcutUsed(this, ShuffleAllShortcutType.getId());
                 break;
             case SHORTCUT_TYPE_TOP_TRACKS:
-                startServiceWithSongs(MusicService.SHUFFLE_MODE_NONE,
-                        TopAndRecentlyPlayedTracksLoader.getTopTracks(getApplicationContext()));
+                startServiceWithPlaylist(MusicService.SHUFFLE_MODE_NONE,
+                        new MyTopTracksPlaylist(getApplicationContext()));
                 DynamicShortcutManager.reportShortcutUsed(this, TopTracksShortcutType.getId());
                 break;
             case SHORTCUT_TYPE_LAST_ADDED:
-                startServiceWithSongs(MusicService.SHUFFLE_MODE_NONE,
-                        LastAddedLoader.getLastAddedSongs(getApplicationContext()));
+                startServiceWithPlaylist(MusicService.SHUFFLE_MODE_NONE,
+                        new LastAddedPlaylist(getApplicationContext()));
                 DynamicShortcutManager.reportShortcutUsed(this, LastAddedShortcutType.getId());
                 break;
         }
@@ -65,21 +59,16 @@ public class AppShortcutLauncherActivity extends Activity {
         finish();
     }
 
-    private void startServiceWithSongs(int shuffleMode, ArrayList<Song> songs) {
+    private void startServiceWithPlaylist(int shuffleMode, Playlist playlist) {
         Intent intent = new Intent(this, MusicService.class);
-        intent.setAction(MusicService.ACTION_PLAY);
+        intent.setAction(MusicService.ACTION_PLAY_PLAYLIST);
 
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(MusicService.INTENT_EXTRA_SONGS, songs);
+        bundle.putParcelable(MusicService.INTENT_EXTRA_PLAYLIST, playlist);
         bundle.putInt(MusicService.INTENT_EXTRA_SHUFFLE_MODE, shuffleMode);
 
         intent.putExtras(bundle);
 
         startService(intent);
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    @IntDef({SHORTCUT_TYPE_SHUFFLE_ALL, SHORTCUT_TYPE_TOP_TRACKS, SHORTCUT_TYPE_LAST_ADDED, SHORTCUT_TYPE_NONE})
-    public @interface ShortcutType {
     }
 }

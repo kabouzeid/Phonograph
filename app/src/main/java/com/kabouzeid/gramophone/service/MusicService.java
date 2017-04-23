@@ -46,6 +46,9 @@ import com.kabouzeid.gramophone.glide.BlurTransformation;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.helper.StopWatch;
+import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
+import com.kabouzeid.gramophone.model.AbsCustomPlaylist;
+import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.HistoryStore;
 import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
@@ -74,12 +77,13 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     public static final String ACTION_TOGGLE_PAUSE = PHONOGRAPH_PACKAGE_NAME + ".togglepause";
     public static final String ACTION_PLAY = PHONOGRAPH_PACKAGE_NAME + ".play";
+    public static final String ACTION_PLAY_PLAYLIST = PHONOGRAPH_PACKAGE_NAME + ".play.playlist";
     public static final String ACTION_PAUSE = PHONOGRAPH_PACKAGE_NAME + ".pause";
     public static final String ACTION_STOP = PHONOGRAPH_PACKAGE_NAME + ".stop";
     public static final String ACTION_SKIP = PHONOGRAPH_PACKAGE_NAME + ".skip";
     public static final String ACTION_REWIND = PHONOGRAPH_PACKAGE_NAME + ".rewind";
     public static final String ACTION_QUIT = PHONOGRAPH_PACKAGE_NAME + ".quitservice";
-    public static final String INTENT_EXTRA_SONGS = PHONOGRAPH_PACKAGE_NAME + ".intentextra.songs";
+    public static final String INTENT_EXTRA_PLAYLIST = PHONOGRAPH_PACKAGE_NAME + "intentextra.playlist";
     public static final String INTENT_EXTRA_SHUFFLE_MODE = PHONOGRAPH_PACKAGE_NAME + ".intentextra.shufflemode";
 
     public static final String APP_WIDGET_UPDATE = PHONOGRAPH_PACKAGE_NAME + ".appwidgetupdate";
@@ -297,21 +301,36 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         pause();
                         break;
                     case ACTION_PLAY:
-                        ArrayList<Song> songs = intent.getParcelableArrayListExtra(INTENT_EXTRA_SONGS);
-                        if (songs != null) {
-                            int shuffleMode = intent.getIntExtra(INTENT_EXTRA_SHUFFLE_MODE, getShuffleMode());
-                            if (intent.hasExtra(INTENT_EXTRA_SHUFFLE_MODE) && intent.getIntExtra(INTENT_EXTRA_SHUFFLE_MODE, 0) == SHUFFLE_MODE_SHUFFLE) {
-                                int startPosition = 0;
-                                if (!songs.isEmpty()) {
-                                    startPosition = new Random().nextInt(songs.size());
-                                }
-                                openQueue(songs, startPosition, false);
-                                setShuffleMode(shuffleMode);
-                            } else {
-                                openQueue(songs, 0, false);
-                            }
-                        }
                         play();
+                        break;
+                    case ACTION_PLAY_PLAYLIST:
+                        Playlist playlist = intent.getParcelableExtra(INTENT_EXTRA_PLAYLIST);
+                        int shuffleMode = intent.getIntExtra(INTENT_EXTRA_SHUFFLE_MODE, getShuffleMode());
+                        if (playlist != null) {
+                            ArrayList<Song> playlistSongs;
+                            if (playlist instanceof AbsCustomPlaylist) {
+                                playlistSongs = ((AbsCustomPlaylist) playlist).getSongs(getApplicationContext());
+                            } else {
+                                //noinspection unchecked
+                                playlistSongs = (ArrayList<Song>) (List) PlaylistSongLoader.getPlaylistSongList(getApplicationContext(), playlist.id);
+                            }
+                            if (!playlistSongs.isEmpty()) {
+                                if (shuffleMode == SHUFFLE_MODE_SHUFFLE) {
+                                    int startPosition = 0;
+                                    if (!playlistSongs.isEmpty()) {
+                                        startPosition = new Random().nextInt(playlistSongs.size());
+                                    }
+                                    openQueue(playlistSongs, startPosition, true);
+                                    setShuffleMode(shuffleMode);
+                                } else {
+                                    openQueue(playlistSongs, 0, true);
+                                }
+                            } else {
+                                Toast.makeText(getApplicationContext(), R.string.playlist_is_empty, Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(), R.string.playlist_is_empty, Toast.LENGTH_LONG).show();
+                        }
                         break;
                     case ACTION_REWIND:
                         back(true);
@@ -855,6 +874,24 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             } else {
                 Toast.makeText(this, getResources().getString(R.string.audio_focus_denied), Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    public void playSongs(ArrayList<Song> songs, int shuffleMode) {
+        if (songs != null && !songs.isEmpty()) {
+            if (shuffleMode == SHUFFLE_MODE_SHUFFLE) {
+                int startPosition = 0;
+                if (!songs.isEmpty()) {
+                    startPosition = new Random().nextInt(songs.size());
+                }
+                openQueue(songs, startPosition, false);
+                setShuffleMode(shuffleMode);
+            } else {
+                openQueue(songs, 0, false);
+            }
+            play();
+        } else {
+            Toast.makeText(getApplicationContext(), R.string.playlist_is_empty, Toast.LENGTH_LONG).show();
         }
     }
 

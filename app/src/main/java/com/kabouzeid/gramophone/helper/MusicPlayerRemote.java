@@ -1,12 +1,18 @@
 package com.kabouzeid.gramophone.helper;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.os.IBinder;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +23,7 @@ import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.WeakHashMap;
@@ -374,19 +381,53 @@ public class MusicPlayerRemote {
         return -1;
     }
 
-    public static void playFile(String path) {
+    public static void playFromUri(Uri uri) {
         if (musicService != null) {
-            ArrayList<Song> songs = SongLoader.getSongs(SongLoader.makeSongCursor(
-                    musicService,
-                    MediaStore.Audio.AudioColumns.DATA + "=?",
-                    new String[]{path}
-            ));
-            if (!songs.isEmpty()) {
+            ArrayList<Song> songs = null;
+            if (uri.getScheme() != null && uri.getAuthority() != null) {
+                if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+                    String songId = null;
+                    if (uri.getAuthority().equals("com.android.providers.media.documents")) {
+                        songId = getSongIdFromMediaProvider(uri);
+                    } else if (uri.getAuthority().equals("media")) {
+                        songId = uri.getLastPathSegment();
+                    }
+                    if (songId != null) {
+                        songs = SongLoader.getSongs(SongLoader.makeSongCursor(
+                                musicService,
+                                MediaStore.Audio.AudioColumns._ID + "=?",
+                                new String[]{songId}
+                        ));
+                    }
+                }
+            }
+            if (songs == null) {
+                File songFile = null;
+                if (uri.getAuthority() != null && uri.getAuthority().equals("com.android.externalstorage.documents")) {
+                    songFile = new File(Environment.getExternalStorageDirectory(), uri.getPath().split(":", 2)[1]);
+                }
+                if (songFile == null && uri.getPath() != null) {
+                    songFile = new File(uri.getPath());
+                }
+                if (songFile != null) {
+                    songs = SongLoader.getSongs(SongLoader.makeSongCursor(
+                            musicService,
+                            MediaStore.Audio.AudioColumns.DATA + "=?",
+                            new String[]{songFile.getAbsolutePath()}
+                    ));
+                }
+            }
+            if (songs != null && !songs.isEmpty()) {
                 openQueue(songs, 0, true);
             } else {
                 //TODO the file is not listed in the media store
             }
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private static String getSongIdFromMediaProvider(Uri uri) {
+        return DocumentsContract.getDocumentId(uri).split(":")[1];
     }
 
     public static boolean isServiceConnected() {

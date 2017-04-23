@@ -46,7 +46,6 @@ import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -300,7 +299,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
         }
 
         if (uri != null && uri.toString().length() > 0) {
-            MusicPlayerRemote.playFile(new File(uri.getPath()).getAbsolutePath());
+            MusicPlayerRemote.playFromUri(uri);
             handled = true;
         } else if (MediaStore.Audio.Playlists.CONTENT_TYPE.equals(mimeType)) {
             final int id = (int) parseIdFromIntent(intent, "playlistId", "playlist");
