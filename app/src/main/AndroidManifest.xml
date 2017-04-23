@@ -124,6 +124,11 @@
                 android:name="com.google.android.gms.car.application"
                 android:resource="@xml/automotive_app_desc"/>
 
+        <!-- Android Auto meta-data -->
+        <meta-data
+                android:name="com.google.android.gms.car.notification.SmallIcon"
+                android:resource="@drawable/ic_notification"/>
+
         <activity
                 android:name=".ui.activities.tageditor.SongTagEditorActivity"
                 android:windowSoftInputMode="adjustResize"/>

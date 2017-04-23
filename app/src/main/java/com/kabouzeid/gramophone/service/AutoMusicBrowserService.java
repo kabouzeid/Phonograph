@@ -11,7 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.MediaBrowserServiceCompat;
 import android.support.v4.media.session.MediaSessionCompat;
-
+import android.util.Log;
 
 import com.kabouzeid.gramophone.modelAndroidAuto.AutoMusicProvider;
 import com.kabouzeid.gramophone.util.PackageValidator;
@@ -91,10 +91,17 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat implement
         mMediaSession = musicService.getMediaSession();
         createMediaSession();
         mBound = true;
+        Log.v(TAG, "music service connected");
     }
 
     @Override
     public void onServiceDisconnected(ComponentName componentName) {
         mBound = false;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbindService(this);
     }
 }

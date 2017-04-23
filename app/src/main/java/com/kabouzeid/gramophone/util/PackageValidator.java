@@ -65,9 +65,9 @@ public class PackageValidator {
                         infos = new ArrayList<>();
                         validCertificates.put(certificate, infos);
                     }
-                    Log.v(TAG, "Adding allowed caller: " + info.name +
+                    /*Log.v(TAG, "Adding allowed caller: " + info.name +
                             " package=" + info.packageName + " release=" + info.release +
-                            " certificate=" + certificate);
+                            " certificate=" + certificate);*/
                     infos.add(info);
                 }
                 eventType = parser.next();
