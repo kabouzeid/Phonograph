@@ -254,8 +254,7 @@
     <string name="description">Descrizione</string>
     <string name="device_info">Informazioni dispositivo</string>
     <string name="bug_report_use_account">Invia tramite account GitHub</string>
-    <string name="bug_report_manual">"Invia manualmente
-"</string>
+    <string name="bug_report_manual">Invia manualmente</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="bug_report_no_title">Si prega di inserire un titolo valido</string>
@@ -272,10 +271,6 @@
     <string name="your_account_data_is_only_used_for_authentication">I tuoi dati account sono usati solo per l\'autenticazione.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Verrai indirizzato al sito di bugtracking.</string>
     <!-- App Shortcuts -->
-    <string name="app_shortcut_shuffle_all_long">@stringa/azione_casuale_tutto</string>
     <string name="app_shortcut_shuffle_all_short">Casuale</string>
-    <string name="app_shortcut_top_tracks_long">@stringa/mie_migliori_tracce</string>
     <string name="app_shortcut_top_tracks_short">Migliodi Tracce</string>
-    <string name="app_shortcut_last_added_long">@stringa/ultima_aggiunta</string>
-    <string name="app_shortcut_last_added_short">@stringa/ultima_aggiunta</string>
 </resources>
