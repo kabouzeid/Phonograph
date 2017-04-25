@@ -20,6 +20,9 @@
     <string name="action_search">搜尋</string>
     <string name="action_play_next">下一首播放</string>
     <string name="action_play">播放</string>
+    <string name="action_play_pause">播放/暫停</string>
+    <string name="action_previous">上一首</string>
+    <string name="action_next">下一首</string>
     <string name="action_add_to_playing_queue">加入播放佇列</string>
     <string name="action_remove_from_playing_queue">從播放佇列中移除</string>
     <string name="action_add_to_playlist">加入播放清單...</string>
@@ -46,6 +49,7 @@
     <string name="year">年代</string>
     <string name="track">音軌</string>
     <string name="track_hint">"音軌（用2表示第2首歌或3004表示CD3的第4首歌）"</string>
+    <string name="lyrics">歌詞</string>
     <string name="album_or_artist_empty">專輯名稱或演出者欄是空的</string>
     <string name="saving_changes">正在儲存變更…</string>
     <string name="saving_to_file">正在儲存為檔案...</string>
@@ -116,6 +120,7 @@
     <string name="pref_header_images">圖片</string>
     <string name="pref_header_lockscreen">鎖定螢幕</string>
     <string name="pref_title_navigation_bar">彩色的導航列</string>
+    <string name="pref_title_app_shortcuts">彩色的應用快捷方式</string>
     <string name="pref_title_set_default_start_page">首頁</string>
     <string name="pref_title_album_art_on_lockscreen">顯示專輯封面</string>
     <string name="pref_title_auto_download_artist_images">自動下載演出者圖片</string>
@@ -155,6 +160,7 @@
     <string name="playlist_name_empty">播放清單名稱</string>
     <string name="song">歌曲</string>
     <string name="pref_only_lollipop">"只適用於 Lollipop。"</string>
+    <string name="pref_only_nougat_mr1">"只在 Nougat 7.1 裝置上可用"</string>
     <string name="pref_summary_album_art_on_lockscreen">將播放中歌曲的專輯封面設為鎖定螢幕背景。</string>
     <string name="pref_summary_blurred_album_art">在鎖定畫面上模糊化專輯圖片。第三方程式和小工具可能不正常運作。</string>
     <string name="pref_summary_colored_notification">"\u72c0\u614b\u5217\u984f\u8272\u8207\u5c08\u8f2f\u5716\u7247\u984f\u8272\u4e00\u81f4"</string>
@@ -168,6 +174,7 @@
     <string name="pref_summary_ignore_media_store_artwork">提高專輯封面的成像品質，但會造成較長的讀取時間。建議只有在您對低畫質的專輯封面有問題時才開啟此選項。</string>
     <string name="pref_summary_colored_playback_controls_now_playing">\u5c07\u5c08\u8f2f\u5c01\u9762\u7684\u4e3b\u8272\u8abf\u8a2d\u70ba\u64ad\u653e\uff0f\u66ab\u505c\u3001\u96a8\u6a5f\u64ad\u653e\u3001\u91cd\u64ad\u548c\u9032\u5ea6\u5217\u7684\u984f\u8272\u3002</string>
     <string name="pref_summary_colored_navigation_bar">將專輯封面的主色調設為導航列的顏色。</string>
+    <string name="pref_summary_colored_app_shortcuts">將主色調設為應用快捷方式的顏色</string>
     <string name="pref_summary_audio_ducking">通知鈴聲、導航語音等。</string>
     <string name="could_not_download_album_cover">"\u7121\u6cd5\u4e0b\u8f09\u5408\u9069\u7684\u5c08\u8f2f\u5c01\u9762\u3002"</string>
     <string name="search_hint">掃描音樂庫…</string>
@@ -264,4 +271,7 @@
     <string name="copied_device_info_to_clipboard">複製裝置資訊到剪貼版。</string>
     <string name="your_account_data_is_only_used_for_authentication">您的帳戶資料僅用於驗證。</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">將被轉發到問題追蹤網站。</string>
+    <!-- App Shortcuts -->
+    <string name="app_shortcut_shuffle_all_short">隨機播放</string>
+    <string name="app_shortcut_top_tracks_short">最佳單曲</string>
 </resources>

@@ -91,4 +91,5 @@
     <string name="search_hint">Søk i biblioteket...</string>
     <string name="rescanning_media">Skanner media på nytt...</string>
     <string name="new_playlist_title">Ny speleliste</string>
+    <!-- App Shortcuts -->
 </resources>

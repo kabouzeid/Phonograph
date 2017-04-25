@@ -2,7 +2,7 @@
 <resources>
     <string name="what_do_you_want_to_share">¿Qué quieres compartir?</string>
     <string name="currently_listening_to_x_by_x">Estás escuchando %1$s por %2$s.</string>
-    <string name="the_audio_file">W</string>
+    <string name="the_audio_file">El archivo de audio</string>
     <string name="do_you_want_to_set_x_as_ringtone">¿Te gustaría establecer %1$s como tono de llamada?</string>
     <string name="x_has_been_set_as_ringtone">"Establecer %1$s como tono de llamada "</string>
     <string name="action_set_as_ringtone">Establecer como tono de llamada</string>
@@ -20,6 +20,9 @@
     <string name="action_search">Buscar</string>
     <string name="action_play_next">Reproducir a Continuación</string>
     <string name="action_play">Reproducir</string>
+    <string name="action_play_pause">Reproducir / Pausar</string>
+    <string name="action_previous">Anterior</string>
+    <string name="action_next">Siguiente</string>
     <string name="action_add_to_playing_queue">Añadir a cola de reproducción</string>
     <string name="action_remove_from_playing_queue">Eliminar de la cola de reproducción</string>
     <string name="action_add_to_playlist">Añadir a la lista de reproducción...</string>
@@ -45,7 +48,8 @@
     <string name="year">Año</string>
     <string name="track">Pista</string>
     <string name="track_hint">"Pista (2 para pista 2 o 3004 para CD3 pista 4)"</string>
-    <string name="album_or_artist_empty">El título o artista está vacío.</string>
+    <string name="lyrics">Letras</string>
+    <string name="album_or_artist_empty">El título o artista está vacío</string>
     <string name="saving_changes">Guardando cambios...</string>
     <string name="saving_to_file">Guardando en el archivo...</string>
     <string name="label_details">Detalles</string>
@@ -115,6 +119,7 @@
     <string name="pref_header_images">Imágenes</string>
     <string name="pref_header_lockscreen">Pantalla de bloqueo</string>
     <string name="pref_title_navigation_bar">Barra de navegación coloreada</string>
+    <string name="pref_title_app_shortcuts">Atajos coloreados de la aplicación</string>
     <string name="pref_title_set_default_start_page">Página de inicio</string>
     <string name="pref_title_album_art_on_lockscreen">Mostrar carátula del álbum</string>
     <string name="pref_title_auto_download_artist_images">Descargar automaticamente las fotos de los artistas</string>
@@ -167,6 +172,7 @@
     <string name="pref_summary_ignore_media_store_artwork">Puede aumentar la calidad de la carátula del álbum pero causa que las imágenes carguen mas lento. Sólo activalo si tienes problemas con carátulas de baja resolución.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Colorea los botones de reproducir/pausar, aleatorio y repetir as\u00ed como la barra de progreso con el color vibrante de la car\u00e1tula del \u00e1lbum.</string>
     <string name="pref_summary_colored_navigation_bar">Colorea la barra de navegación con el color principal.</string>
+    <string name="pref_summary_colored_app_shortcuts">Colorea los accesos directos con el color principal</string>
     <string name="pref_summary_audio_ducking">Notificaciones, navegación etc.</string>
     <string name="could_not_download_album_cover">"No se puede descargar una car\u00e1tula de \u00e1lbum que coincida."</string>
     <string name="search_hint">Buscar en la biblioteca...</string>
@@ -262,5 +268,8 @@
     <string name="bug_report_failed_unknown">Un error inesperado ha ocurrido. Por favor, contacte con el desarrollador</string>
     <string name="copied_device_info_to_clipboard">Información del dispositivo copiada al portapapeles</string>
     <string name="your_account_data_is_only_used_for_authentication">La información de tu cuenta se usa solamente para la autenticación</string>
-    <string name="you_will_be_forwarded_to_the_issue_tracker_website">Será redirigido a la página web del rastreador de problemas.</string>
+    <string name="you_will_be_forwarded_to_the_issue_tracker_website">Será redirigido a la página web del buscador de problemas.</string>
+    <!-- App Shortcuts -->
+    <string name="app_shortcut_shuffle_all_short">Mezclar</string>
+    <string name="app_shortcut_top_tracks_short">Los mejores temas</string>
 </resources>

@@ -20,6 +20,9 @@
     <string name="action_search">Поиск</string>
     <string name="action_play_next">Воспроизвести следующую</string>
     <string name="action_play">Воспроизведение</string>
+    <string name="action_play_pause">Воспроизведение/Пауза</string>
+    <string name="action_previous">Предыдущий</string>
+    <string name="action_next">Следующий</string>
     <string name="action_add_to_playing_queue">Добавить в очередь воспроизведения</string>
     <string name="action_remove_from_playing_queue">Удалить из очереди воспроизведения</string>
     <string name="action_add_to_playlist">Добавить в плейлист...</string>
@@ -45,8 +48,9 @@
     <string name="year">Год</string>
     <string name="track">Трек</string>
     <string name="track_hint">"Трек (2 для трека 2 или 3004 для трека 4 CD3)"</string>
+    <string name="lyrics">Текст песни</string>
     <string name="album_or_artist_empty">Поля названия альбома или альбом исполнителя пусты</string>
-    <string name="saving_changes">Сохранение изменений...</string>
+    <string name="saving_changes">Сохранение изменений</string>
     <string name="saving_to_file">Сохраняем файл...</string>
     <string name="label_details">Подробнее</string>
     <string name="label_file_name">Имя файла</string>
@@ -115,8 +119,9 @@
     <string name="pref_header_images">Изображения</string>
     <string name="pref_header_lockscreen">Экран блокировки</string>
     <string name="pref_title_navigation_bar">Цветная панель управления</string>
+    <string name="pref_title_app_shortcuts">Цветные шорткаты</string>
     <string name="pref_title_set_default_start_page">Установить начальную страницу</string>
-    <string name="pref_title_album_art_on_lockscreen">Обложка альбома на экране блокировки</string>
+    <string name="pref_title_album_art_on_lockscreen">Показывать обложку альбома</string>
     <string name="pref_title_auto_download_artist_images">Автоматически загружать изображения исполнителей</string>
     <string name="pref_title_blurred_album_art">"Размытая обложка альбома "</string>
     <string name="pref_title_colored_notification">Окрашенное уведомление</string>
@@ -154,6 +159,7 @@
     <string name="playlist_name_empty">Имя плейлиста</string>
     <string name="song">Песня</string>
     <string name="pref_only_lollipop">"Доступно только для Lollipop."</string>
+    <string name="pref_only_nougat_mr1">"Доступно только для Nougat 7.1"</string>
     <string name="pref_summary_album_art_on_lockscreen">Обложка альбома текущей песни используется как изображение экрана блокировки.</string>
     <string name="pref_summary_blurred_album_art">Делает размытую обложку фоном экрана блокировки. Может создавать проблемы с другими приложениями и виджетами.</string>
     <string name="pref_summary_colored_notification">"\u041e\u043a\u0440\u0430\u0448\u0438\u0432\u0430\u0435\u0442 \u0443\u0432\u0435\u0434\u043e\u043c\u043b\u0435\u043d\u0438\u0435 \u0432 \u0442\u043e\u043d \u043e\u0431\u043b\u043e\u0436\u043a\u0438 \u0430\u043b\u044c\u0431\u043e\u043c\u0430."</string>
@@ -167,6 +173,7 @@
     <string name="pref_summary_ignore_media_store_artwork">Может увеличить качество обложки, но также увеличивает время их отрисовки. Влючайте только, если вы имеете проблемы с низким разрешением обложек альбомов.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">\u041e\u043a\u0440\u0430\u0448\u0438\u0432\u0430\u0435\u0442 \u043a\u043d\u043e\u043f\u043a\u0438 \u043f\u0443\u0441\u043a/\u043f\u0430\u0443\u0437\u0430, \u043f\u0435\u0440\u0435\u043c\u0435\u0448\u0430\u0442\u044c \u0438 \u043f\u043e\u0432\u0442\u043e\u0440, \u0430 \u0442\u0430\u043a \u0436\u0435 \u0441\u043b\u0430\u0439\u0434\u0435\u0440 \u043f\u043e\u0437\u0438\u0446\u0438\u0438 \u0432 \u0442\u043e\u043d \u043e\u0431\u043b\u043e\u0436\u043a\u0438 \u0430\u043b\u044c\u0431\u043e\u043c\u0430.</string>
     <string name="pref_summary_colored_navigation_bar">Окрашивает панель навигации в основной цвет.</string>
+    <string name="pref_summary_colored_app_shortcuts">Окрашивает шорткаты в основной цвет.</string>
     <string name="pref_summary_audio_ducking">Уведомления, навигация, т.д.</string>
     <string name="could_not_download_album_cover">"\u041d\u0435\u0432\u043e\u0437\u043c\u043e\u0436\u043d\u043e \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044c \u043f\u043e\u0434\u0445\u043e\u0434\u044f\u0449\u0443\u044e \u043e\u0431\u043b\u043e\u0436\u043a\u0443 \u0430\u043b\u044c\u0431\u043e\u043c\u0430."</string>
     <string name="search_hint">Поиск библиотеки...</string>
@@ -263,4 +270,7 @@
     <string name="copied_device_info_to_clipboard">Информация об устройстве скопирована в буфер обмена.</string>
     <string name="your_account_data_is_only_used_for_authentication">Информация о вашем аккаунте используется только для авторизации.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Вы будете перенаправлены на сайт для отчётов об ошибках.</string>
+    <!-- App Shortcuts -->
+    <string name="app_shortcut_shuffle_all_short">Перемешать</string>
+    <string name="app_shortcut_top_tracks_short">Популярные треки</string>
 </resources>

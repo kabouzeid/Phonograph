@@ -20,6 +20,9 @@
     <string name="action_search">Rechercher</string>
     <string name="action_play_next">Jouer ensuite</string>
     <string name="action_play">Lecture</string>
+    <string name="action_play_pause">Play/Pause</string>
+    <string name="action_previous">Précédent</string>
+    <string name="action_next">Suivant</string>
     <string name="action_add_to_playing_queue">Ajouter à la liste de lecture</string>
     <string name="action_remove_from_playing_queue">Retirer de la liste de lecture</string>
     <string name="action_add_to_playlist">Ajouter à la liste de lecture...</string>
@@ -45,6 +48,7 @@
     <string name="year">Année</string>
     <string name="track">Piste</string>
     <string name="track_hint">"Piste (2 pour piste 2 ou 3004 pour CD3 piste 4)"</string>
+    <string name="lyrics">Paroles</string>
     <string name="album_or_artist_empty">Le champ \"titre\" ou \"artiste\" est vide.</string>
     <string name="saving_changes">Sauvegarde des modifications</string>
     <string name="saving_to_file">Sauvegarde dans le fichier…</string>
@@ -115,6 +119,7 @@
     <string name="pref_header_images">Images</string>
     <string name="pref_header_lockscreen">Écran de verrouillage</string>
     <string name="pref_title_navigation_bar">Barre de navigation colorée</string>
+    <string name="pref_title_app_shortcuts">Raccourcis de l\'application colorés</string>
     <string name="pref_title_set_default_start_page">Page d\'accueil</string>
     <string name="pref_title_album_art_on_lockscreen">Afficher la pochette d\'album</string>
     <string name="pref_title_auto_download_artist_images">Télécharger automatiquement les images</string>
@@ -154,6 +159,7 @@
     <string name="playlist_name_empty">Nom de la liste de lecture</string>
     <string name="song">Titre</string>
     <string name="pref_only_lollipop">"Disponible sur Lollipop uniquement."</string>
+    <string name="pref_only_nougat_mr1">"Disponible uniquement sous Android Nougat 7.1."</string>
     <string name="pref_summary_album_art_on_lockscreen">La pochette d\'album du titre actuel est utilisée comme fond d\'écran de verrouillage.</string>
     <string name="pref_summary_blurred_album_art">Floute la pochette d\'album sur l\'écran de verrouillage. Peut causer des problèmes avec des applications et des widgets tiers.</string>
     <string name="pref_summary_colored_notification">"Colore la notification en fonction de la pochette de l'album."</string>
@@ -167,6 +173,7 @@
     <string name="pref_summary_ignore_media_store_artwork">Peut augmenter la qualité des pochettes d\'albums, mais peut causer des temps de chargement plus longs. N\'activez cette option que si vous avez des problèmes de basse résolution des pochettes.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Colore les contr\u00f4les de lecture (boutons Lecture/Pause, Lecture Al\u00e9atoire et R\u00e9p\u00e9ter) ainsi que la barre de progression en fonction de la pochette de l\'album.</string>
     <string name="pref_summary_colored_navigation_bar">Colore la barre de navigation en fonction de la couleur principale.</string>
+    <string name="pref_summary_colored_app_shortcuts">Colore les raccourcis de l\'application selon la couleur primaire.</string>
     <string name="pref_summary_audio_ducking">Notifications, navigation, etc.</string>
     <string name="could_not_download_album_cover">"Impossible de t\u00e9l\u00e9charger la pochette correspondant \u00e0 l'album."</string>
     <string name="search_hint">Recherche dans votre bibliothèque...</string>
@@ -263,4 +270,11 @@
     <string name="copied_device_info_to_clipboard">Informations sur l\'appareil copiées dans le presse-papiers.</string>
     <string name="your_account_data_is_only_used_for_authentication">Vos données de compte sont utilisées pour l\'authentification uniquement.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Vous serez redirigé vers le site internet du traqueur de problèmes.</string>
+    <!-- App Shortcuts -->
+    <string name="app_shortcut_shuffle_all_long">@string/action_shuffle_all</string>
+    <string name="app_shortcut_shuffle_all_short">Lecture aléatoire</string>
+    <string name="app_shortcut_top_tracks_long">@string/my_top_tracks</string>
+    <string name="app_shortcut_top_tracks_short">Meilleurs titres</string>
+    <string name="app_shortcut_last_added_long">@string/last_added</string>
+    <string name="app_shortcut_last_added_short">@string/last_added</string>
 </resources>

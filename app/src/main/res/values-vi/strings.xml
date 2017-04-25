@@ -20,6 +20,9 @@
     <string name="action_search">Tìm kiếm</string>
     <string name="action_play_next">Phát kế tiếp</string>
     <string name="action_play">Phát</string>
+    <string name="action_play_pause">Phát/Dừng</string>
+    <string name="action_previous">Trước</string>
+    <string name="action_next">Kế tiếp</string>
     <string name="action_add_to_playing_queue">Thêm vào danh sách phát</string>
     <string name="action_remove_from_playing_queue">Xoá khỏi danh sách phát</string>
     <string name="action_add_to_playlist">Thêm vào danh sách nhạc...</string>
@@ -45,6 +48,7 @@
     <string name="year">Năm</string>
     <string name="track">Ca khúc</string>
     <string name="track_hint">"Số thứ tự (ghi 2 nếu là bài thứ 2 hoặc ghi 3004 nếu là CD 3, bài thứ 4)"</string>
+    <string name="lyrics">Lời bài hát</string>
     <string name="album_or_artist_empty">Tiêu đề hoặc nghệ sĩ rỗng.</string>
     <string name="saving_changes">Đang lưu thay đổi</string>
     <string name="saving_to_file">Đang lưu tập tin...</string>
@@ -115,6 +119,7 @@
     <string name="pref_header_images">Hình ảnh</string>
     <string name="pref_header_lockscreen">Màn hình khóa</string>
     <string name="pref_title_navigation_bar">Màu thanh điều hướng</string>
+    <string name="pref_title_app_shortcuts">Màu sắc biểu tượng ứng dụng</string>
     <string name="pref_title_set_default_start_page">Trang bắt đầu</string>
     <string name="pref_title_album_art_on_lockscreen">Hiện bìa album</string>
     <string name="pref_title_auto_download_artist_images">Tự động tải về hình ảnh nghệ sĩ</string>
@@ -154,6 +159,7 @@
     <string name="playlist_name_empty">Tên danh sách nhạc</string>
     <string name="song">Bài hát</string>
     <string name="pref_only_lollipop">"Chỉ có trên Lollipop."</string>
+    <string name="pref_only_nougat_mr1">"Chỉ có trên Nougat 7.1."</string>
     <string name="pref_summary_album_art_on_lockscreen">Sử dụng bìa album các bài hát hiện tại làm hình nền màn hình khóa.</string>
     <string name="pref_summary_blurred_album_art">Làm mờ bìa album trên màn hình khóa. Có thể gây ra vấn đề với các ứng dụng của bên thứ ba và các tiện ích (widget).</string>
     <string name="pref_summary_colored_notification">"M\u00e0u s\u1eafc r\u1ef1c r\u1ee1 cho c\u00e1c th\u00f4ng b\u00e1o trong b\u00eca album."</string>
@@ -167,6 +173,7 @@
     <string name="pref_summary_ignore_media_store_artwork">Có thể làm tăng chất lượng bìa album nhưng làm chậm quá trình tải hình ảnh. Chỉ cho phép điều này nếu bạn có vấn đề với hình ảnh có độ phân giải thấp.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">M\u00e0u s\u1eafc c\u1ee7a ph\u00e1t / t\u1ea1m d\u1eebng, tr\u1ed9n v\u00e0 l\u1eb7p l\u1ea1i c\u0169ng nh\u01b0 thanh ti\u1ebfn tr\u00ecnh trong m\u00e0u s\u1eafc r\u1ef1c r\u1ee1 c\u1ee7a b\u00eca album.</string>
     <string name="pref_summary_colored_navigation_bar">Màu sắc thanh điều hướng trong các màu cơ bản.</string>
+    <string name="pref_summary_colored_app_shortcuts">Màu sắc chủ đạo của biểu tượng ứng dụng.</string>
     <string name="pref_summary_audio_ducking">Thông báo, điều hướng, vv.</string>
     <string name="could_not_download_album_cover">"Kh\u00f4ng th\u1ec3 t\u1ea3i v\u1ec1 b\u00eca album ph\u00f9 h\u1ee3p."</string>
     <string name="search_hint">Tìm kiếm thư viện của bạn...</string>
@@ -263,4 +270,11 @@
     <string name="copied_device_info_to_clipboard">Đã sao chép thông tin thiết bị vào bảng nhớ tạm (Clipboard).</string>
     <string name="your_account_data_is_only_used_for_authentication">Thông tin tài khoản của bạn chỉ dùng để chứng thực.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Bạn sẽ được đưa đến trang web theo dõi vấn đề.</string>
+    <!-- App Shortcuts -->
+    <string name="app_shortcut_shuffle_all_long">@string/action_shuffle_all</string>
+    <string name="app_shortcut_shuffle_all_short">Xáo trộn</string>
+    <string name="app_shortcut_top_tracks_long">@string/my_top_tracks</string>
+    <string name="app_shortcut_top_tracks_short">Bài hát hàng đầu</string>
+    <string name="app_shortcut_last_added_long">@string/last_added</string>
+    <string name="app_shortcut_last_added_short">@string/last_added</string>
 </resources>

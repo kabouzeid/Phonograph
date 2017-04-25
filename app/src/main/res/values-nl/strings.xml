@@ -20,6 +20,9 @@
     <string name="action_search">Zoeken</string>
     <string name="action_play_next">Afspelen als volgende</string>
     <string name="action_play">Afspelen</string>
+    <string name="action_play_pause">Afspelen/Pauzeren</string>
+    <string name="action_previous">Vorige</string>
+    <string name="action_next">Volgende</string>
     <string name="action_add_to_playing_queue">Toevoegen aan afspeelwachtrij</string>
     <string name="action_remove_from_playing_queue">Verwijderen uit afspeelwachtrij</string>
     <string name="action_add_to_playlist">Toevoegen aan afspeellijst…</string>
@@ -45,6 +48,7 @@
     <string name="year">Jaar</string>
     <string name="track">Nummer</string>
     <string name="track_hint">"Nummer (2 voor nr. 2, of 3004 voor CD3 nr. 4)"</string>
+    <string name="lyrics">Songteksten</string>
     <string name="album_or_artist_empty">De titel of artiest is leeg.</string>
     <string name="saving_changes">Wijzigingen opslaan</string>
     <string name="saving_to_file">Opslaan in bestand…</string>
@@ -263,4 +267,5 @@
     <string name="copied_device_info_to_clipboard">Apparaat info gekopieerd naar klembord.</string>
     <string name="your_account_data_is_only_used_for_authentication">Je accountgegevens worden alleen gebruikt voor authenticatie.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Je wordt doorverwezen naar de probleem bijhoud website.</string>
+    <!-- App Shortcuts -->
 </resources>
