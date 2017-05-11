@@ -40,8 +40,7 @@ public class AutoMusicSource implements MusicProviderSource{
         }else if(!cursor.moveToFirst()){
             //Cursor empty, no media
         }else{
-
-            for(int i = 0;i<cursor.getCount();i++){    //TODO: change this ti  cursor.count()
+            for(int i = 0;i<cursor.getCount();i++){    //TODO: change this t0 cursor.count()
                 tracks.add(buildSongsMediaMetadata(cursor));
                 cursor.moveToNext();
             }
@@ -54,6 +53,7 @@ public class AutoMusicSource implements MusicProviderSource{
         String _ID = c.getString(c.getColumnIndex(MediaStore.Audio.Media._ID));
         String title = c.getString(c.getColumnIndex(MediaStore.Audio.Media.TITLE));
         String album = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ALBUM));
+        String albumId = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
         String artist = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ARTIST));
         String source = c.getString(c.getColumnIndex(MediaStore.Audio.Media.DATA));
         int trackNumber = c.getInt(c.getColumnIndex(MediaStore.Audio.Media.TRACK));
@@ -63,6 +63,7 @@ public class AutoMusicSource implements MusicProviderSource{
                 .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, _ID)
                 .putString(MusicProviderSource.CUSTOM_METADATA_TRACK_SOURCE, source)
                 .putString(MediaMetadataCompat.METADATA_KEY_ALBUM, album)
+                .putString(MusicProviderSource.CUSTOM_METADATA_ALBUM_ID, albumId)
                 .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, artist)
                 .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, duration)
                 .putString(MediaMetadataCompat.METADATA_KEY_TITLE, title)

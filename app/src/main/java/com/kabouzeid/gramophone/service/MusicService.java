@@ -257,7 +257,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         mediaSession.setCallback(mMediaSessionCallback);
         mediaSession.setFlags(MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS
                 | MediaSession.FLAG_HANDLES_MEDIA_BUTTONS);
-
         mediaSession.setMediaButtonReceiver(mediaButtonReceiverPendingIntent);
     }
 

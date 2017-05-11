@@ -74,7 +74,7 @@ public class AutoMusicProvider {
         mMusicListByAlbum = new ConcurrentHashMap<>();
         mMusicListByTopTracks = new ConcurrentHashMap<>();
 
-        mMusicListById = new ConcurrentHashMap<>();
+        mMusicListById = new ConcurrentHashMap<>(); //helps build the others
     }
 
     /**
@@ -109,7 +109,7 @@ public class AutoMusicProvider {
 
     /**
      * Get the list of music tracks from a server and caches the track information
-     * for future reference, keying tracks by musicId and grouping by genre.
+     * for future reference, keying tracks by musicId
      */
     public void retrieveMediaAsync(final Callback callback) {
         Log.d(TAG, "retrieveMediaAsync called");
@@ -142,7 +142,7 @@ public class AutoMusicProvider {
         ConcurrentMap<String, List<Song>> newMusicListByAlbum = new ConcurrentHashMap<>();
 
         for(Album a: AlbumLoader.getAllAlbums(mContext)){
-            String albumName = a.getTitle() + "|" + a.getId();
+            String albumName = a.getTitle() + "|" + a.getId() + "|" + a.getArtistName();
             List<Song> list = newMusicListByAlbum.get(albumName);
             if (list == null) {
                 list = new ArrayList<>();
@@ -172,13 +172,6 @@ public class AutoMusicProvider {
         try {
             if (mCurrentState == State.NON_INITIALIZED) {
                 mCurrentState = State.INITIALIZING;
-
-                /*Iterator<MediaMetadataCompat> tracks = mSource.iterator();
-                while (tracks.hasNext()) {
-                    MediaMetadataCompat item = tracks.next();
-                    String musicId = item.getString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID);
-                    mMusicListById.put(musicId, new MutableMediaMetadata(musicId, item));
-                }*/
 
                 buildListsByPlaylist();
                 buildListsByAlbum();
@@ -220,9 +213,9 @@ public class AutoMusicProvider {
                 break;
 
             case (MEDIA_ID_MUSICS_BY_TOP_TRACKS):
-                for (String topTrack : getTopTracks()) {
+                /*for (String topTrack : getTopTracks()) {
                     mediaItems.add(createBrowsableMediaItem(mediaId, topTrack, resources));
-                }
+                }*/
                 break;
         }
 
@@ -273,7 +266,7 @@ public class AutoMusicProvider {
         return null;
     }
 
-    private MediaBrowserCompat.MediaItem createBrowsableMediaItem(String mediaId, String musicSelection, //playlist/album/genre
+    private MediaBrowserCompat.MediaItem createBrowsableMediaItem(String mediaId, String musicSelection, //playlist/album|id
                                                                           Resources resources) {
         MediaDescriptionCompat description = null;
         MediaDescriptionCompat.Builder builder = new MediaDescriptionCompat.Builder();
@@ -291,11 +284,17 @@ public class AutoMusicProvider {
                         MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);
 
             case(MEDIA_ID_MUSICS_BY_ALBUM):
-                builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_ALBUM, musicSelection))
-                        .setTitle(musicSelection.substring(0, musicSelection.indexOf("|")))
-                        .setSubtitle(musicSelection);
+                String albumTitle = musicSelection.substring(0, musicSelection.indexOf("|"));
+                String artist = musicSelection.substring(musicSelection.lastIndexOf("|")+1, musicSelection.length());
 
-                Bitmap bitmap = MusicUtil.getAlbumArtForAlbum(mContext, Integer.parseInt(
+
+                builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_ALBUM, musicSelection))
+                        .setTitle(albumTitle)
+                        .setSubtitle(artist);
+
+                //This block loads album art but takes too long, need to find more efficient way
+
+                /*Bitmap bitmap = MusicUtil.getAlbumArtForAlbum(mContext, Integer.parseInt(
                         musicSelection.substring(musicSelection.indexOf("|")+1, musicSelection.length())));
 
                 if(bitmap != null){
@@ -304,7 +303,7 @@ public class AutoMusicProvider {
                     builder.setIconUri(Uri.parse("android.resource://" +
                             mContext.getPackageName() + "/drawable/" +
                             resources.getResourceEntryName(R.drawable.default_album_art)));
-                }
+                }*/
 
                 description = builder.build();
                 return new MediaBrowserCompat.MediaItem(description,
@@ -324,5 +323,4 @@ public class AutoMusicProvider {
 
         return null;
     }
-
 }
