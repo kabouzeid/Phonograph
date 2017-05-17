@@ -15,6 +15,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
+import com.kabouzeid.gramophone.loader.TopAndRecentlyPlayedTracksLoader;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
@@ -46,7 +47,7 @@ public class AutoMusicProvider {
     //Categorized caches for music data
     private ConcurrentMap<String, List<PlaylistSong>> mMusicListByPlaylist;
     private ConcurrentMap<String, List<Song>> mMusicListByAlbum;
-    private ConcurrentMap<String, List<MediaMetadataCompat>> mMusicListByTopTracks;
+    private ConcurrentMap<String, Song> mMusicListByTopTracks;
 
     private final ConcurrentMap<String, MutableMediaMetadata> mMusicListById;
 
@@ -155,6 +156,7 @@ public class AutoMusicProvider {
 
     private synchronized void buildListsByPlaylist() {
         ConcurrentMap<String, List<PlaylistSong>> newMusicListByPlaylist = new ConcurrentHashMap<>();
+
         for(Playlist p: PlaylistLoader.getAllPlaylists(mContext)){
             String playlistName = p.name;
             List<PlaylistSong> list = newMusicListByPlaylist.get(playlistName);
@@ -168,6 +170,17 @@ public class AutoMusicProvider {
         mMusicListByPlaylist = newMusicListByPlaylist;
     }
 
+    private synchronized void buildListsByTopTracks() {
+        ConcurrentMap<String, Song> newMusicListByTopTracks = new ConcurrentHashMap<>();
+
+        for(Song s: TopAndRecentlyPlayedTracksLoader.getTopTracks(mContext)){
+            String songName = s.title;
+            newMusicListByTopTracks.put(songName, s);
+        }
+
+        mMusicListByTopTracks = newMusicListByTopTracks;
+    }
+
     private synchronized void retrieveMedia() {
         try {
             if (mCurrentState == State.NON_INITIALIZED) {
@@ -175,6 +188,7 @@ public class AutoMusicProvider {
 
                 buildListsByPlaylist();
                 buildListsByAlbum();
+                buildListsByTopTracks();
                 mCurrentState = State.INITIALIZED;
             }
         } finally {
@@ -213,9 +227,9 @@ public class AutoMusicProvider {
                 break;
 
             case (MEDIA_ID_MUSICS_BY_TOP_TRACKS):
-                /*for (String topTrack : getTopTracks()) {
+                for (String topTrack : getTopTracks()) {
                     mediaItems.add(createBrowsableMediaItem(mediaId, topTrack, resources));
-                }*/
+                }
                 break;
         }
 
@@ -261,7 +275,7 @@ public class AutoMusicProvider {
                         .build();
 
                 return new MediaBrowserCompat.MediaItem(description,
-                        MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);
+                        MediaBrowserCompat.MediaItem.FLAG_BROWSABLE);
         }
         return null;
     }
@@ -275,7 +289,7 @@ public class AutoMusicProvider {
             case(MEDIA_ID_MUSICS_BY_PLAYLIST):
                 builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_PLAYLIST, musicSelection))
                         .setTitle(musicSelection)
-                        .setSubtitle(musicSelection)
+                        .setSubtitle("")
                         .setIconUri(Uri.parse("android.resource://" +
                                 mContext.getPackageName() + "/drawable/" +
                                 resources.getResourceEntryName(R.drawable.ic_playlist_play_black_24dp)));
