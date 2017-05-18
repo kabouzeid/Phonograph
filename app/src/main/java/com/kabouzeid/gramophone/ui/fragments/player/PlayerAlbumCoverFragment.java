@@ -10,12 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.AlbumCoverPagerAdapter;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.helper.MusicProgressViewUpdateHelper;
 import com.kabouzeid.gramophone.misc.SimpleAnimatorListener;
+import com.kabouzeid.gramophone.model.lyrics.SynchronizedLyrics;
 import com.kabouzeid.gramophone.ui.fragments.AbsMusicServiceFragment;
 import com.kabouzeid.gramophone.util.ViewUtil;
 
@@ -26,7 +30,7 @@ import butterknife.Unbinder;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements ViewPager.OnPageChangeListener {
+public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements ViewPager.OnPageChangeListener, MusicProgressViewUpdateHelper.Callback {
     public static final String TAG = PlayerAlbumCoverFragment.class.getSimpleName();
 
     private Unbinder unbinder;
@@ -36,8 +40,18 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     @BindView(R.id.player_favorite_icon)
     ImageView favoriteIcon;
 
+	@BindView(R.id.player_lyrics)
+    FrameLayout lyrics;
+    @BindView(R.id.player_lyrics_line1)
+    TextView lyricsLine1;
+    @BindView(R.id.player_lyrics_line2)
+    TextView lyricsLine2;
+
     private Callbacks callbacks;
     private int currentPosition;
+
+    private SynchronizedLyrics synchronizedLyrics;
+    private MusicProgressViewUpdateHelper progressViewUpdateHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,6 +82,8 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
                 return gestureDetector.onTouchEvent(event);
             }
         });
+        progressViewUpdateHelper = new MusicProgressViewUpdateHelper(this);
+        progressViewUpdateHelper.start();
     }
 
     @Override
@@ -75,6 +91,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
         super.onDestroyView();
         viewPager.removeOnPageChangeListener(this);
         unbinder.unbind();
+        progressViewUpdateHelper.stop();
     }
 
     @Override
@@ -163,12 +180,58 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
                 .start();
     }
 
+    public void setSynchronizedLyrics(SynchronizedLyrics sLyrics)
+    {
+        if(sLyrics == null || sLyrics.lines.size() == 0)
+        {
+            synchronizedLyrics = null;
+            lyrics.setVisibility(View.GONE);
+            lyricsLine1.setText(null);
+            lyricsLine2.setText(null);
+            return;
+        }
+
+        synchronizedLyrics = sLyrics;
+
+        lyrics.setVisibility(View.VISIBLE);
+    }
+
     private void notifyColorChange(int color) {
         if (callbacks != null) callbacks.onColorChanged(color);
     }
 
     public void setCallbacks(Callbacks listener) {
         callbacks = listener;
+    }
+
+    @Override
+    public void onUpdateProgressViews(int progress, int total) {
+        if(synchronizedLyrics == null || synchronizedLyrics.lines.size() == 0) {
+            lyricsLine1.setText(null);
+            lyricsLine2.setText(null);
+            return;
+        }
+
+        String oldLine = lyricsLine2.getText().toString();
+        String line = synchronizedLyrics.getLine(progress);
+
+        if(!oldLine.equals(line) || oldLine.isEmpty())
+        {
+            lyricsLine1.setText(oldLine);
+            lyricsLine2.setText(line);
+            lyricsLine1.setVisibility(View.VISIBLE);
+            lyricsLine2.setVisibility(View.VISIBLE);
+            int l1h = lyricsLine1.getMeasuredHeight();
+            int l2h = lyricsLine2.getMeasuredHeight();
+
+            this.lyricsLine1.setAlpha(1f);
+            this.lyricsLine1.setTranslationY(0f);
+            this.lyricsLine1.animate().alpha(0f).translationY(-l1h).setDuration(300);
+
+            this.lyricsLine2.setAlpha(0f);
+            this.lyricsLine2.setTranslationY(l2h);
+            this.lyricsLine2.animate().alpha(1f).translationY(0f).setDuration(300);
+        }
     }
 
     public interface Callbacks {
