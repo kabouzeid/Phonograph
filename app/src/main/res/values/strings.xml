@@ -297,6 +297,8 @@
     <string name="albums_label">Albums</string>
     <string name="browse_by_albums_description">Browse by albums</string>
     <string name="top_tracks_label">Top Tracks</string>
+    <string name="browse_by_toptracks_description">Browse by top tracks</string>
+
 
 
 </resources>
