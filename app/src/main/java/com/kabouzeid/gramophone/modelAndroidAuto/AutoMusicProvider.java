@@ -234,7 +234,7 @@ public class AutoMusicProvider {
             case (MEDIA_ID_MUSICS_BY_ALBUM):
                 for (Uri album : getAlbums()) {
                     String albumId = album.getPathSegments().get(PATH_SEGMENT_ID);
-                    //Loading image takes too long
+                    //Loading image takes too long, need to find better, faster way
                     //Bitmap bitmap = MusicUtil.getAlbumArtForAlbum(mContext, Integer.parseInt(albumId));
                     mediaItems.add(createBrowsableMediaItem(mediaId, album, null, resources));
                 }

@@ -189,6 +189,7 @@
                 android:name=".ui.activities.bugreport.BugReportActivity"
                 android:label="@string/report_an_issue"/>
 
+        <!-- Android Auto browser service -->
         <service
                 android:name=".service.AutoMusicBrowserService"
                 android:enabled="true"
