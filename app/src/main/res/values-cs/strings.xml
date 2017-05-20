@@ -20,6 +20,9 @@
     <string name="action_search">Hledat</string>
     <string name="action_play_next">Další skladba</string>
     <string name="action_play">Přehrát</string>
+    <string name="action_play_pause">Přehrát/Pozastavit</string>
+    <string name="action_previous">Předchozí</string>
+    <string name="action_next">Další</string>
     <string name="action_add_to_playing_queue">Přidat do fronty</string>
     <string name="action_remove_from_playing_queue">Odebrat z fronty</string>
     <string name="action_add_to_playlist">Přidat do playlistu...</string>
@@ -45,6 +48,7 @@
     <string name="year">Rok</string>
     <string name="track">Skladba</string>
     <string name="track_hint">"Stopa (2 pro stopu 2; 3004 pro stopu 4 na CD3)"</string>
+    <string name="lyrics">Text</string>
     <string name="album_or_artist_empty">Název alba nebo interpreta je prázdný.</string>
     <string name="saving_changes">Ukládání změn...</string>
     <string name="saving_to_file">Ukládání do souboru...</string>
@@ -115,6 +119,7 @@
     <string name="pref_header_images">Obrázky</string>
     <string name="pref_header_lockscreen">Odemykací obrazovka</string>
     <string name="pref_title_navigation_bar">Barevné záhlaví</string>
+    <string name="pref_title_app_shortcuts">Barevné zkratky aplikace</string>
     <string name="pref_title_set_default_start_page">Zvolit výchozí obrazovku</string>
     <string name="pref_title_album_art_on_lockscreen">Obal alba na odemykací obrazovce</string>
     <string name="pref_title_auto_download_artist_images">Automaticky stahovat obrázky umělců</string>
@@ -129,6 +134,7 @@
     <string name="pref_title_alternative_progress_slider_now_playing">Alternativní ukazatel přehrávače</string>
     <string name="pref_title_playback_controller_card_now_playing">Zvýraznit tlačítka ovládání přehrávače</string>
     <string name="pref_title_colored_playback_controls_now_playing">Barevná ovládací tlaítka</string>
+    <string name="pref_title_audio_ducking">Snížit hlasitost při ztrátě priority zvuku</string>
     <string name="no_equalizer">"Nenalezen žádný ekvalizér. "</string>
     <string name="no_audio_ID">"Nejdříve přehrajte píseň, poté zkuste znovu. "</string>
     <string name="delete_action">Smazat</string>
@@ -153,6 +159,7 @@
     <string name="playlist_name_empty">Pojmenování seznamu skladeb</string>
     <string name="song">Skladba</string>
     <string name="pref_only_lollipop">"Dostupné pouze ve verzi Lollipop."</string>
+    <string name="pref_only_nougat_mr1">"Pouze od Android Nougat 7.1."</string>
     <string name="pref_summary_album_art_on_lockscreen">Obaly alb se budou zobrazovat na zamykací obrazovce. Pro aplikaci může být nutné aplikaci restartovat.</string>
     <string name="pref_summary_blurred_album_art">Rozostří obal alba na uzamčené obrazovce. Může být problematické s aplikacemi a widgety třetích stran.</string>
     <string name="pref_summary_colored_notification">"Notifikace jsou zbarveny podle obalu alba."</string>
@@ -166,6 +173,7 @@
     <string name="pref_summary_ignore_media_store_artwork">"Může zvýšit kvalitu obalu alba, ale způsobí pomalejší načítání. Povolte pouze pokud máte problémy s nízkým rozlišením obalu. "</string>
     <string name="pref_summary_colored_playback_controls_now_playing">"Zabarv\u00ed tla\u010d\u00edtka p\u0159ehr\u00e1t/pozastavit, n\u00e1hodn\u011b a opakovat a tak\u00e9 ukazatel \u010dasu do barvy obalu. "</string>
     <string name="pref_summary_colored_navigation_bar">Zvolte, kde se má zobrazovat barevné záhlaví.</string>
+    <string name="pref_summary_colored_app_shortcuts">Zbarví zkratky aplikace primární barvou</string>
     <string name="pref_summary_audio_ducking">Oznámení, navigace atd.</string>
     <string name="could_not_download_album_cover">"Nelze st\u00e1hnout obal alba."</string>
     <string name="search_hint">Vyhledat zvukové soubory...</string>
@@ -181,8 +189,8 @@
     <string name="action_sleep_timer">Určit ukončení přehrávání</string>
     <string name="action_set">Nastavit</string>
     <string name="cancel_current_timer">Zrušit ukončení přehrávání</string>
-    <string name="sleep_timer_canceled">Ukončení přehrávání bylo zrušeno</string>
-    <string name="sleep_timer_set">Přehrávání se ukončí za %d minut</string>
+    <string name="sleep_timer_canceled">Ukončení přehrávání zrušeno.</string>
+    <string name="sleep_timer_set">Přehrávání se ukončí za %d minut.</string>
     <string name="action_new_playlist">Nový playlist...</string>
     <string name="new_playlist_title">Nový playlist</string>
     <string name="colored_footers">"Barevné zápatí "</string>
@@ -256,8 +264,17 @@
     <string name="bug_report_uploading">Nahrávání hlášení na GitHub...</string>
     <string name="bug_report_failed">Nelze poslat hlášení</string>
     <string name="bug_report_failed_wrong_credentials">Nesprávné uživatelské jméno nebo heslo</string>
+    <string name="bug_report_failed_invalid_token">Nesprávný přístupový kód. Kontaktujte vývojáře aplikace.</string>
+    <string name="bug_report_failed_issues_not_available">Není povoleno v daném adresáři. Kontaktujte vývojáře aplikace.</string>
     <string name="bug_report_failed_unknown">Vyskytla se neočekávaná chyba. Kontaktujte vývojáře aplikace.</string>
     <string name="copied_device_info_to_clipboard">Informace o zařízení zkopírovány do schránky.</string>
     <string name="your_account_data_is_only_used_for_authentication">Vaše údaje k účtu jsou použity pouze k ověření.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Budete přesměrováni na webovou stránku pro zadání problému.</string>
+    <!-- App Shortcuts -->
+    <string name="app_shortcut_shuffle_all_long">Náhodně všechny skladby</string>
+    <string name="app_shortcut_shuffle_all_short">Náhodně</string>
+    <string name="app_shortcut_top_tracks_long">Nejposlouchanější Skladby</string>
+    <string name="app_shortcut_top_tracks_short">Nejposlouchanější Skladby</string>
+    <string name="app_shortcut_last_added_long">Posledně přidané</string>
+    <string name="app_shortcut_last_added_short">Posledně přidané</string>
 </resources>

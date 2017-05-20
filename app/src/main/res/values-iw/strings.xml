@@ -190,4 +190,5 @@
     <string name="password">סיסמא</string>
     <string name="bug_report_uploading">מעלה דיווח לGitHub…</string>
     <string name="bug_report_failed_wrong_credentials">שם משתמש או סיסמא שגויים</string>
+    <!-- App Shortcuts -->
 </resources>

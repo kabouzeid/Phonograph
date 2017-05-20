@@ -20,6 +20,9 @@
     <string name="action_search">Suche</string>
     <string name="action_play_next">Spiele als nächstes</string>
     <string name="action_play">Abspielen</string>
+    <string name="action_play_pause">Play/Pause</string>
+    <string name="action_previous">Vorheriger</string>
+    <string name="action_next">Nächster</string>
     <string name="action_add_to_playing_queue">Zur Warteschlange hinzufügen</string>
     <string name="action_remove_from_playing_queue">Von Warteschlange entfernen</string>
     <string name="action_add_to_playlist">Zu Wiedergabeliste hinzufügen…</string>
@@ -45,6 +48,7 @@
     <string name="year">Jahr</string>
     <string name="track">Titel</string>
     <string name="track_hint">"Track (2 für Track 2 oder 3004 für CD 3 Track 4)"</string>
+    <string name="lyrics">Songtext</string>
     <string name="album_or_artist_empty">Der Titel oder der Interpret ist leer.</string>
     <string name="saving_changes">Speichere Änderungen…</string>
     <string name="saving_to_file">In Datei speichern...</string>
@@ -115,6 +119,7 @@
     <string name="pref_header_images">Bilder</string>
     <string name="pref_header_lockscreen">Sperrbildschirm</string>
     <string name="pref_title_navigation_bar">Farbige Navigationsleiste</string>
+    <string name="pref_title_app_shortcuts">Gefärbte App-Shortcuts</string>
     <string name="pref_title_set_default_start_page">Startseite</string>
     <string name="pref_title_album_art_on_lockscreen">Album Cover anzeigen</string>
     <string name="pref_title_auto_download_artist_images">Interpreten Bilder automatisch herunterladen</string>
@@ -154,6 +159,7 @@
     <string name="playlist_name_empty">Wiedergabelisten Name</string>
     <string name="song">Titel</string>
     <string name="pref_only_lollipop">"Nur auf Android Lollipop 5.x verfügbar"</string>
+    <string name="pref_only_nougat_mr1">"Nur verfügbar für Nougat 7.1"</string>
     <string name="pref_summary_album_art_on_lockscreen">Das Album Cover des aktuellen Titels wird als Hintergrund im Sperrbildschirm verwendet.</string>
     <string name="pref_summary_blurred_album_art">Lässt das Album Cover auf dem Sperrbildschirm verschwommen aussehen. Kann Probleme mit Apps und Widgets von Dritten verursachen.</string>
     <string name="pref_summary_colored_notification">"Die Benachrichtigung ist in der Farbe des Album Covers gef\u00e4rbt."</string>
@@ -167,6 +173,7 @@
     <string name="pref_summary_ignore_media_store_artwork">Kann die Album Cover Qualität verbessern was jedoch die Ladezeit beeinträchtigt. Nur aktivieren falls Probleme mit niedrig aufgelösten Album Covern auftreten.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Der Play/Pause, Shuffle und Repeat Schalter sowie der Progress Slider sind in der Farbe des Album Covers gef\u00e4rbt.</string>
     <string name="pref_summary_colored_navigation_bar">Färbt die Navigationsleiste mit der Hauptfarbe.</string>
+    <string name="pref_summary_colored_app_shortcuts">Färbt die App-Shortcuts mit der Hauptfarbe</string>
     <string name="pref_summary_audio_ducking">Benachrichtigungen, Navigation etc.</string>
     <string name="could_not_download_album_cover">"Es konnte kein passendes Album Cover heruntergeladen werden."</string>
     <string name="search_hint">Durchsuche deine Mediathek</string>
@@ -263,4 +270,11 @@
     <string name="copied_device_info_to_clipboard">Geräteinformation wurde in die Zwischenablage kopiert.</string>
     <string name="your_account_data_is_only_used_for_authentication">Deine Konto Daten werden ausschließlich zur Authentifizierung genutzt.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Du wirst zur Issue Tracker Webseite weitergeleitet.</string>
+    <!-- App Shortcuts -->
+    <string name="app_shortcut_shuffle_all_long">@string/action_shuffle_all</string>
+    <string name="app_shortcut_shuffle_all_short">Zufällig</string>
+    <string name="app_shortcut_top_tracks_long">@string/my_top_tracks</string>
+    <string name="app_shortcut_top_tracks_short">Lieblingstitel</string>
+    <string name="app_shortcut_last_added_long">@string/last_added</string>
+    <string name="app_shortcut_last_added_short">@string/last_added</string>
 </resources>

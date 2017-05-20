@@ -20,6 +20,9 @@
     <string name="action_search">Cerca</string>
     <string name="action_play_next">Riproduci successivo</string>
     <string name="action_play">Riproduci</string>
+    <string name="action_play_pause">Play/Pausa</string>
+    <string name="action_previous">Precedente</string>
+    <string name="action_next">Prossima</string>
     <string name="action_add_to_playing_queue">Aggiungi alla coda di riproduzione</string>
     <string name="action_remove_from_playing_queue">Rimuovi dalla coda di riproduzione</string>
     <string name="action_add_to_playlist">Aggiungi alla playlist...</string>
@@ -45,6 +48,7 @@
     <string name="year">Anno</string>
     <string name="track">Traccia</string>
     <string name="track_hint">"Traccia (2 per traccia 2, o 3004 per CD3 traccia 4)"</string>
+    <string name="lyrics">Testi</string>
     <string name="album_or_artist_empty">Il titolo o l\'artista sono vuoti.</string>
     <string name="saving_changes">Salvataggio modifiche in corso...</string>
     <string name="saving_to_file">Salvataggio in corso...</string>
@@ -115,6 +119,7 @@
     <string name="pref_header_images">Immagini</string>
     <string name="pref_header_lockscreen">Schermata di blocco</string>
     <string name="pref_title_navigation_bar">Barra di navigazione colorata</string>
+    <string name="pref_title_app_shortcuts">Scorciatoie app colorate</string>
     <string name="pref_title_set_default_start_page">Pagina iniziale</string>
     <string name="pref_title_album_art_on_lockscreen">Mostra copertina album nella schermata di blocco</string>
     <string name="pref_title_auto_download_artist_images">Scarica automaticamente le immagini degli artisti</string>
@@ -154,6 +159,7 @@
     <string name="playlist_name_empty">Nome playlist</string>
     <string name="song">Brano</string>
     <string name="pref_only_lollipop">"Disponibile solo su Lollipop."</string>
+    <string name="pref_only_nougat_mr1">"Disponibile solo su Nougat 7.1"</string>
     <string name="pref_summary_album_art_on_lockscreen">Usa la copertina dell\'album in riproduzione come sfondo della schermata di blocco.</string>
     <string name="pref_summary_blurred_album_art">Applica una sfocatura sulla copertina nella schermata di blocco. Può causare problemi con app e widget di terze parti.</string>
     <string name="pref_summary_colored_notification">"La notifica \u00e8 colorata secondo la gamma di colori della copertina."</string>
@@ -167,6 +173,7 @@
     <string name="pref_summary_ignore_media_store_artwork">Può incrementare la qualità delle copertine, ma causa rallentamenti nei tempi di caricamento delle immagini. Abilita soltanto se hai problemi con copertine a bassa risoluzione.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Colora i pulsanti play/pausa, casuale e ripeti cos\u00ec come la barra d\'avanzamento secondo la gamma di colori della copertina.</string>
     <string name="pref_summary_colored_navigation_bar">Colora la barra di navigazione del colore principale.</string>
+    <string name="pref_summary_colored_app_shortcuts">Colora le scorciatoie dell\'app con il colore principale.</string>
     <string name="pref_summary_audio_ducking">Notifiche, navigazione ecc.</string>
     <string name="could_not_download_album_cover">"Impossibile scaricare una copertina adatta."</string>
     <string name="search_hint">Cercando nella tua libreria...</string>
@@ -247,8 +254,7 @@
     <string name="description">Descrizione</string>
     <string name="device_info">Informazioni dispositivo</string>
     <string name="bug_report_use_account">Invia tramite account GitHub</string>
-    <string name="bug_report_manual">"Invia manualmente
-"</string>
+    <string name="bug_report_manual">Invia manualmente</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="bug_report_no_title">Si prega di inserire un titolo valido</string>
@@ -264,4 +270,7 @@
     <string name="copied_device_info_to_clipboard">Informazioni dispositivo copiate negli appunti.</string>
     <string name="your_account_data_is_only_used_for_authentication">I tuoi dati account sono usati solo per l\'autenticazione.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Verrai indirizzato al sito di bugtracking.</string>
+    <!-- App Shortcuts -->
+    <string name="app_shortcut_shuffle_all_short">Casuale</string>
+    <string name="app_shortcut_top_tracks_short">Migliodi Tracce</string>
 </resources>

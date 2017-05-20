@@ -263,4 +263,5 @@
     <string name="copied_device_info_to_clipboard">As informações do aparelho foram copiadas para a área de transferência.</string>
     <string name="your_account_data_is_only_used_for_authentication">Os dados de sua conta são usados apenas para autenticação.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Você será encaminhado ao nosso site de registro de erros.</string>
+    <!-- App Shortcuts -->
 </resources>

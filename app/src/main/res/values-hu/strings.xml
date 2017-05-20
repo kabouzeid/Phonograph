@@ -20,6 +20,9 @@
     <string name="action_search">Keresés</string>
     <string name="action_play_next">Lejátszás következőnek</string>
     <string name="action_play">Lejátszás</string>
+    <string name="action_play_pause">Lejátszás/Szünet</string>
+    <string name="action_previous">Előző</string>
+    <string name="action_next">Következő</string>
     <string name="action_add_to_playing_queue">Hozzáadás a lejátszási sorhoz</string>
     <string name="action_remove_from_playing_queue">Eltávolítás a lejátszási sorból</string>
     <string name="action_add_to_playlist">Hozzáadás a lejátszási listához...</string>
@@ -45,6 +48,7 @@
     <string name="year">Év</string>
     <string name="track">Zeneszám</string>
     <string name="track_hint">"Dal sorszáma az albumban"</string>
+    <string name="lyrics">Dalszöveg</string>
     <string name="album_or_artist_empty">A cím vagy az előadó üres.</string>
     <string name="saving_changes">Változások mentése</string>
     <string name="saving_to_file">Mentés fájlba ...</string>
@@ -115,6 +119,7 @@
     <string name="pref_header_images">Képek</string>
     <string name="pref_header_lockscreen">Zárképernyő</string>
     <string name="pref_title_navigation_bar">Színezett navigációs sáv</string>
+    <string name="pref_title_app_shortcuts">Színes alkalmazás hivatkozások</string>
     <string name="pref_title_set_default_start_page">Kezdő oldal</string>
     <string name="pref_title_album_art_on_lockscreen">Albumboritó megjelenítése</string>
     <string name="pref_title_auto_download_artist_images">Előadó képének automatikus letöltése</string>
@@ -154,6 +159,7 @@
     <string name="playlist_name_empty">Lejátszási lista neve</string>
     <string name="song">Dal</string>
     <string name="pref_only_lollipop">"Ez az opció Android 5.0-tól (Lollipop) érhető el."</string>
+    <string name="pref_only_nougat_mr1">"Csak Android 7.1. Nougat-tól elérhető"</string>
     <string name="pref_summary_album_art_on_lockscreen">Jelenlegi dal albumborítójának használata a zárképernyő háttérképeként.</string>
     <string name="pref_summary_blurred_album_art">Albumborító elhomályosítása a zárképernyőn.Ez problémákat okozhat a harmadik féltől származó alkalmazásoknál és widgeteknél.</string>
     <string name="pref_summary_colored_notification">"\u00c9rtes\u00edt\u00e9sek sz\u00ednez\u00e9se az albumbor\u00edt\u00f3 sz\u00edn\u00e9vel."</string>
@@ -167,6 +173,7 @@
     <string name="pref_summary_ignore_media_store_artwork">Növelheti az album borító minőségét, de lassabban tölti be a képeket. Csak akkor engedélyezze, ha az albumborítók rossz minőségben jelennek meg.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Lej\u00e1tsz\u00e1s/sz\u00fcnet, kever\u00e9s \u00e9s ism\u00e9tl\u00e9s gombok sz\u00ednez\u00e9se, bele\u00e9rtve a halad\u00e1si cs\u00faszk\u00e1t is, az albumbor\u00edt\u00f3 sz\u00edn\u00e9vel.</string>
     <string name="pref_summary_colored_navigation_bar">Navigációs sáv színezése az alapértelmezett színnel.</string>
+    <string name="pref_summary_colored_app_shortcuts">Az alkalmazás hivatkozások színezése az elsődleges szín szerint.</string>
     <string name="pref_summary_audio_ducking">Beérkező értesítéskor a lejátszás hangereje lecsökken, majd az értesítés végén visszaáll az eredeti hangerőre.</string>
     <string name="could_not_download_album_cover">"Nem siker\u00fclt let\u00f6lteni a megfelel\u0151 albumbor\u00edt\u00f3t."</string>
     <string name="search_hint">Keresés a könyvtáradban...</string>
@@ -263,4 +270,7 @@
     <string name="copied_device_info_to_clipboard">Az eszköz információ a vágólapra másolva.</string>
     <string name="your_account_data_is_only_used_for_authentication">Fiókod adatait kizárólag hitelesítéshez fogjuk használni.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Továbbítani fogunk a problémakezelő oldalra.</string>
+    <!-- App Shortcuts -->
+    <string name="app_shortcut_shuffle_all_short">Keverés</string>
+    <string name="app_shortcut_top_tracks_short">Top Dalok</string>
 </resources>
