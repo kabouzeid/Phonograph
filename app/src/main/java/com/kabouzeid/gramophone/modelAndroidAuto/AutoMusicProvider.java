@@ -52,7 +52,7 @@ public class AutoMusicProvider {
 
     private final ConcurrentMap<String, MutableMediaMetadata> mMusicListById;
 
-    private static final String BASE_URI = "androidauto://";
+    private static final String BASE_URI = "androidauto://phonograph";
     private static final int PATH_SEGMENT_TITLE = 0;
     private static final int PATH_SEGMENT_ID = 1;
     private static final int PATH_SEGMENT_ARTIST = 2;
@@ -149,7 +149,7 @@ public class AutoMusicProvider {
         ConcurrentMap<Uri, List<Song>> newMusicListByAlbum = new ConcurrentHashMap<>();
 
         for(Album a: AlbumLoader.getAllAlbums(mContext)){
-            String albumName = a.getTitle();// + "|" + a.getId() + "|" + a.getArtistName();
+            String albumName = a.getTitle();
             Uri.Builder albumData = Uri.parse(BASE_URI).buildUpon();
             albumData.appendPath(a.getTitle())
                     .appendPath(String.valueOf(a.getId()))
@@ -170,8 +170,7 @@ public class AutoMusicProvider {
         for(Playlist p: PlaylistLoader.getAllPlaylists(mContext)){
             String playlistName = p.name;
             Uri.Builder playlistData = Uri.parse(BASE_URI).buildUpon();
-            playlistData.appendPath(p.name)
-                    .appendPath(String.valueOf(p.id));
+            playlistData.appendPath(p.name);
             List<PlaylistSong> list = newMusicListByPlaylist.get(playlistName);
             if (list == null) {
                 list = new ArrayList<>();
@@ -308,7 +307,7 @@ public class AutoMusicProvider {
 
         switch (mediaId){
             case(MEDIA_ID_MUSICS_BY_PLAYLIST):
-                builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_PLAYLIST, musicSelection.toString()))
+                builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_PLAYLIST, musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE)))
                         .setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE))
                         .setIconUri(Uri.parse("android.resource://" +
                                 mContext.getPackageName() + "/drawable/" +
@@ -321,7 +320,7 @@ public class AutoMusicProvider {
                 String albumTitle = musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE);
                 String artist = musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST);
 
-                builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_ALBUM, musicSelection.toString()))
+                builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_ALBUM, musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE)))
                         .setTitle(albumTitle)
                         .setSubtitle(artist);
 
@@ -338,7 +337,7 @@ public class AutoMusicProvider {
                         MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);
 
             case(MEDIA_ID_MUSICS_BY_TOP_TRACKS):
-                builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_TOP_TRACKS, musicSelection.toString()))
+                builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_TOP_TRACKS, musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE)))
                         .setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE))
                         .setSubtitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST))
                         .setIconUri(Uri.parse("android.resource://" +
