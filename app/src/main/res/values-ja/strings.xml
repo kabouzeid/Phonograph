@@ -198,4 +198,5 @@
     <string name="bug_report_manual">手動で送信</string>
     <string name="username">ユーザー名</string>
     <string name="password">パスワード</string>
+    <!-- App Shortcuts -->
 </resources>

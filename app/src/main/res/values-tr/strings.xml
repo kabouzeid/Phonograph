@@ -20,6 +20,9 @@
     <string name="action_search">Ara</string>
     <string name="action_play_next">Sonraki şarkı</string>
     <string name="action_play">Oynat</string>
+    <string name="action_play_pause">Oynat/Durdur</string>
+    <string name="action_previous">Önceki</string>
+    <string name="action_next">Sonraki</string>
     <string name="action_add_to_playing_queue">Çalma sırasına ekle</string>
     <string name="action_remove_from_playing_queue">Kuyruktan çıkar</string>
     <string name="action_add_to_playlist">Çalma listesine ekle...</string>
@@ -45,6 +48,7 @@
     <string name="year">Yıl</string>
     <string name="track">Şarkı</string>
     <string name="track_hint">"Parça (2. parça için 2 ya da CD3 4. parça için 3004)"</string>
+    <string name="lyrics">Şarkı sözleri</string>
     <string name="album_or_artist_empty">Albüm başlığı veya albüm sanatçısı bilgisi yok.</string>
     <string name="saving_changes">Değişiklikler kaydediliyor</string>
     <string name="saving_to_file">Dosyaya kaydediliyor...</string>
@@ -115,6 +119,7 @@
     <string name="pref_header_images">Görüntüler</string>
     <string name="pref_header_lockscreen">Kilit ekranı</string>
     <string name="pref_title_navigation_bar">Renkli gezinti çubuğu</string>
+    <string name="pref_title_app_shortcuts">Renkli uygulama kısayolları</string>
     <string name="pref_title_set_default_start_page">Başlangıç sayfası</string>
     <string name="pref_title_album_art_on_lockscreen">Albüm kapağını göster</string>
     <string name="pref_title_auto_download_artist_images">Sanatçı resimlerini otomatik indir</string>
@@ -154,6 +159,7 @@
     <string name="playlist_name_empty">Çalma listesi adı</string>
     <string name="song">Şarkı</string>
     <string name="pref_only_lollipop">"Sadece Lollipop için."</string>
+    <string name="pref_only_nougat_mr1">"Sadece Nugat 7.1.'de kullanılabilir."</string>
     <string name="pref_summary_album_art_on_lockscreen">Kilit ekranı duvar kağıdı olarak çalan şarkının albüm kapağını kullanır.</string>
     <string name="pref_summary_blurred_album_art">Kilit ekranındaki bulanık albüm kapağı. 3. parti uygulama ve araçlarda problem oluşturabilir.</string>
     <string name="pref_summary_colored_notification">"Bildirimler alb\u00fcm kapa\u011f\u0131n\u0131n canl\u0131 renkleriyle renklendirilir."</string>
@@ -167,6 +173,7 @@
     <string name="pref_summary_ignore_media_store_artwork">Albüm kapağı kalitesinin artırılması daha yavaş görüntü yükleme sürelerine neden olabilir. Düşük çözünürlükte olan albüm kapakları ile ilgili sorunlar varsa bunu etkinleştirin.</string>
     <string name="pref_summary_colored_playback_controls_now_playing">Oynat/durdur, kar\u0131\u015ft\u0131r ve tekrar tu\u015flar\u0131n\u0131n yan\u0131 s\u0131ra ilerleme kayd\u0131r\u0131c\u0131 alb\u00fcm kapa\u011f\u0131n\u0131n canl\u0131 rengi ile renklendirilir.</string>
     <string name="pref_summary_colored_navigation_bar">Gezinme çubuğu renkleri birincil renkler içinden.</string>
+    <string name="pref_summary_colored_app_shortcuts">Uygulama kısayollarını ana rengi renklendirir</string>
     <string name="pref_summary_audio_ducking">Bildirimler, gezinti vb.</string>
     <string name="could_not_download_album_cover">"E\u015flenen bir alb\u00fcm kapa\u011f\u0131 indirilemedi."</string>
     <string name="search_hint">Kütüphaneniz taranıyor...</string>
@@ -224,7 +231,7 @@
     <string name="pref_title_now_playing_screen_appearance">Görünüm</string>
     <string name="intro_label">Tanıtım</string>
     <string name="press_back_again_to_exit_intro">Tanıtımı atlamak için geri tuşuna basın.</string>
-    <string name="welcome_to_phonograph">"Phonograph'a Hoşgeldiniz, Android için güzel ve hafif bir müzik çalar. "</string>
+    <string name="welcome_to_phonograph">"Phonograph'a Hoşgeldiniz, Android için muhteşem bir müzik çalar. "</string>
     <string name="open_playing_queue_instruction">Şuan çalınıyor ekranı kartını yukarı kaydırmak çalma sırasının tamamını ortaya çıkarır.</string>
     <string name="rearrange_playing_queue_instruction">Çalma sırasını yeniden düzenlemek için şarkının parça numarasını kaydırın</string>
     <string name="library">Kütüphane</string>
@@ -263,4 +270,11 @@
     <string name="copied_device_info_to_clipboard">Cihaz bilgisi panoya kopyalandı.</string>
     <string name="your_account_data_is_only_used_for_authentication">Hesabınız ile ilgili veriler yalnızca kimlik doğrulaması için kullanılır.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Sorununuz sorun takip web sitesine iletilir.</string>
+    <!-- App Shortcuts -->
+    <string name="app_shortcut_shuffle_all_long">@string/action_shuffle_all</string>
+    <string name="app_shortcut_shuffle_all_short">Karıştır</string>
+    <string name="app_shortcut_top_tracks_long">@string/my_top_tracks</string>
+    <string name="app_shortcut_top_tracks_short">En İyi Parçalar</string>
+    <string name="app_shortcut_last_added_long">@string/last_added</string>
+    <string name="app_shortcut_last_added_short">@string/last_added</string>
 </resources>

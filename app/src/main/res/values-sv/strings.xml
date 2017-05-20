@@ -103,4 +103,5 @@ Vill du radera <b>%1$d</b> låtar?
     <string name="search_hint">Sök i ditt bibliotek ...</string>
     <string name="rescanning_media">Återskannar media ...</string>
     <string name="new_playlist_title">Ny spellista</string>
+    <!-- App Shortcuts -->
 </resources>
