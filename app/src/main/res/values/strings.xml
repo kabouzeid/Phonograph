@@ -215,6 +215,7 @@
     <string name="version">Version</string>
     <string name="application">Application</string>
     <string name="author">Author</string>
+    <string name="write_an_email">Write an email</string>
     <string name="add_to_google_plus_circles">Add to Google Plus circles</string>
     <string name="follow_on_twitter">Follow on Twitter</string>
     <string name="fork_on_git_hub">Fork on GitHub</string>

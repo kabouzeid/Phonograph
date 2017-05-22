@@ -91,7 +91,7 @@ public class BugReportActivity extends AbsThemeActivity {
     @BindView(R.id.button_send)
     FloatingActionButton sendFab;
 
-    private static final String ISSUE_TRACKER_LINK = "https://github.com/kabouzeid/phonograph-issue-tracker";
+    private static final String ISSUE_TRACKER_LINK = "https://github.com/kabouzeid/Phonograph";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -274,7 +274,7 @@ public class BugReportActivity extends AbsThemeActivity {
         onSaveExtraInfo(extraInfo);
 
         Report report = new Report(bugTitle, bugDescription, deviceInfo, extraInfo);
-        GithubTarget target = new GithubTarget("kabouzeid", "phonograph-issue-tracker");
+        GithubTarget target = new GithubTarget("kabouzeid", "Phonograph");
 
         ReportIssueAsyncTask.report(this, report, target, login);
     }
