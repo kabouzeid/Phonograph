@@ -32,10 +32,11 @@ import de.psdev.licensesdialog.LicensesDialog;
 @SuppressWarnings("FieldCanBeLocal")
 public class AboutActivity extends AbsBaseActivity implements View.OnClickListener {
 
+    private static String GITHUB = "https://github.com/kabouzeid/Phonograph";
+
     private static String GOOGLE_PLUS = "https://google.com/+KarimAbouZeid23697";
     private static String TWITTER = "https://twitter.com/karim23697";
-    private static String GITHUB = "https://github.com/kabouzeid";
-    private static String WEBSITE = "http://kabouzeid.com/";
+    private static String WEBSITE = "https://kabouzeid.com/";
 
     private static String GOOGLE_PLUS_COMMUNITY = "https://plus.google.com/u/0/communities/106227738496107108513";
     private static String TRANSLATE = "https://phonograph.oneskyapp.com/collaboration/project?id=26521";
@@ -61,6 +62,8 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     LinearLayout intro;
     @BindView(R.id.licenses)
     LinearLayout licenses;
+    @BindView(R.id.write_an_email)
+    LinearLayout writeAnEmail;
     @BindView(R.id.add_to_google_plus_circles)
     LinearLayout addToGooglePlusCircles;
     @BindView(R.id.follow_on_twitter)
@@ -132,6 +135,7 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         forkOnGitHub.setOnClickListener(this);
         visitWebsite.setOnClickListener(this);
         reportBugs.setOnClickListener(this);
+        writeAnEmail.setOnClickListener(this);
         joinGooglePlusCommunity.setOnClickListener(this);
         translate.setOnClickListener(this);
         rateOnGooglePlay.setOnClickListener(this);
@@ -180,6 +184,12 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
             openUrl(WEBSITE);
         } else if (v == reportBugs) {
             startActivity(new Intent(this, BugReportActivity.class));
+        } else if (v == writeAnEmail) {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:contact@kabouzeid.com"));
+            intent.putExtra(Intent.EXTRA_EMAIL, "contact@kabouzeid.com");
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Phonograph");
+            startActivity(Intent.createChooser(intent, "E-Mail"));
         } else if (v == joinGooglePlusCommunity) {
             openUrl(GOOGLE_PLUS_COMMUNITY);
         } else if (v == translate) {
