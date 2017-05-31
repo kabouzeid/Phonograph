@@ -67,13 +67,20 @@
             android:paddingRight="0dp"
             android:paddingStart="16dp">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+            <HorizontalScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:scrollbars="none">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+            </HorizontalScrollView>
 
             <TextView
                 android:id="@+id/text"
