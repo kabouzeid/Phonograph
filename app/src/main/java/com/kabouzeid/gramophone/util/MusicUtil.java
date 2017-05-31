@@ -98,13 +98,9 @@ public class MusicUtil {
     }
 
     public static String getReadableDurationString(long songDurationMillis) {
-        long hours = (songDurationMillis / (1000*3600)) % 60;
-        long minutes = (songDurationMillis / (1000*60)) % 60;
+        long minutes = (songDurationMillis / 1000) / 60;
         long seconds = (songDurationMillis / 1000) % 60;
-        if(hours==0)
-            return String.format("%01d:%02d", minutes, seconds);
-        else
-            return String.format("%01d:%02d:%02d",hours, minutes, seconds);
+        return String.format("%01d:%02d", minutes, seconds);
     }
 
     //iTunes uses for example 1002 for track 2 CD1 or 3011 for track 11 CD3.

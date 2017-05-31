@@ -942,11 +942,11 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         return playback.duration();
     }
 
-    public int getQueueDurationMillis() {
+    public int getQueueDurationMillis(int position) {
         int millis=0;
-        for(Song s:playingQueue)
+        for(int i=position+1;i<playingQueue.size();i++)
         {
-            millis+=s.duration;
+            millis+=playingQueue.get(i).duration;
         }
         return millis;
     }

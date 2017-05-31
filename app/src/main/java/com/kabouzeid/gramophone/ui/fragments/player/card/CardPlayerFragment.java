@@ -55,6 +55,7 @@ import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.tag.FieldKey;
 
 import java.io.File;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -197,14 +198,18 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     }
 
     private void updateQueue() {
-        playingQueueAdapter.swapDataSet(MusicPlayerRemote.getPlayingQueue(), MusicPlayerRemote.getPosition());
+        int current=MusicPlayerRemote.getPosition();
+        playingQueueAdapter.swapDataSet(MusicPlayerRemote.getPlayingQueue(), current);
+        playerQueueSubHeader.setText(getResources().getString(R.string.up_next)+" • "+MusicUtil.getReadableDurationString(MusicPlayerRemote.getQueueDurationMillis(current)));
         if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
             resetToCurrentPosition();
         }
     }
 
     private void updateQueuePosition() {
-        playingQueueAdapter.setCurrent(MusicPlayerRemote.getPosition());
+        int current=MusicPlayerRemote.getPosition();
+        playingQueueAdapter.setCurrent(current);
+        playerQueueSubHeader.setText(getResources().getString(R.string.up_next)+" • "+ MusicUtil.getReadableDurationString(MusicPlayerRemote.getQueueDurationMillis(current)));
         if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
             resetToCurrentPosition();
         }
