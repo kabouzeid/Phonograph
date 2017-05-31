@@ -48,6 +48,13 @@ public class Album implements Parcelable {
         return songs.size();
     }
 
+    public int getAlbumDurationMillis(){
+        int millis=0;
+        for(Song s:songs)
+            millis+=s.duration;
+        return millis;
+    }
+
     @NonNull
     public Song safeGetFirstSong() {
         return songs.isEmpty() ? Song.EMPTY_SONG : songs.get(0);
