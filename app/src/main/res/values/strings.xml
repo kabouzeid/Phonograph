@@ -118,6 +118,7 @@
     <string name="pref_header_general">General</string>
     <string name="pref_header_images">Images</string>
     <string name="pref_header_lockscreen">Lockscreen</string>
+    <string name="pref_header_notification">Notification</string>
     <string name="pref_title_navigation_bar">Colored navigation bar</string>
     <string name="pref_title_app_shortcuts">Colored app shortcuts</string>
     <string name="pref_title_set_default_start_page">Start page</string>
@@ -125,6 +126,7 @@
     <string name="pref_title_auto_download_artist_images">Auto download artist images</string>
     <string name="pref_title_blurred_album_art">Blur album cover</string>
     <string name="pref_title_colored_notification">Colored notification</string>
+    <string name="pref_title_classic_notification">Classic notification design</string>
     <string name="pref_title_ignore_media_store_artwork">Ignore Media Store covers</string>
     <string name="pref_title_gapless_playback">Gapless playback</string>
     <string name="pref_title_force_square_album_art">Square album cover</string>
@@ -158,10 +160,12 @@
     <string name="empty">Empty</string>
     <string name="playlist_name_empty">Playlist name</string>
     <string name="song">Song</string>
-    <string name="pref_only_lollipop">"Only available on Lollipop."</string>
-    <string name="pref_only_nougat_mr1">"Only available on Nougat 7.1."</string>
+    <string name="pref_only_lollipop">"Only available on Lollipop or above."</string>
+    <string name="pref_only_nougat">"Only available on Nougat 7.0 or above."</string>
+    <string name="pref_only_nougat_mr1">"Only available on Nougat 7.1 or above."</string>
     <string name="pref_summary_album_art_on_lockscreen">Uses the current songs album cover as lockscreen wallpaper.</string>
     <string name="pref_summary_blurred_album_art">Blurs the album cover on the lockscreen. Can cause problems with third party apps and widgets.</string>
+    <string name="pref_summary_classic_notification">Use the classic notification design.</string>
     <string name="pref_summary_colored_notification">"Colors the notification in the album cover\u2019s vibrant color."</string>
     <string name="pref_summary_gapless_playback">"Can cause playback issues on some devices."</string>
     <string name="pref_summary_force_square_album_art">Album covers in the now playing view are always squared.</string>

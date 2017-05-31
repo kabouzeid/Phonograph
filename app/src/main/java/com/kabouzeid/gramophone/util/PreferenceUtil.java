@@ -44,6 +44,8 @@ public final class PreferenceUtil {
     public static final String FORCE_SQUARE_ALBUM_COVER = "force_square_album_art";
 
     public static final String COLORED_NOTIFICATION = "colored_notification";
+    public static final String CLASSIC_NOTIFICATION = "classic_notification";
+
     public static final String COLORED_APP_SHORTCUTS = "colored_app_shortcuts";
 
     public static final String AUDIO_DUCKING = "audio_ducking";
@@ -147,6 +149,16 @@ public final class PreferenceUtil {
 
     public final boolean coloredNotification() {
         return mPreferences.getBoolean(COLORED_NOTIFICATION, true);
+    }
+
+    public final boolean classicNotification() {
+        return mPreferences.getBoolean(CLASSIC_NOTIFICATION, false);
+    }
+
+    public void setClassicNotification(final boolean value) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putBoolean(CLASSIC_NOTIFICATION, value);
+        editor.apply();
     }
 
     public void setColoredAppShortcuts(final boolean value) {
