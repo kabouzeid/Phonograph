@@ -110,6 +110,11 @@
     <string name="always">Always</string>
     <string name="only_on_wifi">Only on Wi-Fi</string>
     <string name="never">Never</string>
+    <string name="today">Today</string>
+    <string name="this_week">This week</string>
+    <string name="this_month">This month</string>
+    <string name="past_three_months">Past 3 months</string>
+    <string name="this_year">This year</string>
     <string name="equalizer">Equalizer</string>
     <string name="pref_header_colors">Colors</string>
     <string name="pref_header_now_playing_screen">Now playing</string>
@@ -118,6 +123,7 @@
     <string name="pref_header_general">General</string>
     <string name="pref_header_images">Images</string>
     <string name="pref_header_lockscreen">Lockscreen</string>
+    <string name="pref_header_playlists">Playlists</string>
     <string name="pref_title_navigation_bar">Colored navigation bar</string>
     <string name="pref_title_app_shortcuts">Colored app shortcuts</string>
     <string name="pref_title_set_default_start_page">Start page</string>
@@ -135,6 +141,7 @@
     <string name="pref_title_playback_controller_card_now_playing">Show card below playback controls</string>
     <string name="pref_title_colored_playback_controls_now_playing">Colored playback controls</string>
     <string name="pref_title_audio_ducking">Reduce volume on focus loss</string>
+    <string name="pref_title_last_added_interval">Last added playlist interval</string>
     <string name="no_equalizer">No equalizer found.</string>
     <string name="no_audio_ID">"Play a song first, then try again."</string>
     <string name="delete_action">Delete</string>

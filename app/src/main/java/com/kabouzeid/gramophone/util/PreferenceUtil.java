@@ -49,7 +49,7 @@ public final class PreferenceUtil {
     public static final String AUDIO_DUCKING = "audio_ducking";
     public static final String GAPLESS_PLAYBACK = "gapless_playback";
 
-    public static final String LAST_ADDED_CUTOFF_TIMESTAMP = "last_added_cutoff_timestamp";
+    public static final String LAST_ADDED_CUTOFF = "last_added_interval";
 
     public static final String ALBUM_ART_ON_LOCKSCREEN = "album_art_on_lockscreen";
     public static final String BLURRED_ALBUM_ART = "blurred_album_art";
@@ -206,15 +206,34 @@ public final class PreferenceUtil {
         return mPreferences.getString(SONG_SORT_ORDER, SortOrder.SongSortOrder.SONG_A_Z);
     }
 
-    public long getLastAddedCutOffTimestamp() {
-        return mPreferences.getLong(LAST_ADDED_CUTOFF_TIMESTAMP, 0L);
-    }
+    public long getLastAddedCutoff() {
+        final CalendarUtil calendarUtil = new CalendarUtil();
+        long interval;
 
-    @SuppressLint("CommitPrefEdits")
-    public void setLastAddedCutoffTimestamp(final long timestamp) {
-        final SharedPreferences.Editor editor = mPreferences.edit();
-        editor.putLong(LAST_ADDED_CUTOFF_TIMESTAMP, timestamp);
-        editor.commit();
+        switch (mPreferences.getString(LAST_ADDED_CUTOFF, "")) {
+            case "today":
+                interval = calendarUtil.getElapsedToday();
+                break;
+
+            case "this_week":
+                interval = calendarUtil.getElapsedWeek();
+                break;
+
+            case "past_three_months":
+                interval = calendarUtil.getElapsedMonths(3);
+                break;
+
+            case "this_year":
+                interval = calendarUtil.getElapsedYear();
+                break;
+
+            case "this_month":
+            default:
+                interval = calendarUtil.getElapsedMonth();
+                break;
+        }
+
+        return (System.currentTimeMillis() - interval) / 1000;
     }
 
     public int getLastSleepTimerValue() {
