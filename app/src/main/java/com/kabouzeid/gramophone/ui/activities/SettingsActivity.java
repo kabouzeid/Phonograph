@@ -26,8 +26,10 @@ import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceFragment
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appshortcuts.DynamicShortcutManager;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreference;
 import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreferenceDialog;
+import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
@@ -127,6 +129,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         public void onCreatePreferences(Bundle bundle, String s) {
             addPreferencesFromResource(R.xml.pref_general);
             addPreferencesFromResource(R.xml.pref_colors);
+            addPreferencesFromResource(R.xml.pref_notification);
             addPreferencesFromResource(R.xml.pref_now_playing_screen);
             addPreferencesFromResource(R.xml.pref_images);
             addPreferencesFromResource(R.xml.pref_lockscreen);
@@ -199,7 +202,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 }
             });
 
-            ATEColorPreference primaryColorPref = (ATEColorPreference) findPreference("primary_color");
+            final ATEColorPreference primaryColorPref = (ATEColorPreference) findPreference("primary_color");
             final int primaryColor = ThemeStore.primaryColor(getActivity());
             primaryColorPref.setColor(primaryColor, ColorUtil.darkenColor(primaryColor));
             primaryColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -215,7 +218,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 }
             });
 
-            ATEColorPreference accentColorPref = (ATEColorPreference) findPreference("accent_color");
+            final ATEColorPreference accentColorPref = (ATEColorPreference) findPreference("accent_color");
             final int accentColor = ThemeStore.accentColor(getActivity());
             accentColorPref.setColor(accentColor, ColorUtil.darkenColor(accentColor));
             accentColorPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -249,7 +252,30 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 });
             }
 
-            TwoStatePreference colorAppShortcuts = (TwoStatePreference) findPreference("should_color_app_shortcuts");
+            final TwoStatePreference classicNotification = (TwoStatePreference) findPreference("classic_notification");
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
+                classicNotification.setEnabled(false);
+                classicNotification.setSummary(R.string.pref_only_nougat);
+            } else {
+                classicNotification.setChecked(PreferenceUtil.getInstance(getActivity()).classicNotification());
+                classicNotification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        //Save preference
+                        PreferenceUtil.getInstance(getActivity()).setClassicNotification((Boolean)newValue);
+
+                        final MusicService service = MusicPlayerRemote.musicService;
+                        if (service != null) {
+                            service.initNotification();
+                            service.updateNotification();
+                        }
+
+                        return true;
+                    }
+                });
+            }
+
+            final TwoStatePreference colorAppShortcuts = (TwoStatePreference) findPreference("should_color_app_shortcuts");
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
                 colorAppShortcuts.setEnabled(false);
                 colorAppShortcuts.setSummary(R.string.pref_only_nougat_mr1);
@@ -262,16 +288,14 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                         PreferenceUtil.getInstance(getActivity()).setColoredAppShortcuts((Boolean)newValue);
 
                         //Update app shortcuts
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-                            new DynamicShortcutManager(getActivity()).updateDynamicShortcuts();
-                        }
+                        new DynamicShortcutManager(getActivity()).updateDynamicShortcuts();
 
                         return true;
                     }
                 });
             }
 
-            Preference equalizer = findPreference("equalizer");
+            final Preference equalizer = findPreference("equalizer");
             if (!hasEqualizer()) {
                 equalizer.setEnabled(false);
                 equalizer.setSummary(getResources().getString(R.string.no_equalizer));
