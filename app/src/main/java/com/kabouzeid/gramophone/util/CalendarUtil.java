@@ -17,13 +17,15 @@ public class CalendarUtil {
     }
 
     /**
-     * Returns the time elapsed so far today in seconds.
+     * Returns the time elapsed so far today in milliseconds.
      *
-     * @return Time elapsed today in seconds.
+     * @return Time elapsed today in milliseconds.
      */
     public long getElapsedToday() {
         // Time elapsed so far today
-        return (calendar.get(Calendar.HOUR_OF_DAY) * 60 + calendar.get(Calendar.MINUTE)) * MS_PER_MINUTE;
+        return (calendar.get(Calendar.HOUR_OF_DAY) * 60 + calendar.get(Calendar.MINUTE)) * MS_PER_MINUTE
+                + calendar.get(Calendar.SECOND) * 1000
+                + calendar.get(Calendar.MILLISECOND);
     }
 
     /**
@@ -32,8 +34,15 @@ public class CalendarUtil {
      * @return Time elapsed this week in milliseconds.
      */
     public long getElapsedWeek() {
-        // Today + days passed
-        return getElapsedToday() + ((calendar.get(Calendar.DAY_OF_WEEK) - 1 - calendar.getFirstDayOfWeek()) * MS_PER_DAY);
+        // Today + days passed this week
+        long elapsed = getElapsedToday();
+
+        final int passedWeekdays = calendar.get(Calendar.DAY_OF_WEEK) - 1 - calendar.getFirstDayOfWeek();
+        if (passedWeekdays > 0) {
+            elapsed += passedWeekdays * MS_PER_DAY;
+        }
+
+        return elapsed;
     }
 
     /**
@@ -43,7 +52,8 @@ public class CalendarUtil {
      */
     public long getElapsedMonth() {
         // Today + rest of this month
-        return getElapsedToday() + ((calendar.get(Calendar.DAY_OF_MONTH) - 1) * MS_PER_DAY);
+        return getElapsedToday() +
+                ((calendar.get(Calendar.DAY_OF_MONTH) - 1) * MS_PER_DAY);
     }
 
     /**
@@ -67,10 +77,7 @@ public class CalendarUtil {
                 year--;
             }
 
-            final Calendar monthCal = new GregorianCalendar(year, month, 1);
-            final int daysInMonth = monthCal.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-            elapsed += daysInMonth * MS_PER_DAY;
+            elapsed += getDaysInMonth(year, month) * MS_PER_DAY;
         }
 
         return elapsed;
@@ -86,15 +93,25 @@ public class CalendarUtil {
         long elapsed = getElapsedMonth();
 
         int month = calendar.get(Calendar.MONTH) - 1;
+        int year = calendar.get(Calendar.YEAR);
         while (month > Calendar.JANUARY) {
-            final Calendar monthCal = new GregorianCalendar(calendar.get(Calendar.YEAR), month, 1);
-            final int daysInMonth = monthCal.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-            elapsed += daysInMonth * MS_PER_DAY;
+            elapsed += getDaysInMonth(year, month) * MS_PER_DAY;
 
             month--;
         }
 
         return elapsed;
+    }
+
+    /**
+     * Gets the number of days for the given month in the given year.
+     *
+     * @param year  The year.
+     * @param month The month (1 - 12).
+     * @return The days in that month/year.
+     */
+    private int getDaysInMonth(int year, int month) {
+        final Calendar monthCal = new GregorianCalendar(calendar.get(Calendar.YEAR), month, 1);
+        return monthCal.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
 }
