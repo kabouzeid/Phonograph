@@ -239,7 +239,7 @@ public class MusicPlayerRemote {
         return -1;
     }
 
-    public static int getQueueDurationMillis(int position) {
+    public static long getQueueDurationMillis(int position) {
         if (musicService != null) {
             return musicService.getQueueDurationMillis(position);
         }
