@@ -61,6 +61,8 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     Toolbar toolbar;
     @BindView(android.R.id.empty)
     TextView empty;
+    @BindView(R.id.status_bar)
+    View statusBar;
 
     private Playlist playlist;
 
@@ -79,6 +81,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         setStatusbarColorAuto();
         setNavigationbarColorAuto();
         setTaskDescriptionColorAuto();
+        ViewUtil.setStatusBarHeight(this, statusBar);
 
         playlist = getIntent().getExtras().getParcelable(EXTRA_PLAYLIST);
 
