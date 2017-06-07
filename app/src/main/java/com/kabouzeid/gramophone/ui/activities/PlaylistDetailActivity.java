@@ -38,6 +38,7 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
 import com.kabouzeid.gramophone.util.ViewUtil;
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,6 +98,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     }
 
     private void setUpRecyclerView() {
+        ViewUtil.setUpFastScrollRecyclerViewColor(this, ((FastScrollRecyclerView) recyclerView), ThemeStore.accentColor(this));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         if (playlist instanceof AbsCustomPlaylist) {
             adapter = new CustomPlaylistSongAdapter(this, new ArrayList<Song>(), R.layout.item_list, false, this);
