@@ -44,6 +44,7 @@ import com.kabouzeid.gramophone.ui.activities.tageditor.AlbumTagEditorActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.Util;
+import com.kabouzeid.gramophone.util.ViewUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,6 +72,8 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     TextView albumTitleView;
     @BindView(R.id.list_background)
     View songsBackgroundView;
+    @BindView(R.id.status_bar)
+    View statusBar;
 
     private AlbumSongAdapter adapter;
 
@@ -92,6 +95,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         setUpObservableListViewParams();
         setUpToolBar();
         setUpViews();
+        ViewUtil.setStatusBarHeight(this, statusBar);
 
         getSupportLoaderManager().initLoader(LOADER_ID, getIntent().getExtras(), this);
     }

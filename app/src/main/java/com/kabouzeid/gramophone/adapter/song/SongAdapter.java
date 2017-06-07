@@ -44,13 +44,19 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
     protected int itemLayoutRes;
 
     protected boolean usePalette = false;
+    protected boolean showSectionName = true;
 
     public SongAdapter(AppCompatActivity activity, ArrayList<Song> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
+        this(activity, dataSet, itemLayoutRes, usePalette, cabHolder, true);
+    }
+
+    public SongAdapter(AppCompatActivity activity, ArrayList<Song> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder, boolean showSectionName) {
         super(activity, cabHolder, R.menu.menu_media_selection);
         this.activity = activity;
         this.dataSet = dataSet;
         this.itemLayoutRes = itemLayoutRes;
         this.usePalette = usePalette;
+        this.showSectionName = showSectionName;
         setHasStableIds(true);
     }
 
@@ -178,7 +184,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
     @NonNull
     @Override
     public String getSectionName(int position) {
-        return MusicUtil.getSectionName(dataSet.get(position).title);
+        return showSectionName ? MusicUtil.getSectionName(dataSet.get(position).title) : "";
     }
 
     public class ViewHolder extends MediaEntryViewHolder {
