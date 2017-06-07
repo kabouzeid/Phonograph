@@ -80,8 +80,8 @@ public class PlayingNotificationImpl implements PlayingNotification {
         linkButtons(notificationLayout, notificationLayoutBig);
 
         Intent action = new Intent(service, MainActivity.class);
-        action.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent openAppPendingIntent = PendingIntent.getActivity(service, 0, action, 0);
+        action.putExtra(MusicService.OPEN_NOW_PLAYING, true);
+        final PendingIntent openAppPendingIntent = PendingIntent.getActivity(service, 0, action, PendingIntent.FLAG_UPDATE_CURRENT);
 
         final Notification notification = new NotificationCompat.Builder(service)
                 .setSmallIcon(R.drawable.ic_notification)

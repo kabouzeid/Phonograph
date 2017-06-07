@@ -105,6 +105,9 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
         if (!checkShowIntro()) {
             checkShowChangelog();
         }
+
+        //manually call onNewIntent() to expand panel if notification was tapped while app is closed
+        onNewIntent(getIntent());
     }
 
     private void setMusicChooser(int key) {
@@ -390,5 +393,21 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
 
     public interface MainActivityFragmentCallbacks {
         boolean handleBackPress();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent.getBooleanExtra(MusicService.OPEN_NOW_PLAYING, false)) {
+            //not using a Handler causes a crash when coming here from MainActivity.onCreate()
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                        expandPanel();
+                    }
+                }
+            }, 750);
+        }
     }
 }
