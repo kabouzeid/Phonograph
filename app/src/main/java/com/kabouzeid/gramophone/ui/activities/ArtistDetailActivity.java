@@ -53,6 +53,7 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.ArtistSignatureUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 
 import butterknife.BindView;
@@ -91,6 +92,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     private int artistImageViewHeight;
     private int toolbarColor;
     private float toolbarAlpha;
+    private boolean usePalette;
 
     private Artist artist;
     @Nullable
@@ -109,6 +111,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         supportPostponeEnterTransition();
 
         lastFMRestClient = new LastFMRestClient(this);
+        usePalette=PreferenceUtil.getInstance(this).albumArtistColoredFooters();
 
         initViews();
         setUpObservableListViewParams();
@@ -194,7 +197,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
     private void setUpAlbumRecyclerView() {
         albumRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        albumAdapter = new HorizontalAlbumAdapter(this, getArtist().albums, this);
+        albumAdapter = new HorizontalAlbumAdapter(this, getArtist().albums, usePalette, this);
         albumRecyclerView.setAdapter(albumAdapter);
         albumAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
@@ -203,6 +206,12 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                 if (albumAdapter.getItemCount() == 0) finish();
             }
         });
+    }
+
+    protected void setUsePalette(boolean usePalette) {
+        albumAdapter.usePalette(usePalette);
+        PreferenceUtil.getInstance(this).setAlbumArtistColoredFooters(usePalette);
+        this.usePalette = usePalette;
     }
 
     private void reload() {
@@ -309,6 +318,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_artist_detail, menu);
+        menu.findItem(R.id.action_colored_footers).setChecked(usePalette);
         return true;
     }
 
@@ -338,6 +348,10 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
             case R.id.action_re_download_artist_image:
                 Toast.makeText(ArtistDetailActivity.this, getResources().getString(R.string.updating), Toast.LENGTH_SHORT).show();
                 loadArtistImage(true);
+                return true;
+            case R.id.action_colored_footers:
+                item.setChecked(!item.isChecked());
+                setUsePalette(item.isChecked());
                 return true;
         }
         return super.onOptionsItemSelected(item);

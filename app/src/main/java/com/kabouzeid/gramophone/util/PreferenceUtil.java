@@ -40,6 +40,7 @@ public final class PreferenceUtil {
     public static final String ALBUM_COLORED_FOOTERS = "album_colored_footers";
     public static final String SONG_COLORED_FOOTERS = "song_colored_footers";
     public static final String ARTIST_COLORED_FOOTERS = "artist_colored_footers";
+    public static final String ALBUM_ARTIST_COLORED_FOOTERS = "album_artist_colored_footers";
 
     public static final String FORCE_SQUARE_ALBUM_COVER = "force_square_album_art";
 
@@ -336,6 +337,16 @@ public final class PreferenceUtil {
 
     public final boolean albumColoredFooters() {
         return mPreferences.getBoolean(ALBUM_COLORED_FOOTERS, true);
+    }
+
+    public void setAlbumArtistColoredFooters(final boolean value) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putBoolean(ALBUM_ARTIST_COLORED_FOOTERS, value);
+        editor.apply();
+    }
+
+    public final boolean albumArtistColoredFooters() {
+        return mPreferences.getBoolean(ALBUM_ARTIST_COLORED_FOOTERS, true);
     }
 
     public void setSongColoredFooters(final boolean value) {
