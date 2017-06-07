@@ -55,6 +55,7 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
+import com.kabouzeid.gramophone.util.ViewUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,6 +83,8 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     TextView artistName;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.status_bar)
+    View statusBar;
 
     View songListHeader;
     RecyclerView albumRecyclerView;
@@ -117,6 +120,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         setUpObservableListViewParams();
         setUpViews();
         setUpToolbar();
+        ViewUtil.setStatusBarHeight(this, statusBar);
 
         getSupportLoaderManager().initLoader(LOADER_ID, getIntent().getExtras(), this);
     }

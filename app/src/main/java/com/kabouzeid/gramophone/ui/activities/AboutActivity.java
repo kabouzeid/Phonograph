@@ -21,6 +21,7 @@ import com.kabouzeid.gramophone.dialogs.DonationsDialog;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.ui.activities.bugreport.BugReportActivity;
 import com.kabouzeid.gramophone.ui.activities.intro.AppIntroActivity;
+import com.kabouzeid.gramophone.util.ViewUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,6 +95,8 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     AppCompatButton maartenCorpelGooglePlus;
     @BindView(R.id.aleksandar_tesic_google_plus)
     AppCompatButton aleksandarTesicGooglePlus;
+    @BindView(R.id.status_bar)
+    View statusBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +108,7 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         setStatusbarColorAuto();
         setNavigationbarColorAuto();
         setTaskDescriptionColorAuto();
+        ViewUtil.setStatusBarHeight(this, statusBar);
 
         setUpViews();
     }
