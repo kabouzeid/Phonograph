@@ -28,7 +28,6 @@ public class LastAddedPlaylist extends AbsSmartPlaylist {
 
     @Override
     public void clear(@NonNull Context context) {
-        PreferenceUtil.getInstance(context).setLastAddedCutoffTimestamp(System.currentTimeMillis());
     }
 
 

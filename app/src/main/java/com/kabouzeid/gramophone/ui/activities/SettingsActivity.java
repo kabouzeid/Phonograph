@@ -33,6 +33,7 @@ import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
+import com.kabouzeid.gramophone.util.ViewUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,6 +43,8 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.status_bar)
+    View statusBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         setStatusbarColorAuto();
         setNavigationbarColorAuto();
         setTaskDescriptionColorAuto();
+        ViewUtil.setStatusBarHeight(this, statusBar);
 
         toolbar.setBackgroundColor(ThemeStore.primaryColor(this));
         setSupportActionBar(toolbar);
@@ -134,6 +138,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             addPreferencesFromResource(R.xml.pref_images);
             addPreferencesFromResource(R.xml.pref_lockscreen);
             addPreferencesFromResource(R.xml.pref_audio);
+            addPreferencesFromResource(R.xml.pref_playlists);
         }
 
         @Nullable

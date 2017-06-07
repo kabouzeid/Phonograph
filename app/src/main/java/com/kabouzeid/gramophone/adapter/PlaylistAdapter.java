@@ -26,6 +26,7 @@ import com.kabouzeid.gramophone.model.AbsCustomPlaylist;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
+import com.kabouzeid.gramophone.model.smartplaylist.LastAddedPlaylist;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 
@@ -192,13 +193,16 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
                 menu.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        PopupMenu popupMenu = new PopupMenu(activity, view);
+                        final Playlist playlist = dataSet.get(getAdapterPosition());
+                        final PopupMenu popupMenu = new PopupMenu(activity, view);
                         popupMenu.inflate(getItemViewType() == SMART_PLAYLIST ? R.menu.menu_item_smart_playlist : R.menu.menu_item_playlist);
+                        if (playlist instanceof LastAddedPlaylist) {
+                            popupMenu.getMenu().findItem(R.id.action_clear_playlist).setVisible(false);
+                        }
                         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(@NonNull MenuItem item) {
                                 if (item.getItemId() == R.id.action_clear_playlist) {
-                                    Playlist playlist = dataSet.get(getAdapterPosition());
                                     if (playlist instanceof AbsSmartPlaylist) {
                                         ClearSmartPlaylistDialog.create((AbsSmartPlaylist) playlist).show(activity.getSupportFragmentManager(), "CLEAR_SMART_PLAYLIST_" + playlist.name);
                                         return true;
