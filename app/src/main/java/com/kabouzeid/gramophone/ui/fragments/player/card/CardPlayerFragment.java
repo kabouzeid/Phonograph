@@ -16,9 +16,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
@@ -528,6 +531,48 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
                     }
                 }
             });
+            //allows the scrollview to be clickable, long clickable and have a ripple animation onclick
+            if (currentSongViewHolder.title_scrollview !=null){
+                final GestureDetector gestureDetector = new GestureDetector(fragment.getActivity(), new GestureDetector.SimpleOnGestureListener() {
+                    @Override
+                    public boolean onSingleTapConfirmed(MotionEvent e) {
+                        int x = (int)e.getRawX();
+                        int y = currentSongViewHolder.title_scrollview.getBottom();
+                        Log.d("on touch position","X = "+Integer.toString(x)+" Y = "+Integer.toString(y));
+                        currentSongViewHolder.forceRippleAnimation(currentSongViewHolder.songView, x, y);
+
+                        // toggle the panel
+                        if (fragment.slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                            fragment.slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.EXPANDED);
+                        } else if (fragment.slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.EXPANDED) {
+                            fragment.slidingUpPanelLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
+                        }
+
+                        return true;
+                    }
+
+                    @Override
+                    public void onLongPress(MotionEvent e) {
+                        super.onLongPress(e);
+                        int x = (int)e.getRawX();
+                        int y = currentSongViewHolder.title_scrollview.getBottom();
+                        currentSongViewHolder.forceRippleAnimation(currentSongViewHolder.songView, x, y);
+                    }
+
+                    @Override
+                    public boolean onDoubleTap(MotionEvent e) {
+                        return super.onDoubleTap(e);
+                    }
+                });
+
+                currentSongViewHolder.title_scrollview.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+
+                        return gestureDetector.onTouchEvent(event);
+                    }
+                });
+            }
             currentSongViewHolder.menu.setOnClickListener(new SongMenuHelper.OnClickSongMenu((AppCompatActivity) fragment.getActivity()) {
                 @Override
                 public Song getSong() {
