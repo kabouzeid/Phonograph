@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
@@ -50,24 +51,35 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
+        Log.d("Touch Event Intercepted",e.toString());
         switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:{
+                Log.d("ACTION_DOWN?","True");
                 int x = Math.round(e.getRawX());
                 int y = Math.round(e.getRawY());
                 Rect scrollViewLocation = new Rect();
+                Log.d("Event X","");
+                Log.d("Event Y","");
+                Log.d("View Left","");
+                Log.d("View Right","");
+                Log.d("View Top","");
+                Log.d("View Bottom","");
                 scrollView.getGlobalVisibleRect(scrollViewLocation);
                 if (!(x > scrollViewLocation.left && x < scrollViewLocation.right
                         && y > scrollViewLocation.top && y < scrollViewLocation.bottom)) {
+                    Log.d("Outside Scrollview","True");
                         return false;
                 }
                 break;
             }
             case MotionEvent.ACTION_MOVE: {
+                Log.d("ACTION MOVE","True");
                 MotionEvent eUp = e;
                 eUp.setAction(MotionEvent.ACTION_CANCEL);
                 onTouchEvent(eUp);
             }
         }
+        Log.d("InterceptTouch Finished","True");
         onTouchEvent(e);
         return false;
     }
