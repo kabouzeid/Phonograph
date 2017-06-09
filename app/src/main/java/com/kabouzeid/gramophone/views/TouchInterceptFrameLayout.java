@@ -17,19 +17,19 @@ import android.widget.HorizontalScrollView;
  * A custom FrameLayout view that intercepts touch events and decides whether to consume them or
  * pass on the touch events to it's children
  */
-public class CustomFrameLayout extends FrameLayout {
+public class TouchInterceptFrameLayout extends FrameLayout {
 
     private HorizontalScrollView scrollView;
 
-    public CustomFrameLayout(@NonNull Context context) {
+    public TouchInterceptFrameLayout (@NonNull Context context) {
         super(context);
     }
 
-    public CustomFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public TouchInterceptFrameLayout (@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public CustomFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public TouchInterceptFrameLayout (@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
