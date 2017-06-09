@@ -60,13 +60,13 @@ public class TouchInterceptFrameLayout extends FrameLayout {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
         Log.d("Touch Event Intercepted",e.toString());
+        int x = Math.round(e.getRawX());
+        int y = Math.round(e.getRawY());
+        Rect scrollViewLocation = new Rect();
+        scrollView.getGlobalVisibleRect(scrollViewLocation);
         switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:{
                 Log.d("ACTION_DOWN?","True");
-                int x = Math.round(e.getRawX());
-                int y = Math.round(e.getRawY());
-                Rect scrollViewLocation = new Rect();
-                scrollView.getGlobalVisibleRect(scrollViewLocation);
                 Log.d("Event X",Integer.toString(x));
                 Log.d("Event Y",Integer.toString(y));
                 Log.d("View Left",Integer.toString(scrollViewLocation.left));
@@ -81,19 +81,28 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 break;
             }
             case MotionEvent.ACTION_UP: {
-                long clickDuration = e.getEventTime() - e.getDownTime();
-                if(clickDuration < MAX_CLICK_DURATION) {
-                    Log.d("ACTION_UP click?", "true");
-                    performClick();
-                }
+//                long clickDuration = e.getEventTime() - e.getDownTime();
+//                if(clickDuration < MAX_CLICK_DURATION) {
+//                    if ((x > scrollViewLocation.left && x < scrollViewLocation.right
+//                            && y > scrollViewLocation.top && y < scrollViewLocation.bottom)) {
+//                        Log.d("Outside Scrollview","True");
+//
+//                        return false;
+//                    }
+//                }
                 break;
             }
             case MotionEvent.ACTION_MOVE: {
                 Log.d("ACTION MOVE","True");
+                if ((x > scrollViewLocation.left && x < scrollViewLocation.right
+                        && y > scrollViewLocation.top && y < scrollViewLocation.bottom)) {
+                    Log.d("Outside Scrollview","True");
+
+                    return false;
+                }
                 MotionEvent eCancel = e;
                 eCancel.setAction(MotionEvent.ACTION_CANCEL);
                 onTouchEvent(eCancel);
-                return false;
             }
         }
         Log.d("InterceptTouch Finished","True");
