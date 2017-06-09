@@ -84,7 +84,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 long clickDuration = e.getEventTime() - e.getDownTime();
                 if(clickDuration < MAX_CLICK_DURATION) {
                     Log.d("ACTION_UP click?", "true");
-                    performContextClick(e.getX(),e.getY());
+                    callOnClick();
                 }
                 break;
             }
