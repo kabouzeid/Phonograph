@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.views.CustomFrameLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,6 +67,10 @@ public class MediaEntryViewHolder extends RecyclerView.ViewHolder implements Vie
     public MediaEntryViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+
+        if(title_scrollview != null && itemView instanceof CustomFrameLayout){
+            ((CustomFrameLayout) itemView).getScrollView(title_scrollview);
+        }
 
         itemView.setOnClickListener(this);
         itemView.setOnLongClickListener(this);
