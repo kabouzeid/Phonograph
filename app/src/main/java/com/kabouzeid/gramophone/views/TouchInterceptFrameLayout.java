@@ -58,13 +58,13 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 int x = Math.round(e.getRawX());
                 int y = Math.round(e.getRawY());
                 Rect scrollViewLocation = new Rect();
+                scrollView.getGlobalVisibleRect(scrollViewLocation);
                 Log.d("Event X",Integer.toString(x));
                 Log.d("Event Y",Integer.toString(y));
                 Log.d("View Left",Integer.toString(scrollViewLocation.left));
                 Log.d("View Right",Integer.toString(scrollViewLocation.right));
                 Log.d("View Top",Integer.toString(scrollViewLocation.top));
                 Log.d("View Bottom",Integer.toString(scrollViewLocation.bottom));
-                scrollView.getGlobalVisibleRect(scrollViewLocation);
                 if (!(x > scrollViewLocation.left && x < scrollViewLocation.right
                         && y > scrollViewLocation.top && y < scrollViewLocation.bottom)) {
                     Log.d("Outside Scrollview","True");
