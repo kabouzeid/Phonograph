@@ -6,10 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -111,46 +109,8 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
 
         if (holder.title != null) {
             holder.title.setText(getSongTitle(song));
-        }
-        //allows the scrollview to be clickable, long clickable and have a ripple animation onclick
-        if (holder.title_scrollview !=null){
-            final GestureDetector gestureDetector = new GestureDetector(activity, new GestureDetector.SimpleOnGestureListener() {
-                @Override
-                public boolean onSingleTapConfirmed(MotionEvent e) {
-                    int x = (int)e.getRawX();
-                    int y = holder.title_scrollview.getBottom();
-                    holder.forceRippleAnimation(holder.songView, x, y);
 
-                    if (isInQuickSelectMode()) {
-                        toggleChecked(holder.getAdapterPosition());
-                    } else {
-                        MusicPlayerRemote.openQueue(dataSet, holder.getAdapterPosition(), true);
-                    }
-                    return true;
-                }
 
-                @Override
-                public void onLongPress(MotionEvent e) {
-                    super.onLongPress(e);
-                    int x = (int)e.getRawX();
-                    int y = holder.title_scrollview.getBottom();
-                    holder.forceRippleAnimation(holder.songView, x, y);
-                    toggleChecked(holder.getAdapterPosition());
-                }
-
-                @Override
-                public boolean onDoubleTap(MotionEvent e) {
-                    return super.onDoubleTap(e);
-                }
-            });
-
-            holder.title_scrollview.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-
-                    return gestureDetector.onTouchEvent(event);
-                }
-            });
         }
         if (holder.text != null) {
             holder.text.setText(getSongText(song));

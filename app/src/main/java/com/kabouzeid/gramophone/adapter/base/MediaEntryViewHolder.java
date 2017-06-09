@@ -1,7 +1,5 @@
 package com.kabouzeid.gramophone.adapter.base;
 
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.RippleDrawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -65,7 +63,7 @@ public class MediaEntryViewHolder extends RecyclerView.ViewHolder implements Vie
     @BindView(R.id.palette_color_container)
     public View paletteColorContainer;
 
-    public MediaEntryViewHolder(View itemView) {
+    public MediaEntryViewHolder(final View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
 
@@ -87,28 +85,5 @@ public class MediaEntryViewHolder extends RecyclerView.ViewHolder implements Vie
     @Override
     public void onClick(View v) {
 
-    }
-
-    /**
-     * Forces a ripple animation in a view at a specified set of coordinates
-     * @param view the view where the ripple will be contained
-     * @param x the x coordinate of where the ripple should begin
-     * @param y the y coordinate where the ripple should begin
-     */
-    public void forceRippleAnimation(View view, int x , int y)
-    {
-        Drawable background = view.getBackground();
-
-        if(Build.VERSION.SDK_INT >= 21 && background instanceof RippleDrawable)
-        {
-            final RippleDrawable rippleDrawable = (RippleDrawable) background;
-
-            rippleDrawable.setHotspot(x,y);
-
-            rippleDrawable.setState(new int[]{android.R.attr.state_pressed, android.R.attr.state_enabled});
-
-            rippleDrawable.setState(new int[]{});
-
-        }
     }
 }
