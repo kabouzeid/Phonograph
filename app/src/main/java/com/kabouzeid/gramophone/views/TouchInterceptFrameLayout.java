@@ -2,8 +2,10 @@ package com.kabouzeid.gramophone.views;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -20,18 +22,23 @@ import android.widget.HorizontalScrollView;
  */
 public class TouchInterceptFrameLayout extends FrameLayout {
 
+    private Context c;
     private HorizontalScrollView scrollView;
+    private static final int MAX_CLICK_DURATION = 200;
 
     public TouchInterceptFrameLayout (@NonNull Context context) {
         super(context);
+        c = context;
     }
 
     public TouchInterceptFrameLayout (@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        c = context;
     }
 
     public TouchInterceptFrameLayout (@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        c = context;
     }
 
     public void setScrollView(HorizontalScrollView view){
@@ -49,6 +56,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      * @return If this function returns true, the MotionEvent will be intercepted,
      * meaning it will be not be passed on to the child, but rather to the onTouchEvent of this View.
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
         Log.d("Touch Event Intercepted",e.toString());
@@ -69,6 +77,15 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                         && y > scrollViewLocation.top && y < scrollViewLocation.bottom)) {
                     Log.d("Outside Scrollview","True");
                         return false;
+                }
+                break;
+            }
+            case MotionEvent.ACTION_UP: {
+                long clickDuration = e.getEventTime() - e.getDownTime();
+                if(clickDuration < MAX_CLICK_DURATION) {
+                    Log.d("ACTION_UP click?", "true");
+                    onTouchEvent(e);
+                    return false;
                 }
                 break;
             }
