@@ -84,7 +84,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 long clickDuration = e.getEventTime() - e.getDownTime();
                 if(clickDuration < MAX_CLICK_DURATION) {
                     Log.d("ACTION_UP click?", "true");
-                    callOnClick();
+                    performClick();
                 }
                 break;
             }
@@ -93,6 +93,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 MotionEvent eCancel = e;
                 eCancel.setAction(MotionEvent.ACTION_CANCEL);
                 onTouchEvent(eCancel);
+                return false;
             }
         }
         Log.d("InterceptTouch Finished","True");
