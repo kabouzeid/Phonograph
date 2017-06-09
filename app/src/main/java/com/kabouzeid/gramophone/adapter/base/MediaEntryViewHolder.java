@@ -63,7 +63,7 @@ public class MediaEntryViewHolder extends RecyclerView.ViewHolder implements Vie
     @BindView(R.id.palette_color_container)
     public View paletteColorContainer;
 
-    public MediaEntryViewHolder(final View itemView) {
+    public MediaEntryViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
 
