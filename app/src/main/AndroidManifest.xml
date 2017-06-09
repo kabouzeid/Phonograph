@@ -180,7 +180,6 @@
             android:name=".appshortcuts.AppShortcutLauncherActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:launchMode="singleInstance"/>
-
     </application>
 
 </manifest>
