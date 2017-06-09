@@ -80,7 +80,7 @@
 
             <HorizontalScrollView
                 android:id="@+id/title_scrollview"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:scrollbars="none">
 
