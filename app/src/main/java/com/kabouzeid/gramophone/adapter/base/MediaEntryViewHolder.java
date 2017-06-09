@@ -69,7 +69,7 @@ public class MediaEntryViewHolder extends RecyclerView.ViewHolder implements Vie
         ButterKnife.bind(this, itemView);
 
         if(title_scrollview != null && itemView instanceof CustomFrameLayout){
-            ((CustomFrameLayout) itemView).getScrollView(title_scrollview);
+            ((CustomFrameLayout) itemView).setScrollView(title_scrollview);
         }
 
         itemView.setOnClickListener(this);

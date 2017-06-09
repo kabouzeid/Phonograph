@@ -33,7 +33,7 @@ public class CustomFrameLayout extends FrameLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    public void getScrollView(HorizontalScrollView view){
+    public void setScrollView(HorizontalScrollView view){
         scrollView = view;
     }
 
