@@ -119,6 +119,12 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         setUpPlayerToolbar();
         setUpSubFragments();
 
+        // portrait view doesn't have a statusBar, so can't bind it up top as will throw an exception.
+        View statusBar = view.findViewById(R.id.status_bar);
+        if (statusBar != null) {
+            ViewUtil.setStatusBarHeight(getActivity(), statusBar);
+        }
+
         setUpRecyclerView();
 
         slidingUpPanelLayout.addPanelSlideListener(this);
@@ -198,6 +204,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
     private void updateQueue() {
         playingQueueAdapter.swapDataSet(MusicPlayerRemote.getPlayingQueue(), MusicPlayerRemote.getPosition());
+        playerQueueSubHeader.setText(getResources().getString(R.string.up_next) + "  •  " + MusicUtil.getReadableDurationString(MusicPlayerRemote.getQueueDurationMillis(MusicPlayerRemote.getPosition())));
         if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
             resetToCurrentPosition();
         }
@@ -205,6 +212,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
     private void updateQueuePosition() {
         playingQueueAdapter.setCurrent(MusicPlayerRemote.getPosition());
+        playerQueueSubHeader.setText(getResources().getString(R.string.up_next) + "  •  " + MusicUtil.getReadableDurationString(MusicPlayerRemote.getQueueDurationMillis(MusicPlayerRemote.getPosition())));
         if (slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
             resetToCurrentPosition();
         }
