@@ -23,9 +23,11 @@ import android.widget.HorizontalScrollView;
 public class TouchInterceptFrameLayout extends FrameLayout {
 
     private static Context c;
-    private HorizontalScrollView scrollView;
-    private static final int MAX_CLICK_DISTANCE = 15;
 
+    private HorizontalScrollView scrollView;
+    private Rect scrollViewLocation = new Rect();
+
+    private static final int MAX_CLICK_DISTANCE = 10;
     private float pressedX;
     private float pressedY;
     private boolean stayedWithinClickDistance;
@@ -66,12 +68,13 @@ public class TouchInterceptFrameLayout extends FrameLayout {
         Log.d("Touch Event Intercepted",e.toString());
         int x = Math.round(e.getRawX());
         int y = Math.round(e.getRawY());
-        Rect scrollViewLocation = new Rect();
         scrollView.getGlobalVisibleRect(scrollViewLocation);
+        boolean isScrollViewLocation = (x > scrollViewLocation.left && x < scrollViewLocation.right
+                && y > scrollViewLocation.top && y < scrollViewLocation.bottom);
+        pressedX = e.getX();
+        pressedY = e.getY();
         switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:{
-                pressedX = e.getX();
-                pressedY = e.getY();
                 Log.d("ACTION_DOWN?","True");
                 Log.d("Event X",Integer.toString(x));
                 Log.d("Event Y",Integer.toString(y));
@@ -79,29 +82,15 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 Log.d("View Right",Integer.toString(scrollViewLocation.right));
                 Log.d("View Top",Integer.toString(scrollViewLocation.top));
                 Log.d("View Bottom",Integer.toString(scrollViewLocation.bottom));
-                if (!(x > scrollViewLocation.left && x < scrollViewLocation.right
-                        && y > scrollViewLocation.top && y < scrollViewLocation.bottom)) {
+                if (!isScrollViewLocation) {
                     Log.d("Outside Scrollview","True");
                         return false;
                 }
                 break;
             }
-            case MotionEvent.ACTION_UP: {
-//                long clickDuration = e.getEventTime() - e.getDownTime();
-//                if(clickDuration < MAX_CLICK_DURATION) {
-//                    if ((x > scrollViewLocation.left && x < scrollViewLocation.right
-//                            && y > scrollViewLocation.top && y < scrollViewLocation.bottom)) {
-//                        Log.d("Outside Scrollview","True");
-//
-//                        return false;
-//                    }
-//                }
-                break;
-            }
             case MotionEvent.ACTION_MOVE: {
                 Log.d("ACTION MOVE","True");
-                if ((x > scrollViewLocation.left && x < scrollViewLocation.right
-                        && y > scrollViewLocation.top && y < scrollViewLocation.bottom)) {
+                if (isScrollViewLocation) {
                     Log.d("Outside Scrollview","True");
                     if (!stayedWithinClickDistance && !(distance(pressedX, pressedY, e.getX(), e.getY()) > MAX_CLICK_DISTANCE)) {
                         Log.d("scrolling","True");
