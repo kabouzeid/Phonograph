@@ -31,7 +31,7 @@ public abstract class AbsThemeActivity extends ATHToolbarActivity {
                     .accentColorRes(R.color.md_pink_A400)
                     .commit();
         }
-        getSharedPreferences("[[kabouzeid_app-theme-helper]]", 0).edit().putInt("activity_theme", PreferenceUtil.getInstance(this).getGeneralTheme()).commit(); // TEMPORARY FIX
+        getSharedPreferences("[[kabouzeid_app-theme-helper]]", 0).edit().putInt("activity_theme", PreferenceUtil.getInstance().getGeneralTheme()).commit(); // TEMPORARY FIX
         super.onCreate(savedInstanceState);
         MaterialDialogsUtil.updateMaterialDialogsThemeSingleton(this);
     }

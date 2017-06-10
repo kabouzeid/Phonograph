@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.adapter.song;
 
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,9 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialcab.MaterialCab;
-import com.bumptech.glide.Glide;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.glide.SongGlideRequest;
+import com.kabouzeid.gramophone.glide.GlideApp;
+import com.kabouzeid.gramophone.glide.PhonographGlideExtension;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.helper.menu.SongsMenuHelper;
@@ -85,8 +86,10 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
         songTitle.setText(song.title);
         songInfo.setText(song.albumName);
 
-        SongGlideRequest.Builder.from(Glide.with(activity), song)
-                .checkIgnoreMediaStore(activity).build()
+        GlideApp.with(activity)
+                .load(PhonographGlideExtension.getSongModel(song))
+                .albumCoverOptions()
+                .transition(PhonographGlideExtension.<Drawable>getDefaultTransition())
                 .into(albumArt);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

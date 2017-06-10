@@ -14,11 +14,12 @@ import android.support.v7.app.NotificationCompat;
 import android.support.v7.graphics.Palette;
 import android.text.TextUtils;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.glide.SongGlideRequest;
+import com.kabouzeid.gramophone.glide.GlideApp;
+import com.kabouzeid.gramophone.glide.PhonographGlideExtension;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
@@ -39,6 +40,8 @@ public class PlayingNotificationImpl24 implements PlayingNotification {
     private static final int NOTIFY_MODE_BACKGROUND = 0;
 
     private MusicService service;
+
+    private Target<BitmapPaletteWrapper> target;
 
     private NotificationManager notificationManager;
 
@@ -80,18 +83,20 @@ public class PlayingNotificationImpl24 implements PlayingNotification {
         service.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                SongGlideRequest.Builder.from(Glide.with(service), song)
-                        .checkIgnoreMediaStore(service)
-                        .generatePalette(service).build()
+                GlideApp.with(service).clear(target);
+                target = GlideApp.with(service)
+                        .asBitmapPalette()
+                        .load(PhonographGlideExtension.getSongModel(song))
+                        .albumCoverOptions()
                         .into(new SimpleTarget<BitmapPaletteWrapper>(bigNotificationImageSize, bigNotificationImageSize) {
                             @Override
-                            public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
-                                Palette palette = resource.getPalette();
-                                update(resource.getBitmap(), palette.getVibrantColor(palette.getMutedColor(Color.TRANSPARENT)));
+                            public void onResourceReady(BitmapPaletteWrapper bitmapPaletteWrapper, Transition<? super BitmapPaletteWrapper> transition) {
+                                Palette palette = bitmapPaletteWrapper.getPalette();
+                                update(bitmapPaletteWrapper.getBitmap(), palette.getVibrantColor(palette.getMutedColor(Color.TRANSPARENT)));
                             }
 
                             @Override
-                            public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                            public void onLoadFailed(Drawable errorDrawable) {
                                 update(null, Color.TRANSPARENT);
                             }
 
@@ -123,7 +128,7 @@ public class PlayingNotificationImpl24 implements PlayingNotification {
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                     builder.setStyle(new NotificationCompat.MediaStyle().setMediaSession(service.getMediaSession().getSessionToken()).setShowActionsInCompactView(0, 1, 2))
                                             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-                                    if (PreferenceUtil.getInstance(service).coloredNotification())
+                                    if (PreferenceUtil.getInstance().coloredNotification())
                                         builder.setColor(color);
                                 }
 

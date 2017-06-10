@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.adapter;
 
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
@@ -9,21 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.target.Target;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
-import com.kabouzeid.gramophone.glide.SongGlideRequest;
+import com.kabouzeid.gramophone.glide.GlideApp;
+import com.kabouzeid.gramophone.glide.PhonographGlideExtension;
 import com.kabouzeid.gramophone.glide.artistimage.ArtistImage;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.util.ArtistSignatureUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 
@@ -77,22 +74,20 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 final Album album = (Album) dataSet.get(position);
                 holder.title.setText(album.getTitle());
                 holder.text.setText(album.getArtistName());
-                SongGlideRequest.Builder.from(Glide.with(activity), album.safeGetFirstSong())
-                        .checkIgnoreMediaStore(activity).build()
+                GlideApp.with(activity)
+                        .load(PhonographGlideExtension.getSongModel(album.safeGetFirstSong()))
+                        .albumCoverOptions()
+                        .transition(PhonographGlideExtension.<Drawable>getDefaultTransition())
                         .into(holder.image);
                 break;
             case ARTIST:
                 final Artist artist = (Artist) dataSet.get(position);
                 holder.title.setText(artist.getName());
                 holder.text.setText(MusicUtil.getArtistInfoString(activity, artist));
-                Glide.with(activity)
+                GlideApp.with(activity)
                         .load(new ArtistImage(artist.getName(), false))
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .placeholder(R.drawable.default_artist_image)
-                        .animate(android.R.anim.fade_in)
-                        .priority(Priority.LOW)
-                        .signature(ArtistSignatureUtil.getInstance(activity).getArtistSignature(artist.getName()))
-                        .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                        .artistImageOptions(artist)
+                        .transition(PhonographGlideExtension.<Drawable>getDefaultTransition())
                         .into(holder.image);
                 break;
             case SONG:

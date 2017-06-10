@@ -120,10 +120,10 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
         tabs.setTabTextColors(normalColor, selectedColor);
         tabs.setSelectedTabIndicatorColor(ThemeStore.accentColor(getActivity()));
 
-        int startPosition = PreferenceUtil.getInstance(getActivity()).getDefaultStartPage();
-        startPosition = startPosition == -1 ? PreferenceUtil.getInstance(getActivity()).getLastPage() : startPosition;
+        int startPosition = PreferenceUtil.getInstance().getDefaultStartPage();
+        startPosition = startPosition == -1 ? PreferenceUtil.getInstance().getLastPage() : startPosition;
         pager.setCurrentItem(startPosition);
-        PreferenceUtil.getInstance(getActivity()).setLastPage(startPosition); // just in case
+        PreferenceUtil.getInstance().setLastPage(startPosition); // just in case
         pager.addOnPageChangeListener(this);
     }
 
@@ -339,7 +339,7 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
 
     @Override
     public void onPageSelected(int position) {
-        PreferenceUtil.getInstance(getActivity()).setLastPage(position);
+        PreferenceUtil.getInstance().setLastPage(position);
     }
 
     @Override

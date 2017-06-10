@@ -110,12 +110,6 @@
         <meta-data
             android:name="com.crashlytics.ApiKey"
             android:value="b23725bd3d266aa65c5a3dd1816b2f801524a189" />
-        <meta-data
-            android:name="com.kabouzeid.gramophone.glide.PhonographGlideModule"
-            android:value="GlideModule" />
-        <meta-data
-            android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
-            android:value="GlideModule" />
 
         <activity
             android:name=".ui.activities.tageditor.SongTagEditorActivity"

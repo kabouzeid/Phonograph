@@ -3,9 +3,9 @@ package com.kabouzeid.gramophone.util;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
 
-import com.bumptech.glide.signature.StringSignature;
+import com.bumptech.glide.signature.ObjectKey;
+import com.kabouzeid.gramophone.App;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -17,19 +17,20 @@ public class ArtistSignatureUtil {
 
     private final SharedPreferences mPreferences;
 
-    private ArtistSignatureUtil(@NonNull final Context context) {
-        mPreferences = context.getSharedPreferences(ARTIST_SIGNATURE_PREFS, Context.MODE_PRIVATE);
+    private ArtistSignatureUtil() {
+        mPreferences = App.getStaticContext().getSharedPreferences(ARTIST_SIGNATURE_PREFS, Context.MODE_PRIVATE);
     }
 
-    public static ArtistSignatureUtil getInstance(@NonNull final Context context) {
+    public static ArtistSignatureUtil getInstance() {
         if (sInstance == null) {
-            sInstance = new ArtistSignatureUtil(context.getApplicationContext());
+            sInstance = new ArtistSignatureUtil();
         }
         return sInstance;
     }
 
-    @SuppressLint("CommitPrefEdits")
+    @SuppressLint({"CommitPrefEdits", "ApplySharedPref"})
     public void updateArtistSignature(String artistName) {
+        // commit() is necessary
         mPreferences.edit().putLong(artistName, System.currentTimeMillis()).commit();
     }
 
@@ -37,7 +38,7 @@ public class ArtistSignatureUtil {
         return mPreferences.getLong(artistName, 0);
     }
 
-    public StringSignature getArtistSignature(String artistName) {
-        return new StringSignature(String.valueOf(getArtistSignatureRaw(artistName)));
+    public ObjectKey getArtistSignature(String artistName) {
+        return new ObjectKey(getArtistSignatureRaw(artistName));
     }
 }

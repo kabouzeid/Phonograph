@@ -19,6 +19,8 @@ import com.kabouzeid.gramophone.BuildConfig;
 import com.kabouzeid.gramophone.helper.StackBlur;
 import com.kabouzeid.gramophone.util.ImageUtil;
 
+import java.security.MessageDigest;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -43,6 +45,11 @@ public class BlurTransformation extends BitmapTransformation {
     private BlurTransformation(Builder builder, BitmapPool bitmapPool) {
         super(bitmapPool);
         init(builder);
+    }
+
+    @Override
+    public void updateDiskCacheKey(MessageDigest messageDigest) {
+        messageDigest.update(("BlurTransformation(radius=" + blurRadius + ", sampling=" + sampling + ")").getBytes(CHARSET));
     }
 
     public static class Builder {
@@ -139,10 +146,5 @@ public class BlurTransformation extends BitmapTransformation {
         }
 
         return StackBlur.blur(out, blurRadius);
-    }
-
-    @Override
-    public String getId() {
-        return "BlurTransformation(radius=" + blurRadius + ", sampling=" + sampling + ")";
     }
 }

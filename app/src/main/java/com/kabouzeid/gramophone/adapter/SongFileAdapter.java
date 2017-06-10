@@ -11,13 +11,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.signature.MediaStoreSignature;
+import com.bumptech.glide.signature.ObjectKey;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
+import com.kabouzeid.gramophone.glide.GlideApp;
+import com.kabouzeid.gramophone.glide.PhonographGlideExtension;
 import com.kabouzeid.gramophone.glide.audiocover.AudioFileCover;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.util.Util;
@@ -116,13 +116,13 @@ public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewH
             holder.image.setImageResource(R.drawable.ic_folder_white_24dp);
         } else {
             Drawable error = Util.getTintedVectorDrawable(activity, R.drawable.ic_file_music_white_24dp, iconColor);
-            Glide.with(activity)
+            GlideApp.with(activity)
                     .load(new AudioFileCover(file.getPath()))
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .albumCoverOptions()
+                    .transition(PhonographGlideExtension.<Drawable>getDefaultTransition())
                     .error(error)
                     .placeholder(error)
-                    .animate(android.R.anim.fade_in)
-                    .signature(new MediaStoreSignature("", file.lastModified(), 0))
+                    .signature(new ObjectKey(file.lastModified()))
                     .into(holder.image);
         }
     }

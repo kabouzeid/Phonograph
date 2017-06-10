@@ -3,7 +3,6 @@ package com.kabouzeid.gramophone.ui.activities.tageditor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,14 +12,14 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
+import com.kabouzeid.gramophone.glide.GlideApp;
+import com.kabouzeid.gramophone.glide.PhonographGlideExtension;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
 import com.kabouzeid.gramophone.lastfm.rest.model.LastFmAlbum;
@@ -107,24 +106,17 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
                 if (lastFmAlbum.getAlbum() != null) {
                     String url = LastFMUtil.getLargestAlbumImageUrl(lastFmAlbum.getAlbum().getImage());
                     if (!TextUtils.isEmpty(url) && url.trim().length() > 0) {
-                        Glide.with(AlbumTagEditorActivity.this)
+                        GlideApp.with(AlbumTagEditorActivity.this)
+                                .asBitmapPalette()
                                 .load(url)
-                                .asBitmap()
-                                .transcode(new BitmapPaletteTranscoder(AlbumTagEditorActivity.this), BitmapPaletteWrapper.class)
-                                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                                 .error(R.drawable.default_album_art)
+                                .diskCacheStrategy(DiskCacheStrategy.DATA)
+                                .transition(PhonographGlideExtension.<BitmapPaletteWrapper>getDefaultTransition())
                                 .into(new SimpleTarget<BitmapPaletteWrapper>() {
                                     @Override
-                                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                                        super.onLoadFailed(e, errorDrawable);
-                                        e.printStackTrace();
-                                        Toast.makeText(AlbumTagEditorActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-                                    }
-
-                                    @Override
-                                    public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
-                                        albumArtBitmap = getResizedAlbumCover(resource.getBitmap(), 2048);
-                                        setImageBitmap(albumArtBitmap, PhonographColorUtil.getColor(resource.getPalette(), ATHUtil.resolveColor(AlbumTagEditorActivity.this, R.attr.defaultFooterColor)));
+                                    public void onResourceReady(BitmapPaletteWrapper bitmapPaletteWrapper, Transition<? super BitmapPaletteWrapper> transition) {
+                                        albumArtBitmap = getResizedAlbumCover(bitmapPaletteWrapper.getBitmap(), 2048);
+                                        setImageBitmap(albumArtBitmap, PhonographColorUtil.getColor(bitmapPaletteWrapper.getPalette(), ATHUtil.resolveColor(AlbumTagEditorActivity.this, R.attr.defaultFooterColor)));
                                         deleteAlbumArt = false;
                                         dataChanged();
                                         setResult(RESULT_OK);
@@ -191,25 +183,17 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
     @Override
     protected void loadImageFromFile(@NonNull final Uri selectedFileUri) {
-        Glide.with(AlbumTagEditorActivity.this)
+        GlideApp.with(AlbumTagEditorActivity.this)
+                .asBitmapPalette()
                 .load(selectedFileUri)
-                .asBitmap()
-                .transcode(new BitmapPaletteTranscoder(AlbumTagEditorActivity.this), BitmapPaletteWrapper.class)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
+                .error(R.drawable.default_album_art)
+                .diskCacheStrategy(DiskCacheStrategy.DATA)
                 .into(new SimpleTarget<BitmapPaletteWrapper>() {
                     @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        super.onLoadFailed(e, errorDrawable);
-                        e.printStackTrace();
-                        Toast.makeText(AlbumTagEditorActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
-                        PhonographColorUtil.getColor(resource.getPalette(), Color.TRANSPARENT);
-                        albumArtBitmap = getResizedAlbumCover(resource.getBitmap(), 2048);
-                        setImageBitmap(albumArtBitmap, PhonographColorUtil.getColor(resource.getPalette(), ATHUtil.resolveColor(AlbumTagEditorActivity.this, R.attr.defaultFooterColor)));
+                    public void onResourceReady(BitmapPaletteWrapper bitmapPaletteWrapper, Transition<? super BitmapPaletteWrapper> transition) {
+                        PhonographColorUtil.getColor(bitmapPaletteWrapper.getPalette(), Color.TRANSPARENT);
+                        albumArtBitmap = getResizedAlbumCover(bitmapPaletteWrapper.getBitmap(), 2048);
+                        setImageBitmap(albumArtBitmap, PhonographColorUtil.getColor(bitmapPaletteWrapper.getPalette(), ATHUtil.resolveColor(AlbumTagEditorActivity.this, R.attr.defaultFooterColor)));
                         deleteAlbumArt = false;
                         dataChanged();
                         setResult(RESULT_OK);

@@ -102,7 +102,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
     }
 
     public static FoldersFragment newInstance(Context context) {
-        return newInstance(PreferenceUtil.getInstance(context).getStartDirectory());
+        return newInstance(PreferenceUtil.getInstance().getStartDirectory());
     }
 
     public static FoldersFragment newInstance(File directory) {
@@ -268,7 +268,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_go_to_start_directory:
-                setCrumb(new BreadCrumbLayout.Crumb(tryGetCanonicalFile(PreferenceUtil.getInstance(getActivity()).getStartDirectory())), true);
+                setCrumb(new BreadCrumbLayout.Crumb(tryGetCanonicalFile(PreferenceUtil.getInstance().getStartDirectory())), true);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -375,7 +375,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
                             }).execute(new ListSongsAsyncTask.LoadingInfo(toList(file), getFileFilter(), getFileComparator()));
                             return true;
                         case R.id.action_set_as_start_directory:
-                            PreferenceUtil.getInstance(getActivity()).setStartDirectory(file);
+                            PreferenceUtil.getInstance().setStartDirectory(file);
                             Toast.makeText(getActivity(), String.format(getString(R.string.new_start_directory), file.getPath()), Toast.LENGTH_SHORT).show();
                             return true;
                         case R.id.action_scan:

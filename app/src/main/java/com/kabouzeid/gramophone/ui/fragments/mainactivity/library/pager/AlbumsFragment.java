@@ -9,8 +9,8 @@ import android.support.v7.widget.GridLayoutManager;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.album.AlbumAdapter;
-import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.interfaces.LoaderIds;
+import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
@@ -57,7 +57,7 @@ public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFra
 
     @Override
     public boolean loadUsePalette() {
-        return PreferenceUtil.getInstance(getActivity()).albumColoredFooters();
+        return PreferenceUtil.getInstance().albumColoredFooters();
     }
 
     @Override
@@ -73,27 +73,27 @@ public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFra
 
     @Override
     protected int loadGridSize() {
-        return PreferenceUtil.getInstance(getActivity()).getAlbumGridSize(getActivity());
+        return PreferenceUtil.getInstance().getAlbumGridSize(getActivity());
     }
 
     @Override
     protected void saveGridSize(int gridSize) {
-        PreferenceUtil.getInstance(getActivity()).setAlbumGridSize(gridSize);
+        PreferenceUtil.getInstance().setAlbumGridSize(gridSize);
     }
 
     @Override
     protected int loadGridSizeLand() {
-        return PreferenceUtil.getInstance(getActivity()).getAlbumGridSizeLand(getActivity());
+        return PreferenceUtil.getInstance().getAlbumGridSizeLand(getActivity());
     }
 
     @Override
     protected void saveGridSizeLand(int gridSize) {
-        PreferenceUtil.getInstance(getActivity()).setAlbumGridSizeLand(gridSize);
+        PreferenceUtil.getInstance().setAlbumGridSizeLand(gridSize);
     }
 
     @Override
     protected void saveUsePalette(boolean usePalette) {
-        PreferenceUtil.getInstance(getActivity()).setAlbumColoredFooters(usePalette);
+        PreferenceUtil.getInstance().setAlbumColoredFooters(usePalette);
     }
 
     @Override

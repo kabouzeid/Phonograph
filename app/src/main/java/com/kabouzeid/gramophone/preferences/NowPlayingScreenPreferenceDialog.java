@@ -46,7 +46,7 @@ public class NowPlayingScreenPreferenceDialog extends DialogFragment implements 
         viewPager.setAdapter(new NowPlayingScreenAdapter(getContext()));
         viewPager.addOnPageChangeListener(this);
         viewPager.setPageMargin((int) ViewUtil.convertDpToPixel(32, getResources()));
-        viewPager.setCurrentItem(PreferenceUtil.getInstance(getContext()).getNowPlayingScreen().ordinal());
+        viewPager.setCurrentItem(PreferenceUtil.getInstance().getNowPlayingScreen().ordinal());
 
         InkPageIndicator pageIndicator = ButterKnife.findById(view, R.id.page_indicator);
         pageIndicator.setViewPager(viewPager);
@@ -69,7 +69,7 @@ public class NowPlayingScreenPreferenceDialog extends DialogFragment implements 
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
         if (whichButtonClicked == DialogAction.POSITIVE) {
-            PreferenceUtil.getInstance(getContext()).setNowPlayingScreen(NowPlayingScreen.values()[viewPagerPosition]);
+            PreferenceUtil.getInstance().setNowPlayingScreen(NowPlayingScreen.values()[viewPagerPosition]);
         }
     }
 

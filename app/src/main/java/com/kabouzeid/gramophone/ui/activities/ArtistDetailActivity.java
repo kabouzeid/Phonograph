@@ -24,8 +24,8 @@ import android.widget.Toast;
 import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.util.DialogUtils;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
@@ -35,9 +35,9 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.album.HorizontalAlbumAdapter;
 import com.kabouzeid.gramophone.adapter.song.ArtistSongAdapter;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
+import com.kabouzeid.gramophone.glide.GlideApp;
 import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
 import com.kabouzeid.gramophone.glide.artistimage.ArtistImage;
-import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
@@ -114,7 +114,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         supportPostponeEnterTransition();
 
         lastFMRestClient = new LastFMRestClient(this);
-        usePalette=PreferenceUtil.getInstance(this).albumArtistColoredFooters();
+        usePalette = PreferenceUtil.getInstance().albumArtistColoredFooters();
 
         initViews();
         setUpObservableListViewParams();
@@ -214,7 +214,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
     protected void setUsePalette(boolean usePalette) {
         albumAdapter.usePalette(usePalette);
-        PreferenceUtil.getInstance(this).setAlbumArtistColoredFooters(usePalette);
+        PreferenceUtil.getInstance().setAlbumArtistColoredFooters(usePalette);
         this.usePalette = usePalette;
     }
 
@@ -255,20 +255,15 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
     private void loadArtistImage(final boolean forceDownload) {
         if (forceDownload) {
-            ArtistSignatureUtil.getInstance(this).updateArtistSignature(getArtist().getName());
+            ArtistSignatureUtil.getInstance().updateArtistSignature(getArtist().getName());
         }
-        Glide.with(this)
+        GlideApp.with(this)
+                .asBitmapPalette()
                 .load(new ArtistImage(getArtist().getName(), forceDownload))
-                .asBitmap()
-                .transcode(new BitmapPaletteTranscoder(this), BitmapPaletteWrapper.class)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .placeholder(R.drawable.default_artist_image)
-                .signature(ArtistSignatureUtil.getInstance(this).getArtistSignature(getArtist().getName()))
-                .dontAnimate()
-                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                .listener(new RequestListener<ArtistImage, BitmapPaletteWrapper>() {
+                .artistImageOptions(getArtist())
+                .listener(new RequestListener<BitmapPaletteWrapper>() {
                     @Override
-                    public boolean onException(@Nullable Exception e, ArtistImage model, Target<BitmapPaletteWrapper> target, boolean isFirstResource) {
+                    public boolean onLoadFailed(@Nullable GlideException e, Object o, Target<BitmapPaletteWrapper> target, boolean b) {
                         if (forceDownload) {
                             Toast.makeText(ArtistDetailActivity.this, e != null ? e.getClass().getSimpleName() : "Error", Toast.LENGTH_SHORT).show();
                         }
@@ -276,7 +271,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                     }
 
                     @Override
-                    public boolean onResourceReady(BitmapPaletteWrapper resource, ArtistImage model, Target<BitmapPaletteWrapper> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                    public boolean onResourceReady(BitmapPaletteWrapper bitmapPaletteWrapper, Object o, Target<BitmapPaletteWrapper> target, DataSource dataSource, boolean b) {
                         if (forceDownload) {
                             Toast.makeText(ArtistDetailActivity.this, getString(R.string.updated_artist_image), Toast.LENGTH_SHORT).show();
                         }

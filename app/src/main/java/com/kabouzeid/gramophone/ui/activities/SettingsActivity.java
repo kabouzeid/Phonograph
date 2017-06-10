@@ -155,13 +155,13 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             super.onViewCreated(view, savedInstanceState);
             getListView().setPadding(0, 0, 0, 0);
             invalidateSettings();
-            PreferenceUtil.getInstance(getActivity()).registerOnSharedPreferenceChangedListener(this);
+            PreferenceUtil.getInstance().registerOnSharedPreferenceChangedListener(this);
         }
 
         @Override
         public void onDestroyView() {
             super.onDestroyView();
-            PreferenceUtil.getInstance(getActivity()).unregisterOnSharedPreferenceChangedListener(this);
+            PreferenceUtil.getInstance().unregisterOnSharedPreferenceChangedListener(this);
         }
 
         private void invalidateSettings() {
@@ -261,12 +261,12 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 classicNotification.setEnabled(false);
                 classicNotification.setSummary(R.string.pref_only_nougat);
             } else {
-                classicNotification.setChecked(PreferenceUtil.getInstance(getActivity()).classicNotification());
+                classicNotification.setChecked(PreferenceUtil.getInstance().classicNotification());
                 classicNotification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
                         //Save preference
-                        PreferenceUtil.getInstance(getActivity()).setClassicNotification((Boolean)newValue);
+                        PreferenceUtil.getInstance().setClassicNotification((Boolean) newValue);
 
                         final MusicService service = MusicPlayerRemote.musicService;
                         if (service != null) {
@@ -284,12 +284,12 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 colorAppShortcuts.setEnabled(false);
                 colorAppShortcuts.setSummary(R.string.pref_only_nougat_mr1);
             } else {
-                colorAppShortcuts.setChecked(PreferenceUtil.getInstance(getActivity()).coloredAppShortcuts());
+                colorAppShortcuts.setChecked(PreferenceUtil.getInstance().coloredAppShortcuts());
                 colorAppShortcuts.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
                         //Save preference
-                        PreferenceUtil.getInstance(getActivity()).setColoredAppShortcuts((Boolean)newValue);
+                        PreferenceUtil.getInstance().setColoredAppShortcuts((Boolean) newValue);
 
                         //Update app shortcuts
                         new DynamicShortcutManager(getActivity()).updateDynamicShortcuts();
@@ -332,7 +332,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         }
 
         private void updateNowPlayingScreenSummary() {
-            findPreference("now_playing_screen_id").setSummary(PreferenceUtil.getInstance(getActivity()).getNowPlayingScreen().titleRes);
+            findPreference("now_playing_screen_id").setSummary(PreferenceUtil.getInstance().getNowPlayingScreen().titleRes);
         }
     }
 }

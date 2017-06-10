@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class ArtistLoader {
     public static String getSongLoaderSortOrder(Context context) {
-        return PreferenceUtil.getInstance(context).getArtistSortOrder() + ", " + PreferenceUtil.getInstance(context).getArtistAlbumSortOrder() + ", " + PreferenceUtil.getInstance(context).getAlbumSongSortOrder();
+        return PreferenceUtil.getInstance().getArtistSortOrder() + ", " + PreferenceUtil.getInstance().getArtistAlbumSortOrder() + ", " + PreferenceUtil.getInstance().getAlbumSongSortOrder();
     }
 
     @NonNull

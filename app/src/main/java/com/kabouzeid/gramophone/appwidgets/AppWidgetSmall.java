@@ -12,13 +12,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.RemoteViews;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.glide.SongGlideRequest;
+import com.kabouzeid.gramophone.glide.GlideApp;
+import com.kabouzeid.gramophone.glide.PhonographGlideExtension;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
@@ -143,21 +143,20 @@ public class AppWidgetSmall extends BaseAppWidget {
         service.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (target != null) {
-                    Glide.clear(target);
-                }
-                target = SongGlideRequest.Builder.from(Glide.with(appContext), song)
-                        .checkIgnoreMediaStore(appContext)
-                        .asBitmap().build()
+                GlideApp.with(appContext).clear(target);
+                target = GlideApp.with(appContext)
+                        .asBitmap()
+                        .load(PhonographGlideExtension.getSongModel(song))
+                        .albumCoverOptions()
                         .into(new SimpleTarget<Bitmap>(widgetImageSize, widgetImageSize) {
                             @Override
-                            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                                update(resource);
+                            public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
+                                update(bitmap);
                             }
 
                             @Override
-                            public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                                super.onLoadFailed(e, errorDrawable);
+                            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                                super.onLoadFailed(errorDrawable);
                                 update(null);
                             }
 

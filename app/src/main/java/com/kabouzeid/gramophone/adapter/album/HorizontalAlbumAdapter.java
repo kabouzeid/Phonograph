@@ -8,11 +8,12 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
+import com.kabouzeid.gramophone.glide.GlideApp;
 import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
-import com.kabouzeid.gramophone.glide.SongGlideRequest;
+import com.kabouzeid.gramophone.glide.PhonographGlideExtension;
+import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.helper.HorizontalAdapterHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Album;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 public class HorizontalAlbumAdapter extends AlbumAdapter {
     public static final String TAG = AlbumAdapter.class.getSimpleName();
 
-    public HorizontalAlbumAdapter(@NonNull AppCompatActivity activity, ArrayList<Album> dataSet,boolean usePalette, @Nullable CabHolder cabHolder) {
+    public HorizontalAlbumAdapter(@NonNull AppCompatActivity activity, ArrayList<Album> dataSet, boolean usePalette, @Nullable CabHolder cabHolder) {
         super(activity, dataSet, HorizontalAdapterHelper.LAYOUT_RES, usePalette, cabHolder);
     }
 
@@ -39,13 +40,13 @@ public class HorizontalAlbumAdapter extends AlbumAdapter {
     @Override
     protected void setColors(int color, ViewHolder holder) {
         if (holder.itemView != null) {
-            CardView card=(CardView)holder.itemView;
+            CardView card = (CardView) holder.itemView;
             card.setCardBackgroundColor(color);
             if (holder.title != null) {
-                    holder.title.setTextColor(MaterialValueHelper.getPrimaryTextColor(activity, ColorUtil.isColorLight(color)));
+                holder.title.setTextColor(MaterialValueHelper.getPrimaryTextColor(activity, ColorUtil.isColorLight(color)));
             }
             if (holder.text != null) {
-                    holder.text.setTextColor(MaterialValueHelper.getSecondaryTextColor(activity, ColorUtil.isColorLight(color)));
+                holder.text.setTextColor(MaterialValueHelper.getSecondaryTextColor(activity, ColorUtil.isColorLight(color)));
             }
         }
     }
@@ -54,9 +55,11 @@ public class HorizontalAlbumAdapter extends AlbumAdapter {
     protected void loadAlbumCover(Album album, final ViewHolder holder) {
         if (holder.image == null) return;
 
-        SongGlideRequest.Builder.from(Glide.with(activity), album.safeGetFirstSong())
-                .checkIgnoreMediaStore(activity)
-                .generatePalette(activity).build()
+        GlideApp.with(activity)
+                .asBitmapPalette()
+                .load(PhonographGlideExtension.getSongModel(album.safeGetFirstSong()))
+                .albumCoverOptions()
+                .transition(PhonographGlideExtension.<BitmapPaletteWrapper>getDefaultTransition())
                 .into(new PhonographColoredTarget(holder.image) {
                     @Override
                     public void onLoadCleared(Drawable placeholder) {

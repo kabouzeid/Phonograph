@@ -122,7 +122,7 @@ public class Util {
     }
 
     public static boolean isAllowedToAutoDownload(final Context context) {
-        switch (PreferenceUtil.getInstance(context).autoDownloadImagesPolicy()) {
+        switch (PreferenceUtil.getInstance().autoDownloadImagesPolicy()) {
             case "always":
                 return true;
             case "only_wifi":

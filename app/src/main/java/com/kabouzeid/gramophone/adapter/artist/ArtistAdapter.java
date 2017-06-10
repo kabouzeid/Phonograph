@@ -11,24 +11,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.target.Target;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
+import com.kabouzeid.gramophone.glide.GlideApp;
 import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
+import com.kabouzeid.gramophone.glide.PhonographGlideExtension;
 import com.kabouzeid.gramophone.glide.artistimage.ArtistImage;
-import com.kabouzeid.gramophone.glide.palette.BitmapPaletteTranscoder;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.helper.menu.SongsMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.util.ArtistSignatureUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
@@ -128,16 +124,12 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
 
     protected void loadArtistImage(Artist artist, final ViewHolder holder) {
         if (holder.image == null) return;
-        Glide.with(activity)
+
+        GlideApp.with(activity)
+                .asBitmapPalette()
                 .load(new ArtistImage(artist.getName(), false))
-                .asBitmap()
-                .transcode(new BitmapPaletteTranscoder(activity), BitmapPaletteWrapper.class)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .placeholder(R.drawable.default_artist_image)
-                .animate(android.R.anim.fade_in)
-                .priority(Priority.LOW)
-                .signature(ArtistSignatureUtil.getInstance(activity).getArtistSignature(artist.getName()))
-                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                .transition(PhonographGlideExtension.<BitmapPaletteWrapper>getDefaultTransition())
+                .artistImageOptions(artist)
                 .into(new PhonographColoredTarget(holder.image) {
                     @Override
                     public void onLoadCleared(Drawable placeholder) {

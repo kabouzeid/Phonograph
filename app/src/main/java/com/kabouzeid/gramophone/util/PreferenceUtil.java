@@ -4,9 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.SortOrder;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.folders.FoldersFragment;
@@ -73,13 +73,13 @@ public final class PreferenceUtil {
 
     private final SharedPreferences mPreferences;
 
-    private PreferenceUtil(@NonNull final Context context) {
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+    private PreferenceUtil() {
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(App.getStaticContext());
     }
 
-    public static PreferenceUtil getInstance(@NonNull final Context context) {
+    public static PreferenceUtil getInstance() {
         if (sInstance == null) {
-            sInstance = new PreferenceUtil(context.getApplicationContext());
+            sInstance = new PreferenceUtil();
         }
         return sInstance;
     }

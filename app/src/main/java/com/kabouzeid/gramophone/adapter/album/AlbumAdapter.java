@@ -11,14 +11,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
+import com.kabouzeid.gramophone.glide.GlideApp;
 import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
-import com.kabouzeid.gramophone.glide.SongGlideRequest;
+import com.kabouzeid.gramophone.glide.PhonographGlideExtension;
+import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.helper.menu.SongsMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Album;
@@ -129,9 +130,11 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     protected void loadAlbumCover(Album album, final ViewHolder holder) {
         if (holder.image == null) return;
 
-        SongGlideRequest.Builder.from(Glide.with(activity), album.safeGetFirstSong())
-                .checkIgnoreMediaStore(activity)
-                .generatePalette(activity).build()
+        GlideApp.with(activity)
+                .asBitmapPalette()
+                .load(PhonographGlideExtension.getSongModel(album.safeGetFirstSong()))
+                .albumCoverOptions()
+                .transition(PhonographGlideExtension.<BitmapPaletteWrapper>getDefaultTransition())
                 .into(new PhonographColoredTarget(holder.image) {
                     @Override
                     public void onLoadCleared(Drawable placeholder) {

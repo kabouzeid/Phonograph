@@ -20,14 +20,14 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.RemoteViews;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.glide.SongGlideRequest;
+import com.kabouzeid.gramophone.glide.GlideApp;
+import com.kabouzeid.gramophone.glide.PhonographGlideExtension;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
@@ -97,21 +97,20 @@ public class PlayingNotificationImpl implements PlayingNotification {
         service.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (target != null) {
-                    Glide.clear(target);
-                }
-                target = SongGlideRequest.Builder.from(Glide.with(service), song)
-                        .checkIgnoreMediaStore(service)
-                        .generatePalette(service).build()
+                GlideApp.with(service).clear(target);
+                target = GlideApp.with(service)
+                        .asBitmapPalette()
+                        .load(PhonographGlideExtension.getSongModel(song))
+                        .albumCoverOptions()
                         .into(new SimpleTarget<BitmapPaletteWrapper>(bigNotificationImageSize, bigNotificationImageSize) {
                             @Override
-                            public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
-                                update(resource.getBitmap(), PhonographColorUtil.getColor(resource.getPalette(), Color.TRANSPARENT));
+                            public void onResourceReady(BitmapPaletteWrapper bitmapPaletteWrapper, Transition<? super BitmapPaletteWrapper> transition) {
+                                update(bitmapPaletteWrapper.getBitmap(), PhonographColorUtil.getColor(bitmapPaletteWrapper.getPalette(), Color.TRANSPARENT));
                             }
 
                             @Override
-                            public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                                super.onLoadFailed(e, errorDrawable);
+                            public void onLoadFailed(Drawable errorDrawable) {
+                                super.onLoadFailed(errorDrawable);
                                 update(null, Color.TRANSPARENT);
                             }
 
@@ -124,7 +123,7 @@ public class PlayingNotificationImpl implements PlayingNotification {
                                     notificationLayoutBig.setImageViewResource(R.id.image, R.drawable.default_album_art);
                                 }
 
-                                if (!PreferenceUtil.getInstance(service).coloredNotification()) {
+                                if (!PreferenceUtil.getInstance().coloredNotification()) {
                                     bgColor = Color.TRANSPARENT;
                                 }
                                 setBackgroundColor(bgColor);
