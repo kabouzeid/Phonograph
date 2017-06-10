@@ -22,9 +22,13 @@ import android.widget.HorizontalScrollView;
  */
 public class TouchInterceptFrameLayout extends FrameLayout {
 
-    private Context c;
+    private static Context c;
     private HorizontalScrollView scrollView;
-    private static final int MAX_CLICK_DURATION = 200;
+    private static final int MAX_CLICK_DISTANCE = 15;
+
+    private float pressedX;
+    private float pressedY;
+    private boolean stayedWithinClickDistance;
 
     public TouchInterceptFrameLayout (@NonNull Context context) {
         super(context);
@@ -66,6 +70,8 @@ public class TouchInterceptFrameLayout extends FrameLayout {
         scrollView.getGlobalVisibleRect(scrollViewLocation);
         switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:{
+                pressedX = e.getX();
+                pressedY = e.getY();
                 Log.d("ACTION_DOWN?","True");
                 Log.d("Event X",Integer.toString(x));
                 Log.d("Event Y",Integer.toString(y));
@@ -97,6 +103,15 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 if ((x > scrollViewLocation.left && x < scrollViewLocation.right
                         && y > scrollViewLocation.top && y < scrollViewLocation.bottom)) {
                     Log.d("Outside Scrollview","True");
+                    if (!stayedWithinClickDistance && !(distance(pressedX, pressedY, e.getX(), e.getY()) > MAX_CLICK_DISTANCE)) {
+                        Log.d("scrolling","True");
+                        stayedWithinClickDistance = false;
+                        MotionEvent eCancel = e;
+                        eCancel.setAction(MotionEvent.ACTION_CANCEL);
+                        onTouchEvent(eCancel);
+                        onTouchEvent(e);
+                        return false;
+                    }
 
                     return false;
                 }
@@ -108,5 +123,16 @@ public class TouchInterceptFrameLayout extends FrameLayout {
         Log.d("InterceptTouch Finished","True");
         onTouchEvent(e);
         return false;
+    }
+
+    private static float distance(float x1, float y1, float x2, float y2) {
+        float dx = x1 - x2;
+        float dy = y1 - y2;
+        float distanceInPx = (float) Math.sqrt(dx * dx + dy * dy);
+        return pxToDp(distanceInPx);
+    }
+
+    private static float pxToDp(float px) {
+        return px / c.getResources().getDisplayMetrics().density;
     }
 }
