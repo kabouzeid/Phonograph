@@ -40,5 +40,3 @@ captures/
 
 # Mac
 .DS_Store
-
-*.gradle
