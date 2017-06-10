@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.kabouzeid.gramophone.views.TouchInterceptFrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="72dp"
@@ -20,7 +20,16 @@
         android:tintMode="src_in"
         tools:ignore="ContentDescription" />
 
+    <View
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_dark"
+        android:alpha="0"
+        />
+
     <LinearLayout
+        android:id="@+id/song_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:descendantFocusability="blocksDescendants"
@@ -65,15 +74,28 @@
             android:paddingEnd="0dp"
             android:paddingLeft="16dp"
             android:paddingRight="0dp"
-            android:paddingStart="16dp">
+            android:paddingStart="16dp"
+            android:descendantFocusability="blocksDescendants"
+            >
 
-            <TextView
-                android:id="@+id/title"
+            <HorizontalScrollView
+                android:id="@+id/title_scrollview"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                android:layout_height="fill_parent"
+                android:scrollbars="none">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"
+                    android:ellipsize="none"
+                    android:clickable="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"/>
+
+            </HorizontalScrollView>
 
             <TextView
                 android:id="@+id/text"
@@ -110,4 +132,4 @@
         android:layout_marginStart="72dp"
         android:background="?attr/dividerColor" />
 
-</FrameLayout>
+</com.kabouzeid.gramophone.views.TouchInterceptFrameLayout >

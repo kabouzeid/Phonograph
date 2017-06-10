@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
@@ -45,6 +46,7 @@
             android:paddingLeft="72dp"
             android:paddingRight="72dp"
             android:singleLine="true"
+            android:ellipsize="none"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             tools:ignore="UnusedAttribute" />
 

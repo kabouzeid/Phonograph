@@ -10,6 +10,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -327,6 +328,8 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     private void setAlbum(Album album) {
         this.album = album;
         loadAlbumCover();
+        //allows album title's that are longer then their container to be scrolled horizontally
+        albumTitleView.setMovementMethod(new ScrollingMovementMethod());
         albumTitleView.setText(album.getTitle());
         adapter.swapDataSet(album.songs);
     }

@@ -8,6 +8,7 @@ import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -109,6 +110,8 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
 
         if (holder.title != null) {
             holder.title.setText(getSongTitle(song));
+
+
         }
         if (holder.text != null) {
             holder.text.setText(getSongText(song));
@@ -117,6 +120,8 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
         loadAlbumCover(song, holder);
 
     }
+
+
 
     private void setColors(int color, ViewHolder holder) {
         if (holder.paletteColorContainer != null) {
@@ -197,6 +202,13 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
             if (menu == null) {
                 return;
             }
+            menu.setOnTouchListener(new View.OnTouchListener()
+            {public boolean onTouch(View v, MotionEvent ev)
+            {
+                menu.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+            });
             menu.setOnClickListener(new SongMenuHelper.OnClickSongMenu(activity) {
                 @Override
                 public Song getSong() {

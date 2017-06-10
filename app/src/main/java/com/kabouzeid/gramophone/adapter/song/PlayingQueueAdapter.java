@@ -41,7 +41,7 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SongAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final SongAdapter.ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         if (holder.imageText != null) {
             holder.imageText.setText(String.valueOf(position - current));
