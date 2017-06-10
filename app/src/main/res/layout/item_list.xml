@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.kabouzeid.gramophone.views.TouchInterceptFrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<com.kabouzeid.gramophone.views.TouchInterceptFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:foreground="?attr/rectSelector"
     tools:ignore="UnusedAttribute">
 
@@ -24,9 +24,8 @@
         android:id="@+id/empty_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/background_dark"
         android:alpha="0"
-        />
+        android:background="@android:color/background_dark" />
 
     <LinearLayout
         android:id="@+id/song_view"
@@ -70,13 +69,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:descendantFocusability="blocksDescendants"
             android:orientation="vertical"
             android:paddingEnd="0dp"
             android:paddingLeft="16dp"
             android:paddingRight="0dp"
-            android:paddingStart="16dp"
-            android:descendantFocusability="blocksDescendants"
-            >
+            android:paddingStart="16dp">
 
             <HorizontalScrollView
                 android:id="@+id/title_scrollview"
@@ -88,12 +86,11 @@
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:singleLine="true"
-                    android:scrollHorizontally="true"
-                    android:ellipsize="none"
                     android:clickable="true"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"/>
+                    android:fontFamily="sans-serif"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             </HorizontalScrollView>
 
@@ -105,6 +102,7 @@
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="?android:textColorSecondary" />
+
         </LinearLayout>
 
         <com.kabouzeid.gramophone.views.IconImageView
@@ -132,4 +130,4 @@
         android:layout_marginStart="72dp"
         android:background="?attr/dividerColor" />
 
-</com.kabouzeid.gramophone.views.TouchInterceptFrameLayout >
+</com.kabouzeid.gramophone.views.TouchInterceptFrameLayout>

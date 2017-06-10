@@ -328,7 +328,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     private void setAlbum(Album album) {
         this.album = album;
         loadAlbumCover();
-        //allows album title's that are longer then their container to be scrolled horizontally
+        // Allows album titles that are longer then the container to be scrolled horizontally
         albumTitleView.setMovementMethod(new ScrollingMovementMethod());
         albumTitleView.setText(album.getTitle());
         adapter.swapDataSet(album.songs);
