@@ -88,7 +88,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 }
                 break;
 
-            case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
                 if (touchedScrollView && isTap) {
                     onTouchEvent(e);
