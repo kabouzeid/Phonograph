@@ -12,8 +12,6 @@ import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 
-import com.kabouzeid.gramophone.R;
-
 /**
  * @author Lincoln (theduffmaster)
  * 
@@ -44,23 +42,14 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
     public TouchInterceptFrameLayout(@NonNull Context context) {
         super(context);
-        c= context;
-        TAG = c.getResources().getString(R.string.TOUCH_INTERCEPT_FRAME_LAYOUT_TAG);
-        NULL_VIEWS_EXCEPTION_MESSAGE = c.getResources().getString(R.string.NULL_VIEWS_EXCEPTION_MESSAGE);
     }
 
     public TouchInterceptFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        c= context;
-        TAG = c.getResources().getString(R.string.TOUCH_INTERCEPT_FRAME_LAYOUT_TAG);
-        NULL_VIEWS_EXCEPTION_MESSAGE = c.getResources().getString(R.string.NULL_VIEWS_EXCEPTION_MESSAGE);
     }
 
     public TouchInterceptFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        c= context;
-        TAG = c.getResources().getString(R.string.TOUCH_INTERCEPT_FRAME_LAYOUT_TAG);
-        NULL_VIEWS_EXCEPTION_MESSAGE = c.getResources().getString(R.string.NULL_VIEWS_EXCEPTION_MESSAGE);
     }
 
     /**
@@ -175,8 +164,10 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 case MotionEvent.ACTION_UP:
                     if (touchedScrollView) {
                         if (isTap) onTouchEvent(e);
-                        //uncomment if you want text to retrunucate
-                        //if ((!emptyTruncateText && isTextTruncated)) textView.setText(songTruncated);
+                        //uncomment if you want text to retrunucate on a click
+                        //if ((!emptyTruncateText && isTextTruncated))
+                        // scrollView.smoothScrollTo(0,0);
+                        // textView.setText(songTruncated);
                     }
                     break;
             }
@@ -190,6 +181,11 @@ public class TouchInterceptFrameLayout extends FrameLayout {
         }
     }
 
+    /**
+     * Cancels any Long Presses and inpending clicks. Used to prevent views from
+     * acting on touches while vertically scrolling or any case where the user is not
+     * interacting with the item views
+     */
     private void CancelClick(){
         cancelPendingInputEvents();
         cancelLongPress();
