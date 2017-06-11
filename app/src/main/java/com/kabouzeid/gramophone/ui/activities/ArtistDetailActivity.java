@@ -225,7 +225,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     }
 
     private void loadBiography() {
-        lastFMRestClient.getApiService().getArtistInfo(getArtist().getName(), Locale.getDefault().getLanguage(), null).enqueue(new Callback<LastFmArtist>() {
+        final Callback<LastFmArtist> bioCallback = new Callback<LastFmArtist>(){
             @Override
             public void onResponse(Call<LastFmArtist> call, Response<LastFmArtist> response) {
                 LastFmArtist lastFmArtist = response.body();
@@ -234,6 +234,10 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                     if (bio != null && !bio.trim().equals("")) {
                         biography = Html.fromHtml(bio);
                         return;
+                    }
+                    else if(call.request().url().queryParameter("lang") != null){
+                        //If the "lang" parameter is set and no bio is given, retry with default language
+                        lastFMRestClient.getApiService().getArtistInfo(getArtist().getName(), null, null).enqueue(this);
                     }
                 }
                 biography = null;
@@ -244,7 +248,8 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                 t.printStackTrace();
                 biography = null;
             }
-        });
+        };
+        lastFMRestClient.getApiService().getArtistInfo(getArtist().getName(), Locale.getDefault().getLanguage(), null).enqueue(bioCallback);
     }
 
     private MaterialDialog getBiographyDialog() {
