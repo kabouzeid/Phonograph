@@ -21,5 +21,5 @@ public interface LastFMService {
     Call<LastFmAlbum> getAlbumInfo(@Query("album") String albumName, @Query("artist") String artistName);
 
     @GET(BASE_QUERY_PARAMETERS + "&method=artist.getinfo")
-    Call<LastFmArtist> getArtistInfo(@Query("artist") String artistName, @Nullable @Header("Cache-Control") String cacheControl);
+    Call<LastFmArtist> getArtistInfo(@Query("artist") String artistName, @Nullable @Query("lang") String language, @Nullable @Header("Cache-Control") String cacheControl);
 }
