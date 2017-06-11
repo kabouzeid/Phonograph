@@ -24,6 +24,8 @@ public class LastFmAlbum {
 
         @Expose
         private List<Image> image = new ArrayList<>();
+        @Expose
+        private Wiki wiki;
 
         public List<Image> getImage() {
             return image;
@@ -31,6 +33,27 @@ public class LastFmAlbum {
 
         public void setImage(List<Image> image) {
             this.image = image;
+        }
+
+        public Wiki getWiki() { return wiki; }
+
+        public void setWiki(Wiki wiki) {
+            this.wiki = wiki;
+        }
+
+        public class Wiki {
+
+            @Expose
+            private String content;
+
+            public String getContent() {
+                return content;
+            }
+
+            public void setContent(String content) {
+                this.content = content;
+            }
+
         }
 
         public static class Image {
