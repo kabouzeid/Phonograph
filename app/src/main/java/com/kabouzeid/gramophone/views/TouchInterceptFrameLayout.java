@@ -181,7 +181,8 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 case MotionEvent.ACTION_UP:
                     if (touchedScrollView) {
                         if (isTap) onTouchEvent(e);
-                        if ((!emptyTruncateText && !isTextTruncated)) textView.setText(songTruncated);
+                        //uncomment if you want text to retrunucate
+                        //if ((!emptyTruncateText && !isTextTruncated)) textView.setText(songTruncated);
                     }
                     break;
             }
