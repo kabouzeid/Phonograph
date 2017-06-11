@@ -48,6 +48,7 @@ import com.kabouzeid.gramophone.ui.fragments.player.PlayerAlbumCoverFragment;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
+import com.kabouzeid.gramophone.views.TouchInterceptFrameLayout;
 import com.kabouzeid.gramophone.views.WidthFitSquareLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
@@ -574,6 +575,9 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
             currentSong = song;
             currentSongViewHolder.title.setText(song.title);
             currentSongViewHolder.text.setText(song.artistName);
+            TouchInterceptFrameLayout itemView = (TouchInterceptFrameLayout) currentSongViewHolder.itemView;
+            itemView.setScrollViews(currentSongViewHolder.title_scrollview,currentSongViewHolder.title);
+            itemView.setTruncateText(song.title);
         }
 
         @Override

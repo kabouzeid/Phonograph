@@ -298,4 +298,6 @@
     <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
     <string name="playlist_is_empty">Playlist is empty</string>
+    <string name="NULL_VIEWS_EXCEPTION_MESSAGE">Did you forget to call setScrollViews when creating your FrameLayout? Either textView or scrollView is null.</string>
+    <string name="TOUCH_INTERCEPT_FRAME_LAYOUT_TAG">E/TouchInterceptFL</string>
 </resources>

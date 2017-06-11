@@ -28,6 +28,7 @@ import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.views.TouchInterceptFrameLayout;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
@@ -110,7 +111,12 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
 
         if (holder.title != null) {
             holder.title.setText(getSongTitle(song));
+
+            if (holder.title_scrollview != null && holder.itemView instanceof TouchInterceptFrameLayout) {
+                    ((TouchInterceptFrameLayout) holder.itemView).setTruncateText(getSongTitle(song));
+                }
         }
+
         if (holder.text != null) {
             holder.text.setText(getSongText(song));
         }

@@ -68,8 +68,8 @@ public class MediaEntryViewHolder extends RecyclerView.ViewHolder implements Vie
         super(itemView);
         ButterKnife.bind(this, itemView);
 
-        if (title_scrollview != null && itemView instanceof TouchInterceptFrameLayout) {
-            ((TouchInterceptFrameLayout) itemView).setScrollView(title_scrollview);
+        if (title_scrollview != null && title != null && itemView instanceof TouchInterceptFrameLayout) {
+            ((TouchInterceptFrameLayout) itemView).setScrollViews(title_scrollview,title);
         }
 
         itemView.setOnClickListener(this);

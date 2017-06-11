@@ -2,6 +2,7 @@
 <com.kabouzeid.gramophone.views.TouchInterceptFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="72dp"
     android:foreground="?attr/rectSelector"
@@ -79,17 +80,16 @@
             <HorizontalScrollView
                 android:id="@+id/title_scrollview"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:scrollbars="none">
 
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
                     android:fontFamily="sans-serif"
                     android:scrollHorizontally="true"
-                    android:singleLine="true"
+                    android:ellipsize="end"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             </HorizontalScrollView>

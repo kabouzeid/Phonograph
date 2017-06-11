@@ -10,11 +10,12 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialcab.MaterialCab;
@@ -46,6 +47,7 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
+import com.kabouzeid.gramophone.views.TouchInterceptFrameLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,6 +65,8 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
 
     private Album album;
 
+    @BindView(R.id.container)
+    TouchInterceptFrameLayout container;
     @BindView(R.id.list)
     ObservableRecyclerView recyclerView;
     @BindView(R.id.image)
@@ -70,7 +74,11 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.title)
-    TextView albumTitleView;
+    RelativeLayout albumTitleView;
+    @BindView(R.id.album_title)
+    TextView albumTitleTextView;
+    @BindView(R.id.title_scrollview)
+    HorizontalScrollView titleScrollView;
     @BindView(R.id.list_background)
     View songsBackgroundView;
     @BindView(R.id.status_bar)
@@ -177,8 +185,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     private void setColors(int color) {
         toolbarColor = color;
         albumTitleView.setBackgroundColor(color);
-        albumTitleView.setTextColor(MaterialValueHelper.getPrimaryTextColor(this, ColorUtil.isColorLight(color)));
-
+        albumTitleTextView.setTextColor(MaterialValueHelper.getPrimaryTextColor(this, ColorUtil.isColorLight(color)));
         setNavigationbarColor(color);
         setTaskDescriptionColor(color);
     }
@@ -328,9 +335,9 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     private void setAlbum(Album album) {
         this.album = album;
         loadAlbumCover();
-        // Allows album titles that are longer then the container to be scrolled horizontally
-        albumTitleView.setMovementMethod(new ScrollingMovementMethod());
-        albumTitleView.setText(album.getTitle());
+        albumTitleTextView.setText(album.getTitle());
+        container.setScrollViews(titleScrollView, albumTitleTextView);
+        container.setTruncateText(album.getTitle());
         adapter.swapDataSet(album.songs);
     }
 
