@@ -136,7 +136,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
             switch (e.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    if (!touchedScrollView || (!emptyTruncateText && !isTextTruncated)){
+                    if (!touchedScrollView){
                         scrollView.cancelPendingInputEvents();
                         return false;
                     }
@@ -155,11 +155,13 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
                         // Scrolling the view: cancel event to prevent long press
                         if (distance > MAX_CLICK_DISTANCE) {
-                            if (!emptyTruncateText){
-                                textView.setText(song);
-                            }else{
-                                Log.e("E/TouchInterceptFL","songTruncated is empty or null. Did you remember " +
-                                        "to set the song string when setting the song name in your text view?");
+                            if (isTextTruncated) {
+                                if (!emptyTruncateText) {
+                                    textView.setText(song);
+                                } else {
+                                    Log.e("E/TouchInterceptFL", "songTruncated is empty or null. Did you remember " +
+                                            "to set the song string when setting the song name in your text view?");
+                                }
                             }
                             cancelPendingInputEvents();
                             cancelLongPress();
