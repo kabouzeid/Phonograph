@@ -26,6 +26,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ArtistSignatureUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.views.TouchInterceptFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +77,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             case ALBUM:
                 final Album album = (Album) dataSet.get(position);
                 holder.title.setText(album.getTitle());
+                if(holder.itemView instanceof TouchInterceptFrameLayout)
+                    ((TouchInterceptFrameLayout) holder.itemView).setTruncateText(album.getTitle());
                 holder.text.setText(album.getArtistName());
                 SongGlideRequest.Builder.from(Glide.with(activity), album.safeGetFirstSong())
                         .checkIgnoreMediaStore(activity).build()
@@ -84,6 +87,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             case ARTIST:
                 final Artist artist = (Artist) dataSet.get(position);
                 holder.title.setText(artist.getName());
+                if(holder.itemView instanceof TouchInterceptFrameLayout)
+                    ((TouchInterceptFrameLayout) holder.itemView).setTruncateText(artist.getName());
                 holder.text.setText(MusicUtil.getArtistInfoString(activity, artist));
                 Glide.with(activity)
                         .load(new ArtistImage(artist.getName(), false))
@@ -98,6 +103,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             case SONG:
                 final Song song = (Song) dataSet.get(position);
                 holder.title.setText(song.title);
+                if(holder.itemView instanceof TouchInterceptFrameLayout)
+                    ((TouchInterceptFrameLayout) holder.itemView).setTruncateText(song.title);
                 holder.text.setText(song.albumName);
                 break;
             default:

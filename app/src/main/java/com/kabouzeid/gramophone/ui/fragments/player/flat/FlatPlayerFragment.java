@@ -557,7 +557,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
             currentSongViewHolder.title.setText(song.title);
             currentSongViewHolder.text.setText(song.artistName);
             TouchInterceptFrameLayout itemView = (TouchInterceptFrameLayout) currentSongViewHolder.itemView;
-            itemView.setScrollViews(currentSongViewHolder.title_scrollview,currentSongViewHolder.title);
+            itemView.setViews(currentSongViewHolder.title_scrollview,currentSongViewHolder.title);
             itemView.setTruncateText(song.title);
         }
 

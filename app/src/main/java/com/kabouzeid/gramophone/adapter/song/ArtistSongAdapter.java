@@ -87,7 +87,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
 
         songTitle.setText(song.title);
         songInfo.setText(song.albumName);
-        container.setScrollViews(songTitleScrollView,songTitle);
+        container.setViews(songTitleScrollView,songTitle);
         container.setTruncateText(song.title);
 
         SongGlideRequest.Builder.from(Glide.with(activity), song)

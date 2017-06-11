@@ -336,7 +336,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         this.album = album;
         loadAlbumCover();
         albumTitleTextView.setText(album.getTitle());
-        container.setScrollViews(titleScrollView, albumTitleTextView);
+        container.setViews(titleScrollView, albumTitleTextView);
         container.setTruncateText(album.getTitle());
         adapter.swapDataSet(album.songs);
     }

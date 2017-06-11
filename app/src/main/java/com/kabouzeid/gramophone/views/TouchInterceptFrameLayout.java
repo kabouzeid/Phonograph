@@ -27,8 +27,11 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
     private Context c;
 
-    private String TAG;
-    private String NULL_VIEWS_EXCEPTION_MESSAGE;
+    private String TAG = "E/TouchInterceptFL";
+    private String NULL_VIEWS_EXCEPTION_MESSAGE = "Did you forget to call setViews" + "" +
+            "when creating your FrameLayout? Either textView or scrollView is null.";
+    private String EMPTY_TRUNCATE_STRING = "songTruncated is empty or null. Did you remember " +
+            "to set the song string when setting the song name in your text view?";
     
     private HorizontalScrollView scrollView;
     private TextView textView;
@@ -68,7 +71,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      * @param sv The HorizontalScrollView containing text that needs to be scrolled
      * @param tv The TextView that needs to be scrolled (typically song or album title)
      */
-    public void setScrollViews(HorizontalScrollView sv, TextView tv) {
+    public void setViews(HorizontalScrollView sv, TextView tv) {
         scrollView = sv;
         textView = tv;
     }
@@ -77,7 +80,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      * Does exactly what android:ellipsize="end" does, except this works in HorizontalScrollViews.
      * Truncates the string so it doesn't get cuttoff in the HorizontalScrollView
      * and puts an ellipsis at the end of it. Then it sets the TextView with the new Ellipsized value.
-     * Must be called after setScrollViews or it will throw a NullPointerException.
+     * Must be called after setViews or it will throw a NullPointerException.
      * Call this when setting the song title during view creation.
      *
      * If this is never called then the text will never be truncated and will remain
@@ -132,6 +135,8 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                             y > scrollViewRect.top && y < scrollViewRect.bottom;
 
             boolean emptyTruncateText = songTruncated.isEmpty();
+            if(emptyTruncateText)  Log.e(TAG, EMPTY_TRUNCATE_STRING);
+
             boolean isTextTruncated = songTruncated.endsWith("…");
 
             switch (e.getAction()) {
@@ -150,33 +155,20 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
                 case MotionEvent.ACTION_MOVE:
                     float distanceY = Math.abs(e.getY() - startY);
-                    if (touchedScrollView) {
-                        float distance = Math.abs(e.getX() - startX);
 
-                        // Scrolling the view: cancel event to prevent long press
-                        if (distance > MAX_CLICK_DISTANCE) {
-                            if (isTextTruncated) {
-                                if (!emptyTruncateText) {
-                                    textView.setText(song);
-                                } else {
-                                    Log.e("E/TouchInterceptFL", "songTruncated is empty or null. Did you remember " +
-                                            "to set the song string when setting the song name in your text view?");
-                                }
-                            }
-                            cancelPendingInputEvents();
-                            cancelLongPress();
-                            scrollView.cancelLongPress();
-                            scrollView.cancelPendingInputEvents();
-                            isTap = false;
-                        }
-                    }
                     // Scrolling vertically: cancel horizontal scrolling events
                     if (distanceY > MAX_VERTICAL_DISTANCE) {
-                        cancelLongPress();
-                        cancelPendingInputEvents();
-                        scrollView.cancelLongPress();
-                        scrollView.cancelPendingInputEvents();
-                        isTap = false;
+                        CancelClick();
+                    }else {
+                        if (touchedScrollView) {
+                            float distance = Math.abs(e.getX() - startX);
+
+                            // Scrolling the view: cancel event to prevent long press
+                            if (distance > MAX_CLICK_DISTANCE) {
+                                if (isTextTruncated && !emptyTruncateText) textView.setText(song);
+                                CancelClick();
+                            }
+                        }
                     }
                     break;
 
@@ -184,7 +176,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                     if (touchedScrollView) {
                         if (isTap) onTouchEvent(e);
                         //uncomment if you want text to retrunucate
-                        //if ((!emptyTruncateText && !isTextTruncated)) textView.setText(songTruncated);
+                        //if ((!emptyTruncateText && isTextTruncated)) textView.setText(songTruncated);
                     }
                     break;
             }
@@ -196,6 +188,14 @@ public class TouchInterceptFrameLayout extends FrameLayout {
             onTouchEvent(e);
             return false;
         }
+    }
+
+    private void CancelClick(){
+        cancelPendingInputEvents();
+        cancelLongPress();
+        scrollView.cancelLongPress();
+        scrollView.cancelPendingInputEvents();
+        isTap = false;
     }
 
 }
