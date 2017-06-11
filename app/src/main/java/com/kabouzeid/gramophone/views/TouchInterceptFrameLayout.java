@@ -131,20 +131,20 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                     x > scrollViewRect.left && x < scrollViewRect.right &&
                             y > scrollViewRect.top && y < scrollViewRect.bottom;
 
+            boolean emptyTruncateText = songTruncated.isEmpty();
+            boolean isTextTruncated = songTruncated.endsWith("…");
+
             switch (e.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    if (!touchedScrollView) return false;
+                    if (!touchedScrollView || (!emptyTruncateText && !isTextTruncated)){
+                        scrollView.cancelPendingInputEvents();
+                        return false;
+                    }
 
                     startX = e.getX();
                     startY = e.getY();
                     isTap = true;
                     onTouchEvent(e);
-
-                    if (!songTruncated.isEmpty()){
-                        textView.setText(song);
-                        Log.e("E/TouchInterceptFL","songTruncated is empty or null. Did you remember " +
-                                "to set the song string when setting the song name in your text view?");
-                    }
 
                     break;
 
@@ -155,6 +155,12 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
                         // Scrolling the view: cancel event to prevent long press
                         if (distance > MAX_CLICK_DISTANCE) {
+                            if (!emptyTruncateText){
+                                textView.setText(song);
+                            }else{
+                                Log.e("E/TouchInterceptFL","songTruncated is empty or null. Did you remember " +
+                                        "to set the song string when setting the song name in your text view?");
+                            }
                             cancelPendingInputEvents();
                             cancelLongPress();
                             scrollView.cancelLongPress();
@@ -175,7 +181,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 case MotionEvent.ACTION_UP:
                     if (touchedScrollView) {
                         if (isTap) onTouchEvent(e);
-                        if (!songTruncated.isEmpty()) textView.setText(songTruncated);
+                        if ((!emptyTruncateText && !isTextTruncated)) textView.setText(songTruncated);
                     }
                     break;
             }
