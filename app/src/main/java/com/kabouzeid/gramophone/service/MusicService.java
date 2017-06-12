@@ -18,6 +18,7 @@ import android.media.audiofx.AudioEffect;
 import android.media.session.MediaSession;
 import android.os.Binder;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -32,6 +33,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.bumptech.glide.BitmapRequestBuilder;
@@ -44,8 +46,14 @@ import com.kabouzeid.gramophone.appwidgets.AppWidgetClassic;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetSmall;
 import com.kabouzeid.gramophone.glide.BlurTransformation;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.helper.StopWatch;
+import com.kabouzeid.gramophone.loader.AlbumLoader;
+import com.kabouzeid.gramophone.loader.PlaylistLoader;
+import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
+import com.kabouzeid.gramophone.loader.TopAndRecentlyPlayedTracksLoader;
+import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.model.AbsCustomPlaylist;
 import com.kabouzeid.gramophone.model.Playlist;
@@ -53,6 +61,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.HistoryStore;
 import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
+import com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper;
 import com.kabouzeid.gramophone.service.notification.PlayingNotification;
 import com.kabouzeid.gramophone.service.notification.PlayingNotificationImpl;
 import com.kabouzeid.gramophone.service.notification.PlayingNotificationImpl24;
@@ -65,6 +74,10 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM;
+import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST;
+import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS;
 
 /**
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal
@@ -171,6 +184,8 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     private Handler uiThreadHandler;
 
+    private MediaSessionCallback mMediaSessionCallback;
+
     private static String getTrackUri(@NonNull Song song) {
         return MusicUtil.getSongFileUri(song.id).toString();
     }
@@ -178,7 +193,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     @Override
     public void onCreate() {
         super.onCreate();
-
         final PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, getClass().getName());
         wakeLock.setReferenceCounted(false);
@@ -233,48 +247,11 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         mediaButtonIntent.setComponent(mediaButtonReceiverComponentName);
 
         PendingIntent mediaButtonReceiverPendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, mediaButtonIntent, 0);
-
+        mMediaSessionCallback = new MediaSessionCallback();
         mediaSession = new MediaSessionCompat(this, "Phonograph", mediaButtonReceiverComponentName, mediaButtonReceiverPendingIntent);
-        mediaSession.setCallback(new MediaSessionCompat.Callback() {
-            @Override
-            public void onPlay() {
-                play();
-            }
-
-            @Override
-            public void onPause() {
-                pause();
-            }
-
-            @Override
-            public void onSkipToNext() {
-                playNextSong(true);
-            }
-
-            @Override
-            public void onSkipToPrevious() {
-                back(true);
-            }
-
-            @Override
-            public void onStop() {
-                quit();
-            }
-
-            @Override
-            public void onSeekTo(long pos) {
-                seek((int) pos);
-            }
-
-            @Override
-            public boolean onMediaButtonEvent(Intent mediaButtonEvent) {
-                return MediaButtonIntentReceiver.handleIntent(MusicService.this, mediaButtonEvent);
-            }
-        });
-
+        mediaSession.setCallback(mMediaSessionCallback);
         mediaSession.setFlags(MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS
                 | MediaSession.FLAG_HANDLES_MEDIA_BUTTONS);
-
         mediaSession.setMediaButtonReceiver(mediaButtonReceiverPendingIntent);
     }
 
@@ -1147,6 +1124,70 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public void onTrackEnded() {
         acquireWakeLock(30000);
         playerHandler.sendEmptyMessage(TRACK_ENDED);
+    }
+
+    public class MediaSessionCallback extends MediaSessionCompat.Callback{
+        @Override
+        public void onPlay() {
+            play();
+        }
+
+        @Override
+        public void onPlayFromMediaId(String mediaId, Bundle extras) {
+            super.onPlayFromMediaId(mediaId, extras);
+
+            if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_ALBUM)) {
+                String albumName = MediaIDHelper.getHierarchy(mediaId)[1];
+                Album album = AlbumLoader.getAlbum(getApplicationContext(), albumName);
+                ArrayList<Song> songs = new ArrayList<>();
+                songs.addAll(album.songs);
+                openQueue(songs, 0, true);
+
+            }else if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_PLAYLIST)) {
+                String playlistName = MediaIDHelper.getHierarchy(mediaId)[1];
+                Playlist playlist = PlaylistLoader.getPlaylist(getApplicationContext(), playlistName);
+                ArrayList<Song> songs = new ArrayList<>();
+                songs.addAll(PlaylistSongLoader.getPlaylistSongList(getApplicationContext(), playlist.id));
+                openQueue(songs, 0, true);
+
+            }else if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_TOP_TRACKS)) {
+                ArrayList<Song> songs = new ArrayList<>();
+                songs.addAll(TopAndRecentlyPlayedTracksLoader.getTopTracks(getApplicationContext()));
+                openQueue(songs, 0, true);
+            }
+
+            play();
+        }
+
+        @Override
+        public void onPause() {
+            pause();
+        }
+
+        @Override
+        public void onSkipToNext() {
+            playNextSong(true);
+        }
+
+        @Override
+        public void onSkipToPrevious() {
+            back(true);
+        }
+
+        @Override
+        public void onStop() {
+            quit();
+        }
+
+        @Override
+        public void onSeekTo(long pos) {
+            seek((int) pos);
+        }
+
+        @Override
+        public boolean onMediaButtonEvent(Intent mediaButtonEvent) {
+            return MediaButtonIntentReceiver.handleIntent(MusicService.this, mediaButtonEvent);
+        }
     }
 
     private static final class PlaybackHandler extends Handler {

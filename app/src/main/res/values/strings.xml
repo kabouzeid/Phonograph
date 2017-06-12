@@ -298,4 +298,15 @@
     <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
     <string name="playlist_is_empty">Playlist is empty</string>
+
+    <!-- Android Auto -->
+    <string name="playlists_label">Playlists</string>
+    <string name="browse_by_playlist_description">Browse by playlist</string>
+    <string name="albums_label">Albums</string>
+    <string name="browse_by_albums_description">Browse by albums</string>
+    <string name="top_tracks_label">Top Tracks</string>
+    <string name="browse_by_toptracks_description">Browse by top tracks</string>
+
+
+
 </resources>

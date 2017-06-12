@@ -49,6 +49,12 @@ public class AlbumLoader {
     }
 
     @NonNull
+    public static Album getAlbum(@NonNull final Context context, String albumName) {
+        ArrayList<Song> songs = SongLoader.getSongs(SongLoader.makeSongCursor(context, AudioColumns.ALBUM + "=?", new String[]{String.valueOf(albumName)}, getSongLoaderSortOrder(context)));
+        return new Album(songs);
+    }
+
+    @NonNull
     public static ArrayList<Album> splitIntoAlbums(@Nullable final ArrayList<Song> songs) {
         ArrayList<Album> albums = new ArrayList<>();
         if (songs != null) {

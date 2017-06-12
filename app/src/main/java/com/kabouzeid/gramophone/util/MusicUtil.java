@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.BaseColumns;
@@ -26,6 +27,7 @@ import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -40,6 +42,25 @@ public class MusicUtil {
                 .parse("content://media/external/audio/albumart");
 
         return ContentUris.withAppendedId(sArtworkUri, albumId);
+    }
+
+    public static Bitmap getAlbumArtForAlbum(Context context, int albumId){
+        Uri albumArtUri = MusicUtil.getMediaStoreAlbumCoverUri(albumId);
+        Bitmap bitmap = null;
+        int desWidth = 256;
+        int desHeight = 256;
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), albumArtUri);
+        } catch (FileNotFoundException e) {
+            Log.e(TAG, "File not found" , e);
+        } catch (IOException e) {
+            Log.e(TAG, "I/O error" , e);
+        }
+        if(bitmap != null) {
+            bitmap = ScalingUtilities.createScaledBitmap(bitmap, desWidth,
+                    desHeight, ScalingUtilities.ScalingLogic.FIT);
+        }
+        return bitmap;
     }
 
     public static Uri getSongFileUri(int songId) {
