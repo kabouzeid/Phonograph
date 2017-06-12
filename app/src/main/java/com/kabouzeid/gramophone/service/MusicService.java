@@ -215,12 +215,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
         registerReceiver(widgetIntentReceiver, new IntentFilter(APP_WIDGET_UPDATE));
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            playingNotification = new PlayingNotificationImpl24();
-        } else {
-            playingNotification = new PlayingNotificationImpl();
-        }
-        playingNotification.init(this);
+        initNotification();
 
         mediaStoreObserver = new MediaStoreObserver(playerHandler);
         throttledSeekHandler = new ThrottledSeekHandler(playerHandler);
@@ -534,8 +529,17 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         return (getAudioManager().requestAudioFocus(audioFocusListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED);
     }
 
-    private void updateNotification() {
-        if (getCurrentSong().id != -1) {
+    public void initNotification() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !PreferenceUtil.getInstance(this).classicNotification()) {
+            playingNotification = new PlayingNotificationImpl24();
+        } else {
+            playingNotification = new PlayingNotificationImpl();
+        }
+        playingNotification.init(this);
+    }
+
+    public void updateNotification() {
+        if (playingNotification != null && getCurrentSong().id != -1) {
             playingNotification.update();
         }
     }
@@ -917,6 +921,13 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     public int getSongDurationMillis() {
         return playback.duration();
+    }
+
+    public long getQueueDurationMillis(int position) {
+        long duration = 0;
+        for (int i = position + 1; i < playingQueue.size(); i++)
+            duration += playingQueue.get(i).duration;
+        return duration;
     }
 
     public int seek(int millis) {

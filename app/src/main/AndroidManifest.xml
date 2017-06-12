@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:tools="http://schemas.android.com/tools"
     package="com.kabouzeid.gramophone">
 
@@ -107,8 +106,11 @@
         </receiver>
 
         <meta-data
-            android:name="android.max_aspect"
-            android:value="2.1" />
+                android:name="android.max_aspect"
+                android:value="2.1" />
+        <meta-data
+                android:name="com.lge.support.SPLIT_WINDOW"
+                android:value="true" />
         <meta-data
                 android:name="com.crashlytics.ApiKey"
                 android:value="b23725bd3d266aa65c5a3dd1816b2f801524a189"/>
@@ -118,16 +120,6 @@
         <meta-data
                 android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
                 android:value="GlideModule"/>
-
-        <!-- Android Auto meta-data -->
-        <meta-data
-                android:name="com.google.android.gms.car.application"
-                android:resource="@xml/automotive_app_desc"/>
-
-        <!-- Android Auto meta-data -->
-        <meta-data
-                android:name="com.google.android.gms.car.notification.SmallIcon"
-                android:resource="@drawable/ic_notification"/>
 
         <activity
                 android:name=".ui.activities.tageditor.SongTagEditorActivity"
@@ -189,7 +181,18 @@
                 android:name=".ui.activities.bugreport.BugReportActivity"
                 android:label="@string/report_an_issue"/>
 
-        <!-- Android Auto browser service -->
+        <activity
+            android:name=".appshortcuts.AppShortcutLauncherActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:launchMode="singleInstance"/>
+      
+        <!-- Android Auto -->
+        <meta-data
+                android:name="com.google.android.gms.car.application"
+                android:resource="@xml/automotive_app_desc"/>
+        <meta-data
+                android:name="com.google.android.gms.car.notification.SmallIcon"
+                android:resource="@drawable/ic_notification"/>
         <service
                 android:name=".service.AutoMusicBrowserService"
                 android:enabled="true"
@@ -198,11 +201,6 @@
                 <action android:name="android.media.browse.MediaBrowserService"/>
             </intent-filter>
         </service>
-
-        <activity
-            android:name=".appshortcuts.AppShortcutLauncherActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:launchMode="singleInstance"/>
 
     </application>
 
