@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
@@ -257,6 +258,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         if (forceDownload) {
             ArtistSignatureUtil.getInstance().updateArtistSignature(getArtist().getName());
         }
+
         GlideApp.with(this)
                 .asBitmapPalette()
                 .load(new ArtistImage(getArtist().getName(), forceDownload))
@@ -264,6 +266,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                 .listener(new RequestListener<BitmapPaletteWrapper>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object o, Target<BitmapPaletteWrapper> target, boolean b) {
+                        supportStartPostponedEnterTransition();
                         if (forceDownload) {
                             Toast.makeText(ArtistDetailActivity.this, e != null ? e.getClass().getSimpleName() : "Error", Toast.LENGTH_SHORT).show();
                         }
@@ -272,6 +275,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
                     @Override
                     public boolean onResourceReady(BitmapPaletteWrapper bitmapPaletteWrapper, Object o, Target<BitmapPaletteWrapper> target, DataSource dataSource, boolean b) {
+                        supportStartPostponedEnterTransition();
                         if (forceDownload) {
                             Toast.makeText(ArtistDetailActivity.this, getString(R.string.updated_artist_image), Toast.LENGTH_SHORT).show();
                         }
@@ -284,6 +288,14 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                         setColors(color);
                     }
                 });
+
+        // if the artist image isn't loaded after 200ms no longer wait for it (workaround)
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                supportStartPostponedEnterTransition();
+            }
+        }, 200);
     }
 
     @Override
@@ -427,7 +439,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
     @Override
     public void onLoadFinished(Loader<Artist> loader, Artist data) {
-        supportStartPostponedEnterTransition();
         setArtist(data);
     }
 

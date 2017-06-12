@@ -37,6 +37,7 @@ public final class PhonographGlideExtension {
     public static void albumCoverOptions(RequestOptions requestOptions) {
         requestOptions
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .placeholder(R.drawable.default_album_art) // temporary fix
                 .error(R.drawable.default_album_art);
 //                .signature(createSongCacheKey());
     }
