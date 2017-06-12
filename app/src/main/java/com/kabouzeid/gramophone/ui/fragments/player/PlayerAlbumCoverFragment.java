@@ -19,8 +19,9 @@ import com.kabouzeid.gramophone.adapter.AlbumCoverPagerAdapter;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.MusicProgressViewUpdateHelper;
 import com.kabouzeid.gramophone.misc.SimpleAnimatorListener;
-import com.kabouzeid.gramophone.model.lyrics.SynchronizedLyrics;
+import com.kabouzeid.gramophone.model.lyrics.AbsSynchronizedLyrics;
 import com.kabouzeid.gramophone.ui.fragments.AbsMusicServiceFragment;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.ViewUtil;
 
 import butterknife.BindView;
@@ -50,7 +51,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     private Callbacks callbacks;
     private int currentPosition;
 
-    private SynchronizedLyrics synchronizedLyrics;
+    private AbsSynchronizedLyrics synchronizedLyrics;
     private MusicProgressViewUpdateHelper progressViewUpdateHelper;
 
     @Override
@@ -82,7 +83,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
                 return gestureDetector.onTouchEvent(event);
             }
         });
-        progressViewUpdateHelper = new MusicProgressViewUpdateHelper(this);
+        progressViewUpdateHelper = new MusicProgressViewUpdateHelper(this, 500, 1000);
         progressViewUpdateHelper.start();
     }
 
@@ -180,7 +181,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
                 .start();
     }
 
-    public void setSynchronizedLyrics(SynchronizedLyrics sLyrics)
+    public void setSynchronizedLyrics(AbsSynchronizedLyrics sLyrics)
     {
         if(sLyrics == null || sLyrics.lines.size() == 0)
         {
@@ -206,11 +207,14 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
 
     @Override
     public void onUpdateProgressViews(int progress, int total) {
-        if(synchronizedLyrics == null || synchronizedLyrics.lines.size() == 0) {
+        if(synchronizedLyrics == null || synchronizedLyrics.lines.size() == 0 || !PreferenceUtil.getInstance(getActivity()).synchronizedLyricsShow()) {
+            lyrics.setVisibility(View.GONE);
             lyricsLine1.setText(null);
             lyricsLine2.setText(null);
             return;
         }
+
+        lyrics.setVisibility(View.VISIBLE);
 
         String oldLine = lyricsLine2.getText().toString();
         String line = synchronizedLyrics.getLine(progress);
@@ -219,17 +223,19 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
         {
             lyricsLine1.setText(oldLine);
             lyricsLine2.setText(line);
+
             lyricsLine1.setVisibility(View.VISIBLE);
             lyricsLine2.setVisibility(View.VISIBLE);
-            int l1h = lyricsLine1.getMeasuredHeight();
-            int l2h = lyricsLine2.getMeasuredHeight();
+
+            lyricsLine2.measure(View.MeasureSpec.makeMeasureSpec(lyricsLine2.getMeasuredWidth(), View.MeasureSpec.EXACTLY), View.MeasureSpec.UNSPECIFIED);
+            int h = lyricsLine2.getMeasuredHeight();
 
             this.lyricsLine1.setAlpha(1f);
             this.lyricsLine1.setTranslationY(0f);
-            this.lyricsLine1.animate().alpha(0f).translationY(-l1h).setDuration(300);
+            this.lyricsLine1.animate().alpha(0f).translationY(-h).setDuration(300);
 
             this.lyricsLine2.setAlpha(0f);
-            this.lyricsLine2.setTranslationY(l2h);
+            this.lyricsLine2.setTranslationY(h);
             this.lyricsLine2.animate().alpha(1f).translationY(0f).setDuration(300);
         }
     }

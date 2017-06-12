@@ -3,7 +3,7 @@ package com.kabouzeid.gramophone.model.lyrics;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SynchronizedLyricsLRC extends SynchronizedLyrics {
+public class SynchronizedLyricsLRC extends AbsSynchronizedLyrics {
     private static Pattern LRC_LINE_PATTERN = Pattern.compile("((?:\\[.*?\\])+)(.*)");
     private static Pattern LRC_TIME_PATTERN = Pattern.compile("\\[(\\d\\d):(\\d\\d)(?:\\.(\\d\\d))\\]");
 

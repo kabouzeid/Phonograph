@@ -2,10 +2,10 @@ package com.kabouzeid.gramophone.model.lyrics;
 
 import android.util.SparseArray;
 
-public abstract class SynchronizedLyrics {
+public abstract class AbsSynchronizedLyrics {
     public final SparseArray<String> lines = new SparseArray<>();
 
-    public static SynchronizedLyrics parse(String data)
+    public static AbsSynchronizedLyrics parse(String data)
     {
         return new SynchronizedLyricsLRC(data); // no another formats at the moment
     }
