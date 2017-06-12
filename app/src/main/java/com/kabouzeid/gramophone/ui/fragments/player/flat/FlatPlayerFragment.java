@@ -50,11 +50,6 @@ import com.kabouzeid.gramophone.util.ViewUtil;
 import com.kabouzeid.gramophone.views.WidthFitSquareLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
-import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.tag.FieldKey;
-
-import java.io.File;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -312,13 +307,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
             @Override
             protected String doInBackground(Void... params) {
-                try {
-                    return AudioFileIO.read(new File(song.data)).getTagOrCreateDefault().getFirst(FieldKey.LYRICS);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    cancel(false);
-                    return null;
-                }
+                return MusicUtil.getLyrics(song);
             }
 
             @Override

@@ -25,9 +25,15 @@ import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.tag.FieldKey;
+
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -254,5 +260,53 @@ public class MusicUtil {
         }
         if (musicMediaTitle.isEmpty()) return "";
         return String.valueOf(musicMediaTitle.charAt(0)).toUpperCase();
+    }
+
+    @Nullable
+    public static String getLyrics(Song song) {
+        String lyrics = null;
+
+        File file = new File(song.data);
+
+        try {
+            lyrics = AudioFileIO.read(file).getTagOrCreateDefault().getFirst(FieldKey.LYRICS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (lyrics == null || lyrics.trim().isEmpty()) {
+            File dir = file.getAbsoluteFile().getParentFile();
+
+            if (dir != null && dir.exists() && dir.isDirectory()) {
+                final ArrayList<Pattern> patterns = new ArrayList<>();
+                patterns.add(Pattern.compile(String.format(".*%s.*\\.(lrc|txt)", FileUtil.stripExtension(file.getName())), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
+                patterns.add(Pattern.compile(String.format(".*%s.*\\.(lrc|txt)", song.title), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
+
+                File[] files = dir.listFiles(new FileFilter() {
+                    @Override
+                    public boolean accept(File f) {
+                        for (Pattern pattern : patterns) {
+                            if (pattern.matcher(f.getName()).matches()) return true;
+                        }
+                        return false;
+                    }
+                });
+
+                if (files != null && files.length > 0) {
+                    for (File f : files) {
+                        try {
+                            lyrics = FileUtil.read(f);
+                            if (lyrics != null && !lyrics.trim().isEmpty()) {
+                                return lyrics;
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+
+        return lyrics;
     }
 }
