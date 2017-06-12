@@ -20,7 +20,8 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/shadow_up_strong"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:layoutDirection="ltr">
 
         <ImageButton
             android:id="@+id/button_prev"

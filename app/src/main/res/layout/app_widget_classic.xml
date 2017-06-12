@@ -25,7 +25,8 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
             android:orientation="horizontal"
-            android:padding="8dp">
+            android:padding="8dp"
+            android:layoutDirection="ltr">
 
             <ImageButton
                 android:id="@+id/button_prev"

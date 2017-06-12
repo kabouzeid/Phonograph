@@ -20,7 +20,8 @@
         android:layout_gravity="fill_horizontal"
         android:focusable="true"
         android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layoutDirection="ltr">
 
         <ImageButton
             android:id="@+id/button_prev"
