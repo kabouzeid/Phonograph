@@ -319,7 +319,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                 if (wiki != null) {
                     getWikiDialog().show();
                 } else {
-                    Toast.makeText(AlbumDetailActivity.this, getResources().getString(R.string.biography_unavailable), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AlbumDetailActivity.this, getResources().getString(R.string.wiki_unavailable), Toast.LENGTH_SHORT).show();
                 }
                 return true;
         }
