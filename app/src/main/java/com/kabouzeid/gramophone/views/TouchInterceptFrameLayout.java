@@ -114,6 +114,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
+        Log.d("Move = ", e.toString());
         int x = Math.round(e.getRawX());
         int y = Math.round(e.getRawY());
         try {
@@ -144,20 +145,18 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
                 case MotionEvent.ACTION_MOVE:
                     float distanceY = Math.abs(e.getY() - startY);
+                    if (touchedScrollView) {
+                        float distance = Math.abs(e.getX() - startX);
 
+                        // Scrolling the view: cancel event to prevent long press
+                        if (distance > MAX_CLICK_DISTANCE) {
+                            if((!emptyTruncateText && isTextTruncated)) textView.setText(song);
+                            CancelClick();
+                        }
+                    }
                     // Scrolling vertically: cancel horizontal scrolling events
                     if (distanceY > MAX_VERTICAL_DISTANCE) {
                         CancelClick();
-                    }else {
-                        if (touchedScrollView) {
-                            float distance = Math.abs(e.getX() - startX);
-
-                            // Scrolling the view: cancel event to prevent long press
-                            if (distance > MAX_CLICK_DISTANCE) {
-                                if (isTextTruncated && !emptyTruncateText) textView.setText(song);
-                                CancelClick();
-                            }
-                        }
                     }
                     break;
 
@@ -187,8 +186,8 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      * interacting with the item views
      */
     private void CancelClick(){
-        cancelPendingInputEvents();
-        cancelLongPress();
+        this.cancelPendingInputEvents();
+        this.cancelLongPress();
         scrollView.cancelLongPress();
         scrollView.cancelPendingInputEvents();
         isTap = false;
