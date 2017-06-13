@@ -114,7 +114,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
-        Log.d("Move = ", e.toString());
         int x = Math.round(e.getRawX());
         int y = Math.round(e.getRawY());
         try {
@@ -129,7 +128,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
             boolean isTextTruncated = songTruncated.endsWith("…");
 
-            switch (e.getAction()) {
+            switch (e.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN:
                     if (!touchedScrollView){
                         scrollView.cancelPendingInputEvents();
@@ -159,7 +158,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                         CancelClick();
                     }
                     break;
-
+                case MotionEvent.ACTION_CANCEL:
                 case MotionEvent.ACTION_UP:
                     if (touchedScrollView) {
                         if (isTap) onTouchEvent(e);
