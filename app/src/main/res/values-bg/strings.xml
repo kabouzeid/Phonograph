@@ -202,7 +202,7 @@
     <string name="author">Автор</string>
     <string name="add_to_google_plus_circles">Добави в Гугъл Плюс</string>
     <string name="follow_on_twitter">Последвай в Twitter</string>
-    <string name="fork_on_git_hub">Посети GitHub страница</string>
+    <string name="fork_on_github">Посети GitHub страница</string>
     <string name="visit_website">Посети уебсайт</string>
     <string name="report_bugs">Съобщи за бъгове</string>
     <string name="report_bugs_summary">Съобщи за бъгове или предложи нови идеи</string>

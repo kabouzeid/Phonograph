@@ -202,7 +202,7 @@
     <string name="author">O autorze</string>
     <string name="add_to_google_plus_circles">Dodaj do kręgów Google+</string>
     <string name="follow_on_twitter">Śledź na Twitterze</string>
-    <string name="fork_on_git_hub">Dołącz na GitHub\'ie</string>
+    <string name="fork_on_github">Dołącz na GitHub\'ie</string>
     <string name="visit_website">Odwiedź stronę</string>
     <string name="report_bugs">Zgłoś błędy</string>
     <string name="report_bugs_summary">Zgłaszaj błędy lub propozycje nowych funkcji</string>

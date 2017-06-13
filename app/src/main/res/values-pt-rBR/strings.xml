@@ -202,7 +202,7 @@
     <string name="author">Autor</string>
     <string name="add_to_google_plus_circles">Adicionar aos círculos do Google+</string>
     <string name="follow_on_twitter">Seguir no Twitter</string>
-    <string name="fork_on_git_hub">Garfo no GitHub</string>
+    <string name="fork_on_github">Garfo no GitHub</string>
     <string name="visit_website">Visitar site</string>
     <string name="report_bugs">Reportar bugs</string>
     <string name="report_bugs_summary">Reportar bugs ou pedir por novas funções.</string>

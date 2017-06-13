@@ -32,6 +32,7 @@ public class AppWidgetBig extends BaseAppWidget {
     public static final String NAME = "app_widget_big";
 
     private static AppWidgetBig mInstance;
+    private Target<Bitmap> target; // for cancellation
 
     public static synchronized AppWidgetBig getInstance() {
         if (mInstance == null) {
@@ -125,14 +126,14 @@ public class AppWidgetBig extends BaseAppWidget {
         int playPauseRes = isPlaying ? R.drawable.ic_pause_white_24dp : R.drawable.ic_play_arrow_white_24dp;
         appWidgetView.setImageViewBitmap(R.id.button_toggle_play_pause, createBitmap(Util.getTintedVectorDrawable(service, playPauseRes, MaterialValueHelper.getPrimaryTextColor(service, false)), 1f));
 
-        // set prev/next button drawables
+        // Set prev/next button drawables
         appWidgetView.setImageViewBitmap(R.id.button_next, createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_next_white_24dp, MaterialValueHelper.getPrimaryTextColor(service, false)), 1f));
         appWidgetView.setImageViewBitmap(R.id.button_prev, createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_previous_white_24dp, MaterialValueHelper.getPrimaryTextColor(service, false)), 1f));
 
         // Link actions buttons to intents
         linkButtons(service, appWidgetView);
 
-        // load the album cover async and push the update on completion
+        // Load the album cover async and push the update on completion
         Point p = Util.getScreenSize(service);
         final int widgetImageSize = Math.min(p.x, p.y);
         final Context appContext = service.getApplicationContext();
@@ -170,8 +171,6 @@ public class AppWidgetBig extends BaseAppWidget {
             }
         });
     }
-
-    private Target<Bitmap> target; // for cancellation
 
     /**
      * Link up various button actions using {@link PendingIntent}.

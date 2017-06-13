@@ -20,9 +20,9 @@
 
     </FrameLayout>
 
-    <com.sothree.slidinguppanel.SlidingUpPanelLayout android:id="@+id/player_sliding_layout"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
         xmlns:sothree="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/player_sliding_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="false"
@@ -130,4 +130,5 @@
         </LinearLayout>
 
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
 </LinearLayout>

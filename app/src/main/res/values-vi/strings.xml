@@ -209,7 +209,7 @@
     <string name="author">Tác giả</string>
     <string name="add_to_google_plus_circles">Thêm vào vòng kết nối Google Plus</string>
     <string name="follow_on_twitter">Theo dõi trên Twitter</string>
-    <string name="fork_on_git_hub">Fork trên GitHub</string>
+    <string name="fork_on_github">Fork trên GitHub</string>
     <string name="visit_website">Truy cập trang web</string>
     <string name="report_bugs">Báo lỗi</string>
     <string name="report_bugs_summary">Báo lỗi và yêu cầu tính năng mới.</string>

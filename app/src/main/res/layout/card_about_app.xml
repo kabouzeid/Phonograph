@@ -145,7 +145,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/fork_on_git_hub"
+            android:id="@+id/fork_on_github"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/rectSelector"
@@ -170,7 +170,7 @@
                 android:layout_marginStart="32dp"
                 android:paddingBottom="8dp"
                 android:paddingTop="8dp"
-                android:text="@string/fork_on_git_hub"
+                android:text="@string/fork_on_github"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
         </LinearLayout>
