@@ -17,11 +17,6 @@ apply plugin: 'com.jakewharton.hugo'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
-
-    maven {
-        name 'glide-snapshot'
-        url 'http://oss.sonatype.org/content/repositories/snapshots'
-    }
 }
 
 android {
@@ -37,9 +32,9 @@ android {
         renderscriptTargetApi 25
         vectorDrawables.useSupportLibrary = true
 
-        applicationId "com.kabouzeid.gramophone"
+        applicationId 'com.kabouzeid.gramophone'
         versionCode 132
-        versionName "0.15.0"
+        versionName '0.15.0'
     }
     buildTypes {
         release {
