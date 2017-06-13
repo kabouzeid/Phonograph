@@ -200,7 +200,7 @@
     <string name="author">المؤلف</string>
     <string name="add_to_google_plus_circles">أضف إلى دوائر جوجل +</string>
     <string name="follow_on_twitter">تابع في تويتر</string>
-    <string name="fork_on_git_hub">Fork عن طريق Github</string>
+    <string name="fork_on_github">Fork عن طريق Github</string>
     <string name="visit_website">زر موقعنا</string>
     <string name="report_bugs">أبلغ عن وجود مشكلة</string>
     <string name="report_bugs_summary">أبلغ عن وجود مشاكل أو طلب ميزات جديدة</string>

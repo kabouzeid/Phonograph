@@ -201,7 +201,7 @@
     <string name="author">Autor</string>
     <string name="add_to_google_plus_circles">Adicionar aos seus círculos do Google Plus</string>
     <string name="follow_on_twitter">Seguir no Twitter</string>
-    <string name="fork_on_git_hub">Fork no Github</string>
+    <string name="fork_on_github">Fork no Github</string>
     <string name="visit_website">Visitar sítio na Internet</string>
     <string name="report_bugs">Reportar erros</string>
     <string name="report_bugs_summary">Reportar erros ou sugerir novas funcionalidades.</string>

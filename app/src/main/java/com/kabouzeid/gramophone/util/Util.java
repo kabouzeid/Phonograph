@@ -49,7 +49,7 @@ public class Util {
         return size;
     }
 
-    @TargetApi(19)
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     public static void setStatusBarTranslucent(@NonNull Window window) {
         window.setFlags(
                 WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,

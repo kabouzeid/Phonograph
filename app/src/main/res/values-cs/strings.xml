@@ -209,7 +209,7 @@
     <string name="author">Autor</string>
     <string name="add_to_google_plus_circles">Přidat do kruhů Google Plus</string>
     <string name="follow_on_twitter">Sledovat na Twitteru</string>
-    <string name="fork_on_git_hub">Fork na GitHubu</string>
+    <string name="fork_on_github">Fork na GitHubu</string>
     <string name="visit_website">Navštívit stránku</string>
     <string name="report_bugs">Ohlásit chybu</string>
     <string name="report_bugs_summary">"Nahlásit chyby nebo požádat o nové funkce. "</string>

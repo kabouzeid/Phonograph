@@ -202,7 +202,7 @@
     <string name="author">Pengelola</string>
     <string name="add_to_google_plus_circles">Tambahkan ke lingkaran Google Plus</string>
     <string name="follow_on_twitter">Ikuti di Twitter</string>
-    <string name="fork_on_git_hub">Salin di GitHub</string>
+    <string name="fork_on_github">Salin di GitHub</string>
     <string name="visit_website">Kunjungi situs</string>
     <string name="report_bugs">Laporkan masalah</string>
     <string name="report_bugs_summary">Laporkan masalah atau sarankan fitur baru</string>

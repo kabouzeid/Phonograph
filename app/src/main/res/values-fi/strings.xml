@@ -202,7 +202,7 @@
     <string name="author">Luoja</string>
     <string name="add_to_google_plus_circles">Lisää Google Plus -piireihin</string>
     <string name="follow_on_twitter">Seuraa Twitterissä</string>
-    <string name="fork_on_git_hub">Seuraa GitHubissa</string>
+    <string name="fork_on_github">Seuraa GitHubissa</string>
     <string name="visit_website">Vieraile verkkosivulla</string>
     <string name="report_bugs">Raportoi bugeja</string>
     <string name="report_bugs_summary">Raportoi bugeja tai ehdota uusia ominaisuuksia.</string>
