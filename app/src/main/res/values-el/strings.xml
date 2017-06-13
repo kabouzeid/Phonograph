@@ -203,7 +203,7 @@
     <string name="author">Εκδότης</string>
     <string name="add_to_google_plus_circles">Προσθήκη στους κύκλους σας στο Google Plus</string>
     <string name="follow_on_twitter">Ακολουθήστε στο Twitter</string>
-    <string name="fork_on_git_hub">Παρακολουθήστε στο GitHub</string>
+    <string name="fork_on_github">Παρακολουθήστε στο GitHub</string>
     <string name="visit_website">Επισκεφθείτε την ιστοσελίδα μας</string>
     <string name="report_bugs">Αναφορά σφαλμάτων</string>
     <string name="report_bugs_summary">Αναφέρετε σφάλματα ή ζητείστε νέα χαρακτηριστικά.</string>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/player_footer_frame"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/player_footer_frame"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -124,11 +124,11 @@
             android:layout_centerInParent="true" />
 
         <android.support.design.widget.FloatingActionButton
-            app:pressedTranslationZ="2dp"
-            app:elevation="4dp"
             android:id="@+id/player_play_pause_fab"
             style="@style/Fab"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            app:elevation="4dp"
+            app:pressedTranslationZ="2dp" />
 
     </RelativeLayout>
 

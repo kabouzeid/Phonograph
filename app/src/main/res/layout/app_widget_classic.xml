@@ -1,6 +1,7 @@
-<LinearLayout android:id="@+id/content"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="@dimen/app_widget_classic_height"
     android:background="#AA000000"
@@ -24,9 +25,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
+            android:layoutDirection="ltr"
             android:orientation="horizontal"
-            android:padding="8dp"
-            android:layoutDirection="ltr">
+            android:padding="8dp">
 
             <ImageButton
                 android:id="@+id/button_prev"

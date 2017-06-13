@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="16dp"
-        android:textColor="?android:textColorSecondary"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textColor="?android:textColorSecondary"
         tools:text="Card layout" />
 
     <ImageView

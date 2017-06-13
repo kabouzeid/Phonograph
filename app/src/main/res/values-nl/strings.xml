@@ -206,7 +206,7 @@
     <string name="author">Auteur</string>
     <string name="add_to_google_plus_circles">Toevoegen aan Google Plus cirkels</string>
     <string name="follow_on_twitter">Volgen op Twitter</string>
-    <string name="fork_on_git_hub">Fork op GitHub</string>
+    <string name="fork_on_github">Fork op GitHub</string>
     <string name="visit_website">Bezoek website</string>
     <string name="report_bugs">Rapporteer bugs</string>
     <string name="report_bugs_summary">Rapporteer bugs of verzoek nieuwe functies.</string>

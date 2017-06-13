@@ -20,6 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Phonograph.Light"
         tools:ignore="UnusedAttribute">
+
         <activity android:name=".ui.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -93,6 +94,31 @@
         </activity>
         <activity android:name=".ui.activities.AlbumDetailActivity" />
         <activity android:name=".ui.activities.ArtistDetailActivity" />
+        <activity android:name=".ui.activities.PlaylistDetailActivity" />
+        <activity
+            android:name=".ui.activities.tageditor.SongTagEditorActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.activities.tageditor.AlbumTagEditorActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.activities.SearchActivity" />
+        <activity
+            android:name=".ui.activities.SettingsActivity"
+            android:label="@string/action_settings" />
+        <activity
+            android:name=".ui.activities.AboutActivity"
+            android:label="@string/action_about" />
+        <activity
+            android:name=".ui.activities.intro.AppIntroActivity"
+            android:label="@string/intro_label"
+            android:theme="@style/Theme.Intro" />
+        <activity
+            android:name=".ui.activities.bugreport.BugReportActivity"
+            android:label="@string/report_an_issue" />
+        <activity
+            android:name=".appshortcuts.AppShortcutLauncherActivity"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <service
             android:name=".service.MusicService"
@@ -119,14 +145,6 @@
         <meta-data
             android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
             android:value="GlideModule" />
-
-        <activity
-            android:name=".ui.activities.tageditor.SongTagEditorActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".ui.activities.tageditor.AlbumTagEditorActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.activities.SearchActivity" />
 
         <receiver
             android:name=".appwidgets.AppWidgetBig"
@@ -165,24 +183,6 @@
                 android:resource="@xml/app_widget_small_info" />
         </receiver>
 
-        <activity
-            android:name=".ui.activities.SettingsActivity"
-            android:label="@string/action_settings" />
-        <activity android:name=".ui.activities.PlaylistDetailActivity" />
-        <activity
-            android:name=".ui.activities.AboutActivity"
-            android:label="@string/action_about" />
-        <activity
-            android:name=".ui.activities.intro.AppIntroActivity"
-            android:label="@string/intro_label"
-            android:theme="@style/Theme.Intro" />
-        <activity
-            android:name=".ui.activities.bugreport.BugReportActivity"
-            android:label="@string/report_an_issue" />
-        <activity
-            android:name=".appshortcuts.AppShortcutLauncherActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:launchMode="singleInstance"/>
     </application>
 
 </manifest>

@@ -229,7 +229,7 @@
     <string name="write_an_email">Write an email</string>
     <string name="add_to_google_plus_circles">Add to Google Plus circles</string>
     <string name="follow_on_twitter">Follow on Twitter</string>
-    <string name="fork_on_git_hub">Fork on GitHub</string>
+    <string name="fork_on_github">Fork on GitHub</string>
     <string name="visit_website">Visit website</string>
     <string name="report_bugs">Report bugs</string>
     <string name="report_bugs_summary">Report bugs or request new features.</string>
