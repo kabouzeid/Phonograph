@@ -114,9 +114,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         impl.init();
 
         setUpPlayerToolbar();
-        setUpStatusBar();
         setUpSubFragments();
-        ViewUtil.setStatusBarHeight(getActivity(), playerStatusBar);
 
         setUpRecyclerView();
 
@@ -196,7 +194,6 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
     private void updateQueue() {
         playingQueueAdapter.swapDataSet(MusicPlayerRemote.getPlayingQueue(), MusicPlayerRemote.getPosition());
-        playerQueueSubHeader.setText(getResources().getString(R.string.up_next) + "  •  " + MusicUtil.getReadableDurationString(MusicPlayerRemote.getQueueDurationMillis(MusicPlayerRemote.getPosition())));
         if (slidingUpPanelLayout == null || slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
             resetToCurrentPosition();
         }
@@ -204,7 +201,6 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
     private void updateQueuePosition() {
         playingQueueAdapter.setCurrent(MusicPlayerRemote.getPosition());
-        playerQueueSubHeader.setText(getResources().getString(R.string.up_next) + "  •  " + MusicUtil.getReadableDurationString(MusicPlayerRemote.getQueueDurationMillis(MusicPlayerRemote.getPosition())));
         if (slidingUpPanelLayout == null || slidingUpPanelLayout.getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
             resetToCurrentPosition();
         }
@@ -232,12 +228,6 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
             }
         });
         toolbar.setOnMenuItemClickListener(this);
-    }
-
-    private void setUpStatusBar() {
-        ViewGroup.LayoutParams layoutParams = playerStatusBar.getLayoutParams();
-        layoutParams.height = Util.getStatusBarHeight(getActivity());
-        playerStatusBar.setLayoutParams(layoutParams);
     }
 
     @Override
@@ -321,6 +311,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
                 try {
                     return AudioFileIO.read(new File(song.data)).getTagOrCreateDefault().getFirst(FieldKey.LYRICS);
                 } catch (Exception e) {
+                    e.printStackTrace();
                     cancel(false);
                     return null;
                 }
