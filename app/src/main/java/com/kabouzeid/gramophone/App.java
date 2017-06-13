@@ -25,7 +25,7 @@ public class App extends Application {
                 .build();
         Fabric.with(this, crashlyticsKit);
 
-        //Set up dynamic shortcuts
+        // Set up dynamic shortcuts
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             new DynamicShortcutManager(this).initDynamicShortcuts();
         }

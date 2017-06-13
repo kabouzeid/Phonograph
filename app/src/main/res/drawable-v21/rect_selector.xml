@@ -7,8 +7,8 @@
     <item>
         <selector>
             <item
-                android:state_activated="true"
-                android:drawable="@color/ripple_material_light" />
+                android:drawable="@color/ripple_material_light"
+                android:state_activated="true" />
         </selector>
     </item>
 

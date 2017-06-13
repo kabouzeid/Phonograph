@@ -14,6 +14,7 @@
         tools:ignore="UnusedAttribute">
 
         <include layout="@layout/status_bar" />
+
     </FrameLayout>
 
     <android.support.design.widget.CoordinatorLayout

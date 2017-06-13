@@ -209,7 +209,7 @@
     <string name="author">Yapımcı</string>
     <string name="add_to_google_plus_circles">Google+ çevrelerine ekle</string>
     <string name="follow_on_twitter">Twitterda takip et</string>
-    <string name="fork_on_git_hub">GitHub da katkıda bulunun</string>
+    <string name="fork_on_github">GitHub da katkıda bulunun</string>
     <string name="visit_website">Websitesini ziyaret ediniz</string>
     <string name="report_bugs">Hata raporlayınız</string>
     <string name="report_bugs_summary">Hata raporlayın ya da yeni özellikler talep edin</string>

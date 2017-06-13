@@ -69,7 +69,7 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     LinearLayout addToGooglePlusCircles;
     @BindView(R.id.follow_on_twitter)
     LinearLayout followOnTwitter;
-    @BindView(R.id.fork_on_git_hub)
+    @BindView(R.id.fork_on_github)
     LinearLayout forkOnGitHub;
     @BindView(R.id.visit_website)
     LinearLayout visitWebsite;

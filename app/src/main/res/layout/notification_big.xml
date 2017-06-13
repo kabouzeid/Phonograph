@@ -36,7 +36,8 @@
             android:scaleType="centerCrop"
             tools:ignore="ContentDescription" />
 
-        <ImageButton android:id="@+id/action_quit"
+        <ImageButton
+            android:id="@+id/action_quit"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_alignParentEnd="true"
@@ -111,7 +112,8 @@
             tools:ignore="UnusedAttribute">
 
             <!-- media buttons will be added here -->
-            <ImageButton android:id="@+id/action_prev"
+            <ImageButton
+                android:id="@+id/action_prev"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="48dp"
                 android:layout_height="match_parent"
@@ -124,7 +126,8 @@
                 android:scaleType="fitCenter"
                 tools:ignore="ContentDescription" />
 
-            <ImageButton android:id="@+id/action_play_pause"
+            <ImageButton
+                android:id="@+id/action_play_pause"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="48dp"
                 android:layout_height="match_parent"
@@ -137,7 +140,8 @@
                 android:scaleType="fitCenter"
                 tools:ignore="ContentDescription" />
 
-            <ImageButton android:id="@+id/action_next"
+            <ImageButton
+                android:id="@+id/action_next"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="48dp"
                 android:layout_height="match_parent"
