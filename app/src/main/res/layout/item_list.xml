@@ -81,7 +81,8 @@
                 android:id="@+id/title_scrollview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scrollbars="none">
+                android:scrollbars="none"
+                android:nestedScrollingEnabled="true">
 
                 <TextView
                     android:id="@+id/title"
