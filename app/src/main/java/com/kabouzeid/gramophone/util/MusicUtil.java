@@ -24,6 +24,7 @@ import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.model.lyrics.AbsSynchronizedLyrics;
 
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.tag.FieldKey;
@@ -274,13 +275,17 @@ public class MusicUtil {
             e.printStackTrace();
         }
 
-        if (lyrics == null || lyrics.trim().isEmpty()) {
+        if (lyrics == null || lyrics.trim().isEmpty() || !AbsSynchronizedLyrics.isSynchronized(lyrics)) {
             File dir = file.getAbsoluteFile().getParentFile();
 
             if (dir != null && dir.exists() && dir.isDirectory()) {
+                String format = ".*%s.*\\.(lrc|txt)";
+                String filename = Pattern.quote(FileUtil.stripExtension(file.getName()));
+                String songtitle = Pattern.quote(song.title);
+
                 final ArrayList<Pattern> patterns = new ArrayList<>();
-                patterns.add(Pattern.compile(String.format(".*%s.*\\.(lrc|txt)", FileUtil.stripExtension(file.getName())), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
-                patterns.add(Pattern.compile(String.format(".*%s.*\\.(lrc|txt)", song.title), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
+                patterns.add(Pattern.compile(String.format(format, filename), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
+                patterns.add(Pattern.compile(String.format(format, songtitle), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
 
                 File[] files = dir.listFiles(new FileFilter() {
                     @Override
@@ -295,9 +300,12 @@ public class MusicUtil {
                 if (files != null && files.length > 0) {
                     for (File f : files) {
                         try {
-                            lyrics = FileUtil.read(f);
-                            if (lyrics != null && !lyrics.trim().isEmpty()) {
-                                return lyrics;
+                            String newLyrics = FileUtil.read(f);
+                            if (newLyrics != null && !newLyrics.trim().isEmpty()) {
+                                if (AbsSynchronizedLyrics.isSynchronized(newLyrics)) {
+                                    return newLyrics;
+                                }
+                                lyrics = newLyrics;
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
