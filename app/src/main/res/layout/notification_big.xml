@@ -16,14 +16,14 @@
 
 <!-- Layout to be used with only max 3 actions. It has a much larger picture at the left side-->
 
-<!--This FrameLayout IS necessary in order tp prevent fucking TouchWiz to interpret the "background="#00000000" as making the whole notification transparent-->
+<!--This FrameLayout IS necessary in order to prevent TouchWiz from interpreting the "background="#00000000" as making the whole notification transparent-->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="128dp">
 
     <RelativeLayout
-        android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#00000000"
