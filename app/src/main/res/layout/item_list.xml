@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.kabouzeid.gramophone.views.TouchInterceptFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="android.view.View"/>
+        <variable name="useScrollableTitle" type="com.kabouzeid.gramophone.helper.UseScrollableTitles"/>
+    </data>
+<com.kabouzeid.gramophone.views.TouchInterceptFrameLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
@@ -33,16 +38,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:descendantFocusability="blocksDescendants"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="@{useScrollableTitle.getUseScrollableTitles(context) ? View.GONE : View.VISIBLE}"
+        tools:ignore="DuplicateIds">
 
-        <FrameLayout
+    <FrameLayout
             android:id="@+id/image_container"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingEnd="0dp"
             android:paddingLeft="16dp"
             android:paddingRight="0dp"
-            android:paddingStart="16dp">
+            android:paddingStart="16dp"
+            tools:ignore="DuplicateIds">
 
             <ImageView
                 android:id="@+id/image"
@@ -50,7 +58,7 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription, DuplicateIds"/>
 
             <TextView
                 android:id="@+id/image_text"
@@ -61,7 +69,8 @@
                 android:minHeight="40dp"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:visibility="gone" />
+                android:visibility="gone"
+                tools:ignore="DuplicateIds"/>
 
         </FrameLayout>
 
@@ -77,58 +86,145 @@
             android:paddingRight="0dp"
             android:paddingStart="16dp">
 
-            <HorizontalScrollView
-                android:id="@+id/title_scrollview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:nestedScrollingEnabled="true">
-
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:scrollHorizontally="true"
-                    android:ellipsize="end"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    tools:ignore="DuplicateIds"/>
 
-            </HorizontalScrollView>
+                <TextView
+                    android:id="@+id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="?android:textColorSecondary"
+                    tools:ignore="DuplicateIds"/>
 
-            <TextView
-                android:id="@+id/text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="?android:textColorSecondary" />
+            </LinearLayout>
 
-        </LinearLayout>
-
-        <com.kabouzeid.gramophone.views.IconImageView
-            android:id="@+id/menu"
-            style="@style/OverFlowButton"
-            android:layout_gravity="center_vertical"
-            tools:ignore="ContentDescription" />
+                    <com.kabouzeid.gramophone.views.IconImageView
+                        android:id="@+id/menu"
+                        style="@style/OverFlowButton"
+                        android:layout_gravity="center_vertical"
+                        tools:ignore="ContentDescription,DuplicateIds" />
 
     </LinearLayout>
 
-    <View
-        android:id="@+id/separator"
+    <LinearLayout
+        android:id="@+id/song_view"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="bottom"
-        android:background="?attr/dividerColor"
-        android:visibility="gone" />
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="horizontal"
+        android:visibility="@{useScrollableTitle.getUseScrollableTitles(context) ? View.VISIBLE : View.GONE}"
+        tools:ignore="DuplicateIds">
 
-    <View
-        android:id="@+id/short_separator"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="bottom"
-        android:layout_marginLeft="72dp"
-        android:layout_marginStart="72dp"
-        android:background="?attr/dividerColor" />
+    <FrameLayout
+        android:id="@+id/image_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingEnd="0dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="0dp"
+        android:paddingStart="16dp"
+        tools:ignore="DuplicateIds">
 
-</com.kabouzeid.gramophone.views.TouchInterceptFrameLayout>
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            tools:ignore="ContentDescription,DuplicateIds" />
+
+        <TextView
+            android:id="@+id/image_text"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:minHeight="40dp"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:visibility="gone"
+            tools:ignore="DuplicateIds"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="vertical"
+        android:paddingEnd="0dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="0dp"
+        android:paddingStart="16dp">
+
+        <HorizontalScrollView
+            android:id="@+id/title_scrollview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:nestedScrollingEnabled="true"
+            tools:ignore="DuplicateIds">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                tools:ignore="DuplicateIds"/>
+
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="?android:textColorSecondary"
+            tools:ignore="DuplicateIds"/>
+
+    </LinearLayout>
+
+    <com.kabouzeid.gramophone.views.IconImageView
+        android:id="@+id/menu"
+        style="@style/OverFlowButton"
+        android:layout_gravity="center_vertical"
+        tools:ignore="ContentDescription,DuplicateIds"/>
+
+</LinearLayout>
+
+                <View
+                    android:id="@+id/separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom"
+                    android:background="?attr/dividerColor"
+                    android:visibility="gone" />
+
+                <View
+                    android:id="@+id/short_separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="72dp"
+                    android:layout_marginStart="72dp"
+                    android:background="?attr/dividerColor" />
+
+            </com.kabouzeid.gramophone.views.TouchInterceptFrameLayout>
+
+            </layout>
