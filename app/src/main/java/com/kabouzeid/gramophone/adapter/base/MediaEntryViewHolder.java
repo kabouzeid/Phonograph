@@ -90,6 +90,4 @@ public class MediaEntryViewHolder extends RecyclerView.ViewHolder implements Vie
     @Override
     public void onClick(View v) {
     }
-
-
 }

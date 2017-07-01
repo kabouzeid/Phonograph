@@ -125,7 +125,6 @@
     <string name="pref_header_lockscreen">Lockscreen</string>
     <string name="pref_header_playlists">Playlists</string>
     <string name="pref_header_notification">Notification</string>
-    <string name="pref_header_expierimental">Expierimental</string>
     <string name="pref_title_navigation_bar">Colored navigation bar</string>
     <string name="pref_title_app_shortcuts">Colored app shortcuts</string>
     <string name="pref_title_set_default_start_page">Start page</string>
@@ -145,7 +144,6 @@
     <string name="pref_title_colored_playback_controls_now_playing">Colored playback controls</string>
     <string name="pref_title_audio_ducking">Reduce volume on focus loss</string>
     <string name="pref_title_last_added_interval">Last added playlist interval</string>
-    <string name="pref_title_scrolling_title">Enable Title Scrolling</string>
     <string name="no_equalizer">No equalizer found.</string>
     <string name="no_audio_ID">"Play a song first, then try again."</string>
     <string name="delete_action">Delete</string>
@@ -188,7 +186,6 @@
     <string name="pref_summary_colored_navigation_bar">Colors the navigation bar in the primary color.</string>
     <string name="pref_summary_colored_app_shortcuts">Colors the app shortcuts in the primary color.</string>
     <string name="pref_summary_audio_ducking">Notifications, navigation etc.</string>
-    <string name="pref_summary_scrolling_title">Enables scrolling on the full title of album, artist and song titles that are too long for the view and have been truncated (cut off and ellipsis added). Enabling may result in a slightly poorer user expierience.</string>
     <string name="could_not_download_album_cover">"Couldn\u2019t download a matching album cover."</string>
     <string name="search_hint">Search your library…</string>
     <string name="rescanning_media">Rescanning media…</string>

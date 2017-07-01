@@ -16,7 +16,6 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.preference.TwoStatePreference;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -28,7 +27,6 @@ import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appshortcuts.DynamicShortcutManager;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
-import com.kabouzeid.gramophone.helper.UseScrollableTitles;
 import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreference;
 import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreferenceDialog;
 import com.kabouzeid.gramophone.service.MusicService;
@@ -47,7 +45,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
     Toolbar toolbar;
     @BindView(R.id.status_bar)
     View statusBar;
-    private static UseScrollableTitles useScrollableTitles;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,8 +69,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             SettingsFragment frag = (SettingsFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
             if (frag != null) frag.invalidateSettings();
         }
-
-        useScrollableTitles = new UseScrollableTitles();
     }
 
     @Override
@@ -144,7 +139,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             addPreferencesFromResource(R.xml.pref_lockscreen);
             addPreferencesFromResource(R.xml.pref_audio);
             addPreferencesFromResource(R.xml.pref_playlists);
-            addPreferencesFromResource(R.xml.pref_expierimental);
         }
 
         @Nullable
@@ -284,21 +278,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                     }
                 });
             }
-
-            final TwoStatePreference useScrollable = (TwoStatePreference) findPreference("scrollable_titles");
-            useScrollable.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    //Save preference
-                    PreferenceUtil.getInstance(getActivity()).setUseScrollableTitles((Boolean)newValue);
-
-                    useScrollableTitles.setUseScrollableTitles((Boolean)newValue);
-
-                    Log.d("Scrollable?",Boolean.toString((Boolean)newValue));
-
-                    return true;
-                }
-            });
 
             final TwoStatePreference colorAppShortcuts = (TwoStatePreference) findPreference("should_color_app_shortcuts");
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {

@@ -54,8 +54,6 @@ public final class PreferenceUtil {
 
     public static final String LAST_ADDED_CUTOFF = "last_added_interval";
 
-    public static final String SCROLLABLE_TITLES = "scrollable_titles";
-
     public static final String ALBUM_ART_ON_LOCKSCREEN = "album_art_on_lockscreen";
     public static final String BLURRED_ALBUM_ART = "blurred_album_art";
 
@@ -161,16 +159,6 @@ public final class PreferenceUtil {
     public void setClassicNotification(final boolean value) {
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.putBoolean(CLASSIC_NOTIFICATION, value);
-        editor.apply();
-    }
-
-    public final boolean useScrollableTitles() {
-        return mPreferences.getBoolean(SCROLLABLE_TITLES, false);
-    }
-
-    public void setUseScrollableTitles(final boolean value) {
-        final SharedPreferences.Editor editor = mPreferences.edit();
-        editor.putBoolean(SCROLLABLE_TITLES, value);
         editor.apply();
     }
 
