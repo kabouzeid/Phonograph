@@ -83,13 +83,12 @@ public class TouchInterceptFrameLayout extends FrameLayout {
             scrollView.post(new Runnable() {
                 @Override
                 public void run() {
-                    String sT = TextUtils.ellipsize(song,
+                    songTruncated = TextUtils.ellipsize(song,
                             textView.getPaint(),
                             (float) scrollView.getWidth(),
                             TextUtils.TruncateAt.END).toString();
-                    songTruncated = sT;
-                    if (!sT.isEmpty()) {
-                        textView.setText(sT);
+                    if (!songTruncated.isEmpty()) {
+                        textView.setText(songTruncated);
                     }
                 }
             });
