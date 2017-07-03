@@ -1,10 +1,8 @@
 package com.kabouzeid.gramophone.modelAndroidAuto;
 
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
-import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.media.MediaMetadataCompat;
@@ -15,8 +13,7 @@ import java.util.Iterator;
 /**
  * Created by Beesham on 3/28/2017.
  */
-
-public class AutoMusicSource implements MusicProviderSource{
+public class AutoMusicSource implements MusicProviderSource {
 
     private static final String TAG = AutoMusicSource.class.getName();
     private Context mContext;
@@ -35,12 +32,12 @@ public class AutoMusicSource implements MusicProviderSource{
 
         ArrayList<MediaMetadataCompat> tracks = new ArrayList<>();
 
-        if(cursor == null){
+        if (cursor == null) {
             return null;
-        }else if(!cursor.moveToFirst()){
+        } else if (!cursor.moveToFirst()) {
             //Cursor empty, no media
-        }else{
-            for(int i = 0;i<cursor.getCount();i++){    //TODO: change this t0 cursor.count()
+        } else {
+            for (int i = 0; i < cursor.getCount(); i++) {    //TODO: change this t0 cursor.count()
                 tracks.add(buildSongsMediaMetadata(cursor));
                 cursor.moveToNext();
             }
@@ -49,7 +46,7 @@ public class AutoMusicSource implements MusicProviderSource{
         return tracks.iterator();
     }
 
-    private MediaMetadataCompat buildSongsMediaMetadata(Cursor c){
+    private MediaMetadataCompat buildSongsMediaMetadata(Cursor c) {
         String _ID = c.getString(c.getColumnIndex(MediaStore.Audio.Media._ID));
         String title = c.getString(c.getColumnIndex(MediaStore.Audio.Media.TITLE));
         String album = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ALBUM));

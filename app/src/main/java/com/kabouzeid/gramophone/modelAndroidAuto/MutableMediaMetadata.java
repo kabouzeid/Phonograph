@@ -6,11 +6,10 @@ import android.text.TextUtils;
 /**
  * Created by Beesham on 3/28/2017.
  */
-
 public class MutableMediaMetadata {
 
-    public MediaMetadataCompat metadata;
     public final String trackId;
+    public MediaMetadataCompat metadata;
 
     public MutableMediaMetadata(String trackId, MediaMetadataCompat metadata) {
         this.metadata = metadata;

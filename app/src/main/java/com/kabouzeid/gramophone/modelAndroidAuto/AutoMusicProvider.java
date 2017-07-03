@@ -8,9 +8,7 @@ import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.MediaDescriptionCompat;
-import android.support.v4.media.MediaMetadataCompat;
 import android.util.Log;
-
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
@@ -21,7 +19,6 @@ import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.util.MusicUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,10 +36,15 @@ import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.createMedi
 /**
  * Created by Beesham on 3/28/2017.
  */
-
 public class AutoMusicProvider {
+
+    private static final String BASE_URI = "androidauto://phonograph";
+    private static final int PATH_SEGMENT_TITLE = 0;
+    private static final int PATH_SEGMENT_ID = 1;
+    private static final int PATH_SEGMENT_ARTIST = 2;
     private static String TAG = AutoMusicProvider.class.getName();
 
+    private final ConcurrentMap<String, MutableMediaMetadata> mMusicListById;
     private MusicProviderSource mSource;
 
     //Categorized caches for music data
@@ -50,31 +52,15 @@ public class AutoMusicProvider {
     private ConcurrentMap<Uri, List<Song>> mMusicListByAlbum;
     private ConcurrentMap<Uri, Song> mMusicListByTopTracks;
 
-    private final ConcurrentMap<String, MutableMediaMetadata> mMusicListById;
-
-    private static final String BASE_URI = "androidauto://phonograph";
-    private static final int PATH_SEGMENT_TITLE = 0;
-    private static final int PATH_SEGMENT_ID = 1;
-    private static final int PATH_SEGMENT_ARTIST = 2;
-
     private Context mContext;
-
-    enum State{
-        NON_INITIALIZED, INITIALIZING, INITIALIZED
-    }
-
     private volatile State mCurrentState = State.NON_INITIALIZED;
 
-    public interface Callback{
-        void onMusicCatalogReady(boolean success);
-    }
-
-    public AutoMusicProvider(Context context){
+    public AutoMusicProvider(Context context) {
         this(new AutoMusicSource(context));
         mContext = context;
     }
 
-    public AutoMusicProvider(AutoMusicSource source){
+    public AutoMusicProvider(AutoMusicSource source) {
         mSource = source;
 
         mMusicListByPlaylist = new ConcurrentHashMap<>();
@@ -148,7 +134,7 @@ public class AutoMusicProvider {
     private synchronized void buildListsByAlbum() {
         ConcurrentMap<Uri, List<Song>> newMusicListByAlbum = new ConcurrentHashMap<>();
 
-        for(Album a: AlbumLoader.getAllAlbums(mContext)){
+        for (Album a : AlbumLoader.getAllAlbums(mContext)) {
             String albumName = a.getTitle();
             Uri.Builder albumData = Uri.parse(BASE_URI).buildUpon();
             albumData.appendPath(a.getTitle())
@@ -167,7 +153,7 @@ public class AutoMusicProvider {
     private synchronized void buildListsByPlaylist() {
         ConcurrentMap<Uri, List<PlaylistSong>> newMusicListByPlaylist = new ConcurrentHashMap<>();
 
-        for(Playlist p: PlaylistLoader.getAllPlaylists(mContext)){
+        for (Playlist p : PlaylistLoader.getAllPlaylists(mContext)) {
             String playlistName = p.name;
             Uri.Builder playlistData = Uri.parse(BASE_URI).buildUpon();
             playlistData.appendPath(p.name);
@@ -185,12 +171,12 @@ public class AutoMusicProvider {
     private synchronized void buildListsByTopTracks() {
         ConcurrentMap<Uri, Song> newMusicListByTopTracks = new ConcurrentHashMap<>();
 
-        for(Song s: TopAndRecentlyPlayedTracksLoader.getTopTracks(mContext)){
+        for (Song s : TopAndRecentlyPlayedTracksLoader.getTopTracks(mContext)) {
             String songName = s.title;
             Uri.Builder topTracksData = Uri.parse(BASE_URI).buildUpon();
             topTracksData.appendPath(songName)
-                        .appendPath(String.valueOf(s.id))
-                        .appendPath(s.artistName);
+                    .appendPath(String.valueOf(s.id))
+                    .appendPath(s.artistName);
             newMusicListByTopTracks.put(topTracksData.build(), s);
         }
 
@@ -223,7 +209,7 @@ public class AutoMusicProvider {
             return mediaItems;
         }
 
-        switch (mediaId){
+        switch (mediaId) {
             case (MEDIA_ID_ROOT):
                 mediaItems.add(createBrowsableMediaItemForRoot(MEDIA_ID_MUSICS_BY_PLAYLIST, resources));
                 mediaItems.add(createBrowsableMediaItemForRoot(MEDIA_ID_MUSICS_BY_ALBUM, resources));
@@ -257,7 +243,7 @@ public class AutoMusicProvider {
 
     private MediaBrowserCompat.MediaItem createBrowsableMediaItemForRoot(String mediaId, Resources resources) {
         MediaDescriptionCompat description;
-        switch (mediaId){
+        switch (mediaId) {
             case (MEDIA_ID_MUSICS_BY_PLAYLIST):
                 description = new MediaDescriptionCompat.Builder()
                         .setMediaId(mediaId)
@@ -302,8 +288,8 @@ public class AutoMusicProvider {
         MediaDescriptionCompat description;
         MediaDescriptionCompat.Builder builder = new MediaDescriptionCompat.Builder();
 
-        switch (mediaId){
-            case(MEDIA_ID_MUSICS_BY_PLAYLIST):
+        switch (mediaId) {
+            case (MEDIA_ID_MUSICS_BY_PLAYLIST):
                 builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_PLAYLIST, musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE)))
                         .setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE))
                         .setIconUri(Uri.parse("android.resource://" +
@@ -313,7 +299,7 @@ public class AutoMusicProvider {
                 return new MediaBrowserCompat.MediaItem(description,
                         MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);
 
-            case(MEDIA_ID_MUSICS_BY_ALBUM):
+            case (MEDIA_ID_MUSICS_BY_ALBUM):
                 String albumTitle = musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE);
                 String artist = musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST);
 
@@ -321,9 +307,9 @@ public class AutoMusicProvider {
                         .setTitle(albumTitle)
                         .setSubtitle(artist);
 
-                if(albumArt != null){
+                if (albumArt != null) {
                     builder.setIconBitmap(albumArt);
-                }else {
+                } else {
                     builder.setIconUri(Uri.parse("android.resource://" +
                             mContext.getPackageName() + "/drawable/" +
                             resources.getResourceEntryName(R.drawable.default_album_art)));
@@ -333,7 +319,7 @@ public class AutoMusicProvider {
                 return new MediaBrowserCompat.MediaItem(description,
                         MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);
 
-            case(MEDIA_ID_MUSICS_BY_TOP_TRACKS):
+            case (MEDIA_ID_MUSICS_BY_TOP_TRACKS):
                 builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_TOP_TRACKS, musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE)))
                         .setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE))
                         .setSubtitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST))
@@ -346,5 +332,13 @@ public class AutoMusicProvider {
         }
 
         return null;
+    }
+
+    enum State {
+        NON_INITIALIZED, INITIALIZING, INITIALIZED
+    }
+
+    public interface Callback {
+        void onMusicCatalogReady(boolean success);
     }
 }
