@@ -1148,6 +1148,16 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 ArrayList<Song> songs = new ArrayList<>();
                 songs.addAll(PlaylistSongLoader.getPlaylistSongList(getApplicationContext(), playlist.id));
                 openQueue(songs, 0, true);
+            } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY)) {
+                List<Song> historySongs = TopAndRecentlyPlayedTracksLoader.getRecentlyPlayedTracks(getApplicationContext());
+                ArrayList<Song> songs = new ArrayList<>();
+                songs.addAll(historySongs);
+                String songTitle = MediaIDHelper.getHierarchy(mediaId)[1];
+                int songIndex = MusicUtil.indexOfSongInList(historySongs, songTitle);
+                if (songIndex == -1) {
+                    songIndex = 0;
+                }
+                openQueue(songs, songIndex, true);
             } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS)) {
                 ArrayList<Song> songs = new ArrayList<>();
                 songs.addAll(TopAndRecentlyPlayedTracksLoader.getTopTracks(getApplicationContext()));

@@ -276,4 +276,13 @@ public class MusicUtil {
         if (musicMediaTitle.isEmpty()) return "";
         return String.valueOf(musicMediaTitle.charAt(0)).toUpperCase();
     }
+
+    public static int indexOfSongInList(List<Song> songs, String songTitle) {
+        for (int i = 0; i < songs.size(); i++) {
+            if (songs.get(i).title.equals(songTitle)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 }
