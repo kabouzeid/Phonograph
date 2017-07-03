@@ -11,8 +11,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.MediaBrowserServiceCompat;
 import android.support.v4.media.session.MediaSessionCompat;
-import android.support.v4.media.session.PlaybackStateCompat;
-import android.util.Log;
 
 import com.kabouzeid.gramophone.modelAndroidAuto.AutoMusicProvider;
 import com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper;
