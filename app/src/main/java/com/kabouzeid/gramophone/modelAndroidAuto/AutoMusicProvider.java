@@ -262,7 +262,6 @@ public class AutoMusicProvider {
                 description = new MediaDescriptionCompat.Builder()
                         .setMediaId(mediaId)
                         .setTitle(resources.getString(R.string.playlists_label))
-                        .setSubtitle(resources.getString(R.string.browse_by_playlist_description))
                         .setIconUri(Uri.parse("android.resource://" +
                                 mContext.getPackageName() + "/drawable/" +
                                 resources.getResourceEntryName(R.drawable.ic_playlist_play_black_24dp)))
@@ -275,7 +274,6 @@ public class AutoMusicProvider {
                 description = new MediaDescriptionCompat.Builder()
                         .setMediaId(mediaId)
                         .setTitle(resources.getString(R.string.albums_label))
-                        .setSubtitle(resources.getString(R.string.browse_by_albums_description))
                         .setIconUri(Uri.parse("android.resource://" +
                                 mContext.getPackageName() + "/drawable/" +
                                 resources.getResourceEntryName(R.drawable.default_album_art)))
@@ -288,7 +286,6 @@ public class AutoMusicProvider {
                 description = new MediaDescriptionCompat.Builder()
                         .setMediaId(mediaId)
                         .setTitle(resources.getString(R.string.top_tracks_label))
-                        .setSubtitle(resources.getString(R.string.browse_by_toptracks_description))
                         .setIconUri(Uri.parse("android.resource://" +
                                 mContext.getPackageName() + "/drawable/" +
                                 resources.getResourceEntryName(R.drawable.ic_trending_up_black_24dp)))

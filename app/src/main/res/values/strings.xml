@@ -290,6 +290,7 @@
     <string name="copied_device_info_to_clipboard">Copied device info to clipboard.</string>
     <string name="your_account_data_is_only_used_for_authentication">Your account data is only used for authentication.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">You will be forwarded to the issue tracker website.</string>
+
     <!-- App Shortcuts -->
     <string name="app_shortcut_shuffle_all_long">@string/action_shuffle_all</string>
     <string name="app_shortcut_shuffle_all_short">Shuffle</string>
@@ -301,12 +302,6 @@
 
     <!-- Android Auto -->
     <string name="playlists_label">Playlists</string>
-    <string name="browse_by_playlist_description">Browse by playlist</string>
     <string name="albums_label">Albums</string>
-    <string name="browse_by_albums_description">Browse by albums</string>
     <string name="top_tracks_label">Top Tracks</string>
-    <string name="browse_by_toptracks_description">Browse by top tracks</string>
-
-
-
 </resources>
