@@ -139,16 +139,11 @@ public class AutoMusicProvider {
         ConcurrentMap<Uri, List<Song>> newMusicListByAlbum = new ConcurrentHashMap<>();
 
         for (Album a : AlbumLoader.getAllAlbums(mContext)) {
-            String albumName = a.getTitle();
             Uri.Builder albumData = Uri.parse(BASE_URI).buildUpon();
             albumData.appendPath(a.getTitle())
                     .appendPath(String.valueOf(a.getId()))
                     .appendPath(a.getArtistName());
-            List<Song> list = newMusicListByAlbum.get(albumName);
-            if (list == null) {
-                list = new ArrayList<>(a.songs);
-                newMusicListByAlbum.put(albumData.build(), list);
-            }
+            newMusicListByAlbum.putIfAbsent(albumData.build(), a.songs);
         }
         mMusicListByAlbum = newMusicListByAlbum;
     }
@@ -157,14 +152,9 @@ public class AutoMusicProvider {
         ConcurrentMap<Uri, List<PlaylistSong>> newMusicListByPlaylist = new ConcurrentHashMap<>();
 
         for (Playlist p : PlaylistLoader.getAllPlaylists(mContext)) {
-            String playlistName = p.name;
             Uri.Builder playlistData = Uri.parse(BASE_URI).buildUpon();
             playlistData.appendPath(p.name);
-            List<PlaylistSong> list = newMusicListByPlaylist.get(playlistName);
-            if (list == null) {
-                list = new ArrayList<>(PlaylistSongLoader.getPlaylistSongList(mContext, p.id));
-                newMusicListByPlaylist.put(playlistData.build(), list);
-            }
+            newMusicListByPlaylist.putIfAbsent(playlistData.build(), PlaylistSongLoader.getPlaylistSongList(mContext, p.id));
         }
 
         mMusicListByPlaylist = newMusicListByPlaylist;
@@ -355,10 +345,15 @@ public class AutoMusicProvider {
             case MEDIA_ID_MUSICS_BY_TOP_TRACKS:
                 builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_TOP_TRACKS, musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE)))
                         .setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE))
-                        .setSubtitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST))
-                        .setIconUri(Uri.parse("android.resource://" +
-                                mContext.getPackageName() + "/drawable/" +
-                                resources.getResourceEntryName(R.drawable.ic_trending_up_black_24dp)));
+                        .setSubtitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST));
+
+                if (albumArt != null) {
+                    builder.setIconBitmap(albumArt);
+                } else {
+                    builder.setIconUri(Uri.parse("android.resource://" +
+                            mContext.getPackageName() + "/drawable/" +
+                            resources.getResourceEntryName(R.drawable.default_album_art)));
+                }
                 break;
         }
 
