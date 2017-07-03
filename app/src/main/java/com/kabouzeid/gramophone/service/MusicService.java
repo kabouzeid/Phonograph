@@ -33,6 +33,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.bumptech.glide.BitmapRequestBuilder;
@@ -97,7 +98,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final String APP_WIDGET_UPDATE = PHONOGRAPH_PACKAGE_NAME + ".appwidgetupdate";
     public static final String EXTRA_APP_WIDGET_NAME = PHONOGRAPH_PACKAGE_NAME + "app_widget_name";
 
-    // do not change these three strings as it will break support with other apps (e.g. last.fm scrobbling)
+    // Do not change these three strings as it will break support with other apps (e.g. last.fm scrobbling)
     public static final String META_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".metachanged";
     public static final String QUEUE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".queuechanged";
     public static final String PLAY_STATE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".playstatechanged";
@@ -105,6 +106,9 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final String REPEAT_MODE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".repeatmodechanged";
     public static final String SHUFFLE_MODE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".shufflemodechanged";
     public static final String MEDIA_STORE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".mediastorechanged";
+
+    public static final String CYCLE_REPEAT = PHONOGRAPH_PACKAGE_NAME + ".cyclerepeat";
+    public static final String TOGGLE_SHUFFLE = PHONOGRAPH_PACKAGE_NAME + ".toggleshuffle";
 
     public static final String SAVED_POSITION = "POSITION";
     public static final String SAVED_POSITION_IN_TRACK = "POSITION_IN_TRACK";
@@ -540,12 +544,31 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     }
 
     private void updateMediaSessionPlaybackState() {
-        mediaSession.setPlaybackState(
-                new PlaybackStateCompat.Builder()
-                        .setActions(MEDIA_SESSION_ACTIONS)
-                        .setState(isPlaying() ? PlaybackStateCompat.STATE_PLAYING : PlaybackStateCompat.STATE_PAUSED,
-                                getPosition(), 1)
-                        .build());
+        PlaybackStateCompat.Builder stateBuilder = new PlaybackStateCompat.Builder()
+                .setActions(MEDIA_SESSION_ACTIONS)
+                .setState(isPlaying() ? PlaybackStateCompat.STATE_PLAYING : PlaybackStateCompat.STATE_PAUSED,
+                        getSongProgressMillis(), 1);
+
+        setCustomAction(stateBuilder);
+
+        mediaSession.setPlaybackState(stateBuilder.build());
+    }
+
+    private void setCustomAction(PlaybackStateCompat.Builder stateBuilder) {
+        int repeatIcon = R.drawable.ic_repeat_white_24dp;  // REPEAT_MODE_NONE
+        if (getRepeatMode() == REPEAT_MODE_THIS) {
+            repeatIcon = R.drawable.ic_repeat_one_white_24dp;
+        } else if (getRepeatMode() == REPEAT_MODE_ALL) {
+            repeatIcon = R.drawable.ic_repeat_white_24dp;
+        }
+        stateBuilder.addCustomAction(new PlaybackStateCompat.CustomAction.Builder(
+                CYCLE_REPEAT, getString(R.string.action_cycle_repeat), repeatIcon)
+                .build());
+
+        int shuffleIcon = getShuffleMode() == SHUFFLE_MODE_NONE ? R.drawable.ic_shuffle_white_24dp : R.drawable.ic_shuffle_white_24dp;
+        stateBuilder.addCustomAction(new PlaybackStateCompat.CustomAction.Builder(
+                TOGGLE_SHUFFLE, getString(R.string.action_toggle_shuffle), shuffleIcon)
+                .build());
     }
 
     private void updateMediaSessionMetaData() {
@@ -1195,6 +1218,25 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         @Override
         public boolean onMediaButtonEvent(Intent mediaButtonEvent) {
             return MediaButtonIntentReceiver.handleIntent(MusicService.this, mediaButtonEvent);
+        }
+
+        @Override
+        public void onCustomAction(@NonNull String action, Bundle extras) {
+            switch (action) {
+                case CYCLE_REPEAT:
+                    cycleRepeatMode();
+                    updateMediaSessionPlaybackState();
+                    break;
+
+                case TOGGLE_SHUFFLE:
+                    toggleShuffle();
+                    updateMediaSessionPlaybackState();
+                    break;
+
+                default:
+                    Log.d(TAG, "Unsupported action: " + action);
+                    break;
+            }
         }
     }
 

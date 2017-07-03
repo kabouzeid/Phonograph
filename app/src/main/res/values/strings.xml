@@ -306,4 +306,6 @@
     <string name="playlists_label">Playlists</string>
     <string name="history_label">History</string>
     <string name="top_tracks_label">Top Tracks</string>
+    <string name="action_cycle_repeat">Cycle repeat mode</string>
+    <string name="action_toggle_shuffle">Toggle shuffle mode</string>
 </resources>
