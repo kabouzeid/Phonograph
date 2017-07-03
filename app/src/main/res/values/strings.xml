@@ -301,7 +301,8 @@
     <string name="playlist_is_empty">Playlist is empty</string>
 
     <!-- Android Auto -->
-    <string name="playlists_label">Playlists</string>
     <string name="albums_label">Albums</string>
+    <string name="playlists_label">Playlists</string>
+    <string name="history_label">History</string>
     <string name="top_tracks_label">Top Tracks</string>
 </resources>

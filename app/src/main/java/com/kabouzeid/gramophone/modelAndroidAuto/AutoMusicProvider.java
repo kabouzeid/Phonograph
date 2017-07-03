@@ -27,6 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM;
+import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY;
 import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST;
 import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS;
 import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_ROOT;
@@ -47,9 +48,10 @@ public class AutoMusicProvider {
     private final ConcurrentMap<String, MutableMediaMetadata> mMusicListById;
     private MusicProviderSource mSource;
 
-    //Categorized caches for music data
-    private ConcurrentMap<Uri, List<PlaylistSong>> mMusicListByPlaylist;
+    // Categorized caches for music data
     private ConcurrentMap<Uri, List<Song>> mMusicListByAlbum;
+    private ConcurrentMap<Uri, List<PlaylistSong>> mMusicListByPlaylist;
+    private ConcurrentMap<Uri, Song> mMusicListByHistory;
     private ConcurrentMap<Uri, Song> mMusicListByTopTracks;
 
     private Context mContext;
@@ -63,18 +65,14 @@ public class AutoMusicProvider {
     public AutoMusicProvider(AutoMusicSource source) {
         mSource = source;
 
-        mMusicListByPlaylist = new ConcurrentHashMap<>();
         mMusicListByAlbum = new ConcurrentHashMap<>();
+        mMusicListByPlaylist = new ConcurrentHashMap<>();
+        mMusicListByHistory = new ConcurrentHashMap<>();
         mMusicListByTopTracks = new ConcurrentHashMap<>();
 
         mMusicListById = new ConcurrentHashMap<>(); //helps build the others
     }
 
-    /**
-     * Get an iterator over the list of albums
-     *
-     * @return genres
-     */
     public Iterable<Uri> getAlbums() {
         if (mCurrentState != State.INITIALIZED) {
             return Collections.emptyList();
@@ -87,6 +85,13 @@ public class AutoMusicProvider {
             return Collections.emptyList();
         }
         return mMusicListByPlaylist.keySet();
+    }
+
+    public Iterable<Uri> getHistory() {
+        if (mCurrentState != State.INITIALIZED) {
+            return Collections.emptyList();
+        }
+        return mMusicListByHistory.keySet();
     }
 
     public Iterable<Uri> getTopTracks() {
@@ -105,7 +110,6 @@ public class AutoMusicProvider {
      * for future reference, keying tracks by musicId
      */
     public void retrieveMediaAsync(final Callback callback) {
-        Log.d(TAG, "retrieveMediaAsync called");
         if (mCurrentState == State.INITIALIZED) {
             if (callback != null) {
                 // Nothing to do, execute callback immediately
@@ -142,8 +146,7 @@ public class AutoMusicProvider {
                     .appendPath(a.getArtistName());
             List<Song> list = newMusicListByAlbum.get(albumName);
             if (list == null) {
-                list = new ArrayList<>();
-                list.addAll(a.songs);   //adds the songs in the playlist
+                list = new ArrayList<>(a.songs);
                 newMusicListByAlbum.put(albumData.build(), list);
             }
         }
@@ -159,13 +162,27 @@ public class AutoMusicProvider {
             playlistData.appendPath(p.name);
             List<PlaylistSong> list = newMusicListByPlaylist.get(playlistName);
             if (list == null) {
-                list = new ArrayList<>();
-                list.addAll(PlaylistSongLoader.getPlaylistSongList(mContext, p.id));   //adds the songs in the playlist
+                list = new ArrayList<>(PlaylistSongLoader.getPlaylistSongList(mContext, p.id));
                 newMusicListByPlaylist.put(playlistData.build(), list);
             }
         }
 
         mMusicListByPlaylist = newMusicListByPlaylist;
+    }
+
+    private synchronized void buildListsByHistory() {
+        ConcurrentMap<Uri, Song> newMusicListByHistory = new ConcurrentHashMap<>();
+
+        for (Song s : TopAndRecentlyPlayedTracksLoader.getRecentlyPlayedTracks(mContext)) {
+            String songName = s.title;
+            Uri.Builder topTracksData = Uri.parse(BASE_URI).buildUpon();
+            topTracksData.appendPath(songName)
+                    .appendPath(String.valueOf(s.id))
+                    .appendPath(s.artistName);
+            newMusicListByHistory.put(topTracksData.build(), s);
+        }
+
+        mMusicListByHistory = newMusicListByHistory;
     }
 
     private synchronized void buildListsByTopTracks() {
@@ -188,8 +205,9 @@ public class AutoMusicProvider {
             if (mCurrentState == State.NON_INITIALIZED) {
                 mCurrentState = State.INITIALIZING;
 
-                buildListsByPlaylist();
                 buildListsByAlbum();
+                buildListsByPlaylist();
+                buildListsByHistory();
                 buildListsByTopTracks();
                 mCurrentState = State.INITIALIZED;
             }
@@ -210,30 +228,37 @@ public class AutoMusicProvider {
         }
 
         switch (mediaId) {
-            case (MEDIA_ID_ROOT):
-                mediaItems.add(createBrowsableMediaItemForRoot(MEDIA_ID_MUSICS_BY_PLAYLIST, resources));
+            case MEDIA_ID_ROOT:
                 mediaItems.add(createBrowsableMediaItemForRoot(MEDIA_ID_MUSICS_BY_ALBUM, resources));
+                mediaItems.add(createBrowsableMediaItemForRoot(MEDIA_ID_MUSICS_BY_PLAYLIST, resources));
+                mediaItems.add(createBrowsableMediaItemForRoot(MEDIA_ID_MUSICS_BY_HISTORY, resources));
                 mediaItems.add(createBrowsableMediaItemForRoot(MEDIA_ID_MUSICS_BY_TOP_TRACKS, resources));
                 break;
 
-            case (MEDIA_ID_MUSICS_BY_ALBUM):
+            case MEDIA_ID_MUSICS_BY_ALBUM:
                 for (Uri album : getAlbums()) {
                     String albumId = album.getPathSegments().get(PATH_SEGMENT_ID);
-                    //Loading image takes too long, need to find better, faster way
+                    // TODO: Loading image takes too long, need to find better, faster way
                     //Bitmap bitmap = MusicUtil.getAlbumArtForAlbum(mContext, Integer.parseInt(albumId));
                     mediaItems.add(createBrowsableMediaItem(mediaId, album, null, resources));
                 }
                 break;
 
-            case (MEDIA_ID_MUSICS_BY_PLAYLIST):
+            case MEDIA_ID_MUSICS_BY_PLAYLIST:
                 for (Uri playlist : getPlaylists()) {
                     mediaItems.add(createBrowsableMediaItem(mediaId, playlist, null, resources));
                 }
                 break;
 
-            case (MEDIA_ID_MUSICS_BY_TOP_TRACKS):
-                for (Uri topTrack : getTopTracks()) {
-                    mediaItems.add(createBrowsableMediaItem(mediaId, topTrack, null, resources));
+            case MEDIA_ID_MUSICS_BY_HISTORY:
+                for (Uri song : getHistory()) {
+                    mediaItems.add(createBrowsableMediaItem(mediaId, song, null, resources));
+                }
+                break;
+
+            case MEDIA_ID_MUSICS_BY_TOP_TRACKS:
+                for (Uri song : getTopTracks()) {
+                    mediaItems.add(createBrowsableMediaItem(mediaId, song, null, resources));
                 }
                 break;
         }
@@ -243,44 +268,46 @@ public class AutoMusicProvider {
 
     private MediaBrowserCompat.MediaItem createBrowsableMediaItemForRoot(String mediaId, Resources resources) {
         MediaDescriptionCompat description;
+        MediaDescriptionCompat.Builder builder = new MediaDescriptionCompat.Builder();
+
         switch (mediaId) {
-            case (MEDIA_ID_MUSICS_BY_PLAYLIST):
-                description = new MediaDescriptionCompat.Builder()
-                        .setMediaId(mediaId)
-                        .setTitle(resources.getString(R.string.playlists_label))
-                        .setIconUri(Uri.parse("android.resource://" +
-                                mContext.getPackageName() + "/drawable/" +
-                                resources.getResourceEntryName(R.drawable.ic_playlist_play_black_24dp)))
-                        .build();
-
-                return new MediaBrowserCompat.MediaItem(description,
-                        MediaBrowserCompat.MediaItem.FLAG_BROWSABLE);
-
-            case (MEDIA_ID_MUSICS_BY_ALBUM):
-                description = new MediaDescriptionCompat.Builder()
-                        .setMediaId(mediaId)
+            case MEDIA_ID_MUSICS_BY_ALBUM:
+                builder.setMediaId(mediaId)
                         .setTitle(resources.getString(R.string.albums_label))
                         .setIconUri(Uri.parse("android.resource://" +
                                 mContext.getPackageName() + "/drawable/" +
-                                resources.getResourceEntryName(R.drawable.default_album_art)))
-                        .build();
+                                resources.getResourceEntryName(R.drawable.default_album_art)));
+                break;
 
-                return new MediaBrowserCompat.MediaItem(description,
-                        MediaBrowserCompat.MediaItem.FLAG_BROWSABLE);
 
-            case (MEDIA_ID_MUSICS_BY_TOP_TRACKS):
-                description = new MediaDescriptionCompat.Builder()
-                        .setMediaId(mediaId)
+            case MEDIA_ID_MUSICS_BY_PLAYLIST:
+                builder.setMediaId(mediaId)
+                        .setTitle(resources.getString(R.string.playlists_label))
+                        .setIconUri(Uri.parse("android.resource://" +
+                                mContext.getPackageName() + "/drawable/" +
+                                resources.getResourceEntryName(R.drawable.ic_playlist_play_black_24dp)));
+                break;
+
+            case MEDIA_ID_MUSICS_BY_HISTORY:
+                builder.setMediaId(mediaId)
+                        .setTitle(resources.getString(R.string.history_label))
+                        .setIconUri(Uri.parse("android.resource://" +
+                                mContext.getPackageName() + "/drawable/" +
+                                resources.getResourceEntryName(R.drawable.ic_access_time_black_24dp)));
+                break;
+
+            case MEDIA_ID_MUSICS_BY_TOP_TRACKS:
+                builder.setMediaId(mediaId)
                         .setTitle(resources.getString(R.string.top_tracks_label))
                         .setIconUri(Uri.parse("android.resource://" +
                                 mContext.getPackageName() + "/drawable/" +
-                                resources.getResourceEntryName(R.drawable.ic_trending_up_black_24dp)))
-                        .build();
-
-                return new MediaBrowserCompat.MediaItem(description,
-                        MediaBrowserCompat.MediaItem.FLAG_BROWSABLE);
+                                resources.getResourceEntryName(R.drawable.ic_trending_up_black_24dp)));
+                break;
         }
-        return null;
+
+        description = builder.build();
+        return new MediaBrowserCompat.MediaItem(description,
+                MediaBrowserCompat.MediaItem.FLAG_BROWSABLE);
     }
 
     private MediaBrowserCompat.MediaItem createBrowsableMediaItem(String mediaId, Uri musicSelection, @Nullable Bitmap albumArt,
@@ -289,23 +316,18 @@ public class AutoMusicProvider {
         MediaDescriptionCompat.Builder builder = new MediaDescriptionCompat.Builder();
 
         switch (mediaId) {
-            case (MEDIA_ID_MUSICS_BY_PLAYLIST):
+            case MEDIA_ID_MUSICS_BY_PLAYLIST:
                 builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_PLAYLIST, musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE)))
                         .setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE))
                         .setIconUri(Uri.parse("android.resource://" +
                                 mContext.getPackageName() + "/drawable/" +
                                 resources.getResourceEntryName(R.drawable.ic_playlist_play_black_24dp)));
-                description = builder.build();
-                return new MediaBrowserCompat.MediaItem(description,
-                        MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);
+                break;
 
-            case (MEDIA_ID_MUSICS_BY_ALBUM):
-                String albumTitle = musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE);
-                String artist = musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST);
-
+            case MEDIA_ID_MUSICS_BY_ALBUM:
                 builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_ALBUM, musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE)))
-                        .setTitle(albumTitle)
-                        .setSubtitle(artist);
+                        .setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE))
+                        .setSubtitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST));
 
                 if (albumArt != null) {
                     builder.setIconBitmap(albumArt);
@@ -314,24 +336,35 @@ public class AutoMusicProvider {
                             mContext.getPackageName() + "/drawable/" +
                             resources.getResourceEntryName(R.drawable.default_album_art)));
                 }
+                break;
 
-                description = builder.build();
-                return new MediaBrowserCompat.MediaItem(description,
-                        MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);
+            case MEDIA_ID_MUSICS_BY_HISTORY:
+                builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_HISTORY, musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE)))
+                        .setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE))
+                        .setSubtitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST));
 
-            case (MEDIA_ID_MUSICS_BY_TOP_TRACKS):
+                if (albumArt != null) {
+                    builder.setIconBitmap(albumArt);
+                } else {
+                    builder.setIconUri(Uri.parse("android.resource://" +
+                            mContext.getPackageName() + "/drawable/" +
+                            resources.getResourceEntryName(R.drawable.default_album_art)));
+                }
+                break;
+
+            case MEDIA_ID_MUSICS_BY_TOP_TRACKS:
                 builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_TOP_TRACKS, musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE)))
                         .setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE))
                         .setSubtitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST))
                         .setIconUri(Uri.parse("android.resource://" +
                                 mContext.getPackageName() + "/drawable/" +
                                 resources.getResourceEntryName(R.drawable.ic_trending_up_black_24dp)));
-                description = builder.build();
-                return new MediaBrowserCompat.MediaItem(description,
-                        MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);
+                break;
         }
 
-        return null;
+        description = builder.build();
+        return new MediaBrowserCompat.MediaItem(description,
+                MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);
     }
 
     enum State {
