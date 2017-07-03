@@ -262,7 +262,7 @@ public class AutoMusicProvider {
                         .setTitle(resources.getString(R.string.albums_label))
                         .setIconUri(Uri.parse("android.resource://" +
                                 mContext.getPackageName() + "/drawable/" +
-                                resources.getResourceEntryName(R.drawable.default_album_art)));
+                                resources.getResourceEntryName(R.drawable.ic_album_black_24dp)));
                 break;
 
 
