@@ -21,6 +21,7 @@ public class MediaIDHelper {
     public static final String MEDIA_ID_MUSICS_BY_SEARCH = "__BY_SEARCH__";
     public static final String MEDIA_ID_MUSICS_BY_PLAYLIST = "__BY_PLAYLIST__";
     public static final String MEDIA_ID_MUSICS_BY_ALBUM = "__BY_ALBUM__";
+    public static final String MEDIA_ID_MUSICS_BY_ARTIST = "__BY_ARTIST__";
     public static final String MEDIA_ID_MUSICS_BY_HISTORY = "__BY_HISTORY__";
     public static final String MEDIA_ID_MUSICS_BY_TOP_TRACKS = "__BY_TOP_TRACKS__";
 
@@ -29,10 +30,10 @@ public class MediaIDHelper {
 
     /**
      * Create a String value that represents a playable or a browsable media.
-     * <p>
+     *
      * Encode the media browseable categories, if any, and the unique music ID, if any,
      * into a single String mediaID.
-     * <p>
+     *
      * MediaIDs are of the form <categoryType>/<categoryValue>|<musicUniqueId>, to make it easy
      * to find the category (like genre) that a music was selected from, so we
      * can correctly build the playing queue. This is specially useful when
@@ -40,8 +41,8 @@ public class MediaIDHelper {
      * and "by artist -> artist_1".
      *
      * @param musicID    Unique music ID for playable items, or null for browseable items.
-     * @param categories hierarchy of categories representing this item's browsing parents
-     * @return a hierarchy-aware media ID
+     * @param categories Hierarchy of categories representing this item's browsing parents.
+     * @return A hierarchy-aware media ID.
      */
     public static String createMediaID(String musicID, String... categories) {
         StringBuilder sb = new StringBuilder();

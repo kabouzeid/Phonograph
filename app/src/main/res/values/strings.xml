@@ -302,6 +302,7 @@
 
     <!-- Android Auto -->
     <string name="albums_label">Albums</string>
+    <string name="artists_label">Artists</string>
     <string name="playlists_label">Playlists</string>
     <string name="history_label">History</string>
     <string name="top_tracks_label">Top Tracks</string>
