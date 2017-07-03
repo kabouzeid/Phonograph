@@ -50,12 +50,14 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.helper.StopWatch;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
+import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.loader.TopAndRecentlyPlayedTracksLoader;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.model.AbsCustomPlaylist;
+import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.HistoryStore;
@@ -1137,6 +1139,11 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 Album album = AlbumLoader.getAlbum(getApplicationContext(), albumName);
                 ArrayList<Song> songs = new ArrayList<>();
                 songs.addAll(album.songs);
+                openQueue(songs, 0, true);
+            } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST)) {
+                Artist artist = ArtistLoader.getArtist(getApplicationContext(), MediaIDHelper.getHierarchy(mediaId)[1]);
+                ArrayList<Song> songs = new ArrayList<>();
+                songs.addAll(artist.getSongs());
                 openQueue(songs, 0, true);
             } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST)) {
                 String playlistName = MediaIDHelper.getHierarchy(mediaId)[1];
