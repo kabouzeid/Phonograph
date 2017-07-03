@@ -26,9 +26,6 @@ import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
-import static com.kabouzeid.gramophone.service.MusicService.ACTION_REWIND;
-import static com.kabouzeid.gramophone.service.MusicService.ACTION_SKIP;
-import static com.kabouzeid.gramophone.service.MusicService.ACTION_TOGGLE_PAUSE;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -100,13 +97,13 @@ public class PlayingNotificationImpl24 implements PlayingNotification {
                                     bitmap = BitmapFactory.decodeResource(service.getResources(), R.drawable.default_album_art);
                                 NotificationCompat.Action playPauseAction = new NotificationCompat.Action(playButtonResId,
                                         service.getString(R.string.action_play_pause),
-                                        retrievePlaybackAction(ACTION_TOGGLE_PAUSE));
+                                        retrievePlaybackAction(MusicService.ACTION_TOGGLE_PAUSE));
                                 NotificationCompat.Action previousAction = new NotificationCompat.Action(R.drawable.ic_skip_previous_white_24dp,
                                         service.getString(R.string.action_previous),
-                                        retrievePlaybackAction(ACTION_REWIND));
+                                        retrievePlaybackAction(MusicService.ACTION_REWIND));
                                 NotificationCompat.Action nextAction = new NotificationCompat.Action(R.drawable.ic_skip_next_white_24dp,
                                         service.getString(R.string.action_next),
-                                        retrievePlaybackAction(ACTION_SKIP));
+                                        retrievePlaybackAction(MusicService.ACTION_SKIP));
                                 NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(service)
                                         .setSmallIcon(R.drawable.ic_notification)
                                         .setLargeIcon(bitmap)

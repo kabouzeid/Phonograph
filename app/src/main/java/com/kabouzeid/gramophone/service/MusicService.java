@@ -75,10 +75,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM;
-import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST;
-import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS;
-
 /**
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal
  */
@@ -1136,21 +1132,19 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         public void onPlayFromMediaId(String mediaId, Bundle extras) {
             super.onPlayFromMediaId(mediaId, extras);
 
-            if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_ALBUM)) {
+            if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM)) {
                 String albumName = MediaIDHelper.getHierarchy(mediaId)[1];
                 Album album = AlbumLoader.getAlbum(getApplicationContext(), albumName);
                 ArrayList<Song> songs = new ArrayList<>();
                 songs.addAll(album.songs);
                 openQueue(songs, 0, true);
-
-            }else if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_PLAYLIST)) {
+            } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST)) {
                 String playlistName = MediaIDHelper.getHierarchy(mediaId)[1];
                 Playlist playlist = PlaylistLoader.getPlaylist(getApplicationContext(), playlistName);
                 ArrayList<Song> songs = new ArrayList<>();
                 songs.addAll(PlaylistSongLoader.getPlaylistSongList(getApplicationContext(), playlist.id));
                 openQueue(songs, 0, true);
-
-            }else if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_TOP_TRACKS)) {
+            } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS)) {
                 ArrayList<Song> songs = new ArrayList<>();
                 songs.addAll(TopAndRecentlyPlayedTracksLoader.getTopTracks(getApplicationContext()));
                 openQueue(songs, 0, true);

@@ -15,13 +15,11 @@ import android.support.v4.media.session.PlaybackStateCompat;
 import android.util.Log;
 
 import com.kabouzeid.gramophone.modelAndroidAuto.AutoMusicProvider;
+import com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper;
 import com.kabouzeid.gramophone.util.PackageValidator;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_EMPTY_ROOT;
-import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_ROOT;
 
 public class AutoMusicBrowserService extends MediaBrowserServiceCompat implements ServiceConnection {
 
@@ -60,17 +58,17 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat implement
             // If you return null, then the media browser will not be able to connect and
             // no further calls will be made to other media browsing methods.
 
-            return new MediaBrowserServiceCompat.BrowserRoot(MEDIA_ID_EMPTY_ROOT, null);
+            return new MediaBrowserServiceCompat.BrowserRoot(MediaIDHelper.MEDIA_ID_EMPTY_ROOT, null);
         }
 
-        return new BrowserRoot(MEDIA_ID_ROOT, null);
+        return new BrowserRoot(MediaIDHelper.MEDIA_ID_ROOT, null);
     }
 
     @Override
     public void onLoadChildren(@NonNull final String parentId, @NonNull final Result<List<MediaBrowserCompat.MediaItem>> result) {
-        if (MEDIA_ID_EMPTY_ROOT.equals(parentId)) {
+        if (MediaIDHelper.MEDIA_ID_EMPTY_ROOT.equals(parentId)) {
             result.sendResult(new ArrayList<MediaBrowserCompat.MediaItem>());
-        }else if (mMusicProvider.isInitialized()) {
+        } else if (mMusicProvider.isInitialized()) {
             // if music library is ready, return immediately
             result.sendResult(mMusicProvider.getChildren(parentId, getResources()));
         } else {
