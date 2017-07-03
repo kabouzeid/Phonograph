@@ -49,7 +49,7 @@ public class Util {
         return size;
     }
 
-    @TargetApi(19)
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     public static void setStatusBarTranslucent(@NonNull Window window) {
         window.setFlags(
                 WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
@@ -135,12 +135,4 @@ public class Util {
         }
     }
 
-    public static int getStatusBarHeight(final Context context) {
-        int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
 }

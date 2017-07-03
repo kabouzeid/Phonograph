@@ -20,6 +20,7 @@
         android:layout_gravity="fill_horizontal"
         android:focusable="true"
         android:gravity="center_horizontal"
+        android:layoutDirection="ltr"
         android:orientation="horizontal">
 
         <ImageButton
@@ -105,6 +106,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/ate_secondary_text_dark"
             tools:text="Text" />
+
     </LinearLayout>
 
 </GridLayout>
