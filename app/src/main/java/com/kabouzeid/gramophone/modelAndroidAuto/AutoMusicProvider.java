@@ -39,13 +39,12 @@ import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.createMedi
  */
 public class AutoMusicProvider {
 
+    private static String TAG = AutoMusicProvider.class.getName();
     private static final String BASE_URI = "androidauto://phonograph";
     private static final int PATH_SEGMENT_TITLE = 0;
     private static final int PATH_SEGMENT_ID = 1;
     private static final int PATH_SEGMENT_ARTIST = 2;
-    private static String TAG = AutoMusicProvider.class.getName();
 
-    private final ConcurrentMap<String, MutableMediaMetadata> mMusicListById;
     private MusicProviderSource mSource;
 
     // Categorized caches for music data
@@ -69,8 +68,6 @@ public class AutoMusicProvider {
         mMusicListByPlaylist = new ConcurrentHashMap<>();
         mMusicListByHistory = new ConcurrentHashMap<>();
         mMusicListByTopTracks = new ConcurrentHashMap<>();
-
-        mMusicListById = new ConcurrentHashMap<>(); //helps build the others
     }
 
     public Iterable<Uri> getAlbums() {
@@ -257,7 +254,6 @@ public class AutoMusicProvider {
     }
 
     private MediaBrowserCompat.MediaItem createBrowsableMediaItemForRoot(String mediaId, Resources resources) {
-        MediaDescriptionCompat description;
         MediaDescriptionCompat.Builder builder = new MediaDescriptionCompat.Builder();
 
         switch (mediaId) {
@@ -295,14 +291,12 @@ public class AutoMusicProvider {
                 break;
         }
 
-        description = builder.build();
-        return new MediaBrowserCompat.MediaItem(description,
+        return new MediaBrowserCompat.MediaItem(builder.build(),
                 MediaBrowserCompat.MediaItem.FLAG_BROWSABLE);
     }
 
     private MediaBrowserCompat.MediaItem createBrowsableMediaItem(String mediaId, Uri musicSelection, @Nullable Bitmap albumArt,
                                                                   Resources resources) {
-        MediaDescriptionCompat description;
         MediaDescriptionCompat.Builder builder = new MediaDescriptionCompat.Builder();
 
         switch (mediaId) {
@@ -315,35 +309,9 @@ public class AutoMusicProvider {
                 break;
 
             case MEDIA_ID_MUSICS_BY_ALBUM:
-                builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_ALBUM, musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE)))
-                        .setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE))
-                        .setSubtitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST));
-
-                if (albumArt != null) {
-                    builder.setIconBitmap(albumArt);
-                } else {
-                    builder.setIconUri(Uri.parse("android.resource://" +
-                            mContext.getPackageName() + "/drawable/" +
-                            resources.getResourceEntryName(R.drawable.default_album_art)));
-                }
-                break;
-
             case MEDIA_ID_MUSICS_BY_HISTORY:
-                builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_HISTORY, musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE)))
-                        .setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE))
-                        .setSubtitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST));
-
-                if (albumArt != null) {
-                    builder.setIconBitmap(albumArt);
-                } else {
-                    builder.setIconUri(Uri.parse("android.resource://" +
-                            mContext.getPackageName() + "/drawable/" +
-                            resources.getResourceEntryName(R.drawable.default_album_art)));
-                }
-                break;
-
             case MEDIA_ID_MUSICS_BY_TOP_TRACKS:
-                builder.setMediaId(createMediaID(null, MEDIA_ID_MUSICS_BY_TOP_TRACKS, musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE)))
+                builder.setMediaId(createMediaID(null, mediaId, musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE)))
                         .setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE))
                         .setSubtitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST));
 
@@ -357,8 +325,7 @@ public class AutoMusicProvider {
                 break;
         }
 
-        description = builder.build();
-        return new MediaBrowserCompat.MediaItem(description,
+        return new MediaBrowserCompat.MediaItem(builder.build(),
                 MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);
     }
 
