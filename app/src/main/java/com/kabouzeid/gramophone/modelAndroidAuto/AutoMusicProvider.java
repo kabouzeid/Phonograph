@@ -25,6 +25,7 @@ import com.kabouzeid.gramophone.model.Song;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -79,21 +80,21 @@ public class AutoMusicProvider {
         if (mCurrentState != State.INITIALIZED) {
             return Collections.emptyList();
         }
-        return mMusicListByAlbum.keySet();
+        return new TreeSet<>(mMusicListByAlbum.keySet());
     }
 
     public Iterable<Uri> getArtists() {
         if (mCurrentState != State.INITIALIZED) {
             return Collections.emptyList();
         }
-        return mMusicListByArtist.keySet();
+        return new TreeSet<>(mMusicListByArtist.keySet());
     }
 
     public Iterable<Uri> getPlaylists() {
         if (mCurrentState != State.INITIALIZED) {
             return Collections.emptyList();
         }
-        return mMusicListByPlaylist.keySet();
+        return new TreeSet<>(mMusicListByPlaylist.keySet());
     }
 
     public Iterable<Uri> getHistory() {
@@ -162,7 +163,7 @@ public class AutoMusicProvider {
 
         for (Artist a : ArtistLoader.getAllArtists(mContext)) {
             Uri.Builder artistData = Uri.parse(BASE_URI).buildUpon();
-            artistData.appendPath(null)
+            artistData.appendPath(a.getName())
                     .appendPath(String.valueOf(a.getId()))
                     .appendPath(a.getName());
             newMusicListByArtist.putIfAbsent(artistData.build(), a.getSongs());
