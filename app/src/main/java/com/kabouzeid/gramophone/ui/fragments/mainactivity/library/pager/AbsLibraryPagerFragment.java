@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 
 import com.kabouzeid.gramophone.ui.fragments.AbsMusicServiceFragment;
+import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.LibraryFragment;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)

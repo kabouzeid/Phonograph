@@ -45,6 +45,7 @@ import com.kabouzeid.gramophone.misc.DialogAsyncTask;
 import com.kabouzeid.gramophone.misc.UpdateToastMediaScannerCompletionListener;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.AbsMainActivityFragment;
 import com.kabouzeid.gramophone.util.FileUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
