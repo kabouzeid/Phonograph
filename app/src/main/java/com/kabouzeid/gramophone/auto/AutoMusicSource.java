@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.modelAndroidAuto;
+package com.kabouzeid.gramophone.auto;
 
 import android.content.ContentResolver;
 import android.content.Context;

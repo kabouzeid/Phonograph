@@ -12,8 +12,8 @@ import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.MediaBrowserServiceCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 
-import com.kabouzeid.gramophone.modelAndroidAuto.AutoMusicProvider;
-import com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper;
+import com.kabouzeid.gramophone.auto.AutoMusicProvider;
+import com.kabouzeid.gramophone.auto.MediaIDHelper;
 import com.kabouzeid.gramophone.util.PackageValidator;
 
 import java.util.ArrayList;

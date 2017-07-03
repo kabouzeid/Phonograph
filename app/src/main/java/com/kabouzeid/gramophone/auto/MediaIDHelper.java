@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.modelAndroidAuto;
+package com.kabouzeid.gramophone.auto;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -24,6 +24,7 @@ public class MediaIDHelper {
     public static final String MEDIA_ID_MUSICS_BY_ARTIST = "__BY_ARTIST__";
     public static final String MEDIA_ID_MUSICS_BY_HISTORY = "__BY_HISTORY__";
     public static final String MEDIA_ID_MUSICS_BY_TOP_TRACKS = "__BY_TOP_TRACKS__";
+    public static final String MEDIA_ID_MUSICS_BY_QUEUE = "__BY_QUEUE__";
 
     private static final char CATEGORY_SEPARATOR = '/';
     private static final char LEAF_SEPARATOR = '|';

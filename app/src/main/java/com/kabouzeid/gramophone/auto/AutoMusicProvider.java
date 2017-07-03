@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.modelAndroidAuto;
+package com.kabouzeid.gramophone.auto;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -99,6 +99,26 @@ public class AutoMusicProvider {
             return Collections.emptyList();
         }
         return mMusicListByTopTracks.keySet();
+    }
+
+    public Iterable<Uri> getQueue() {
+        if (mCurrentState != State.INITIALIZED) {
+            return Collections.emptyList();
+        }
+
+//        ConcurrentMap<Uri, Song> queueList = new ConcurrentHashMap<>();
+//
+//        for (Song s : MusicPlaybackQueueStore.getSavedPlayingQueue()) {
+//            Uri.Builder topTracksData = Uri.parse(BASE_URI).buildUpon();
+//            topTracksData.appendPath(s.title)
+//                    .appendPath(String.valueOf(s.id))
+//                    .appendPath(s.artistName);
+//            queueList.putIfAbsent(topTracksData.build(), s);
+//        }
+//
+//        return queueList.keySet();
+
+        return Collections.emptyList();
     }
 
     public boolean isInitialized() {
@@ -236,6 +256,7 @@ public class AutoMusicProvider {
                 mediaItems.add(createBrowsableMediaItemForRoot(MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST, resources));
                 mediaItems.add(createBrowsableMediaItemForRoot(MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY, resources));
                 mediaItems.add(createBrowsableMediaItemForRoot(MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS, resources));
+                mediaItems.add(createBrowsableMediaItemForRoot(MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE, resources));
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM:
@@ -267,6 +288,12 @@ public class AutoMusicProvider {
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS:
                 for (Uri song : getTopTracks()) {
+                    mediaItems.add(createBrowsableMediaItem(mediaId, song, null, resources));
+                }
+                break;
+
+            case MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE:
+                for (Uri song : getQueue()) {
                     mediaItems.add(createBrowsableMediaItem(mediaId, song, null, resources));
                 }
                 break;
@@ -318,6 +345,14 @@ public class AutoMusicProvider {
                                 mContext.getPackageName() + "/drawable/" +
                                 resources.getResourceEntryName(R.drawable.ic_trending_up_black_24dp)));
                 break;
+
+            case MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE:
+                builder.setMediaId(mediaId)
+                        .setTitle(resources.getString(R.string.queue_label))
+                        .setIconUri(Uri.parse("android.resource://" +
+                                mContext.getPackageName() + "/drawable/" +
+                                resources.getResourceEntryName(R.drawable.ic_queue_music_black_24dp)));
+                break;
         }
 
         return new MediaBrowserCompat.MediaItem(builder.build(),
@@ -348,6 +383,7 @@ public class AutoMusicProvider {
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM:
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY:
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS:
+            case MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE:
                 builder.setMediaId(MediaIDHelper.createMediaID(null, mediaId, musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE)))
                         .setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE))
                         .setSubtitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST));
