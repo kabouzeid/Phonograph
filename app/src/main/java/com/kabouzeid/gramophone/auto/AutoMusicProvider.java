@@ -20,7 +20,10 @@ import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
+import com.kabouzeid.gramophone.service.MusicService;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,6 +43,7 @@ public class AutoMusicProvider {
     private static final int PATH_SEGMENT_ARTIST = 2;
 
     private MusicProviderSource mSource;
+    private WeakReference<MusicService> mMusicService;
 
     // Categorized caches for music data
     private ConcurrentMap<Uri, List<Song>> mMusicListByAlbum;
@@ -64,6 +68,10 @@ public class AutoMusicProvider {
         mMusicListByPlaylist = new ConcurrentHashMap<>();
         mMusicListByHistory = new ConcurrentHashMap<>();
         mMusicListByTopTracks = new ConcurrentHashMap<>();
+    }
+
+    public void setMusicService(MusicService service) {
+        mMusicService = new WeakReference<>(service);
     }
 
     public Iterable<Uri> getAlbums() {
@@ -106,19 +114,20 @@ public class AutoMusicProvider {
             return Collections.emptyList();
         }
 
-//        ConcurrentMap<Uri, Song> queueList = new ConcurrentHashMap<>();
-//
-//        for (Song s : MusicPlaybackQueueStore.getSavedPlayingQueue()) {
-//            Uri.Builder topTracksData = Uri.parse(BASE_URI).buildUpon();
-//            topTracksData.appendPath(s.title)
-//                    .appendPath(String.valueOf(s.id))
-//                    .appendPath(s.artistName);
-//            queueList.putIfAbsent(topTracksData.build(), s);
-//        }
-//
-//        return queueList.keySet();
+        ConcurrentMap<Uri, Song> queueList = new ConcurrentHashMap<>();
 
-        return Collections.emptyList();
+        final MusicService service = mMusicService.get();
+        if (service != null) {
+            for (Song s : MusicPlaybackQueueStore.getInstance(service).getSavedOriginalPlayingQueue()){
+                Uri.Builder topTracksData = Uri.parse(BASE_URI).buildUpon();
+                topTracksData.appendPath(s.title)
+                        .appendPath(String.valueOf(s.id))
+                        .appendPath(s.artistName);
+                queueList.putIfAbsent(topTracksData.build(), s);
+            }
+        }
+
+        return queueList.keySet();
     }
 
     public boolean isInitialized() {
@@ -165,6 +174,7 @@ public class AutoMusicProvider {
                     .appendPath(a.getArtistName());
             newMusicListByAlbum.putIfAbsent(albumData.build(), a.songs);
         }
+
         mMusicListByAlbum = newMusicListByAlbum;
     }
 
@@ -178,6 +188,7 @@ public class AutoMusicProvider {
                     .appendPath(a.getName());
             newMusicListByArtist.putIfAbsent(artistData.build(), a.getSongs());
         }
+
         mMusicListByArtist = newMusicListByArtist;
     }
 
@@ -196,6 +207,7 @@ public class AutoMusicProvider {
     private synchronized void buildListsByHistory() {
         ConcurrentMap<Uri, Song> newMusicListByHistory = new ConcurrentHashMap<>();
 
+        // TODO: retain proper order
         for (Song s : TopAndRecentlyPlayedTracksLoader.getRecentlyPlayedTracks(mContext)) {
             Uri.Builder topTracksData = Uri.parse(BASE_URI).buildUpon();
             topTracksData.appendPath(s.title)
@@ -210,6 +222,7 @@ public class AutoMusicProvider {
     private synchronized void buildListsByTopTracks() {
         ConcurrentMap<Uri, Song> newMusicListByTopTracks = new ConcurrentHashMap<>();
 
+        // TODO: retain proper order
         for (Song s : TopAndRecentlyPlayedTracksLoader.getTopTracks(mContext)) {
             Uri.Builder topTracksData = Uri.parse(BASE_URI).buildUpon();
             topTracksData.appendPath(s.title)
@@ -293,6 +306,7 @@ public class AutoMusicProvider {
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE:
+                // TODO: auto scroll to current track, indicate that it's playing
                 for (Uri song : getQueue()) {
                     mediaItems.add(createBrowsableMediaItem(mediaId, song, null, resources));
                 }

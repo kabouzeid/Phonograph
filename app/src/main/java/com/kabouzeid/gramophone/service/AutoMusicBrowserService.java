@@ -26,8 +26,7 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat implement
     private AutoMusicProvider mMusicProvider;
     private PackageValidator mPackageValidator;
     private MediaSessionCompat mMediaSession;
-
-    private boolean mBound;
+    private MusicService mMusicService;
 
     public AutoMusicBrowserService() {
     }
@@ -42,6 +41,12 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat implement
         bindService(intent, this, Context.BIND_AUTO_CREATE);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbindService(this);
+    }
+
     private void createMediaSession(){
         setSessionToken(mMediaSession.getSessionToken());
     }
@@ -49,13 +54,9 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat implement
     @Nullable
     @Override
     public BrowserRoot onGetRoot(@NonNull String clientPackageName, int clientUid, @Nullable Bundle rootHints) {
-        // To ensure you are not allowing any arbitrary app to browse your app's contents, you
-        // need to check the origin:
+        // Check origin to ensure we're not allowing any arbitrary app to browse app contents
         if (!mPackageValidator.isCallerAllowed(this, clientPackageName, clientUid)) {
-            // If the request comes from an untrusted package, return an empty browser root.
-            // If you return null, then the media browser will not be able to connect and
-            // no further calls will be made to other media browsing methods.
-
+            // Request from an untrusted package: return an empty browser root
             return new MediaBrowserServiceCompat.BrowserRoot(MediaIDHelper.MEDIA_ID_EMPTY_ROOT, null);
         }
 
@@ -67,10 +68,8 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat implement
         if (MediaIDHelper.MEDIA_ID_EMPTY_ROOT.equals(parentId)) {
             result.sendResult(new ArrayList<MediaBrowserCompat.MediaItem>());
         } else if (mMusicProvider.isInitialized()) {
-            // if music library is ready, return immediately
             result.sendResult(mMusicProvider.getChildren(parentId, getResources()));
         } else {
-            // otherwise, only return results when the music library is retrieved
             result.detach();
             mMusicProvider.retrieveMediaAsync(new AutoMusicProvider.Callback() {
                 @Override
@@ -84,20 +83,14 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat implement
     @Override
     public void onServiceConnected(ComponentName componentName, IBinder service) {
         MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
-        MusicService musicService = binder.getService();
-        mMediaSession = musicService.getMediaSession();
+        mMusicService = binder.getService();
+        mMediaSession = mMusicService.getMediaSession();
         createMediaSession();
-        mBound = true;
+        mMusicProvider.setMusicService(mMusicService);
     }
 
     @Override
     public void onServiceDisconnected(ComponentName componentName) {
-        mBound = false;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        unbindService(this);
+        mMusicService = null;
     }
 }
