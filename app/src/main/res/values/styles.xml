@@ -57,4 +57,12 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
+    <style name="CarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- App bg, drawer right side, notification icon badge, overview "now playing" icon -->
+        <item name="colorPrimaryDark">#ff3d4db7</item>
+
+        <!-- Spinner, progress bar, FAB -->
+        <item name="colorAccent">#fffe3b7e</item>
+    </style>
+
 </resources>
