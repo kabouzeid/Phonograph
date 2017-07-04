@@ -1,6 +1,8 @@
 package com.kabouzeid.gramophone.util;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.Nullable;
 import android.support.v7.graphics.Palette;
@@ -19,6 +21,15 @@ public class PhonographColorUtil {
     public static Palette generatePalette(Bitmap bitmap) {
         if (bitmap == null) return null;
         return Palette.from(bitmap).generate();
+    }
+
+    @ColorInt
+    public static final int getColorById(Context context, int id) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return context.getColor(id);
+        } else {
+            return context.getResources().getColor(id);
+        }
     }
 
     @ColorInt

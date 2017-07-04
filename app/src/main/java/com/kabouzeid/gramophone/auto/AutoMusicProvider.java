@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.MediaDescriptionCompat;
@@ -22,6 +23,8 @@ import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
 import com.kabouzeid.gramophone.service.MusicService;
+import com.kabouzeid.gramophone.util.PhonographColorUtil;
+import com.kabouzeid.gramophone.util.Util;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -323,49 +326,37 @@ public class AutoMusicProvider {
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM:
                 builder.setMediaId(mediaId)
                         .setTitle(resources.getString(R.string.albums_label))
-                        .setIconUri(Uri.parse("android.resource://" +
-                                mContext.getPackageName() + "/drawable/" +
-                                resources.getResourceEntryName(R.drawable.ic_album_black_24dp)));
+                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_album_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST:
                 builder.setMediaId(mediaId)
                         .setTitle(resources.getString(R.string.artists_label))
-                        .setIconUri(Uri.parse("android.resource://" +
-                                mContext.getPackageName() + "/drawable/" +
-                                resources.getResourceEntryName(R.drawable.ic_people_black_24dp)));
+                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_people_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST:
                 builder.setMediaId(mediaId)
                         .setTitle(resources.getString(R.string.playlists_label))
-                        .setIconUri(Uri.parse("android.resource://" +
-                                mContext.getPackageName() + "/drawable/" +
-                                resources.getResourceEntryName(R.drawable.ic_playlist_play_black_24dp)));
+                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_queue_music_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY:
                 builder.setMediaId(mediaId)
                         .setTitle(resources.getString(R.string.history_label))
-                        .setIconUri(Uri.parse("android.resource://" +
-                                mContext.getPackageName() + "/drawable/" +
-                                resources.getResourceEntryName(R.drawable.ic_access_time_black_24dp)));
+                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_access_time_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS:
                 builder.setMediaId(mediaId)
                         .setTitle(resources.getString(R.string.top_tracks_label))
-                        .setIconUri(Uri.parse("android.resource://" +
-                                mContext.getPackageName() + "/drawable/" +
-                                resources.getResourceEntryName(R.drawable.ic_trending_up_black_24dp)));
+                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_trending_up_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE:
                 builder.setMediaId(mediaId)
                         .setTitle(resources.getString(R.string.queue_label))
-                        .setIconUri(Uri.parse("android.resource://" +
-                                mContext.getPackageName() + "/drawable/" +
-                                resources.getResourceEntryName(R.drawable.ic_queue_music_black_24dp)));
+                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_playlist_play_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
                 break;
         }
 
@@ -381,9 +372,7 @@ public class AutoMusicProvider {
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST:
                 builder.setMediaId(MediaIDHelper.createMediaID(null, mediaId, musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE)))
                         .setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE))
-                        .setIconUri(Uri.parse("android.resource://" +
-                                mContext.getPackageName() + "/drawable/" +
-                                resources.getResourceEntryName(R.drawable.ic_playlist_play_black_24dp)));
+                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_queue_music_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST:
@@ -391,7 +380,7 @@ public class AutoMusicProvider {
                         .setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST))
                         .setIconUri(Uri.parse("android.resource://" +
                                 mContext.getPackageName() + "/drawable/" +
-                                resources.getResourceEntryName(R.drawable.ic_people_black_24dp)));
+                                resources.getResourceEntryName(R.drawable.default_artist_image)));
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM:

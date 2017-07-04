@@ -566,12 +566,12 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 CYCLE_REPEAT, getString(R.string.action_cycle_repeat), repeatIcon)
                 .build());
 
-        int shuffleIcon = getShuffleMode() == SHUFFLE_MODE_NONE ? R.drawable.ic_shuffle_white_24dp : R.drawable.ic_shuffle_white_24dp;
+        final int shuffleIcon = getShuffleMode() == SHUFFLE_MODE_NONE ? R.drawable.ic_shuffle_white_24dp : R.drawable.ic_shuffle_white_24dp;
         stateBuilder.addCustomAction(new PlaybackStateCompat.CustomAction.Builder(
                 TOGGLE_SHUFFLE, getString(R.string.action_toggle_shuffle), shuffleIcon)
                 .build());
 
-        int favoriteIcon = MusicUtil.isFavorite(getApplicationContext(), getCurrentSong()) ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_border_white_24dp;
+        final int favoriteIcon = MusicUtil.isFavorite(getApplicationContext(), getCurrentSong()) ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_border_white_24dp;
         stateBuilder.addCustomAction(new PlaybackStateCompat.CustomAction.Builder(
                 TOGGLE_FAVORITE, getString(R.string.action_toggle_favorite), favoriteIcon)
                 .build());
