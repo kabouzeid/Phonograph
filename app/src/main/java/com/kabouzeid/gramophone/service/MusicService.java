@@ -109,6 +109,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     public static final String CYCLE_REPEAT = PHONOGRAPH_PACKAGE_NAME + ".cyclerepeat";
     public static final String TOGGLE_SHUFFLE = PHONOGRAPH_PACKAGE_NAME + ".toggleshuffle";
+    public static final String TOGGLE_FAVORITE = PHONOGRAPH_PACKAGE_NAME + ".togglefavorite";
 
     public static final String SAVED_POSITION = "POSITION";
     public static final String SAVED_POSITION_IN_TRACK = "POSITION_IN_TRACK";
@@ -568,6 +569,11 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         int shuffleIcon = getShuffleMode() == SHUFFLE_MODE_NONE ? R.drawable.ic_shuffle_white_24dp : R.drawable.ic_shuffle_white_24dp;
         stateBuilder.addCustomAction(new PlaybackStateCompat.CustomAction.Builder(
                 TOGGLE_SHUFFLE, getString(R.string.action_toggle_shuffle), shuffleIcon)
+                .build());
+
+        int favoriteIcon = MusicUtil.isFavorite(getApplicationContext(), getCurrentSong()) ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_border_white_24dp;
+        stateBuilder.addCustomAction(new PlaybackStateCompat.CustomAction.Builder(
+                TOGGLE_FAVORITE, getString(R.string.action_toggle_favorite), favoriteIcon)
                 .build());
     }
 
@@ -1230,6 +1236,11 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
                 case TOGGLE_SHUFFLE:
                     toggleShuffle();
+                    updateMediaSessionPlaybackState();
+                    break;
+
+                case TOGGLE_FAVORITE:
+                    MusicUtil.toggleFavorite(getApplicationContext(), getCurrentSong());
                     updateMediaSessionPlaybackState();
                     break;
 

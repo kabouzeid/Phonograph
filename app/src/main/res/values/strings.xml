@@ -309,4 +309,5 @@
     <string name="queue_label">Queue</string>
     <string name="action_cycle_repeat">Cycle repeat mode</string>
     <string name="action_toggle_shuffle">Toggle shuffle mode</string>
+    <string name="action_toggle_favorite">Toggle favorite</string>
 </resources>
