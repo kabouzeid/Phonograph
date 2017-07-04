@@ -556,6 +556,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     }
 
     private void setCustomAction(PlaybackStateCompat.Builder stateBuilder) {
+        // TODO: differentiate on/off states
         int repeatIcon = R.drawable.ic_repeat_white_24dp;  // REPEAT_MODE_NONE
         if (getRepeatMode() == REPEAT_MODE_THIS) {
             repeatIcon = R.drawable.ic_repeat_one_white_24dp;

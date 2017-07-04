@@ -9,6 +9,7 @@ import android.support.v4.media.MediaMetadataCompat;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by Beesham on 3/28/2017.
@@ -24,19 +25,16 @@ public class AutoMusicSource implements MusicProviderSource {
 
     @Override
     public Iterator<MediaMetadataCompat> iterator() {
-
-        //All songs
+        // All songs
         ContentResolver contentResolver = mContext.getContentResolver();
         Uri uriSongs = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
         Cursor cursor = contentResolver.query(uriSongs, null, null, null, null);
 
-        ArrayList<MediaMetadataCompat> tracks = new ArrayList<>();
+        List<MediaMetadataCompat> tracks = new ArrayList<>();
 
         if (cursor == null) {
             return null;
-        } else if (!cursor.moveToFirst()) {
-            //Cursor empty, no media
-        } else {
+        } else if (cursor.moveToFirst()) {
             for (int i = 0; i < cursor.getCount(); i++) {    //TODO: change this t0 cursor.count()
                 tracks.add(buildSongsMediaMetadata(cursor));
                 cursor.moveToNext();
@@ -47,14 +45,14 @@ public class AutoMusicSource implements MusicProviderSource {
     }
 
     private MediaMetadataCompat buildSongsMediaMetadata(Cursor c) {
-        String _ID = c.getString(c.getColumnIndex(MediaStore.Audio.Media._ID));
-        String title = c.getString(c.getColumnIndex(MediaStore.Audio.Media.TITLE));
-        String album = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ALBUM));
-        String albumId = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
-        String artist = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ARTIST));
-        String source = c.getString(c.getColumnIndex(MediaStore.Audio.Media.DATA));
-        int trackNumber = c.getInt(c.getColumnIndex(MediaStore.Audio.Media.TRACK));
-        int duration = c.getInt(c.getColumnIndex(MediaStore.Audio.Media.DURATION)) * 1000; // ms
+        final String _ID = c.getString(c.getColumnIndex(MediaStore.Audio.Media._ID));
+        final String source = c.getString(c.getColumnIndex(MediaStore.Audio.Media.DATA));
+        final String album = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ALBUM));
+        final String albumId = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID));
+        final String artist = c.getString(c.getColumnIndex(MediaStore.Audio.Media.ARTIST));
+        final int duration = c.getInt(c.getColumnIndex(MediaStore.Audio.Media.DURATION)) * 1000; // ms
+        final String title = c.getString(c.getColumnIndex(MediaStore.Audio.Media.TITLE));
+        final int trackNumber = c.getInt(c.getColumnIndex(MediaStore.Audio.Media.TRACK));
 
         return new MediaMetadataCompat.Builder()
                 .putString(MediaMetadataCompat.METADATA_KEY_MEDIA_ID, _ID)

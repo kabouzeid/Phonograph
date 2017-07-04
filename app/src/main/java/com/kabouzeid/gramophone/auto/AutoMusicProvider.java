@@ -121,6 +121,7 @@ public class AutoMusicProvider {
 
         final MusicService service = mMusicService.get();
         if (service != null) {
+            // TODO: retain proper order
             for (Song s : MusicPlaybackQueueStore.getInstance(service).getSavedOriginalPlayingQueue()){
                 Uri.Builder topTracksData = Uri.parse(BASE_URI).buildUpon();
                 topTracksData.appendPath(s.title)
@@ -321,41 +322,36 @@ public class AutoMusicProvider {
 
     private MediaBrowserCompat.MediaItem createBrowsableMediaItemForRoot(String mediaId, Resources resources) {
         MediaDescriptionCompat.Builder builder = new MediaDescriptionCompat.Builder();
+        builder.setMediaId(mediaId);
 
         switch (mediaId) {
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM:
-                builder.setMediaId(mediaId)
-                        .setTitle(resources.getString(R.string.albums_label))
+                builder.setTitle(resources.getString(R.string.albums_label))
                         .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_album_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST:
-                builder.setMediaId(mediaId)
-                        .setTitle(resources.getString(R.string.artists_label))
+                builder.setTitle(resources.getString(R.string.artists_label))
                         .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_people_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST:
-                builder.setMediaId(mediaId)
-                        .setTitle(resources.getString(R.string.playlists_label))
+                builder.setTitle(resources.getString(R.string.playlists_label))
                         .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_queue_music_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY:
-                builder.setMediaId(mediaId)
-                        .setTitle(resources.getString(R.string.history_label))
+                builder.setTitle(resources.getString(R.string.history_label))
                         .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_access_time_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS:
-                builder.setMediaId(mediaId)
-                        .setTitle(resources.getString(R.string.top_tracks_label))
+                builder.setTitle(resources.getString(R.string.top_tracks_label))
                         .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_trending_up_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE:
-                builder.setMediaId(mediaId)
-                        .setTitle(resources.getString(R.string.queue_label))
+                builder.setTitle(resources.getString(R.string.queue_label))
                         .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_playlist_play_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
                 break;
         }
