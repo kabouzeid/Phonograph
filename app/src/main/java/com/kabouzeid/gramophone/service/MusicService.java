@@ -1178,20 +1178,25 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 ArrayList<Song> songs = new ArrayList<>();
                 songs.addAll(PlaylistSongLoader.getPlaylistSongList(getApplicationContext(), playlist.id));
                 openQueue(songs, 0, true);
-            } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY)) {
-                List<Song> historySongs = TopAndRecentlyPlayedTracksLoader.getRecentlyPlayedTracks(getApplicationContext());
+            } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY) ||
+                    mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS) ||
+                    mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE)) {
+                List<Song> tracks;
+                if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY)) {
+                    tracks = TopAndRecentlyPlayedTracksLoader.getRecentlyPlayedTracks(getApplicationContext());
+                } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS)) {
+                    tracks = TopAndRecentlyPlayedTracksLoader.getTopTracks(getApplicationContext());
+                } else {
+                    tracks = MusicPlaybackQueueStore.getInstance(MusicService.this).getSavedOriginalPlayingQueue();
+                }
                 ArrayList<Song> songs = new ArrayList<>();
-                songs.addAll(historySongs);
+                songs.addAll(tracks);
                 String songTitle = MediaIDHelper.getHierarchy(mediaId)[1];
-                int songIndex = MusicUtil.indexOfSongInList(historySongs, songTitle);
+                int songIndex = MusicUtil.indexOfSongInList(tracks, songTitle);
                 if (songIndex == -1) {
                     songIndex = 0;
                 }
                 openQueue(songs, songIndex, true);
-            } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS)) {
-                ArrayList<Song> songs = new ArrayList<>();
-                songs.addAll(TopAndRecentlyPlayedTracksLoader.getTopTracks(getApplicationContext()));
-                openQueue(songs, 0, true);
             }
 
             play();

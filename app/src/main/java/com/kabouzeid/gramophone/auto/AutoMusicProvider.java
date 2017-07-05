@@ -115,6 +115,7 @@ public class AutoMusicProvider {
             return Collections.emptyList();
         }
 
+        // Re-built every time since the queue updates often
         ConcurrentMap<Integer, Uri> queueList = new ConcurrentSkipListMap<>();
 
         final MusicService service = mMusicService.get();
