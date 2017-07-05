@@ -13,12 +13,10 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
-import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.loader.TopAndRecentlyPlayedTracksLoader;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Playlist;
-import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
 import com.kabouzeid.gramophone.service.MusicService;
@@ -30,9 +28,9 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 /**
  * Created by Beesham on 3/28/2017.
@@ -49,11 +47,11 @@ public class AutoMusicProvider {
     private WeakReference<MusicService> mMusicService;
 
     // Categorized caches for music data
-    private ConcurrentMap<Uri, List<Song>> mMusicListByAlbum;
-    private ConcurrentMap<Uri, List<Song>> mMusicListByArtist;
-    private ConcurrentMap<Uri, List<PlaylistSong>> mMusicListByPlaylist;
-    private ConcurrentMap<Uri, Song> mMusicListByHistory;
-    private ConcurrentMap<Uri, Song> mMusicListByTopTracks;
+    private ConcurrentMap<Integer, Uri> mMusicListByAlbum;
+    private ConcurrentMap<Integer, Uri> mMusicListByArtist;
+    private ConcurrentMap<Integer, Uri> mMusicListByPlaylist;
+    private ConcurrentMap<Integer, Uri> mMusicListByHistory;
+    private ConcurrentMap<Integer, Uri> mMusicListByTopTracks;
 
     private Context mContext;
     private volatile State mCurrentState = State.NON_INITIALIZED;
@@ -66,11 +64,11 @@ public class AutoMusicProvider {
     public AutoMusicProvider(AutoMusicSource source) {
         mSource = source;
 
-        mMusicListByAlbum = new ConcurrentHashMap<>();
-        mMusicListByArtist= new ConcurrentHashMap<>();
-        mMusicListByPlaylist = new ConcurrentHashMap<>();
-        mMusicListByHistory = new ConcurrentHashMap<>();
-        mMusicListByTopTracks = new ConcurrentHashMap<>();
+        mMusicListByAlbum = new ConcurrentSkipListMap<>();
+        mMusicListByArtist= new ConcurrentSkipListMap<>();
+        mMusicListByPlaylist = new ConcurrentSkipListMap<>();
+        mMusicListByHistory = new ConcurrentSkipListMap<>();
+        mMusicListByTopTracks = new ConcurrentSkipListMap<>();
     }
 
     public void setMusicService(MusicService service) {
@@ -81,35 +79,35 @@ public class AutoMusicProvider {
         if (mCurrentState != State.INITIALIZED) {
             return Collections.emptyList();
         }
-        return new TreeSet<>(mMusicListByAlbum.keySet());
+        return mMusicListByAlbum.values();
     }
 
     public Iterable<Uri> getArtists() {
         if (mCurrentState != State.INITIALIZED) {
             return Collections.emptyList();
         }
-        return new TreeSet<>(mMusicListByArtist.keySet());
+        return mMusicListByArtist.values();
     }
 
     public Iterable<Uri> getPlaylists() {
         if (mCurrentState != State.INITIALIZED) {
             return Collections.emptyList();
         }
-        return new TreeSet<>(mMusicListByPlaylist.keySet());
+        return mMusicListByPlaylist.values();
     }
 
     public Iterable<Uri> getHistory() {
         if (mCurrentState != State.INITIALIZED) {
             return Collections.emptyList();
         }
-        return mMusicListByHistory.keySet();
+        return mMusicListByHistory.values();
     }
 
     public Iterable<Uri> getTopTracks() {
         if (mCurrentState != State.INITIALIZED) {
             return Collections.emptyList();
         }
-        return mMusicListByTopTracks.keySet();
+        return mMusicListByTopTracks.values();
     }
 
     public Iterable<Uri> getQueue() {
@@ -117,21 +115,22 @@ public class AutoMusicProvider {
             return Collections.emptyList();
         }
 
-        ConcurrentMap<Uri, Song> queueList = new ConcurrentHashMap<>();
+        ConcurrentMap<Integer, Uri> queueList = new ConcurrentSkipListMap<>();
 
         final MusicService service = mMusicService.get();
         if (service != null) {
-            // TODO: retain proper order
-            for (Song s : MusicPlaybackQueueStore.getInstance(service).getSavedOriginalPlayingQueue()){
+            final List<Song> songs = MusicPlaybackQueueStore.getInstance(service).getSavedOriginalPlayingQueue();
+            for (int i = 0; i < songs.size(); i++) {
+                final Song s = songs.get(i);
                 Uri.Builder topTracksData = Uri.parse(BASE_URI).buildUpon();
                 topTracksData.appendPath(s.title)
                         .appendPath(String.valueOf(s.id))
                         .appendPath(s.artistName);
-                queueList.putIfAbsent(topTracksData.build(), s);
+                queueList.putIfAbsent(i, topTracksData.build());
             }
         }
 
-        return queueList.keySet();
+        return queueList.values();
     }
 
     public boolean isInitialized() {
@@ -169,70 +168,78 @@ public class AutoMusicProvider {
     }
 
     private synchronized void buildListsByAlbum() {
-        ConcurrentMap<Uri, List<Song>> newMusicListByAlbum = new ConcurrentHashMap<>();
+        ConcurrentMap<Integer, Uri> newMusicListByAlbum = new ConcurrentSkipListMap<>();
 
-        for (Album a : AlbumLoader.getAllAlbums(mContext)) {
+        final List<Album> albums = AlbumLoader.getAllAlbums(mContext);
+        for (int i = 0; i < albums.size(); i++) {
+            final Album a = albums.get(i);
             Uri.Builder albumData = Uri.parse(BASE_URI).buildUpon();
             albumData.appendPath(a.getTitle())
                     .appendPath(String.valueOf(a.getId()))
                     .appendPath(a.getArtistName());
-            newMusicListByAlbum.putIfAbsent(albumData.build(), a.songs);
+            newMusicListByAlbum.putIfAbsent(i, albumData.build());
         }
 
         mMusicListByAlbum = newMusicListByAlbum;
     }
 
     private synchronized void buildListsByArtist() {
-        ConcurrentMap<Uri, List<Song>> newMusicListByArtist = new ConcurrentHashMap<>();
+        ConcurrentMap<Integer, Uri> newMusicListByArtist = new ConcurrentSkipListMap<>();
 
-        for (Artist a : ArtistLoader.getAllArtists(mContext)) {
+        final List<Artist> artists = ArtistLoader.getAllArtists(mContext);
+        for (int i = 0; i < artists.size(); i++) {
+            final Artist a = artists.get(i);
             Uri.Builder artistData = Uri.parse(BASE_URI).buildUpon();
             artistData.appendPath(a.getName())
                     .appendPath(String.valueOf(a.getId()))
                     .appendPath(a.getName());
-            newMusicListByArtist.putIfAbsent(artistData.build(), a.getSongs());
+            newMusicListByArtist.putIfAbsent(i, artistData.build());
         }
 
         mMusicListByArtist = newMusicListByArtist;
     }
 
     private synchronized void buildListsByPlaylist() {
-        ConcurrentMap<Uri, List<PlaylistSong>> newMusicListByPlaylist = new ConcurrentHashMap<>();
+        ConcurrentMap<Integer, Uri> newMusicListByPlaylist = new ConcurrentSkipListMap<>();
 
-        for (Playlist p : PlaylistLoader.getAllPlaylists(mContext)) {
+        final List<Playlist> playlists = PlaylistLoader.getAllPlaylists(mContext);
+        for (int i = 0; i < playlists.size(); i++) {
+            final Playlist p = playlists.get(i);
             Uri.Builder playlistData = Uri.parse(BASE_URI).buildUpon();
             playlistData.appendPath(p.name);
-            newMusicListByPlaylist.putIfAbsent(playlistData.build(), PlaylistSongLoader.getPlaylistSongList(mContext, p.id));
+            newMusicListByPlaylist.putIfAbsent(i, playlistData.build());
         }
 
         mMusicListByPlaylist = newMusicListByPlaylist;
     }
 
     private synchronized void buildListsByHistory() {
-        ConcurrentMap<Uri, Song> newMusicListByHistory = new ConcurrentHashMap<>();
+        ConcurrentMap<Integer, Uri> newMusicListByHistory = new ConcurrentSkipListMap<>();
 
-        // TODO: retain proper order
-        for (Song s : TopAndRecentlyPlayedTracksLoader.getRecentlyPlayedTracks(mContext)) {
+        final List<Song> songs = TopAndRecentlyPlayedTracksLoader.getRecentlyPlayedTracks(mContext);
+        for (int i = 0; i < songs.size(); i++) {
+            final Song s = songs.get(i);
             Uri.Builder topTracksData = Uri.parse(BASE_URI).buildUpon();
             topTracksData.appendPath(s.title)
                     .appendPath(String.valueOf(s.id))
                     .appendPath(s.artistName);
-            newMusicListByHistory.putIfAbsent(topTracksData.build(), s);
+            newMusicListByHistory.putIfAbsent(i, topTracksData.build());
         }
 
         mMusicListByHistory = newMusicListByHistory;
     }
 
     private synchronized void buildListsByTopTracks() {
-        ConcurrentMap<Uri, Song> newMusicListByTopTracks = new ConcurrentHashMap<>();
+        ConcurrentMap<Integer, Uri> newMusicListByTopTracks = new ConcurrentHashMap<>();
 
-        // TODO: retain proper order
-        for (Song s : TopAndRecentlyPlayedTracksLoader.getTopTracks(mContext)) {
+        final List<Song> songs = TopAndRecentlyPlayedTracksLoader.getTopTracks(mContext);
+        for (int i = 0; i < songs.size(); i++) {
+            final Song s = songs.get(i);
             Uri.Builder topTracksData = Uri.parse(BASE_URI).buildUpon();
             topTracksData.appendPath(s.title)
                     .appendPath(String.valueOf(s.id))
                     .appendPath(s.artistName);
-            newMusicListByTopTracks.putIfAbsent(topTracksData.build(), s);
+            newMusicListByTopTracks.putIfAbsent(i, topTracksData.build());
         }
 
         mMusicListByTopTracks = newMusicListByTopTracks;
@@ -365,7 +372,6 @@ public class AutoMusicProvider {
         MediaDescriptionCompat.Builder builder = new MediaDescriptionCompat.Builder();
 
         final String title = musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE);
-        final String artist = musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST);
 
         switch (mediaId) {
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST:
@@ -376,8 +382,8 @@ public class AutoMusicProvider {
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST:
-                builder.setMediaId(MediaIDHelper.createMediaID(null, mediaId, artist))
-                        .setTitle(artist)
+                builder.setMediaId(MediaIDHelper.createMediaID(null, mediaId, musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST)))
+                        .setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST))
                         .setIconUri(Uri.parse("android.resource://" +
                                 mContext.getPackageName() + "/drawable/" +
                                 resources.getResourceEntryName(R.drawable.default_artist_image)));
@@ -389,7 +395,7 @@ public class AutoMusicProvider {
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE:
                 builder.setMediaId(MediaIDHelper.createMediaID(null, mediaId, title))
                         .setTitle(title)
-                        .setSubtitle(artist);
+                        .setSubtitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST));
 
                 if (albumArt != null) {
                     builder.setIconBitmap(albumArt);
