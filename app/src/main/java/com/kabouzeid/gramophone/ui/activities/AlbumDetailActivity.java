@@ -269,7 +269,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                     @Override
                     public void onResponse(@NonNull Call<LastFmAlbum> call, @NonNull Response<LastFmAlbum> response) {
                         final LastFmAlbum lastFmAlbum = response.body();
-                        if (lastFmAlbum != null && lastFmAlbum.getAlbum().getWiki() != null) {
+                        if (lastFmAlbum != null && lastFmAlbum.getAlbum() != null && lastFmAlbum.getAlbum().getWiki() != null) {
                             final String wikiContent = lastFmAlbum.getAlbum().getWiki().getContent();
                             if (wikiContent != null && !wikiContent.trim().isEmpty()) {
                                 wiki = Html.fromHtml(wikiContent);
