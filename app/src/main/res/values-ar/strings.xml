@@ -115,7 +115,7 @@
     <string name="pref_title_navigation_bar">شريط تنقل ملون</string>
     <string name="pref_title_set_default_start_page">صفحة البدء</string>
     <string name="pref_title_album_art_on_lockscreen">أظهر صورة الألبوم</string>
-    <string name="pref_title_auto_download_artist_images">حمل صور الفنانين تلقائياً</string>
+    <string name="pref_title_auto_download_metadata">حمل صور الفنانين تلقائياً</string>
     <string name="pref_title_blurred_album_art">تغييم صورة الألبوم</string>
     <string name="pref_title_colored_notification">إشعار ملون</string>
     <string name="pref_title_ignore_media_store_artwork">تجاهل صور متجر الوسائط</string>

@@ -121,7 +121,7 @@
     <string name="pref_title_navigation_bar">Gekleurde navigatiebalk</string>
     <string name="pref_title_set_default_start_page">Startpagina</string>
     <string name="pref_title_album_art_on_lockscreen">Toon albumhoes</string>
-    <string name="pref_title_auto_download_artist_images">Download artiesten afbeeldingen</string>
+    <string name="pref_title_auto_download_metadata">Download artiesten afbeeldingen</string>
     <string name="pref_title_blurred_album_art">Vervaag albumhoes</string>
     <string name="pref_title_colored_notification">Gekleurde notificatie</string>
     <string name="pref_title_ignore_media_store_artwork">Negeer Mediaopslag illustraties</string>

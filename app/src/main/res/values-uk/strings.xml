@@ -117,7 +117,7 @@
     <string name="pref_title_navigation_bar">Кольорова панель навігації</string>
     <string name="pref_title_set_default_start_page">Початкова сторінка</string>
     <string name="pref_title_album_art_on_lockscreen">Показати обкладинку альбому</string>
-    <string name="pref_title_auto_download_artist_images">Автоматично завантажувати зображення виконавців</string>
+    <string name="pref_title_auto_download_metadata">Автоматично завантажувати зображення виконавців</string>
     <string name="pref_title_blurred_album_art">Розмити обкладинку альбому</string>
     <string name="pref_title_colored_notification">Кольорове сповіщення</string>
     <string name="pref_title_ignore_media_store_artwork">Ігнорувати обкладинки з Медіасховища.</string>

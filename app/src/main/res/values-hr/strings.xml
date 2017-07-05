@@ -117,7 +117,7 @@
     <string name="pref_title_navigation_bar">Obojena navigacijska traka</string>
     <string name="pref_title_set_default_start_page">Početna stranica</string>
     <string name="pref_title_album_art_on_lockscreen">Prikaži omot albuma na zaklj. zaslonu</string>
-    <string name="pref_title_auto_download_artist_images">Automatski preuzmi slike izvođača</string>
+    <string name="pref_title_auto_download_metadata">Automatski preuzmi slike izvođača</string>
     <string name="pref_title_blurred_album_art">Zamagli omot albuma</string>
     <string name="pref_title_colored_notification">Obojene obavijesti</string>
     <string name="pref_title_ignore_media_store_artwork">Ignoriraj Media Store omote</string>

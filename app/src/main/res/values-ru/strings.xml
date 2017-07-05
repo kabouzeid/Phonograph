@@ -122,7 +122,7 @@
     <string name="pref_title_app_shortcuts">Цветные шорткаты</string>
     <string name="pref_title_set_default_start_page">Установить начальную страницу</string>
     <string name="pref_title_album_art_on_lockscreen">Показывать обложку альбома</string>
-    <string name="pref_title_auto_download_artist_images">Автоматически загружать изображения исполнителей</string>
+    <string name="pref_title_auto_download_metadata">Автоматически загружать изображения исполнителей</string>
     <string name="pref_title_blurred_album_art">"Размытая обложка альбома "</string>
     <string name="pref_title_colored_notification">Окрашенное уведомление</string>
     <string name="pref_title_ignore_media_store_artwork">Игнорировать хранилище обложек альбомов</string>

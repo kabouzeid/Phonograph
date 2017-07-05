@@ -117,7 +117,7 @@
     <string name="pref_title_navigation_bar">Kolorowy pasek nawigacyjny</string>
     <string name="pref_title_set_default_start_page">Strona startowa</string>
     <string name="pref_title_album_art_on_lockscreen">Pokazuj okładki albumów</string>
-    <string name="pref_title_auto_download_artist_images">Automatyczne pobieranie zdjęć wykonawców</string>
+    <string name="pref_title_auto_download_metadata">Automatyczne pobieranie zdjęć wykonawców</string>
     <string name="pref_title_blurred_album_art">Rozmywanie okładki albumu</string>
     <string name="pref_title_colored_notification">Kolorowy odtwarzacz w pasku powiadomień</string>
     <string name="pref_title_ignore_media_store_artwork">Ignoruj okładki z Media Store</string>

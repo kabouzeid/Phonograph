@@ -257,45 +257,44 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     }
 
     private void loadWiki() {
-        final Callback<LastFmAlbum> wikiCallback = new Callback<LastFmAlbum>(){
-            @Override
-            public void onResponse(Call<LastFmAlbum> call, Response<LastFmAlbum> response) {
-                LastFmAlbum lastFmAlbum = response.body();
-                if (lastFmAlbum.getAlbum().getWiki() != null) {
-                    String wik = lastFmAlbum.getAlbum().getWiki().getContent();
-                    if (wik != null && !wik.trim().equals("")) {
-                        wiki = Html.fromHtml(wik);
-                        wikiReady();
-                        return;
-                    }
-                }
-                if(call.request().url().queryParameter("lang") != null) {
-                    //If the "lang" parameter is set and no wiki is given, retry with default language
-                    lastFMRestClient.getApiService().getAlbumInfo(getAlbum().getTitle(), getAlbum().getArtistName(), null).enqueue(this);
-                    return;
-                }
-                wiki = null;
-                wikiReady();
-            }
-
-            @Override
-            public void onFailure(Call<LastFmAlbum> call, Throwable t) {
-                t.printStackTrace();
-                wiki = null;
-            }
-        };
-        lastFMRestClient.getApiService().getAlbumInfo(getAlbum().getTitle(), getAlbum().getArtistName(), Locale.getDefault().getLanguage()).enqueue(wikiCallback);
+        loadWiki(Locale.getDefault().getLanguage());
     }
 
-    private void wikiReady(){
-        if(!Util.isAllowedToAutoDownload(AlbumDetailActivity.this)) {
-            if(wiki != null) {
-                wikiDialog.setContent(wiki);
-            } else {
-                wikiDialog.dismiss();
-                Toast.makeText(AlbumDetailActivity.this, getResources().getString(R.string.wiki_unavailable), Toast.LENGTH_SHORT).show();
-            }
-        }
+    private void loadWiki(@Nullable final String lang) {
+        wiki = null;
+
+        lastFMRestClient.getApiService()
+                .getAlbumInfo(getAlbum().getTitle(), getAlbum().getArtistName(), lang)
+                .enqueue(new Callback<LastFmAlbum>() {
+                    @Override
+                    public void onResponse(@NonNull Call<LastFmAlbum> call, @NonNull Response<LastFmAlbum> response) {
+                        final LastFmAlbum lastFmAlbum = response.body();
+                        if (lastFmAlbum != null && lastFmAlbum.getAlbum().getWiki() != null) {
+                            final String wikiContent = lastFmAlbum.getAlbum().getWiki().getContent();
+                            if (wikiContent != null && !wikiContent.trim().isEmpty()) {
+                                wiki = Html.fromHtml(wikiContent);
+                            } else if (lang != null) {
+                                // If the "lang" parameter is set and no wiki is given, retry with default language
+                                loadWiki(null);
+                                return;
+                            }
+                        }
+
+                        if (!Util.isAllowedToDownloadMetadata(AlbumDetailActivity.this)) {
+                            if (wiki != null) {
+                                wikiDialog.setContent(wiki);
+                            } else {
+                                wikiDialog.dismiss();
+                                Toast.makeText(AlbumDetailActivity.this, getResources().getString(R.string.wiki_unavailable), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<LastFmAlbum> call, @NonNull Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
     }
 
     @Override
@@ -323,15 +322,20 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                 NavigationUtil.goToArtist(this, getAlbum().getArtistId());
                 return true;
             case R.id.action_wiki:
-                if(Util.isAllowedToAutoDownload(AlbumDetailActivity.this)) {
+                if (wikiDialog == null) {
+                    wikiDialog = new MaterialDialog.Builder(this)
+                            .title(album.getTitle())
+                            .positiveText(android.R.string.ok)
+                            .build();
+                }
+                if (Util.isAllowedToDownloadMetadata(this)) {
                     if (wiki != null) {
                         wikiDialog.setContent(wiki);
                         wikiDialog.show();
                     } else {
-                        Toast.makeText(AlbumDetailActivity.this, getResources().getString(R.string.wiki_unavailable), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, getResources().getString(R.string.wiki_unavailable), Toast.LENGTH_SHORT).show();
                     }
-                }
-                else {
+                } else {
                     wikiDialog.show();
                     loadWiki();
                 }
@@ -402,13 +406,11 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     private void setAlbum(Album album) {
         this.album = album;
         loadAlbumCover();
-        if(Util.isAllowedToAutoDownload(AlbumDetailActivity.this))
+
+        if (Util.isAllowedToDownloadMetadata(this)) {
             loadWiki();
-        wikiDialog=new MaterialDialog.Builder(AlbumDetailActivity.this)
-                .title(album.getTitle())
-                .content("")
-                .positiveText(android.R.string.ok)
-                .build();
+        }
+
         albumTitleView.setText(album.getTitle());
         adapter.swapDataSet(album.songs);
     }

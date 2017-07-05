@@ -122,7 +122,7 @@
     <string name="pref_title_app_shortcuts">Scorciatoie app colorate</string>
     <string name="pref_title_set_default_start_page">Pagina iniziale</string>
     <string name="pref_title_album_art_on_lockscreen">Mostra copertina album nella schermata di blocco</string>
-    <string name="pref_title_auto_download_artist_images">Scarica automaticamente le immagini degli artisti</string>
+    <string name="pref_title_auto_download_metadata">Scarica automaticamente le immagini degli artisti</string>
     <string name="pref_title_blurred_album_art">Sfoca la copertina</string>
     <string name="pref_title_colored_notification">Notifica colorata</string>
     <string name="pref_title_ignore_media_store_artwork">Ignora le copertine del Media Store</string>

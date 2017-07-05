@@ -122,7 +122,7 @@
     <string name="pref_title_app_shortcuts">Renkli uygulama kısayolları</string>
     <string name="pref_title_set_default_start_page">Başlangıç sayfası</string>
     <string name="pref_title_album_art_on_lockscreen">Albüm kapağını göster</string>
-    <string name="pref_title_auto_download_artist_images">Sanatçı resimlerini otomatik indir</string>
+    <string name="pref_title_auto_download_metadata">Sanatçı resimlerini otomatik indir</string>
     <string name="pref_title_blurred_album_art">Bulanık albüm kapağı</string>
     <string name="pref_title_colored_notification">Renkli bildirim</string>
     <string name="pref_title_ignore_media_store_artwork">Media Store albüm kapağını yoksay</string>
