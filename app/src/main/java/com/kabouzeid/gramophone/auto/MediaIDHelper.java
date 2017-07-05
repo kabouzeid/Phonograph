@@ -26,8 +26,8 @@ public class MediaIDHelper {
     public static final String MEDIA_ID_MUSICS_BY_TOP_TRACKS = "__BY_TOP_TRACKS__";
     public static final String MEDIA_ID_MUSICS_BY_QUEUE = "__BY_QUEUE__";
 
-    private static final char CATEGORY_SEPARATOR = '/';
-    private static final char LEAF_SEPARATOR = '|';
+    private static final String CATEGORY_SEPARATOR = "__/__";
+    private static final String LEAF_SEPARATOR = "__|__";
 
     /**
      * Create a String value that represents a playable or a browsable media.
@@ -67,7 +67,7 @@ public class MediaIDHelper {
     private static boolean isValidCategory(String category) {
         Log.v("Media Helper", "categories: " + category);
         return category == null ||
-                (category.indexOf(CATEGORY_SEPARATOR) < 0 && category.indexOf(LEAF_SEPARATOR) < 0);
+                (!category.contains(CATEGORY_SEPARATOR) && !category.contains(LEAF_SEPARATOR));
     }
 
     /**
@@ -112,7 +112,7 @@ public class MediaIDHelper {
     }
 
     public static boolean isBrowseable(@NonNull String mediaID) {
-        return mediaID.indexOf(LEAF_SEPARATOR) < 0;
+        return !mediaID.contains(LEAF_SEPARATOR);
     }
 
     public static String getParentMediaID(@NonNull String mediaID) {
