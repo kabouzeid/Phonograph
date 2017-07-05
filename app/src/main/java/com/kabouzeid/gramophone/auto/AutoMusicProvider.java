@@ -5,7 +5,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.MediaDescriptionCompat;
@@ -23,6 +22,7 @@ import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
 import com.kabouzeid.gramophone.service.MusicService;
+import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.Util;
 
@@ -364,16 +364,20 @@ public class AutoMusicProvider {
                                                                   Resources resources) {
         MediaDescriptionCompat.Builder builder = new MediaDescriptionCompat.Builder();
 
+        final String title = musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE);
+        final String artist = musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST);
+
         switch (mediaId) {
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST:
-                builder.setMediaId(MediaIDHelper.createMediaID(null, mediaId, musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE)))
-                        .setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE))
-                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_queue_music_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
+                final int playlistIcon = MusicUtil.isFavoritePlaylist(mContext, title) ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_queue_music_white_24dp;
+                builder.setMediaId(MediaIDHelper.createMediaID(null, mediaId, title))
+                        .setTitle(title)
+                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, playlistIcon, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST:
-                builder.setMediaId(MediaIDHelper.createMediaID(null, mediaId, musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST)))
-                        .setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST))
+                builder.setMediaId(MediaIDHelper.createMediaID(null, mediaId, artist))
+                        .setTitle(artist)
                         .setIconUri(Uri.parse("android.resource://" +
                                 mContext.getPackageName() + "/drawable/" +
                                 resources.getResourceEntryName(R.drawable.default_artist_image)));
@@ -383,9 +387,9 @@ public class AutoMusicProvider {
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY:
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS:
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE:
-                builder.setMediaId(MediaIDHelper.createMediaID(null, mediaId, musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE)))
-                        .setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE))
-                        .setSubtitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST));
+                builder.setMediaId(MediaIDHelper.createMediaID(null, mediaId, title))
+                        .setTitle(title)
+                        .setSubtitle(artist);
 
                 if (albumArt != null) {
                     builder.setIconBitmap(albumArt);
