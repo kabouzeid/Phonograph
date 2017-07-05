@@ -273,11 +273,13 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                             final String wikiContent = lastFmAlbum.getAlbum().getWiki().getContent();
                             if (wikiContent != null && !wikiContent.trim().isEmpty()) {
                                 wiki = Html.fromHtml(wikiContent);
-                            } else if (lang != null) {
-                                // If the "lang" parameter is set and no wiki is given, retry with default language
-                                loadWiki(null);
-                                return;
                             }
+                        }
+
+                        // If the "lang" parameter is set and no wiki is given, retry with default language
+                        if (wiki == null && lang != null) {
+                            loadWiki(null);
+                            return;
                         }
 
                         if (!Util.isAllowedToDownloadMetadata(AlbumDetailActivity.this)) {

@@ -239,14 +239,16 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                     public void onResponse(@NonNull Call<LastFmArtist> call, @NonNull Response<LastFmArtist> response) {
                         final LastFmArtist lastFmArtist = response.body();
                         if (lastFmArtist != null && lastFmArtist.getArtist() != null) {
-                            String bio = lastFmArtist.getArtist().getBio().getContent();
-                            if (bio != null && !bio.trim().isEmpty()) {
-                                biography = Html.fromHtml(bio);
-                            } else if (lang != null) {
-                                // If the "lang" parameter is set and no biography is given, retry with default language
-                                loadBiography(null);
-                                return;
+                            final String bioContent = lastFmArtist.getArtist().getBio().getContent();
+                            if (bioContent != null && !bioContent.trim().isEmpty()) {
+                                biography = Html.fromHtml(bioContent);
                             }
+                        }
+
+                        // If the "lang" parameter is set and no biography is given, retry with default language
+                        if (biography == null && lang != null) {
+                            loadBiography(null);
+                            return;
                         }
 
                         if (!Util.isAllowedToDownloadMetadata(ArtistDetailActivity.this)) {
