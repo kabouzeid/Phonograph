@@ -122,7 +122,7 @@
     <string name="pref_title_app_shortcuts">Színes alkalmazás hivatkozások</string>
     <string name="pref_title_set_default_start_page">Kezdő oldal</string>
     <string name="pref_title_album_art_on_lockscreen">Albumboritó megjelenítése</string>
-    <string name="pref_title_auto_download_artist_images">Előadó képének automatikus letöltése</string>
+    <string name="pref_title_auto_download_metadata">Előadó képének automatikus letöltése</string>
     <string name="pref_title_blurred_album_art">Albumborító elhomályosítása</string>
     <string name="pref_title_colored_notification">Színezett értesítés</string>
     <string name="pref_title_ignore_media_store_artwork">A médiában tárolt albumborítók figyelmen kívül hagyása</string>

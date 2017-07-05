@@ -10,6 +10,11 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/action_wiki"
+        android:title="@string/wiki"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_go_to_artist"
         android:title="@string/action_go_to_artist"
         app:showAsAction="never" />

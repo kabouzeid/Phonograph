@@ -122,7 +122,7 @@
     <string name="pref_title_app_shortcuts">Màu sắc biểu tượng ứng dụng</string>
     <string name="pref_title_set_default_start_page">Trang bắt đầu</string>
     <string name="pref_title_album_art_on_lockscreen">Hiện bìa album</string>
-    <string name="pref_title_auto_download_artist_images">Tự động tải về hình ảnh nghệ sĩ</string>
+    <string name="pref_title_auto_download_metadata">Tự động tải về hình ảnh nghệ sĩ</string>
     <string name="pref_title_blurred_album_art">Làm mờ bìa album</string>
     <string name="pref_title_colored_notification">Màu thông báo</string>
     <string name="pref_title_ignore_media_store_artwork">Bỏ qua kho ảnh bìa trong Kho Phương tiện</string>

@@ -118,7 +118,7 @@
     <string name="pref_title_navigation_bar">Έγχρωμη μπάρα πλοήγησης</string>
     <string name="pref_title_set_default_start_page">Αρχική σελίδα</string>
     <string name="pref_title_album_art_on_lockscreen">Εμφάνιση album art</string>
-    <string name="pref_title_auto_download_artist_images">Αυτόματο κατέβασμα πορτρέτων καλλιτεχνών</string>
+    <string name="pref_title_auto_download_metadata">Αυτόματο κατέβασμα πορτρέτων καλλιτεχνών</string>
     <string name="pref_title_blurred_album_art">Θάμπωμα πορτρέτων καλλιτεχνών</string>
     <string name="pref_title_colored_notification">Χρωματιστή πλοήγηση</string>
     <string name="pref_title_ignore_media_store_artwork">Παράληψη των album art στην SD</string>

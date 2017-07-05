@@ -5,18 +5,23 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialcab.MaterialCab;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
@@ -34,6 +39,8 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.LoaderIds;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
+import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
+import com.kabouzeid.gramophone.lastfm.rest.model.LastFmAlbum;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
@@ -45,8 +52,13 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.Util;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Be careful when changing things in this Activity!
@@ -81,6 +93,11 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     private int toolbarColor;
     private float toolbarAlpha;
 
+    @Nullable
+    private Spanned wiki;
+    private MaterialDialog wikiDialog;
+    private LastFMRestClient lastFMRestClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +105,8 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         ButterKnife.bind(this);
 
         supportPostponeEnterTransition();
+
+        lastFMRestClient = new LastFMRestClient(this);
 
         setUpObservableListViewParams();
         setUpToolBar();
@@ -233,6 +252,49 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         return true;
     }
 
+    private void loadWiki() {
+        loadWiki(Locale.getDefault().getLanguage());
+    }
+
+    private void loadWiki(@Nullable final String lang) {
+        wiki = null;
+
+        lastFMRestClient.getApiService()
+                .getAlbumInfo(getAlbum().getTitle(), getAlbum().getArtistName(), lang)
+                .enqueue(new Callback<LastFmAlbum>() {
+                    @Override
+                    public void onResponse(@NonNull Call<LastFmAlbum> call, @NonNull Response<LastFmAlbum> response) {
+                        final LastFmAlbum lastFmAlbum = response.body();
+                        if (lastFmAlbum != null && lastFmAlbum.getAlbum() != null && lastFmAlbum.getAlbum().getWiki() != null) {
+                            final String wikiContent = lastFmAlbum.getAlbum().getWiki().getContent();
+                            if (wikiContent != null && !wikiContent.trim().isEmpty()) {
+                                wiki = Html.fromHtml(wikiContent);
+                            }
+                        }
+
+                        // If the "lang" parameter is set and no wiki is given, retry with default language
+                        if (wiki == null && lang != null) {
+                            loadWiki(null);
+                            return;
+                        }
+
+                        if (!Util.isAllowedToDownloadMetadata(AlbumDetailActivity.this)) {
+                            if (wiki != null) {
+                                wikiDialog.setContent(wiki);
+                            } else {
+                                wikiDialog.dismiss();
+                                Toast.makeText(AlbumDetailActivity.this, getResources().getString(R.string.wiki_unavailable), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<LastFmAlbum> call, @NonNull Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -256,6 +318,25 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                 return true;
             case R.id.action_go_to_artist:
                 NavigationUtil.goToArtist(this, getAlbum().getArtistId());
+                return true;
+            case R.id.action_wiki:
+                if (wikiDialog == null) {
+                    wikiDialog = new MaterialDialog.Builder(this)
+                            .title(album.getTitle())
+                            .positiveText(android.R.string.ok)
+                            .build();
+                }
+                if (Util.isAllowedToDownloadMetadata(this)) {
+                    if (wiki != null) {
+                        wikiDialog.setContent(wiki);
+                        wikiDialog.show();
+                    } else {
+                        Toast.makeText(this, getResources().getString(R.string.wiki_unavailable), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    wikiDialog.show();
+                    loadWiki();
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -323,6 +404,11 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     private void setAlbum(Album album) {
         this.album = album;
         loadAlbumCover();
+
+        if (Util.isAllowedToDownloadMetadata(this)) {
+            loadWiki();
+        }
+
         albumTitleView.setText(album.getTitle());
         adapter.swapDataSet(album.songs);
     }
