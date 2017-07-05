@@ -98,6 +98,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
 
     @Nullable
     private Spanned wiki;
+    private MaterialDialog wikiDialog;
     private LastFMRestClient lastFMRestClient;
 
     @Override
@@ -255,14 +256,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         return true;
     }
 
-    private MaterialDialog getWikiDialog() {
-        return new MaterialDialog.Builder(AlbumDetailActivity.this)
-                .title(getAlbum().getTitle())
-                .content(wiki != null ? wiki : "")
-                .positiveText(android.R.string.ok)
-                .build();
-    }
-
     private void loadWiki() {
         final Callback<LastFmAlbum> wikiCallback = new Callback<LastFmAlbum>(){
             @Override
@@ -272,14 +265,17 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                     String wik = lastFmAlbum.getAlbum().getWiki().getContent();
                     if (wik != null && !wik.trim().equals("")) {
                         wiki = Html.fromHtml(wik);
+                        wikiReady();
+                        return;
+                    }
+                    else if(call.request().url().queryParameter("lang") != null) {
+                        //If the "lang" parameter is set and no wiki is given, retry with default language
+                        lastFMRestClient.getApiService().getAlbumInfo(getAlbum().getTitle(), getAlbum().getArtistName(), null).enqueue(this);
                         return;
                     }
                 }
-                if(call.request().url().queryParameter("lang") != null){
-                    //If the "lang" parameter is set and no wiki is given, retry with default language
-                    lastFMRestClient.getApiService().getAlbumInfo(getAlbum().getTitle(), getAlbum().getArtistName(), null).enqueue(this);
-                }
                 wiki = null;
+                wikiReady();
             }
 
             @Override
@@ -289,6 +285,17 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
             }
         };
         lastFMRestClient.getApiService().getAlbumInfo(getAlbum().getTitle(), getAlbum().getArtistName(), Locale.getDefault().getLanguage()).enqueue(wikiCallback);
+    }
+
+    private void wikiReady(){
+        if(!Util.isAllowedToAutoDownload(AlbumDetailActivity.this)) {
+            if(wiki != null) {
+                wikiDialog.setContent(wiki);
+            } else {
+                wikiDialog.dismiss();
+                Toast.makeText(AlbumDetailActivity.this, getResources().getString(R.string.wiki_unavailable), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override
@@ -316,10 +323,17 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                 NavigationUtil.goToArtist(this, getAlbum().getArtistId());
                 return true;
             case R.id.action_wiki:
-                if (wiki != null) {
-                    getWikiDialog().show();
-                } else {
-                    Toast.makeText(AlbumDetailActivity.this, getResources().getString(R.string.wiki_unavailable), Toast.LENGTH_SHORT).show();
+                if(Util.isAllowedToAutoDownload(AlbumDetailActivity.this)) {
+                    if (wiki != null) {
+                        wikiDialog.setContent(wiki);
+                        wikiDialog.show();
+                    } else {
+                        Toast.makeText(AlbumDetailActivity.this, getResources().getString(R.string.wiki_unavailable), Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    wikiDialog.show();
+                    loadWiki();
                 }
                 return true;
         }
@@ -388,7 +402,13 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     private void setAlbum(Album album) {
         this.album = album;
         loadAlbumCover();
-        loadWiki();
+        if(Util.isAllowedToAutoDownload(AlbumDetailActivity.this))
+            loadWiki();
+        wikiDialog=new MaterialDialog.Builder(AlbumDetailActivity.this)
+                .title(album.getTitle())
+                .content("")
+                .positiveText(android.R.string.ok)
+                .build();
         albumTitleView.setText(album.getTitle());
         adapter.swapDataSet(album.songs);
     }
