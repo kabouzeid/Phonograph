@@ -268,11 +268,11 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                         wikiReady();
                         return;
                     }
-                    else if(call.request().url().queryParameter("lang") != null) {
-                        //If the "lang" parameter is set and no wiki is given, retry with default language
-                        lastFMRestClient.getApiService().getAlbumInfo(getAlbum().getTitle(), getAlbum().getArtistName(), null).enqueue(this);
-                        return;
-                    }
+                }
+                if(call.request().url().queryParameter("lang") != null) {
+                    //If the "lang" parameter is set and no wiki is given, retry with default language
+                    lastFMRestClient.getApiService().getAlbumInfo(getAlbum().getTitle(), getAlbum().getArtistName(), null).enqueue(this);
+                    return;
                 }
                 wiki = null;
                 wikiReady();
