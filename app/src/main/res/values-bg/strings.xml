@@ -117,7 +117,7 @@
     <string name="pref_title_navigation_bar">Оцветени навигационни бутони</string>
     <string name="pref_title_set_default_start_page">Начална страница</string>
     <string name="pref_title_album_art_on_lockscreen">Покажи обложката на албум</string>
-    <string name="pref_title_auto_download_artist_images">Автоматично изтегляне на изображения на артист</string>
+    <string name="pref_title_auto_download_metadata">Автоматично изтегляне на изображения на артист</string>
     <string name="pref_title_blurred_album_art">Размажи обложката</string>
     <string name="pref_title_colored_notification">Оцвети известията</string>
     <string name="pref_title_ignore_media_store_artwork">Игнорирай вградените обложки</string>

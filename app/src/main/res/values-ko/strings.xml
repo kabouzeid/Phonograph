@@ -112,7 +112,7 @@
     <string name="pref_title_navigation_bar">내비게이션 바 색상 틴트</string>
     <string name="pref_title_set_default_start_page">시작 화면</string>
     <string name="pref_title_album_art_on_lockscreen">앨범 커버 보이기</string>
-    <string name="pref_title_auto_download_artist_images">아티스트 이미지 자동 다운로드</string>
+    <string name="pref_title_auto_download_metadata">아티스트 이미지 자동 다운로드</string>
     <string name="pref_title_blurred_album_art">앨범 커버 블러 효과</string>
     <string name="pref_title_colored_notification">알림 색상 틴트</string>
     <string name="pref_title_ignore_media_store_artwork">미디어 스토어 앨범 커버 무시</string>

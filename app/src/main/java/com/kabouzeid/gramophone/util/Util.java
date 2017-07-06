@@ -135,7 +135,7 @@ public class Util {
         } else return false;
     }
 
-    public static boolean isAllowedToAutoDownload(final Context context) {
+    public static boolean isAllowedToDownloadMetadata(final Context context) {
         switch (PreferenceUtil.getInstance(context).autoDownloadImagesPolicy()) {
             case "always":
                 return true;

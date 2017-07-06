@@ -117,7 +117,7 @@
     <string name="pref_title_navigation_bar">Warnai alat navigasi di bagian bawah layar</string>
     <string name="pref_title_set_default_start_page">Halaman awal</string>
     <string name="pref_title_album_art_on_lockscreen">Perlihatkan sampul album pada layar kunci</string>
-    <string name="pref_title_auto_download_artist_images">Unduh otomatis gambar-gambar artis</string>
+    <string name="pref_title_auto_download_metadata">Unduh otomatis gambar-gambar artis</string>
     <string name="pref_title_blurred_album_art">Buramkan sampul album</string>
     <string name="pref_title_colored_notification">Notifikasi berwarna</string>
     <string name="pref_title_ignore_media_store_artwork">Abaikan sampul-sampul dari \'Media Store\' android.</string>

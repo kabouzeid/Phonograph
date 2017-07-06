@@ -117,7 +117,7 @@
     <string name="pref_title_navigation_bar">Barra de navegação colorida</string>
     <string name="pref_title_set_default_start_page">Página Inicial</string>
     <string name="pref_title_album_art_on_lockscreen">Mostrar capa do álbum</string>
-    <string name="pref_title_auto_download_artist_images">Download automático das imagens dos artistas</string>
+    <string name="pref_title_auto_download_metadata">Download automático das imagens dos artistas</string>
     <string name="pref_title_blurred_album_art">Desfocar capa do álbum</string>
     <string name="pref_title_colored_notification">Notificação colorida</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorar capas Media Store</string>

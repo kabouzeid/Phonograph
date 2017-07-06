@@ -16,7 +16,7 @@
             android:key="auto_download_images_policy"
             android:negativeButtonText="@null"
             android:positiveButtonText="@null"
-            android:title="@string/pref_title_auto_download_artist_images" />
+            android:title="@string/pref_title_auto_download_metadata" />
 
     </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 

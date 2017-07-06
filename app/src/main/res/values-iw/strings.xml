@@ -116,7 +116,7 @@
     <string name="pref_title_navigation_bar">סרגל ניווט צבעוני</string>
     <string name="pref_title_set_default_start_page">עמוד פתיחה</string>
     <string name="pref_title_album_art_on_lockscreen">הצג עטיפת אלבום</string>
-    <string name="pref_title_auto_download_artist_images">הורדה אוטומטית של תמונות האמן</string>
+    <string name="pref_title_auto_download_metadata">הורדה אוטומטית של תמונות האמן</string>
     <string name="pref_title_blurred_album_art">טשטוש עטיפת האלבום</string>
     <string name="pref_title_colored_notification">התראה צבעונית</string>
     <string name="pref_title_gapless_playback">ניגון ללא מרווחים בין השירים</string>

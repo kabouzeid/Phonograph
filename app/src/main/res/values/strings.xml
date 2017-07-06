@@ -38,8 +38,10 @@
     <string name="songs">Songs</string>
     <string name="playlists">Playlists</string>
     <string name="unplayable_file">Couldn\u2019t play this song.</string>
-    <string name="biography_unavailable">Couldn\u2019t find the artists biography.</string>
+    <string name="biography_unavailable">Couldn\u2019t find a biography entry for this artist.</string>
+    <string name="wiki_unavailable">Couldn\u2019t find a wiki entry for this album.</string>
     <string name="biography">Biography</string>
+    <string name="wiki">Wiki</string>
     <string name="audio_focus_denied">Audio focus denied.</string>
     <string name="album">Album</string>
     <string name="artist">Artist</string>
@@ -129,7 +131,7 @@
     <string name="pref_title_app_shortcuts">Colored app shortcuts</string>
     <string name="pref_title_set_default_start_page">Start page</string>
     <string name="pref_title_album_art_on_lockscreen">Show album cover</string>
-    <string name="pref_title_auto_download_artist_images">Auto download artist images</string>
+    <string name="pref_title_auto_download_metadata">Auto download metadata</string>
     <string name="pref_title_blurred_album_art">Blur album cover</string>
     <string name="pref_title_colored_notification">Colored notification</string>
     <string name="pref_title_classic_notification">Classic notification design</string>

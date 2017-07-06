@@ -122,7 +122,7 @@
     <string name="pref_title_app_shortcuts">着色应用快捷方式</string>
     <string name="pref_title_set_default_start_page">起始页</string>
     <string name="pref_title_album_art_on_lockscreen">显示专辑封面</string>
-    <string name="pref_title_auto_download_artist_images">自动下载艺术家图像</string>
+    <string name="pref_title_auto_download_metadata">自动下载艺术家图像</string>
     <string name="pref_title_blurred_album_art">专辑封面模糊化</string>
     <string name="pref_title_colored_notification">启用通知背景着色</string>
     <string name="pref_title_ignore_media_store_artwork">忽略媒体储存中的专辑封面</string>
