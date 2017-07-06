@@ -26,11 +26,11 @@ public class AutoMusicSource implements MusicProviderSource {
     @Override
     public Iterator<MediaMetadataCompat> iterator() {
         // All songs
-        ContentResolver contentResolver = mContext.getContentResolver();
-        Uri uriSongs = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-        Cursor cursor = contentResolver.query(uriSongs, null, null, null, null);
+        final ContentResolver contentResolver = mContext.getContentResolver();
+        final Uri uriSongs = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        final Cursor cursor = contentResolver.query(uriSongs, null, null, null, null);
 
-        List<MediaMetadataCompat> tracks = new ArrayList<>();
+        final List<MediaMetadataCompat> tracks = new ArrayList<>();
 
         if (cursor == null) {
             return null;

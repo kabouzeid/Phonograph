@@ -556,23 +556,22 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     }
 
     private void setCustomAction(PlaybackStateCompat.Builder stateBuilder) {
-        // TODO: differentiate on/off states
-        int repeatIcon = R.drawable.ic_repeat_white_24dp;  // REPEAT_MODE_NONE
+        int repeatIcon = R.drawable.ic_repeat_white_nocircle_24dp;  // REPEAT_MODE_NONE
         if (getRepeatMode() == REPEAT_MODE_THIS) {
-            repeatIcon = R.drawable.ic_repeat_one_white_24dp;
+            repeatIcon = R.drawable.ic_repeat_one_white_circle_24dp;
         } else if (getRepeatMode() == REPEAT_MODE_ALL) {
-            repeatIcon = R.drawable.ic_repeat_white_24dp;
+            repeatIcon = R.drawable.ic_repeat_white_circle_24dp;
         }
         stateBuilder.addCustomAction(new PlaybackStateCompat.CustomAction.Builder(
                 CYCLE_REPEAT, getString(R.string.action_cycle_repeat), repeatIcon)
                 .build());
 
-        final int shuffleIcon = getShuffleMode() == SHUFFLE_MODE_NONE ? R.drawable.ic_shuffle_white_24dp : R.drawable.ic_shuffle_white_24dp;
+        final int shuffleIcon = getShuffleMode() == SHUFFLE_MODE_NONE ? R.drawable.ic_shuffle_white_nocircle_24dp : R.drawable.ic_shuffle_white_circle_24dp;
         stateBuilder.addCustomAction(new PlaybackStateCompat.CustomAction.Builder(
                 TOGGLE_SHUFFLE, getString(R.string.action_toggle_shuffle), shuffleIcon)
                 .build());
 
-        final int favoriteIcon = MusicUtil.isFavorite(getApplicationContext(), getCurrentSong()) ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_favorite_border_white_24dp;
+        final int favoriteIcon = MusicUtil.isFavorite(getApplicationContext(), getCurrentSong()) ? R.drawable.ic_favorite_white_circle_24dp : R.drawable.ic_favorite_border_white_nocircle_24dp;
         stateBuilder.addCustomAction(new PlaybackStateCompat.CustomAction.Builder(
                 TOGGLE_FAVORITE, getString(R.string.action_toggle_favorite), favoriteIcon)
                 .build());
@@ -1151,7 +1150,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         playerHandler.sendEmptyMessage(TRACK_ENDED);
     }
 
-    public class MediaSessionCallback extends MediaSessionCompat.Callback{
+    public final class MediaSessionCallback extends MediaSessionCompat.Callback{
         @Override
         public void onPlay() {
             play();
