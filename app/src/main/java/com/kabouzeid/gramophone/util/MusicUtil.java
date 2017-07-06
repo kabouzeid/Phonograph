@@ -281,9 +281,9 @@ public class MusicUtil {
         return String.valueOf(musicMediaTitle.charAt(0)).toUpperCase();
     }
 
-    public static int indexOfSongInList(List<Song> songs, String songTitle) {
+    public static int indexOfSongInList(List<Song> songs, int songId) {
         for (int i = 0; i < songs.size(); i++) {
-            if (songs.get(i).title.equals(songTitle)) {
+            if (songs.get(i).id == songId) {
                 return i;
             }
         }

@@ -43,22 +43,22 @@ public class ArtistLoader {
     }
 
     @NonNull
-    public static Artist getArtist(@NonNull final Context context, String artist) {
+    public static Artist getArtist(@NonNull final Context context, int artistId) {
         ArrayList<Song> songs = SongLoader.getSongs(SongLoader.makeSongCursor(
                 context,
-                AudioColumns.ARTIST + "=?",
-                new String[]{artist},
+                AudioColumns.ARTIST_ID + "=?",
+                new String[]{String.valueOf(artistId)},
                 getSongLoaderSortOrder(context))
         );
         return new Artist(AlbumLoader.splitIntoAlbums(songs));
     }
 
     @NonNull
-    public static Artist getArtist(@NonNull final Context context, int artistId) {
+    public static Artist getArtist(@NonNull final Context context, String artistName) {
         ArrayList<Song> songs = SongLoader.getSongs(SongLoader.makeSongCursor(
                 context,
-                AudioColumns.ARTIST_ID + "=?",
-                new String[]{String.valueOf(artistId)},
+                AudioColumns.ARTIST + "=?",
+                new String[]{artistName},
                 getSongLoaderSortOrder(context))
         );
         return new Artist(AlbumLoader.splitIntoAlbums(songs));

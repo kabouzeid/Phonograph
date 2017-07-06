@@ -37,11 +37,13 @@ import java.util.concurrent.ConcurrentSkipListMap;
  */
 public class AutoMusicProvider {
 
+    public static final int PATH_SEGMENT_ID = 0;
+    public static final int PATH_SEGMENT_TITLE = 1;
+    public static final int PATH_SEGMENT_ARTIST = 2;
+    public static final int PATH_SEGMENT_ALBUM_ID = 3;
+
     private static String TAG = AutoMusicProvider.class.getName();
     private static final String BASE_URI = "androidauto://phonograph";
-    private static final int PATH_SEGMENT_TITLE = 0;
-    private static final int PATH_SEGMENT_ID = 1;
-    private static final int PATH_SEGMENT_ARTIST = 2;
 
     private MusicProviderSource mSource;
     private WeakReference<MusicService> mMusicService;
@@ -124,9 +126,10 @@ public class AutoMusicProvider {
             for (int i = 0; i < songs.size(); i++) {
                 final Song s = songs.get(i);
                 Uri.Builder topTracksData = Uri.parse(BASE_URI).buildUpon();
-                topTracksData.appendPath(s.title)
-                        .appendPath(String.valueOf(s.id))
-                        .appendPath(s.artistName);
+                topTracksData.appendPath(String.valueOf(s.id))
+                        .appendPath(s.title)
+                        .appendPath(s.artistName)
+                        .appendPath(String.valueOf(s.albumId));
                 queueList.putIfAbsent(i, topTracksData.build());
             }
         }
@@ -175,9 +178,10 @@ public class AutoMusicProvider {
         for (int i = 0; i < albums.size(); i++) {
             final Album a = albums.get(i);
             Uri.Builder albumData = Uri.parse(BASE_URI).buildUpon();
-            albumData.appendPath(a.getTitle())
-                    .appendPath(String.valueOf(a.getId()))
-                    .appendPath(a.getArtistName());
+            albumData.appendPath(String.valueOf(a.getId()))
+                    .appendPath(a.getTitle())
+                    .appendPath(a.getArtistName())
+                    .appendPath(String.valueOf(a.getId()));
             newMusicListByAlbum.putIfAbsent(i, albumData.build());
         }
 
@@ -191,8 +195,8 @@ public class AutoMusicProvider {
         for (int i = 0; i < artists.size(); i++) {
             final Artist a = artists.get(i);
             Uri.Builder artistData = Uri.parse(BASE_URI).buildUpon();
-            artistData.appendPath(a.getName())
-                    .appendPath(String.valueOf(a.getId()))
+            artistData.appendPath(String.valueOf(a.getId()))
+                    .appendPath(a.getName())
                     .appendPath(a.getName());
             newMusicListByArtist.putIfAbsent(i, artistData.build());
         }
@@ -207,7 +211,8 @@ public class AutoMusicProvider {
         for (int i = 0; i < playlists.size(); i++) {
             final Playlist p = playlists.get(i);
             Uri.Builder playlistData = Uri.parse(BASE_URI).buildUpon();
-            playlistData.appendPath(p.name);
+            playlistData.appendPath(String.valueOf(p.id))
+                    .appendPath(p.name);
             newMusicListByPlaylist.putIfAbsent(i, playlistData.build());
         }
 
@@ -221,9 +226,10 @@ public class AutoMusicProvider {
         for (int i = 0; i < songs.size(); i++) {
             final Song s = songs.get(i);
             Uri.Builder topTracksData = Uri.parse(BASE_URI).buildUpon();
-            topTracksData.appendPath(s.title)
-                    .appendPath(String.valueOf(s.id))
-                    .appendPath(s.artistName);
+            topTracksData.appendPath(String.valueOf(s.id))
+                    .appendPath(s.title)
+                    .appendPath(s.artistName)
+                    .appendPath(String.valueOf(s.albumId));
             newMusicListByHistory.putIfAbsent(i, topTracksData.build());
         }
 
@@ -237,9 +243,10 @@ public class AutoMusicProvider {
         for (int i = 0; i < songs.size(); i++) {
             final Song s = songs.get(i);
             Uri.Builder topTracksData = Uri.parse(BASE_URI).buildUpon();
-            topTracksData.appendPath(s.title)
-                    .appendPath(String.valueOf(s.id))
-                    .appendPath(s.artistName);
+            topTracksData.appendPath(String.valueOf(s.id))
+                    .appendPath(s.title)
+                    .appendPath(s.artistName)
+                    .appendPath(String.valueOf(s.albumId));
             newMusicListByTopTracks.putIfAbsent(i, topTracksData.build());
         }
 
@@ -371,20 +378,19 @@ public class AutoMusicProvider {
     private MediaBrowserCompat.MediaItem createBrowsableMediaItem(String mediaId, Uri musicSelection, @Nullable Bitmap albumArt,
                                                                   Resources resources) {
         MediaDescriptionCompat.Builder builder = new MediaDescriptionCompat.Builder();
+        builder.setMediaId(MediaIDHelper.createMediaID(null, mediaId, musicSelection.getPathSegments().get(PATH_SEGMENT_ID)));
 
         final String title = musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE);
 
         switch (mediaId) {
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST:
                 final int playlistIcon = MusicUtil.isFavoritePlaylist(mContext, title) ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_queue_music_white_24dp;
-                builder.setMediaId(MediaIDHelper.createMediaID(null, mediaId, title))
-                        .setTitle(title)
+                builder.setTitle(title)
                         .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, playlistIcon, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST:
-                builder.setMediaId(MediaIDHelper.createMediaID(null, mediaId, musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST)))
-                        .setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST))
+                builder.setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST))
                         .setIconUri(Uri.parse("android.resource://" +
                                 mContext.getPackageName() + "/drawable/" +
                                 resources.getResourceEntryName(R.drawable.default_artist_image)));
@@ -394,8 +400,7 @@ public class AutoMusicProvider {
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY:
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS:
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE:
-                builder.setMediaId(MediaIDHelper.createMediaID(null, mediaId, title))
-                        .setTitle(title)
+                builder.setTitle(title)
                         .setSubtitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST));
 
                 if (albumArt != null) {

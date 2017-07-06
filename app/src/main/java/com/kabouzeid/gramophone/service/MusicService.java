@@ -44,6 +44,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetBig;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetClassic;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetSmall;
+import com.kabouzeid.gramophone.auto.AutoMusicProvider;
 import com.kabouzeid.gramophone.glide.BlurTransformation;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
@@ -1159,21 +1160,20 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         @Override
         public void onPlayFromMediaId(String mediaId, Bundle extras) {
             super.onPlayFromMediaId(mediaId, extras);
+            int itemId = Integer.valueOf(MediaIDHelper.getHierarchy(mediaId)[AutoMusicProvider.PATH_SEGMENT_ID + 1]);
 
             if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM)) {
-                String albumName = MediaIDHelper.getHierarchy(mediaId)[1];
-                Album album = AlbumLoader.getAlbum(getApplicationContext(), albumName);
+                Album album = AlbumLoader.getAlbum(getApplicationContext(), itemId);
                 ArrayList<Song> songs = new ArrayList<>();
                 songs.addAll(album.songs);
                 openQueue(songs, 0, true);
             } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST)) {
-                Artist artist = ArtistLoader.getArtist(getApplicationContext(), MediaIDHelper.getHierarchy(mediaId)[1]);
+                Artist artist = ArtistLoader.getArtist(getApplicationContext(), itemId);
                 ArrayList<Song> songs = new ArrayList<>();
                 songs.addAll(artist.getSongs());
                 openQueue(songs, 0, true);
             } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST)) {
-                String playlistName = MediaIDHelper.getHierarchy(mediaId)[1];
-                Playlist playlist = PlaylistLoader.getPlaylist(getApplicationContext(), playlistName);
+                Playlist playlist = PlaylistLoader.getPlaylist(getApplicationContext(), itemId);
                 ArrayList<Song> songs = new ArrayList<>();
                 songs.addAll(PlaylistSongLoader.getPlaylistSongList(getApplicationContext(), playlist.id));
                 openQueue(songs, 0, true);
@@ -1190,8 +1190,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 }
                 ArrayList<Song> songs = new ArrayList<>();
                 songs.addAll(tracks);
-                String songTitle = MediaIDHelper.getHierarchy(mediaId)[1];
-                int songIndex = MusicUtil.indexOfSongInList(tracks, songTitle);
+                int songIndex = MusicUtil.indexOfSongInList(tracks, itemId);
                 if (songIndex == -1) {
                     songIndex = 0;
                 }
