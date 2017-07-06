@@ -292,11 +292,10 @@ public class AutoMusicProvider {
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM:
-                for (Uri album : getAlbums()) {
-                    String albumId = album.getPathSegments().get(PATH_SEGMENT_ID);
-                    // TODO: Loading image takes too long, need to find better, faster way
-                    //Bitmap bitmap = MusicUtil.getAlbumArtForAlbum(mContext, Integer.parseInt(albumId));
-                    mediaItems.add(createBrowsableMediaItem(mediaId, album, null, resources));
+                for (final Uri album : getAlbums()) {
+                    final String albumId = album.getPathSegments().get(PATH_SEGMENT_ALBUM_ID);
+                    final Bitmap bitmap = MusicUtil.getAlbumArtForAlbum(mContext, Integer.parseInt(albumId));
+                    mediaItems.add(createBrowsableMediaItem(mediaId, album, bitmap, resources));
                 }
                 break;
 
@@ -314,20 +313,26 @@ public class AutoMusicProvider {
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY:
                 for (Uri song : getHistory()) {
-                    mediaItems.add(createBrowsableMediaItem(mediaId, song, null, resources));
+                    final String albumId = song.getPathSegments().get(PATH_SEGMENT_ALBUM_ID);
+                    final Bitmap bitmap = MusicUtil.getAlbumArtForAlbum(mContext, Integer.parseInt(albumId));
+                    mediaItems.add(createBrowsableMediaItem(mediaId, song, bitmap, resources));
                 }
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS:
                 for (Uri song : getTopTracks()) {
-                    mediaItems.add(createBrowsableMediaItem(mediaId, song, null, resources));
+                    final String albumId = song.getPathSegments().get(PATH_SEGMENT_ALBUM_ID);
+                    final Bitmap bitmap = MusicUtil.getAlbumArtForAlbum(mContext, Integer.parseInt(albumId));
+                    mediaItems.add(createBrowsableMediaItem(mediaId, song, bitmap, resources));
                 }
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE:
                 // TODO: auto scroll to current track, indicate that it's playing
                 for (Uri song : getQueue()) {
-                    mediaItems.add(createBrowsableMediaItem(mediaId, song, null, resources));
+                    final String albumId = song.getPathSegments().get(PATH_SEGMENT_ALBUM_ID);
+                    final Bitmap bitmap = MusicUtil.getAlbumArtForAlbum(mContext, Integer.parseInt(albumId));
+                    mediaItems.add(createBrowsableMediaItem(mediaId, song, bitmap, resources));
                 }
                 break;
         }

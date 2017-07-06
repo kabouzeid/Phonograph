@@ -49,14 +49,15 @@ public class MusicUtil {
         Bitmap bitmap = null;
         int desWidth = 256;
         int desHeight = 256;
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), albumArtUri);
-        } catch (FileNotFoundException e) {
-            Log.e(TAG, "File not found" , e);
-        } catch (IOException e) {
-            Log.e(TAG, "I/O error" , e);
-        }
-        if(bitmap != null) {
+        // TODO: Loading image takes too long, need to find better, faster way
+//        try {
+//            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), albumArtUri);
+//        } catch (FileNotFoundException e) {
+//            Log.e(TAG, "File not found" , e);
+//        } catch (IOException e) {
+//            Log.e(TAG, "I/O error" , e);
+//        }
+        if (bitmap != null) {
             bitmap = ScalingUtilities.createScaledBitmap(bitmap, desWidth,
                     desHeight, ScalingUtilities.ScalingLogic.FIT);
         }
