@@ -1160,7 +1160,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         @Override
         public void onPlayFromMediaId(String mediaId, Bundle extras) {
             super.onPlayFromMediaId(mediaId, extras);
-            int itemId = Integer.valueOf(MediaIDHelper.getHierarchy(mediaId)[AutoMusicProvider.PATH_SEGMENT_ID + 1]);
+            int itemId = Integer.valueOf(MediaIDHelper.extractMusicIDFromMediaID(mediaId));
 
             if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM)) {
                 Album album = AlbumLoader.getAlbum(getApplicationContext(), itemId);

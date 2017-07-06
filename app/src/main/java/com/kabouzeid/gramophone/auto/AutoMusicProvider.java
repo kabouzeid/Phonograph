@@ -37,13 +37,12 @@ import java.util.concurrent.ConcurrentSkipListMap;
  */
 public class AutoMusicProvider {
 
-    public static final int PATH_SEGMENT_ID = 0;
-    public static final int PATH_SEGMENT_TITLE = 1;
-    public static final int PATH_SEGMENT_ARTIST = 2;
-    public static final int PATH_SEGMENT_ALBUM_ID = 3;
-
     private static String TAG = AutoMusicProvider.class.getName();
     private static final String BASE_URI = "androidauto://phonograph";
+    private static final int PATH_SEGMENT_ID = 0;
+    private static final int PATH_SEGMENT_TITLE = 1;
+    private static final int PATH_SEGMENT_ARTIST = 2;
+    private static final int PATH_SEGMENT_ALBUM_ID = 3;
 
     private MusicProviderSource mSource;
     private WeakReference<MusicService> mMusicService;
@@ -383,7 +382,7 @@ public class AutoMusicProvider {
     private MediaBrowserCompat.MediaItem createBrowsableMediaItem(String mediaId, Uri musicSelection, @Nullable Bitmap albumArt,
                                                                   Resources resources) {
         MediaDescriptionCompat.Builder builder = new MediaDescriptionCompat.Builder();
-        builder.setMediaId(MediaIDHelper.createMediaID(null, mediaId, musicSelection.getPathSegments().get(PATH_SEGMENT_ID)));
+        builder.setMediaId(MediaIDHelper.createMediaID(musicSelection.getPathSegments().get(PATH_SEGMENT_ID), mediaId));
 
         final String title = musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE);
 
