@@ -144,10 +144,10 @@ public class PlayingNotificationImpl implements PlayingNotification {
                                 int primary = MaterialValueHelper.getPrimaryTextColor(service, dark);
                                 int secondary = MaterialValueHelper.getSecondaryTextColor(service, dark);
 
-                                Bitmap prev = createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_previous_white_24dp, primary), 1.5f);
-                                Bitmap next = createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_next_white_24dp, primary), 1.5f);
-                                Bitmap playPause = createBitmap(Util.getTintedVectorDrawable(service, isPlaying ? R.drawable.ic_pause_white_24dp : R.drawable.ic_play_arrow_white_24dp, primary), 1.5f);
-                                Bitmap close = createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_close_white_24dp, secondary), 1f);
+                                Bitmap prev = Util.createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_previous_white_24dp, primary), 1.5f);
+                                Bitmap next = Util.createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_next_white_24dp, primary), 1.5f);
+                                Bitmap playPause = Util.createBitmap(Util.getTintedVectorDrawable(service, isPlaying ? R.drawable.ic_pause_white_24dp : R.drawable.ic_play_arrow_white_24dp, primary), 1.5f);
+                                Bitmap close = Util.createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_close_white_24dp, secondary));
 
                                 notificationLayout.setTextColor(R.id.title, primary);
                                 notificationLayout.setTextColor(R.id.text, secondary);
@@ -203,13 +203,5 @@ public class PlayingNotificationImpl implements PlayingNotification {
         Intent intent = new Intent(action);
         intent.setComponent(serviceName);
         return PendingIntent.getService(context, 0, intent, 0);
-    }
-
-    private static Bitmap createBitmap(Drawable drawable, float sizeMultiplier) {
-        Bitmap bitmap = Bitmap.createBitmap((int) (drawable.getIntrinsicWidth() * sizeMultiplier), (int) (drawable.getIntrinsicHeight() * sizeMultiplier), Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(bitmap);
-        drawable.setBounds(0, 0, c.getWidth(), c.getHeight());
-        drawable.draw(c);
-        return bitmap;
     }
 }

@@ -49,14 +49,15 @@ public class MusicUtil {
         Bitmap bitmap = null;
         int desWidth = 256;
         int desHeight = 256;
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), albumArtUri);
-        } catch (FileNotFoundException e) {
-            Log.e(TAG, "File not found" , e);
-        } catch (IOException e) {
-            Log.e(TAG, "I/O error" , e);
-        }
-        if(bitmap != null) {
+        // TODO: Loading image takes too long, need to find better, faster way
+//        try {
+//            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), albumArtUri);
+//        } catch (FileNotFoundException e) {
+//            Log.e(TAG, "File not found" , e);
+//        } catch (IOException e) {
+//            Log.e(TAG, "I/O error" , e);
+//        }
+        if (bitmap != null) {
             bitmap = ScalingUtilities.createScaledBitmap(bitmap, desWidth,
                     desHeight, ScalingUtilities.ScalingLogic.FIT);
         }
@@ -235,7 +236,11 @@ public class MusicUtil {
     }
 
     public static boolean isFavoritePlaylist(@NonNull final Context context, @NonNull final Playlist playlist) {
-        return playlist.name != null && playlist.name.equals(context.getString(R.string.favorites));
+        return playlist.name != null && isFavoritePlaylist(context, playlist.name);
+    }
+
+    public static boolean isFavoritePlaylist(@NonNull final Context context, @NonNull final String playlistName) {
+        return playlistName.equals(context.getString(R.string.favorites));
     }
 
     public static Playlist getFavoritesPlaylist(@NonNull final Context context) {
@@ -275,5 +280,14 @@ public class MusicUtil {
         }
         if (musicMediaTitle.isEmpty()) return "";
         return String.valueOf(musicMediaTitle.charAt(0)).toUpperCase();
+    }
+
+    public static int indexOfSongInList(List<Song> songs, int songId) {
+        for (int i = 0; i < songs.size(); i++) {
+            if (songs.get(i).id == songId) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

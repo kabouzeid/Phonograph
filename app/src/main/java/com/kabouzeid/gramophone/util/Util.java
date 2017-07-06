@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -111,6 +113,18 @@ public class Util {
 
     public static Drawable getTintedVectorDrawable(@NonNull Resources res, @DrawableRes int resId, @Nullable Resources.Theme theme, @ColorInt int color) {
         return TintHelper.createTintedDrawable(getVectorDrawable(res, resId, theme), color);
+    }
+
+    public static Bitmap createBitmap(Drawable drawable) {
+        return createBitmap(drawable, 1f);
+    }
+
+    public static Bitmap createBitmap(Drawable drawable, float sizeMultiplier) {
+        Bitmap bitmap = Bitmap.createBitmap((int) (drawable.getIntrinsicWidth() * sizeMultiplier), (int) (drawable.getIntrinsicHeight() * sizeMultiplier), Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bitmap);
+        drawable.setBounds(0, 0, c.getWidth(), c.getHeight());
+        drawable.draw(c);
+        return bitmap;
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)

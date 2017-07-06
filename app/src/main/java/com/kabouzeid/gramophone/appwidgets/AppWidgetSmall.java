@@ -63,9 +63,9 @@ public class AppWidgetSmall extends BaseAppWidget {
 
         appWidgetView.setViewVisibility(R.id.media_titles, View.INVISIBLE);
         appWidgetView.setViewVisibility(R.id.image, View.INVISIBLE);
-        appWidgetView.setImageViewBitmap(R.id.button_next, createBitmap(Util.getTintedVectorDrawable(context, R.drawable.ic_skip_next_white_24dp, MaterialValueHelper.getSecondaryTextColor(context, false)), 1f));
-        appWidgetView.setImageViewBitmap(R.id.button_prev, createBitmap(Util.getTintedVectorDrawable(context, R.drawable.ic_skip_previous_white_24dp, MaterialValueHelper.getSecondaryTextColor(context, false)), 1f));
-        appWidgetView.setImageViewBitmap(R.id.button_toggle_play_pause, createBitmap(Util.getTintedVectorDrawable(context, R.drawable.ic_play_arrow_white_24dp, MaterialValueHelper.getSecondaryTextColor(context, false)), 1f));
+        appWidgetView.setImageViewBitmap(R.id.button_next, Util.createBitmap(Util.getTintedVectorDrawable(context, R.drawable.ic_skip_next_white_24dp, MaterialValueHelper.getSecondaryTextColor(context, false))));
+        appWidgetView.setImageViewBitmap(R.id.button_prev, Util.createBitmap(Util.getTintedVectorDrawable(context, R.drawable.ic_skip_previous_white_24dp, MaterialValueHelper.getSecondaryTextColor(context, false))));
+        appWidgetView.setImageViewBitmap(R.id.button_toggle_play_pause, Util.createBitmap(Util.getTintedVectorDrawable(context, R.drawable.ic_play_arrow_white_24dp, MaterialValueHelper.getSecondaryTextColor(context, false))));
 
         linkButtons(context, appWidgetView);
         pushUpdate(context, appWidgetIds, appWidgetView);
@@ -129,11 +129,11 @@ public class AppWidgetSmall extends BaseAppWidget {
 
         // Set correct drawable for pause state
         int playPauseRes = isPlaying ? R.drawable.ic_pause_white_24dp : R.drawable.ic_play_arrow_white_24dp;
-        appWidgetView.setImageViewBitmap(R.id.button_toggle_play_pause, createBitmap(Util.getTintedVectorDrawable(service, playPauseRes, MaterialValueHelper.getSecondaryTextColor(service, false)), 1f));
+        appWidgetView.setImageViewBitmap(R.id.button_toggle_play_pause, Util.createBitmap(Util.getTintedVectorDrawable(service, playPauseRes, MaterialValueHelper.getSecondaryTextColor(service, false))));
 
         // Set prev/next button drawables
-        appWidgetView.setImageViewBitmap(R.id.button_next, createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_next_white_24dp, MaterialValueHelper.getSecondaryTextColor(service, false)), 1f));
-        appWidgetView.setImageViewBitmap(R.id.button_prev, createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_previous_white_24dp, MaterialValueHelper.getSecondaryTextColor(service, false)), 1f));
+        appWidgetView.setImageViewBitmap(R.id.button_next, Util.createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_next_white_24dp, MaterialValueHelper.getSecondaryTextColor(service, false))));
+        appWidgetView.setImageViewBitmap(R.id.button_prev, Util.createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_previous_white_24dp, MaterialValueHelper.getSecondaryTextColor(service, false))));
 
         // Link actions buttons to intents
         linkButtons(service, appWidgetView);

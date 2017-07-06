@@ -44,24 +44,25 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetBig;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetClassic;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetSmall;
+import com.kabouzeid.gramophone.auto.AutoMusicProvider;
 import com.kabouzeid.gramophone.glide.BlurTransformation;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
-import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
 import com.kabouzeid.gramophone.helper.StopWatch;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
+import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.loader.TopAndRecentlyPlayedTracksLoader;
-import com.kabouzeid.gramophone.model.Album;
-import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.model.AbsCustomPlaylist;
+import com.kabouzeid.gramophone.model.Album;
+import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.auto.MediaIDHelper;
 import com.kabouzeid.gramophone.provider.HistoryStore;
 import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
-import com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper;
 import com.kabouzeid.gramophone.service.notification.PlayingNotification;
 import com.kabouzeid.gramophone.service.notification.PlayingNotificationImpl;
 import com.kabouzeid.gramophone.service.notification.PlayingNotificationImpl24;
@@ -74,10 +75,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM;
-import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST;
-import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS;
 
 /**
  * @author Karim Abou Zeid (kabouzeid), Andrew Neal
@@ -102,7 +99,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final String APP_WIDGET_UPDATE = PHONOGRAPH_PACKAGE_NAME + ".appwidgetupdate";
     public static final String EXTRA_APP_WIDGET_NAME = PHONOGRAPH_PACKAGE_NAME + "app_widget_name";
 
-    // do not change these three strings as it will break support with other apps (e.g. last.fm scrobbling)
+    // Do not change these three strings as it will break support with other apps (e.g. last.fm scrobbling)
     public static final String META_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".metachanged";
     public static final String QUEUE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".queuechanged";
     public static final String PLAY_STATE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".playstatechanged";
@@ -110,6 +107,10 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final String REPEAT_MODE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".repeatmodechanged";
     public static final String SHUFFLE_MODE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".shufflemodechanged";
     public static final String MEDIA_STORE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".mediastorechanged";
+
+    public static final String CYCLE_REPEAT = PHONOGRAPH_PACKAGE_NAME + ".cyclerepeat";
+    public static final String TOGGLE_SHUFFLE = PHONOGRAPH_PACKAGE_NAME + ".toggleshuffle";
+    public static final String TOGGLE_FAVORITE = PHONOGRAPH_PACKAGE_NAME + ".togglefavorite";
 
     public static final String SAVED_POSITION = "POSITION";
     public static final String SAVED_POSITION_IN_TRACK = "POSITION_IN_TRACK";
@@ -545,12 +546,36 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     }
 
     private void updateMediaSessionPlaybackState() {
-        mediaSession.setPlaybackState(
-                new PlaybackStateCompat.Builder()
-                        .setActions(MEDIA_SESSION_ACTIONS)
-                        .setState(isPlaying() ? PlaybackStateCompat.STATE_PLAYING : PlaybackStateCompat.STATE_PAUSED,
-                                getPosition(), 1)
-                        .build());
+        PlaybackStateCompat.Builder stateBuilder = new PlaybackStateCompat.Builder()
+                .setActions(MEDIA_SESSION_ACTIONS)
+                .setState(isPlaying() ? PlaybackStateCompat.STATE_PLAYING : PlaybackStateCompat.STATE_PAUSED,
+                        getSongProgressMillis(), 1);
+
+        setCustomAction(stateBuilder);
+
+        mediaSession.setPlaybackState(stateBuilder.build());
+    }
+
+    private void setCustomAction(PlaybackStateCompat.Builder stateBuilder) {
+        int repeatIcon = R.drawable.ic_repeat_white_nocircle_24dp;  // REPEAT_MODE_NONE
+        if (getRepeatMode() == REPEAT_MODE_THIS) {
+            repeatIcon = R.drawable.ic_repeat_one_white_circle_24dp;
+        } else if (getRepeatMode() == REPEAT_MODE_ALL) {
+            repeatIcon = R.drawable.ic_repeat_white_circle_24dp;
+        }
+        stateBuilder.addCustomAction(new PlaybackStateCompat.CustomAction.Builder(
+                CYCLE_REPEAT, getString(R.string.action_cycle_repeat), repeatIcon)
+                .build());
+
+        final int shuffleIcon = getShuffleMode() == SHUFFLE_MODE_NONE ? R.drawable.ic_shuffle_white_nocircle_24dp : R.drawable.ic_shuffle_white_circle_24dp;
+        stateBuilder.addCustomAction(new PlaybackStateCompat.CustomAction.Builder(
+                TOGGLE_SHUFFLE, getString(R.string.action_toggle_shuffle), shuffleIcon)
+                .build());
+
+        final int favoriteIcon = MusicUtil.isFavorite(getApplicationContext(), getCurrentSong()) ? R.drawable.ic_favorite_white_circle_24dp : R.drawable.ic_favorite_border_white_nocircle_24dp;
+        stateBuilder.addCustomAction(new PlaybackStateCompat.CustomAction.Builder(
+                TOGGLE_FAVORITE, getString(R.string.action_toggle_favorite), favoriteIcon)
+                .build());
     }
 
     private void updateMediaSessionMetaData() {
@@ -1126,7 +1151,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         playerHandler.sendEmptyMessage(TRACK_ENDED);
     }
 
-    public class MediaSessionCallback extends MediaSessionCompat.Callback{
+    public final class MediaSessionCallback extends MediaSessionCompat.Callback{
         @Override
         public void onPlay() {
             play();
@@ -1135,25 +1160,41 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         @Override
         public void onPlayFromMediaId(String mediaId, Bundle extras) {
             super.onPlayFromMediaId(mediaId, extras);
+            int itemId = Integer.valueOf(MediaIDHelper.extractMusicIDFromMediaID(mediaId));
 
-            if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_ALBUM)) {
-                String albumName = MediaIDHelper.getHierarchy(mediaId)[1];
-                Album album = AlbumLoader.getAlbum(getApplicationContext(), albumName);
+            if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM)) {
+                Album album = AlbumLoader.getAlbum(getApplicationContext(), itemId);
                 ArrayList<Song> songs = new ArrayList<>();
                 songs.addAll(album.songs);
                 openQueue(songs, 0, true);
-
-            }else if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_PLAYLIST)) {
-                String playlistName = MediaIDHelper.getHierarchy(mediaId)[1];
-                Playlist playlist = PlaylistLoader.getPlaylist(getApplicationContext(), playlistName);
+            } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST)) {
+                Artist artist = ArtistLoader.getArtist(getApplicationContext(), itemId);
+                ArrayList<Song> songs = new ArrayList<>();
+                songs.addAll(artist.getSongs());
+                openQueue(songs, 0, true);
+            } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST)) {
+                Playlist playlist = PlaylistLoader.getPlaylist(getApplicationContext(), itemId);
                 ArrayList<Song> songs = new ArrayList<>();
                 songs.addAll(PlaylistSongLoader.getPlaylistSongList(getApplicationContext(), playlist.id));
                 openQueue(songs, 0, true);
-
-            }else if (mediaId.startsWith(MEDIA_ID_MUSICS_BY_TOP_TRACKS)) {
+            } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY) ||
+                    mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS) ||
+                    mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE)) {
+                List<Song> tracks;
+                if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY)) {
+                    tracks = TopAndRecentlyPlayedTracksLoader.getRecentlyPlayedTracks(getApplicationContext());
+                } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS)) {
+                    tracks = TopAndRecentlyPlayedTracksLoader.getTopTracks(getApplicationContext());
+                } else {
+                    tracks = MusicPlaybackQueueStore.getInstance(MusicService.this).getSavedOriginalPlayingQueue();
+                }
                 ArrayList<Song> songs = new ArrayList<>();
-                songs.addAll(TopAndRecentlyPlayedTracksLoader.getTopTracks(getApplicationContext()));
-                openQueue(songs, 0, true);
+                songs.addAll(tracks);
+                int songIndex = MusicUtil.indexOfSongInList(tracks, itemId);
+                if (songIndex == -1) {
+                    songIndex = 0;
+                }
+                openQueue(songs, songIndex, true);
             }
 
             play();
@@ -1187,6 +1228,30 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         @Override
         public boolean onMediaButtonEvent(Intent mediaButtonEvent) {
             return MediaButtonIntentReceiver.handleIntent(MusicService.this, mediaButtonEvent);
+        }
+
+        @Override
+        public void onCustomAction(@NonNull String action, Bundle extras) {
+            switch (action) {
+                case CYCLE_REPEAT:
+                    cycleRepeatMode();
+                    updateMediaSessionPlaybackState();
+                    break;
+
+                case TOGGLE_SHUFFLE:
+                    toggleShuffle();
+                    updateMediaSessionPlaybackState();
+                    break;
+
+                case TOGGLE_FAVORITE:
+                    MusicUtil.toggleFavorite(getApplicationContext(), getCurrentSong());
+                    updateMediaSessionPlaybackState();
+                    break;
+
+                default:
+                    Log.d(TAG, "Unsupported action: " + action);
+                    break;
+            }
         }
     }
 

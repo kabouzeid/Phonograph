@@ -11,17 +11,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.MediaBrowserServiceCompat;
 import android.support.v4.media.session.MediaSessionCompat;
-import android.support.v4.media.session.PlaybackStateCompat;
-import android.util.Log;
 
-import com.kabouzeid.gramophone.modelAndroidAuto.AutoMusicProvider;
+import com.kabouzeid.gramophone.auto.AutoMusicProvider;
+import com.kabouzeid.gramophone.auto.MediaIDHelper;
 import com.kabouzeid.gramophone.util.PackageValidator;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_EMPTY_ROOT;
-import static com.kabouzeid.gramophone.modelAndroidAuto.MediaIDHelper.MEDIA_ID_ROOT;
 
 public class AutoMusicBrowserService extends MediaBrowserServiceCompat implements ServiceConnection {
 
@@ -30,8 +26,7 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat implement
     private AutoMusicProvider mMusicProvider;
     private PackageValidator mPackageValidator;
     private MediaSessionCompat mMediaSession;
-
-    private boolean mBound;
+    private MusicService mMusicService;
 
     public AutoMusicBrowserService() {
     }
@@ -46,6 +41,12 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat implement
         bindService(intent, this, Context.BIND_AUTO_CREATE);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbindService(this);
+    }
+
     private void createMediaSession(){
         setSessionToken(mMediaSession.getSessionToken());
     }
@@ -53,28 +54,22 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat implement
     @Nullable
     @Override
     public BrowserRoot onGetRoot(@NonNull String clientPackageName, int clientUid, @Nullable Bundle rootHints) {
-        // To ensure you are not allowing any arbitrary app to browse your app's contents, you
-        // need to check the origin:
+        // Check origin to ensure we're not allowing any arbitrary app to browse app contents
         if (!mPackageValidator.isCallerAllowed(this, clientPackageName, clientUid)) {
-            // If the request comes from an untrusted package, return an empty browser root.
-            // If you return null, then the media browser will not be able to connect and
-            // no further calls will be made to other media browsing methods.
-
-            return new MediaBrowserServiceCompat.BrowserRoot(MEDIA_ID_EMPTY_ROOT, null);
+            // Request from an untrusted package: return an empty browser root
+            return new MediaBrowserServiceCompat.BrowserRoot(MediaIDHelper.MEDIA_ID_EMPTY_ROOT, null);
         }
 
-        return new BrowserRoot(MEDIA_ID_ROOT, null);
+        return new BrowserRoot(MediaIDHelper.MEDIA_ID_ROOT, null);
     }
 
     @Override
     public void onLoadChildren(@NonNull final String parentId, @NonNull final Result<List<MediaBrowserCompat.MediaItem>> result) {
-        if (MEDIA_ID_EMPTY_ROOT.equals(parentId)) {
+        if (MediaIDHelper.MEDIA_ID_EMPTY_ROOT.equals(parentId)) {
             result.sendResult(new ArrayList<MediaBrowserCompat.MediaItem>());
-        }else if (mMusicProvider.isInitialized()) {
-            // if music library is ready, return immediately
+        } else if (mMusicProvider.isInitialized()) {
             result.sendResult(mMusicProvider.getChildren(parentId, getResources()));
         } else {
-            // otherwise, only return results when the music library is retrieved
             result.detach();
             mMusicProvider.retrieveMediaAsync(new AutoMusicProvider.Callback() {
                 @Override
@@ -88,20 +83,14 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat implement
     @Override
     public void onServiceConnected(ComponentName componentName, IBinder service) {
         MusicService.MusicBinder binder = (MusicService.MusicBinder) service;
-        MusicService musicService = binder.getService();
-        mMediaSession = musicService.getMediaSession();
+        mMusicService = binder.getService();
+        mMediaSession = mMusicService.getMediaSession();
         createMediaSession();
-        mBound = true;
+        mMusicProvider.setMusicService(mMusicService);
     }
 
     @Override
     public void onServiceDisconnected(ComponentName componentName) {
-        mBound = false;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        unbindService(this);
+        mMusicService = null;
     }
 }
