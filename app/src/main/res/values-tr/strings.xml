@@ -158,8 +158,6 @@
     <string name="empty">Boş</string>
     <string name="playlist_name_empty">Çalma listesi adı</string>
     <string name="song">Şarkı</string>
-    <string name="pref_only_lollipop">"Sadece Lollipop için."</string>
-    <string name="pref_only_nougat_mr1">"Sadece Nugat 7.1.'de kullanılabilir."</string>
     <string name="pref_summary_album_art_on_lockscreen">Kilit ekranı duvar kağıdı olarak çalan şarkının albüm kapağını kullanır.</string>
     <string name="pref_summary_blurred_album_art">Kilit ekranındaki bulanık albüm kapağı. 3. parti uygulama ve araçlarda problem oluşturabilir.</string>
     <string name="pref_summary_colored_notification">"Bildirimler alb\u00fcm kapa\u011f\u0131n\u0131n canl\u0131 renkleriyle renklendirilir."</string>

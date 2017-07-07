@@ -153,7 +153,6 @@
     <string name="empty">Kosong</string>
     <string name="playlist_name_empty">Nama daftar putar</string>
     <string name="song">Lagu</string>
-    <string name="pref_only_lollipop">"Hanya tersedia pada Android Lollipop 5.0 atau lebih baru."</string>
     <string name="pref_summary_album_art_on_lockscreen">Gunakan sambul album lagu yang sedang diputar sebagai wallpaper layar kunci</string>
     <string name="pref_summary_blurred_album_art">Buramkan sampul album di layar kunci. Dapat menyebabkan masalah dengan aplikasi pihak ke tiga dan widget</string>
     <string name="pref_summary_colored_notification">"Mewarnai notifikasi putar dengan warna yang cerah dari album."</string>

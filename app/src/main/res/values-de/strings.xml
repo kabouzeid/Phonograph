@@ -158,8 +158,6 @@
     <string name="empty">Leer</string>
     <string name="playlist_name_empty">Wiedergabelisten Name</string>
     <string name="song">Titel</string>
-    <string name="pref_only_lollipop">"Nur auf Android Lollipop 5.x verfügbar"</string>
-    <string name="pref_only_nougat_mr1">"Nur verfügbar für Nougat 7.1"</string>
     <string name="pref_summary_album_art_on_lockscreen">Das Album Cover des aktuellen Titels wird als Hintergrund im Sperrbildschirm verwendet.</string>
     <string name="pref_summary_blurred_album_art">Lässt das Album Cover auf dem Sperrbildschirm verschwommen aussehen. Kann Probleme mit Apps und Widgets von Dritten verursachen.</string>
     <string name="pref_summary_colored_notification">"Die Benachrichtigung ist in der Farbe des Album Covers gef\u00e4rbt."</string>

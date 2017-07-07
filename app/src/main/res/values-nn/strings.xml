@@ -87,7 +87,6 @@
     <string name="playlist_empty_text">Spelelista er tom</string>
     <string name="no_playlists">Ingen spelelister</string>
     <string name="song">Song</string>
-    <string name="pref_only_lollipop">"Berre tilgjengeleg på Lollipop."</string>
     <string name="search_hint">Søk i biblioteket...</string>
     <string name="rescanning_media">Skanner media på nytt...</string>
     <string name="new_playlist_title">Ny speleliste</string>

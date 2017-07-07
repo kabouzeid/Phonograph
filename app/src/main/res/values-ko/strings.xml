@@ -147,7 +147,6 @@
     <string name="empty">트랙 없음</string>
     <string name="playlist_name_empty">재생 목록 이름</string>
     <string name="song">노래</string>
-    <string name="pref_only_lollipop">"안드로이드 롤리팝에서만 가능합니다."</string>
     <string name="pref_summary_album_art_on_lockscreen">현재 재생 중인 노래의 앨범 커버를 잠금 화면의 배경 화면으로 사용합니다.</string>
     <string name="pref_summary_colored_notification">"\uc54c\ub9bc\ucc3d\uc5d0 \ub728\ub294 \uc54c\ub9bc \ucee8\ud2b8\ub864\uc774 \uc568\ubc94 \uc544\ud2b8\uc758 \uc8fc\uc694 \uc0c9\uc0c1\uc73c\ub85c \uce60\ud574\uc9d1\ub2c8\ub2e4."</string>
     <string name="pref_summary_gapless_playback">"곡을 넘길 때 간격을 없애 끊김없이 재생합니다. 이 기능을 끄면 곡 전환 관련 문제가 해결될 수 있습니다."</string>

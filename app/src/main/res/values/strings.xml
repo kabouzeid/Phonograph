@@ -169,9 +169,6 @@
     <string name="empty">Empty</string>
     <string name="playlist_name_empty">Playlist name</string>
     <string name="song">Song</string>
-    <string name="pref_only_lollipop">"Only available on Lollipop or above."</string>
-    <string name="pref_only_nougat">"Only available on Nougat 7.0 or above."</string>
-    <string name="pref_only_nougat_mr1">"Only available on Nougat 7.1 or above."</string>
     <string name="pref_summary_album_art_on_lockscreen">Uses the current songs album cover as lockscreen wallpaper.</string>
     <string name="pref_summary_blurred_album_art">Blurs the album cover on the lockscreen. Can cause problems with third party apps and widgets.</string>
     <string name="pref_summary_classic_notification">Use the classic notification design.</string>

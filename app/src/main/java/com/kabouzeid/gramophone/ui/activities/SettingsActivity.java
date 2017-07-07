@@ -90,7 +90,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
     @Override
     public void onColorChooserDismissed(@NonNull ColorChooserDialog dialog) {
-
     }
 
     @Override
@@ -182,7 +181,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                             .commit();
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-                        //Set the new theme so that updateAppShortcuts can pull it
+                        // Set the new theme so that updateAppShortcuts can pull it
                         getActivity().setTheme(PreferenceUtil.getThemeResFromPrefValue((String) o));
                         new DynamicShortcutManager(getActivity()).updateDynamicShortcuts();
                     }
@@ -236,8 +235,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
             TwoStatePreference colorNavBar = (TwoStatePreference) findPreference("should_color_navigation_bar");
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                colorNavBar.setEnabled(false);
-                colorNavBar.setSummary(R.string.pref_only_lollipop);
+                colorNavBar.setVisible(false);
             } else {
                 colorNavBar.setChecked(ThemeStore.coloredNavigationBar(getActivity()));
                 colorNavBar.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -254,15 +252,14 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
             final TwoStatePreference classicNotification = (TwoStatePreference) findPreference("classic_notification");
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
-                classicNotification.setEnabled(false);
-                classicNotification.setSummary(R.string.pref_only_nougat);
+                classicNotification.setVisible(false);
             } else {
                 classicNotification.setChecked(PreferenceUtil.getInstance(getActivity()).classicNotification());
                 classicNotification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        //Save preference
-                        PreferenceUtil.getInstance(getActivity()).setClassicNotification((Boolean)newValue);
+                        // Save preference
+                        PreferenceUtil.getInstance(getActivity()).setClassicNotification((Boolean) newValue);
 
                         final MusicService service = MusicPlayerRemote.musicService;
                         if (service != null) {
@@ -277,17 +274,16 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
             final TwoStatePreference colorAppShortcuts = (TwoStatePreference) findPreference("should_color_app_shortcuts");
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
-                colorAppShortcuts.setEnabled(false);
-                colorAppShortcuts.setSummary(R.string.pref_only_nougat_mr1);
+                colorAppShortcuts.setVisible(false);
             } else {
                 colorAppShortcuts.setChecked(PreferenceUtil.getInstance(getActivity()).coloredAppShortcuts());
                 colorAppShortcuts.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        //Save preference
-                        PreferenceUtil.getInstance(getActivity()).setColoredAppShortcuts((Boolean)newValue);
+                        // Save preference
+                        PreferenceUtil.getInstance(getActivity()).setColoredAppShortcuts((Boolean) newValue);
 
-                        //Update app shortcuts
+                        // Update app shortcuts
                         new DynamicShortcutManager(getActivity()).updateDynamicShortcuts();
 
                         return true;
