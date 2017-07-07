@@ -19,9 +19,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@drawable/shadow_up_strong"
+        android:layoutDirection="ltr"
         android:orientation="horizontal"
-        android:padding="16dp"
-        android:layoutDirection="ltr">
+        android:padding="16dp">
 
         <ImageButton
             android:id="@+id/button_prev"

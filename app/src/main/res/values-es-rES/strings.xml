@@ -122,7 +122,7 @@
     <string name="pref_title_app_shortcuts">Atajos coloreados de la aplicación</string>
     <string name="pref_title_set_default_start_page">Página de inicio</string>
     <string name="pref_title_album_art_on_lockscreen">Mostrar carátula del álbum</string>
-    <string name="pref_title_auto_download_artist_images">Descargar automaticamente las fotos de los artistas</string>
+    <string name="pref_title_auto_download_metadata">Descargar automaticamente las fotos de los artistas</string>
     <string name="pref_title_blurred_album_art">Desenfocar carátula de álbum</string>
     <string name="pref_title_colored_notification">Notificación coloreada</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorar carátulas provenientes del almacenamiento local</string>
@@ -208,7 +208,7 @@
     <string name="author">Autor</string>
     <string name="add_to_google_plus_circles">Añadir a círculos en Google Plus</string>
     <string name="follow_on_twitter">Seguir en Twitter</string>
-    <string name="fork_on_git_hub">Fork en GitHub</string>
+    <string name="fork_on_github">Fork en GitHub</string>
     <string name="visit_website">Visitar sitio web</string>
     <string name="report_bugs">Reportar errores</string>
     <string name="report_bugs_summary">Reportar errores o sugerir nuevas características.</string>

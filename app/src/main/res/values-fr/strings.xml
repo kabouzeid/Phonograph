@@ -122,7 +122,7 @@
     <string name="pref_title_app_shortcuts">Raccourcis de l\'application colorés</string>
     <string name="pref_title_set_default_start_page">Page d\'accueil</string>
     <string name="pref_title_album_art_on_lockscreen">Afficher la pochette d\'album</string>
-    <string name="pref_title_auto_download_artist_images">Télécharger automatiquement les images</string>
+    <string name="pref_title_auto_download_metadata">Télécharger automatiquement les images</string>
     <string name="pref_title_blurred_album_art">Pochette d\'album floue</string>
     <string name="pref_title_colored_notification">Notification colorée</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorer le stockage des pochettes</string>
@@ -209,7 +209,7 @@
     <string name="author">Auteur</string>
     <string name="add_to_google_plus_circles">Ajouter aux cercles Google+</string>
     <string name="follow_on_twitter">Suivre sur Twitter</string>
-    <string name="fork_on_git_hub">Aller sur GitHub</string>
+    <string name="fork_on_github">Aller sur GitHub</string>
     <string name="visit_website">Visiter le site internet</string>
     <string name="report_bugs">Signaler des bugs</string>
     <string name="report_bugs_summary">Signalez des bugs ou demandez des nouvelles fonctionnalités.</string>

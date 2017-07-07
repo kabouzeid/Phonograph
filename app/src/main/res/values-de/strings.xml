@@ -122,7 +122,7 @@
     <string name="pref_title_app_shortcuts">Gefärbte App-Shortcuts</string>
     <string name="pref_title_set_default_start_page">Startseite</string>
     <string name="pref_title_album_art_on_lockscreen">Album Cover anzeigen</string>
-    <string name="pref_title_auto_download_artist_images">Interpreten Bilder automatisch herunterladen</string>
+    <string name="pref_title_auto_download_metadata">Interpreten Bilder automatisch herunterladen</string>
     <string name="pref_title_blurred_album_art">Album Cover weichzeichnen</string>
     <string name="pref_title_colored_notification">Gefärbte Benachrichtigung</string>
     <string name="pref_title_ignore_media_store_artwork">Media Store Cover ignorieren</string>
@@ -209,7 +209,7 @@
     <string name="author">Autor</string>
     <string name="add_to_google_plus_circles">Zu Google Plus Kreisen hinzufügen</string>
     <string name="follow_on_twitter">Auf Twitter folgen</string>
-    <string name="fork_on_git_hub">Auf GitHub forken</string>
+    <string name="fork_on_github">Auf GitHub forken</string>
     <string name="visit_website">Website besuchen</string>
     <string name="report_bugs">Fehler melden</string>
     <string name="report_bugs_summary">Melde Fehler oder schlage neue Features vor.</string>

@@ -122,7 +122,7 @@
     <string name="pref_title_app_shortcuts">Renkli uygulama kısayolları</string>
     <string name="pref_title_set_default_start_page">Başlangıç sayfası</string>
     <string name="pref_title_album_art_on_lockscreen">Albüm kapağını göster</string>
-    <string name="pref_title_auto_download_artist_images">Sanatçı resimlerini otomatik indir</string>
+    <string name="pref_title_auto_download_metadata">Sanatçı resimlerini otomatik indir</string>
     <string name="pref_title_blurred_album_art">Bulanık albüm kapağı</string>
     <string name="pref_title_colored_notification">Renkli bildirim</string>
     <string name="pref_title_ignore_media_store_artwork">Media Store albüm kapağını yoksay</string>
@@ -209,7 +209,7 @@
     <string name="author">Yapımcı</string>
     <string name="add_to_google_plus_circles">Google+ çevrelerine ekle</string>
     <string name="follow_on_twitter">Twitterda takip et</string>
-    <string name="fork_on_git_hub">GitHub da katkıda bulunun</string>
+    <string name="fork_on_github">GitHub da katkıda bulunun</string>
     <string name="visit_website">Websitesini ziyaret ediniz</string>
     <string name="report_bugs">Hata raporlayınız</string>
     <string name="report_bugs_summary">Hata raporlayın ya da yeni özellikler talep edin</string>

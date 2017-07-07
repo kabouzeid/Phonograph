@@ -4,10 +4,15 @@
     tools:context="com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity">
 
     <item
-        android:icon="@drawable/ic_shuffle_white_24dp"
         android:id="@+id/action_shuffle_album"
+        android:icon="@drawable/ic_shuffle_white_24dp"
         android:title="@string/action_shuffle_album"
         app:showAsAction="ifRoom" />
+  
+    <item  
+        android:id="@+id/action_wiki"
+        android:title="@string/wiki"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_play_next"

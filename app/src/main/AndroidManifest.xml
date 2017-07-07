@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
@@ -20,6 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Phonograph.Light"
         tools:ignore="UnusedAttribute">
+
         <activity android:name=".ui.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -93,6 +95,31 @@
         </activity>
         <activity android:name=".ui.activities.AlbumDetailActivity" />
         <activity android:name=".ui.activities.ArtistDetailActivity" />
+        <activity android:name=".ui.activities.PlaylistDetailActivity" />
+        <activity
+            android:name=".ui.activities.tageditor.SongTagEditorActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.activities.tageditor.AlbumTagEditorActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.activities.SearchActivity" />
+        <activity
+            android:name=".ui.activities.SettingsActivity"
+            android:label="@string/action_settings" />
+        <activity
+            android:name=".ui.activities.AboutActivity"
+            android:label="@string/action_about" />
+        <activity
+            android:name=".ui.activities.intro.AppIntroActivity"
+            android:label="@string/intro_label"
+            android:theme="@style/Theme.Intro" />
+        <activity
+            android:name=".ui.activities.bugreport.BugReportActivity"
+            android:label="@string/report_an_issue" />
+        <activity
+            android:name=".appshortcuts.AppShortcutLauncherActivity"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <service
             android:name=".service.MusicService"
@@ -119,15 +146,14 @@
         <meta-data
             android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
             android:value="GlideModule" />
-
-        <activity
-            android:name=".ui.activities.tageditor.SongTagEditorActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".ui.activities.tageditor.AlbumTagEditorActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.activities.SearchActivity" />
-
+     
+        <!-- Widgets -->
+        <receiver android:name=".appwidgets.BootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
         <receiver
             android:name=".appwidgets.AppWidgetBig"
             android:exported="false"
@@ -165,24 +191,6 @@
                 android:resource="@xml/app_widget_small_info" />
         </receiver>
 
-        <activity
-            android:name=".ui.activities.SettingsActivity"
-            android:label="@string/action_settings" />
-        <activity android:name=".ui.activities.PlaylistDetailActivity" />
-        <activity
-            android:name=".ui.activities.AboutActivity"
-            android:label="@string/action_about" />
-        <activity
-            android:name=".ui.activities.intro.AppIntroActivity"
-            android:label="@string/intro_label"
-            android:theme="@style/Theme.Intro" />
-        <activity
-            android:name=".ui.activities.bugreport.BugReportActivity"
-            android:label="@string/report_an_issue" />
-        <activity
-            android:name=".appshortcuts.AppShortcutLauncherActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:launchMode="singleInstance"/>
     </application>
 
 </manifest>

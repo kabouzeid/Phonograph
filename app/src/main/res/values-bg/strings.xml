@@ -117,7 +117,7 @@
     <string name="pref_title_navigation_bar">Оцветени навигационни бутони</string>
     <string name="pref_title_set_default_start_page">Начална страница</string>
     <string name="pref_title_album_art_on_lockscreen">Покажи обложката на албум</string>
-    <string name="pref_title_auto_download_artist_images">Автоматично изтегляне на изображения на артист</string>
+    <string name="pref_title_auto_download_metadata">Автоматично изтегляне на изображения на артист</string>
     <string name="pref_title_blurred_album_art">Размажи обложката</string>
     <string name="pref_title_colored_notification">Оцвети известията</string>
     <string name="pref_title_ignore_media_store_artwork">Игнорирай вградените обложки</string>
@@ -202,7 +202,7 @@
     <string name="author">Автор</string>
     <string name="add_to_google_plus_circles">Добави в Гугъл Плюс</string>
     <string name="follow_on_twitter">Последвай в Twitter</string>
-    <string name="fork_on_git_hub">Посети GitHub страница</string>
+    <string name="fork_on_github">Посети GitHub страница</string>
     <string name="visit_website">Посети уебсайт</string>
     <string name="report_bugs">Съобщи за бъгове</string>
     <string name="report_bugs_summary">Съобщи за бъгове или предложи нови идеи</string>

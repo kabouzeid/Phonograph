@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <!--The unused FrameLayout layout is necessary to prevent a crash on rotate-->
 
-    <com.sothree.slidinguppanel.SlidingUpPanelLayout android:id="@+id/player_sliding_layout"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/tools"
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
         xmlns:sothree="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/player_sliding_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="false"
@@ -135,4 +135,5 @@
         </FrameLayout>
 
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
 </FrameLayout>

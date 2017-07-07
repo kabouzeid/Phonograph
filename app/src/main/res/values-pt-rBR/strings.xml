@@ -117,7 +117,7 @@
     <string name="pref_title_navigation_bar">Barra de navegação colorida</string>
     <string name="pref_title_set_default_start_page">Página inicial</string>
     <string name="pref_title_album_art_on_lockscreen">Visualizar capa do álbum</string>
-    <string name="pref_title_auto_download_artist_images">Baixar as imagens dos artistas automaticamente</string>
+    <string name="pref_title_auto_download_metadata">Baixar as imagens dos artistas automaticamente</string>
     <string name="pref_title_blurred_album_art">Capa de álbum esmaecida</string>
     <string name="pref_title_colored_notification">Notificação colorida</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorar capas Media Store</string>
@@ -202,7 +202,7 @@
     <string name="author">Autor</string>
     <string name="add_to_google_plus_circles">Adicionar aos círculos do Google+</string>
     <string name="follow_on_twitter">Seguir no Twitter</string>
-    <string name="fork_on_git_hub">Garfo no GitHub</string>
+    <string name="fork_on_github">Garfo no GitHub</string>
     <string name="visit_website">Visitar site</string>
     <string name="report_bugs">Reportar bugs</string>
     <string name="report_bugs_summary">Reportar bugs ou pedir por novas funções.</string>

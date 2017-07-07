@@ -31,7 +31,7 @@ public class AppShortcutLauncherActivity extends Activity {
 
         int shortcutType = SHORTCUT_TYPE_NONE;
 
-        //Set shortcutType from the intent extras
+        // Set shortcutType from the intent extras
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             //noinspection WrongConstant

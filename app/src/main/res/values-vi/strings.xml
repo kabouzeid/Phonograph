@@ -122,7 +122,7 @@
     <string name="pref_title_app_shortcuts">Màu sắc biểu tượng ứng dụng</string>
     <string name="pref_title_set_default_start_page">Trang bắt đầu</string>
     <string name="pref_title_album_art_on_lockscreen">Hiện bìa album</string>
-    <string name="pref_title_auto_download_artist_images">Tự động tải về hình ảnh nghệ sĩ</string>
+    <string name="pref_title_auto_download_metadata">Tự động tải về hình ảnh nghệ sĩ</string>
     <string name="pref_title_blurred_album_art">Làm mờ bìa album</string>
     <string name="pref_title_colored_notification">Màu thông báo</string>
     <string name="pref_title_ignore_media_store_artwork">Bỏ qua kho ảnh bìa trong Kho Phương tiện</string>
@@ -209,7 +209,7 @@
     <string name="author">Tác giả</string>
     <string name="add_to_google_plus_circles">Thêm vào vòng kết nối Google Plus</string>
     <string name="follow_on_twitter">Theo dõi trên Twitter</string>
-    <string name="fork_on_git_hub">Fork trên GitHub</string>
+    <string name="fork_on_github">Fork trên GitHub</string>
     <string name="visit_website">Truy cập trang web</string>
     <string name="report_bugs">Báo lỗi</string>
     <string name="report_bugs_summary">Báo lỗi và yêu cầu tính năng mới.</string>

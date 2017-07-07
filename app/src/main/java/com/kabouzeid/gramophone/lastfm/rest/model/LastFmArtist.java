@@ -1,4 +1,3 @@
-
 package com.kabouzeid.gramophone.lastfm.rest.model;
 
 import com.google.gson.annotations.Expose;
@@ -8,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LastFmArtist {
-
     @Expose
     private Artist artist;
 
@@ -21,7 +19,6 @@ public class LastFmArtist {
     }
 
     public static class Artist {
-
         @Expose
         private List<Image> image = new ArrayList<>();
         @Expose
@@ -44,7 +41,6 @@ public class LastFmArtist {
         }
 
         public class Bio {
-
             @Expose
             private String content;
 
@@ -55,11 +51,9 @@ public class LastFmArtist {
             public void setContent(String content) {
                 this.content = content;
             }
-
         }
 
         public static class Image {
-
             @SerializedName("#text")
             @Expose
             private String Text;
@@ -81,9 +75,6 @@ public class LastFmArtist {
             public void setSize(String size) {
                 this.size = size;
             }
-
         }
-
     }
-
 }

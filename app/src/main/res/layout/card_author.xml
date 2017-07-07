@@ -64,6 +64,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/aachen_germany"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
             </LinearLayout>
 
         </LinearLayout>

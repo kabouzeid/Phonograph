@@ -118,7 +118,7 @@
     <string name="pref_title_navigation_bar">Έγχρωμη μπάρα πλοήγησης</string>
     <string name="pref_title_set_default_start_page">Αρχική σελίδα</string>
     <string name="pref_title_album_art_on_lockscreen">Εμφάνιση album art</string>
-    <string name="pref_title_auto_download_artist_images">Αυτόματο κατέβασμα πορτρέτων καλλιτεχνών</string>
+    <string name="pref_title_auto_download_metadata">Αυτόματο κατέβασμα πορτρέτων καλλιτεχνών</string>
     <string name="pref_title_blurred_album_art">Θάμπωμα πορτρέτων καλλιτεχνών</string>
     <string name="pref_title_colored_notification">Χρωματιστή πλοήγηση</string>
     <string name="pref_title_ignore_media_store_artwork">Παράληψη των album art στην SD</string>
@@ -203,7 +203,7 @@
     <string name="author">Εκδότης</string>
     <string name="add_to_google_plus_circles">Προσθήκη στους κύκλους σας στο Google Plus</string>
     <string name="follow_on_twitter">Ακολουθήστε στο Twitter</string>
-    <string name="fork_on_git_hub">Παρακολουθήστε στο GitHub</string>
+    <string name="fork_on_github">Παρακολουθήστε στο GitHub</string>
     <string name="visit_website">Επισκεφθείτε την ιστοσελίδα μας</string>
     <string name="report_bugs">Αναφορά σφαλμάτων</string>
     <string name="report_bugs_summary">Αναφέρετε σφάλματα ή ζητείστε νέα χαρακτηριστικά.</string>

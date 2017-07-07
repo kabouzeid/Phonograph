@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -83,7 +84,6 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -119,7 +119,6 @@
 
                 </android.support.design.widget.TextInputLayout>
 
-
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -137,7 +136,6 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                 </android.support.design.widget.TextInputLayout>
-
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -178,7 +176,6 @@
 
         </RelativeLayout>
 
-
     </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
 
     <android.support.v7.widget.Toolbar
@@ -196,4 +193,3 @@
         app:srcCompat="@drawable/ic_save_white_24dp" />
 
 </FrameLayout>
-
