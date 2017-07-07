@@ -4,12 +4,15 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.AbsListView;
 import android.widget.FrameLayout;
-import android.widget.HorizontalScrollView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 /**
@@ -23,20 +26,21 @@ public class TouchInterceptFrameLayout extends FrameLayout {
     private static final int MAX_CLICK_DISTANCE = 5;
     private static final int MAX_VERTICAL_DISTANCE = 5;
 
-    private Context c;
-
     private String TAG = "E/TouchInterceptFL";
     private String NULL_VIEWS_EXCEPTION_MESSAGE = "Did you forget to call setViews" + "" +
             "when creating your FrameLayout? Either textView or scrollView is null.";
     private String EMPTY_TRUNCATE_STRING = "songTruncated is empty or null. Did you remember " +
             "to set the song string when setting the song name in your text view?";
     
-    private HorizontalScrollView scrollView;
+    private TouchInterceptHorizontalScrollView scrollView;
     private TextView textView;
+
     private Rect scrollViewRect = new Rect();
     private float startX;
+
     private float startY;
     private boolean isTap;
+
     private String songTruncated;
     private String song;
 
@@ -60,9 +64,55 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      * @param sv The HorizontalScrollView containing text that needs to be scrolled
      * @param tv The TextView that needs to be scrolled (typically song or album title)
      */
-    public void setViews(HorizontalScrollView sv, TextView tv) {
+    public void setViews(TouchInterceptHorizontalScrollView sv, TextView tv) {
         scrollView = sv;
         textView = tv;
+
+    }
+
+    public void setListParent(View listParent){
+
+        if(listParent instanceof RecyclerView){
+            ((RecyclerView) listParent).addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                }
+
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+
+                    if (newState == AbsListView.OnScrollListener.SCROLL_STATE_FLING) {
+                        scrollView.cancelPendingInputEvents();
+                        cancelPendingInputEvents();
+                    } else if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                        scrollView.cancelPendingInputEvents();
+                        cancelPendingInputEvents();
+                    }
+                }
+            });
+        }
+
+        if(listParent instanceof ListView){
+            ((ListView) listParent).setOnScrollListener(new AbsListView.OnScrollListener(){
+                public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                }
+                public void onScrollStateChanged(AbsListView view, int newState) {
+
+                    if (newState == AbsListView.OnScrollListener.SCROLL_STATE_FLING) {
+                        scrollView.cancelPendingInputEvents();
+                        cancelPendingInputEvents();
+                    } else if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                        scrollView.cancelPendingInputEvents();
+                        cancelPendingInputEvents();
+                    }
+                }
+            });
+        }
+
     }
 
     /**
@@ -113,6 +163,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
+
         int x = Math.round(e.getRawX());
         int y = Math.round(e.getRawY());
         try {
@@ -155,6 +206,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                     // Scrolling vertically: cancel horizontal scrolling events
                     if (distanceY > MAX_VERTICAL_DISTANCE) {
                         CancelClick();
+                        return true;
                     }
                     break;
                 case MotionEvent.ACTION_CANCEL:
@@ -190,5 +242,4 @@ public class TouchInterceptFrameLayout extends FrameLayout {
         scrollView.cancelPendingInputEvents();
         isTap = false;
     }
-
 }

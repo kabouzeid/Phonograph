@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,6 +25,7 @@ import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.views.TouchInterceptFrameLayout;
+import com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView;
 
 import java.util.ArrayList;
 
@@ -69,7 +69,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_list, parent, false);
         }
         final TouchInterceptFrameLayout container = (TouchInterceptFrameLayout) convertView.findViewById(R.id.container);
-        final HorizontalScrollView songTitleScrollView = (HorizontalScrollView) convertView.findViewById(R.id.title_scrollview);
+        final TouchInterceptHorizontalScrollView songTitleScrollView = (TouchInterceptHorizontalScrollView) convertView.findViewById(R.id.title_scrollview);
         final TextView songTitle = (TextView) convertView.findViewById(R.id.title);
         final TextView songInfo = (TextView) convertView.findViewById(R.id.text);
         final ImageView albumArt = (ImageView) convertView.findViewById(R.id.image);
@@ -89,6 +89,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
         songInfo.setText(song.albumName);
         container.setViews(songTitleScrollView,songTitle);
         container.setTruncateText(song.title);
+        container.setListParent(parent);
 
         SongGlideRequest.Builder.from(Glide.with(activity), song)
                 .checkIgnoreMediaStore(activity).build()

@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -48,6 +47,7 @@ import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.kabouzeid.gramophone.views.TouchInterceptFrameLayout;
+import com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,7 +78,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     @BindView(R.id.album_title)
     TextView albumTitleTextView;
     @BindView(R.id.title_scrollview)
-    HorizontalScrollView titleScrollView;
+    TouchInterceptHorizontalScrollView titleScrollView;
     @BindView(R.id.list_background)
     View songsBackgroundView;
     @BindView(R.id.status_bar)
@@ -338,6 +338,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         albumTitleTextView.setText(album.getTitle());
         container.setViews(titleScrollView, albumTitleTextView);
         container.setTruncateText(album.getTitle());
+        container.setListParent(recyclerView);
         adapter.swapDataSet(album.songs);
     }
 

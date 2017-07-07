@@ -5,13 +5,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.views.TouchInterceptFrameLayout;
+import com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +38,7 @@ public class MediaEntryViewHolder extends RecyclerView.ViewHolder implements Vie
 
     @Nullable
     @BindView(R.id.title_scrollview)
-    public HorizontalScrollView title_scrollview;
+    public TouchInterceptHorizontalScrollView title_scrollview;
 
     @Nullable
     @BindView(R.id.text)

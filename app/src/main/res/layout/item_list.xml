@@ -77,7 +77,7 @@
             android:paddingRight="0dp"
             android:paddingStart="16dp">
 
-            <HorizontalScrollView
+            <com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView
                 android:id="@+id/title_scrollview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
                     android:ellipsize="end"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
-            </HorizontalScrollView>
+            </com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView>
 
             <TextView
                 android:id="@+id/text"
