@@ -66,7 +66,7 @@ public class OrderablePlaylistSongAdapter extends PlaylistSongAdapter implements
 
     @Override
     public ItemDraggableRange onGetItemDraggableRange(ViewHolder holder, int position) {
-        return null;
+        return new ItemDraggableRange(1, dataSet.size());
     }
 
     @Override
