@@ -1,7 +1,9 @@
 package com.kabouzeid.gramophone.views;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Rect;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +17,8 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+
+
 /**
  * @author Lincoln (theduffmaster)
  * 
@@ -24,7 +28,7 @@ import android.widget.TextView;
 public class TouchInterceptFrameLayout extends FrameLayout {
 
     private static final int MAX_CLICK_DISTANCE = 5;
-    private static final int MAX_VERTICAL_DISTANCE = 5;
+    private static final int RETRUNCATE_DELAY = 500;
 
     private String TAG = "E/TouchInterceptFL";
     private String NULL_VIEWS_EXCEPTION_MESSAGE = "Did you forget to call setViews" + "" +
@@ -38,7 +42,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
     private Rect scrollViewRect = new Rect();
     private float startX;
 
-    private float startY;
     private boolean isTap;
 
     private String songTruncated;
@@ -139,6 +142,19 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                             TextUtils.TruncateAt.END).toString();
                     if (!songTruncated.isEmpty()) {
                         textView.setText(songTruncated);
+
+                        if(songTruncated.equals(song)) {
+                            scrollView.setScrollingEnabled(false);
+                        }else{
+                            scrollView.setScrollingEnabled(true);
+                            scrollView.setOnEndScrollListener(new TouchInterceptHorizontalScrollView.OnEndScrollListener()
+                            {
+                                @Override
+                                public void onEndScroll() {
+                                    ReTruncateScrollText();
+                                }
+                            });
+                        }
                     }
                 }
             });
@@ -186,7 +202,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                     }
 
                     startX = e.getX();
-                    startY = e.getY();
                     isTap = true;
                     onTouchEvent(e);
 
@@ -207,10 +222,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 case MotionEvent.ACTION_UP:
                     if (touchedScrollView) {
                         if (isTap) onTouchEvent(e);
-                        //uncomment if you want text to retrunucate on a click
-                        //if ((!emptyTruncateText && isTextTruncated))
-                        // scrollView.smoothScrollTo(0,0);
-                        // textView.setText(songTruncated);
                     }
                     break;
             }
@@ -230,10 +241,21 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      * interacting with the item views
      */
     private void CancelClick(){
-        this.cancelPendingInputEvents();
-        this.cancelLongPress();
+        cancelPendingInputEvents();
+        cancelLongPress();
         scrollView.cancelLongPress();
         scrollView.cancelPendingInputEvents();
         isTap = false;
+    }
+
+    private void ReTruncateScrollText(){
+        ObjectAnimator.ofInt(scrollView, "scrollX",  0).setDuration(RETRUNCATE_DELAY).start();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                textView.setText(songTruncated);
+            }
+        }, RETRUNCATE_DELAY+100);
     }
 }
