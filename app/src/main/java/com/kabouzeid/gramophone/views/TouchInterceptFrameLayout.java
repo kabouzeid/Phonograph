@@ -193,7 +193,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                     break;
 
                 case MotionEvent.ACTION_MOVE:
-                    float distanceY = Math.abs(e.getY() - startY);
                     if (touchedScrollView) {
                         float distance = Math.abs(e.getX() - startX);
 
@@ -202,11 +201,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                             if((!emptyTruncateText && isTextTruncated)) textView.setText(song);
                             CancelClick();
                         }
-                    }
-                    // Scrolling vertically: cancel horizontal scrolling events
-                    if (distanceY > MAX_VERTICAL_DISTANCE) {
-                        CancelClick();
-                        return true;
                     }
                     break;
                 case MotionEvent.ACTION_CANCEL:
