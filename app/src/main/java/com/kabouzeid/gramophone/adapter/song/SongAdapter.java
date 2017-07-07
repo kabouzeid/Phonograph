@@ -158,7 +158,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
     }
 
     protected String getSongText(Song song) {
-        return song.artistName;
+        return song.artistName + " • " + MusicUtil.getReadableDurationString(song.duration);
     }
 
     @Override

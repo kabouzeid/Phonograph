@@ -23,6 +23,7 @@ import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.helper.menu.SongsMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 
 import java.util.ArrayList;
@@ -83,7 +84,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
         }
 
         songTitle.setText(song.title);
-        songInfo.setText(song.albumName);
+        songInfo.setText(song.albumName + " • " + MusicUtil.getReadableDurationString(song.duration));
 
         SongGlideRequest.Builder.from(Glide.with(activity), song)
                 .checkIgnoreMediaStore(activity).build()
