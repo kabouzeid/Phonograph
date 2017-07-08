@@ -45,7 +45,6 @@ public class AutoMusicProvider {
     private static final int PATH_SEGMENT_ARTIST = 2;
     private static final int PATH_SEGMENT_ALBUM_ID = 3;
 
-    private MusicProviderSource mSource;
     private WeakReference<MusicService> mMusicService;
 
     // Categorized caches for music data
@@ -59,12 +58,7 @@ public class AutoMusicProvider {
     private volatile State mCurrentState = State.NON_INITIALIZED;
 
     public AutoMusicProvider(Context context) {
-        this(new AutoMusicSource(context));
         mContext = context;
-    }
-
-    public AutoMusicProvider(AutoMusicSource source) {
-        mSource = source;
 
         mMusicListByHistory = new ConcurrentSkipListMap<>();
         mMusicListByTopTracks = new ConcurrentSkipListMap<>();
@@ -277,21 +271,22 @@ public class AutoMusicProvider {
     public List<MediaBrowserCompat.MediaItem> getChildren(String mediaId, Resources resources) {
         List<MediaBrowserCompat.MediaItem> mediaItems = new ArrayList<>();
 
-        if (!MediaIDHelper.isBrowseable(mediaId)) {
+        if (!AutoMediaIDHelper.isBrowseable(mediaId)) {
             return mediaItems;
         }
 
         switch (mediaId) {
-            case MediaIDHelper.MEDIA_ID_ROOT:
-                mediaItems.add(createBrowsableMediaItem(MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY, resources));
-                mediaItems.add(createBrowsableMediaItem(MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS, resources));
-                mediaItems.add(createBrowsableMediaItem(MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST, resources));
-                mediaItems.add(createBrowsableMediaItem(MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM, resources));
-                mediaItems.add(createBrowsableMediaItem(MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST, resources));
-                mediaItems.add(createBrowsableMediaItem(MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE, resources));
+            case AutoMediaIDHelper.MEDIA_ID_ROOT:
+                mediaItems.add(createBrowsableMediaItem(AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY, resources.getString(R.string.history_label), R.drawable.ic_access_time_white_24dp));
+                mediaItems.add(createBrowsableMediaItem(AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS, resources.getString(R.string.top_tracks_label), R.drawable.ic_trending_up_white_24dp));
+                mediaItems.add(createBrowsableMediaItem(AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST, resources.getString(R.string.playlists_label), R.drawable.ic_queue_music_white_24dp));
+                mediaItems.add(createBrowsableMediaItem(AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM, resources.getString(R.string.albums_label), R.drawable.ic_album_white_24dp));
+                mediaItems.add(createBrowsableMediaItem(AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST, resources.getString(R.string.artists_label), R.drawable.ic_people_white_24dp));
+                mediaItems.add(createPlayableMediaItem(AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_SHUFFLE, resources.getString(R.string.action_shuffle_all)));
+                mediaItems.add(createBrowsableMediaItem(AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE, resources.getString(R.string.queue_label), R.drawable.ic_playlist_play_white_24dp));
                 break;
 
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY:
+            case AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY:
                 for (Uri song : getHistory()) {
                     final String albumId = song.getPathSegments().get(PATH_SEGMENT_ALBUM_ID);
                     final Bitmap bitmap = MusicUtil.getAlbumArtForAlbum(mContext, Integer.parseInt(albumId));
@@ -299,7 +294,7 @@ public class AutoMusicProvider {
                 }
                 break;
 
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS:
+            case AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS:
                 for (Uri song : getTopTracks()) {
                     final String albumId = song.getPathSegments().get(PATH_SEGMENT_ALBUM_ID);
                     final Bitmap bitmap = MusicUtil.getAlbumArtForAlbum(mContext, Integer.parseInt(albumId));
@@ -307,13 +302,13 @@ public class AutoMusicProvider {
                 }
                 break;
 
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST:
+            case AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST:
                 for (Uri playlist : getPlaylists()) {
                     mediaItems.add(createPlayableMediaItem(mediaId, playlist, null, resources));
                 }
                 break;
 
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM:
+            case AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM:
                 for (final Uri album : getAlbums()) {
                     final String albumId = album.getPathSegments().get(PATH_SEGMENT_ALBUM_ID);
                     final Bitmap bitmap = MusicUtil.getAlbumArtForAlbum(mContext, Integer.parseInt(albumId));
@@ -321,13 +316,13 @@ public class AutoMusicProvider {
                 }
                 break;
 
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST:
+            case AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST:
                 for (Uri artist : getArtists()) {
                     mediaItems.add(createPlayableMediaItem(mediaId, artist, null, resources));
                 }
                 break;
 
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE:
+            case AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE:
                 // TODO: auto scroll to current track, indicate that it's playing
                 for (Uri song : getQueue()) {
                     final String albumId = song.getPathSegments().get(PATH_SEGMENT_ALBUM_ID);
@@ -340,41 +335,11 @@ public class AutoMusicProvider {
         return mediaItems;
     }
 
-    private MediaBrowserCompat.MediaItem createBrowsableMediaItem(String mediaId, Resources resources) {
+    private MediaBrowserCompat.MediaItem createBrowsableMediaItem(String mediaId, String title, int iconDrawableId) {
         MediaDescriptionCompat.Builder builder = new MediaDescriptionCompat.Builder();
-        builder.setMediaId(mediaId);
-
-        switch (mediaId) {
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY:
-                builder.setTitle(resources.getString(R.string.history_label))
-                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_access_time_white_24dp, ThemeStore.textColorSecondary(mContext))));
-                break;
-
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS:
-                builder.setTitle(resources.getString(R.string.top_tracks_label))
-                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_trending_up_white_24dp, ThemeStore.textColorSecondary(mContext))));
-                break;
-
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST:
-                builder.setTitle(resources.getString(R.string.playlists_label))
-                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_queue_music_white_24dp, ThemeStore.textColorSecondary(mContext))));
-                break;
-
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM:
-                builder.setTitle(resources.getString(R.string.albums_label))
-                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_album_white_24dp, ThemeStore.textColorSecondary(mContext))));
-                break;
-
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST:
-                builder.setTitle(resources.getString(R.string.artists_label))
-                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_people_white_24dp, ThemeStore.textColorSecondary(mContext))));
-                break;
-
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE:
-                builder.setTitle(resources.getString(R.string.queue_label))
-                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_playlist_play_white_24dp, ThemeStore.textColorSecondary(mContext))));
-                break;
-        }
+        builder.setMediaId(mediaId)
+                .setTitle(title)
+                .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, iconDrawableId, ThemeStore.textColorSecondary(mContext))));
 
         return new MediaBrowserCompat.MediaItem(builder.build(),
                 MediaBrowserCompat.MediaItem.FLAG_BROWSABLE);
@@ -383,13 +348,13 @@ public class AutoMusicProvider {
     private MediaBrowserCompat.MediaItem createPlayableMediaItem(String mediaId, Uri musicSelection, @Nullable Bitmap albumArt,
                                                                  Resources resources) {
         MediaDescriptionCompat.Builder builder = new MediaDescriptionCompat.Builder();
-        builder.setMediaId(MediaIDHelper.createMediaID(musicSelection.getPathSegments().get(PATH_SEGMENT_ID), mediaId));
+        builder.setMediaId(AutoMediaIDHelper.createMediaID(musicSelection.getPathSegments().get(PATH_SEGMENT_ID), mediaId));
 
         switch (mediaId) {
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY:
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS:
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM:
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE:
+            case AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY:
+            case AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS:
+            case AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM:
+            case AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE:
                 builder.setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE))
                         .setSubtitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST));
 
@@ -402,14 +367,23 @@ public class AutoMusicProvider {
 //                }
                 break;
 
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST:
+            case AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST:
                 builder.setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE));
                 break;
 
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST:
+            case AutoMediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST:
                 builder.setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST));
                 break;
         }
+
+        return new MediaBrowserCompat.MediaItem(builder.build(),
+                MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);
+    }
+
+    private MediaBrowserCompat.MediaItem createPlayableMediaItem(String mediaId, String title) {
+        MediaDescriptionCompat.Builder builder = new MediaDescriptionCompat.Builder()
+                .setMediaId(mediaId)
+                .setTitle(title);
 
         return new MediaBrowserCompat.MediaItem(builder.build(),
                 MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);

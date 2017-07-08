@@ -59,15 +59,15 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat implement
         // Check origin to ensure we're not allowing any arbitrary app to browse app contents
         if (!mPackageValidator.isCallerAllowed(this, clientPackageName, clientUid)) {
             // Request from an untrusted package: return an empty browser root
-            return new MediaBrowserServiceCompat.BrowserRoot(MediaIDHelper.MEDIA_ID_EMPTY_ROOT, null);
+            return new MediaBrowserServiceCompat.BrowserRoot(AutoMediaIDHelper.MEDIA_ID_EMPTY_ROOT, null);
         }
 
-        return new BrowserRoot(MediaIDHelper.MEDIA_ID_ROOT, null);
+        return new BrowserRoot(AutoMediaIDHelper.MEDIA_ID_ROOT, null);
     }
 
     @Override
     public void onLoadChildren(@NonNull final String parentId, @NonNull final Result<List<MediaBrowserCompat.MediaItem>> result) {
-        if (MediaIDHelper.MEDIA_ID_EMPTY_ROOT.equals(parentId)) {
+        if (AutoMediaIDHelper.MEDIA_ID_EMPTY_ROOT.equals(parentId)) {
             result.sendResult(new ArrayList<MediaBrowserCompat.MediaItem>());
         } else if (mMusicProvider.isInitialized()) {
             result.sendResult(mMusicProvider.getChildren(parentId, getResources()));

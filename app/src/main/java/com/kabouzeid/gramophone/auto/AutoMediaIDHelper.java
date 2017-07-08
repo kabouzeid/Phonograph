@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 /**
  * Created by Beesham Sarendranauth (Beesham)
  */
-public class MediaIDHelper {
+public class AutoMediaIDHelper {
 
     // Media IDs used on browseable items of MediaBrowser
     public static final String MEDIA_ID_EMPTY_ROOT = "__EMPTY_ROOT__";
@@ -16,6 +16,7 @@ public class MediaIDHelper {
     public static final String MEDIA_ID_MUSICS_BY_PLAYLIST = "__BY_PLAYLIST__";
     public static final String MEDIA_ID_MUSICS_BY_ALBUM = "__BY_ALBUM__";
     public static final String MEDIA_ID_MUSICS_BY_ARTIST = "__BY_ARTIST__";
+    public static final String MEDIA_ID_MUSICS_BY_SHUFFLE = "__BY_SHUFFLE__";
     public static final String MEDIA_ID_MUSICS_BY_QUEUE = "__BY_QUEUE__";
 
     private static final String CATEGORY_SEPARATOR = "__/__";
