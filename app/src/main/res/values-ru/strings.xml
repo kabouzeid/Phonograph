@@ -158,8 +158,6 @@
     <string name="empty">Пусто</string>
     <string name="playlist_name_empty">Имя плейлиста</string>
     <string name="song">Песня</string>
-    <string name="pref_only_lollipop">"Доступно только для Lollipop."</string>
-    <string name="pref_only_nougat_mr1">"Доступно только для Nougat 7.1"</string>
     <string name="pref_summary_album_art_on_lockscreen">Обложка альбома текущей песни используется как изображение экрана блокировки.</string>
     <string name="pref_summary_blurred_album_art">Делает размытую обложку фоном экрана блокировки. Может создавать проблемы с другими приложениями и виджетами.</string>
     <string name="pref_summary_colored_notification">"\u041e\u043a\u0440\u0430\u0448\u0438\u0432\u0430\u0435\u0442 \u0443\u0432\u0435\u0434\u043e\u043c\u043b\u0435\u043d\u0438\u0435 \u0432 \u0442\u043e\u043d \u043e\u0431\u043b\u043e\u0436\u043a\u0438 \u0430\u043b\u044c\u0431\u043e\u043c\u0430."</string>

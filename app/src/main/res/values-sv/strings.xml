@@ -98,7 +98,6 @@ Vill du radera <b>%1$d</b> låtar?
     <string name="playlist_empty_text">Spellistan är tom</string>
     <string name="no_playlists">Inga spellistor</string>
     <string name="song">Låt</string>
-    <string name="pref_only_lollipop">"Enbart tillgänglig för Lollipop."</string>
     <string name="pref_summary_colored_navigation_bar">I vilken vy navigeringslisten skall vara färgad</string>
     <string name="search_hint">Sök i ditt bibliotek ...</string>
     <string name="rescanning_media">Återskannar media ...</string>

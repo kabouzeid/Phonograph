@@ -152,7 +152,6 @@
     <string name="empty">Vazio</string>
     <string name="playlist_name_empty">Nome de lista de reprodução</string>
     <string name="song">Música</string>
-    <string name="pref_only_lollipop">"Só disponível para Lollipop."</string>
     <string name="pref_summary_album_art_on_lockscreen">Usa a capa de álbum da faixa atual como papel de parede da tela de bloqueio.</string>
     <string name="pref_summary_blurred_album_art">Desfoca a capa do álbum no ecrã de bloqueio. Pode causar problemas com aplicações de terceiros e widgets.</string>
     <string name="pref_summary_colored_notification">"Colorir a notifica\u00e7\u00e3o na cor viva da capa de \u00e1lbum."</string>

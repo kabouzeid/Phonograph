@@ -116,7 +116,6 @@
     <string name="empty">Gol</string>
     <string name="playlist_name_empty">Nume listă</string>
     <string name="song">Melodie</string>
-    <string name="pref_only_lollipop">"Valabil numai în Android Lollipop."</string>
     <string name="pref_summary_gapless_playback">"Elimină pauza dintre doua piese. Poate cauza probleme de playback pe anumite terminale."</string>
     <string name="pref_summary_colored_navigation_bar">În ce ecrane bara de navigare să fie colorată.</string>
     <string name="could_not_download_album_cover">"Nu s-a putut desc\u0103rca un cover de album potrivit."</string>

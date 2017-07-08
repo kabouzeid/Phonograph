@@ -158,8 +158,6 @@
     <string name="empty">Vuoto</string>
     <string name="playlist_name_empty">Nome playlist</string>
     <string name="song">Brano</string>
-    <string name="pref_only_lollipop">"Disponibile solo su Lollipop."</string>
-    <string name="pref_only_nougat_mr1">"Disponibile solo su Nougat 7.1"</string>
     <string name="pref_summary_album_art_on_lockscreen">Usa la copertina dell\'album in riproduzione come sfondo della schermata di blocco.</string>
     <string name="pref_summary_blurred_album_art">Applica una sfocatura sulla copertina nella schermata di blocco. Può causare problemi con app e widget di terze parti.</string>
     <string name="pref_summary_colored_notification">"La notifica \u00e8 colorata secondo la gamma di colori della copertina."</string>
