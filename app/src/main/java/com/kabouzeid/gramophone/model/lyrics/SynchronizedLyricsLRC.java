@@ -1,7 +1,5 @@
 package com.kabouzeid.gramophone.model.lyrics;
 
-import com.kabouzeid.gramophone.model.Song;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,10 +10,6 @@ class SynchronizedLyricsLRC extends AbsSynchronizedLyrics {
 
     private static final float LRC_SECONDS_TO_MS_MULTIPLIER = 1000f;
     private static final int LRC_MINUTES_TO_MS_MULTIPLIER = 60000;
-
-    SynchronizedLyricsLRC(Song song, String data) {
-        super(song, data);
-    }
 
     @Override
     public SynchronizedLyricsLRC parse(boolean check) {

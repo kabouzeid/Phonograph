@@ -2,17 +2,11 @@ package com.kabouzeid.gramophone.model.lyrics;
 
 import android.util.SparseArray;
 
-import com.kabouzeid.gramophone.model.Song;
-
 public abstract class AbsSynchronizedLyrics extends Lyrics {
     private static final int TIME_OFFSET_MS = 500; // time adjustment to display line before it actually starts
 
     public final SparseArray<String> lines = new SparseArray<>();
     public int offset = 0;
-
-    AbsSynchronizedLyrics(Song song, String data) {
-        super(song, data);
-    }
 
     public String getLine(int time) {
         time += offset + AbsSynchronizedLyrics.TIME_OFFSET_MS;
