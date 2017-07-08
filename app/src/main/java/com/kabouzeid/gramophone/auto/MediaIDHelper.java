@@ -19,11 +19,11 @@ public class MediaIDHelper {
     public static final String MEDIA_ID_EMPTY_ROOT = "__EMPTY_ROOT__";
     public static final String MEDIA_ID_ROOT = "__ROOT__";
     public static final String MEDIA_ID_MUSICS_BY_SEARCH = "__BY_SEARCH__";  // TODO
+    public static final String MEDIA_ID_MUSICS_BY_HISTORY = "__BY_HISTORY__";
+    public static final String MEDIA_ID_MUSICS_BY_TOP_TRACKS = "__BY_TOP_TRACKS__";
     public static final String MEDIA_ID_MUSICS_BY_PLAYLIST = "__BY_PLAYLIST__";
     public static final String MEDIA_ID_MUSICS_BY_ALBUM = "__BY_ALBUM__";
     public static final String MEDIA_ID_MUSICS_BY_ARTIST = "__BY_ARTIST__";
-    public static final String MEDIA_ID_MUSICS_BY_HISTORY = "__BY_HISTORY__";
-    public static final String MEDIA_ID_MUSICS_BY_TOP_TRACKS = "__BY_TOP_TRACKS__";
     public static final String MEDIA_ID_MUSICS_BY_QUEUE = "__BY_QUEUE__";
 
     private static final String CATEGORY_SEPARATOR = "__/__";

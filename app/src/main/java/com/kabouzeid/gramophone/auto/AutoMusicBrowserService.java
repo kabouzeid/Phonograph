@@ -1,4 +1,4 @@
-package com.kabouzeid.gramophone.service;
+package com.kabouzeid.gramophone.auto;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -12,8 +12,7 @@ import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.MediaBrowserServiceCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 
-import com.kabouzeid.gramophone.auto.AutoMusicProvider;
-import com.kabouzeid.gramophone.auto.MediaIDHelper;
+import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.util.PackageValidator;
 
 import java.util.ArrayList;

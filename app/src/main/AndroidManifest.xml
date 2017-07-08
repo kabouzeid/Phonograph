@@ -203,7 +203,7 @@
             android:name="com.google.android.gms.car.notification.SmallIcon"
             android:resource="@drawable/ic_notification"/>
         <service
-            android:name=".service.AutoMusicBrowserService"
+            android:name=".auto.AutoMusicBrowserService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

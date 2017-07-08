@@ -48,11 +48,11 @@ public class AutoMusicProvider {
     private WeakReference<MusicService> mMusicService;
 
     // Categorized caches for music data
-    private ConcurrentMap<Integer, Uri> mMusicListByAlbum;
-    private ConcurrentMap<Integer, Uri> mMusicListByArtist;
-    private ConcurrentMap<Integer, Uri> mMusicListByPlaylist;
     private ConcurrentMap<Integer, Uri> mMusicListByHistory;
     private ConcurrentMap<Integer, Uri> mMusicListByTopTracks;
+    private ConcurrentMap<Integer, Uri> mMusicListByPlaylist;
+    private ConcurrentMap<Integer, Uri> mMusicListByAlbum;
+    private ConcurrentMap<Integer, Uri> mMusicListByArtist;
 
     private Context mContext;
     private volatile State mCurrentState = State.NON_INITIALIZED;
@@ -65,36 +65,15 @@ public class AutoMusicProvider {
     public AutoMusicProvider(AutoMusicSource source) {
         mSource = source;
 
-        mMusicListByAlbum = new ConcurrentSkipListMap<>();
-        mMusicListByArtist= new ConcurrentSkipListMap<>();
-        mMusicListByPlaylist = new ConcurrentSkipListMap<>();
         mMusicListByHistory = new ConcurrentSkipListMap<>();
         mMusicListByTopTracks = new ConcurrentSkipListMap<>();
+        mMusicListByPlaylist = new ConcurrentSkipListMap<>();
+        mMusicListByAlbum = new ConcurrentSkipListMap<>();
+        mMusicListByArtist= new ConcurrentSkipListMap<>();
     }
 
     public void setMusicService(MusicService service) {
         mMusicService = new WeakReference<>(service);
-    }
-
-    public Iterable<Uri> getAlbums() {
-        if (mCurrentState != State.INITIALIZED) {
-            return Collections.emptyList();
-        }
-        return mMusicListByAlbum.values();
-    }
-
-    public Iterable<Uri> getArtists() {
-        if (mCurrentState != State.INITIALIZED) {
-            return Collections.emptyList();
-        }
-        return mMusicListByArtist.values();
-    }
-
-    public Iterable<Uri> getPlaylists() {
-        if (mCurrentState != State.INITIALIZED) {
-            return Collections.emptyList();
-        }
-        return mMusicListByPlaylist.values();
     }
 
     public Iterable<Uri> getHistory() {
@@ -109,6 +88,27 @@ public class AutoMusicProvider {
             return Collections.emptyList();
         }
         return mMusicListByTopTracks.values();
+    }
+
+    public Iterable<Uri> getPlaylists() {
+        if (mCurrentState != State.INITIALIZED) {
+            return Collections.emptyList();
+        }
+        return mMusicListByPlaylist.values();
+    }
+
+    public Iterable<Uri> getAlbums() {
+        if (mCurrentState != State.INITIALIZED) {
+            return Collections.emptyList();
+        }
+        return mMusicListByAlbum.values();
+    }
+
+    public Iterable<Uri> getArtists() {
+        if (mCurrentState != State.INITIALIZED) {
+            return Collections.emptyList();
+        }
+        return mMusicListByArtist.values();
     }
 
     public Iterable<Uri> getQueue() {
@@ -170,54 +170,6 @@ public class AutoMusicProvider {
         }.execute();
     }
 
-    private synchronized void buildListsByAlbum() {
-        ConcurrentMap<Integer, Uri> newMusicListByAlbum = new ConcurrentSkipListMap<>();
-
-        final List<Album> albums = AlbumLoader.getAllAlbums(mContext);
-        for (int i = 0; i < albums.size(); i++) {
-            final Album a = albums.get(i);
-            Uri.Builder albumData = Uri.parse(BASE_URI).buildUpon();
-            albumData.appendPath(String.valueOf(a.getId()))
-                    .appendPath(a.getTitle())
-                    .appendPath(a.getArtistName())
-                    .appendPath(String.valueOf(a.getId()));
-            newMusicListByAlbum.putIfAbsent(i, albumData.build());
-        }
-
-        mMusicListByAlbum = newMusicListByAlbum;
-    }
-
-    private synchronized void buildListsByArtist() {
-        ConcurrentMap<Integer, Uri> newMusicListByArtist = new ConcurrentSkipListMap<>();
-
-        final List<Artist> artists = ArtistLoader.getAllArtists(mContext);
-        for (int i = 0; i < artists.size(); i++) {
-            final Artist a = artists.get(i);
-            Uri.Builder artistData = Uri.parse(BASE_URI).buildUpon();
-            artistData.appendPath(String.valueOf(a.getId()))
-                    .appendPath(a.getName())
-                    .appendPath(a.getName());
-            newMusicListByArtist.putIfAbsent(i, artistData.build());
-        }
-
-        mMusicListByArtist = newMusicListByArtist;
-    }
-
-    private synchronized void buildListsByPlaylist() {
-        ConcurrentMap<Integer, Uri> newMusicListByPlaylist = new ConcurrentSkipListMap<>();
-
-        final List<Playlist> playlists = PlaylistLoader.getAllPlaylists(mContext);
-        for (int i = 0; i < playlists.size(); i++) {
-            final Playlist p = playlists.get(i);
-            Uri.Builder playlistData = Uri.parse(BASE_URI).buildUpon();
-            playlistData.appendPath(String.valueOf(p.id))
-                    .appendPath(p.name);
-            newMusicListByPlaylist.putIfAbsent(i, playlistData.build());
-        }
-
-        mMusicListByPlaylist = newMusicListByPlaylist;
-    }
-
     private synchronized void buildListsByHistory() {
         ConcurrentMap<Integer, Uri> newMusicListByHistory = new ConcurrentSkipListMap<>();
 
@@ -252,16 +204,64 @@ public class AutoMusicProvider {
         mMusicListByTopTracks = newMusicListByTopTracks;
     }
 
+    private synchronized void buildListsByPlaylist() {
+        ConcurrentMap<Integer, Uri> newMusicListByPlaylist = new ConcurrentSkipListMap<>();
+
+        final List<Playlist> playlists = PlaylistLoader.getAllPlaylists(mContext);
+        for (int i = 0; i < playlists.size(); i++) {
+            final Playlist p = playlists.get(i);
+            Uri.Builder playlistData = Uri.parse(BASE_URI).buildUpon();
+            playlistData.appendPath(String.valueOf(p.id))
+                    .appendPath(p.name);
+            newMusicListByPlaylist.putIfAbsent(i, playlistData.build());
+        }
+
+        mMusicListByPlaylist = newMusicListByPlaylist;
+    }
+
+    private synchronized void buildListsByAlbum() {
+        ConcurrentMap<Integer, Uri> newMusicListByAlbum = new ConcurrentSkipListMap<>();
+
+        final List<Album> albums = AlbumLoader.getAllAlbums(mContext);
+        for (int i = 0; i < albums.size(); i++) {
+            final Album a = albums.get(i);
+            Uri.Builder albumData = Uri.parse(BASE_URI).buildUpon();
+            albumData.appendPath(String.valueOf(a.getId()))
+                    .appendPath(a.getTitle())
+                    .appendPath(a.getArtistName())
+                    .appendPath(String.valueOf(a.getId()));
+            newMusicListByAlbum.putIfAbsent(i, albumData.build());
+        }
+
+        mMusicListByAlbum = newMusicListByAlbum;
+    }
+
+    private synchronized void buildListsByArtist() {
+        ConcurrentMap<Integer, Uri> newMusicListByArtist = new ConcurrentSkipListMap<>();
+
+        final List<Artist> artists = ArtistLoader.getAllArtists(mContext);
+        for (int i = 0; i < artists.size(); i++) {
+            final Artist a = artists.get(i);
+            Uri.Builder artistData = Uri.parse(BASE_URI).buildUpon();
+            artistData.appendPath(String.valueOf(a.getId()))
+                    .appendPath(a.getName())
+                    .appendPath(a.getName());
+            newMusicListByArtist.putIfAbsent(i, artistData.build());
+        }
+
+        mMusicListByArtist = newMusicListByArtist;
+    }
+
     private synchronized void retrieveMedia() {
         try {
             if (mCurrentState == State.NON_INITIALIZED) {
                 mCurrentState = State.INITIALIZING;
 
-                buildListsByAlbum();
-                buildListsByArtist();
-                buildListsByPlaylist();
                 buildListsByHistory();
                 buildListsByTopTracks();
+                buildListsByPlaylist();
+                buildListsByAlbum();
+                buildListsByArtist();
                 mCurrentState = State.INITIALIZED;
             }
         } finally {
@@ -282,32 +282,12 @@ public class AutoMusicProvider {
 
         switch (mediaId) {
             case MediaIDHelper.MEDIA_ID_ROOT:
-                mediaItems.add(createBrowsableMediaItemForRoot(MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM, resources));
-                mediaItems.add(createBrowsableMediaItemForRoot(MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST, resources));
-                mediaItems.add(createBrowsableMediaItemForRoot(MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST, resources));
                 mediaItems.add(createBrowsableMediaItemForRoot(MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY, resources));
                 mediaItems.add(createBrowsableMediaItemForRoot(MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS, resources));
+                mediaItems.add(createBrowsableMediaItemForRoot(MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST, resources));
+                mediaItems.add(createBrowsableMediaItemForRoot(MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM, resources));
+                mediaItems.add(createBrowsableMediaItemForRoot(MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST, resources));
                 mediaItems.add(createBrowsableMediaItemForRoot(MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE, resources));
-                break;
-
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM:
-                for (final Uri album : getAlbums()) {
-                    final String albumId = album.getPathSegments().get(PATH_SEGMENT_ALBUM_ID);
-                    final Bitmap bitmap = MusicUtil.getAlbumArtForAlbum(mContext, Integer.parseInt(albumId));
-                    mediaItems.add(createBrowsableMediaItem(mediaId, album, bitmap, resources));
-                }
-                break;
-
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST:
-                for (Uri artist : getArtists()) {
-                    mediaItems.add(createBrowsableMediaItem(mediaId, artist, null, resources));
-                }
-                break;
-
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST:
-                for (Uri playlist : getPlaylists()) {
-                    mediaItems.add(createBrowsableMediaItem(mediaId, playlist, null, resources));
-                }
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY:
@@ -323,6 +303,26 @@ public class AutoMusicProvider {
                     final String albumId = song.getPathSegments().get(PATH_SEGMENT_ALBUM_ID);
                     final Bitmap bitmap = MusicUtil.getAlbumArtForAlbum(mContext, Integer.parseInt(albumId));
                     mediaItems.add(createBrowsableMediaItem(mediaId, song, bitmap, resources));
+                }
+                break;
+
+            case MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST:
+                for (Uri playlist : getPlaylists()) {
+                    mediaItems.add(createBrowsableMediaItem(mediaId, playlist, null, resources));
+                }
+                break;
+
+            case MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM:
+                for (final Uri album : getAlbums()) {
+                    final String albumId = album.getPathSegments().get(PATH_SEGMENT_ALBUM_ID);
+                    final Bitmap bitmap = MusicUtil.getAlbumArtForAlbum(mContext, Integer.parseInt(albumId));
+                    mediaItems.add(createBrowsableMediaItem(mediaId, album, bitmap, resources));
+                }
+                break;
+
+            case MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST:
+                for (Uri artist : getArtists()) {
+                    mediaItems.add(createBrowsableMediaItem(mediaId, artist, null, resources));
                 }
                 break;
 
@@ -344,21 +344,6 @@ public class AutoMusicProvider {
         builder.setMediaId(mediaId);
 
         switch (mediaId) {
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM:
-                builder.setTitle(resources.getString(R.string.albums_label))
-                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_album_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
-                break;
-
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST:
-                builder.setTitle(resources.getString(R.string.artists_label))
-                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_people_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
-                break;
-
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST:
-                builder.setTitle(resources.getString(R.string.playlists_label))
-                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_queue_music_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
-                break;
-
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY:
                 builder.setTitle(resources.getString(R.string.history_label))
                         .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_access_time_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
@@ -367,6 +352,21 @@ public class AutoMusicProvider {
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS:
                 builder.setTitle(resources.getString(R.string.top_tracks_label))
                         .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_trending_up_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
+                break;
+
+            case MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST:
+                builder.setTitle(resources.getString(R.string.playlists_label))
+                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_queue_music_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
+                break;
+
+            case MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM:
+                builder.setTitle(resources.getString(R.string.albums_label))
+                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_album_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
+                break;
+
+            case MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST:
+                builder.setTitle(resources.getString(R.string.artists_label))
+                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, R.drawable.ic_people_white_24dp, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE:
@@ -384,22 +384,12 @@ public class AutoMusicProvider {
         MediaDescriptionCompat.Builder builder = new MediaDescriptionCompat.Builder();
         builder.setMediaId(MediaIDHelper.createMediaID(musicSelection.getPathSegments().get(PATH_SEGMENT_ID), mediaId));
 
-        final String title = musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE);
-
         switch (mediaId) {
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST:
-                builder.setTitle(title);
-                break;
-
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST:
-                builder.setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST));
-                break;
-
-            case MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM:
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY:
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS:
+            case MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM:
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE:
-                builder.setTitle(title)
+                builder.setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE))
                         .setSubtitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST));
 
                 if (albumArt != null) {
@@ -409,6 +399,14 @@ public class AutoMusicProvider {
                             mContext.getPackageName() + "/drawable/" +
                             resources.getResourceEntryName(R.drawable.default_album_art)));
                 }
+                break;
+
+            case MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST:
+                builder.setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE));
+                break;
+
+            case MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST:
+                builder.setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST));
                 break;
         }
 
