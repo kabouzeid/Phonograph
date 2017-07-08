@@ -388,16 +388,11 @@ public class AutoMusicProvider {
 
         switch (mediaId) {
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST:
-                final int playlistIcon = MusicUtil.isFavoritePlaylist(mContext, title) ? R.drawable.ic_favorite_white_24dp : R.drawable.ic_queue_music_white_24dp;
-                builder.setTitle(title)
-                        .setIconBitmap(Util.createBitmap(Util.getTintedVectorDrawable(mContext, playlistIcon, PhonographColorUtil.getColorById(mContext, android.R.color.black))));
+                builder.setTitle(title);
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST:
-                builder.setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST))
-                        .setIconUri(Uri.parse("android.resource://" +
-                                mContext.getPackageName() + "/drawable/" +
-                                resources.getResourceEntryName(R.drawable.default_artist_image)));
+                builder.setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST));
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM:
