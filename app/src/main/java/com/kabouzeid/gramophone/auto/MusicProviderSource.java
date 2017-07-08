@@ -5,7 +5,7 @@ import android.support.v4.media.MediaMetadataCompat;
 import java.util.Iterator;
 
 /**
- * Created by Beesham on 3/28/2017.
+ * Created by Beesham Sarendranauth (Beesham)
  */
 public interface MusicProviderSource {
     String CUSTOM_METADATA_TRACK_SOURCE = "__SOURCE__";

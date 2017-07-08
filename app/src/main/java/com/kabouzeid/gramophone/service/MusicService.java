@@ -44,7 +44,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetBig;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetClassic;
 import com.kabouzeid.gramophone.appwidgets.AppWidgetSmall;
-import com.kabouzeid.gramophone.auto.AutoMusicProvider;
+import com.kabouzeid.gramophone.auto.MediaIDHelper;
 import com.kabouzeid.gramophone.glide.BlurTransformation;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.ShuffleHelper;
@@ -59,7 +59,6 @@ import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.auto.MediaIDHelper;
 import com.kabouzeid.gramophone.provider.HistoryStore;
 import com.kabouzeid.gramophone.provider.MusicPlaybackQueueStore;
 import com.kabouzeid.gramophone.provider.SongPlayCountStore;
@@ -1160,41 +1159,52 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         @Override
         public void onPlayFromMediaId(String mediaId, Bundle extras) {
             super.onPlayFromMediaId(mediaId, extras);
-            int itemId = Integer.valueOf(MediaIDHelper.extractMusicIDFromMediaID(mediaId));
 
-            if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM)) {
-                Album album = AlbumLoader.getAlbum(getApplicationContext(), itemId);
-                ArrayList<Song> songs = new ArrayList<>();
-                songs.addAll(album.songs);
-                openQueue(songs, 0, true);
-            } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST)) {
-                Artist artist = ArtistLoader.getArtist(getApplicationContext(), itemId);
-                ArrayList<Song> songs = new ArrayList<>();
-                songs.addAll(artist.getSongs());
-                openQueue(songs, 0, true);
-            } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST)) {
-                Playlist playlist = PlaylistLoader.getPlaylist(getApplicationContext(), itemId);
-                ArrayList<Song> songs = new ArrayList<>();
-                songs.addAll(PlaylistSongLoader.getPlaylistSongList(getApplicationContext(), playlist.id));
-                openQueue(songs, 0, true);
-            } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY) ||
-                    mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS) ||
-                    mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE)) {
-                List<Song> tracks;
-                if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY)) {
-                    tracks = TopAndRecentlyPlayedTracksLoader.getRecentlyPlayedTracks(getApplicationContext());
-                } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS)) {
-                    tracks = TopAndRecentlyPlayedTracksLoader.getTopTracks(getApplicationContext());
-                } else {
-                    tracks = MusicPlaybackQueueStore.getInstance(MusicService.this).getSavedOriginalPlayingQueue();
-                }
-                ArrayList<Song> songs = new ArrayList<>();
-                songs.addAll(tracks);
-                int songIndex = MusicUtil.indexOfSongInList(tracks, itemId);
-                if (songIndex == -1) {
-                    songIndex = 0;
-                }
-                openQueue(songs, songIndex, true);
+            final String musicId = MediaIDHelper.extractMusicID(mediaId);
+            final int itemId = musicId != null ? Integer.valueOf(musicId) : -1;
+            final ArrayList<Song> songs = new ArrayList<>();
+
+            final String category = MediaIDHelper.extractCategory(mediaId);
+            switch (category) {
+                case MediaIDHelper.MEDIA_ID_MUSICS_BY_ALBUM:
+                    Album album = AlbumLoader.getAlbum(getApplicationContext(), itemId);
+                    songs.addAll(album.songs);
+                    openQueue(songs, 0, true);
+                    break;
+
+                case MediaIDHelper.MEDIA_ID_MUSICS_BY_ARTIST:
+                    Artist artist = ArtistLoader.getArtist(getApplicationContext(), itemId);
+                    songs.addAll(artist.getSongs());
+                    openQueue(songs, 0, true);
+                    break;
+
+                case MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST:
+                    Playlist playlist = PlaylistLoader.getPlaylist(getApplicationContext(), itemId);
+                    songs.addAll(PlaylistSongLoader.getPlaylistSongList(getApplicationContext(), playlist.id));
+                    openQueue(songs, 0, true);
+                    break;
+
+                case MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY:
+                case MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS:
+                case MediaIDHelper.MEDIA_ID_MUSICS_BY_QUEUE:
+                    List<Song> tracks;
+                    if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_HISTORY)) {
+                        tracks = TopAndRecentlyPlayedTracksLoader.getRecentlyPlayedTracks(getApplicationContext());
+                    } else if (mediaId.startsWith(MediaIDHelper.MEDIA_ID_MUSICS_BY_TOP_TRACKS)) {
+                        tracks = TopAndRecentlyPlayedTracksLoader.getTopTracks(getApplicationContext());
+                    } else {
+                        tracks = MusicPlaybackQueueStore.getInstance(MusicService.this).getSavedOriginalPlayingQueue();
+                    }
+                    songs.addAll(tracks);
+                    int songIndex = MusicUtil.indexOfSongInList(tracks, itemId);
+                    if (songIndex == -1) {
+                        songIndex = 0;
+                    }
+                    openQueue(songs, songIndex, true);
+                    break;
+
+                default:
+                    break;
             }
 
             play();

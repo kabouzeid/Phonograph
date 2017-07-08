@@ -1,17 +1,9 @@
 package com.kabouzeid.gramophone.auto;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.media.MediaBrowserCompat;
-import android.support.v4.media.session.MediaControllerCompat;
-import android.text.TextUtils;
-import android.util.Log;
-
-import java.util.Arrays;
 
 /**
- * Created by Beesham on 3/28/2017.
+ * Created by Beesham Sarendranauth (Beesham)
  */
 public class MediaIDHelper {
 
@@ -41,11 +33,11 @@ public class MediaIDHelper {
      * one music can appear in more than one list, like "by genre -> genre_1"
      * and "by artist -> artist_1".
      *
-     * @param musicID    Unique music ID for playable items, or null for browseable items.
+     * @param mediaID    Unique ID for playable items, or null for browseable items.
      * @param categories Hierarchy of categories representing this item's browsing parents.
      * @return A hierarchy-aware media ID.
      */
-    public static String createMediaID(String musicID, String... categories) {
+    public static String createMediaID(String mediaID, String... categories) {
         StringBuilder sb = new StringBuilder();
         if (categories != null) {
             for (int i = 0; i < categories.length; i++) {
@@ -58,22 +50,21 @@ public class MediaIDHelper {
                 }
             }
         }
-        if (musicID != null) {
-            sb.append(LEAF_SEPARATOR).append(musicID);
+        if (mediaID != null) {
+            sb.append(LEAF_SEPARATOR).append(mediaID);
         }
         return sb.toString();
     }
 
-    /**
-     * Extracts unique musicID from the mediaID. mediaID is concatenation of category
-     * (eg "by_genre"), categoryValue (eg "Classical") and unique musicID. This is necessary so we
-     * know where the user selected the music from, when the music exists in more than one music
-     * list, and thus we are able to correctly build the playing queue.
-     *
-     * @param mediaID that contains the musicID
-     * @return musicID
-     */
-    public static String extractMusicIDFromMediaID(@NonNull String mediaID) {
+    public static String extractCategory(@NonNull String mediaID) {
+        int pos = mediaID.indexOf(LEAF_SEPARATOR);
+        if (pos >= 0) {
+            return mediaID.substring(0, pos);
+        }
+        return mediaID;
+    }
+
+    public static String extractMusicID(@NonNull String mediaID) {
         int pos = mediaID.indexOf(LEAF_SEPARATOR);
         if (pos >= 0) {
             return mediaID.substring(pos + LEAF_SEPARATOR.length());

@@ -12,11 +12,12 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Created by Beesham on 3/28/2017.
+ * Created by Beesham Sarendranauth (Beesham)
  */
 public class AutoMusicSource implements MusicProviderSource {
 
     private static final String TAG = AutoMusicSource.class.getName();
+
     private Context mContext;
 
     public AutoMusicSource(Context context) {

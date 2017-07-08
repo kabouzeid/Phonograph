@@ -18,9 +18,12 @@ import com.kabouzeid.gramophone.util.PackageValidator;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by Beesham Sarendranauth (Beesham)
+ */
 public class AutoMusicBrowserService extends MediaBrowserServiceCompat implements ServiceConnection {
 
-    private final static String TAG = AutoMusicBrowserService.class.getCanonicalName();
+    private static final String TAG = AutoMusicBrowserService.class.getCanonicalName();
 
     private AutoMusicProvider mMusicProvider;
     private PackageValidator mPackageValidator;
@@ -46,7 +49,7 @@ public class AutoMusicBrowserService extends MediaBrowserServiceCompat implement
         unbindService(this);
     }
 
-    private void createMediaSession(){
+    private void createMediaSession() {
         setSessionToken(mMediaSession.getSessionToken());
     }
 
