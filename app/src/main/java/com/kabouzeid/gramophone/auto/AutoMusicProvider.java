@@ -393,13 +393,13 @@ public class AutoMusicProvider {
                 builder.setTitle(musicSelection.getPathSegments().get(PATH_SEGMENT_TITLE))
                         .setSubtitle(musicSelection.getPathSegments().get(PATH_SEGMENT_ARTIST));
 
-                if (albumArt != null) {
-                    builder.setIconBitmap(albumArt);
-                } else {
-                    builder.setIconUri(Uri.parse("android.resource://" +
-                            mContext.getPackageName() + "/drawable/" +
-                            resources.getResourceEntryName(R.drawable.default_album_art)));
-                }
+//                if (albumArt != null) {
+//                    builder.setIconBitmap(albumArt);
+//                } else {
+//                    builder.setIconUri(Uri.parse("android.resource://" +
+//                            mContext.getPackageName() + "/drawable/" +
+//                            resources.getResourceEntryName(R.drawable.default_album_art)));
+//                }
                 break;
 
             case MediaIDHelper.MEDIA_ID_MUSICS_BY_PLAYLIST:
