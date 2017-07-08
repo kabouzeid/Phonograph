@@ -41,7 +41,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     @BindView(R.id.player_favorite_icon)
     ImageView favoriteIcon;
 
-	@BindView(R.id.player_lyrics)
+    @BindView(R.id.player_lyrics)
     FrameLayout lyrics;
     @BindView(R.id.player_lyrics_line1)
     TextView lyricsLine1;
@@ -91,8 +91,8 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     public void onDestroyView() {
         super.onDestroyView();
         viewPager.removeOnPageChangeListener(this);
-        unbinder.unbind();
         progressViewUpdateHelper.stop();
+        unbinder.unbind();
     }
 
     @Override
@@ -181,10 +181,8 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
                 .start();
     }
 
-    public void setSynchronizedLyrics(AbsSynchronizedLyrics sLyrics)
-    {
-        if(sLyrics == null || sLyrics.lines.size() == 0)
-        {
+    public void setSynchronizedLyrics(AbsSynchronizedLyrics sLyrics) {
+        if (sLyrics == null || sLyrics.lines.size() == 0) {
             synchronizedLyrics = null;
             lyrics.setVisibility(View.GONE);
             lyricsLine1.setText(null);
@@ -207,7 +205,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
 
     @Override
     public void onUpdateProgressViews(int progress, int total) {
-        if(synchronizedLyrics == null || synchronizedLyrics.lines.size() == 0 || !PreferenceUtil.getInstance(getActivity()).synchronizedLyricsShow()) {
+        if (synchronizedLyrics == null || synchronizedLyrics.lines.size() == 0 || !PreferenceUtil.getInstance(getActivity()).synchronizedLyricsShow()) {
             lyrics.setVisibility(View.GONE);
             lyricsLine1.setText(null);
             lyricsLine2.setText(null);
@@ -219,8 +217,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
         String oldLine = lyricsLine2.getText().toString();
         String line = synchronizedLyrics.getLine(progress);
 
-        if(!oldLine.equals(line) || oldLine.isEmpty())
-        {
+        if (!oldLine.equals(line) || oldLine.isEmpty()) {
             lyricsLine1.setText(oldLine);
             lyricsLine2.setText(line);
 

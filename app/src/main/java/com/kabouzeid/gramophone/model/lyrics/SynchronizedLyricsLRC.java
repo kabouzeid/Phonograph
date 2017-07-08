@@ -4,9 +4,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SynchronizedLyricsLRC extends AbsSynchronizedLyrics {
-    private static Pattern LRC_LINE_PATTERN = Pattern.compile("((?:\\[.*?\\])+)(.*)");
-    private static Pattern LRC_TIME_PATTERN = Pattern.compile("\\[(\\d+):(\\d{2}(?:\\.\\d+)?)\\]");
+    private static final Pattern LRC_LINE_PATTERN = Pattern.compile("((?:\\[.*?\\])+)(.*)");
+    private static final Pattern LRC_TIME_PATTERN = Pattern.compile("\\[(\\d+):(\\d{2}(?:\\.\\d+)?)\\]");
+    private static final Pattern LRC_ATTRIBUTE_PATTERN = Pattern.compile("\\[(\\D+):(.+)\\]");
 
+    private static final float LRC_SECONDS_TO_MS_MULTIPLIER = 1000f;
+    private static final int LRC_MINUTES_TO_MS_MULTIPLIER = 60000;
+
+    /**
+     * @param data      Lyrics string
+     * @param justCheck Set isValid = true and stop parsing if lyrics appears to be valid
+     *                  and has at least 1 line
+     */
     public SynchronizedLyricsLRC(String data, boolean justCheck) {
         if (data == null || data.isEmpty()) {
             return;
@@ -20,27 +29,42 @@ public class SynchronizedLyricsLRC extends AbsSynchronizedLyrics {
                 continue;
             }
 
-            Matcher matcher = SynchronizedLyricsLRC.LRC_LINE_PATTERN.matcher(line);
-            if (matcher.find()) {
-                String time = matcher.group(1);
-                String text = matcher.group(2);
-
-                Matcher timeMatcher = SynchronizedLyricsLRC.LRC_TIME_PATTERN.matcher(time);
-                while (timeMatcher.find()) {
-                    int m = 0;
-                    float s = 0f;
-                    try {
-                        m = Integer.parseInt(timeMatcher.group(1));
-                        s = Float.parseFloat(timeMatcher.group(2));
-                    } catch (NumberFormatException ex) {
-                        ex.printStackTrace();
+            Matcher attrMatcher = SynchronizedLyricsLRC.LRC_ATTRIBUTE_PATTERN.matcher(line);
+            if (attrMatcher.find()) {
+                try {
+                    String attr = attrMatcher.group(1).toLowerCase().trim();
+                    String value = attrMatcher.group(2).toLowerCase().trim();
+                    switch (attr) {
+                        case "offset":
+                            this.offset = Integer.parseInt(value);
+                            break;
                     }
-                    int ms = (int) (s * 1000f) + m * 60000;
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            } else {
+                Matcher matcher = SynchronizedLyricsLRC.LRC_LINE_PATTERN.matcher(line);
+                if (matcher.find()) {
+                    String time = matcher.group(1);
+                    String text = matcher.group(2);
 
-                    this.isValid = true;
-                    if (justCheck) return;
+                    Matcher timeMatcher = SynchronizedLyricsLRC.LRC_TIME_PATTERN.matcher(time);
+                    while (timeMatcher.find()) {
+                        int m = 0;
+                        float s = 0f;
+                        try {
+                            m = Integer.parseInt(timeMatcher.group(1));
+                            s = Float.parseFloat(timeMatcher.group(2));
+                        } catch (NumberFormatException ex) {
+                            ex.printStackTrace();
+                        }
+                        int ms = (int) (s * LRC_SECONDS_TO_MS_MULTIPLIER) + m * LRC_MINUTES_TO_MS_MULTIPLIER;
 
-                    this.lines.append(ms, text);
+                        this.isValid = true;
+                        if (justCheck) return;
+
+                        this.lines.append(ms, text);
+                    }
                 }
             }
         }
