@@ -40,7 +40,7 @@ import com.kabouzeid.gramophone.dialogs.SongShareDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.model.lyrics.AbsSynchronizedLyrics;
+import com.kabouzeid.gramophone.model.lyrics.Lyrics;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.fragments.player.AbsPlayerFragment;
 import com.kabouzeid.gramophone.ui.fragments.player.PlayerAlbumCoverFragment;
@@ -86,7 +86,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     private AsyncTask updateIsFavoriteTask;
     private AsyncTask updateLyricsAsyncTask;
 
-    private LyricsDialog.LyricInfo lyricsInfo;
+    private Lyrics lyrics;
 
     private Impl impl;
 
@@ -232,8 +232,8 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_show_lyrics:
-                if (lyricsInfo != null)
-                    LyricsDialog.create(lyricsInfo).show(getFragmentManager(), "LYRICS");
+                if (lyrics != null)
+                    LyricsDialog.create(lyrics).show(getFragmentManager(), "LYRICS");
                 return true;
         }
         return super.onMenuItemClick(item);
@@ -300,8 +300,8 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                lyricsInfo = null;
-                playerAlbumCoverFragment.setSynchronizedLyrics(null);
+                lyrics = null;
+                playerAlbumCoverFragment.setLyrics(null);
                 toolbar.getMenu().removeItem(R.id.action_show_lyrics);
             }
 
@@ -311,16 +311,15 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
             }
 
             @Override
-            protected void onPostExecute(String lyrics) {
-                super.onPostExecute(lyrics);
-                if (TextUtils.isEmpty(lyrics)) {
-                    lyricsInfo = null;
+            protected void onPostExecute(String data) {
+                if (TextUtils.isEmpty(data)) {
+                    lyrics = null;
                     if (toolbar != null) {
                         toolbar.getMenu().removeItem(R.id.action_show_lyrics);
                     }
                 } else {
-                    lyricsInfo = new LyricsDialog.LyricInfo(song.title, lyrics);
-                    playerAlbumCoverFragment.setSynchronizedLyrics(AbsSynchronizedLyrics.parse(lyrics));
+                    lyrics = Lyrics.parse(song, data);
+                    playerAlbumCoverFragment.setLyrics(lyrics);
                     Activity activity = getActivity();
                     if (toolbar != null && activity != null)
                         if (toolbar.getMenu().findItem(R.id.action_show_lyrics) == null) {

@@ -20,6 +20,7 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.MusicProgressViewUpdateHelper;
 import com.kabouzeid.gramophone.misc.SimpleAnimatorListener;
 import com.kabouzeid.gramophone.model.lyrics.AbsSynchronizedLyrics;
+import com.kabouzeid.gramophone.model.lyrics.Lyrics;
 import com.kabouzeid.gramophone.ui.fragments.AbsMusicServiceFragment;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.ViewUtil;
@@ -42,7 +43,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     ImageView favoriteIcon;
 
     @BindView(R.id.player_lyrics)
-    FrameLayout lyrics;
+    FrameLayout lyricsLayout;
     @BindView(R.id.player_lyrics_line1)
     TextView lyricsLine1;
     @BindView(R.id.player_lyrics_line2)
@@ -51,7 +52,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     private Callbacks callbacks;
     private int currentPosition;
 
-    private AbsSynchronizedLyrics synchronizedLyrics;
+    private Lyrics lyrics;
     private MusicProgressViewUpdateHelper progressViewUpdateHelper;
 
     @Override
@@ -181,18 +182,18 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
                 .start();
     }
 
-    public void setSynchronizedLyrics(AbsSynchronizedLyrics sLyrics) {
-        if (sLyrics == null || sLyrics.lines.size() == 0) {
-            synchronizedLyrics = null;
-            lyrics.setVisibility(View.GONE);
+    public void setLyrics(Lyrics l) {
+        if (l == null || !l.isSynchronized() || !l.isValid()) {
+            lyrics = null;
+            lyricsLayout.setVisibility(View.GONE);
             lyricsLine1.setText(null);
             lyricsLine2.setText(null);
             return;
         }
 
-        synchronizedLyrics = sLyrics;
+        lyrics = l;
 
-        lyrics.setVisibility(View.VISIBLE);
+        lyricsLayout.setVisibility(View.VISIBLE);
     }
 
     private void notifyColorChange(int color) {
@@ -205,14 +206,17 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
 
     @Override
     public void onUpdateProgressViews(int progress, int total) {
-        if (synchronizedLyrics == null || synchronizedLyrics.lines.size() == 0 || !PreferenceUtil.getInstance(getActivity()).synchronizedLyricsShow()) {
-            lyrics.setVisibility(View.GONE);
+        if (lyrics == null || !lyrics.isSynchronized() || !lyrics.isValid() || !PreferenceUtil.getInstance(getActivity()).synchronizedLyricsShow()) {
+            lyricsLayout.setVisibility(View.GONE);
             lyricsLine1.setText(null);
             lyricsLine2.setText(null);
             return;
         }
 
-        lyrics.setVisibility(View.VISIBLE);
+        if (!(lyrics instanceof AbsSynchronizedLyrics)) return;
+        AbsSynchronizedLyrics synchronizedLyrics = (AbsSynchronizedLyrics) lyrics;
+
+        lyricsLayout.setVisibility(View.VISIBLE);
 
         String oldLine = lyricsLine2.getText().toString();
         String line = synchronizedLyrics.getLine(progress);

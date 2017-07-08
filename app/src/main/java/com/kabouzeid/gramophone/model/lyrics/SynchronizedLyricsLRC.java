@@ -1,9 +1,11 @@
 package com.kabouzeid.gramophone.model.lyrics;
 
+import com.kabouzeid.gramophone.model.Song;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SynchronizedLyricsLRC extends AbsSynchronizedLyrics {
+class SynchronizedLyricsLRC extends AbsSynchronizedLyrics {
     private static final Pattern LRC_LINE_PATTERN = Pattern.compile("((?:\\[.*?\\])+)(.*)");
     private static final Pattern LRC_TIME_PATTERN = Pattern.compile("\\[(\\d+):(\\d{2}(?:\\.\\d+)?)\\]");
     private static final Pattern LRC_ATTRIBUTE_PATTERN = Pattern.compile("\\[(\\D+):(.+)\\]");
@@ -11,17 +13,17 @@ public class SynchronizedLyricsLRC extends AbsSynchronizedLyrics {
     private static final float LRC_SECONDS_TO_MS_MULTIPLIER = 1000f;
     private static final int LRC_MINUTES_TO_MS_MULTIPLIER = 60000;
 
-    /**
-     * @param data      Lyrics string
-     * @param justCheck Set isValid = true and stop parsing if lyrics appears to be valid
-     *                  and has at least 1 line
-     */
-    public SynchronizedLyricsLRC(String data, boolean justCheck) {
-        if (data == null || data.isEmpty()) {
-            return;
+    SynchronizedLyricsLRC(Song song, String data) {
+        super(song, data);
+    }
+
+    @Override
+    public SynchronizedLyricsLRC parse(boolean check) {
+        if (this.parsed || this.data == null || this.data.isEmpty()) {
+            return this;
         }
 
-        String[] lines = data.split("\r?\n");
+        String[] lines = this.data.split("\r?\n");
 
         for (String line : lines) {
             line = line.trim();
@@ -60,14 +62,17 @@ public class SynchronizedLyricsLRC extends AbsSynchronizedLyrics {
                         }
                         int ms = (int) (s * LRC_SECONDS_TO_MS_MULTIPLIER) + m * LRC_MINUTES_TO_MS_MULTIPLIER;
 
-                        this.isValid = true;
-                        if (justCheck) return;
+                        this.valid = true;
+                        if (check) return this;
 
                         this.lines.append(ms, text);
                     }
                 }
             }
         }
-    }
 
+        this.parsed = true;
+
+        return this;
+    }
 }
