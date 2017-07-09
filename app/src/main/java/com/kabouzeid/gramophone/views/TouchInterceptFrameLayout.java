@@ -164,9 +164,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                     super.onScrollStateChanged(recyclerView, newState);
 
-                    if (newState == AbsListView.OnScrollListener.SCROLL_STATE_FLING) {
-                        CancelClick();
-                    } else if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                    if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
                         CancelClick();
                     }
                 }
@@ -297,7 +295,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                         if (distance > MAX_CLICK_DISTANCE) {
                             if((!emptyTruncateText && isTextTruncated)) setText(song);
                             CancelClick();
-                            this.requestDisallowInterceptTouchEvent(true);
+
                             isTap = false;
                         }
                     }
