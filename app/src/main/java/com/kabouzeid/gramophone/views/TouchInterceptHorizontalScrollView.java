@@ -12,7 +12,7 @@ import android.widget.HorizontalScrollView;
 public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     public interface OnEndScrollListener {
-        public void onEndScroll();
+        void onEndScroll();
     }
 
     private long lastScrollUpdate = -1;

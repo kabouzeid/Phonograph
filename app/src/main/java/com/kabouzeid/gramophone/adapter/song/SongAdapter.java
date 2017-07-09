@@ -122,10 +122,9 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
         if (holder.title != null) {
             holder.title.setText(getSongTitle(song));
 
-            if (holder.title_scrollview != null && holder.itemView instanceof TouchInterceptFrameLayout) {
-                    ((TouchInterceptFrameLayout) holder.itemView).setTruncateText(getSongTitle(song));
+            if (holder.itemView instanceof TouchInterceptFrameLayout)
                 ((TouchInterceptFrameLayout) holder.itemView).setListParent(recyclerView);
-                }
+
         }
 
         if (holder.text != null) {

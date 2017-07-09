@@ -2,12 +2,15 @@ package com.kabouzeid.gramophone.views;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -17,7 +20,7 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
+import com.kabouzeid.gramophone.R;
 
 /**
  * @author Lincoln (theduffmaster)
@@ -35,28 +38,91 @@ public class TouchInterceptFrameLayout extends FrameLayout {
             "when creating your FrameLayout? Either textView or scrollView is null.";
     private String EMPTY_TRUNCATE_STRING = "songTruncated is empty or null. Did you remember " +
             "to set the song string when setting the song name in your text view?";
-    
+
     private TouchInterceptHorizontalScrollView scrollView;
     private TextView textView;
+    private View listParent;
+
+    private int scrollViewID;
+    private int textViewID;
+    private int listParentID;
 
     private Rect scrollViewRect = new Rect();
     private float startX;
 
     private boolean isTap;
+    private boolean currentlySettingTextHere = false;
 
     private String songTruncated;
     private String song;
 
+    protected TextWatcher truncateTextWatcher = new TextWatcher() {
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if(!currentlySettingTextHere){
+
+                TouchInterceptHorizontalScrollView sV = (TouchInterceptHorizontalScrollView) findViewById(scrollViewID);
+                if (sV != null) scrollView = sV;
+                TextView tV = (TextView) findViewById(textViewID);
+                if(tV != null) textView = tV;
+                View lP = (View) findViewById(listParentID);
+                if(lP != null) listParent = lP;
+
+                setTruncateText(textView.getText().toString());
+            }
+            currentlySettingTextHere = false;
+
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+    };
+
     public TouchInterceptFrameLayout(@NonNull Context context) {
-        super(context);
+        this(context, null);
     }
 
     public TouchInterceptFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public TouchInterceptFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TouchInterceptFrameLayout, defStyleAttr, 0);
+        scrollViewID = a.getResourceId(R.styleable.TouchInterceptFrameLayout_setTouchInterceptHorizontalScrollView, 0);
+        textViewID = a.getResourceId(R.styleable.TouchInterceptFrameLayout_setScrollableTextView, 0);
+        listParentID = a.getResourceId(R.styleable.TouchInterceptFrameLayout_setListParent, 0);
+
+        Log.d("Pre Post","true");
+
+        this.post(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("this Post","true");
+                scrollView = (TouchInterceptHorizontalScrollView) findViewById(scrollViewID);
+                textView = (TextView) findViewById(textViewID);
+                View lP = (View) findViewById(listParentID);
+                if(lP != null) listParent = lP;
+
+                textView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        textView.addTextChangedListener(truncateTextWatcher);
+                        setTruncateText(textView.getText().toString());
+                    }
+                });
+            }
+        });
+
     }
 
     /**
@@ -65,15 +131,27 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      * Must be called before setTruncateText.
      * Call this when you are assigning views in your layout.
      * @param sv The HorizontalScrollView containing text that needs to be scrolled
-     * @param tv The TextView that needs to be scrolled (typically song or album title)
      */
-    public void setViews(TouchInterceptHorizontalScrollView sv, TextView tv) {
-        scrollView = sv;
-        textView = tv;
-
+    public void setTouchInterceptHorizontalScrollView(TouchInterceptHorizontalScrollView sv) {
+        this.scrollView = sv;
     }
 
-    public void setListParent(View listParent){
+    /**
+     * Fetches the HorizontalScrollView contained by this FrameLayout and also gets the
+     * TextView that is contained within that HorizontalScrollView.
+     * Must be called before setTruncateText.
+     * Call this when you are assigning views in your layout.
+     * @param tv The TextView that needs to be scrolled (typically song or album title)
+     */
+    public void setScrollableTextView(TextView tv) {
+        this.textView = tv;
+    }
+
+    public void setListParent(View lP){
+        this.listParent = lP;
+    }
+
+    public void initializeListParent(){
 
         if(listParent instanceof RecyclerView){
             ((RecyclerView) listParent).addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -88,11 +166,9 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                     super.onScrollStateChanged(recyclerView, newState);
 
                     if (newState == AbsListView.OnScrollListener.SCROLL_STATE_FLING) {
-                        scrollView.cancelPendingInputEvents();
-                        cancelPendingInputEvents();
+                        CancelClick();
                     } else if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
-                        scrollView.cancelPendingInputEvents();
-                        cancelPendingInputEvents();
+                        CancelClick();
                     }
                 }
             });
@@ -106,16 +182,13 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 public void onScrollStateChanged(AbsListView view, int newState) {
 
                     if (newState == AbsListView.OnScrollListener.SCROLL_STATE_FLING) {
-                        scrollView.cancelPendingInputEvents();
-                        cancelPendingInputEvents();
+                        CancelClick();
                     } else if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
-                        scrollView.cancelPendingInputEvents();
-                        cancelPendingInputEvents();
+                        CancelClick();
                     }
                 }
             });
         }
-
     }
 
     /**
@@ -133,16 +206,18 @@ public class TouchInterceptFrameLayout extends FrameLayout {
         song = s;
         try {
             //runs after scrollview has been drawn
-            scrollView.post(new Runnable() {
+            textView.post(new Runnable() {
                 @Override
                 public void run() {
+                    Log.d("Truncate text",song);
+                    song = textView.getText().toString();
                     songTruncated = TextUtils.ellipsize(song,
                             textView.getPaint(),
                             (float) scrollView.getWidth(),
                             TextUtils.TruncateAt.END).toString();
                     if (!songTruncated.isEmpty()) {
-                        textView.setText(songTruncated);
-
+                        setText(songTruncated);
+                        Log.d("Truncated text",songTruncated);
                         if(songTruncated.equals(song)) {
                             scrollView.setScrollingEnabled(false);
                         }else{
@@ -155,6 +230,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                                 }
                             });
                         }
+                        initializeListParent();
                     }
                 }
             });
@@ -213,8 +289,10 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
                         // Scrolling the view: cancel event to prevent long press
                         if (distance > MAX_CLICK_DISTANCE) {
-                            if((!emptyTruncateText && isTextTruncated)) textView.setText(song);
+                            if((!emptyTruncateText && isTextTruncated)) setText(song);
                             CancelClick();
+                            this.requestDisallowInterceptTouchEvent(true);
+                            isTap = false;
                         }
                     }
                     break;
@@ -223,6 +301,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                     if (touchedScrollView) {
                         if (isTap) onTouchEvent(e);
                     }
+                    this.requestDisallowInterceptTouchEvent(false);
                     break;
             }
             return false;
@@ -241,21 +320,25 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      * interacting with the item views
      */
     private void CancelClick(){
-        cancelPendingInputEvents();
-        cancelLongPress();
+        this.cancelPendingInputEvents();
+        this.cancelLongPress();
         scrollView.cancelLongPress();
         scrollView.cancelPendingInputEvents();
-        isTap = false;
     }
 
-    private void ReTruncateScrollText(){
+    public void ReTruncateScrollText(){
         ObjectAnimator.ofInt(scrollView, "scrollX",  0).setDuration(RETRUNCATE_DELAY).start();
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                textView.setText(songTruncated);
+                setText(songTruncated);
             }
         }, RETRUNCATE_DELAY+100);
+    }
+
+    private void setText(String text){
+        currentlySettingTextHere = true;
+        textView.setText(text);
     }
 }

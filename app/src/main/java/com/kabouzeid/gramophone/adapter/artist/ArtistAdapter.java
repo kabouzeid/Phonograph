@@ -31,7 +31,6 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ArtistSignatureUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.views.TouchInterceptFrameLayout;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
@@ -105,8 +104,6 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
         }
 
         if (holder.title != null) {
-            if(holder.itemView instanceof TouchInterceptFrameLayout)
-                ((TouchInterceptFrameLayout) holder.itemView).setTruncateText(artist.getName());
             holder.title.setText(artist.getName());
         }
         if (holder.text != null) {

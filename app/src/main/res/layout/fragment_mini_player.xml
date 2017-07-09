@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.kabouzeid.gramophone.views.TouchInterceptFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +9,9 @@
     android:clickable="true"
     android:focusable="false"
     android:transitionName="@string/transition_mini_player"
-    tools:ignore="UnusedAttribute">
+    tools:ignore="UnusedAttribute"
+    app:setTouchInterceptHorizontalScrollView="@+id/title_scrollview"
+    app:setScrollableTextView="@+id/mini_player_title" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,8 +28,7 @@
             app:srcCompat="@drawable/ic_expand_less_white_24dp"
             tools:ignore="ContentDescription" />
 
-        <TextView
-            android:id="@+id/mini_player_title"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
@@ -34,9 +36,28 @@
             android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
             android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+            android:gravity="center_vertical" >
+
+            <com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView
+                android:id="@+id/title_scrollview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:nestedScrollingEnabled="true" >
+
+                <TextView
+                    android:id="@+id/mini_player_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scrollHorizontally="true"
+                    android:ellipsize="end"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    tools:ignore="UnusedAttribute"
+                    android:singleLine="true" />
+
+            </com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView>
+
+        </LinearLayout>
 
         <com.kabouzeid.gramophone.views.IconImageView
             android:id="@+id/mini_player_play_pause_button"
@@ -59,4 +80,4 @@
         app:mpb_progressStyle="horizontal"
         app:mpb_useIntrinsicPadding="false" />
 
-</FrameLayout>
+</com.kabouzeid.gramophone.views.TouchInterceptFrameLayout>

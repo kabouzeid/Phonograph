@@ -11,5 +11,10 @@
 
     <attr name="iconColor" format="color" />
     <attr name="dividerColor" format="color" />
+    <declare-styleable name="TouchInterceptFrameLayout">
+        <attr name="setTouchInterceptHorizontalScrollView" format="reference"/>
+        <attr name="setScrollableTextView" format="reference"/>
+        <attr name="setListParent" format="reference"/>
+    </declare-styleable>
 
 </resources>

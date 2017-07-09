@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.kabouzeid.gramophone.views.TouchInterceptFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.kabouzeid.gramophone.views.TouchInterceptFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="72dp"
     android:foreground="?attr/rectSelector"
-    tools:ignore="UnusedAttribute">
+    tools:ignore="UnusedAttribute"
+    app:setTouchInterceptHorizontalScrollView="@+id/title_scrollview"
+    app:setScrollableTextView="@+id/title" >
 
     <com.kabouzeid.gramophone.views.IconImageView
         android:id="@+id/drag_view"
@@ -75,14 +78,14 @@
             android:paddingEnd="0dp"
             android:paddingLeft="16dp"
             android:paddingRight="0dp"
-            android:paddingStart="16dp">
+            android:paddingStart="16dp" >
 
             <com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView
                 android:id="@+id/title_scrollview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scrollbars="none"
-                android:nestedScrollingEnabled="true">
+                android:nestedScrollingEnabled="true" >
 
                 <TextView
                     android:id="@+id/title"
