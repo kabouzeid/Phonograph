@@ -44,6 +44,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     private final AppCompatActivity activity;
     private List<Object> dataSet;
 
+    private RecyclerView recyclerView;
+
     public SearchAdapter(@NonNull AppCompatActivity activity, @NonNull List<Object> dataSet) {
         this.activity = activity;
         this.dataSet = dataSet;
@@ -62,6 +64,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         return HEADER;
     }
 
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView rV) {
+        super.onAttachedToRecyclerView(rV);
+        recyclerView = rV;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -73,11 +81,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @SuppressWarnings("ConstantConditions")
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        if(holder.itemView instanceof TouchInterceptFrameLayout)
+            ((TouchInterceptFrameLayout) holder.itemView).setListParent(recyclerView);
         switch (getItemViewType(position)) {
             case ALBUM:
                 final Album album = (Album) dataSet.get(position);
                 holder.title.setText(album.getTitle());
-                if(holder.itemView instanceof TouchInterceptFrameLayout)
                 holder.text.setText(album.getArtistName());
                 SongGlideRequest.Builder.from(Glide.with(activity), album.safeGetFirstSong())
                         .checkIgnoreMediaStore(activity).build()

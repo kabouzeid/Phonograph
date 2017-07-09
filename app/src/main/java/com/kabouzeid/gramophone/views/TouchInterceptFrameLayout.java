@@ -42,6 +42,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
     private TouchInterceptHorizontalScrollView scrollView;
     private TextView textView;
     private View listParent;
+    private TouchInterceptFrameLayout frameLayout;
 
     private int scrollViewID;
     private int textViewID;
@@ -66,7 +67,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 if (sV != null) scrollView = sV;
                 TextView tV = (TextView) findViewById(textViewID);
                 if(tV != null) textView = tV;
-                View lP = (View) findViewById(listParentID);
+                View lP = findViewById(listParentID);
                 if(lP != null) listParent = lP;
 
                 setTruncateText(textView.getText().toString());
@@ -101,16 +102,14 @@ public class TouchInterceptFrameLayout extends FrameLayout {
         scrollViewID = a.getResourceId(R.styleable.TouchInterceptFrameLayout_setTouchInterceptHorizontalScrollView, 0);
         textViewID = a.getResourceId(R.styleable.TouchInterceptFrameLayout_setScrollableTextView, 0);
         listParentID = a.getResourceId(R.styleable.TouchInterceptFrameLayout_setListParent, 0);
-
-        Log.d("Pre Post","true");
+        frameLayout = this;
 
         this.post(new Runnable() {
             @Override
             public void run() {
-                Log.d("this Post","true");
                 scrollView = (TouchInterceptHorizontalScrollView) findViewById(scrollViewID);
                 textView = (TextView) findViewById(textViewID);
-                View lP = (View) findViewById(listParentID);
+                View lP = findViewById(listParentID);
                 if(lP != null) listParent = lP;
 
                 textView.post(new Runnable() {
@@ -209,19 +208,21 @@ public class TouchInterceptFrameLayout extends FrameLayout {
             textView.post(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d("Truncate text",song);
                     song = textView.getText().toString();
                     songTruncated = TextUtils.ellipsize(song,
                             textView.getPaint(),
                             (float) scrollView.getWidth(),
                             TextUtils.TruncateAt.END).toString();
+
                     if (!songTruncated.isEmpty()) {
                         setText(songTruncated);
-                        Log.d("Truncated text",songTruncated);
+
                         if(songTruncated.equals(song)) {
                             scrollView.setScrollingEnabled(false);
+
                         }else{
                             scrollView.setScrollingEnabled(true);
+
                             scrollView.setOnEndScrollListener(new TouchInterceptHorizontalScrollView.OnEndScrollListener()
                             {
                                 @Override
@@ -238,6 +239,11 @@ public class TouchInterceptFrameLayout extends FrameLayout {
             Log.e(TAG, NULL_VIEWS_EXCEPTION_MESSAGE);
             Log.e(TAG, exception.toString());
             }
+    }
+
+    private void setText(String text){
+        currentlySettingTextHere = true;
+        textView.setText(text);
     }
 
     /**
@@ -335,10 +341,5 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 setText(songTruncated);
             }
         }, RETRUNCATE_DELAY+100);
-    }
-
-    private void setText(String text){
-        currentlySettingTextHere = true;
-        textView.setText(text);
     }
 }
