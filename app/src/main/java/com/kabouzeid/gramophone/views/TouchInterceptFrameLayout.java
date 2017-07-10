@@ -26,7 +26,12 @@ import com.kabouzeid.gramophone.R;
  * @author Lincoln (theduffmaster)
  * 
  * A custom FrameLayout view that intercepts touch events and decides whether to consume them or
- * pass on the touch events to its children.
+ * pass on the touch events to a TouchInterceptHorizontalScrollview which contains a TextView.
+ * In order for this to work properly the child views,
+ * a TouchInterceptHorizontalScrollView and a TextView, must be set via xml using the
+ * setTouchInterceptHorizontalScrollView and setScrollableTextView xml attributes. If this view is ever
+ * scrolled or interacts with a ListParent that is a ListView or a RecyclerView, then that ListParent
+ * must be set programmatically or via the designated XML attribute.
  */
 public class TouchInterceptFrameLayout extends FrameLayout {
 
@@ -34,8 +39,17 @@ public class TouchInterceptFrameLayout extends FrameLayout {
     private static final int RETRUNCATE_DELAY = 500;
 
     private String TAG = "E/TouchInterceptFL";
-    private String NULL_VIEWS_EXCEPTION_MESSAGE = "Did you forget to call setViews" + "" +
-            "when creating your FrameLayout? Either textView or scrollView is null.";
+    private String XML_VIEW_IDS_NOT_SET = "It appears as if the IDs for the TouchInterceptHorizontalScrollView and its" +
+            "child scrollable TextView have not been set. If you have not already, you must set "  +
+            "them using setTouchInterceptHorizontalScrollView and setScrollableTextView via XML";
+    private String NULL_VIEWS_EXCEPTION_MESSAGE = "Either textView or scrollView is null. Maybe you" +
+            "forgot to set them using setTouchInterceptHorizontalScrollView and setScrollableTextView " +
+            "via XML? Did you set it to something null?";
+    private String NULL_LIST_PARENT = "The ListParent, aka the parent ListView or RecyclerView is null." +
+            "It is highly reccomended you set the ListParent either programmatically or via XML" +
+            "if you're TouchInterceptFrameLayout is associated with any type of ListParent. If your" +
+            "TouchInterceptFrameLayout does not interact with any type of ListParent no need to set it" +
+            "and ignore this message.";
     private String EMPTY_TRUNCATE_STRING = "songTruncated is empty or null. Did you remember " +
             "to set the song string when setting the song name in your text view?";
 
@@ -57,6 +71,11 @@ public class TouchInterceptFrameLayout extends FrameLayout {
     private String songTruncated;
     private String song;
 
+    /**
+     * A TextWatcher used to monitor when the contents of this view has changed
+     * since if this view is in a list it will be recycled. This ensures instances are current
+     * and when the text changes it will be truncated.
+     */
     protected TextWatcher truncateTextWatcher = new TextWatcher() {
 
         @Override
@@ -99,8 +118,17 @@ public class TouchInterceptFrameLayout extends FrameLayout {
         super(context, attrs, defStyleAttr);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TouchInterceptFrameLayout, defStyleAttr, 0);
+        //Must be the ID of a child TouchInterceptHorizontalScrollView
         scrollViewID = a.getResourceId(R.styleable.TouchInterceptFrameLayout_setTouchInterceptHorizontalScrollView, 0);
+        //Must be the ID of a TextView that is the child of the above referenced TouchInterceptHorizontalScrollView
         textViewID = a.getResourceId(R.styleable.TouchInterceptFrameLayout_setScrollableTextView, 0);
+
+        if(scrollViewID == 0 | textViewID == 0){
+            Log.e(TAG,XML_VIEW_IDS_NOT_SET);
+            Log.e("ScrollViewID = ", Integer.toString(scrollViewID));
+            Log.d("TextViewID = ", Integer.toString(textViewID));
+        }
+
         listParentID = a.getResourceId(R.styleable.TouchInterceptFrameLayout_setListParent, 0);
         frameLayout = this;
 
@@ -125,10 +153,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
     }
 
     /**
-     * Fetches the HorizontalScrollView contained by this FrameLayout and also gets the
-     * TextView that is contained within that HorizontalScrollView.
-     * Must be called before setTruncateText.
-     * Call this when you are assigning views in your layout.
+     * Sets the TouchInterceptHorizontalScrollView contained by this FrameLayout
      * @param sv The HorizontalScrollView containing text that needs to be scrolled
      */
     public void setTouchInterceptHorizontalScrollView(TouchInterceptHorizontalScrollView sv) {
@@ -136,22 +161,29 @@ public class TouchInterceptFrameLayout extends FrameLayout {
     }
 
     /**
-     * Fetches the HorizontalScrollView contained by this FrameLayout and also gets the
-     * TextView that is contained within that HorizontalScrollView.
-     * Must be called before setTruncateText.
-     * Call this when you are assigning views in your layout.
+     * Sets the TextView that is contained within that TouchInterceptHorizontalScrollView.
      * @param tv The TextView that needs to be scrolled (typically song or album title)
      */
     public void setScrollableTextView(TextView tv) {
         this.textView = tv;
     }
 
+    /**
+     * Sets the List Parent programmatically
+     * @param lP Must be either a type of RecyclerView or a type of ListView
+     */
     public void setListParent(View lP){
         this.listParent = lP;
     }
 
+    /**
+     * Gets the ListParent (the parent ListView or RecyclerView) that has been
+     * set via xml or programmatically and sets a Scroll Listener. When scrolling
+     * clicks are cancelled to prevent any interference with scrolling.
+     */
     public void initializeListParent(){
 
+        try{
         if(listParent instanceof RecyclerView){
             ((RecyclerView) listParent).addOnScrollListener(new RecyclerView.OnScrollListener() {
 
@@ -185,6 +217,11 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                     }
                 }
             });
+        }
+        }catch (NullPointerException exception){
+            Log.w(TAG, NULL_LIST_PARENT);
+            Log.w(TAG, "listParent = " + listParent.toString());
+            Log.w(TAG, exception.toString());
         }
     }
 
@@ -235,10 +272,17 @@ public class TouchInterceptFrameLayout extends FrameLayout {
             });
         }catch (NullPointerException exception){
             Log.e(TAG, NULL_VIEWS_EXCEPTION_MESSAGE);
+            Log.e(TAG, "TouchInterceptHorizontalScrollView = " + scrollView.toString());
+            Log.e(TAG, "TextView = " + textView);
             Log.e(TAG, exception.toString());
             }
     }
 
+    /**
+     * Used to set the text and indicate that the TextView text is being
+     * set in this CustomView class and not somewhere else.
+     * @param text The text to set the TextView to
+     */
     private void setText(String text){
         currentlySettingTextHere = true;
         textView.setText(text);
@@ -312,6 +356,8 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
         }catch (NullPointerException exception) {
             Log.e(TAG, NULL_VIEWS_EXCEPTION_MESSAGE);
+            Log.e(TAG, "TouchInterceptHorizontalScrollView = " + scrollView.toString());
+            Log.e(TAG, "TextView = " + textView);
             Log.e(TAG, exception.toString());
             onTouchEvent(e);
             return false;
@@ -330,6 +376,9 @@ public class TouchInterceptFrameLayout extends FrameLayout {
         scrollView.cancelPendingInputEvents();
     }
 
+    /**
+     * Retruncates the text with a fancy scroll to beginning animation
+     */
     public void ReTruncateScrollText(){
         ObjectAnimator.ofInt(scrollView, "scrollX",  0).setDuration(RETRUNCATE_DELAY).start();
         final Handler handler = new Handler();
