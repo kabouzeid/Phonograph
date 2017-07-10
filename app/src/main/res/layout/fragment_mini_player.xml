@@ -53,6 +53,7 @@
                     android:ellipsize="end"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     tools:ignore="UnusedAttribute"
+                    android:fontFamily="sans-serif"
                     android:singleLine="true" />
 
             </com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView>

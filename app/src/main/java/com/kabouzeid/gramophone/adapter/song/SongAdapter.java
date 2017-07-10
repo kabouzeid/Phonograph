@@ -109,6 +109,9 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
         boolean isChecked = isChecked(song);
         holder.itemView.setActivated(isChecked);
 
+        if (holder.itemView instanceof TouchInterceptFrameLayout)
+            ((TouchInterceptFrameLayout) holder.itemView).setListParent(recyclerView);
+
         if (holder.getAdapterPosition() == getItemCount() - 1) {
             if (holder.shortSeparator != null) {
                 holder.shortSeparator.setVisibility(View.GONE);
@@ -121,10 +124,6 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
 
         if (holder.title != null) {
             holder.title.setText(getSongTitle(song));
-
-            if (holder.itemView instanceof TouchInterceptFrameLayout)
-                ((TouchInterceptFrameLayout) holder.itemView).setListParent(recyclerView);
-
         }
 
         if (holder.text != null) {
