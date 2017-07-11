@@ -3,11 +3,7 @@ package com.kabouzeid.gramophone.views;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.HorizontalScrollView;
-
-import static android.R.attr.paddingBottom;
-import static android.R.attr.paddingTop;
 
 /**
  * Created by lincoln on 7/3/17.
@@ -92,12 +88,11 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
      * @return Returns true this ScrollView can be scrolled
      */
     public boolean canScroll() {
-        View child = getChildAt(0);
-        if (child != null) {
-            int childHeight = child.getHeight();
-            return getHeight() < childHeight + paddingTop + paddingBottom;
+        if(canScrollHorizontally(1) || canScrollHorizontally(-1)){
+            return true;
+        }else{
+            return false;
         }
-        return false;
     }
 
     @Override
