@@ -36,31 +36,30 @@ import com.kabouzeid.gramophone.R;
 public class TouchInterceptFrameLayout extends FrameLayout {
 
     private static final int MAX_CLICK_DISTANCE = 5;
-    private static final int RETRUNCATE_DELAY = 500;
+    private static final int RETRUNCATE_DELAY = 600;
 
-    private String TAG = "E/TouchInterceptFL";
-    private String XML_VIEW_IDS_NOT_SET = "It appears as if the IDs for the TouchInterceptHorizontalScrollView and its" +
+    private static final String TAG = "E/TouchInterceptFL";
+    private static final String XML_VIEW_IDS_NOT_SET = "It appears as if the IDs for the TouchInterceptHorizontalScrollView and its" +
             "child scrollable TextView have not been set. If you have not already, you must set "  +
             "them using setTouchInterceptHorizontalScrollView and setScrollableTextView via XML";
-    private String NULL_VIEWS_EXCEPTION_MESSAGE = "Either textView or scrollView is null. Maybe you" +
+    private static final String NULL_VIEWS_EXCEPTION_MESSAGE = "Either textView or scrollView is null. Maybe you" +
             "forgot to set them using setTouchInterceptHorizontalScrollView and setScrollableTextView " +
             "via XML? Did you set it to something null?";
-    private String NULL_LIST_PARENT = "The ListParent, aka the parent ListView or RecyclerView is null." +
+    private static final String NULL_LIST_PARENT = "The ListParent, aka the parent ListView or RecyclerView is null." +
             "It is highly reccomended you set the ListParent either programmatically or via XML" +
             "if you're TouchInterceptFrameLayout is associated with any type of ListParent. If your" +
             "TouchInterceptFrameLayout does not interact with any type of ListParent no need to set it" +
             "and ignore this message.";
-    private String EMPTY_TRUNCATE_STRING = "songTruncated is empty or null. Did you remember " +
+    private static final String EMPTY_TRUNCATE_STRING = "songTruncated is empty or null. Did you remember " +
             "to set the song string when setting the song name in your text view?";
-
-    private TouchInterceptHorizontalScrollView scrollView;
-    private TextView textView;
-    private View listParent;
-    private TouchInterceptFrameLayout frameLayout;
 
     private int scrollViewID;
     private int textViewID;
     private int listParentID;
+
+    private TouchInterceptHorizontalScrollView scrollView;
+    private TextView textView;
+    private View listParent;
 
     private Rect scrollViewRect = new Rect();
     private float startX;
@@ -68,8 +67,8 @@ public class TouchInterceptFrameLayout extends FrameLayout {
     private boolean isTap;
     private boolean currentlySettingTextHere = false;
 
-    private String songTruncated;
     private String song;
+    private String songTruncated;
 
     /**
      * A TextWatcher used to monitor when the contents of this view has changed
@@ -96,14 +95,10 @@ public class TouchInterceptFrameLayout extends FrameLayout {
         }
 
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
+        public void onTextChanged(CharSequence s, int start, int before, int count) {}
     };
 
     public TouchInterceptFrameLayout(@NonNull Context context) {
@@ -130,7 +125,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
         }
 
         listParentID = a.getResourceId(R.styleable.TouchInterceptFrameLayout_setListParent, 0);
-        frameLayout = this;
 
         this.post(new Runnable() {
             @Override
@@ -380,7 +374,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
     }
 
     /**
-     * Retruncates the text with a fancy scroll to beginning animation
+     * Retruncates the text with a fancy scroll to beginning animation that takes a set amount of time
      */
     public void ReTruncateScrollText(){
         ObjectAnimator.ofInt(scrollView, "scrollX",  0).setDuration(RETRUNCATE_DELAY).start();
@@ -390,6 +384,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
             public void run() {
                 setText(songTruncated);
             }
-        }, RETRUNCATE_DELAY+100);
+        }, RETRUNCATE_DELAY);
     }
 }

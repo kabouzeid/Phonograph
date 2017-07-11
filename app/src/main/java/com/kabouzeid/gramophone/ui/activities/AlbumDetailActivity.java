@@ -47,7 +47,6 @@ import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.kabouzeid.gramophone.views.TouchInterceptFrameLayout;
-import com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,8 +76,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     RelativeLayout albumTitleView;
     @BindView(R.id.album_title)
     TextView albumTitleTextView;
-    @BindView(R.id.title_scrollview)
-    TouchInterceptHorizontalScrollView titleScrollView;
     @BindView(R.id.list_background)
     View songsBackgroundView;
     @BindView(R.id.status_bar)

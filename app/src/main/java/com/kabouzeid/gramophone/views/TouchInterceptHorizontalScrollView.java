@@ -16,6 +16,14 @@ import android.widget.HorizontalScrollView;
  */
 public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
+    //The delay before triggering onEndScroll()
+    public static final int ON_END_SCROLL_DELAY = 1000;
+
+    private long lastScrollUpdate = -1;
+    private boolean cancel;
+
+    private OnEndScrollListener onEndScrollListener;
+
     /**
      * Listens for when a user has stopped interacting with the scroll view
      */
@@ -24,33 +32,23 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
         void onEndScroll();
     }
 
-    private long lastScrollUpdate = -1;
-
-    private boolean cancel;
-
-    //The delay before triggering onEndScroll()
-    private int delay = 1000;
-
     private class ScrollStateHandler implements Runnable {
         //Runs when the user has not touched the scroll view for 1 second
         @Override
         public void run() {
             if(!cancel) {
                 long currentTime = System.currentTimeMillis();
-                if ((currentTime - lastScrollUpdate) > delay) {
+                if ((currentTime - lastScrollUpdate) > ON_END_SCROLL_DELAY) {
                     lastScrollUpdate = -1;
                     if (onEndScrollListener != null) {
                         onEndScrollListener.onEndScroll();
                     }
                 } else {
-                    postDelayed(this, delay);
+                    postDelayed(this, ON_END_SCROLL_DELAY);
                 }
             }
         }
     }
-
-    private OnEndScrollListener onEndScrollListener;
-
 
     public TouchInterceptHorizontalScrollView(Context context) {
         super(context);
@@ -85,7 +83,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     }
 
     /**
-     * @return Returns true this ScrollView can be scrolled
+     * @return Returns true if this ScrollView can be scrolled
      */
     public boolean canScroll() {
         if(canScrollHorizontally(1) || canScrollHorizontally(-1)){
@@ -107,7 +105,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
             case MotionEvent.ACTION_UP:
                 cancel = false;
                 // The user is done interacting with the scroll view
-                postDelayed(new ScrollStateHandler(), delay);
+                postDelayed(new ScrollStateHandler(), ON_END_SCROLL_DELAY);
                 lastScrollUpdate = System.currentTimeMillis();
             default:
                 return super.onTouchEvent(ev);
@@ -123,8 +121,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     }
 
     /**
-     * Fetches the OnEndScrollListener
-     * @return Returns the OnEndScrollListener
+     * @return Returns the set OnEndScrollListener
      */
     public OnEndScrollListener getOnEndScrollListener() {
         return onEndScrollListener;
@@ -137,6 +134,5 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     public void setOnEndScrollListener(OnEndScrollListener mOnEndScrollListener) {
         this.onEndScrollListener = mOnEndScrollListener;
     }
-
 
 }
