@@ -243,31 +243,34 @@ public class TouchInterceptFrameLayout extends FrameLayout {
             textView.post(new Runnable() {
                 @Override
                 public void run() {
-                    song = textView.getText().toString();
-                    songTruncated = TextUtils.ellipsize(song,
-                            textView.getPaint(),
-                            (float) scrollView.getWidth(),
-                            TextUtils.TruncateAt.END).toString();
+                    if (scrollView.canScroll()) {
+                        song = textView.getText().toString();
+                        songTruncated = TextUtils.ellipsize(song,
+                                textView.getPaint(),
+                                (float) scrollView.getWidth(),
+                                TextUtils.TruncateAt.END).toString();
 
-                    if (!songTruncated.isEmpty()) {
-                        setText(songTruncated);
+                        if (!songTruncated.isEmpty()) {
+                            setText(songTruncated);
 
-                        if(songTruncated.equals(song)) {
-                            scrollView.setScrollingEnabled(false);
+                            if (songTruncated.equals(song)) {
+                                scrollView.setScrollingEnabled(false);
 
-                        }else{
-                            scrollView.setScrollingEnabled(true);
+                            } else {
+                                scrollView.setScrollingEnabled(true);
 
-                            scrollView.setOnEndScrollListener(new TouchInterceptHorizontalScrollView.OnEndScrollListener()
-                            {
-                                @Override
-                                public void onEndScroll() {
-                                    ReTruncateScrollText();
-                                }
-                            });
+                                scrollView.setOnEndScrollListener(
+                                        new TouchInterceptHorizontalScrollView.OnEndScrollListener() {
+                                            @Override
+                                            public void onEndScroll() {
+                                                ReTruncateScrollText();
+                                            }
+                                        });
+                            }
+                            initializeListParent();
                         }
-                        initializeListParent();
                     }
+
                 }
             });
         }catch (NullPointerException exception){
