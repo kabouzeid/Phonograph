@@ -122,7 +122,7 @@
     <string name="pref_title_app_shortcuts">Renkli uygulama kısayolları</string>
     <string name="pref_title_set_default_start_page">Başlangıç sayfası</string>
     <string name="pref_title_album_art_on_lockscreen">Albüm kapağını göster</string>
-    <string name="pref_title_auto_download_artist_images">Sanatçı resimlerini otomatik indir</string>
+    <string name="pref_title_auto_download_metadata">Sanatçı resimlerini otomatik indir</string>
     <string name="pref_title_blurred_album_art">Bulanık albüm kapağı</string>
     <string name="pref_title_colored_notification">Renkli bildirim</string>
     <string name="pref_title_ignore_media_store_artwork">Media Store albüm kapağını yoksay</string>
@@ -158,8 +158,6 @@
     <string name="empty">Boş</string>
     <string name="playlist_name_empty">Çalma listesi adı</string>
     <string name="song">Şarkı</string>
-    <string name="pref_only_lollipop">"Sadece Lollipop için."</string>
-    <string name="pref_only_nougat_mr1">"Sadece Nugat 7.1.'de kullanılabilir."</string>
     <string name="pref_summary_album_art_on_lockscreen">Kilit ekranı duvar kağıdı olarak çalan şarkının albüm kapağını kullanır.</string>
     <string name="pref_summary_blurred_album_art">Kilit ekranındaki bulanık albüm kapağı. 3. parti uygulama ve araçlarda problem oluşturabilir.</string>
     <string name="pref_summary_colored_notification">"Bildirimler alb\u00fcm kapa\u011f\u0131n\u0131n canl\u0131 renkleriyle renklendirilir."</string>
@@ -209,7 +207,7 @@
     <string name="author">Yapımcı</string>
     <string name="add_to_google_plus_circles">Google+ çevrelerine ekle</string>
     <string name="follow_on_twitter">Twitterda takip et</string>
-    <string name="fork_on_git_hub">GitHub da katkıda bulunun</string>
+    <string name="fork_on_github">GitHub da katkıda bulunun</string>
     <string name="visit_website">Websitesini ziyaret ediniz</string>
     <string name="report_bugs">Hata raporlayınız</string>
     <string name="report_bugs_summary">Hata raporlayın ya da yeni özellikler talep edin</string>

@@ -100,7 +100,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
             Toast.makeText(this, getResources().getString(R.string.album_or_artist_empty), Toast.LENGTH_SHORT).show();
             return;
         }
-        lastFMRestClient.getApiService().getAlbumInfo(albumTitleStr, albumArtistNameStr).enqueue(new Callback<LastFmAlbum>() {
+        lastFMRestClient.getApiService().getAlbumInfo(albumTitleStr, albumArtistNameStr, null).enqueue(new Callback<LastFmAlbum>() {
             @Override
             public void onResponse(Call<LastFmAlbum> call, Response<LastFmAlbum> response) {
                 LastFmAlbum lastFmAlbum = response.body();

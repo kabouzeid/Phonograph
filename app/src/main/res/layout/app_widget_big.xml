@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@drawable/shadow_up_strong"
+        android:layoutDirection="ltr"
         android:orientation="horizontal"
         android:padding="16dp">
 

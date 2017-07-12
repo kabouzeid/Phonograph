@@ -117,7 +117,7 @@
     <string name="pref_title_navigation_bar">Warnai alat navigasi di bagian bawah layar</string>
     <string name="pref_title_set_default_start_page">Halaman awal</string>
     <string name="pref_title_album_art_on_lockscreen">Perlihatkan sampul album pada layar kunci</string>
-    <string name="pref_title_auto_download_artist_images">Unduh otomatis gambar-gambar artis</string>
+    <string name="pref_title_auto_download_metadata">Unduh otomatis gambar-gambar artis</string>
     <string name="pref_title_blurred_album_art">Buramkan sampul album</string>
     <string name="pref_title_colored_notification">Notifikasi berwarna</string>
     <string name="pref_title_ignore_media_store_artwork">Abaikan sampul-sampul dari \'Media Store\' android.</string>
@@ -153,7 +153,6 @@
     <string name="empty">Kosong</string>
     <string name="playlist_name_empty">Nama daftar putar</string>
     <string name="song">Lagu</string>
-    <string name="pref_only_lollipop">"Hanya tersedia pada Android Lollipop 5.0 atau lebih baru."</string>
     <string name="pref_summary_album_art_on_lockscreen">Gunakan sambul album lagu yang sedang diputar sebagai wallpaper layar kunci</string>
     <string name="pref_summary_blurred_album_art">Buramkan sampul album di layar kunci. Dapat menyebabkan masalah dengan aplikasi pihak ke tiga dan widget</string>
     <string name="pref_summary_colored_notification">"Mewarnai notifikasi putar dengan warna yang cerah dari album."</string>
@@ -202,7 +201,7 @@
     <string name="author">Pengelola</string>
     <string name="add_to_google_plus_circles">Tambahkan ke lingkaran Google Plus</string>
     <string name="follow_on_twitter">Ikuti di Twitter</string>
-    <string name="fork_on_git_hub">Salin di GitHub</string>
+    <string name="fork_on_github">Salin di GitHub</string>
     <string name="visit_website">Kunjungi situs</string>
     <string name="report_bugs">Laporkan masalah</string>
     <string name="report_bugs_summary">Laporkan masalah atau sarankan fitur baru</string>

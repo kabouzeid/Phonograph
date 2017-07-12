@@ -27,7 +27,6 @@ import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.ui.activities.base.AbsMusicServiceActivity;
 import com.kabouzeid.gramophone.util.Util;
-import com.kabouzeid.gramophone.util.ViewUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,8 +46,6 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
     Toolbar toolbar;
     @BindView(android.R.id.empty)
     TextView empty;
-    @BindView(R.id.status_bar)
-    View statusBar;
 
     SearchView searchView;
 
@@ -65,7 +62,6 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         setStatusbarColorAuto();
         setNavigationbarColorAuto();
         setTaskDescriptionColorAuto();
-        ViewUtil.setStatusBarHeight(this, statusBar);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new SearchAdapter(this, Collections.emptyList());

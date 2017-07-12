@@ -88,6 +88,10 @@ public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implemen
         MusicUtil.toggleFavorite(getActivity(), song);
     }
 
+    protected String getUpNextAndQueueTime() {
+        return getResources().getString(R.string.up_next) + "  •  " + MusicUtil.getReadableDurationString(MusicPlayerRemote.getQueueDurationMillis(MusicPlayerRemote.getPosition()));
+    }
+
     public abstract void onShow();
 
     public abstract void onHide();

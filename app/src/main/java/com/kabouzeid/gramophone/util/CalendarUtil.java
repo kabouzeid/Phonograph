@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
- * @author Karim Abou Zeid (kabouzeid)
+ * @author Eugene Cheung (arkon)
  */
 public class CalendarUtil {
     private static final long MS_PER_MINUTE = 60 * 1000;

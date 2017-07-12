@@ -65,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/report_bugs_summary"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -108,6 +109,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/join_community_summary"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -151,6 +153,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/translate_summary"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -194,6 +197,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/rate_on_google_play_summary"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -237,6 +241,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/donate_summary"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
             </LinearLayout>
 
         </LinearLayout>

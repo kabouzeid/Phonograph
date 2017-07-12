@@ -122,7 +122,7 @@
     <string name="pref_title_app_shortcuts">Színes alkalmazás hivatkozások</string>
     <string name="pref_title_set_default_start_page">Kezdő oldal</string>
     <string name="pref_title_album_art_on_lockscreen">Albumboritó megjelenítése</string>
-    <string name="pref_title_auto_download_artist_images">Előadó képének automatikus letöltése</string>
+    <string name="pref_title_auto_download_metadata">Előadó képének automatikus letöltése</string>
     <string name="pref_title_blurred_album_art">Albumborító elhomályosítása</string>
     <string name="pref_title_colored_notification">Színezett értesítés</string>
     <string name="pref_title_ignore_media_store_artwork">A médiában tárolt albumborítók figyelmen kívül hagyása</string>
@@ -158,8 +158,6 @@
     <string name="empty">Üres</string>
     <string name="playlist_name_empty">Lejátszási lista neve</string>
     <string name="song">Dal</string>
-    <string name="pref_only_lollipop">"Ez az opció Android 5.0-tól (Lollipop) érhető el."</string>
-    <string name="pref_only_nougat_mr1">"Csak Android 7.1. Nougat-tól elérhető"</string>
     <string name="pref_summary_album_art_on_lockscreen">Jelenlegi dal albumborítójának használata a zárképernyő háttérképeként.</string>
     <string name="pref_summary_blurred_album_art">Albumborító elhomályosítása a zárképernyőn.Ez problémákat okozhat a harmadik féltől származó alkalmazásoknál és widgeteknél.</string>
     <string name="pref_summary_colored_notification">"\u00c9rtes\u00edt\u00e9sek sz\u00ednez\u00e9se az albumbor\u00edt\u00f3 sz\u00edn\u00e9vel."</string>
@@ -209,7 +207,7 @@
     <string name="author">Készítő</string>
     <string name="add_to_google_plus_circles">Google Plus</string>
     <string name="follow_on_twitter">Twitter</string>
-    <string name="fork_on_git_hub">GitHub</string>
+    <string name="fork_on_github">GitHub</string>
     <string name="visit_website">Weboldal</string>
     <string name="report_bugs">Hibajelentés</string>
     <string name="report_bugs_summary">A felmerülő problémák jelentése.</string>

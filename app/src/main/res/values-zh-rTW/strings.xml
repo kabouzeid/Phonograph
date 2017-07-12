@@ -123,7 +123,7 @@
     <string name="pref_title_app_shortcuts">彩色的應用快捷方式</string>
     <string name="pref_title_set_default_start_page">首頁</string>
     <string name="pref_title_album_art_on_lockscreen">顯示專輯封面</string>
-    <string name="pref_title_auto_download_artist_images">自動下載演出者圖片</string>
+    <string name="pref_title_auto_download_metadata">自動下載演出者圖片</string>
     <string name="pref_title_blurred_album_art">將專輯圖片模糊化</string>
     <string name="pref_title_colored_notification">彩色的狀態列</string>
     <string name="pref_title_ignore_media_store_artwork">忽略音訊檔內嵌的專輯封面</string>
@@ -159,8 +159,6 @@
     <string name="empty">空的</string>
     <string name="playlist_name_empty">播放清單名稱</string>
     <string name="song">歌曲</string>
-    <string name="pref_only_lollipop">"只適用於 Lollipop。"</string>
-    <string name="pref_only_nougat_mr1">"只在 Nougat 7.1 裝置上可用"</string>
     <string name="pref_summary_album_art_on_lockscreen">將播放中歌曲的專輯封面設為鎖定螢幕背景。</string>
     <string name="pref_summary_blurred_album_art">在鎖定畫面上模糊化專輯圖片。第三方程式和小工具可能不正常運作。</string>
     <string name="pref_summary_colored_notification">"\u72c0\u614b\u5217\u984f\u8272\u8207\u5c08\u8f2f\u5716\u7247\u984f\u8272\u4e00\u81f4"</string>
@@ -210,7 +208,7 @@
     <string name="author">作者</string>
     <string name="add_to_google_plus_circles">加入 Google+ 社交圈</string>
     <string name="follow_on_twitter">在 Twitter 上追蹤我們</string>
-    <string name="fork_on_git_hub">在 GitHub 上幫助開發</string>
+    <string name="fork_on_github">在 GitHub 上幫助開發</string>
     <string name="visit_website">造訪網站</string>
     <string name="report_bugs">回報程式錯誤</string>
     <string name="report_bugs_summary">建議新功能或回報問題</string>
