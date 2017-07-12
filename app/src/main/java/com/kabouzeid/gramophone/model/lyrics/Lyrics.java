@@ -23,12 +23,12 @@ public class Lyrics {
         for (Class<? extends Lyrics> format : Lyrics.FORMATS) {
             try {
                 Lyrics lyrics = format.newInstance().setData(song, data);
-                if (lyrics.isValid()) return lyrics;
+                if (lyrics.isValid()) return lyrics.parse(false);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return new Lyrics().setData(song, data);
+        return new Lyrics().setData(song, data).parse(false);
     }
 
     public static boolean isSynchronized(String data) {

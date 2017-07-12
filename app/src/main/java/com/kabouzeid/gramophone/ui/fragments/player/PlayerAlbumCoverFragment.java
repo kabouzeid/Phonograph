@@ -35,6 +35,8 @@ import butterknife.Unbinder;
 public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements ViewPager.OnPageChangeListener, MusicProgressViewUpdateHelper.Callback {
     public static final String TAG = PlayerAlbumCoverFragment.class.getSimpleName();
 
+    public static final int LYRICS_ANIM_DURATION = 300;
+
     private Unbinder unbinder;
 
     @BindView(R.id.player_album_cover_viewpager)
@@ -183,17 +185,25 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     }
 
     public void setLyrics(Lyrics l) {
-        if (l == null || !l.isSynchronized() || !l.isValid()) {
-            lyrics = null;
-            lyricsLayout.setVisibility(View.GONE);
-            lyricsLine1.setText(null);
-            lyricsLine2.setText(null);
+        lyrics = l;
+
+        if (!PreferenceUtil.getInstance(getActivity()).synchronizedLyricsShow() || l == null || !l.isSynchronized() || !l.isValid()) {
+            lyricsLayout.animate().alpha(0f).setDuration(PlayerAlbumCoverFragment.LYRICS_ANIM_DURATION).withEndAction(new Runnable() {
+                @Override
+                public void run() {
+                    lyricsLayout.setVisibility(View.GONE);
+                    lyricsLine1.setText(null);
+                    lyricsLine2.setText(null);
+                }
+            });
             return;
         }
 
-        lyrics = l;
+        lyricsLine1.setText(null);
+        lyricsLine2.setText(null);
 
         lyricsLayout.setVisibility(View.VISIBLE);
+        lyricsLayout.animate().alpha(1f).setDuration(PlayerAlbumCoverFragment.LYRICS_ANIM_DURATION);
     }
 
     private void notifyColorChange(int color) {
@@ -206,10 +216,15 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
 
     @Override
     public void onUpdateProgressViews(int progress, int total) {
-        if (lyrics == null || !lyrics.isSynchronized() || !lyrics.isValid() || !PreferenceUtil.getInstance(getActivity()).synchronizedLyricsShow()) {
-            lyricsLayout.setVisibility(View.GONE);
-            lyricsLine1.setText(null);
-            lyricsLine2.setText(null);
+        if (!PreferenceUtil.getInstance(getActivity()).synchronizedLyricsShow() || lyrics == null || !lyrics.isSynchronized() || !lyrics.isValid()) {
+            lyricsLayout.animate().alpha(0f).setDuration(PlayerAlbumCoverFragment.LYRICS_ANIM_DURATION).withEndAction(new Runnable() {
+                @Override
+                public void run() {
+                    lyricsLayout.setVisibility(View.GONE);
+                    lyricsLine1.setText(null);
+                    lyricsLine2.setText(null);
+                }
+            });
             return;
         }
 
@@ -217,6 +232,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
         AbsSynchronizedLyrics synchronizedLyrics = (AbsSynchronizedLyrics) lyrics;
 
         lyricsLayout.setVisibility(View.VISIBLE);
+        lyricsLayout.setAlpha(1f);
 
         String oldLine = lyricsLine2.getText().toString();
         String line = synchronizedLyrics.getLine(progress);
@@ -231,13 +247,13 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
             lyricsLine2.measure(View.MeasureSpec.makeMeasureSpec(lyricsLine2.getMeasuredWidth(), View.MeasureSpec.EXACTLY), View.MeasureSpec.UNSPECIFIED);
             int h = lyricsLine2.getMeasuredHeight();
 
-            this.lyricsLine1.setAlpha(1f);
-            this.lyricsLine1.setTranslationY(0f);
-            this.lyricsLine1.animate().alpha(0f).translationY(-h).setDuration(300);
+            lyricsLine1.setAlpha(1f);
+            lyricsLine1.setTranslationY(0f);
+            lyricsLine1.animate().alpha(0f).translationY(-h).setDuration(PlayerAlbumCoverFragment.LYRICS_ANIM_DURATION);
 
-            this.lyricsLine2.setAlpha(0f);
-            this.lyricsLine2.setTranslationY(h);
-            this.lyricsLine2.animate().alpha(1f).translationY(0f).setDuration(300);
+            lyricsLine2.setAlpha(0f);
+            lyricsLine2.setTranslationY(h);
+            lyricsLine2.animate().alpha(1f).translationY(0f).setDuration(PlayerAlbumCoverFragment.LYRICS_ANIM_DURATION);
         }
     }
 

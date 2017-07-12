@@ -18,7 +18,8 @@
         android:background="@drawable/shadow_up"
         android:padding="16dp"
         android:clipToPadding="false"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:alpha="0">
 
         <TextView
             android:id="@+id/player_lyrics_line1"

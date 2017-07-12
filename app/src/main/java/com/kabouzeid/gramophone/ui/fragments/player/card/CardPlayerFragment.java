@@ -300,7 +300,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     private void updateLyrics() {
         if (updateLyricsAsyncTask != null) updateLyricsAsyncTask.cancel(false);
         final Song song = MusicPlayerRemote.getCurrentSong();
-        updateLyricsAsyncTask = new AsyncTask<Void, Void, String>() {
+        updateLyricsAsyncTask = new AsyncTask<Void, Void, Lyrics>() {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -310,20 +310,23 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
             }
 
             @Override
-            protected String doInBackground(Void... params) {
-                return MusicUtil.getLyrics(song);
+            protected Lyrics doInBackground(Void... params) {
+                String data = MusicUtil.getLyrics(song);
+                if (TextUtils.isEmpty(data)) {
+                    return null;
+                }
+                return Lyrics.parse(song, data);
             }
 
             @Override
-            protected void onPostExecute(String data) {
-                if (TextUtils.isEmpty(data)) {
-                    lyrics = null;
+            protected void onPostExecute(Lyrics l) {
+                lyrics = l;
+                playerAlbumCoverFragment.setLyrics(lyrics);
+                if (lyrics == null) {
                     if (toolbar != null) {
                         toolbar.getMenu().removeItem(R.id.action_show_lyrics);
                     }
                 } else {
-                    lyrics = Lyrics.parse(song, data);
-                    playerAlbumCoverFragment.setLyrics(lyrics);
                     Activity activity = getActivity();
                     if (toolbar != null && activity != null)
                         if (toolbar.getMenu().findItem(R.id.action_show_lyrics) == null) {
@@ -338,7 +341,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
             }
 
             @Override
-            protected void onCancelled(String s) {
+            protected void onCancelled(Lyrics s) {
                 onPostExecute(null);
             }
         }.execute();

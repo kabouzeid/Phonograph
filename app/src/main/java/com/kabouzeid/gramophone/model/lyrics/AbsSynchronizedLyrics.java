@@ -31,15 +31,15 @@ public abstract class AbsSynchronizedLyrics extends Lyrics {
     }
 
     public boolean isValid() {
-        this.parse(true);
-        return this.valid;
+        parse(true);
+        return valid;
     }
 
     @Override
     public String getText() {
-        if (isValid()) {
-            parse(false);
+        parse(false);
 
+        if (valid) {
             StringBuilder sb = new StringBuilder();
 
             for (int i = 0; i < lines.size(); i++) {
