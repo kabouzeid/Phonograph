@@ -217,44 +217,54 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
 
         @Override
         protected void onPerformAction() {
-
-            RecyclerView.ViewHolder viewHolder = adapter.getRecyclerView().findViewHolderForAdapterPosition(position);
-            TextView songTitle = (TextView) viewHolder.itemView.findViewById(R.id.title);
-
-            int color = ((TextView) activity.findViewById(R.id.player_queue_sub_header)).getCurrentTextColor();
-
-            CharSequence snackBarTitle = activity.getString(R.string.snack_bar_title_removed_song) +
-                    (String) TextUtils.ellipsize(songTitle.getText(),
-                    songTitle.getPaint(),
-                    (float) songTitle.getWidth(),
-                    TextUtils.TruncateAt.END).toString();
-
-            Snackbar snackbar = Snackbar.make((View) activity.findViewById(R.id.content_container),
-                    snackBarTitle,
-                    Snackbar.LENGTH_LONG);
-
-            snackbar.setAction(R.string.snack_bar_action_undo, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    MusicPlayerRemote.addSong(position,adapter.getSongToRemove());
-                }
-            });
-            snackbar.addCallback(new Snackbar.Callback() {
-
-                @Override
-                public void onDismissed(Snackbar snackbar, int event) {
-                }
-
-                @Override
-                public void onShown(Snackbar snackbar) {
-                    adapter.setSongToRemove(adapter.dataSet.get(position));
-                }
-            });
-            snackbar.setActionTextColor(color);
-            snackbar.show();
-
+            initializeSnackBar(adapter, position);
             MusicPlayerRemote.removeFromQueue(position);
         }
+
+        @Override
+        protected void onSlideAnimationEnd(){
+//            SlidingUpPanelLayout queue = (SlidingUpPanelLayout) activity.findViewById(R.id.player_sliding_layout);
+//            queue.setTouchEnabled(true);
+        }
+    }
+
+    public static void initializeSnackBar(final PlayingQueueAdapter adapter,final int position){
+
+        RecyclerView.ViewHolder viewHolder = adapter.getRecyclerView().findViewHolderForAdapterPosition(position);
+        TextView songTitle = (TextView) viewHolder.itemView.findViewById(R.id.title);
+
+        int color = ((TextView) activity.findViewById(R.id.player_queue_sub_header)).getCurrentTextColor();
+
+        CharSequence snackBarTitle = activity.getString(R.string.snack_bar_title_removed_song) +
+                (String) TextUtils.ellipsize(songTitle.getText(),
+                        songTitle.getPaint(),
+                        (float) songTitle.getWidth(),
+                        TextUtils.TruncateAt.END).toString();
+
+        Snackbar snackbar = Snackbar.make((View) activity.findViewById(R.id.content_container),
+                snackBarTitle,
+                Snackbar.LENGTH_LONG);
+
+        snackbar.setAction(R.string.snack_bar_action_undo, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MusicPlayerRemote.addSong(position,adapter.getSongToRemove());
+            }
+        });
+        snackbar.addCallback(new Snackbar.Callback() {
+
+            @Override
+            public void onDismissed(Snackbar snackbar, int event) {
+            }
+
+            @Override
+            public void onShown(Snackbar snackbar) {
+                adapter.setSongToRemove(adapter.dataSet.get(position));
+            }
+        });
+        snackbar.setActionTextColor(color);
+        snackbar.show();
+
     }
 
     public void setSongToRemove (@NonNull Song song){
