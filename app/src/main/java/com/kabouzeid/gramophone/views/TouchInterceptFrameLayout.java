@@ -184,6 +184,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                     super.onScrolled(recyclerView, dx, dy);
+                    scrollView.slidingPanelSetTouchEnabled(true);
                 }
 
                 @Override
@@ -200,7 +201,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
         if(listParent instanceof ListView){
             ((ListView) listParent).setOnScrollListener(new AbsListView.OnScrollListener(){
                 public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
+                    scrollView.slidingPanelSetTouchEnabled(true);
                 }
                 public void onScrollStateChanged(AbsListView view, int newState) {
 
@@ -317,6 +318,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
             switch (e.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN:
+                    scrollView.slidingPanelSetTouchEnabled(true);
                     if (!touchedScrollView){
                         scrollView.cancelPendingInputEvents();
                         return false;
@@ -343,6 +345,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                     break;
                 case MotionEvent.ACTION_CANCEL:
                 case MotionEvent.ACTION_UP:
+                    scrollView.slidingPanelSetTouchEnabled(true);
                     if (touchedScrollView) {
                         if (isTap) onTouchEvent(e);
                     }
@@ -378,6 +381,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      */
     public void ReTruncateScrollText(){
         ObjectAnimator.ofInt(scrollView, "scrollX",  0).setDuration(RETRUNCATE_DELAY).start();
+        scrollView.slidingPanelSetTouchEnabled(true);
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

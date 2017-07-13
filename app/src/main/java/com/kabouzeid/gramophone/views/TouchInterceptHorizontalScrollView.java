@@ -1,9 +1,13 @@
 package com.kabouzeid.gramophone.views;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.HorizontalScrollView;
+
+import com.kabouzeid.gramophone.R;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 /**
  * Created by lincoln on 7/3/17.
@@ -21,8 +25,11 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     private long lastScrollUpdate = -1;
     private boolean cancel;
+    private boolean touched;
 
     private OnEndScrollListener onEndScrollListener;
+
+    private SlidingUpPanelLayout queue;
 
     /**
      * Listens for when a user has stopped interacting with the scroll view
@@ -98,11 +105,14 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 cancel = true;
+                touched = true;
                 // If we can scroll pass the event to the superclass
                 if (mScrollable) return super.onTouchEvent(ev);
                 // Only continue to handle the touch event if scrolling enabled
                 return mScrollable; // mScrollable is always false at this point
             case MotionEvent.ACTION_UP:
+                slidingPanelSetTouchEnabled(true);
+                touched = false;
                 cancel = false;
                 // The user is done interacting with the scroll view
                 postDelayed(new ScrollStateHandler(), ON_END_SCROLL_DELAY);
@@ -114,6 +124,9 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if(ev.getAction() == MotionEvent.ACTION_DOWN){
+            slidingPanelSetTouchEnabled(true);
+        }
         // Don't do anything with intercepted touch events if
         // we are not scrollable
         if (!mScrollable) return false;
@@ -135,4 +148,18 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
         this.onEndScrollListener = mOnEndScrollListener;
     }
 
+    @Override
+    protected void onScrollChanged(int x, int y, int oldX, int oldY) {
+        super.onScrollChanged(x, y, oldX, oldY);
+        if(touched) slidingPanelSetTouchEnabled(false);
+    }
+
+    /**
+     * Enables and disables Sliding Panel dragging for the playing queue sliding panel
+     * @param enable Set true to enable dragging, false to disable
+     */
+    public void slidingPanelSetTouchEnabled(boolean enable){
+        queue = (SlidingUpPanelLayout) ((Activity)getContext()).findViewById(R.id.player_sliding_layout);
+        if(queue != null) queue.setTouchEnabled(enable);
+    }
 }
