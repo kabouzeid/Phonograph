@@ -284,6 +284,18 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         recyclerViewSwipeManager.attachRecyclerView(recyclerView);
         recyclerViewDragDropManager.attachRecyclerView(recyclerView);
 
+        recyclerViewSwipeManager.setOnItemSwipeEventListener(new RecyclerViewSwipeManager.OnItemSwipeEventListener() {
+            @Override
+            public void onItemSwipeStarted(int i) {
+                slidingUpPanelLayout.setTouchEnabled(false);
+            }
+
+            @Override
+            public void onItemSwipeFinished(int i, int i1, int i2) {
+                slidingUpPanelLayout.setTouchEnabled(true);
+            }
+        });
+
         layoutManager.scrollToPositionWithOffset(MusicPlayerRemote.getPosition() + 1, 0);
     }
 

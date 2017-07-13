@@ -209,6 +209,7 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
     static class MySwipeResultActionRemoveItem extends SwipeResultActionRemoveItem {
         private PlayingQueueAdapter adapter;
         private int position;
+        private Song songToRemove;
 
         public MySwipeResultActionRemoveItem(PlayingQueueAdapter adapter, int position) {
             this.adapter = adapter;
@@ -217,14 +218,14 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
 
         @Override
         protected void onPerformAction() {
-            initializeSnackBar(adapter, position);
-            MusicPlayerRemote.removeFromQueue(position);
+            songToRemove = adapter.dataSet.get(position);
         }
-
         @Override
-        protected void onSlideAnimationEnd(){
-//            SlidingUpPanelLayout queue = (SlidingUpPanelLayout) activity.findViewById(R.id.player_sliding_layout);
-//            queue.setTouchEnabled(true);
+        protected void onSlideAnimationEnd() {
+            //Swipe animation is much smoother when we do the heavy lifting after it's completed
+            initializeSnackBar(adapter, position);
+            adapter.setSongToRemove(songToRemove);
+            MusicPlayerRemote.removeFromQueue(songToRemove);
         }
     }
 
@@ -259,7 +260,7 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
 
             @Override
             public void onShown(Snackbar snackbar) {
-                adapter.setSongToRemove(adapter.dataSet.get(position));
+
             }
         });
         snackbar.setActionTextColor(color);
