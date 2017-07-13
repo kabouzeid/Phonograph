@@ -3,14 +3,24 @@ package com.kabouzeid.gramophone.adapter.song;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemAdapter;
-import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemViewHolder;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.ItemDraggableRange;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.annotation.DraggableItemStateFlags;
+import com.h6ah4i.android.widget.advrecyclerview.swipeable.SwipeableItemAdapter;
+import com.h6ah4i.android.widget.advrecyclerview.swipeable.SwipeableItemConstants;
+import com.h6ah4i.android.widget.advrecyclerview.swipeable.action.SwipeResultAction;
+import com.h6ah4i.android.widget.advrecyclerview.swipeable.action.SwipeResultActionDefault;
+import com.h6ah4i.android.widget.advrecyclerview.swipeable.action.SwipeResultActionRemoveItem;
+import com.h6ah4i.android.widget.advrecyclerview.swipeable.annotation.SwipeableItemResults;
+import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
@@ -22,17 +32,23 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAdapter<PlayingQueueAdapter.ViewHolder> {
+public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAdapter<PlayingQueueAdapter.ViewHolder>, SwipeableItemAdapter<PlayingQueueAdapter.ViewHolder> {
 
     private static final int HISTORY = 0;
     private static final int CURRENT = 1;
     private static final int UP_NEXT = 2;
 
+    public Song songToRemove;
+
     private int current;
+
+    private static AppCompatActivity activity;
 
     public PlayingQueueAdapter(AppCompatActivity activity, ArrayList<Song> dataSet, int current, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
         super(activity, dataSet, itemLayoutRes, usePalette, cabHolder);
         this.current = current;
+        this.activity = activity;
+
     }
 
     @Override
@@ -115,18 +131,48 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
         return true;
     }
 
-    public class ViewHolder extends SongAdapter.ViewHolder implements DraggableItemViewHolder {
+    @Override
+    public int onGetSwipeReactionType(ViewHolder holder, int position, int x, int y) {
+        if (onCheckCanStartDrag(holder, position, x, y)) {
+            return SwipeableItemConstants.REACTION_CAN_NOT_SWIPE_BOTH_H;
+        } else {
+            return SwipeableItemConstants.REACTION_CAN_SWIPE_BOTH_H;
+        }
+    }
+
+    @Override
+    public void onSetSwipeBackground(ViewHolder holder, int i, int i1) {
+        if(activity.findViewById(R.id.player_queue_sub_header) instanceof TextView) {
+            int color = ((TextView) activity.findViewById(R.id.player_queue_sub_header)).getCurrentTextColor();
+            holder.itemView.setBackgroundColor(color);
+            holder.dummyContainer.setBackgroundColor(ATHUtil.resolveColor(activity, R.attr.cardBackgroundColor));
+        }
+    }
+
+    @Override
+    public SwipeResultAction onSwipeItem(ViewHolder holder, int position, @SwipeableItemResults int result) {
+
+        if (result == SwipeableItemConstants.RESULT_CANCELED) {
+            return new SwipeResultActionDefault();
+        } else {
+            return new MySwipeResultActionRemoveItem(this, position);
+        }
+    }
+
+    public class ViewHolder extends SongAdapter.ViewHolder {
         @DraggableItemStateFlags
         private int mDragStateFlags;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             if (imageText != null) {
                 imageText.setVisibility(View.VISIBLE);
             }
             if (image != null) {
                 image.setVisibility(View.GONE);
             }
+
         }
 
         @Override
@@ -145,14 +191,77 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
         }
 
         @Override
-        public void setDragStateFlags(@DraggableItemStateFlags int flags) {
+        public void setDragStateFlags(int flags) {
             mDragStateFlags = flags;
         }
 
         @Override
-        @DraggableItemStateFlags
         public int getDragStateFlags() {
             return mDragStateFlags;
         }
+
+        @Override
+        public View getSwipeableContainerView() {
+            return dummyContainer;
+        }
+    }
+
+    static class MySwipeResultActionRemoveItem extends SwipeResultActionRemoveItem {
+        private PlayingQueueAdapter adapter;
+        private int position;
+
+        public MySwipeResultActionRemoveItem(PlayingQueueAdapter adapter, int position) {
+            this.adapter = adapter;
+            this.position = position;
+        }
+
+        @Override
+        protected void onPerformAction() {
+
+            RecyclerView.ViewHolder viewHolder = adapter.getRecyclerView().findViewHolderForAdapterPosition(position);
+            TextView songTitle = (TextView) viewHolder.itemView.findViewById(R.id.title);
+
+            int color = ((TextView) activity.findViewById(R.id.player_queue_sub_header)).getCurrentTextColor();
+
+            CharSequence snackBarTitle = activity.getString(R.string.snack_bar_title_removed_song) +
+                    (String) TextUtils.ellipsize(songTitle.getText(),
+                    songTitle.getPaint(),
+                    (float) songTitle.getWidth(),
+                    TextUtils.TruncateAt.END).toString();
+
+            Snackbar snackbar = Snackbar.make((View) activity.findViewById(R.id.content_container),
+                    snackBarTitle,
+                    Snackbar.LENGTH_LONG);
+
+            snackbar.setAction(R.string.snack_bar_action_undo, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MusicPlayerRemote.addSong(position,adapter.getSongToRemove());
+                }
+            });
+            snackbar.addCallback(new Snackbar.Callback() {
+
+                @Override
+                public void onDismissed(Snackbar snackbar, int event) {
+                }
+
+                @Override
+                public void onShown(Snackbar snackbar) {
+                    adapter.setSongToRemove(adapter.dataSet.get(position));
+                }
+            });
+            snackbar.setActionTextColor(color);
+            snackbar.show();
+
+            MusicPlayerRemote.removeFromQueue(position);
+        }
+    }
+
+    public void setSongToRemove (@NonNull Song song){
+        songToRemove = song;
+    }
+
+    public Song getSongToRemove(){
+        return songToRemove;
     }
 }

@@ -26,9 +26,11 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
-import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
+import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager;
+import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager;
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
@@ -89,6 +91,8 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
     private RecyclerView.Adapter wrappedAdapter;
     private RecyclerViewDragDropManager recyclerViewDragDropManager;
+    private RecyclerViewSwipeManager recyclerViewSwipeManager;
+    private RecyclerViewTouchActionGuardManager recyclerViewTouchActionGuardManager;
 
     private AsyncTask updateIsFavoriteTask;
     private AsyncTask updateLyricsAsyncTask;
@@ -144,6 +148,10 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         if (recyclerViewDragDropManager != null) {
             recyclerViewDragDropManager.release();
             recyclerViewDragDropManager = null;
+        }
+        if (recyclerViewSwipeManager != null) {
+            recyclerViewSwipeManager.release();
+            recyclerViewSwipeManager = null;
         }
 
         if (recyclerView != null) {
@@ -248,8 +256,15 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     }
 
     private void setUpRecyclerView() {
+        recyclerViewTouchActionGuardManager = new RecyclerViewTouchActionGuardManager();
+        recyclerViewSwipeManager = new RecyclerViewSwipeManager();
         recyclerViewDragDropManager = new RecyclerViewDragDropManager();
-        final GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
+
+        final GeneralItemAnimator animator = new DraggableItemAnimator();
+
+        // Change animations are enabled by default since support-v7-recyclerview v22.
+        // Disable the change animation in order to make turning back animation of swiped item works properly.
+        animator.setSupportsChangeAnimations(false);
 
         playingQueueAdapter = new PlayingQueueAdapter(
                 ((AppCompatActivity) getActivity()),
@@ -259,6 +274,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
                 false,
                 null);
         wrappedAdapter = recyclerViewDragDropManager.createWrappedAdapter(playingQueueAdapter);
+        wrappedAdapter = recyclerViewSwipeManager.createWrappedAdapter(playingQueueAdapter);
 
         layoutManager = new LinearLayoutManager(getActivity());
 
@@ -266,6 +282,8 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         recyclerView.setAdapter(wrappedAdapter);
         recyclerView.setItemAnimator(animator);
 
+        recyclerViewTouchActionGuardManager.attachRecyclerView(recyclerView);
+        recyclerViewSwipeManager.attachRecyclerView(recyclerView);
         recyclerViewDragDropManager.attachRecyclerView(recyclerView);
 
         layoutManager.scrollToPositionWithOffset(MusicPlayerRemote.getPosition() + 1, 0);

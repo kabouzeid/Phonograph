@@ -117,14 +117,16 @@
                             android:paddingRight="16dp"
                             android:text="@string/up_next"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                            android:textColor="?android:textColorSecondary" />
+                            android:textColor="?android:textColorSecondary"
+                            />
 
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/player_recycler_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="8dp"
-                            android:requiresFadingEdge="vertical" />
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/player_recycler_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:requiresFadingEdge="vertical"
+                                android:paddingBottom="8dp"
+                                />
 
                     </LinearLayout>
 

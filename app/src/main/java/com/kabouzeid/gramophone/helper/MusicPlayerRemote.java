@@ -373,6 +373,14 @@ public class MusicPlayerRemote {
         return false;
     }
 
+    public static boolean addSong(int to, @NonNull Song song) {
+        if (musicService != null) {
+            musicService.addSong(to,song);
+            return true;
+        }
+        return false;
+    }
+
     public static boolean clearQueue() {
         if (musicService != null) {
             musicService.clearQueue();
