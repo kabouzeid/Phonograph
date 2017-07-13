@@ -187,10 +187,13 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     public void setLyrics(Lyrics l) {
         lyrics = l;
 
+        if (lyricsLayout == null || lyricsLine1 == null || lyricsLine2 == null) return;
+
         if (!PreferenceUtil.getInstance(getActivity()).synchronizedLyricsShow() || l == null || !l.isSynchronized() || !l.isValid()) {
             lyricsLayout.animate().alpha(0f).setDuration(PlayerAlbumCoverFragment.LYRICS_ANIM_DURATION).withEndAction(new Runnable() {
                 @Override
                 public void run() {
+                    if (lyricsLayout == null || lyricsLine1 == null || lyricsLine2 == null) return;
                     lyricsLayout.setVisibility(View.GONE);
                     lyricsLine1.setText(null);
                     lyricsLine2.setText(null);
@@ -216,10 +219,13 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
 
     @Override
     public void onUpdateProgressViews(int progress, int total) {
+        if (lyricsLayout == null || lyricsLine1 == null || lyricsLine2 == null) return;
+
         if (!PreferenceUtil.getInstance(getActivity()).synchronizedLyricsShow() || lyrics == null || !lyrics.isSynchronized() || !lyrics.isValid()) {
             lyricsLayout.animate().alpha(0f).setDuration(PlayerAlbumCoverFragment.LYRICS_ANIM_DURATION).withEndAction(new Runnable() {
                 @Override
                 public void run() {
+                    if (lyricsLayout == null || lyricsLine1 == null || lyricsLine2 == null) return;
                     lyricsLayout.setVisibility(View.GONE);
                     lyricsLine1.setText(null);
                     lyricsLine2.setText(null);
