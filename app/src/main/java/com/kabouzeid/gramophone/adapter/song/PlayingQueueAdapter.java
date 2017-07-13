@@ -218,12 +218,12 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
 
         @Override
         protected void onPerformAction() {
+            initializeSnackBar(adapter, position);
             songToRemove = adapter.dataSet.get(position);
         }
         @Override
         protected void onSlideAnimationEnd() {
             //Swipe animation is much smoother when we do the heavy lifting after it's completed
-            initializeSnackBar(adapter, position);
             adapter.setSongToRemove(songToRemove);
             MusicPlayerRemote.removeFromQueue(songToRemove);
         }
