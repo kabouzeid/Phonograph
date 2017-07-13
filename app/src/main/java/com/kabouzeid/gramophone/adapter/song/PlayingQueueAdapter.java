@@ -142,11 +142,8 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
 
     @Override
     public void onSetSwipeBackground(ViewHolder holder, int i, int i1) {
-        if(activity.findViewById(R.id.player_queue_sub_header) instanceof TextView) {
-            int color = ((TextView) activity.findViewById(R.id.player_queue_sub_header)).getCurrentTextColor();
-            holder.itemView.setBackgroundColor(color);
+            holder.itemView.setBackgroundColor(getBackgroundColor());
             holder.dummyContainer.setBackgroundColor(ATHUtil.resolveColor(activity, R.attr.cardBackgroundColor));
-        }
     }
 
     @Override
@@ -229,12 +226,21 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
         }
     }
 
+    public static int getBackgroundColor(){
+        //TODO: Find a better way to get the album background color
+        TextView tV = ((TextView) activity.findViewById(R.id.player_queue_sub_header));
+        if(tV != null){
+            int color = tV.getCurrentTextColor();
+            return color;
+        }else{
+            return ATHUtil.resolveColor(activity, R.attr.cardBackgroundColor);
+        }
+    }
+
     public static void initializeSnackBar(final PlayingQueueAdapter adapter,final int position){
 
         RecyclerView.ViewHolder viewHolder = adapter.getRecyclerView().findViewHolderForAdapterPosition(position);
         TextView songTitle = (TextView) viewHolder.itemView.findViewById(R.id.title);
-
-        int color = ((TextView) activity.findViewById(R.id.player_queue_sub_header)).getCurrentTextColor();
 
         CharSequence snackBarTitle = activity.getString(R.string.snack_bar_title_removed_song) +
                 (String) TextUtils.ellipsize(songTitle.getText(),
@@ -263,7 +269,7 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
 
             }
         });
-        snackbar.setActionTextColor(color);
+        snackbar.setActionTextColor(getBackgroundColor());
         snackbar.show();
 
     }
