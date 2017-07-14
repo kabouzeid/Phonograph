@@ -152,6 +152,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     protected void onScrollChanged(int x, int y, int oldX, int oldY) {
         super.onScrollChanged(x, y, oldX, oldY);
         if(touched) slidingPanelSetTouchEnabled(false);
+        CancelClick();
     }
 
     /**
@@ -161,5 +162,16 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     public void slidingPanelSetTouchEnabled(boolean enable){
         queue = (SlidingUpPanelLayout) ((Activity)getContext()).findViewById(R.id.player_sliding_layout);
         if(queue != null) queue.setTouchEnabled(enable);
+    }
+
+    /**
+     * Cancels any Long Presses and inpending clicks. Used to prevent views from
+     * stealing touches while the user is scrolling something.
+     */
+    public void CancelClick(){
+        getRootView().cancelLongPress();
+        getRootView().cancelPendingInputEvents();
+        this.cancelLongPress();
+        this.cancelPendingInputEvents();
     }
 }

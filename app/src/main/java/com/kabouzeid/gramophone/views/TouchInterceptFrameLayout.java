@@ -175,7 +175,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      * set via xml or programmatically and sets a Scroll Listener. When scrolling
      * clicks are cancelled to prevent any interference with scrolling.
      */
-    public void initializeListParent(){
+    public void InitializeListParent(){
 
         try{
         if(listParent instanceof RecyclerView){
@@ -258,11 +258,11 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                                         new TouchInterceptHorizontalScrollView.OnEndScrollListener() {
                                             @Override
                                             public void onEndScroll() {
-                                                ReTruncateScrollText();
+                                                reTruncateScrollText();
                                             }
                                         });
                             }
-                            initializeListParent();
+                            InitializeListParent();
                         }
                     }
 
@@ -337,8 +337,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                         // Scrolling the view: cancel event to prevent long press
                         if (distance > MAX_CLICK_DISTANCE) {
                             if((!emptyTruncateText && isTextTruncated)) setText(song);
-                            CancelClick();
-
                             isTap = false;
                         }
                     }
@@ -365,9 +363,8 @@ public class TouchInterceptFrameLayout extends FrameLayout {
     }
 
     /**
-     * Cancels any Long Presses and inpending clicks. Used to prevent views from
-     * acting on touches while vertically scrolling or any case where the user is not
-     * interacting with the item views
+     *Cancels any Long Presses and inpending clicks. Used to prevent views from
+     * stealing touches while the user is scrolling something.
      */
     private void CancelClick(){
         this.cancelPendingInputEvents();
@@ -379,7 +376,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
     /**
      * Retruncates the text with a fancy scroll to beginning animation that takes a set amount of time
      */
-    public void ReTruncateScrollText(){
+    public void reTruncateScrollText(){
         ObjectAnimator.ofInt(scrollView, "scrollX",  0).setDuration(RETRUNCATE_DELAY).start();
         scrollView.slidingPanelSetTouchEnabled(true);
         final Handler handler = new Handler();
