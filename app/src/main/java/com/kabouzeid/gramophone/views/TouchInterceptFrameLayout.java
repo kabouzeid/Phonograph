@@ -42,7 +42,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
     private static final String XML_VIEW_IDS_NOT_SET = "It appears as if the IDs for the TouchInterceptHorizontalScrollView and its" +
             "child scrollable TextView have not been set. If you have not already, you must set "  +
             "them using setTouchInterceptHorizontalScrollView and setScrollableTextView via XML";
-    private static final String NULL_VIEWS_EXCEPTION_MESSAGE = "Either textView or scrollView is null. Maybe you" +
+    private static final String NULL_VIEWS_EXCEPTION_MESSAGE = "Either textView or scrollView is null. Maybe you " +
             "forgot to set them using setTouchInterceptHorizontalScrollView and setScrollableTextView " +
             "via XML? Did you set it to something null?";
     private static final String NULL_LIST_PARENT = "The ListParent, aka the parent ListView or RecyclerView is null." +
@@ -175,7 +175,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      * set via xml or programmatically and sets a Scroll Listener. When scrolling
      * clicks are cancelled to prevent any interference with scrolling.
      */
-    public void InitializeListParent(){
+    public void initializeListParent(){
 
         try{
         if(listParent instanceof RecyclerView){
@@ -245,7 +245,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                                 (float) scrollView.getWidth(),
                                 TextUtils.TruncateAt.END).toString();
 
-                        if (!songTruncated.isEmpty()) {
+                        if (songTruncated != null && !songTruncated.isEmpty()) {
                             setText(songTruncated);
 
                             if (songTruncated.equals(song)) {
@@ -262,7 +262,9 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                                             }
                                         });
                             }
-                            InitializeListParent();
+                            initializeListParent();
+                        }else{
+                            scrollView.setScrollingEnabled(false);
                         }
                     }
 
@@ -270,6 +272,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
             });
         }catch (NullPointerException exception){
             Log.e(TAG, NULL_VIEWS_EXCEPTION_MESSAGE);
+            Log.e("Method: ","setTruncateText()");
             Log.e(TAG, "TouchInterceptHorizontalScrollView = " + scrollView.toString());
             Log.e(TAG, "TextView = " + textView);
             Log.e(TAG, exception.toString());
@@ -302,61 +305,76 @@ public class TouchInterceptFrameLayout extends FrameLayout {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
 
-        int x = Math.round(e.getRawX());
-        int y = Math.round(e.getRawY());
-        try {
-            scrollView.getGlobalVisibleRect(scrollViewRect);
+        if(scrollView.isScrollable()) {
 
-            boolean touchedScrollView =
-                    x > scrollViewRect.left && x < scrollViewRect.right &&
-                            y > scrollViewRect.top && y < scrollViewRect.bottom;
+            boolean emptyTruncateText;
+            boolean isTextTruncated;
 
-            boolean emptyTruncateText = songTruncated.isEmpty();
-            if(emptyTruncateText)  Log.e(TAG, EMPTY_TRUNCATE_STRING);
+            int x = Math.round(e.getRawX());
+            int y = Math.round(e.getRawY());
+            try {
+                scrollView.getGlobalVisibleRect(scrollViewRect);
 
-            boolean isTextTruncated = songTruncated.endsWith("…");
+                boolean touchedScrollView =
+                        x > scrollViewRect.left && x < scrollViewRect.right &&
+                                y > scrollViewRect.top && y < scrollViewRect.bottom;
 
-            switch (e.getAction() & MotionEvent.ACTION_MASK) {
-                case MotionEvent.ACTION_DOWN:
-                    scrollView.slidingPanelSetTouchEnabled(true);
-                    if (!touchedScrollView){
-                        scrollView.cancelPendingInputEvents();
-                        return false;
-                    }
+                if (songTruncated != null){
+                    emptyTruncateText = songTruncated.isEmpty();
+                    isTextTruncated = songTruncated.endsWith("…");
+                    if(emptyTruncateText) Log.e(TAG, EMPTY_TRUNCATE_STRING);
+                }else{
+                    emptyTruncateText = true;
+                    isTextTruncated = false;
+                    Log.e(TAG, EMPTY_TRUNCATE_STRING);
+                }
 
-                    startX = e.getX();
-                    isTap = true;
-                    onTouchEvent(e);
-
-                    break;
-
-                case MotionEvent.ACTION_MOVE:
-                    if (touchedScrollView) {
-                        float distance = Math.abs(e.getX() - startX);
-
-                        // Scrolling the view: cancel event to prevent long press
-                        if (distance > MAX_CLICK_DISTANCE) {
-                            if((!emptyTruncateText && isTextTruncated)) setText(song);
-                            isTap = false;
+                switch (e.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_DOWN:
+                        scrollView.slidingPanelSetTouchEnabled(true);
+                        if (!touchedScrollView) {
+                            scrollView.cancelPendingInputEvents();
+                            return false;
                         }
-                    }
-                    break;
-                case MotionEvent.ACTION_CANCEL:
-                case MotionEvent.ACTION_UP:
-                    scrollView.slidingPanelSetTouchEnabled(true);
-                    if (touchedScrollView) {
-                        if (isTap) onTouchEvent(e);
-                    }
-                    this.requestDisallowInterceptTouchEvent(false);
-                    break;
-            }
-            return false;
 
-        }catch (NullPointerException exception) {
-            Log.e(TAG, NULL_VIEWS_EXCEPTION_MESSAGE);
-            Log.e(TAG, "TouchInterceptHorizontalScrollView = " + scrollView.toString());
-            Log.e(TAG, "TextView = " + textView);
-            Log.e(TAG, exception.toString());
+                        startX = e.getX();
+                        isTap = true;
+                        onTouchEvent(e);
+
+                        break;
+
+                    case MotionEvent.ACTION_MOVE:
+                        if (touchedScrollView) {
+                            float distance = Math.abs(e.getX() - startX);
+
+                            // Scrolling the view: cancel event to prevent long press
+                            if (distance > MAX_CLICK_DISTANCE) {
+                                if ((!emptyTruncateText && isTextTruncated)) setText(song);
+                                isTap = false;
+                            }
+                        }
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                    case MotionEvent.ACTION_UP:
+                        scrollView.slidingPanelSetTouchEnabled(true);
+                        if (touchedScrollView) {
+                            if (isTap) onTouchEvent(e);
+                        }
+                        this.requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+                return false;
+
+            } catch (NullPointerException exception) {
+                Log.e(TAG, NULL_VIEWS_EXCEPTION_MESSAGE);
+                Log.e("Method: ","onInterceptTouchEvent()");
+                Log.e(TAG, "TouchInterceptHorizontalScrollView = " + scrollView.toString());
+                Log.e(TAG, "TextView = " + textView);
+                Log.e(TAG, exception.toString());
+                onTouchEvent(e);
+                return false;
+            }
+        }else{
             onTouchEvent(e);
             return false;
         }
