@@ -117,7 +117,7 @@
     <string name="pref_title_navigation_bar">Obojena navigacijska traka</string>
     <string name="pref_title_set_default_start_page">Početna stranica</string>
     <string name="pref_title_album_art_on_lockscreen">Prikaži omot albuma na zaklj. zaslonu</string>
-    <string name="pref_title_auto_download_artist_images">Automatski preuzmi slike izvođača</string>
+    <string name="pref_title_auto_download_metadata">Automatski preuzmi slike izvođača</string>
     <string name="pref_title_blurred_album_art">Zamagli omot albuma</string>
     <string name="pref_title_colored_notification">Obojene obavijesti</string>
     <string name="pref_title_ignore_media_store_artwork">Ignoriraj Media Store omote</string>
@@ -153,7 +153,6 @@
     <string name="empty">Prazno</string>
     <string name="playlist_name_empty">Naziv popisa naslova</string>
     <string name="song">Pjesma</string>
-    <string name="pref_only_lollipop">"Dostupno samo na Lollipopu."</string>
     <string name="pref_summary_album_art_on_lockscreen">Koristi omot albuma trenutne pjesme kao pozadinu zaključanog zaslona.</string>
     <string name="pref_summary_blurred_album_art">Zamagljuje omot albuma na zaključanom zaslonu. Može izazvati probleme za ostale aplikacije i widgete.</string>
     <string name="pref_summary_colored_notification">"Obavijesti su obojene istaknutom bojom omota albuma."</string>
@@ -202,7 +201,7 @@
     <string name="author">Autor</string>
     <string name="add_to_google_plus_circles">Dodajte u Google Plus krugove</string>
     <string name="follow_on_twitter">Pratite na Twitteru</string>
-    <string name="fork_on_git_hub">Fork-ajte na GitHub-u</string>
+    <string name="fork_on_github">Fork-ajte na GitHub-u</string>
     <string name="visit_website">Posjetite web-stranicu</string>
     <string name="report_bugs">Prijavi pogreške</string>
     <string name="report_bugs_summary">Prijavite pogreške i zatražite nove mogućnosti.</string>

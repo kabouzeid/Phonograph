@@ -38,8 +38,10 @@
     <string name="songs">Songs</string>
     <string name="playlists">Playlists</string>
     <string name="unplayable_file">Couldn\u2019t play this song.</string>
-    <string name="biography_unavailable">Couldn\u2019t find the artists biography.</string>
+    <string name="biography_unavailable">Couldn\u2019t find a biography entry for this artist.</string>
+    <string name="wiki_unavailable">Couldn\u2019t find a wiki entry for this album.</string>
     <string name="biography">Biography</string>
+    <string name="wiki">Wiki</string>
     <string name="audio_focus_denied">Audio focus denied.</string>
     <string name="album">Album</string>
     <string name="artist">Artist</string>
@@ -129,7 +131,7 @@
     <string name="pref_title_app_shortcuts">Colored app shortcuts</string>
     <string name="pref_title_set_default_start_page">Start page</string>
     <string name="pref_title_album_art_on_lockscreen">Show album cover</string>
-    <string name="pref_title_auto_download_artist_images">Auto download artist images</string>
+    <string name="pref_title_auto_download_metadata">Auto download metadata</string>
     <string name="pref_title_blurred_album_art">Blur album cover</string>
     <string name="pref_title_colored_notification">Colored notification</string>
     <string name="pref_title_classic_notification">Classic notification design</string>
@@ -167,9 +169,6 @@
     <string name="empty">Empty</string>
     <string name="playlist_name_empty">Playlist name</string>
     <string name="song">Song</string>
-    <string name="pref_only_lollipop">"Only available on Lollipop or above."</string>
-    <string name="pref_only_nougat">"Only available on Nougat 7.0 or above."</string>
-    <string name="pref_only_nougat_mr1">"Only available on Nougat 7.1 or above."</string>
     <string name="pref_summary_album_art_on_lockscreen">Uses the current songs album cover as lockscreen wallpaper.</string>
     <string name="pref_summary_blurred_album_art">Blurs the album cover on the lockscreen. Can cause problems with third party apps and widgets.</string>
     <string name="pref_summary_classic_notification">Use the classic notification design.</string>
@@ -229,7 +228,7 @@
     <string name="write_an_email">Write an email</string>
     <string name="add_to_google_plus_circles">Add to Google Plus circles</string>
     <string name="follow_on_twitter">Follow on Twitter</string>
-    <string name="fork_on_git_hub">Fork on GitHub</string>
+    <string name="fork_on_github">Fork on GitHub</string>
     <string name="visit_website">Visit website</string>
     <string name="report_bugs">Report bugs</string>
     <string name="report_bugs_summary">Report bugs or request new features.</string>

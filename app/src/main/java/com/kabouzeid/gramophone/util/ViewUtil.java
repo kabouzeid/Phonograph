@@ -16,7 +16,6 @@ import android.support.annotation.ColorInt;
 import android.support.v4.view.ViewCompat;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.PathInterpolator;
 import android.widget.TextView;
 
@@ -96,11 +95,5 @@ public class ViewUtil {
     public static float convertPixelsToDp(float px, Resources resources) {
         DisplayMetrics metrics = resources.getDisplayMetrics();
         return px / metrics.density;
-    }
-
-    public static void setStatusBarHeight(final Context context, View statusBar) {
-        ViewGroup.LayoutParams lp = statusBar.getLayoutParams();
-        lp.height = Util.getStatusBarHeight(context);
-        statusBar.requestLayout();
     }
 }

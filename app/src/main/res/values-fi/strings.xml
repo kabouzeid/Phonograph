@@ -117,7 +117,7 @@
     <string name="pref_title_navigation_bar">Värillinen navigointipalkki</string>
     <string name="pref_title_set_default_start_page">Aloitussivu</string>
     <string name="pref_title_album_art_on_lockscreen">Näytä albumin kansi</string>
-    <string name="pref_title_auto_download_artist_images">Lataa automaattisesti artistien kuvat</string>
+    <string name="pref_title_auto_download_metadata">Lataa automaattisesti artistien kuvat</string>
     <string name="pref_title_blurred_album_art">Sumenna albumin kansi</string>
     <string name="pref_title_colored_notification">Värillinen ilmoitus</string>
     <string name="pref_title_ignore_media_store_artwork">Sivuuta Media Storen albumikannet</string>
@@ -153,7 +153,6 @@
     <string name="empty">Tyhjä</string>
     <string name="playlist_name_empty">Soittolistan nimi</string>
     <string name="song">Kappale</string>
-    <string name="pref_only_lollipop">"Saatavilla vain Lollipopilla."</string>
     <string name="pref_summary_album_art_on_lockscreen">Käyttää tämänhetkisen kappaleen albumin kantta lukitusnäytön taustakuvana.</string>
     <string name="pref_summary_blurred_album_art">Sumentaa albumin kannen lukitusnäytöllä. Saattaa aiheuttaa ongelmia kolmannen osapuolen sovellusten ja widgettien kanssa.</string>
     <string name="pref_summary_colored_notification">"V\u00e4ritt\u00e4\u00e4 ilmoituksen albumin eloisalla v\u00e4rill\u00e4."</string>
@@ -202,7 +201,7 @@
     <string name="author">Luoja</string>
     <string name="add_to_google_plus_circles">Lisää Google Plus -piireihin</string>
     <string name="follow_on_twitter">Seuraa Twitterissä</string>
-    <string name="fork_on_git_hub">Seuraa GitHubissa</string>
+    <string name="fork_on_github">Seuraa GitHubissa</string>
     <string name="visit_website">Vieraile verkkosivulla</string>
     <string name="report_bugs">Raportoi bugeja</string>
     <string name="report_bugs_summary">Raportoi bugeja tai ehdota uusia ominaisuuksia.</string>

@@ -118,7 +118,7 @@
     <string name="pref_title_navigation_bar">Έγχρωμη μπάρα πλοήγησης</string>
     <string name="pref_title_set_default_start_page">Αρχική σελίδα</string>
     <string name="pref_title_album_art_on_lockscreen">Εμφάνιση album art</string>
-    <string name="pref_title_auto_download_artist_images">Αυτόματο κατέβασμα πορτρέτων καλλιτεχνών</string>
+    <string name="pref_title_auto_download_metadata">Αυτόματο κατέβασμα πορτρέτων καλλιτεχνών</string>
     <string name="pref_title_blurred_album_art">Θάμπωμα πορτρέτων καλλιτεχνών</string>
     <string name="pref_title_colored_notification">Χρωματιστή πλοήγηση</string>
     <string name="pref_title_ignore_media_store_artwork">Παράληψη των album art στην SD</string>
@@ -154,7 +154,6 @@
     <string name="empty">Κενό</string>
     <string name="playlist_name_empty">Όνομα λίστας</string>
     <string name="song">Τραγούδι</string>
-    <string name="pref_only_lollipop">"Διαθέσιμο μόνο σε (Android) Lollipop."</string>
     <string name="pref_summary_album_art_on_lockscreen">Εμφάνιση του album art στην οθόνη κλειδώματος.</string>
     <string name="pref_summary_blurred_album_art">Εμφανίζει,θωριασμένα, το album art στην οθόνη κλειδώματος.Μπορεί να δημιουργίσει πρόβλημα με εφαρμογές Τρίτων.</string>
     <string name="pref_summary_colored_notification">"\u03a7\u03c1\u03c9\u03bc\u03b1\u03c4\u03af\u03b6\u03b5\u03b9 \u03c4\u03b7\u03bd \u03bc\u03c0\u03ac\u03c1\u03b1 \u03b5\u03b9\u03b4\u03bf\u03c0\u03bf\u03b9\u03ae\u03c3\u03b5\u03c9\u03bd \u03c3\u03c4\u03bf \u03c7\u03c1\u03ce\u03bc\u03b1 \u03c4\u03bf\u03c5 album art \u03c4\u03bf\u03c5 \u03c4\u03c1\u03b1\u03b3\u03bf\u03c5\u03b4\u03b9\u03bf\u03cd"</string>
@@ -203,7 +202,7 @@
     <string name="author">Εκδότης</string>
     <string name="add_to_google_plus_circles">Προσθήκη στους κύκλους σας στο Google Plus</string>
     <string name="follow_on_twitter">Ακολουθήστε στο Twitter</string>
-    <string name="fork_on_git_hub">Παρακολουθήστε στο GitHub</string>
+    <string name="fork_on_github">Παρακολουθήστε στο GitHub</string>
     <string name="visit_website">Επισκεφθείτε την ιστοσελίδα μας</string>
     <string name="report_bugs">Αναφορά σφαλμάτων</string>
     <string name="report_bugs_summary">Αναφέρετε σφάλματα ή ζητείστε νέα χαρακτηριστικά.</string>

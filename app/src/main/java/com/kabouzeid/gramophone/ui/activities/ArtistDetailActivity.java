@@ -55,7 +55,8 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
-import com.kabouzeid.gramophone.util.ViewUtil;
+
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -83,8 +84,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     TextView artistName;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.status_bar)
-    View statusBar;
 
     View songListHeader;
     RecyclerView albumRecyclerView;
@@ -100,6 +99,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     private Artist artist;
     @Nullable
     private Spanned biography;
+    private MaterialDialog biographyDialog;
     private HorizontalAlbumAdapter albumAdapter;
     private ArtistSongAdapter songAdapter;
 
@@ -114,13 +114,12 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         supportPostponeEnterTransition();
 
         lastFMRestClient = new LastFMRestClient(this);
-        usePalette=PreferenceUtil.getInstance(this).albumArtistColoredFooters();
+        usePalette = PreferenceUtil.getInstance(this).albumArtistColoredFooters();
 
         initViews();
         setUpObservableListViewParams();
         setUpViews();
         setUpToolbar();
-        ViewUtil.setStatusBarHeight(this, statusBar);
 
         getSupportLoaderManager().initLoader(LOADER_ID, getIntent().getExtras(), this);
     }
@@ -223,34 +222,47 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     }
 
     private void loadBiography() {
-        lastFMRestClient.getApiService().getArtistInfo(getArtist().getName(), null).enqueue(new Callback<LastFmArtist>() {
-            @Override
-            public void onResponse(Call<LastFmArtist> call, Response<LastFmArtist> response) {
-                LastFmArtist lastFmArtist = response.body();
-                if (lastFmArtist.getArtist() != null) {
-                    String bio = lastFmArtist.getArtist().getBio().getContent();
-                    if (bio != null && !bio.trim().equals("")) {
-                        biography = Html.fromHtml(bio);
-                        return;
-                    }
-                }
-                biography = null;
-            }
-
-            @Override
-            public void onFailure(Call<LastFmArtist> call, Throwable t) {
-                t.printStackTrace();
-                biography = null;
-            }
-        });
+        loadBiography(Locale.getDefault().getLanguage());
     }
 
-    private MaterialDialog getBiographyDialog() {
-        return new MaterialDialog.Builder(ArtistDetailActivity.this)
-                .title(getArtist().getName())
-                .content(biography != null ? biography : "")
-                .positiveText(android.R.string.ok)
-                .build();
+    private void loadBiography(@Nullable final String lang) {
+        biography = null;
+
+        lastFMRestClient.getApiService()
+                .getArtistInfo(getArtist().getName(), lang, null)
+                .enqueue(new Callback<LastFmArtist>() {
+                    @Override
+                    public void onResponse(@NonNull Call<LastFmArtist> call, @NonNull Response<LastFmArtist> response) {
+                        final LastFmArtist lastFmArtist = response.body();
+                        if (lastFmArtist != null && lastFmArtist.getArtist() != null) {
+                            final String bioContent = lastFmArtist.getArtist().getBio().getContent();
+                            if (bioContent != null && !bioContent.trim().isEmpty()) {
+                                biography = Html.fromHtml(bioContent);
+                            }
+                        }
+
+                        // If the "lang" parameter is set and no biography is given, retry with default language
+                        if (biography == null && lang != null) {
+                            loadBiography(null);
+                            return;
+                        }
+
+                        if (!Util.isAllowedToDownloadMetadata(ArtistDetailActivity.this)) {
+                            if (biography != null) {
+                                biographyDialog.setContent(biography);
+                            } else {
+                                biographyDialog.dismiss();
+                                Toast.makeText(ArtistDetailActivity.this, getResources().getString(R.string.biography_unavailable), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<LastFmArtist> call, @NonNull Throwable t) {
+                        t.printStackTrace();
+                        biography = null;
+                    }
+                });
     }
 
     private void loadArtistImage(final boolean forceDownload) {
@@ -343,10 +355,22 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                 super.onBackPressed();
                 return true;
             case R.id.action_biography:
-                if (biography != null) {
-                    getBiographyDialog().show();
+                if (biographyDialog == null) {
+                    biographyDialog = new MaterialDialog.Builder(this)
+                            .title(artist.getName())
+                            .positiveText(android.R.string.ok)
+                            .build();
+                }
+                if (Util.isAllowedToDownloadMetadata(ArtistDetailActivity.this)) {
+                    if (biography != null) {
+                        biographyDialog.setContent(biography);
+                        biographyDialog.show();
+                    } else {
+                        Toast.makeText(ArtistDetailActivity.this, getResources().getString(R.string.biography_unavailable), Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(ArtistDetailActivity.this, getResources().getString(R.string.biography_unavailable), Toast.LENGTH_SHORT).show();
+                    biographyDialog.show();
+                    loadBiography();
                 }
                 return true;
             case R.id.action_re_download_artist_image:
@@ -414,7 +438,11 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     private void setArtist(Artist artist) {
         this.artist = artist;
         loadArtistImage(false);
-        loadBiography();
+
+        if (Util.isAllowedToDownloadMetadata(this)) {
+            loadBiography();
+        }
+
         artistName.setText(artist.getName());
         songAdapter.swapDataSet(artist.getSongs());
         albumAdapter.swapDataSet(artist.albums);

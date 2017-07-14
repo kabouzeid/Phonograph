@@ -117,7 +117,7 @@
     <string name="pref_title_navigation_bar">Kolorowy pasek nawigacyjny</string>
     <string name="pref_title_set_default_start_page">Strona startowa</string>
     <string name="pref_title_album_art_on_lockscreen">Pokazuj okładki albumów</string>
-    <string name="pref_title_auto_download_artist_images">Automatyczne pobieranie zdjęć wykonawców</string>
+    <string name="pref_title_auto_download_metadata">Automatyczne pobieranie zdjęć wykonawców</string>
     <string name="pref_title_blurred_album_art">Rozmywanie okładki albumu</string>
     <string name="pref_title_colored_notification">Kolorowy odtwarzacz w pasku powiadomień</string>
     <string name="pref_title_ignore_media_store_artwork">Ignoruj okładki z Media Store</string>
@@ -153,7 +153,6 @@
     <string name="empty">Pusto</string>
     <string name="playlist_name_empty">Nazwa listy odtwarzania</string>
     <string name="song">Utwór</string>
-    <string name="pref_only_lollipop">"Dostępne tylko w androidzie Lollipop"</string>
     <string name="pref_summary_album_art_on_lockscreen">Okładki albumów obecnie granych utworów będą zastępowały tapetę na ekranie blokady</string>
     <string name="pref_summary_blurred_album_art">Rozmywa okładki albumów na ekranie blokady. Mogą wystąpić problemy z aplikacjami firm trzecich oraz widżetami</string>
     <string name="pref_summary_colored_notification">"Odtwarzacz w pasku powiadomie\u0144 ma tonacj\u0119 ok\u0142adki albumu"</string>
@@ -202,7 +201,7 @@
     <string name="author">O autorze</string>
     <string name="add_to_google_plus_circles">Dodaj do kręgów Google+</string>
     <string name="follow_on_twitter">Śledź na Twitterze</string>
-    <string name="fork_on_git_hub">Dołącz na GitHub\'ie</string>
+    <string name="fork_on_github">Dołącz na GitHub\'ie</string>
     <string name="visit_website">Odwiedź stronę</string>
     <string name="report_bugs">Zgłoś błędy</string>
     <string name="report_bugs_summary">Zgłaszaj błędy lub propozycje nowych funkcji</string>

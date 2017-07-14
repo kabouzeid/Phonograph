@@ -36,8 +36,8 @@
             android:scaleType="centerCrop"
             tools:ignore="ContentDescription" />
 
-        <ImageButton android:id="@+id/action_quit"
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <ImageButton
+            android:id="@+id/action_quit"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_alignParentEnd="true"
@@ -95,6 +95,7 @@
                 android:fadingEdge="horizontal"
                 android:singleLine="true"
                 android:textAppearance="@style/Theme.Phonograph.Notification" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -109,10 +110,11 @@
             android:layoutDirection="ltr"
             android:orientation="horizontal"
             tools:ignore="UnusedAttribute">
+
             <!-- media buttons will be added here -->
-            <ImageButton android:id="@+id/action_prev"
+            <ImageButton
+                android:id="@+id/action_prev"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="48dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="2dp"
@@ -124,9 +126,9 @@
                 android:scaleType="fitCenter"
                 tools:ignore="ContentDescription" />
 
-            <ImageButton android:id="@+id/action_play_pause"
+            <ImageButton
+                android:id="@+id/action_play_pause"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="48dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="2dp"
@@ -138,9 +140,9 @@
                 android:scaleType="fitCenter"
                 tools:ignore="ContentDescription" />
 
-            <ImageButton android:id="@+id/action_next"
+            <ImageButton
+                android:id="@+id/action_next"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="48dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="2dp"
@@ -151,6 +153,9 @@
                 android:padding="8dp"
                 android:scaleType="fitCenter"
                 tools:ignore="ContentDescription" />
+
         </LinearLayout>
+
     </RelativeLayout>
+
 </FrameLayout>
