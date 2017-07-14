@@ -59,7 +59,7 @@ public class Lyrics {
     }
 
     public String getText() {
-        return this.data;
+        return this.data.trim().replaceAll("(\r?\n){3,}", "\r\n\r\n");
     }
 
     static {

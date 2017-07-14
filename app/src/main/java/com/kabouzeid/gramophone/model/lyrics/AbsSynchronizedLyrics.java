@@ -44,10 +44,10 @@ public abstract class AbsSynchronizedLyrics extends Lyrics {
 
             for (int i = 0; i < lines.size(); i++) {
                 String line = lines.valueAt(i);
-                sb.append(line).append('\n');
+                sb.append(line).append("\r\n");
             }
 
-            return sb.toString();
+            return sb.toString().trim().replaceAll("(\r?\n){3,}", "\r\n\r\n");
         }
 
         return super.getText();
