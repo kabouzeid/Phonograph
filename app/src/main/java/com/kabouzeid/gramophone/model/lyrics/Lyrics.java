@@ -10,8 +10,8 @@ public class Lyrics {
     public Song song;
     public String data;
 
-    boolean parsed = false;
-    boolean valid = false;
+    protected boolean parsed = false;
+    protected boolean valid = false;
 
     public Lyrics setData(Song song, String data) {
         this.song = song;
