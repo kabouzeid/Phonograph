@@ -32,7 +32,8 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAdapter<PlayingQueueAdapter.ViewHolder>, SwipeableItemAdapter<PlayingQueueAdapter.ViewHolder> {
+public class PlayingQueueAdapter extends SongAdapter
+        implements DraggableItemAdapter<PlayingQueueAdapter.ViewHolder>, SwipeableItemAdapter<PlayingQueueAdapter.ViewHolder> {
 
     private static final int HISTORY = 0;
     private static final int CURRENT = 1;
@@ -256,17 +257,6 @@ public class PlayingQueueAdapter extends SongAdapter implements DraggableItemAda
             @Override
             public void onClick(View v) {
                 MusicPlayerRemote.addSong(position,adapter.getSongToRemove());
-            }
-        });
-        snackbar.addCallback(new Snackbar.Callback() {
-
-            @Override
-            public void onDismissed(Snackbar snackbar, int event) {
-            }
-
-            @Override
-            public void onShown(Snackbar snackbar) {
-
             }
         });
         snackbar.setActionTextColor(getBackgroundColor());
