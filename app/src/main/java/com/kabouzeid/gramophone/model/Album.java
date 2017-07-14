@@ -33,7 +33,11 @@ public class Album implements Parcelable {
     }
 
     public String getArtistName() {
-        return safeGetFirstSong().artistName;
+        if(safeGetFirstSong().albumArtist != null) {
+            return safeGetFirstSong().albumArtist;
+        }else{
+            return safeGetFirstSong().artistName;
+        }
     }
 
     public int getYear() {

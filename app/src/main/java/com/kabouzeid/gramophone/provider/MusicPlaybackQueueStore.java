@@ -59,6 +59,18 @@ public class MusicPlaybackQueueStore extends SQLiteOpenHelper {
     }
 
     private void createTable(@NonNull final SQLiteDatabase db, final String tableName) {
+
+        String albumArtist = null;
+        try {
+            //Album artist is hidden for whatever stupid typical Android reason so we have to fetch it via reflection
+            albumArtist = (String) android.provider.MediaStore.Audio.AudioColumns.class.getDeclaredField("ALBUM_ARTIST").get(null);
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+
         //noinspection StringBufferReplaceableByString
         StringBuilder builder = new StringBuilder();
         builder.append("CREATE TABLE IF NOT EXISTS ");
@@ -96,6 +108,9 @@ public class MusicPlaybackQueueStore extends SQLiteOpenHelper {
         builder.append(" INT NOT NULL,");
 
         builder.append(AudioColumns.ARTIST);
+        builder.append(" STRING NOT NULL);");
+
+        builder.append(albumArtist);
         builder.append(" STRING NOT NULL);");
 
         db.execSQL(builder.toString());
@@ -151,6 +166,17 @@ public class MusicPlaybackQueueStore extends SQLiteOpenHelper {
             database.endTransaction();
         }
 
+        String albumArtist = null;
+        try {
+            //Album artist is hidden for whatever stupid typical Android reason so we have to fetch it via reflection
+            albumArtist = (String) android.provider.MediaStore.Audio.AudioColumns.class.getDeclaredField("ALBUM_ARTIST").get(null);
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+
         final int NUM_PROCESS = 20;
         int position = 0;
         while (position < queue.size()) {
@@ -171,6 +197,7 @@ public class MusicPlaybackQueueStore extends SQLiteOpenHelper {
                     values.put(AudioColumns.ALBUM, song.albumName);
                     values.put(AudioColumns.ARTIST_ID, song.artistId);
                     values.put(AudioColumns.ARTIST, song.artistName);
+                    values.put(albumArtist, song.albumArtist);
 
                     database.insert(tableName, null, values);
                 }

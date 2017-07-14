@@ -3,13 +3,13 @@ package com.kabouzeid.gramophone.model;
 import android.os.Parcel;
 
 public class PlaylistSong extends Song {
-    public static final PlaylistSong EMPTY_PLAYLIST_SONG = new PlaylistSong(-1, "", -1, -1, -1, "", -1, -1, "", -1, "", -1, -1);
-
+    public static final PlaylistSong EMPTY_PLAYLIST_SONG = new PlaylistSong(-1, "", -1, -1, -1, "", -1, -1, "", "", -1, "", -1, -1);
+    
     public final int playlistId;
     public final int idInPlayList;
 
-    public PlaylistSong(int id, String title, int trackNumber, int year, long duration, String data, int dateModified, int albumId, String albumName, int artistId, String artistName, final int playlistId, final int idInPlayList) {
-        super(id, title, trackNumber, year, duration, data, dateModified, albumId, albumName, artistId, artistName);
+    public PlaylistSong(int id, String title, int trackNumber, int year, long duration, String data, int dateModified, int albumId, String albumName, String albumArtist, int artistId, String artistName, final int playlistId, final int idInPlayList) {
+        super(id, title, trackNumber, year, duration, data, dateModified, albumId, albumName, albumArtist, artistId, artistName);
         this.playlistId = playlistId;
         this.idInPlayList = idInPlayList;
     }
