@@ -54,6 +54,17 @@ public class ArtistLoader {
     }
 
     @NonNull
+    public static Artist getAlbumArtist(@NonNull final Context context, int artistId) {
+        ArrayList<Song> songs = SongLoader.getSongs(SongLoader.makeSongCursor(
+                context,
+                AudioColumns.ARTIST_ID + "=?",
+                new String[]{String.valueOf(artistId)},
+                getSongLoaderSortOrder(context))
+        );
+        return new Artist(AlbumLoader.splitIntoAlbums(songs));
+    }
+
+    @NonNull
     public static ArrayList<Artist> splitIntoArtists(@Nullable final ArrayList<Album> albums) {
         ArrayList<Artist> artists = new ArrayList<>();
         if (albums != null) {
