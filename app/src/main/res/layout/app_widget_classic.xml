@@ -4,7 +4,7 @@
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="@dimen/app_widget_classic_height"
-    android:background="#AA000000"
+    android:background="#ffffffff"
     android:orientation="horizontal"
     tools:ignore="ContentDescription">
 
@@ -27,7 +27,10 @@
             android:layout_gravity="bottom"
             android:layoutDirection="ltr"
             android:orientation="horizontal"
-            android:padding="8dp">
+            android:paddingBottom="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="0dp">
 
             <ImageButton
                 android:id="@+id/button_prev"
@@ -36,7 +39,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/widget_selector"
                 tools:src="@drawable/ic_skip_previous_white_24dp"
-                tools:tint="@color/ate_secondary_text_dark" />
+                tools:tint="@color/ate_secondary_text_light" />
 
             <ImageButton
                 android:id="@+id/button_toggle_play_pause"
@@ -45,7 +48,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/widget_selector"
                 tools:src="@drawable/ic_play_arrow_white_24dp"
-                tools:tint="@color/ate_secondary_text_dark" />
+                tools:tint="@color/ate_secondary_text_light" />
 
             <ImageButton
                 android:id="@+id/button_next"
@@ -54,7 +57,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/widget_selector"
                 tools:src="@drawable/ic_skip_next_white_24dp"
-                tools:tint="@color/ate_secondary_text_dark" />
+                tools:tint="@color/ate_secondary_text_light" />
 
         </LinearLayout>
 
@@ -65,7 +68,10 @@
             android:layout_above="@+id/media_actions"
             android:layout_alignParentTop="true"
             android:orientation="vertical"
-            android:padding="8dp">
+            android:paddingTop="10dp"
+            android:paddingRight="8dp"
+            android:paddingLeft="8dp"
+            android:paddingBottom="2dp">
 
             <TextView
                 android:id="@+id/title"
@@ -75,7 +81,7 @@
                 android:gravity="center_vertical"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textColor="@color/ate_primary_text_dark"
+                android:textColor="@color/ate_primary_text_light"
                 tools:text="Title" />
 
             <TextView
@@ -86,7 +92,7 @@
                 android:gravity="center_vertical"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                android:textColor="@color/ate_secondary_text_dark"
+                android:textColor="@color/ate_secondary_text_light"
                 tools:text="Text" />
 
         </LinearLayout>
