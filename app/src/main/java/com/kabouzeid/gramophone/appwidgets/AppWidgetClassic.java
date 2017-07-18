@@ -154,9 +154,11 @@ public class AppWidgetClassic extends BaseAppWidget {
 
                             private void update(@Nullable Bitmap bitmap,int color) {
                                 appWidgetView.setViewVisibility(R.id.image, View.VISIBLE);
+
                                 // Set correct drawable for pause state
                                 int playPauseRes = isPlaying ? R.drawable.ic_pause_white_24dp : R.drawable.ic_play_arrow_white_24dp;
                                 appWidgetView.setImageViewBitmap(R.id.button_toggle_play_pause, createBitmap(Util.getTintedVectorDrawable(service, playPauseRes, color), 1f));
+
                                 // Set prev/next button drawables
                                 appWidgetView.setImageViewBitmap(R.id.button_next, createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_next_white_24dp, color), 1f));
                                 appWidgetView.setImageViewBitmap(R.id.button_prev, createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_previous_white_24dp, color), 1f));
