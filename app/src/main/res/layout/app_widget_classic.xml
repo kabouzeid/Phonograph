@@ -27,7 +27,7 @@
             android:layout_gravity="bottom"
             android:layoutDirection="ltr"
             android:orientation="horizontal"
-            android:paddingBottom="8dp"
+            android:paddingBottom="10dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingTop="0dp">
@@ -68,10 +68,10 @@
             android:layout_above="@+id/media_actions"
             android:layout_alignParentTop="true"
             android:orientation="vertical"
-            android:paddingTop="10dp"
-            android:paddingRight="8dp"
-            android:paddingLeft="8dp"
-            android:paddingBottom="2dp">
+            android:paddingTop="12dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:paddingBottom="6dp">
 
             <TextView
                 android:id="@+id/title"
