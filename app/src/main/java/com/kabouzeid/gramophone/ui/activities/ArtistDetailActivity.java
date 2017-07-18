@@ -277,7 +277,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                 .placeholder(R.drawable.default_artist_image)
                 .signature(ArtistSignatureUtil.getInstance(this).getArtistSignature(getArtist().getName()))
                 .dontAnimate()
-                .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                 .listener(new RequestListener<ArtistImage, BitmapPaletteWrapper>() {
                     @Override
                     public boolean onException(@Nullable Exception e, ArtistImage model, Target<BitmapPaletteWrapper> target, boolean isFirstResource) {
