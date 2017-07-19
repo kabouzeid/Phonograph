@@ -4,7 +4,7 @@
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="@dimen/app_widget_classic_height"
-    android:background="#ffffffff"
+    android:background="@android:color/white"
     android:orientation="horizontal"
     tools:ignore="ContentDescription">
 

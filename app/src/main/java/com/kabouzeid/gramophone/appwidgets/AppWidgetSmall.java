@@ -121,7 +121,7 @@ public class AppWidgetSmall extends BaseAppWidget {
             if (TextUtils.isEmpty(song.title) || TextUtils.isEmpty(song.artistName)) {
                 appWidgetView.setTextViewText(R.id.text_separator, "");
             } else {
-                appWidgetView.setTextViewText(R.id.text_separator, "-");
+                appWidgetView.setTextViewText(R.id.text_separator, "•");
             }
 
             appWidgetView.setViewVisibility(R.id.media_titles, View.VISIBLE);
