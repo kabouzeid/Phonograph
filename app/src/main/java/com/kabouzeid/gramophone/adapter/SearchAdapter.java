@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.Target;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
@@ -91,6 +92,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                         .animate(android.R.anim.fade_in)
                         .priority(Priority.LOW)
                         .signature(ArtistSignatureUtil.getInstance(activity).getArtistSignature(artist.getName()))
+                        .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
                         .into(holder.image);
                 break;
             case SONG:
