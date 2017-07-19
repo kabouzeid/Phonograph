@@ -96,7 +96,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/ate_secondary_text_light"
             tools:ignore="HardcodedText"
-            tools:text="-" />
+            tools:text="•" />
 
         <TextView
             android:id="@+id/text"
