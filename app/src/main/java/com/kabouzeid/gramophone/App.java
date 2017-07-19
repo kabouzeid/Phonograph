@@ -3,11 +3,7 @@ package com.kabouzeid.gramophone;
 import android.app.Application;
 import android.os.Build;
 
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.core.CrashlyticsCore;
 import com.kabouzeid.gramophone.appshortcuts.DynamicShortcutManager;
-
-import io.fabric.sdk.android.Fabric;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -18,12 +14,6 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        // Set up Crashlytics, disabled for debug builds
-        Crashlytics crashlyticsKit = new Crashlytics.Builder()
-                .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
-                .build();
-        Fabric.with(this, crashlyticsKit);
 
         // Set up dynamic shortcuts
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
