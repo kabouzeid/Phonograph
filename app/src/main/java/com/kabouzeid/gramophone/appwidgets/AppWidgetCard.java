@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v7.graphics.Palette;
@@ -177,11 +178,18 @@ public class AppWidgetCard extends BaseAppWidget {
                                 appWidgetView.setImageViewBitmap(R.id.button_next, createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_next_white_24dp, color), 1f));
                                 appWidgetView.setImageViewBitmap(R.id.button_prev, createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_previous_white_24dp, color), 1f));
 
+                                Drawable image;
+
                                 if (bitmap == null) {
-                                    appWidgetView.setImageViewResource(R.id.image, R.drawable.default_album_art);
+                                    image = appContext.getResources().getDrawable(R.drawable.default_album_art);
                                 } else {
-                                    appWidgetView.setImageViewBitmap(R.id.image, bitmap);
+                                    image = new BitmapDrawable(bitmap);
                                 }
+
+                                float radius = appContext.getResources().getDimension(R.dimen.app_widget_card_radius);
+                                int size = appContext.getResources().getDimensionPixelSize(R.dimen.app_widget_card_image_size);
+                                appWidgetView.setImageViewBitmap(R.id.image, createRoundedBitmap(image, size, size, radius, 0, radius, 0));
+
                                 pushUpdate(appContext, appWidgetIds, appWidgetView);
                             }
                         });
