@@ -57,7 +57,7 @@
                 android:scrollbars="none"
                 android:nestedScrollingEnabled="true" >
 
-            <TextView
+            <com.kabouzeid.gramophone.views.TouchInterceptTextView
                 android:id="@+id/album_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

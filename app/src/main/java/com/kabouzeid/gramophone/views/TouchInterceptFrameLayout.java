@@ -18,7 +18,6 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
 
@@ -58,7 +57,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
     private int listParentID;
 
     private TouchInterceptHorizontalScrollView scrollView;
-    private TextView textView;
+    private TouchInterceptTextView textView;
     private View listParent;
 
     private Rect scrollViewRect = new Rect();
@@ -81,14 +80,14 @@ public class TouchInterceptFrameLayout extends FrameLayout {
         public void afterTextChanged(Editable s) {
             if(!currentlySettingTextHere){
 
-                TouchInterceptHorizontalScrollView sV = (TouchInterceptHorizontalScrollView) findViewById(scrollViewID);
+                TouchInterceptHorizontalScrollView sV = (TouchInterceptHorizontalScrollView) findViewWithTag("TIHS");
                 if (sV != null) scrollView = sV;
-                TextView tV = (TextView) findViewById(textViewID);
+                TouchInterceptTextView tV = (TouchInterceptTextView) findViewWithTag("TITV");
                 if(tV != null) textView = tV;
                 View lP = findViewById(listParentID);
                 if(lP != null) listParent = lP;
 
-                setTruncateText(textView.getText().toString());
+                //setTruncateText(textView.getText().toString());
             }
             currentlySettingTextHere = false;
 
@@ -103,34 +102,27 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
     public TouchInterceptFrameLayout(@NonNull Context context) {
         this(context, null);
+        setTag("TIFL");
     }
 
     public TouchInterceptFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
+        setTag("TIFL");
     }
 
     public TouchInterceptFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setTag("TIFL");
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TouchInterceptFrameLayout, defStyleAttr, 0);
-        //Must be the ID of a child TouchInterceptHorizontalScrollView
-        scrollViewID = a.getResourceId(R.styleable.TouchInterceptFrameLayout_setTouchInterceptHorizontalScrollView, 0);
-        //Must be the ID of a TextView that is the child of the above referenced TouchInterceptHorizontalScrollView
-        textViewID = a.getResourceId(R.styleable.TouchInterceptFrameLayout_setScrollableTextView, 0);
-
-        if(scrollViewID == 0 | textViewID == 0){
-            Log.e(TAG,XML_VIEW_IDS_NOT_SET);
-            Log.e("ScrollViewID = ", Integer.toString(scrollViewID));
-            Log.d("TextViewID = ", Integer.toString(textViewID));
-        }
 
         listParentID = a.getResourceId(R.styleable.TouchInterceptFrameLayout_setListParent, 0);
 
         this.post(new Runnable() {
             @Override
             public void run() {
-                scrollView = (TouchInterceptHorizontalScrollView) findViewById(scrollViewID);
-                textView = (TextView) findViewById(textViewID);
+                scrollView = (TouchInterceptHorizontalScrollView) findViewWithTag("TIHS");
+                textView = (TouchInterceptTextView) findViewWithTag("TITV");
                 View lP = findViewById(listParentID);
                 if(lP != null) listParent = lP;
 
@@ -158,7 +150,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      * Sets the TextView that is contained within that TouchInterceptHorizontalScrollView.
      * @param tv The TextView that needs to be scrolled (typically song or album title)
      */
-    public void setScrollableTextView(TextView tv) {
+    public void setScrollableTextView(TouchInterceptTextView tv) {
         this.textView = tv;
     }
 
@@ -215,7 +207,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
         }
         }catch (NullPointerException exception){
             Log.w(TAG, NULL_LIST_PARENT);
-            Log.w(TAG, "listParent = " + listParent.toString());
+            System.out.println(TAG + " listParent = " + listParent.toString());
             Log.w(TAG, exception.toString());
         }
     }
@@ -234,6 +226,8 @@ public class TouchInterceptFrameLayout extends FrameLayout {
     public void setTruncateText(String s){
         song = s;
         try {
+            scrollView = (TouchInterceptHorizontalScrollView) findViewWithTag("TIHS");
+            textView = (TouchInterceptTextView) findViewWithTag("TITV");
             //runs after scrollview has been drawn
             textView.post(new Runnable() {
                 @Override
@@ -243,7 +237,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                         songTruncated = TextUtils.ellipsize(song,
                                 textView.getPaint(),
                                 (float) scrollView.getWidth(),
-                                TextUtils.TruncateAt.END).toString();
+                                TextUtils.TruncateAt.END).toString() + "\u202F";
 
                         if (songTruncated != null && !songTruncated.isEmpty()) {
                             setText(songTruncated);
@@ -266,6 +260,8 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                         }else{
                             scrollView.setScrollingEnabled(false);
                         }
+                    }else{
+                        scrollView.setScrollingEnabled(false);
                     }
 
                 }
@@ -273,8 +269,8 @@ public class TouchInterceptFrameLayout extends FrameLayout {
         }catch (NullPointerException exception){
             Log.e(TAG, NULL_VIEWS_EXCEPTION_MESSAGE);
             Log.e("Method: ","setTruncateText()");
-            Log.e(TAG, "TouchInterceptHorizontalScrollView = " + scrollView.toString());
-            Log.e(TAG, "TextView = " + textView);
+            System.out.println(TAG + " TouchInterceptHorizontalScrollView = " + scrollView.toString());
+            System.out.println(TAG + " TouchInterceptTextView = " + textView);
             Log.e(TAG, exception.toString());
             }
     }
@@ -321,7 +317,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
                 if (songTruncated != null){
                     emptyTruncateText = songTruncated.isEmpty();
-                    isTextTruncated = songTruncated.endsWith("…");
+                    isTextTruncated = songTruncated.endsWith("…\u202F");
                     if(emptyTruncateText) Log.e(TAG, EMPTY_TRUNCATE_STRING);
                 }else{
                     emptyTruncateText = true;
@@ -349,7 +345,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
                             // Scrolling the view: cancel event to prevent long press
                             if (distance > MAX_CLICK_DISTANCE) {
-                                if ((!emptyTruncateText && isTextTruncated)) setText(song);
+                                if ((!emptyTruncateText && isTextTruncated)) setText(song+"\uFEFF");
                                 isTap = false;
                             }
                         }
@@ -368,8 +364,8 @@ public class TouchInterceptFrameLayout extends FrameLayout {
             } catch (NullPointerException exception) {
                 Log.e(TAG, NULL_VIEWS_EXCEPTION_MESSAGE);
                 Log.e("Method: ","onInterceptTouchEvent()");
-                Log.e(TAG, "TouchInterceptHorizontalScrollView = " + scrollView.toString());
-                Log.e(TAG, "TextView = " + textView);
+                System.out.println(TAG + " TouchInterceptHorizontalScrollView = " + scrollView.toString());
+                System.out.println(TAG + " TouchInterceptTextView = " + textView);
                 Log.e(TAG, exception.toString());
                 onTouchEvent(e);
                 return false;

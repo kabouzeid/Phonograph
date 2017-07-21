@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 
 import com.kabouzeid.gramophone.R;
@@ -59,10 +60,12 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     public TouchInterceptHorizontalScrollView(Context context) {
         super(context);
+        setTag("TIHS");
     }
 
     public TouchInterceptHorizontalScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setTag("TIHS");
     }
 
     public TouchInterceptHorizontalScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -129,7 +132,10 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
         }
         // Don't do anything with intercepted touch events if
         // we are not scrollable
-        if (!mScrollable) return false;
+        if (!mScrollable){
+            onTouchEvent(ev);
+            return false;
+        }
         else return super.onInterceptTouchEvent(ev);
     }
 
@@ -173,5 +179,13 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
         getRootView().cancelPendingInputEvents();
         this.cancelLongPress();
         this.cancelPendingInputEvents();
+    }
+
+    public TouchInterceptFrameLayout getTouchInterceptFrameLayout() {
+        return (TouchInterceptFrameLayout) getRootView().findViewWithTag("TIFL");
+    }
+
+    public TouchInterceptTextView getTouchInterceptTextView(){
+        return (TouchInterceptTextView) ((ViewGroup)this).getChildAt(0);
     }
 }
