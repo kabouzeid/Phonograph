@@ -27,14 +27,14 @@ import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.util.Util;
 
-/**
- * @author Karim Abou Zeid (kabouzeid)
- */
 public class AppWidgetCard extends BaseAppWidget {
     public static final String NAME = "app_widget_card";
 
     private static AppWidgetCard mInstance;
     private Target<BitmapPaletteWrapper> target; // for cancellation
+
+    private static int imageSize = 0;
+    private static float cardRadius = 0f;
 
     public static synchronized AppWidgetCard getInstance() {
         if (mInstance == null) {
@@ -142,29 +142,32 @@ public class AppWidgetCard extends BaseAppWidget {
         // Link actions buttons to intents
         linkButtons(service, appWidgetView);
 
+        if (imageSize == 0)
+            imageSize = service.getResources().getDimensionPixelSize(R.dimen.app_widget_card_image_size);
+        if (cardRadius == 0f)
+            cardRadius = service.getResources().getDimension(R.dimen.app_widget_card_radius);
+
         // Load the album cover async and push the update on completion
-        final Context appContext = service.getApplicationContext();
-        final int widgetImageSize = service.getResources().getDimensionPixelSize(R.dimen.app_widget_small_image_size);
         service.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (target != null) {
                     Glide.clear(target);
                 }
-                target = SongGlideRequest.Builder.from(Glide.with(appContext), song)
-                        .checkIgnoreMediaStore(appContext)
+                target = SongGlideRequest.Builder.from(Glide.with(service), song)
+                        .checkIgnoreMediaStore(service)
                         .generatePalette(service).build()
-                        .into(new SimpleTarget<BitmapPaletteWrapper>(widgetImageSize, widgetImageSize) {
+                        .into(new SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
                             @Override
                             public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
                                 Palette palette = resource.getPalette();
-                                update(resource.getBitmap(), palette.getVibrantColor(palette.getMutedColor(MaterialValueHelper.getSecondaryTextColor(appContext, true))));
+                                update(resource.getBitmap(), palette.getVibrantColor(palette.getMutedColor(MaterialValueHelper.getSecondaryTextColor(service, true))));
                             }
 
                             @Override
                             public void onLoadFailed(Exception e, Drawable errorDrawable) {
                                 super.onLoadFailed(e, errorDrawable);
-                                update(null, MaterialValueHelper.getSecondaryTextColor(appContext, true));
+                                update(null, MaterialValueHelper.getSecondaryTextColor(service, true));
                             }
 
                             private void update(@Nullable Bitmap bitmap, int color) {
@@ -181,16 +184,14 @@ public class AppWidgetCard extends BaseAppWidget {
                                 Drawable image;
 
                                 if (bitmap == null) {
-                                    image = appContext.getResources().getDrawable(R.drawable.default_album_art);
+                                    image = service.getResources().getDrawable(R.drawable.default_album_art);
                                 } else {
                                     image = new BitmapDrawable(bitmap);
                                 }
 
-                                float radius = appContext.getResources().getDimension(R.dimen.app_widget_card_radius);
-                                int size = appContext.getResources().getDimensionPixelSize(R.dimen.app_widget_card_image_size);
-                                appWidgetView.setImageViewBitmap(R.id.image, createRoundedBitmap(image, size, size, radius, 0, radius, 0));
+                                appWidgetView.setImageViewBitmap(R.id.image, createRoundedBitmap(image, imageSize, imageSize, cardRadius, 0, cardRadius, 0));
 
-                                pushUpdate(appContext, appWidgetIds, appWidgetView);
+                                pushUpdate(service, appWidgetIds, appWidgetView);
                             }
                         });
             }
