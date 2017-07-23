@@ -1,6 +1,7 @@
 package com.kabouzeid.gramophone.appwidgets;
 
 import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
@@ -12,11 +13,12 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.widget.RemoteViews;
 
-/**
- * @author Karim Abou Zeid (kabouzeid)
- */
-public class BaseAppWidget extends AppWidgetProvider {
+import com.kabouzeid.gramophone.service.MusicService;
+
+public abstract class BaseAppWidget extends AppWidgetProvider {
+    public static final String NAME = "app_widget";
 
     protected static Bitmap createBitmap(Drawable drawable, float sizeMultiplier) {
         Bitmap bitmap = Bitmap.createBitmap((int) (drawable.getIntrinsicWidth() * sizeMultiplier), (int) (drawable.getIntrinsicHeight() * sizeMultiplier), Bitmap.Config.ARGB_8888);
@@ -64,6 +66,56 @@ public class BaseAppWidget extends AppWidgetProvider {
         path.close();
 
         return path;
+    }
+
+    abstract protected void defaultAppWidget(final Context context, final int[] appWidgetIds);
+
+    abstract public void performUpdate(final MusicService service, final int[] appWidgetIds);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onUpdate(final Context context, final AppWidgetManager appWidgetManager,
+                         final int[] appWidgetIds) {
+        defaultAppWidget(context, appWidgetIds);
+        final Intent updateIntent = new Intent(MusicService.APP_WIDGET_UPDATE);
+        updateIntent.putExtra(MusicService.EXTRA_APP_WIDGET_NAME, NAME);
+        updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
+        updateIntent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY);
+        context.sendBroadcast(updateIntent);
+    }
+
+    /**
+     * Handle a change notification coming over from
+     * {@link MusicService}
+     */
+    public void notifyChange(final MusicService service, final String what) {
+        if (hasInstances(service)) {
+            if (MusicService.META_CHANGED.equals(what) || MusicService.PLAY_STATE_CHANGED.equals(what)) {
+                performUpdate(service, null);
+            }
+        }
+    }
+
+    protected void pushUpdate(final Context context, final int[] appWidgetIds, final RemoteViews views) {
+        final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        if (appWidgetIds != null) {
+            appWidgetManager.updateAppWidget(appWidgetIds, views);
+        } else {
+            appWidgetManager.updateAppWidget(new ComponentName(context, getClass()), views);
+        }
+    }
+
+    /**
+     * Check against {@link AppWidgetManager} if there are any instances of this
+     * widget.
+     */
+    protected boolean hasInstances(final Context context) {
+        final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        final int[] mAppWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context,
+                getClass()));
+        return mAppWidgetIds.length > 0;
     }
 
     protected PendingIntent buildPendingIntent(Context context, final String action, final ComponentName serviceName) {
