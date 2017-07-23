@@ -61,11 +61,13 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     public TouchInterceptHorizontalScrollView(Context context) {
         super(context);
         setTag("TIHS");
+        setHorizontalScrollBarEnabled(false);
     }
 
     public TouchInterceptHorizontalScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setTag("TIHS");
+        setHorizontalScrollBarEnabled(false);
     }
 
     public TouchInterceptHorizontalScrollView(Context context, AttributeSet attrs, int defStyleAttr) {

@@ -130,7 +130,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                     @Override
                     public void run() {
                         textView.addTextChangedListener(truncateTextWatcher);
-                        setTruncateText(textView.getText().toString());
                     }
                 });
             }
@@ -160,6 +159,10 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      */
     public void setListParent(View lP){
         this.listParent = lP;
+    }
+
+    public View getListParent(){
+        return listParent;
     }
 
     /**
@@ -223,8 +226,9 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      * cut off, still allowing the HorizontalScrollingView to scroll.
      * @param s The string (song title or album title typically) contained by the text view.
      */
-    public void setTruncateText(String s){
+    public void setTruncateText(String s, String sT){
         song = s;
+        songTruncated = sT;
         try {
             scrollView = (TouchInterceptHorizontalScrollView) findViewWithTag("TIHS");
             textView = (TouchInterceptTextView) findViewWithTag("TITV");
@@ -233,7 +237,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 @Override
                 public void run() {
                     if (scrollView.canScroll()) {
-                        song = textView.getText().toString();
                         songTruncated = TextUtils.ellipsize(song,
                                 textView.getPaint(),
                                 (float) scrollView.getWidth(),
@@ -285,6 +288,11 @@ public class TouchInterceptFrameLayout extends FrameLayout {
         textView.setText(text);
     }
 
+    public boolean isTextTruncated(String text) {
+        if (text.endsWith("…\u202F")) return true;
+        else return false;
+    }
+
     /**
      * This intercepts the touch event and, by returning false and onTouchEvent(), passes the touchevent
      * to both itself and its child views (by calling TouchEvent it passes it to itself).
@@ -315,15 +323,15 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                         x > scrollViewRect.left && x < scrollViewRect.right &&
                                 y > scrollViewRect.top && y < scrollViewRect.bottom;
 
-                if (songTruncated != null){
-                    emptyTruncateText = songTruncated.isEmpty();
-                    isTextTruncated = songTruncated.endsWith("…\u202F");
-                    if(emptyTruncateText) Log.e(TAG, EMPTY_TRUNCATE_STRING);
-                }else{
-                    emptyTruncateText = true;
-                    isTextTruncated = false;
-                    Log.e(TAG, EMPTY_TRUNCATE_STRING);
-                }
+//                if (songTruncated != null){
+//                    emptyTruncateText = songTruncated.isEmpty();
+//                    isTextTruncated = songTruncated.endsWith("…\u202F");
+//                    if(emptyTruncateText) Log.e(TAG, EMPTY_TRUNCATE_STRING);
+//                }else{
+//                    emptyTruncateText = true;
+//                    isTextTruncated = false;
+//                    Log.e(TAG, EMPTY_TRUNCATE_STRING);
+//                }
 
                 switch (e.getAction() & MotionEvent.ACTION_MASK) {
                     case MotionEvent.ACTION_DOWN:
@@ -345,7 +353,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
                             // Scrolling the view: cancel event to prevent long press
                             if (distance > MAX_CLICK_DISTANCE) {
-                                if ((!emptyTruncateText && isTextTruncated)) setText(song+"\uFEFF");
+                                textView.unTruncateText();
                                 isTap = false;
                             }
                         }

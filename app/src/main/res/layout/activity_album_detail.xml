@@ -50,13 +50,6 @@
             android:paddingLeft="72dp"
             android:paddingRight="72dp" >
 
-            <com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView
-                android:id="@+id/title_scrollview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:nestedScrollingEnabled="true" >
-
             <com.kabouzeid.gramophone.views.TouchInterceptTextView
                 android:id="@+id/album_title"
                 android:layout_width="wrap_content"
@@ -64,10 +57,9 @@
                 android:fontFamily="sans-serif-medium"
                 android:scrollHorizontally="true"
                 android:ellipsize="end"
+                android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 tools:ignore="UnusedAttribute" />
-
-            </com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView>
 
         </RelativeLayout>
 
