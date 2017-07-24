@@ -122,7 +122,7 @@
     <string name="pref_title_app_shortcuts">Màu sắc biểu tượng ứng dụng</string>
     <string name="pref_title_set_default_start_page">Trang bắt đầu</string>
     <string name="pref_title_album_art_on_lockscreen">Hiện bìa album</string>
-    <string name="pref_title_auto_download_artist_images">Tự động tải về hình ảnh nghệ sĩ</string>
+    <string name="pref_title_auto_download_metadata">Tự động tải về hình ảnh nghệ sĩ</string>
     <string name="pref_title_blurred_album_art">Làm mờ bìa album</string>
     <string name="pref_title_colored_notification">Màu thông báo</string>
     <string name="pref_title_ignore_media_store_artwork">Bỏ qua kho ảnh bìa trong Kho Phương tiện</string>
@@ -158,8 +158,6 @@
     <string name="empty">Trống</string>
     <string name="playlist_name_empty">Tên danh sách nhạc</string>
     <string name="song">Bài hát</string>
-    <string name="pref_only_lollipop">"Chỉ có trên Lollipop."</string>
-    <string name="pref_only_nougat_mr1">"Chỉ có trên Nougat 7.1."</string>
     <string name="pref_summary_album_art_on_lockscreen">Sử dụng bìa album các bài hát hiện tại làm hình nền màn hình khóa.</string>
     <string name="pref_summary_blurred_album_art">Làm mờ bìa album trên màn hình khóa. Có thể gây ra vấn đề với các ứng dụng của bên thứ ba và các tiện ích (widget).</string>
     <string name="pref_summary_colored_notification">"M\u00e0u s\u1eafc r\u1ef1c r\u1ee1 cho c\u00e1c th\u00f4ng b\u00e1o trong b\u00eca album."</string>

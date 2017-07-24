@@ -122,7 +122,7 @@
     <string name="pref_title_app_shortcuts">着色应用快捷方式</string>
     <string name="pref_title_set_default_start_page">起始页</string>
     <string name="pref_title_album_art_on_lockscreen">显示专辑封面</string>
-    <string name="pref_title_auto_download_artist_images">自动下载艺术家图像</string>
+    <string name="pref_title_auto_download_metadata">自动下载艺术家图像</string>
     <string name="pref_title_blurred_album_art">专辑封面模糊化</string>
     <string name="pref_title_colored_notification">启用通知背景着色</string>
     <string name="pref_title_ignore_media_store_artwork">忽略媒体储存中的专辑封面</string>
@@ -158,8 +158,6 @@
     <string name="empty">空</string>
     <string name="playlist_name_empty">播放列表名称</string>
     <string name="song">歌曲</string>
-    <string name="pref_only_lollipop">"仅适用于 Lollipop。"</string>
-    <string name="pref_only_nougat_mr1">"仅适用于 Nougat 7.1。"</string>
     <string name="pref_summary_album_art_on_lockscreen">使用当前播放曲目的专辑封面作为锁屏壁纸。</string>
     <string name="pref_summary_blurred_album_art">模糊化显示锁屏界面内的专辑封面。此功能或与第三方应用及桌面插件产生冲突。</string>
     <string name="pref_summary_colored_notification">"\u4f7f\u7528\u4e0e\u4e13\u8f91\u5c01\u9762\u76f8\u5339\u914d\u7684\u989c\u8272\u7740\u8272\u901a\u77e5\u80cc\u666f\u8272\u3002"</string>

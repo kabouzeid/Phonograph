@@ -38,8 +38,10 @@
     <string name="songs">Songs</string>
     <string name="playlists">Playlists</string>
     <string name="unplayable_file">Couldn\u2019t play this song.</string>
-    <string name="biography_unavailable">Couldn\u2019t find the artists biography.</string>
+    <string name="biography_unavailable">Couldn\u2019t find a biography entry for this artist.</string>
+    <string name="wiki_unavailable">Couldn\u2019t find a wiki entry for this album.</string>
     <string name="biography">Biography</string>
+    <string name="wiki">Wiki</string>
     <string name="audio_focus_denied">Audio focus denied.</string>
     <string name="album">Album</string>
     <string name="artist">Artist</string>
@@ -129,7 +131,7 @@
     <string name="pref_title_app_shortcuts">Colored app shortcuts</string>
     <string name="pref_title_set_default_start_page">Start page</string>
     <string name="pref_title_album_art_on_lockscreen">Show album cover</string>
-    <string name="pref_title_auto_download_artist_images">Auto download artist images</string>
+    <string name="pref_title_auto_download_metadata">Auto download metadata</string>
     <string name="pref_title_blurred_album_art">Blur album cover</string>
     <string name="pref_title_colored_notification">Colored notification</string>
     <string name="pref_title_classic_notification">Classic notification design</string>
@@ -144,6 +146,7 @@
     <string name="pref_title_colored_playback_controls_now_playing">Colored playback controls</string>
     <string name="pref_title_audio_ducking">Reduce volume on focus loss</string>
     <string name="pref_title_last_added_interval">Last added playlist interval</string>
+    <string name="pref_title_synchronized_lyrics_show">Show synchronized lyrics</string>
     <string name="no_equalizer">No equalizer found.</string>
     <string name="no_audio_ID">"Play a song first, then try again."</string>
     <string name="delete_action">Delete</string>
@@ -167,9 +170,6 @@
     <string name="empty">Empty</string>
     <string name="playlist_name_empty">Playlist name</string>
     <string name="song">Song</string>
-    <string name="pref_only_lollipop">"Only available on Lollipop or above."</string>
-    <string name="pref_only_nougat">"Only available on Nougat 7.0 or above."</string>
-    <string name="pref_only_nougat_mr1">"Only available on Nougat 7.1 or above."</string>
     <string name="pref_summary_album_art_on_lockscreen">Uses the current songs album cover as lockscreen wallpaper.</string>
     <string name="pref_summary_blurred_album_art">Blurs the album cover on the lockscreen. Can cause problems with third party apps and widgets.</string>
     <string name="pref_summary_classic_notification">Use the classic notification design.</string>
@@ -186,6 +186,7 @@
     <string name="pref_summary_colored_navigation_bar">Colors the navigation bar in the primary color.</string>
     <string name="pref_summary_colored_app_shortcuts">Colors the app shortcuts in the primary color.</string>
     <string name="pref_summary_audio_ducking">Notifications, navigation etc.</string>
+    <string name="pref_summary_synchronized_lyrics_show">Show synchronized lyrics for a song if available</string>
     <string name="could_not_download_album_cover">"Couldn\u2019t download a matching album cover."</string>
     <string name="search_hint">Search your library…</string>
     <string name="rescanning_media">Rescanning media…</string>
@@ -267,6 +268,7 @@
     <string name="app_widget_big_name">Phonograph - Big</string>
     <string name="app_widget_classic_name">Phonograph - Classic</string>
     <string name="app_widget_small_name">Phonograph - Small</string>
+    <string name="app_widget_card_name">Phonograph - Card</string>
     <string name="report_an_issue">Report an issue</string>
     <string name="bug_report_issue">Issue</string>
     <string name="login">Login</string>

@@ -117,7 +117,7 @@
     <string name="pref_title_navigation_bar">Оцветени навигационни бутони</string>
     <string name="pref_title_set_default_start_page">Начална страница</string>
     <string name="pref_title_album_art_on_lockscreen">Покажи обложката на албум</string>
-    <string name="pref_title_auto_download_artist_images">Автоматично изтегляне на изображения на артист</string>
+    <string name="pref_title_auto_download_metadata">Автоматично изтегляне на изображения на артист</string>
     <string name="pref_title_blurred_album_art">Размажи обложката</string>
     <string name="pref_title_colored_notification">Оцвети известията</string>
     <string name="pref_title_ignore_media_store_artwork">Игнорирай вградените обложки</string>
@@ -153,7 +153,6 @@
     <string name="empty">Празен</string>
     <string name="playlist_name_empty">Име на плейлист</string>
     <string name="song">Песен</string>
-    <string name="pref_only_lollipop">"Изисква се Лолипоп (5.0.х)"</string>
     <string name="pref_summary_album_art_on_lockscreen">Използва обложката на албума при заключен екран.</string>
     <string name="pref_summary_blurred_album_art">Замъглява обложката при заключен екран. Би могло да създаде проблеми с апликации и известия създадени от трети лица.</string>
     <string name="pref_summary_colored_notification">"\u041e\u0446\u0432\u0435\u0442\u044f\u0432\u0430 \u0438\u0437\u0432\u0435\u0441\u0442\u0438\u0435\u0442\u043e \u0432 \u0433\u043b\u0430\u0432\u043d\u0438\u044f \u0446\u0432\u044f\u0442 \u043e\u0442 \u043e\u0431\u043b\u043e\u0436\u043a\u0430\u0442\u0430."</string>

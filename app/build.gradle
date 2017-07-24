@@ -17,11 +17,15 @@ apply plugin: 'com.jakewharton.hugo'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
+}
 
-    maven {
-        name 'glide-snapshot'
-        url 'http://oss.sonatype.org/content/repositories/snapshots'
-    }
+def gitBranch() {
+    def branch = ''
+    def proc = 'git rev-parse --abbrev-ref HEAD'.execute()
+    proc.in.eachLine { line -> branch = line }
+    proc.err.eachLine { line -> println line }
+    proc.waitFor()
+    branch
 }
 
 android {
@@ -38,9 +42,9 @@ android {
         renderscriptTargetApi 25
         vectorDrawables.useSupportLibrary = true
 
-        applicationId "com.kabouzeid.gramophone"
+        applicationId 'com.kabouzeid.gramophone'
         versionCode 132
-        versionName "0.15.0"
+        versionName '0.15.0'
     }
     buildTypes {
         release {
@@ -50,7 +54,7 @@ android {
         }
         debug {
             applicationIdSuffix '.debug'
-            versionNameSuffix ' DEBUG'
+            versionNameSuffix ' DEBUG (' + gitBranch() + ')'
 
             ext.enableCrashlytics = false // Disable fabric build ID generation for debug builds
         }
@@ -94,7 +98,7 @@ dependencies {
     compile 'com.crashlytics.sdk.android:crashlytics:2.6.7'
 
     compile 'com.github.kabouzeid:app-theme-helper:1.3.7'
-    compile 'com.github.kabouzeid:RecyclerView-FastScroll:1.9-kmod'
+    compile 'com.github.kabouzeid:RecyclerView-FastScroll:1.0.16-kmod'
     compile 'com.github.kabouzeid:SeekArc:1.2-kmod'
     compile 'com.github.kabouzeid:AndroidSlidingUpPanel:3.3.0-kmod3'
 
@@ -102,13 +106,12 @@ dependencies {
     compile 'com.afollestad.material-dialogs:commons:0.9.4.5'
     compile 'com.afollestad:material-cab:0.1.12'
 
-    compile "com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.10.6"
+    compile 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.10.6'
     compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
 
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    //noinspection GradleDynamicVersion
-    compile 'com.anjlab.android.iab.v3:library:1.0.+'
+    compile 'com.anjlab.android.iab.v3:library:1.0.40'
     compile 'de.psdev.licensesdialog:licensesdialog:1.8.1'
 
     compile 'com.github.bumptech.glide:glide:3.8.0-SNAPSHOT'

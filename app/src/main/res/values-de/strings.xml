@@ -122,7 +122,7 @@
     <string name="pref_title_app_shortcuts">Gefärbte App-Shortcuts</string>
     <string name="pref_title_set_default_start_page">Startseite</string>
     <string name="pref_title_album_art_on_lockscreen">Album Cover anzeigen</string>
-    <string name="pref_title_auto_download_artist_images">Interpreten Bilder automatisch herunterladen</string>
+    <string name="pref_title_auto_download_metadata">Interpreten Bilder automatisch herunterladen</string>
     <string name="pref_title_blurred_album_art">Album Cover weichzeichnen</string>
     <string name="pref_title_colored_notification">Gefärbte Benachrichtigung</string>
     <string name="pref_title_ignore_media_store_artwork">Media Store Cover ignorieren</string>
@@ -158,8 +158,6 @@
     <string name="empty">Leer</string>
     <string name="playlist_name_empty">Wiedergabelisten Name</string>
     <string name="song">Titel</string>
-    <string name="pref_only_lollipop">"Nur auf Android Lollipop 5.x verfügbar"</string>
-    <string name="pref_only_nougat_mr1">"Nur verfügbar für Nougat 7.1"</string>
     <string name="pref_summary_album_art_on_lockscreen">Das Album Cover des aktuellen Titels wird als Hintergrund im Sperrbildschirm verwendet.</string>
     <string name="pref_summary_blurred_album_art">Lässt das Album Cover auf dem Sperrbildschirm verschwommen aussehen. Kann Probleme mit Apps und Widgets von Dritten verursachen.</string>
     <string name="pref_summary_colored_notification">"Die Benachrichtigung ist in der Farbe des Album Covers gef\u00e4rbt."</string>

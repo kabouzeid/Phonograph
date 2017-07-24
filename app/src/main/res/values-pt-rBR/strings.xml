@@ -117,7 +117,7 @@
     <string name="pref_title_navigation_bar">Barra de navegação colorida</string>
     <string name="pref_title_set_default_start_page">Página inicial</string>
     <string name="pref_title_album_art_on_lockscreen">Visualizar capa do álbum</string>
-    <string name="pref_title_auto_download_artist_images">Baixar as imagens dos artistas automaticamente</string>
+    <string name="pref_title_auto_download_metadata">Baixar as imagens dos artistas automaticamente</string>
     <string name="pref_title_blurred_album_art">Capa de álbum esmaecida</string>
     <string name="pref_title_colored_notification">Notificação colorida</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorar capas Media Store</string>
@@ -153,7 +153,6 @@
     <string name="empty">Vazio</string>
     <string name="playlist_name_empty">Nome da Playlist</string>
     <string name="song">Música</string>
-    <string name="pref_only_lollipop">"Apenas disponível no Lollipop."</string>
     <string name="pref_summary_album_art_on_lockscreen">A imagem do álbum está sendo mostrada no bloqueio de tela. Você deve reiniciar o Phonograph para as mudanças fazerem efeito.</string>
     <string name="pref_summary_blurred_album_art">Esmaece a capa de álbum no bloqueio de tela. Pode causar problemas com aplicativos de terceiros e widgets.</string>
     <string name="pref_summary_colored_notification">"A notifica\u00e7\u00e3o \u00e9 colorida com a cor mais vibrante do \u00e1lbum."</string>

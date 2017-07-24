@@ -15,6 +15,8 @@ public class MusicProgressViewUpdateHelper extends Handler {
     private static final int UPDATE_INTERVAL_PAUSED = 500;
 
     private Callback callback;
+    private int intervalPlaying;
+    private int intervalPaused;
 
     public void start() {
         queueNextRefresh(1);
@@ -26,6 +28,14 @@ public class MusicProgressViewUpdateHelper extends Handler {
 
     public MusicProgressViewUpdateHelper(Callback callback) {
         this.callback = callback;
+        this.intervalPlaying = UPDATE_INTERVAL_PLAYING;
+        this.intervalPaused = UPDATE_INTERVAL_PAUSED;
+    }
+
+    public MusicProgressViewUpdateHelper(Callback callback, int intervalPlaying, int intervalPaused) {
+        this.callback = callback;
+        this.intervalPlaying = intervalPlaying;
+        this.intervalPaused = intervalPaused;
     }
 
     @Override
@@ -43,10 +53,10 @@ public class MusicProgressViewUpdateHelper extends Handler {
         callback.onUpdateProgressViews(progressMillis, totalMillis);
 
         if (!MusicPlayerRemote.isPlaying()) {
-            return UPDATE_INTERVAL_PAUSED;
+            return intervalPaused;
         }
 
-        final int remainingMillis = UPDATE_INTERVAL_PLAYING - progressMillis % UPDATE_INTERVAL_PLAYING;
+        final int remainingMillis = intervalPlaying - progressMillis % intervalPlaying;
 
         return Math.max(MIN_INTERVAL, remainingMillis);
     }

@@ -11,7 +11,6 @@
         android:orientation="vertical">
 
         <View
-            android:id="@+id/status_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/status_bar_padding" />
 

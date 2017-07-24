@@ -121,7 +121,7 @@ public class Util {
         } else return false;
     }
 
-    public static boolean isAllowedToAutoDownload(final Context context) {
+    public static boolean isAllowedToDownloadMetadata(final Context context) {
         switch (PreferenceUtil.getInstance(context).autoDownloadImagesPolicy()) {
             case "always":
                 return true;
@@ -135,12 +135,4 @@ public class Util {
         }
     }
 
-    public static int getStatusBarHeight(final Context context) {
-        int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
 }

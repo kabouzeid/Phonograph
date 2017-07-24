@@ -5,19 +5,24 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialcab.MaterialCab;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
@@ -27,6 +32,8 @@ import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.song.AlbumSongAdapter;
+import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
+import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
@@ -35,21 +42,34 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.LoaderIds;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
+import com.kabouzeid.gramophone.lastfm.rest.LastFMRestClient;
+import com.kabouzeid.gramophone.lastfm.rest.model.LastFmAlbum;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Album;
+import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AlbumTagEditorActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.Util;
+<<<<<<< HEAD
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.kabouzeid.gramophone.views.TouchInterceptFrameLayout;
+=======
+
+import java.util.Locale;
+
+import java.util.ArrayList;
+>>>>>>> kabouzeid/master
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Be careful when changing things in this Activity!
@@ -78,8 +98,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     TextView albumTitleTextView;
     @BindView(R.id.list_background)
     View songsBackgroundView;
-    @BindView(R.id.status_bar)
-    View statusBar;
 
     private AlbumSongAdapter adapter;
 
@@ -90,6 +108,11 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     private int toolbarColor;
     private float toolbarAlpha;
 
+    @Nullable
+    private Spanned wiki;
+    private MaterialDialog wikiDialog;
+    private LastFMRestClient lastFMRestClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,10 +121,11 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
 
         supportPostponeEnterTransition();
 
+        lastFMRestClient = new LastFMRestClient(this);
+
         setUpObservableListViewParams();
         setUpToolBar();
         setUpViews();
-        ViewUtil.setStatusBarHeight(this, statusBar);
 
         getSupportLoaderManager().initLoader(LOADER_ID, getIntent().getExtras(), this);
     }
@@ -242,9 +266,53 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         return true;
     }
 
+    private void loadWiki() {
+        loadWiki(Locale.getDefault().getLanguage());
+    }
+
+    private void loadWiki(@Nullable final String lang) {
+        wiki = null;
+
+        lastFMRestClient.getApiService()
+                .getAlbumInfo(getAlbum().getTitle(), getAlbum().getArtistName(), lang)
+                .enqueue(new Callback<LastFmAlbum>() {
+                    @Override
+                    public void onResponse(@NonNull Call<LastFmAlbum> call, @NonNull Response<LastFmAlbum> response) {
+                        final LastFmAlbum lastFmAlbum = response.body();
+                        if (lastFmAlbum != null && lastFmAlbum.getAlbum() != null && lastFmAlbum.getAlbum().getWiki() != null) {
+                            final String wikiContent = lastFmAlbum.getAlbum().getWiki().getContent();
+                            if (wikiContent != null && !wikiContent.trim().isEmpty()) {
+                                wiki = Html.fromHtml(wikiContent);
+                            }
+                        }
+
+                        // If the "lang" parameter is set and no wiki is given, retry with default language
+                        if (wiki == null && lang != null) {
+                            loadWiki(null);
+                            return;
+                        }
+
+                        if (!Util.isAllowedToDownloadMetadata(AlbumDetailActivity.this)) {
+                            if (wiki != null) {
+                                wikiDialog.setContent(wiki);
+                            } else {
+                                wikiDialog.dismiss();
+                                Toast.makeText(AlbumDetailActivity.this, getResources().getString(R.string.wiki_unavailable), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<LastFmAlbum> call, @NonNull Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+        final ArrayList<Song> songs = adapter.getDataSet();
         switch (id) {
             case R.id.action_sleep_timer:
                 new SleepTimerDialog().show(getSupportFragmentManager(), "SET_SLEEP_TIMER");
@@ -253,7 +321,19 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                 NavigationUtil.openEqualizer(this);
                 return true;
             case R.id.action_shuffle_album:
-                MusicPlayerRemote.openAndShuffleQueue(adapter.getDataSet(), true);
+                MusicPlayerRemote.openAndShuffleQueue(songs, true);
+                return true;
+            case R.id.action_play_next:
+                MusicPlayerRemote.playNext(songs);
+                return true;
+            case R.id.action_add_to_current_playing:
+                MusicPlayerRemote.enqueue(songs);
+                return true;
+            case R.id.action_add_to_playlist:
+                AddToPlaylistDialog.create(songs).show(getSupportFragmentManager(), "ADD_PLAYLIST");
+                return true;
+            case R.id.action_delete_from_device:
+                DeleteSongsDialog.create(songs).show(getSupportFragmentManager(), "DELETE_SONGS");
                 return true;
             case android.R.id.home:
                 super.onBackPressed();
@@ -265,6 +345,25 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                 return true;
             case R.id.action_go_to_artist:
                 NavigationUtil.goToArtist(this, getAlbum().getArtistId());
+                return true;
+            case R.id.action_wiki:
+                if (wikiDialog == null) {
+                    wikiDialog = new MaterialDialog.Builder(this)
+                            .title(album.getTitle())
+                            .positiveText(android.R.string.ok)
+                            .build();
+                }
+                if (Util.isAllowedToDownloadMetadata(this)) {
+                    if (wiki != null) {
+                        wikiDialog.setContent(wiki);
+                        wikiDialog.show();
+                    } else {
+                        Toast.makeText(this, getResources().getString(R.string.wiki_unavailable), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    wikiDialog.show();
+                    loadWiki();
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -332,7 +431,16 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     private void setAlbum(Album album) {
         this.album = album;
         loadAlbumCover();
+<<<<<<< HEAD
         albumTitleTextView.setText(album.getTitle());
+=======
+
+        if (Util.isAllowedToDownloadMetadata(this)) {
+            loadWiki();
+        }
+
+        albumTitleView.setText(album.getTitle());
+>>>>>>> kabouzeid/master
         adapter.swapDataSet(album.songs);
     }
 

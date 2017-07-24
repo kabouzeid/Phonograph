@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
@@ -145,7 +146,14 @@
         <meta-data
             android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
             android:value="GlideModule" />
-
+     
+        <!-- Widgets -->
+        <receiver android:name=".appwidgets.BootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
         <receiver
             android:name=".appwidgets.AppWidgetBig"
             android:exported="false"
@@ -181,6 +189,18 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/app_widget_small_info" />
+        </receiver>
+        <receiver
+            android:name=".appwidgets.AppWidgetCard"
+            android:exported="false"
+            android:label="@string/app_widget_card_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_card_info"/>
         </receiver>
 
     </application>

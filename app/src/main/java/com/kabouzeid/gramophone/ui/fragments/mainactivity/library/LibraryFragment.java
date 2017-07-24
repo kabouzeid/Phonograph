@@ -27,19 +27,14 @@ import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.MusicLibraryPagerAdapter;
 import com.kabouzeid.gramophone.dialogs.CreatePlaylistDialog;
-import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
-import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
-import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.ui.activities.SearchActivity;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.AbsMainActivityFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.AbsLibraryPagerRecyclerViewCustomGridSizeFragment;
-import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
-import com.kabouzeid.gramophone.util.ViewUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,8 +53,6 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
     AppBarLayout appbar;
     @BindView(R.id.pager)
     ViewPager pager;
-    @BindView(R.id.status_bar)
-    View statusBar;
 
     private MusicLibraryPagerAdapter pagerAdapter;
     private MaterialCab cab;
@@ -93,8 +86,6 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
 
         setUpToolbar();
         setUpViewPager();
-        setUpStatusBar();
-        ViewUtil.setStatusBarHeight(getActivity(), statusBar);
     }
 
     private void setUpToolbar() {
@@ -125,12 +116,6 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
         pager.setCurrentItem(startPosition);
         PreferenceUtil.getInstance(getActivity()).setLastPage(startPosition); // just in case
         pager.addOnPageChangeListener(this);
-    }
-
-    private void setUpStatusBar() {
-        ViewGroup.LayoutParams layoutParams = statusBar.getLayoutParams();
-        layoutParams.height = Util.getStatusBarHeight(getMainActivity());
-        statusBar.setLayoutParams(layoutParams);
     }
 
     public Fragment getCurrentFragment() {
@@ -220,15 +205,6 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
 
         int id = item.getItemId();
         switch (id) {
-            case R.id.action_sleep_timer:
-                new SleepTimerDialog().show(getChildFragmentManager(), "SET_SLEEP_TIMER");
-                return true;
-            case R.id.action_equalizer:
-                NavigationUtil.openEqualizer(getActivity());
-                return true;
-            case R.id.action_shuffle_all:
-                MusicPlayerRemote.openAndShuffleQueue(SongLoader.getAllSongs(getActivity()), true);
-                return true;
             case R.id.action_new_playlist:
                 CreatePlaylistDialog.create().show(getChildFragmentManager(), "CREATE_PLAYLIST");
                 return true;

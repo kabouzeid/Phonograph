@@ -20,8 +20,8 @@ import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropM
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.song.CustomPlaylistSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.PlaylistSongAdapter;
+import com.kabouzeid.gramophone.adapter.song.OrderablePlaylistSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.SongAdapter;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -61,8 +61,6 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     Toolbar toolbar;
     @BindView(android.R.id.empty)
     TextView empty;
-    @BindView(R.id.status_bar)
-    View statusBar;
 
     private Playlist playlist;
 
@@ -81,7 +79,6 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         setStatusbarColorAuto();
         setNavigationbarColorAuto();
         setTaskDescriptionColorAuto();
-        ViewUtil.setStatusBarHeight(this, statusBar);
 
         playlist = getIntent().getExtras().getParcelable(EXTRA_PLAYLIST);
 
@@ -101,12 +98,12 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         ViewUtil.setUpFastScrollRecyclerViewColor(this, ((FastScrollRecyclerView) recyclerView), ThemeStore.accentColor(this));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         if (playlist instanceof AbsCustomPlaylist) {
-            adapter = new CustomPlaylistSongAdapter(this, new ArrayList<Song>(), R.layout.item_list, false, this);
+            adapter = new PlaylistSongAdapter(this, new ArrayList<Song>(), R.layout.item_list, false, this);
             recyclerView.setAdapter(adapter);
         } else {
             recyclerViewDragDropManager = new RecyclerViewDragDropManager();
             final GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
-            adapter = new PlaylistSongAdapter(this, new ArrayList<PlaylistSong>(), R.layout.item_list, false, this, new PlaylistSongAdapter.OnMoveItemListener() {
+            adapter = new OrderablePlaylistSongAdapter(this, new ArrayList<PlaylistSong>(), R.layout.item_list, false, this, new OrderablePlaylistSongAdapter.OnMoveItemListener() {
                 @Override
                 public void onMoveItem(int fromPosition, int toPosition) {
                     if (PlaylistsUtil.moveItem(PlaylistDetailActivity.this, playlist.id, fromPosition, toPosition)) {

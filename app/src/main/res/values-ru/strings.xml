@@ -122,7 +122,7 @@
     <string name="pref_title_app_shortcuts">Цветные шорткаты</string>
     <string name="pref_title_set_default_start_page">Установить начальную страницу</string>
     <string name="pref_title_album_art_on_lockscreen">Показывать обложку альбома</string>
-    <string name="pref_title_auto_download_artist_images">Автоматически загружать изображения исполнителей</string>
+    <string name="pref_title_auto_download_metadata">Автоматически загружать изображения исполнителей</string>
     <string name="pref_title_blurred_album_art">"Размытая обложка альбома "</string>
     <string name="pref_title_colored_notification">Окрашенное уведомление</string>
     <string name="pref_title_ignore_media_store_artwork">Игнорировать хранилище обложек альбомов</string>
@@ -135,6 +135,7 @@
     <string name="pref_title_playback_controller_card_now_playing">Показывать подложку под кнопками</string>
     <string name="pref_title_colored_playback_controls_now_playing">Окрашенные кнопки управления воспроизведением</string>
     <string name="pref_title_audio_ducking">Уменьшить громкость при уведомлених</string>
+    <string name="pref_title_synchronized_lyrics_show">Показывать синхронизированные тексты</string>
     <string name="no_equalizer">Эквалайзер не найден.</string>
     <string name="no_audio_ID">"Сначала воспроизведите песню, а затем попробуйте снова."</string>
     <string name="delete_action">Удалить</string>
@@ -158,8 +159,6 @@
     <string name="empty">Пусто</string>
     <string name="playlist_name_empty">Имя плейлиста</string>
     <string name="song">Песня</string>
-    <string name="pref_only_lollipop">"Доступно только для Lollipop."</string>
-    <string name="pref_only_nougat_mr1">"Доступно только для Nougat 7.1"</string>
     <string name="pref_summary_album_art_on_lockscreen">Обложка альбома текущей песни используется как изображение экрана блокировки.</string>
     <string name="pref_summary_blurred_album_art">Делает размытую обложку фоном экрана блокировки. Может создавать проблемы с другими приложениями и виджетами.</string>
     <string name="pref_summary_colored_notification">"\u041e\u043a\u0440\u0430\u0448\u0438\u0432\u0430\u0435\u0442 \u0443\u0432\u0435\u0434\u043e\u043c\u043b\u0435\u043d\u0438\u0435 \u0432 \u0442\u043e\u043d \u043e\u0431\u043b\u043e\u0436\u043a\u0438 \u0430\u043b\u044c\u0431\u043e\u043c\u0430."</string>
@@ -175,6 +174,7 @@
     <string name="pref_summary_colored_navigation_bar">Окрашивает панель навигации в основной цвет.</string>
     <string name="pref_summary_colored_app_shortcuts">Окрашивает шорткаты в основной цвет.</string>
     <string name="pref_summary_audio_ducking">Уведомления, навигация, т.д.</string>
+    <string name="pref_summary_synchronized_lyrics_show">Показывать синхронизированные тексты песен при их наличии</string>
     <string name="could_not_download_album_cover">"\u041d\u0435\u0432\u043e\u0437\u043c\u043e\u0436\u043d\u043e \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044c \u043f\u043e\u0434\u0445\u043e\u0434\u044f\u0449\u0443\u044e \u043e\u0431\u043b\u043e\u0436\u043a\u0443 \u0430\u043b\u044c\u0431\u043e\u043c\u0430."</string>
     <string name="search_hint">Поиск библиотеки...</string>
     <string name="rescanning_media">Повторное сканирование медиа...</string>

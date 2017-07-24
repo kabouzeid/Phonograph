@@ -122,7 +122,7 @@
     <string name="pref_title_app_shortcuts">Barevné zkratky aplikace</string>
     <string name="pref_title_set_default_start_page">Zvolit výchozí obrazovku</string>
     <string name="pref_title_album_art_on_lockscreen">Obal alba na odemykací obrazovce</string>
-    <string name="pref_title_auto_download_artist_images">Automaticky stahovat obrázky umělců</string>
+    <string name="pref_title_auto_download_metadata">Automaticky stahovat obrázky umělců</string>
     <string name="pref_title_blurred_album_art">Rozostřit obal alba</string>
     <string name="pref_title_colored_notification">Barevné notifikace</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorovat obaly Media Storu</string>
@@ -158,8 +158,6 @@
     <string name="empty">Prázdné</string>
     <string name="playlist_name_empty">Pojmenování seznamu skladeb</string>
     <string name="song">Skladba</string>
-    <string name="pref_only_lollipop">"Dostupné pouze ve verzi Lollipop."</string>
-    <string name="pref_only_nougat_mr1">"Pouze od Android Nougat 7.1."</string>
     <string name="pref_summary_album_art_on_lockscreen">Obaly alb se budou zobrazovat na zamykací obrazovce. Pro aplikaci může být nutné aplikaci restartovat.</string>
     <string name="pref_summary_blurred_album_art">Rozostří obal alba na uzamčené obrazovce. Může být problematické s aplikacemi a widgety třetích stran.</string>
     <string name="pref_summary_colored_notification">"Notifikace jsou zbarveny podle obalu alba."</string>

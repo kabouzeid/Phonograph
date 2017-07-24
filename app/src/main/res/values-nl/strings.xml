@@ -121,7 +121,7 @@
     <string name="pref_title_navigation_bar">Gekleurde navigatiebalk</string>
     <string name="pref_title_set_default_start_page">Startpagina</string>
     <string name="pref_title_album_art_on_lockscreen">Toon albumhoes</string>
-    <string name="pref_title_auto_download_artist_images">Download artiesten afbeeldingen</string>
+    <string name="pref_title_auto_download_metadata">Download artiesten afbeeldingen</string>
     <string name="pref_title_blurred_album_art">Vervaag albumhoes</string>
     <string name="pref_title_colored_notification">Gekleurde notificatie</string>
     <string name="pref_title_ignore_media_store_artwork">Negeer Mediaopslag illustraties</string>
@@ -157,7 +157,6 @@
     <string name="empty">Leeg</string>
     <string name="playlist_name_empty">Afspeellijstnaam</string>
     <string name="song">Nummer</string>
-    <string name="pref_only_lollipop">"Alleen beschikbaar op Lollipop. "</string>
     <string name="pref_summary_album_art_on_lockscreen">Albumhoes wordt getoond op het vergrendelscherm.</string>
     <string name="pref_summary_blurred_album_art">Vervaagt de albumhoes op het vergrendelscherm. Kan problemen met andere apps of widgets veroorzaken.</string>
     <string name="pref_summary_colored_notification">"Notificatie wordt gekleurd met het palet van de albumhoes."</string>

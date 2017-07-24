@@ -92,8 +92,6 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
     AppBarLayout appbar;
     @BindView(R.id.recycler_view)
     FastScrollRecyclerView recyclerView;
-    @BindView(R.id.status_bar)
-    View statusBar;
 
     private SongFileAdapter adapter;
     private MaterialCab cab;
@@ -170,7 +168,6 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         setUpBreadCrumbs();
         setUpRecyclerView();
         setUpAdapter();
-        ViewUtil.setStatusBarHeight(getActivity(), statusBar);
     }
 
     private void setUpAppbarColor() {
