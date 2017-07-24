@@ -26,7 +26,6 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.ArtistSignatureUtil;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
-import com.kabouzeid.gramophone.views.TouchInterceptFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,12 +63,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         return HEADER;
     }
 
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView rV) {
-        super.onAttachedToRecyclerView(rV);
-        recyclerView = rV;
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -81,8 +74,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @SuppressWarnings("ConstantConditions")
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        if(holder.itemView instanceof TouchInterceptFrameLayout)
-            ((TouchInterceptFrameLayout) holder.itemView).setListParent(recyclerView);
+
         switch (getItemViewType(position)) {
             case ALBUM:
                 final Album album = (Album) dataSet.get(position);

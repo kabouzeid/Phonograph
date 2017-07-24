@@ -1,17 +1,13 @@
 package com.kabouzeid.gramophone.views;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.FrameLayout;
-
-import com.kabouzeid.gramophone.R;
 
 /**
  * @author Lincoln (theduffmaster)
@@ -47,7 +43,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
     private int listParentID;
 
     private TouchInterceptHorizontalScrollView scrollView;
-    private View listParent;
+    //private View listParent;
 
     private Rect scrollViewRect = new Rect();
     private float startX;
@@ -68,33 +64,34 @@ public class TouchInterceptFrameLayout extends FrameLayout {
         super(context, attrs, defStyleAttr);
         setTag("TIFL");
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TouchInterceptFrameLayout, defStyleAttr, 0);
-
-        listParentID = a.getResourceId(R.styleable.TouchInterceptFrameLayout_setListParent, 0);
-
-        this.post(new Runnable() {
-            @Override
-            public void run() {
-                View lP = findViewById(listParentID);
-                if (lP != null) listParent = lP;
-            }
-        });
+        //It seems like what we would do with the listview does not outweigh the cons of fetching it so we won't fetch it anymore
+//        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TouchInterceptFrameLayout, defStyleAttr, 0);
+//
+//        listParentID = a.getResourceId(R.styleable.TouchInterceptFrameLayout_setListParent, 0);
+//
+//        this.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                View lP = findViewById(listParentID);
+//                if (lP != null) listParent = lP;
+//            }
+//        });
 
     }
 
-    /**
-     * Sets the List Parent programmatically
-     * @param lP Must be either a type of RecyclerView or a type of ListView
-     */
-    public void setListParent(View lP){
-        this.listParent = lP;
-    }
-
-    public View getListParent(){
-        if(listParent == null)
-            return findViewById(listParentID);
-        else return listParent;
-    }
+//    /**
+//     * Sets the List Parent programmatically
+//     * @param lP Must be either a type of RecyclerView or a type of ListView
+//     */
+//    public void setListParent(View lP){
+//        this.listParent = lP;
+//    }
+//
+//    public View getListParent(){
+//        if(listParent == null)
+//            return findViewById(listParentID);
+//        else return listParent;
+//    }
 
     public TouchInterceptHorizontalScrollView getTouchInterceptHorizontalScrollView() {
         return (TouchInterceptHorizontalScrollView) findViewWithTag("TIHS");
