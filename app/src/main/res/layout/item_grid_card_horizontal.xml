@@ -33,19 +33,13 @@
                 android:paddingRight="8dp"
                 tools:ignore="UnusedAttribute">
 
-                <com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView
-                    android:id="@+id/title_scrollview"
+                <TextView
+                    android:id="@+id/title"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-
-                    <com.kabouzeid.gramophone.views.TouchInterceptTextView
-                        android:id="@+id/title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-                </com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView>
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/text"

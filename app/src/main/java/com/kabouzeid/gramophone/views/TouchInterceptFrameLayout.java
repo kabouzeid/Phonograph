@@ -23,7 +23,6 @@ import android.widget.FrameLayout;
 public class TouchInterceptFrameLayout extends FrameLayout {
 
     private static final int MAX_CLICK_DISTANCE = 5;
-    private static final int RETRUNCATE_DELAY = 600;
 
     private static final String TAG = "E/TouchInterceptFL";
     private static final String XML_VIEW_IDS_NOT_SET = "It appears as if the IDs for the TouchInterceptHorizontalScrollView and its" +
@@ -39,8 +38,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
             "and ignore this message.";
     private static final String EMPTY_TRUNCATE_STRING = "songTruncated is empty or null. Did you remember " +
             "to set the song string when setting the song name in your text view?";
-
-    private int listParentID;
 
     private TouchInterceptHorizontalScrollView scrollView;
 
