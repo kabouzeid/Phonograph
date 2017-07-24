@@ -3,126 +3,84 @@ package com.kabouzeid.gramophone.adapter.song;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemAdapter;
-import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemViewHolder;
-import com.h6ah4i.android.widget.advrecyclerview.draggable.ItemDraggableRange;
-import com.h6ah4i.android.widget.advrecyclerview.draggable.annotation.DraggableItemStateFlags;
+import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.dialogs.RemoveFromPlaylistDialog;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
-import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
-import com.kabouzeid.gramophone.util.ViewUtil;
+import com.kabouzeid.gramophone.util.MusicUtil;
+import com.kabouzeid.gramophone.util.NavigationUtil;
 
 import java.util.ArrayList;
-import java.util.List;
-
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-@SuppressWarnings("unchecked")
-public class PlaylistSongAdapter extends SongAdapter implements DraggableItemAdapter<PlaylistSongAdapter.ViewHolder> {
+public class PlaylistSongAdapter extends AbsOffsetSongAdapter {
 
     public static final String TAG = PlaylistSongAdapter.class.getSimpleName();
 
-    private OnMoveItemListener onMoveItemListener;
-
-    public PlaylistSongAdapter(@NonNull AppCompatActivity activity, @NonNull ArrayList<PlaylistSong> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder, @Nullable OnMoveItemListener onMoveItemListener) {
-        super(activity, (ArrayList<Song>) (List) dataSet, itemLayoutRes, usePalette, cabHolder);
-        overrideMultiSelectMenuRes(R.menu.menu_playlists_songs_selection);
-        this.onMoveItemListener = onMoveItemListener;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return ((ArrayList<PlaylistSong>) (List) dataSet).get(position).idInPlayList; // important!
+    public PlaylistSongAdapter(AppCompatActivity activity, @NonNull ArrayList<Song> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
+        super(activity, dataSet, itemLayoutRes, usePalette, cabHolder, false);
+        overrideMultiSelectMenuRes(R.menu.menu_cannot_delete_single_songs_playlist_songs_selection);
     }
 
     @Override
     protected SongAdapter.ViewHolder createViewHolder(View view) {
-        return new ViewHolder(view);
+        return new PlaylistSongAdapter.ViewHolder(view);
     }
 
     @Override
-    protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Song> selection) {
-        switch (menuItem.getItemId()) {
-            case R.id.action_remove_from_playlist:
-                RemoveFromPlaylistDialog.create((ArrayList<PlaylistSong>) (List) selection).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");
-                return;
+    public void onBindViewHolder(@NonNull final SongAdapter.ViewHolder holder, int position) {
+        if (holder.getItemViewType() == OFFSET_ITEM) {
+            if (holder.title != null) {
+                holder.title.setText(MusicUtil.getPlaylistInfoString(activity, dataSet));
+                holder.title.setTextColor(ThemeStore.textColorSecondary(activity));
+            }
+            if (holder.text != null) {
+                holder.text.setVisibility(View.GONE);
+            }
+            if (holder.menu != null) {
+                holder.menu.setVisibility(View.GONE);
+            }
+            if (holder.dragView != null) {
+                holder.dragView.setVisibility(View.GONE);
+            }
+            if (holder.separator != null) {
+                holder.separator.setVisibility(View.VISIBLE);
+            }
+            if (holder.shortSeparator != null) {
+                holder.shortSeparator.setVisibility(View.GONE);
+            }
+        } else {
+            super.onBindViewHolder(holder, position - 1);
         }
-        super.onMultipleItemAction(menuItem, selection);
     }
 
-    @Override
-    public boolean onCheckCanStartDrag(ViewHolder holder, int position, int x, int y) {
-        return onMoveItemListener != null && ViewUtil.hitTest(holder.dragView, x, y);
-    }
-
-    @Override
-    public ItemDraggableRange onGetItemDraggableRange(ViewHolder holder, int position) {
-        return null;
-    }
-
-    @Override
-    public void onMoveItem(int fromPosition, int toPosition) {
-        if (onMoveItemListener != null && fromPosition != toPosition) {
-            onMoveItemListener.onMoveItem(fromPosition, toPosition);
-        }
-    }
-
-    @Override
-    public boolean onCheckCanDrop(int draggingPosition, int dropPosition) {
-        return true;
-    }
-
-    public interface OnMoveItemListener {
-        void onMoveItem(int fromPosition, int toPosition);
-    }
-
-    public class ViewHolder extends SongAdapter.ViewHolder implements DraggableItemViewHolder {
-        @DraggableItemStateFlags
-        private int mDragStateFlags;
-
+    public class ViewHolder extends AbsOffsetSongAdapter.ViewHolder {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            if (dragView != null) {
-                if (onMoveItemListener != null) {
-                    dragView.setVisibility(View.VISIBLE);
-                } else {
-                    dragView.setVisibility(View.GONE);
-                }
-            }
         }
 
         @Override
         protected int getSongMenuRes() {
-            return R.menu.menu_item_playlist_song;
+            return R.menu.menu_item_cannot_delete_single_songs_playlist_song;
         }
 
         @Override
         protected boolean onSongMenuItemClick(MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.action_remove_from_playlist:
-                    RemoveFromPlaylistDialog.create((PlaylistSong) getSong()).show(activity.getSupportFragmentManager(), "REMOVE_FROM_PLAYLIST");
-                    return true;
+            if (item.getItemId() == R.id.action_go_to_album) {
+                Pair[] albumPairs = new Pair[]{
+                        Pair.create(image, activity.getString(R.string.transition_album_art))
+                };
+                NavigationUtil.goToAlbum(activity, dataSet.get(getAdapterPosition() - 1).albumId, albumPairs);
+                return true;
             }
             return super.onSongMenuItemClick(item);
-        }
-
-        @Override
-        public void setDragStateFlags(@DraggableItemStateFlags int flags) {
-            mDragStateFlags = flags;
-        }
-
-        @Override
-        @DraggableItemStateFlags
-        public int getDragStateFlags() {
-            return mDragStateFlags;
         }
     }
 }
