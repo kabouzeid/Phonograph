@@ -15,6 +15,21 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_play_next"
+        android:title="@string/action_play_next"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_add_to_current_playing"
+        android:title="@string/action_add_to_playing_queue"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_add_to_playlist"
+        android:title="@string/action_add_to_playlist"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_re_download_artist_image"
         android:title="@string/action_re_download_artist_image"
         app:showAsAction="never" />
@@ -23,17 +38,6 @@
         android:id="@+id/action_colored_footers"
         android:checkable="true"
         android:title="@string/colored_footers"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_sleep_timer"
-        android:title="@string/action_sleep_timer"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_equalizer"
-        android:orderInCategory="99"
-        android:title="@string/equalizer"
         app:showAsAction="never" />
 
 </menu>

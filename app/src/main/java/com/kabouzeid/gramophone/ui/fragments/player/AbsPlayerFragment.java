@@ -12,7 +12,6 @@ import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
 import com.kabouzeid.gramophone.dialogs.SongShareDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.PaletteColorHolder;
-import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.tageditor.AbsTagEditorActivity;
 import com.kabouzeid.gramophone.ui.activities.tageditor.SongTagEditorActivity;
@@ -56,9 +55,6 @@ public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implemen
                 return true;
             case R.id.action_equalizer:
                 NavigationUtil.openEqualizer(getActivity());
-                return true;
-            case R.id.action_shuffle_all:
-                MusicPlayerRemote.openAndShuffleQueue(SongLoader.getAllSongs(getActivity()), true);
                 return true;
             case R.id.action_add_to_playlist:
                 AddToPlaylistDialog.create(song).show(getFragmentManager(), "ADD_PLAYLIST");

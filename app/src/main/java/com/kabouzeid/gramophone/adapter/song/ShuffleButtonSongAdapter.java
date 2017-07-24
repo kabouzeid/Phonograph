@@ -5,9 +5,7 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
@@ -20,57 +18,20 @@ import java.util.ArrayList;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class ShuffleButtonSongAdapter extends SongAdapter {
-    private static final int SHUFFLE_BUTTON = 0;
-    private static final int SONG = 1;
+public class ShuffleButtonSongAdapter extends AbsOffsetSongAdapter {
 
     public ShuffleButtonSongAdapter(AppCompatActivity activity, ArrayList<Song> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
         super(activity, dataSet, itemLayoutRes, usePalette, cabHolder);
     }
 
-    @NonNull
-    @Override
-    public SongAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == SHUFFLE_BUTTON) {
-            View view = LayoutInflater.from(activity).inflate(R.layout.item_list_single_row, parent, false);
-            return createViewHolder(view);
-        }
-        return super.onCreateViewHolder(parent, viewType);
-    }
-
     @Override
     protected SongAdapter.ViewHolder createViewHolder(View view) {
-        return new ViewHolder(view);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        position--;
-        if (position < 0) return -2;
-        return super.getItemId(position);
-    }
-
-    @Override
-    protected Song getIdentifier(int position) {
-        position--;
-        if (position < 0) return Song.EMPTY_SONG;
-        return super.getIdentifier(position);
-    }
-
-    @Override
-    public int getItemCount() {
-        int superItemCount = super.getItemCount();
-        return superItemCount == 0 ? 0 : superItemCount + 1;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return position == 0 ? SHUFFLE_BUTTON : SONG;
+        return new ShuffleButtonSongAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final SongAdapter.ViewHolder holder, int position) {
-        if (holder.getItemViewType() == SHUFFLE_BUTTON) {
+        if (holder.getItemViewType() == OFFSET_ITEM) {
             int accentColor = ThemeStore.accentColor(activity);
             if (holder.title != null) {
                 holder.title.setText(activity.getResources().getString(R.string.action_shuffle_all).toUpperCase());
@@ -100,44 +61,19 @@ public class ShuffleButtonSongAdapter extends SongAdapter {
         }
     }
 
-    @NonNull
-    @Override
-    public String getSectionName(int position) {
-        position--;
-        if (position < 0) return "";
-        return super.getSectionName(position);
-    }
-
-    public class ViewHolder extends SongAdapter.ViewHolder {
+    public class ViewHolder extends AbsOffsetSongAdapter.ViewHolder {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
         }
 
         @Override
-        protected Song getSong() {
-            if (getItemViewType() == SHUFFLE_BUTTON) return Song.EMPTY_SONG;
-            return dataSet.get(getAdapterPosition() - 1);
-        }
-
-        @Override
         public void onClick(View v) {
-            if (getItemViewType() == SHUFFLE_BUTTON) {
+            if (getItemViewType() == OFFSET_ITEM) {
                 MusicPlayerRemote.openAndShuffleQueue(dataSet, true);
                 return;
             }
-            if (isInQuickSelectMode()) {
-                toggleChecked(getAdapterPosition());
-            } else {
-                MusicPlayerRemote.openQueue(dataSet, getAdapterPosition() - 1, true);
-            }
-        }
-
-        @Override
-        public boolean onLongClick(View view) {
-            if (getItemViewType() == SHUFFLE_BUTTON) return false;
-            toggleChecked(getAdapterPosition());
-            return true;
+            super.onClick(v);
         }
     }
 }
