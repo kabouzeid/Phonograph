@@ -51,11 +51,11 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
         @Override
         public void run() {
             if(!cancel) {
-                cancelCheck = true;
                 long currentTime = System.currentTimeMillis();
                 if ((currentTime - lastScrollUpdate) > ON_END_SCROLL_DELAY) {
                     lastScrollUpdate = -1;
                     if (onEndScrollListener != null) {
+                        cancelCheck = true;
                         onEndScrollListener.onEndScroll();
                     }
                 } else {
