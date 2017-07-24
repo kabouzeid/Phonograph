@@ -24,6 +24,10 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     //The delay before triggering onEndScroll()
     public static final int ON_END_SCROLL_DELAY = 1000;
+    private static final int MAX_CLICK_DISTANCE = 5;
+
+    private float startX;
+    private Rect scrollViewRect = new Rect();
 
     private long lastScrollUpdate = -1;
 
@@ -119,13 +123,18 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
             case MotionEvent.ACTION_DOWN:
                 touched = true;
                 cancel = true;
+                startX = e.getX();
                 // If we can scroll pass the event to the superclass
                 if (mScrollable) return super.onTouchEvent(e);
                 // Only continue to handle the touch event if scrolling enabled
                 return mScrollable; // mScrollable is always false at this point
 
             case MotionEvent.ACTION_MOVE:
-                if(unTruncate = true) {
+
+                float distance = Math.abs(e.getX() - startX);
+
+                // Scrolling the view: cancel event to prevent long press
+                if(unTruncate = true && distance > MAX_CLICK_DISTANCE) {
                     getTouchInterceptTextView().unTruncateText();
                     unTruncate = false;
                 }
@@ -153,7 +162,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
         int x = Math.round(e.getRawX());
         int y = Math.round(e.getRawY());
 
-        Rect scrollViewRect = new Rect();
+        scrollViewRect = new Rect();
 
         getGlobalVisibleRect(scrollViewRect);
 
