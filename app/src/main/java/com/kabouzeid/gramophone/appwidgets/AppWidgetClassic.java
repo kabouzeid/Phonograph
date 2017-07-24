@@ -5,7 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v7.graphics.Palette;
@@ -30,6 +30,8 @@ public class AppWidgetClassic extends BaseAppWidget {
     public static final String NAME = "app_widget_classic";
 
     private static AppWidgetClassic mInstance;
+    private static int imageSize = 0;
+    private static float cardRadius = 0f;
     private Target<BitmapPaletteWrapper> target; // for cancellation
 
     public static synchronized AppWidgetClassic getInstance() {
@@ -77,9 +79,13 @@ public class AppWidgetClassic extends BaseAppWidget {
         // Link actions buttons to intents
         linkButtons(service, appWidgetView);
 
+        if (imageSize == 0)
+            imageSize = service.getResources().getDimensionPixelSize(R.dimen.app_widget_classic_image_size);
+        if (cardRadius == 0f)
+            cardRadius = service.getResources().getDimension(R.dimen.app_widget_card_radius);
+
         // Load the album cover async and push the update on completion
         final Context appContext = service.getApplicationContext();
-        final int widgetImageSize = service.getResources().getDimensionPixelSize(R.dimen.app_widget_classic_image_size);
         service.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -89,7 +95,7 @@ public class AppWidgetClassic extends BaseAppWidget {
                 target = SongGlideRequest.Builder.from(Glide.with(appContext), song)
                         .checkIgnoreMediaStore(appContext)
                         .generatePalette(service).build()
-                        .into(new SimpleTarget<BitmapPaletteWrapper>(widgetImageSize, widgetImageSize) {
+                        .into(new SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
                             @Override
                             public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
                                 Palette palette = resource.getPalette();
@@ -112,11 +118,17 @@ public class AppWidgetClassic extends BaseAppWidget {
                                 // Set prev/next button drawables
                                 appWidgetView.setImageViewBitmap(R.id.button_next, createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_next_white_24dp, color), 1f));
                                 appWidgetView.setImageViewBitmap(R.id.button_prev, createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_previous_white_24dp, color), 1f));
+
+                                Drawable image;
+
                                 if (bitmap == null) {
-                                    appWidgetView.setImageViewResource(R.id.image, R.drawable.default_album_art);
+                                    image = service.getResources().getDrawable(R.drawable.default_album_art);
                                 } else {
-                                    appWidgetView.setImageViewBitmap(R.id.image, bitmap);
+                                    image = new BitmapDrawable(bitmap);
                                 }
+
+                                appWidgetView.setImageViewBitmap(R.id.image, createRoundedBitmap(image, imageSize, imageSize, cardRadius, 0, cardRadius, 0));
+
                                 pushUpdate(appContext, appWidgetIds, appWidgetView);
                             }
                         });

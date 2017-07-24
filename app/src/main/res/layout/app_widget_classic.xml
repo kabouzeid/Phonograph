@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/app_widget_classic_height"
-    android:background="@android:color/white"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card"
     android:orientation="horizontal"
     tools:ignore="ContentDescription">
 
@@ -23,11 +23,13 @@
             android:id="@+id/media_actions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
             android:layoutDirection="ltr"
             android:orientation="horizontal"
-            android:padding="8dp">
+            android:layout_marginBottom="8dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
             <ImageButton
                 android:id="@+id/button_prev"
@@ -61,17 +63,18 @@
         <LinearLayout
             android:id="@+id/media_titles"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_above="@+id/media_actions"
             android:layout_alignParentTop="true"
             android:orientation="vertical"
-            android:padding="8dp">
+            android:gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp">
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
@@ -81,8 +84,7 @@
             <TextView
                 android:id="@+id/text"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
