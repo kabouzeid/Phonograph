@@ -17,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,15 +54,9 @@ import com.kabouzeid.gramophone.ui.activities.tageditor.AlbumTagEditorActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.Util;
-<<<<<<< HEAD
-import com.kabouzeid.gramophone.util.ViewUtil;
-import com.kabouzeid.gramophone.views.TouchInterceptFrameLayout;
-=======
-
-import java.util.Locale;
 
 import java.util.ArrayList;
->>>>>>> kabouzeid/master
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -84,8 +77,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
 
     private Album album;
 
-    @BindView(R.id.container)
-    TouchInterceptFrameLayout container;
     @BindView(R.id.list)
     ObservableRecyclerView recyclerView;
     @BindView(R.id.image)
@@ -93,7 +84,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.title)
-    RelativeLayout albumTitleView;
+    TextView albumTitleView;
     @BindView(R.id.album_title)
     TextView albumTitleTextView;
     @BindView(R.id.list_background)
@@ -431,16 +422,13 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     private void setAlbum(Album album) {
         this.album = album;
         loadAlbumCover();
-<<<<<<< HEAD
-        albumTitleTextView.setText(album.getTitle());
-=======
 
         if (Util.isAllowedToDownloadMetadata(this)) {
             loadWiki();
         }
 
         albumTitleView.setText(album.getTitle());
->>>>>>> kabouzeid/master
+
         adapter.swapDataSet(album.songs);
     }
 
