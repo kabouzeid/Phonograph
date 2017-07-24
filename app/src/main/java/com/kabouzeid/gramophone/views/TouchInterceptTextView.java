@@ -49,6 +49,7 @@ public class TouchInterceptTextView extends AppCompatTextView {
         super(context);
         setTag("TITV");
         setLongClickable(true);
+        setSingleLine();
 
     }
 
@@ -56,13 +57,12 @@ public class TouchInterceptTextView extends AppCompatTextView {
         super(context, attrs);
         setTag("TITV");
         setLongClickable(true);
+        setSingleLine();
 
     }
 
     public TouchInterceptTextView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setTag("TITV");
-        setLongClickable(true);
     }
 
     public TouchInterceptFrameLayout getTouchInterceptFrameLayout() {

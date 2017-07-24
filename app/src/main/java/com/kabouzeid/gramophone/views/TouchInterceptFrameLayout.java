@@ -323,16 +323,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                         x > scrollViewRect.left && x < scrollViewRect.right &&
                                 y > scrollViewRect.top && y < scrollViewRect.bottom;
 
-//                if (songTruncated != null){
-//                    emptyTruncateText = songTruncated.isEmpty();
-//                    isTextTruncated = songTruncated.endsWith("…\u202F");
-//                    if(emptyTruncateText) Log.e(TAG, EMPTY_TRUNCATE_STRING);
-//                }else{
-//                    emptyTruncateText = true;
-//                    isTextTruncated = false;
-//                    Log.e(TAG, EMPTY_TRUNCATE_STRING);
-//                }
-
                 switch (e.getAction() & MotionEvent.ACTION_MASK) {
                     case MotionEvent.ACTION_DOWN:
                         scrollView.slidingPanelSetTouchEnabled(true);
@@ -353,8 +343,8 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
                             // Scrolling the view: cancel event to prevent long press
                             if (distance > MAX_CLICK_DISTANCE) {
-                                textView.unTruncateText();
                                 isTap = false;
+                                CancelClick();
                             }
                         }
                         break;

@@ -25,7 +25,13 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     public static final int ON_END_SCROLL_DELAY = 1000;
 
     private long lastScrollUpdate = -1;
+    private int lastStopX;
+
+    private boolean mIsFling;
+
     private boolean cancel;
+    private boolean cancelCheck;
+    private boolean unTruncate;
     private boolean touched;
 
     private OnEndScrollListener onEndScrollListener;
@@ -45,6 +51,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
         @Override
         public void run() {
             if(!cancel) {
+                cancelCheck = true;
                 long currentTime = System.currentTimeMillis();
                 if ((currentTime - lastScrollUpdate) > ON_END_SCROLL_DELAY) {
                     lastScrollUpdate = -1;
@@ -108,40 +115,47 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-        switch (ev.getAction()) {
+    public boolean onTouchEvent(MotionEvent e) {
+        switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 touched = true;
                 cancel = true;
                 // If we can scroll pass the event to the superclass
-                if (mScrollable) return super.onTouchEvent(ev);
+                if (mScrollable) return super.onTouchEvent(e);
                 // Only continue to handle the touch event if scrolling enabled
                 return mScrollable; // mScrollable is always false at this point
+            case MotionEvent.ACTION_MOVE:
+                if(unTruncate = true) {
+                    getTouchInterceptTextView().unTruncateText();
+                    unTruncate = false;
+                }
             case MotionEvent.ACTION_UP:
                 slidingPanelSetTouchEnabled(true);
                 touched = false;
-                cancel = false;
                 // The user is done interacting with the scroll view
+                cancel = false;
                 postDelayed(new ScrollStateHandler(), ON_END_SCROLL_DELAY);
                 lastScrollUpdate = System.currentTimeMillis();
+                unTruncate = true;
             default:
-                return super.onTouchEvent(ev);
+                return super.onTouchEvent(e);
         }
     }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if(ev.getAction() == MotionEvent.ACTION_DOWN){
+    public boolean onInterceptTouchEvent(MotionEvent e) {
+
+        if(e.getAction() == MotionEvent.ACTION_DOWN){
             slidingPanelSetTouchEnabled(true);
         }
         // Don't do anything with intercepted touch events if
         // not scrollable
         if(!mScrollable){
-            onTouchEvent(ev);
+            onTouchEvent(e);
             return false;
         }
         else
-            return super.onInterceptTouchEvent(ev);
+            return super.onInterceptTouchEvent(e);
     }
 
     /**
@@ -160,11 +174,33 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     }
 
     @Override
+    public void fling(int velocityY) {
+        super.fling(velocityY);
+        mIsFling = true;
+    }
+
+    @Override
     protected void onScrollChanged(int x, int y, int oldX, int oldY) {
         super.onScrollChanged(x, y, oldX, oldY);
-        cancel = true;
+
         if(touched) slidingPanelSetTouchEnabled(false);
         CancelClick();
+
+        if(cancelCheck) cancel = true;
+
+        if (mIsFling) {
+            if (Math.abs(x - oldX) < 2 || x >= getMeasuredWidth() || x == 0) {
+                slidingPanelSetTouchEnabled(true);
+                touched = false;
+                // The user is done interacting with the scroll view
+                cancel = false;
+                postDelayed(new ScrollStateHandler(), ON_END_SCROLL_DELAY);
+                lastScrollUpdate = System.currentTimeMillis();
+                mIsFling = false;
+                cancelCheck = false;
+                unTruncate = true;
+            }
+        }
     }
 
     /**
