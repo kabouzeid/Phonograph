@@ -37,15 +37,22 @@ public class PlaylistSongAdapter extends AbsOffsetSongAdapter {
     @Override
     public void onBindViewHolder(@NonNull final SongAdapter.ViewHolder holder, int position) {
         if (holder.getItemViewType() == OFFSET_ITEM) {
+            int textColor = ThemeStore.textColorSecondary(activity);
             if (holder.title != null) {
                 holder.title.setText(MusicUtil.getPlaylistInfoString(activity, dataSet));
-                holder.title.setTextColor(ThemeStore.textColorSecondary(activity));
+                holder.title.setTextColor(textColor);
             }
             if (holder.text != null) {
                 holder.text.setVisibility(View.GONE);
             }
             if (holder.menu != null) {
                 holder.menu.setVisibility(View.GONE);
+            }
+            if (holder.image != null) {
+                final int padding = activity.getResources().getDimensionPixelSize(R.dimen.default_item_margin) / 2;
+                holder.image.setPadding(padding, padding, padding, padding);
+                holder.image.setColorFilter(textColor);
+                holder.image.setImageResource(R.drawable.ic_timer_white_24dp);
             }
             if (holder.dragView != null) {
                 holder.dragView.setVisibility(View.GONE);
