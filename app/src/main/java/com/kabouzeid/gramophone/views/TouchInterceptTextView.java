@@ -129,8 +129,7 @@ public class TouchInterceptTextView extends AppCompatTextView {
                                         }
                                     });
                         }
-                            //Seems like it doesn't do much
-//                            initializeListParent(getTouchInterceptFrameLayout(), sV);
+
                     }else{
                         if(!sT.endsWith("\uFEFF")) sV.setScrollingEnabled(false);
                     }
@@ -145,58 +144,6 @@ public class TouchInterceptTextView extends AppCompatTextView {
             Log.e(TAG, exception.toString());
         }
     }
-
-//    /**
-//     * Gets the ListParent (the parent ListView or RecyclerView) that has been
-//     * set via xml or programmatically and sets a Scroll Listener. When scrolling
-//     * clicks are cancelled to prevent any interference with scrolling.
-//     */
-//    public void initializeListParent(final TouchInterceptFrameLayout fL, final TouchInterceptHorizontalScrollView sV){
-//
-//        final View listParent = fL.getListParent();
-//
-//        try{
-//            if(listParent instanceof RecyclerView){
-//                ((RecyclerView) listParent).addOnScrollListener(new RecyclerView.OnScrollListener() {
-//
-//                    @Override
-//                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                        super.onScrolled(recyclerView, dx, dy);
-//                        sV.slidingPanelSetTouchEnabled(true);
-//                    }
-//
-//                    @Override
-//                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-//                        super.onScrollStateChanged(recyclerView, newState);
-//
-//                        if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-//                            CancelClick(fL, sV);
-//                        }
-//                    }
-//                });
-//            }
-//
-//            if(listParent instanceof ListView){
-//                ((ListView) listParent).setOnScrollListener(new AbsListView.OnScrollListener(){
-//                    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-//                        sV.slidingPanelSetTouchEnabled(true);
-//                    }
-//                    public void onScrollStateChanged(AbsListView view, int newState) {
-//
-//                        if (newState == AbsListView.OnScrollListener.SCROLL_STATE_FLING) {
-//                            CancelClick(fL, sV);
-//                        } else if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
-//                            CancelClick(fL, sV);
-//                        }
-//                    }
-//                });
-//            }
-//        }catch (NullPointerException exception){
-//            Log.w(TAG, NULL_LIST_PARENT);
-//            System.out.println(TAG + " listParent = " + listParent.toString());
-//            Log.w(TAG, exception.toString());
-//        }
-//    }
 
     public boolean isTextTruncated(String text) {
         if (text.endsWith("…\u202F")) return true;
