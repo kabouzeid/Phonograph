@@ -72,6 +72,8 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     public TouchInterceptHorizontalScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setTag("TIHS");
+        setHorizontalScrollBarEnabled(false);
     }
 
     // "true" if we can scroll (not locked)
@@ -109,8 +111,8 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     public boolean onTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                cancel = true;
                 touched = true;
+                cancel = true;
                 // If we can scroll pass the event to the superclass
                 if (mScrollable) return super.onTouchEvent(ev);
                 // Only continue to handle the touch event if scrolling enabled
@@ -133,12 +135,13 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
             slidingPanelSetTouchEnabled(true);
         }
         // Don't do anything with intercepted touch events if
-        // we are not scrollable
-        if (!mScrollable){
+        // not scrollable
+        if(!mScrollable){
             onTouchEvent(ev);
             return false;
         }
-        else return super.onInterceptTouchEvent(ev);
+        else
+            return super.onInterceptTouchEvent(ev);
     }
 
     /**
@@ -159,6 +162,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     @Override
     protected void onScrollChanged(int x, int y, int oldX, int oldY) {
         super.onScrollChanged(x, y, oldX, oldY);
+        cancel = true;
         if(touched) slidingPanelSetTouchEnabled(false);
         CancelClick();
     }
@@ -183,7 +187,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
         this.cancelPendingInputEvents();
     }
 
-    public TouchInterceptFrameLayout getTouchInterceptFrameLayout() {
+     public TouchInterceptFrameLayout getTouchInterceptFrameLayout() {
         return (TouchInterceptFrameLayout) getRootView().findViewWithTag("TIFL");
     }
 
