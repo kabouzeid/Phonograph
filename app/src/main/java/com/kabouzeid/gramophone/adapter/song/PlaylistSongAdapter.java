@@ -10,7 +10,6 @@ import android.view.View;
 
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
@@ -70,28 +69,6 @@ public class PlaylistSongAdapter extends AbsOffsetSongAdapter {
         @Override
         protected int getSongMenuRes() {
             return R.menu.menu_item_cannot_delete_single_songs_playlist_song;
-        }
-
-        @Override
-        protected Song getSong() {
-            if (getItemViewType() == OFFSET_ITEM) return Song.EMPTY_SONG;
-            return dataSet.get(getAdapterPosition() - 1);
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (isInQuickSelectMode()) {
-                toggleChecked(getAdapterPosition());
-            } else {
-                MusicPlayerRemote.openQueue(dataSet, getAdapterPosition() - 1, true);
-            }
-        }
-
-        @Override
-        public boolean onLongClick(View view) {
-            if (getItemViewType() == OFFSET_ITEM) return false;
-            toggleChecked(getAdapterPosition());
-            return true;
         }
 
         @Override
