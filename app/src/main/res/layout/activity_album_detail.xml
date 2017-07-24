@@ -37,7 +37,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        >
 
         <RelativeLayout
             android:id="@+id/title"
@@ -48,7 +49,7 @@
             android:elevation="@dimen/toolbar_elevation"
             android:gravity="center_vertical"
             android:paddingLeft="72dp"
-            android:paddingRight="72dp" >
+            android:paddingRight="72dp">
 
             <com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView
                 android:id="@+id/title_scrollview"

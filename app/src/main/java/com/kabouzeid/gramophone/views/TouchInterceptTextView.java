@@ -2,7 +2,6 @@ package com.kabouzeid.gramophone.views;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.graphics.Paint;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
@@ -39,8 +38,6 @@ public class TouchInterceptTextView extends AppCompatTextView {
     private String song;
     private String songTruncated;
 
-    private static boolean truncateText;
-
     private int textBoundsWidth;
 
     private final Semaphore semaphore = new Semaphore(0);
@@ -49,6 +46,7 @@ public class TouchInterceptTextView extends AppCompatTextView {
         super(context);
         setTag("TITV");
         setLongClickable(true);
+        setClickable(true);
         setSingleLine();
 
     }
@@ -57,6 +55,7 @@ public class TouchInterceptTextView extends AppCompatTextView {
         super(context, attrs);
         setTag("TITV");
         setLongClickable(true);
+        setClickable(true);
         setSingleLine();
 
     }
@@ -80,12 +79,13 @@ public class TouchInterceptTextView extends AppCompatTextView {
         textBoundsWidth = MeasureSpec.getSize(widthMeasureSpec);
 
         String currentText = getText().toString();
-        Paint paint = getPaint();
+        Boolean isUntruncatedSong = currentText.endsWith("\uFEFF");
 
         if(!currentText.endsWith("\u202F") &&
-                !currentText.endsWith("\uFEFF")) song = currentText;
+                !isUntruncatedSong) song = currentText;
 
-        if(!currentText.endsWith("\uFEFF") && (getWidth() == 0 | textBoundsWidth < paint.measureText(currentText)) ) {
+        if(!isUntruncatedSong &&
+                (getWidth() == 0 | textBoundsWidth < getPaint().measureText(currentText)) ) {
             String truncatedText = TextUtils.ellipsize(currentText,
                     getPaint(),
                     (float) textBoundsWidth,
@@ -205,25 +205,6 @@ public class TouchInterceptTextView extends AppCompatTextView {
         }
     }
 
-    /**
-     * Sets the TouchIntercept frame layout that is the RootView of the layout.
-     * Must be a TouchInterceptFrameLayout
-     *
-     * @param fL The FrameLayout to be set.
-     */
-    public void setTouchInterceptFrameLayout(TouchInterceptFrameLayout fL) {
-        this.touchInterceptFrameLayout = fL;
-    }
-
-    /**
-     * Sets the TouchInterceptHorizontalScrollView contained by this FrameLayout
-     *
-     * @param sv The HorizontalScrollView containing text that needs to be scrolled
-     */
-    public void setTouchInterceptHorizontalScrollView(TouchInterceptHorizontalScrollView sv) {
-        this.scrollView = sv;
-    }
-
     public boolean isTextTruncated(String text) {
         if (text.endsWith("…\u202F")) return true;
         else return false;
@@ -232,6 +213,14 @@ public class TouchInterceptTextView extends AppCompatTextView {
     public void unTruncateText(){
         String untrunucatedText = song + "\uFEFF";
         setText(untrunucatedText);
+    }
+
+    public String getSongTruncated(){
+        return this.songTruncated;
+    }
+
+    public String getUntruncatedSong(){
+        return this.song;
     }
 
     /**

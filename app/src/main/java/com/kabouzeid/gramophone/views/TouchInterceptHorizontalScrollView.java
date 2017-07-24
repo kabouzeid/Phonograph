@@ -26,7 +26,6 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     public static final int ON_END_SCROLL_DELAY = 1000;
 
     private long lastScrollUpdate = -1;
-    private int lastStopX;
 
     private boolean mIsFling;
 
@@ -80,8 +79,6 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     public TouchInterceptHorizontalScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setTag("TIHS");
-        setHorizontalScrollBarEnabled(false);
     }
 
     // "true" if we can scroll (not locked)
@@ -118,6 +115,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         switch (e.getAction()) {
+
             case MotionEvent.ACTION_DOWN:
                 touched = true;
                 cancel = true;
@@ -125,11 +123,13 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
                 if (mScrollable) return super.onTouchEvent(e);
                 // Only continue to handle the touch event if scrolling enabled
                 return mScrollable; // mScrollable is always false at this point
+
             case MotionEvent.ACTION_MOVE:
                 if(unTruncate = true) {
                     getTouchInterceptTextView().unTruncateText();
                     unTruncate = false;
                 }
+
             case MotionEvent.ACTION_UP:
                 slidingPanelSetTouchEnabled(true);
                 touched = false;
@@ -147,9 +147,8 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     public boolean onInterceptTouchEvent(MotionEvent e) {
 
 
-        if(e.getAction() == MotionEvent.ACTION_DOWN){
-            slidingPanelSetTouchEnabled(true);
-        }
+        if(e.getAction() == MotionEvent.ACTION_DOWN) slidingPanelSetTouchEnabled(true);
+
 
         int x = Math.round(e.getRawX());
         int y = Math.round(e.getRawY());
@@ -201,7 +200,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     protected void onScrollChanged(int x, int y, int oldX, int oldY) {
         super.onScrollChanged(x, y, oldX, oldY);
 
-        if(touched) slidingPanelSetTouchEnabled(false);
+        if(touched | mIsFling) slidingPanelSetTouchEnabled(false);
         CancelClick();
 
         if(cancelCheck) cancel = true;
