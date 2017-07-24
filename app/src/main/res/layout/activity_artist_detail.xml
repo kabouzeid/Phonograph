@@ -32,20 +32,33 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
+        <RelativeLayout
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_view_height"
             android:height="@dimen/title_view_height"
             android:background="?attr/defaultFooterColor"
             android:elevation="@dimen/toolbar_elevation"
-            android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
             android:paddingLeft="72dp"
-            android:paddingRight="72dp"
-            android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            tools:ignore="UnusedAttribute" />
+            android:paddingRight="72dp">
+
+            <com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView
+                android:id="@+id/title_scrollview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <com.kabouzeid.gramophone.views.TouchInterceptTextView
+                    android:id="@+id/album_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    tools:ignore="UnusedAttribute" />
+
+            </com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView>
+
+        </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
