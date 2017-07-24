@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.views;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
@@ -145,9 +146,26 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
 
+
         if(e.getAction() == MotionEvent.ACTION_DOWN){
             slidingPanelSetTouchEnabled(true);
         }
+
+        int x = Math.round(e.getRawX());
+        int y = Math.round(e.getRawY());
+
+        Rect scrollViewRect = new Rect();
+
+        getGlobalVisibleRect(scrollViewRect);
+
+        boolean touchedScrollView =
+                x > scrollViewRect.left && x < scrollViewRect.right &&
+                        y > scrollViewRect.top && y < scrollViewRect.bottom;
+
+        if(!touchedScrollView){
+            return false;
+        }
+
         // Don't do anything with intercepted touch events if
         // not scrollable
         if(!mScrollable){

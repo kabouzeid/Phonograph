@@ -309,19 +309,17 @@ public class TouchInterceptFrameLayout extends FrameLayout {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
 
-        if(scrollView.isScrollable()) {
-
-            boolean emptyTruncateText;
-            boolean isTextTruncated;
-
             int x = Math.round(e.getRawX());
             int y = Math.round(e.getRawY());
             try {
+
                 scrollView.getGlobalVisibleRect(scrollViewRect);
 
                 boolean touchedScrollView =
                         x > scrollViewRect.left && x < scrollViewRect.right &&
                                 y > scrollViewRect.top && y < scrollViewRect.bottom;
+
+            if(scrollView.isScrollable()) {
 
                 switch (e.getAction() & MotionEvent.ACTION_MASK) {
                     case MotionEvent.ACTION_DOWN:
@@ -359,6 +357,11 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 }
                 return false;
 
+            }else{
+                if(touchedScrollView) onTouchEvent(e);
+                return false;
+            }
+
             } catch (NullPointerException exception) {
                 Log.e(TAG, NULL_VIEWS_EXCEPTION_MESSAGE);
                 Log.e("Method: ","onInterceptTouchEvent()");
@@ -368,10 +371,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 onTouchEvent(e);
                 return false;
             }
-        }else{
-            onTouchEvent(e);
-            return false;
-        }
     }
 
     /**
