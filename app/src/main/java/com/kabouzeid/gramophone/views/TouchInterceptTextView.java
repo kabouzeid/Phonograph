@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.views;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.Paint;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
@@ -40,6 +41,8 @@ public class TouchInterceptTextView extends AppCompatTextView {
 
     private static boolean truncateText;
 
+    private int textBoundsWidth;
+
     private final Semaphore semaphore = new Semaphore(0);
 
     public TouchInterceptTextView(Context context) {
@@ -47,20 +50,20 @@ public class TouchInterceptTextView extends AppCompatTextView {
         setTag("TITV");
         Log.d("Initiate", "1");
 
-        final TouchInterceptTextView tV = this;
-        post(new Runnable() {
-            @Override
-            public void run() {
-                final TouchInterceptHorizontalScrollView sV = getTouchInterceptHorizontalScrollView();
-                song = getText().toString();
-                if(sV.canScroll()) {
-                    System.out.println("Width: " + Integer.toString(sV.getWidth()));
-                    setText(getText().toString());
-                }else{
-                    setTruncateText(song,song,getTouchInterceptFrameLayout(), sV, tV);
-                }
-            }
-        });
+//        final TouchInterceptTextView tV = this;
+//        post(new Runnable() {
+//            @Override
+//            public void run() {
+//                final TouchInterceptHorizontalScrollView sV = getTouchInterceptHorizontalScrollView();
+//                song = getText().toString();
+//                if(sV.canScroll()) {
+//                    System.out.println("Width: " + Integer.toString(sV.getWidth()));
+//                    setText(getText().toString());
+//                }else{
+//                    if(sV != null) setTruncateText(song,song,getTouchInterceptFrameLayout(), sV, tV);
+//                }
+//            }
+//        });
     }
 
     public TouchInterceptTextView(Context context, @Nullable AttributeSet attrs) {
@@ -69,20 +72,20 @@ public class TouchInterceptTextView extends AppCompatTextView {
         setLongClickable(true);
         Log.d("Initiate", "2");
 
-        final TouchInterceptTextView tV = this;
-        post(new Runnable() {
-            @Override
-            public void run() {
-                final TouchInterceptHorizontalScrollView sV = getTouchInterceptHorizontalScrollView();
-                song = getText().toString();
-                if(sV.canScroll()) {
-                    System.out.println("Width: " + Integer.toString(sV.getWidth()));
-                    setText(getText().toString());
-                }else{
-                    setTruncateText(song,song,getTouchInterceptFrameLayout(), sV, tV);
-                }
-            }
-        });
+//        final TouchInterceptTextView tV = this;
+//        post(new Runnable() {
+//            @Override
+//            public void run() {
+//                final TouchInterceptHorizontalScrollView sV = getTouchInterceptHorizontalScrollView();
+//                song = getText().toString();
+//                if(sV.canScroll()) {
+//                    System.out.println("Width: " + Integer.toString(sV.getWidth()));
+//                    setText(getText().toString());
+//                }else{
+//                    if(sV != null) setTruncateText(song,song,getTouchInterceptFrameLayout(), sV, tV);
+//                }
+//            }
+//        });
     }
 
     public TouchInterceptTextView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -144,20 +147,43 @@ public class TouchInterceptTextView extends AppCompatTextView {
     @Override
     public void setText(CharSequence text, BufferType type) {
         String content = text.toString();
-        song = content;
-        final TouchInterceptHorizontalScrollView sV = getTouchInterceptHorizontalScrollView();
-        if(sV != null && !content.endsWith("\uFEFF") && sV.canScroll()){
-            System.out.println("Width: " + Integer.toString(sV.getWidth()));
-                content = TextUtils.ellipsize(content,
-                        getPaint(),
-                        (float) sV.getWidth(),
-                        TextUtils.TruncateAt.END).toString() + "\u202F";
-                setTruncateText(song, content, getTouchInterceptFrameLayout(), sV, this);
-            }else{
-                setTruncateText(content,content, getTouchInterceptFrameLayout(), sV, this);
-
-            }
+        //song = content;
+//        System.out.println("Width: " + Integer.toString(getWidth()));
+//        final TouchInterceptHorizontalScrollView sV = getTouchInterceptHorizontalScrollView();
+//        if(sV != null && !content.endsWith("\uFEFF") && sV.canScroll()){
+//                content = TextUtils.ellipsize(content,
+//                        getPaint(),
+//                        (float) sV.getWidth(),
+//                        TextUtils.TruncateAt.END).toString() + "\u202F";
+//                setTruncateText(song, content, getTouchInterceptFrameLayout(), sV, this);
+//            }else{
+//                if(sV != null) setTruncateText(content,content, getTouchInterceptFrameLayout(), sV, this);
+//
+//            }
         super.setText(content, BufferType.NORMAL);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        textBoundsWidth = MeasureSpec.getSize(widthMeasureSpec);
+
+        String currentText = getText().toString();
+        Paint paint = getPaint();
+
+        if(!currentText.endsWith("\uFEFF") && (getWidth() == 0 | textBoundsWidth < paint.measureText(currentText)) ) {
+            String truncatedText = TextUtils.ellipsize(currentText,
+                    getPaint(),
+                    (float) textBoundsWidth,
+                    TextUtils.TruncateAt.END).toString() + "\u202F";
+            setText(truncatedText);
+            setTruncateText(currentText,truncatedText);
+        }else{
+            setText(currentText);
+            setTruncateText(currentText,currentText);
+        }
+
     }
 
     /**
@@ -171,17 +197,16 @@ public class TouchInterceptTextView extends AppCompatTextView {
      * cut off, still allowing the HorizontalScrollingView to scroll.
      * @param s The string (song title or album title typically) contained by the text view.
      */
-    public void setTruncateText(final String s, final String sT,
-                                final TouchInterceptFrameLayout fL,
-                                final TouchInterceptHorizontalScrollView sV,
-                                final TouchInterceptTextView tV){
+    public void setTruncateText(final String s, final String sT){
         try {
 
             post(new Runnable() {
                 @Override
                 public void run() {
-                    song = s;
+                    if(!s.endsWith("\u202F")) song = s;
                     songTruncated = sT;
+
+                    final TouchInterceptHorizontalScrollView sV = getTouchInterceptHorizontalScrollView();
 
                     System.out.println("Song Truncated: "+ sT);
 
@@ -199,11 +224,11 @@ public class TouchInterceptTextView extends AppCompatTextView {
                                     new TouchInterceptHorizontalScrollView.OnEndScrollListener() {
                                         @Override
                                         public void onEndScroll() {
-                                            reTruncateScrollText(sT,sV,tV);
+                                            reTruncateScrollText(sT, sV, TouchInterceptTextView.this);
                                         }
                                     });
                         }
-                            initializeListParent(fL, sV);
+                            initializeListParent(getTouchInterceptFrameLayout(), sV);
                     }else{
                         sV.setScrollingEnabled(false);
                     }
@@ -213,7 +238,7 @@ public class TouchInterceptTextView extends AppCompatTextView {
         }catch (NullPointerException exception){
             Log.e(TAG, NULL_VIEWS_EXCEPTION_MESSAGE);
             Log.e("Method: ","setTruncateText()");
-            System.out.println(TAG + " TouchInterceptHorizontalScrollView = " + sV.toString());
+            System.out.println(TAG + " TouchInterceptHorizontalScrollView = " + getTouchInterceptHorizontalScrollView().toString());
             System.out.println(TAG + " TouchInterceptTextView = " + this.toString());
             Log.e(TAG, exception.toString());
         }
@@ -296,7 +321,9 @@ public class TouchInterceptTextView extends AppCompatTextView {
     }
 
     public void unTruncateText(){
-        setText(song + "\uFEFF");
+        String untrunucatedText = song + "\uFEFF";
+        Log.d("Untruncated song", untrunucatedText);
+        setText(untrunucatedText);
     }
 
     /**
