@@ -67,6 +67,8 @@ public class FlatPlayerPlaybackControlsFragment extends AbsMusicServiceFragment 
 
     private AnimatorSet musicControllerAnimationSet;
 
+    private boolean hidden = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -253,25 +255,28 @@ public class FlatPlayerPlaybackControlsFragment extends AbsMusicServiceFragment 
     }
 
     public void show() {
-        if (musicControllerAnimationSet == null) {
-            TimeInterpolator interpolator = new FastOutSlowInInterpolator();
-            final int duration = 300;
+        if (hidden) {
+            if (musicControllerAnimationSet == null) {
+                TimeInterpolator interpolator = new FastOutSlowInInterpolator();
+                final int duration = 300;
 
-            LinkedList<Animator> animators = new LinkedList<>();
+                LinkedList<Animator> animators = new LinkedList<>();
 
-            addAnimation(animators, playPauseButton, interpolator, duration, 0);
-            addAnimation(animators, nextButton, interpolator, duration, 100);
-            addAnimation(animators, prevButton, interpolator, duration, 100);
-            addAnimation(animators, shuffleButton, interpolator, duration, 200);
-            addAnimation(animators, repeatButton, interpolator, duration, 200);
+                addAnimation(animators, playPauseButton, interpolator, duration, 0);
+                addAnimation(animators, nextButton, interpolator, duration, 100);
+                addAnimation(animators, prevButton, interpolator, duration, 100);
+                addAnimation(animators, shuffleButton, interpolator, duration, 200);
+                addAnimation(animators, repeatButton, interpolator, duration, 200);
 
-
-            musicControllerAnimationSet = new AnimatorSet();
-            musicControllerAnimationSet.playTogether(animators);
-        } else {
-            musicControllerAnimationSet.cancel();
+                musicControllerAnimationSet = new AnimatorSet();
+                musicControllerAnimationSet.playTogether(animators);
+            } else {
+                musicControllerAnimationSet.cancel();
+            }
+            musicControllerAnimationSet.start();
         }
-        musicControllerAnimationSet.start();
+
+        hidden = false;
     }
 
     public void hide() {
@@ -283,6 +288,8 @@ public class FlatPlayerPlaybackControlsFragment extends AbsMusicServiceFragment 
         prepareForAnimation(prevButton);
         prepareForAnimation(shuffleButton);
         prepareForAnimation(repeatButton);
+
+        hidden = true;
     }
 
     private static void addAnimation(Collection<Animator> animators, View view, TimeInterpolator interpolator, int duration, int delay) {
