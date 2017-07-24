@@ -12,13 +12,4 @@
     <attr name="iconColor" format="color" />
     <attr name="dividerColor" format="color" />
 
-    <!-- Setting Views. -->
-    <declare-styleable name="TouchInterceptFrameLayout">
-        <attr name="setScrollableTextView" format="reference"/>
-        <!-- Sets the List Parent that is associated with this view. Must be a ListView or a RecyclerView.
-         No need to set if this view never interacts with a ListParent.
-         Can be set here or programmatically-->
-        <attr name="setListParent" format="reference"/>
-    </declare-styleable>
-
 </resources>

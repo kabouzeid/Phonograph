@@ -24,20 +24,12 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
     private static final int MAX_CLICK_DISTANCE = 5;
 
+    private static final String touchInterceptFrameLayoutViewTag = "TIFL";
+
     private static final String TAG = "E/TouchInterceptFL";
-    private static final String XML_VIEW_IDS_NOT_SET = "It appears as if the IDs for the TouchInterceptHorizontalScrollView and its" +
-            "child scrollable TextView have not been set. If you have not already, you must set "  +
-            "them using setTouchInterceptHorizontalScrollView and setScrollableTextView via XML";
     private static final String NULL_VIEWS_EXCEPTION_MESSAGE = "Either textView or scrollView is null. Maybe you " +
             "forgot to set them using setTouchInterceptHorizontalScrollView and setScrollableTextView " +
             "via XML? Did you set it to something null?";
-    private static final String NULL_LIST_PARENT = "The ListParent, aka the parent ListView or RecyclerView is null." +
-            "It is highly reccomended you set the ListParent either programmatically or via XML" +
-            "if you're TouchInterceptFrameLayout is associated with any type of ListParent. If your" +
-            "TouchInterceptFrameLayout does not interact with any type of ListParent no need to set it" +
-            "and ignore this message.";
-    private static final String EMPTY_TRUNCATE_STRING = "songTruncated is empty or null. Did you remember " +
-            "to set the song string when setting the song name in your text view?";
 
     private TouchInterceptHorizontalScrollView scrollView;
 
@@ -53,12 +45,12 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
     public TouchInterceptFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
-        setTag("TIFL");
+        setTag(touchInterceptFrameLayoutViewTag);
     }
 
     public TouchInterceptFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setTag("TIFL");
+        setTag(touchInterceptFrameLayoutViewTag);
 
     }
 

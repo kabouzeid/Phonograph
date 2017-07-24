@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.views.TouchInterceptFrameLayout;
 import com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView;
 
 import butterknife.BindView;
@@ -67,10 +66,6 @@ public class MediaEntryViewHolder extends RecyclerView.ViewHolder implements Vie
     public MediaEntryViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
-
-        if (title_scrollview != null && title != null && itemView instanceof TouchInterceptFrameLayout) {
-            //((TouchInterceptFrameLayout) itemView).setViews(title_scrollview,title);
-        }
 
         itemView.setOnClickListener(this);
         itemView.setOnLongClickListener(this);

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 
 import com.kabouzeid.gramophone.R;
@@ -25,6 +24,8 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     //The delay before triggering onEndScroll()
     public static final int ON_END_SCROLL_DELAY = 1000;
     private static final int MAX_CLICK_DISTANCE = 5;
+
+    private static final String touchInterceptHorizontalScrollViewTag = "TIHS";
 
     private float startX;
     private Rect scrollViewRect = new Rect();
@@ -71,13 +72,13 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     public TouchInterceptHorizontalScrollView(Context context) {
         super(context);
-        setTag("TIHS");
+        setTag(touchInterceptHorizontalScrollViewTag);
         setHorizontalScrollBarEnabled(false);
     }
 
     public TouchInterceptHorizontalScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setTag("TIHS");
+        setTag(touchInterceptHorizontalScrollViewTag);
         setHorizontalScrollBarEnabled(false);
     }
 
@@ -109,11 +110,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
      * @return Returns true if this ScrollView can be scrolled
      */
     public boolean canScroll() {
-        if(canScrollHorizontally(1) || canScrollHorizontally(-1)){
-            return true;
-        }else{
-            return false;
-        }
+        return (canScrollHorizontally(1) || canScrollHorizontally(-1));
     }
 
     @Override
@@ -134,7 +131,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
                 float distance = Math.abs(e.getX() - startX);
 
                 // Scrolling the view: cancel event to prevent long press
-                if(unTruncate = true && distance > MAX_CLICK_DISTANCE) {
+                if(unTruncate && distance > MAX_CLICK_DISTANCE) {
                     getTouchInterceptTextView().unTruncateText();
                     unTruncate = false;
                 }
@@ -200,8 +197,8 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     }
 
     @Override
-    public void fling(int velocityY) {
-        super.fling(velocityY);
+    public void fling(int velocityX) {
+        super.fling(velocityX);
         mIsFling = true;
     }
 
@@ -254,6 +251,6 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     }
 
     public TouchInterceptTextView getTouchInterceptTextView(){
-        return (TouchInterceptTextView) ((ViewGroup)this).getChildAt(0);
+        return (TouchInterceptTextView) this.getChildAt(0);
     }
 }

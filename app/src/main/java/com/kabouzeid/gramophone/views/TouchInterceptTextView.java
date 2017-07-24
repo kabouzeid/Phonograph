@@ -16,27 +16,19 @@ import android.util.Log;
 public class TouchInterceptTextView extends AppCompatTextView {
     private static final int RETRUNCATE_DELAY = 600;
 
+    private static final String touchInterceptTextViewTag = "TITV";
+
     private static final String TAG = "E/TouchInterceptFL";
     private static final String NULL_VIEWS_EXCEPTION_MESSAGE = "Either textView or scrollView is null. Maybe you " +
             "forgot to set them using setTouchInterceptHorizontalScrollView and setScrollableTextView " +
             "via XML? Did you set it to something null?";
-    private static final String NULL_LIST_PARENT = "The ListParent, aka the parent ListView or RecyclerView is null." +
-            "It is highly reccomended you set the ListParent either programmatically or via XML" +
-            "if you're TouchInterceptFrameLayout is associated with any type of ListParent. If your" +
-            "TouchInterceptFrameLayout does not interact with any type of ListParent no need to set it" +
-            "and ignore this message.";
-
-    private TouchInterceptFrameLayout touchInterceptFrameLayout;
-    private TouchInterceptHorizontalScrollView scrollView;
 
     private String song;
     private String songTruncated;
 
-    private int textBoundsWidth;
-
     public TouchInterceptTextView(Context context) {
         super(context);
-        setTag("TITV");
+        setTag(touchInterceptTextViewTag);
         setLongClickable(true);
         setClickable(true);
         setSingleLine();
@@ -45,7 +37,7 @@ public class TouchInterceptTextView extends AppCompatTextView {
 
     public TouchInterceptTextView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        setTag("TITV");
+        setTag(touchInterceptTextViewTag);
         setLongClickable(true);
         setClickable(true);
         setSingleLine();
@@ -65,11 +57,10 @@ public class TouchInterceptTextView extends AppCompatTextView {
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        textBoundsWidth = MeasureSpec.getSize(widthMeasureSpec);
 
+        int textBoundsWidth = MeasureSpec.getSize(widthMeasureSpec);
         String currentText = getText().toString();
         Boolean isUntruncatedSong = currentText.endsWith("\uFEFF");
 
@@ -115,7 +106,7 @@ public class TouchInterceptTextView extends AppCompatTextView {
 
                     if (isTextTruncated(sT)) {
 
-                        if (s == sT && !sT.endsWith("\uFEFF")) {
+                        if (s.equals(sT) && !sT.endsWith("\uFEFF")) {
                             sV.setScrollingEnabled(false);
 
                         } else {
@@ -146,8 +137,7 @@ public class TouchInterceptTextView extends AppCompatTextView {
     }
 
     public boolean isTextTruncated(String text) {
-        if (text.endsWith("…\u202F")) return true;
-        else return false;
+        return (text.endsWith("…\u202F"));
     }
 
     public void unTruncateText(){
@@ -178,16 +168,5 @@ public class TouchInterceptTextView extends AppCompatTextView {
                 tV.setText(truncatedString);
             }
         }, RETRUNCATE_DELAY);
-    }
-
-    /**
-     *Cancels any Long Presses and inpending clicks. Used to prevent views from
-     * stealing touches while the user is scrolling something.
-     */
-    private void CancelClick(TouchInterceptFrameLayout fL, TouchInterceptHorizontalScrollView sV){
-        fL.cancelPendingInputEvents();
-        fL.cancelLongPress();
-        sV.cancelLongPress();
-        sV.cancelPendingInputEvents();
     }
 }
