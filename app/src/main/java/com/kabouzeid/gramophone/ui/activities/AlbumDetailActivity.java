@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -84,7 +85,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.title)
-    TextView albumTitleView;
+    RelativeLayout albumTitleView;
     @BindView(R.id.album_title)
     TextView albumTitleTextView;
     @BindView(R.id.list_background)
@@ -427,7 +428,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
             loadWiki();
         }
 
-        albumTitleView.setText(album.getTitle());
+        albumTitleTextView.setText(album.getTitle());
 
         adapter.swapDataSet(album.songs);
     }
