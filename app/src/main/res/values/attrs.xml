@@ -14,13 +14,6 @@
 
     <!-- Setting Views. -->
     <declare-styleable name="TouchInterceptFrameLayout">
-        <!-- Sets the TouchInterceptHorizontalScrollView for the TouchInterceptFrameLayout.
-        NOT OPTIONAL
-        Must be set here, however can be set programmatically.-->
-        <attr name="setTouchInterceptHorizontalScrollView" format="reference"/>
-        <!-- Sets the TextView for the TouchInterceptFrameLayout. Must be a child of the set TouchInterceptHorizontalScrollView
-        NOT OPTIONAL
-        Must be set here, however can be set programmatically.-->
         <attr name="setScrollableTextView" format="reference"/>
         <!-- Sets the List Parent that is associated with this view. Must be a ListView or a RecyclerView.
          No need to set if this view never interacts with a ListParent.

@@ -7,9 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="72dp"
     android:foreground="?attr/rectSelector"
-    tools:ignore="UnusedAttribute"
-    app:setTouchInterceptHorizontalScrollView="@+id/title_scrollview"
-    app:setScrollableTextView="@+id/title" >
+    tools:ignore="UnusedAttribute" >
 
     <com.kabouzeid.gramophone.views.IconImageView
         android:id="@+id/drag_view"

@@ -137,6 +137,7 @@ public class TouchInterceptTextView extends AppCompatTextView {
                                         }
                                     });
                         }
+                            //Seems like it doesn't do much
                             initializeListParent(getTouchInterceptFrameLayout(), sV);
                     }else{
                         if(!sT.endsWith("\uFEFF")) sV.setScrollingEnabled(false);
