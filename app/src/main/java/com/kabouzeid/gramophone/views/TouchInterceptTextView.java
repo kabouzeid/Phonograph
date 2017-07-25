@@ -177,7 +177,7 @@ public class TouchInterceptTextView extends AppCompatTextView {
      * Untruncates the text in this textview and sets it
      */
     public void unTruncateText(){
-        //The ﻿\uEFF charachter is an invisible charachter used as a marker for whether
+        //The uEFF unicode charachter is an invisible charachter used as a marker for whether
         //a string is the untruncated song to be set
         String untrunucatedText = title + "\uFEFF";
         setText(untrunucatedText);
