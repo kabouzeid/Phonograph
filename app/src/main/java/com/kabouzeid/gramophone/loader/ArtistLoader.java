@@ -54,14 +54,15 @@ public class ArtistLoader {
     }
 
     @NonNull
-    public static Artist getAlbumArtist(@NonNull final Context context, int artistId) {
+    public static int getAlbumArtistID(@NonNull final Context context, String albumArtist) {
         ArrayList<Song> songs = SongLoader.getSongs(SongLoader.makeSongCursor(
                 context,
-                AudioColumns.ARTIST_ID + "=?",
-                new String[]{String.valueOf(artistId)},
+                AudioColumns.ARTIST + "=?",
+                new String[]{"%" + albumArtist + "%"},
                 getSongLoaderSortOrder(context))
         );
-        return new Artist(AlbumLoader.splitIntoAlbums(songs));
+        if(songs.isEmpty()) return -1;
+        else return songs.get(0).artistId;
     }
 
     @NonNull

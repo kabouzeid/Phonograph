@@ -1,8 +1,11 @@
 package com.kabouzeid.gramophone.model;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+
+import com.kabouzeid.gramophone.loader.ArtistLoader;
 
 import java.util.ArrayList;
 
@@ -34,6 +37,24 @@ public class Album implements Parcelable {
 
     public String getArtistName() {
         return safeGetFirstSong().artistName;
+    }
+
+    public int getAlbumArtistId(Context context) {
+        //TODO: Find a faster way to do this without requiring context
+        String albumArtist = safeGetFirstSong().albumArtist;
+
+        if(albumArtist != null) {
+            if(albumArtist == safeGetFirstSong().artistName){
+                return getArtistId();
+            }else{
+               int albumArtistID = ArtistLoader.getAlbumArtistID(context,albumArtist);
+
+                if(albumArtistID != -1) return albumArtistID;
+                else return getArtistId();
+            }
+        }else{
+            return getArtistId();
+        }
     }
 
     public String getAlbumArtistName() {
