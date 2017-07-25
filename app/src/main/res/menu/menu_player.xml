@@ -9,15 +9,15 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_shuffle_all"
-        android:orderInCategory="1"
-        android:title="@string/action_shuffle_all"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/action_clear_playing_queue"
         android:orderInCategory="1"
         android:title="@string/action_clear_playing_queue"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_save_playing_queue"
+        android:orderInCategory="1"
+        android:title="@string/action_save_playing_queue"
         app:showAsAction="never" />
 
     <item

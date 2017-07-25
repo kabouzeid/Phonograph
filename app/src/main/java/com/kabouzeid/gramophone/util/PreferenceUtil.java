@@ -69,6 +69,8 @@ public final class PreferenceUtil {
 
     public static final String START_DIRECTORY = "start_directory";
 
+    public static final String SYNCHRONIZED_LYRICS_SHOW = "synchronized_lyrics_show";
+
     private static PreferenceUtil sInstance;
 
     private final SharedPreferences mPreferences;
@@ -399,5 +401,9 @@ public final class PreferenceUtil {
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.putString(START_DIRECTORY, file.getPath());
         editor.apply();
+    }
+
+    public final boolean synchronizedLyricsShow() {
+        return mPreferences.getBoolean(SYNCHRONIZED_LYRICS_SHOW, true);
     }
 }

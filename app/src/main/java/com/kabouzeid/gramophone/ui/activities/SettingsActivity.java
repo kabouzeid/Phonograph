@@ -251,7 +251,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             }
 
             final TwoStatePreference classicNotification = (TwoStatePreference) findPreference("classic_notification");
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                 classicNotification.setVisible(false);
             } else {
                 classicNotification.setChecked(PreferenceUtil.getInstance(getActivity()).classicNotification());
