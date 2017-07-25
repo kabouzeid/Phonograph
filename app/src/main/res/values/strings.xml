@@ -103,6 +103,7 @@
     <string name="action_shuffle_artist">Shuffle artist</string>
     <string name="action_shuffle_playlist">Shuffle playlist</string>
     <string name="action_clear_playing_queue">Clear playing queue</string>
+    <string name="action_save_playing_queue">Save playing queue</string>
     <string name="action_go_to_start_directory">Go to start directory</string>
     <string name="action_show_lyrics">Show lyrics</string>
     <string name="last_opened">Last opened</string>
