@@ -19,6 +19,15 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
+def gitBranch() {
+    def branch = ''
+    def proc = 'git rev-parse --abbrev-ref HEAD'.execute()
+    proc.in.eachLine { line -> branch = line }
+    proc.err.eachLine { line -> println line }
+    proc.waitFor()
+    branch
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion '25.0.3'
@@ -44,7 +53,7 @@ android {
         }
         debug {
             applicationIdSuffix '.debug'
-            versionNameSuffix ' DEBUG'
+            versionNameSuffix ' DEBUG (' + gitBranch() + ')'
 
             ext.enableCrashlytics = false // Disable fabric build ID generation for debug builds
         }
