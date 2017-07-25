@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
+import com.kabouzeid.gramophone.dialogs.CreatePlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.dialogs.SongDetailDialog;
 import com.kabouzeid.gramophone.dialogs.SongShareDialog;
@@ -61,6 +62,9 @@ public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implemen
                 return true;
             case R.id.action_clear_playing_queue:
                 MusicPlayerRemote.clearQueue();
+                return true;
+            case R.id.action_save_playing_queue:
+                CreatePlaylistDialog.create(MusicPlayerRemote.getPlayingQueue()).show(getActivity().getSupportFragmentManager(), "ADD_TO_PLAYLIST");
                 return true;
             case R.id.action_tag_editor:
                 Intent intent = new Intent(getActivity(), SongTagEditorActivity.class);
