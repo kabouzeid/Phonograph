@@ -11,13 +11,13 @@ import com.kabouzeid.gramophone.R;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 /**
- * Created by lincoln on 7/3/17.
- */
-
-/**
+ * @author Created by lincoln on 7/3/17.
+ *
  * A custom HorizontalScrollView that is only useful as the child of a TouchInterceptFrameLayout.
  * This allows for the TouchInterceptFrameLayout to disable and enable scrolling in addition to
  * being able to know when a user is and is not interacting with the scrolling view.
+ *
+ * Must have a TouchInterceptTextView as it's child. It can only have one child.
  */
 public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
@@ -25,6 +25,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     public static final int ON_END_SCROLL_DELAY = 1000;
     private static final int MAX_CLICK_DISTANCE = 5;
 
+    //Tag used so other views can find this one
     private static final String touchInterceptHorizontalScrollViewTag = "TIHS";
 
     private float startX;
@@ -34,9 +35,16 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     private boolean mIsFling;
 
+    //Whether user is interacting with this again and to cancel text retruncate
     private boolean cancel;
+
+
     private boolean cancelCheck;
+
+    //Whether to untruncate the text in the TouchInterceptTextView
     private boolean unTruncate;
+
+    //Whether this was touched
     private boolean touched;
 
     private OnEndScrollListener onEndScrollListener;
@@ -130,7 +138,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
                 float distance = Math.abs(e.getX() - startX);
 
-                // Scrolling the view: cancel event to prevent long press
+                // Currently crolling so untruncate text
                 if(unTruncate && distance > MAX_CLICK_DISTANCE) {
                     getTouchInterceptTextView().unTruncateText();
                     unTruncate = false;
@@ -250,6 +258,9 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
         return (TouchInterceptFrameLayout) getRootView().findViewWithTag("TIFL");
     }
 
+    /**
+     * @return Returns the child TouchInterceptTextView
+     */
     public TouchInterceptTextView getTouchInterceptTextView(){
         return (TouchInterceptTextView) this.getChildAt(0);
     }

@@ -10,12 +10,18 @@ import android.util.AttributeSet;
 import android.util.Log;
 
 /**
- * Created by lincoln on 7/16/17.
+ * @author Created by lincoln on 7/16/17.
+ *
+ * TextView that automatically does exactly what android:ellipsize="end" does, except this works in a TouchInterceptHorizontalScrollViews.
+ * Truncates the string so it doesn't get cuttoff in the TouchInterceptHorizontalScrollView
+ * and puts an ellipsis at the end of it.
+ * Must be used within a TouchInterceptHorizontalScrollview or it won't work
  */
 
 public class TouchInterceptTextView extends AppCompatTextView {
     private static final int RETRUNCATE_DELAY = 600;
 
+    //Tag used so other views can find this one
     private static final String touchInterceptTextViewTag = "TITV";
 
     private static final String TAG = "E/TouchInterceptFL";
@@ -23,39 +29,54 @@ public class TouchInterceptTextView extends AppCompatTextView {
             "forgot to set them using setTouchInterceptHorizontalScrollView and setScrollableTextView " +
             "via XML? Did you set it to something null?";
 
-    private String song;
-    private String songTruncated;
+    private String title;
+    private String titleTruncated;
 
     public TouchInterceptTextView(Context context) {
         super(context);
         setTag(touchInterceptTextViewTag);
+        //Have to set this enorder to enable long clicking when touching the text
         setLongClickable(true);
+        //Blocks clicks from passing through this view
         setClickable(true);
+        //Can't use maxlines, have to use this. Typical Android BS
         setSingleLine();
-
     }
 
     public TouchInterceptTextView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setTag(touchInterceptTextViewTag);
+        //Have to set this enorder to enable long clicking when touching the text
         setLongClickable(true);
+        //Blocks clicks from passing through this view
         setClickable(true);
+        //Can't use maxlines, have to use this. Typical Android BS
         setSingleLine();
-
     }
 
     public TouchInterceptTextView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     * @return Returns the TouchInterceptFrameLayout in this layout
+     */
     public TouchInterceptFrameLayout getTouchInterceptFrameLayout() {
         return (TouchInterceptFrameLayout) getRootView().findViewWithTag("TIFL");
     }
 
+    /**
+     * @return Returns the parent TouchInterceptHorizontalScrollview
+     */
     public TouchInterceptHorizontalScrollView getTouchInterceptHorizontalScrollView() {
         return (TouchInterceptHorizontalScrollView) getParent();
     }
 
+    /**
+     * The text undergoes truncation here. onMeasure is immediately called after setText
+     * and has a reference to the parent bounds. The parents bounds are used for setting the
+     * length of the truncate text ensuring that the text does not get cut off
+     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -65,42 +86,50 @@ public class TouchInterceptTextView extends AppCompatTextView {
         Boolean isUntruncatedSong = currentText.endsWith("\uFEFF");
 
         if(!currentText.endsWith("\u202F") &&
-                !isUntruncatedSong) song = currentText;
+                !isUntruncatedSong) title = currentText;
 
         if(!isUntruncatedSong &&
                 (getWidth() == 0 | textBoundsWidth < getPaint().measureText(currentText)) ) {
+
+            /**
+             * Does exactly what android:ellipsize="end" does, except this works in HorizontalScrollViews.
+             * Truncates the string so it doesn't get cuttoff in the HorizontalScrollView
+             * and puts an ellipsis at the end of it. Then it sets the TextView with the new Ellipsized value.
+             */
             String truncatedText = TextUtils.ellipsize(currentText,
                     getPaint(),
                     (float) textBoundsWidth,
-                    TextUtils.TruncateAt.END).toString() + "\u202F";
+                    TextUtils.TruncateAt.END).toString()
+
+                    //The \u202F charachter is an invisible charachter used as a marker for whether
+                    //a string has undergone truncation or not
+                    + "\u202F";
+
             setText(truncatedText);
-            setTruncateText(song,truncatedText);
+            initiateTruncateText(title,truncatedText);
         }else{
             setText(currentText);
-            setTruncateText(song,currentText);
+            initiateTruncateText(title,currentText);
         }
 
     }
 
     /**
-     * Does exactly what android:ellipsize="end" does, except this works in HorizontalScrollViews.
-     * Truncates the string so it doesn't get cuttoff in the HorizontalScrollView
-     * and puts an ellipsis at the end of it. Then it sets the TextView with the new Ellipsized value.
-     * Must be called after setViews or it will throw a NullPointerException.
-     * Call this when setting the song title during view creation.
-     *
-     * If this is never called then the text will never be truncated and will remain
-     * cut off, still allowing the HorizontalScrollingView to scroll.
-     * @param s The string (song title or album title typically) contained by the text view.
+     * Takes the string that's undergone truncation and based on whether it's been truncated or not
+     * set whether it should be scrollable or not and what to do when the user finishes scrolling
+     * @param s The string before truncation
+     * @param sT The string after truncation
      */
-    public void setTruncateText(final String s, final String sT){
+    public void initiateTruncateText(final String s, final String sT){
 
         try {
             post(new Runnable() {
                 @Override
                 public void run() {
-                    if(!s.endsWith("\u202F")) song = s;
-                    songTruncated = sT;
+                    //The \u202F charachter is an invisible charachter used as a marker for whether
+                    //a string has undergone truncation or not
+                    if(!s.endsWith("\u202F")) title = s;
+                    titleTruncated = sT;
 
                     final TouchInterceptHorizontalScrollView sV = getTouchInterceptHorizontalScrollView();
 
@@ -129,28 +158,43 @@ public class TouchInterceptTextView extends AppCompatTextView {
             });
         }catch (NullPointerException exception){
             Log.e(TAG, NULL_VIEWS_EXCEPTION_MESSAGE);
-            Log.e("Method: ","setTruncateText()");
+            Log.e("Method: ","initiateTruncateText()");
             System.out.println(TAG + " TouchInterceptHorizontalScrollView = " + getTouchInterceptHorizontalScrollView().toString());
             System.out.println(TAG + " TouchInterceptTextView = " + this.toString());
             Log.e(TAG, exception.toString());
         }
     }
 
+    /**
+     * @param text The string to check
+     * @return Returns whether the text has been truncated or not
+     */
     public boolean isTextTruncated(String text) {
-        return (text.endsWith("…\u202F"));
+        return text.endsWith("…\u202F");
     }
 
+    /**
+     * Untruncates the text in this textview and sets it
+     */
     public void unTruncateText(){
-        String untrunucatedText = song + "\uFEFF";
+        //The ﻿\uEFF charachter is an invisible charachter used as a marker for whether
+        //a string is the untruncated song to be set
+        String untrunucatedText = title + "\uFEFF";
         setText(untrunucatedText);
     }
 
-    public String getSongTruncated(){
-        return this.songTruncated;
+    /**
+     * @return Returns the text in this textview truncated
+     */
+    public String getTruncatedTitle(){
+        return this.titleTruncated;
     }
 
-    public String getUntruncatedSong(){
-        return this.song;
+    /**
+     * @return Returns the text in this textview untruncated
+     */
+    public String getUntruncatedTitle(){
+        return this.title;
     }
 
     /**

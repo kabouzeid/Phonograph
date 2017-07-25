@@ -24,7 +24,10 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
     private static final int MAX_CLICK_DISTANCE = 5;
 
+    //Tag used so other views can find this one
     private static final String touchInterceptFrameLayoutViewTag = "TIFL";
+
+    private static final String touchInterceptHorizontalScrollViewTag = "TIHS";
 
     private static final String TAG = "E/TouchInterceptFL";
     private static final String NULL_VIEWS_EXCEPTION_MESSAGE = "Either textView or scrollView is null. Maybe you " +
@@ -40,7 +43,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
     public TouchInterceptFrameLayout(@NonNull Context context) {
         this(context, null);
-        setTag("TIFL");
+        setTag(touchInterceptFrameLayoutViewTag);
     }
 
     public TouchInterceptFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
@@ -50,12 +53,14 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
     public TouchInterceptFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setTag(touchInterceptFrameLayoutViewTag);
 
     }
 
+    /**
+     * @return Returns the TouchInterceptHorizontalScrollview in this layout
+     */
     public TouchInterceptHorizontalScrollView getTouchInterceptHorizontalScrollView() {
-        return (TouchInterceptHorizontalScrollView) findViewWithTag("TIHS");
+        return (TouchInterceptHorizontalScrollView) findViewWithTag(touchInterceptHorizontalScrollViewTag);
     }
 
     /**
@@ -77,7 +82,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
             int x = Math.round(e.getRawX());
             int y = Math.round(e.getRawY());
 
-        scrollView = (TouchInterceptHorizontalScrollView) findViewWithTag("TIHS");
+        scrollView = getTouchInterceptHorizontalScrollView();
 
             try {
 
