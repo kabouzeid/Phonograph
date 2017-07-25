@@ -3,17 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@drawable/card"
     android:orientation="horizontal"
     tools:ignore="ContentDescription">
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="@dimen/app_widget_classic_image_size"
-        android:layout_height="@dimen/app_widget_classic_image_size"
-        android:background="@drawable/default_album_art"
-        android:scaleType="centerCrop" />
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/default_album_art" />
 
     <RelativeLayout
         android:layout_width="match_parent"
