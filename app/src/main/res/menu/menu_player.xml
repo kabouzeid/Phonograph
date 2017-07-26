@@ -15,6 +15,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_save_playing_queue"
+        android:orderInCategory="1"
+        android:title="@string/action_save_playing_queue"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_sleep_timer"
         android:orderInCategory="1"
         android:title="@string/action_sleep_timer"
