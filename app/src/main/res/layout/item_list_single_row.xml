@@ -62,13 +62,12 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
-            android:layout_weight="1"
-            >
+            android:layout_weight="1">
 
             <com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView
                 android:id="@+id/title_scrollview"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <com.kabouzeid.gramophone.views.TouchInterceptTextView
                     android:id="@+id/title"

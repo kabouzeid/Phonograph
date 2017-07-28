@@ -21,7 +21,7 @@ import android.util.Log;
 public class TouchInterceptTextView extends AppCompatTextView {
     private static final int RETRUNCATE_DELAY = 600;
 
-    //Tag used so other views can find this one
+    // Tag used so other views can find this one
     private static final String touchInterceptTextViewTag = "TITV";
 
     private static final String TAG = "E/TouchInterceptFL";
@@ -85,11 +85,11 @@ public class TouchInterceptTextView extends AppCompatTextView {
         String currentText = getText().toString();
         Boolean isUntruncatedSong = currentText.endsWith("\uFEFF");
 
-        if(!currentText.endsWith("\u202F") &&
+        if (!currentText.endsWith("\u202F") &&
                 !isUntruncatedSong) title = currentText;
 
-        if(!isUntruncatedSong &&
-                (getWidth() == 0 | textBoundsWidth < getPaint().measureText(currentText)) ) {
+        if (!isUntruncatedSong &&
+                (getWidth() == 0 | textBoundsWidth < getPaint().measureText(currentText))) {
 
             /**
              * Does exactly what android:ellipsize="end" does, except this works in HorizontalScrollViews.
@@ -106,10 +106,10 @@ public class TouchInterceptTextView extends AppCompatTextView {
                     + "\u202F";
 
             setText(truncatedText);
-            initiateTruncateText(title,truncatedText);
-        }else{
+            initiateTruncateText(title, truncatedText);
+        } else {
             setText(currentText);
-            initiateTruncateText(title,currentText);
+            initiateTruncateText(title, currentText);
         }
 
     }
@@ -117,10 +117,11 @@ public class TouchInterceptTextView extends AppCompatTextView {
     /**
      * Takes the string that's undergone truncation and based on whether it's been truncated or not
      * set whether it should be scrollable or not and what to do when the user finishes scrolling
-     * @param s The string before truncation
+     *
+     * @param s  The string before truncation
      * @param sT The string after truncation
      */
-    public void initiateTruncateText(final String s, final String sT){
+    public void initiateTruncateText(final String s, final String sT) {
 
         try {
             post(new Runnable() {
@@ -128,7 +129,7 @@ public class TouchInterceptTextView extends AppCompatTextView {
                 public void run() {
                     //The \u202F charachter is an invisible charachter used as a marker for whether
                     //a string has undergone truncation or not
-                    if(!s.endsWith("\u202F")) title = s;
+                    if (!s.endsWith("\u202F")) title = s;
                     titleTruncated = sT;
 
                     final TouchInterceptHorizontalScrollView sV = getTouchInterceptHorizontalScrollView();
@@ -150,15 +151,15 @@ public class TouchInterceptTextView extends AppCompatTextView {
                                     });
                         }
 
-                    }else{
-                        if(!sT.endsWith("\uFEFF")) sV.setScrollingEnabled(false);
+                    } else {
+                        if (!sT.endsWith("\uFEFF")) sV.setScrollingEnabled(false);
                     }
 
                 }
             });
-        }catch (NullPointerException exception){
+        } catch (NullPointerException exception) {
             Log.e(TAG, NULL_VIEWS_EXCEPTION_MESSAGE);
-            Log.e("Method: ","initiateTruncateText()");
+            Log.e("Method: ", "initiateTruncateText()");
             System.out.println(TAG + " TouchInterceptHorizontalScrollView = " + getTouchInterceptHorizontalScrollView().toString());
             System.out.println(TAG + " TouchInterceptTextView = " + this.toString());
             Log.e(TAG, exception.toString());
@@ -176,7 +177,7 @@ public class TouchInterceptTextView extends AppCompatTextView {
     /**
      * Untruncates the text in this textview and sets it
      */
-    public void unTruncateText(){
+    public void unTruncateText() {
         //The uEFF unicode charachter is an invisible charachter used as a marker for whether
         //a string is the untruncated song to be set
         String untrunucatedText = title + "\uFEFF";
@@ -186,14 +187,14 @@ public class TouchInterceptTextView extends AppCompatTextView {
     /**
      * @return Returns the text in this textview truncated
      */
-    public String getTruncatedTitle(){
+    public String getTruncatedTitle() {
         return this.titleTruncated;
     }
 
     /**
      * @return Returns the text in this textview untruncated
      */
-    public String getUntruncatedTitle(){
+    public String getUntruncatedTitle() {
         return this.title;
     }
 
@@ -202,7 +203,7 @@ public class TouchInterceptTextView extends AppCompatTextView {
      */
     public void reTruncateScrollText(final String truncatedString,
                                      final TouchInterceptHorizontalScrollView sV,
-    final TouchInterceptTextView tV) {
+                                     final TouchInterceptTextView tV) {
         ObjectAnimator.ofInt(sV, "scrollX", 0).setDuration(RETRUNCATE_DELAY).start();
         sV.slidingPanelSetTouchEnabled(true);
         final Handler handler = new Handler();

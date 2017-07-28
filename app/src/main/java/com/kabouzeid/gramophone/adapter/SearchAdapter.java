@@ -72,7 +72,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @SuppressWarnings("ConstantConditions")
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-
         switch (getItemViewType(position)) {
             case ALBUM:
                 final Album album = (Album) dataSet.get(position);

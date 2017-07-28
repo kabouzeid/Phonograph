@@ -21,11 +21,11 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
  */
 public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
-    //The delay before triggering onEndScroll()
+    // The delay before triggering onEndScroll()
     public static final int ON_END_SCROLL_DELAY = 1000;
     private static final int MAX_CLICK_DISTANCE = 5;
 
-    //Tag used so other views can find this one
+    // Tag used so other views can find this one
     private static final String touchInterceptHorizontalScrollViewTag = "TIHS";
 
     private float startX;
@@ -35,48 +35,23 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     private boolean mIsFling;
 
-    //Whether user is interacting with this again and to cancel text retruncate
+    // Whether user is interacting with this again and to cancel text retruncate
     private boolean cancel;
-
-
     private boolean cancelCheck;
 
-    //Whether to untruncate the text in the TouchInterceptTextView
+    // Whether to untruncate the text in the TouchInterceptTextView
     private boolean unTruncate;
 
-    //Whether this was touched
+    // Whether this was touched
     private boolean touched;
 
     private OnEndScrollListener onEndScrollListener;
 
     private SlidingUpPanelLayout queue;
 
-    /**
-     * Listens for when a user has stopped interacting with the scroll view
-     */
-    public interface OnEndScrollListener {
-        // Triggered when a user has stopped interacting with the scroll view
-        void onEndScroll();
-    }
-
-    private class ScrollStateHandler implements Runnable {
-        //Runs when the user has not touched the scroll view for 1 second
-        @Override
-        public void run() {
-            if(!cancel) {
-                long currentTime = System.currentTimeMillis();
-                if ((currentTime - lastScrollUpdate) > ON_END_SCROLL_DELAY) {
-                    lastScrollUpdate = -1;
-                    if (onEndScrollListener != null) {
-                        cancelCheck = true;
-                        onEndScrollListener.onEndScroll();
-                    }
-                } else {
-                    postDelayed(this, ON_END_SCROLL_DELAY);
-                }
-            }
-        }
-    }
+    // "true" if we can scroll (not locked)
+    // "false" if we cannot scroll (locked)
+    private boolean mScrollable = true;
 
     public TouchInterceptHorizontalScrollView(Context context) {
         super(context);
@@ -94,12 +69,9 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
         super(context, attrs, defStyleAttr);
     }
 
-    // "true" if we can scroll (not locked)
-    // "false" if we cannot scroll (locked)
-    private boolean mScrollable = true;
-
     /**
      * Disables and enables the ScrollView
+     *
      * @param enabled set to "true" to enable, "false" to disable
      */
     public void setScrollingEnabled(boolean enabled) {
@@ -108,6 +80,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     /**
      * Returns whether the ScrollView is enabled or disabled
+     *
      * @return Returns "true" if enabled, "false" if disabled
      */
     public boolean isScrollable() {
@@ -139,7 +112,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
                 float distance = Math.abs(e.getX() - startX);
 
                 // Currently crolling so untruncate text
-                if(unTruncate && distance > MAX_CLICK_DISTANCE) {
+                if (unTruncate && distance > MAX_CLICK_DISTANCE) {
                     getTouchInterceptTextView().unTruncateText();
                     unTruncate = false;
                 }
@@ -159,10 +132,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
-
-
-        if(e.getAction() == MotionEvent.ACTION_DOWN) slidingPanelSetTouchEnabled(true);
-
+        if (e.getAction() == MotionEvent.ACTION_DOWN) slidingPanelSetTouchEnabled(true);
 
         int x = Math.round(e.getRawX());
         int y = Math.round(e.getRawY());
@@ -175,17 +145,16 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
                 x > scrollViewRect.left && x < scrollViewRect.right &&
                         y > scrollViewRect.top && y < scrollViewRect.bottom;
 
-        if(!touchedScrollView){
+        if (!touchedScrollView) {
             return false;
         }
 
         // Don't do anything with intercepted touch events if
         // not scrollable
-        if(!mScrollable){
+        if (!mScrollable) {
             onTouchEvent(e);
             return false;
-        }
-        else
+        } else
             return super.onInterceptTouchEvent(e);
     }
 
@@ -198,6 +167,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     /**
      * Sets an OnEndScrollListener. Only one can be set at a time.
+     *
      * @param mOnEndScrollListener The OnEndScrollListener to be set
      */
     public void setOnEndScrollListener(OnEndScrollListener mOnEndScrollListener) {
@@ -214,10 +184,10 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     protected void onScrollChanged(int x, int y, int oldX, int oldY) {
         super.onScrollChanged(x, y, oldX, oldY);
 
-        if(touched | mIsFling) slidingPanelSetTouchEnabled(false);
+        if (touched | mIsFling) slidingPanelSetTouchEnabled(false);
         CancelClick();
 
-        if(cancelCheck) cancel = true;
+        if (cancelCheck) cancel = true;
 
         if (mIsFling) {
             if (Math.abs(x - oldX) < 2 || x >= getMeasuredWidth() || x == 0) {
@@ -236,32 +206,60 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     /**
      * Enables and disables Sliding Panel dragging for the playing queue sliding panel
+     *
      * @param enable Set true to enable dragging, false to disable
      */
-    public void slidingPanelSetTouchEnabled(boolean enable){
-        queue = (SlidingUpPanelLayout) ((Activity)getContext()).findViewById(R.id.player_sliding_layout);
-        if(queue != null) queue.setTouchEnabled(enable);
+    public void slidingPanelSetTouchEnabled(boolean enable) {
+        queue = (SlidingUpPanelLayout) ((Activity) getContext()).findViewById(R.id.player_sliding_layout);
+        if (queue != null) queue.setTouchEnabled(enable);
     }
 
     /**
      * Cancels any Long Presses and inpending clicks. Used to prevent views from
      * stealing touches while the user is scrolling something.
      */
-    public void CancelClick(){
+    public void CancelClick() {
         getRootView().cancelLongPress();
         getRootView().cancelPendingInputEvents();
         this.cancelLongPress();
         this.cancelPendingInputEvents();
     }
 
-     public TouchInterceptFrameLayout getTouchInterceptFrameLayout() {
+    public TouchInterceptFrameLayout getTouchInterceptFrameLayout() {
         return (TouchInterceptFrameLayout) getRootView().findViewWithTag("TIFL");
     }
 
     /**
      * @return Returns the child TouchInterceptTextView
      */
-    public TouchInterceptTextView getTouchInterceptTextView(){
+    public TouchInterceptTextView getTouchInterceptTextView() {
         return (TouchInterceptTextView) this.getChildAt(0);
+    }
+
+    /**
+     * Listens for when a user has stopped interacting with the scroll view
+     */
+    public interface OnEndScrollListener {
+        // Triggered when a user has stopped interacting with the scroll view
+        void onEndScroll();
+    }
+
+    private class ScrollStateHandler implements Runnable {
+        // Runs when the user has not touched the scroll view for 1 second
+        @Override
+        public void run() {
+            if (!cancel) {
+                long currentTime = System.currentTimeMillis();
+                if ((currentTime - lastScrollUpdate) > ON_END_SCROLL_DELAY) {
+                    lastScrollUpdate = -1;
+                    if (onEndScrollListener != null) {
+                        cancelCheck = true;
+                        onEndScrollListener.onEndScroll();
+                    }
+                } else {
+                    postDelayed(this, ON_END_SCROLL_DELAY);
+                }
+            }
+        }
     }
 }

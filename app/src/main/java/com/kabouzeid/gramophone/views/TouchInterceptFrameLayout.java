@@ -21,9 +21,8 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
     private static final int MAX_CLICK_DISTANCE = 5;
 
-    //Tag used so other views can find this one
+    // Tag used so other views can find this one
     private static final String touchInterceptFrameLayoutViewTag = "TIFL";
-
     private static final String touchInterceptHorizontalScrollViewTag = "TIHS";
 
     private static final String TAG = "E/TouchInterceptFL";
@@ -50,7 +49,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
     public TouchInterceptFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
     }
 
     /**
@@ -75,22 +73,19 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
-
-            int x = Math.round(e.getRawX());
-            int y = Math.round(e.getRawY());
+        int x = Math.round(e.getRawX());
+        int y = Math.round(e.getRawY());
 
         scrollView = getTouchInterceptHorizontalScrollView();
 
-            try {
+        try {
+            scrollView.getGlobalVisibleRect(scrollViewRect);
 
-                scrollView.getGlobalVisibleRect(scrollViewRect);
+            boolean touchedScrollView =
+                    x > scrollViewRect.left && x < scrollViewRect.right &&
+                            y > scrollViewRect.top && y < scrollViewRect.bottom;
 
-                boolean touchedScrollView =
-                        x > scrollViewRect.left && x < scrollViewRect.right &&
-                                y > scrollViewRect.top && y < scrollViewRect.bottom;
-
-            if(scrollView.isScrollable()) {
-
+            if (scrollView.isScrollable()) {
                 switch (e.getAction() & MotionEvent.ACTION_MASK) {
                     case MotionEvent.ACTION_DOWN:
                         scrollView.slidingPanelSetTouchEnabled(true);
@@ -116,38 +111,40 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                             }
                         }
                         break;
+
                     case MotionEvent.ACTION_CANCEL:
                     case MotionEvent.ACTION_UP:
                         scrollView.slidingPanelSetTouchEnabled(true);
-                        if (touchedScrollView) {
-                            if (isTap) onTouchEvent(e);
+                        if (touchedScrollView && isTap) {
+                            onTouchEvent(e);
                         }
                         this.requestDisallowInterceptTouchEvent(false);
                         break;
                 }
-                return false;
 
-            }else{
-                if(touchedScrollView) onTouchEvent(e);
+                return false;
+            } else {
+                if (touchedScrollView) {
+                    onTouchEvent(e);
+                }
                 return false;
             }
-
-            } catch (NullPointerException exception) {
-                Log.e(TAG, NULL_VIEWS_EXCEPTION_MESSAGE);
-                Log.e("Method: ","onInterceptTouchEvent()");
-                System.out.println(TAG + " TouchInterceptHorizontalScrollView = " + findViewWithTag("TIHS").toString());
-                System.out.println(TAG + " TouchInterceptTextView = " + findViewWithTag("TITV").toString());
-                Log.e(TAG, exception.toString());
-                onTouchEvent(e);
-                return false;
-            }
+        } catch (NullPointerException ex) {
+            Log.e(TAG, NULL_VIEWS_EXCEPTION_MESSAGE);
+            Log.e(TAG, "Method: onInterceptTouchEvent()");
+            Log.e(TAG, "TouchInterceptHorizontalScrollView = " + findViewWithTag("TIHS").toString());
+            Log.e(TAG, "TouchInterceptTextView = " + findViewWithTag("TITV").toString());
+            ex.printStackTrace();
+            onTouchEvent(e);
+            return false;
+        }
     }
 
     /**
-     *Cancels any Long Presses and inpending clicks. Used to prevent views from
-     * stealing touches while the user is scrolling something.
+     * Cancels any long presses and pending clicks. Used to prevent views from stealing touches
+     * while the user is scrolling something.
      */
-    private void CancelClick(){
+    private void CancelClick() {
         this.cancelPendingInputEvents();
         this.cancelLongPress();
         scrollView.cancelLongPress();

@@ -10,7 +10,6 @@
                 android:drawable="@color/ripple_material_light"
                 android:state_activated="true" />
         </selector>
-
     </item>
 
 </ripple>

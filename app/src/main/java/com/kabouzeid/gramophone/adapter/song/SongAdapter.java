@@ -199,8 +199,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
                 return;
             }
             menu.setOnTouchListener(new View.OnTouchListener() {
-                public boolean onTouch(View v, MotionEvent ev)
-                {
+                public boolean onTouch(View v, MotionEvent ev) {
                     menu.getParent().requestDisallowInterceptTouchEvent(true);
                     return false;
                 }

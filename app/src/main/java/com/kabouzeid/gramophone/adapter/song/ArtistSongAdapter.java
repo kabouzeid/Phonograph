@@ -66,6 +66,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_list, parent, false);
         }
+
         final TextView songTitle = (TextView) convertView.findViewById(R.id.title);
         final TextView songInfo = (TextView) convertView.findViewById(R.id.text);
         final ImageView albumArt = (ImageView) convertView.findViewById(R.id.image);
