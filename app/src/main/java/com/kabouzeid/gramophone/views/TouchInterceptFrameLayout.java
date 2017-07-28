@@ -13,12 +13,9 @@ import android.widget.FrameLayout;
  * @author Lincoln (theduffmaster)
  * 
  * A custom FrameLayout view that intercepts touch events and decides whether to consume them or
- * pass on the touch events to a TouchInterceptHorizontalScrollview which contains a TextView.
- * In order for this to work properly the child views,
- * a TouchInterceptHorizontalScrollView and a TextView, must be set via xml using the
- * setTouchInterceptHorizontalScrollView and setScrollableTextView xml attributes. If this view is ever
- * scrolled or interacts with a ListParent that is a ListView or a RecyclerView, then that ListParent
- * must be set programmatically or via the designated XML attribute.
+ * pass on the touch events to a TouchInterceptHorizontalScrollview which contains a TouchInterceptTextView.
+ * This only needs to be used if the layout that the TouchHorizontalScrollView and the TouchInterceptTextView
+ * are in is clickable in any way.
  */
 public class TouchInterceptFrameLayout extends FrameLayout {
 

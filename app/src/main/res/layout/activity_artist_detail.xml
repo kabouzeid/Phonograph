@@ -1,4 +1,7 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<!--Since this layout is not clickable we can use a regular FrameLayout-->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -43,11 +46,13 @@
             android:paddingLeft="72dp"
             android:paddingRight="72dp">
 
+            <!--Must have TouchInterceptTextView as its child -->
             <com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView
                 android:id="@+id/title_scrollview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
+                <!--Must have TouchInterceptHorizontalScrollView as its parent -->
                 <com.kabouzeid.gramophone.views.TouchInterceptTextView
                     android:id="@+id/album_title"
                     android:layout_width="wrap_content"
