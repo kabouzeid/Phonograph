@@ -11,7 +11,7 @@ import com.kabouzeid.gramophone.R;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 /**
- * @author Created by lincoln on 7/3/17.
+ * @author Lincoln (theduffmaster)
  *
  * A custom HorizontalScrollView that is only useful as the child of a TouchInterceptFrameLayout.
  * This allows for the TouchInterceptFrameLayout to disable and enable scrolling in addition to
@@ -21,12 +21,11 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout;
  */
 public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
+    public static final String TAG = TouchInterceptHorizontalScrollView.class.getSimpleName();
+
     // The delay before triggering onEndScroll()
     public static final int ON_END_SCROLL_DELAY = 1000;
     private static final int MAX_CLICK_DISTANCE = 5;
-
-    // Tag used so other views can find this one
-    private static final String touchInterceptHorizontalScrollViewTag = "TIHS";
 
     private float startX;
     private Rect scrollViewRect = new Rect();
@@ -49,33 +48,49 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     private SlidingUpPanelLayout queue;
 
-    // "true" if we can scroll (not locked)
-    // "false" if we cannot scroll (locked)
     private boolean mScrollable = true;
 
     public TouchInterceptHorizontalScrollView(Context context) {
         super(context);
-        setTag(touchInterceptHorizontalScrollViewTag);
-        setHorizontalScrollBarEnabled(false);
+
+        init();
     }
 
     public TouchInterceptHorizontalScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setTag(touchInterceptHorizontalScrollViewTag);
-        setHorizontalScrollBarEnabled(false);
+
+        init();
     }
 
     public TouchInterceptHorizontalScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        init();
+    }
+
+    private void init() {
+        setTag(TouchInterceptHorizontalScrollView.TAG);
+        setHorizontalScrollBarEnabled(false);
+    }
+
+    public TouchInterceptFrameLayout getTouchInterceptFrameLayout() {
+        return (TouchInterceptFrameLayout) getRootView().findViewWithTag(TouchInterceptFrameLayout.TAG);
+    }
+
+    /**
+     * @return Returns the child TouchInterceptTextView
+     */
+    public TouchInterceptTextView getTouchInterceptTextView() {
+        return (TouchInterceptTextView) this.getChildAt(0);
     }
 
     /**
      * Disables and enables the ScrollView
      *
-     * @param enabled set to "true" to enable, "false" to disable
+     * @param scrollable set to "true" to enable, "false" to disable
      */
-    public void setScrollingEnabled(boolean enabled) {
-        mScrollable = enabled;
+    public void setScrollable(boolean scrollable) {
+        mScrollable = scrollable;
     }
 
     /**
@@ -97,21 +112,23 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         switch (e.getAction()) {
-
             case MotionEvent.ACTION_DOWN:
                 touched = true;
                 cancel = true;
                 startX = e.getX();
+
                 // If we can scroll pass the event to the superclass
-                if (mScrollable) return super.onTouchEvent(e);
+                if (mScrollable) {
+                    return super.onTouchEvent(e);
+                }
+
                 // Only continue to handle the touch event if scrolling enabled
-                return mScrollable; // mScrollable is always false at this point
+                return false;
 
             case MotionEvent.ACTION_MOVE:
-
                 float distance = Math.abs(e.getX() - startX);
 
-                // Currently crolling so untruncate text
+                // Currently scrolling so untruncate text
                 if (unTruncate && distance > MAX_CLICK_DISTANCE) {
                     getTouchInterceptTextView().unTruncateText();
                     unTruncate = false;
@@ -125,6 +142,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
                 postDelayed(new ScrollStateHandler(), ON_END_SCROLL_DELAY);
                 lastScrollUpdate = System.currentTimeMillis();
                 unTruncate = true;
+
             default:
                 return super.onTouchEvent(e);
         }
@@ -132,7 +150,9 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
-        if (e.getAction() == MotionEvent.ACTION_DOWN) slidingPanelSetTouchEnabled(true);
+        if (e.getAction() == MotionEvent.ACTION_DOWN) {
+            slidingPanelSetTouchEnabled(true);
+        }
 
         int x = Math.round(e.getRawX());
         int y = Math.round(e.getRawY());
@@ -143,19 +163,19 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
         boolean touchedScrollView =
                 x > scrollViewRect.left && x < scrollViewRect.right &&
-                        y > scrollViewRect.top && y < scrollViewRect.bottom;
+                y > scrollViewRect.top && y < scrollViewRect.bottom;
 
         if (!touchedScrollView) {
             return false;
         }
 
-        // Don't do anything with intercepted touch events if
-        // not scrollable
+        // Don't do anything with intercepted touch events if not scrollable
         if (!mScrollable) {
             onTouchEvent(e);
             return false;
-        } else
-            return super.onInterceptTouchEvent(e);
+        }
+
+        return super.onInterceptTouchEvent(e);
     }
 
     /**
@@ -184,34 +204,39 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     protected void onScrollChanged(int x, int y, int oldX, int oldY) {
         super.onScrollChanged(x, y, oldX, oldY);
 
-        if (touched | mIsFling) slidingPanelSetTouchEnabled(false);
+        if (touched | mIsFling) {
+            slidingPanelSetTouchEnabled(false);
+        }
+
         CancelClick();
 
-        if (cancelCheck) cancel = true;
+        if (cancelCheck) {
+            cancel = true;
+        }
 
-        if (mIsFling) {
-            if (Math.abs(x - oldX) < 2 || x >= getMeasuredWidth() || x == 0) {
-                slidingPanelSetTouchEnabled(true);
-                touched = false;
-                // The user is done interacting with the scroll view
-                cancel = false;
-                postDelayed(new ScrollStateHandler(), ON_END_SCROLL_DELAY);
-                lastScrollUpdate = System.currentTimeMillis();
-                mIsFling = false;
-                cancelCheck = false;
-                unTruncate = true;
-            }
+        if (mIsFling && (Math.abs(x - oldX) < 2 || x >= getMeasuredWidth() || x == 0)) {
+            slidingPanelSetTouchEnabled(true);
+            touched = false;
+            // The user is done interacting with the scroll view
+            cancel = false;
+            postDelayed(new ScrollStateHandler(), ON_END_SCROLL_DELAY);
+            lastScrollUpdate = System.currentTimeMillis();
+            mIsFling = false;
+            cancelCheck = false;
+            unTruncate = true;
         }
     }
 
     /**
-     * Enables and disables Sliding Panel dragging for the playing queue sliding panel
+     * Enables and disables Sliding Panel dragging for the playing queue sliding panel.
      *
      * @param enable Set true to enable dragging, false to disable
      */
     public void slidingPanelSetTouchEnabled(boolean enable) {
         queue = (SlidingUpPanelLayout) ((Activity) getContext()).findViewById(R.id.player_sliding_layout);
-        if (queue != null) queue.setTouchEnabled(enable);
+        if (queue != null) {
+            queue.setTouchEnabled(enable);
+        }
     }
 
     /**
@@ -223,17 +248,6 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
         getRootView().cancelPendingInputEvents();
         this.cancelLongPress();
         this.cancelPendingInputEvents();
-    }
-
-    public TouchInterceptFrameLayout getTouchInterceptFrameLayout() {
-        return (TouchInterceptFrameLayout) getRootView().findViewWithTag("TIFL");
-    }
-
-    /**
-     * @return Returns the child TouchInterceptTextView
-     */
-    public TouchInterceptTextView getTouchInterceptTextView() {
-        return (TouchInterceptTextView) this.getChildAt(0);
     }
 
     /**

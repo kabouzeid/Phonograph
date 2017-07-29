@@ -7,210 +7,193 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 
 /**
- * @author Created by lincoln on 7/16/17.
+ * @author Lincoln (theduffmaster)
  *
  * TextView that automatically does exactly what android:ellipsize="end" does, except this works in a TouchInterceptHorizontalScrollViews.
  * Truncates the string so it doesn't get cuttoff in the TouchInterceptHorizontalScrollView
  * and puts an ellipsis at the end of it.
  * Must be used within a TouchInterceptHorizontalScrollview or it won't work
  */
-
 public class TouchInterceptTextView extends AppCompatTextView {
+
+    public static final String TAG = TouchInterceptTextView.class.getSimpleName();
+
     private static final int RETRUNCATE_DELAY = 600;
 
-    // Tag used so other views can find this one
-    private static final String touchInterceptTextViewTag = "TITV";
+    // Invisible character used as a marker indicating whether a string has undergone truncation
+    private static final String TRUNCATED_MARKER = "\u202F";
 
-    private static final String TAG = "E/TouchInterceptFL";
-    private static final String NULL_VIEWS_EXCEPTION_MESSAGE = "Either textView or scrollView is null. Maybe you " +
-            "forgot to set them using setTouchInterceptHorizontalScrollView and setScrollableTextView " +
-            "via XML? Did you set it to something null?";
+    // Invisible character used as a marker indicating whether a string is untruncated
+    private static final String MARKER_UNTRUNCATED = "\uFEFF";
 
-    private String title;
-    private String titleTruncated;
+    private String text;
+    private String truncatedText;
 
     public TouchInterceptTextView(Context context) {
         super(context);
-        setTag(touchInterceptTextViewTag);
-        //Have to set this enorder to enable long clicking when touching the text
-        setLongClickable(true);
-        //Blocks clicks from passing through this view
-        setClickable(true);
-        //Can't use maxlines, have to use this. Typical Android BS
-        setSingleLine();
+
+        init();
     }
 
     public TouchInterceptTextView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        setTag(touchInterceptTextViewTag);
-        //Have to set this enorder to enable long clicking when touching the text
-        setLongClickable(true);
-        //Blocks clicks from passing through this view
-        setClickable(true);
-        //Can't use maxlines, have to use this. Typical Android BS
-        setSingleLine();
+
+        init();
     }
 
     public TouchInterceptTextView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        init();
+    }
+
+    private void init() {
+        setTag(TouchInterceptTextView.TAG);
+
+        // Enable long clicking when touching the text
+        setLongClickable(true);
+
+        // Blocks clicks from passing through this view
+        setClickable(true);
+
+        // Use this instead of maxlines
+        setSingleLine();
     }
 
     /**
-     * @return Returns the TouchInterceptFrameLayout in this layout
+     * @return Returns the {@link TouchInterceptFrameLayout} inside this layout.
      */
     public TouchInterceptFrameLayout getTouchInterceptFrameLayout() {
-        return (TouchInterceptFrameLayout) getRootView().findViewWithTag("TIFL");
+        return (TouchInterceptFrameLayout) getRootView().findViewWithTag(TouchInterceptFrameLayout.TAG);
     }
 
     /**
-     * @return Returns the parent TouchInterceptHorizontalScrollview
+     * @return Returns the parent {@link TouchInterceptHorizontalScrollView}.
      */
     public TouchInterceptHorizontalScrollView getTouchInterceptHorizontalScrollView() {
         return (TouchInterceptHorizontalScrollView) getParent();
     }
 
     /**
-     * The text undergoes truncation here. onMeasure is immediately called after setText
-     * and has a reference to the parent bounds. The parents bounds are used for setting the
-     * length of the truncate text ensuring that the text does not get cut off
+     * The text undergoes truncation here. {@link #onMeasure} is immediately called after
+     * {@link #setText} and has a reference to the parent's bounds. The bounds are used for setting
+     * the length of the truncated text, ensuring that the text does not get visibly cut off.
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        int textBoundsWidth = MeasureSpec.getSize(widthMeasureSpec);
-        String currentText = getText().toString();
-        Boolean isUntruncatedSong = currentText.endsWith("\uFEFF");
+        String fittedText = getText().toString();
 
-        if (!currentText.endsWith("\u202F") &&
-                !isUntruncatedSong) title = currentText;
+        final int textBoundsWidth = MeasureSpec.getSize(widthMeasureSpec);
+        final boolean isUntruncated = fittedText.endsWith(MARKER_UNTRUNCATED);
 
-        if (!isUntruncatedSong &&
-                (getWidth() == 0 | textBoundsWidth < getPaint().measureText(currentText))) {
+        if (!fittedText.endsWith(TRUNCATED_MARKER) && !isUntruncated) {
+            this.text = fittedText;
+        }
 
-            /**
-             * Does exactly what android:ellipsize="end" does, except this works in HorizontalScrollViews.
-             * Truncates the string so it doesn't get cuttoff in the HorizontalScrollView
-             * and puts an ellipsis at the end of it. Then it sets the TextView with the new Ellipsized value.
-             */
-            String truncatedText = TextUtils.ellipsize(currentText,
+        if (!isUntruncated && (getWidth() == 0 | textBoundsWidth < getPaint().measureText(fittedText))) {
+            // Mimics behavior of `android:ellipsize="end"`, except it works in a HorizontalScrollView.
+            // Truncates the string so it doesn't get cut off in the HorizontalScrollView with an
+            // ellipsis at the end of it.
+            fittedText = TextUtils.ellipsize(fittedText,
                     getPaint(),
                     (float) textBoundsWidth,
                     TextUtils.TruncateAt.END).toString()
-
-                    //The \u202F charachter is an invisible charachter used as a marker for whether
-                    //a string has undergone truncation or not
-                    + "\u202F";
-
-            setText(truncatedText);
-            initiateTruncateText(title, truncatedText);
-        } else {
-            setText(currentText);
-            initiateTruncateText(title, currentText);
+                    + TRUNCATED_MARKER;
         }
 
+        setText(fittedText);
+        initiateTruncateText(text, fittedText);
     }
 
     /**
      * Takes the string that's undergone truncation and based on whether it's been truncated or not
-     * set whether it should be scrollable or not and what to do when the user finishes scrolling
+     * set whether it should be scrollable or not and what to do when the user finishes scrolling.
      *
-     * @param s  The string before truncation
-     * @param sT The string after truncation
+     * @param originalText  The string before truncation
+     * @param truncatedText The string after truncation
      */
-    public void initiateTruncateText(final String s, final String sT) {
+    public void initiateTruncateText(final String originalText, final String truncatedText) {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                if (!originalText.endsWith(TRUNCATED_MARKER)) text = originalText;
+                TouchInterceptTextView.this.truncatedText = truncatedText;
 
-        try {
-            post(new Runnable() {
-                @Override
-                public void run() {
-                    //The \u202F charachter is an invisible charachter used as a marker for whether
-                    //a string has undergone truncation or not
-                    if (!s.endsWith("\u202F")) title = s;
-                    titleTruncated = sT;
+                final TouchInterceptHorizontalScrollView scrollView = getTouchInterceptHorizontalScrollView();
 
-                    final TouchInterceptHorizontalScrollView sV = getTouchInterceptHorizontalScrollView();
-
-                    if (isTextTruncated(sT)) {
-
-                        if (s.equals(sT) && !sT.endsWith("\uFEFF")) {
-                            sV.setScrollingEnabled(false);
-
-                        } else {
-                            sV.setScrollingEnabled(true);
-
-                            sV.setOnEndScrollListener(
-                                    new TouchInterceptHorizontalScrollView.OnEndScrollListener() {
-                                        @Override
-                                        public void onEndScroll() {
-                                            reTruncateScrollText(sT, sV, TouchInterceptTextView.this);
-                                        }
-                                    });
-                        }
-
+                if (isTextTruncated(truncatedText)) {
+                    if (originalText.equals(truncatedText) && !truncatedText.endsWith(MARKER_UNTRUNCATED)) {
+                        scrollView.setScrollable(false);
                     } else {
-                        if (!sT.endsWith("\uFEFF")) sV.setScrollingEnabled(false);
-                    }
+                        scrollView.setScrollable(true);
 
+                        scrollView.setOnEndScrollListener(new TouchInterceptHorizontalScrollView.OnEndScrollListener() {
+                            @Override
+                            public void onEndScroll() {
+                                reTruncateScrollText(truncatedText, scrollView, TouchInterceptTextView.this);
+                            }
+                        });
+                    }
+                } else if (!truncatedText.endsWith(MARKER_UNTRUNCATED)) {
+                    scrollView.setScrollable(false);
                 }
-            });
-        } catch (NullPointerException exception) {
-            Log.e(TAG, NULL_VIEWS_EXCEPTION_MESSAGE);
-            Log.e("Method: ", "initiateTruncateText()");
-            System.out.println(TAG + " TouchInterceptHorizontalScrollView = " + getTouchInterceptHorizontalScrollView().toString());
-            System.out.println(TAG + " TouchInterceptTextView = " + this.toString());
-            Log.e(TAG, exception.toString());
-        }
+            }
+        });
     }
 
     /**
-     * @param text The string to check
-     * @return Returns whether the text has been truncated or not
+     * Checks whether a string was truncated at some point.
+     *
+     * @param text The string to check.
+     * @return Returns whether the text has been truncated or not.
      */
     public boolean isTextTruncated(String text) {
-        return text.endsWith("…\u202F");
+        return text.endsWith("…" + TRUNCATED_MARKER);
     }
 
     /**
-     * Untruncates the text in this textview and sets it
+     * Untruncates and sets the text.
      */
     public void unTruncateText() {
-        //The uEFF unicode charachter is an invisible charachter used as a marker for whether
-        //a string is the untruncated song to be set
-        String untrunucatedText = title + "\uFEFF";
+        String untrunucatedText = text + MARKER_UNTRUNCATED;
         setText(untrunucatedText);
     }
 
     /**
-     * @return Returns the text in this textview truncated
+     * @return Returns the truncated text.
      */
-    public String getTruncatedTitle() {
-        return this.titleTruncated;
+    public String getTruncatedText() {
+        return this.truncatedText;
     }
 
     /**
-     * @return Returns the text in this textview untruncated
+     * @return Returns the untruncated text.
      */
-    public String getUntruncatedTitle() {
-        return this.title;
+    public String getUntruncatedText() {
+        return this.text;
     }
 
     /**
-     * Retruncates the text with a fancy scroll to beginning animation that takes a set amount of time
+     * Retruncates the text and animates it scrolling back to the start poosition.
      */
     public void reTruncateScrollText(final String truncatedString,
-                                     final TouchInterceptHorizontalScrollView sV,
-                                     final TouchInterceptTextView tV) {
-        ObjectAnimator.ofInt(sV, "scrollX", 0).setDuration(RETRUNCATE_DELAY).start();
-        sV.slidingPanelSetTouchEnabled(true);
+                                     final TouchInterceptHorizontalScrollView scrollView,
+                                     final TouchInterceptTextView textView) {
+        ObjectAnimator.ofInt(scrollView, "scrollX", 0)
+                .setDuration(RETRUNCATE_DELAY)
+                .start();
+
+        scrollView.slidingPanelSetTouchEnabled(true);
+
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                tV.setText(truncatedString);
+                textView.setText(truncatedString);
             }
         }, RETRUNCATE_DELAY);
     }

@@ -19,43 +19,43 @@ import android.widget.FrameLayout;
  */
 public class TouchInterceptFrameLayout extends FrameLayout {
 
+    public static final String TAG = TouchInterceptFrameLayout.class.getSimpleName();
+
     private static final int MAX_CLICK_DISTANCE = 5;
-
-    // Tag used so other views can find this one
-    private static final String touchInterceptFrameLayoutViewTag = "TIFL";
-    private static final String touchInterceptHorizontalScrollViewTag = "TIHS";
-
-    private static final String TAG = "E/TouchInterceptFL";
-    private static final String NULL_VIEWS_EXCEPTION_MESSAGE = "Either textView or scrollView is null. Maybe you " +
-            "forgot to set them using setTouchInterceptHorizontalScrollView and setScrollableTextView " +
-            "via XML? Did you set it to something null?";
 
     private TouchInterceptHorizontalScrollView scrollView;
 
     private Rect scrollViewRect = new Rect();
     private float startX;
-
     private boolean isTap;
 
     public TouchInterceptFrameLayout(@NonNull Context context) {
         this(context, null);
-        setTag(touchInterceptFrameLayoutViewTag);
+
+        init();
     }
 
     public TouchInterceptFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
-        setTag(touchInterceptFrameLayoutViewTag);
+
+        init();
     }
 
     public TouchInterceptFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        init();
+    }
+
+    private void init() {
+        setTag(TouchInterceptFrameLayout.TAG);
     }
 
     /**
      * @return Returns the TouchInterceptHorizontalScrollview in this layout
      */
     public TouchInterceptHorizontalScrollView getTouchInterceptHorizontalScrollView() {
-        return (TouchInterceptHorizontalScrollView) findViewWithTag(touchInterceptHorizontalScrollViewTag);
+        return (TouchInterceptHorizontalScrollView) findViewWithTag(TouchInterceptHorizontalScrollView.TAG);
     }
 
     /**
@@ -77,65 +77,54 @@ public class TouchInterceptFrameLayout extends FrameLayout {
         int y = Math.round(e.getRawY());
 
         scrollView = getTouchInterceptHorizontalScrollView();
+        scrollView.getGlobalVisibleRect(scrollViewRect);
 
-        try {
-            scrollView.getGlobalVisibleRect(scrollViewRect);
+        boolean touchedScrollView =
+                x > scrollViewRect.left && x < scrollViewRect.right &&
+                y > scrollViewRect.top && y < scrollViewRect.bottom;
 
-            boolean touchedScrollView =
-                    x > scrollViewRect.left && x < scrollViewRect.right &&
-                            y > scrollViewRect.top && y < scrollViewRect.bottom;
+        if (scrollView.isScrollable()) {
+            switch (e.getAction() & MotionEvent.ACTION_MASK) {
+                case MotionEvent.ACTION_DOWN:
+                    scrollView.slidingPanelSetTouchEnabled(true);
+                    if (!touchedScrollView) {
+                        scrollView.cancelPendingInputEvents();
+                        return false;
+                    }
 
-            if (scrollView.isScrollable()) {
-                switch (e.getAction() & MotionEvent.ACTION_MASK) {
-                    case MotionEvent.ACTION_DOWN:
-                        scrollView.slidingPanelSetTouchEnabled(true);
-                        if (!touchedScrollView) {
-                            scrollView.cancelPendingInputEvents();
-                            return false;
-                        }
-
-                        startX = e.getX();
-                        isTap = true;
-                        onTouchEvent(e);
-
-                        break;
-
-                    case MotionEvent.ACTION_MOVE:
-                        if (touchedScrollView) {
-                            float distance = Math.abs(e.getX() - startX);
-
-                            // Scrolling the view: cancel event to prevent long press
-                            if (distance > MAX_CLICK_DISTANCE) {
-                                isTap = false;
-                                CancelClick();
-                            }
-                        }
-                        break;
-
-                    case MotionEvent.ACTION_CANCEL:
-                    case MotionEvent.ACTION_UP:
-                        scrollView.slidingPanelSetTouchEnabled(true);
-                        if (touchedScrollView && isTap) {
-                            onTouchEvent(e);
-                        }
-                        this.requestDisallowInterceptTouchEvent(false);
-                        break;
-                }
-
-                return false;
-            } else {
-                if (touchedScrollView) {
+                    startX = e.getX();
+                    isTap = true;
                     onTouchEvent(e);
-                }
-                return false;
+
+                    break;
+
+                case MotionEvent.ACTION_MOVE:
+                    if (touchedScrollView) {
+                        float distance = Math.abs(e.getX() - startX);
+
+                        // Scrolling the view: cancel event to prevent long press
+                        if (distance > MAX_CLICK_DISTANCE) {
+                            isTap = false;
+                            CancelClick();
+                        }
+                    }
+                    break;
+
+                case MotionEvent.ACTION_CANCEL:
+                case MotionEvent.ACTION_UP:
+                    scrollView.slidingPanelSetTouchEnabled(true);
+                    if (touchedScrollView && isTap) {
+                        onTouchEvent(e);
+                    }
+                    this.requestDisallowInterceptTouchEvent(false);
+                    break;
             }
-        } catch (NullPointerException ex) {
-            Log.e(TAG, NULL_VIEWS_EXCEPTION_MESSAGE);
-            Log.e(TAG, "Method: onInterceptTouchEvent()");
-            Log.e(TAG, "TouchInterceptHorizontalScrollView = " + findViewWithTag("TIHS").toString());
-            Log.e(TAG, "TouchInterceptTextView = " + findViewWithTag("TITV").toString());
-            ex.printStackTrace();
-            onTouchEvent(e);
+
+            return false;
+        } else {
+            if (touchedScrollView) {
+                onTouchEvent(e);
+            }
             return false;
         }
     }
