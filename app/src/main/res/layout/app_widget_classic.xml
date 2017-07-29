@@ -12,7 +12,7 @@
         android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
         android:adjustViewBounds="true"
         tools:ignore="ContentDescription"
         tools:src="@drawable/default_album_art" />
