@@ -5,7 +5,6 @@ import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
@@ -86,7 +85,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
         if (scrollView.isScrollable()) {
             switch (e.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN:
-                    scrollView.slidingPanelSetTouchEnabled(true);
                     if (!touchedScrollView) {
                         scrollView.cancelPendingInputEvents();
                         return false;
@@ -112,7 +110,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
                 case MotionEvent.ACTION_CANCEL:
                 case MotionEvent.ACTION_UP:
-                    scrollView.slidingPanelSetTouchEnabled(true);
                     if (touchedScrollView && isTap) {
                         onTouchEvent(e);
                     }
@@ -134,9 +131,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      * while the user is scrolling something.
      */
     private void CancelClick() {
-        this.cancelPendingInputEvents();
         this.cancelLongPress();
         scrollView.cancelLongPress();
-        scrollView.cancelPendingInputEvents();
     }
 }

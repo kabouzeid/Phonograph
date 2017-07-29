@@ -187,8 +187,6 @@ public class TouchInterceptTextView extends AppCompatTextView {
                 .setDuration(RETRUNCATE_DELAY)
                 .start();
 
-        scrollView.slidingPanelSetTouchEnabled(true);
-
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

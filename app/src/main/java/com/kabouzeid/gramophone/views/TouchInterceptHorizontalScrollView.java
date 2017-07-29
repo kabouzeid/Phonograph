@@ -1,13 +1,11 @@
 package com.kabouzeid.gramophone.views;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.HorizontalScrollView;
 
-import com.kabouzeid.gramophone.R;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 /**
@@ -32,7 +30,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     private long lastScrollUpdate = -1;
 
-    private boolean mIsFling;
+    private boolean isFling;
 
     // Whether user is interacting with this again and to cancel text retruncate
     private boolean cancel;
@@ -46,7 +44,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     private OnEndScrollListener onEndScrollListener;
 
-    private SlidingUpPanelLayout queue;
+    private SlidingUpPanelLayout slidingPanel;
 
     private boolean mScrollable = true;
 
@@ -135,7 +133,6 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
                 }
 
             case MotionEvent.ACTION_UP:
-                slidingPanelSetTouchEnabled(true);
                 touched = false;
                 // The user is done interacting with the scroll view
                 cancel = false;
@@ -150,9 +147,6 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
-        if (e.getAction() == MotionEvent.ACTION_DOWN) {
-            slidingPanelSetTouchEnabled(true);
-        }
 
         int x = Math.round(e.getRawX());
         int y = Math.round(e.getRawY());
@@ -197,16 +191,12 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     @Override
     public void fling(int velocityX) {
         super.fling(velocityX);
-        mIsFling = true;
+        isFling = true;
     }
 
     @Override
     protected void onScrollChanged(int x, int y, int oldX, int oldY) {
         super.onScrollChanged(x, y, oldX, oldY);
-
-        if (touched | mIsFling) {
-            slidingPanelSetTouchEnabled(false);
-        }
 
         CancelClick();
 
@@ -214,28 +204,15 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
             cancel = true;
         }
 
-        if (mIsFling && (Math.abs(x - oldX) < 2 || x >= getMeasuredWidth() || x == 0)) {
-            slidingPanelSetTouchEnabled(true);
+        if (isFling && (Math.abs(x - oldX) < 2 || x >= getMeasuredWidth() || x == 0)) {
             touched = false;
             // The user is done interacting with the scroll view
             cancel = false;
             postDelayed(new ScrollStateHandler(), ON_END_SCROLL_DELAY);
             lastScrollUpdate = System.currentTimeMillis();
-            mIsFling = false;
+            isFling = false;
             cancelCheck = false;
             unTruncate = true;
-        }
-    }
-
-    /**
-     * Enables and disables Sliding Panel dragging for the playing queue sliding panel.
-     *
-     * @param enable Set true to enable dragging, false to disable
-     */
-    public void slidingPanelSetTouchEnabled(boolean enable) {
-        queue = (SlidingUpPanelLayout) ((Activity) getContext()).findViewById(R.id.player_sliding_layout);
-        if (queue != null) {
-            queue.setTouchEnabled(enable);
         }
     }
 
@@ -245,9 +222,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
      */
     public void CancelClick() {
         getRootView().cancelLongPress();
-        getRootView().cancelPendingInputEvents();
         this.cancelLongPress();
-        this.cancelPendingInputEvents();
     }
 
     /**
