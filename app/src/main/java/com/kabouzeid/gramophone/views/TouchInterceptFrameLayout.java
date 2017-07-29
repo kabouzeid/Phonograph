@@ -11,10 +11,12 @@ import android.widget.FrameLayout;
 /**
  * @author Lincoln (theduffmaster)
  * 
- * A custom FrameLayout view that intercepts touch events and decides whether to consume them or
- * pass on the touch events to a TouchInterceptHorizontalScrollview which contains a TouchInterceptTextView.
- * This only needs to be used if the layout that the TouchHorizontalScrollView and the TouchInterceptTextView
- * are in is clickable in any way.
+ * A custom {@link FrameLayout} that intercepts touch events and decides whether to consume them or
+ * pass them on to a child {@link TouchInterceptHorizontalScrollView} and its
+ * {@link TouchInterceptTextView}.
+ *
+ * This only needs to be used if the layout containing the {@link TouchInterceptHorizontalScrollView}
+ * is clickable.
  */
 public class TouchInterceptFrameLayout extends FrameLayout {
 
@@ -24,51 +26,46 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
     private TouchInterceptHorizontalScrollView scrollView;
 
-    private Rect scrollViewRect = new Rect();
+    private Rect scrollViewRect;
     private float startX;
     private boolean isTap;
 
     public TouchInterceptFrameLayout(@NonNull Context context) {
         this(context, null);
-
         init();
     }
 
     public TouchInterceptFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
-
         init();
     }
 
     public TouchInterceptFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
         init();
     }
 
     private void init() {
+        scrollViewRect = new Rect();
         setTag(TouchInterceptFrameLayout.TAG);
     }
 
     /**
-     * @return Returns the TouchInterceptHorizontalScrollview in this layout
+     * @return Returns the child {@link TouchInterceptHorizontalScrollView}.
      */
     public TouchInterceptHorizontalScrollView getTouchInterceptHorizontalScrollView() {
         return (TouchInterceptHorizontalScrollView) findViewWithTag(TouchInterceptHorizontalScrollView.TAG);
     }
 
     /**
-     * This intercepts the touch event and, by returning false and onTouchEvent(), passes the touchevent
-     * to both itself and its child views (by calling TouchEvent it passes it to itself).
+     * Intercepts touch events to selectively pass the event on to its child view.
      * It also detects where the touch was placed so that if the touch is not in the scrollview, the
-     * touch is not passed to the HorizontalScrollView, avoiding the child view swallowing up the long
-     * click. False is passed to still allow MenuItemClick to happen.
-     * However, if the action is ACTION_MOVE, it cancels the touch event in itself and
-     * only gives it to its children, which, in this case is a HorizontalScrollView.
+     * touch is not passed to it, avoiding the child view swallowing up the long press. ACTION_MOVE
+     * actions are cancelled here and instead passed to the child view.
      *
-     * @param e the intercepted touch event
-     * @return If this function returns true, the MotionEvent will be intercepted,
-     * meaning it will be not be passed on to the child, but rather to the onTouchEvent of this View.
+     * @param e The intercepted touch event.
+     * @return True if the MotionEvent will be intercepted (i.e. it will not be passed on to its
+     *         child, but rather to the onTouchEvent method of this view).
      */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
@@ -93,7 +90,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                     startX = e.getX();
                     isTap = true;
                     onTouchEvent(e);
-
                     break;
 
                 case MotionEvent.ACTION_MOVE:
@@ -103,7 +99,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                         // Scrolling the view: cancel event to prevent long press
                         if (distance > MAX_CLICK_DISTANCE) {
                             isTap = false;
-                            CancelClick();
+                            cancelClick();
                         }
                     }
                     break;
@@ -116,21 +112,20 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                     this.requestDisallowInterceptTouchEvent(false);
                     break;
             }
-
-            return false;
-        } else {
-            if (touchedScrollView) {
-                onTouchEvent(e);
-            }
             return false;
         }
+
+        if (touchedScrollView) {
+            onTouchEvent(e);
+        }
+        return false;
     }
 
     /**
-     * Cancels any long presses and pending clicks. Used to prevent views from stealing touches
-     * while the user is scrolling something.
+     * Cancels any long presses. Used to prevent views from stealing touches while the user is
+     * scrolling something.
      */
-    private void CancelClick() {
+    private void cancelClick() {
         this.cancelLongPress();
         scrollView.cancelLongPress();
     }

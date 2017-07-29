@@ -98,11 +98,11 @@ public class TouchInterceptTextView extends AppCompatTextView {
             // Mimics behavior of `android:ellipsize="end"`, except it works in a HorizontalScrollView.
             // Truncates the string so it doesn't get cut off in the HorizontalScrollView with an
             // ellipsis at the end of it.
-            fittedText = TextUtils.ellipsize(fittedText,
+            String ellipsizedText = TextUtils.ellipsize(fittedText,
                     getPaint(),
                     (float) textBoundsWidth,
-                    TextUtils.TruncateAt.END).toString()
-                    + TRUNCATED_MARKER;
+                    TextUtils.TruncateAt.END).toString();
+            fittedText = ellipsizedText + TRUNCATED_MARKER;
         }
 
         setText(fittedText);
@@ -158,7 +158,7 @@ public class TouchInterceptTextView extends AppCompatTextView {
     /**
      * Untruncates and sets the text.
      */
-    public void unTruncateText() {
+    public void untruncateText() {
         String untrunucatedText = text + MARKER_UNTRUNCATED;
         setText(untrunucatedText);
     }
