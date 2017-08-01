@@ -21,14 +21,7 @@
         android:visibility="gone"
         app:srcCompat="@drawable/ic_drag_vertical_white_24dp"
         tools:ignore="ContentDescription" />
-
-    <View
-        android:id="@+id/empty_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0"
-        android:background="@android:color/background_dark" />
-
+    
     <LinearLayout
         android:id="@+id/song_view"
         android:layout_width="match_parent"
@@ -83,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <com.kabouzeid.gramophone.views.TouchInterceptTextView
+                <com.kabouzeid.gramophone.views.AutoTruncateTextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

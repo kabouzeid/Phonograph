@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.views;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -13,7 +14,7 @@ import android.widget.FrameLayout;
  * 
  * A custom {@link FrameLayout} that intercepts touch events and decides whether to consume them or
  * pass them on to a child {@link TouchInterceptHorizontalScrollView} and its
- * {@link TouchInterceptTextView}.
+ * {@link AutoTruncateTextView}.
  *
  * This only needs to be used if the layout containing the {@link TouchInterceptHorizontalScrollView}
  * is clickable.
@@ -83,7 +84,12 @@ public class TouchInterceptFrameLayout extends FrameLayout {
             switch (e.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN:
                     if (!touchedScrollView) {
-                        scrollView.cancelPendingInputEvents();
+                        // Check if we're running on Android API 19 or higher
+                        if (Build.VERSION.SDK_INT >= 19) {
+                            scrollView.cancelPendingInputEvents();
+                        } else {
+                            scrollView.cancelLongPress();
+                        }
                         return false;
                     }
 

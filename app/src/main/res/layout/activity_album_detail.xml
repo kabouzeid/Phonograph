@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <com.kabouzeid.gramophone.views.TouchInterceptTextView
+                <com.kabouzeid.gramophone.views.AutoTruncateTextView
                     android:id="@+id/album_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -61,11 +61,6 @@
             </com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView>
 
         </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent" />
 
     </LinearLayout>
 

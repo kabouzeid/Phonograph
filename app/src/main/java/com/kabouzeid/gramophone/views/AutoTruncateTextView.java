@@ -16,9 +16,9 @@ import android.util.AttributeSet;
  * and puts an ellipsis at the end of it.
  * Must be used within a TouchInterceptHorizontalScrollview or it won't work
  */
-public class TouchInterceptTextView extends AppCompatTextView {
+public class AutoTruncateTextView extends AppCompatTextView {
 
-    public static final String TAG = TouchInterceptTextView.class.getSimpleName();
+    public static final String TAG = AutoTruncateTextView.class.getSimpleName();
 
     private static final int RETRUNCATE_DELAY = 600;
 
@@ -31,26 +31,26 @@ public class TouchInterceptTextView extends AppCompatTextView {
     private String text;
     private String truncatedText;
 
-    public TouchInterceptTextView(Context context) {
+    public AutoTruncateTextView(Context context) {
         super(context);
 
         init();
     }
 
-    public TouchInterceptTextView(Context context, @Nullable AttributeSet attrs) {
+    public AutoTruncateTextView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
         init();
     }
 
-    public TouchInterceptTextView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public AutoTruncateTextView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         init();
     }
 
     private void init() {
-        setTag(TouchInterceptTextView.TAG);
+        setTag(AutoTruncateTextView.TAG);
 
         // Enable long clicking when touching the text
         setLongClickable(true);
@@ -121,7 +121,7 @@ public class TouchInterceptTextView extends AppCompatTextView {
             @Override
             public void run() {
                 if (!originalText.endsWith(TRUNCATED_MARKER)) text = originalText;
-                TouchInterceptTextView.this.truncatedText = truncatedText;
+                AutoTruncateTextView.this.truncatedText = truncatedText;
 
                 final TouchInterceptHorizontalScrollView scrollView = getTouchInterceptHorizontalScrollView();
 
@@ -134,7 +134,7 @@ public class TouchInterceptTextView extends AppCompatTextView {
                         scrollView.setOnEndScrollListener(new TouchInterceptHorizontalScrollView.OnEndScrollListener() {
                             @Override
                             public void onEndScroll() {
-                                reTruncateScrollText(truncatedText, scrollView, TouchInterceptTextView.this);
+                                reTruncateScrollText(truncatedText, scrollView, AutoTruncateTextView.this);
                             }
                         });
                     }
@@ -182,7 +182,7 @@ public class TouchInterceptTextView extends AppCompatTextView {
      */
     public void reTruncateScrollText(final String truncatedString,
                                      final TouchInterceptHorizontalScrollView scrollView,
-                                     final TouchInterceptTextView textView) {
+                                     final AutoTruncateTextView textView) {
         ObjectAnimator.ofInt(scrollView, "scrollX", 0)
                 .setDuration(RETRUNCATE_DELAY)
                 .start();
