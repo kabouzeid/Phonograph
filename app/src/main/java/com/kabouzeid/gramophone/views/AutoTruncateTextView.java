@@ -98,7 +98,7 @@ public class AutoTruncateTextView extends AppCompatTextView {
             // Mimics behavior of `android:ellipsize="end"`, except it works in a HorizontalScrollView.
             // Truncates the string so it doesn't get cut off in the HorizontalScrollView with an
             // ellipsis at the end of it.
-            String ellipsizedText = TextUtils.ellipsize(fittedText,
+            final String ellipsizedText = TextUtils.ellipsize(fittedText,
                     getPaint(),
                     (float) textBoundsWidth,
                     TextUtils.TruncateAt.END).toString();
