@@ -109,6 +109,7 @@ public class AppWidgetCard extends BaseAppWidget {
                 target = SongGlideRequest.Builder.from(Glide.with(service), song)
                         .checkIgnoreMediaStore(service)
                         .generatePalette(service).build()
+                        .centerCrop()
                         .into(new SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
                             @Override
                             public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {

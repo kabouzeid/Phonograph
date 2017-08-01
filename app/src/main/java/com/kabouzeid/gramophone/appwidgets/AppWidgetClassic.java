@@ -95,6 +95,7 @@ public class AppWidgetClassic extends BaseAppWidget {
                 target = SongGlideRequest.Builder.from(Glide.with(appContext), song)
                         .checkIgnoreMediaStore(appContext)
                         .generatePalette(service).build()
+                        .centerCrop()
                         .into(new SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {
                             @Override
                             public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
@@ -120,16 +121,13 @@ public class AppWidgetClassic extends BaseAppWidget {
                                 appWidgetView.setImageViewBitmap(R.id.button_prev, createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_previous_white_24dp, color), 1f));
 
                                 Drawable image;
-                                int imageWidth = imageSize;
-                                int imageHeight = imageSize;
                                 if (bitmap == null) {
                                     image = service.getResources().getDrawable(R.drawable.default_album_art);
                                 } else {
                                     image = new BitmapDrawable(bitmap);
-                                    imageWidth = bitmap.getWidth();
-                                    imageHeight = bitmap.getHeight();
                                 }
-                                appWidgetView.setImageViewBitmap(R.id.image, createRoundedBitmap(image, imageWidth, imageHeight, cardRadius, 0, cardRadius, 0));
+                                appWidgetView.setImageViewBitmap(R.id.image, createRoundedBitmap(image, imageSize, imageSize, cardRadius, 0, cardRadius, 0));
+
                                 pushUpdate(appContext, appWidgetIds, appWidgetView);
                             }
                         });
