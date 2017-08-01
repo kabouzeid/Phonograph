@@ -13,7 +13,7 @@ import android.widget.HorizontalScrollView;
  * {@link TouchInterceptFrameLayout}. Allows for the layout to disable and enable scrolling in
  * addition to being able to know when a user is and is not interacting with the scrolling view.
  *
- * Must have a {@link TouchInterceptTextView} as its only child.
+ * Must have a {@link AutoTruncateTextView} as its only child.
  */
 public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
@@ -66,10 +66,10 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     }
 
     /**
-     * @return Returns the child {@link TouchInterceptTextView}.
+     * @return Returns the child {@link AutoTruncateTextView}.
      */
-    public TouchInterceptTextView getTouchInterceptTextView() {
-        return (TouchInterceptTextView) this.getChildAt(0);
+    public AutoTruncateTextView getTouchInterceptTextView() {
+        return (AutoTruncateTextView) this.getChildAt(0);
     }
 
     /**
