@@ -84,8 +84,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
             switch (e.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN:
                     if (!touchedScrollView) {
-                        // Check if we're running on Android API 19 or higher
-                        if (Build.VERSION.SDK_INT >= 19) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                             scrollView.cancelPendingInputEvents();
                         } else {
                             scrollView.cancelLongPress();

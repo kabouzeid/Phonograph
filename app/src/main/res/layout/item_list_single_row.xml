@@ -78,7 +78,6 @@
 
             </com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView>
 
-
         </LinearLayout>
 
         <com.kabouzeid.gramophone.views.IconImageView

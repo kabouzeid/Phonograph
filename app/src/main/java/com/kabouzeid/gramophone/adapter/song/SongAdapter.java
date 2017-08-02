@@ -111,7 +111,6 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
         if (holder.title != null) {
             holder.title.setText(getSongTitle(song));
         }
-
         if (holder.text != null) {
             holder.text.setText(getSongText(song));
         }

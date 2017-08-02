@@ -11,10 +11,11 @@ import android.util.AttributeSet;
 /**
  * @author Lincoln (theduffmaster)
  *
- * TextView that automatically does exactly what android:ellipsize="end" does, except this works in a TouchInterceptHorizontalScrollViews.
- * Truncates the string so it doesn't get cuttoff in the TouchInterceptHorizontalScrollView
+ * TextView that automatically does exactly what android:ellipsize="end" does, except this works in
+ * a {@link TouchInterceptHorizontalScrollView}.
+ * Truncates the string so it doesn't get cuttoff in the {@link TouchInterceptHorizontalScrollView}
  * and puts an ellipsis at the end of it.
- * Must be used within a TouchInterceptHorizontalScrollview or it won't work
+ * Must be used within a {@link TouchInterceptHorizontalScrollView}.
  */
 public class AutoTruncateTextView extends AppCompatTextView {
 
@@ -33,19 +34,16 @@ public class AutoTruncateTextView extends AppCompatTextView {
 
     public AutoTruncateTextView(Context context) {
         super(context);
-
         init();
     }
 
     public AutoTruncateTextView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-
         init();
     }
 
     public AutoTruncateTextView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
         init();
     }
 
@@ -178,7 +176,7 @@ public class AutoTruncateTextView extends AppCompatTextView {
     }
 
     /**
-     * Retruncates the text and animates it scrolling back to the start poosition.
+     * Retruncates the text and animates it scrolling back to the start position.
      */
     public void reTruncateScrollText(final String truncatedString,
                                      final TouchInterceptHorizontalScrollView scrollView,
