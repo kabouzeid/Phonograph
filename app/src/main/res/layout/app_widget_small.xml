@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@drawable/card"
     android:columnCount="2"
     android:gravity="top"
     android:rowCount="3">
@@ -12,9 +12,9 @@
         android:id="@+id/image"
         android:layout_width="@dimen/app_widget_small_image_size"
         android:layout_height="@dimen/app_widget_small_image_size"
-        android:background="@drawable/default_album_art"
         android:scaleType="centerInside"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/default_album_art" />
 
     <LinearLayout
         android:id="@+id/media_actions"
