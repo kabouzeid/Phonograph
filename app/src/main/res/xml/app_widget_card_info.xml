@@ -7,6 +7,5 @@
                     android:resizeMode="horizontal|vertical"
                     android:updatePeriodMillis="0"
                     android:widgetCategory="keyguard|home_screen"
-                    tools:ignore="UnusedAttribute"/>
-
-    <!--android:previewImage="@drawable/app_widget_classic"-->
+                    tools:ignore="UnusedAttribute"
+                    android:previewImage="@drawable/app_widget_card"/>
