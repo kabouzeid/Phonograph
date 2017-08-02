@@ -132,7 +132,7 @@ public class AppWidgetSmall extends BaseAppWidget {
                                 } else {
                                     image = new BitmapDrawable(bitmap);
                                 }
-                                appWidgetView.setImageViewBitmap(R.id.image, createRoundedBitmap(image, imageSize, imageSize, cardRadius, 0, cardRadius, 0));
+                                appWidgetView.setImageViewBitmap(R.id.image, createRoundedBitmap(image, imageSize, imageSize, cardRadius, 0, 0, 0));
 
                                 pushUpdate(appContext, appWidgetIds, appWidgetView);
                             }
