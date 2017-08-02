@@ -189,7 +189,7 @@ public class AutoTruncateTextView extends AppCompatTextView {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                textView.setText(truncatedString);
+                if(getText().toString().endsWith(MARKER_UNTRUNCATED)) textView.setText(truncatedString);
             }
         }, RETRUNCATE_DELAY);
     }
