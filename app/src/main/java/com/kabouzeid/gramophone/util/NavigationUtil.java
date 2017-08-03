@@ -22,9 +22,9 @@ import com.kabouzeid.gramophone.ui.activities.PlaylistDetailActivity;
  */
 public class NavigationUtil {
 
-    public static void goToArtist(@NonNull final Activity activity, final int artistId, @Nullable Pair... sharedElements) {
+    public static void goToArtist(@NonNull final Activity activity, final String artist, @Nullable Pair... sharedElements) {
         final Intent intent = new Intent(activity, ArtistDetailActivity.class);
-        intent.putExtra(ArtistDetailActivity.EXTRA_ARTIST_ID, artistId);
+        intent.putExtra(ArtistDetailActivity.EXTRA_ARTIST, artist);
 
         //noinspection unchecked
         activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedElements).toBundle());

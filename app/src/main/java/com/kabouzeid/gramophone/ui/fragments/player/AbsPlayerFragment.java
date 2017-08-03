@@ -78,7 +78,7 @@ public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implemen
                 NavigationUtil.goToAlbum(getActivity(), song.albumId);
                 return true;
             case R.id.action_go_to_artist:
-                NavigationUtil.goToArtist(getActivity(), song.artistId);
+                NavigationUtil.goToArtist(getActivity(), song.artistName);
                 return true;
         }
         return false;

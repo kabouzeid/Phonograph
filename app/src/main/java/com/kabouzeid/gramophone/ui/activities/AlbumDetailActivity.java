@@ -335,7 +335,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                 startActivityForResult(intent, TAG_EDITOR_REQUEST);
                 return true;
             case R.id.action_go_to_artist:
-                NavigationUtil.goToArtist(this, getAlbum().getArtistId());
+                NavigationUtil.goToArtist(this, getAlbum().getAlbumArtistName());
                 return true;
             case R.id.action_wiki:
                 if (wikiDialog == null) {
