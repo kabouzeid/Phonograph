@@ -19,6 +19,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.appwidgets.base.BaseAppWidget;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.model.Song;
@@ -73,7 +74,7 @@ public class AppWidgetClassic extends BaseAppWidget {
         } else {
             appWidgetView.setViewVisibility(R.id.media_titles, View.VISIBLE);
             appWidgetView.setTextViewText(R.id.title, song.title);
-            appWidgetView.setTextViewText(R.id.text, song.artistName + " • " +song.albumName);
+            appWidgetView.setTextViewText(R.id.text, getSongArtistAndAlbum(song));
         }
 
         // Link actions buttons to intents
@@ -109,9 +110,7 @@ public class AppWidgetClassic extends BaseAppWidget {
                                 update(null, MaterialValueHelper.getSecondaryTextColor(appContext, true));
                             }
 
-                            private void update(@Nullable Bitmap bitmap,int color) {
-                                appWidgetView.setViewVisibility(R.id.image, View.VISIBLE);
-
+                            private void update(@Nullable Bitmap bitmap, int color) {
                                 // Set correct drawable for pause state
                                 int playPauseRes = isPlaying ? R.drawable.ic_pause_white_24dp : R.drawable.ic_play_arrow_white_24dp;
                                 appWidgetView.setImageViewBitmap(R.id.button_toggle_play_pause, createBitmap(Util.getTintedVectorDrawable(service, playPauseRes, color), 1f));
@@ -120,13 +119,9 @@ public class AppWidgetClassic extends BaseAppWidget {
                                 appWidgetView.setImageViewBitmap(R.id.button_next, createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_next_white_24dp, color), 1f));
                                 appWidgetView.setImageViewBitmap(R.id.button_prev, createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_previous_white_24dp, color), 1f));
 
-                                Drawable image;
-                                if (bitmap == null) {
-                                    image = service.getResources().getDrawable(R.drawable.default_album_art);
-                                } else {
-                                    image = new BitmapDrawable(bitmap);
-                                }
-                                appWidgetView.setImageViewBitmap(R.id.image, createRoundedBitmap(image, imageSize, imageSize, cardRadius, 0, cardRadius, 0));
+                                final Drawable image = getAlbumArtDrawable(service.getResources(), bitmap);
+                                final Bitmap roundedBitmap = createRoundedBitmap(image, imageSize, imageSize, cardRadius, 0, cardRadius, 0);
+                                appWidgetView.setImageViewBitmap(R.id.image, roundedBitmap);
 
                                 pushUpdate(appContext, appWidgetIds, appWidgetView);
                             }

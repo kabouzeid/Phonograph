@@ -18,6 +18,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.appwidgets.base.BaseAppWidget;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
@@ -69,7 +70,7 @@ public class AppWidgetBig extends BaseAppWidget {
         } else {
             appWidgetView.setViewVisibility(R.id.media_titles, View.VISIBLE);
             appWidgetView.setTextViewText(R.id.title, song.title);
-            appWidgetView.setTextViewText(R.id.text, song.artistName + " • " +song.albumName);
+            appWidgetView.setTextViewText(R.id.text, getSongArtistAndAlbum(song));
         }
 
         // Set correct drawable for pause state
@@ -109,7 +110,6 @@ public class AppWidgetBig extends BaseAppWidget {
                             }
 
                             private void update(@Nullable Bitmap bitmap) {
-                                appWidgetView.setViewVisibility(R.id.image, View.VISIBLE);
                                 if (bitmap == null) {
                                     appWidgetView.setImageViewResource(R.id.image, R.drawable.default_album_art);
                                 } else {

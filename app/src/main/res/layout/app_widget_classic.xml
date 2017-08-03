@@ -12,8 +12,8 @@
         android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
         android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         tools:ignore="ContentDescription"
         tools:src="@drawable/default_album_art" />
 
@@ -25,13 +25,13 @@
             android:id="@+id/media_actions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layoutDirection="ltr"
-            android:orientation="horizontal"
-            android:layout_marginBottom="8dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="8dp"
+            android:layoutDirection="ltr"
+            android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/button_prev"
@@ -68,10 +68,10 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/media_actions"
             android:layout_alignParentTop="true"
-            android:orientation="vertical"
-            android:gravity="center"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp">
+            android:layout_marginRight="8dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/title"
