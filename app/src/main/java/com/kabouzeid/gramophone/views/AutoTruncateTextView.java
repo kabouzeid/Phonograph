@@ -115,24 +115,24 @@ public class AutoTruncateTextView extends AppCompatTextView {
      * @param truncatedText The string after truncation
      */
     public void initiateTruncateText(final String originalText, final String truncatedText) {
+        if (!originalText.endsWith(TRUNCATED_MARKER)) {
+            text = originalText;
+        }
+        this.truncatedText = truncatedText;
+
+        final TouchInterceptHorizontalScrollView scrollView = getTouchInterceptHorizontalScrollView();
         post(new Runnable() {
             @Override
             public void run() {
-                if (!originalText.endsWith(TRUNCATED_MARKER)) text = originalText;
-                AutoTruncateTextView.this.truncatedText = truncatedText;
-
-                final TouchInterceptHorizontalScrollView scrollView = getTouchInterceptHorizontalScrollView();
-
                 if (isTextTruncated(truncatedText)) {
                     if (originalText.equals(truncatedText) && !truncatedText.endsWith(MARKER_UNTRUNCATED)) {
                         scrollView.setScrollable(false);
                     } else {
                         scrollView.setScrollable(true);
-
                         scrollView.setOnEndScrollListener(new TouchInterceptHorizontalScrollView.OnEndScrollListener() {
                             @Override
                             public void onEndScroll() {
-                                reTruncateScrollText(truncatedText, scrollView, AutoTruncateTextView.this);
+                                retruncateScrollText(truncatedText, scrollView, AutoTruncateTextView.this);
                             }
                         });
                     }
@@ -178,7 +178,7 @@ public class AutoTruncateTextView extends AppCompatTextView {
     /**
      * Retruncates the text and animates it scrolling back to the start position.
      */
-    public void reTruncateScrollText(final String truncatedString,
+    public void retruncateScrollText(final String truncatedString,
                                      final TouchInterceptHorizontalScrollView scrollView,
                                      final AutoTruncateTextView textView) {
         ObjectAnimator.ofInt(scrollView, "scrollX", 0)
@@ -189,7 +189,7 @@ public class AutoTruncateTextView extends AppCompatTextView {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(getText().toString().endsWith(MARKER_UNTRUNCATED)) textView.setText(truncatedString);
+                textView.setText(truncatedString);
             }
         }, RETRUNCATE_DELAY);
     }
