@@ -321,6 +321,8 @@
     <string name="saf_error_uri">Can\'t get SAF URI</string>
     <string name="saf_write_failed">File write failed: %s</string>
     <string name="saf_write_success">File write succeeded: %s</string>
+    <string name="saf_delete_failed">File delete failed: %s</string>
+    <string name="saf_delete_success">File delete succeeded: %s</string>
     <string name="saf_pick_sdcard">SD card access required. Please pick root directory of SD card</string>
     <string name="saf_pick_file">File access required. Pick %s</string>
 </resources>

@@ -7,13 +7,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.ParcelFileDescriptor;
+import android.provider.DocumentsContract;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.provider.DocumentFile;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.model.Song;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
@@ -46,9 +49,20 @@ public class SAFUtil {
         return isSAFRequired(audio.getFile());
     }
 
+    public static boolean isSAFRequired(Song song) {
+        return isSAFRequired(song.data);
+    }
+
     public static boolean isSAFRequired(List<String> paths) {
         for (String path : paths) {
             if (isSAFRequired(path)) return true;
+        }
+        return false;
+    }
+
+    public static boolean isSAFRequiredForSongs(List<Song> songs) {
+        for (Song song : songs) {
+            if (isSAFRequired(song)) return true;
         }
         return false;
     }
@@ -62,11 +76,27 @@ public class SAFUtil {
         activity.startActivityForResult(i, SAFUtil.REQUEST_SAF_PICK_FILE);
     }
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static void openFilePicker(Fragment fragment) {
+        Intent i = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+        i.addCategory(Intent.CATEGORY_OPENABLE);
+        i.setType("audio/*");
+        i.putExtra("android.content.extra.SHOW_ADVANCED", true);
+        fragment.startActivityForResult(i, SAFUtil.REQUEST_SAF_PICK_FILE);
+    }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void openTreePicker(Activity activity) {
         Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
         i.putExtra("android.content.extra.SHOW_ADVANCED", true);
         activity.startActivityForResult(i, SAFUtil.REQUEST_SAF_PICK_TREE);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public static void openTreePicker(Fragment fragment) {
+        Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+        i.putExtra("android.content.extra.SHOW_ADVANCED", true);
+        fragment.startActivityForResult(i, SAFUtil.REQUEST_SAF_PICK_TREE);
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -111,9 +141,9 @@ public class SAFUtil {
         return null;
     }
 
-    public static void write(Activity activity, AudioFile audio, Uri safUri) {
+    public static void write(Context context, AudioFile audio, Uri safUri) {
         if (isSAFRequired(audio)) {
-            writeSAF(activity, audio, safUri);
+            writeSAF(context, audio, safUri);
         } else {
             try {
                 writeFile(audio);
@@ -127,13 +157,13 @@ public class SAFUtil {
         audio.commit();
     }
 
-    public static void writeSAF(final Activity activity, AudioFile audio, Uri safUri) {
+    public static void writeSAF(Context context, AudioFile audio, Uri safUri) {
         Uri uri = null;
 
-        if (isTreeUriSaved(activity)) {
+        if (isTreeUriSaved(context)) {
             List<String> pathSegments = new ArrayList<>(Arrays.asList(audio.getFile().getAbsolutePath().split("/")));
-            Uri sdcard = Uri.parse(PreferenceUtil.getInstance(activity).getSAFSDCardUri());
-            uri = findDocument(DocumentFile.fromTreeUri(activity, sdcard), pathSegments);
+            Uri sdcard = Uri.parse(PreferenceUtil.getInstance(context).getSAFSDCardUri());
+            uri = findDocument(DocumentFile.fromTreeUri(context, sdcard), pathSegments);
         }
 
         if (uri == null) {
@@ -142,7 +172,7 @@ public class SAFUtil {
 
         if (uri == null) {
             Log.e(TAG, "Can't get SAF URI");
-            Toast.makeText(activity, R.string.saf_error_uri, Toast.LENGTH_LONG).show();
+            toast(context, context.getString(R.string.saf_error_uri));
             return;
         }
 
@@ -155,7 +185,7 @@ public class SAFUtil {
             audio.setFile(temp);
             writeFile(audio);
 
-            ParcelFileDescriptor pfd = activity.getContentResolver().openFileDescriptor(uri, "rw");
+            ParcelFileDescriptor pfd = context.getContentResolver().openFileDescriptor(uri, "rw");
             if (pfd == null) {
                 Log.e(TAG, "SAF provided incorrect URI: " + uri);
                 return;
@@ -170,19 +200,67 @@ public class SAFUtil {
 
             temp.delete();
 
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(activity, String.format(activity.getString(R.string.saf_write_success), original.getAbsolutePath()), Toast.LENGTH_SHORT).show();
-                }
-            });
+            toast(context, String.format(context.getString(R.string.saf_write_success), original.getAbsolutePath()));
         } catch (final Exception e) {
             Log.e(TAG, "Failed to write to file descriptor provided by SAF", e);
 
-            activity.runOnUiThread(new Runnable() {
+            toast(context, String.format(context.getString(R.string.saf_write_failed), e.getLocalizedMessage()));
+        }
+    }
+
+    public static void delete(Context context, String path, Uri safUri) {
+        if (isSAFRequired(path)) {
+            deleteSAF(context, path, safUri);
+        } else {
+            try {
+                deleteFile(path);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void deleteFile(String path) {
+        new File(path).delete();
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static void deleteSAF(Context context, String path, Uri safUri) {
+        Uri uri = null;
+
+        if (isTreeUriSaved(context)) {
+            List<String> pathSegments = new ArrayList<>(Arrays.asList(path.split("/")));
+            Uri sdcard = Uri.parse(PreferenceUtil.getInstance(context).getSAFSDCardUri());
+            uri = findDocument(DocumentFile.fromTreeUri(context, sdcard), pathSegments);
+        }
+
+        if (uri == null) {
+            uri = safUri;
+        }
+
+        if (uri == null) {
+            Log.e(TAG, "Can't get SAF URI");
+            toast(context, context.getString(R.string.saf_error_uri));
+            return;
+        }
+
+        try {
+            DocumentsContract.deleteDocument(context.getContentResolver(), uri);
+
+            toast(context, String.format(context.getString(R.string.saf_delete_success), uri.toString()));
+        } catch (final Exception e) {
+            Log.e(TAG, "Failed to delete a file descriptor provided by SAF", e);
+
+            toast(context, String.format(context.getString(R.string.saf_delete_failed), e.getLocalizedMessage()));
+        }
+    }
+
+    private static void toast(final Context context, final String message) {
+        if (context instanceof Activity) {
+            ((Activity) context).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(activity, String.format(activity.getString(R.string.saf_write_failed), e.getLocalizedMessage()), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
                 }
             });
         }

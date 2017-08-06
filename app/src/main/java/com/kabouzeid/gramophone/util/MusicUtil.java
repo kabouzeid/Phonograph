@@ -14,7 +14,6 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
@@ -23,7 +22,6 @@ import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Playlist;
-import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.lyrics.AbsSynchronizedLyrics;
 
@@ -175,7 +173,7 @@ public class MusicUtil {
         return albumArtDir;
     }
 
-    public static void deleteTracks(@NonNull final Context context, @NonNull final List<Song> songs) {
+    public static void deleteTracks(@NonNull final Context context, @NonNull final List<Song> songs, @Nullable final List<Uri> safUris) {
         final String[] projection = new String[]{
                 BaseColumns._ID, MediaStore.MediaColumns.DATA
         };
@@ -210,21 +208,13 @@ public class MusicUtil {
 
                 // Step 3: Remove files from card
                 cursor.moveToFirst();
+                int i = 0;
                 while (!cursor.isAfterLast()) {
                     final String name = cursor.getString(1);
-                    try { // File.delete can throw a security exception
-                        final File f = new File(name);
-                        if (!f.delete()) {
-                            // I'm not sure if we'd ever get here (deletion would
-                            // have to fail, but no exception thrown)
-                            Log.e("MusicUtils", "Failed to delete file " + name);
-                        }
-                        cursor.moveToNext();
-                    } catch (@NonNull final SecurityException ex) {
-                        cursor.moveToNext();
-                    } catch (NullPointerException e) {
-                        Log.e("MusicUtils", "Failed to find file " + name);
-                    }
+                    final Uri safUri = safUris == null || safUris.size() <= i ? null : safUris.get(i);
+                    SAFUtil.delete(context, name, safUri);
+                    i++;
+                    cursor.moveToNext();
                 }
                 cursor.close();
             }
