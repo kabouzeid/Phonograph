@@ -200,7 +200,6 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
      */
     private void cancelClick() {
         getRootView().cancelLongPress();
-        this.cancelLongPress();
     }
 
     interface OnEndScrollListener {

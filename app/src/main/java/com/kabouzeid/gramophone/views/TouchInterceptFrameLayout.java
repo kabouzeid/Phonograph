@@ -132,6 +132,5 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      */
     private void cancelClick() {
         this.cancelLongPress();
-        scrollView.cancelLongPress();
     }
 }
