@@ -56,7 +56,7 @@ public class AutoTruncateTextView extends AppCompatTextView {
         // Blocks clicks from passing through this view
         setClickable(true);
 
-        // Use this instead of maxlines
+        // Have to use this instead of maxlines in order for scrolling to work
         setSingleLine();
     }
 

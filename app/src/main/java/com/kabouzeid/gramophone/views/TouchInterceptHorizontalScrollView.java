@@ -57,6 +57,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
         lastScrollUpdate = -1;
         scrollable = true;
         scrollViewRect = new Rect();
+        setLongClickable(false);
         setTag(TouchInterceptHorizontalScrollView.TAG);
         setHorizontalScrollBarEnabled(false);
     }
