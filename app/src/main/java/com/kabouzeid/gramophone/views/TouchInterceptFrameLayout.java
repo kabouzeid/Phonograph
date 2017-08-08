@@ -104,7 +104,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                         // Scrolling the view: cancel event to prevent long press
                         if (distance > MAX_CLICK_DISTANCE) {
                             isTap = false;
-                            cancelClick();
+                            this.cancelLongPress();
                         }
                     }
                     break;
@@ -124,13 +124,5 @@ public class TouchInterceptFrameLayout extends FrameLayout {
             onTouchEvent(e);
         }
         return false;
-    }
-
-    /**
-     * Cancels any long presses. Used to prevent views from stealing touches while the user is
-     * scrolling something.
-     */
-    private void cancelClick() {
-        this.cancelLongPress();
     }
 }

@@ -177,7 +177,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     protected void onScrollChanged(int x, int y, int oldX, int oldY) {
         super.onScrollChanged(x, y, oldX, oldY);
 
-        cancelClick();
+        getRootView().cancelLongPress();
 
         if (cancelCheck) {
             cancel = true;
@@ -192,14 +192,6 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
             cancelCheck = false;
             untruncate = true;
         }
-    }
-
-    /**
-     * Cancels any long presses. Used to prevent views from stealing touches while the user is
-     * scrolling something.
-     */
-    private void cancelClick() {
-        getRootView().cancelLongPress();
     }
 
     interface OnEndScrollListener {
