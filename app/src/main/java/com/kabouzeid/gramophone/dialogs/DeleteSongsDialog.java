@@ -16,6 +16,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.ui.activities.saf.SAFGuideActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.SAFUtil;
 
@@ -86,8 +87,7 @@ public class DeleteSongsDialog extends DialogFragment {
                                     deleteSongs(songs, null);
                                     dismiss();
                                 } else {
-                                    Toast.makeText(activity, R.string.saf_pick_sdcard, Toast.LENGTH_LONG).show();
-                                    SAFUtil.openTreePicker(DeleteSongsDialog.this);
+                                    startActivityForResult(new Intent(getActivity(), SAFGuideActivity.class), SAFGuideActivity.REQUEST_CODE_SAF_GUIDE);
                                 }
                             } else {
                                 deleteSongsKitkat();
@@ -124,6 +124,10 @@ public class DeleteSongsDialog extends DialogFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         switch (requestCode) {
+            case SAFGuideActivity.REQUEST_CODE_SAF_GUIDE:
+                SAFUtil.openTreePicker(this);
+                break;
+
             case SAFUtil.REQUEST_SAF_PICK_TREE:
                 if (resultCode == Activity.RESULT_OK) {
                     SAFUtil.saveTreeUri(getActivity(), intent);
