@@ -136,6 +136,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
+
         int x = Math.round(e.getRawX());
         int y = Math.round(e.getRawY());
 

@@ -6,7 +6,6 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
@@ -30,7 +29,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
 
     private Rect scrollViewRect;
     private float startX;
-    private float startY;
     private boolean isTap;
 
     public TouchInterceptFrameLayout(@NonNull Context context) {
@@ -72,7 +70,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
-        Log.d("Frame Layout Touch",e.toString());
 
         int x = Math.round(e.getRawX());
         int y = Math.round(e.getRawY());
@@ -97,7 +94,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                     }
 
                     startX = e.getX();
-                    startY = e.getY();
                     isTap = true;
                     onTouchEvent(e);
                     break;
@@ -105,14 +101,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                 case MotionEvent.ACTION_MOVE:
                     if (touchedScrollView) {
                         float distance = Math.abs(e.getX() - startX);
-                        float verticalDistance = Math.abs(e.getY() - startY);
-
-                        //Scrolling list: cancel long press
-                        if(verticalDistance > MAX_CLICK_DISTANCE){
-                            Log.d("Vertical","True");
-                            isTap = false;
-                            cancelLongClick();
-                        }
 
                         // Scrolling the view: cancel event to prevent long press
                         if (distance > MAX_CLICK_DISTANCE) {
@@ -123,6 +111,13 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                     break;
 
                 case MotionEvent.ACTION_CANCEL:
+                    //Long click cancels should have an x coordinate of 0 during ACTION_CANCEL
+                    //If it does not have an x coordinate of 0 then it is not a long click so cancel it
+                    if(e.getX() != 0){
+                        cancelLongClick();
+                    }
+                    break;
+
                 case MotionEvent.ACTION_UP:
                     if (touchedScrollView && isTap) {
                         onTouchEvent(e);
@@ -134,6 +129,13 @@ public class TouchInterceptFrameLayout extends FrameLayout {
         }
 
         if (touchedScrollView) {
+            //Long click cancels should have an x coordinate of 0 during ACTION_CANCEL
+            //If it does not have an x coordinate of 0 then it is not a long click so cancel it
+            if(e.getAction() == MotionEvent.ACTION_CANCEL){
+                if(e.getX() != 0 ){
+                    cancelLongClick();
+                }
+            }
             onTouchEvent(e);
         }
         return false;
