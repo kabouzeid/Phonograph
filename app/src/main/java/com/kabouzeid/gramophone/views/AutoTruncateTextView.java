@@ -120,10 +120,10 @@ public class AutoTruncateTextView extends AppCompatTextView {
         }
         this.truncatedText = truncatedText;
 
-        final TouchInterceptHorizontalScrollView scrollView = getTouchInterceptHorizontalScrollView();
         post(new Runnable() {
             @Override
             public void run() {
+                final TouchInterceptHorizontalScrollView scrollView = getTouchInterceptHorizontalScrollView();
                 if (isTextTruncated(truncatedText)) {
                     if (originalText.equals(truncatedText) && !truncatedText.endsWith(MARKER_UNTRUNCATED)) {
                         scrollView.setScrollable(false);
@@ -132,7 +132,7 @@ public class AutoTruncateTextView extends AppCompatTextView {
                         scrollView.setOnEndScrollListener(new TouchInterceptHorizontalScrollView.OnEndScrollListener() {
                             @Override
                             public void onEndScroll() {
-                                retruncateScrollText(truncatedText, scrollView, AutoTruncateTextView.this);
+                                retruncateScrollText(truncatedText);
                             }
                         });
                     }
@@ -178,10 +178,8 @@ public class AutoTruncateTextView extends AppCompatTextView {
     /**
      * Retruncates the text and animates it scrolling back to the start position.
      */
-    public void retruncateScrollText(final String truncatedString,
-                                     final TouchInterceptHorizontalScrollView scrollView,
-                                     final AutoTruncateTextView textView) {
-        ObjectAnimator.ofInt(scrollView, "scrollX", 0)
+    public void retruncateScrollText(final String truncatedText) {
+        ObjectAnimator.ofInt(getTouchInterceptHorizontalScrollView(), "scrollX", 0)
                 .setDuration(RETRUNCATE_DELAY)
                 .start();
 
@@ -189,7 +187,7 @@ public class AutoTruncateTextView extends AppCompatTextView {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                textView.setText(truncatedString);
+                if(getText().toString().endsWith(MARKER_UNTRUNCATED)) setText(truncatedText);
             }
         }, RETRUNCATE_DELAY);
     }
