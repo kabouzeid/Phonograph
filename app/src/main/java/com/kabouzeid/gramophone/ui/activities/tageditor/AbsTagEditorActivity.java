@@ -305,7 +305,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
             writeTags(savedSongPaths);
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                if (SAFUtil.isTreeUriSaved(this)) {
+                if (SAFUtil.isSDCardAccessGranted(this)) {
                     writeTags(savedSongPaths);
                 } else {
                     startActivityForResult(new Intent(this, SAFGuideActivity.class), SAFGuideActivity.REQUEST_CODE_SAF_GUIDE);

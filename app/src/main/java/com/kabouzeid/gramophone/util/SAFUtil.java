@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.UriPermission;
 import android.net.Uri;
 import android.os.Build;
 import android.os.ParcelFileDescriptor;
@@ -106,8 +107,23 @@ public class SAFUtil {
         PreferenceUtil.getInstance(context).setSAFSDCardUri(uri);
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static boolean isTreeUriSaved(Context context) {
         return !TextUtils.isEmpty(PreferenceUtil.getInstance(context).getSAFSDCardUri());
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public static boolean isSDCardAccessGranted(Context context) {
+        if (!isTreeUriSaved(context)) return false;
+
+        String sdcardUri = PreferenceUtil.getInstance(context).getSAFSDCardUri();
+
+        List<UriPermission> perms = context.getContentResolver().getPersistedUriPermissions();
+        for (UriPermission perm : perms) {
+            if (perm.getUri().toString().equals(sdcardUri) && perm.isWritePermission()) return true;
+        }
+
+        return false;
     }
 
     /**

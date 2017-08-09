@@ -82,7 +82,7 @@ public class DeleteSongsDialog extends DialogFragment {
                             dismiss();
                         } else {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                if (SAFUtil.isTreeUriSaved(activity)) {
+                                if (SAFUtil.isSDCardAccessGranted(activity)) {
                                     deleteSongs(songs, null);
                                     dismiss();
                                 } else {
