@@ -34,6 +34,7 @@ import com.kabouzeid.gramophone.misc.DialogAsyncTask;
 import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.misc.UpdateToastMediaScannerCompletionListener;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
+import com.kabouzeid.gramophone.ui.activities.saf.SAFGuideActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.SAFUtil;
 import com.kabouzeid.gramophone.util.Util;
@@ -307,8 +308,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                 if (SAFUtil.isTreeUriSaved(this)) {
                     writeTags(savedSongPaths);
                 } else {
-                    Toast.makeText(this, R.string.saf_pick_sdcard, Toast.LENGTH_LONG).show();
-                    SAFUtil.openTreePicker(this);
+                    startActivityForResult(new Intent(this, SAFGuideActivity.class), SAFGuideActivity.REQUEST_CODE_SAF_GUIDE);
                 }
             } else {
                 writeTagsKitkat();
@@ -418,7 +418,9 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                 if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) { // remove SAF URI from paths
                     paths = new ArrayList<>(info.filePaths.size());
                     for (String path : info.filePaths) {
-                        paths.add(path.split(SAFUtil.SEPARATOR)[0]);
+                        if (path.contains(SAFUtil.SEPARATOR))
+                            path = path.split(SAFUtil.SEPARATOR)[0];
+                        paths.add(path);
                     }
                 }
 
@@ -500,6 +502,10 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                     Uri selectedImage = intent.getData();
                     loadImageFromFile(selectedImage);
                 }
+                break;
+
+            case SAFGuideActivity.REQUEST_CODE_SAF_GUIDE:
+                SAFUtil.openTreePicker(this);
                 break;
 
             case SAFUtil.REQUEST_SAF_PICK_TREE:
