@@ -122,7 +122,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                     if (touchedScrollView && isTap) {
                         onTouchEvent(e);
                     }
-                    this.requestDisallowInterceptTouchEvent(false);
                     break;
             }
             return false;
@@ -132,7 +131,7 @@ public class TouchInterceptFrameLayout extends FrameLayout {
             //Long click cancels should have an x coordinate of 0 during ACTION_CANCEL
             //If it does not have an x coordinate of 0 then it is not a long click so cancel it
             if(e.getAction() == MotionEvent.ACTION_CANCEL){
-                if(e.getX() != 0 ){
+                if(e.getX() != 0){
                     cancelLongClick();
                 }
             }
