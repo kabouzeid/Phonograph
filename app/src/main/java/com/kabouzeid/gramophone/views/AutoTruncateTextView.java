@@ -119,11 +119,12 @@ public class AutoTruncateTextView extends AppCompatTextView {
             text = originalText;
         }
         this.truncatedText = truncatedText;
+        final TouchInterceptHorizontalScrollView scrollView = getTouchInterceptHorizontalScrollView();
 
         post(new Runnable() {
             @Override
             public void run() {
-                final TouchInterceptHorizontalScrollView scrollView = getTouchInterceptHorizontalScrollView();
+
                 if (isTextTruncated(truncatedText)) {
                     if (originalText.equals(truncatedText) && !truncatedText.endsWith(MARKER_UNTRUNCATED)) {
                         scrollView.setScrollable(false);
