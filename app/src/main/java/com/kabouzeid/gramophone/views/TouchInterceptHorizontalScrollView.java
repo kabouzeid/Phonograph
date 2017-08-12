@@ -35,7 +35,7 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
     private boolean cancel;
     private boolean cancelCheck;
 
-    // ID of the active pointer.
+    // ID of the active pointer
     private int activePointerId;
 
     // Whether to untruncate the text in the TouchInterceptTextView
@@ -139,22 +139,21 @@ public class TouchInterceptHorizontalScrollView extends HorizontalScrollView {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
-
         int x = Math.round(e.getRawX());
         int y = Math.round(e.getRawY());
 
-        // Check to see if it's a valid pointerID. If it's invalid a long click is triggered. This
-        // stops that.
+        // Check to see if it's a valid pointerID.
+        // If it's invalid, a long click is triggered. This stops that.
         switch (e.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
                 activePointerId = e.getPointerId(0);
                 break;
-            case MotionEvent.ACTION_MOVE: {
+
+            case MotionEvent.ACTION_MOVE:
                 if (e.findPointerIndex(activePointerId) == -1) {
                     cancelLongClick();
                 }
                 break;
-            }
         }
 
         getGlobalVisibleRect(scrollViewRect);

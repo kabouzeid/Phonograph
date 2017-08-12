@@ -70,7 +70,6 @@ public class TouchInterceptFrameLayout extends FrameLayout {
      */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent e) {
-
         int x = Math.round(e.getRawX());
         int y = Math.round(e.getRawY());
 
@@ -111,9 +110,9 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                     break;
 
                 case MotionEvent.ACTION_CANCEL:
-                    //Long click cancels should have an x coordinate of 0 during ACTION_CANCEL
-                    //If it does not have an x coordinate of 0 then it is not a long click so cancel it
-                    if(e.getX() != 0){
+                    // Long click cancels should have an x coordinate of 0 during ACTION_CANCEL.
+                    // If it does not, then it is not a long click so cancel it.
+                    if (e.getX() != 0) {
                         cancelLongClick();
                     }
                     break;
@@ -124,16 +123,15 @@ public class TouchInterceptFrameLayout extends FrameLayout {
                     }
                     break;
             }
+
             return false;
         }
 
         if (touchedScrollView) {
-            //Long click cancels should have an x coordinate of 0 during ACTION_CANCEL
-            //If it does not have an x coordinate of 0 then it is not a long click so cancel it
-            if(e.getAction() == MotionEvent.ACTION_CANCEL){
-                if(e.getX() != 0){
-                    cancelLongClick();
-                }
+            // Long click cancels should have an x coordinate of 0 during ACTION_CANCEL.
+            // If it does not, then it is not a long click so cancel it.
+            if (e.getAction() == MotionEvent.ACTION_CANCEL && e.getX() != 0) {
+                cancelLongClick();
             }
             onTouchEvent(e);
         }

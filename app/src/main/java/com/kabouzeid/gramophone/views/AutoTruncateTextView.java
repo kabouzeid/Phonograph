@@ -1,8 +1,8 @@
 package com.kabouzeid.gramophone.views;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
@@ -75,9 +75,9 @@ public class AutoTruncateTextView extends AppCompatTextView {
     }
 
     /**
-     * The text undergoes truncation here. {@link #onMeasure} is immediately called after
-     * {@link #setText} and has a reference to the parent's bounds. The bounds are used for setting
-     * the length of the truncated text, ensuring that the text does not get visibly cut off.
+     * The text undergoes truncation here. This is immediately called after {@link #setText} and has
+     * a reference to the parent's bounds. The bounds are used for setting the length of the
+     * truncated text, ensuring that the text does not get visibly cut off.
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -119,13 +119,12 @@ public class AutoTruncateTextView extends AppCompatTextView {
             text = originalText;
         }
         this.truncatedText = truncatedText;
-        final TouchInterceptHorizontalScrollView scrollView = getTouchInterceptHorizontalScrollView();
 
+        final TouchInterceptHorizontalScrollView scrollView = getTouchInterceptHorizontalScrollView();
         post(new Runnable() {
             @Override
             public void run() {
-
-                if (isTextTruncated(truncatedText)) {
+                if (isTruncated(truncatedText)) {
                     if (originalText.equals(truncatedText) && !truncatedText.endsWith(MARKER_UNTRUNCATED)) {
                         scrollView.setScrollable(false);
                     } else {
@@ -150,8 +149,12 @@ public class AutoTruncateTextView extends AppCompatTextView {
      * @param text The string to check.
      * @return Returns whether the text has been truncated or not.
      */
-    public boolean isTextTruncated(String text) {
+    public boolean isTruncated(String text) {
         return text.endsWith("…" + TRUNCATED_MARKER);
+    }
+
+    public boolean isUntruncated() {
+        return getText().toString().endsWith(MARKER_UNTRUNCATED);
     }
 
     /**
@@ -177,19 +180,34 @@ public class AutoTruncateTextView extends AppCompatTextView {
     }
 
     /**
-     * Retruncates the text and animates it scrolling back to the start position.
+     * Re-truncates the text and animates it scrolling back to the start position.
      */
     public void retruncateScrollText(final String truncatedText) {
-        ObjectAnimator.ofInt(getTouchInterceptHorizontalScrollView(), "scrollX", 0)
-                .setDuration(RETRUNCATE_DELAY)
-                .start();
+        Animator animator = ObjectAnimator
+                .ofInt(getTouchInterceptHorizontalScrollView(), "scrollX", 0)
+                .setDuration(RETRUNCATE_DELAY);
 
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        animator.addListener(new Animator.AnimatorListener() {
             @Override
-            public void run() {
-                if(getText().toString().endsWith(MARKER_UNTRUNCATED)) setText(truncatedText);
+            public void onAnimationStart(Animator animator) {
             }
-        }, RETRUNCATE_DELAY);
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                if (isUntruncated()) {
+                    setText(truncatedText);
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+            }
+        });
+
+        animator.start();
     }
 }
