@@ -149,10 +149,15 @@ public class AutoTruncateTextView extends AppCompatTextView {
      * @param text The string to check.
      * @return Returns whether the text has been truncated or not.
      */
-    public boolean isTruncated(String text) {
+    public boolean isTruncated(final String text) {
         return text.endsWith("…" + TRUNCATED_MARKER);
     }
 
+    /**
+     * Checks whether a string was untruncated at some point.
+     *
+     * @return Returns whether the current text has been untruncated or not.
+     */
     public boolean isUntruncated() {
         return getText().toString().endsWith(MARKER_UNTRUNCATED);
     }
