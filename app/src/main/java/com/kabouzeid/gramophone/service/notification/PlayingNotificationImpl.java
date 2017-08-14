@@ -5,6 +5,7 @@ package com.kabouzeid.gramophone.service.notification;
  */
 
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
@@ -35,6 +36,8 @@ import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class PlayingNotificationImpl implements PlayingNotification {
 
@@ -82,15 +85,20 @@ public class PlayingNotificationImpl implements PlayingNotification {
         Intent action = new Intent(service, MainActivity.class);
         action.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent openAppPendingIntent = PendingIntent.getActivity(service, 0, action, 0);
+        final ComponentName serviceName = new ComponentName(service, MusicService.class);
+        PendingIntent deleteIntent = buildPendingIntent(service, MusicService.ACTION_QUIT, serviceName);
 
         final Notification notification = new NotificationCompat.Builder(service)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentIntent(openAppPendingIntent)
+                .setDeleteIntent(deleteIntent)
                 .setCategory(NotificationCompat.CATEGORY_SERVICE)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setContent(notificationLayout)
+                .setAutoCancel(true)
                 .setCustomBigContentView(notificationLayoutBig)
+                .setOngoing(isPlaying)
                 .build();
 
         final int bigNotificationImageSize = service.getResources().getDimensionPixelSize(R.dimen.notification_big_image_size);
@@ -132,7 +140,11 @@ public class PlayingNotificationImpl implements PlayingNotification {
 
                                 if (stopped)
                                     return; // notification has been stopped before loading was finished
-                                service.startForeground(NOTIFICATION_ID, notification);
+
+                                // Issue the notification
+                                NotificationManager mNotifyMgr =
+                                        (NotificationManager) service.getSystemService(NOTIFICATION_SERVICE);
+                                mNotifyMgr.notify(NOTIFICATION_ID, notification);
                             }
 
                             private void setBackgroundColor(int color) {
@@ -147,7 +159,6 @@ public class PlayingNotificationImpl implements PlayingNotification {
                                 Bitmap prev = createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_previous_white_24dp, primary), 1.5f);
                                 Bitmap next = createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_next_white_24dp, primary), 1.5f);
                                 Bitmap playPause = createBitmap(Util.getTintedVectorDrawable(service, isPlaying ? R.drawable.ic_pause_white_24dp : R.drawable.ic_play_arrow_white_24dp, primary), 1.5f);
-                                Bitmap close = createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_close_white_24dp, secondary), 1f);
 
                                 notificationLayout.setTextColor(R.id.title, primary);
                                 notificationLayout.setTextColor(R.id.text, secondary);
@@ -161,7 +172,6 @@ public class PlayingNotificationImpl implements PlayingNotification {
                                 notificationLayoutBig.setImageViewBitmap(R.id.action_prev, prev);
                                 notificationLayoutBig.setImageViewBitmap(R.id.action_next, next);
                                 notificationLayoutBig.setImageViewBitmap(R.id.action_play_pause, playPause);
-                                notificationLayoutBig.setImageViewBitmap(R.id.action_quit, close);
                             }
                         });
             }
@@ -193,10 +203,6 @@ public class PlayingNotificationImpl implements PlayingNotification {
         pendingIntent = buildPendingIntent(service, MusicService.ACTION_SKIP, serviceName);
         notificationLayout.setOnClickPendingIntent(R.id.action_next, pendingIntent);
         notificationLayoutBig.setOnClickPendingIntent(R.id.action_next, pendingIntent);
-
-        // Quit
-        pendingIntent = buildPendingIntent(service, MusicService.ACTION_QUIT, serviceName);
-        notificationLayoutBig.setOnClickPendingIntent(R.id.action_quit, pendingIntent);
     }
 
     private PendingIntent buildPendingIntent(Context context, final String action, final ComponentName serviceName) {
