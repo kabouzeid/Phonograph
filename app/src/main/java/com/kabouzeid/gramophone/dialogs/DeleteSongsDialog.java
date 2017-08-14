@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.kabouzeid.gramophone.ui.activities.saf.SAFGuideActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.SAFUtil;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -124,19 +126,22 @@ public class DeleteSongsDialog extends DialogFragment {
     }
 
     private static class DeleteSongsAsyncTask extends DialogAsyncTask<DeleteSongsAsyncTask.LoadingInfo, Integer, Void> {
-        private DeleteSongsDialog dialog;
-        private Activity activity;
+        private WeakReference<DeleteSongsDialog> dialog;
+        private WeakReference<FragmentActivity> activity;
 
         public DeleteSongsAsyncTask(DeleteSongsDialog dialog) {
             super(dialog.getActivity());
-            this.dialog = dialog;
-            this.activity = dialog.getActivity();
+            this.dialog = new WeakReference<>(dialog);
+            this.activity = new WeakReference<>(dialog.getActivity());
         }
 
         @Override
         protected Void doInBackground(LoadingInfo... params) {
             try {
                 LoadingInfo info = params[0];
+
+                DeleteSongsDialog dialog = this.dialog.get();
+                FragmentActivity activity = this.activity.get();
 
                 if (dialog == null || activity == null)
                     return null;
@@ -181,6 +186,9 @@ public class DeleteSongsDialog extends DialogFragment {
         @Override
         protected void onPostExecute(Void v) {
             super.onPostExecute(v);
+
+            DeleteSongsDialog dialog = this.dialog.get();
+            FragmentActivity activity = this.activity.get();
             if (dialog != null && activity != null && !activity.isFinishing()) {
                 dialog.dismiss();
             }
@@ -189,6 +197,9 @@ public class DeleteSongsDialog extends DialogFragment {
         @Override
         protected void onCancelled() {
             super.onCancelled();
+
+            DeleteSongsDialog dialog = this.dialog.get();
+            FragmentActivity activity = this.activity.get();
             if (dialog != null && activity != null && !activity.isFinishing()) {
                 dialog.dismiss();
             }

@@ -176,6 +176,11 @@ public class SAFUtil {
     public static void writeSAF(Context context, AudioFile audio, Uri safUri) {
         Uri uri = null;
 
+        if (context == null) {
+            Log.e(TAG, "writeSAF: context == null");
+            return;
+        }
+
         if (isTreeUriSaved(context)) {
             List<String> pathSegments = new ArrayList<>(Arrays.asList(audio.getFile().getAbsolutePath().split("/")));
             Uri sdcard = Uri.parse(PreferenceUtil.getInstance(context).getSAFSDCardUri());
@@ -187,7 +192,7 @@ public class SAFUtil {
         }
 
         if (uri == null) {
-            Log.e(TAG, "Can't get SAF URI");
+            Log.e(TAG, "writeSAF: Can't get SAF URI");
             toast(context, context.getString(R.string.saf_error_uri));
             return;
         }
@@ -203,7 +208,7 @@ public class SAFUtil {
 
             ParcelFileDescriptor pfd = context.getContentResolver().openFileDescriptor(uri, "rw");
             if (pfd == null) {
-                Log.e(TAG, "SAF provided incorrect URI: " + uri);
+                Log.e(TAG, "writeSAF: SAF provided incorrect URI: " + uri);
                 return;
             }
 
@@ -216,7 +221,7 @@ public class SAFUtil {
 
             temp.delete();
         } catch (final Exception e) {
-            Log.e(TAG, "Failed to write to file descriptor provided by SAF", e);
+            Log.e(TAG, "writeSAF: Failed to write to file descriptor provided by SAF", e);
 
             toast(context, String.format(context.getString(R.string.saf_write_failed), e.getLocalizedMessage()));
         }
@@ -242,6 +247,11 @@ public class SAFUtil {
     public static void deleteSAF(Context context, String path, Uri safUri) {
         Uri uri = null;
 
+        if (context == null) {
+            Log.e(TAG, "deleteSAF: context == null");
+            return;
+        }
+
         if (isTreeUriSaved(context)) {
             List<String> pathSegments = new ArrayList<>(Arrays.asList(path.split("/")));
             Uri sdcard = Uri.parse(PreferenceUtil.getInstance(context).getSAFSDCardUri());
@@ -253,7 +263,7 @@ public class SAFUtil {
         }
 
         if (uri == null) {
-            Log.e(TAG, "Can't get SAF URI");
+            Log.e(TAG, "deleteSAF: Can't get SAF URI");
             toast(context, context.getString(R.string.saf_error_uri));
             return;
         }
@@ -261,7 +271,7 @@ public class SAFUtil {
         try {
             DocumentsContract.deleteDocument(context.getContentResolver(), uri);
         } catch (final Exception e) {
-            Log.e(TAG, "Failed to delete a file descriptor provided by SAF", e);
+            Log.e(TAG, "deleteSAF: Failed to delete a file descriptor provided by SAF", e);
 
             toast(context, String.format(context.getString(R.string.saf_delete_failed), e.getLocalizedMessage()));
         }

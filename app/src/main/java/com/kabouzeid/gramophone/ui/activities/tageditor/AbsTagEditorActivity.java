@@ -49,6 +49,7 @@ import org.jaudiotagger.tag.images.ArtworkFactory;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -336,11 +337,11 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     }
 
     private static class WriteTagsAsyncTask extends DialogAsyncTask<WriteTagsAsyncTask.LoadingInfo, Integer, String[]> {
-        Activity activity;
+        private WeakReference<Activity> activity;
 
-        public WriteTagsAsyncTask(Activity context) {
-            super(context);
-            activity = context;
+        public WriteTagsAsyncTask(Activity activity) {
+            super(activity);
+            this.activity = new WeakReference<>(activity);
         }
 
         @Override
@@ -398,6 +399,8 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                             }
                         }
 
+                        Activity activity = this.activity.get();
+
                         SAFUtil.write(activity, audioFile, safUri);
                     } catch (@NonNull Exception e) {
                         e.printStackTrace();
@@ -444,8 +447,10 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         }
 
         private void scan(String[] toBeScanned) {
-            Context context = getContext();
-            MediaScannerConnection.scanFile(activity, toBeScanned, null, context instanceof Activity ? new UpdateToastMediaScannerCompletionListener((Activity) context, toBeScanned) : null);
+            Activity activity = this.activity.get();
+            if (activity != null) {
+                MediaScannerConnection.scanFile(activity, toBeScanned, null, new UpdateToastMediaScannerCompletionListener(activity, toBeScanned));
+            }
         }
 
         @Override
