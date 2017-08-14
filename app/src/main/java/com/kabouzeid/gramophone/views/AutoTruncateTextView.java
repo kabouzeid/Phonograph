@@ -116,7 +116,7 @@ public class AutoTruncateTextView extends AppCompatTextView {
      */
     public void initiateTruncateText(final String originalText, final String truncatedText) {
         if (!originalText.endsWith(TRUNCATED_MARKER)) {
-            text = originalText;
+            this.text = originalText;
         }
         this.truncatedText = truncatedText;
 
