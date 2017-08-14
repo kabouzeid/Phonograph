@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.dialogs;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.misc.DialogAsyncTask;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.saf.SAFGuideActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
@@ -71,28 +73,14 @@ public class DeleteSongsDialog extends DialogFragment {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Activity activity = getActivity();
-
-                        if (activity == null)
-                            return;
-
                         songsToRemove = songs;
-
-                        if (!SAFUtil.isSAFRequiredForSongs(songs)) {
-                            deleteSongs(songs, null);
-                            dismiss();
-                        } else {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                if (SAFUtil.isSDCardAccessGranted(activity)) {
-                                    deleteSongs(songs, null);
-                                    dismiss();
-                                } else {
-                                    startActivityForResult(new Intent(getActivity(), SAFGuideActivity.class), SAFGuideActivity.REQUEST_CODE_SAF_GUIDE);
-                                }
-                            } else {
-                                deleteSongsKitkat();
-                            }
-                        }
+                        new DeleteSongsAsyncTask(DeleteSongsDialog.this).execute(new DeleteSongsAsyncTask.LoadingInfo(songs, null));
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                        dismiss();
                     }
                 })
                 .build();
@@ -129,18 +117,114 @@ public class DeleteSongsDialog extends DialogFragment {
                 break;
 
             case SAFUtil.REQUEST_SAF_PICK_TREE:
-                if (resultCode == Activity.RESULT_OK) {
-                    SAFUtil.saveTreeUri(getActivity(), intent);
-                    deleteSongs(songsToRemove, null);
-                    dismiss();
-                }
-                break;
-
             case SAFUtil.REQUEST_SAF_PICK_FILE:
-                if (resultCode == Activity.RESULT_OK) {
-                    deleteSongs(Collections.singletonList(currentSong), Collections.singletonList(intent.getData()));
-                }
+                new DeleteSongsAsyncTask(this).execute(new DeleteSongsAsyncTask.LoadingInfo(requestCode, resultCode, intent));
                 break;
+        }
+    }
+
+    private static class DeleteSongsAsyncTask extends DialogAsyncTask<DeleteSongsAsyncTask.LoadingInfo, Integer, Void> {
+        private DeleteSongsDialog dialog;
+        private Activity activity;
+
+        public DeleteSongsAsyncTask(DeleteSongsDialog dialog) {
+            super(dialog.getActivity());
+            this.dialog = dialog;
+            this.activity = dialog.getActivity();
+        }
+
+        @Override
+        protected Void doInBackground(LoadingInfo... params) {
+            try {
+                LoadingInfo info = params[0];
+
+                if (dialog == null || activity == null)
+                    return null;
+
+                if (!info.isIntent) {
+                    if (!SAFUtil.isSAFRequiredForSongs(info.songs)) {
+                        dialog.deleteSongs(info.songs, null);
+                    } else {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            if (SAFUtil.isSDCardAccessGranted(activity)) {
+                                dialog.deleteSongs(info.songs, null);
+                            } else {
+                                dialog.startActivityForResult(new Intent(activity, SAFGuideActivity.class), SAFGuideActivity.REQUEST_CODE_SAF_GUIDE);
+                            }
+                        } else {
+                            dialog.deleteSongsKitkat();
+                        }
+                    }
+                } else {
+                    switch (info.requestCode) {
+                        case SAFUtil.REQUEST_SAF_PICK_TREE:
+                            if (info.resultCode == Activity.RESULT_OK) {
+                                SAFUtil.saveTreeUri(activity, info.intent);
+                                dialog.deleteSongs(dialog.songsToRemove, null);
+                            }
+                            break;
+
+                        case SAFUtil.REQUEST_SAF_PICK_FILE:
+                            if (info.resultCode == Activity.RESULT_OK) {
+                                dialog.deleteSongs(Collections.singletonList(dialog.currentSong), Collections.singletonList(info.intent.getData()));
+                            }
+                            break;
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+            super.onPostExecute(v);
+            if (dialog != null && activity != null && !activity.isFinishing()) {
+                dialog.dismiss();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            if (dialog != null && activity != null && !activity.isFinishing()) {
+                dialog.dismiss();
+            }
+        }
+
+        @Override
+        protected Dialog createDialog(@NonNull Context context) {
+            return new MaterialDialog.Builder(context)
+                    .title(R.string.deleting_songs)
+                    .cancelable(false)
+                    .progress(true, 0)
+                    .build();
+        }
+
+        public static class LoadingInfo {
+            public boolean isIntent;
+
+            public List<Song> songs;
+            public List<Uri> safUris;
+
+            public int requestCode;
+            public int resultCode;
+            public Intent intent;
+
+            public LoadingInfo(List<Song> songs, List<Uri> safUris) {
+                this.isIntent = false;
+                this.songs = songs;
+                this.safUris = safUris;
+            }
+
+            public LoadingInfo(int requestCode, int resultCode, Intent intent) {
+                this.isIntent = true;
+                this.requestCode = requestCode;
+                this.resultCode = resultCode;
+                this.intent = intent;
+            }
         }
     }
 }

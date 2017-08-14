@@ -215,8 +215,6 @@ public class SAFUtil {
             fos.close();
 
             temp.delete();
-
-            toast(context, String.format(context.getString(R.string.saf_write_success), original.getAbsolutePath()));
         } catch (final Exception e) {
             Log.e(TAG, "Failed to write to file descriptor provided by SAF", e);
 
@@ -262,8 +260,6 @@ public class SAFUtil {
 
         try {
             DocumentsContract.deleteDocument(context.getContentResolver(), uri);
-
-            toast(context, String.format(context.getString(R.string.saf_delete_success), uri.toString()));
         } catch (final Exception e) {
             Log.e(TAG, "Failed to delete a file descriptor provided by SAF", e);
 
