@@ -86,7 +86,9 @@ public class PlayingNotificationImpl implements PlayingNotification {
         action.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent openAppPendingIntent = PendingIntent.getActivity(service, 0, action, 0);
         final ComponentName serviceName = new ComponentName(service, MusicService.class);
-        PendingIntent deleteIntent = buildPendingIntent(service, MusicService.ACTION_QUIT, serviceName);
+
+        Intent intent = new Intent(MusicService.ACTION_QUIT);
+        final PendingIntent deleteIntent = PendingIntent.getService(service, 0, intent, 0);
 
         final Notification notification = new NotificationCompat.Builder(service)
                 .setSmallIcon(R.drawable.ic_notification)
@@ -96,7 +98,6 @@ public class PlayingNotificationImpl implements PlayingNotification {
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setContent(notificationLayout)
-                .setAutoCancel(true)
                 .setCustomBigContentView(notificationLayoutBig)
                 .setOngoing(isPlaying)
                 .build();
