@@ -1,11 +1,6 @@
 package com.kabouzeid.gramophone.service.notification;
 
-/**
- * @author Karim Abou Zeid (kabouzeid)
- */
-
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
@@ -37,20 +32,9 @@ import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 
-import static android.content.Context.NOTIFICATION_SERVICE;
-
-public class PlayingNotificationImpl implements PlayingNotification {
-
-    private MusicService service;
+public class PlayingNotificationImpl extends PlayingNotification {
 
     private Target<BitmapPaletteWrapper> target;
-
-    private boolean stopped;
-
-    @Override
-    public synchronized void init(MusicService service) {
-        this.service = service;
-    }
 
     @Override
     public synchronized void update() {
@@ -84,15 +68,12 @@ public class PlayingNotificationImpl implements PlayingNotification {
 
         Intent action = new Intent(service, MainActivity.class);
         action.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent openAppPendingIntent = PendingIntent.getActivity(service, 0, action, 0);
-        final ComponentName serviceName = new ComponentName(service, MusicService.class);
-
-        Intent intent = new Intent(MusicService.ACTION_QUIT);
-        final PendingIntent deleteIntent = PendingIntent.getService(service, 0, intent, 0);
+        final PendingIntent clickIntent = PendingIntent.getActivity(service, 0, action, 0);
+        final PendingIntent deleteIntent = buildPendingIntent(service, MusicService.ACTION_QUIT, null);
 
         final Notification notification = new NotificationCompat.Builder(service)
                 .setSmallIcon(R.drawable.ic_notification)
-                .setContentIntent(openAppPendingIntent)
+                .setContentIntent(clickIntent)
                 .setDeleteIntent(deleteIntent)
                 .setCategory(NotificationCompat.CATEGORY_SERVICE)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
@@ -141,11 +122,7 @@ public class PlayingNotificationImpl implements PlayingNotification {
 
                                 if (stopped)
                                     return; // notification has been stopped before loading was finished
-
-                                // Issue the notification
-                                NotificationManager mNotifyMgr =
-                                        (NotificationManager) service.getSystemService(NOTIFICATION_SERVICE);
-                                mNotifyMgr.notify(NOTIFICATION_ID, notification);
+                                updateNotifyModeAndPostNotification(notification);
                             }
 
                             private void setBackgroundColor(int color) {
@@ -177,12 +154,6 @@ public class PlayingNotificationImpl implements PlayingNotification {
                         });
             }
         });
-    }
-
-    @Override
-    public synchronized void stop() {
-        stopped = true;
-        service.stopForeground(true);
     }
 
     private void linkButtons(final RemoteViews notificationLayout, final RemoteViews notificationLayoutBig) {
