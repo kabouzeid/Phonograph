@@ -8,9 +8,6 @@ import android.content.Intent;
 
 import com.kabouzeid.gramophone.service.MusicService;
 
-/**
- * @author Eugene Cheung (arkon)
- */
 public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
