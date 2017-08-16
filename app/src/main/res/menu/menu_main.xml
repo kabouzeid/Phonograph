@@ -10,11 +10,6 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_shuffle_all"
-        android:title="@string/action_shuffle_all"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/action_grid_size"
         android:title="@string/action_grid_size">
         <menu>
@@ -54,17 +49,5 @@
         android:id="@+id/action_colored_footers"
         android:checkable="true"
         android:title="@string/colored_footers" />
-
-    <item
-        android:id="@+id/action_sleep_timer"
-        android:orderInCategory="98"
-        android:title="@string/action_sleep_timer"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_equalizer"
-        android:orderInCategory="99"
-        android:title="@string/equalizer"
-        app:showAsAction="never" />
 
 </menu>

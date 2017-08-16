@@ -72,15 +72,23 @@ public class BugReportActivity extends AbsThemeActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    @BindView(R.id.input_layout_title)
+    TextInputLayout inputLayoutTitle;
     @BindView(R.id.input_title)
     TextInputEditText inputTitle;
+    @BindView(R.id.input_layout_description)
+    TextInputLayout inputLayoutDescription;
     @BindView(R.id.input_description)
     TextInputEditText inputDescription;
     @BindView(R.id.air_textDeviceInfo)
     TextView textDeviceInfo;
 
+    @BindView(R.id.input_layout_username)
+    TextInputLayout inputLayoutUsername;
     @BindView(R.id.input_username)
     TextInputEditText inputUsername;
+    @BindView(R.id.input_layout_password)
+    TextInputLayout inputLayoutPassword;
     @BindView(R.id.input_password)
     TextInputEditText inputPassword;
     @BindView(R.id.option_use_account)
@@ -223,45 +231,43 @@ public class BugReportActivity extends AbsThemeActivity {
 
         if (optionUseAccount.isChecked()) {
             if (TextUtils.isEmpty(inputUsername.getText())) {
-                setError(inputUsername, R.string.bug_report_no_username);
+                setError(inputLayoutUsername, R.string.bug_report_no_username);
                 hasErrors = true;
             } else {
-                removeError(inputUsername);
+                removeError(inputLayoutUsername);
             }
 
             if (TextUtils.isEmpty(inputPassword.getText())) {
-                setError(inputPassword, R.string.bug_report_no_password);
+                setError(inputLayoutPassword, R.string.bug_report_no_password);
                 hasErrors = true;
             } else {
-                removeError(inputPassword);
+                removeError(inputLayoutPassword);
             }
         }
 
         if (TextUtils.isEmpty(inputTitle.getText())) {
-            setError(inputTitle, R.string.bug_report_no_title);
+            setError(inputLayoutTitle, R.string.bug_report_no_title);
             hasErrors = true;
         } else {
-            removeError(inputTitle);
+            removeError(inputLayoutTitle);
         }
 
         if (TextUtils.isEmpty(inputDescription.getText())) {
-            setError(inputDescription, R.string.bug_report_no_description);
+            setError(inputLayoutDescription, R.string.bug_report_no_description);
             hasErrors = true;
         } else {
-            removeError(inputDescription);
+            removeError(inputLayoutDescription);
         }
 
         return !hasErrors;
     }
 
-    private void setError(TextInputEditText editText, @StringRes int errorRes) {
-        TextInputLayout layout = (TextInputLayout) editText.getParent();
-        layout.setError(getString(errorRes));
+    private void setError(TextInputLayout editTextLayout, @StringRes int errorRes) {
+        editTextLayout.setError(getString(errorRes));
     }
 
-    private void removeError(TextInputEditText editText) {
-        TextInputLayout layout = (TextInputLayout) editText.getParent();
-        layout.setError(null);
+    private void removeError(TextInputLayout editTextLayout) {
+        editTextLayout.setError(null);
     }
 
     private void sendBugReport(GithubLogin login) {

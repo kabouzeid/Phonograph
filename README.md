@@ -1,4 +1,5 @@
 # Phonograph
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://github.com/kabouzeid/Phonograph/blob/master/LICENSE.txt)
 
 **A material designed local music player for Android.**
 
@@ -10,6 +11,4 @@
 </a>
 
 
-## License
 
-Phonograph is released under the GNU General Public License v3.0 (GPLv3), which can be found here: [License](LICENSE.txt)
