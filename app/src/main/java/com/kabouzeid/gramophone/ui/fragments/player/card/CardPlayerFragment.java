@@ -134,6 +134,10 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
         // for some reason the xml attribute doesn't get applied here.
         playingQueueCard.setCardBackgroundColor(ATHUtil.resolveColor(getActivity(), R.attr.cardBackgroundColor));
+
+        //Allows the list items to draw out of bounds when swiping
+        playingQueueCard.setClipToOutline(false);
+        disableClipOnParents(recyclerView);
     }
 
     @Override
@@ -295,6 +299,20 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         });
 
         layoutManager.scrollToPositionWithOffset(MusicPlayerRemote.getPosition() + 1, 0);
+    }
+
+    public void disableClipOnParents(View v) {
+        if (v.getParent() == null) {
+            return;
+        }
+
+        if (v instanceof ViewGroup) {
+            ((ViewGroup) v).setClipChildren(false);
+        }
+
+        if (v.getParent() instanceof View) {
+            disableClipOnParents((View) v.getParent());
+        }
     }
 
 

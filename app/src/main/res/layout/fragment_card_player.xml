@@ -75,17 +75,17 @@
 
             <android.support.v7.widget.CardView
                 android:id="@+id/playing_queue_card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/status_bar_padding"
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginTop="@dimen/status_bar_padding"
                 app:cardBackgroundColor="?cardBackgroundColor"
                 app:cardElevation="@dimen/card_elevation"
                 app:cardUseCompatPadding="false">
 
-                <RelativeLayout
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -97,6 +97,7 @@
                         android:layout_alignBottom="@+id/card_content"
                         android:layout_alignTop="@+id/card_content"
                         android:layout_marginTop="120dp" />
+
 
                     <LinearLayout
                         android:id="@+id/card_content"
@@ -117,20 +118,20 @@
                             android:paddingRight="16dp"
                             android:text="@string/up_next"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                            android:textColor="?android:textColorSecondary"
-                            />
+                            android:textColor="?android:textColorSecondary" />
 
-                            <android.support.v7.widget.RecyclerView
-                                android:id="@+id/player_recycler_view"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:requiresFadingEdge="vertical"
-                                android:paddingBottom="8dp"
-                                />
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/player_recycler_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="8dp"
+                            android:requiresFadingEdge="vertical"
+                            android:scrollbarStyle="outsideOverlay"
+                            android:clipToPadding="false" />
 
                     </LinearLayout>
 
-                </RelativeLayout>
+                </FrameLayout>
 
             </android.support.v7.widget.CardView>
 
