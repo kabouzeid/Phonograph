@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -240,18 +239,17 @@ public class PlayingQueueAdapter extends SongAdapter
 
     public static void initializeSnackBar(final PlayingQueueAdapter adapter,final int position){
 
-        RecyclerView.ViewHolder viewHolder = adapter.getRecyclerView().findViewHolderForAdapterPosition(position);
-        TextView songTitle = (TextView) viewHolder.itemView.findViewById(R.id.title);
-
-        CharSequence snackBarTitle = activity.getString(R.string.snack_bar_title_removed_song) +
-                (String) TextUtils.ellipsize(songTitle.getText(),
-                        songTitle.getPaint(),
-                        (float) songTitle.getWidth(),
-                        TextUtils.TruncateAt.END).toString();
+        CharSequence snackBarTitle = activity.getString(R.string.snack_bar_title_removed_song);
 
         Snackbar snackbar = Snackbar.make((View) activity.findViewById(R.id.content_container),
                 snackBarTitle,
                 Snackbar.LENGTH_LONG);
+
+        TextView songTitle = (TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text);
+
+        songTitle.setSingleLine();
+        songTitle.setEllipsize(TextUtils.TruncateAt.END);
+        songTitle.setText(adapter.dataSet.get(position).title + snackBarTitle);
 
         snackbar.setAction(R.string.snack_bar_action_undo, new View.OnClickListener() {
             @Override

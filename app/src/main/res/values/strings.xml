@@ -302,5 +302,5 @@
     <string name="app_shortcut_last_added_short">@string/last_added</string>
     <string name="playlist_is_empty">Playlist is empty</string>
     <string name="snack_bar_action_undo">UNDO</string>
-    <string name="snack_bar_title_removed_song">Removed\u0020</string>
+    <string name="snack_bar_title_removed_song">\u0020Removed</string>
 </resources>
