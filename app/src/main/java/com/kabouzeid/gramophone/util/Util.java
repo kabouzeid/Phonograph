@@ -42,6 +42,16 @@ public class Util {
         return actionBarSize;
     }
 
+    public static int getDividerColor(@NonNull Context context){
+        TypedValue typedValue = new TypedValue();
+        int[] dividerColorAttr = new int[]{R.attr.dividerColor};
+        int indexOfDividerColor = 0;
+        TypedArray a = context.obtainStyledAttributes(typedValue.data, dividerColorAttr);
+        int color = a.getColor(indexOfDividerColor, 0);
+        a.recycle();
+        return color;
+    }
+
     public static Point getScreenSize(@NonNull Context c) {
         Display display = ((WindowManager) c.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         Point size = new Point();

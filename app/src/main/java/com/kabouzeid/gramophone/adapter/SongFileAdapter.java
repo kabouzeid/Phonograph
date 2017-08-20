@@ -74,7 +74,7 @@ public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewH
 
         holder.itemView.setActivated(isChecked(file));
 
-        if (holder.getAdapterPosition() == getItemCount() - 1) {
+        /*if (holder.getAdapterPosition() == getItemCount() - 1) {
             if (holder.shortSeparator != null) {
                 holder.shortSeparator.setVisibility(View.GONE);
             }
@@ -83,7 +83,7 @@ public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewH
                 holder.shortSeparator.setVisibility(View.VISIBLE);
             }
         }
-
+        */
         if (holder.title != null) {
             holder.title.setText(getFileTitle(file));
         }

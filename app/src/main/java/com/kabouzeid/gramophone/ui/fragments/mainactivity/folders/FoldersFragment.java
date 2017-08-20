@@ -50,8 +50,10 @@ import com.kabouzeid.gramophone.ui.fragments.mainactivity.AbsMainActivityFragmen
 import com.kabouzeid.gramophone.util.FileUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
+import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.kabouzeid.gramophone.views.BreadCrumbLayout;
+import com.kabouzeid.gramophone.views.HorizontalItemDivider;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.io.File;
@@ -207,6 +209,8 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
             }
         });
         recyclerView.setAdapter(adapter);
+        HorizontalItemDivider dividerItemDecoration = new HorizontalItemDivider(getMainActivity(), Util.getDividerColor(getMainActivity()), 72);
+        recyclerView.addItemDecoration(dividerItemDecoration);
         checkIsEmpty();
     }
 

@@ -108,6 +108,7 @@
         android:layout_gravity="bottom"
         android:layout_marginLeft="72dp"
         android:layout_marginStart="72dp"
+        android:visibility="gone"
         android:background="?attr/dividerColor" />
 
 </FrameLayout>
