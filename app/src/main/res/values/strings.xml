@@ -222,8 +222,10 @@
     <string name="permission_external_storage_denied">Permission to access external storage denied.</string>
     <string name="back">back</string>
     <string name="support_development">Support development</string>
+    <string name="buy_pro">Buy Phonograph Pro</string>
     <string name="thank_you">Thank you!</string>
-    <string name="restored_previous_purchases">Restored previous purchases.</string>
+    <string name="thanks_for_purchasing_phonograph_please_restart">Thanks for purchasing Phonograph Pro! Please restart the app to make use of the new features.</string>
+    <string name="restored_previous_purchases_please_restart">Restored previous purchases. Please restart the app to make use of all features.</string>
     <string name="play_store_illustration_by">Play Store illustration by</string>
     <string name="version">Version</string>
     <string name="application">Application</string>
@@ -249,6 +251,7 @@
     <string name="aleksandar_tesic_summary">For helping me with the design.</string>
     <string name="website">Website</string>
     <string name="loading_products">Loading products…</string>
+    <string name="loading_price">Loading price…</string>
     <string name="up_next">Up next</string>
     <string name="pref_title_now_playing_screen_appearance">Appearance</string>
     <string name="intro_label">Introduction</string>
@@ -303,4 +306,9 @@
     <string name="playlist_is_empty">Playlist is empty</string>
     <string name="playing_notification_description">The playing notification provides actions for play/pause etc.</string>
     <string name="playing_notification_name">Playing notification</string>
+    <string name="buy">Buy</string>
+    <string name="only_the_first_5_colors_available">Only the first 5 colors are available in the free version.</string>
+    <string name="black_theme_is_a_pro_feature">The black theme is Phonograph Pro feature.</string>
+    <string name="sleep_timer_is_a_pro_feature">Sleep timer is a Phonograph Pro feature</string>
+    <string name="folder_view_is_a_pro_feature">Folder view is a Phonograph Pro feature.</string>
 </resources>
