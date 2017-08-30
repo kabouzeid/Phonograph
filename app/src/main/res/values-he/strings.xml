@@ -3,18 +3,13 @@
     <string name="what_do_you_want_to_share">מה תרצה/י לשתף?</string>
     <string name="currently_listening_to_x_by_x">כרגע מאזין ל%1$s מאת %2$s.</string>
     <string name="the_audio_file">קובץ האודיו</string>
-    <string name="do_you_want_to_set_x_as_ringtone">תרצה/י לקבוע את %1$s בתור הצלצול שלך?</string>
     <string name="x_has_been_set_as_ringtone">הגדר/י את %1$s בתור הצלצול שלך.</string>
     <string name="action_set_as_ringtone">הגדרה כצלצול</string>
     <string name="action_share">שיתוף</string>
     <string name="action_settings">"הגדרות"</string>
     <string name="action_grant">הענק</string>
-    <string name="action_done">בוצע</string>
-    <string name="action_skip">דלג</string>
     <string name="action_about">אודות</string>
-    <string name="action_show_intro">הצג את המסך הראשי</string>
     <string name="action_clear_playlist">ניקוי רשימת השמעה</string>
-    <string name="action_playing_queue">"מנגן "</string>
     <string name="action_add_to_favorites">הוספה למועדפים</string>
     <string name="action_remove_from_favorites">הסרה מהמועדפים</string>
     <string name="action_search">חיפוש</string>
@@ -42,7 +37,6 @@
     <string name="genre">סגנון</string>
     <string name="album_artist">אמן האלבום</string>
     <string name="year">שנה</string>
-    <string name="track">שיר</string>
     <string name="track_hint">"שיר (2 בשביל שיר 2 או 3004 בשביל דיסק 3 שיר 4)"</string>
     <string name="album_or_artist_empty">הכותרת או האמן ריקים</string>
     <string name="saving_changes">שומר שינויים</string>
@@ -58,11 +52,9 @@
     <string name="action_go_to_artist">מעבר לאמן</string>
     <string name="action_go_to_album">מעבר לאלבום</string>
     <string name="label_playing_queue">מנגן רשימת השמעה</string>
-    <string name="save_as_playlist">שמירה כרשימת השמעה</string>
     <string name="no_results">אין תוצאות</string>
     <string name="action_re_download_artist_image">עדכן תמונת אמן</string>
     <string name="updated_artist_image">תמונת האמן עודכנה.</string>
-    <string name="could_not_update_artist_image">\u05dc\u05d0 \u05e0\u05d9\u05ea\u05df \u05dc\u05e2\u05d3\u05db\u05df \u05d0\u05ea \u05ea\u05de\u05d5\u05e0\u05ea \u05d4\u05d0\u05de\u05df.</string>
     <string name="updating">מעדכן...</string>
     <string name="added_title_to_playing_queue">"נוסף שיר אחד לתור "</string>
     <string name="added_x_titles_to_playing_queue">נוספו %1$d שירים לתור</string>
@@ -71,7 +63,6 @@
     <string name="action_grid_size_land">גודל הרשת (קרקע)</string>
     <string name="inserted_x_songs_into_playlist_x">הוכנסו %1$d שירים לתוך רשימת השמיעה %2$s</string>
     <string name="created_playlist_x">נוצרה רשימת השמיעה %1$s</string>
-    <string name="deleted_playlist_x">נמחקה רשימת השמיעה %1$s</string>
     <string name="deleted_x_songs">נמחקו %1$d שירים</string>
     <string name="could_not_create_playlist">\u05dc\u05d0 \u05e0\u05d9\u05ea\u05df \u05dc\u05d9\u05e6\u05d5\u05e8 \u05e8\u05e9\u05d9\u05de\u05ea \u05e9\u05de\u05d9\u05e2\u05d4.</string>
     <string name="delete_playlist_x"><![CDATA[האם ברצונך למחוק את רשימת השמיעה <b>%1$s</b>?]]></string>
@@ -120,7 +111,6 @@
     <string name="pref_title_blurred_album_art">טשטוש עטיפת האלבום</string>
     <string name="pref_title_colored_notification">התראה צבעונית</string>
     <string name="pref_title_gapless_playback">ניגון ללא מרווחים בין השירים</string>
-    <string name="pref_title_force_square_album_art">עטיפת אלבום מרובעת</string>
     <string name="no_equalizer">אקוולייזר לא נמצא</string>
     <string name="no_audio_ID">"נגן/י שיר ואז נסה/י שנית."</string>
     <string name="delete_action">מחיקה</string>
@@ -129,8 +119,6 @@
     <string name="rename_action">שינוי שם</string>
     <string name="create_action">יצירה</string>
     <string name="x_selected">%1$d נבחר</string>
-    <string name="select">בחירה</string>
-    <string name="default_str">ברירת מחדל</string>
     <string name="primary_color">צבע ראשי</string>
     <string name="update_image">עדכון תמונה</string>
     <string name="playlist_empty_text">רשימת שמע ריקה</string>
@@ -146,7 +134,6 @@
     <string name="pref_summary_audio_ducking">התראות, ניווט וכו\'</string>
     <string name="could_not_download_album_cover">"\u05dc\u05d0 \u05d9\u05db\u05d5\u05dc \u05dc\u05d4\u05d5\u05e8\u05d9\u05d3 \u05ea\u05de\u05d5\u05e0\u05ea \u05d0\u05dc\u05d1\u05d5\u05dd \u05de\u05ea\u05d9\u05d0\u05de\u05d4."</string>
     <string name="search_hint">חפש בספרייה שלך...</string>
-    <string name="rescanning_media">סורק מחדש מדיה...</string>
     <string name="favorites">מועדפים</string>
     <string name="last_added">נוספו לאחרונה</string>
     <string name="history">היסטוריה</string>
@@ -163,12 +150,9 @@
     <string name="licenses">רישיונות</string>
     <string name="permissions_denied">הרשאות נדחו.</string>
     <string name="permission_external_storage_denied">הרשאה לגישה לאחסון החיצוני נדחתה.</string>
-    <string name="back">חזרה</string>
     <string name="support_development">תמיכה בפיתוח</string>
     <string name="thank_you">תודה לכם!</string>
-    <string name="restored_previous_purchases">שחזור רכישות קודמות.</string>
     <string name="version">גרסה</string>
-    <string name="application">אפליקציה</string>
     <string name="follow_on_twitter">עקוב בטוויטר</string>
     <string name="visit_website">ביקור באתר</string>
     <string name="report_bugs">דווח על באגים</string>
