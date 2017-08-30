@@ -260,13 +260,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
                         // Save preference
                         PreferenceUtil.getInstance(getActivity()).setClassicNotification((Boolean) newValue);
-
-                        final MusicService service = MusicPlayerRemote.musicService;
-                        if (service != null) {
-                            service.initNotification();
-                            service.updateNotification();
-                        }
-
                         return true;
                     }
                 });

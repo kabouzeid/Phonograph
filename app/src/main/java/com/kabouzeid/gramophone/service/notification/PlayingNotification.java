@@ -1,8 +1,12 @@
 package com.kabouzeid.gramophone.service.notification;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 
+import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.service.MusicService;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
@@ -10,7 +14,7 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public abstract class PlayingNotification {
 
     private static final int NOTIFICATION_ID = 1;
-    protected static final String NOTIFICATION_CHANNEL = "notif_channel";
+    protected static final String NOTIFICATION_CHANNEL_ID = "playing_notification";
 
     private static final int NOTIFY_MODE_FOREGROUND = 1;
     private static final int NOTIFY_MODE_BACKGROUND = 0;
@@ -24,6 +28,9 @@ public abstract class PlayingNotification {
     public synchronized void init(MusicService service) {
         this.service = service;
         notificationManager = (NotificationManager) service.getSystemService(NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createNotificationChannel();
+        }
     }
 
     abstract public void update();
@@ -53,5 +60,19 @@ public abstract class PlayingNotification {
         }
 
         notifyMode = newNotifyMode;
+    }
+
+    @RequiresApi(26)
+    private void createNotificationChannel() {
+        NotificationChannel notificationChannel = notificationManager.getNotificationChannel(NOTIFICATION_CHANNEL_ID);
+        if (notificationChannel == null) {
+            notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, service.getString(R.string.playing_notification_name), NotificationManager.IMPORTANCE_LOW);
+            notificationChannel.setDescription(service.getString(R.string.playing_notification_description));
+            notificationChannel.enableLights(false);
+            notificationChannel.enableVibration(false);
+            notificationChannel.setShowBadge(false);
+
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
     }
 }
