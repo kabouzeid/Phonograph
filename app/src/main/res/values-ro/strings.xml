@@ -3,14 +3,12 @@
     <string name="what_do_you_want_to_share">Ce doriți să distribuiți?</string>
     <string name="currently_listening_to_x_by_x">Momentan ascultaţi %1$s din %2$s</string>
     <string name="the_audio_file">Fișierul audio</string>
-    <string name="do_you_want_to_set_x_as_ringtone">Vrei să setezi %1$s ca sonerie de apel?</string>
     <string name="x_has_been_set_as_ringtone">Setează %1$s ca sonerie.</string>
     <string name="action_set_as_ringtone">Setați ca Sonerie</string>
     <string name="action_share">Distribuiți</string>
     <string name="action_settings">"Setări"</string>
     <string name="action_about">Despre</string>
     <string name="action_clear_playlist">Eliberați lista de redare</string>
-    <string name="action_playing_queue">Lista de redare</string>
     <string name="action_add_to_favorites">Adăugați la favorite</string>
     <string name="action_remove_from_favorites">Ștergeți de la favorite</string>
     <string name="action_search">Căutare</string>
@@ -36,7 +34,6 @@
     <string name="genre">Gen</string>
     <string name="album_artist">Artistul albumului</string>
     <string name="year">An</string>
-    <string name="track">Număr</string>
     <string name="track_hint">"Număr (2 pentru melodia a doua sau 3004 pentru CD3 melodia 4)"</string>
     <string name="album_or_artist_empty">Campul titlului albumului sau artistul albumului este gol.</string>
     <string name="saving_changes">Se salvează schimbările...</string>
@@ -51,7 +48,6 @@
     <string name="action_go_to_artist">Du-te la artist</string>
     <string name="action_go_to_album">Du-te la album</string>
     <string name="label_playing_queue">Lista de redare</string>
-    <string name="save_as_playlist">Salvează ca și lista de redare</string>
     <string name="no_results">Niciun rezultat</string>
     <string name="action_re_download_artist_image">Actualizează imagine artist</string>
     <string name="updating">Actualizare...</string>
@@ -59,7 +55,6 @@
     <string name="added_x_titles_to_playing_queue">%1$d melodii adăugate în lista de redare.</string>
     <string name="action_remove_from_playlist">Ștergeți din lista de redare.</string>
     <string name="created_playlist_x">Lista de redare %1$s a fost creată.</string>
-    <string name="deleted_playlist_x">Lista de redare %1$s a fost ștearsă.</string>
     <string name="deleted_x_songs">%1$d melodii șterse</string>
     <string name="could_not_create_playlist">Nu s-a putut crea lista de redare</string>
     <string name="delete_playlist_x"><![CDATA[Doriți să ștergeți lista <b>%1$s</b>?]]></string>
@@ -93,9 +88,6 @@
     <string name="pref_title_set_default_start_page">Pagina de deschidere</string>
     <string name="pref_title_colored_notification">Notificare colorată</string>
     <string name="pref_title_gapless_playback">Redare fără întreruperi</string>
-    <string name="pref_title_force_square_album_art">Forțează pictogramă album pătrată</string>
-    <string name="pref_title_opaque_toolbar_now_playing">Bară de instrumente opacă</string>
-    <string name="pref_title_opaque_statusbar_now_playing">Bară de statuturi opacă</string>
     <string name="no_equalizer">Niciun egalizator găsit</string>
     <string name="delete_action">Șterge</string>
     <string name="clear_action">Eliberați</string>
@@ -103,8 +95,6 @@
     <string name="rename_action">Redenumește</string>
     <string name="create_action">Creați</string>
     <string name="x_selected">%1$d selectat/ă</string>
-    <string name="select">Selectează</string>
-    <string name="default_str">Implicit</string>
     <string name="primary_color">Culoare Primară</string>
     <string name="accent_color">Culoare de accent</string>
     <string name="update_image">Înnoiți imagine</string>
@@ -120,7 +110,6 @@
     <string name="pref_summary_colored_navigation_bar">În ce ecrane bara de navigare să fie colorată.</string>
     <string name="could_not_download_album_cover">"Nu s-a putut desc\u0103rca un cover de album potrivit."</string>
     <string name="search_hint">Căutați în bibliotecă.</string>
-    <string name="rescanning_media">Se rescanează media.</string>
     <string name="favorites">Favorite</string>
     <string name="last_added">Ultime adăugate</string>
     <string name="my_top_tracks">Melodiile mele favorite</string>

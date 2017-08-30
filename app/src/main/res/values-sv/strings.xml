@@ -3,18 +3,13 @@
     <string name="what_do_you_want_to_share">Vad vill du dela?</string>
     <string name="currently_listening_to_x_by_x">Nu spelas %1$s av %2$s</string>
     <string name="the_audio_file">Ljudfilen</string>
-    <string name="do_you_want_to_set_x_as_ringtone">Vill du använda %1$s som din ringsignal?</string>
     <string name="x_has_been_set_as_ringtone">"Lägg till %1$s som din ringsignal. "</string>
     <string name="action_set_as_ringtone">Använd som ringsignal.</string>
     <string name="action_share">Dela</string>
     <string name="action_settings">"Inställningar"</string>
     <string name="action_grant">Tillåt</string>
-    <string name="action_done">Färdig</string>
-    <string name="action_skip">Skippa</string>
     <string name="action_about">Om</string>
-    <string name="action_show_intro">Visa intro</string>
     <string name="action_clear_playlist">"Rensa spellista "</string>
-    <string name="action_playing_queue">Uppspelningskö</string>
     <string name="action_add_to_favorites">"Lägg till i favoriter "</string>
     <string name="action_remove_from_favorites">"Ta bort från favoriter "</string>
     <string name="action_search">Sök</string>
@@ -42,7 +37,6 @@
     <string name="genre">Genre</string>
     <string name="album_artist">Albumartist</string>
     <string name="year">År</string>
-    <string name="track">Spår</string>
     <string name="track_hint">"Spår"</string>
     <string name="album_or_artist_empty">Textfältet för albumtitel eller artist är tomt.</string>
     <string name="saving_changes">Sparar ändringar ...</string>
@@ -57,13 +51,11 @@
     <string name="action_go_to_artist">Gå till artist</string>
     <string name="action_go_to_album">Gå till album</string>
     <string name="label_playing_queue">Spelar kö</string>
-    <string name="save_as_playlist">Spara som spellista</string>
     <string name="no_results">Inga resultat</string>
     <string name="action_re_download_artist_image">Uppdatera artistbild</string>
     <string name="updating">Uppdaterar ...</string>
     <string name="added_title_to_playing_queue">"Lagt till 1 titel till spellistan."</string>
     <string name="created_playlist_x">Spellista %1$s skapad</string>
-    <string name="deleted_playlist_x">Spellista %1$s raderad</string>
     <string name="delete_playlist_x"><![CDATA[
 Vill du radera spellistan <b>%1$s</b>?
     ]]></string>
@@ -91,8 +83,6 @@ Vill du radera <b>%1$d</b> låtar?
     <string name="no_audio_ID">"Inget ljud-ID, spela något annat och försök igen."</string>
     <string name="delete_action">Radera</string>
     <string name="rename_action">Döp om</string>
-    <string name="select">Välj</string>
-    <string name="default_str">Standard</string>
     <string name="primary_color">Grundfärg</string>
     <string name="update_image">Uppdatera bild</string>
     <string name="playlist_empty_text">Spellistan är tom</string>
@@ -100,7 +90,6 @@ Vill du radera <b>%1$d</b> låtar?
     <string name="song">Låt</string>
     <string name="pref_summary_colored_navigation_bar">I vilken vy navigeringslisten skall vara färgad</string>
     <string name="search_hint">Sök i ditt bibliotek ...</string>
-    <string name="rescanning_media">Återskannar media ...</string>
     <string name="new_playlist_title">Ny spellista</string>
     <!-- App Shortcuts -->
 </resources>

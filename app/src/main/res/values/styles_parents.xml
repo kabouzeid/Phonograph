@@ -80,13 +80,6 @@
         <item name="android:thumb">@drawable/slider_thumb</item>
     </style>
 
-    <style name="TraditionalMusicProgressSliderParent">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginLeft">@dimen/seek_bar_margin_left_right</item>
-        <item name="android:layout_marginRight">@dimen/seek_bar_margin_left_right</item>
-    </style>
-
     <!-- content description is necessary to find the overflow button later in the layout-->
     <style name="Widget.ActionButton.Overflow" parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:contentDescription">@string/abc_action_menu_overflow_description</item>
