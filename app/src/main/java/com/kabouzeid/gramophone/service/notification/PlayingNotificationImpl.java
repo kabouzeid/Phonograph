@@ -71,7 +71,7 @@ public class PlayingNotificationImpl extends PlayingNotification {
         final PendingIntent clickIntent = PendingIntent.getActivity(service, 0, action, 0);
         final PendingIntent deleteIntent = buildPendingIntent(service, MusicService.ACTION_QUIT, null);
 
-        final Notification notification = new NotificationCompat.Builder(service)
+        final Notification notification = new NotificationCompat.Builder(service, NOTIFICATION_CHANNEL)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentIntent(clickIntent)
                 .setDeleteIntent(deleteIntent)

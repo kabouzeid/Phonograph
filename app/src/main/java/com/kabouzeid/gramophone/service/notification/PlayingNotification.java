@@ -10,6 +10,8 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public abstract class PlayingNotification {
 
     private static final int NOTIFICATION_ID = 1;
+    protected static final String NOTIFICATION_CHANNEL = "notif_channel";
+
     private static final int NOTIFY_MODE_FOREGROUND = 1;
     private static final int NOTIFY_MODE_BACKGROUND = 0;
 
