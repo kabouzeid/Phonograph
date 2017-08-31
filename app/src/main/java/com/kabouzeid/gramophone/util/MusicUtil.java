@@ -174,7 +174,7 @@ public class MusicUtil {
         return albumArtDir;
     }
 
-    public static void deleteTracks(@NonNull final Activity activity, @NonNull final List<Song> songs, @Nullable final List<Uri> safUris) {
+    public static void deleteTracks(@NonNull final Activity activity, @NonNull final List<Song> songs, @Nullable final List<Uri> safUris, @Nullable final Runnable callback) {
         final String[] projection = new String[]{
                 BaseColumns._ID, MediaStore.MediaColumns.DATA
         };
@@ -225,6 +225,9 @@ public class MusicUtil {
                 @Override
                 public void run() {
                     Toast.makeText(activity, activity.getString(R.string.deleted_x_songs, songs.size()), Toast.LENGTH_SHORT).show();
+                    if (callback != null) {
+                        callback.run();
+                    }
                 }
             });
         } catch (SecurityException ignored) {

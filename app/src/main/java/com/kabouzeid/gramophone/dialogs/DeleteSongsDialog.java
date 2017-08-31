@@ -33,6 +33,7 @@ import java.util.List;
  */
 public class DeleteSongsDialog extends DialogFragment {
 
+    private DeleteSongsAsyncTask deleteSongsTask;
     private ArrayList<Song> songsToRemove;
     private Song currentSong;
 
@@ -76,7 +77,8 @@ public class DeleteSongsDialog extends DialogFragment {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         songsToRemove = songs;
-                        new DeleteSongsAsyncTask(DeleteSongsDialog.this).execute(new DeleteSongsAsyncTask.LoadingInfo(songs, null));
+                        deleteSongsTask = new DeleteSongsAsyncTask(DeleteSongsDialog.this);
+                        deleteSongsTask.execute(new DeleteSongsAsyncTask.LoadingInfo(songs, null));
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
@@ -89,7 +91,12 @@ public class DeleteSongsDialog extends DialogFragment {
     }
 
     private void deleteSongs(List<Song> songs, List<Uri> safUris) {
-        MusicUtil.deleteTracks(getActivity(), songs, safUris);
+        MusicUtil.deleteTracks(getActivity(), songs, safUris, new Runnable() {
+            @Override
+            public void run() {
+                dismiss();
+            }
+        });
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -120,7 +127,11 @@ public class DeleteSongsDialog extends DialogFragment {
 
             case SAFUtil.REQUEST_SAF_PICK_TREE:
             case SAFUtil.REQUEST_SAF_PICK_FILE:
-                new DeleteSongsAsyncTask(this).execute(new DeleteSongsAsyncTask.LoadingInfo(requestCode, resultCode, intent));
+                if (deleteSongsTask != null) {
+                    deleteSongsTask.cancel(true);
+                }
+                deleteSongsTask = new DeleteSongsAsyncTask(this);
+                deleteSongsTask.execute(new DeleteSongsAsyncTask.LoadingInfo(requestCode, resultCode, intent));
                 break;
         }
     }
@@ -181,28 +192,6 @@ public class DeleteSongsDialog extends DialogFragment {
             }
 
             return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void v) {
-            super.onPostExecute(v);
-
-            DeleteSongsDialog dialog = this.dialog.get();
-            FragmentActivity activity = this.activity.get();
-            if (dialog != null && activity != null && !activity.isFinishing()) {
-                dialog.dismiss();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            super.onCancelled();
-
-            DeleteSongsDialog dialog = this.dialog.get();
-            FragmentActivity activity = this.activity.get();
-            if (dialog != null && activity != null && !activity.isFinishing()) {
-                dialog.dismiss();
-            }
         }
 
         @Override
