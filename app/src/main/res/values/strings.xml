@@ -262,6 +262,7 @@
     <string name="copied_device_info_to_clipboard">Copied device info to clipboard.</string>
     <string name="your_account_data_is_only_used_for_authentication">Your account data is only used for authentication.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">You will be forwarded to the issue tracker website.</string>
+    <string name="deleting_songs">Deleting songs</string>
     <!-- App Shortcuts -->
     <string name="app_shortcut_shuffle_all_long">@string/action_shuffle_all</string>
     <string name="app_shortcut_shuffle_all_short">Shuffle</string>
@@ -272,4 +273,18 @@
     <string name="playlist_is_empty">Playlist is empty</string>
     <string name="playing_notification_description">The playing notification provides actions for play/pause etc.</string>
     <string name="playing_notification_name">Playing notification</string>
+    <!-- SAF -->
+    <string name="saf_error_uri">Can\'t get SAF URI</string>
+    <string name="saf_write_failed">File write failed: %s</string>
+    <string name="saf_delete_failed">File delete failed: %s</string>
+    <string name="saf_pick_sdcard">SD card access required. Please pick root directory of SD card</string>
+    <string name="saf_pick_file">File access required. Pick %s</string>
+    <!-- SAF guide -->
+    <string name="saf_guide_slide1_title">%s needs SD card access</string>
+    <string name="saf_guide_slide1_description_before_o">Enable \'Show SD card\' in overflow menu</string>
+    <string name="saf_guide_slide1_description">Open navigation drawer</string>
+    <string name="saf_guide_slide2_title">Select your SD card in navigation drawer</string>
+    <string name="saf_guide_slide2_description">You need to select your SD card root directory</string>
+    <string name="saf_guide_slide3_title">Tap \'select\' button at the bottom of the screen</string>
+    <string name="saf_guide_slide3_description">Do not open any subfolders</string>
 </resources>
