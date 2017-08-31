@@ -197,9 +197,7 @@
     <string name="support_development">Support development</string>
     <string name="buy_pro">Buy Phonograph Pro</string>
     <string name="thank_you">Thank you!</string>
-    <string name="thanks_for_purchasing_phonograph_please_restart">Thanks for purchasing Phonograph Pro! Please restart the app to make use of the new features.</string>
     <string name="restored_previous_purchases_please_restart">Restored previous purchases. Please restart the app to make use of all features.</string>
-    <string name="play_store_illustration_by">Play Store illustration by</string>
     <string name="version">Version</string>
     <string name="author">Author</string>
     <string name="write_an_email">Write an email</string>
@@ -223,7 +221,6 @@
     <string name="aleksandar_tesic_summary">For helping me with the design.</string>
     <string name="website">Website</string>
     <string name="loading_products">Loading products…</string>
-    <string name="loading_price">Loading price…</string>
     <string name="up_next">Up next</string>
     <string name="pref_title_now_playing_screen_appearance">Appearance</string>
     <string name="intro_label">Introduction</string>

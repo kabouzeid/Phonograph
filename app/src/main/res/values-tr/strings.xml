@@ -33,8 +33,10 @@
     <string name="songs">Şarkılar</string>
     <string name="playlists">Çalma listeleri</string>
     <string name="unplayable_file">Bu \u015fark\u0131 oynat\u0131lamad\u0131.</string>
-    <string name="biography_unavailable">Bu sanat\u00e7\u0131n\u0131n biyografisi bulunamad\u0131</string>
+    <string name="biography_unavailable">Bu sanat\u00e7\u0131 i\u00e7in bir biyografi giri\u015fi bulunamad\u0131.</string>
+    <string name="wiki_unavailable">Bu alb\u00fcm i\u00e7in bir wiki giri\u015fi bulunamad\u0131.</string>
     <string name="biography">Biyografi</string>
+    <string name="wiki">Wiki</string>
     <string name="audio_focus_denied">Ses odağı reddedildi.</string>
     <string name="album">Albüm</string>
     <string name="artist">Sanatçı</string>
@@ -101,6 +103,11 @@
     <string name="always">Her zaman</string>
     <string name="only_on_wifi">Yalnızca Wİ-Fİ</string>
     <string name="never">Asla</string>
+    <string name="today">Bugün</string>
+    <string name="this_week">Bu hafta</string>
+    <string name="this_month">Bu ay</string>
+    <string name="past_three_months">Son 3 ay</string>
+    <string name="this_year">Bu yıl</string>
     <string name="equalizer">Ekolayzer</string>
     <string name="pref_header_colors">Renkler</string>
     <string name="pref_header_now_playing_screen">Şuanda Çalınan</string>
@@ -109,16 +116,21 @@
     <string name="pref_header_general">Genel</string>
     <string name="pref_header_images">Görüntüler</string>
     <string name="pref_header_lockscreen">Kilit ekranı</string>
+    <string name="pref_header_playlists">Çalma listeleri</string>
+    <string name="pref_header_notification">Bildirim</string>
     <string name="pref_title_navigation_bar">Renkli gezinti çubuğu</string>
     <string name="pref_title_app_shortcuts">Renkli uygulama kısayolları</string>
     <string name="pref_title_set_default_start_page">Başlangıç sayfası</string>
     <string name="pref_title_album_art_on_lockscreen">Albüm kapağını göster</string>
-    <string name="pref_title_auto_download_metadata">Sanatçı resimlerini otomatik indir</string>
+    <string name="pref_title_auto_download_metadata">Otomatik indirilen meta veriler</string>
     <string name="pref_title_blurred_album_art">Bulanık albüm kapağı</string>
     <string name="pref_title_colored_notification">Renkli bildirim</string>
+    <string name="pref_title_classic_notification">Klasik bildirim tasarımı</string>
     <string name="pref_title_ignore_media_store_artwork">Media Store albüm kapağını yoksay</string>
     <string name="pref_title_gapless_playback">Aralıksız çalma</string>
     <string name="pref_title_audio_ducking">Odak kaybına neden olacak sesi azalt</string>
+    <string name="pref_title_last_added_interval">Son eklenen çalma listesi süresi</string>
+    <string name="pref_title_synchronized_lyrics_show">Senkronize şarkı sözlerini göster</string>
     <string name="no_equalizer">Ekolayzer bulunamadı.</string>
     <string name="no_audio_ID">"ilk şarkıyı çalın, daha sonra tekrar deneyin."</string>
     <string name="delete_action">Sil</string>
@@ -142,12 +154,14 @@
     <string name="song">Şarkı</string>
     <string name="pref_summary_album_art_on_lockscreen">Kilit ekranı duvar kağıdı olarak çalan şarkının albüm kapağını kullanır.</string>
     <string name="pref_summary_blurred_album_art">Kilit ekranındaki bulanık albüm kapağı. 3. parti uygulama ve araçlarda problem oluşturabilir.</string>
+    <string name="pref_summary_classic_notification">Klasik bildirim tasarımını kullanın.</string>
     <string name="pref_summary_colored_notification">"Bildirimler alb\u00fcm kapa\u011f\u0131n\u0131n canl\u0131 renkleriyle renklendirilir."</string>
     <string name="pref_summary_gapless_playback">"Bazı aygıtlarda oynatma sorunlarına neden olabilir."</string>
     <string name="pref_summary_ignore_media_store_artwork">Albüm kapağı kalitesinin artırılması daha yavaş görüntü yükleme sürelerine neden olabilir. Düşük çözünürlükte olan albüm kapakları ile ilgili sorunlar varsa bunu etkinleştirin.</string>
     <string name="pref_summary_colored_navigation_bar">Gezinme çubuğu renkleri birincil renkler içinden.</string>
     <string name="pref_summary_colored_app_shortcuts">Uygulama kısayollarını ana rengi renklendirir</string>
     <string name="pref_summary_audio_ducking">Bildirimler, gezinti vb.</string>
+    <string name="pref_summary_synchronized_lyrics_show">Şu anda yalnızca LRC formatında senkronize edilmiş sözler desteklenmektedir. Gömülü veya ayrı bir dosya olarak.</string>
     <string name="could_not_download_album_cover">"E\u015flenen bir alb\u00fcm kapa\u011f\u0131 indirilemedi."</string>
     <string name="search_hint">Kütüphaneniz taranıyor...</string>
     <string name="favorites">Favoriler</string>
@@ -175,9 +189,10 @@
     <string name="thank_you">Teşekkürler</string>
     <string name="version">Sürüm</string>
     <string name="author">Yapımcı</string>
+    <string name="write_an_email">Bir e-posta yazın</string>
     <string name="add_to_google_plus_circles">Google+ çevrelerine ekle</string>
     <string name="follow_on_twitter">Twitterda takip et</string>
-    <string name="fork_on_github">GitHub da katkıda bulunun</string>
+    <string name="fork_on_github">GitHub\'a bağlanın</string>
     <string name="visit_website">Websitesini ziyaret ediniz</string>
     <string name="report_bugs">Hata raporlayınız</string>
     <string name="report_bugs_summary">Hata raporlayın ya da yeni özellikler talep edin</string>
@@ -214,6 +229,7 @@
     <string name="app_widget_big_name">Phonograph - Büyük</string>
     <string name="app_widget_classic_name">Phonograph - Klasik</string>
     <string name="app_widget_small_name">Phonograph - Küçük</string>
+    <string name="app_widget_card_name">Phonograph - Kart</string>
     <string name="report_an_issue">Sorun bildir</string>
     <string name="bug_report_issue">Sorun</string>
     <string name="login">Oturum aç</string>
@@ -244,4 +260,5 @@
     <string name="app_shortcut_top_tracks_short">En İyi Parçalar</string>
     <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
+    <string name="playlist_is_empty">Çalma listesi boş</string>
 </resources>

@@ -114,7 +114,6 @@
     <string name="pref_title_app_shortcuts">彩色的應用快捷方式</string>
     <string name="pref_title_set_default_start_page">首頁</string>
     <string name="pref_title_album_art_on_lockscreen">顯示專輯封面</string>
-    <string name="pref_title_auto_download_metadata">自動下載演出者圖片</string>
     <string name="pref_title_blurred_album_art">將專輯圖片模糊化</string>
     <string name="pref_title_colored_notification">彩色的狀態列</string>
     <string name="pref_title_ignore_media_store_artwork">忽略音訊檔內嵌的專輯封面</string>
@@ -178,7 +177,6 @@
     <string name="author">作者</string>
     <string name="add_to_google_plus_circles">加入 Google+ 社交圈</string>
     <string name="follow_on_twitter">在 Twitter 上追蹤我們</string>
-    <string name="fork_on_github">在 GitHub 上幫助開發</string>
     <string name="visit_website">造訪網站</string>
     <string name="report_bugs">回報程式錯誤</string>
     <string name="report_bugs_summary">建議新功能或回報問題</string>
@@ -232,7 +230,7 @@
     <string name="bug_report_uploading">正在上傳回報到 GitHub</string>
     <string name="bug_report_failed">無法傳送回報</string>
     <string name="bug_report_failed_wrong_credentials">錯誤的帳號或密碼</string>
-    <string name="bug_report_failed_invalid_token">無效的 Access Token。請聯絡應用程式開發人員。</string>
+    <string name="bug_report_failed_invalid_token">無效的存取權杖。請聯絡應用程式開發人員。</string>
     <string name="bug_report_failed_issues_not_available">問題在選定的資源庫中未啟用。請聯絡應用程式開發人員。</string>
     <string name="bug_report_failed_unknown">發生不可預期的錯誤。請聯絡應用程式開發人員。</string>
     <string name="copied_device_info_to_clipboard">複製裝置資訊到剪貼版。</string>

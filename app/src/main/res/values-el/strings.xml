@@ -3,18 +3,21 @@
     <string name="what_do_you_want_to_share">Τι θα θέλατε να μοιραστείτε;</string>
     <string name="currently_listening_to_x_by_x">Ακούτε το %1$s από %2$s</string>
     <string name="the_audio_file">Το αρχείο ήχου</string>
-    <string name="x_has_been_set_as_ringtone">Θέστε το %1$s ως τον ήχο κλήσης σας.</string>
+    <string name="x_has_been_set_as_ringtone">Ορίστε το %1$s ως ήχο κλήσης.</string>
     <string name="action_set_as_ringtone">Ορισμός ως ήχος κλήσης</string>
     <string name="action_share">Μοιραστείτε</string>
     <string name="action_settings">"Ρυθμίσεις "</string>
     <string name="action_grant">Χορήγησε</string>
-    <string name="action_about">"Σχετικά "</string>
+    <string name="action_about">Σχετικά με</string>
     <string name="action_clear_playlist">Εκκαθάριση λίστας</string>
     <string name="action_add_to_favorites">Προσθήκη στα αγαπημένα</string>
     <string name="action_remove_from_favorites">Αφαίρεση από τα αγαπημένα</string>
     <string name="action_search">Αναζήτηση</string>
     <string name="action_play_next">Επόμενο</string>
     <string name="action_play">Αναπαραγωγή</string>
+    <string name="action_play_pause">Αναπ.γή/Παύση</string>
+    <string name="action_previous">Προηγούμενο</string>
+    <string name="action_next">Επόμενο</string>
     <string name="action_add_to_playing_queue">Προσθήκη στη σειρά τραγουδιών</string>
     <string name="action_remove_from_playing_queue">Διαγραφή από την σειρά τραγουδιών</string>
     <string name="action_add_to_playlist">Προσθήκη στην λίστα αναπαραγωγής</string>
@@ -36,9 +39,10 @@
     <string name="album">Άλμπουμ</string>
     <string name="artist">Καλλιτέχνης</string>
     <string name="genre">Είδος</string>
-    <string name="album_artist">Καλλιτέχνης του άλμπουμ</string>
+    <string name="album_artist">Καλλιτέχνης Άλμπουμ</string>
     <string name="year">Έτος</string>
     <string name="track_hint">"Κομμάτι (2 για κομμάτι 2 ή 3004 από CD3 κομμάτι 4)"</string>
+    <string name="lyrics">Στίχοι</string>
     <string name="album_or_artist_empty">Το πεδίο \"Τίτλος\" ή \"Καλλιτέχνης\" είναι άδειο</string>
     <string name="saving_changes">"Γίνεται αποθήκευση αλλαγών... "</string>
     <string name="saving_to_file">Αποθήκευση στο αρχείο...</string>
@@ -107,9 +111,9 @@
     <string name="pref_header_images">Εικόνες</string>
     <string name="pref_header_lockscreen">Οθόνη κλειδώματος</string>
     <string name="pref_title_navigation_bar">Έγχρωμη μπάρα πλοήγησης</string>
+    <string name="pref_title_app_shortcuts">Χρωματιστές συντομεύσεις εφαρμογής</string>
     <string name="pref_title_set_default_start_page">Αρχική σελίδα</string>
     <string name="pref_title_album_art_on_lockscreen">Εμφάνιση album art</string>
-    <string name="pref_title_auto_download_metadata">Αυτόματο κατέβασμα πορτρέτων καλλιτεχνών</string>
     <string name="pref_title_blurred_album_art">Θάμπωμα πορτρέτων καλλιτεχνών</string>
     <string name="pref_title_colored_notification">Χρωματιστή πλοήγηση</string>
     <string name="pref_title_ignore_media_store_artwork">Παράληψη των album art στην SD</string>
@@ -142,6 +146,7 @@
     <string name="pref_summary_gapless_playback">"Μπορεί να δημιουργίσει θέματα αναπαραγωγής σε μερικές συσκευές."</string>
     <string name="pref_summary_ignore_media_store_artwork">Μπορεί να αυξήσει την ποιότητα του εξώφυλλου του άλμπουμ, αλλά προκαλεί αργούς χρόνους φόρτωσης της εικόνας. Ενεργοποιήστε το μόνο αν έχετε προβλήματα με εξώφυλλα  χαμηλής ανάλυσης.</string>
     <string name="pref_summary_colored_navigation_bar">Χρωματίζει την μπάρα πλοήγησης στο πρωτεύον χρώμα</string>
+    <string name="pref_summary_colored_app_shortcuts">Χρωματίζει τις συντομεύσεις της εφαρμογής στο κυρίως χρώμα.</string>
     <string name="pref_summary_audio_ducking">Ειδοποιήσεις, πλοήγηση κ.λπ.</string>
     <string name="could_not_download_album_cover">"\u0394\u03b5\u03bd \u03ae\u03c4\u03b1\u03bd \u03b4\u03c5\u03bd\u03b1\u03c4\u03ae \u03b7 \u03b5\u03cd\u03c1\u03b5\u03c3\u03b7 \u03ba\u03b1\u03b9 \u03b7 \u03bb\u03ae\u03c8\u03b7 \u03b5\u03bd\u03cc\u03c2 \u03b5\u03be\u03ce\u03c6\u03c5\u03bb\u03bb\u03bf\u03c5 \u03c0\u03bf\u03c5 \u03bd\u03b1 \u03c4\u03b1\u03b9\u03c1\u03b9\u03ac\u03b6\u03b5\u03b9."</string>
     <string name="search_hint">Αναζήτηση στη βιβλιοθήκη...</string>
@@ -172,7 +177,6 @@
     <string name="author">Εκδότης</string>
     <string name="add_to_google_plus_circles">Προσθήκη στους κύκλους σας στο Google Plus</string>
     <string name="follow_on_twitter">Ακολουθήστε στο Twitter</string>
-    <string name="fork_on_github">Παρακολουθήστε στο GitHub</string>
     <string name="visit_website">Επισκεφθείτε την ιστοσελίδα μας</string>
     <string name="report_bugs">Αναφορά σφαλμάτων</string>
     <string name="report_bugs_summary">Αναφέρετε σφάλματα ή ζητείστε νέα χαρακτηριστικά.</string>
@@ -233,4 +237,10 @@
     <string name="your_account_data_is_only_used_for_authentication">Τα στοιχεία του λογαριασμού σας χρησιμοποιούνται μόνο για τον έλεγχο της ταυτότητάς σας.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Θα μεταφερθείτε στην ιστοσελίδα του εντοπιστή ζητημάτων.</string>
     <!-- App Shortcuts -->
+    <string name="app_shortcut_shuffle_all_long">@string/action_shuffle_all</string>
+    <string name="app_shortcut_shuffle_all_short">Τυχαία αναπαραγωγή</string>
+    <string name="app_shortcut_top_tracks_short">Κορυφαία Κομμάτια</string>
+    <string name="app_shortcut_last_added_long">@string/last_added</string>
+    <string name="app_shortcut_last_added_short">@string/last_added</string>
+    <string name="playlist_is_empty">Η Λίστα αναπαραγωγής είναι κενή</string>
 </resources>

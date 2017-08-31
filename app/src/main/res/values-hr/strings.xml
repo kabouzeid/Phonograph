@@ -15,6 +15,9 @@
     <string name="action_search">Traži</string>
     <string name="action_play_next">Reproduciraj sljedeće</string>
     <string name="action_play">Reproduciraj</string>
+    <string name="action_play_pause">Reprodukcija/Pauza</string>
+    <string name="action_previous">Prethodno</string>
+    <string name="action_next">Sljedeće</string>
     <string name="action_add_to_playing_queue">Dodaj u red čekanja</string>
     <string name="action_remove_from_playing_queue">Ukloni iz reda čekanja</string>
     <string name="action_add_to_playlist">Dodaj na popis naslova...</string>
@@ -30,7 +33,7 @@
     <string name="songs">Pjesme</string>
     <string name="playlists">Popisi naslova</string>
     <string name="unplayable_file">Nije mogu\u0107e reproducirati ovu pjesmu.</string>
-    <string name="biography_unavailable">Nismo mogli prona\u0107i biografiju ovog izvo\u0111a\u010da.</string>
+    <string name="biography_unavailable">Nije mogu\u0107e prona\u0107i biografiju za ovog izvo\u0111a\u010da.</string>
     <string name="biography">Biografija</string>
     <string name="audio_focus_denied">Zvučni fokus je odbijen.</string>
     <string name="album">Album</string>
@@ -39,6 +42,7 @@
     <string name="album_artist">Izvođač albuma</string>
     <string name="year">Godina</string>
     <string name="track_hint">"Redni broj (2 za pjesmu broj 2 ili 3004 za CD3 pjesmu broj 4)"</string>
+    <string name="lyrics">Stihovi</string>
     <string name="album_or_artist_empty">Polje za naziv ili izvođača je prazno.</string>
     <string name="saving_changes">Spremanje promjena</string>
     <string name="saving_to_file">Spremanje u datoteku...</string>
@@ -106,9 +110,9 @@
     <string name="pref_header_images">Slike</string>
     <string name="pref_header_lockscreen">Zaključani zaslon</string>
     <string name="pref_title_navigation_bar">Obojena navigacijska traka</string>
+    <string name="pref_title_app_shortcuts">Obojani prečaci</string>
     <string name="pref_title_set_default_start_page">Početna stranica</string>
     <string name="pref_title_album_art_on_lockscreen">Prikaži omot albuma na zaklj. zaslonu</string>
-    <string name="pref_title_auto_download_metadata">Automatski preuzmi slike izvođača</string>
     <string name="pref_title_blurred_album_art">Zamagli omot albuma</string>
     <string name="pref_title_colored_notification">Obojene obavijesti</string>
     <string name="pref_title_ignore_media_store_artwork">Ignoriraj Media Store omote</string>
@@ -141,13 +145,14 @@
     <string name="pref_summary_gapless_playback">"Na nekim uređajima može uzrokovati probleme s reproduciranjem."</string>
     <string name="pref_summary_ignore_media_store_artwork">Može povećati kvalitetu omota albuma, ali povećava vrijeme učitavanja. Omogućite ovo samo ako imate problema s omotima niske rezolucije.</string>
     <string name="pref_summary_colored_navigation_bar">Boja navigacijsku traku primarnom bojom.</string>
+    <string name="pref_summary_colored_app_shortcuts">Boja prečace aplikacije u primarnu boju.</string>
     <string name="pref_summary_audio_ducking">Obavijesti, navigacija itd.</string>
     <string name="could_not_download_album_cover">"Nije mogu\u0107e preuzeti odgovaraju\u0107i omot albuma."</string>
     <string name="search_hint">Pretražite svoju biblioteku...</string>
     <string name="favorites">Favoriti</string>
     <string name="last_added">Posljednje dodano</string>
     <string name="history">Povijest</string>
-    <string name="my_top_tracks">Najslušanije pjesme</string>
+    <string name="my_top_tracks">Najslušanije</string>
     <string name="remove_cover">Ukloni omot</string>
     <string name="download_from_last_fm">Skini s lokacije Last.fm</string>
     <string name="pick_from_local_storage">Odaberi s pohrane uređaja</string>
@@ -169,9 +174,10 @@
     <string name="thank_you">Hvala vam!</string>
     <string name="version">Verzija</string>
     <string name="author">Autor</string>
+    <string name="write_an_email">Napiši email</string>
     <string name="add_to_google_plus_circles">Dodajte u Google Plus krugove</string>
     <string name="follow_on_twitter">Pratite na Twitteru</string>
-    <string name="fork_on_github">Fork-ajte na GitHub-u</string>
+    <string name="fork_on_github">Forkaj na Githubu</string>
     <string name="visit_website">Posjetite web-stranicu</string>
     <string name="report_bugs">Prijavi pogreške</string>
     <string name="report_bugs_summary">Prijavite pogreške i zatražite nove mogućnosti.</string>
@@ -208,6 +214,7 @@
     <string name="app_widget_big_name">Phonograph - Veliki</string>
     <string name="app_widget_classic_name">Phonograph - Klasični</string>
     <string name="app_widget_small_name">Phonograph - Mali</string>
+    <string name="app_widget_card_name">Phonograph - Kartica</string>
     <string name="report_an_issue">Prijavi poteškoću</string>
     <string name="bug_report_issue">Poteškoća</string>
     <string name="login">Prijava</string>
@@ -232,4 +239,11 @@
     <string name="your_account_data_is_only_used_for_authentication">Podatci vašeg računa su korišteni samo za autentikaciju.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Biti ćete preusmjereni na web-stranicu pratitelja za poteškoće.</string>
     <!-- App Shortcuts -->
+    <string name="app_shortcut_shuffle_all_long">@string/action_shuffle_all</string>
+    <string name="app_shortcut_shuffle_all_short">Nasumična reprodukcija</string>
+    <string name="app_shortcut_top_tracks_long">@string/my_top_tracks</string>
+    <string name="app_shortcut_top_tracks_short">Najslušanije</string>
+    <string name="app_shortcut_last_added_long">@string/last_added</string>
+    <string name="app_shortcut_last_added_short">@string/last_added</string>
+    <string name="playlist_is_empty">Popis naslova je prazan</string>
 </resources>

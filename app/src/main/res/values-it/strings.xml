@@ -34,7 +34,9 @@
     <string name="playlists">Playlist</string>
     <string name="unplayable_file">Impossibile riprodurre questo brano.</string>
     <string name="biography_unavailable">Impossibile trovare una biografia corrispondente a questo artista.</string>
+    <string name="wiki_unavailable">Impossibile trovare una voce wiki per questo album.</string>
     <string name="biography">Biografia</string>
+    <string name="wiki">Wiki</string>
     <string name="audio_focus_denied">Focus audio negato.</string>
     <string name="album">Album</string>
     <string name="artist">Artista</string>
@@ -44,7 +46,7 @@
     <string name="track_hint">"Traccia (2 per traccia 2, o 3004 per CD3 traccia 4)"</string>
     <string name="lyrics">Testi</string>
     <string name="album_or_artist_empty">Il titolo o l\'artista sono vuoti.</string>
-    <string name="saving_changes">Salvataggio modifiche in corso...</string>
+    <string name="saving_changes">Salvando le modifiche</string>
     <string name="saving_to_file">Salvataggio in corso...</string>
     <string name="label_details">Dettagli</string>
     <string name="label_file_name">Nome file</string>
@@ -101,6 +103,11 @@
     <string name="always">Sempre</string>
     <string name="only_on_wifi">Solo se connessi a Wi-Fi</string>
     <string name="never">Mai</string>
+    <string name="today">Oggi</string>
+    <string name="this_week">Questa settimana</string>
+    <string name="this_month">Questo mese</string>
+    <string name="past_three_months">Ultimi 3 mesi</string>
+    <string name="this_year">Quest\'anno</string>
     <string name="equalizer">Equalizzatore</string>
     <string name="pref_header_colors">Colori</string>
     <string name="pref_header_now_playing_screen">Schermata in riproduzione</string>
@@ -109,16 +116,21 @@
     <string name="pref_header_general">Generali</string>
     <string name="pref_header_images">Immagini</string>
     <string name="pref_header_lockscreen">Schermata di blocco</string>
+    <string name="pref_header_playlists">Playlist</string>
+    <string name="pref_header_notification">Notifica</string>
     <string name="pref_title_navigation_bar">Barra di navigazione colorata</string>
     <string name="pref_title_app_shortcuts">Scorciatoie app colorate</string>
     <string name="pref_title_set_default_start_page">Pagina iniziale</string>
     <string name="pref_title_album_art_on_lockscreen">Mostra copertina album nella schermata di blocco</string>
-    <string name="pref_title_auto_download_metadata">Scarica automaticamente le immagini degli artisti</string>
+    <string name="pref_title_auto_download_metadata">Scarica automaticamente i dati</string>
     <string name="pref_title_blurred_album_art">Sfoca la copertina</string>
     <string name="pref_title_colored_notification">Notifica colorata</string>
+    <string name="pref_title_classic_notification">Design di notifica classico</string>
     <string name="pref_title_ignore_media_store_artwork">Ignora le copertine del Media Store</string>
     <string name="pref_title_gapless_playback">Riproduzione senza intervalli</string>
     <string name="pref_title_audio_ducking">Riduci volume in caso di perdita di focus audio</string>
+    <string name="pref_title_last_added_interval">Ultimo intervallo di playlist aggiunto</string>
+    <string name="pref_title_synchronized_lyrics_show">Mostra testi sincronizzati</string>
     <string name="no_equalizer">Nessun equalizzatore trovato</string>
     <string name="no_audio_ID">"Riproduci un brano e prova di nuovo."</string>
     <string name="delete_action">Elimina</string>
@@ -142,12 +154,14 @@
     <string name="song">Brano</string>
     <string name="pref_summary_album_art_on_lockscreen">Usa la copertina dell\'album in riproduzione come sfondo della schermata di blocco.</string>
     <string name="pref_summary_blurred_album_art">Applica una sfocatura sulla copertina nella schermata di blocco. Può causare problemi con app e widget di terze parti.</string>
+    <string name="pref_summary_classic_notification">Usa il design di notifica classico.</string>
     <string name="pref_summary_colored_notification">"La notifica \u00e8 colorata secondo la gamma di colori della copertina."</string>
     <string name="pref_summary_gapless_playback">"Può causare problemi di riproduzione su alcuni dispositivi."</string>
     <string name="pref_summary_ignore_media_store_artwork">Può incrementare la qualità delle copertine, ma causa rallentamenti nei tempi di caricamento delle immagini. Abilita soltanto se hai problemi con copertine a bassa risoluzione.</string>
     <string name="pref_summary_colored_navigation_bar">Colora la barra di navigazione del colore principale.</string>
     <string name="pref_summary_colored_app_shortcuts">Colora le scorciatoie dell\'app con il colore principale.</string>
     <string name="pref_summary_audio_ducking">Notifiche, navigazione ecc.</string>
+    <string name="pref_summary_synchronized_lyrics_show">Attualmente solo i testi sincronizzati in formato LRC sono supportati. Sia integrati o come file separati.</string>
     <string name="could_not_download_album_cover">"Impossibile scaricare una copertina adatta."</string>
     <string name="search_hint">Cercando nella tua libreria...</string>
     <string name="favorites">Preferiti</string>
@@ -175,9 +189,10 @@
     <string name="thank_you">Grazie!</string>
     <string name="version">Versione</string>
     <string name="author">Autore</string>
+    <string name="write_an_email">Scrivi un\'email</string>
     <string name="add_to_google_plus_circles">Aggiungi alle cerchie di Google+</string>
     <string name="follow_on_twitter">Segui su Twitter</string>
-    <string name="fork_on_github">Crea fork su GitHub</string>
+    <string name="fork_on_github">Vai su GitHub</string>
     <string name="visit_website">Visita sito web</string>
     <string name="report_bugs">Segnala bug</string>
     <string name="report_bugs_summary">Segnala bug o richiedi nuove funzionalità.</string>
@@ -214,6 +229,7 @@
     <string name="app_widget_big_name">Phonograph - Grande</string>
     <string name="app_widget_classic_name">Phonograph - Classico</string>
     <string name="app_widget_small_name">Phonograph - Piccolo</string>
+    <string name="app_widget_card_name">Phonograph - Scheda</string>
     <string name="report_an_issue">Segnala un problema</string>
     <string name="bug_report_issue">Problema</string>
     <string name="login">Accesso</string>
@@ -221,7 +237,8 @@
     <string name="description">Descrizione</string>
     <string name="device_info">Informazioni dispositivo</string>
     <string name="bug_report_use_account">Invia tramite account GitHub</string>
-    <string name="bug_report_manual">Invia manualmente</string>
+    <string name="bug_report_manual">"Invia manualmente
+"</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="bug_report_no_title">Si prega di inserire un titolo valido</string>
@@ -238,6 +255,11 @@
     <string name="your_account_data_is_only_used_for_authentication">I tuoi dati account sono usati solo per l\'autenticazione.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Verrai indirizzato al sito di bugtracking.</string>
     <!-- App Shortcuts -->
+    <string name="app_shortcut_shuffle_all_long">azione_casuale_tutto</string>
     <string name="app_shortcut_shuffle_all_short">Casuale</string>
+    <string name="app_shortcut_top_tracks_long">mie_migliori_tracce</string>
     <string name="app_shortcut_top_tracks_short">Migliodi Tracce</string>
+    <string name="app_shortcut_last_added_long">ultima_aggiunta</string>
+    <string name="app_shortcut_last_added_short">ultima_aggiunta</string>
+    <string name="playlist_is_empty">La playlist è vuota</string>
 </resources>

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">무엇을 공유하고 싶으십니까?</string>
-    <string name="currently_listening_to_x_by_x">현재 %1$s 에서 %2$s 까지 듣는 중</string>
+    <string name="currently_listening_to_x_by_x">현재 %2$s의 %1$s 재생 중.</string>
     <string name="the_audio_file">음원 파일</string>
     <string name="x_has_been_set_as_ringtone">%1$s을(를) 전화 벨소리로 설정</string>
     <string name="action_set_as_ringtone">벨소리로 설정</string>
     <string name="action_share">공유</string>
     <string name="action_settings">"설정"</string>
+    <string name="action_grant">허가</string>
     <string name="action_about">정보</string>
     <string name="action_clear_playlist">재생 목록 비우기</string>
     <string name="action_add_to_favorites">즐겨찾기에 추가</string>
@@ -14,6 +15,9 @@
     <string name="action_search">검색</string>
     <string name="action_play_next">다음 곡</string>
     <string name="action_play">재생</string>
+    <string name="action_play_pause">재생/일시정지</string>
+    <string name="action_previous">이전</string>
+    <string name="action_next">다음</string>
     <string name="action_add_to_playing_queue">재생 대기열에 추가</string>
     <string name="action_remove_from_playing_queue">재생 대기열에서 제거</string>
     <string name="action_add_to_playlist">재생 목록에 추가...</string>
@@ -22,13 +26,17 @@
     <string name="action_details">상세정보</string>
     <string name="action_rename">이름 바꾸기</string>
     <string name="action_delete">삭제</string>
+    <string name="action_scan">스캔</string>
+    <string name="action_set_as_start_directory">시작 디렉토리로 설정</string>
     <string name="albums">앨범</string>
     <string name="artists">아티스트</string>
     <string name="songs">노래</string>
     <string name="playlists">재생 목록</string>
     <string name="unplayable_file">\uc774 \ub178\ub798\ub97c \uc7ac\uc0dd\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.</string>
     <string name="biography_unavailable">\uc544\ud2f0\uc2a4\ud2b8 \uc815\ubcf4\ub97c \ucc3e\uc744 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.</string>
+    <string name="wiki_unavailable">\uc774 \uc568\ubc94\uc758 \uc704\ud0a4 \ud56d\ubaa9\uc744 \ucc3e\uc744 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.</string>
     <string name="biography">정보</string>
+    <string name="wiki">위키피디아</string>
     <string name="audio_focus_denied">음악 선택이 거부되었습니다.</string>
     <string name="album">앨범</string>
     <string name="artist">아티스트</string>
@@ -36,6 +44,7 @@
     <string name="album_artist">앨범 아티스트</string>
     <string name="year">연도</string>
     <string name="track_hint">"트랙 (트랙 2는 2, CD 3의 트랙 4는 3004로 입력)"</string>
+    <string name="lyrics">가사</string>
     <string name="album_or_artist_empty">제목이나 아티스트 란이 비었습니다.</string>
     <string name="saving_changes">변경 사항 저장 중...</string>
     <string name="saving_to_file">파일에 저장 중...</string>
@@ -85,6 +94,8 @@
     <string name="action_shuffle_artist">아티스트 랜덤 재생</string>
     <string name="action_shuffle_playlist">재생목록 랜덤 재생</string>
     <string name="action_clear_playing_queue">재생 대기열 비우기</string>
+    <string name="action_go_to_start_directory">시작 디렉토리로 가기</string>
+    <string name="action_show_lyrics">가사 보기</string>
     <string name="last_opened">마지막으로 열었던 위치</string>
     <string name="light_theme_name">밝은 테마</string>
     <string name="dark_theme_name">어두운 테마</string>
@@ -92,6 +103,11 @@
     <string name="always">항상</string>
     <string name="only_on_wifi">Wi-Fi 환경에서만</string>
     <string name="never">하지 않음</string>
+    <string name="today">오늘</string>
+    <string name="this_week">이번 주</string>
+    <string name="this_month">이번 달</string>
+    <string name="past_three_months">지난 3개월</string>
+    <string name="this_year">올해</string>
     <string name="equalizer">이퀄라이저</string>
     <string name="pref_header_colors">색상</string>
     <string name="pref_header_now_playing_screen">지금 재생 중</string>
@@ -100,12 +116,15 @@
     <string name="pref_header_general">일반</string>
     <string name="pref_header_images">이미지</string>
     <string name="pref_header_lockscreen">잠금 화면</string>
+    <string name="pref_header_playlists">재생목록</string>
+    <string name="pref_header_notification">알림</string>
     <string name="pref_title_navigation_bar">내비게이션 바 색상 틴트</string>
     <string name="pref_title_set_default_start_page">시작 화면</string>
     <string name="pref_title_album_art_on_lockscreen">앨범 커버 보이기</string>
-    <string name="pref_title_auto_download_metadata">아티스트 이미지 자동 다운로드</string>
+    <string name="pref_title_auto_download_metadata">메타데이터 자동 다운로드</string>
     <string name="pref_title_blurred_album_art">앨범 커버 블러 효과</string>
     <string name="pref_title_colored_notification">알림 색상 틴트</string>
+    <string name="pref_title_classic_notification">클래식 알림 디자인</string>
     <string name="pref_title_ignore_media_store_artwork">미디어 스토어 앨범 커버 무시</string>
     <string name="pref_title_gapless_playback">갭리스 재생</string>
     <string name="no_equalizer">설치된 이퀄라이저가 없습니다.</string>
@@ -130,6 +149,8 @@
     <string name="playlist_name_empty">재생 목록 이름</string>
     <string name="song">노래</string>
     <string name="pref_summary_album_art_on_lockscreen">현재 재생 중인 노래의 앨범 커버를 잠금 화면의 배경 화면으로 사용합니다.</string>
+    <string name="pref_summary_blurred_album_art">잠금화면에서 앨범 커버를 흐릿하게 표시합니다. 써드파티 앱이나 위젯에서 문제가 발생할 수도 있습니다.</string>
+    <string name="pref_summary_classic_notification">클래식 알림 디자인 사용</string>
     <string name="pref_summary_colored_notification">"\uc54c\ub9bc\ucc3d\uc5d0 \ub728\ub294 \uc54c\ub9bc \ucee8\ud2b8\ub864\uc774 \uc568\ubc94 \uc544\ud2b8\uc758 \uc8fc\uc694 \uc0c9\uc0c1\uc73c\ub85c \uce60\ud574\uc9d1\ub2c8\ub2e4."</string>
     <string name="pref_summary_gapless_playback">"곡을 넘길 때 간격을 없애 끊김없이 재생합니다. 이 기능을 끄면 곡 전환 관련 문제가 해결될 수 있습니다."</string>
     <string name="pref_summary_ignore_media_store_artwork">앨범 아트 이미지의 질이 높아지지만 로딩 시간을 길게 하는 미디어 스토어의 앨범 아트를 무시합니다. 저화질 앨범 아트에 문제가 있을 때에만 이 기능을 사용하십시오.</string>
