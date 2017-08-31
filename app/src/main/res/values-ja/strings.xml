@@ -99,7 +99,6 @@
     <string name="pref_title_navigation_bar">ナビゲーションバーの彩色設定</string>
     <string name="pref_title_set_default_start_page">起動時の画面</string>
     <string name="pref_title_album_art_on_lockscreen">アルバムアートをロック画面に表示する</string>
-    <string name="pref_title_auto_download_metadata">アーティスト画像の自動ダウンロード</string>
     <string name="pref_title_blurred_album_art">アルバムアートにぼかし効果をかける</string>
     <string name="pref_title_colored_notification">通知コントロールに色を付ける</string>
     <string name="pref_title_ignore_media_store_artwork">アルバムアートを直接読み込む</string>

@@ -15,6 +15,9 @@
     <string name="action_search">Szukaj</string>
     <string name="action_play_next">Odtwarzaj następny</string>
     <string name="action_play">Graj</string>
+    <string name="action_play_pause">Odtwarzanie/Pauza</string>
+    <string name="action_previous">Poprzedni</string>
+    <string name="action_next">Następny</string>
     <string name="action_add_to_playing_queue">Dodaj do kolejki odtwarzania</string>
     <string name="action_remove_from_playing_queue">Usuń z kolejki odtwarzania</string>
     <string name="action_add_to_playlist">Dodaj do listy odtwarzania...</string>
@@ -39,6 +42,7 @@
     <string name="album_artist">Wykonawca albumu</string>
     <string name="year">Rok</string>
     <string name="track_hint">"Numer utworu (2 dla utworu 2 lub 3004 dla CD3 utworu 4)"</string>
+    <string name="lyrics">Tekst</string>
     <string name="album_or_artist_empty">Pole tekstowe nazwy albumu lub wykonawcy jest puste</string>
     <string name="saving_changes">Zapisywanie zmian...</string>
     <string name="saving_to_file">Zapisywanie do pliku...</string>
@@ -48,7 +52,7 @@
     <string name="label_file_size">Rozmiar</string>
     <string name="label_file_format">Format</string>
     <string name="label_track_length">Długość</string>
-    <string name="label_bit_rate">Bitrate</string>
+    <string name="label_bit_rate">Próbkowanie</string>
     <string name="label_sampling_rate">Częstotliwość próbkowania</string>
     <string name="action_go_to_artist">Przejdź do wykonawcy</string>
     <string name="action_go_to_album">Przejdź do albumu</string>
@@ -106,9 +110,9 @@
     <string name="pref_header_images">Obrazy</string>
     <string name="pref_header_lockscreen">Ekran blokady</string>
     <string name="pref_title_navigation_bar">Kolorowy pasek nawigacyjny</string>
+    <string name="pref_title_app_shortcuts">Kolorowe skróty aplikacji</string>
     <string name="pref_title_set_default_start_page">Strona startowa</string>
     <string name="pref_title_album_art_on_lockscreen">Pokazuj okładki albumów</string>
-    <string name="pref_title_auto_download_metadata">Automatyczne pobieranie zdjęć wykonawców</string>
     <string name="pref_title_blurred_album_art">Rozmywanie okładki albumu</string>
     <string name="pref_title_colored_notification">Kolorowy odtwarzacz w pasku powiadomień</string>
     <string name="pref_title_ignore_media_store_artwork">Ignoruj okładki z Media Store</string>
@@ -141,6 +145,7 @@
     <string name="pref_summary_gapless_playback">"Na niektórych urządzeniach mogą wystąpić problemy z odtwarzaniem"</string>
     <string name="pref_summary_ignore_media_store_artwork">Polepszy to jakość okładek, ale może spowodować ich wolniejsze ładowanie. Zaznacz tylko wtedy, gdy masz kłopoty z niską jakością grafik</string>
     <string name="pref_summary_colored_navigation_bar">Kolory paska nawigacyjnego będą odpowiadały kolorowi podstawowemu</string>
+    <string name="pref_summary_colored_app_shortcuts">Kolory skrótów aplikacji w kolorze podstawowym</string>
     <string name="pref_summary_audio_ducking">Notyfikacje, nawigacja, itp.</string>
     <string name="could_not_download_album_cover">"Nie uda\u0142o si\u0119 pobra\u0107 pasuj\u0105cej ok\u0142adki albumu"</string>
     <string name="search_hint">Szukaj w bibliotece...</string>
@@ -171,7 +176,6 @@
     <string name="author">O autorze</string>
     <string name="add_to_google_plus_circles">Dodaj do kręgów Google+</string>
     <string name="follow_on_twitter">Śledź na Twitterze</string>
-    <string name="fork_on_github">Dołącz na GitHub\'ie</string>
     <string name="visit_website">Odwiedź stronę</string>
     <string name="report_bugs">Zgłoś błędy</string>
     <string name="report_bugs_summary">Zgłaszaj błędy lub propozycje nowych funkcji</string>
@@ -232,4 +236,11 @@
     <string name="your_account_data_is_only_used_for_authentication">Twoje dane konta używane są tylko do uwierzytelniania</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Zostaniesz przekierowany do strony umożliwiającej śledzenie błędów</string>
     <!-- App Shortcuts -->
+    <string name="app_shortcut_shuffle_all_long">@string/action_shuffle_all</string>
+    <string name="app_shortcut_shuffle_all_short">Losowo</string>
+    <string name="app_shortcut_top_tracks_long">@string/my_top_tracks</string>
+    <string name="app_shortcut_top_tracks_short">Najlepsze utwory</string>
+    <string name="app_shortcut_last_added_long">@string/last_added</string>
+    <string name="app_shortcut_last_added_short">@string/last_added</string>
+    <string name="playlist_is_empty">Lista odtwarzania jest pusta</string>
 </resources>

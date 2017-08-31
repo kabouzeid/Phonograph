@@ -34,7 +34,9 @@
     <string name="playlists">Wiedergabelisten</string>
     <string name="unplayable_file">Der Song konnte nicht abgespielt werden.</string>
     <string name="biography_unavailable">Die Biografie dieses Interpreten wurde nicht gefunden.</string>
+    <string name="wiki_unavailable">Es konnte kein Wiki-Eintrag f\u00fcr dieses Album gefunden werden.</string>
     <string name="biography">Biografie</string>
+    <string name="wiki">Wiki</string>
     <string name="audio_focus_denied">Kein Audiofokus.</string>
     <string name="album">Album</string>
     <string name="artist">Interpret</string>
@@ -101,6 +103,11 @@
     <string name="always">Immer</string>
     <string name="only_on_wifi">Nur über WLAN</string>
     <string name="never">Niemals</string>
+    <string name="today">Heute</string>
+    <string name="this_week">Diese Woche</string>
+    <string name="this_month">Diesen Monat</string>
+    <string name="past_three_months">Letzte 3 Monate</string>
+    <string name="this_year">Dieses Jahr</string>
     <string name="equalizer">Equalizer</string>
     <string name="pref_header_colors">Farben</string>
     <string name="pref_header_now_playing_screen">Aktuelle Wiedergabe</string>
@@ -109,16 +116,21 @@
     <string name="pref_header_general">Generell</string>
     <string name="pref_header_images">Bilder</string>
     <string name="pref_header_lockscreen">Sperrbildschirm</string>
+    <string name="pref_header_playlists">Wiedergabelisten</string>
+    <string name="pref_header_notification">Benachrichtigung</string>
     <string name="pref_title_navigation_bar">Farbige Navigationsleiste</string>
     <string name="pref_title_app_shortcuts">Gefärbte App-Shortcuts</string>
     <string name="pref_title_set_default_start_page">Startseite</string>
     <string name="pref_title_album_art_on_lockscreen">Album Cover anzeigen</string>
-    <string name="pref_title_auto_download_metadata">Interpreten Bilder automatisch herunterladen</string>
+    <string name="pref_title_auto_download_metadata">Meta-Daten automatisch herunterladen</string>
     <string name="pref_title_blurred_album_art">Album Cover weichzeichnen</string>
     <string name="pref_title_colored_notification">Gefärbte Benachrichtigung</string>
+    <string name="pref_title_classic_notification">Klassisches Benachrichtigungsdesign</string>
     <string name="pref_title_ignore_media_store_artwork">Media Store Cover ignorieren</string>
     <string name="pref_title_gapless_playback">Lückenlose Wiedergabe</string>
     <string name="pref_title_audio_ducking">Lautstärke bei Fokusverlust verringern</string>
+    <string name="pref_title_last_added_interval">Intervall der \"Zuletzt hinzugefügt\"-Wiedergabeliste</string>
+    <string name="pref_title_synchronized_lyrics_show">Synchronisierten Songtext anzeigen</string>
     <string name="no_equalizer">Kein Equalizer gefunden.</string>
     <string name="no_audio_ID">"Keine Audio ID, spiele etwas ab und versuche es erneut."</string>
     <string name="delete_action">Löschen</string>
@@ -142,12 +154,14 @@
     <string name="song">Titel</string>
     <string name="pref_summary_album_art_on_lockscreen">Das Album Cover des aktuellen Titels wird als Hintergrund im Sperrbildschirm verwendet.</string>
     <string name="pref_summary_blurred_album_art">Lässt das Album Cover auf dem Sperrbildschirm verschwommen aussehen. Kann Probleme mit Apps und Widgets von Dritten verursachen.</string>
+    <string name="pref_summary_classic_notification">Das klassische Benachrichtigungsdesign verwenden.</string>
     <string name="pref_summary_colored_notification">"Die Benachrichtigung ist in der Farbe des Album Covers gef\u00e4rbt."</string>
     <string name="pref_summary_gapless_playback">"Kann bei einigen Geräten Wiedergabeprobleme verursachen."</string>
     <string name="pref_summary_ignore_media_store_artwork">Kann die Album Cover Qualität verbessern was jedoch die Ladezeit beeinträchtigt. Nur aktivieren falls Probleme mit niedrig aufgelösten Album Covern auftreten.</string>
     <string name="pref_summary_colored_navigation_bar">Färbt die Navigationsleiste mit der Hauptfarbe.</string>
     <string name="pref_summary_colored_app_shortcuts">Färbt die App-Shortcuts mit der Hauptfarbe</string>
     <string name="pref_summary_audio_ducking">Benachrichtigungen, Navigation etc.</string>
+    <string name="pref_summary_synchronized_lyrics_show">Aktuell werden nur synchronisierte Songtexte im LRC-Format unterstützt, entweder eingebettet oder als separate Datei.</string>
     <string name="could_not_download_album_cover">"Es konnte kein passendes Album Cover heruntergeladen werden."</string>
     <string name="search_hint">Durchsuche deine Mediathek</string>
     <string name="favorites">Favoriten</string>
@@ -175,6 +189,7 @@
     <string name="thank_you">Vielen Dank!</string>
     <string name="version">Version</string>
     <string name="author">Autor</string>
+    <string name="write_an_email">Eine E-Mail schreiben</string>
     <string name="add_to_google_plus_circles">Zu Google Plus Kreisen hinzufügen</string>
     <string name="follow_on_twitter">Auf Twitter folgen</string>
     <string name="fork_on_github">Auf GitHub forken</string>
@@ -214,6 +229,7 @@
     <string name="app_widget_big_name">Phonograph - Groß</string>
     <string name="app_widget_classic_name">Phonograph - Klassisch</string>
     <string name="app_widget_small_name">Phonograph - Klein</string>
+    <string name="app_widget_card_name">Phonograph - Karte</string>
     <string name="report_an_issue">Einen Fehler melden</string>
     <string name="bug_report_issue">Fehler</string>
     <string name="login">Login</string>
@@ -244,4 +260,5 @@
     <string name="app_shortcut_top_tracks_short">Lieblingstitel</string>
     <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
+    <string name="playlist_is_empty">Die Wiedergabeliste ist leer</string>
 </resources>

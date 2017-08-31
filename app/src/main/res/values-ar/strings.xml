@@ -8,7 +8,7 @@
     <string name="action_share">مشاركة</string>
     <string name="action_settings">"الإعدادات"</string>
     <string name="action_grant">سماح</string>
-    <string name="action_about">عن التطبيق</string>
+    <string name="action_about">"حول التطبيق "</string>
     <string name="action_clear_playlist">امسح قائمة التشغيل</string>
     <string name="action_add_to_favorites">إضافة إلى الأغاني المفضلة</string>
     <string name="action_remove_from_favorites">إزالة من الأغاني المفضلة</string>
@@ -17,7 +17,7 @@
     <string name="action_play">استمع</string>
     <string name="action_add_to_playing_queue">أضف إلى قائمة الإنتظار</string>
     <string name="action_remove_from_playing_queue">أزل من قائمة الانتظار</string>
-    <string name="action_add_to_playlist">أضف إلى قائمة تشغيل...</string>
+    <string name="action_add_to_playlist">أضف إلى قائمة التشغيل</string>
     <string name="action_tag_editor">تعديل معلومات الملف</string>
     <string name="action_delete_from_device">حذف من الجهاز</string>
     <string name="action_details">التفاصيل</string>
@@ -94,7 +94,7 @@
     <string name="black_theme_name">أسود (شاشات AMOLED)</string>
     <string name="always">دائماً</string>
     <string name="only_on_wifi">فقط عبر Wi-Fi</string>
-    <string name="never">لا للأبد</string>
+    <string name="never">"ليس للأبد "</string>
     <string name="equalizer">المعادل</string>
     <string name="pref_header_colors">الألوان</string>
     <string name="pref_header_now_playing_screen">مشغل الآن</string>
@@ -106,8 +106,7 @@
     <string name="pref_title_navigation_bar">شريط تنقل ملون</string>
     <string name="pref_title_set_default_start_page">صفحة البدء</string>
     <string name="pref_title_album_art_on_lockscreen">أظهر صورة الألبوم</string>
-    <string name="pref_title_auto_download_metadata">حمل صور الفنانين تلقائياً</string>
-    <string name="pref_title_blurred_album_art">تغييم صورة الألبوم</string>
+    <string name="pref_title_blurred_album_art">صورة األبوم شافة</string>
     <string name="pref_title_colored_notification">إشعار ملون</string>
     <string name="pref_title_ignore_media_store_artwork">تجاهل صور متجر الوسائط</string>
     <string name="pref_title_gapless_playback">تشغيل بدون فواصل</string>
@@ -169,7 +168,6 @@
     <string name="author">المؤلف</string>
     <string name="add_to_google_plus_circles">أضف إلى دوائر جوجل +</string>
     <string name="follow_on_twitter">تابع في تويتر</string>
-    <string name="fork_on_github">Fork عن طريق Github</string>
     <string name="visit_website">زر موقعنا</string>
     <string name="report_bugs">أبلغ عن وجود مشكلة</string>
     <string name="report_bugs_summary">أبلغ عن وجود مشاكل أو طلب ميزات جديدة</string>

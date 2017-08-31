@@ -34,7 +34,9 @@
     <string name="playlists">Playlists</string>
     <string name="unplayable_file">Impossible de lire ce titre.</string>
     <string name="biography_unavailable">Impossible de trouver la biographie de l\'artiste.</string>
+    <string name="wiki_unavailable">Impossible de trouver une entr\u00e9e wiki pour cet album.</string>
     <string name="biography">Biographie</string>
+    <string name="wiki">Wiki</string>
     <string name="audio_focus_denied">Accès à l\'Audio Focus refusé.</string>
     <string name="album">Album</string>
     <string name="artist">Artiste</string>
@@ -101,6 +103,11 @@
     <string name="always">Toujours</string>
     <string name="only_on_wifi">Wi-Fi uniquement</string>
     <string name="never">Jamais</string>
+    <string name="today">Aujourd\'hui</string>
+    <string name="this_week">Cette semaine</string>
+    <string name="this_month">Ce mois-ci</string>
+    <string name="past_three_months">Il y a 3 mois</string>
+    <string name="this_year">Cette année</string>
     <string name="equalizer">Égaliseur</string>
     <string name="pref_header_colors">Couleurs</string>
     <string name="pref_header_now_playing_screen">Lecture en cours</string>
@@ -109,16 +116,20 @@
     <string name="pref_header_general">Général</string>
     <string name="pref_header_images">Images</string>
     <string name="pref_header_lockscreen">Écran de verrouillage</string>
+    <string name="pref_header_playlists">Listes de lecture</string>
+    <string name="pref_header_notification">Notification</string>
     <string name="pref_title_navigation_bar">Barre de navigation colorée</string>
     <string name="pref_title_app_shortcuts">Raccourcis de l\'application colorés</string>
     <string name="pref_title_set_default_start_page">Page d\'accueil</string>
     <string name="pref_title_album_art_on_lockscreen">Afficher la pochette d\'album</string>
-    <string name="pref_title_auto_download_metadata">Télécharger automatiquement les images</string>
+    <string name="pref_title_auto_download_metadata">Télécharger automatiquement les métadonnées</string>
     <string name="pref_title_blurred_album_art">Pochette d\'album floue</string>
     <string name="pref_title_colored_notification">Notification colorée</string>
+    <string name="pref_title_classic_notification">Style de notification classic</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorer le stockage des pochettes</string>
     <string name="pref_title_gapless_playback">Lecture sans coupure</string>
     <string name="pref_title_audio_ducking">Réduire volume sur perte de mise au point</string>
+    <string name="pref_title_synchronized_lyrics_show">Afficher les paroles synchronisées</string>
     <string name="no_equalizer">Aucun égaliseur trouvé</string>
     <string name="no_audio_ID">"Jouez un morceau d'abord puis réessayez."</string>
     <string name="delete_action">Supprimer</string>
@@ -142,12 +153,14 @@
     <string name="song">Titre</string>
     <string name="pref_summary_album_art_on_lockscreen">La pochette d\'album du titre actuel est utilisée comme fond d\'écran de verrouillage.</string>
     <string name="pref_summary_blurred_album_art">Floute la pochette d\'album sur l\'écran de verrouillage. Peut causer des problèmes avec des applications et des widgets tiers.</string>
+    <string name="pref_summary_classic_notification">Utiliser le style de notification classic</string>
     <string name="pref_summary_colored_notification">"Colore la notification en fonction de la pochette de l'album."</string>
     <string name="pref_summary_gapless_playback">"Peut causer des problèmes de lecture sur certains appareils."</string>
     <string name="pref_summary_ignore_media_store_artwork">Peut augmenter la qualité des pochettes d\'albums, mais peut causer des temps de chargement plus longs. N\'activez cette option que si vous avez des problèmes de basse résolution des pochettes.</string>
     <string name="pref_summary_colored_navigation_bar">Colore la barre de navigation en fonction de la couleur principale.</string>
     <string name="pref_summary_colored_app_shortcuts">Colore les raccourcis de l\'application selon la couleur primaire.</string>
     <string name="pref_summary_audio_ducking">Notifications, navigation, etc.</string>
+    <string name="pref_summary_synchronized_lyrics_show">Pour le moment seul les paroles synchronisées en format LRC sont supportées. Aussi bien en fichier intégré ou en fichier séparé.</string>
     <string name="could_not_download_album_cover">"Impossible de t\u00e9l\u00e9charger la pochette correspondant \u00e0 l'album."</string>
     <string name="search_hint">Recherche dans votre bibliothèque...</string>
     <string name="favorites">Favoris</string>
@@ -175,9 +188,10 @@
     <string name="thank_you">Merci !</string>
     <string name="version">Version</string>
     <string name="author">Auteur</string>
+    <string name="write_an_email">Écrire un email</string>
     <string name="add_to_google_plus_circles">Ajouter aux cercles Google+</string>
     <string name="follow_on_twitter">Suivre sur Twitter</string>
-    <string name="fork_on_github">Aller sur GitHub</string>
+    <string name="fork_on_github">Afficher sur GitHub</string>
     <string name="visit_website">Visiter le site internet</string>
     <string name="report_bugs">Signaler des bugs</string>
     <string name="report_bugs_summary">Signalez des bugs ou demandez des nouvelles fonctionnalités.</string>
@@ -214,6 +228,7 @@
     <string name="app_widget_big_name">Phonograph - Grand</string>
     <string name="app_widget_classic_name">Phonograph - Classique</string>
     <string name="app_widget_small_name">Phonograph - Petit</string>
+    <string name="app_widget_card_name">Phonograph - Carte</string>
     <string name="report_an_issue">Signaler un problème</string>
     <string name="bug_report_issue">Problème</string>
     <string name="login">Connexion</string>
@@ -244,4 +259,5 @@
     <string name="app_shortcut_top_tracks_short">Meilleurs titres</string>
     <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
+    <string name="playlist_is_empty">La liste de lecture est vide</string>
 </resources>

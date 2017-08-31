@@ -57,7 +57,7 @@
     <string name="action_re_download_artist_image">Atualizar imagem do artista</string>
     <string name="updated_artist_image">Imagem do artista atualizada.</string>
     <string name="updating">A atualizar...</string>
-    <string name="added_title_to_playing_queue">"Adicionada 1 música à fila reprodução."</string>
+    <string name="added_title_to_playing_queue">"Adicionada uma música à fila de reprodução."</string>
     <string name="added_x_titles_to_playing_queue">Adicionadas %1$d títulos à fila de reprodução.</string>
     <string name="action_remove_from_playlist">Remover da lista de reprodução</string>
     <string name="action_grid_size">Tamanho de grelha</string>
@@ -74,9 +74,9 @@
     <string name="remove_song_x_from_playlist"><![CDATA[Remover a faixa <b>%1$s</b> da playlist?]]></string>
     <string name="remove_x_songs_from_playlist"><![CDATA[Remover <b>%1$d</b> músicas da lista de reprodução?]]></string>
     <string name="delete_song_title">Eliminar faixa</string>
-    <string name="delete_songs_title">Eliminar faixas</string>
-    <string name="remove_song_from_playlist_title">Remover faixa da lista de reprodução</string>
-    <string name="remove_songs_from_playlist_title">Remover faixas da lista de reprodução</string>
+    <string name="delete_songs_title">Eliminar músicas</string>
+    <string name="remove_song_from_playlist_title">Remover a música da lista de reprodução.</string>
+    <string name="remove_songs_from_playlist_title">Remover músicas da lista de reprodução.</string>
     <string name="rename_playlist_title">Mudar o nome da lista de reprodução</string>
     <string name="delete_playlist_title">Eliminar lista de reprodução</string>
     <string name="delete_playlists_title">Eliminar listas de reprodução</string>
@@ -108,7 +108,6 @@
     <string name="pref_title_navigation_bar">Barra de navegação colorida</string>
     <string name="pref_title_set_default_start_page">Página Inicial</string>
     <string name="pref_title_album_art_on_lockscreen">Mostrar capa do álbum</string>
-    <string name="pref_title_auto_download_metadata">Download automático das imagens dos artistas</string>
     <string name="pref_title_blurred_album_art">Desfocar capa do álbum</string>
     <string name="pref_title_colored_notification">Notificação colorida</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorar capas Media Store</string>
@@ -170,7 +169,6 @@
     <string name="author">Autor</string>
     <string name="add_to_google_plus_circles">Adicionar aos seus círculos do Google Plus</string>
     <string name="follow_on_twitter">Seguir no Twitter</string>
-    <string name="fork_on_github">Fork no Github</string>
     <string name="visit_website">Visitar sítio na Internet</string>
     <string name="report_bugs">Reportar erros</string>
     <string name="report_bugs_summary">Reportar erros ou sugerir novas funcionalidades.</string>

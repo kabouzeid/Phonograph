@@ -195,7 +195,9 @@
     <string name="permissions_denied">Permissions denied.</string>
     <string name="permission_external_storage_denied">Permission to access external storage denied.</string>
     <string name="support_development">Support development</string>
+    <string name="buy_pro">Buy Phonograph Pro</string>
     <string name="thank_you">Thank you!</string>
+    <string name="restored_previous_purchases_please_restart">Restored previous purchases. Please restart the app to make use of all features.</string>
     <string name="version">Version</string>
     <string name="author">Author</string>
     <string name="write_an_email">Write an email</string>
@@ -273,6 +275,11 @@
     <string name="playlist_is_empty">Playlist is empty</string>
     <string name="playing_notification_description">The playing notification provides actions for play/pause etc.</string>
     <string name="playing_notification_name">Playing notification</string>
+    <string name="buy">Buy</string>
+    <string name="only_the_first_5_colors_available">Only the first 5 colors are available in the free version.</string>
+    <string name="black_theme_is_a_pro_feature">The black theme is Phonograph Pro feature.</string>
+    <string name="sleep_timer_is_a_pro_feature">Sleep timer is a Phonograph Pro feature</string>
+    <string name="folder_view_is_a_pro_feature">Folder view is a Phonograph Pro feature.</string>
     <!-- SAF -->
     <string name="saf_error_uri">Can\'t get SAF URI</string>
     <string name="saf_write_failed">File write failed: %s</string>

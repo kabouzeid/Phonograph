@@ -34,7 +34,9 @@
     <string name="playlists">播放列表</string>
     <string name="unplayable_file">\u65e0\u6cd5\u64ad\u653e\u8be5\u6b4c\u66f2\u3002</string>
     <string name="biography_unavailable">\u627e\u4e0d\u5230\u8be5\u827a\u672f\u5bb6\u7684\u4e2a\u4eba\u4fe1\u606f\u3002</string>
+    <string name="wiki_unavailable">\u65e0\u6cd5\u627e\u5230\u6b64\u4e13\u8f91 Wiki \u4fe1\u606f\u3002</string>
     <string name="biography">歌手简介</string>
+    <string name="wiki">Wiki</string>
     <string name="audio_focus_denied">无法获取音频焦点。</string>
     <string name="album">专辑</string>
     <string name="artist">艺术家</string>
@@ -101,6 +103,11 @@
     <string name="always">总是</string>
     <string name="only_on_wifi">仅在 WiFi 下</string>
     <string name="never">从不</string>
+    <string name="today">今日</string>
+    <string name="this_week">本周</string>
+    <string name="this_month">本月</string>
+    <string name="past_three_months">过去三个月</string>
+    <string name="this_year">本年</string>
     <string name="equalizer">均衡器</string>
     <string name="pref_header_colors">颜色</string>
     <string name="pref_header_now_playing_screen">正在播放界面</string>
@@ -109,16 +116,21 @@
     <string name="pref_header_general">常规</string>
     <string name="pref_header_images">图片</string>
     <string name="pref_header_lockscreen">锁屏</string>
+    <string name="pref_header_playlists">播放列表</string>
+    <string name="pref_header_notification">通知</string>
     <string name="pref_title_navigation_bar">着色导航栏</string>
     <string name="pref_title_app_shortcuts">着色应用快捷方式</string>
     <string name="pref_title_set_default_start_page">起始页</string>
     <string name="pref_title_album_art_on_lockscreen">显示专辑封面</string>
-    <string name="pref_title_auto_download_metadata">自动下载艺术家图像</string>
+    <string name="pref_title_auto_download_metadata">自动下载元数据</string>
     <string name="pref_title_blurred_album_art">专辑封面模糊化</string>
     <string name="pref_title_colored_notification">启用通知背景着色</string>
+    <string name="pref_title_classic_notification">经典通知样式</string>
     <string name="pref_title_ignore_media_store_artwork">忽略媒体储存中的专辑封面</string>
     <string name="pref_title_gapless_playback">无缝播放</string>
     <string name="pref_title_audio_ducking">音频焦点丢失时降低音量</string>
+    <string name="pref_title_last_added_interval">最近添加播放列表间隔</string>
+    <string name="pref_title_synchronized_lyrics_show">显示同步歌词</string>
     <string name="no_equalizer">没有找到均衡器。</string>
     <string name="no_audio_ID">"请在播放歌曲后再次尝试此操作。"</string>
     <string name="delete_action">删除</string>
@@ -142,12 +154,14 @@
     <string name="song">歌曲</string>
     <string name="pref_summary_album_art_on_lockscreen">使用当前播放曲目的专辑封面作为锁屏壁纸。</string>
     <string name="pref_summary_blurred_album_art">模糊化显示锁屏界面内的专辑封面。此功能或与第三方应用及桌面插件产生冲突。</string>
+    <string name="pref_summary_classic_notification">使用经典通知样式。</string>
     <string name="pref_summary_colored_notification">"\u4f7f\u7528\u4e0e\u4e13\u8f91\u5c01\u9762\u76f8\u5339\u914d\u7684\u989c\u8272\u7740\u8272\u901a\u77e5\u80cc\u666f\u8272\u3002"</string>
     <string name="pref_summary_gapless_playback">"在某些设备上会造成播放问题。"</string>
     <string name="pref_summary_ignore_media_store_artwork">可以提高专辑封面图片的质量但加载时间也会更长。仅当遇到专辑封面像素过低时建议开启。</string>
     <string name="pref_summary_colored_navigation_bar">用主色调着色导航栏。</string>
     <string name="pref_summary_colored_app_shortcuts">用主色调着色应用快捷方式。</string>
     <string name="pref_summary_audio_ducking">通知、导航等</string>
+    <string name="pref_summary_synchronized_lyrics_show">当前仅支持 LRC 格式同步歌词。内嵌或外置均可。</string>
     <string name="could_not_download_album_cover">"\u65e0\u6cd5\u4e0b\u8f7d\u5230\u5339\u914d\u7684\u4e13\u8f91\u5c01\u9762\u3002"</string>
     <string name="search_hint">正在扫描</string>
     <string name="favorites">收藏夹</string>
@@ -175,9 +189,10 @@
     <string name="thank_you">非常感谢您！</string>
     <string name="version">版本</string>
     <string name="author">作者</string>
+    <string name="write_an_email">撰写邮件</string>
     <string name="add_to_google_plus_circles">添加到 Google+ 圈子</string>
     <string name="follow_on_twitter">在 Twitter 上关注</string>
-    <string name="fork_on_github">参与 Github 项目</string>
+    <string name="fork_on_github">创建 GitHub 分支</string>
     <string name="visit_website">访问网站</string>
     <string name="report_bugs">提交 bug</string>
     <string name="report_bugs_summary">提交 bug 或申请添加新功能</string>
@@ -214,6 +229,7 @@
     <string name="app_widget_big_name">Phonograph - 大尺寸</string>
     <string name="app_widget_classic_name">Phonograph - 经典</string>
     <string name="app_widget_small_name">Phonograph - 小尺寸</string>
+    <string name="app_widget_card_name">Phonograph - 卡片</string>
     <string name="report_an_issue">报告问题</string>
     <string name="bug_report_issue">问题</string>
     <string name="login">登录</string>
@@ -244,4 +260,5 @@
     <string name="app_shortcut_top_tracks_short">最喜欢的歌曲</string>
     <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
+    <string name="playlist_is_empty">播放列表为空</string>
 </resources>

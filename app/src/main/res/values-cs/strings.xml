@@ -113,7 +113,6 @@
     <string name="pref_title_app_shortcuts">Barevné zkratky aplikace</string>
     <string name="pref_title_set_default_start_page">Zvolit výchozí obrazovku</string>
     <string name="pref_title_album_art_on_lockscreen">Obal alba na odemykací obrazovce</string>
-    <string name="pref_title_auto_download_metadata">Automaticky stahovat obrázky umělců</string>
     <string name="pref_title_blurred_album_art">Rozostřit obal alba</string>
     <string name="pref_title_colored_notification">Barevné notifikace</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorovat obaly Media Storu</string>
@@ -177,7 +176,6 @@
     <string name="author">Autor</string>
     <string name="add_to_google_plus_circles">Přidat do kruhů Google Plus</string>
     <string name="follow_on_twitter">Sledovat na Twitteru</string>
-    <string name="fork_on_github">Fork na GitHubu</string>
     <string name="visit_website">Navštívit stránku</string>
     <string name="report_bugs">Ohlásit chybu</string>
     <string name="report_bugs_summary">"Nahlásit chyby nebo požádat o nové funkce. "</string>
