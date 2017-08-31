@@ -92,7 +92,6 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
     @Override
     public void onPurchaseHistoryRestored() {
         loadSkuDetails();
-        Toast.makeText(getContext(), R.string.restored_previous_purchases, Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -29,16 +29,16 @@ def gitBranch() {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.3'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.1'
     dataBinding {
         enabled = true
     }
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
 
-        renderscriptTargetApi 25
+        renderscriptTargetApi 26
         vectorDrawables.useSupportLibrary = true
 
         applicationId 'com.kabouzeid.gramophone'
@@ -70,7 +70,7 @@ android {
 }
 
 ext {
-    supportLibVersion = '25.4.0'
+    supportLibVersion = '26.0.2'
 }
 
 dependencies {
@@ -105,7 +105,8 @@ dependencies {
     compile 'com.afollestad.material-dialogs:commons:0.9.4.5'
     compile 'com.afollestad:material-cab:0.1.12'
 
-    compile 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.10.6'
+//    compile 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.10.6'
+    compile 'com.github.h6ah4i:android-advancedrecyclerview:feature~support_libraries_v26-SNAPSHOT' // TODO: go back to master branch as soon as possible
     compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'

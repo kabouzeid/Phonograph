@@ -1138,6 +1138,10 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             case PreferenceUtil.COLORED_NOTIFICATION:
                 updateNotification();
                 break;
+            case PreferenceUtil.CLASSIC_NOTIFICATION:
+                initNotification();
+                updateNotification();
+                break;
         }
     }
 
