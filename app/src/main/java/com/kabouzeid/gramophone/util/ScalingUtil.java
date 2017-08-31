@@ -41,7 +41,7 @@ import android.graphics.Rect;
  *
  * @author Andreas Agvard (andreas.agvard@sonyericsson.com)
  */
-public class ScalingUtilities {
+public class ScalingUtil {
 
     /**
      * Utility function for decoding an image resource. The decoded bitmap will

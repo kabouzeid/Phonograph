@@ -25,11 +25,17 @@ import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.model.lyrics.AbsSynchronizedLyrics;
+
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.tag.FieldKey;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileFilter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -44,7 +50,7 @@ public class MusicUtil {
         return ContentUris.withAppendedId(sArtworkUri, albumId);
     }
 
-    public static Bitmap getAlbumArtForAlbum(Context context, int albumId){
+    public static Bitmap getAlbumArtForAlbum(Context context, int albumId) {
         Uri albumArtUri = MusicUtil.getMediaStoreAlbumCoverUri(albumId);
         Bitmap bitmap = null;
         int desWidth = 256;
@@ -58,8 +64,8 @@ public class MusicUtil {
 //            Log.e(TAG, "I/O error" , e);
 //        }
         if (bitmap != null) {
-            bitmap = ScalingUtilities.createScaledBitmap(bitmap, desWidth,
-                    desHeight, ScalingUtilities.ScalingLogic.FIT);
+            bitmap = ScalingUtil.createScaledBitmap(bitmap, desWidth,
+                    desHeight, ScalingUtil.ScalingLogic.FIT);
         }
         return bitmap;
     }
@@ -117,6 +123,19 @@ public class MusicUtil {
         String albumString = albumCount == 1 ? context.getResources().getString(R.string.album) : context.getResources().getString(R.string.albums);
         String songString = songCount == 1 ? context.getResources().getString(R.string.song) : context.getResources().getString(R.string.songs);
         return albumCount + " " + albumString + " • " + songCount + " " + songString;
+    }
+
+    @NonNull
+    public static String getPlaylistInfoString(@NonNull final Context context, @NonNull List<Song> songs) {
+        final int songCount = songs.size();
+        final String songString = songCount == 1 ? context.getResources().getString(R.string.song) : context.getResources().getString(R.string.songs);
+
+        long duration = 0;
+        for (int i = 0; i < songs.size(); i++) {
+            duration += songs.get(i).duration;
+        }
+
+        return songCount + " " + songString + " • " + MusicUtil.getReadableDurationString(duration);
     }
 
     public static String getReadableDurationString(long songDurationMillis) {
@@ -289,5 +308,60 @@ public class MusicUtil {
             }
         }
         return -1;
+    }
+
+    @Nullable
+    public static String getLyrics(Song song) {
+        String lyrics = null;
+
+        File file = new File(song.data);
+
+        try {
+            lyrics = AudioFileIO.read(file).getTagOrCreateDefault().getFirst(FieldKey.LYRICS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (lyrics == null || lyrics.trim().isEmpty() || !AbsSynchronizedLyrics.isSynchronized(lyrics)) {
+            File dir = file.getAbsoluteFile().getParentFile();
+
+            if (dir != null && dir.exists() && dir.isDirectory()) {
+                String format = ".*%s.*\\.(lrc|txt)";
+                String filename = Pattern.quote(FileUtil.stripExtension(file.getName()));
+                String songtitle = Pattern.quote(song.title);
+
+                final ArrayList<Pattern> patterns = new ArrayList<>();
+                patterns.add(Pattern.compile(String.format(format, filename), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
+                patterns.add(Pattern.compile(String.format(format, songtitle), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
+
+                File[] files = dir.listFiles(new FileFilter() {
+                    @Override
+                    public boolean accept(File f) {
+                        for (Pattern pattern : patterns) {
+                            if (pattern.matcher(f.getName()).matches()) return true;
+                        }
+                        return false;
+                    }
+                });
+
+                if (files != null && files.length > 0) {
+                    for (File f : files) {
+                        try {
+                            String newLyrics = FileUtil.read(f);
+                            if (newLyrics != null && !newLyrics.trim().isEmpty()) {
+                                if (AbsSynchronizedLyrics.isSynchronized(newLyrics)) {
+                                    return newLyrics;
+                                }
+                                lyrics = newLyrics;
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+
+        return lyrics;
     }
 }

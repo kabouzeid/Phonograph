@@ -21,20 +21,9 @@
         <item name="android:focusable">false</item>
     </style>
 
-    <style name="PlayingIndicator">
-        <item name="android:layout_width">36dp</item>
-        <item name="android:layout_height">36dp</item>
-        <item name="android:padding">8dp</item>
-        <item name="android:layout_gravity">center</item>
-    </style>
-
     <style name="Fab" parent="FabParent" />
 
     <style name="MusicProgressSlider" parent="MusicProgressSliderParent">
-        <item name="android:thumbOffset">0dp</item>
-    </style>
-
-    <style name="TraditionalMusicProgressSlider" parent="TraditionalMusicProgressSliderParent">
         <item name="android:thumbOffset">0dp</item>
     </style>
 

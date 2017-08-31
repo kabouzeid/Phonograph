@@ -11,9 +11,13 @@ import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.loader.SortedCursor;
 import com.kabouzeid.gramophone.model.Song;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -159,5 +163,31 @@ public final class FileUtil {
             }
         }
         return false;
+    }
+
+    public static String stripExtension(String str) {
+        if (str == null) return null;
+        int pos = str.lastIndexOf('.');
+        if (pos == -1) return str;
+        return str.substring(0, pos);
+    }
+
+    public static String readFromStream(InputStream is) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            if (sb.length() > 0) sb.append("\n");
+            sb.append(line);
+        }
+        reader.close();
+        return sb.toString();
+    }
+
+    public static String read(File file) throws Exception {
+        FileInputStream fin = new FileInputStream(file);
+        String ret = readFromStream(fin);
+        fin.close();
+        return ret;
     }
 }

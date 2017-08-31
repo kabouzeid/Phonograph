@@ -18,21 +18,25 @@ import android.support.v7.preference.TwoStatePreference;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference;
 import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceFragmentCompat;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appshortcuts.DynamicShortcutManager;
-import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.dialogs.BuyDialog;
+import com.kabouzeid.gramophone.misc.NonProAllowedColors;
 import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreference;
 import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreferenceDialog;
-import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
+
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,11 +75,29 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int selectedColor) {
         switch (dialog.getTitle()) {
             case R.string.primary_color:
+                if (!App.isProVersion()) {
+                    Arrays.sort(NonProAllowedColors.PRIMARY_COLORS);
+                    if (Arrays.binarySearch(NonProAllowedColors.PRIMARY_COLORS, selectedColor) < 0) {
+                        // color wasn't found
+                        Toast.makeText(this, R.string.only_the_first_5_colors_available, Toast.LENGTH_LONG).show();
+                        BuyDialog.create().show(getSupportFragmentManager(), "BUY_DIALOG");
+                        return;
+                    }
+                }
                 ThemeStore.editTheme(this)
                         .primaryColor(selectedColor)
                         .commit();
                 break;
             case R.string.accent_color:
+                if (!App.isProVersion()) {
+                    Arrays.sort(NonProAllowedColors.ACCENT_COLORS);
+                    if (Arrays.binarySearch(NonProAllowedColors.ACCENT_COLORS, selectedColor) < 0) {
+                        // color wasn't found
+                        Toast.makeText(this, R.string.only_the_first_5_colors_available, Toast.LENGTH_LONG).show();
+                        BuyDialog.create().show(getSupportFragmentManager(), "BUY_DIALOG");
+                        return;
+                    }
+                }
                 ThemeStore.editTheme(this)
                         .accentColor(selectedColor)
                         .commit();
@@ -90,7 +112,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
     @Override
     public void onColorChooserDismissed(@NonNull ColorChooserDialog dialog) {
-
     }
 
     @Override
@@ -176,13 +197,21 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             generalTheme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, @NonNull Object o) {
+                    String themeName = (String) o;
+                    if (themeName.equals("black") && !App.isProVersion()) {
+                        Toast.makeText(getActivity(), R.string.black_theme_is_a_pro_feature, Toast.LENGTH_LONG).show();
+                        BuyDialog.create().show(getFragmentManager(), "BUY_DIALOG");
+                        return false;
+                    }
+
+                    int theme = PreferenceUtil.getThemeResFromPrefValue(themeName);
                     setSummary(generalTheme, o);
                     ThemeStore.editTheme(getActivity())
-                            .activityTheme(PreferenceUtil.getThemeResFromPrefValue((String) o))
+                            .activityTheme(theme)
                             .commit();
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-                        //Set the new theme so that updateAppShortcuts can pull it
+                        // Set the new theme so that updateAppShortcuts can pull it
                         getActivity().setTheme(PreferenceUtil.getThemeResFromPrefValue((String) o));
                         new DynamicShortcutManager(getActivity()).updateDynamicShortcuts();
                     }
@@ -236,8 +265,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
             TwoStatePreference colorNavBar = (TwoStatePreference) findPreference("should_color_navigation_bar");
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                colorNavBar.setEnabled(false);
-                colorNavBar.setSummary(R.string.pref_only_lollipop);
+                colorNavBar.setVisible(false);
             } else {
                 colorNavBar.setChecked(ThemeStore.coloredNavigationBar(getActivity()));
                 colorNavBar.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -253,23 +281,15 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             }
 
             final TwoStatePreference classicNotification = (TwoStatePreference) findPreference("classic_notification");
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
-                classicNotification.setEnabled(false);
-                classicNotification.setSummary(R.string.pref_only_nougat);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                classicNotification.setVisible(false);
             } else {
                 classicNotification.setChecked(PreferenceUtil.getInstance(getActivity()).classicNotification());
                 classicNotification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        //Save preference
-                        PreferenceUtil.getInstance(getActivity()).setClassicNotification((Boolean)newValue);
-
-                        final MusicService service = MusicPlayerRemote.musicService;
-                        if (service != null) {
-                            service.initNotification();
-                            service.updateNotification();
-                        }
-
+                        // Save preference
+                        PreferenceUtil.getInstance(getActivity()).setClassicNotification((Boolean) newValue);
                         return true;
                     }
                 });
@@ -277,17 +297,16 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
             final TwoStatePreference colorAppShortcuts = (TwoStatePreference) findPreference("should_color_app_shortcuts");
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
-                colorAppShortcuts.setEnabled(false);
-                colorAppShortcuts.setSummary(R.string.pref_only_nougat_mr1);
+                colorAppShortcuts.setVisible(false);
             } else {
                 colorAppShortcuts.setChecked(PreferenceUtil.getInstance(getActivity()).coloredAppShortcuts());
                 colorAppShortcuts.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        //Save preference
-                        PreferenceUtil.getInstance(getActivity()).setColoredAppShortcuts((Boolean)newValue);
+                        // Save preference
+                        PreferenceUtil.getInstance(getActivity()).setColoredAppShortcuts((Boolean) newValue);
 
-                        //Update app shortcuts
+                        // Update app shortcuts
                         new DynamicShortcutManager(getActivity()).updateDynamicShortcuts();
 
                         return true;

@@ -22,14 +22,16 @@ import android.view.ViewGroup;
 import android.view.WindowInsets;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.NavigationViewUtil;
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.dialogs.BuyDialog;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
-import com.kabouzeid.gramophone.dialogs.DonationsDialog;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.SearchQueryHelper;
@@ -108,6 +110,12 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
     }
 
     private void setMusicChooser(int key) {
+        if (!App.isProVersion() && key == FOLDERS) {
+            Toast.makeText(this, R.string.folder_view_is_a_pro_feature, Toast.LENGTH_LONG).show();
+            BuyDialog.create().show(getSupportFragmentManager(), "BUY_DIALOG");
+            key = LIBRARY;
+        }
+
         PreferenceUtil.getInstance(this).setLastMusicChooser(key);
         switch (key) {
             case LIBRARY:
@@ -160,6 +168,9 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
         NavigationViewUtil.setItemIconColors(navigationView, ATHUtil.resolveColor(this, R.attr.iconColor, ThemeStore.textColorSecondary(this)), accentColor);
         NavigationViewUtil.setItemTextColors(navigationView, ThemeStore.textColorPrimary(this), accentColor);
 
+        if (App.isProVersion()) {
+            navigationView.getMenu().removeGroup(R.id.navigation_drawer_menu_category_buy_pro);
+        }
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -181,11 +192,11 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
                             }
                         }, 200);
                         break;
-                    case R.id.support_development:
+                    case R.id.buy_pro:
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                DonationsDialog.create().show(getSupportFragmentManager(), "DONATION_DIALOG");
+                                BuyDialog.create().show(getSupportFragmentManager(), "BUY_DIALOG");
                             }
                         }, 200);
                         break;

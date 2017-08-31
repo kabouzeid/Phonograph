@@ -2,7 +2,6 @@
 <resources>
     <string name="action_settings">"Innstillingar"</string>
     <string name="action_about">Om</string>
-    <string name="action_playing_queue">Songkø</string>
     <string name="action_search">Søk</string>
     <string name="action_play_next">Spel som neste</string>
     <string name="action_add_to_playing_queue">Legg til i køen</string>
@@ -23,7 +22,6 @@
     <string name="genre">Genre</string>
     <string name="album_artist">Albumartist</string>
     <string name="year">År</string>
-    <string name="track">Spor</string>
     <string name="track_hint">"Spor (2 for spor 2 eller 3004 for CD3 spor 4)"</string>
     <string name="album_or_artist_empty">Tekstfeltet for albumtittel eller albumartist er tomt.</string>
     <string name="saving_changes">Lagrar endringar...</string>
@@ -38,14 +36,12 @@
     <string name="action_go_to_artist">Gå til artist</string>
     <string name="action_go_to_album">Gå til album</string>
     <string name="label_playing_queue">Songkø</string>
-    <string name="save_as_playlist">Lagre som speleliste</string>
     <string name="no_results">Ingen resultat</string>
     <string name="action_re_download_artist_image">Oppdater artistbilete</string>
     <string name="updating">Oppdaterer...</string>
     <string name="added_title_to_playing_queue">"La 1 tittel til songkøen."</string>
     <string name="added_x_titles_to_playing_queue">La %1$d titlar til songkøen.</string>
     <string name="created_playlist_x">Oppretta speleliste %1$s</string>
-    <string name="deleted_playlist_x">Sletta speleliste %1$s</string>
     <string name="delete_playlist_x"><![CDATA[
         Ynskjer du å slette spelelista <b>%1$s</b>? 
     ]]></string>
@@ -77,8 +73,6 @@
     <string name="no_audio_ID">"Ingen audio-ID, spel noko og prøv igjen"</string>
     <string name="delete_action">Slett</string>
     <string name="rename_action">Gje nytt namn</string>
-    <string name="select">Vel</string>
-    <string name="default_str">Standard</string>
     <string name="primary_color">Primærfarge</string>
     <string name="accent_color">Fokusfarge</string>
     <string name="primary_color_desc">Primær temafarge, standard er indigo.</string>
@@ -87,9 +81,7 @@
     <string name="playlist_empty_text">Spelelista er tom</string>
     <string name="no_playlists">Ingen spelelister</string>
     <string name="song">Song</string>
-    <string name="pref_only_lollipop">"Berre tilgjengeleg på Lollipop."</string>
     <string name="search_hint">Søk i biblioteket...</string>
-    <string name="rescanning_media">Skanner media på nytt...</string>
     <string name="new_playlist_title">Ny speleliste</string>
     <!-- App Shortcuts -->
 </resources>

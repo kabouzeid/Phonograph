@@ -34,6 +34,7 @@ import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.album.HorizontalAlbumAdapter;
 import com.kabouzeid.gramophone.adapter.song.ArtistSongAdapter;
+import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
 import com.kabouzeid.gramophone.glide.artistimage.ArtistImage;
@@ -49,6 +50,7 @@ import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.misc.SimpleObservableScrollViewCallbacks;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Artist;
+import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.ArtistSignatureUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
@@ -56,6 +58,7 @@ import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -341,6 +344,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+        final ArrayList<Song> songs = songAdapter.getDataSet();
         switch (id) {
             case R.id.action_sleep_timer:
                 new SleepTimerDialog().show(getSupportFragmentManager(), "SET_SLEEP_TIMER");
@@ -349,7 +353,16 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                 NavigationUtil.openEqualizer(this);
                 return true;
             case R.id.action_shuffle_artist:
-                MusicPlayerRemote.openAndShuffleQueue(songAdapter.getDataSet(), true);
+                MusicPlayerRemote.openAndShuffleQueue(songs, true);
+                return true;
+            case R.id.action_play_next:
+                MusicPlayerRemote.playNext(songs);
+                return true;
+            case R.id.action_add_to_current_playing:
+                MusicPlayerRemote.enqueue(songs);
+                return true;
+            case R.id.action_add_to_playlist:
+                AddToPlaylistDialog.create(songs).show(getSupportFragmentManager(), "ADD_PLAYLIST");
                 return true;
             case android.R.id.home:
                 super.onBackPressed();

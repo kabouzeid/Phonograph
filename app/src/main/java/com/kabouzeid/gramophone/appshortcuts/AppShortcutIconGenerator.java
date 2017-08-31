@@ -1,8 +1,6 @@
 package com.kabouzeid.gramophone.appshortcuts;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.graphics.drawable.LayerDrawable;
