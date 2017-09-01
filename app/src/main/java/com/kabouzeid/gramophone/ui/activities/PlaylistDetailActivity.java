@@ -23,10 +23,11 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.song.PlaylistSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.OrderablePlaylistSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.SongAdapter;
-import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.helper.menu.PlaylistMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.LoaderIds;
+import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.AbsCustomPlaylist;
@@ -34,7 +35,6 @@ import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
-import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
 import com.kabouzeid.gramophone.util.ViewUtil;
@@ -84,7 +84,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
 
         setUpRecyclerView();
 
-        setUpToolBar();
+        setUpToolbar();
 
         getSupportLoaderManager().initLoader(LOADER_ID, null, this);
     }
@@ -130,12 +130,17 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         });
     }
 
-    private void setUpToolBar() {
+    private void setUpToolbar() {
         toolbar.setBackgroundColor(ThemeStore.primaryColor(this));
         setSupportActionBar(toolbar);
         //noinspection ConstantConditions
-        getSupportActionBar().setTitle(playlist.name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setToolbarTitle(playlist.name);
+    }
+
+    private void setToolbarTitle(String title) {
+        //noinspection ConstantConditions
+        getSupportActionBar().setTitle(title);
     }
 
     @Override
@@ -148,20 +153,14 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.action_sleep_timer:
-                new SleepTimerDialog().show(getSupportFragmentManager(), "SET_SLEEP_TIMER");
-                return true;
             case R.id.action_shuffle_playlist:
                 MusicPlayerRemote.openAndShuffleQueue(adapter.getDataSet(), true);
-                return true;
-            case R.id.action_equalizer:
-                NavigationUtil.openEqualizer(this);
                 return true;
             case android.R.id.home:
                 onBackPressed();
                 return true;
         }
-        return super.onOptionsItemSelected(item);
+        return PlaylistMenuHelper.handleMenuClick(this, playlist, item);
     }
 
     @NonNull
@@ -188,6 +187,20 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     @Override
     public void onMediaStoreChanged() {
         super.onMediaStoreChanged();
+
+        // Playlist deleted
+        if (!PlaylistsUtil.doesPlaylistExist(this, playlist.id)) {
+            onBackPressed();
+            return;
+        }
+
+        // Playlist renamed
+        final String playlistName = PlaylistsUtil.getNameForPlaylist(this, playlist.id);
+        if (!playlistName.equals(playlist.name)) {
+            playlist = PlaylistLoader.getPlaylist(this, playlist.id);
+            setToolbarTitle(playlist.name);
+        }
+
         getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
     }
 

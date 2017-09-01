@@ -30,6 +30,23 @@ import static android.provider.MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI;
  */
 public class PlaylistsUtil {
 
+    public static boolean doesPlaylistExist(@NonNull final Context context, final int playlistId) {
+        if (playlistId == -1) {
+            return false;
+        }
+
+        Cursor cursor = context.getContentResolver().query(
+                MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),
+                new String[]{}, null, null, null);
+
+        if (cursor == null || cursor.getCount() == 0) {
+            return false;
+        }
+
+        cursor.close();
+        return true;
+    }
+
     public static int createPlaylist(@NonNull final Context context, @Nullable final String name) {
         int id = -1;
         if (name != null && name.length() > 0) {
@@ -50,8 +67,12 @@ public class PlaylistsUtil {
                         id = Integer.parseInt(uri.getLastPathSegment());
                     }
                 } else {
+                    // Playlist exists
                     if (cursor.moveToFirst()) {
-                        id = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Playlists._ID));
+                        Toast.makeText(context, context.getResources().getString(
+                                R.string.playlist_exists, name), Toast.LENGTH_SHORT).show();
+                        cursor.close();
+                        return -1;
                     }
                 }
                 if (cursor != null) {
@@ -79,6 +100,7 @@ public class PlaylistsUtil {
         selection.append(")");
         try {
             context.getContentResolver().delete(EXTERNAL_CONTENT_URI, selection.toString(), null);
+            context.getContentResolver().notifyChange(Uri.parse("content://media"), null);
         } catch (SecurityException ignored) {
         }
     }
