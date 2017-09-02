@@ -34,7 +34,9 @@
     <string name="playlists">Popisi naslova</string>
     <string name="unplayable_file">Nije mogu\u0107e reproducirati ovu pjesmu.</string>
     <string name="biography_unavailable">Nije mogu\u0107e prona\u0107i biografiju za ovog izvo\u0111a\u010da.</string>
+    <string name="wiki_unavailable">Nije mogu\u0107e prona\u0107i wiki unos za ovaj album.</string>
     <string name="biography">Biografija</string>
+    <string name="wiki">Wiki</string>
     <string name="audio_focus_denied">Zvučni fokus je odbijen.</string>
     <string name="album">Album</string>
     <string name="artist">Izvođač</string>
@@ -92,6 +94,7 @@
     <string name="action_shuffle_artist">Nasumično reproduciraj izvođača</string>
     <string name="action_shuffle_playlist">Nasumično reproduciraj popis naslova</string>
     <string name="action_clear_playing_queue">Očisti red čekanja</string>
+    <string name="action_save_playing_queue">Spremi red čekanja</string>
     <string name="action_go_to_start_directory">Idi na početni direktorij</string>
     <string name="action_show_lyrics">Prikaži stihove</string>
     <string name="last_opened">Posljednje otvoreno</string>
@@ -101,6 +104,11 @@
     <string name="always">Uvijek</string>
     <string name="only_on_wifi">Samo na Wifi-ju</string>
     <string name="never">Nikad</string>
+    <string name="today">Danas</string>
+    <string name="this_week">Ovaj tjedan</string>
+    <string name="this_month">Ovaj mjesec</string>
+    <string name="past_three_months">Prošla 3 mjeseca</string>
+    <string name="this_year">Ova godina</string>
     <string name="equalizer">Ekvalizator</string>
     <string name="pref_header_colors">Boje</string>
     <string name="pref_header_now_playing_screen">Trenutna reprodukcija</string>
@@ -109,15 +117,21 @@
     <string name="pref_header_general">Općenito</string>
     <string name="pref_header_images">Slike</string>
     <string name="pref_header_lockscreen">Zaključani zaslon</string>
+    <string name="pref_header_playlists">Popisi naslova</string>
+    <string name="pref_header_notification">Obavijest</string>
     <string name="pref_title_navigation_bar">Obojena navigacijska traka</string>
     <string name="pref_title_app_shortcuts">Obojani prečaci</string>
     <string name="pref_title_set_default_start_page">Početna stranica</string>
     <string name="pref_title_album_art_on_lockscreen">Prikaži omot albuma na zaklj. zaslonu</string>
+    <string name="pref_title_auto_download_metadata">Automatski preuzmi meta podatke</string>
     <string name="pref_title_blurred_album_art">Zamagli omot albuma</string>
     <string name="pref_title_colored_notification">Obojene obavijesti</string>
+    <string name="pref_title_classic_notification">Klasični dizajn obavijesti</string>
     <string name="pref_title_ignore_media_store_artwork">Ignoriraj Media Store omote</string>
     <string name="pref_title_gapless_playback">Reprodukcija bez prekida</string>
     <string name="pref_title_audio_ducking">Smanji glasn. prilikom drugih zvukova</string>
+    <string name="pref_title_last_added_interval">Interval nedavnog popisa</string>
+    <string name="pref_title_synchronized_lyrics_show">Prikaži sinkronizirane stihove</string>
     <string name="no_equalizer">Ekvalizator nije pronađen.</string>
     <string name="no_audio_ID">"Reproducirajte nešto i pokušajte opet."</string>
     <string name="delete_action">Izbriši</string>
@@ -141,12 +155,14 @@
     <string name="song">Pjesma</string>
     <string name="pref_summary_album_art_on_lockscreen">Koristi omot albuma trenutne pjesme kao pozadinu zaključanog zaslona.</string>
     <string name="pref_summary_blurred_album_art">Zamagljuje omot albuma na zaključanom zaslonu. Može izazvati probleme za ostale aplikacije i widgete.</string>
+    <string name="pref_summary_classic_notification">Koristi klasični dizajn obavijesti.</string>
     <string name="pref_summary_colored_notification">"Obavijesti su obojene istaknutom bojom omota albuma."</string>
     <string name="pref_summary_gapless_playback">"Na nekim uređajima može uzrokovati probleme s reproduciranjem."</string>
     <string name="pref_summary_ignore_media_store_artwork">Može povećati kvalitetu omota albuma, ali povećava vrijeme učitavanja. Omogućite ovo samo ako imate problema s omotima niske rezolucije.</string>
     <string name="pref_summary_colored_navigation_bar">Boja navigacijsku traku primarnom bojom.</string>
     <string name="pref_summary_colored_app_shortcuts">Boja prečace aplikacije u primarnu boju.</string>
     <string name="pref_summary_audio_ducking">Obavijesti, navigacija itd.</string>
+    <string name="pref_summary_synchronized_lyrics_show">Trenutno su samo sinkronizirani stihovi u LRC formatu podržani. Ili ugrađeni ili u zasebnoj datoteci.</string>
     <string name="could_not_download_album_cover">"Nije mogu\u0107e preuzeti odgovaraju\u0107i omot albuma."</string>
     <string name="search_hint">Pretražite svoju biblioteku...</string>
     <string name="favorites">Favoriti</string>
@@ -171,6 +187,7 @@
     <string name="permissions_denied">Pristup odbijen.</string>
     <string name="permission_external_storage_denied">Dopuštenje za pristup vanjskoj pohrani je odbijeno.</string>
     <string name="support_development">Podrži razvoj</string>
+    <string name="buy_pro">Kupi Phonograph Pro</string>
     <string name="thank_you">Hvala vam!</string>
     <string name="version">Verzija</string>
     <string name="author">Autor</string>
@@ -246,4 +263,11 @@
     <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
     <string name="playlist_is_empty">Popis naslova je prazan</string>
+    <string name="playing_notification_description">Obavijest reprodukcije pruža radnje za reprodukciju/pauzu itd.</string>
+    <string name="playing_notification_name">Obavijest reprodukcije</string>
+    <string name="buy">Kupi</string>
+    <string name="only_the_first_5_colors_available">Samo je prvih 5 boja dostupno u besplatnoj verziji.</string>
+    <string name="black_theme_is_a_pro_feature">Crna tema je Phonograph Pro značajka.</string>
+    <string name="sleep_timer_is_a_pro_feature">Tajmer za spavanje je Phonograph Pro značajka.</string>
+    <string name="folder_view_is_a_pro_feature">Prikaz mapa je Phonograph Pro značajka.</string>
 </resources>

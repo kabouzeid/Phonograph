@@ -255,11 +255,11 @@
     <string name="your_account_data_is_only_used_for_authentication">I tuoi dati account sono usati solo per l\'autenticazione.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Verrai indirizzato al sito di bugtracking.</string>
     <!-- App Shortcuts -->
-    <string name="app_shortcut_shuffle_all_long">azione_casuale_tutto</string>
+    <string name="app_shortcut_shuffle_all_long">@stringa/azione_casuale_tutto</string>
     <string name="app_shortcut_shuffle_all_short">Casuale</string>
-    <string name="app_shortcut_top_tracks_long">mie_migliori_tracce</string>
+    <string name="app_shortcut_top_tracks_long">@stringa/mie_migliori_tracce</string>
     <string name="app_shortcut_top_tracks_short">Migliodi Tracce</string>
-    <string name="app_shortcut_last_added_long">ultima_aggiunta</string>
-    <string name="app_shortcut_last_added_short">ultima_aggiunta</string>
+    <string name="app_shortcut_last_added_long">@stringa/ultima_aggiunta</string>
+    <string name="app_shortcut_last_added_short">@stringa/ultima_aggiunta</string>
     <string name="playlist_is_empty">La playlist è vuota</string>
 </resources>

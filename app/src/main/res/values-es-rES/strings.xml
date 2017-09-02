@@ -3,7 +3,7 @@
     <string name="what_do_you_want_to_share">¿Qué quieres compartir?</string>
     <string name="currently_listening_to_x_by_x">Estás escuchando %1$s por %2$s.</string>
     <string name="the_audio_file">El archivo de audio</string>
-    <string name="x_has_been_set_as_ringtone">"Establecer %1$s como tono de llamada "</string>
+    <string name="x_has_been_set_as_ringtone">Establecer %1$s como tono de llamada.</string>
     <string name="action_set_as_ringtone">Establecer como tono de llamada</string>
     <string name="action_share">Compartir</string>
     <string name="action_settings">"Ajustes"</string>
@@ -13,7 +13,7 @@
     <string name="action_add_to_favorites">Añadir a favoritos</string>
     <string name="action_remove_from_favorites">Eliminar de favoritos</string>
     <string name="action_search">Buscar</string>
-    <string name="action_play_next">Reproducir a Continuación</string>
+    <string name="action_play_next">Reproducir a continuación</string>
     <string name="action_play">Reproducir</string>
     <string name="action_play_pause">Reproducir/Pausar</string>
     <string name="action_previous">Anterior</string>
@@ -34,8 +34,10 @@
     <string name="playlists">Listas de reproducción</string>
     <string name="unplayable_file">No es posible reproducir esta canci\u00f3n.</string>
     <string name="biography_unavailable">Lo sentimos, no encontramos una biograf\u00eda correspondiente a \u00e9ste artista</string>
+    <string name="wiki_unavailable">No es posible encontrar una entrada de Wikipedia para este \u00e1lbum.</string>
     <string name="biography">Biografía</string>
-    <string name="audio_focus_denied">Análisis de Audio denegado</string>
+    <string name="wiki">Wikipedia</string>
+    <string name="audio_focus_denied">Ajuste de audio denegado.</string>
     <string name="album">Álbum</string>
     <string name="artist">Artista</string>
     <string name="genre">Género</string>
@@ -53,7 +55,7 @@
     <string name="label_file_format">Formato</string>
     <string name="label_track_length">Duración</string>
     <string name="label_bit_rate">Velocidad de Bits</string>
-    <string name="label_sampling_rate">Frecuencia de la muestra</string>
+    <string name="label_sampling_rate">Frecuencia de muestreo</string>
     <string name="action_go_to_artist">Ir al artista</string>
     <string name="action_go_to_album">Ir al álbum</string>
     <string name="label_playing_queue">Cola de reproducción</string>
@@ -92,6 +94,7 @@
     <string name="action_shuffle_artist">Reproducción aleatoria del artista</string>
     <string name="action_shuffle_playlist">Reproducción aleatoria de la lista de reproducción</string>
     <string name="action_clear_playing_queue">Vaciar cola de reproducción</string>
+    <string name="action_save_playing_queue">Guardar cola de reproducción</string>
     <string name="action_go_to_start_directory">Ir al directorio de inicio</string>
     <string name="action_show_lyrics">Mostrar letras</string>
     <string name="last_opened">Última abierta</string>
@@ -171,6 +174,7 @@
     <string name="permissions_denied">Permisos denegados.</string>
     <string name="permission_external_storage_denied">Permiso para acceder al almacenamiento externo denegado.</string>
     <string name="support_development">Apoyar desarrollo</string>
+    <string name="buy_pro">Comprar Phonograph Pro</string>
     <string name="thank_you">¡Gracias!</string>
     <string name="version">Versión</string>
     <string name="author">Autor</string>
@@ -238,4 +242,11 @@
     <!-- App Shortcuts -->
     <string name="app_shortcut_shuffle_all_short">Mezclar</string>
     <string name="app_shortcut_top_tracks_short">Los mejores temas</string>
+    <string name="playing_notification_description">La notificación de reproducción muestra acciones para reproducir/pausar etc.</string>
+    <string name="playing_notification_name">Notificación de reproducción</string>
+    <string name="buy">Comprar</string>
+    <string name="only_the_first_5_colors_available">Sólo los primeros 5 colores están disponibles en la versión gratuita.</string>
+    <string name="black_theme_is_a_pro_feature">El tema negro es una característica de Phonograph Pro.</string>
+    <string name="sleep_timer_is_a_pro_feature">El temporizador de sueño es una característica de Phonograph Pro.</string>
+    <string name="folder_view_is_a_pro_feature">La vista de carpetas es una característica de Phonograph Pro.</string>
 </resources>
