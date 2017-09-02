@@ -236,11 +236,11 @@
     <string name="your_account_data_is_only_used_for_authentication">Информацията за вашият акаунт се използва само за логин.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Вие ще бъдете пренасочени към уебсайтът който следи за проблеми.</string>
     <!-- App Shortcuts -->
-    <string name="app_shortcut_shuffle_all_long">@string/Разбъркай_всички</string>
+    <string name="app_shortcut_shuffle_all_long">Разбъркай_всички</string>
     <string name="app_shortcut_shuffle_all_short">Разбъркай</string>
-    <string name="app_shortcut_top_tracks_long">@string/Най_-_често_слушани</string>
+    <string name="app_shortcut_top_tracks_long">Най_-_често_слушани</string>
     <string name="app_shortcut_top_tracks_short">Най - често слушани</string>
-    <string name="app_shortcut_last_added_long">@string/Последно_добавени</string>
-    <string name="app_shortcut_last_added_short">@string/Последно_добавени</string>
+    <string name="app_shortcut_last_added_long">Последно_добавени</string>
+    <string name="app_shortcut_last_added_short">Последно_добавени</string>
     <string name="playlist_is_empty">Плейлистът е празен</string>
 </resources>
