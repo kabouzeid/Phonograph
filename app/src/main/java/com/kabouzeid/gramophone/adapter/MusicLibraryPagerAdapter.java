@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.AlbumsFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.ArtistsFragment;
+import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.GenresFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.PlaylistsFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.SongsFragment;
 
@@ -39,6 +40,7 @@ public class MusicLibraryPagerAdapter extends FragmentPagerAdapter {
                 context.getResources().getString(R.string.songs),
                 context.getResources().getString(R.string.albums),
                 context.getResources().getString(R.string.artists),
+                context.getResources().getString(R.string.genres),
                 context.getResources().getString(R.string.playlists)
         };
         final MusicFragments[] fragments = MusicFragments.values();
@@ -110,6 +112,7 @@ public class MusicLibraryPagerAdapter extends FragmentPagerAdapter {
         SONG(SongsFragment.class),
         ALBUM(AlbumsFragment.class),
         ARTIST(ArtistsFragment.class),
+        GENRES(GenresFragment.class),
         PLAYLIST(PlaylistsFragment.class);
 
         private final Class<? extends Fragment> mFragmentClass;
@@ -121,12 +124,10 @@ public class MusicLibraryPagerAdapter extends FragmentPagerAdapter {
         public Class<? extends Fragment> getFragmentClass() {
             return mFragmentClass;
         }
-
     }
 
     private final static class Holder {
         String mClassName;
-
         Bundle mParams;
     }
 }

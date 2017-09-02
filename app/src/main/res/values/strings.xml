@@ -30,6 +30,7 @@
     <string name="action_set_as_start_directory">Set as start directory</string>
     <string name="albums">Albums</string>
     <string name="artists">Artists</string>
+    <string name="genres">Genres</string>
     <string name="songs">Songs</string>
     <string name="playlists">Playlists</string>
     <string name="unplayable_file">Couldn\u2019t play this song.</string>
@@ -41,6 +42,7 @@
     <string name="album">Album</string>
     <string name="artist">Artist</string>
     <string name="genre">Genre</string>
+    <string name="unknown_genre">Unknown genre</string>
     <string name="album_artist">Album artist</string>
     <string name="year">Year</string>
     <string name="track_hint">"Track (2 for track 2 or 3004 for CD3 track 4)"</string>
@@ -150,6 +152,7 @@
     <string name="no_albums">No albums</string>
     <string name="no_songs">No songs</string>
     <string name="no_artists">No artists</string>
+    <string name="no_genres">No genres</string>
     <string name="empty">Empty</string>
     <string name="playlist_name_empty">Playlist name</string>
     <string name="song">Song</string>

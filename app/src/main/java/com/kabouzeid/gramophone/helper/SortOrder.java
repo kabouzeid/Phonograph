@@ -153,4 +153,15 @@ public final class SortOrder {
                 + " ASC";
     }
 
+    /**
+     * Genre sort order entries.
+     */
+    public interface GenreSortOrder {
+        /* Genre sort order A-Z */
+        String GENRE_A_Z = MediaStore.Audio.Genres.DEFAULT_SORT_ORDER;
+
+        /* Genre sort order Z-A */
+        String ALBUM_Z_A = GENRE_A_Z + " DESC";
+    }
+
 }
