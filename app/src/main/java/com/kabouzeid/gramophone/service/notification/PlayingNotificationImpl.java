@@ -102,7 +102,7 @@ public class PlayingNotificationImpl extends PlayingNotification {
                             @Override
                             public void onLoadFailed(Exception e, Drawable errorDrawable) {
                                 super.onLoadFailed(e, errorDrawable);
-                                update(null, Color.TRANSPARENT);
+                                update(null, Color.WHITE);
                             }
 
                             private void update(@Nullable Bitmap bitmap, int bgColor) {
@@ -115,10 +115,10 @@ public class PlayingNotificationImpl extends PlayingNotification {
                                 }
 
                                 if (!PreferenceUtil.getInstance(service).coloredNotification()) {
-                                    bgColor = Color.TRANSPARENT;
+                                    bgColor = Color.WHITE;
                                 }
                                 setBackgroundColor(bgColor);
-                                setNotificationContent(bgColor == Color.TRANSPARENT ? Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP : ColorUtil.isColorLight(bgColor));
+                                setNotificationContent(ColorUtil.isColorLight(bgColor));
 
                                 if (stopped)
                                     return; // notification has been stopped before loading was finished
