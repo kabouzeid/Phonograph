@@ -21,6 +21,7 @@ import com.afollestad.materialdialogs.internal.ThemeSingleton;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.service.MusicService;
+import com.kabouzeid.gramophone.ui.activities.PurchaseActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.triggertrap.seekarc.SeekArc;
@@ -62,8 +63,7 @@ public class SleepTimerDialog extends DialogFragment {
                         }
                         if (!App.isProVersion()) {
                             Toast.makeText(getActivity(), getString(R.string.sleep_timer_is_a_pro_feature), Toast.LENGTH_LONG).show();
-                            BuyDialog.create().show(getFragmentManager(), "BUY_DIALOG");
-                            dismiss();
+                            startActivity(new Intent(getContext(), PurchaseActivity.class));
                             return;
                         }
 

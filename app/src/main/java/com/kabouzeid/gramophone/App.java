@@ -49,7 +49,7 @@ public class App extends Application {
 
             @Override
             public void onPurchaseHistoryRestored() {
-                Toast.makeText(App.this, R.string.restored_previous_purchases_please_restart, Toast.LENGTH_LONG).show();
+                Toast.makeText(App.this, R.string.restored_previous_purchase_please_restart, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -63,7 +63,7 @@ public class App extends Application {
     }
 
     public static boolean isProVersion() {
-        return BuildConfig.DEBUG || app.billingProcessor.isPurchased(PRO_VERSION_PRODUCT_ID);
+        return app.billingProcessor.isPurchased(PRO_VERSION_PRODUCT_ID);
     }
 
     @Override
