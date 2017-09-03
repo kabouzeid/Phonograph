@@ -197,7 +197,7 @@
     <string name="support_development">Support development</string>
     <string name="buy_pro">Buy Phonograph Pro</string>
     <string name="thank_you">Thank you!</string>
-    <string name="restored_previous_purchases_please_restart">Restored previous purchases. Please restart the app to make use of all features.</string>
+    <string name="restored_previous_purchase_please_restart">Restored previous purchase. Please restart the app to make use of all features.</string>
     <string name="version">Version</string>
     <string name="author">Author</string>
     <string name="write_an_email">Write an email</string>
@@ -280,6 +280,12 @@
     <string name="black_theme_is_a_pro_feature">The black theme is Phonograph Pro feature.</string>
     <string name="sleep_timer_is_a_pro_feature">Sleep timer is a Phonograph Pro feature</string>
     <string name="folder_view_is_a_pro_feature">Folder view is a Phonograph Pro feature.</string>
+    <string name="restore_purchase">Restore purchase</string>
+    <string name="restoring_purchase">Restoring purchase…</string>
+    <string name="could_not_restore_purchase">Could not restore purchase.</string>
+    <string name="purchase">Purchase</string>
+    <string name="restore">Restore</string>
+    <string name="no_purchase_found">No purchase found.</string>
     <!-- SAF -->
     <string name="saf_error_uri">Can\'t get SAF URI</string>
     <string name="saf_write_failed">File write failed: %s</string>
