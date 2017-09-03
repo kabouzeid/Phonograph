@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.ui.activities.tageditor;
 
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.Editable;
@@ -51,10 +50,6 @@ public class SongTagEditorActivity extends AbsTagEditorActivity implements TextW
 
         //noinspection ConstantConditions
         getSupportActionBar().setTitle(R.string.action_tag_editor);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            toolbar.setElevation(0);
-        }
     }
 
     private void setUpViews() {
