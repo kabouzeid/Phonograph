@@ -47,11 +47,14 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     private static String AIDAN_FOLLESTAD_GITHUB = "https://github.com/afollestad";
 
     private static String MICHAEL_COOK_GOOGLE_PLUS = "https://plus.google.com/102718493746376292361";
-    private static String MICHAEL_COOK_WEBSITE = "http://cookicons.co/";
+    private static String MICHAEL_COOK_WEBSITE = "https://cookicons.co/";
 
     private static String MAARTEN_CORPEL_GOOGLE_PLUS = "https://google.com/+MaartenCorpel";
 
     private static String ALEKSANDAR_TESIC_GOOGLE_PLUS = "https://google.com/+aleksandartešić";
+
+    private static String EUGENE_CHEUNG_GITHUB = "https://github.com/arkon";
+    private static String EUGENE_CHEUNG_WEBSITE = "https://echeung.me/";
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -95,6 +98,10 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     AppCompatButton maartenCorpelGooglePlus;
     @BindView(R.id.aleksandar_tesic_google_plus)
     AppCompatButton aleksandarTesicGooglePlus;
+    @BindView(R.id.eugene_cheung_git_hub)
+    AppCompatButton eugeneCheungGitHub;
+    @BindView(R.id.eugene_cheung_website)
+    AppCompatButton eugeneCheungWebsite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,6 +154,8 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         michaelCookWebsite.setOnClickListener(this);
         maartenCorpelGooglePlus.setOnClickListener(this);
         aleksandarTesicGooglePlus.setOnClickListener(this);
+        eugeneCheungGitHub.setOnClickListener(this);
+        eugeneCheungWebsite.setOnClickListener(this);
     }
 
     @Override
@@ -211,6 +220,10 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
             openUrl(MAARTEN_CORPEL_GOOGLE_PLUS);
         } else if (v == aleksandarTesicGooglePlus) {
             openUrl(ALEKSANDAR_TESIC_GOOGLE_PLUS);
+        } else if (v == eugeneCheungGitHub) {
+            openUrl(EUGENE_CHEUNG_GITHUB);
+        } else if (v == eugeneCheungWebsite) {
+            openUrl(EUGENE_CHEUNG_WEBSITE);
         }
     }
 
