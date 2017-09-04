@@ -294,6 +294,21 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 });
             }
 
+            final TwoStatePreference coloredNotification = (TwoStatePreference) findPreference("colored_notification");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                coloredNotification.setEnabled(PreferenceUtil.getInstance(getActivity()).classicNotification());
+            } else {
+                coloredNotification.setChecked(PreferenceUtil.getInstance(getActivity()).coloredNotification());
+                coloredNotification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        // Save preference
+                        PreferenceUtil.getInstance(getActivity()).setColoredNotification((Boolean) newValue);
+                        return true;
+                    }
+                });
+            }
+
             final TwoStatePreference colorAppShortcuts = (TwoStatePreference) findPreference("should_color_app_shortcuts");
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
                 colorAppShortcuts.setVisible(false);
@@ -341,6 +356,11 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             switch (key) {
                 case PreferenceUtil.NOW_PLAYING_SCREEN_ID:
                     updateNowPlayingScreenSummary();
+                    break;
+                case PreferenceUtil.CLASSIC_NOTIFICATION:
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        findPreference("colored_notification").setEnabled(sharedPreferences.getBoolean(key, false));
+                    }
                     break;
             }
         }

@@ -158,6 +158,12 @@ public final class PreferenceUtil {
         return mPreferences.getBoolean(CLASSIC_NOTIFICATION, false);
     }
 
+    public void setColoredNotification(final boolean value) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putBoolean(COLORED_NOTIFICATION, value);
+        editor.apply();
+    }
+
     public void setClassicNotification(final boolean value) {
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.putBoolean(CLASSIC_NOTIFICATION, value);
