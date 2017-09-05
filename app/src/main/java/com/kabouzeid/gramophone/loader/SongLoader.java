@@ -12,7 +12,6 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -42,13 +41,6 @@ public class SongLoader {
     @NonNull
     public static ArrayList<Song> getSongs(@NonNull final Context context, final String query) {
         Cursor cursor = makeSongCursor(context, AudioColumns.TITLE + " LIKE ?", new String[]{"%" + query + "%"});
-        return getSongs(cursor);
-    }
-
-    @NonNull
-    public static ArrayList<Song> getSongsNotIn(@NonNull final Context context, final int[] query) {
-        final String ids = convertArrayToQueryList(query);
-        Cursor cursor = makeSongCursor(context, AudioColumns._ID + " NOT IN " + ids, null);
         return getSongs(cursor);
     }
 
@@ -121,9 +113,5 @@ public class SongLoader {
         } catch (SecurityException e) {
             return null;
         }
-    }
-
-    private static String convertArrayToQueryList(final int[] array) {
-        return "(" + Arrays.toString(array).replaceAll("\\[|\\]|\\s", "") + ")";
     }
 }
