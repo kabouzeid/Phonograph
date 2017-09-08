@@ -146,11 +146,10 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             if (!hasPermissions()) {
                 requestPermissions();
             }
+            checkSetUpPro(); // good chance that pro version check was delayed on first start
         } else if (requestCode == PURCHASE_REQUEST) {
             if (resultCode == RESULT_OK) {
-                if (App.isProVersion()) {
-                    setUpPro();
-                }
+                checkSetUpPro();
             }
         }
     }
@@ -174,9 +173,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
         NavigationViewUtil.setItemIconColors(navigationView, ATHUtil.resolveColor(this, R.attr.iconColor, ThemeStore.textColorSecondary(this)), accentColor);
         NavigationViewUtil.setItemTextColors(navigationView, ThemeStore.textColorPrimary(this), accentColor);
 
-        if (App.isProVersion()) {
-            setUpPro();
-        }
+        checkSetUpPro();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -226,6 +223,12 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
                 return true;
             }
         });
+    }
+
+    private void checkSetUpPro() {
+        if (App.isProVersion()) {
+            setUpPro();
+        }
     }
 
     private void setUpPro() {
