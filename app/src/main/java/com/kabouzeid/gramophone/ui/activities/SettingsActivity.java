@@ -76,7 +76,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int selectedColor) {
         switch (dialog.getTitle()) {
             case R.string.primary_color:
-                if (!App.isProVersion()) {
+                if (!App.isProEnabled()) {
                     Arrays.sort(NonProAllowedColors.PRIMARY_COLORS);
                     if (Arrays.binarySearch(NonProAllowedColors.PRIMARY_COLORS, selectedColor) < 0) {
                         // color wasn't found
@@ -90,7 +90,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                         .commit();
                 break;
             case R.string.accent_color:
-                if (!App.isProVersion()) {
+                if (!App.isProEnabled()) {
                     Arrays.sort(NonProAllowedColors.ACCENT_COLORS);
                     if (Arrays.binarySearch(NonProAllowedColors.ACCENT_COLORS, selectedColor) < 0) {
                         // color wasn't found
@@ -202,7 +202,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 @Override
                 public boolean onPreferenceChange(Preference preference, @NonNull Object o) {
                     String themeName = (String) o;
-                    if (themeName.equals("black") && !App.isProVersion()) {
+                    if (themeName.equals("black") && !App.isProEnabled()) {
                         Toast.makeText(getActivity(), R.string.black_theme_is_a_pro_feature, Toast.LENGTH_LONG).show();
                         startActivity(new Intent(getContext(), PurchaseActivity.class));
                         return false;

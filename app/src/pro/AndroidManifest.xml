@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.kabouzeid.gramophone"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="com.android.vending.BILLING" />
+
+    <application tools:node="merge">
+
+        <activity android:name=".ui.activities.PurchaseActivity" />
+
+        <meta-data
+            android:name="com.crashlytics.ApiKey"
+            android:value="b23725bd3d266aa65c5a3dd1816b2f801524a189" />
+
+    </application>
+
+</manifest>

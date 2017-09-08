@@ -16,6 +16,7 @@ import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
 import com.kabouzeid.appthemehelper.color.MaterialColor;
 import com.kabouzeid.gramophone.App;
+import com.kabouzeid.gramophone.Billing;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 
@@ -71,11 +72,11 @@ public class PurchaseActivity extends AbsBaseActivity implements BillingProcesso
         purchaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                billingProcessor.purchase(PurchaseActivity.this, App.PRO_VERSION_PRODUCT_ID);
+                billingProcessor.purchase(PurchaseActivity.this, Billing.PRO_VERSION_PRODUCT_ID);
             }
         });
 
-        billingProcessor = new BillingProcessor(this, App.GOOGLE_PLAY_LICENSE_KEY, this);
+        billingProcessor = new BillingProcessor(this, Billing.GOOGLE_PLAY_LICENSE_KEY, this);
 
 
     }
@@ -95,7 +96,7 @@ public class PurchaseActivity extends AbsBaseActivity implements BillingProcesso
 
     @Override
     public void onPurchaseHistoryRestored() {
-        if (App.isProVersion()) {
+        if (App.isProEnabled()) {
             Toast.makeText(this, R.string.restored_previous_purchase_please_restart, Toast.LENGTH_LONG).show();
             setResult(RESULT_OK);
         } else {

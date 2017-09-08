@@ -29,6 +29,7 @@ import com.anjlab.android.iab.v3.TransactionDetails;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.gramophone.App;
+import com.kabouzeid.gramophone.Billing;
 import com.kabouzeid.gramophone.R;
 
 import java.lang.ref.WeakReference;
@@ -39,10 +40,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * @author Karim Abou Zeid (kabouzeid)
- */
 public class DonationsDialog extends DialogFragment implements BillingProcessor.IBillingHandler {
+
     public static final String TAG = DonationsDialog.class.getSimpleName();
 
     private static final int DONATION_PRODUCT_IDS = R.array.donation_ids;
@@ -58,7 +57,7 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        billingProcessor = new BillingProcessor(getContext(), App.GOOGLE_PLAY_LICENSE_KEY, this);
+        billingProcessor = new BillingProcessor(getContext(), Billing.GOOGLE_PLAY_LICENSE_KEY, this);
 
         @SuppressLint("InflateParams")
         View customView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_donation, null);
