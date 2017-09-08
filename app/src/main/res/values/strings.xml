@@ -286,4 +286,10 @@
     <string name="restore">Restore</string>
     <string name="no_purchase_found">No purchase found.</string>
     <string name="eugene_cheung_summary">For his contributions to the source code.</string>
+    <string name="add_action">Add</string>
+    <string name="blacklist">Blacklist</string>
+    <string name="remove_from_blacklist">Remove from blacklist</string>
+    <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[Do you want to remove <b>%1$s</b> from the blacklist?]]></string>
+    <string name="clear_blacklist">Clear blacklist</string>
+    <string name="do_you_want_to_clear_the_blacklist">Do you want to clear the blacklist?</string>
 </resources>
