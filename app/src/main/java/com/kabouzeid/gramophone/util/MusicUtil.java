@@ -243,7 +243,11 @@ public class MusicUtil {
     }
 
     private static Playlist getOrCreateFavoritesPlaylist(@NonNull final Context context) {
-        return PlaylistLoader.getPlaylist(context, PlaylistsUtil.createPlaylist(context, context.getString(R.string.favorites)));
+        Playlist favoritesPlaylist = getFavoritesPlaylist(context);
+        if (favoritesPlaylist.id == -1) {
+            return PlaylistLoader.getPlaylist(context, PlaylistsUtil.createPlaylist(context, context.getString(R.string.favorites)));
+        }
+        return favoritesPlaylist;
     }
 
     public static boolean isFavorite(@NonNull final Context context, @NonNull final Song song) {
