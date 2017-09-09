@@ -8,6 +8,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.adapter.song.AbsOffsetSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.ShuffleButtonSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.SongAdapter;
 import com.kabouzeid.gramophone.interfaces.LoaderIds;
@@ -36,7 +37,19 @@ public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFrag
     @NonNull
     @Override
     protected GridLayoutManager createLayoutManager() {
-        return new GridLayoutManager(getActivity(), getGridSize());
+        final GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), getGridSize());
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                switch (getAdapter().getItemViewType(position)) {
+                    case AbsOffsetSongAdapter.OFFSET_ITEM:
+                        return layoutManager.getSpanCount();
+                    default:
+                        return 1;
+                }
+            }
+        });
+        return layoutManager;
     }
 
     @NonNull
@@ -47,15 +60,7 @@ public class SongsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFrag
         boolean usePalette = loadUsePalette();
         ArrayList<Song> dataSet = getAdapter() == null ? new ArrayList<Song>() : getAdapter().getDataSet();
 
-        if (getGridSize() <= getMaxGridSizeForList()) {
-            return new ShuffleButtonSongAdapter(
-                    getLibraryFragment().getMainActivity(),
-                    dataSet,
-                    itemLayoutRes,
-                    usePalette,
-                    getLibraryFragment());
-        }
-        return new SongAdapter(
+        return new ShuffleButtonSongAdapter(
                 getLibraryFragment().getMainActivity(),
                 dataSet,
                 itemLayoutRes,
