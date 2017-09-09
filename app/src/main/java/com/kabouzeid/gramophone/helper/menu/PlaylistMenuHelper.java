@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.DeletePlaylistDialog;
 import com.kabouzeid.gramophone.dialogs.RenamePlaylistDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -33,8 +34,14 @@ public class PlaylistMenuHelper {
             case R.id.action_play:
                 MusicPlayerRemote.openQueue(new ArrayList<>(getPlaylistSongs(activity, playlist)), 0, true);
                 return true;
+            case R.id.action_play_next:
+                MusicPlayerRemote.playNext(new ArrayList<>(getPlaylistSongs(activity, playlist)));
+                return true;
             case R.id.action_add_to_current_playing:
                 MusicPlayerRemote.enqueue(new ArrayList<>(getPlaylistSongs(activity, playlist)));
+                return true;
+            case R.id.action_add_to_playlist:
+                AddToPlaylistDialog.create(new ArrayList<>(getPlaylistSongs(activity, playlist))).show(activity.getSupportFragmentManager(), "ADD_PLAYLIST");
                 return true;
             case R.id.action_rename_playlist:
                 RenamePlaylistDialog.create(playlist.id).show(activity.getSupportFragmentManager(), "RENAME_PLAYLIST");

@@ -33,7 +33,7 @@
     <string name="songs">Músicas</string>
     <string name="playlists">Listas de Reprodução</string>
     <string name="unplayable_file">N\u00e3o foi poss\u00edvel reproduzir esta m\u00fasica.</string>
-    <string name="biography_unavailable">N\u00e3o foi poss\u00edvel encontrar a biografia dos artistas.</string>
+    <string name="biography_unavailable">N\u00e3o conseguimos encontrar a biografia deste artista.</string>
     <string name="wiki_unavailable">N\u00e3o foi poss\u00edvel encontrar o registro online deste \u00e1lbum.</string>
     <string name="biography">Biografia</string>
     <string name="wiki">Wiki</string>
@@ -94,6 +94,7 @@
     <string name="action_shuffle_artist">Misturar artista</string>
     <string name="action_shuffle_playlist">Misturar playlist</string>
     <string name="action_clear_playing_queue">Limpar fila de reprodução</string>
+    <string name="action_save_playing_queue">Salvar fila de reprodução</string>
     <string name="action_go_to_start_directory">Ir para a pasta inicial</string>
     <string name="action_show_lyrics">Mostrar letras</string>
     <string name="last_opened">Última aberta</string>
@@ -129,6 +130,7 @@
     <string name="pref_title_ignore_media_store_artwork">Ignorar capas Media Store</string>
     <string name="pref_title_gapless_playback">Reprodução contínua</string>
     <string name="pref_title_audio_ducking">Reduzir o volume de perda de foco</string>
+    <string name="pref_title_last_added_interval">Intervalo de adição das playlists mais recentes</string>
     <string name="pref_title_synchronized_lyrics_show">Exibir letras sincronizadas</string>
     <string name="no_equalizer">Nenhum equalizador encontrado.</string>
     <string name="no_audio_ID">"Sem identificação de áudio, reproduza algo e tente novamente."</string>
@@ -156,7 +158,7 @@
     <string name="pref_summary_classic_notification">Usar o design de notificação clássico.</string>
     <string name="pref_summary_colored_notification">"A notifica\u00e7\u00e3o \u00e9 colorida com a cor mais vibrante do \u00e1lbum."</string>
     <string name="pref_summary_gapless_playback">"Pode causar problemas de reprodução em alguns dispositivos."</string>
-    <string name="pref_summary_ignore_media_store_artwork">Pode aumentar a qualidade da capa do álbum, mas faz com tempos de carregamento mais lento imagem. Só habilite esta opção se você tiver problemas com obras de arte de baixa resolução.</string>
+    <string name="pref_summary_ignore_media_store_artwork">Pode aumentar a qualidade da capa do álbum, mas a carrega mais devagar. Só habilite esta opção se você tiver problemas com obras de arte de baixa resolução.</string>
     <string name="pref_summary_colored_navigation_bar">Cores da barra de navegação na cor primária.</string>
     <string name="pref_summary_colored_app_shortcuts">Colore os atalhos do app com a cor primária.</string>
     <string name="pref_summary_audio_ducking">Notificações, navegação, etc.</string>
@@ -185,7 +187,9 @@
     <string name="permissions_denied">Permissões negadas.</string>
     <string name="permission_external_storage_denied">Permissão para acessar armazenamento externo negado.</string>
     <string name="support_development">Apoiar o desenvolvimento</string>
+    <string name="buy_pro">Habilitar versão Pro do Phonograph</string>
     <string name="thank_you">Obrigado!</string>
+    <string name="restored_previous_purchase_please_restart">Restituídas compras anteriores. Por favor, reinicie o aplicativo pra usufruir dos novos recursos.</string>
     <string name="version">Versão</string>
     <string name="author">Autor</string>
     <string name="write_an_email">Escreva um email</string>
@@ -260,4 +264,17 @@
     <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
     <string name="playlist_is_empty">A playlist está vazia</string>
+    <string name="playing_notification_description">A notificação de reprodução fornece opções de pausar/continuar etc.</string>
+    <string name="playing_notification_name">Notificação de reprodução</string>
+    <string name="buy">Comprar</string>
+    <string name="only_the_first_5_colors_available">Apenas as primeiras 5 cores estão disponíveis na versão grátis.</string>
+    <string name="black_theme_is_a_pro_feature">O tema escuro é um recurso da versão Pro do Phonograph.</string>
+    <string name="sleep_timer_is_a_pro_feature">Temporizador de soneca é um recurso da versão Pro do Phonograph</string>
+    <string name="folder_view_is_a_pro_feature">Visualização de pastas é um recurso da versão Pro do Phonograph.</string>
+    <string name="restore_purchase">Restituir compra</string>
+    <string name="restoring_purchase">Restitundo compra...</string>
+    <string name="could_not_restore_purchase">Não foi possível restituir a compra.</string>
+    <string name="purchase">Compra</string>
+    <string name="restore">Restituir</string>
+    <string name="no_purchase_found">Nenhuma compra feita.</string>
 </resources>

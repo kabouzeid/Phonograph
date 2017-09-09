@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activities.PurchaseActivity">
+
+    <include layout="@layout/status_bar" />
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_below="@+id/status_bar"
+        android:background="@color/md_green_500"
+        android:elevation="4dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar"
+            android:background="@android:color/transparent" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/app_bar"
+        android:layout_marginTop="-72dp"
+        android:clipToPadding="false"
+        android:elevation="8dp"
+        android:isScrollContainer="true">
+
+        <include layout="@layout/activity_purchase_content" />
+
+    </ScrollView>
+
+</RelativeLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_add_to_favorites">Add to favourites</string>
+    <string name="action_remove_from_favorites">Remove from favourites</string>
+    <string name="equalizer">Equaliser</string>
+    <string name="pref_header_colors">Colours</string>
+    <string name="pref_title_navigation_bar">Coloured navigation bar</string>
+    <string name="pref_title_app_shortcuts">Coloured app shortcuts</string>
+    <string name="pref_title_colored_notification">Coloured notification</string>
+    <string name="pref_title_synchronized_lyrics_show">Show synchronised lyrics</string>
+    <string name="no_equalizer">No equaliser found.</string>
+    <string name="primary_color">Primary colour</string>
+    <string name="accent_color">Accent colour</string>
+    <string name="primary_color_desc">The primary theme colour, defaults to indigo.</string>
+    <string name="accent_color_desc">The accent theme colour, defaults to pink.</string>
+    <string name="pref_summary_colored_notification">"Colours the notification in the album cover\u2019s vibrant colour."</string>
+    <string name="pref_summary_colored_navigation_bar">Colours the navigation bar in the primary colour.</string>
+    <string name="pref_summary_colored_app_shortcuts">Colours the app shortcuts in the primary colour.</string>
+    <string name="pref_summary_synchronized_lyrics_show">Currently only synchronised lyrics in LRC format are supported. Either embedded or as a separate file.</string>
+    <string name="favorites">Favourites</string>
+    <string name="colored_footers">Coloured footers</string>
+    <!-- App Shortcuts -->
+    <string name="only_the_first_5_colors_available">Only the first 5 colours are available in the free version.</string>
+</resources>

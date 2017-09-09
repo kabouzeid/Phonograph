@@ -28,8 +28,9 @@ import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appshortcuts.DynamicShortcutManager;
-import com.kabouzeid.gramophone.dialogs.BuyDialog;
 import com.kabouzeid.gramophone.misc.NonProAllowedColors;
+import com.kabouzeid.gramophone.preferences.BlacklistPreference;
+import com.kabouzeid.gramophone.preferences.BlacklistPreferenceDialog;
 import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreference;
 import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreferenceDialog;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
@@ -80,7 +81,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                     if (Arrays.binarySearch(NonProAllowedColors.PRIMARY_COLORS, selectedColor) < 0) {
                         // color wasn't found
                         Toast.makeText(this, R.string.only_the_first_5_colors_available, Toast.LENGTH_LONG).show();
-                        BuyDialog.create().show(getSupportFragmentManager(), "BUY_DIALOG");
+                        startActivity(new Intent(this, PurchaseActivity.class));
                         return;
                     }
                 }
@@ -94,7 +95,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                     if (Arrays.binarySearch(NonProAllowedColors.ACCENT_COLORS, selectedColor) < 0) {
                         // color wasn't found
                         Toast.makeText(this, R.string.only_the_first_5_colors_available, Toast.LENGTH_LONG).show();
-                        BuyDialog.create().show(getSupportFragmentManager(), "BUY_DIALOG");
+                        startActivity(new Intent(this, PurchaseActivity.class));
                         return;
                     }
                 }
@@ -156,6 +157,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             addPreferencesFromResource(R.xml.pref_lockscreen);
             addPreferencesFromResource(R.xml.pref_audio);
             addPreferencesFromResource(R.xml.pref_playlists);
+            addPreferencesFromResource(R.xml.pref_blacklist);
         }
 
         @Nullable
@@ -163,6 +165,8 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         public DialogFragment onCreatePreferenceDialog(Preference preference) {
             if (preference instanceof NowPlayingScreenPreference) {
                 return NowPlayingScreenPreferenceDialog.newInstance();
+            } else if (preference instanceof BlacklistPreference) {
+                return BlacklistPreferenceDialog.newInstance();
             }
             return super.onCreatePreferenceDialog(preference);
         }
@@ -200,7 +204,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                     String themeName = (String) o;
                     if (themeName.equals("black") && !App.isProVersion()) {
                         Toast.makeText(getActivity(), R.string.black_theme_is_a_pro_feature, Toast.LENGTH_LONG).show();
-                        BuyDialog.create().show(getFragmentManager(), "BUY_DIALOG");
+                        startActivity(new Intent(getContext(), PurchaseActivity.class));
                         return false;
                     }
 
@@ -295,6 +299,21 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 });
             }
 
+            final TwoStatePreference coloredNotification = (TwoStatePreference) findPreference("colored_notification");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                coloredNotification.setEnabled(PreferenceUtil.getInstance(getActivity()).classicNotification());
+            } else {
+                coloredNotification.setChecked(PreferenceUtil.getInstance(getActivity()).coloredNotification());
+                coloredNotification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        // Save preference
+                        PreferenceUtil.getInstance(getActivity()).setColoredNotification((Boolean) newValue);
+                        return true;
+                    }
+                });
+            }
+
             final TwoStatePreference colorAppShortcuts = (TwoStatePreference) findPreference("should_color_app_shortcuts");
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N_MR1) {
                 colorAppShortcuts.setVisible(false);
@@ -342,6 +361,11 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             switch (key) {
                 case PreferenceUtil.NOW_PLAYING_SCREEN_ID:
                     updateNowPlayingScreenSummary();
+                    break;
+                case PreferenceUtil.CLASSIC_NOTIFICATION:
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        findPreference("colored_notification").setEnabled(sharedPreferences.getBoolean(key, false));
+                    }
                     break;
             }
         }

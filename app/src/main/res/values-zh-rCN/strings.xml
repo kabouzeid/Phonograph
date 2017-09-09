@@ -94,6 +94,7 @@
     <string name="action_shuffle_artist">随机播放此艺术家</string>
     <string name="action_shuffle_playlist">随机播放此播放列表</string>
     <string name="action_clear_playing_queue">清空播放队列</string>
+    <string name="action_save_playing_queue">保存播放队列</string>
     <string name="action_go_to_start_directory">跳转至起始目录</string>
     <string name="action_show_lyrics">显示歌词</string>
     <string name="last_opened">最后打开时的页面</string>
@@ -186,6 +187,7 @@
     <string name="permissions_denied">未能获取权限。</string>
     <string name="permission_external_storage_denied">访问外部存储权限被拒绝。</string>
     <string name="support_development">支持开发者</string>
+    <string name="buy_pro">购买 Phonograph Pro</string>
     <string name="thank_you">非常感谢您！</string>
     <string name="version">版本</string>
     <string name="author">作者</string>
@@ -261,4 +263,11 @@
     <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
     <string name="playlist_is_empty">播放列表为空</string>
+    <string name="playing_notification_description">正在播放通知提供了播放/暂停等便捷操作。</string>
+    <string name="playing_notification_name">正在播放通知</string>
+    <string name="buy">购买</string>
+    <string name="only_the_first_5_colors_available">免费版仅能使用前 5 个主题色。</string>
+    <string name="black_theme_is_a_pro_feature">黑色主题仅适用于 Phonograph Pro。</string>
+    <string name="sleep_timer_is_a_pro_feature">睡眠计时器仅适用于 Phonograph Pro。</string>
+    <string name="folder_view_is_a_pro_feature">文件夹视图仅适用于 Phonograph Pro。</string>
 </resources>

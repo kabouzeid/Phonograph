@@ -33,7 +33,7 @@
     <string name="songs">Melodii</string>
     <string name="playlists">Liste de redare</string>
     <string name="unplayable_file">Nu se poate reda.</string>
-    <string name="biography_unavailable">Nu s-a g\u0103sit biografia artistului.</string>
+    <string name="biography_unavailable">Nu a putut fi g\u0103sit\u0103 o \u00eenregistrare biografic\u0103 pentru acest artist.</string>
     <string name="wiki_unavailable">Nu s-a putut g\u0103si o \u00eenregistrare wiki pentru acest album.</string>
     <string name="biography">Biografie</string>
     <string name="wiki">Wiki</string>
@@ -46,11 +46,11 @@
     <string name="track_hint">"Număr (2 pentru melodia a 2-a sau 3004 pentru CD3 melodia a 4-a)"</string>
     <string name="lyrics">Versuri</string>
     <string name="album_or_artist_empty">Titlul sau artistul lipseste.</string>
-    <string name="saving_changes">Se salvează schimbările...</string>
+    <string name="saving_changes">Se salvează schimbările</string>
     <string name="saving_to_file">Salvând în fișier...</string>
     <string name="label_details">Detalii</string>
     <string name="label_file_name">Nume fișier</string>
-    <string name="label_file_path">Locație fișier</string>
+    <string name="label_file_path">Cale fișier</string>
     <string name="label_file_size">Mărime</string>
     <string name="label_file_format">Format</string>
     <string name="label_track_length">Durată</string>
@@ -74,10 +74,10 @@
     <string name="could_not_create_playlist">Nu s-a putut crea lista de redare.</string>
     <string name="delete_playlist_x"><![CDATA[Doriți să ștergeți lista de redare <b>%1$s</b>?]]></string>
     <string name="clear_playlist_x"><![CDATA[Sunte\u021bi sigur ca dori\u021bi s\u0103 \u015fterge\u0163i lista  <b>%1$s</b>? Aceasta ac\u021biune este ireversibil\u0103!]]></string>
-    <string name="delete_x_playlists"><![CDATA[Doriți să ștergeți <b>%1$d</b> liste?]]></string>
-    <string name="delete_song_x"><![CDATA[Doriți să ștergeți melodia <b>%1$s</b> ?]]></string>
-    <string name="delete_x_songs"><![CDATA[Doriți să ștergeți <b>%1$d</b> melodii ?]]></string>
-    <string name="remove_song_x_from_playlist"><![CDATA[Doriți să ștergeți melodia <b>%1$s</b> din listă?]]></string>
+    <string name="delete_x_playlists"><![CDATA[Ştergeți <b>%1$d</b> liste?]]></string>
+    <string name="delete_song_x"><![CDATA[Ştergeți melodia <b>%1$s</b> ?]]></string>
+    <string name="delete_x_songs"><![CDATA[Ştergeți <b>%1$d</b> melodii?]]></string>
+    <string name="remove_song_x_from_playlist"><![CDATA[Ştergeți melodia <b>%1$s</b> din listă?]]></string>
     <string name="remove_x_songs_from_playlist"><![CDATA[Scoateți <b>%1$d</b> melodii din playlist?]]></string>
     <string name="delete_song_title">Ștergeţi melodia</string>
     <string name="delete_songs_title">Ștergeţi melodiile</string>
@@ -94,6 +94,7 @@
     <string name="action_shuffle_artist">Amestecare artist</string>
     <string name="action_shuffle_playlist">Amestecare listă de redare</string>
     <string name="action_clear_playing_queue">Golește lista de redare</string>
+    <string name="action_save_playing_queue">Salvați lista de redare</string>
     <string name="action_go_to_start_directory">Du-te la directorul de pornire</string>
     <string name="action_show_lyrics">Arată versuri</string>
     <string name="last_opened">Ultimul deschis</string>
@@ -186,7 +187,9 @@
     <string name="permissions_denied">Permisiune refuzată.</string>
     <string name="permission_external_storage_denied">Permisiunea de a accesa stocarea externă a fost respinsă.</string>
     <string name="support_development">Susţineţi dezvoltarea</string>
+    <string name="buy_pro">Cumpăraţi Phonograph Pro</string>
     <string name="thank_you">Mulţumesc!</string>
+    <string name="restored_previous_purchase_please_restart">A fost restaurată achiziția anterioară. Reporniți aplicația pentru a utiliza toate funcțiile.</string>
     <string name="version">Versiune</string>
     <string name="author">Autor</string>
     <string name="write_an_email">Scrieţi un e-mail</string>
@@ -260,5 +263,18 @@
     <string name="app_shortcut_top_tracks_short">Melodii de top</string>
     <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
-    <string name="playlist_is_empty">LIstă de redare goală</string>
+    <string name="playlist_is_empty">Listă de redare goală</string>
+    <string name="playing_notification_description">Notificarea de redare oferă acțiuni de redare/pauză etc.</string>
+    <string name="playing_notification_name">Notificare de redare</string>
+    <string name="buy">Cumpăraţi</string>
+    <string name="only_the_first_5_colors_available">Numai primele 5 culori sunt disponibile în versiunea gratuită.</string>
+    <string name="black_theme_is_a_pro_feature">Tema întunecată este disponibilă doar în versiunea Phonograph Pro.</string>
+    <string name="sleep_timer_is_a_pro_feature">Temporizatorul este disponibil doar în versiunea Phonograph Pro</string>
+    <string name="folder_view_is_a_pro_feature">Afișarea dosarelor este disponibilă doar în versiunea Phonograph Pro.</string>
+    <string name="restore_purchase">Restabiliţi cumpărăturile</string>
+    <string name="restoring_purchase">Se restabilește achiziția...</string>
+    <string name="could_not_restore_purchase">Nu a putut fi restabilită achiziția.</string>
+    <string name="purchase">Cumpărare</string>
+    <string name="restore">Restabilire</string>
+    <string name="no_purchase_found">Nu s-a găsit nicio achiziție.</string>
 </resources>

@@ -94,6 +94,7 @@
     <string name="action_shuffle_artist">Riproduzione casuale artista</string>
     <string name="action_shuffle_playlist">Riproduzione casuale playlist</string>
     <string name="action_clear_playing_queue">Svuota coda di riproduzione</string>
+    <string name="action_save_playing_queue">Salva la coda di riproduzione</string>
     <string name="action_go_to_start_directory">Vai alla directory iniziale</string>
     <string name="action_show_lyrics">Mostra testo</string>
     <string name="last_opened">Ultima aperta</string>
@@ -186,7 +187,9 @@
     <string name="permissions_denied">Permesso negato.</string>
     <string name="permission_external_storage_denied">Permesso per accedere alla memoria esterna negato.</string>
     <string name="support_development">Supporta lo sviluppo</string>
+    <string name="buy_pro">Acquista Phonograph Pro</string>
     <string name="thank_you">Grazie!</string>
+    <string name="restored_previous_purchase_please_restart">Ripristinato l\'acquisto precedente. Riavvia l\'app per utilizzare tutte le funzionalità.</string>
     <string name="version">Versione</string>
     <string name="author">Autore</string>
     <string name="write_an_email">Scrivi un\'email</string>
@@ -262,4 +265,17 @@
     <string name="app_shortcut_last_added_long">ultima_aggiunta</string>
     <string name="app_shortcut_last_added_short">ultima_aggiunta</string>
     <string name="playlist_is_empty">La playlist è vuota</string>
+    <string name="playing_notification_description">La notifica di riproduzione offre azioni per play/pausa ecc.</string>
+    <string name="playing_notification_name">Notifica di riproduzione</string>
+    <string name="buy">Acquista</string>
+    <string name="only_the_first_5_colors_available">Solo i primi cinque colori sono disponibili nella versione gratuita.</string>
+    <string name="black_theme_is_a_pro_feature">Il tema scuro è una funzionalità di Phonograph Pro.</string>
+    <string name="sleep_timer_is_a_pro_feature">Il timer di spegnimento è una funzionalità di Phonograph Pro.</string>
+    <string name="folder_view_is_a_pro_feature">La visualizzazione delle cartelle è una funzionalità di Phonograph Pro.</string>
+    <string name="restore_purchase">Ripristina acquisto</string>
+    <string name="restoring_purchase">Ripristinando l\'acquisto...</string>
+    <string name="could_not_restore_purchase">Impossibile ripristinare l\'acquisto.</string>
+    <string name="purchase">Acquista</string>
+    <string name="restore">Ripristina</string>
+    <string name="no_purchase_found">Nessun acquisto trovato.</string>
 </resources>
