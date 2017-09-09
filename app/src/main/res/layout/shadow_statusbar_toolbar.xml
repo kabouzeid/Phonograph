@@ -22,9 +22,9 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/toolbar_scrim_height"
         android:layout_alignBottom="@id/dummy_statusbar_actionbar"
         android:layout_alignTop="@id/dummy_statusbar_actionbar"
-        android:background="@drawable/shadow_down" />
+        android:background="@drawable/toolbar_gradient" />
 
 </RelativeLayout>

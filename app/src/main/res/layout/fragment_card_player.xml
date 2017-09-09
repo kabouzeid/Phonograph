@@ -58,13 +58,21 @@
 
             </RelativeLayout>
 
-            <include layout="@layout/shadow_statusbar_toolbar" />
+            <FrameLayout
+                android:id="@+id/toolbar_container"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/toolbar_scrim_height"
+                android:background="@drawable/toolbar_gradient">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/player_toolbar"
-                style="@style/Toolbar"
-                android:layout_marginTop="@dimen/status_bar_padding"
-                android:background="@android:color/transparent" />
+                <include layout="@layout/shadow_statusbar_toolbar" />
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/player_toolbar"
+                    style="@style/Toolbar"
+                    android:layout_marginTop="@dimen/status_bar_padding"
+                    android:background="@android:color/transparent" />
+
+            </FrameLayout>
 
         </FrameLayout>
 

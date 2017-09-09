@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
@@ -24,10 +25,12 @@ public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implemen
     public static final String TAG = AbsPlayerFragment.class.getSimpleName();
 
     private Callbacks callbacks;
+    private boolean isToolbarVisible;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        isToolbarVisible = true;
         try {
             callbacks = (Callbacks) context;
         } catch (ClassCastException e) {
@@ -86,6 +89,23 @@ public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implemen
 
     protected void toggleFavorite(Song song) {
         MusicUtil.toggleFavorite(getActivity(), song);
+    }
+
+    protected void toggleToolbar(final View toolbar) {
+        if (toolbar == null) return;
+
+        isToolbarVisible = !isToolbarVisible;
+        if (isToolbarVisible) {
+            toolbar.setVisibility(View.VISIBLE);
+            toolbar.animate().alpha(1f).setDuration(PlayerAlbumCoverFragment.VISIBILITY_ANIM_DURATION);
+        } else {
+            toolbar.animate().alpha(0f).setDuration(PlayerAlbumCoverFragment.VISIBILITY_ANIM_DURATION).withEndAction(new Runnable() {
+                @Override
+                public void run() {
+                    toolbar.setVisibility(View.GONE);
+                }
+            });
+        }
     }
 
     protected String getUpNextAndQueueTime() {
