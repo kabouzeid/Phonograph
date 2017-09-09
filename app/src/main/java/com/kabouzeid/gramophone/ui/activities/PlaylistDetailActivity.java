@@ -20,8 +20,8 @@ import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropM
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.song.PlaylistSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.OrderablePlaylistSongAdapter;
+import com.kabouzeid.gramophone.adapter.song.PlaylistSongAdapter;
 import com.kabouzeid.gramophone.adapter.song.SongAdapter;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.menu.PlaylistMenuHelper;
@@ -145,7 +145,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_playlist_detail, menu);
+        getMenuInflater().inflate(playlist instanceof AbsCustomPlaylist ? R.menu.menu_smart_playlist_detail : R.menu.menu_playlist_detail, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -188,17 +188,19 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
     public void onMediaStoreChanged() {
         super.onMediaStoreChanged();
 
-        // Playlist deleted
-        if (!PlaylistsUtil.doesPlaylistExist(this, playlist.id)) {
-            onBackPressed();
-            return;
-        }
+        if (!(playlist instanceof AbsCustomPlaylist)) {
+            // Playlist deleted
+            if (!PlaylistsUtil.doesPlaylistExist(this, playlist.id)) {
+                finish();
+                return;
+            }
 
-        // Playlist renamed
-        final String playlistName = PlaylistsUtil.getNameForPlaylist(this, playlist.id);
-        if (!playlistName.equals(playlist.name)) {
-            playlist = PlaylistLoader.getPlaylist(this, playlist.id);
-            setToolbarTitle(playlist.name);
+            // Playlist renamed
+            final String playlistName = PlaylistsUtil.getNameForPlaylist(this, playlist.id);
+            if (!playlistName.equals(playlist.name)) {
+                playlist = PlaylistLoader.getPlaylist(this, playlist.id);
+                setToolbarTitle(playlist.name);
+            }
         }
 
         getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
