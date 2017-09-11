@@ -172,6 +172,12 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        checkToggleToolbar(toolbarContainer);
+    }
+
+    @Override
     public void onServiceConnected() {
         updateQueue();
         updateCurrentSong();

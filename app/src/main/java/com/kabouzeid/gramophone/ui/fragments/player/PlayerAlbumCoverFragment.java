@@ -79,15 +79,6 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
                     }
                     return super.onSingleTapConfirmed(e);
                 }
-
-                @Override
-                public boolean onDoubleTap(MotionEvent e) {
-                    if (callbacks != null) {
-                        callbacks.onFavoriteToggled();
-                        return true;
-                    }
-                    return super.onDoubleTap(e);
-                }
             });
 
             @Override
