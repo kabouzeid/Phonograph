@@ -35,7 +35,7 @@ import butterknife.Unbinder;
 public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements ViewPager.OnPageChangeListener, MusicProgressViewUpdateHelper.Callback {
     public static final String TAG = PlayerAlbumCoverFragment.class.getSimpleName();
 
-    public static final int LYRICS_ANIM_DURATION = 300;
+    public static final int VISIBILITY_ANIM_DURATION = 300;
 
     private Unbinder unbinder;
 
@@ -72,12 +72,12 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
         viewPager.setOnTouchListener(new View.OnTouchListener() {
             GestureDetector gestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {
                 @Override
-                public boolean onDoubleTap(MotionEvent e) {
+                public boolean onSingleTapConfirmed(MotionEvent e) {
                     if (callbacks != null) {
-                        callbacks.onFavoriteToggled();
+                        callbacks.onToolbarToggled();
                         return true;
                     }
-                    return super.onDoubleTap(e);
+                    return super.onSingleTapConfirmed(e);
                 }
             });
 
@@ -121,7 +121,6 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
     }
 
     @Override
@@ -144,7 +143,6 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
 
     @Override
     public void onPageScrollStateChanged(int state) {
-
     }
 
     public void showHeartAnimation() {
@@ -193,7 +191,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     }
 
     private void hideLyricsLayout() {
-        lyricsLayout.animate().alpha(0f).setDuration(PlayerAlbumCoverFragment.LYRICS_ANIM_DURATION).withEndAction(new Runnable() {
+        lyricsLayout.animate().alpha(0f).setDuration(PlayerAlbumCoverFragment.VISIBILITY_ANIM_DURATION).withEndAction(new Runnable() {
             @Override
             public void run() {
                 if (!isLyricsLayoutBound()) return;
@@ -218,7 +216,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
         lyricsLine2.setText(null);
 
         lyricsLayout.setVisibility(View.VISIBLE);
-        lyricsLayout.animate().alpha(1f).setDuration(PlayerAlbumCoverFragment.LYRICS_ANIM_DURATION);
+        lyricsLayout.animate().alpha(1f).setDuration(PlayerAlbumCoverFragment.VISIBILITY_ANIM_DURATION);
     }
 
     private void notifyColorChange(int color) {
@@ -259,11 +257,11 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
 
             lyricsLine1.setAlpha(1f);
             lyricsLine1.setTranslationY(0f);
-            lyricsLine1.animate().alpha(0f).translationY(-h).setDuration(PlayerAlbumCoverFragment.LYRICS_ANIM_DURATION);
+            lyricsLine1.animate().alpha(0f).translationY(-h).setDuration(PlayerAlbumCoverFragment.VISIBILITY_ANIM_DURATION);
 
             lyricsLine2.setAlpha(0f);
             lyricsLine2.setTranslationY(h);
-            lyricsLine2.animate().alpha(1f).translationY(0f).setDuration(PlayerAlbumCoverFragment.LYRICS_ANIM_DURATION);
+            lyricsLine2.animate().alpha(1f).translationY(0f).setDuration(PlayerAlbumCoverFragment.VISIBILITY_ANIM_DURATION);
         }
     }
 
@@ -271,5 +269,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
         void onColorChanged(int color);
 
         void onFavoriteToggled();
+
+        void onToolbarToggled();
     }
 }

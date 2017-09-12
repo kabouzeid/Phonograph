@@ -72,6 +72,8 @@ public final class PreferenceUtil {
 
     public static final String SYNCHRONIZED_LYRICS_SHOW = "synchronized_lyrics_show";
 
+    public static final String INITIALIZED_BLACKLIST = "initialized_blacklist";
+
     public static final String SAF_SDCARD_URI = "saf_sdcard_uri";
 
     private static PreferenceUtil sInstance;
@@ -159,6 +161,12 @@ public final class PreferenceUtil {
 
     public final boolean classicNotification() {
         return mPreferences.getBoolean(CLASSIC_NOTIFICATION, false);
+    }
+
+    public void setColoredNotification(final boolean value) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putBoolean(COLORED_NOTIFICATION, value);
+        editor.apply();
     }
 
     public void setClassicNotification(final boolean value) {
@@ -402,12 +410,22 @@ public final class PreferenceUtil {
 
     public void setStartDirectory(File file) {
         final SharedPreferences.Editor editor = mPreferences.edit();
-        editor.putString(START_DIRECTORY, file.getPath());
+        editor.putString(START_DIRECTORY, FileUtil.safeGetCanonicalPath(file));
         editor.apply();
     }
 
     public final boolean synchronizedLyricsShow() {
         return mPreferences.getBoolean(SYNCHRONIZED_LYRICS_SHOW, true);
+    }
+
+    public void setInitializedBlacklist() {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putBoolean(INITIALIZED_BLACKLIST, true);
+        editor.apply();
+    }
+
+    public final boolean initializedBlacklist() {
+        return mPreferences.getBoolean(INITIALIZED_BLACKLIST, false);
     }
 
     public final String getSAFSDCardUri() {

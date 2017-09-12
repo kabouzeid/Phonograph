@@ -42,8 +42,8 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         applicationId 'com.kabouzeid.gramophone'
-        versionCode 135
-        versionName '0.16.0 BETA 3'
+        versionCode 136
+        versionName '0.16.0 BETA 4'
     }
     buildTypes {
         release {
@@ -116,7 +116,6 @@ dependencies {
     compile 'me.zhanghai.android.materialprogressbar:library:1.4.1'
     compile 'org.eclipse.mylyn.github:org.eclipse.egit.github.core:2.1.5'
     compile 'com.jakewharton:butterknife:8.6.0'
-    compile 'com.android.support.constraint:constraint-layout:+'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 }

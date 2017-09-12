@@ -104,6 +104,11 @@
     <string name="always">Siempre</string>
     <string name="only_on_wifi">Solo en Wi-Fi</string>
     <string name="never">Nunca</string>
+    <string name="today">Hoy</string>
+    <string name="this_week">Esta semana</string>
+    <string name="this_month">Este mes</string>
+    <string name="past_three_months">Últimos 3 meses</string>
+    <string name="this_year">Este año</string>
     <string name="equalizer">Ecualizador</string>
     <string name="pref_header_colors">Colores</string>
     <string name="pref_header_now_playing_screen">Reproducción actual</string>
@@ -112,15 +117,21 @@
     <string name="pref_header_general">General</string>
     <string name="pref_header_images">Imágenes</string>
     <string name="pref_header_lockscreen">Pantalla de bloqueo</string>
+    <string name="pref_header_playlists">Listas de reproducción</string>
+    <string name="pref_header_notification">Notificación</string>
     <string name="pref_title_navigation_bar">Barra de navegación coloreada</string>
     <string name="pref_title_app_shortcuts">Atajos coloreados de la aplicación</string>
     <string name="pref_title_set_default_start_page">Página de inicio</string>
     <string name="pref_title_album_art_on_lockscreen">Mostrar carátula del álbum</string>
+    <string name="pref_title_auto_download_metadata">Descargar metadatos automáticamente</string>
     <string name="pref_title_blurred_album_art">Desenfocar carátula de álbum</string>
     <string name="pref_title_colored_notification">Notificación coloreada</string>
+    <string name="pref_title_classic_notification">Diseño clásico de la notificación</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorar carátulas provenientes del almacenamiento local</string>
     <string name="pref_title_gapless_playback">Reproducción sin interrupciones</string>
     <string name="pref_title_audio_ducking">Reducir volumen en la pérdida del enfoque</string>
+    <string name="pref_title_last_added_interval">Intervalo de la última lista de reproducción</string>
+    <string name="pref_title_synchronized_lyrics_show">Mostrar letras sincronizadas</string>
     <string name="no_equalizer">No se encontró ningún ecualizador</string>
     <string name="no_audio_ID">"Reproduce una canción primero, luego intentalo otra vez."</string>
     <string name="delete_action">Borrar</string>
@@ -144,12 +155,14 @@
     <string name="song">Canción</string>
     <string name="pref_summary_album_art_on_lockscreen">Utiliza la carátula del álbum que se reproduce como fondo de pantalla de bloqueo</string>
     <string name="pref_summary_blurred_album_art">Desenfoca la carátula del álbum en la pantalla de bloqueo. Puede causar problemas con aplicaciones de terceros y widgets.</string>
+    <string name="pref_summary_classic_notification">Utilizar el diseño clásico de notificación.</string>
     <string name="pref_summary_colored_notification">"Colorea la notificaci\u00f3n con el color vibrante de la car\u00e1tula del \u00e1lbum."</string>
     <string name="pref_summary_gapless_playback">"Puede causar problemas durante la reproducción en algunos dispositivos."</string>
     <string name="pref_summary_ignore_media_store_artwork">Puede aumentar la calidad de la carátula del álbum pero causa que las imágenes carguen mas lento. Sólo activalo si tienes problemas con carátulas de baja resolución.</string>
     <string name="pref_summary_colored_navigation_bar">Colorea la barra de navegación con el color principal.</string>
     <string name="pref_summary_colored_app_shortcuts">Colorea los accesos directos con el color principal</string>
     <string name="pref_summary_audio_ducking">Notificaciones, navegación etc.</string>
+    <string name="pref_summary_synchronized_lyrics_show">Actualmente sólo se admiten las letras sincronizadas en formato LRC. Tanto si están embebidas como si están en un archivo aparte.</string>
     <string name="could_not_download_album_cover">"No se puede descargar una car\u00e1tula de \u00e1lbum que coincida."</string>
     <string name="search_hint">Buscar en la biblioteca...</string>
     <string name="favorites">Favoritos</string>
@@ -176,10 +189,13 @@
     <string name="support_development">Apoyar desarrollo</string>
     <string name="buy_pro">Comprar Phonograph Pro</string>
     <string name="thank_you">¡Gracias!</string>
+    <string name="restored_previous_purchase_please_restart">Restablecida la última compra. Por favor, reinicie la aplicación para utilizar todas las características.</string>
     <string name="version">Versión</string>
     <string name="author">Autor</string>
+    <string name="write_an_email">Escribir un email</string>
     <string name="add_to_google_plus_circles">Añadir a círculos en Google Plus</string>
     <string name="follow_on_twitter">Seguir en Twitter</string>
+    <string name="fork_on_github">Fork en GitHub</string>
     <string name="visit_website">Visitar sitio web</string>
     <string name="report_bugs">Reportar errores</string>
     <string name="report_bugs_summary">Reportar errores o sugerir nuevas características.</string>
@@ -216,6 +232,7 @@
     <string name="app_widget_big_name">Phonograph - Grande</string>
     <string name="app_widget_classic_name">Phonograph - Clásico</string>
     <string name="app_widget_small_name">Phonograph - Pequeño</string>
+    <string name="app_widget_card_name">Phonograph - Card</string>
     <string name="report_an_issue">Notifique un problema</string>
     <string name="bug_report_issue">Problema</string>
     <string name="login">Registrarse</string>
@@ -242,6 +259,7 @@
     <!-- App Shortcuts -->
     <string name="app_shortcut_shuffle_all_short">Mezclar</string>
     <string name="app_shortcut_top_tracks_short">Los mejores temas</string>
+    <string name="playlist_is_empty">Lista de reproducción vacía</string>
     <string name="playing_notification_description">La notificación de reproducción muestra acciones para reproducir/pausar etc.</string>
     <string name="playing_notification_name">Notificación de reproducción</string>
     <string name="buy">Comprar</string>
@@ -249,4 +267,10 @@
     <string name="black_theme_is_a_pro_feature">El tema negro es una característica de Phonograph Pro.</string>
     <string name="sleep_timer_is_a_pro_feature">El temporizador de sueño es una característica de Phonograph Pro.</string>
     <string name="folder_view_is_a_pro_feature">La vista de carpetas es una característica de Phonograph Pro.</string>
+    <string name="restore_purchase">Restablecer la compra</string>
+    <string name="restoring_purchase">Restableciendo la compra...</string>
+    <string name="could_not_restore_purchase">No se pudo restablecer la compra</string>
+    <string name="purchase">Comprar</string>
+    <string name="restore">Restablecer</string>
+    <string name="no_purchase_found">No purchase found.</string>
 </resources>
