@@ -61,8 +61,8 @@
             <FrameLayout
                 android:id="@+id/toolbar_container"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/toolbar_scrim_height"
-                android:background="@drawable/toolbar_gradient">
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent">
 
                 <include layout="@layout/shadow_statusbar_toolbar" />
 
