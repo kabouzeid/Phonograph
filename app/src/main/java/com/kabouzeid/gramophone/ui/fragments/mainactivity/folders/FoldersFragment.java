@@ -4,6 +4,7 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivity.folders;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.media.MediaScannerConnection;
 import android.os.Bundle;
 import android.os.Environment;
@@ -195,7 +196,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         ViewUtil.setUpFastScrollRecyclerViewColor(getActivity(), recyclerView, ThemeStore.accentColor(getActivity()));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        recyclerView.addItemDecoration(new HorizontalItemDivider(getMainActivity(), Util.getDividerColor(getMainActivity()), 72));
         appbar.addOnOffsetChangedListener(this);
     }
 
@@ -209,8 +210,6 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
             }
         });
         recyclerView.setAdapter(adapter);
-        HorizontalItemDivider dividerItemDecoration = new HorizontalItemDivider(getMainActivity(), Util.getDividerColor(getMainActivity()), 72);
-        recyclerView.addItemDecoration(dividerItemDecoration);
         checkIsEmpty();
     }
 
