@@ -2,8 +2,10 @@ package com.kabouzeid.gramophone.ui.fragments.player;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.AddToPlaylistDialog;
@@ -24,6 +26,7 @@ public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implemen
     public static final String TAG = AbsPlayerFragment.class.getSimpleName();
 
     private Callbacks callbacks;
+    private static boolean isToolbarShown = true;
 
     @Override
     public void onAttach(Context context) {
@@ -86,6 +89,52 @@ public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implemen
 
     protected void toggleFavorite(Song song) {
         MusicUtil.toggleFavorite(getActivity(), song);
+    }
+
+    protected boolean isToolbarShown() {
+        return isToolbarShown;
+    }
+
+    protected void setToolbarShown(boolean toolbarShown) {
+        isToolbarShown = toolbarShown;
+    }
+
+    protected void showToolbar(@Nullable final View toolbar) {
+        if (toolbar == null) return;
+
+        setToolbarShown(true);
+
+        toolbar.setVisibility(View.VISIBLE);
+        toolbar.animate().alpha(1f).setDuration(PlayerAlbumCoverFragment.VISIBILITY_ANIM_DURATION);
+    }
+
+    protected void hideToolbar(@Nullable final View toolbar) {
+        if (toolbar == null) return;
+
+        setToolbarShown(false);
+
+        toolbar.animate().alpha(0f).setDuration(PlayerAlbumCoverFragment.VISIBILITY_ANIM_DURATION).withEndAction(new Runnable() {
+            @Override
+            public void run() {
+                toolbar.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    protected void toggleToolbar(@Nullable final View toolbar) {
+        if (isToolbarShown()) {
+            hideToolbar(toolbar);
+        } else {
+            showToolbar(toolbar);
+        }
+    }
+
+    protected void checkToggleToolbar(@Nullable final View toolbar) {
+        if (toolbar != null && !isToolbarShown() && toolbar.getVisibility() != View.GONE) {
+            hideToolbar(toolbar);
+        } else if (toolbar != null && isToolbarShown() && toolbar.getVisibility() != View.VISIBLE) {
+            showToolbar(toolbar);
+        }
     }
 
     protected String getUpNextAndQueueTime() {

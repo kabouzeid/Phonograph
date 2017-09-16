@@ -27,7 +27,9 @@ import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.MusicLibraryPagerAdapter;
 import com.kabouzeid.gramophone.dialogs.CreatePlaylistDialog;
+import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
+import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.ui.activities.SearchActivity;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.AbsMainActivityFragment;
@@ -205,6 +207,9 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
 
         int id = item.getItemId();
         switch (id) {
+            case R.id.action_shuffle_all:
+                MusicPlayerRemote.openAndShuffleQueue(SongLoader.getAllSongs(getActivity()), true);
+                return true;
             case R.id.action_new_playlist:
                 CreatePlaylistDialog.create().show(getChildFragmentManager(), "CREATE_PLAYLIST");
                 return true;

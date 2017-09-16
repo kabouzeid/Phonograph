@@ -129,6 +129,6 @@ dependencies {
     // Only in pro build flavor
     proCompile 'com.anjlab.android.iab.v3:library:1.0.44'
     proCompile 'com.crashlytics.sdk.android:crashlytics:2.6.7'
-
+    
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 }
