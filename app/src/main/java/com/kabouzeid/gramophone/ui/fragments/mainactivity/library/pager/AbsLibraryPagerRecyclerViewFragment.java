@@ -1,6 +1,5 @@
 package com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
