@@ -1,11 +1,11 @@
 <android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory android:title="Blacklist">
+    <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory android:title="@string/blacklist">
 
         <com.kabouzeid.gramophone.preferences.BlacklistPreference
             android:key="blacklist"
-            android:summary="The content of blacklisted folders is hidden from your library."
-            android:title="Blacklist" />
+            android:summary="@string/pref_summary_blacklist"
+            android:title="@string/blacklist" />
 
     </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 

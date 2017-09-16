@@ -27,8 +27,6 @@ import java.util.ArrayList;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class PlaylistMenuHelper {
-    public static final int MENU_RES = R.menu.menu_item_playlist;
-
     public static boolean handleMenuClick(@NonNull AppCompatActivity activity, @NonNull final Playlist playlist, @NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_play:
@@ -50,7 +48,8 @@ public class PlaylistMenuHelper {
                 DeletePlaylistDialog.create(playlist).show(activity.getSupportFragmentManager(), "DELETE_PLAYLIST");
                 return true;
             case R.id.action_save_playlist:
-                @SuppressLint("ShowToast") final Toast toast = Toast.makeText(activity, R.string.saving_to_file, Toast.LENGTH_SHORT);
+                @SuppressLint("ShowToast")
+                final Toast toast = Toast.makeText(activity, R.string.saving_to_file, Toast.LENGTH_SHORT);
                 new AsyncTask<Context, Void, String>() {
                     @Override
                     protected void onPreExecute() {
