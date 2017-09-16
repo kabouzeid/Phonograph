@@ -47,6 +47,7 @@ import com.kabouzeid.gramophone.ui.fragments.player.PlayerAlbumCoverFragment;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
+import com.kabouzeid.gramophone.views.HorizontalItemDivider;
 import com.kabouzeid.gramophone.views.WidthFitSquareLayout;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
@@ -257,7 +258,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(wrappedAdapter);
         recyclerView.setItemAnimator(animator);
-
+        recyclerView.addItemDecoration(new HorizontalItemDivider(getActivity(), Util.getDividerColor(getActivity()), 72));
         recyclerViewDragDropManager.attachRecyclerView(recyclerView);
 
         layoutManager.scrollToPositionWithOffset(MusicPlayerRemote.getPosition() + 1, 0);
