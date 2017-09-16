@@ -93,6 +93,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
         boolean isChecked = isChecked(artist);
         holder.itemView.setActivated(isChecked);
 
+        /* //TODO Replaced with HorizontalItemDecorator
         if (holder.getAdapterPosition() == getItemCount() - 1) {
             if (holder.shortSeparator != null) {
                 holder.shortSeparator.setVisibility(View.GONE);
@@ -102,7 +103,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
                 holder.shortSeparator.setVisibility(View.VISIBLE);
             }
         }
-
+        */
         if (holder.title != null) {
             holder.title.setText(artist.getName());
         }

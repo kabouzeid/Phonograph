@@ -7,6 +7,7 @@ import android.support.annotation.ColorInt;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.kabouzeid.gramophone.adapter.song.AbsOffsetSongAdapter;
 import com.kabouzeid.gramophone.util.ViewUtil;
 
 public class HorizontalItemDivider extends RecyclerView.ItemDecoration {
@@ -32,9 +33,21 @@ public class HorizontalItemDivider extends RecyclerView.ItemDecoration {
         /* Draw lines only for visible items and skip the last item in the list from drawing the divider*/
         for(int i = 0; i < childCount - 1; i++){
             View child = parent.getChildAt(i);
-            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
-            int y = child.getBottom() + params.bottomMargin;
-            c.drawLine(startX,y,stopX,y,mPaint);
+            if(shouldDrawLine(child, parent, state)) {
+                RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
+                int y = child.getBottom() + params.bottomMargin;
+                c.drawLine(startX, y, stopX, y, mPaint);
+            }
         }
+    }
+
+    private boolean shouldDrawLine(View view, RecyclerView parent, RecyclerView.State state) {
+        int position = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewAdapterPosition();
+        int viewType = parent.getAdapter().getItemViewType(position);
+
+        if(parent.getAdapter() instanceof AbsOffsetSongAdapter && viewType == AbsOffsetSongAdapter.OFFSET_ITEM){
+            return false;
+        }
+        return true;
     }
 }

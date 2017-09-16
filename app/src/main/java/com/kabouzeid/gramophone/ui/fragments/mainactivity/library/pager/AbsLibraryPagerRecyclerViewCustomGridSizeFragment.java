@@ -61,6 +61,11 @@ public abstract class AbsLibraryPagerRecyclerViewCustomGridSizeFragment<A extend
         if (oldLayoutRes != getItemLayoutRes()) {
             invalidateLayoutManager();
             invalidateAdapter();
+            if (getItemLayoutRes() == R.layout.item_grid) {
+                removeItemDecoration();
+            } else {
+                addItemDecoration();
+            }
         } else {
             setGridSize(gridSize);
         }
@@ -104,6 +109,9 @@ public abstract class AbsLibraryPagerRecyclerViewCustomGridSizeFragment<A extend
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         applyRecyclerViewPaddingForLayoutRes(getRecyclerView(), currentLayoutRes);
+        if(currentLayoutRes == R.layout.item_grid){
+            removeItemDecoration();
+        }
     }
 
     protected void applyRecyclerViewPaddingForLayoutRes(@NonNull RecyclerView recyclerView, @LayoutRes int res) {

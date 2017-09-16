@@ -20,8 +20,8 @@ import java.util.ArrayList;
  */
 public abstract class AbsOffsetSongAdapter extends SongAdapter {
 
-    protected static final int OFFSET_ITEM = 0;
-    protected static final int SONG = 1;
+    public static final int OFFSET_ITEM = 0;
+    public static final int SONG = 1;
 
     public AbsOffsetSongAdapter(AppCompatActivity activity, ArrayList<Song> dataSet, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
         super(activity, dataSet, itemLayoutRes, usePalette, cabHolder);
