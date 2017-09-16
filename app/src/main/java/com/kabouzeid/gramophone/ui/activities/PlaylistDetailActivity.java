@@ -37,7 +37,9 @@ import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
+import com.kabouzeid.gramophone.util.Util;
 import com.kabouzeid.gramophone.util.ViewUtil;
+import com.kabouzeid.gramophone.views.HorizontalItemDivider;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
@@ -117,7 +119,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
 
             recyclerView.setAdapter(wrappedAdapter);
             recyclerView.setItemAnimator(animator);
-
+            recyclerView.addItemDecoration(new HorizontalItemDivider(this, Util.getDividerColor(this), 72));
             recyclerViewDragDropManager.attachRecyclerView(recyclerView);
         }
 
