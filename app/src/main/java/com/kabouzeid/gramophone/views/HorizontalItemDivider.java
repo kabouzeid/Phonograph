@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.ColorInt;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.kabouzeid.gramophone.adapter.song.AbsOffsetSongAdapter;
@@ -26,8 +27,6 @@ public class HorizontalItemDivider extends RecyclerView.ItemDecoration {
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
         super.onDraw(c, parent, state);
-        float startX = parent.getPaddingLeft() + mStartOffset;
-        float stopX = parent.getWidth() - parent.getPaddingRight();
 
         int childCount = parent.getChildCount();
         /* Draw lines only for visible items and skip the last item in the list from drawing the divider*/
@@ -36,7 +35,9 @@ public class HorizontalItemDivider extends RecyclerView.ItemDecoration {
             if(shouldDrawLine(child, parent, state)) {
                 RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
                 int y = child.getBottom() + params.bottomMargin;
-                c.drawLine(startX, y, stopX, y, mPaint);
+                float startX = child.getX() + mStartOffset; //Where to start drawing the line with offset
+                float endX = child.getX() + child.getWidth(); //Where to stop drawing the line
+                c.drawLine(startX, y, endX, y, mPaint);
             }
         }
     }
