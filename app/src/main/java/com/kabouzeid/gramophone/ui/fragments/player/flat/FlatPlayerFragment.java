@@ -268,7 +268,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
                 false,
                 null);
         wrappedAdapter = recyclerViewDragDropManager.createWrappedAdapter(playingQueueAdapter);
-        wrappedAdapter = recyclerViewSwipeManager.createWrappedAdapter(playingQueueAdapter);
+        wrappedAdapter = recyclerViewSwipeManager.createWrappedAdapter(wrappedAdapter);
 
         layoutManager = new LinearLayoutManager(getActivity());
 

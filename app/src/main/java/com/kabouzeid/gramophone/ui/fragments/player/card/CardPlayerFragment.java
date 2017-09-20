@@ -69,6 +69,8 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     SlidingUpPanelLayout slidingUpPanelLayout;
     @BindView(R.id.player_recycler_view)
     RecyclerView recyclerView;
+//    @BindView(R.id.recyclerview_content)
+//    FrameLayout recyclerView_container;
     @BindView(R.id.playing_queue_card)
     CardView playingQueueCard;
     @BindView(R.id.color_background)
@@ -274,7 +276,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
                 false,
                 null);
         wrappedAdapter = recyclerViewDragDropManager.createWrappedAdapter(playingQueueAdapter);
-        wrappedAdapter = recyclerViewSwipeManager.createWrappedAdapter(playingQueueAdapter);
+        wrappedAdapter = recyclerViewSwipeManager.createWrappedAdapter(wrappedAdapter);
 
         layoutManager = new LinearLayoutManager(getActivity());
 
@@ -302,6 +304,8 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     }
 
     public void disableClipOnParents(View v) {
+
+
         if (v.getParent() == null) {
             return;
         }
