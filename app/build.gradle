@@ -42,8 +42,8 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         applicationId 'com.kabouzeid.gramophone'
-        versionCode 136
-        versionName '0.16.0 BETA 4'
+        versionCode 137
+        versionName '0.16.0 BETA 5'
     }
     buildTypes {
         release {
@@ -70,7 +70,7 @@ android {
 }
 
 ext {
-    supportLibVersion = '26.0.2'
+    supportLibVersion = '26.1.0'
 }
 
 dependencies {
@@ -104,7 +104,7 @@ dependencies {
     compile 'com.afollestad.material-dialogs:core:0.9.4.5'
     compile 'com.afollestad.material-dialogs:commons:0.9.4.5'
     compile 'com.afollestad:material-cab:0.1.12'
-    compile 'com.github.h6ah4i:android-advancedrecyclerview:feature~support_libraries_v26-SNAPSHOT'
+    compile 'com.github.h6ah4i:android-advancedrecyclerview:7020c4c400' // support lib 26 support
     compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
