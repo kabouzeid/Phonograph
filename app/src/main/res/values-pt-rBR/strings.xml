@@ -272,9 +272,17 @@
     <string name="sleep_timer_is_a_pro_feature">Temporizador de soneca é um recurso da versão Pro do Phonograph</string>
     <string name="folder_view_is_a_pro_feature">Visualização de pastas é um recurso da versão Pro do Phonograph.</string>
     <string name="restore_purchase">Restituir compra</string>
-    <string name="restoring_purchase">Restitundo compra...</string>
+    <string name="restoring_purchase">Restituindo compra...</string>
     <string name="could_not_restore_purchase">Não foi possível restituir a compra.</string>
-    <string name="purchase">Compra</string>
+    <string name="purchase">Comprar</string>
     <string name="restore">Restituir</string>
     <string name="no_purchase_found">Nenhuma compra feita.</string>
+    <string name="eugene_cheung_summary">Pela sua contribuição com o código-fonte.</string>
+    <string name="add_action">Adicionar</string>
+    <string name="blacklist">Lista Negra</string>
+    <string name="remove_from_blacklist">Remover da lista negra</string>
+    <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[Deseja remover <b>%1$s</b> da lista negra?]]></string>
+    <string name="clear_blacklist">Limpar lista negra</string>
+    <string name="do_you_want_to_clear_the_blacklist">Deseja limpar a lista negra?</string>
+    <string name="pref_summary_blacklist">O conteúdo de pastas presentes na lista negra são ocultadas de sua biblioteca.</string>
 </resources>

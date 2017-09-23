@@ -278,4 +278,11 @@
     <string name="purchase">Acquista</string>
     <string name="restore">Ripristina</string>
     <string name="no_purchase_found">Nessun acquisto trovato.</string>
+    <string name="eugene_cheung_summary">Per il suo contributo al codice sorgente.</string>
+    <string name="add_action">Aggiungi</string>
+    <string name="blacklist">Lista nera</string>
+    <string name="remove_from_blacklist">Rimuovi dalla lista nera</string>
+    <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[Vuoi rimuovere <b>%1$s</b> dalla lista nera?]]></string>
+    <string name="clear_blacklist">Pulisci lista nera</string>
+    <string name="do_you_want_to_clear_the_blacklist">Vuoi pulire la lista nera?</string>
 </resources>

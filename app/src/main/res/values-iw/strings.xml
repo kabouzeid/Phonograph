@@ -189,6 +189,7 @@
     <string name="support_development">תמיכה בפיתוח</string>
     <string name="buy_pro">קנה את Phonograph Pro</string>
     <string name="thank_you">תודה לכם!</string>
+    <string name="restored_previous_purchase_please_restart">רכישה קודמת שוחזרה. אנא הפעל מחדש את האפליקציה כדי שתוכל להשתמש באפשרויות החדשות.</string>
     <string name="version">גרסה</string>
     <string name="author">מחבר</string>
     <string name="write_an_email">כתוב אימייל</string>
@@ -270,4 +271,17 @@
     <string name="black_theme_is_a_pro_feature">ערכת הנושא השחורה היא אפשרות הזמינה ב-Phonograph Pro בלבד.</string>
     <string name="sleep_timer_is_a_pro_feature">טיימר לשינה הוא אפשרות הזמינה ב-Phonograph Pro בלבד.</string>
     <string name="folder_view_is_a_pro_feature">תצוגת תיקיות היא אפשרות הזמינה ב-Phonograph Pro בלבד.</string>
+    <string name="restore_purchase">שחזר רכישה</string>
+    <string name="restoring_purchase">משחזר רכישה...</string>
+    <string name="could_not_restore_purchase">לא ניתן לשחזר רכישה.</string>
+    <string name="purchase">קנה</string>
+    <string name="restore">שחזר</string>
+    <string name="no_purchase_found">לא נמצאה רכישה.</string>
+    <string name="eugene_cheung_summary">על התרומה שלו לקוד המקור.</string>
+    <string name="add_action">הוסף</string>
+    <string name="blacklist">רשימה שחורה</string>
+    <string name="remove_from_blacklist">הסר מהרשימה השחורה</string>
+    <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[האם ברצונך להסיר את <b>%1$s</b> מהרשימה השחורה?]]></string>
+    <string name="clear_blacklist">נקה רשימה שחורה</string>
+    <string name="do_you_want_to_clear_the_blacklist">האם ברצונך לנקות את הרשימה השחורה?</string>
 </resources>

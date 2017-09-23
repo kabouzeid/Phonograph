@@ -94,6 +94,7 @@
     <string name="action_shuffle_artist">Interpret zufällig wiedergeben</string>
     <string name="action_shuffle_playlist">Wiedergabeliste zufällig wiedergeben</string>
     <string name="action_clear_playing_queue">Warteschlange leeren</string>
+    <string name="action_save_playing_queue">Warteschlange speichern</string>
     <string name="action_go_to_start_directory">Zum Start-Verzeichnis gehen</string>
     <string name="action_show_lyrics">Songtext anzeigen</string>
     <string name="last_opened">Zuletzt geöffnet</string>
@@ -186,7 +187,9 @@
     <string name="permissions_denied">Berechtigungen verweigert.</string>
     <string name="permission_external_storage_denied">Die Berechtigung für den Zugriff auf den externen Speicher wurde verweigert.</string>
     <string name="support_development">Unterstütze die Entwicklung</string>
+    <string name="buy_pro">Phonograph Pro kaufen</string>
     <string name="thank_you">Vielen Dank!</string>
+    <string name="restored_previous_purchase_please_restart">Vorheriger Kauf wiederhergestellt. Bitte starte die App neu, um alle Features nutzen zu können.</string>
     <string name="version">Version</string>
     <string name="author">Autor</string>
     <string name="write_an_email">Eine E-Mail schreiben</string>
@@ -261,4 +264,24 @@
     <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
     <string name="playlist_is_empty">Die Wiedergabeliste ist leer</string>
+    <string name="playing_notification_description">Die Benachrichtigung zur Steuerung von Play/Pause etc.</string>
+    <string name="playing_notification_name">Wiedergabe-Benachrichtigung</string>
+    <string name="buy">Kaufen</string>
+    <string name="only_the_first_5_colors_available">Nur die ersten 5 Farben sind in der kostenlosen Version verfügbar.</string>
+    <string name="black_theme_is_a_pro_feature">Das schwarze Theme ist ein Phonograph Pro-Feature</string>
+    <string name="sleep_timer_is_a_pro_feature">Der Einschlaf-Timer ist ein Phonograph Pro-Feature</string>
+    <string name="folder_view_is_a_pro_feature">Die Ordner-Ansicht ist ein Phonograph Pro-Feature.</string>
+    <string name="restore_purchase">Kauf wiederherstellen</string>
+    <string name="restoring_purchase">Stelle Kauf wieder her...</string>
+    <string name="could_not_restore_purchase">Kauf konnte nicht wiederhergestellt werden.</string>
+    <string name="purchase">Kaufen</string>
+    <string name="restore">Wiederherstellen</string>
+    <string name="no_purchase_found">Kein Kauf gefunden.</string>
+    <string name="eugene_cheung_summary">Für seinen Beitrag zum Quellcode.</string>
+    <string name="add_action">Hinzufügen</string>
+    <string name="blacklist">Blacklist</string>
+    <string name="remove_from_blacklist">Von Blacklist entfernen</string>
+    <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[Möchtest du <b>%1$s</b> von der Blacklist entfernen?]]></string>
+    <string name="clear_blacklist">Blacklist leeren</string>
+    <string name="do_you_want_to_clear_the_blacklist">Möchtest du die Blacklist leeren?</string>
 </resources>

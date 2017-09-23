@@ -277,4 +277,11 @@
     <string name="purchase">Покупка</string>
     <string name="restore">Восстановление</string>
     <string name="no_purchase_found">Покупка не найдена</string>
+    <string name="eugene_cheung_summary">За его вклад в исходный код.</string>
+    <string name="add_action">Добавить</string>
+    <string name="blacklist">Черный список</string>
+    <string name="remove_from_blacklist">Убрать из черного списка</string>
+    <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[Убрать <b>%1$s</b> из черного списка?]]></string>
+    <string name="clear_blacklist">Очистить черный список</string>
+    <string name="do_you_want_to_clear_the_blacklist">Очистить черный список?</string>
 </resources>

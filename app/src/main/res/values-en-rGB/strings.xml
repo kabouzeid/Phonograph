@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="what_do_you_want_to_share">What do you want to share?</string>
     <string name="action_add_to_favorites">Add to favourites</string>
     <string name="action_remove_from_favorites">Remove from favourites</string>
     <string name="equalizer">Equaliser</string>
