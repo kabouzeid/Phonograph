@@ -203,6 +203,15 @@
         </receiver>
 
         <activity android:name=".ui.activities.PurchaseActivity"></activity>
+        <provider
+            android:name=".GenericFileProvider"
+            android:authorities="${applicationId}.com.kabouzeid.gramophone.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
     </application>
 
 </manifest>
