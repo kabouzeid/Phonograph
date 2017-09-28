@@ -18,6 +18,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.GenericFileProvider;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.SongLoader;
@@ -55,10 +56,11 @@ public class MusicUtil {
     }
 
     @NonNull
-    public static Intent createShareSongFileIntent(@NonNull final Song song) {
+    public static Intent createShareSongFileIntent(@NonNull final Song song, Context context) {
         return new Intent()
                 .setAction(Intent.ACTION_SEND)
-                .putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + song.data))
+                .putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".com.kabouzeid.gramophone.provider", new File(song.data)))
+                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 .setType("audio/*");
     }
 
