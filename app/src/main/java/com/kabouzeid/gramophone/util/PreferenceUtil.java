@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.util;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
@@ -72,6 +73,8 @@ public final class PreferenceUtil {
     public static final String SYNCHRONIZED_LYRICS_SHOW = "synchronized_lyrics_show";
 
     public static final String INITIALIZED_BLACKLIST = "initialized_blacklist";
+
+    public static final String SAF_SDCARD_URI = "saf_sdcard_uri";
 
     private static PreferenceUtil sInstance;
 
@@ -423,5 +426,13 @@ public final class PreferenceUtil {
 
     public final boolean initializedBlacklist() {
         return mPreferences.getBoolean(INITIALIZED_BLACKLIST, false);
+    }
+
+    public final String getSAFSDCardUri() {
+        return mPreferences.getString(SAF_SDCARD_URI, "");
+    }
+
+    public final void setSAFSDCardUri(Uri uri) {
+        mPreferences.edit().putString(SAF_SDCARD_URI, uri.toString()).apply();
     }
 }

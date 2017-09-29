@@ -12,6 +12,7 @@ import com.kabouzeid.gramophone.loader.SortedCursor;
 import com.kabouzeid.gramophone.model.Song;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -193,5 +194,16 @@ public final class FileUtil {
             e.printStackTrace();
             return file.getAbsolutePath();
         }
+    }
+
+    public static byte[] readBytes(InputStream stream) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[4096];
+        int count;
+        while ((count = stream.read(buffer)) != -1) {
+            baos.write(buffer, 0, count);
+        }
+        stream.close();
+        return baos.toByteArray();
     }
 }

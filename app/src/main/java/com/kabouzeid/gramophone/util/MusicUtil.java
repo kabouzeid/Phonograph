@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.util;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -15,7 +16,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
@@ -176,7 +176,7 @@ public class MusicUtil {
         return albumArtDir;
     }
 
-    public static void deleteTracks(@NonNull final Context context, @NonNull final List<Song> songs) {
+    public static void deleteTracks(@NonNull final Activity activity, @NonNull final List<Song> songs, @Nullable final List<Uri> safUris, @Nullable final Runnable callback) {
         final String[] projection = new String[]{
                 BaseColumns._ID, MediaStore.MediaColumns.DATA
         };
@@ -191,7 +191,7 @@ public class MusicUtil {
         selection.append(")");
 
         try {
-            final Cursor cursor = context.getContentResolver().query(
+            final Cursor cursor = activity.getContentResolver().query(
                     MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection, selection.toString(),
                     null, null);
             if (cursor != null) {
@@ -200,37 +200,38 @@ public class MusicUtil {
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
                     final int id = cursor.getInt(0);
-                    final Song song = SongLoader.getSong(context, id);
+                    final Song song = SongLoader.getSong(activity, id);
                     MusicPlayerRemote.removeFromQueue(song);
                     cursor.moveToNext();
                 }
 
                 // Step 2: Remove selected tracks from the database
-                context.getContentResolver().delete(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                activity.getContentResolver().delete(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                         selection.toString(), null);
 
                 // Step 3: Remove files from card
                 cursor.moveToFirst();
+                int i = 0;
                 while (!cursor.isAfterLast()) {
                     final String name = cursor.getString(1);
-                    try { // File.delete can throw a security exception
-                        final File f = new File(name);
-                        if (!f.delete()) {
-                            // I'm not sure if we'd ever get here (deletion would
-                            // have to fail, but no exception thrown)
-                            Log.e("MusicUtils", "Failed to delete file " + name);
-                        }
-                        cursor.moveToNext();
-                    } catch (@NonNull final SecurityException ex) {
-                        cursor.moveToNext();
-                    } catch (NullPointerException e) {
-                        Log.e("MusicUtils", "Failed to find file " + name);
-                    }
+                    final Uri safUri = safUris == null || safUris.size() <= i ? null : safUris.get(i);
+                    SAFUtil.delete(activity, name, safUri);
+                    i++;
+                    cursor.moveToNext();
                 }
                 cursor.close();
             }
-            context.getContentResolver().notifyChange(Uri.parse("content://media"), null);
-            Toast.makeText(context, context.getString(R.string.deleted_x_songs, songs.size()), Toast.LENGTH_SHORT).show();
+            activity.getContentResolver().notifyChange(Uri.parse("content://media"), null);
+
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(activity, activity.getString(R.string.deleted_x_songs, songs.size()), Toast.LENGTH_SHORT).show();
+                    if (callback != null) {
+                        callback.run();
+                    }
+                }
+            });
         } catch (SecurityException ignored) {
         }
     }
