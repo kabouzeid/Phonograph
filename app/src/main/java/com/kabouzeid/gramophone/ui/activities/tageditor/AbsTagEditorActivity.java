@@ -64,7 +64,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
     public static final String EXTRA_ID = "extra_id";
     public static final String EXTRA_PALETTE = "extra_palette";
     private static final String TAG = AbsTagEditorActivity.class.getSimpleName();
-    private static final int REQUEST_CODE_SELECT_IMAGE = 1337;
+    private static final int REQUEST_CODE_SELECT_IMAGE = 1000;
     @BindView(R.id.play_pause_fab)
     FloatingActionButton fab;
     @BindView(R.id.observableScrollView)
@@ -429,6 +429,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                     Uri selectedImage = imageReturnedIntent.getData();
                     loadImageFromFile(selectedImage);
                 }
+                break;
         }
     }
 
