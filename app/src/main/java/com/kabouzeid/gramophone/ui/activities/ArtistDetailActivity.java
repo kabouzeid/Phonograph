@@ -357,14 +357,14 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
                             .positiveText(android.R.string.ok)
                             .build();
                 }
-                if (Util.isAllowedToDownloadMetadata(ArtistDetailActivity.this)) {
+                if (Util.isAllowedToDownloadMetadata(ArtistDetailActivity.this)) { // wiki should've been already downloaded
                     if (biography != null) {
                         biographyDialog.setContent(biography);
                         biographyDialog.show();
                     } else {
                         Toast.makeText(ArtistDetailActivity.this, getResources().getString(R.string.biography_unavailable), Toast.LENGTH_SHORT).show();
                     }
-                } else {
+                } else { // force download
                     biographyDialog.show();
                     loadBiography();
                 }
