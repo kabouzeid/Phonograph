@@ -65,6 +65,10 @@ public class App extends Application {
         return BuildConfig.DEBUG || app.billingProcessor.isPurchased(PRO_VERSION_PRODUCT_ID);
     }
 
+    public static App getInstance() {
+        return app;
+    }
+
     @Override
     public void onTerminate() {
         super.onTerminate();
