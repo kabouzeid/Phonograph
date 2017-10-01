@@ -235,12 +235,8 @@
     <string name="copied_device_info_to_clipboard">Info perangkat tersalin ke papan klip</string>
     <string name="your_account_data_is_only_used_for_authentication">Data akun Anda hanya digunakan untuk otentikasi.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Anda akan ditersukan ke situs web pelacak masalah.</string>
-    <!-- App Shortcuts -->
-    <string name="app_shortcut_shuffle_all_long">@string/action_shuffle_all</string>
     <string name="app_shortcut_shuffle_all_short">Acak</string>
-    <string name="app_shortcut_top_tracks_long">@string/my_top_tracks</string>
     <string name="app_shortcut_top_tracks_short">Sering Diputar</string>
-    <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
     <string name="playlist_is_empty">Daftar putar kosong</string>
 </resources>

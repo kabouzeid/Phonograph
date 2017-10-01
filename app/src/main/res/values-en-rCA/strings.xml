@@ -19,6 +19,5 @@
     <string name="pref_summary_synchronized_lyrics_show">Currently only synchronised lyrics in LRC format are supported. Either embedded or as a separate file.</string>
     <string name="favorites">Favourites</string>
     <string name="colored_footers">Coloured footers</string>
-    <!-- App Shortcuts -->
     <string name="only_the_first_5_colors_available">Only the first 5 colours are available in the free version.</string>
 </resources>

@@ -256,12 +256,8 @@
     <string name="copied_device_info_to_clipboard">Đã sao chép thông tin thiết bị vào bảng nhớ tạm (Clipboard).</string>
     <string name="your_account_data_is_only_used_for_authentication">Thông tin tài khoản của bạn chỉ dùng để chứng thực.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Bạn sẽ được đưa đến trang web theo dõi vấn đề.</string>
-    <!-- App Shortcuts -->
-    <string name="app_shortcut_shuffle_all_long">@string/action_shuffle_all</string>
     <string name="app_shortcut_shuffle_all_short">Xáo trộn</string>
-    <string name="app_shortcut_top_tracks_long">@string/my_top_tracks</string>
     <string name="app_shortcut_top_tracks_short">Bài hát hàng đầu</string>
-    <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
     <string name="playlist_is_empty">Danh sách nhạc trống</string>
     <string name="playing_notification_description">Thông báo đang phát cung cấp các hành động để phát / tạm dừng vv.</string>

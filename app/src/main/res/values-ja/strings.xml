@@ -130,6 +130,7 @@
     <string name="pref_title_classic_notification">古典的な通知デザイン</string>
     <string name="pref_title_ignore_media_store_artwork">アルバムアートを直接読み込む</string>
     <string name="pref_title_gapless_playback">ギャップレス再生</string>
+    <string name="pref_title_audio_ducking">focus lossで音量を下げる</string>
     <string name="pref_title_last_added_interval">最後に追加されたプレイリストとの間隔</string>
     <string name="pref_title_synchronized_lyrics_show">同期された歌詞を表示</string>
     <string name="no_equalizer">イコライザーがインストールされていません</string>
@@ -256,12 +257,8 @@
     <string name="copied_device_info_to_clipboard">端末情報をクリップボードにコピーしました。</string>
     <string name="your_account_data_is_only_used_for_authentication">あなたのアカウント情報は認証のみに使用されます。</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">問題追跡のためのウェブサイトに移動します。</string>
-    <!-- App Shortcuts -->
-    <string name="app_shortcut_shuffle_all_long">@string/action_shuffle_all</string>
     <string name="app_shortcut_shuffle_all_short">シャッフル</string>
-    <string name="app_shortcut_top_tracks_long">@string/my_top_tracks</string>
     <string name="app_shortcut_top_tracks_short">トップのトラック</string>
-    <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
     <string name="playlist_is_empty">プレイリストは空です</string>
     <string name="playing_notification_description">再生の通知は再生/一時停止などを提供します。</string>
@@ -285,4 +282,6 @@
     <string name="clear_blacklist">ブラックリストを空に</string>
     <string name="do_you_want_to_clear_the_blacklist">ブラックリストを空にしますか？</string>
     <string name="pref_summary_blacklist">ブラックリストにあるコンテンツはライブラリに表示されません。</string>
+    <string name="reset_artist_image">アーティスト画像をリセット</string>
+    <string name="set_artist_image">アーティスト画像をセット</string>
 </resources>

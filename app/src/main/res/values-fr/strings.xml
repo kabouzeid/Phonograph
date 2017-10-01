@@ -252,12 +252,8 @@
     <string name="copied_device_info_to_clipboard">Informations sur l\'appareil copiées dans le presse-papiers.</string>
     <string name="your_account_data_is_only_used_for_authentication">Vos données de compte sont utilisées pour l\'authentification uniquement.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Vous serez redirigé vers le site internet du traqueur de problèmes.</string>
-    <!-- App Shortcuts -->
-    <string name="app_shortcut_shuffle_all_long">@string/action_shuffle_all</string>
     <string name="app_shortcut_shuffle_all_short">Lecture aléatoire</string>
-    <string name="app_shortcut_top_tracks_long">@string/my_top_tracks</string>
     <string name="app_shortcut_top_tracks_short">Meilleurs titres</string>
-    <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
     <string name="playlist_is_empty">La liste de lecture est vide</string>
 </resources>

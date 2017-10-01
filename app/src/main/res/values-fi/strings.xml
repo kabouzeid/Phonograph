@@ -229,5 +229,4 @@
     <string name="copied_device_info_to_clipboard">Kopioitiin laitteen tiedot leikepöydälle.</string>
     <string name="your_account_data_is_only_used_for_authentication">Sinun käyttäjätietojasi käytetään vain todentamiseen.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Sinut johdatetaan vianseurantaohjelman verkkosivulle.</string>
-    <!-- App Shortcuts -->
 </resources>

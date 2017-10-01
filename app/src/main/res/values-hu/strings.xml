@@ -94,6 +94,7 @@
     <string name="action_shuffle_artist">Előadó dalainak keverése</string>
     <string name="action_shuffle_playlist">Lejátszási lista keverése</string>
     <string name="action_clear_playing_queue">Lejátszási lista törlése</string>
+    <string name="action_save_playing_queue">Mentés a lejátszási sorba</string>
     <string name="action_go_to_start_directory">Ugrás a kezdő könyvtárra</string>
     <string name="action_show_lyrics">Dalszöveg</string>
     <string name="last_opened">Utoljára megnyitott</string>
@@ -253,12 +254,8 @@
     <string name="copied_device_info_to_clipboard">Eszköz információk a vágólapra másolva.</string>
     <string name="your_account_data_is_only_used_for_authentication">Fiókja adatait kizárólag a hitelesítéshez fogjuk használni.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Továbbítani fogjuk a problémakezelő weboldalra.</string>
-    <!-- App Shortcuts -->
-    <string name="app_shortcut_shuffle_all_long">@string/action_shuffle_all</string>
     <string name="app_shortcut_shuffle_all_short">Keverés</string>
-    <string name="app_shortcut_top_tracks_long">@string/my_top_tracks</string>
     <string name="app_shortcut_top_tracks_short">Top Dalok</string>
-    <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
     <string name="playlist_is_empty">A lejátszási lista üres</string>
 </resources>

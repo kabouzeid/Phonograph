@@ -236,11 +236,8 @@
     <string name="copied_device_info_to_clipboard">Αντιγράφτηκαν οι πληροφορίες συσκευής στο πρόχειρο.</string>
     <string name="your_account_data_is_only_used_for_authentication">Τα στοιχεία του λογαριασμού σας χρησιμοποιούνται μόνο για τον έλεγχο της ταυτότητάς σας.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Θα μεταφερθείτε στην ιστοσελίδα του εντοπιστή ζητημάτων.</string>
-    <!-- App Shortcuts -->
-    <string name="app_shortcut_shuffle_all_long">@string/action_shuffle_all</string>
     <string name="app_shortcut_shuffle_all_short">Τυχαία αναπαραγωγή</string>
     <string name="app_shortcut_top_tracks_short">Κορυφαία Κομμάτια</string>
-    <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
     <string name="playlist_is_empty">Η Λίστα αναπαραγωγής είναι κενή</string>
 </resources>

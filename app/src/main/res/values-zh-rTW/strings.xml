@@ -236,7 +236,6 @@
     <string name="copied_device_info_to_clipboard">複製裝置資訊到剪貼版。</string>
     <string name="your_account_data_is_only_used_for_authentication">您的帳戶資料僅用於驗證。</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">將被轉發到問題追蹤網站。</string>
-    <!-- App Shortcuts -->
     <string name="app_shortcut_shuffle_all_short">隨機播放</string>
     <string name="app_shortcut_top_tracks_short">最佳單曲</string>
 </resources>

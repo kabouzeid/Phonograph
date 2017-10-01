@@ -257,12 +257,8 @@
     <string name="copied_device_info_to_clipboard">Informacije o uređaju su kopirane u međuspremnik.</string>
     <string name="your_account_data_is_only_used_for_authentication">Podatci vašeg računa su korišteni samo za autentikaciju.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Biti ćete preusmjereni na web-stranicu pratitelja za poteškoće.</string>
-    <!-- App Shortcuts -->
-    <string name="app_shortcut_shuffle_all_long">@string/action_shuffle_all</string>
     <string name="app_shortcut_shuffle_all_short">Nasumična reprodukcija</string>
-    <string name="app_shortcut_top_tracks_long">@string/my_top_tracks</string>
     <string name="app_shortcut_top_tracks_short">Najslušanije</string>
-    <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
     <string name="playlist_is_empty">Popis naslova je prazan</string>
     <string name="playing_notification_description">Obavijest reprodukcije pruža radnje za reprodukciju/pauzu itd.</string>
@@ -286,4 +282,6 @@
     <string name="clear_blacklist">Očisti crnu listu</string>
     <string name="do_you_want_to_clear_the_blacklist">Želite li očistiti crnu listu?</string>
     <string name="pref_summary_blacklist">Sadržaj mapa na crnoj listi je skriven iz vaše biblioteke.</string>
+    <string name="reset_artist_image">Resetiraj slike izvođača</string>
+    <string name="set_artist_image">Postavi sliku izvođača</string>
 </resources>

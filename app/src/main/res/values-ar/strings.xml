@@ -214,5 +214,4 @@
     <string name="bug_report_uploading">يتم رفع المشكلة إلى GitHub</string>
     <string name="bug_report_failed">غير قادر علي إرسال تقرير</string>
     <string name="bug_report_failed_wrong_credentials">اسم مستخدم او كلمة مرور خاطئه</string>
-    <!-- App Shortcuts -->
 </resources>

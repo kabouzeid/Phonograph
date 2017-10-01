@@ -188,7 +188,7 @@
     <string name="permissions_denied">Machtiging geweigerd.</string>
     <string name="permission_external_storage_denied">Toegang tot externe opslag geweigerd.</string>
     <string name="support_development">Ondersteun ontwikkeling</string>
-    <string name="buy_pro">Phonograph Pro aanschaffen</string>
+    <string name="buy_pro">Phonograph Pro kopen</string>
     <string name="thank_you">Dankjewel!</string>
     <string name="restored_previous_purchase_please_restart">Verleden aankoop hersteld. Gelieve de app te herstarten om alle functies te benutten.</string>
     <string name="version">Versie</string>
@@ -257,12 +257,8 @@
     <string name="copied_device_info_to_clipboard">Apparaat info gekopieerd naar klembord.</string>
     <string name="your_account_data_is_only_used_for_authentication">Je accountgegevens worden alleen gebruikt voor authenticatie.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Je wordt doorverwezen naar de probleem bijhoud website.</string>
-    <!-- App Shortcuts -->
-    <string name="app_shortcut_shuffle_all_long">@string/action_shuffle_all</string>
     <string name="app_shortcut_shuffle_all_short">Shuffle</string>
-    <string name="app_shortcut_top_tracks_long">@string/my_top_tracks</string>
     <string name="app_shortcut_top_tracks_short">Top nummers</string>
-    <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
     <string name="playlist_is_empty">Afspeellijst is leeg</string>
     <string name="playing_notification_description">De afspeelmelding biedt acties voor afspelen/pauzeren etc.</string>
@@ -275,8 +271,8 @@
     <string name="restore_purchase">Aankoop herstellen</string>
     <string name="restoring_purchase">Aankoop herstellen…</string>
     <string name="could_not_restore_purchase">Kan aankoop niet herstellen.</string>
-    <string name="purchase">Aanschaffen</string>
-    <string name="restore">Herstellen</string>
+    <string name="purchase">Koop</string>
+    <string name="restore">Herstel</string>
     <string name="no_purchase_found">Geen aankoop gevonden.</string>
     <string name="eugene_cheung_summary">Voor zijn bijdragen aan de broncode.</string>
     <string name="add_action">Toevoegen</string>

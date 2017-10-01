@@ -66,8 +66,8 @@
     <string name="added_title_to_playing_queue">"Çalma sırasına 1 başlık eklendi."</string>
     <string name="added_x_titles_to_playing_queue">Çalma sırasına %1$d başlık eklendi.</string>
     <string name="action_remove_from_playlist">Çalma listesinden kaldır</string>
-    <string name="action_grid_size">Izgara boyutu</string>
-    <string name="action_grid_size_land">Izgara boyutu (yatay)</string>
+    <string name="action_grid_size">Kılavuz boyutu</string>
+    <string name="action_grid_size_land">Kılavuz boyutu (yatay)</string>
     <string name="inserted_x_songs_into_playlist_x">%2$s çalma listesine %1$d şarkı eklendi.</string>
     <string name="created_playlist_x">Çalma listesi %1$s oluşturuldu.</string>
     <string name="deleted_x_songs">%1$d şarkı silindi.</string>
@@ -120,7 +120,7 @@
     <string name="pref_header_lockscreen">Kilit ekranı</string>
     <string name="pref_header_playlists">Çalma listeleri</string>
     <string name="pref_header_notification">Bildirim</string>
-    <string name="pref_title_navigation_bar">Renkli gezinti çubuğu</string>
+    <string name="pref_title_navigation_bar">Renkli gezinme çubuğu</string>
     <string name="pref_title_app_shortcuts">Renkli uygulama kısayolları</string>
     <string name="pref_title_set_default_start_page">Başlangıç sayfası</string>
     <string name="pref_title_album_art_on_lockscreen">Albüm kapağını göster</string>
@@ -257,12 +257,8 @@
     <string name="copied_device_info_to_clipboard">Cihaz bilgisi panoya kopyalandı.</string>
     <string name="your_account_data_is_only_used_for_authentication">Hesabınız ile ilgili veriler yalnızca kimlik doğrulaması için kullanılır.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Sorun izleyici web sitesine yönlendirileceksiniz.</string>
-    <!-- App Shortcuts -->
-    <string name="app_shortcut_shuffle_all_long">@string/action_shuffle_all</string>
     <string name="app_shortcut_shuffle_all_short">Karıştır</string>
-    <string name="app_shortcut_top_tracks_long">@string/my_top_tracks</string>
     <string name="app_shortcut_top_tracks_short">En İyi Parçalar</string>
-    <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
     <string name="playlist_is_empty">Çalma listesi boş</string>
     <string name="playing_notification_description">Çalma bildirimi, başlat/duraklat vb. işlemleri sağlar</string>

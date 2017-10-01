@@ -257,12 +257,8 @@
     <string name="copied_device_info_to_clipboard">设备信息已复制到剪贴板。</string>
     <string name="your_account_data_is_only_used_for_authentication">您的帐号信息仅用于身份认证。</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">将带您跳转至报告问题的网站。</string>
-    <!-- App Shortcuts -->
-    <string name="app_shortcut_shuffle_all_long">@string/action_shuffle_all</string>
     <string name="app_shortcut_shuffle_all_short">随机播放</string>
-    <string name="app_shortcut_top_tracks_long">@string/my_top_tracks</string>
     <string name="app_shortcut_top_tracks_short">最喜欢的歌曲</string>
-    <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
     <string name="playlist_is_empty">播放列表为空</string>
     <string name="playing_notification_description">正在播放通知提供了播放/暂停等便捷操作。</string>

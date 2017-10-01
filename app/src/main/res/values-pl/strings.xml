@@ -235,12 +235,8 @@
     <string name="copied_device_info_to_clipboard">Kopiowanie informacji o urządzeniu do schowka</string>
     <string name="your_account_data_is_only_used_for_authentication">Twoje dane konta używane są tylko do uwierzytelniania</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Zostaniesz przekierowany do strony umożliwiającej śledzenie błędów</string>
-    <!-- App Shortcuts -->
-    <string name="app_shortcut_shuffle_all_long">@string/action_shuffle_all</string>
     <string name="app_shortcut_shuffle_all_short">Losowo</string>
-    <string name="app_shortcut_top_tracks_long">@string/my_top_tracks</string>
     <string name="app_shortcut_top_tracks_short">Najlepsze utwory</string>
-    <string name="app_shortcut_last_added_long">@string/last_added</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
     <string name="playlist_is_empty">Lista odtwarzania jest pusta</string>
 </resources>
