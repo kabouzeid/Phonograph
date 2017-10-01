@@ -15,6 +15,7 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.text.TextUtils;
 import android.widget.RemoteViews;
 
@@ -74,7 +75,11 @@ public abstract class BaseAppWidget extends AppWidgetProvider {
     protected PendingIntent buildPendingIntent(Context context, final String action, final ComponentName serviceName) {
         Intent intent = new Intent(action);
         intent.setComponent(serviceName);
-        return PendingIntent.getService(context, 0, intent, 0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return PendingIntent.getForegroundService(context, 0, intent, 0);
+        } else {
+            return PendingIntent.getService(context, 0, intent, 0);
+        }
     }
 
     protected static Bitmap createBitmap(Drawable drawable, float sizeMultiplier) {
