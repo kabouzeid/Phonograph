@@ -16,8 +16,6 @@ import com.kabouzeid.gramophone.util.PreferenceUtil;
 import java.io.File;
 import java.util.ArrayList;
 
-import hugo.weaving.DebugLog;
-
 public class BlacklistStore extends SQLiteOpenHelper {
     private static BlacklistStore sInstance = null;
     public static final String DATABASE_NAME = "blacklist.db";
@@ -132,7 +130,6 @@ public class BlacklistStore extends SQLiteOpenHelper {
     }
 
     @NonNull
-    @DebugLog
     public ArrayList<String> getPaths() {
         Cursor cursor = getReadableDatabase().query(BlacklistStoreColumns.NAME,
                 new String[]{BlacklistStoreColumns.PATH},

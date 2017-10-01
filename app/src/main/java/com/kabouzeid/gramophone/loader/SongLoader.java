@@ -14,8 +14,6 @@ import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
 
-import hugo.weaving.DebugLog;
-
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -90,7 +88,6 @@ public class SongLoader {
         return makeSongCursor(context, selection, selectionValues, PreferenceUtil.getInstance(context).getSongSortOrder());
     }
 
-    @DebugLog
     @Nullable
     public static Cursor makeSongCursor(@NonNull final Context context, @Nullable String selection, String[] selectionValues, final String sortOrder) {
         if (selection != null && !selection.trim().equals("")) {
@@ -127,7 +124,6 @@ public class SongLoader {
         }
     }
 
-    @DebugLog
     private static String generateBlacklistSelection(String selection, int pathCount) {
         String newSelection = selection != null && !selection.trim().equals("") ? selection + " AND " : "";
         newSelection += AudioColumns.DATA + " NOT LIKE ?";
@@ -137,7 +133,6 @@ public class SongLoader {
         return newSelection;
     }
 
-    @DebugLog
     private static String[] addBlacklistSelectionValues(String[] selectionValues, ArrayList<String> paths) {
         if (selectionValues == null) selectionValues = new String[0];
         String[] newSelectionValues = new String[selectionValues.length + paths.size()];
