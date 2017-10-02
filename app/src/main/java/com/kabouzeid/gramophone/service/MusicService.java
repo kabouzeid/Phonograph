@@ -346,6 +346,13 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     }
 
     @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        if (!isPlaying()) {
+            stopSelf();
+        }
+    }
+
+    @Override
     public void onDestroy() {
         unregisterReceiver(widgetIntentReceiver);
         if (becomingNoisyReceiverRegistered) {
