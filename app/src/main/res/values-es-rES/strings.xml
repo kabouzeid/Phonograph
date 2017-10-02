@@ -259,6 +259,7 @@
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Será redirigido a la página web del buscador de problemas.</string>
     <string name="app_shortcut_shuffle_all_short">Mezclar</string>
     <string name="app_shortcut_top_tracks_short">Los mejores temas</string>
+    <string name="app_shortcut_last_added_short">Último agregado</string>
     <string name="playlist_is_empty">Lista de reproducción vacía</string>
     <string name="playing_notification_description">La notificación de reproducción muestra acciones para reproducir/pausar etc.</string>
     <string name="playing_notification_name">Notificación de reproducción</string>

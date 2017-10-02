@@ -258,8 +258,8 @@
     <string name="your_account_data_is_only_used_for_authentication">Os dados de sua conta são usados apenas para autenticação.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Você será encaminhado ao nosso site de registro de erros.</string>
     <string name="app_shortcut_shuffle_all_short">Embaralhar</string>
-    <string name="app_shortcut_top_tracks_short">Melhores Faixas</string>
-    <string name="app_shortcut_last_added_short">@string/last_added</string>
+    <string name="app_shortcut_top_tracks_short">Melhores faixas</string>
+    <string name="app_shortcut_last_added_short">Últimas adições</string>
     <string name="playlist_is_empty">A playlist está vazia</string>
     <string name="playing_notification_description">A notificação de reprodução fornece opções de pausar/continuar etc.</string>
     <string name="playing_notification_name">Notificação de reprodução</string>

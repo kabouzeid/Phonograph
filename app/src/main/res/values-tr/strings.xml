@@ -258,8 +258,8 @@
     <string name="your_account_data_is_only_used_for_authentication">Hesabınız ile ilgili veriler yalnızca kimlik doğrulaması için kullanılır.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Sorun izleyici web sitesine yönlendirileceksiniz.</string>
     <string name="app_shortcut_shuffle_all_short">Karıştır</string>
-    <string name="app_shortcut_top_tracks_short">En İyi Parçalar</string>
-    <string name="app_shortcut_last_added_short">@string/last_added</string>
+    <string name="app_shortcut_top_tracks_short">En iyi parçalar</string>
+    <string name="app_shortcut_last_added_short">Son eklenen</string>
     <string name="playlist_is_empty">Çalma listesi boş</string>
     <string name="playing_notification_description">Çalma bildirimi, başlat/duraklat vb. işlemleri sağlar</string>
     <string name="playing_notification_name">Çalma bildirimi</string>
@@ -269,9 +269,9 @@
     <string name="sleep_timer_is_a_pro_feature">Uyku zamanlayıcı bir Phonograph Pro özelliğidir.</string>
     <string name="folder_view_is_a_pro_feature">Klasör görünümü bir Phonograph Pro özelliğidir.</string>
     <string name="restore_purchase">Satın almayı geri yükle</string>
-    <string name="restoring_purchase">Satın alma işlemi geri yükleniyor...</string>
-    <string name="could_not_restore_purchase">Satın alma işlemi geri yüklenemedi.</string>
-    <string name="purchase">Satın alma işlemi</string>
+    <string name="restoring_purchase">Satın alma geri yükleniyor...</string>
+    <string name="could_not_restore_purchase">Satın alma geri yüklenemedi.</string>
+    <string name="purchase">Satın Al</string>
     <string name="restore">Geri yükle</string>
     <string name="no_purchase_found">Satın alma bulunamadı.</string>
     <string name="eugene_cheung_summary">Kaynak koda yaptığı katkılardan dolayı.</string>
@@ -282,4 +282,6 @@
     <string name="clear_blacklist">Kara listeyi temizle</string>
     <string name="do_you_want_to_clear_the_blacklist">Kara listeyi temizlemek istiyor musunuz?</string>
     <string name="pref_summary_blacklist">Kara listeye alınan klasörlerin içeriği kitaplığınızdan gizlenir.</string>
+    <string name="reset_artist_image">Sanatçı resmini sıfırla</string>
+    <string name="set_artist_image">Sanatçı resmi ayarla</string>
 </resources>
