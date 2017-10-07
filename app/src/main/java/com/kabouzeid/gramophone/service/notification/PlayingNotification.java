@@ -14,7 +14,7 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public abstract class PlayingNotification {
 
     private static final int NOTIFICATION_ID = 1;
-    protected static final String NOTIFICATION_CHANNEL_ID = "playing_notification";
+    static final String NOTIFICATION_CHANNEL_ID = "playing_notification";
 
     private static final int NOTIFY_MODE_FOREGROUND = 1;
     private static final int NOTIFY_MODE_BACKGROUND = 0;
@@ -33,7 +33,7 @@ public abstract class PlayingNotification {
         }
     }
 
-    abstract public void update();
+    public abstract void update();
 
     public synchronized void stop() {
         stopped = true;
