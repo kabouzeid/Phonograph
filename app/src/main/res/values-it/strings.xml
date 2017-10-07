@@ -259,8 +259,8 @@
     <string name="your_account_data_is_only_used_for_authentication">I tuoi dati account sono usati solo per l\'autenticazione.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Verrai indirizzato al sito di bugtracking.</string>
     <string name="app_shortcut_shuffle_all_short">Casuale</string>
-    <string name="app_shortcut_top_tracks_short">Migliodi Tracce</string>
-    <string name="app_shortcut_last_added_short">ultima_aggiunta</string>
+    <string name="app_shortcut_top_tracks_short">Migliori tracce</string>
+    <string name="app_shortcut_last_added_short">Ultima aggiunta</string>
     <string name="playlist_is_empty">La playlist è vuota</string>
     <string name="playing_notification_description">La notifica di riproduzione offre azioni per play/pausa ecc.</string>
     <string name="playing_notification_name">Notifica di riproduzione</string>
@@ -283,4 +283,6 @@
     <string name="clear_blacklist">Pulisci lista nera</string>
     <string name="do_you_want_to_clear_the_blacklist">Vuoi pulire la lista nera?</string>
     <string name="pref_summary_blacklist">Il contenuto delle cartelle in lista nera sono nascoste dalla tua libreria.</string>
+    <string name="reset_artist_image">Reimposta immagine artista</string>
+    <string name="set_artist_image">Imposta immagine artista</string>
 </resources>

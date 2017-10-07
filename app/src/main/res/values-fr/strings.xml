@@ -15,7 +15,7 @@
     <string name="action_search">Rechercher</string>
     <string name="action_play_next">Jouer ensuite</string>
     <string name="action_play">Lecture</string>
-    <string name="action_play_pause">Play/Pause</string>
+    <string name="action_play_pause">Jouer/Pause</string>
     <string name="action_previous">Précédent</string>
     <string name="action_next">Suivant</string>
     <string name="action_add_to_playing_queue">Ajouter à la liste de lecture</string>
@@ -34,7 +34,7 @@
     <string name="playlists">Playlists</string>
     <string name="unplayable_file">Impossible de lire ce titre.</string>
     <string name="biography_unavailable">Impossible de trouver la biographie de l\'artiste.</string>
-    <string name="wiki_unavailable">Impossible de trouver une entr\u00e9e wiki pour cet album.</string>
+    <string name="wiki_unavailable">Impossible de trouver le portail Wiki associ\u00e9 a cet album.</string>
     <string name="biography">Biographie</string>
     <string name="wiki">Wiki</string>
     <string name="audio_focus_denied">Accès à l\'Audio Focus refusé.</string>
@@ -96,7 +96,7 @@
     <string name="action_clear_playing_queue">Effacer la file de lecture</string>
     <string name="action_go_to_start_directory">Aller au répertoire de départ</string>
     <string name="action_show_lyrics">Afficher les paroles</string>
-    <string name="last_opened">Récemment ouverts</string>
+    <string name="last_opened">Récemment ouvert</string>
     <string name="light_theme_name">Clair</string>
     <string name="dark_theme_name">Sombre</string>
     <string name="black_theme_name">Noir (AMOLED)</string>
@@ -106,7 +106,7 @@
     <string name="today">Aujourd\'hui</string>
     <string name="this_week">Cette semaine</string>
     <string name="this_month">Ce mois-ci</string>
-    <string name="past_three_months">Il y a 3 mois</string>
+    <string name="past_three_months">Les 3 derniers mois</string>
     <string name="this_year">Cette année</string>
     <string name="equalizer">Égaliseur</string>
     <string name="pref_header_colors">Couleurs</string>
@@ -128,10 +128,10 @@
     <string name="pref_title_classic_notification">Style de notification classic</string>
     <string name="pref_title_ignore_media_store_artwork">Ignorer le stockage des pochettes</string>
     <string name="pref_title_gapless_playback">Lecture sans coupure</string>
-    <string name="pref_title_audio_ducking">Réduire volume sur perte de mise au point</string>
+    <string name="pref_title_audio_ducking">Réduire le volume lorse que le focus est interrompu</string>
     <string name="pref_title_synchronized_lyrics_show">Afficher les paroles synchronisées</string>
-    <string name="no_equalizer">Aucun égaliseur trouvé</string>
-    <string name="no_audio_ID">"Jouez un morceau d'abord puis réessayez."</string>
+    <string name="no_equalizer">Impossible de trouver d\'égalisateur.</string>
+    <string name="no_audio_ID">"Faire jouer un titre d'abord, puis réessayer."</string>
     <string name="delete_action">Supprimer</string>
     <string name="clear_action">Effacer</string>
     <string name="remove_action">Retirer</string>

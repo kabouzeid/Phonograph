@@ -259,7 +259,7 @@
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Je wordt doorverwezen naar de probleem bijhoud website.</string>
     <string name="app_shortcut_shuffle_all_short">Shuffle</string>
     <string name="app_shortcut_top_tracks_short">Top nummers</string>
-    <string name="app_shortcut_last_added_short">@string/last_added</string>
+    <string name="app_shortcut_last_added_short">Laatst toegevoegd</string>
     <string name="playlist_is_empty">Afspeellijst is leeg</string>
     <string name="playing_notification_description">De afspeelmelding biedt acties voor afspelen/pauzeren etc.</string>
     <string name="playing_notification_name">Afspeelmelding</string>
@@ -282,4 +282,6 @@
     <string name="clear_blacklist">Zwarte lijst legen</string>
     <string name="do_you_want_to_clear_the_blacklist">Wil je de zwarte lijst legen?</string>
     <string name="pref_summary_blacklist">De inhoud van mappen op de zwarte lijst worden verborgen van je bibliotheek.</string>
+    <string name="reset_artist_image">Artiest afbeelding resetten</string>
+    <string name="set_artist_image">Artiest afbeelding instellen</string>
 </resources>
