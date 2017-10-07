@@ -73,7 +73,7 @@ import java.util.Random;
 public class MusicService extends Service implements SharedPreferences.OnSharedPreferenceChangeListener, Playback.PlaybackCallbacks {
     public static final String TAG = MusicService.class.getSimpleName();
 
-    public static final String PHONOGRAPH_PACKAGE_NAME = "com.kabouzeid.gramophone" + ".temp_sticky_intent_fix"; // TODO remove ".temp_sticky_intent_fix" in a future update.
+    public static final String PHONOGRAPH_PACKAGE_NAME = "com.kabouzeid.gramophone";
     public static final String MUSIC_PACKAGE_NAME = "com.android.music";
 
     public static final String ACTION_TOGGLE_PAUSE = PHONOGRAPH_PACKAGE_NAME + ".togglepause";
