@@ -34,9 +34,9 @@
     <string name="playlists">播放列表</string>
     <string name="unplayable_file">\u65e0\u6cd5\u64ad\u653e\u8be5\u6b4c\u66f2\u3002</string>
     <string name="biography_unavailable">\u627e\u4e0d\u5230\u8be5\u827a\u672f\u5bb6\u7684\u4e2a\u4eba\u4fe1\u606f\u3002</string>
-    <string name="wiki_unavailable">\u65e0\u6cd5\u627e\u5230\u6b64\u4e13\u8f91 Wiki \u4fe1\u606f\u3002</string>
+    <string name="wiki_unavailable">\u627e\u4e0d\u5230\u6b64\u4e13\u8f91\u7684\u767e\u79d1\u6570\u636e\u3002</string>
     <string name="biography">歌手简介</string>
-    <string name="wiki">Wiki</string>
+    <string name="wiki">百科</string>
     <string name="audio_focus_denied">无法获取音频焦点。</string>
     <string name="album">专辑</string>
     <string name="artist">艺术家</string>
@@ -259,7 +259,7 @@
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">将带您跳转至报告问题的网站。</string>
     <string name="app_shortcut_shuffle_all_short">随机播放</string>
     <string name="app_shortcut_top_tracks_short">最喜欢的歌曲</string>
-    <string name="app_shortcut_last_added_short">@string/last_added</string>
+    <string name="app_shortcut_last_added_short">最近添加</string>
     <string name="playlist_is_empty">播放列表为空</string>
     <string name="playing_notification_description">正在播放通知提供了播放/暂停等便捷操作。</string>
     <string name="playing_notification_name">正在播放通知</string>
@@ -282,4 +282,6 @@
     <string name="clear_blacklist">清除黑名单</string>
     <string name="do_you_want_to_clear_the_blacklist">您想清除黑名单？</string>
     <string name="pref_summary_blacklist">黑名单中文件夹将在媒体库中隐藏。</string>
+    <string name="reset_artist_image">重置艺术家图片</string>
+    <string name="set_artist_image">设置艺术家图片</string>
 </resources>

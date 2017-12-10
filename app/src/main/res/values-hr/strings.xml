@@ -90,10 +90,10 @@
     <string name="clear_playlist_title">Očisti popis naslova</string>
     <string name="save_playlist_title">Spremi kao datoteku</string>
     <string name="add_playlist_title">"Dodaj na popis naslova"</string>
-    <string name="action_shuffle_all">Nasumično reproduciraj sve</string>
-    <string name="action_shuffle_album">Nasumično reproduciraj album</string>
-    <string name="action_shuffle_artist">Nasumično reproduciraj izvođača</string>
-    <string name="action_shuffle_playlist">Nasumično reproduciraj popis naslova</string>
+    <string name="action_shuffle_all">Izmiješaj sve</string>
+    <string name="action_shuffle_album">Izmiješaj album</string>
+    <string name="action_shuffle_artist">Izmiješaj izvođača</string>
+    <string name="action_shuffle_playlist">Izmiješaj popis naslova</string>
     <string name="action_clear_playing_queue">Očisti red čekanja</string>
     <string name="action_save_playing_queue">Spremi red čekanja</string>
     <string name="action_go_to_start_directory">Idi na početni direktorij</string>
@@ -258,8 +258,8 @@
     <string name="your_account_data_is_only_used_for_authentication">Podatci vašeg računa su korišteni samo za autentikaciju.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Biti ćete preusmjereni na web-stranicu pratitelja za poteškoće.</string>
     <string name="app_shortcut_shuffle_all_short">Nasumična reprodukcija</string>
-    <string name="app_shortcut_top_tracks_short">Najslušanije</string>
-    <string name="app_shortcut_last_added_short">@string/last_added</string>
+    <string name="app_shortcut_top_tracks_short">Najslušanije pjesme</string>
+    <string name="app_shortcut_last_added_short">Posljednje dodano</string>
     <string name="playlist_is_empty">Popis naslova je prazan</string>
     <string name="playing_notification_description">Obavijest reprodukcije pruža radnje za reprodukciju/pauzu itd.</string>
     <string name="playing_notification_name">Obavijest reprodukcije</string>

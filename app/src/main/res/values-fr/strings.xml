@@ -15,7 +15,7 @@
     <string name="action_search">Rechercher</string>
     <string name="action_play_next">Jouer ensuite</string>
     <string name="action_play">Lecture</string>
-    <string name="action_play_pause">Jouer/Pause</string>
+    <string name="action_play_pause">Lecture/Pause</string>
     <string name="action_previous">Précédent</string>
     <string name="action_next">Suivant</string>
     <string name="action_add_to_playing_queue">Ajouter à la liste de lecture</string>
@@ -34,7 +34,7 @@
     <string name="playlists">Playlists</string>
     <string name="unplayable_file">Impossible de lire ce titre.</string>
     <string name="biography_unavailable">Impossible de trouver la biographie de l\'artiste.</string>
-    <string name="wiki_unavailable">Impossible de trouver le portail Wiki associ\u00e9 a cet album.</string>
+    <string name="wiki_unavailable">Impossible de trouver une entr\u00e9e wiki pour cet album.</string>
     <string name="biography">Biographie</string>
     <string name="wiki">Wiki</string>
     <string name="audio_focus_denied">Accès à l\'Audio Focus refusé.</string>
@@ -59,7 +59,7 @@
     <string name="action_go_to_artist">Voir l\'artiste</string>
     <string name="action_go_to_album">Voir l\'album</string>
     <string name="label_playing_queue">File de lecture</string>
-    <string name="no_results">Aucun résultats</string>
+    <string name="no_results">Aucun résultat</string>
     <string name="action_re_download_artist_image">Actualiser l\'image de l\'artiste</string>
     <string name="updated_artist_image">Image de l\'artiste mise à jour.</string>
     <string name="updating">Actualisation…</string>
@@ -94,6 +94,7 @@
     <string name="action_shuffle_artist">Artiste aléatoire</string>
     <string name="action_shuffle_playlist">Lecture aléatoire</string>
     <string name="action_clear_playing_queue">Effacer la file de lecture</string>
+    <string name="action_save_playing_queue">Sauvegarder la liste de lecture</string>
     <string name="action_go_to_start_directory">Aller au répertoire de départ</string>
     <string name="action_show_lyrics">Afficher les paroles</string>
     <string name="last_opened">Récemment ouvert</string>
@@ -185,7 +186,9 @@
     <string name="permissions_denied">Autorisation refusée.</string>
     <string name="permission_external_storage_denied">Accès au stockage externe refusé.</string>
     <string name="support_development">Faire un don</string>
+    <string name="buy_pro">Achetez Phonograph Pro</string>
     <string name="thank_you">Merci !</string>
+    <string name="restored_previous_purchase_please_restart">Achats précédents restaurés. Veuillez redémarrer l\'application pour débloquer toutes les fonctionnalités</string>
     <string name="version">Version</string>
     <string name="author">Auteur</string>
     <string name="write_an_email">Écrire un email</string>
@@ -256,4 +259,18 @@
     <string name="app_shortcut_top_tracks_short">Meilleurs titres</string>
     <string name="app_shortcut_last_added_short">@string/last_added</string>
     <string name="playlist_is_empty">La liste de lecture est vide</string>
+    <string name="playing_notification_description">La notification de lecture fournit des actions pour la lecture/pause etc.</string>
+    <string name="playing_notification_name">Notification de lecture</string>
+    <string name="buy">Acheter</string>
+    <string name="black_theme_is_a_pro_feature">Le thème noir est une fonctionnalité Phonograph Pro</string>
+    <string name="restore_purchase">Restaurer les achats</string>
+    <string name="restoring_purchase">Restauration des achats...</string>
+    <string name="could_not_restore_purchase">Impossible de restaurer les achats</string>
+    <string name="purchase">Acheter</string>
+    <string name="restore">Restaurer</string>
+    <string name="no_purchase_found">Aucun achat trouvé.</string>
+    <string name="eugene_cheung_summary">Pour ses contributions au code source</string>
+    <string name="add_action">Ajouter</string>
+    <string name="reset_artist_image">Réinitialiser l\'mage de l\'artiste</string>
+    <string name="set_artist_image">Définir l\'image de l\'artiste</string>
 </resources>

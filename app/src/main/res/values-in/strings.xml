@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">"Apa yang ingin Anda bagikan? "</string>
-    <string name="currently_listening_to_x_by_x">"Sedang mendengarkan %1$s dari %2$s. "</string>
-    <string name="the_audio_file">Berkas suara</string>
+    <string name="currently_listening_to_x_by_x">%3$s</string>
+    <string name="the_audio_file">Voice</string>
     <string name="x_has_been_set_as_ringtone">Setel %1$s sebagai nada dering anda?</string>
     <string name="action_set_as_ringtone">Setel sebagai nada dering</string>
     <string name="action_share">Bagikan</string>
     <string name="action_settings">"Pengaturan"</string>
     <string name="action_grant">Izinkan</string>
     <string name="action_about">Tentang</string>
-    <string name="action_clear_playlist">Kosongkan daftar putar</string>
+    <string name="action_clear_playlist">Yes</string>
     <string name="action_add_to_favorites">Tambahkan ke favorit</string>
     <string name="action_remove_from_favorites">Hapus dari favorit</string>
     <string name="action_search">Pencarian</string>

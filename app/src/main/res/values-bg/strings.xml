@@ -4,7 +4,7 @@
     <string name="currently_listening_to_x_by_x">В момента слушате %1$s от %2$s.</string>
     <string name="the_audio_file">Аудио файлът</string>
     <string name="x_has_been_set_as_ringtone">Задай %1$s като рингтон</string>
-    <string name="action_set_as_ringtone">Задай като рингтон</string>
+    <string name="action_set_as_ringtone">Задай като той на звънене</string>
     <string name="action_share">Сподели</string>
     <string name="action_settings">"Настройки"</string>
     <string name="action_grant">Разреши</string>

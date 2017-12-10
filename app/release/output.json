@@ -1,0 +1,18 @@
+[
+  {
+    "outputType": {
+      "type": "APK"
+    },
+    "apkInfo": {
+      "type": "MAIN",
+      "splits": [],
+      "versionCode": 142
+    },
+    "path": "app-release.apk",
+    "properties": {
+      "packageId": "com.kabouzeid.gramophone",
+      "split": "",
+      "minSdkVersion": "16"
+    }
+  }
+]

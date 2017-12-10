@@ -259,7 +259,7 @@
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">תועבר לאתר איתור הבאגים.</string>
     <string name="app_shortcut_shuffle_all_short">ערבב</string>
     <string name="app_shortcut_top_tracks_short">שירים מובילים</string>
-    <string name="app_shortcut_last_added_short">@string/last_added</string>
+    <string name="app_shortcut_last_added_short">נוספו לאחרונה</string>
     <string name="playlist_is_empty">רשימת ההשמעה ריקה</string>
     <string name="playing_notification_description">התראת הניגון מספקת פעולות הפעלה/השהייה וכו\'.</string>
     <string name="playing_notification_name">התראת ניגון</string>
