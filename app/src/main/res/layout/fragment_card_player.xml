@@ -126,8 +126,7 @@
                             android:layout_height="wrap_content"
                             android:paddingBottom="8dp"
                             android:requiresFadingEdge="vertical"
-                            android:scrollbarStyle="outsideOverlay"
-                            android:clipToPadding="false" />
+                            />
 
                     </LinearLayout>
 

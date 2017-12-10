@@ -69,8 +69,6 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     SlidingUpPanelLayout slidingUpPanelLayout;
     @BindView(R.id.player_recycler_view)
     RecyclerView recyclerView;
-//    @BindView(R.id.recyclerview_content)
-//    FrameLayout recyclerView_container;
     @BindView(R.id.playing_queue_card)
     CardView playingQueueCard;
     @BindView(R.id.color_background)
@@ -137,9 +135,11 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         // for some reason the xml attribute doesn't get applied here.
         playingQueueCard.setCardBackgroundColor(ATHUtil.resolveColor(getActivity(), R.attr.cardBackgroundColor));
 
-        //Allows the list items to draw out of bounds when swiping
-        playingQueueCard.setClipToOutline(false);
-        disableClipOnParents(recyclerView);
+        //Allows the list items to draw out of bounds when swiping, but also makes the listview
+        //float above everything else. Disabling for now.
+
+//        playingQueueCard.setClipToOutline(false);
+//        disableClipOnParents(recyclerView);
     }
 
     @Override
