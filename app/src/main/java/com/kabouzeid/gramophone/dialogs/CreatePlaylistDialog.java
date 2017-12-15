@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.widget.Toast;
 
@@ -67,7 +68,7 @@ public class CreatePlaylistDialog extends DialogFragment {
                                     //noinspection unchecked
                                     ArrayList<Song> songs = getArguments().getParcelableArrayList(SONGS);
                                     if (songs != null && !songs.isEmpty()) {
-                                        PlaylistsUtil.addToPlaylist(getActivity(), songs, playlistId, true);
+                                        PlaylistsUtil.addToPlaylist(getActivity(), songs, playlistId, true, (AppCompatActivity) getActivity());
                                     }
                                 }
                             } else {

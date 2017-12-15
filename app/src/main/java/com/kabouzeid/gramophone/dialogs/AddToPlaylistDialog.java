@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -60,7 +61,7 @@ public class AddToPlaylistDialog extends DialogFragment {
                             CreatePlaylistDialog.create(songs).show(getActivity().getSupportFragmentManager(), "ADD_TO_PLAYLIST");
                         } else {
                             materialDialog.dismiss();
-                            PlaylistsUtil.addToPlaylist(getActivity(), songs, playlists.get(i - 1).id, true);
+                            PlaylistsUtil.addToPlaylist(getActivity(), songs, playlists.get(i - 1).id, true, (AppCompatActivity) getActivity());
                         }
                     }
                 })
