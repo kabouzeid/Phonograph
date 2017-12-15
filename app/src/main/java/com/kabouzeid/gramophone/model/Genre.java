@@ -6,16 +6,12 @@ import android.os.Parcelable;
 public class Genre implements Parcelable {
     public final int id;
     public final String name;
+    public final int songs;
 
-    public Genre(final int id, final String name) {
+    public Genre(final int id, final String name, final int songs) {
         this.id = id;
         this.name = name;
-    }
-
-    // For unknown genre
-    public Genre(final String name) {
-        this.id = -1;
-        this.name = name;
+        this.songs = songs;
     }
 
     @Override
@@ -26,13 +22,15 @@ public class Genre implements Parcelable {
         Genre genre = (Genre) o;
 
         if (id != genre.id) return false;
-        return name != null ? name.equals(genre.name) : genre.name == null;
+        if (!name.equals(genre.name)) return false;
+        return songs == genre.songs;
     }
 
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + name.hashCode();
+        result = 31 * result + songs;
         return result;
     }
 
@@ -41,6 +39,7 @@ public class Genre implements Parcelable {
         return "Genre{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", songs=" + songs +
                 '}';
     }
 
@@ -53,11 +52,13 @@ public class Genre implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
         dest.writeString(this.name);
+        dest.writeInt(this.songs);
     }
 
     protected Genre(Parcel in) {
         this.id = in.readInt();
         this.name = in.readString();
+        this.songs = in.readInt();
     }
 
     public static final Creator<Genre> CREATOR = new Creator<Genre>() {

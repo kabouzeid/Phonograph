@@ -59,6 +59,9 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
         if (holder.title != null) {
             holder.title.setText(genre.name);
         }
+        if (holder.text != null) {
+            holder.text.setText(MusicUtil.getGenreInfoString(activity, genre));
+        }
     }
 
     @Override
