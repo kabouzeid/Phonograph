@@ -1,10 +1,12 @@
 package com.kabouzeid.gramophone.dialogs;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.text.Html;
+import android.util.Log;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -18,7 +20,7 @@ import java.util.ArrayList;
  */
 public class AddDuplicateToPlaylistDialog extends DialogFragment {
 
-    private int selection = 2;
+    private int selection = 0;
 
     private SelectionListener selListener;
 
@@ -55,7 +57,7 @@ public class AddDuplicateToPlaylistDialog extends DialogFragment {
         //noinspection unchecked
         final ArrayList<Song> songs = getArguments().getParcelableArrayList("songs");
         int title;
-        CharSequence content;
+        final CharSequence content;
         title = R.string.add_duplicate_title;
         content = Html.fromHtml(getString(R.string.add_duplicate_msg, songs.get(0).title));
         return new MaterialDialog.Builder(getActivity())
@@ -68,7 +70,6 @@ public class AddDuplicateToPlaylistDialog extends DialogFragment {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         if (getActivity() == null) return;
                         selection = 0;
-                        selListener.selectedOption(0);
                     }
                 })
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -76,10 +77,15 @@ public class AddDuplicateToPlaylistDialog extends DialogFragment {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         if (getActivity() == null) return;
                         selection = 1;
-                        selListener.selectedOption(1);
                     }
                 })
                 .build();
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        selListener.selectedOption(selection);
     }
 
     public int getSelection() {
