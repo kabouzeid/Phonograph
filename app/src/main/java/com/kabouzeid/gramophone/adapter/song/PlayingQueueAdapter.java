@@ -42,12 +42,9 @@ public class PlayingQueueAdapter extends SongAdapter
 
     private int current;
 
-    private static AppCompatActivity activity;
-
     public PlayingQueueAdapter(AppCompatActivity activity, ArrayList<Song> dataSet, int current, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
         super(activity, dataSet, itemLayoutRes, usePalette, cabHolder);
         this.current = current;
-        this.activity = activity;
 
     }
 
@@ -142,7 +139,7 @@ public class PlayingQueueAdapter extends SongAdapter
 
     @Override
     public void onSetSwipeBackground(ViewHolder holder, int i, int i1) {
-            holder.itemView.setBackgroundColor(getBackgroundColor());
+            holder.itemView.setBackgroundColor(getBackgroundColor(activity));
             holder.dummyContainer.setBackgroundColor(ATHUtil.resolveColor(activity, R.attr.cardBackgroundColor));
     }
 
@@ -152,7 +149,7 @@ public class PlayingQueueAdapter extends SongAdapter
         if (result == SwipeableItemConstants.RESULT_CANCELED) {
             return new SwipeResultActionDefault();
         } else {
-            return new MySwipeResultActionRemoveItem(this, position);
+            return new MySwipeResultActionRemoveItem(this, position, activity);
         }
     }
 
@@ -207,15 +204,17 @@ public class PlayingQueueAdapter extends SongAdapter
         private PlayingQueueAdapter adapter;
         private int position;
         private Song songToRemove;
+        private AppCompatActivity activity;
 
-        public MySwipeResultActionRemoveItem(PlayingQueueAdapter adapter, int position) {
+        public MySwipeResultActionRemoveItem(PlayingQueueAdapter adapter, int position, AppCompatActivity activity) {
             this.adapter = adapter;
             this.position = position;
+            this.activity = activity;
         }
 
         @Override
         protected void onPerformAction() {
-            initializeSnackBar(adapter, position);
+            initializeSnackBar(adapter, position, activity);
             songToRemove = adapter.dataSet.get(position);
         }
         @Override
@@ -226,7 +225,7 @@ public class PlayingQueueAdapter extends SongAdapter
         }
     }
 
-    public static int getBackgroundColor(){
+    public static int getBackgroundColor(AppCompatActivity activity){
         //TODO: Find a better way to get the album background color
         TextView tV = ((TextView) activity.findViewById(R.id.player_queue_sub_header));
         if(tV != null){
@@ -237,7 +236,8 @@ public class PlayingQueueAdapter extends SongAdapter
         }
     }
 
-    public static void initializeSnackBar(final PlayingQueueAdapter adapter,final int position){
+    public static void initializeSnackBar(final PlayingQueueAdapter adapter,final int position,
+                                          final AppCompatActivity activity){
 
         CharSequence snackBarTitle = activity.getString(R.string.snack_bar_title_removed_song);
 
@@ -257,7 +257,7 @@ public class PlayingQueueAdapter extends SongAdapter
                 MusicPlayerRemote.addSong(position,adapter.getSongToRemove());
             }
         });
-        snackbar.setActionTextColor(getBackgroundColor());
+        snackbar.setActionTextColor(getBackgroundColor(activity));
         snackbar.show();
 
     }

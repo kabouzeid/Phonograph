@@ -9,7 +9,7 @@
 
     <!-- for getSwipeableContainerView() -->
     <FrameLayout
-        android:id="@+id/view_for_swipe_container"
+        android:id="@+id/dummy_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -26,19 +25,12 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator;
-import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
-import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
-import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager;
-import com.h6ah4i.android.widget.advrecyclerview.touchguard.RecyclerViewTouchActionGuardManager;
-import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
-import com.kabouzeid.gramophone.adapter.song.PlayingQueueAdapter;
 import com.kabouzeid.gramophone.dialogs.LyricsDialog;
 import com.kabouzeid.gramophone.dialogs.SongShareDialog;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -81,15 +73,6 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     private CardPlayerPlaybackControlsFragment playbackControlsFragment;
     private PlayerAlbumCoverFragment playerAlbumCoverFragment;
 
-    private LinearLayoutManager layoutManager;
-
-    private PlayingQueueAdapter playingQueueAdapter;
-
-    private RecyclerView.Adapter wrappedAdapter;
-    private RecyclerViewDragDropManager recyclerViewDragDropManager;
-    private RecyclerViewSwipeManager recyclerViewSwipeManager;
-    private RecyclerViewTouchActionGuardManager recyclerViewTouchActionGuardManager;
-
     private AsyncTask updateIsFavoriteTask;
     private AsyncTask updateLyricsAsyncTask;
 
@@ -119,7 +102,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         setUpPlayerToolbar();
         setUpSubFragments();
 
-        setUpRecyclerView();
+        setUpRecyclerView(recyclerView,slidingUpPanelLayout);
 
         slidingUpPanelLayout.addPanelSlideListener(this);
         slidingUpPanelLayout.setAntiDragView(view.findViewById(R.id.draggable_area));
@@ -147,14 +130,6 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         if (slidingUpPanelLayout != null) {
             slidingUpPanelLayout.removePanelSlideListener(this);
         }
-        if (recyclerViewDragDropManager != null) {
-            recyclerViewDragDropManager.release();
-            recyclerViewDragDropManager = null;
-        }
-        if (recyclerViewSwipeManager != null) {
-            recyclerViewSwipeManager.release();
-            recyclerViewSwipeManager = null;
-        }
 
         if (recyclerView != null) {
             recyclerView.setItemAnimator(null);
@@ -162,12 +137,6 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
             recyclerView = null;
         }
 
-        if (wrappedAdapter != null) {
-            WrapperAdapterUtils.releaseAll(wrappedAdapter);
-            wrappedAdapter = null;
-        }
-        playingQueueAdapter = null;
-        layoutManager = null;
         super.onDestroyView();
         unbinder.unbind();
     }
@@ -255,52 +224,6 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
                 return true;
         }
         return super.onMenuItemClick(item);
-    }
-
-    private void setUpRecyclerView() {
-        recyclerViewTouchActionGuardManager = new RecyclerViewTouchActionGuardManager();
-        recyclerViewSwipeManager = new RecyclerViewSwipeManager();
-        recyclerViewDragDropManager = new RecyclerViewDragDropManager();
-
-        final GeneralItemAnimator animator = new DraggableItemAnimator();
-
-        // Change animations are enabled by default since support-v7-recyclerview v22.
-        // Disable the change animation in order to make turning back animation of swiped item works properly.
-        animator.setSupportsChangeAnimations(false);
-
-        playingQueueAdapter = new PlayingQueueAdapter(
-                ((AppCompatActivity) getActivity()),
-                MusicPlayerRemote.getPlayingQueue(),
-                MusicPlayerRemote.getPosition(),
-                R.layout.item_list,
-                false,
-                null);
-        wrappedAdapter = recyclerViewDragDropManager.createWrappedAdapter(playingQueueAdapter);
-        wrappedAdapter = recyclerViewSwipeManager.createWrappedAdapter(wrappedAdapter);
-
-        layoutManager = new LinearLayoutManager(getActivity());
-
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(wrappedAdapter);
-        recyclerView.setItemAnimator(animator);
-
-        recyclerViewTouchActionGuardManager.attachRecyclerView(recyclerView);
-        recyclerViewSwipeManager.attachRecyclerView(recyclerView);
-        recyclerViewDragDropManager.attachRecyclerView(recyclerView);
-
-        recyclerViewSwipeManager.setOnItemSwipeEventListener(new RecyclerViewSwipeManager.OnItemSwipeEventListener() {
-            @Override
-            public void onItemSwipeStarted(int i) {
-                slidingUpPanelLayout.setTouchEnabled(false);
-            }
-
-            @Override
-            public void onItemSwipeFinished(int i, int i1, int i2) {
-                slidingUpPanelLayout.setTouchEnabled(true);
-            }
-        });
-
-        layoutManager.scrollToPositionWithOffset(MusicPlayerRemote.getPosition() + 1, 0);
     }
 
     public void disableClipOnParents(View v) {

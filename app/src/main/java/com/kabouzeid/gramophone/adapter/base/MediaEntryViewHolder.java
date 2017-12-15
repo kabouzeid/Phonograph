@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
  */
 public class MediaEntryViewHolder extends AbstractDraggableSwipeableItemViewHolder implements View.OnClickListener, View.OnLongClickListener {
     @Nullable
-    @BindView(R.id.view_for_swipe_container)
+    @BindView(R.id.dummy_view)
     public FrameLayout dummyContainer;
 
     @Nullable

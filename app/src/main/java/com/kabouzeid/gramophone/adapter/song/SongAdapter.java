@@ -185,10 +185,6 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
         return song.title;
     }
 
-    protected RecyclerView getRecyclerView(){
-        return recyclerView;
-    }
-
     @Override
     protected void onMultipleItemAction(@NonNull MenuItem menuItem, @NonNull ArrayList<Song> selection) {
         SongsMenuHelper.handleMenuClick(activity, selection, menuItem.getItemId());
