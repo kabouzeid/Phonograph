@@ -47,6 +47,12 @@
         <license>Apache Software License 2.0</license>
     </notice>
     <notice>
+        <name>Android Snowfall</name>
+        <url>https://github.com/JetradarMobile/android-snowfall</url>
+        <copyright>Copyright 2016 JetRadar</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+    <notice>
         <name>Android Support Libraries</name>
         <url>http://developer.android.com/tools/support-library/index.html</url>
         <copyright>Copyright (C) 2016 The Android Open Source Project</copyright>

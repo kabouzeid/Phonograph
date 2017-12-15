@@ -26,6 +26,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.bumptech.glide.Glide;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
+import com.jetradarmobile.snowfall.SnowfallView;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
@@ -123,6 +124,13 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         setUpToolbar();
 
         getSupportLoaderManager().initLoader(LOADER_ID, getIntent().getExtras(), this);
+        checkEnableSnowfall();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkEnableSnowfall();
     }
 
     @Override
@@ -484,6 +492,16 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         @Override
         public Artist loadInBackground() {
             return ArtistLoader.getArtist(getContext(), artistId);
+        }
+    }
+
+    private void checkEnableSnowfall() {
+        SnowfallView snowfallView = findViewById(R.id.snowfall);
+        if (!PreferenceUtil.getInstance(this).getEnableSnowfall()) {
+            snowfallView.setVisibility(View.GONE);
+        } else {
+            snowfallView.setVisibility(View.VISIBLE);
+            snowfallView.bringToFront();
         }
     }
 }

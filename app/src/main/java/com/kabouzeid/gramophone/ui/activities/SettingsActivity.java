@@ -38,6 +38,7 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.Arrays;
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -150,6 +151,10 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         @Override
         public void onCreatePreferences(Bundle bundle, String s) {
             addPreferencesFromResource(R.xml.pref_general);
+            // If it's December, enable the snowflakes option
+            if (Calendar.getInstance().get(Calendar.MONTH) == 11) {
+                addPreferencesFromResource(R.xml.pref_snow);
+            }
             addPreferencesFromResource(R.xml.pref_colors);
             addPreferencesFromResource(R.xml.pref_notification);
             addPreferencesFromResource(R.xml.pref_now_playing_screen);

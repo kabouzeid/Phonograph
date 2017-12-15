@@ -13,6 +13,7 @@ import com.kabouzeid.gramophone.ui.fragments.mainactivity.folders.FoldersFragmen
 import com.kabouzeid.gramophone.ui.fragments.player.NowPlayingScreen;
 
 import java.io.File;
+import java.util.Calendar;
 
 public final class PreferenceUtil {
     public static final String GENERAL_THEME = "general_theme";
@@ -73,6 +74,8 @@ public final class PreferenceUtil {
     public static final String SYNCHRONIZED_LYRICS_SHOW = "synchronized_lyrics_show";
 
     public static final String INITIALIZED_BLACKLIST = "initialized_blacklist";
+
+    public static final String ENABLE_SNOWFALL = "enable_snowfall";
 
     private static PreferenceUtil sInstance;
 
@@ -425,5 +428,10 @@ public final class PreferenceUtil {
 
     public final boolean initializedBlacklist() {
         return mPreferences.getBoolean(INITIALIZED_BLACKLIST, false);
+    }
+
+    public final boolean getEnableSnowfall() {
+        // Only allow snowfall if it's December
+        return Calendar.getInstance().get(Calendar.MONTH) == 11 && mPreferences.getBoolean(ENABLE_SNOWFALL, true);
     }
 }

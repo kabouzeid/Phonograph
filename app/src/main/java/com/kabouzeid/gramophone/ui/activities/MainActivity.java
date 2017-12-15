@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.jetradarmobile.snowfall.SnowfallView;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.NavigationViewUtil;
@@ -107,6 +108,14 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
         if (!checkShowIntro()) {
             checkShowChangelog();
         }
+
+        checkEnableSnowfall();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkEnableSnowfall();
     }
 
     private void setMusicChooser(int key) {
@@ -410,6 +419,16 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             e.printStackTrace();
         }
         return false;
+    }
+
+    private void checkEnableSnowfall() {
+        SnowfallView snowfallView = findViewById(R.id.snowfall);
+        if (!PreferenceUtil.getInstance(this).getEnableSnowfall()) {
+            snowfallView.setVisibility(View.GONE);
+        } else {
+            snowfallView.setVisibility(View.VISIBLE);
+            snowfallView.bringToFront();
+        }
     }
 
     public interface MainActivityFragmentCallbacks {

@@ -118,6 +118,7 @@
     <string name="pref_title_general_theme">General theme</string>
     <string name="pref_header_audio">Audio</string>
     <string name="pref_header_general">General</string>
+    <string name="pref_header_snowfall">Snowfall</string>
     <string name="pref_header_images">Images</string>
     <string name="pref_header_lockscreen">Lockscreen</string>
     <string name="pref_header_playlists">Playlists</string>
@@ -135,6 +136,7 @@
     <string name="pref_title_audio_ducking">Reduce volume on focus loss</string>
     <string name="pref_title_last_added_interval">Last added playlist interval</string>
     <string name="pref_title_synchronized_lyrics_show">Show synchronized lyrics</string>
+    <string name="pref_title_enable_snowfall">Enable snowfall</string>
     <string name="no_equalizer">No equalizer found.</string>
     <string name="no_audio_ID">"Play a song first, then try again."</string>
     <string name="delete_action">Delete</string>
@@ -167,6 +169,7 @@
     <string name="pref_summary_colored_app_shortcuts">Colors the app shortcuts in the primary color.</string>
     <string name="pref_summary_audio_ducking">Notifications, navigation etc.</string>
     <string name="pref_summary_synchronized_lyrics_show">Currently only synchronized lyrics in LRC format are supported. Either embedded or as a separate file.</string>
+    <string name="pref_summary_enable_snowfall">Celebrate the festive season with some snowflakes sprinkled throughout the app.</string>
     <string name="could_not_download_album_cover">"Couldn\u2019t download a matching album cover."</string>
     <string name="search_hint">Search your library…</string>
     <string name="favorites">Favorites</string>
