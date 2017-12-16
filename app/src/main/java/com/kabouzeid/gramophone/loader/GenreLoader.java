@@ -19,20 +19,7 @@ public class GenreLoader {
 
     @NonNull
     public static ArrayList<Genre> getAllGenres(@NonNull final Context context) {
-        final String[] projection = new String[]{
-                Genres._ID,
-                Genres.NAME
-        };
-        // Genres that actually have songs
-        final String selection = Genres._ID + " IN" +
-                " (SELECT " + Genres.Members.GENRE_ID + " FROM audio_genres_map WHERE " + Genres.Members.AUDIO_ID + " IN" +
-                " (SELECT " + Genres._ID + " FROM audio_meta WHERE " + SongLoader.BASE_SELECTION + "))";
-
-        final Cursor cursor = context.getContentResolver().query(
-                Genres.EXTERNAL_CONTENT_URI,
-                projection, selection, null, PreferenceUtil.getInstance(context).getGenreSortOrder());
-
-        return getGenresFromCursor(context, cursor);
+        return getGenresFromCursor(context, makeGenreCursor(context));
     }
 
     @NonNull
@@ -43,11 +30,7 @@ public class GenreLoader {
             return getSongsWithNoGenre(context);
         }
 
-        final Cursor cursor = context.getContentResolver().query(
-                Genres.Members.getContentUri("external", genreId),
-                SongLoader.BASE_PROJECTION, SongLoader.BASE_SELECTION, null, null);
-
-        return SongLoader.getSongs(cursor);
+        return SongLoader.getSongs(makeGenreSongCursor(context, genreId));
     }
 
     @NonNull
@@ -103,6 +86,37 @@ public class GenreLoader {
             return context.getContentResolver().query(
                     Uri.parse("content://media/external/audio/genres/all/members"),
                     new String[]{Genres.Members.AUDIO_ID}, null, null, null);
+        } catch (SecurityException e) {
+            return null;
+        }
+    }
+
+    @Nullable
+    private static Cursor makeGenreSongCursor(@NonNull final Context context, int genreId) {
+        try {
+            return context.getContentResolver().query(
+                    Genres.Members.getContentUri("external", genreId),
+                    SongLoader.BASE_PROJECTION, SongLoader.BASE_SELECTION, null, PreferenceUtil.getInstance(context).getSongSortOrder());
+        } catch (SecurityException e) {
+            return null;
+        }
+    }
+
+    @Nullable
+    private static Cursor makeGenreCursor(@NonNull final Context context) {
+        final String[] projection = new String[]{
+                Genres._ID,
+                Genres.NAME
+        };
+        // Genres that actually have songs
+        final String selection = Genres._ID + " IN" +
+                " (SELECT " + Genres.Members.GENRE_ID + " FROM audio_genres_map WHERE " + Genres.Members.AUDIO_ID + " IN" +
+                " (SELECT " + Genres._ID + " FROM audio_meta WHERE " + SongLoader.BASE_SELECTION + "))";
+
+        try {
+            return context.getContentResolver().query(
+                    Genres.EXTERNAL_CONTENT_URI,
+                    projection, selection, null, PreferenceUtil.getInstance(context).getGenreSortOrder());
         } catch (SecurityException e) {
             return null;
         }
