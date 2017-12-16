@@ -10,9 +10,11 @@ import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.dialogs.AddDuplicateToPlaylistDialog;
 import com.kabouzeid.gramophone.helper.M3UWriter;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.PlaylistSong;
@@ -28,7 +30,7 @@ import static android.provider.MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public class PlaylistsUtil {
+public class PlaylistsUtil extends AddDuplicateToPlaylistDialog {
 
     public static boolean doesPlaylistExist(@NonNull final Context context, final int playlistId) {
         return playlistId != -1 && doesPlaylistExist(context,
@@ -99,13 +101,13 @@ public class PlaylistsUtil {
         }
     }
 
-    public static void addToPlaylist(@NonNull final Context context, final Song song, final int playlistId, final boolean showToastOnFinish) {
+    public static void addToPlaylist(@NonNull final Context context, final Song song, final int playlistId, final boolean showToastOnFinish, AppCompatActivity activity) {
         List<Song> helperList = new ArrayList<>();
         helperList.add(song);
-        addToPlaylist(context, helperList, playlistId, showToastOnFinish);
+        addToPlaylist(context, helperList, playlistId, showToastOnFinish, activity);
     }
 
-    public static void addToPlaylist(@NonNull final Context context, @NonNull final List<Song> songs, final int playlistId, final boolean showToastOnFinish) {
+    public static void addToPlaylist(@NonNull final Context context, @NonNull final List<Song> songs, final int playlistId, final boolean showToastOnFinish, AppCompatActivity activity) {
         final int size = songs.size();
         final ContentResolver resolver = context.getContentResolver();
         final String[] projection = new String[]{
@@ -125,6 +127,23 @@ public class PlaylistsUtil {
             } finally {
                 if (cursor != null) {
                     cursor.close();
+                }
+            }
+
+            final int basecopy = base;
+            for(final Song song: songs) {
+                if (doPlaylistContains(context, playlistId, song.id)) {
+                    //Toast.makeText(context, song.title+" already in Playlist!", Toast.LENGTH_SHORT).show();
+                    AddDuplicateToPlaylistDialog dialog = AddDuplicateToPlaylistDialog.create(song);
+                    dialog.setSelListener(new AddDuplicateToPlaylistDialog.SelectionListener() {
+                        @Override
+                        public void selectedOption(int selection) {
+                            if (selection == 0) {
+                                removeFromPlaylist(context, song, playlistId, basecopy);
+                            }
+                        }
+                    });
+                    dialog.show(activity.getSupportFragmentManager(), "DUPLICATE_ADD_PLAYLIST");
                 }
             }
 
@@ -162,6 +181,17 @@ public class PlaylistsUtil {
         String selection = MediaStore.Audio.Playlists.Members.AUDIO_ID + " =?";
         String[] selectionArgs = new String[]{String.valueOf(song.id)};
 
+        try {
+            context.getContentResolver().delete(uri, selection, selectionArgs);
+        } catch (SecurityException ignored) {
+        }
+    }
+
+    public static void removeFromPlaylist(@NonNull final Context context, @NonNull final Song song, int playlistId, int startID) {
+        Uri uri = MediaStore.Audio.Playlists.Members.getContentUri(
+                "external", playlistId);
+        String selection = MediaStore.Audio.Playlists.Members.AUDIO_ID + " =? AND " + MediaStore.Audio.Playlists.Members.PLAY_ORDER + " >=?";
+        String[] selectionArgs = new String[]{String.valueOf(song.id), String.valueOf(startID)};
         try {
             context.getContentResolver().delete(uri, selection, selectionArgs);
         } catch (SecurityException ignored) {

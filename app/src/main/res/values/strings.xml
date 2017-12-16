@@ -92,6 +92,9 @@
     <string name="clear_playlist_title">Clear playlist</string>
     <string name="save_playlist_title">Save as file</string>
     <string name="add_playlist_title">"Add to playlist"</string>
+    <string name="add_duplicate_title">"Duplicate in Playlist"</string>
+    <string name="add_duplicate_msg"><![CDATA[Do you want to add <b>%1$s</b> as a duplicate to the playlist?]]></string>
+    <string name="dont_add_duplicate">Do not add</string>
     <string name="action_shuffle_all">Shuffle all</string>
     <string name="action_shuffle_album">Shuffle album</string>
     <string name="action_shuffle_artist">Shuffle artist</string>
