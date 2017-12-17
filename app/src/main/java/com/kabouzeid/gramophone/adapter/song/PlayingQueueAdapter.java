@@ -263,7 +263,7 @@ public class PlayingQueueAdapter extends SongAdapter
 
         songTitle.setSingleLine();
         songTitle.setEllipsize(TextUtils.TruncateAt.END);
-        songTitle.setText(adapter.dataSet.get(position).title + snackBarTitle);
+        songTitle.setText(adapter.dataSet.get(position).title + " " + snackBarTitle);
 
         snackbar.setAction(R.string.snack_bar_action_undo, new View.OnClickListener() {
             @Override
