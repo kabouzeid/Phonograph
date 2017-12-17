@@ -54,7 +54,6 @@ public class Song implements Parcelable {
         if (albumName != null ? !albumName.equals(song.albumName) : song.albumName != null)
             return false;
         return artistName != null ? artistName.equals(song.artistName) : song.artistName == null;
-
     }
 
     @Override
@@ -89,7 +88,6 @@ public class Song implements Parcelable {
                 ", artistName='" + artistName + '\'' +
                 '}';
     }
-
 
     @Override
     public int describeContents() {

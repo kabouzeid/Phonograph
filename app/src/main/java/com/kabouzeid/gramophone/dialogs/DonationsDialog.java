@@ -11,7 +11,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -211,19 +210,8 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
             strikeThrough(viewHolder.text, purchased);
             strikeThrough(viewHolder.price, purchased);
 
-            convertView.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    return purchased;
-                }
-            });
-
-            convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    donationsDialog.donate(position);
-                }
-            });
+            convertView.setOnTouchListener((v, event) -> purchased);
+            convertView.setOnClickListener(v -> donationsDialog.donate(position));
 
             return convertView;
         }

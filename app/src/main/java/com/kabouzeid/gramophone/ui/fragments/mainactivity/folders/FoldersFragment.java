@@ -3,7 +3,6 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivity.folders;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.media.MediaScannerConnection;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,7 +28,6 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.afollestad.materialcab.MaterialCab;
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
@@ -145,7 +143,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         if (savedInstanceState == null) {
             setCrumb(new BreadCrumbLayout.Crumb(tryGetCanonicalFile((File) getArguments().getSerializable(PATH))), true);
         } else {
-            breadCrumbs.restoreFromStateWrapper((BreadCrumbLayout.SavedStateWrapper) savedInstanceState.getParcelable(CRUMBS));
+            breadCrumbs.restoreFromStateWrapper(savedInstanceState.getParcelable(CRUMBS));
             getLoaderManager().initLoader(LOADER_ID, null, this);
         }
     }
@@ -298,42 +296,24 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         if (file.isDirectory()) {
             setCrumb(new BreadCrumbLayout.Crumb(file), true);
         } else {
-            FileFilter fileFilter = new FileFilter() {
-                @Override
-                public boolean accept(File pathname) {
-                    return !pathname.isDirectory() && getFileFilter().accept(pathname);
+            FileFilter fileFilter = pathname -> !pathname.isDirectory() && getFileFilter().accept(pathname);
+            new ListSongsAsyncTask(getActivity(), file, (songs, extra) -> {
+                File file1 = (File) extra;
+                int startIndex = -1;
+                for (int i = 0; i < songs.size(); i++) {
+                    if (file1.getPath().equals(songs.get(i).data)) { // path is already canonical here
+                        startIndex = i;
+                        break;
+                    }
                 }
-            };
-            new ListSongsAsyncTask(getActivity(), file, new ListSongsAsyncTask.OnSongsListedCallback() {
-                @Override
-                public void onSongsListed(@NonNull ArrayList<Song> songs, Object extra) {
-                    File file = (File) extra;
-                    int startIndex = -1;
-                    for (int i = 0; i < songs.size(); i++) {
-                        if (file.getPath().equals(songs.get(i).data)) { // path is already canonical here
-                            startIndex = i;
-                            break;
-                        }
-                    }
-                    if (startIndex > -1) {
-                        MusicPlayerRemote.openQueue(songs, startIndex, true);
-                    } else {
-                        final File finalFile = file;
-                        Snackbar.make(coordinatorLayout, Html.fromHtml(String.format(getString(R.string.not_listed_in_media_store), file.getName())), Snackbar.LENGTH_LONG)
-                                .setAction(R.string.action_scan, new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        new ListPathsAsyncTask(getActivity(), new ListPathsAsyncTask.OnPathsListedCallback() {
-                                            @Override
-                                            public void onPathsListed(@Nullable String[] paths) {
-                                                scanPaths(paths);
-                                            }
-                                        }).execute(new ListPathsAsyncTask.LoadingInfo(finalFile, getFileFilter()));
-                                    }
-                                })
-                                .setActionTextColor(ThemeStore.accentColor(getActivity()))
-                                .show();
-                    }
+                if (startIndex > -1) {
+                    MusicPlayerRemote.openQueue(songs, startIndex, true);
+                } else {
+                    final File finalFile = file1;
+                    Snackbar.make(coordinatorLayout, Html.fromHtml(String.format(getString(R.string.not_listed_in_media_store), file1.getName())), Snackbar.LENGTH_LONG)
+                            .setAction(R.string.action_scan, v -> new ListPathsAsyncTask(getActivity(), this::scanPaths).execute(new ListPathsAsyncTask.LoadingInfo(finalFile, getFileFilter())))
+                            .setActionTextColor(ThemeStore.accentColor(getActivity()))
+                            .show();
                 }
             }).execute(new ListSongsAsyncTask.LoadingInfo(toList(file.getParentFile()), fileFilter, getFileComparator()));
         }
@@ -342,12 +322,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
     @Override
     public void onMultipleItemAction(MenuItem item, ArrayList<File> files) {
         final int itemId = item.getItemId();
-        new ListSongsAsyncTask(getActivity(), null, new ListSongsAsyncTask.OnSongsListedCallback() {
-            @Override
-            public void onSongsListed(@NonNull ArrayList<Song> songs, Object extra) {
-                SongsMenuHelper.handleMenuClick(getActivity(), songs, itemId);
-            }
-        }).execute(new ListSongsAsyncTask.LoadingInfo(files, getFileFilter(), getFileComparator()));
+        new ListSongsAsyncTask(getActivity(), null, (songs, extra) -> SongsMenuHelper.handleMenuClick(getActivity(), songs, itemId)).execute(new ListSongsAsyncTask.LoadingInfo(files, getFileFilter(), getFileComparator()));
     }
 
     @Override
@@ -355,73 +330,47 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         PopupMenu popupMenu = new PopupMenu(getActivity(), view);
         if (file.isDirectory()) {
             popupMenu.inflate(R.menu.menu_item_directory);
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    final int itemId = item.getItemId();
-                    switch (itemId) {
-                        case R.id.action_play_next:
-                        case R.id.action_add_to_current_playing:
-                        case R.id.action_add_to_playlist:
-                        case R.id.action_delete_from_device:
-                            new ListSongsAsyncTask(getActivity(), null, new ListSongsAsyncTask.OnSongsListedCallback() {
-                                @Override
-                                public void onSongsListed(@NonNull ArrayList<Song> songs, Object extra) {
-                                    SongsMenuHelper.handleMenuClick(getActivity(), songs, itemId);
-                                }
-                            }).execute(new ListSongsAsyncTask.LoadingInfo(toList(file), getFileFilter(), getFileComparator()));
-                            return true;
-                        case R.id.action_set_as_start_directory:
-                            PreferenceUtil.getInstance(getActivity()).setStartDirectory(file);
-                            Toast.makeText(getActivity(), String.format(getString(R.string.new_start_directory), file.getPath()), Toast.LENGTH_SHORT).show();
-                            return true;
-                        case R.id.action_scan:
-                            new ListPathsAsyncTask(getActivity(), new ListPathsAsyncTask.OnPathsListedCallback() {
-                                @Override
-                                public void onPathsListed(@Nullable String[] paths) {
-                                    scanPaths(paths);
-                                }
-                            }).execute(new ListPathsAsyncTask.LoadingInfo(file, getFileFilter()));
-                            return true;
-                    }
-                    return false;
+            popupMenu.setOnMenuItemClickListener(item -> {
+                final int itemId = item.getItemId();
+                switch (itemId) {
+                    case R.id.action_play_next:
+                    case R.id.action_add_to_current_playing:
+                    case R.id.action_add_to_playlist:
+                    case R.id.action_delete_from_device:
+                        new ListSongsAsyncTask(getActivity(), null, (songs, extra) -> SongsMenuHelper.handleMenuClick(getActivity(), songs, itemId)).execute(new ListSongsAsyncTask.LoadingInfo(toList(file), getFileFilter(), getFileComparator()));
+                        return true;
+                    case R.id.action_set_as_start_directory:
+                        PreferenceUtil.getInstance(getActivity()).setStartDirectory(file);
+                        Toast.makeText(getActivity(), String.format(getString(R.string.new_start_directory), file.getPath()), Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.action_scan:
+                        new ListPathsAsyncTask(getActivity(), this::scanPaths).execute(new ListPathsAsyncTask.LoadingInfo(file, getFileFilter()));
+                        return true;
                 }
+                return false;
             });
         } else {
             popupMenu.inflate(R.menu.menu_item_file);
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    final int itemId = item.getItemId();
-                    switch (itemId) {
-                        case R.id.action_play_next:
-                        case R.id.action_add_to_current_playing:
-                        case R.id.action_add_to_playlist:
-                        case R.id.action_go_to_album:
-                        case R.id.action_go_to_artist:
-                        case R.id.action_share:
-                        case R.id.action_tag_editor:
-                        case R.id.action_details:
-                        case R.id.action_set_as_ringtone:
-                        case R.id.action_delete_from_device:
-                            new ListSongsAsyncTask(getActivity(), null, new ListSongsAsyncTask.OnSongsListedCallback() {
-                                @Override
-                                public void onSongsListed(@NonNull ArrayList<Song> songs, Object extra) {
-                                    SongMenuHelper.handleMenuClick(getActivity(), songs.get(0), itemId);
-                                }
-                            }).execute(new ListSongsAsyncTask.LoadingInfo(toList(file), getFileFilter(), getFileComparator()));
-                            return true;
-                        case R.id.action_scan:
-                            new ListPathsAsyncTask(getActivity(), new ListPathsAsyncTask.OnPathsListedCallback() {
-                                @Override
-                                public void onPathsListed(@Nullable String[] paths) {
-                                    scanPaths(paths);
-                                }
-                            }).execute(new ListPathsAsyncTask.LoadingInfo(file, getFileFilter()));
-                            return true;
-                    }
-                    return false;
+            popupMenu.setOnMenuItemClickListener(item -> {
+                final int itemId = item.getItemId();
+                switch (itemId) {
+                    case R.id.action_play_next:
+                    case R.id.action_add_to_current_playing:
+                    case R.id.action_add_to_playlist:
+                    case R.id.action_go_to_album:
+                    case R.id.action_go_to_artist:
+                    case R.id.action_share:
+                    case R.id.action_tag_editor:
+                    case R.id.action_details:
+                    case R.id.action_set_as_ringtone:
+                    case R.id.action_delete_from_device:
+                        new ListSongsAsyncTask(getActivity(), null, (songs, extra) -> SongMenuHelper.handleMenuClick(getActivity(), songs.get(0), itemId)).execute(new ListSongsAsyncTask.LoadingInfo(toList(file), getFileFilter(), getFileComparator()));
+                        return true;
+                    case R.id.action_scan:
+                        new ListPathsAsyncTask(getActivity(), this::scanPaths).execute(new ListPathsAsyncTask.LoadingInfo(file, getFileFilter()));
+                        return true;
                 }
+                return false;
             });
         }
         popupMenu.show();
@@ -433,17 +382,14 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         return files;
     }
 
-    Comparator<File> fileComparator = new Comparator<File>() {
-        @Override
-        public int compare(File lhs, File rhs) {
-            if (lhs.isDirectory() && !rhs.isDirectory()) {
-                return -1;
-            } else if (!lhs.isDirectory() && rhs.isDirectory()) {
-                return 1;
-            } else {
-                return lhs.getName().compareToIgnoreCase
-                        (rhs.getName());
-            }
+    Comparator<File> fileComparator = (lhs, rhs) -> {
+        if (lhs.isDirectory() && !rhs.isDirectory()) {
+            return -1;
+        } else if (!lhs.isDirectory() && rhs.isDirectory()) {
+            return 1;
+        } else {
+            return lhs.getName().compareToIgnoreCase
+                    (rhs.getName());
         }
     };
 
@@ -451,14 +397,9 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         return fileComparator;
     }
 
-    FileFilter audioFileFilter = new FileFilter() {
-        @Override
-        public boolean accept(File file) {
-            return !file.isHidden() && (file.isDirectory() ||
-                    FileUtil.fileIsMimeType(file, "audio/*", MimeTypeMap.getSingleton()) ||
-                    FileUtil.fileIsMimeType(file, "application/ogg", MimeTypeMap.getSingleton()));
-        }
-    };
+    FileFilter audioFileFilter = file -> !file.isHidden() && (file.isDirectory() ||
+            FileUtil.fileIsMimeType(file, "audio/*", MimeTypeMap.getSingleton()) ||
+            FileUtil.fileIsMimeType(file, "application/ogg", MimeTypeMap.getSingleton()));
 
     private FileFilter getFileFilter() {
         return audioFileFilter;
@@ -513,7 +454,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
 
     @Override
     public void onLoaderReset(Loader<List<File>> loader) {
-        updateAdapter(new LinkedList<File>());
+        updateAdapter(new LinkedList<>());
     }
 
     private static class AsyncFileLoader extends WrappedAsyncTaskLoader<List<File>> {
@@ -722,25 +663,10 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
                     .title(R.string.listing_files)
                     .progress(true, 0)
                     .progressIndeterminateStyle(true)
-                    .cancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
-                            cancel(false);
-                        }
-                    })
-                    .dismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            cancel(false);
-                        }
-                    })
+                    .cancelListener(dialog -> cancel(false))
+                    .dismissListener(dialog -> cancel(false))
                     .negativeText(android.R.string.cancel)
-                    .onNegative(new MaterialDialog.SingleButtonCallback() {
-                        @Override
-                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            cancel(false);
-                        }
-                    })
+                    .onNegative((dialog, which) -> cancel(false))
                     .show();
         }
     }

@@ -61,7 +61,6 @@ public class Album implements Parcelable {
         Album that = (Album) o;
 
         return songs != null ? songs.equals(that.songs) : that.songs == null;
-
     }
 
     @Override

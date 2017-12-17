@@ -55,9 +55,8 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.Util;
 
-import java.util.Locale;
-
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -211,15 +210,12 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         setUpRecyclerViewPadding();
         recyclerView.setScrollViewCallbacks(observableScrollViewCallbacks);
         final View contentView = getWindow().getDecorView().findViewById(android.R.id.content);
-        contentView.post(new Runnable() {
-            @Override
-            public void run() {
-                songsBackgroundView.getLayoutParams().height = contentView.getHeight();
-                observableScrollViewCallbacks.onScrollChanged(-(albumArtViewHeight + titleViewHeight), false, false);
-                // necessary to fix a bug
-                recyclerView.scrollBy(0, 1);
-                recyclerView.scrollBy(0, -1);
-            }
+        contentView.post(() -> {
+            songsBackgroundView.getLayoutParams().height = contentView.getHeight();
+            observableScrollViewCallbacks.onScrollChanged(-(albumArtViewHeight + titleViewHeight), false, false);
+            // necessary to fix a bug
+            recyclerView.scrollBy(0, 1);
+            recyclerView.scrollBy(0, -1);
         });
     }
 

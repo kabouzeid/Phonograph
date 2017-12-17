@@ -394,7 +394,6 @@ public class SongPlayCountStore extends SQLiteOpenHelper {
     }
 
     public interface SongPlayCountColumns {
-
         String NAME = "song_play_count";
 
         String ID = "song_id";
