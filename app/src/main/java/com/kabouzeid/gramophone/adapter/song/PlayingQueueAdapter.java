@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -219,21 +220,23 @@ public class PlayingQueueAdapter extends SongAdapter
         private int position;
         private Song songToRemove;
         private AppCompatActivity activity;
+        private boolean isPlaying;
+        private int songProgressMillis;
 
         public MySwipeResultActionRemoveItem(PlayingQueueAdapter adapter, int position, AppCompatActivity activity) {
             this.adapter = adapter;
             this.position = position;
             this.activity = activity;
+            this.isPlaying = MusicPlayerRemote.isPlaying();
         }
 
         @Override
         protected void onPerformAction() {
-            initializeSnackBar(adapter, position, activity);
+            initializeSnackBar(adapter, position, activity, isPlaying);
             songToRemove = adapter.dataSet.get(position);
         }
         @Override
         protected void onSlideAnimationEnd() {
-            Boolean isPlaying = MusicPlayerRemote.isPlaying();
 
             //Swipe animation is much smoother when we do the heavy lifting after it's completed
             adapter.setSongToRemove(songToRemove);
@@ -255,7 +258,7 @@ public class PlayingQueueAdapter extends SongAdapter
     }
 
     public static void initializeSnackBar(final PlayingQueueAdapter adapter,final int position,
-                                          final AppCompatActivity activity){
+                                          final AppCompatActivity activity, final Boolean isPlaying){
 
         CharSequence snackBarTitle = activity.getString(R.string.snack_bar_title_removed_song);
 
@@ -272,7 +275,13 @@ public class PlayingQueueAdapter extends SongAdapter
         snackbar.setAction(R.string.snack_bar_action_undo, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("Position",Integer.toString(position));
                 MusicPlayerRemote.addSong(position,adapter.getSongToRemove());
+                //If playing and currently playing song is removed, then added back, then play it at
+                //current song progress
+                if(isPlaying && position == 0){
+                    MusicPlayerRemote.playSongAt(position);
+                }
             }
         });
         snackbar.setActionTextColor(getBackgroundColor(activity));
