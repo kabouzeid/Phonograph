@@ -73,7 +73,7 @@ import java.util.Random;
 public class MusicService extends Service implements SharedPreferences.OnSharedPreferenceChangeListener, Playback.PlaybackCallbacks {
     public static final String TAG = MusicService.class.getSimpleName();
 
-    public static final String PHONOGRAPH_PACKAGE_NAME = "com.kabouzeid.gramophone" + ".temp_sticky_intent_fix"; // TODO remove ".temp_sticky_intent_fix" in a future update.
+    public static final String PHONOGRAPH_PACKAGE_NAME = "com.kabouzeid.gramophone";
     public static final String MUSIC_PACKAGE_NAME = "com.android.music";
 
     public static final String ACTION_TOGGLE_PAUSE = PHONOGRAPH_PACKAGE_NAME + ".togglepause";
@@ -169,7 +169,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     };
     private ContentObserver mediaStoreObserver;
     private boolean notHandledMetaChangedForCurrentTrack;
-    private boolean isServiceBound;
 
     private Handler uiThreadHandler;
 
@@ -337,12 +336,13 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                         break;
                     case ACTION_STOP:
                     case ACTION_QUIT:
-                        return quit();
+                        quit();
+                        break;
                 }
             }
         }
 
-        return START_STICKY;
+        return START_NOT_STICKY;
     }
 
     @Override
@@ -364,22 +364,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     @Override
     public IBinder onBind(Intent intent) {
-        isServiceBound = true;
         return musicBind;
-    }
-
-    @Override
-    public void onRebind(Intent intent) {
-        isServiceBound = true;
-    }
-
-    @Override
-    public boolean onUnbind(Intent intent) {
-        isServiceBound = false;
-        if (!isPlaying()) {
-            stopSelf();
-        }
-        return true;
     }
 
     private static final class QueueSaveHandler extends Handler {
@@ -460,18 +445,13 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         queuesRestored = true;
     }
 
-    private int quit() {
+    private void quit() {
         pause();
         playingNotification.stop();
 
-        if (isServiceBound) {
-            return START_STICKY;
-        } else {
-            closeAudioEffectSession();
-            getAudioManager().abandonAudioFocus(audioFocusListener);
-            stopSelf();
-            return START_NOT_STICKY;
-        }
+        closeAudioEffectSession();
+        getAudioManager().abandonAudioFocus(audioFocusListener);
+        stopSelf();
     }
 
     private void releaseResources() {
@@ -1136,6 +1116,10 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 updateMediaSessionMetaData();
                 break;
             case PreferenceUtil.COLORED_NOTIFICATION:
+                updateNotification();
+                break;
+            case PreferenceUtil.CLASSIC_NOTIFICATION:
+                initNotification();
                 updateNotification();
                 break;
         }

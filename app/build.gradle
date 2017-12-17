@@ -19,31 +19,40 @@ repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
-def gitBranch() {
-    def branch = ''
-    def proc = 'git rev-parse --abbrev-ref HEAD'.execute()
-    proc.in.eachLine { line -> branch = line }
-    proc.err.eachLine { line -> println line }
-    proc.waitFor()
+static def gitBranch() {
+    def branch = 'GitHub'
+    try {
+        def gitcheck = 'command -v git >/dev/null 2>&1'.execute()
+        gitcheck.waitFor()
+        if (gitcheck.exitValue() == 0) {
+            def proc = 'git rev-parse --abbrev-ref HEAD'.execute()
+            proc.in.eachLine { line -> branch = line }
+            proc.err.eachLine { line -> println line }
+            proc.waitFor()
+        }
+    } catch (Exception e) {
+        // Do nothing
+        println e
+    }
     branch
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.3'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.0'
     dataBinding {
         enabled = true
     }
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 27
 
-        renderscriptTargetApi 25
+        renderscriptTargetApi 27
         vectorDrawables.useSupportLibrary = true
 
         applicationId 'com.kabouzeid.gramophone'
-        versionCode 132
-        versionName '0.15.0'
+        versionCode 143
+        versionName '0.16.3'
     }
     buildTypes {
         release {
@@ -70,53 +79,58 @@ android {
 }
 
 ext {
-    supportLibVersion = '25.4.0'
+    supportLibVersion = '27.0.2'
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile "com.android.support:support-compat:$supportLibVersion"
-    compile "com.android.support:support-core-utils:$supportLibVersion"
-    compile "com.android.support:support-core-ui:$supportLibVersion"
-    compile "com.android.support:support-media-compat:$supportLibVersion"
-    compile "com.android.support:support-fragment:$supportLibVersion"
-    compile "com.android.support:support-v13:$supportLibVersion"
-    compile "com.android.support:appcompat-v7:$supportLibVersion"
-    compile "com.android.support:recyclerview-v7:$supportLibVersion"
-    compile "com.android.support:gridlayout-v7:$supportLibVersion"
-    compile "com.android.support:cardview-v7:$supportLibVersion"
-    compile "com.android.support:palette-v7:$supportLibVersion"
-    compile "com.android.support:design:$supportLibVersion"
-    compile "com.android.support:support-annotations:$supportLibVersion"
-    compile "com.android.support:percent:$supportLibVersion"
-    compile "com.android.support:preference-v7:$supportLibVersion"
-    compile "com.android.support:preference-v14:$supportLibVersion"
+    implementation "com.android.support:support-compat:$supportLibVersion"
+    implementation "com.android.support:support-core-utils:$supportLibVersion"
+    implementation "com.android.support:support-core-ui:$supportLibVersion"
+    implementation "com.android.support:support-media-compat:$supportLibVersion"
+    implementation "com.android.support:support-fragment:$supportLibVersion"
+    implementation "com.android.support:support-v13:$supportLibVersion"
+    implementation "com.android.support:appcompat-v7:$supportLibVersion"
+    implementation "com.android.support:recyclerview-v7:$supportLibVersion"
+    implementation "com.android.support:gridlayout-v7:$supportLibVersion"
+    implementation "com.android.support:cardview-v7:$supportLibVersion"
+    implementation "com.android.support:palette-v7:$supportLibVersion"
+    implementation "com.android.support:design:$supportLibVersion"
+    implementation "com.android.support:support-annotations:$supportLibVersion"
+    implementation "com.android.support:percent:$supportLibVersion"
+    implementation "com.android.support:preference-v7:$supportLibVersion"
+    implementation "com.android.support:preference-v14:$supportLibVersion"
 
-    compile 'com.crashlytics.sdk.android:crashlytics:2.6.7'
+    implementation 'com.github.kabouzeid:app-theme-helper:1.3.7'
+    implementation 'com.github.kabouzeid:RecyclerView-FastScroll:1.0.16-kmod'
+    implementation 'com.github.kabouzeid:SeekArc:1.2-kmod'
+    implementation 'com.github.kabouzeid:AndroidSlidingUpPanel:3.3.0-kmod3'
+    implementation 'com.afollestad.material-dialogs:core:0.9.4.5'
+    implementation 'com.afollestad.material-dialogs:commons:0.9.4.5'
+    implementation 'com.afollestad:material-cab:0.1.12'
+    implementation 'com.github.ksoichiro:android-observablescrollview:1.6.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.anjlab.android.iab.v3:library:1.0.44'
+    implementation 'de.psdev.licensesdialog:licensesdialog:1.8.3'
+    implementation 'com.github.bumptech.glide:glide:3.8.0'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:1.5.0'
+    implementation 'com.heinrichreimersoftware:material-intro:1.6.2'
+    implementation 'me.zhanghai.android.materialprogressbar:library:1.4.1'
+    implementation 'org.eclipse.mylyn.github:org.eclipse.egit.github.core:2.1.5'
+    implementation 'com.jakewharton:butterknife:8.6.0'
 
-    compile 'com.github.kabouzeid:app-theme-helper:1.3.7'
-    compile 'com.github.kabouzeid:RecyclerView-FastScroll:1.0.16-kmod'
-    compile 'com.github.kabouzeid:SeekArc:1.2-kmod'
-    compile 'com.github.kabouzeid:AndroidSlidingUpPanel:3.3.0-kmod3'
+    implementation('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.11.0@aar') {
+        transitive = true
+    }
 
-    compile 'com.afollestad.material-dialogs:core:0.9.4.5'
-    compile 'com.afollestad.material-dialogs:commons:0.9.4.5'
-    compile 'com.afollestad:material-cab:0.1.12'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.8.0'
+    implementation('com.crashlytics.sdk.android:answers:1.3.13@aar') {
+        transitive = true
+    }
 
-    compile 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.10.6'
-    compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.anjlab.android.iab.v3:library:1.0.40'
-    compile 'de.psdev.licensesdialog:licensesdialog:1.8.1'
-    compile 'com.github.bumptech.glide:glide:3.8.0'
-    compile 'com.github.bumptech.glide:okhttp3-integration:1.5.0'
-    compile 'com.heinrichreimersoftware:material-intro:1.6.2'
-    compile 'me.zhanghai.android.materialprogressbar:library:1.4.1'
-    compile 'org.eclipse.mylyn.github:org.eclipse.egit.github.core:2.1.5'
+    testImplementation 'junit:junit:4.12'
 
-    compile 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 }

@@ -32,7 +32,7 @@ public class SongMenuHelper {
                 MusicUtil.setRingtone(activity, song.id);
                 return true;
             case R.id.action_share:
-                activity.startActivity(Intent.createChooser(MusicUtil.createShareSongFileIntent(song), null));
+                activity.startActivity(Intent.createChooser(MusicUtil.createShareSongFileIntent(song, activity), null));
                 return true;
             case R.id.action_delete_from_device:
                 DeleteSongsDialog.create(song).show(activity.getSupportFragmentManager(), "DELETE_SONGS");

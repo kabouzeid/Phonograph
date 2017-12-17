@@ -22,19 +22,20 @@ import android.view.ViewGroup;
 import android.view.WindowInsets;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.NavigationViewUtil;
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.dialogs.ChangelogDialog;
-import com.kabouzeid.gramophone.dialogs.DonationsDialog;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.helper.SearchQueryHelper;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
-import com.kabouzeid.gramophone.loader.ArtistSongLoader;
+import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
@@ -55,6 +56,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
     public static final int APP_INTRO_REQUEST = 100;
+    public static final int PURCHASE_REQUEST = 101;
 
     private static final int LIBRARY = 0;
     private static final int FOLDERS = 1;
@@ -108,6 +110,12 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
     }
 
     private void setMusicChooser(int key) {
+        if (!App.isProVersion() && key == FOLDERS) {
+            Toast.makeText(this, R.string.folder_view_is_a_pro_feature, Toast.LENGTH_LONG).show();
+            startActivityForResult(new Intent(this, PurchaseActivity.class), PURCHASE_REQUEST);
+            key = LIBRARY;
+        }
+
         PreferenceUtil.getInstance(this).setLastMusicChooser(key);
         switch (key) {
             case LIBRARY:
@@ -138,6 +146,11 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             if (!hasPermissions()) {
                 requestPermissions();
             }
+            checkSetUpPro(); // good chance that pro version check was delayed on first start
+        } else if (requestCode == PURCHASE_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                checkSetUpPro();
+            }
         }
     }
 
@@ -160,6 +173,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
         NavigationViewUtil.setItemIconColors(navigationView, ATHUtil.resolveColor(this, R.attr.iconColor, ThemeStore.textColorSecondary(this)), accentColor);
         NavigationViewUtil.setItemTextColors(navigationView, ThemeStore.textColorPrimary(this), accentColor);
 
+        checkSetUpPro();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -181,11 +195,11 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
                             }
                         }, 200);
                         break;
-                    case R.id.support_development:
+                    case R.id.buy_pro:
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                DonationsDialog.create().show(getSupportFragmentManager(), "DONATION_DIALOG");
+                                startActivityForResult(new Intent(MainActivity.this, PurchaseActivity.class), PURCHASE_REQUEST);
                             }
                         }, 200);
                         break;
@@ -209,6 +223,16 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
                 return true;
             }
         });
+    }
+
+    private void checkSetUpPro() {
+        if (App.isProVersion()) {
+            setUpPro();
+        }
+    }
+
+    private void setUpPro() {
+        navigationView.getMenu().removeGroup(R.id.navigation_drawer_menu_category_buy_pro);
     }
 
     private void setUpDrawerLayout() {
@@ -321,7 +345,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             final int id = (int) parseIdFromIntent(intent, "artistId", "artist");
             if (id >= 0) {
                 int position = intent.getIntExtra("position", 0);
-                MusicPlayerRemote.openQueue(ArtistSongLoader.getArtistSongList(this, id), position, true);
+                MusicPlayerRemote.openQueue(ArtistLoader.getArtist(this, id).getSongs(), position, true);
                 handled = true;
             }
         }

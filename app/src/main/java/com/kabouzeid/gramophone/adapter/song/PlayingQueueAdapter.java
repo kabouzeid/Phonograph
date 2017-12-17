@@ -129,6 +129,7 @@ public class PlayingQueueAdapter extends SongAdapter
     }
 
     @Override
+<<<<<<< HEAD
     public int onGetSwipeReactionType(ViewHolder holder, int position, int x, int y) {
         if (onCheckCanStartDrag(holder, position, x, y)) {
             return SwipeableItemConstants.REACTION_CAN_NOT_SWIPE_BOTH_H;
@@ -154,6 +155,18 @@ public class PlayingQueueAdapter extends SongAdapter
     }
 
     public class ViewHolder extends SongAdapter.ViewHolder {
+=======
+    public void onItemDragStarted(int position) {
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemDragFinished(int fromPosition, int toPosition, boolean result) {
+        notifyDataSetChanged();
+    }
+
+    public class ViewHolder extends SongAdapter.ViewHolder implements DraggableItemViewHolder {
+>>>>>>> kabouzeid/master
         @DraggableItemStateFlags
         private int mDragStateFlags;
 

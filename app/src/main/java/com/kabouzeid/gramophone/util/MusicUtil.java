@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -23,7 +24,6 @@ import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Playlist;
-import com.kabouzeid.gramophone.model.PlaylistSong;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.lyrics.AbsSynchronizedLyrics;
 
@@ -55,11 +55,20 @@ public class MusicUtil {
     }
 
     @NonNull
-    public static Intent createShareSongFileIntent(@NonNull final Song song) {
-        return new Intent()
-                .setAction(Intent.ACTION_SEND)
-                .putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + song.data))
-                .setType("audio/*");
+    public static Intent createShareSongFileIntent(@NonNull final Song song, Context context) {
+        try {
+
+            return new Intent()
+                    .setAction(Intent.ACTION_SEND)
+                    .putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName(), new File(song.data)))
+                    .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    .setType("audio/*");
+        } catch (IllegalArgumentException e) {
+            // TODO the path is most likely not like /storage/emulated/0/... but something like /storage/28C7-75B0/...
+            e.printStackTrace();
+            Toast.makeText(context, "Could not share this file, I'm aware of the issue.", Toast.LENGTH_SHORT).show();
+            return new Intent();
+        }
     }
 
     public static void setRingtone(@NonNull final Context context, final int id) {

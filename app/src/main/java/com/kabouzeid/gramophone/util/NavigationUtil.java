@@ -12,9 +12,11 @@ import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.model.Genre;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.ui.activities.AlbumDetailActivity;
 import com.kabouzeid.gramophone.ui.activities.ArtistDetailActivity;
+import com.kabouzeid.gramophone.ui.activities.GenreDetailActivity;
 import com.kabouzeid.gramophone.ui.activities.PlaylistDetailActivity;
 
 /**
@@ -36,6 +38,13 @@ public class NavigationUtil {
 
         //noinspection unchecked
         activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity, sharedElements).toBundle());
+    }
+
+    public static void goToGenre(@NonNull final Activity activity, final Genre genre, @Nullable Pair... sharedElements) {
+        final Intent intent = new Intent(activity, GenreDetailActivity.class);
+        intent.putExtra(GenreDetailActivity.EXTRA_GENRE, genre);
+
+        activity.startActivity(intent);
     }
 
     public static void goToPlaylist(@NonNull final Activity activity, final Playlist playlist, @Nullable Pair... sharedElements) {

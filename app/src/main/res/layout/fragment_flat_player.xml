@@ -56,12 +56,18 @@
 
             </FrameLayout>
 
-            <include layout="@layout/shadow_toolbar" />
+            <FrameLayout
+                android:id="@+id/toolbar_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbar_scrim_height"
+                android:background="@drawable/toolbar_gradient">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/player_toolbar"
-                style="@style/Toolbar"
-                android:background="@android:color/transparent" />
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/player_toolbar"
+                    style="@style/Toolbar"
+                    android:background="@android:color/transparent" />
+
+            </FrameLayout>
 
         </FrameLayout>
 

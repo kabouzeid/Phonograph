@@ -30,8 +30,13 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_re_download_artist_image"
-        android:title="@string/action_re_download_artist_image"
+        android:id="@+id/action_set_artist_image"
+        android:title="@string/set_artist_image"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_reset_artist_image"
+        android:title="@string/reset_artist_image"
         app:showAsAction="never" />
 
     <item

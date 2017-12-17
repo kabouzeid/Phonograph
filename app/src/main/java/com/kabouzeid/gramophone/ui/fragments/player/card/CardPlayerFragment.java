@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -55,6 +57,9 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
     private Unbinder unbinder;
 
+    @Nullable
+    @BindView(R.id.toolbar_container)
+    FrameLayout toolbarContainer;
     @BindView(R.id.player_toolbar)
     Toolbar toolbar;
     @BindView(R.id.player_sliding_layout)
@@ -150,6 +155,12 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        checkToggleToolbar(toolbarContainer);
+    }
+
+    @Override
     public void onServiceConnected() {
         updateQueue();
         updateCurrentSong();
@@ -241,7 +252,6 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
             disableClipOnParents((View) v.getParent());
         }
     }
-
 
     private void updateIsFavorite() {
         if (updateIsFavoriteTask != null) updateIsFavoriteTask.cancel(false);
@@ -376,6 +386,11 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     @Override
     public void onFavoriteToggled() {
         toggleFavorite(MusicPlayerRemote.getCurrentSong());
+    }
+
+    @Override
+    public void onToolbarToggled() {
+        toggleToolbar(toolbarContainer);
     }
 
     @Override

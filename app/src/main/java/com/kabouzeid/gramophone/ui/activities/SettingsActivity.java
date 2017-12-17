@@ -18,21 +18,26 @@ import android.support.v7.preference.TwoStatePreference;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEColorPreference;
 import com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceFragmentCompat;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.appshortcuts.DynamicShortcutManager;
-import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.misc.NonProAllowedColors;
+import com.kabouzeid.gramophone.preferences.BlacklistPreference;
+import com.kabouzeid.gramophone.preferences.BlacklistPreferenceDialog;
 import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreference;
 import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreferenceDialog;
-import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
+
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,11 +76,29 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int selectedColor) {
         switch (dialog.getTitle()) {
             case R.string.primary_color:
+                if (!App.isProVersion()) {
+                    Arrays.sort(NonProAllowedColors.PRIMARY_COLORS);
+                    if (Arrays.binarySearch(NonProAllowedColors.PRIMARY_COLORS, selectedColor) < 0) {
+                        // color wasn't found
+                        Toast.makeText(this, R.string.only_the_first_5_colors_available, Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(this, PurchaseActivity.class));
+                        return;
+                    }
+                }
                 ThemeStore.editTheme(this)
                         .primaryColor(selectedColor)
                         .commit();
                 break;
             case R.string.accent_color:
+                if (!App.isProVersion()) {
+                    Arrays.sort(NonProAllowedColors.ACCENT_COLORS);
+                    if (Arrays.binarySearch(NonProAllowedColors.ACCENT_COLORS, selectedColor) < 0) {
+                        // color wasn't found
+                        Toast.makeText(this, R.string.only_the_first_5_colors_available, Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(this, PurchaseActivity.class));
+                        return;
+                    }
+                }
                 ThemeStore.editTheme(this)
                         .accentColor(selectedColor)
                         .commit();
@@ -134,6 +157,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             addPreferencesFromResource(R.xml.pref_lockscreen);
             addPreferencesFromResource(R.xml.pref_audio);
             addPreferencesFromResource(R.xml.pref_playlists);
+            addPreferencesFromResource(R.xml.pref_blacklist);
         }
 
         @Nullable
@@ -141,6 +165,8 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         public DialogFragment onCreatePreferenceDialog(Preference preference) {
             if (preference instanceof NowPlayingScreenPreference) {
                 return NowPlayingScreenPreferenceDialog.newInstance();
+            } else if (preference instanceof BlacklistPreference) {
+                return BlacklistPreferenceDialog.newInstance();
             }
             return super.onCreatePreferenceDialog(preference);
         }
@@ -175,9 +201,17 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             generalTheme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, @NonNull Object o) {
+                    String themeName = (String) o;
+                    if (themeName.equals("black") && !App.isProVersion()) {
+                        Toast.makeText(getActivity(), R.string.black_theme_is_a_pro_feature, Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(getContext(), PurchaseActivity.class));
+                        return false;
+                    }
+
+                    int theme = PreferenceUtil.getThemeResFromPrefValue(themeName);
                     setSummary(generalTheme, o);
                     ThemeStore.editTheme(getActivity())
-                            .activityTheme(PreferenceUtil.getThemeResFromPrefValue((String) o))
+                            .activityTheme(theme)
                             .commit();
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
@@ -260,13 +294,21 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
                         // Save preference
                         PreferenceUtil.getInstance(getActivity()).setClassicNotification((Boolean) newValue);
+                        return true;
+                    }
+                });
+            }
 
-                        final MusicService service = MusicPlayerRemote.musicService;
-                        if (service != null) {
-                            service.initNotification();
-                            service.updateNotification();
-                        }
-
+            final TwoStatePreference coloredNotification = (TwoStatePreference) findPreference("colored_notification");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                coloredNotification.setEnabled(PreferenceUtil.getInstance(getActivity()).classicNotification());
+            } else {
+                coloredNotification.setChecked(PreferenceUtil.getInstance(getActivity()).coloredNotification());
+                coloredNotification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        // Save preference
+                        PreferenceUtil.getInstance(getActivity()).setColoredNotification((Boolean) newValue);
                         return true;
                     }
                 });
@@ -319,6 +361,11 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             switch (key) {
                 case PreferenceUtil.NOW_PLAYING_SCREEN_ID:
                     updateNowPlayingScreenSummary();
+                    break;
+                case PreferenceUtil.CLASSIC_NOTIFICATION:
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        findPreference("colored_notification").setEnabled(sharedPreferences.getBoolean(key, false));
+                    }
                     break;
             }
         }

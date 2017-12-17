@@ -1,5 +1,8 @@
 package com.kabouzeid.gramophone.util;
 
+import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -28,5 +31,31 @@ public class ImageUtil {
         }
 
         return inSampleSize;
+    }
+
+    public static Bitmap resizeBitmap(@NonNull Bitmap src, int maxForSmallerSize) {
+        int width = src.getWidth();
+        int height = src.getHeight();
+
+        final int dstWidth;
+        final int dstHeight;
+
+        if (width < height) {
+            if (maxForSmallerSize >= width) {
+                return src;
+            }
+            float ratio = (float) height / width;
+            dstWidth = maxForSmallerSize;
+            dstHeight = Math.round(maxForSmallerSize * ratio);
+        } else {
+            if (maxForSmallerSize >= height) {
+                return src;
+            }
+            float ratio = (float) width / height;
+            dstWidth = Math.round(maxForSmallerSize * ratio);
+            dstHeight = maxForSmallerSize;
+        }
+
+        return Bitmap.createScaledBitmap(src, dstWidth, dstHeight, false);
     }
 }

@@ -27,6 +27,7 @@ public final class PreferenceUtil {
     public static final String ALBUM_SORT_ORDER = "album_sort_order";
     public static final String ALBUM_SONG_SORT_ORDER = "album_song_sort_order";
     public static final String SONG_SORT_ORDER = "song_sort_order";
+    public static final String GENRE_SORT_ORDER = "genre_sort_order";
 
     public static final String ALBUM_GRID_SIZE = "album_grid_size";
     public static final String ALBUM_GRID_SIZE_LAND = "album_grid_size_land";
@@ -70,6 +71,8 @@ public final class PreferenceUtil {
     public static final String START_DIRECTORY = "start_directory";
 
     public static final String SYNCHRONIZED_LYRICS_SHOW = "synchronized_lyrics_show";
+
+    public static final String INITIALIZED_BLACKLIST = "initialized_blacklist";
 
     private static PreferenceUtil sInstance;
 
@@ -158,6 +161,12 @@ public final class PreferenceUtil {
         return mPreferences.getBoolean(CLASSIC_NOTIFICATION, false);
     }
 
+    public void setColoredNotification(final boolean value) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putBoolean(COLORED_NOTIFICATION, value);
+        editor.apply();
+    }
+
     public void setClassicNotification(final boolean value) {
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.putBoolean(CLASSIC_NOTIFICATION, value);
@@ -199,13 +208,11 @@ public final class PreferenceUtil {
     }
 
     public final String getArtistSongSortOrder() {
-        return mPreferences.getString(ARTIST_SONG_SORT_ORDER,
-                SortOrder.ArtistSongSortOrder.SONG_A_Z);
+        return mPreferences.getString(ARTIST_SONG_SORT_ORDER, SortOrder.ArtistSongSortOrder.SONG_A_Z);
     }
 
     public final String getArtistAlbumSortOrder() {
-        return mPreferences.getString(ARTIST_ALBUM_SORT_ORDER,
-                SortOrder.ArtistAlbumSortOrder.ALBUM_YEAR);
+        return mPreferences.getString(ARTIST_ALBUM_SORT_ORDER, SortOrder.ArtistAlbumSortOrder.ALBUM_YEAR);
     }
 
     public final String getAlbumSortOrder() {
@@ -213,12 +220,15 @@ public final class PreferenceUtil {
     }
 
     public final String getAlbumSongSortOrder() {
-        return mPreferences.getString(ALBUM_SONG_SORT_ORDER,
-                SortOrder.AlbumSongSortOrder.SONG_TRACK_LIST);
+        return mPreferences.getString(ALBUM_SONG_SORT_ORDER, SortOrder.AlbumSongSortOrder.SONG_TRACK_LIST);
     }
 
     public final String getSongSortOrder() {
         return mPreferences.getString(SONG_SORT_ORDER, SortOrder.SongSortOrder.SONG_A_Z);
+    }
+
+    public final String getGenreSortOrder() {
+        return mPreferences.getString(GENRE_SORT_ORDER, SortOrder.GenreSortOrder.GENRE_A_Z);
     }
 
     public long getLastAddedCutoff() {
@@ -399,11 +409,21 @@ public final class PreferenceUtil {
 
     public void setStartDirectory(File file) {
         final SharedPreferences.Editor editor = mPreferences.edit();
-        editor.putString(START_DIRECTORY, file.getPath());
+        editor.putString(START_DIRECTORY, FileUtil.safeGetCanonicalPath(file));
         editor.apply();
     }
 
     public final boolean synchronizedLyricsShow() {
         return mPreferences.getBoolean(SYNCHRONIZED_LYRICS_SHOW, true);
+    }
+
+    public void setInitializedBlacklist() {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putBoolean(INITIALIZED_BLACKLIST, true);
+        editor.apply();
+    }
+
+    public final boolean initializedBlacklist() {
+        return mPreferences.getBoolean(INITIALIZED_BLACKLIST, false);
     }
 }

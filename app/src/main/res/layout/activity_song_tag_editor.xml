@@ -182,6 +182,7 @@
         android:id="@+id/toolbar"
         style="@style/Toolbar"
         android:layout_gravity="start|left"
+        android:elevation="0dp"
         android:background="#00000000"
         tools:ignore="RtlHardcoded" />
 

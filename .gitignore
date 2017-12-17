@@ -40,3 +40,5 @@ captures/
 
 # Mac
 .DS_Store
+
+app/release/

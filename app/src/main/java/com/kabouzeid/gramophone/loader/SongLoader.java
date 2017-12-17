@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.provider.BlacklistStore;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
@@ -18,6 +19,19 @@ import java.util.ArrayList;
  */
 public class SongLoader {
     protected static final String BASE_SELECTION = AudioColumns.IS_MUSIC + "=1" + " AND " + AudioColumns.TITLE + " != ''";
+    protected static final String[] BASE_PROJECTION = new String[]{
+            BaseColumns._ID,// 0
+            AudioColumns.TITLE,// 1
+            AudioColumns.TRACK,// 2
+            AudioColumns.YEAR,// 3
+            AudioColumns.DURATION,// 4
+            AudioColumns.DATA,// 5
+            AudioColumns.DATE_MODIFIED,// 6
+            AudioColumns.ALBUM_ID,// 7
+            AudioColumns.ALBUM,// 8
+            AudioColumns.ARTIST_ID,// 9
+            AudioColumns.ARTIST,// 10
+    };
 
     @NonNull
     public static ArrayList<Song> getAllSongs(@NonNull Context context) {
@@ -88,10 +102,18 @@ public class SongLoader {
     }
 
     @Nullable
-    public static Cursor makeSongCursor(@NonNull final Context context, @Nullable final String selection, final String[] selectionValues, final String sortOrder) {
-        String baseSelection = BASE_SELECTION;
+    public static Cursor makeSongCursor(@NonNull final Context context, @Nullable String selection, String[] selectionValues, final String sortOrder) {
         if (selection != null && !selection.trim().equals("")) {
-            baseSelection += " AND " + selection;
+            selection = BASE_SELECTION + " AND " + selection;
+        } else {
+            selection = BASE_SELECTION;
+        }
+
+        // Blacklist
+        ArrayList<String> paths = BlacklistStore.getInstance(context).getPaths();
+        if (!paths.isEmpty()) {
+            selection = generateBlacklistSelection(selection, paths.size());
+            selectionValues = addBlacklistSelectionValues(selectionValues, paths);
         }
 
         try {
@@ -109,9 +131,28 @@ public class SongLoader {
                             AudioColumns.ARTIST_ID,// 9
                             AudioColumns.ARTIST,// 10
 
-                    }, baseSelection, selectionValues, sortOrder);
+                    }, selection, selectionValues, sortOrder);
         } catch (SecurityException e) {
             return null;
         }
+    }
+
+    private static String generateBlacklistSelection(String selection, int pathCount) {
+        String newSelection = selection != null && !selection.trim().equals("") ? selection + " AND " : "";
+        newSelection += AudioColumns.DATA + " NOT LIKE ?";
+        for (int i = 0; i < pathCount - 1; i++) {
+            newSelection += " AND " + AudioColumns.DATA + " NOT LIKE ?";
+        }
+        return newSelection;
+    }
+
+    private static String[] addBlacklistSelectionValues(String[] selectionValues, ArrayList<String> paths) {
+        if (selectionValues == null) selectionValues = new String[0];
+        String[] newSelectionValues = new String[selectionValues.length + paths.size()];
+        System.arraycopy(selectionValues, 0, newSelectionValues, 0, selectionValues.length);
+        for (int i = selectionValues.length; i < newSelectionValues.length; i++) {
+            newSelectionValues[i] = paths.get(i - selectionValues.length) + "%";
+        }
+        return newSelectionValues;
     }
 }

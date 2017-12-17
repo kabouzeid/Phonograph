@@ -38,7 +38,7 @@ public class SongShareDialog extends DialogFragment {
                     public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
                         switch (i) {
                             case 0:
-                                startActivity(Intent.createChooser(MusicUtil.createShareSongFileIntent(song), null));
+                                startActivity(Intent.createChooser(MusicUtil.createShareSongFileIntent(song, getContext()), null));
                                 break;
                             case 1:
                                 getActivity().startActivity(

@@ -7,11 +7,11 @@
     <string name="maarten_corpel" translatable="false">Maarten Corpel</string>
     <string name="michael_cook_cookicons" translatable="false">Michael Cook (Cookicons)</string>
     <string name="aleksandar_tesic" translatable="false">Aleksandar Tešić</string>
+    <string name="eugene_cheung">Eugene Cheung</string>
 
     <string name="aachen_germany" translatable="false">Aachen, Germany</string>
 
     <string name="google_plus" translatable="false">Google Plus</string>
-    <string name="twitter" translatable="false">Twitter</string>
     <string name="git_hub" translatable="false">GitHub</string>
 
     <string name="card">Card</string>
@@ -40,5 +40,4 @@
         }
     </string>
 
-    <string name="id_shortcuttype">com.kabouzeid.gramophone.appshortcuts.ShortcutType</string>
 </resources>

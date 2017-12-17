@@ -2,6 +2,5 @@
 <resources>
 
     <!-- normal -->
-    <string name="font_fontFamily_medium" translatable="false">sans-serif-medium</string>
 
 </resources>

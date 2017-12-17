@@ -8,7 +8,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v7.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.media.app.NotificationCompat.MediaStyle;
 import android.support.v7.graphics.Palette;
 import android.text.TextUtils;
 
@@ -84,7 +85,7 @@ public class PlayingNotificationImpl24 extends PlayingNotification {
                                 NotificationCompat.Action nextAction = new NotificationCompat.Action(R.drawable.ic_skip_next_white_24dp,
                                         service.getString(R.string.action_next),
                                         retrievePlaybackAction(ACTION_SKIP));
-                                NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(service)
+                                NotificationCompat.Builder builder = new NotificationCompat.Builder(service, NOTIFICATION_CHANNEL_ID)
                                         .setSmallIcon(R.drawable.ic_notification)
                                         .setLargeIcon(bitmap)
                                         .setContentIntent(clickIntent)
@@ -98,9 +99,9 @@ public class PlayingNotificationImpl24 extends PlayingNotification {
                                         .addAction(nextAction);
 
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                    builder.setStyle(new NotificationCompat.MediaStyle().setMediaSession(service.getMediaSession().getSessionToken()).setShowActionsInCompactView(0, 1, 2))
+                                    builder.setStyle(new MediaStyle().setMediaSession(service.getMediaSession().getSessionToken()).setShowActionsInCompactView(0, 1, 2))
                                             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-                                    if (PreferenceUtil.getInstance(service).coloredNotification())
+                                    if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O && PreferenceUtil.getInstance(service).coloredNotification())
                                         builder.setColor(color);
                                 }
 

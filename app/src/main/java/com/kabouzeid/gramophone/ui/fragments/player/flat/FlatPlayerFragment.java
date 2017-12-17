@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -55,6 +56,9 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
     @BindView(R.id.player_status_bar)
     View playerStatusBar;
+    @Nullable
+    @BindView(R.id.toolbar_container)
+    FrameLayout toolbarContainer;
     @BindView(R.id.player_toolbar)
     Toolbar toolbar;
     @Nullable
@@ -140,6 +144,12 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        checkToggleToolbar(toolbarContainer);
+    }
+
+    @Override
     public void onServiceConnected() {
         updateQueue();
         updateCurrentSong();
@@ -216,6 +226,32 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         return super.onMenuItemClick(item);
     }
 
+<<<<<<< HEAD
+=======
+    private void setUpRecyclerView() {
+        recyclerViewDragDropManager = new RecyclerViewDragDropManager();
+        final GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
+
+        playingQueueAdapter = new PlayingQueueAdapter(
+                ((AppCompatActivity) getActivity()),
+                MusicPlayerRemote.getPlayingQueue(),
+                MusicPlayerRemote.getPosition(),
+                R.layout.item_list,
+                false,
+                null);
+        wrappedAdapter = recyclerViewDragDropManager.createWrappedAdapter(playingQueueAdapter);
+
+        layoutManager = new LinearLayoutManager(getActivity());
+
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(wrappedAdapter);
+        recyclerView.setItemAnimator(animator);
+
+        recyclerViewDragDropManager.attachRecyclerView(recyclerView);
+
+        layoutManager.scrollToPositionWithOffset(MusicPlayerRemote.getPosition() + 1, 0);
+    }
+>>>>>>> kabouzeid/master
 
     private void updateIsFavorite() {
         if (updateIsFavoriteTask != null) updateIsFavoriteTask.cancel(false);
@@ -350,6 +386,11 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     @Override
     public void onFavoriteToggled() {
         toggleFavorite(MusicPlayerRemote.getCurrentSong());
+    }
+
+    @Override
+    public void onToolbarToggled() {
+        toggleToolbar(toolbarContainer);
     }
 
     @Override

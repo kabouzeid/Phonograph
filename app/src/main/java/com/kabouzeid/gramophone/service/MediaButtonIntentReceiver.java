@@ -14,13 +14,14 @@
 package com.kabouzeid.gramophone.service;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
-import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 import android.view.KeyEvent;
 
@@ -32,7 +33,7 @@ import com.kabouzeid.gramophone.BuildConfig;
  * Double press: next track
  * Triple press: previous track
  */
-public class MediaButtonIntentReceiver extends WakefulBroadcastReceiver {
+public class MediaButtonIntentReceiver extends BroadcastReceiver {
     private static final boolean DEBUG = BuildConfig.DEBUG;
     public static final String TAG = MediaButtonIntentReceiver.class.getSimpleName();
 
@@ -164,7 +165,11 @@ public class MediaButtonIntentReceiver extends WakefulBroadcastReceiver {
     private static void startService(Context context, String command) {
         final Intent intent = new Intent(context, MusicService.class);
         intent.setAction(command);
-        startWakefulService(context, intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(intent);
+        } else {
+            context.startService(intent);
+        }
     }
 
     private static void acquireWakeLockAndSendMessage(Context context, Message msg, long delay) {
