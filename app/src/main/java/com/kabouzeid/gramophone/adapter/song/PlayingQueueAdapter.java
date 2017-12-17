@@ -233,9 +233,13 @@ public class PlayingQueueAdapter extends SongAdapter
         }
         @Override
         protected void onSlideAnimationEnd() {
+            Boolean isPlaying = MusicPlayerRemote.isPlaying();
+
             //Swipe animation is much smoother when we do the heavy lifting after it's completed
             adapter.setSongToRemove(songToRemove);
             MusicPlayerRemote.removeFromQueue(songToRemove);
+            //If song removed was the playing song, then play the next song
+            if(isPlaying && position == 0) MusicPlayerRemote.playSongAt(0);
         }
     }
 
