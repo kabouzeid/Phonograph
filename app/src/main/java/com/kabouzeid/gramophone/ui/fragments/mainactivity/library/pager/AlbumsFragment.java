@@ -41,7 +41,7 @@ public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFra
     protected AlbumAdapter createAdapter() {
         int itemLayoutRes = getItemLayoutRes();
         notifyLayoutResChanged(itemLayoutRes);
-        ArrayList<Album> dataSet = getAdapter() == null ? new ArrayList<Album>() : getAdapter().getDataSet();
+        ArrayList<Album> dataSet = getAdapter() == null ? new ArrayList<>() : getAdapter().getDataSet();
         return new AlbumAdapter(
                 getLibraryFragment().getMainActivity(),
                 dataSet,
@@ -113,7 +113,7 @@ public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFra
 
     @Override
     public void onLoaderReset(Loader<ArrayList<Album>> loader) {
-        getAdapter().swapDataSet(new ArrayList<Album>());
+        getAdapter().swapDataSet(new ArrayList<>());
     }
 
     private static class AsyncAlbumLoader extends WrappedAsyncTaskLoader<ArrayList<Album>> {

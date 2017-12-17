@@ -84,7 +84,7 @@ public class GenreDetailActivity extends AbsSlidingMusicPanelActivity implements
         ViewUtil.setUpFastScrollRecyclerViewColor(this, ((FastScrollRecyclerView) recyclerView), ThemeStore.accentColor(this));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new SongAdapter(this, new ArrayList<Song>(), R.layout.item_list, false, this);
+        adapter = new SongAdapter(this, new ArrayList<>(), R.layout.item_list, false, this);
         recyclerView.setAdapter(adapter);
 
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
@@ -187,7 +187,7 @@ public class GenreDetailActivity extends AbsSlidingMusicPanelActivity implements
     @Override
     public void onLoaderReset(Loader<ArrayList<Song>> loader) {
         if (adapter != null)
-            adapter.swapDataSet(new ArrayList<Song>());
+            adapter.swapDataSet(new ArrayList<>());
     }
 
     private static class AsyncGenreSongLoader extends WrappedAsyncTaskLoader<ArrayList<Song>> {

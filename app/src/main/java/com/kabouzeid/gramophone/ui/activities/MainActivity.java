@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -19,7 +18,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowInsets;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -86,13 +84,9 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             //noinspection ConstantConditions
             findViewById(R.id.drawer_content_container).setFitsSystemWindows(false);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            drawerLayout.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
-                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-                @Override
-                public WindowInsets onApplyWindowInsets(View view, WindowInsets windowInsets) {
-                    navigationView.dispatchApplyWindowInsets(windowInsets);
-                    return windowInsets.replaceSystemWindowInsets(0, 0, 0, 0);
-                }
+            drawerLayout.setOnApplyWindowInsetsListener((view, windowInsets) -> {
+                navigationView.dispatchApplyWindowInsets(windowInsets);
+                return windowInsets.replaceSystemWindowInsets(0, 0, 0, 0);
             });
         }
 
@@ -174,54 +168,26 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
         NavigationViewUtil.setItemTextColors(navigationView, ThemeStore.textColorPrimary(this), accentColor);
 
         checkSetUpPro();
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                drawerLayout.closeDrawers();
-                switch (menuItem.getItemId()) {
-                    case R.id.nav_library:
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                setMusicChooser(LIBRARY);
-                            }
-                        }, 200);
-                        break;
-                    case R.id.nav_folders:
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                setMusicChooser(FOLDERS);
-                            }
-                        }, 200);
-                        break;
-                    case R.id.buy_pro:
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                startActivityForResult(new Intent(MainActivity.this, PurchaseActivity.class), PURCHASE_REQUEST);
-                            }
-                        }, 200);
-                        break;
-                    case R.id.nav_settings:
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-                            }
-                        }, 200);
-                        break;
-                    case R.id.nav_about:
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                startActivity(new Intent(MainActivity.this, AboutActivity.class));
-                            }
-                        }, 200);
-                        break;
-                }
-                return true;
+        navigationView.setNavigationItemSelectedListener(menuItem -> {
+            drawerLayout.closeDrawers();
+            switch (menuItem.getItemId()) {
+                case R.id.nav_library:
+                    new Handler().postDelayed(() -> setMusicChooser(LIBRARY), 200);
+                    break;
+                case R.id.nav_folders:
+                    new Handler().postDelayed(() -> setMusicChooser(FOLDERS), 200);
+                    break;
+                case R.id.buy_pro:
+                    new Handler().postDelayed(() -> startActivityForResult(new Intent(MainActivity.this, PurchaseActivity.class), PURCHASE_REQUEST), 200);
+                    break;
+                case R.id.nav_settings:
+                    new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, SettingsActivity.class)), 200);
+                    break;
+                case R.id.nav_about:
+                    new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, AboutActivity.class)), 200);
+                    break;
             }
+            return true;
         });
     }
 
@@ -245,13 +211,10 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             if (navigationDrawerHeader == null) {
                 navigationDrawerHeader = navigationView.inflateHeaderView(R.layout.navigation_drawer_header);
                 //noinspection ConstantConditions
-                navigationDrawerHeader.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        drawerLayout.closeDrawers();
-                        if (getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
-                            expandPanel();
-                        }
+                navigationDrawerHeader.setOnClickListener(v -> {
+                    drawerLayout.closeDrawers();
+                    if (getPanelState() == SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                        expandPanel();
                     }
                 });
             }
@@ -387,12 +350,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             PreferenceUtil.getInstance(this).setIntroShown();
             ChangelogDialog.setChangelogRead(this);
             blockRequestPermissions = true;
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startActivityForResult(new Intent(MainActivity.this, AppIntroActivity.class), APP_INTRO_REQUEST);
-                }
-            }, 50);
+            new Handler().postDelayed(() -> startActivityForResult(new Intent(MainActivity.this, AppIntroActivity.class), APP_INTRO_REQUEST), 50);
             return true;
         }
         return false;

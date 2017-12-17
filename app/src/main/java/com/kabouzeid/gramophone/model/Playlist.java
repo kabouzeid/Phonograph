@@ -29,7 +29,6 @@ public class Playlist implements Parcelable {
 
         if (id != playlist.id) return false;
         return name != null ? name.equals(playlist.name) : playlist.name == null;
-
     }
 
     @Override
@@ -46,7 +45,6 @@ public class Playlist implements Parcelable {
                 ", name='" + name + '\'' +
                 '}';
     }
-
 
     @Override
     public int describeContents() {

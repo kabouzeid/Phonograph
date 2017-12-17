@@ -38,20 +38,17 @@ public class UpdateToastMediaScannerCompletionListener implements MediaScannerCo
     public void onScanCompleted(final String path, final Uri uri) {
         Activity activity = activityWeakReference.get();
         if (activity != null) {
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast toast = toastWeakReference.get();
-                    if (toast != null) {
-                        if (uri == null) {
-                            failed++;
-                        } else {
-                            scanned++;
-                        }
-                        String text = " " + String.format(scannedFiles, scanned, toBeScanned.length) + (failed > 0 ? " " + String.format(couldNotScanFiles, failed) : "");
-                        toast.setText(text);
-                        toast.show();
+            activity.runOnUiThread(() -> {
+                Toast toast = toastWeakReference.get();
+                if (toast != null) {
+                    if (uri == null) {
+                        failed++;
+                    } else {
+                        scanned++;
                     }
+                    String text = " " + String.format(scannedFiles, scanned, toBeScanned.length) + (failed > 0 ? " " + String.format(couldNotScanFiles, failed) : "");
+                    toast.setText(text);
+                    toast.show();
                 }
             });
         }

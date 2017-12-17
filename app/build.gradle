@@ -39,9 +39,13 @@ static def gitBranch() {
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.0'
+    buildToolsVersion '27.0.2'
     dataBinding {
         enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     defaultConfig {
         minSdkVersion 16

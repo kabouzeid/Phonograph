@@ -186,12 +186,9 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         songListView.setAdapter(songAdapter);
 
         final View contentView = getWindow().getDecorView().findViewById(android.R.id.content);
-        contentView.post(new Runnable() {
-            @Override
-            public void run() {
-                songListBackground.getLayoutParams().height = contentView.getHeight();
-                observableScrollViewCallbacks.onScrollChanged(-(artistImageViewHeight + titleViewHeight), false, false);
-            }
+        contentView.post(() -> {
+            songListBackground.getLayoutParams().height = contentView.getHeight();
+            observableScrollViewCallbacks.onScrollChanged(-(artistImageViewHeight + titleViewHeight), false, false);
         });
     }
 

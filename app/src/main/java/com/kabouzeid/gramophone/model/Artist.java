@@ -61,7 +61,6 @@ public class Artist implements Parcelable {
         Artist artist = (Artist) o;
 
         return albums != null ? albums.equals(artist.albums) : artist.albums == null;
-
     }
 
     @Override
@@ -75,7 +74,6 @@ public class Artist implements Parcelable {
                 "albums=" + albums +
                 '}';
     }
-
 
     @Override
     public int describeContents() {

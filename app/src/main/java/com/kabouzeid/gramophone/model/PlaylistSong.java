@@ -24,7 +24,6 @@ public class PlaylistSong extends Song {
 
         if (playlistId != that.playlistId) return false;
         return idInPlayList == that.idInPlayList;
-
     }
 
     @Override
@@ -43,7 +42,6 @@ public class PlaylistSong extends Song {
                 ", idInPlayList=" + idInPlayList +
                 '}';
     }
-
 
     @Override
     public int describeContents() {

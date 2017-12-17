@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -74,12 +73,9 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         });
         recyclerView.setAdapter(adapter);
 
-        recyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                hideSoftKeyboard();
-                return false;
-            }
+        recyclerView.setOnTouchListener((v, event) -> {
+            hideSoftKeyboard();
+            return false;
         });
 
         setUpToolBar();
@@ -133,12 +129,7 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         });
 
         searchView.setQuery(query, false);
-        searchView.post(new Runnable() {
-            @Override
-            public void run() {
-                searchView.setOnQueryTextListener(SearchActivity.this);
-            }
-        });
+        searchView.post(() -> searchView.setOnQueryTextListener(SearchActivity.this));
 
         return super.onCreateOptionsMenu(menu);
     }

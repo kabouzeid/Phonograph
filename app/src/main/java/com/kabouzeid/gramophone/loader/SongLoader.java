@@ -130,7 +130,6 @@ public class SongLoader {
                             AudioColumns.ALBUM,// 8
                             AudioColumns.ARTIST_ID,// 9
                             AudioColumns.ARTIST,// 10
-
                     }, selection, selectionValues, sortOrder);
         } catch (SecurityException e) {
             return null;
