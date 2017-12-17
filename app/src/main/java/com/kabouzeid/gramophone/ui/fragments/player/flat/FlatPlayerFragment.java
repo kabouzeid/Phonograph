@@ -226,33 +226,6 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         return super.onMenuItemClick(item);
     }
 
-<<<<<<< HEAD
-=======
-    private void setUpRecyclerView() {
-        recyclerViewDragDropManager = new RecyclerViewDragDropManager();
-        final GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
-
-        playingQueueAdapter = new PlayingQueueAdapter(
-                ((AppCompatActivity) getActivity()),
-                MusicPlayerRemote.getPlayingQueue(),
-                MusicPlayerRemote.getPosition(),
-                R.layout.item_list,
-                false,
-                null);
-        wrappedAdapter = recyclerViewDragDropManager.createWrappedAdapter(playingQueueAdapter);
-
-        layoutManager = new LinearLayoutManager(getActivity());
-
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(wrappedAdapter);
-        recyclerView.setItemAnimator(animator);
-
-        recyclerViewDragDropManager.attachRecyclerView(recyclerView);
-
-        layoutManager.scrollToPositionWithOffset(MusicPlayerRemote.getPosition() + 1, 0);
-    }
->>>>>>> kabouzeid/master
-
     private void updateIsFavorite() {
         if (updateIsFavoriteTask != null) updateIsFavoriteTask.cancel(false);
         updateIsFavoriteTask = new AsyncTask<Song, Void, Boolean>() {
