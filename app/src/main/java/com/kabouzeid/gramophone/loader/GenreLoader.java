@@ -2,8 +2,6 @@ package com.kabouzeid.gramophone.loader;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.net.Uri;
-import android.provider.BaseColumns;
 import android.provider.MediaStore.Audio.Genres;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -46,38 +44,6 @@ public class GenreLoader {
         final String name = cursor.getString(1);
         final int songs = getSongs(context, id).size();
         return new Genre(id, name, songs);
-    }
-
-    @NonNull
-    private static ArrayList<Song> getSongsWithNoGenre(@NonNull final Context context) {
-        String selection = BaseColumns._ID + " NOT IN " +
-                "(SELECT " + Genres.Members.AUDIO_ID + " FROM audio_genres_map)";
-        return SongLoader.getSongs(SongLoader.makeSongCursor(context, selection, null));
-    }
-
-    private static boolean hasSongsWithNoGenre(@NonNull final Context context) {
-        final Cursor allSongsCursor = SongLoader.makeSongCursor(context, null, null);
-        final Cursor allSongsWithGenreCursor = makeAllSongsWithGenreCursor(context);
-
-        if (allSongsCursor == null || allSongsWithGenreCursor == null) {
-            return false;
-        }
-
-        final boolean hasSongsWithNoGenre = allSongsCursor.getCount() > allSongsWithGenreCursor.getCount();
-        allSongsCursor.close();
-        allSongsWithGenreCursor.close();
-        return hasSongsWithNoGenre;
-    }
-
-    @Nullable
-    private static Cursor makeAllSongsWithGenreCursor(@NonNull final Context context) {
-        try {
-            return context.getContentResolver().query(
-                    Uri.parse("content://media/external/audio/genres/all/members"),
-                    new String[]{Genres.Members.AUDIO_ID}, null, null, null);
-        } catch (SecurityException e) {
-            return null;
-        }
     }
 
     @Nullable

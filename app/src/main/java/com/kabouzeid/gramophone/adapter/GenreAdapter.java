@@ -56,6 +56,21 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Genre genre = dataSet.get(position);
 
+        if (holder.getAdapterPosition() == getItemCount() - 1) {
+            if (holder.separator != null) {
+                holder.separator.setVisibility(View.GONE);
+            }
+        } else {
+            if (holder.separator != null) {
+                holder.separator.setVisibility(View.VISIBLE);
+            }
+        }
+        if (holder.shortSeparator != null) {
+            holder.shortSeparator.setVisibility(View.GONE);
+        }
+        if (holder.menu != null) {
+            holder.menu.setVisibility(View.GONE);
+        }
         if (holder.title != null) {
             holder.title.setText(genre.name);
         }
