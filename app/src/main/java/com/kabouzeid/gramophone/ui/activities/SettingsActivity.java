@@ -230,12 +230,12 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             final int primaryColor = ThemeStore.primaryColor(getActivity());
             primaryColorPref.setColor(primaryColor, ColorUtil.darkenColor(primaryColor));
             primaryColorPref.setOnPreferenceClickListener(preference -> {
-                new ColorChooserDialog.Builder(((SettingsActivity) getActivity()), R.string.primary_color)
+                new ColorChooserDialog.Builder(getActivity(), R.string.primary_color)
                         .accentMode(false)
                         .allowUserColorInput(true)
                         .allowUserColorInputAlpha(false)
                         .preselect(primaryColor)
-                        .show();
+                        .show(getActivity());
                 return true;
             });
 
@@ -243,12 +243,12 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             final int accentColor = ThemeStore.accentColor(getActivity());
             accentColorPref.setColor(accentColor, ColorUtil.darkenColor(accentColor));
             accentColorPref.setOnPreferenceClickListener(preference -> {
-                new ColorChooserDialog.Builder(((SettingsActivity) getActivity()), R.string.accent_color)
+                new ColorChooserDialog.Builder(getActivity(), R.string.accent_color)
                         .accentMode(true)
                         .allowUserColorInput(true)
                         .allowUserColorInputAlpha(false)
                         .preselect(accentColor)
-                        .show();
+                        .show(getActivity());
                 return true;
             });
 
