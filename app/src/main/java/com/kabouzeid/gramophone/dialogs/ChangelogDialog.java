@@ -60,7 +60,7 @@ public class ChangelogDialog extends DialogFragment {
                 })
                 .build();
 
-        final WebView webView = (WebView) customView.findViewById(R.id.web_view);
+        final WebView webView = customView.findViewById(R.id.web_view);
         try {
             // Load from phonograph-changelog.html in the assets folder
             StringBuilder buf = new StringBuilder();

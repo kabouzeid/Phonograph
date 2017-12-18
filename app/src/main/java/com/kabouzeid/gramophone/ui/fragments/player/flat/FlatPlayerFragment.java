@@ -530,7 +530,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
         @Override
         public void setUpPanelAndAlbumCoverHeight() {
-            WidthFitSquareLayout albumCoverContainer = (WidthFitSquareLayout) fragment.getView().findViewById(R.id.album_cover_container);
+            WidthFitSquareLayout albumCoverContainer = fragment.getView().findViewById(R.id.album_cover_container);
 
             final int availablePanelHeight = fragment.slidingUpPanelLayout.getHeight() - fragment.getView().findViewById(R.id.player_content).getHeight();
             final int minPanelHeight = (int) ViewUtil.convertDpToPixel(8 + 72 + 24, fragment.getResources()) + fragment.getResources().getDimensionPixelSize(R.dimen.progress_container_height) + fragment.getResources().getDimensionPixelSize(R.dimen.media_controller_container_height);

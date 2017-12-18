@@ -145,7 +145,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         if (savedInstanceState == null) {
             setCrumb(new BreadCrumbLayout.Crumb(tryGetCanonicalFile((File) getArguments().getSerializable(PATH))), true);
         } else {
-            breadCrumbs.restoreFromStateWrapper((BreadCrumbLayout.SavedStateWrapper) savedInstanceState.getParcelable(CRUMBS));
+            breadCrumbs.restoreFromStateWrapper(savedInstanceState.getParcelable(CRUMBS));
             getLoaderManager().initLoader(LOADER_ID, null, this);
         }
     }

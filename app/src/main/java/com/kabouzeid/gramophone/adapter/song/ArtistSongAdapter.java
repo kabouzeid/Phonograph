@@ -67,9 +67,9 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_list, parent, false);
         }
 
-        final TextView songTitle = (TextView) convertView.findViewById(R.id.title);
-        final TextView songInfo = (TextView) convertView.findViewById(R.id.text);
-        final ImageView albumArt = (ImageView) convertView.findViewById(R.id.image);
+        final TextView songTitle = convertView.findViewById(R.id.title);
+        final TextView songInfo = convertView.findViewById(R.id.text);
+        final ImageView albumArt = convertView.findViewById(R.id.image);
         final View shortSeparator = convertView.findViewById(R.id.short_separator);
 
         if (position == getCount() - 1) {
@@ -93,7 +93,7 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
             albumArt.setTransitionName(activity.getString(R.string.transition_album_art));
         }
 
-        final ImageView overflowButton = (ImageView) convertView.findViewById(R.id.menu);
+        final ImageView overflowButton = convertView.findViewById(R.id.menu);
         overflowButton.setOnClickListener(new SongMenuHelper.OnClickSongMenu(activity) {
             @Override
             public Song getSong() {

@@ -551,7 +551,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
         @Override
         public void setUpPanelAndAlbumCoverHeight() {
-            WidthFitSquareLayout albumCoverContainer = (WidthFitSquareLayout) fragment.getView().findViewById(R.id.album_cover_container);
+            WidthFitSquareLayout albumCoverContainer = fragment.getView().findViewById(R.id.album_cover_container);
             int topMargin = fragment.getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
 
             final int availablePanelHeight = fragment.slidingUpPanelLayout.getHeight() - fragment.getView().findViewById(R.id.player_content).getHeight() + topMargin;
