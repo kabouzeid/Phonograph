@@ -8,7 +8,6 @@ import android.provider.MediaStore.Audio.Genres;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.model.Genre;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
@@ -24,27 +23,16 @@ public class GenreLoader {
 
     @NonNull
     public static ArrayList<Song> getSongs(@NonNull final Context context, final int genreId) {
-        // The genres table only stores songs that have a genre specified,
-        // so we need to get songs without a genre a different way.
-        if (genreId == -1) {
-            return getSongsWithNoGenre(context);
-        }
-
         return SongLoader.getSongs(makeGenreSongCursor(context, genreId));
     }
 
     @NonNull
     private static ArrayList<Genre> getGenresFromCursor(@NonNull final Context context, @Nullable final Cursor cursor) {
         final ArrayList<Genre> genres = new ArrayList<>();
-
-        if (hasSongsWithNoGenre(context)) {
-            genres.add(new Genre(context.getResources().getString(R.string.unknown_genre)));
-        }
-
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
-                    genres.add(getGenreFromCursor(cursor));
+                    genres.add(getGenreFromCursor(context, cursor));
                 } while (cursor.moveToNext());
             }
             cursor.close();
@@ -53,10 +41,11 @@ public class GenreLoader {
     }
 
     @NonNull
-    private static Genre getGenreFromCursor(@NonNull final Cursor cursor) {
+    private static Genre getGenreFromCursor(@NonNull final Context context, @NonNull final Cursor cursor) {
         final int id = cursor.getInt(0);
         final String name = cursor.getString(1);
-        return new Genre(id, name);
+        final int songs = getSongs(context, id).size();
+        return new Genre(id, name, songs);
     }
 
     @NonNull
@@ -108,15 +97,11 @@ public class GenreLoader {
                 Genres._ID,
                 Genres.NAME
         };
-        // Genres that actually have songs
-        final String selection = Genres._ID + " IN" +
-                " (SELECT " + Genres.Members.GENRE_ID + " FROM audio_genres_map WHERE " + Genres.Members.AUDIO_ID + " IN" +
-                " (SELECT " + Genres._ID + " FROM audio_meta WHERE " + SongLoader.BASE_SELECTION + "))";
 
         try {
             return context.getContentResolver().query(
                     Genres.EXTERNAL_CONTENT_URI,
-                    projection, selection, null, PreferenceUtil.getInstance(context).getGenreSortOrder());
+                    projection, null, null, PreferenceUtil.getInstance(context).getGenreSortOrder());
         } catch (SecurityException e) {
             return null;
         }

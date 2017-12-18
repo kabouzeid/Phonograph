@@ -42,7 +42,6 @@
     <string name="album">Album</string>
     <string name="artist">Artist</string>
     <string name="genre">Genre</string>
-    <string name="unknown_genre">Unknown genre</string>
     <string name="album_artist">Album artist</string>
     <string name="year">Year</string>
     <string name="track_hint">"Track (2 for track 2 or 3004 for CD3 track 4)"</string>

@@ -23,6 +23,7 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Artist;
+import com.kabouzeid.gramophone.model.Genre;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.lyrics.AbsSynchronizedLyrics;
@@ -112,6 +113,13 @@ public class MusicUtil {
         String albumString = albumCount == 1 ? context.getResources().getString(R.string.album) : context.getResources().getString(R.string.albums);
         String songString = songCount == 1 ? context.getResources().getString(R.string.song) : context.getResources().getString(R.string.songs);
         return albumCount + " " + albumString + " • " + songCount + " " + songString;
+    }
+
+    @NonNull
+    public static String getGenreInfoString(@NonNull final Context context, @NonNull final Genre genre) {
+        int songCount = genre.songCount;
+        String songString = songCount == 1 ? context.getResources().getString(R.string.song) : context.getResources().getString(R.string.songs);
+        return songCount + " " + songString;
     }
 
     @NonNull
