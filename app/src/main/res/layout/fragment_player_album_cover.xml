@@ -10,6 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <com.jetradarmobile.snowfall.SnowfallView
+        android:id="@+id/snowfall"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:snowflakesAlreadyFalling="true"
+        app:snowflakesNum="50"/>
+
     <FrameLayout
         android:id="@+id/player_lyrics"
         android:layout_width="match_parent"

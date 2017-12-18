@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jetradarmobile.snowfall.SnowfallView;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.AlbumCoverPagerAdapter;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
@@ -88,6 +89,13 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
         });
         progressViewUpdateHelper = new MusicProgressViewUpdateHelper(this, 500, 1000);
         progressViewUpdateHelper.start();
+        checkEnableSnowfall();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        checkEnableSnowfall();
     }
 
     @Override
@@ -263,5 +271,19 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
         void onFavoriteToggled();
 
         void onToolbarToggled();
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    private void checkEnableSnowfall() {
+        try {
+            SnowfallView snowfallView = getView().findViewById(R.id.snowfall);
+            if (!PreferenceUtil.getInstance(getActivity().getApplicationContext()).getEnableSnowfall()) {
+                snowfallView.setVisibility(View.GONE);
+            } else {
+                snowfallView.setVisibility(View.VISIBLE);
+            }
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();
+        }
     }
 }

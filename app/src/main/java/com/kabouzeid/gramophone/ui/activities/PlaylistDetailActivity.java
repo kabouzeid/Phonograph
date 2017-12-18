@@ -18,6 +18,7 @@ import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
+import com.jetradarmobile.snowfall.SnowfallView;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.song.OrderablePlaylistSongAdapter;
@@ -37,6 +38,7 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.ViewUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
@@ -87,6 +89,14 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         setUpToolbar();
 
         getSupportLoaderManager().initLoader(LOADER_ID, null, this);
+
+        checkEnableSnowfall();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkEnableSnowfall();
     }
 
     @Override
@@ -272,6 +282,16 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
                 //noinspection unchecked
                 return (ArrayList<Song>) (List) PlaylistSongLoader.getPlaylistSongList(getContext(), playlist.id);
             }
+        }
+    }
+
+    private void checkEnableSnowfall() {
+        SnowfallView snowfallView = findViewById(R.id.snowfall);
+        if (!PreferenceUtil.getInstance(this).getEnableSnowfall()) {
+            snowfallView.setVisibility(View.GONE);
+        } else {
+            snowfallView.setVisibility(View.VISIBLE);
+            snowfallView.bringToFront();
         }
     }
 }
