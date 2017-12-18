@@ -98,19 +98,11 @@ public class BlacklistFolderChooserDialog extends DialogFragment implements Mate
                         .items((CharSequence[]) getContentsArray())
                         .itemsCallback(this)
                         .autoDismiss(false)
-                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                dismiss();
-                                callback.onFolderSelection(BlacklistFolderChooserDialog.this, parentFolder);
-                            }
+                        .onPositive((dialog, which) -> {
+                            dismiss();
+                            callback.onFolderSelection(BlacklistFolderChooserDialog.this, parentFolder);
                         })
-                        .onNegative(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                                dismiss();
-                            }
-                        })
+                        .onNegative((materialDialog, dialogAction) -> dismiss())
                         .positiveText(R.string.add_action)
                         .negativeText(android.R.string.cancel);
         if (File.pathSeparator.equals(initialPath)) {

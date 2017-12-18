@@ -33,25 +33,22 @@ public class SongShareDialog extends DialogFragment {
         return new MaterialDialog.Builder(getActivity())
                 .title(R.string.what_do_you_want_to_share)
                 .items(getString(R.string.the_audio_file), "\u201C" + currentlyListening + "\u201D")
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
-                        switch (i) {
-                            case 0:
-                                startActivity(Intent.createChooser(MusicUtil.createShareSongFileIntent(song, getContext()), null));
-                                break;
-                            case 1:
-                                getActivity().startActivity(
-                                        Intent.createChooser(
-                                                new Intent()
-                                                        .setAction(Intent.ACTION_SEND)
-                                                        .putExtra(Intent.EXTRA_TEXT, currentlyListening)
-                                                        .setType("text/plain"),
-                                                null
-                                        )
-                                );
-                                break;
-                        }
+                .itemsCallback((materialDialog, view, i, charSequence) -> {
+                    switch (i) {
+                        case 0:
+                            startActivity(Intent.createChooser(MusicUtil.createShareSongFileIntent(song, getContext()), null));
+                            break;
+                        case 1:
+                            getActivity().startActivity(
+                                    Intent.createChooser(
+                                            new Intent()
+                                                    .setAction(Intent.ACTION_SEND)
+                                                    .putExtra(Intent.EXTRA_TEXT, currentlyListening)
+                                                    .setType("text/plain"),
+                                            null
+                                    )
+                            );
+                            break;
                     }
                 })
                 .build();

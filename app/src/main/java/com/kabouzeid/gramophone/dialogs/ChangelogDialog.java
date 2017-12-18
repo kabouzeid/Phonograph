@@ -54,12 +54,9 @@ public class ChangelogDialog extends DialogFragment {
                 .title(R.string.changelog)
                 .customView(customView, false)
                 .positiveText(android.R.string.ok)
-                .showListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface dialog) {
-                        if (getActivity() != null)
-                            setChangelogRead(getActivity());
-                    }
+                .showListener(dialog1 -> {
+                    if (getActivity() != null)
+                        setChangelogRead(getActivity());
                 })
                 .build();
 

@@ -44,56 +44,32 @@ public class BlacklistPreferenceDialog extends DialogFragment implements Blackli
                 .negativeText(R.string.add_action)
                 .items(paths)
                 .autoDismiss(false)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog materialDialog, View view, int i, final CharSequence charSequence) {
-                        new MaterialDialog.Builder(getContext())
-                                .title(R.string.remove_from_blacklist)
-                                .content(Html.fromHtml(getString(R.string.do_you_want_to_remove_from_the_blacklist, charSequence)))
-                                .positiveText(R.string.remove_action)
-                                .negativeText(android.R.string.cancel)
-                                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                    @Override
-                                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                                        BlacklistStore.getInstance(getContext()).removePath(new File(charSequence.toString()));
-                                        refreshBlacklistData();
-                                    }
-                                }).show();
-                    }
-                })
+                .itemsCallback((materialDialog, view, i, charSequence) -> new MaterialDialog.Builder(getContext())
+                        .title(R.string.remove_from_blacklist)
+                        .content(Html.fromHtml(getString(R.string.do_you_want_to_remove_from_the_blacklist, charSequence)))
+                        .positiveText(R.string.remove_action)
+                        .negativeText(android.R.string.cancel)
+                        .onPositive((materialDialog12, dialogAction) -> {
+                            BlacklistStore.getInstance(getContext()).removePath(new File(charSequence.toString()));
+                            refreshBlacklistData();
+                        }).show())
                 // clear
-                .onNeutral(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        new MaterialDialog.Builder(getContext())
-                                .title(R.string.clear_blacklist)
-                                .content(R.string.do_you_want_to_clear_the_blacklist)
-                                .positiveText(R.string.clear_action)
-                                .negativeText(android.R.string.cancel)
-                                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                    @Override
-                                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                                        BlacklistStore.getInstance(getContext()).clear();
-                                        refreshBlacklistData();
-                                    }
-                                }).show();
-                    }
-                })
+                .onNeutral((materialDialog, dialogAction) -> new MaterialDialog.Builder(getContext())
+                        .title(R.string.clear_blacklist)
+                        .content(R.string.do_you_want_to_clear_the_blacklist)
+                        .positiveText(R.string.clear_action)
+                        .negativeText(android.R.string.cancel)
+                        .onPositive((materialDialog1, dialogAction1) -> {
+                            BlacklistStore.getInstance(getContext()).clear();
+                            refreshBlacklistData();
+                        }).show())
                 // add
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        BlacklistFolderChooserDialog dialog = BlacklistFolderChooserDialog.create();
-                        dialog.setCallback(BlacklistPreferenceDialog.this);
-                        dialog.show(getChildFragmentManager(), "FOLDER_CHOOSER");
-                    }
+                .onNegative((materialDialog, dialogAction) -> {
+                    BlacklistFolderChooserDialog dialog = BlacklistFolderChooserDialog.create();
+                    dialog.setCallback(BlacklistPreferenceDialog.this);
+                    dialog.show(getChildFragmentManager(), "FOLDER_CHOOSER");
                 })
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        dismiss();
-                    }
-                })
+                .onPositive((materialDialog, dialogAction) -> dismiss())
                 .build();
     }
 

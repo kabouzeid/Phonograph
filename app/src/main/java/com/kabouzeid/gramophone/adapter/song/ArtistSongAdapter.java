@@ -114,22 +114,16 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
         });
 
         convertView.setActivated(isChecked(song));
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isInQuickSelectMode()) {
-                    toggleChecked(song);
-                } else {
-                    MusicPlayerRemote.openQueue(dataSet, position, true);
-                }
+        convertView.setOnClickListener(view -> {
+            if (isInQuickSelectMode()) {
+                toggleChecked(song);
+            } else {
+                MusicPlayerRemote.openQueue(dataSet, position, true);
             }
         });
-        convertView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                toggleChecked(song);
-                return true;
-            }
+        convertView.setOnLongClickListener(view -> {
+            toggleChecked(song);
+            return true;
         });
 
         return convertView;

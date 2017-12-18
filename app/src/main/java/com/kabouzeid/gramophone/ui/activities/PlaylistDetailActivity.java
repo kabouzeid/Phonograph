@@ -103,14 +103,11 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         } else {
             recyclerViewDragDropManager = new RecyclerViewDragDropManager();
             final GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
-            adapter = new OrderablePlaylistSongAdapter(this, new ArrayList<PlaylistSong>(), R.layout.item_list, false, this, new OrderablePlaylistSongAdapter.OnMoveItemListener() {
-                @Override
-                public void onMoveItem(int fromPosition, int toPosition) {
-                    if (PlaylistsUtil.moveItem(PlaylistDetailActivity.this, playlist.id, fromPosition, toPosition)) {
-                        Song song = adapter.getDataSet().remove(fromPosition);
-                        adapter.getDataSet().add(toPosition, song);
-                        adapter.notifyItemMoved(fromPosition, toPosition);
-                    }
+            adapter = new OrderablePlaylistSongAdapter(this, new ArrayList<PlaylistSong>(), R.layout.item_list, false, this, (fromPosition, toPosition) -> {
+                if (PlaylistsUtil.moveItem(PlaylistDetailActivity.this, playlist.id, fromPosition, toPosition)) {
+                    Song song = adapter.getDataSet().remove(fromPosition);
+                    adapter.getDataSet().add(toPosition, song);
+                    adapter.notifyItemMoved(fromPosition, toPosition);
                 }
             });
             wrappedAdapter = recyclerViewDragDropManager.createWrappedAdapter(adapter);

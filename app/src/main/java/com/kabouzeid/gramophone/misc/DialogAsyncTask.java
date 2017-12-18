@@ -33,12 +33,7 @@ public abstract class DialogAsyncTask<Params, Progress, Result> extends AsyncTas
     protected void onPreExecute() {
         super.onPreExecute();
         if (delay > 0) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    initAndShowDialog();
-                }
-            }, delay);
+            new Handler().postDelayed(this::initAndShowDialog, delay);
         } else {
             initAndShowDialog();
         }

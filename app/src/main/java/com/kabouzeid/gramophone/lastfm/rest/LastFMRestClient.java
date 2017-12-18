@@ -54,14 +54,11 @@ public class LastFMRestClient {
     }
 
     public static Interceptor createCacheControlInterceptor() {
-        return new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request modifiedRequest = chain.request().newBuilder()
-                        .addHeader("Cache-Control", String.format("max-age=%d, max-stale=%d", 31536000, 31536000))
-                        .build();
-                return chain.proceed(modifiedRequest);
-            }
+        return chain -> {
+            Request modifiedRequest = chain.request().newBuilder()
+                    .addHeader("Cache-Control", String.format("max-age=%d, max-stale=%d", 31536000, 31536000))
+                    .build();
+            return chain.proceed(modifiedRequest);
         };
     }
 

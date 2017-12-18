@@ -318,14 +318,11 @@ public class MusicUtil {
                 patterns.add(Pattern.compile(String.format(format, filename), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
                 patterns.add(Pattern.compile(String.format(format, songtitle), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
 
-                File[] files = dir.listFiles(new FileFilter() {
-                    @Override
-                    public boolean accept(File f) {
-                        for (Pattern pattern : patterns) {
-                            if (pattern.matcher(f.getName()).matches()) return true;
-                        }
-                        return false;
+                File[] files = dir.listFiles(f -> {
+                    for (Pattern pattern : patterns) {
+                        if (pattern.matcher(f.getName()).matches()) return true;
                     }
+                    return false;
                 });
 
                 if (files != null && files.length > 0) {

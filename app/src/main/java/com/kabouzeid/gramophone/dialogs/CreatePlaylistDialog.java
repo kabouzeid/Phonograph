@@ -54,26 +54,23 @@ public class CreatePlaylistDialog extends DialogFragment {
                 .inputType(InputType.TYPE_CLASS_TEXT |
                         InputType.TYPE_TEXT_VARIATION_PERSON_NAME |
                         InputType.TYPE_TEXT_FLAG_CAP_WORDS)
-                .input(R.string.playlist_name_empty, 0, false, new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(@NonNull MaterialDialog materialDialog, @NonNull CharSequence charSequence) {
-                        if (getActivity() == null)
-                            return;
-                        final String name = charSequence.toString().trim();
-                        if (!name.isEmpty()) {
-                            if (!PlaylistsUtil.doesPlaylistExist(getActivity(), name)) {
-                                final int playlistId = PlaylistsUtil.createPlaylist(getActivity(), name);
-                                if (getActivity() != null) {
-                                    //noinspection unchecked
-                                    ArrayList<Song> songs = getArguments().getParcelableArrayList(SONGS);
-                                    if (songs != null && !songs.isEmpty()) {
-                                        PlaylistsUtil.addToPlaylist(getActivity(), songs, playlistId, true);
-                                    }
+                .input(R.string.playlist_name_empty, 0, false, (materialDialog, charSequence) -> {
+                    if (getActivity() == null)
+                        return;
+                    final String name = charSequence.toString().trim();
+                    if (!name.isEmpty()) {
+                        if (!PlaylistsUtil.doesPlaylistExist(getActivity(), name)) {
+                            final int playlistId = PlaylistsUtil.createPlaylist(getActivity(), name);
+                            if (getActivity() != null) {
+                                //noinspection unchecked
+                                ArrayList<Song> songs = getArguments().getParcelableArrayList(SONGS);
+                                if (songs != null && !songs.isEmpty()) {
+                                    PlaylistsUtil.addToPlaylist(getActivity(), songs, playlistId, true);
                                 }
-                            } else {
-                                Toast.makeText(getActivity(), getActivity().getResources().getString(
-                                        R.string.playlist_exists, name), Toast.LENGTH_SHORT).show();
                             }
+                        } else {
+                            Toast.makeText(getActivity(), getActivity().getResources().getString(
+                                    R.string.playlist_exists, name), Toast.LENGTH_SHORT).show();
                         }
                     }
                 })

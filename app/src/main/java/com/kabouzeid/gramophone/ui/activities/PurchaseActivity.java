@@ -66,27 +66,21 @@ public class PurchaseActivity extends AbsBaseActivity implements BillingProcesso
         restoreButton.setEnabled(false);
         purchaseButton.setEnabled(false);
 
-        restoreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (restorePurchaseAsyncTask == null || restorePurchaseAsyncTask.getStatus() != AsyncTask.Status.RUNNING) {
-                    restorePurchase();
-                }
+        restoreButton.setOnClickListener(v -> {
+            if (restorePurchaseAsyncTask == null || restorePurchaseAsyncTask.getStatus() != AsyncTask.Status.RUNNING) {
+                restorePurchase();
             }
         });
 
-        purchaseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                billingProcessor.purchase(PurchaseActivity.this, App.PRO_VERSION_PRODUCT_ID);
+        purchaseButton.setOnClickListener(v -> {
+            billingProcessor.purchase(PurchaseActivity.this, App.PRO_VERSION_PRODUCT_ID);
 
-                if (!BuildConfig.DEBUG) {
-                    Answers.getInstance().logAddToCart(new AddToCartEvent()
-                            .putCurrency(Currency.getInstance("EUR"))
-                            .putItemId("pro_version")
-                            .putItemName("Phonograph Pro")
-                            .putItemPrice(BigDecimal.valueOf(3)));
-                }
+            if (!BuildConfig.DEBUG) {
+                Answers.getInstance().logAddToCart(new AddToCartEvent()
+                        .putCurrency(Currency.getInstance("EUR"))
+                        .putItemId("pro_version")
+                        .putItemName("Phonograph Pro")
+                        .putItemPrice(BigDecimal.valueOf(3)));
             }
         });
 
