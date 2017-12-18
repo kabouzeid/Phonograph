@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">무엇을 공유하고 싶으십니까?</string>
-    <string name="currently_listening_to_x_by_x">현재 %2$s의 %1$s 재생 중.</string>
+    <string name="currently_listening_to_x_by_x">%2$s 의 %1$s 듣는 중</string>
     <string name="the_audio_file">음원 파일</string>
     <string name="x_has_been_set_as_ringtone">로 전화 벨소리를 설정하였습니다.</string>
     <string name="action_set_as_ringtone">벨소리로 설정</string>
@@ -37,7 +37,7 @@
     <string name="wiki_unavailable">\uc774 \uc568\ubc94\uc758 \uc704\ud0a4 \ud56d\ubaa9\uc744 \ucc3e\uc744 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.</string>
     <string name="biography">정보</string>
     <string name="wiki">위키피디아</string>
-    <string name="audio_focus_denied">음악 선택이 거부되었습니다.</string>
+    <string name="audio_focus_denied">오디오 포커스 권한을 얻지 못했습니다.</string>
     <string name="album">앨범</string>
     <string name="artist">아티스트</string>
     <string name="genre">장르</string>
@@ -75,9 +75,9 @@
     <string name="could_not_create_playlist">\uc7ac\uc0dd \ubaa9\ub85d\uc744 \ub9cc\ub4e4 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.</string>
     <string name="delete_playlist_x"><![CDATA[재생 목록 <b>%1$s</b>을(를) 삭제하시겠습니까?]]></string>
     <string name="clear_playlist_x"><![CDATA[\uc7ac\uc0dd \ubaa9\ub85d <b>%1$s</b>\uc744(\ub97c) \ube44\uc6b0\uc2dc\uaca0\uc2b5\ub2c8\uae4c? \uc774 \uc791\uc5c5\uc740 \ucde8\uc18c\ud560 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4!]]></string>
-    <string name="delete_x_playlists"><![CDATA[재생 목록 <b>%1$d</b>을(를) 삭제하시겠습니까?]]></string>
+    <string name="delete_x_playlists"><![CDATA[재생 목록 <b>%1$d</b>개를 삭제하시겠습니까?]]></string>
     <string name="delete_song_x"><![CDATA[노래 <b>%1$s</b>을(를) 삭제하시겠습니까?]]></string>
-    <string name="delete_x_songs"><![CDATA[<b>%1$d</b>개의 노래를 삭제하시겠습니까?]]></string>
+    <string name="delete_x_songs"><![CDATA[<b>%1$d</b>개의 곡을 삭제하시겠습니까?]]></string>
     <string name="remove_song_x_from_playlist"><![CDATA[노래 <b>%1$s</b>을(를) 재생목록에서 삭제하시겠습니까?]]></string>
     <string name="remove_x_songs_from_playlist"><![CDATA[<b>%1$d</b>개의 노래를 재생 목록에서 삭제하시겠습니까?]]></string>
     <string name="delete_song_title">노래 삭제</string>
@@ -121,6 +121,7 @@
     <string name="pref_header_playlists">재생목록</string>
     <string name="pref_header_notification">알림</string>
     <string name="pref_title_navigation_bar">내비게이션 바 색상 틴트</string>
+    <string name="pref_title_app_shortcuts">앱 바로가기 색칠</string>
     <string name="pref_title_set_default_start_page">시작 화면</string>
     <string name="pref_title_album_art_on_lockscreen">앨범 커버 보이기</string>
     <string name="pref_title_auto_download_metadata">메타데이터 자동 다운로드</string>
