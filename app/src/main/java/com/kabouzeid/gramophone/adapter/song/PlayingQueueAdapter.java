@@ -41,6 +41,8 @@ public class PlayingQueueAdapter extends SongAdapter
 
     public Song songToRemove;
 
+    private static Snackbar currentlyShownSnackbar;
+
     private int current;
 
     public PlayingQueueAdapter(AppCompatActivity activity, ArrayList<Song> dataSet, int current, @LayoutRes int itemLayoutRes, boolean usePalette, @Nullable CabHolder cabHolder) {
@@ -164,7 +166,7 @@ public class PlayingQueueAdapter extends SongAdapter
         if (result == SwipeableItemConstants.RESULT_CANCELED) {
             return new SwipeResultActionDefault();
         } else {
-            return new MySwipeResultActionRemoveItem(this, position, activity);
+            return new SwipedResultActionRemoveItem(this, position, activity);
         }
     }
 
@@ -216,7 +218,7 @@ public class PlayingQueueAdapter extends SongAdapter
         }
     }
 
-    static class MySwipeResultActionRemoveItem extends SwipeResultActionRemoveItem {
+    static class SwipedResultActionRemoveItem extends SwipeResultActionRemoveItem {
         private PlayingQueueAdapter adapter;
         private int position;
         private Song songToRemove;
@@ -224,7 +226,7 @@ public class PlayingQueueAdapter extends SongAdapter
         private boolean isPlaying;
         private int songProgressMillis;
 
-        public MySwipeResultActionRemoveItem(PlayingQueueAdapter adapter, int position, AppCompatActivity activity) {
+        public SwipedResultActionRemoveItem(PlayingQueueAdapter adapter, int position, AppCompatActivity activity) {
             this.adapter = adapter;
             this.position = position;
             this.activity = activity;
@@ -233,11 +235,13 @@ public class PlayingQueueAdapter extends SongAdapter
 
         @Override
         protected void onPerformAction() {
-            initializeSnackBar(adapter, position, activity, isPlaying);
-            songToRemove = adapter.dataSet.get(position);
+            currentlyShownSnackbar = null;
         }
         @Override
         protected void onSlideAnimationEnd() {
+
+            initializeSnackBar(adapter, position, activity, isPlaying);
+            songToRemove = adapter.dataSet.get(position);
 
             //Swipe animation is much smoother when we do the heavy lifting after it's completed
             adapter.setSongToRemove(songToRemove);
@@ -287,6 +291,11 @@ public class PlayingQueueAdapter extends SongAdapter
         });
         snackbar.setActionTextColor(getBackgroundColor(activity));
         snackbar.show();
+
+
+        //Fixes snackbar not showing when it replaces another Snackbar
+        //See: https://stackoverflow.com/questions/43680655/snackbar-sometimes-doesnt-show-up-when-it-replaces-another-one
+        currentlyShownSnackbar = snackbar;
 
     }
 
