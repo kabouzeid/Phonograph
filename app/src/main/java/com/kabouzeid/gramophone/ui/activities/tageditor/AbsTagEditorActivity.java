@@ -137,33 +137,25 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
                 getString(R.string.web_search),
                 getString(R.string.remove_cover)
         };
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new MaterialDialog.Builder(AbsTagEditorActivity.this)
-                        .title(R.string.update_image)
-                        .items(items)
-                        .itemsCallback(new MaterialDialog.ListCallback() {
-                            @Override
-                            public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                                switch (which) {
-                                    case 0:
-                                        getImageFromLastFM();
-                                        break;
-                                    case 1:
-                                        startImagePicker();
-                                        break;
-                                    case 2:
-                                        searchImageOnWeb();
-                                        break;
-                                    case 3:
-                                        deleteImage();
-                                        break;
-                                }
-                            }
-                        }).show();
-            }
-        });
+        image.setOnClickListener(v -> new MaterialDialog.Builder(AbsTagEditorActivity.this)
+                .title(R.string.update_image)
+                .items(items)
+                .itemsCallback((dialog, view, which, text) -> {
+                    switch (which) {
+                        case 0:
+                            getImageFromLastFM();
+                            break;
+                        case 1:
+                            startImagePicker();
+                            break;
+                        case 2:
+                            searchImageOnWeb();
+                            break;
+                        case 3:
+                            deleteImage();
+                            break;
+                    }
+                }).show());
     }
 
     private void startImagePicker() {
@@ -184,12 +176,7 @@ public abstract class AbsTagEditorActivity extends AbsBaseActivity {
         fab.setScaleX(0);
         fab.setScaleY(0);
         fab.setEnabled(false);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                save();
-            }
-        });
+        fab.setOnClickListener(v -> save());
 
         TintHelper.setTintAuto(fab, ThemeStore.accentColor(this), true);
     }

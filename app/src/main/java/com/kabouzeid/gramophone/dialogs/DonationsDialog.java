@@ -211,19 +211,9 @@ public class DonationsDialog extends DialogFragment implements BillingProcessor.
             strikeThrough(viewHolder.text, purchased);
             strikeThrough(viewHolder.price, purchased);
 
-            convertView.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    return purchased;
-                }
-            });
+            convertView.setOnTouchListener((v, event) -> purchased);
 
-            convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    donationsDialog.donate(position);
-                }
-            });
+            convertView.setOnClickListener(v -> donationsDialog.donate(position));
 
             return convertView;
         }

@@ -55,13 +55,10 @@ public class DeletePlaylistDialog extends DialogFragment {
                 .content(content)
                 .positiveText(R.string.delete_action)
                 .negativeText(android.R.string.cancel)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        if (getActivity() == null)
-                            return;
-                        PlaylistsUtil.deletePlaylists(getActivity(), playlists);
-                    }
+                .onPositive((dialog, which) -> {
+                    if (getActivity() == null)
+                        return;
+                    PlaylistsUtil.deletePlaylists(getActivity(), playlists);
                 })
                 .build();
     }

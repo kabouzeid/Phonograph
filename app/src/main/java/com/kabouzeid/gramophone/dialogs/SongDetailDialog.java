@@ -67,13 +67,13 @@ public class SongDetailDialog extends DialogFragment {
                 .build();
 
         View dialogView = dialog.getCustomView();
-        final TextView fileName = (TextView) dialogView.findViewById(R.id.file_name);
-        final TextView filePath = (TextView) dialogView.findViewById(R.id.file_path);
-        final TextView fileSize = (TextView) dialogView.findViewById(R.id.file_size);
-        final TextView fileFormat = (TextView) dialogView.findViewById(R.id.file_format);
-        final TextView trackLength = (TextView) dialogView.findViewById(R.id.track_length);
-        final TextView bitRate = (TextView) dialogView.findViewById(R.id.bitrate);
-        final TextView samplingRate = (TextView) dialogView.findViewById(R.id.sampling_rate);
+        final TextView fileName = dialogView.findViewById(R.id.file_name);
+        final TextView filePath = dialogView.findViewById(R.id.file_path);
+        final TextView fileSize = dialogView.findViewById(R.id.file_size);
+        final TextView fileFormat = dialogView.findViewById(R.id.file_format);
+        final TextView trackLength = dialogView.findViewById(R.id.track_length);
+        final TextView bitRate = dialogView.findViewById(R.id.bitrate);
+        final TextView samplingRate = dialogView.findViewById(R.id.sampling_rate);
 
         fileName.setText(makeTextWithTitle(context, R.string.label_file_name, "-"));
         filePath.setText(makeTextWithTitle(context, R.string.label_file_path, "-"));

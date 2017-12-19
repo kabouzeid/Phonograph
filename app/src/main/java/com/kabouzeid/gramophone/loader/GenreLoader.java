@@ -2,13 +2,19 @@ package com.kabouzeid.gramophone.loader;
 
 import android.content.Context;
 import android.database.Cursor;
+<<<<<<< HEAD
 import android.net.Uri;
 import android.provider.BaseColumns;
+=======
+>>>>>>> kabouzeid/master
 import android.provider.MediaStore.Audio.Genres;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+<<<<<<< HEAD
 import com.kabouzeid.gramophone.R;
+=======
+>>>>>>> kabouzeid/master
 import com.kabouzeid.gramophone.model.Genre;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
@@ -24,18 +30,22 @@ public class GenreLoader {
 
     @NonNull
     public static ArrayList<Song> getSongs(@NonNull final Context context, final int genreId) {
+<<<<<<< HEAD
         // The genres table only stores songs that have a genre specified,
         // so we need to get songs without a genre a different way.
         if (genreId == -1) {
             return getSongsWithNoGenre(context);
         }
 
+=======
+>>>>>>> kabouzeid/master
         return SongLoader.getSongs(makeGenreSongCursor(context, genreId));
     }
 
     @NonNull
     private static ArrayList<Genre> getGenresFromCursor(@NonNull final Context context, @Nullable final Cursor cursor) {
         final ArrayList<Genre> genres = new ArrayList<>();
+<<<<<<< HEAD
 
         if (hasSongsWithNoGenre(context)) {
             genres.add(new Genre(context.getResources().getString(R.string.unknown_genre)));
@@ -45,6 +55,12 @@ public class GenreLoader {
             if (cursor.moveToFirst()) {
                 do {
                     genres.add(getGenreFromCursor(cursor));
+=======
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    genres.add(getGenreFromCursor(context, cursor));
+>>>>>>> kabouzeid/master
                 } while (cursor.moveToNext());
             }
             cursor.close();
@@ -53,6 +69,7 @@ public class GenreLoader {
     }
 
     @NonNull
+<<<<<<< HEAD
     private static Genre getGenreFromCursor(@NonNull final Cursor cursor) {
         final int id = cursor.getInt(0);
         final String name = cursor.getString(1);
@@ -89,6 +106,13 @@ public class GenreLoader {
         } catch (SecurityException e) {
             return null;
         }
+=======
+    private static Genre getGenreFromCursor(@NonNull final Context context, @NonNull final Cursor cursor) {
+        final int id = cursor.getInt(0);
+        final String name = cursor.getString(1);
+        final int songs = getSongs(context, id).size();
+        return new Genre(id, name, songs);
+>>>>>>> kabouzeid/master
     }
 
     @Nullable
@@ -108,15 +132,22 @@ public class GenreLoader {
                 Genres._ID,
                 Genres.NAME
         };
+<<<<<<< HEAD
         // Genres that actually have songs
         final String selection = Genres._ID + " IN" +
                 " (SELECT " + Genres.Members.GENRE_ID + " FROM audio_genres_map WHERE " + Genres.Members.AUDIO_ID + " IN" +
                 " (SELECT " + Genres._ID + " FROM audio_meta WHERE " + SongLoader.BASE_SELECTION + "))";
+=======
+>>>>>>> kabouzeid/master
 
         try {
             return context.getContentResolver().query(
                     Genres.EXTERNAL_CONTENT_URI,
+<<<<<<< HEAD
                     projection, selection, null, PreferenceUtil.getInstance(context).getGenreSortOrder());
+=======
+                    projection, null, null, PreferenceUtil.getInstance(context).getGenreSortOrder());
+>>>>>>> kabouzeid/master
         } catch (SecurityException e) {
             return null;
         }

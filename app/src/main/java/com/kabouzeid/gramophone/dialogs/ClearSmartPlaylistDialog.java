@@ -39,14 +39,11 @@ public class ClearSmartPlaylistDialog extends DialogFragment {
                 .content(content)
                 .positiveText(R.string.clear_action)
                 .negativeText(android.R.string.cancel)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        if (getActivity() == null) {
-                            return;
-                        }
-                        playlist.clear(getActivity());
+                .onPositive((dialog, which) -> {
+                    if (getActivity() == null) {
+                        return;
                     }
+                    playlist.clear(getActivity());
                 })
                 .build();
     }

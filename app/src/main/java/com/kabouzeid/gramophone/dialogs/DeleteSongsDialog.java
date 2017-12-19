@@ -54,13 +54,10 @@ public class DeleteSongsDialog extends DialogFragment {
                 .content(content)
                 .positiveText(R.string.delete_action)
                 .negativeText(android.R.string.cancel)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        if (getActivity() == null)
-                            return;
-                        MusicUtil.deleteTracks(getActivity(), songs);
-                    }
+                .onPositive((dialog, which) -> {
+                    if (getActivity() == null)
+                        return;
+                    MusicUtil.deleteTracks(getActivity(), songs);
                 })
                 .build();
     }

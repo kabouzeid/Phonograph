@@ -166,13 +166,10 @@ public class SongFileAdapter extends AbsMultiSelectAdapter<SongFileAdapter.ViewH
         public ViewHolder(View itemView) {
             super(itemView);
             if (menu != null && callbacks != null) {
-                menu.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int position = getAdapterPosition();
-                        if (isPositionInRange(position)) {
-                            callbacks.onFileMenuClicked(dataSet.get(position), v);
-                        }
+                menu.setOnClickListener(v -> {
+                    int position = getAdapterPosition();
+                    if (isPositionInRange(position)) {
+                        callbacks.onFileMenuClicked(dataSet.get(position), v);
                     }
                 });
             }

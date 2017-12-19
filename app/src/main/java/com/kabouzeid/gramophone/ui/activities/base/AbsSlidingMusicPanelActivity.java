@@ -76,12 +76,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
         miniPlayerFragment = (MiniPlayerFragment) getSupportFragmentManager().findFragmentById(R.id.mini_player_fragment);
 
         //noinspection ConstantConditions
-        miniPlayerFragment.getView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                expandPanel();
-            }
-        });
+        miniPlayerFragment.getView().setOnClickListener(v -> expandPanel());
 
         slidingUpPanelLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -267,13 +262,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
                     .ofArgb(getWindow().getNavigationBarColor(), color)
                     .setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME);
             navigationBarColorAnimator.setInterpolator(new PathInterpolator(0.4f, 0f, 1f, 1f));
-            navigationBarColorAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    AbsSlidingMusicPanelActivity.super.setNavigationbarColor((Integer) animation.getAnimatedValue());
-                }
-            });
+            navigationBarColorAnimator.addUpdateListener(animation -> AbsSlidingMusicPanelActivity.super.setNavigationbarColor((Integer) animation.getAnimatedValue()));
             navigationBarColorAnimator.start();
         }
     }

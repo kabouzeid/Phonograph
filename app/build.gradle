@@ -39,7 +39,11 @@ static def gitBranch() {
 
 android {
     compileSdkVersion 27
+<<<<<<< HEAD
     buildToolsVersion '27.0.0'
+=======
+    buildToolsVersion '27.0.2'
+>>>>>>> kabouzeid/master
     dataBinding {
         enabled = true
     }
@@ -51,7 +55,11 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         applicationId 'com.kabouzeid.gramophone'
+<<<<<<< HEAD
         versionCode 143
+=======
+        versionCode 145
+>>>>>>> kabouzeid/master
         versionName '0.16.3'
     }
     buildTypes {
@@ -76,6 +84,10 @@ android {
         disable 'InvalidPackage'
         abortOnError false
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 ext {
@@ -83,8 +95,12 @@ ext {
 }
 
 dependencies {
+<<<<<<< HEAD
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+=======
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+>>>>>>> kabouzeid/master
     implementation "com.android.support:support-compat:$supportLibVersion"
     implementation "com.android.support:support-core-utils:$supportLibVersion"
     implementation "com.android.support:support-core-ui:$supportLibVersion"
@@ -101,13 +117,21 @@ dependencies {
     implementation "com.android.support:percent:$supportLibVersion"
     implementation "com.android.support:preference-v7:$supportLibVersion"
     implementation "com.android.support:preference-v14:$supportLibVersion"
+<<<<<<< HEAD
 
+=======
+>>>>>>> kabouzeid/master
     implementation 'com.github.kabouzeid:app-theme-helper:1.3.7'
     implementation 'com.github.kabouzeid:RecyclerView-FastScroll:1.0.16-kmod'
     implementation 'com.github.kabouzeid:SeekArc:1.2-kmod'
     implementation 'com.github.kabouzeid:AndroidSlidingUpPanel:3.3.0-kmod3'
+<<<<<<< HEAD
     implementation 'com.afollestad.material-dialogs:core:0.9.4.5'
     implementation 'com.afollestad.material-dialogs:commons:0.9.4.5'
+=======
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
+>>>>>>> kabouzeid/master
     implementation 'com.afollestad:material-cab:0.1.12'
     implementation 'com.github.ksoichiro:android-observablescrollview:1.6.0'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
@@ -117,6 +141,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.8.0'
     implementation 'com.github.bumptech.glide:okhttp3-integration:1.5.0'
     implementation 'com.heinrichreimersoftware:material-intro:1.6.2'
+<<<<<<< HEAD
     implementation 'me.zhanghai.android.materialprogressbar:library:1.4.1'
     implementation 'org.eclipse.mylyn.github:org.eclipse.egit.github.core:2.1.5'
     implementation 'com.jakewharton:butterknife:8.6.0'
@@ -125,12 +150,24 @@ dependencies {
         transitive = true
     }
 
+=======
+    implementation 'me.zhanghai.android.materialprogressbar:library:1.4.2'
+    implementation 'org.eclipse.mylyn.github:org.eclipse.egit.github.core:2.1.5'
+    implementation 'com.jakewharton:butterknife:8.6.0'
+    implementation('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.11.0@aar') {
+        transitive = true
+    }
+>>>>>>> kabouzeid/master
     implementation 'com.crashlytics.sdk.android:crashlytics:2.8.0'
     implementation('com.crashlytics.sdk.android:answers:1.3.13@aar') {
         transitive = true
     }
+<<<<<<< HEAD
 
     testImplementation 'junit:junit:4.12'
 
+=======
+    testImplementation 'junit:junit:4.12'
+>>>>>>> kabouzeid/master
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 }

@@ -167,18 +167,13 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
                         favoriteIcon.setVisibility(View.INVISIBLE);
                     }
                 })
-                .withEndAction(new Runnable() {
-                    @Override
-                    public void run() {
-                        favoriteIcon.animate()
-                                .setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME / 2)
-                                .setInterpolator(new AccelerateInterpolator())
-                                .scaleX(0f)
-                                .scaleY(0f)
-                                .alpha(0f)
-                                .start();
-                    }
-                })
+                .withEndAction(() -> favoriteIcon.animate()
+                        .setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME / 2)
+                        .setInterpolator(new AccelerateInterpolator())
+                        .scaleX(0f)
+                        .scaleY(0f)
+                        .alpha(0f)
+                        .start())
                 .start();
     }
 
@@ -191,6 +186,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     }
 
     private void hideLyricsLayout() {
+<<<<<<< HEAD
         lyricsLayout.animate().alpha(0f).setDuration(PlayerAlbumCoverFragment.VISIBILITY_ANIM_DURATION).withEndAction(new Runnable() {
             @Override
             public void run() {
@@ -199,6 +195,13 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
                 lyricsLine1.setText(null);
                 lyricsLine2.setText(null);
             }
+=======
+        lyricsLayout.animate().alpha(0f).setDuration(PlayerAlbumCoverFragment.VISIBILITY_ANIM_DURATION).withEndAction(() -> {
+            if (!isLyricsLayoutBound()) return;
+            lyricsLayout.setVisibility(View.GONE);
+            lyricsLine1.setText(null);
+            lyricsLine2.setText(null);
+>>>>>>> kabouzeid/master
         });
     }
 
