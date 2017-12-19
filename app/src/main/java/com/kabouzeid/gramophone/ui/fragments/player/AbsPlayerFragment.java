@@ -206,9 +206,14 @@ public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implemen
         return getResources().getString(R.string.up_next) + "  •  " + MusicUtil.getReadableDurationString(MusicPlayerRemote.getQueueDurationMillis(MusicPlayerRemote.getPosition()));
     }
 
-    public abstract void onShow();
+    public void onShow(){
+        recyclerViewDragDropManager.setCheckCanDropEnabled(true);
+    }
 
-    public abstract void onHide();
+    public void onHide(){
+        recyclerViewDragDropManager.setCheckCanDropEnabled(false);
+        recyclerViewSwipeManager.cancelSwipe();
+    }
 
     @Override
     public void onDestroyView() {
