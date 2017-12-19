@@ -293,7 +293,7 @@ public class PlayingQueueAdapter extends SongAdapter
         snackbar.show();
 
 
-        //Fixes snackbar not showing when it replaces another Snackbar
+        //Fixes Snackbar not showing when it replaces another Snackbar
         //See: https://stackoverflow.com/questions/43680655/snackbar-sometimes-doesnt-show-up-when-it-replaces-another-one
         currentlyShownSnackbar = snackbar;
 
