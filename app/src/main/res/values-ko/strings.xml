@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="what_do_you_want_to_share">무엇을 공유하고 싶으십니까?</string>
-<<<<<<< HEAD
-    <string name="currently_listening_to_x_by_x">현재 %2$s의 %1$s 재생 중.</string>
-=======
     <string name="currently_listening_to_x_by_x">%2$s 의 %1$s 듣는 중</string>
->>>>>>> kabouzeid/master
     <string name="the_audio_file">음원 파일</string>
     <string name="x_has_been_set_as_ringtone">로 전화 벨소리를 설정하였습니다.</string>
     <string name="action_set_as_ringtone">벨소리로 설정</string>
@@ -41,11 +37,7 @@
     <string name="wiki_unavailable">\uc774 \uc568\ubc94\uc758 \uc704\ud0a4 \ud56d\ubaa9\uc744 \ucc3e\uc744 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.</string>
     <string name="biography">정보</string>
     <string name="wiki">위키피디아</string>
-<<<<<<< HEAD
-    <string name="audio_focus_denied">음악 선택이 거부되었습니다.</string>
-=======
     <string name="audio_focus_denied">오디오 포커스 권한을 얻지 못했습니다.</string>
->>>>>>> kabouzeid/master
     <string name="album">앨범</string>
     <string name="artist">아티스트</string>
     <string name="genre">장르</string>

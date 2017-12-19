@@ -55,30 +55,6 @@ public class SleepTimerDialog extends DialogFragment {
         materialDialog = new MaterialDialog.Builder(getActivity())
                 .title(getActivity().getResources().getString(R.string.action_sleep_timer))
                 .positiveText(R.string.action_set)
-<<<<<<< HEAD
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        if (getActivity() == null) {
-                            return;
-                        }
-                        if (!App.isProVersion()) {
-                            Toast.makeText(getActivity(), getString(R.string.sleep_timer_is_a_pro_feature), Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(getContext(), PurchaseActivity.class));
-                            return;
-                        }
-
-                        final int minutes = seekArcProgress;
-
-                        PendingIntent pi = makeTimerPendingIntent(PendingIntent.FLAG_CANCEL_CURRENT);
-
-                        final long nextSleepTimerElapsedTime = SystemClock.elapsedRealtime() + minutes * 60 * 1000;
-                        PreferenceUtil.getInstance(getActivity()).setNextSleepTimerElapsedRealtime(nextSleepTimerElapsedTime);
-                        AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-                        am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextSleepTimerElapsedTime, pi);
-
-                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_set, minutes), Toast.LENGTH_SHORT).show();
-=======
                 .onPositive((dialog, which) -> {
                     if (getActivity() == null) {
                         return;
@@ -87,7 +63,6 @@ public class SleepTimerDialog extends DialogFragment {
                         Toast.makeText(getActivity(), getString(R.string.sleep_timer_is_a_pro_feature), Toast.LENGTH_LONG).show();
                         startActivity(new Intent(getContext(), PurchaseActivity.class));
                         return;
->>>>>>> kabouzeid/master
                     }
 
                     final int minutes = seekArcProgress;

@@ -186,22 +186,11 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     }
 
     private void hideLyricsLayout() {
-<<<<<<< HEAD
-        lyricsLayout.animate().alpha(0f).setDuration(PlayerAlbumCoverFragment.VISIBILITY_ANIM_DURATION).withEndAction(new Runnable() {
-            @Override
-            public void run() {
-                if (!isLyricsLayoutBound()) return;
-                lyricsLayout.setVisibility(View.GONE);
-                lyricsLine1.setText(null);
-                lyricsLine2.setText(null);
-            }
-=======
         lyricsLayout.animate().alpha(0f).setDuration(PlayerAlbumCoverFragment.VISIBILITY_ANIM_DURATION).withEndAction(() -> {
             if (!isLyricsLayoutBound()) return;
             lyricsLayout.setVisibility(View.GONE);
             lyricsLine1.setText(null);
             lyricsLine2.setText(null);
->>>>>>> kabouzeid/master
         });
     }
 

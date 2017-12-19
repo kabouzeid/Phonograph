@@ -3,12 +3,9 @@ package com.kabouzeid.gramophone.ui.fragments.player;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
-<<<<<<< HEAD
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-=======
->>>>>>> kabouzeid/master
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,12 +33,12 @@ import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
+
 public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implements Toolbar.OnMenuItemClickListener, PaletteColorHolder {
     public static final String TAG = AbsPlayerFragment.class.getSimpleName();
 
     private Callbacks callbacks;
     private static boolean isToolbarShown = true;
-<<<<<<< HEAD
 
     public PlayingQueueAdapter playingQueueAdapter;
     public RecyclerView.Adapter wrappedAdapter;
@@ -49,8 +46,6 @@ public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implemen
     public RecyclerViewSwipeManager recyclerViewSwipeManager;
     public RecyclerViewTouchActionGuardManager recyclerViewTouchActionGuardManager;
     public LinearLayoutManager layoutManager;
-=======
->>>>>>> kabouzeid/master
 
     @Override
     public void onAttach(Context context) {
@@ -183,16 +178,12 @@ public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implemen
 
         setToolbarShown(false);
 
-<<<<<<< HEAD
         toolbar.animate().alpha(0f).setDuration(PlayerAlbumCoverFragment.VISIBILITY_ANIM_DURATION).withEndAction(new Runnable() {
             @Override
             public void run() {
                 toolbar.setVisibility(View.GONE);
             }
         });
-=======
-        toolbar.animate().alpha(0f).setDuration(PlayerAlbumCoverFragment.VISIBILITY_ANIM_DURATION).withEndAction(() -> toolbar.setVisibility(View.GONE));
->>>>>>> kabouzeid/master
     }
 
     protected void toggleToolbar(@Nullable final View toolbar) {

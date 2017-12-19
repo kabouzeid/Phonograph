@@ -195,23 +195,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
             final Preference generalTheme = findPreference("general_theme");
             setSummary(generalTheme);
-<<<<<<< HEAD
-            generalTheme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, @NonNull Object o) {
-                    String themeName = (String) o;
-                    if (themeName.equals("black") && !App.isProVersion()) {
-                        Toast.makeText(getActivity(), R.string.black_theme_is_a_pro_feature, Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getContext(), PurchaseActivity.class));
-                        return false;
-                    }
-
-                    int theme = PreferenceUtil.getThemeResFromPrefValue(themeName);
-                    setSummary(generalTheme, o);
-                    ThemeStore.editTheme(getActivity())
-                            .activityTheme(theme)
-                            .commit();
-=======
             generalTheme.setOnPreferenceChangeListener((preference, o) -> {
                 String themeName = (String) o;
                 if (themeName.equals("black") && !App.isProVersion()) {
@@ -219,7 +202,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                     startActivity(new Intent(getContext(), PurchaseActivity.class));
                     return false;
                 }
->>>>>>> kabouzeid/master
 
                 int theme = PreferenceUtil.getThemeResFromPrefValue(themeName);
                 setSummary(generalTheme, o);
@@ -289,20 +271,10 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 classicNotification.setVisible(false);
             } else {
                 classicNotification.setChecked(PreferenceUtil.getInstance(getActivity()).classicNotification());
-<<<<<<< HEAD
-                classicNotification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        // Save preference
-                        PreferenceUtil.getInstance(getActivity()).setClassicNotification((Boolean) newValue);
-                        return true;
-                    }
-=======
                 classicNotification.setOnPreferenceChangeListener((preference, newValue) -> {
                     // Save preference
                     PreferenceUtil.getInstance(getActivity()).setClassicNotification((Boolean) newValue);
                     return true;
->>>>>>> kabouzeid/master
                 });
             }
 
@@ -311,20 +283,10 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 coloredNotification.setEnabled(PreferenceUtil.getInstance(getActivity()).classicNotification());
             } else {
                 coloredNotification.setChecked(PreferenceUtil.getInstance(getActivity()).coloredNotification());
-<<<<<<< HEAD
-                coloredNotification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        // Save preference
-                        PreferenceUtil.getInstance(getActivity()).setColoredNotification((Boolean) newValue);
-                        return true;
-                    }
-=======
                 coloredNotification.setOnPreferenceChangeListener((preference, newValue) -> {
                     // Save preference
                     PreferenceUtil.getInstance(getActivity()).setColoredNotification((Boolean) newValue);
                     return true;
->>>>>>> kabouzeid/master
                 });
             }
 

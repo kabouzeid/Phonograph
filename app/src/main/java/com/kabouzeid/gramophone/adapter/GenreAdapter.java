@@ -56,11 +56,6 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Genre genre = dataSet.get(position);
 
-<<<<<<< HEAD
-        if (holder.title != null) {
-            holder.title.setText(genre.name);
-        }
-=======
         if (holder.getAdapterPosition() == getItemCount() - 1) {
             if (holder.separator != null) {
                 holder.separator.setVisibility(View.GONE);
@@ -82,7 +77,6 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
         if (holder.text != null) {
             holder.text.setText(MusicUtil.getGenreInfoString(activity, genre));
         }
->>>>>>> kabouzeid/master
     }
 
     @Override

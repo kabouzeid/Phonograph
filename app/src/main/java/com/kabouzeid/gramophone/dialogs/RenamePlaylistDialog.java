@@ -38,22 +38,11 @@ public class RenamePlaylistDialog extends DialogFragment {
                         InputType.TYPE_TEXT_VARIATION_PERSON_NAME |
                         InputType.TYPE_TEXT_FLAG_CAP_WORDS)
                 .input(getString(R.string.playlist_name_empty), PlaylistsUtil.getNameForPlaylist(getActivity(), playlistId), false,
-<<<<<<< HEAD
-                        new MaterialDialog.InputCallback() {
-                            @Override
-                            public void onInput(@NonNull  MaterialDialog materialDialog, @NonNull CharSequence charSequence) {
-                                final String name = charSequence.toString().trim();
-                                if (!name.isEmpty()) {
-                                    long playlistId = getArguments().getLong(PLAYLIST_ID);
-                                    PlaylistsUtil.renamePlaylist(getActivity(), playlistId, name);
-                                }
-=======
                         (materialDialog, charSequence) -> {
                             final String name = charSequence.toString().trim();
                             if (!name.isEmpty()) {
                                 long playlistId1 = getArguments().getLong(PLAYLIST_ID);
                                 PlaylistsUtil.renamePlaylist(getActivity(), playlistId1, name);
->>>>>>> kabouzeid/master
                             }
                         })
                 .build();

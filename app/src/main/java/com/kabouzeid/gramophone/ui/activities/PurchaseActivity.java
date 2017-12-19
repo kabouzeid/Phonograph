@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -66,29 +65,6 @@ public class PurchaseActivity extends AbsBaseActivity implements BillingProcesso
         restoreButton.setEnabled(false);
         purchaseButton.setEnabled(false);
 
-<<<<<<< HEAD
-        restoreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (restorePurchaseAsyncTask == null || restorePurchaseAsyncTask.getStatus() != AsyncTask.Status.RUNNING) {
-                    restorePurchase();
-                }
-            }
-        });
-
-        purchaseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                billingProcessor.purchase(PurchaseActivity.this, App.PRO_VERSION_PRODUCT_ID);
-
-                if (!BuildConfig.DEBUG) {
-                    Answers.getInstance().logAddToCart(new AddToCartEvent()
-                            .putCurrency(Currency.getInstance("EUR"))
-                            .putItemId("pro_version")
-                            .putItemName("Phonograph Pro")
-                            .putItemPrice(BigDecimal.valueOf(3)));
-                }
-=======
         restoreButton.setOnClickListener(v -> {
             if (restorePurchaseAsyncTask == null || restorePurchaseAsyncTask.getStatus() != AsyncTask.Status.RUNNING) {
                 restorePurchase();
@@ -104,7 +80,6 @@ public class PurchaseActivity extends AbsBaseActivity implements BillingProcesso
                         .putItemId("pro_version")
                         .putItemName("Phonograph Pro")
                         .putItemPrice(BigDecimal.valueOf(3)));
->>>>>>> kabouzeid/master
             }
         });
 

@@ -3,7 +3,6 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivity.folders;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.media.MediaScannerConnection;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,7 +28,6 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.afollestad.materialcab.MaterialCab;
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
@@ -399,20 +397,9 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         return fileComparator;
     }
 
-<<<<<<< HEAD
-    FileFilter audioFileFilter = new FileFilter() {
-        @Override
-        public boolean accept(File file) {
-            return !file.isHidden() && (file.isDirectory() ||
-                    FileUtil.fileIsMimeType(file, "audio/*", MimeTypeMap.getSingleton()) ||
-                    FileUtil.fileIsMimeType(file, "application/ogg", MimeTypeMap.getSingleton()));
-        }
-    };
-=======
     FileFilter audioFileFilter = file -> !file.isHidden() && (file.isDirectory() ||
             FileUtil.fileIsMimeType(file, "audio/*", MimeTypeMap.getSingleton()) ||
             FileUtil.fileIsMimeType(file, "application/ogg", MimeTypeMap.getSingleton()));
->>>>>>> kabouzeid/master
 
     private FileFilter getFileFilter() {
         return audioFileFilter;

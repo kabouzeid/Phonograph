@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.ui.activities;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -19,7 +18,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowInsets;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -170,55 +168,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
         NavigationViewUtil.setItemTextColors(navigationView, ThemeStore.textColorPrimary(this), accentColor);
 
         checkSetUpPro();
-<<<<<<< HEAD
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                drawerLayout.closeDrawers();
-                switch (menuItem.getItemId()) {
-                    case R.id.nav_library:
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                setMusicChooser(LIBRARY);
-                            }
-                        }, 200);
-                        break;
-                    case R.id.nav_folders:
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                setMusicChooser(FOLDERS);
-                            }
-                        }, 200);
-                        break;
-                    case R.id.buy_pro:
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                startActivityForResult(new Intent(MainActivity.this, PurchaseActivity.class), PURCHASE_REQUEST);
-                            }
-                        }, 200);
-                        break;
-                    case R.id.nav_settings:
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-                            }
-                        }, 200);
-                        break;
-                    case R.id.nav_about:
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                startActivity(new Intent(MainActivity.this, AboutActivity.class));
-                            }
-                        }, 200);
-                        break;
-                }
-                return true;
-=======
         navigationView.setNavigationItemSelectedListener(menuItem -> {
             drawerLayout.closeDrawers();
             switch (menuItem.getItemId()) {
@@ -237,7 +186,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
                 case R.id.nav_about:
                     new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, AboutActivity.class)), 200);
                     break;
->>>>>>> kabouzeid/master
             }
             return true;
         });
