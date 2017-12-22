@@ -41,8 +41,6 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
 
     private static final int DOUBLE_CLICK = 400;
 
-    private static final int MULTIPLE_CLICK = 150;
-
     private static WakeLock mWakeLock = null;
     private static int mClickCounter = 0;
     private static long mLastClickTime = 0;
@@ -91,16 +89,6 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
         }
     }
 
-    static int clicks;
-    static long multipleClickStart;
-
-    static Runnable resetMultipleClick = () -> {
-        multipleClickStart = 0;
-        clicks = 0;
-    };
-
-    static Handler timeMultipleClick;
-
     public static boolean handleIntent(final Context context, final Intent intent) {
         final String intentAction = intent.getAction();
         if (Intent.ACTION_MEDIA_BUTTON.equals(intentAction)) {
@@ -120,7 +108,6 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
                     break;
                 case KeyEvent.KEYCODE_HEADSETHOOK:
                 case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
-                    //On Android Oreo it always call this
                     command = MusicService.ACTION_TOGGLE_PAUSE;
                     break;
                 case KeyEvent.KEYCODE_MEDIA_NEXT:
