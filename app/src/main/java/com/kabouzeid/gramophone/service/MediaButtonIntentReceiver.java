@@ -41,6 +41,8 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
 
     private static final int DOUBLE_CLICK = 400;
 
+    private static final int MULTIPLE_CLICK = 150;
+
     private static WakeLock mWakeLock = null;
     private static int mClickCounter = 0;
     private static long mLastClickTime = 0;
@@ -89,6 +91,16 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
         }
     }
 
+    static int clicks;
+    static long multipleClickStart;
+
+    static Runnable resetMultipleClick = () -> {
+        multipleClickStart = 0;
+        clicks = 0;
+    };
+
+    static Handler timeMultipleClick;
+
     public static boolean handleIntent(final Context context, final Intent intent) {
         final String intentAction = intent.getAction();
         if (Intent.ACTION_MEDIA_BUTTON.equals(intentAction)) {
@@ -108,6 +120,7 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
                     break;
                 case KeyEvent.KEYCODE_HEADSETHOOK:
                 case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
+                    //On Android Oreo it always call this
                     command = MusicService.ACTION_TOGGLE_PAUSE;
                     break;
                 case KeyEvent.KEYCODE_MEDIA_NEXT:
@@ -133,13 +146,18 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
 
                         // The service may or may not be running, but we need to send it
                         // a command.
-                        if (keycode == KeyEvent.KEYCODE_HEADSETHOOK) {
+                        int keycodeToCompare = KeyEvent.KEYCODE_HEADSETHOOK;
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            keycodeToCompare = KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE;
+                        }
+                        if (keycode == keycodeToCompare) {
                             if (eventTime - mLastClickTime >= DOUBLE_CLICK) {
                                 mClickCounter = 0;
                             }
 
                             mClickCounter++;
-                            if (DEBUG) Log.v(TAG, "Got headset click, count = " + mClickCounter);
+                            if (DEBUG)
+                                Log.v(TAG, "Got headset click, count = " + mClickCounter);
                             mHandler.removeMessages(MSG_HEADSET_DOUBLE_CLICK_TIMEOUT);
 
                             Message msg = mHandler.obtainMessage(
