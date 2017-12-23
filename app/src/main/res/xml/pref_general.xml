@@ -20,6 +20,11 @@
             android:positiveButtonText="@null"
             android:title="@string/pref_title_general_theme" />
 
+        <com.kabouzeid.gramophone.preferences.LibraryPreference
+            android:key="library_categories"
+            android:summary="@string/pref_summary_library_categories"
+            android:title="@string/library_categories" />
+
     </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
 </android.support.v7.preference.PreferenceScreen>

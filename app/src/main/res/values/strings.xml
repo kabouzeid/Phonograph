@@ -141,6 +141,7 @@
     <string name="remove_action">Remove</string>
     <string name="rename_action">Rename</string>
     <string name="create_action">Create</string>
+    <string name="reset_action">Reset</string>
     <string name="x_selected">%1$d selected</string>
     <string name="primary_color">Primary color</string>
     <string name="accent_color">Accent color</string>
@@ -294,4 +295,8 @@
     <string name="pref_summary_blacklist">The content of blacklisted folders is hidden from your library.</string>
     <string name="reset_artist_image">Reset artist image</string>
     <string name="set_artist_image">Set artist image</string>
+    <string name="library_categories">Library categories</string>
+    <string name="pref_summary_library_categories">Configure visibility and order of library categories.</string>
+    <string name="edit_categories">Edit categories</string>
+    <string name="at_least_one_category_must_be_enabled">At least one category must be enabled.</string>
 </resources>
