@@ -133,11 +133,7 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
 
                         // The service may or may not be running, but we need to send it
                         // a command.
-                        int keycodeToCompare = KeyEvent.KEYCODE_HEADSETHOOK;
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            keycodeToCompare = KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE;
-                        }
-                        if (keycode == keycodeToCompare) {
+                        if (keycode == KeyEvent.KEYCODE_HEADSETHOOK || keycode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE) {
                             if (eventTime - mLastClickTime >= DOUBLE_CLICK) {
                                 mClickCounter = 0;
                             }
