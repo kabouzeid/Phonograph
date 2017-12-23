@@ -10,14 +10,17 @@ import android.util.SparseArray;
 import android.view.ViewGroup;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.model.Category;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.AlbumsFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.ArtistsFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.GenresFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.PlaylistsFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.SongsFragment;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -30,33 +33,29 @@ public class MusicLibraryPagerAdapter extends FragmentPagerAdapter {
     @NonNull
     private final Context mContext;
 
-    @NonNull
-    private final String[] titles;
-
     public MusicLibraryPagerAdapter(@NonNull final Context context, final FragmentManager fragmentManager) {
         super(fragmentManager);
         mContext = context;
-        titles = new String[]{
-                context.getResources().getString(R.string.songs),
-                context.getResources().getString(R.string.albums),
-                context.getResources().getString(R.string.artists),
-                context.getResources().getString(R.string.genres),
-                context.getResources().getString(R.string.playlists)
-        };
-        final MusicFragments[] fragments = MusicFragments.values();
-        for (final MusicLibraryPagerAdapter.MusicFragments fragment : fragments) {
-            add(fragment.getFragmentClass(), null);
-        }
+        setCategories(PreferenceUtil.getInstance(context).getLibraryCategories());
     }
 
-    @SuppressWarnings("synthetic-access")
-    public void add(@NonNull final Class<? extends Fragment> className, final Bundle params) {
-        final Holder mHolder = new Holder();
-        mHolder.mClassName = className.getName();
-        mHolder.mParams = params;
+    public void setCategories(@NonNull ArrayList<Category> categories) {
+        mHolderList.clear();
 
-        final int mPosition = mHolderList.size();
-        mHolderList.add(mPosition, mHolder);
+        for (int i = 0, size = categories.size(); i < size; i++) {
+            Category category = categories.get(i);
+            if (category.visible) {
+                MusicFragments fragment = MusicFragments.valueOf(category.id.toString());
+                Holder holder = new Holder();
+                holder.mClassName = fragment.getFragmentClass().getName();
+                holder.title = mContext.getResources()
+                        .getString(fragment.getResourceKey())
+                        .toUpperCase(Locale.getDefault());
+                mHolderList.add(holder);
+            }
+        }
+
+        alignCache();
         notifyDataSetChanged();
     }
 
@@ -66,6 +65,23 @@ public class MusicLibraryPagerAdapter extends FragmentPagerAdapter {
             return mWeakFragment.get();
         }
         return getItem(position);
+    }
+
+    @Override
+    public int getItemPosition(@NonNull Object fragment) {
+        for (int i = 0, size = mHolderList.size(); i < size; i++) {
+            Holder holder = mHolderList.get(i);
+            if (holder.mClassName.equals(fragment.getClass().getName())) {
+                return i;
+            }
+        }
+        return POSITION_NONE;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        // as fragment position is not fixed, we can't use position as id
+        return MusicFragments.of(getFragment(position).getClass()).ordinal();
     }
 
     @NonNull
@@ -104,30 +120,75 @@ public class MusicLibraryPagerAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public CharSequence getPageTitle(final int position) {
-        return titles[position]
-                .toUpperCase(Locale.getDefault());
+        return mHolderList.get(position).title;
+    }
+
+    /**
+     * Aligns the fragment cache with the current category layout.
+     */
+    private void alignCache() {
+        if (mFragmentArray.size() == 0) return;
+
+        HashMap<String, WeakReference<Fragment>> mappings = new HashMap<>(mFragmentArray.size());
+
+        for (int i = 0, size = mFragmentArray.size(); i < size; i++) {
+            WeakReference<Fragment> ref = mFragmentArray.valueAt(i);
+            Fragment fragment = ref.get();
+            if (fragment != null) {
+                mappings.put(fragment.getClass().getName(), ref);
+            }
+        }
+        for (int i = 0, size = mHolderList.size(); i < size; i++) {
+            WeakReference<Fragment> ref = mappings.get(mHolderList.get(i).mClassName);
+            if (ref != null) {
+                mFragmentArray.put(i, ref);
+            } else {
+                mFragmentArray.remove(i);
+            }
+        }
     }
 
     public enum MusicFragments {
-        SONG(SongsFragment.class),
-        ALBUM(AlbumsFragment.class),
-        ARTIST(ArtistsFragment.class),
-        GENRES(GenresFragment.class),
-        PLAYLIST(PlaylistsFragment.class);
+        SONGS(SongsFragment.class, R.string.songs),
+        ALBUMS(AlbumsFragment.class, R.string.albums),
+        ARTISTS(ArtistsFragment.class, R.string.artists),
+        GENRES(GenresFragment.class, R.string.genres),
+        PLAYLISTS(PlaylistsFragment.class, R.string.playlists);
 
         private final Class<? extends Fragment> mFragmentClass;
+        private final int key;
 
-        MusicFragments(final Class<? extends Fragment> fragmentClass) {
+        MusicFragments(final Class<? extends Fragment> fragmentClass, int key) {
             mFragmentClass = fragmentClass;
+            this.key = key;
         }
 
         public Class<? extends Fragment> getFragmentClass() {
             return mFragmentClass;
+        }
+
+        public int getResourceKey() {
+            return key;
+        }
+
+        public static MusicFragments of(Class<?> cl) {
+            MusicFragments[] fragments = All.FRAGMENTS;
+            for (int i = 0; i < fragments.length; i++) {
+                if (cl.equals(fragments[i].mFragmentClass))
+                    return fragments[i];
+            }
+
+            throw new IllegalArgumentException("Unknown music fragment " + cl);
+        }
+
+        private static class All {
+            public static final MusicFragments[] FRAGMENTS = values();
         }
     }
 
     private final static class Holder {
         String mClassName;
         Bundle mParams;
+        String title;
     }
 }
