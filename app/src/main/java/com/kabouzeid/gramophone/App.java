@@ -8,6 +8,7 @@ import com.anjlab.android.iab.v3.TransactionDetails;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.core.CrashlyticsCore;
+import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.appshortcuts.DynamicShortcutManager;
 
 import io.fabric.sdk.android.Fabric;
@@ -29,6 +30,15 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         app = this;
+
+        // default theme
+        if (!ThemeStore.isConfigured(this, 1)) {
+            ThemeStore.editTheme(this)
+                    .activityTheme(R.style.Theme_Phonograph_Light)
+                    .primaryColorRes(R.color.md_indigo_500)
+                    .accentColorRes(R.color.md_pink_A400)
+                    .commit();
+        }
 
         // Set up Crashlytics, disabled for debug builds
         Crashlytics crashlyticsKit = new Crashlytics.Builder()
