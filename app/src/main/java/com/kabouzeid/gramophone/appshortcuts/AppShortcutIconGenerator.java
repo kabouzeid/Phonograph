@@ -9,6 +9,7 @@ import android.graphics.drawable.Icon;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v4.graphics.drawable.IconCompat;
 import android.util.TypedValue;
 
 import com.kabouzeid.appthemehelper.ThemeStore;
@@ -23,13 +24,13 @@ import com.kabouzeid.gramophone.util.Util;
 public final class AppShortcutIconGenerator {
     public static Icon generateThemedIcon(Context context, int iconId) {
         if (PreferenceUtil.getInstance(context).coloredAppShortcuts()){
-            return generateUserThemedIcon(context, iconId);
+            return generateUserThemedIcon(context, iconId).toIcon();
         } else {
-            return generateDefaultThemedIcon(context, iconId);
+            return generateDefaultThemedIcon(context, iconId).toIcon();
         }
     }
 
-    private static Icon generateDefaultThemedIcon(Context context, int iconId) {
+    private static IconCompat generateDefaultThemedIcon(Context context, int iconId) {
         // Return an Icon of iconId with default colors
         return generateThemedIcon(context, iconId,
                 context.getColor(R.color.app_shortcut_default_foreground),
@@ -37,7 +38,7 @@ public final class AppShortcutIconGenerator {
         );
     }
 
-    private static Icon generateUserThemedIcon(Context context, int iconId) {
+    private static IconCompat generateUserThemedIcon(Context context, int iconId) {
         // Get background color from context's theme
         final TypedValue typedColorBackground = new TypedValue();
         context.getTheme().resolveAttribute(android.R.attr.colorBackground, typedColorBackground, true);
@@ -49,20 +50,20 @@ public final class AppShortcutIconGenerator {
         );
     }
 
-    private static Icon generateThemedIcon(Context context, int iconId, int foregroundColor, int backgroundColor) {
+    private static IconCompat generateThemedIcon(Context context, int iconId, int foregroundColor, int backgroundColor) {
         // Get and tint foreground and background drawables
         Drawable vectorDrawable = Util.getTintedVectorDrawable(context, iconId, foregroundColor);
         Drawable backgroundDrawable = Util.getTintedVectorDrawable(context, R.drawable.ic_app_shortcut_background, backgroundColor);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             AdaptiveIconDrawable adaptiveIconDrawable = new AdaptiveIconDrawable(backgroundDrawable, vectorDrawable);
-            return Icon.createWithAdaptiveBitmap(drawableToBitmap(adaptiveIconDrawable));
+            return IconCompat.createWithAdaptiveBitmap(drawableToBitmap(adaptiveIconDrawable));
         } else {
             // Squash the two drawables together
             LayerDrawable layerDrawable = new LayerDrawable(new Drawable[]{backgroundDrawable, vectorDrawable});
 
             // Return as an Icon
-            return Icon.createWithBitmap(drawableToBitmap(layerDrawable));
+            return IconCompat.createWithBitmap(drawableToBitmap(layerDrawable));
         }
     }
 
