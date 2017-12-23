@@ -49,7 +49,7 @@ public class MusicLibraryPagerAdapter extends FragmentPagerAdapter {
                 Holder holder = new Holder();
                 holder.mClassName = fragment.getFragmentClass().getName();
                 holder.title = mContext.getResources()
-                        .getString(fragment.getResourceKey())
+                        .getString(category.id.key)
                         .toUpperCase(Locale.getDefault());
                 mHolderList.add(holder);
             }
@@ -149,26 +149,20 @@ public class MusicLibraryPagerAdapter extends FragmentPagerAdapter {
     }
 
     public enum MusicFragments {
-        SONGS(SongsFragment.class, R.string.songs),
-        ALBUMS(AlbumsFragment.class, R.string.albums),
-        ARTISTS(ArtistsFragment.class, R.string.artists),
-        GENRES(GenresFragment.class, R.string.genres),
-        PLAYLISTS(PlaylistsFragment.class, R.string.playlists);
+        SONGS(SongsFragment.class),
+        ALBUMS(AlbumsFragment.class),
+        ARTISTS(ArtistsFragment.class),
+        GENRES(GenresFragment.class),
+        PLAYLISTS(PlaylistsFragment.class);
 
         private final Class<? extends Fragment> mFragmentClass;
-        private final int key;
 
-        MusicFragments(final Class<? extends Fragment> fragmentClass, int key) {
+        MusicFragments(final Class<? extends Fragment> fragmentClass) {
             mFragmentClass = fragmentClass;
-            this.key = key;
         }
 
         public Class<? extends Fragment> getFragmentClass() {
             return mFragmentClass;
-        }
-
-        public int getResourceKey() {
-            return key;
         }
 
         public static MusicFragments of(Class<?> cl) {
