@@ -3,9 +3,14 @@ package com.kabouzeid.gramophone.appshortcuts;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ScaleDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
+import android.graphics.drawable.shapes.Shape;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.TypedValue;
@@ -53,11 +58,16 @@ public final class AppShortcutIconGenerator {
         Drawable vectorDrawable = Util.getTintedVectorDrawable(context, iconId, foregroundColor);
         Drawable backgroundDrawable = Util.getTintedVectorDrawable(context, R.drawable.ic_app_shortcut_background, backgroundColor);
 
-        // Squash the two drawables together
-        LayerDrawable layerDrawable = new LayerDrawable(new Drawable[]{backgroundDrawable, vectorDrawable});
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            AdaptiveIconDrawable adaptiveIconDrawable = new AdaptiveIconDrawable(backgroundDrawable, vectorDrawable);
+            return Icon.createWithAdaptiveBitmap(drawableToBitmap(adaptiveIconDrawable));
+        } else {
+            // Squash the two drawables together
+            LayerDrawable layerDrawable = new LayerDrawable(new Drawable[]{backgroundDrawable, vectorDrawable});
 
-        // Return as an Icon
-        return Icon.createWithBitmap(drawableToBitmap(layerDrawable));
+            // Return as an Icon
+            return Icon.createWithBitmap(drawableToBitmap(layerDrawable));
+        }
     }
 
     private static Bitmap drawableToBitmap(Drawable drawable) {
