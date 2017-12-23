@@ -23,7 +23,7 @@ import com.kabouzeid.gramophone.util.Util;
 @RequiresApi(Build.VERSION_CODES.N_MR1)
 public final class AppShortcutIconGenerator {
     public static Icon generateThemedIcon(Context context, int iconId) {
-        if (PreferenceUtil.getInstance(context).coloredAppShortcuts()){
+        if (PreferenceUtil.getInstance(context).coloredAppShortcuts()) {
             return generateUserThemedIcon(context, iconId).toIcon();
         } else {
             return generateDefaultThemedIcon(context, iconId).toIcon();
@@ -55,7 +55,7 @@ public final class AppShortcutIconGenerator {
         Drawable vectorDrawable = Util.getTintedVectorDrawable(context, iconId, foregroundColor);
         Drawable backgroundDrawable = Util.getTintedVectorDrawable(context, R.drawable.ic_app_shortcut_background, backgroundColor);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             AdaptiveIconDrawable adaptiveIconDrawable = new AdaptiveIconDrawable(backgroundDrawable, vectorDrawable);
             return IconCompat.createWithAdaptiveBitmap(drawableToBitmap(adaptiveIconDrawable));
         } else {
