@@ -87,12 +87,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         Context context = h.dragHandle.getContext();
         int backgroundColor = ThemeStore.textColorSecondary(context);
         int borderColor = ThemeStore.textColorSecondaryInverse(context);
-        int height = getPixel(1, h.dragHandle);
-
-        GradientDrawable d = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{Color.RED, Color.RED});
-        d.setStroke(height, backgroundColor);
-        d.setSize(height * 4, getPixel(16, h.dragHandle));
-
         h.dragHandle.setBackground(new DragHandle(h.dragHandle.getResources().getDisplayMetrics().density, backgroundColor, borderColor));
     }
 
@@ -143,7 +137,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-
     @Override
     public int getItemCount() {
         return categories.size();
@@ -175,17 +168,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return categories;
     }
 
-
     private ArrayList<Category> copy(ArrayList<Category> categories) {
         ArrayList<Category> result = new ArrayList<>();
         for (Category category : categories) {
             result.add(new Category(category));
         }
         return result;
-    }
-
-    private int getPixel(float dp, View dragHandle) {
-        return Math.round(dp * dragHandle.getResources().getDisplayMetrics().density);
     }
 
     private static class CategoryViewHolder extends RecyclerView.ViewHolder {
