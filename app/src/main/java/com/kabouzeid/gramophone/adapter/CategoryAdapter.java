@@ -117,16 +117,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         @Override
         public void draw(@NonNull Canvas canvas) {
             Rect bounds = getBounds();
-            int left = bounds.left + 1;
-            int top = bounds.top + 1;
-            int width = bounds.width() - 1;
+            float width = 15 * density;
+            float left = bounds.centerX() - width / 2;
+            float top = bounds.top + bounds.centerY() - 3 * density;
             canvas.save();
-            canvas.translate(1, 1);
-            canvas.drawRect(left, top, width, top + 2 * density, shape);
-            canvas.drawRect(left, top, width, top + 2 * density, outline);
+            canvas.drawRect(left, top, left + width, top + 2 * density, shape);
+            canvas.drawRect(left, top, left + width, top + 2 * density, outline);
             canvas.translate(0, (density * 2) * 2);
-            canvas.drawRect(left, top, width, top + 2 * density, shape);
-            canvas.drawRect(left, top, width, top + 2 * density, outline);
+            canvas.drawRect(left, top, left + width, top + 2 * density, shape);
+            canvas.drawRect(left, top, left + width, top + 2 * density, outline);
             canvas.restore();
         }
 

@@ -34,12 +34,12 @@
 
     <View
         android:id="@+id/drag_handle"
-        android:layout_width="16dp"
-        android:layout_height="7dp"
+        android:layout_width="48dp"
+        android:layout_height="40dp"
         android:layout_gravity="center_vertical"
         android:clickable="false"
         android:focusable="false"
-        android:minWidth="16dp"
-        android:minHeight="7dp" />
+        android:minWidth="48dp"
+        android:minHeight="40dp" />
 </LinearLayout>
     <!--        android:background="@drawable/drag_handle" -->
