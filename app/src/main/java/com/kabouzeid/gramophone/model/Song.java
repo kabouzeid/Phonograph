@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class Song implements Parcelable {
-    public static final Song EMPTY_SONG = new Song(-1, "", -1, -1, -1, "", -1, -1, "", -1, "");
+    public static final Song EMPTY_SONG = new Song(-1, "", -1, -1, -1, "", -1, -1, "", "", -1, "");
 
     public final int id;
     public final String title;
@@ -18,10 +18,11 @@ public class Song implements Parcelable {
     public final long dateModified;
     public final int albumId;
     public final String albumName;
+    public final String albumArtist;
     public final int artistId;
     public final String artistName;
 
-    public Song(int id, String title, int trackNumber, int year, long duration, String data, long dateModified, int albumId, String albumName, int artistId, String artistName) {
+    public Song(int id, String title, int trackNumber, int year, long duration, String data, long dateModified, int albumId, String albumName, String albumArtist, int artistId, String artistName) {
         this.id = id;
         this.title = title;
         this.trackNumber = trackNumber;
@@ -31,6 +32,7 @@ public class Song implements Parcelable {
         this.dateModified = dateModified;
         this.albumId = albumId;
         this.albumName = albumName;
+        this.albumArtist = albumArtist;
         this.artistId = artistId;
         this.artistName = artistName;
     }
@@ -53,6 +55,8 @@ public class Song implements Parcelable {
         if (data != null ? !data.equals(song.data) : song.data != null) return false;
         if (albumName != null ? !albumName.equals(song.albumName) : song.albumName != null)
             return false;
+        if (albumArtist != null ? !albumArtist.equals(song.albumArtist) : song.albumArtist != null)
+            return false;
         return artistName != null ? artistName.equals(song.artistName) : song.artistName == null;
 
     }
@@ -68,6 +72,7 @@ public class Song implements Parcelable {
         result = 31 * result + (int) (dateModified ^ (dateModified >>> 32));
         result = 31 * result + albumId;
         result = 31 * result + (albumName != null ? albumName.hashCode() : 0);
+        result = 31 * result + (albumArtist != null ? albumArtist.hashCode() : 0);
         result = 31 * result + artistId;
         result = 31 * result + (artistName != null ? artistName.hashCode() : 0);
         return result;
@@ -85,6 +90,7 @@ public class Song implements Parcelable {
                 ", dateModified=" + dateModified +
                 ", albumId=" + albumId +
                 ", albumName='" + albumName + '\'' +
+                ", albumArtist='" + albumArtist + '\'' +
                 ", artistId=" + artistId +
                 ", artistName='" + artistName + '\'' +
                 '}';
@@ -107,6 +113,7 @@ public class Song implements Parcelable {
         dest.writeLong(this.dateModified);
         dest.writeInt(this.albumId);
         dest.writeString(this.albumName);
+        dest.writeString(this.albumArtist);
         dest.writeInt(this.artistId);
         dest.writeString(this.artistName);
     }
@@ -121,6 +128,7 @@ public class Song implements Parcelable {
         this.dateModified = in.readLong();
         this.albumId = in.readInt();
         this.albumName = in.readString();
+        this.albumArtist = in.readString();
         this.artistId = in.readInt();
         this.artistName = in.readString();
     }

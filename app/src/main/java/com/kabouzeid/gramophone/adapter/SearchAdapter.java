@@ -158,7 +158,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     break;
                 case ARTIST:
                     NavigationUtil.goToArtist(activity,
-                            ((Artist) item).getId(),
+                            ((Artist) item).getName(),
                             Pair.create(image,
                                     activity.getResources().getString(R.string.transition_artist_image)
                             ));

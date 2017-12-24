@@ -41,12 +41,25 @@ public class PlaylistSongLoader {
         final String albumName = cursor.getString(8);
         final int artistId = cursor.getInt(9);
         final String artistName = cursor.getString(10);
-        final int idInPlaylist = cursor.getInt(11);
+        final String albumArtist = cursor.getString(11);
+        final int idInPlaylist = cursor.getInt(12);
 
-        return new PlaylistSong(id, title, trackNumber, year, duration, data, dateModified, albumId, albumName, artistId, artistName, playlistId, idInPlaylist);
+        return new PlaylistSong(id, title, trackNumber, year, duration, data, dateModified, albumId, albumName, albumArtist, artistId, artistName, playlistId, idInPlaylist);
     }
 
     public static Cursor makePlaylistSongCursor(@NonNull final Context context, final int playlistId) {
+
+        String albumArtist = null;
+        try {
+            //Album artist is hidden for whatever stupid reason so we have to fetch it via reflection
+            albumArtist = (String) android.provider.MediaStore.Audio.AudioColumns.class.getDeclaredField("ALBUM_ARTIST").get(null);
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+
         try {
             return context.getContentResolver().query(
                     MediaStore.Audio.Playlists.Members.getContentUri("external", playlistId),
@@ -62,7 +75,8 @@ public class PlaylistSongLoader {
                             AudioColumns.ALBUM,// 8
                             AudioColumns.ARTIST_ID,// 9
                             AudioColumns.ARTIST,// 10
-                            MediaStore.Audio.Playlists.Members._ID // 11
+                            albumArtist,// 11
+                            MediaStore.Audio.Playlists.Members._ID // 12
                     }, SongLoader.BASE_SELECTION, null,
                     MediaStore.Audio.Playlists.Members.DEFAULT_SORT_ORDER);
         } catch (SecurityException e) {

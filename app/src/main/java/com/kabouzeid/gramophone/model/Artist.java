@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.model;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -24,8 +25,16 @@ public class Artist implements Parcelable {
         return safeGetFirstAlbum().getArtistId();
     }
 
+    public int getIdAlbum(Context context) {
+        return safeGetFirstAlbum().getAlbumArtistId(context);
+    }
+
     public String getName() {
         return safeGetFirstAlbum().getArtistName();
+    }
+
+    public String getNameAlbum() {
+        return safeGetFirstAlbum().getAlbumArtistName();
     }
 
     public int getSongCount() {

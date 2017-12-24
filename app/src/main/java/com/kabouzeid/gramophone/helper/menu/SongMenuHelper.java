@@ -60,7 +60,7 @@ public class SongMenuHelper {
                 NavigationUtil.goToAlbum(activity, song.albumId);
                 return true;
             case R.id.action_go_to_artist:
-                NavigationUtil.goToArtist(activity, song.artistId);
+                NavigationUtil.goToArtist(activity, song.artistName);
                 return true;
         }
         return false;

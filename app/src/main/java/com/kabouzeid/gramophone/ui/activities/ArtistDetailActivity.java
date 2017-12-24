@@ -71,7 +71,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     private static final int LOADER_ID = LoaderIds.ARTIST_DETAIL_ACTIVITY;
     private static final int REQUEST_CODE_SELECT_IMAGE = 1000;
 
-    public static final String EXTRA_ARTIST_ID = "extra_artist_id";
+    public static final String EXTRA_ARTIST = "extra_artist";
 
     @BindView(R.id.image)
     ImageView artistImage;
@@ -454,7 +454,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
     @Override
     public Loader<Artist> onCreateLoader(int id, Bundle args) {
-        return new AsyncArtistDataLoader(this, args.getInt(EXTRA_ARTIST_ID));
+        return new AsyncArtistDataLoader(this, args.getString(EXTRA_ARTIST));
     }
 
     @Override
@@ -471,16 +471,16 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     }
 
     private static class AsyncArtistDataLoader extends WrappedAsyncTaskLoader<Artist> {
-        private final int artistId;
+        private final String artist;
 
-        public AsyncArtistDataLoader(Context context, int artistId) {
+        public AsyncArtistDataLoader(Context context, String artist) {
             super(context);
-            this.artistId = artistId;
+            this.artist = artist;
         }
 
         @Override
         public Artist loadInBackground() {
-            return ArtistLoader.getArtist(getContext(), artistId);
+            return ArtistLoader.getArtist(getContext(), artist);
         }
     }
 }
