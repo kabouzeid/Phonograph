@@ -466,24 +466,16 @@ public final class PreferenceUtil {
             return result;
         }
 
-        return LibraryCategories.DEFAULTS;
+        return getDefaultLibraryCategories();
     }
 
     public ArrayList<Category> getDefaultLibraryCategories() {
-        return LibraryCategories.DEFAULTS;
-    }
-
-    private static class LibraryCategories {
-        public final static ArrayList<Category> DEFAULTS = getDefaults();
-
-        private static ArrayList<Category> getDefaults() {
-            ArrayList<Category> result = new ArrayList<>();
-            result.add(new Category(Category.Id.SONGS, true, 0));
-            result.add(new Category(Category.Id.ALBUMS, true, 1));
-            result.add(new Category(Category.Id.ARTISTS, true, 2));
-            result.add(new Category(Category.Id.GENRES, true, 3));
-            result.add(new Category(Category.Id.PLAYLISTS, true, 4));
-            return result;
-        }
+        ArrayList<Category> result = new ArrayList<>();
+        result.add(new Category(Category.Id.SONGS, true, 0));
+        result.add(new Category(Category.Id.ALBUMS, true, 1));
+        result.add(new Category(Category.Id.ARTISTS, true, 2));
+        result.add(new Category(Category.Id.GENRES, true, 3));
+        result.add(new Category(Category.Id.PLAYLISTS, true, 4));
+        return result;
     }
 }

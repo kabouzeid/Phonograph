@@ -1,20 +1,6 @@
 package com.kabouzeid.gramophone.adapter;
 
-import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.Paint;
-import android.graphics.PixelFormat;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
+import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
@@ -24,117 +10,46 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.util.SwipeAndDragHelper;
 import com.kabouzeid.gramophone.model.Category;
+import com.kabouzeid.gramophone.util.SwipeAndDragHelper;
 
 import java.util.ArrayList;
 
-public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements SwipeAndDragHelper.ActionCompletionContract {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> implements SwipeAndDragHelper.ActionCompletionContract {
     private ArrayList<Category> categories;
     private ItemTouchHelper touchHelper;
-    private ColorStateList color;
 
-    public CategoryAdapter(ArrayList<Category> categories, ColorStateList color) {
-        this.categories = copy(categories);
-        this.color = color;
+    public CategoryAdapter(ArrayList<Category> categories) {
+        this.categories = categories;
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CategoryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.preference_dialog_library_categories_listitem, parent, false);
-        return new CategoryViewHolder(view);
+        return new ViewHolder(view);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(CategoryAdapter.ViewHolder holder, int position) {
         Category category = categories.get(position);
-        CategoryViewHolder h = (CategoryViewHolder) holder;
-        h.checkBox.setChecked(category.visible);
-        h.title.setText(h.title.getResources().getString(category.id.key));
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-            h.checkBox.setButtonTintList(color);
-        } else {
-            Drawable checkDrawable =
-                    ContextCompat.getDrawable(h.checkBox.getContext(), R.drawable.abc_btn_check_material);
-            Drawable drawable = DrawableCompat.wrap(checkDrawable);
-            DrawableCompat.setTintList(drawable, color);
-            h.checkBox.setButtonDrawable(drawable);
-        }
+        holder.checkBox.setChecked(category.visible);
+        holder.title.setText(holder.title.getResources().getString(category.id.key));
 
-        h.checkBox.setOnClickListener((view) -> {
-                h.checkBox.setChecked(category.visible = !category.visible);
-                notifyDataSetChanged();
-            }
-        );
+        holder.itemView.setOnClickListener(v -> {
+            category.visible = !category.visible;
+            holder.checkBox.setChecked(category.visible);
+        });
 
-        h.title.setOnClickListener((view) -> {
-                h.checkBox.setChecked(category.visible = !category.visible);
-                notifyDataSetChanged();
-            }
-        );
-
-        h.dragHandle.setOnTouchListener((view, event) -> {
+        holder.dragView.setOnTouchListener((view, event) -> {
                     if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                        touchHelper.startDrag(h);
+                        touchHelper.startDrag(holder);
                     }
                     return false;
                 }
         );
-
-        Context context = h.dragHandle.getContext();
-        int backgroundColor = ThemeStore.textColorSecondary(context);
-        int borderColor = ThemeStore.textColorSecondaryInverse(context);
-        h.dragHandle.setBackground(new DragHandle(h.dragHandle.getResources().getDisplayMetrics().density, backgroundColor, borderColor));
-    }
-
-    private static class DragHandle extends Drawable {
-        private float density;
-        private Paint shape;
-        private Paint outline;
-
-        public DragHandle(float density, int color, int borderColor) {
-            this.shape = new Paint();
-            this.shape.setStyle(Paint.Style.FILL);
-            this.shape.setColor(color);
-
-            this.outline = new Paint();
-            this.outline.setAntiAlias(true);
-            this.outline.setStyle(Paint.Style.STROKE);
-            this.outline.setColor(borderColor);
-
-            this.density = density;
-        }
-
-        @Override
-        public void draw(@NonNull Canvas canvas) {
-            Rect bounds = getBounds();
-            float width = 15 * density;
-            float left = bounds.centerX() - width / 2;
-            float top = bounds.top + bounds.centerY() - 3 * density;
-            canvas.save();
-            canvas.drawRect(left, top, left + width, top + 2 * density, shape);
-            canvas.drawRect(left, top, left + width, top + 2 * density, outline);
-            canvas.translate(0, (density * 2) * 2);
-            canvas.drawRect(left, top, left + width, top + 2 * density, shape);
-            canvas.drawRect(left, top, left + width, top + 2 * density, outline);
-            canvas.restore();
-        }
-
-        @Override
-        public void setAlpha(int i) {
-        }
-
-        @Override
-        public void setColorFilter(@Nullable ColorFilter filter) {
-        }
-
-        @Override
-        public int getOpacity() {
-            return PixelFormat.TRANSLUCENT;
-        }
     }
 
     @Override
@@ -142,13 +57,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return categories.size();
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return 1;
-    }
 
     public void setCategories(ArrayList<Category> categories) {
-        this.categories = copy(categories);
+        this.categories = categories;
         notifyDataSetChanged();
     }
 
@@ -168,24 +79,16 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return categories;
     }
 
-    private ArrayList<Category> copy(ArrayList<Category> categories) {
-        ArrayList<Category> result = new ArrayList<>();
-        for (Category category : categories) {
-            result.add(new Category(category));
-        }
-        return result;
-    }
-
-    private static class CategoryViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         public CheckBox checkBox;
         public TextView title;
-        public View dragHandle;
+        public View dragView;
 
-        public CategoryViewHolder(View view) {
+        public ViewHolder(View view) {
             super(view);
             checkBox = view.findViewById(R.id.checkbox);
             title = view.findViewById(R.id.title);
-            dragHandle = view.findViewById(R.id.drag_handle);
+            dragView = view.findViewById(R.id.drag_view);
         }
     }
 }

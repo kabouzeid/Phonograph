@@ -1,7 +1,6 @@
 package com.kabouzeid.gramophone.preferences;
 
 import android.app.Dialog;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -11,10 +10,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.util.DialogUtils;
-import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.CategoryAdapter;
 import com.kabouzeid.gramophone.model.Category;
@@ -35,10 +31,10 @@ public class LibraryPreferenceDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.preference_dialog_library_categories, null);
 
-        final ArrayList<Category> categories = PreferenceUtil.getInstance(getContext()).getLibraryCategories();
+        ArrayList<Category> categories = PreferenceUtil.getInstance(getContext()).getLibraryCategories();
         RecyclerView categoriesView = view.findViewById(R.id.recycler_view);
         categoriesView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        final CategoryAdapter adapter = new CategoryAdapter(categories, getCheckboxColors());
+        CategoryAdapter adapter = new CategoryAdapter(categories);
         SwipeAndDragHelper swipeAndDragHelper = new SwipeAndDragHelper(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(swipeAndDragHelper);
         adapter.setTouchHelper(touchHelper);
@@ -59,10 +55,10 @@ public class LibraryPreferenceDialog extends DialogFragment {
                 .onPositive((dialog13, action) -> {
                     if (!updateCategories(adapter.getCategories())) {
                         new MaterialDialog.Builder(getContext())
-                            .title(R.string.edit_categories)
-                            .content(R.string.at_least_one_category_must_be_enabled)
-                            .positiveText(android.R.string.ok)
-                            .show();
+                                .title(R.string.edit_categories)
+                                .content(R.string.at_least_one_category_must_be_enabled)
+                                .positiveText(android.R.string.ok)
+                                .show();
                     } else {
                         dismiss();
                     }
@@ -84,25 +80,8 @@ public class LibraryPreferenceDialog extends DialogFragment {
         int selected = 0;
         for (Category category : categories) {
             if (category.visible)
-                selected ++;
+                selected++;
         }
         return selected;
-    }
-
-    private ColorStateList getCheckboxColors() {
-        int disabledColor = DialogUtils.getDisabledColor(getContext());
-        return new ColorStateList(
-                new int[][] {
-                    new int[] {android.R.attr.state_enabled, -android.R.attr.state_checked},
-                    new int[] {android.R.attr.state_enabled, android.R.attr.state_checked},
-                    new int[] {-android.R.attr.state_enabled, -android.R.attr.state_checked},
-                    new int[] {-android.R.attr.state_enabled, android.R.attr.state_checked}
-                },
-                new int[] {
-                    DialogUtils.resolveColor(getContext(), R.attr.colorControlNormal),
-                    ThemeStore.accentColor(getContext()),
-                    disabledColor,
-                    disabledColor
-                });
     }
 }
