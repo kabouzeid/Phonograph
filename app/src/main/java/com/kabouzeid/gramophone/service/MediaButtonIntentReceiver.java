@@ -139,8 +139,7 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
                             }
 
                             mClickCounter++;
-                            if (DEBUG)
-                                Log.v(TAG, "Got headset click, count = " + mClickCounter);
+                            if (DEBUG) Log.v(TAG, "Got headset click, count = " + mClickCounter);
                             mHandler.removeMessages(MSG_HEADSET_DOUBLE_CLICK_TIMEOUT);
 
                             Message msg = mHandler.obtainMessage(
