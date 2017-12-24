@@ -80,7 +80,7 @@ public class HorizontalAlbumAdapter extends AlbumAdapter {
 		if(year > 0) {
 			return String.valueOf(year);
 		}
-		return "";
+		return "-";
     }
 
     @Override
