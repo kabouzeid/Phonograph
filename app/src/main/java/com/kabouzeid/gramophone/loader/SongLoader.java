@@ -118,20 +118,7 @@ public class SongLoader {
 
         try {
             return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                    new String[]{
-                            BaseColumns._ID,// 0
-                            AudioColumns.TITLE,// 1
-                            AudioColumns.TRACK,// 2
-                            AudioColumns.YEAR,// 3
-                            AudioColumns.DURATION,// 4
-                            AudioColumns.DATA,// 5
-                            AudioColumns.DATE_MODIFIED,// 6
-                            AudioColumns.ALBUM_ID,// 7
-                            AudioColumns.ALBUM,// 8
-                            AudioColumns.ARTIST_ID,// 9
-                            AudioColumns.ARTIST,// 10
-
-                    }, selection, selectionValues, sortOrder);
+                    BASE_PROJECTION, selection, selectionValues, sortOrder);
         } catch (SecurityException e) {
             return null;
         }
