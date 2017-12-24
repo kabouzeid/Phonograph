@@ -42,4 +42,3 @@
         android:minWidth="48dp"
         android:minHeight="40dp" />
 </LinearLayout>
-    <!--        android:background="@drawable/drag_handle" -->
