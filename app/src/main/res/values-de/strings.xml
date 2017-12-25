@@ -140,6 +140,7 @@
     <string name="remove_action">Entfernen</string>
     <string name="rename_action">Umbenennen</string>
     <string name="create_action">Erstellen</string>
+    <string name="reset_action">Zurücksetzen</string>
     <string name="x_selected">%1$d ausgewählt</string>
     <string name="primary_color">Hauptfarbe</string>
     <string name="accent_color">Akzentfarbe</string>
@@ -284,4 +285,8 @@
     <string name="pref_summary_blacklist">Der Inhalt der Ordner auf der Blacklist wird in deiner Bibliothek verborgen.</string>
     <string name="reset_artist_image">Künstler-Bild zurücksetzen</string>
     <string name="set_artist_image">Künstler-Bild festlegen</string>
+    <string name="library_categories">Bibliothek</string>
+    <string name="pref_summary_library_categories">Anzeige und Anordnung der einzelnen Kategorien festlegen.</string>
+    <string name="edit_categories">Kategorien bearbeiten</string>
+    <string name="at_least_one_category_must_be_enabled">Zumindest eine Kategorie muss aktiv sein.</string>
 </resources>

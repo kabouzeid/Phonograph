@@ -31,6 +31,8 @@ import com.kabouzeid.gramophone.appshortcuts.DynamicShortcutManager;
 import com.kabouzeid.gramophone.misc.NonProAllowedColors;
 import com.kabouzeid.gramophone.preferences.BlacklistPreference;
 import com.kabouzeid.gramophone.preferences.BlacklistPreferenceDialog;
+import com.kabouzeid.gramophone.preferences.LibraryPreference;
+import com.kabouzeid.gramophone.preferences.LibraryPreferenceDialog;
 import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreference;
 import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreferenceDialog;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
@@ -167,6 +169,8 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 return NowPlayingScreenPreferenceDialog.newInstance();
             } else if (preference instanceof BlacklistPreference) {
                 return BlacklistPreferenceDialog.newInstance();
+            } else if (preference instanceof LibraryPreference) {
+                return LibraryPreferenceDialog.newInstance();
             }
             return super.onCreatePreferenceDialog(preference);
         }
