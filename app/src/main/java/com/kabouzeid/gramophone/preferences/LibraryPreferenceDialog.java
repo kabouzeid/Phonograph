@@ -41,39 +41,28 @@ public class LibraryPreferenceDialog extends DialogFragment {
         categoriesView.setAdapter(adapter);
         touchHelper.attachToRecyclerView(categoriesView);
 
-        MaterialDialog dialog = new MaterialDialog.Builder(getContext())
+        return new MaterialDialog.Builder(getContext())
                 .title(R.string.library_categories)
                 .customView(view, false)
                 .positiveText(android.R.string.ok)
                 .negativeText(android.R.string.cancel)
                 .neutralText(R.string.reset_action)
                 .autoDismiss(false)
-                .onNeutral((dialog1, action) -> {
+                .onNeutral((dialog, action) -> {
                     adapter.setCategories(PreferenceUtil.getInstance(getContext()).getDefaultLibraryCategories());
                 })
-                .onNegative((dialog12, action) -> dismiss())
-                .onPositive((dialog13, action) -> {
-                    if (!updateCategories(adapter.getCategories())) {
-                        new MaterialDialog.Builder(getContext())
-                                .title(R.string.edit_categories)
-                                .content(R.string.at_least_one_category_must_be_enabled)
-                                .positiveText(android.R.string.ok)
-                                .show();
-                    } else {
-                        dismiss();
-                    }
+                .onNegative((dialog, action) -> dismiss())
+                .onPositive((dialog, action) -> {
+                    updateCategories(adapter.getCategories());
+                    dismiss();
                 })
                 .build();
-
-        return dialog;
     }
 
-    private boolean updateCategories(ArrayList<Category> categories) {
-        if (getSelected(categories) == 0) return false;
+    private void updateCategories(ArrayList<Category> categories) {
+        if (getSelected(categories) == 0) return;
 
         PreferenceUtil.getInstance(getContext()).setLibraryCategories(categories);
-
-        return true;
     }
 
     private int getSelected(ArrayList<Category> categories) {

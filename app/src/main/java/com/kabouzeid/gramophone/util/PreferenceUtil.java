@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 
+import com.google.gson.Gson;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.SortOrder;
 import com.kabouzeid.gramophone.model.Category;
@@ -14,12 +15,10 @@ import com.kabouzeid.gramophone.ui.fragments.mainactivity.folders.FoldersFragmen
 import com.kabouzeid.gramophone.ui.fragments.player.NowPlayingScreen;
 
 import java.io.File;
-import java.util.Collections;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
-import com.google.gson.Gson;
 
 public final class PreferenceUtil {
     public static final String GENERAL_THEME = "general_theme";
@@ -449,7 +448,7 @@ public final class PreferenceUtil {
 
         SharedPreferences.Editor editor = mPreferences.edit();
         editor.putStringSet(LIBRARY_CATEGORIES, data);
-        editor.commit();
+        editor.apply();
     }
 
     public ArrayList<Category> getLibraryCategories() {

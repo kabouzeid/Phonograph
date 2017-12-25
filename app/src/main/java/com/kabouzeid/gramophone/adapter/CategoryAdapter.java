@@ -39,8 +39,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.title.setText(holder.title.getResources().getString(category.id.key));
 
         holder.itemView.setOnClickListener(v -> {
-            category.visible = !category.visible;
-            holder.checkBox.setChecked(category.visible);
+            if (!(category.visible && isLastCheckedCategory(category))) {
+                category.visible = !category.visible;
+                holder.checkBox.setChecked(category.visible);
+            }
         });
 
         holder.dragView.setOnTouchListener((view, event) -> {
@@ -77,6 +79,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     public ArrayList<Category> getCategories() {
         return categories;
+    }
+
+    private boolean isLastCheckedCategory(Category category) {
+        if (category.visible) {
+            for (Category c : categories) {
+                if (c != category && c.visible) return false;
+            }
+        }
+        return true;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
