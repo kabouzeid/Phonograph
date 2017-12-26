@@ -6,16 +6,13 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.LayoutInflater;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.adapter.CategoryAdapter;
-import com.kabouzeid.gramophone.model.Category;
+import com.kabouzeid.gramophone.adapter.CategoryInfoAdapter;
+import com.kabouzeid.gramophone.model.CategoryInfo;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
-import com.kabouzeid.gramophone.util.SwipeAndDragHelper;
 
 import java.util.ArrayList;
 
@@ -28,18 +25,15 @@ public class LibraryPreferenceDialog extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.preference_dialog_library_categories, null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.preference_dialog_library_categories, null);
 
-        ArrayList<Category> categories = PreferenceUtil.getInstance(getContext()).getLibraryCategories();
-        RecyclerView categoriesView = view.findViewById(R.id.recycler_view);
-        categoriesView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        CategoryAdapter adapter = new CategoryAdapter(categories);
-        SwipeAndDragHelper swipeAndDragHelper = new SwipeAndDragHelper(adapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(swipeAndDragHelper);
-        adapter.setTouchHelper(touchHelper);
-        categoriesView.setAdapter(adapter);
-        touchHelper.attachToRecyclerView(categoriesView);
+        CategoryInfoAdapter adapter = new CategoryInfoAdapter(PreferenceUtil.getInstance(getContext()).getLibraryCategoryInfos());
+
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(adapter);
+
+        adapter.attachToRecyclerView(recyclerView);
 
         return new MaterialDialog.Builder(getContext())
                 .title(R.string.library_categories)
@@ -48,27 +42,25 @@ public class LibraryPreferenceDialog extends DialogFragment {
                 .negativeText(android.R.string.cancel)
                 .neutralText(R.string.reset_action)
                 .autoDismiss(false)
-                .onNeutral((dialog, action) -> {
-                    adapter.setCategories(PreferenceUtil.getInstance(getContext()).getDefaultLibraryCategories());
-                })
+                .onNeutral((dialog, action) -> adapter.setCategoryInfos(PreferenceUtil.getInstance(getContext()).getDefaultLibraryCategoryInfos()))
                 .onNegative((dialog, action) -> dismiss())
                 .onPositive((dialog, action) -> {
-                    updateCategories(adapter.getCategories());
+                    updateCategories(adapter.getCategoryInfos());
                     dismiss();
                 })
                 .build();
     }
 
-    private void updateCategories(ArrayList<Category> categories) {
+    private void updateCategories(ArrayList<CategoryInfo> categories) {
         if (getSelected(categories) == 0) return;
 
-        PreferenceUtil.getInstance(getContext()).setLibraryCategories(categories);
+        PreferenceUtil.getInstance(getContext()).setLibraryCategoryInfos(categories);
     }
 
-    private int getSelected(ArrayList<Category> categories) {
+    private int getSelected(ArrayList<CategoryInfo> categories) {
         int selected = 0;
-        for (Category category : categories) {
-            if (category.visible)
+        for (CategoryInfo categoryInfo : categories) {
+            if (categoryInfo.visible)
                 selected++;
         }
         return selected;

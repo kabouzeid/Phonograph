@@ -9,8 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
-import com.kabouzeid.gramophone.R;
-import com.kabouzeid.gramophone.model.Category;
+import com.kabouzeid.gramophone.model.CategoryInfo;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.AlbumsFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.ArtistsFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.GenresFragment;
@@ -36,20 +35,19 @@ public class MusicLibraryPagerAdapter extends FragmentPagerAdapter {
     public MusicLibraryPagerAdapter(@NonNull final Context context, final FragmentManager fragmentManager) {
         super(fragmentManager);
         mContext = context;
-        setCategories(PreferenceUtil.getInstance(context).getLibraryCategories());
+        setCategoryInfos(PreferenceUtil.getInstance(context).getLibraryCategoryInfos());
     }
 
-    public void setCategories(@NonNull ArrayList<Category> categories) {
+    public void setCategoryInfos(@NonNull ArrayList<CategoryInfo> categoryInfos) {
         mHolderList.clear();
 
-        for (int i = 0, size = categories.size(); i < size; i++) {
-            Category category = categories.get(i);
-            if (category.visible) {
-                MusicFragments fragment = MusicFragments.valueOf(category.id.toString());
+        for (CategoryInfo categoryInfo : categoryInfos) {
+            if (categoryInfo.visible) {
+                MusicFragments fragment = MusicFragments.valueOf(categoryInfo.category.toString());
                 Holder holder = new Holder();
                 holder.mClassName = fragment.getFragmentClass().getName();
                 holder.title = mContext.getResources()
-                        .getString(category.id.key)
+                        .getString(categoryInfo.category.stringRes)
                         .toUpperCase(Locale.getDefault());
                 mHolderList.add(holder);
             }

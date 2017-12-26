@@ -8,17 +8,17 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.helper.SortOrder;
-import com.kabouzeid.gramophone.model.Category;
+import com.kabouzeid.gramophone.model.CategoryInfo;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.folders.FoldersFragment;
 import com.kabouzeid.gramophone.ui.fragments.player.NowPlayingScreen;
 
 import java.io.File;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 public final class PreferenceUtil {
     public static final String GENERAL_THEME = "general_theme";
@@ -435,46 +435,40 @@ public final class PreferenceUtil {
         return mPreferences.getBoolean(INITIALIZED_BLACKLIST, false);
     }
 
-    public void setLibraryCategories(ArrayList<Category> categories) {
+    public void setLibraryCategoryInfos(ArrayList<CategoryInfo> categories) {
         Gson gson = new Gson();
+        Type collectionType = new TypeToken<ArrayList<CategoryInfo>>() {
+        }.getType();
 
-        Set<String> data = new HashSet<>(categories.size());
-
-        for (int i = 0, size = categories.size(); i < size; i++) {
-            Category category = categories.get(i);
-            category.index = i;
-            data.add(gson.toJson(category));
-        }
-
-        SharedPreferences.Editor editor = mPreferences.edit();
-        editor.putStringSet(LIBRARY_CATEGORIES, data);
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putString(LIBRARY_CATEGORIES, gson.toJson(categories, collectionType));
         editor.apply();
     }
 
-    public ArrayList<Category> getLibraryCategories() {
-        Set<String> data = mPreferences.getStringSet(LIBRARY_CATEGORIES, null);
+    public ArrayList<CategoryInfo> getLibraryCategoryInfos() {
+        String data = mPreferences.getString(LIBRARY_CATEGORIES, null);
         if (data != null) {
             Gson gson = new Gson();
-            ArrayList<Category> result = new ArrayList<>(Collections.nCopies(data.size(), (Category) null));
+            Type collectionType = new TypeToken<ArrayList<CategoryInfo>>() {
+            }.getType();
 
-            for (String json : data) {
-                Category category = gson.fromJson(json, Category.class);
-                result.set(category.index, category);
+            try {
+                return gson.fromJson(data, collectionType);
+            } catch (JsonSyntaxException e) {
+                e.printStackTrace();
             }
-
-            return result;
         }
 
-        return getDefaultLibraryCategories();
+        return getDefaultLibraryCategoryInfos();
     }
 
-    public ArrayList<Category> getDefaultLibraryCategories() {
-        ArrayList<Category> result = new ArrayList<>();
-        result.add(new Category(Category.Id.SONGS, true, 0));
-        result.add(new Category(Category.Id.ALBUMS, true, 1));
-        result.add(new Category(Category.Id.ARTISTS, true, 2));
-        result.add(new Category(Category.Id.GENRES, true, 3));
-        result.add(new Category(Category.Id.PLAYLISTS, true, 4));
-        return result;
+    public ArrayList<CategoryInfo> getDefaultLibraryCategoryInfos() {
+        ArrayList<CategoryInfo> defaultCategoryInfos = new ArrayList<>(5);
+        defaultCategoryInfos.add(new CategoryInfo(CategoryInfo.Category.SONGS, true));
+        defaultCategoryInfos.add(new CategoryInfo(CategoryInfo.Category.ALBUMS, true));
+        defaultCategoryInfos.add(new CategoryInfo(CategoryInfo.Category.ARTISTS, true));
+        defaultCategoryInfos.add(new CategoryInfo(CategoryInfo.Category.GENRES, true));
+        defaultCategoryInfos.add(new CategoryInfo(CategoryInfo.Category.PLAYLISTS, true));
+        return defaultCategoryInfos;
     }
 }
