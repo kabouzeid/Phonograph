@@ -64,10 +64,15 @@ public class GenreLoader {
                 Genres.NAME
         };
 
+        // Genres that actually have songs
+        final String selection = Genres._ID + " IN" +
+                " (SELECT " + Genres.Members.GENRE_ID + " FROM audio_genres_map WHERE " + Genres.Members.AUDIO_ID + " IN" +
+                " (SELECT " + Genres._ID + " FROM audio_meta WHERE " + SongLoader.BASE_SELECTION + "))";
+
         try {
             return context.getContentResolver().query(
                     Genres.EXTERNAL_CONTENT_URI,
-                    projection, null, null, PreferenceUtil.getInstance(context).getGenreSortOrder());
+                    projection, selection, null, PreferenceUtil.getInstance(context).getGenreSortOrder());
         } catch (SecurityException e) {
             return null;
         }
