@@ -3,6 +3,7 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivity.library;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -34,6 +35,7 @@ import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.ui.activities.SearchActivity;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.AbsMainActivityFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.AbsLibraryPagerRecyclerViewCustomGridSizeFragment;
+import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.PlaylistsFragment;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
@@ -42,7 +44,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class LibraryFragment extends AbsMainActivityFragment implements CabHolder, MainActivity.MainActivityFragmentCallbacks, ViewPager.OnPageChangeListener {
+public class LibraryFragment extends AbsMainActivityFragment implements CabHolder, MainActivity.MainActivityFragmentCallbacks, ViewPager.OnPageChangeListener, SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String TAG = LibraryFragment.class.getSimpleName();
 
     private Unbinder unbinder;
@@ -75,6 +77,7 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
 
     @Override
     public void onDestroyView() {
+        PreferenceUtil.getInstance(getActivity()).unregisterOnSharedPreferenceChangedListener(this);
         super.onDestroyView();
         pager.removeOnPageChangeListener(this);
         unbinder.unbind();
@@ -82,12 +85,27 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        PreferenceUtil.getInstance(getActivity()).registerOnSharedPreferenceChangedListener(this);
         setStatusbarColorAuto(view);
         getMainActivity().setNavigationbarColorAuto();
         getMainActivity().setTaskDescriptionColorAuto();
 
         setUpToolbar();
         setUpViewPager();
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences preferences, String key) {
+        if (PreferenceUtil.LIBRARY_CATEGORIES.equals(key)) {
+            Fragment current = getCurrentFragment();
+            pagerAdapter.setCategoryInfos(PreferenceUtil.getInstance(getActivity()).getLibraryCategoryInfos());
+            pager.setOffscreenPageLimit(pagerAdapter.getCount() - 1);
+            int position = pagerAdapter.getItemPosition(current);
+            pager.setCurrentItem(position > -1 ? position : 0);
+
+            // hide the tab bar with single tab
+            tabs.setVisibility(pagerAdapter.getCount() == 1 ? View.GONE : View.VISIBLE);
+        }
     }
 
     private void setUpToolbar() {
@@ -125,7 +143,7 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
     }
 
     private boolean isPlaylistPage() {
-        return pager.getCurrentItem() == MusicLibraryPagerAdapter.MusicFragments.PLAYLIST.ordinal();
+        return getCurrentFragment() instanceof PlaylistsFragment;
     }
 
     @NonNull
