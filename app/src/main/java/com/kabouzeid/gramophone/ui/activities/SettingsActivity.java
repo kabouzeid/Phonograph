@@ -151,7 +151,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
         @Override
         public void onCreatePreferences(Bundle bundle, String s) {
-            addPreferencesFromResource(R.xml.pref_general);
+            addPreferencesFromResource(R.xml.pref_library);
             addPreferencesFromResource(R.xml.pref_colors);
             addPreferencesFromResource(R.xml.pref_notification);
             addPreferencesFromResource(R.xml.pref_now_playing_screen);
@@ -190,13 +190,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         }
 
         private void invalidateSettings() {
-            final Preference defaultStartPage = findPreference("default_start_page");
-            setSummary(defaultStartPage);
-            defaultStartPage.setOnPreferenceChangeListener((preference, o) -> {
-                setSummary(defaultStartPage, o);
-                return true;
-            });
-
             final Preference generalTheme = findPreference("general_theme");
             setSummary(generalTheme);
             generalTheme.setOnPreferenceChangeListener((preference, o) -> {

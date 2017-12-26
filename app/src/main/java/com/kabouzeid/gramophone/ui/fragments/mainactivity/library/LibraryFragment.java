@@ -101,7 +101,9 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
             pagerAdapter.setCategoryInfos(PreferenceUtil.getInstance(getActivity()).getLibraryCategoryInfos());
             pager.setOffscreenPageLimit(pagerAdapter.getCount() - 1);
             int position = pagerAdapter.getItemPosition(current);
-            pager.setCurrentItem(position > -1 ? position : 0);
+            if (position < 0) position = 0;
+            pager.setCurrentItem(position);
+            PreferenceUtil.getInstance(getContext()).setLastPage(position);
 
             // hide the tab bar with single tab
             tabs.setVisibility(pagerAdapter.getCount() == 1 ? View.GONE : View.VISIBLE);
@@ -131,10 +133,9 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
         tabs.setTabTextColors(normalColor, selectedColor);
         tabs.setSelectedTabIndicatorColor(ThemeStore.accentColor(getActivity()));
 
-        int startPosition = PreferenceUtil.getInstance(getActivity()).getDefaultStartPage();
-        startPosition = startPosition == -1 ? PreferenceUtil.getInstance(getActivity()).getLastPage() : startPosition;
-        pager.setCurrentItem(startPosition);
-        PreferenceUtil.getInstance(getActivity()).setLastPage(startPosition); // just in case
+        if (PreferenceUtil.getInstance(getContext()).rememberLastTab()) {
+            pager.setCurrentItem(PreferenceUtil.getInstance(getContext()).getLastPage());
+        }
         pager.addOnPageChangeListener(this);
     }
 

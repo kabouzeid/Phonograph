@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public final class PreferenceUtil {
     public static final String GENERAL_THEME = "general_theme";
-    public static final String DEFAULT_START_PAGE = "default_start_page";
+    public static final String REMEMBER_LAST_TAB = "remember_last_tab";
     public static final String LAST_PAGE = "last_start_page";
     public static final String LAST_MUSIC_CHOOSER = "last_music_chooser";
     public static final String NOW_PLAYING_SCREEN_ID = "now_playing_screen_id";
@@ -122,8 +122,8 @@ public final class PreferenceUtil {
         }
     }
 
-    public final int getDefaultStartPage() {
-        return Integer.parseInt(mPreferences.getString(DEFAULT_START_PAGE, "-1"));
+    public final boolean rememberLastTab() {
+        return mPreferences.getBoolean(REMEMBER_LAST_TAB, true);
     }
 
     public void setLastPage(final int value) {
