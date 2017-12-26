@@ -60,8 +60,6 @@
     <string name="action_go_to_album">アルバムを表示</string>
     <string name="label_playing_queue">再生キュー</string>
     <string name="no_results">該当なし</string>
-    <string name="action_re_download_artist_image">アーティスト画像を更新</string>
-    <string name="updated_artist_image">アーティスト画像を更新しました</string>
     <string name="updating">更新中...</string>
     <string name="added_title_to_playing_queue">"曲を再生キューに追加しました"</string>
     <string name="added_x_titles_to_playing_queue">%1$d曲を再生キューに追加しました</string>
@@ -98,7 +96,6 @@
     <string name="action_save_playing_queue">再生キューを保存</string>
     <string name="action_go_to_start_directory">初期ディレクトリに移動</string>
     <string name="action_show_lyrics">歌詞を表示</string>
-    <string name="last_opened">最後に使用した画面</string>
     <string name="light_theme_name">ライト</string>
     <string name="dark_theme_name">ダーク</string>
     <string name="black_theme_name">ブラック (AMOLED)</string>
@@ -121,7 +118,6 @@
     <string name="pref_header_notification">通知</string>
     <string name="pref_title_navigation_bar">ナビゲーションバーの彩色設定</string>
     <string name="pref_title_app_shortcuts">色付けされたアプリのショートカット</string>
-    <string name="pref_title_set_default_start_page">起動時の画面</string>
     <string name="pref_title_album_art_on_lockscreen">アルバムアートをロック画面に表示する</string>
     <string name="pref_title_auto_download_metadata">楽曲情報の自動ダウンロード</string>
     <string name="pref_title_blurred_album_art">アルバムアートにぼかし効果をかける</string>
@@ -262,12 +258,10 @@
     <string name="playlist_is_empty">プレイリストは空です</string>
     <string name="playing_notification_description">再生の通知は再生/一時停止などを提供します。</string>
     <string name="playing_notification_name">再生中の通知</string>
-    <string name="buy">購入する</string>
     <string name="only_the_first_5_colors_available">無料版では5色のみ利用可能です。</string>
     <string name="black_theme_is_a_pro_feature">黒テーマはPhonograph Proの機能です。</string>
     <string name="sleep_timer_is_a_pro_feature">スリープ タイマーはPhonograph Proの機能です。</string>
     <string name="folder_view_is_a_pro_feature">フォルダー ビューはPhonograph Proの機能です。</string>
-    <string name="restore_purchase">購入を復元</string>
     <string name="restoring_purchase">購入を復元中…</string>
     <string name="could_not_restore_purchase">購入情報を復元できませんでした。</string>
     <string name="purchase">購入</string>

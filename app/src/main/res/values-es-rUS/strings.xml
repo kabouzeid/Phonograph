@@ -60,8 +60,6 @@
     <string name="action_go_to_album">Ir al álbum</string>
     <string name="label_playing_queue">Cola de reproducción</string>
     <string name="no_results">Sin resultados</string>
-    <string name="action_re_download_artist_image">Actualizar imagen del artista.</string>
-    <string name="updated_artist_image">Imagen del artista actualizada.</string>
     <string name="updating">Actualizando...</string>
     <string name="added_title_to_playing_queue">"1 canción añadida a la cola de reproducción."</string>
     <string name="added_x_titles_to_playing_queue">%1$d canciones añadidas a la cola de reproducción.</string>
@@ -98,7 +96,6 @@
     <string name="action_save_playing_queue">Guardar cola de reproducción</string>
     <string name="action_go_to_start_directory">Ir al directorio de inicio</string>
     <string name="action_show_lyrics">Mostrar letra</string>
-    <string name="last_opened">Última abierta</string>
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Oscuro</string>
     <string name="black_theme_name">Negro (AMOLED)</string>
@@ -121,7 +118,6 @@
     <string name="pref_header_notification">Notificación</string>
     <string name="pref_title_navigation_bar">Barra de navegación coloreada</string>
     <string name="pref_title_app_shortcuts">Accesos directos coloreados</string>
-    <string name="pref_title_set_default_start_page">Sección de inicio</string>
     <string name="pref_title_album_art_on_lockscreen">Mostrar carátula del álbum</string>
     <string name="pref_title_auto_download_metadata">Auto descargar metadata</string>
     <string name="pref_title_blurred_album_art">Desenfocar imagen de álbum</string>
@@ -262,12 +258,10 @@
     <string name="playlist_is_empty">La lista de reproducción está vacía</string>
     <string name="playing_notification_description">La notificación de reproducción proporciona acciones para reproducir/pausar, etc.</string>
     <string name="playing_notification_name">Notificación de reproducción</string>
-    <string name="buy">Comprar</string>
     <string name="only_the_first_5_colors_available">Solo los primeros 5 colores están disponibles en la versión gratuita.</string>
     <string name="black_theme_is_a_pro_feature">El tema negro es una función de Phonograph Pro.</string>
     <string name="sleep_timer_is_a_pro_feature">El temporizador de apagado es una función de Phonograph Pro</string>
     <string name="folder_view_is_a_pro_feature">La vista de carpetas es una función de Phonograph Pro.</string>
-    <string name="restore_purchase">Restaurar compra</string>
     <string name="restoring_purchase">Restaurando compra...</string>
     <string name="could_not_restore_purchase">No se pudo restaurar la compra.</string>
     <string name="purchase">Comprar</string>

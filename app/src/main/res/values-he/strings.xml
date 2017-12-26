@@ -60,8 +60,6 @@
     <string name="action_go_to_album">מעבר לאלבום</string>
     <string name="label_playing_queue">מנגן תור השמעה</string>
     <string name="no_results">אין תוצאות</string>
-    <string name="action_re_download_artist_image">עדכן תמונת אמן</string>
-    <string name="updated_artist_image">תמונת האמן עודכנה.</string>
     <string name="updating">מעדכן...</string>
     <string name="added_title_to_playing_queue">"נוסף שיר אחד לתור "</string>
     <string name="added_x_titles_to_playing_queue">נוספו %1$d שירים לתור</string>
@@ -98,7 +96,6 @@
     <string name="action_save_playing_queue">שמור תור פעיל</string>
     <string name="action_go_to_start_directory">עבור לנתיב התחלתי</string>
     <string name="action_show_lyrics">הצג מילים</string>
-    <string name="last_opened">נפתח לאחרונה</string>
     <string name="light_theme_name">בהיר</string>
     <string name="dark_theme_name">כהה</string>
     <string name="black_theme_name">שחור (AMOLED)</string>
@@ -121,7 +118,6 @@
     <string name="pref_header_notification">התראות</string>
     <string name="pref_title_navigation_bar">סרגל ניווט צבעוני</string>
     <string name="pref_title_app_shortcuts">קיצורי אפליקציה צבעוניים</string>
-    <string name="pref_title_set_default_start_page">עמוד פתיחה</string>
     <string name="pref_title_album_art_on_lockscreen">הצג עטיפת אלבום</string>
     <string name="pref_title_auto_download_metadata">הורד מידע שיר אוטומטית</string>
     <string name="pref_title_blurred_album_art">טשטוש עטיפת האלבום</string>
@@ -263,12 +259,10 @@
     <string name="playlist_is_empty">רשימת ההשמעה ריקה</string>
     <string name="playing_notification_description">התראת הניגון מספקת פעולות הפעלה/השהייה וכו\'.</string>
     <string name="playing_notification_name">התראת ניגון</string>
-    <string name="buy">קנה</string>
     <string name="only_the_first_5_colors_available">רק 5 הצבעים הראשונים זמינים בגרסה החינמית.</string>
     <string name="black_theme_is_a_pro_feature">ערכת הנושא השחורה היא אפשרות הזמינה ב-Phonograph Pro בלבד.</string>
     <string name="sleep_timer_is_a_pro_feature">טיימר לשינה הוא אפשרות הזמינה ב-Phonograph Pro בלבד.</string>
     <string name="folder_view_is_a_pro_feature">תצוגת תיקיות היא אפשרות הזמינה ב-Phonograph Pro בלבד.</string>
-    <string name="restore_purchase">שחזר רכישה</string>
     <string name="restoring_purchase">משחזר רכישה...</string>
     <string name="could_not_restore_purchase">לא ניתן לשחזר רכישה.</string>
     <string name="purchase">קנה</string>

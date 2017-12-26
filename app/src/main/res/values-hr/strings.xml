@@ -61,8 +61,6 @@
     <string name="action_go_to_album">Idi na album</string>
     <string name="label_playing_queue">Red čekanja</string>
     <string name="no_results">Nema rezultata</string>
-    <string name="action_re_download_artist_image">Ažuriraj sliku izvođača</string>
-    <string name="updated_artist_image">Slika izvođača je ažurirana.</string>
     <string name="updating">Ažuriranje...</string>
     <string name="added_title_to_playing_queue">"1 pjesma je dodana u red čekanja."</string>
     <string name="added_x_titles_to_playing_queue">Dodano je %1$d pjesama u red čekanja.</string>
@@ -99,7 +97,6 @@
     <string name="action_save_playing_queue">Spremi red čekanja</string>
     <string name="action_go_to_start_directory">Idi na početni direktorij</string>
     <string name="action_show_lyrics">Prikaži stihove</string>
-    <string name="last_opened">Posljednje otvoreno</string>
     <string name="light_theme_name">Svijetla</string>
     <string name="dark_theme_name">Tamna</string>
     <string name="black_theme_name">Crna (AMOLED)</string>
@@ -122,7 +119,6 @@
     <string name="pref_header_notification">Obavijest</string>
     <string name="pref_title_navigation_bar">Obojena navigacijska traka</string>
     <string name="pref_title_app_shortcuts">Obojani prečaci</string>
-    <string name="pref_title_set_default_start_page">Početna stranica</string>
     <string name="pref_title_album_art_on_lockscreen">Prikaži omot albuma na zaklj. zaslonu</string>
     <string name="pref_title_auto_download_metadata">Automatski preuzmi meta podatke</string>
     <string name="pref_title_blurred_album_art">Zamagli omot albuma</string>
@@ -264,12 +260,10 @@
     <string name="playlist_is_empty">Popis naslova je prazan</string>
     <string name="playing_notification_description">Obavijest reprodukcije pruža radnje za reprodukciju/pauzu itd.</string>
     <string name="playing_notification_name">Obavijest reprodukcije</string>
-    <string name="buy">Kupi</string>
     <string name="only_the_first_5_colors_available">Samo je prvih 5 boja dostupno u besplatnoj verziji.</string>
     <string name="black_theme_is_a_pro_feature">Crna tema je Phonograph Pro značajka.</string>
     <string name="sleep_timer_is_a_pro_feature">Tajmer za spavanje je Phonograph Pro značajka.</string>
     <string name="folder_view_is_a_pro_feature">Prikaz mapa je Phonograph Pro značajka.</string>
-    <string name="restore_purchase">Vrati kupnju</string>
     <string name="restoring_purchase">Vraćanje kupnje...</string>
     <string name="could_not_restore_purchase">Nije moguće vratiti kupnju.</string>
     <string name="purchase">Kupi</string>

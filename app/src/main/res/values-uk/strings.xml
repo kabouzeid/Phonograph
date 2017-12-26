@@ -54,8 +54,6 @@
     <string name="action_go_to_album">Перейти до альбому</string>
     <string name="label_playing_queue">Черга відтворення</string>
     <string name="no_results">Немає результатів</string>
-    <string name="action_re_download_artist_image">Оновити зображення виконавця</string>
-    <string name="updated_artist_image">Зображення виконавця оновлено.</string>
     <string name="updating">Оновлення...</string>
     <string name="added_title_to_playing_queue">"Додано 1 композицію до черги відтворення."</string>
     <string name="added_x_titles_to_playing_queue">Додано %1$d композицій до черги відтворення</string>
@@ -90,7 +88,6 @@
     <string name="action_clear_playing_queue">Очистити чергу відтворення</string>
     <string name="action_go_to_start_directory">Перейти до початкової теки</string>
     <string name="action_show_lyrics">Показати текст</string>
-    <string name="last_opened">Останні відкриті</string>
     <string name="light_theme_name">Світла</string>
     <string name="dark_theme_name">Темна</string>
     <string name="black_theme_name">Чорна (AMOLED)</string>
@@ -105,7 +102,6 @@
     <string name="pref_header_images">Зображення</string>
     <string name="pref_header_lockscreen">Екран блокування</string>
     <string name="pref_title_navigation_bar">Кольорова панель навігації</string>
-    <string name="pref_title_set_default_start_page">Початкова сторінка</string>
     <string name="pref_title_album_art_on_lockscreen">Показати обкладинку альбому</string>
     <string name="pref_title_blurred_album_art">Розмити обкладинку альбому</string>
     <string name="pref_title_colored_notification">Кольорове сповіщення</string>

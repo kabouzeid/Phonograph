@@ -61,8 +61,6 @@
     <string name="action_go_to_album">Vai all\'album</string>
     <string name="label_playing_queue">Coda di riproduzione</string>
     <string name="no_results">Nessun risultato</string>
-    <string name="action_re_download_artist_image">Aggiorna immagine artista</string>
-    <string name="updated_artist_image">Immagine artista aggiornata.</string>
     <string name="updating">Aggiornamento...</string>
     <string name="added_title_to_playing_queue">"Un brano aggiunto alla coda di riproduzione."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titoli aggiunti alla coda.</string>
@@ -99,7 +97,6 @@
     <string name="action_save_playing_queue">Salva la coda di riproduzione</string>
     <string name="action_go_to_start_directory">Vai alla directory iniziale</string>
     <string name="action_show_lyrics">Mostra testo</string>
-    <string name="last_opened">Ultima aperta</string>
     <string name="light_theme_name">Chiaro</string>
     <string name="dark_theme_name">Scuro</string>
     <string name="black_theme_name">Nero (AMOLED)</string>
@@ -122,7 +119,6 @@
     <string name="pref_header_notification">Notifica</string>
     <string name="pref_title_navigation_bar">Barra di navigazione colorata</string>
     <string name="pref_title_app_shortcuts">Scorciatoie app colorate</string>
-    <string name="pref_title_set_default_start_page">Pagina iniziale</string>
     <string name="pref_title_album_art_on_lockscreen">Mostra copertina album nella schermata di blocco</string>
     <string name="pref_title_auto_download_metadata">Scarica automaticamente i dati</string>
     <string name="pref_title_blurred_album_art">Sfoca la copertina</string>
@@ -265,12 +261,10 @@
     <string name="playlist_is_empty">La playlist è vuota</string>
     <string name="playing_notification_description">La notifica di riproduzione offre azioni per play/pausa ecc.</string>
     <string name="playing_notification_name">Notifica di riproduzione</string>
-    <string name="buy">Acquista</string>
     <string name="only_the_first_5_colors_available">Solo i primi cinque colori sono disponibili nella versione gratuita.</string>
     <string name="black_theme_is_a_pro_feature">Il tema scuro è una funzionalità di Phonograph Pro.</string>
     <string name="sleep_timer_is_a_pro_feature">Il timer di spegnimento è una funzionalità di Phonograph Pro.</string>
     <string name="folder_view_is_a_pro_feature">La visualizzazione delle cartelle è una funzionalità di Phonograph Pro.</string>
-    <string name="restore_purchase">Ripristina acquisto</string>
     <string name="restoring_purchase">Ripristinando l\'acquisto...</string>
     <string name="could_not_restore_purchase">Impossibile ripristinare l\'acquisto.</string>
     <string name="purchase">Acquista</string>

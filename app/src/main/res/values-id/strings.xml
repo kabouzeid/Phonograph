@@ -58,8 +58,6 @@
     <string name="action_go_to_album">Pergi ke album</string>
     <string name="label_playing_queue">Antrean putar</string>
     <string name="no_results">Tidak ditemukan</string>
-    <string name="action_re_download_artist_image">Perbarui gambar artis</string>
-    <string name="updated_artist_image">Gambar artis diperbaharui</string>
     <string name="updating">Memperbaharui</string>
     <string name="added_title_to_playing_queue">"1 lagu ditambahkan ke antrean putar"</string>
     <string name="added_x_titles_to_playing_queue">Telah menambah %1$d lagu ke antrean putar</string>
@@ -94,7 +92,6 @@
     <string name="action_clear_playing_queue">Kosongkan antrean yang sedang diputar</string>
     <string name="action_go_to_start_directory">Ke direktori awal</string>
     <string name="action_show_lyrics">Tampilkan lirik</string>
-    <string name="last_opened">Terakhir dibuka</string>
     <string name="light_theme_name">Terang</string>
     <string name="dark_theme_name">Gelap</string>
     <string name="black_theme_name">Hitam (AMOLED)</string>
@@ -110,7 +107,6 @@
     <string name="pref_header_lockscreen">Layar kunci</string>
     <string name="pref_title_navigation_bar">Alat Navigasi Berwarna</string>
     <string name="pref_title_app_shortcuts">Pintasan Berwarna</string>
-    <string name="pref_title_set_default_start_page">Halaman awal</string>
     <string name="pref_title_album_art_on_lockscreen">Perlihatkan sampul album pada layar kunci</string>
     <string name="pref_title_blurred_album_art">Buramkan sampul album</string>
     <string name="pref_title_colored_notification">Notifikasi berwarna</string>

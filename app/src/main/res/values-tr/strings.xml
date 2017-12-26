@@ -60,8 +60,6 @@
     <string name="action_go_to_album">Albüme git</string>
     <string name="label_playing_queue">Çalma sırası</string>
     <string name="no_results">Sonuç bulunamadı</string>
-    <string name="action_re_download_artist_image">Sanatçı resmini güncelle</string>
-    <string name="updated_artist_image">Sanatçı resmi güncellendi.</string>
     <string name="updating">Güncelleniyor...</string>
     <string name="added_title_to_playing_queue">"Çalma sırasına 1 başlık eklendi."</string>
     <string name="added_x_titles_to_playing_queue">Çalma sırasına %1$d başlık eklendi.</string>
@@ -98,7 +96,6 @@
     <string name="action_save_playing_queue">Çalma sırasını kaydet</string>
     <string name="action_go_to_start_directory">Başlangıç dizinine git</string>
     <string name="action_show_lyrics">Şarkı sözlerini göster</string>
-    <string name="last_opened">Son çalınanlar</string>
     <string name="light_theme_name">Açık</string>
     <string name="dark_theme_name">Koyu</string>
     <string name="black_theme_name">Siyah (AMOLED)</string>
@@ -121,7 +118,6 @@
     <string name="pref_header_notification">Bildirim</string>
     <string name="pref_title_navigation_bar">Renkli gezinme çubuğu</string>
     <string name="pref_title_app_shortcuts">Renkli uygulama kısayolları</string>
-    <string name="pref_title_set_default_start_page">Başlangıç sayfası</string>
     <string name="pref_title_album_art_on_lockscreen">Albüm kapağını göster</string>
     <string name="pref_title_auto_download_metadata">Otomatik indirilen meta veriler</string>
     <string name="pref_title_blurred_album_art">Bulanık albüm kapağı</string>
@@ -262,12 +258,10 @@
     <string name="playlist_is_empty">Çalma listesi boş</string>
     <string name="playing_notification_description">Çalma bildirimi, başlat/duraklat vb. işlemleri sağlar</string>
     <string name="playing_notification_name">Çalma bildirimi</string>
-    <string name="buy">Satın al</string>
     <string name="only_the_first_5_colors_available">Ücretsiz sürümde sadece ilk 5 renk mevcuttur.</string>
     <string name="black_theme_is_a_pro_feature">Siyah tema, Phonograph Pro özelliğidir.</string>
     <string name="sleep_timer_is_a_pro_feature">Uyku zamanlayıcı bir Phonograph Pro özelliğidir.</string>
     <string name="folder_view_is_a_pro_feature">Klasör görünümü bir Phonograph Pro özelliğidir.</string>
-    <string name="restore_purchase">Satın almayı geri yükle</string>
     <string name="restoring_purchase">Satın alma geri yükleniyor...</string>
     <string name="could_not_restore_purchase">Satın alma geri yüklenemedi.</string>
     <string name="purchase">Satın Al</string>

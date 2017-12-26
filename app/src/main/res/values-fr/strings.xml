@@ -60,8 +60,6 @@
     <string name="action_go_to_album">Voir l\'album</string>
     <string name="label_playing_queue">File de lecture</string>
     <string name="no_results">Aucun résultat</string>
-    <string name="action_re_download_artist_image">Actualiser l\'image de l\'artiste</string>
-    <string name="updated_artist_image">Image de l\'artiste mise à jour.</string>
     <string name="updating">Actualisation…</string>
     <string name="added_title_to_playing_queue">"1 titre ajouté à la file de lecture."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titres ajoutés à la file de lecture.</string>
@@ -97,7 +95,6 @@
     <string name="action_save_playing_queue">Sauvegarder la liste de lecture</string>
     <string name="action_go_to_start_directory">Aller au répertoire de départ</string>
     <string name="action_show_lyrics">Afficher les paroles</string>
-    <string name="last_opened">Récemment ouvert</string>
     <string name="light_theme_name">Clair</string>
     <string name="dark_theme_name">Sombre</string>
     <string name="black_theme_name">Noir (AMOLED)</string>
@@ -120,7 +117,6 @@
     <string name="pref_header_notification">Notification</string>
     <string name="pref_title_navigation_bar">Barre de navigation colorée</string>
     <string name="pref_title_app_shortcuts">Raccourcis de l\'application colorés</string>
-    <string name="pref_title_set_default_start_page">Page d\'accueil</string>
     <string name="pref_title_album_art_on_lockscreen">Afficher la pochette d\'album</string>
     <string name="pref_title_auto_download_metadata">Télécharger automatiquement les métadonnées</string>
     <string name="pref_title_blurred_album_art">Pochette d\'album floue</string>
@@ -260,9 +256,7 @@
     <string name="playlist_is_empty">La liste de lecture est vide</string>
     <string name="playing_notification_description">La notification de lecture fournit des actions pour la lecture/pause etc.</string>
     <string name="playing_notification_name">Notification de lecture</string>
-    <string name="buy">Acheter</string>
     <string name="black_theme_is_a_pro_feature">Le thème noir est une fonctionnalité Phonograph Pro</string>
-    <string name="restore_purchase">Restaurer les achats</string>
     <string name="restoring_purchase">Restauration des achats...</string>
     <string name="could_not_restore_purchase">Impossible de restaurer les achats</string>
     <string name="purchase">Acheter</string>

@@ -54,8 +54,6 @@
     <string name="action_go_to_album">Näytä albumi</string>
     <string name="label_playing_queue">Toistojono</string>
     <string name="no_results">Ei hakutuloksia</string>
-    <string name="action_re_download_artist_image">Päivitä artistin kuva</string>
-    <string name="updated_artist_image">Artistin kuva päivitetty.</string>
     <string name="updating">Päivitetään...</string>
     <string name="added_title_to_playing_queue">"Kappale lisätty toistojonoon."</string>
     <string name="added_x_titles_to_playing_queue">%1$d kappaletta lisättiin toistojonoon</string>
@@ -90,7 +88,6 @@
     <string name="action_clear_playing_queue">Tyhjennä toistojono</string>
     <string name="action_go_to_start_directory">Mene aloitushakemistoon</string>
     <string name="action_show_lyrics">Näytä lyriikat</string>
-    <string name="last_opened">Viimeksi avattu</string>
     <string name="light_theme_name">Vaalea</string>
     <string name="dark_theme_name">Tumma</string>
     <string name="black_theme_name">Musta (AMOLED)</string>
@@ -105,7 +102,6 @@
     <string name="pref_header_images">Kuvat</string>
     <string name="pref_header_lockscreen">Lukitusnäyttö</string>
     <string name="pref_title_navigation_bar">Värillinen navigointipalkki</string>
-    <string name="pref_title_set_default_start_page">Aloitussivu</string>
     <string name="pref_title_album_art_on_lockscreen">Näytä albumin kansi</string>
     <string name="pref_title_blurred_album_art">Sumenna albumin kansi</string>
     <string name="pref_title_colored_notification">Värillinen ilmoitus</string>

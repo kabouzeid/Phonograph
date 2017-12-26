@@ -59,8 +59,6 @@
     <string name="action_go_to_album">打開專輯</string>
     <string name="label_playing_queue">待播佇列</string>
     <string name="no_results">沒有搜尋結果</string>
-    <string name="action_re_download_artist_image">更新歌手圖片</string>
-    <string name="updated_artist_image">歌手圖片已更新。</string>
     <string name="updating">更新中…</string>
     <string name="added_title_to_playing_queue">"已將 1 首歌加到播放佇列"</string>
     <string name="added_x_titles_to_playing_queue">已將 %1$d 首歌加到播放佇列。</string>
@@ -95,7 +93,6 @@
     <string name="action_clear_playing_queue">清空播放佇列</string>
     <string name="action_go_to_start_directory">前往起始目錄</string>
     <string name="action_show_lyrics">顯示歌詞</string>
-    <string name="last_opened">上次開啟</string>
     <string name="light_theme_name">明亮</string>
     <string name="dark_theme_name">暗沉</string>
     <string name="black_theme_name">純黑</string>
@@ -111,7 +108,6 @@
     <string name="pref_header_lockscreen">鎖定螢幕</string>
     <string name="pref_title_navigation_bar">彩色的導航列</string>
     <string name="pref_title_app_shortcuts">彩色的應用快捷方式</string>
-    <string name="pref_title_set_default_start_page">首頁</string>
     <string name="pref_title_album_art_on_lockscreen">顯示專輯封面</string>
     <string name="pref_title_blurred_album_art">將專輯圖片模糊化</string>
     <string name="pref_title_colored_notification">彩色的狀態列</string>

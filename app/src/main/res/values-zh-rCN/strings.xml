@@ -60,8 +60,6 @@
     <string name="action_go_to_album">查看专辑</string>
     <string name="label_playing_queue">播放队列</string>
     <string name="no_results">没有找到结果</string>
-    <string name="action_re_download_artist_image">更新艺术家图片</string>
-    <string name="updated_artist_image">艺术家图片已更新。</string>
     <string name="updating">正在更新…</string>
     <string name="added_title_to_playing_queue">"此歌曲已加入播放队列。"</string>
     <string name="added_x_titles_to_playing_queue">%1$d 首歌曲已加入播放队列。</string>
@@ -98,7 +96,6 @@
     <string name="action_save_playing_queue">保存播放队列</string>
     <string name="action_go_to_start_directory">跳转至起始目录</string>
     <string name="action_show_lyrics">显示歌词</string>
-    <string name="last_opened">最后打开时的页面</string>
     <string name="light_theme_name">浅色</string>
     <string name="dark_theme_name">暗色</string>
     <string name="black_theme_name">黑色（AMOLED）</string>
@@ -121,7 +118,6 @@
     <string name="pref_header_notification">通知</string>
     <string name="pref_title_navigation_bar">着色导航栏</string>
     <string name="pref_title_app_shortcuts">着色应用快捷方式</string>
-    <string name="pref_title_set_default_start_page">起始页</string>
     <string name="pref_title_album_art_on_lockscreen">显示专辑封面</string>
     <string name="pref_title_auto_download_metadata">自动下载元数据</string>
     <string name="pref_title_blurred_album_art">专辑封面模糊化</string>
@@ -262,12 +258,10 @@
     <string name="playlist_is_empty">播放列表为空</string>
     <string name="playing_notification_description">正在播放通知提供了播放/暂停等便捷操作。</string>
     <string name="playing_notification_name">正在播放通知</string>
-    <string name="buy">购买</string>
     <string name="only_the_first_5_colors_available">免费版仅能使用前 5 个主题色。</string>
     <string name="black_theme_is_a_pro_feature">黑色主题仅适用于 Phonograph Pro。</string>
     <string name="sleep_timer_is_a_pro_feature">睡眠计时器仅适用于 Phonograph Pro。</string>
     <string name="folder_view_is_a_pro_feature">文件夹视图仅适用于 Phonograph Pro。</string>
-    <string name="restore_purchase">恢复购买状态</string>
     <string name="restoring_purchase">正在恢复购买状态...</string>
     <string name="could_not_restore_purchase">无法恢复购买状态</string>
     <string name="purchase">购买</string>

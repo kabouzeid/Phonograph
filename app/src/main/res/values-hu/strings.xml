@@ -60,8 +60,6 @@
     <string name="action_go_to_album">Ugrás az albumhoz</string>
     <string name="label_playing_queue">Lejátszási sor</string>
     <string name="no_results">Nincs találat</string>
-    <string name="action_re_download_artist_image">Előadó képének frissítése</string>
-    <string name="updated_artist_image">Az előadó képe frissült.</string>
     <string name="updating">Frissítés...</string>
     <string name="added_title_to_playing_queue">"1 dal hozzáadva a lejátszási sorhoz."</string>
     <string name="added_x_titles_to_playing_queue">%1$d dal hozzáadva a lejátszási sorhoz.</string>
@@ -97,7 +95,6 @@
     <string name="action_save_playing_queue">Mentés a lejátszási sorba</string>
     <string name="action_go_to_start_directory">Ugrás a kezdő könyvtárra</string>
     <string name="action_show_lyrics">Dalszöveg</string>
-    <string name="last_opened">Utoljára megnyitott</string>
     <string name="light_theme_name">Világos</string>
     <string name="dark_theme_name">Sötét</string>
     <string name="black_theme_name">Fekete</string>
@@ -120,7 +117,6 @@
     <string name="pref_header_notification">Értesítés</string>
     <string name="pref_title_navigation_bar">Színezett navigációs sáv</string>
     <string name="pref_title_app_shortcuts">Színezett alkalmazás hivatkozások</string>
-    <string name="pref_title_set_default_start_page">Kezdőoldal</string>
     <string name="pref_title_album_art_on_lockscreen">Albumborító megjelenítése</string>
     <string name="pref_title_auto_download_metadata">Automatikus letöltés metaadatok</string>
     <string name="pref_title_blurred_album_art">Albumborító elhomályosítása</string>

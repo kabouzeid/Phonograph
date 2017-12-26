@@ -61,8 +61,6 @@
     <string name="action_go_to_album">Ir para o álbum</string>
     <string name="label_playing_queue">Fila de Reprodução</string>
     <string name="no_results">Sem resultados</string>
-    <string name="action_re_download_artist_image">Atualizar imagem do artista</string>
-    <string name="updated_artist_image">Imagem do artista atualizado.</string>
     <string name="updating">Atualizando...</string>
     <string name="added_title_to_playing_queue">"Adicionado 1 título à lista de reprodução"</string>
     <string name="added_x_titles_to_playing_queue">%1$d faixas adicionadas à fila de reprodução.</string>
@@ -99,7 +97,6 @@
     <string name="action_save_playing_queue">Salvar fila de reprodução</string>
     <string name="action_go_to_start_directory">Ir para a pasta inicial</string>
     <string name="action_show_lyrics">Mostrar letras</string>
-    <string name="last_opened">Última aberta</string>
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Escuro</string>
     <string name="black_theme_name">Preto (AMOLED)</string>
@@ -122,7 +119,6 @@
     <string name="pref_header_notification">Notificação</string>
     <string name="pref_title_navigation_bar">Barra de navegação colorida</string>
     <string name="pref_title_app_shortcuts">Atalhos de app coloridos</string>
-    <string name="pref_title_set_default_start_page">Página inicial</string>
     <string name="pref_title_album_art_on_lockscreen">Visualizar capa do álbum</string>
     <string name="pref_title_auto_download_metadata">Baixar automaticamente os metadados</string>
     <string name="pref_title_blurred_album_art">Capa de álbum esmaecida</string>
@@ -264,12 +260,10 @@
     <string name="playlist_is_empty">A playlist está vazia</string>
     <string name="playing_notification_description">A notificação de reprodução fornece opções de pausar/continuar etc.</string>
     <string name="playing_notification_name">Notificação de reprodução</string>
-    <string name="buy">Comprar</string>
     <string name="only_the_first_5_colors_available">Apenas as primeiras 5 cores estão disponíveis na versão grátis.</string>
     <string name="black_theme_is_a_pro_feature">O tema escuro é um recurso da versão Pro do Phonograph.</string>
     <string name="sleep_timer_is_a_pro_feature">Temporizador de soneca é um recurso da versão Pro do Phonograph</string>
     <string name="folder_view_is_a_pro_feature">Visualização de pastas é um recurso da versão Pro do Phonograph.</string>
-    <string name="restore_purchase">Restituir compra</string>
     <string name="restoring_purchase">Restituindo compra...</string>
     <string name="could_not_restore_purchase">Não foi possível restituir a compra.</string>
     <string name="purchase">Comprar</string>

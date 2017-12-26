@@ -59,8 +59,6 @@
     <string name="action_go_to_album">Přejít do alba</string>
     <string name="label_playing_queue">Fronta</string>
     <string name="no_results">Žádné výsledky</string>
-    <string name="action_re_download_artist_image">Změnit obrázek umělce</string>
-    <string name="updated_artist_image">Obrázek umělce změněn.</string>
     <string name="updating">Aktualizace...</string>
     <string name="added_title_to_playing_queue">"Přidána 1 skladba do fronty."</string>
     <string name="added_x_titles_to_playing_queue">Přidáno %1$d skladeb do fronty.</string>
@@ -96,7 +94,6 @@
     <string name="action_clear_playing_queue">Vyčistit frontu přehrávání</string>
     <string name="action_go_to_start_directory">Jít na domovskou složku</string>
     <string name="action_show_lyrics">Zobrazit text</string>
-    <string name="last_opened">Naposledy otevřené</string>
     <string name="light_theme_name">Světlý</string>
     <string name="dark_theme_name">Tmavý</string>
     <string name="black_theme_name">Černý (AMOLED)</string>
@@ -119,7 +116,6 @@
     <string name="pref_header_notification">Oznámení</string>
     <string name="pref_title_navigation_bar">Barevné záhlaví</string>
     <string name="pref_title_app_shortcuts">Barevné zkratky aplikace</string>
-    <string name="pref_title_set_default_start_page">Zvolit výchozí obrazovku</string>
     <string name="pref_title_album_art_on_lockscreen">Obal alba na odemykací obrazovce</string>
     <string name="pref_title_auto_download_metadata">Automaticky stahovat metadata</string>
     <string name="pref_title_blurred_album_art">Rozostřit obal alba</string>

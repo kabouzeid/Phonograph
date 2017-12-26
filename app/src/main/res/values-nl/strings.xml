@@ -60,8 +60,6 @@
     <string name="action_go_to_album">Ga naar album</string>
     <string name="label_playing_queue">Afspeelwachtrij</string>
     <string name="no_results">Geen resultaten</string>
-    <string name="action_re_download_artist_image">Artiest afbeelding bijwerken</string>
-    <string name="updated_artist_image">Artiest afbeelding bijgewerkt.</string>
     <string name="updating">Bijwerken…</string>
     <string name="added_title_to_playing_queue">"1 titel toegevoegd aan de afspeelwachtrij."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titels toegevoegd aan de afspeelwachtrij.</string>
@@ -98,7 +96,6 @@
     <string name="action_save_playing_queue">Afspeelwachtrij opslaan</string>
     <string name="action_go_to_start_directory">Ga naar startmap</string>
     <string name="action_show_lyrics">Toon songtekst</string>
-    <string name="last_opened">Laatst geopend</string>
     <string name="light_theme_name">Licht</string>
     <string name="dark_theme_name">Donker</string>
     <string name="black_theme_name">Zwart (AMOLED)</string>
@@ -121,7 +118,6 @@
     <string name="pref_header_notification">Melding</string>
     <string name="pref_title_navigation_bar">Gekleurde navigatiebalk</string>
     <string name="pref_title_app_shortcuts">Gekleurde app-snelkoppelingen</string>
-    <string name="pref_title_set_default_start_page">Startpagina</string>
     <string name="pref_title_album_art_on_lockscreen">Toon albumhoes</string>
     <string name="pref_title_auto_download_metadata">Metadata autom. downloaden</string>
     <string name="pref_title_blurred_album_art">Vervaag albumhoes</string>
@@ -262,12 +258,10 @@
     <string name="playlist_is_empty">Afspeellijst is leeg</string>
     <string name="playing_notification_description">De afspeelmelding biedt acties voor afspelen/pauzeren etc.</string>
     <string name="playing_notification_name">Afspeelmelding</string>
-    <string name="buy">Kopen</string>
     <string name="only_the_first_5_colors_available">Alleen de eerste 5 kleuren zijn beschikbaar in de gratis versie.</string>
     <string name="black_theme_is_a_pro_feature">Het zwarte thema is een Phonograph Pro functie.</string>
     <string name="sleep_timer_is_a_pro_feature">Slaaptimer is een Phonograph Pro functie.</string>
     <string name="folder_view_is_a_pro_feature">Mappenweergave is een Phonograph Pro functie.</string>
-    <string name="restore_purchase">Aankoop herstellen</string>
     <string name="restoring_purchase">Aankoop herstellen…</string>
     <string name="could_not_restore_purchase">Kan aankoop niet herstellen.</string>
     <string name="purchase">Koop</string>

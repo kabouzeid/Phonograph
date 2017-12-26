@@ -60,8 +60,6 @@
     <string name="action_go_to_album">Gehe zum Album</string>
     <string name="label_playing_queue">Warteschlange</string>
     <string name="no_results">Keine Ergebnisse</string>
-    <string name="action_re_download_artist_image">Interpretenbild aktualisieren</string>
-    <string name="updated_artist_image">Interpreten Bild aktualisiert.</string>
     <string name="updating">Aktualisiere…</string>
     <string name="added_title_to_playing_queue">"1 Titel wurde der Warteschlange hinzugefügt."</string>
     <string name="added_x_titles_to_playing_queue">%1$d Titel wurden der Warteschlange hinzugefügt.</string>
@@ -98,7 +96,6 @@
     <string name="action_save_playing_queue">Warteschlange speichern</string>
     <string name="action_go_to_start_directory">Zum Start-Verzeichnis gehen</string>
     <string name="action_show_lyrics">Songtext anzeigen</string>
-    <string name="last_opened">Zuletzt geöffnet</string>
     <string name="light_theme_name">Hell</string>
     <string name="dark_theme_name">Dunkel</string>
     <string name="black_theme_name">Schwarz (AMOLED)</string>
@@ -121,7 +118,6 @@
     <string name="pref_header_notification">Benachrichtigung</string>
     <string name="pref_title_navigation_bar">Farbige Navigationsleiste</string>
     <string name="pref_title_app_shortcuts">Gefärbte App-Shortcuts</string>
-    <string name="pref_title_set_default_start_page">Startseite</string>
     <string name="pref_title_album_art_on_lockscreen">Album Cover anzeigen</string>
     <string name="pref_title_auto_download_metadata">Meta-Daten automatisch herunterladen</string>
     <string name="pref_title_blurred_album_art">Album Cover weichzeichnen</string>
@@ -262,12 +258,10 @@
     <string name="playlist_is_empty">Die Wiedergabeliste ist leer</string>
     <string name="playing_notification_description">Die Benachrichtigung zur Steuerung von Play/Pause etc.</string>
     <string name="playing_notification_name">Wiedergabe-Benachrichtigung</string>
-    <string name="buy">Kaufen</string>
     <string name="only_the_first_5_colors_available">Nur die ersten 5 Farben sind in der kostenlosen Version verfügbar.</string>
     <string name="black_theme_is_a_pro_feature">Das schwarze Theme ist ein Phonograph Pro-Feature</string>
     <string name="sleep_timer_is_a_pro_feature">Der Einschlaf-Timer ist ein Phonograph Pro-Feature</string>
     <string name="folder_view_is_a_pro_feature">Die Ordner-Ansicht ist ein Phonograph Pro-Feature.</string>
-    <string name="restore_purchase">Kauf wiederherstellen</string>
     <string name="restoring_purchase">Stelle Kauf wieder her...</string>
     <string name="could_not_restore_purchase">Kauf konnte nicht wiederhergestellt werden.</string>
     <string name="purchase">Kaufen</string>

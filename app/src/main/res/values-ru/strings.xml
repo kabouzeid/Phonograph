@@ -60,8 +60,6 @@
     <string name="action_go_to_album">Перейти к альбому</string>
     <string name="label_playing_queue">Очередь воспроизведения</string>
     <string name="no_results">Нет результатов</string>
-    <string name="action_re_download_artist_image">Обновить изображение исполнителя</string>
-    <string name="updated_artist_image">Изображение исполнителя обновлено.</string>
     <string name="updating">Обновление...</string>
     <string name="added_title_to_playing_queue">"Композиция добавлена в очередь воспроизведения"</string>
     <string name="added_x_titles_to_playing_queue">%1$d композиций добавлено в очередь воспроизведения</string>
@@ -98,7 +96,6 @@
     <string name="action_save_playing_queue">Сохранить очередь воспроизведения</string>
     <string name="action_go_to_start_directory">Перейти к начальной директории</string>
     <string name="action_show_lyrics">Показать текст песни</string>
-    <string name="last_opened">Последнее открытое</string>
     <string name="light_theme_name">Светлая</string>
     <string name="dark_theme_name">Тёмная</string>
     <string name="black_theme_name">Чёрная (для AMOLED-экранов)</string>
@@ -121,7 +118,6 @@
     <string name="pref_header_notification">Уведомления</string>
     <string name="pref_title_navigation_bar">Цветная панель управления</string>
     <string name="pref_title_app_shortcuts">Цветные шорткаты</string>
-    <string name="pref_title_set_default_start_page">Установить начальную страницу</string>
     <string name="pref_title_album_art_on_lockscreen">Показывать обложку альбома</string>
     <string name="pref_title_auto_download_metadata">Авто загрузка метаданных</string>
     <string name="pref_title_blurred_album_art">"Размытая обложка альбома "</string>
@@ -262,12 +258,10 @@
     <string name="playlist_is_empty">Плейлист пуст</string>
     <string name="playing_notification_description">С помощью уведомления воспроизведения можно воспроизводить/ставить на паузу и т.д.</string>
     <string name="playing_notification_name">Уведомление воспроизведения</string>
-    <string name="buy">Купить</string>
     <string name="only_the_first_5_colors_available">Только первые 5 цветов доступны в бесплатной версии.</string>
     <string name="black_theme_is_a_pro_feature">Темная тема это функция Phonograph Pro.</string>
     <string name="sleep_timer_is_a_pro_feature">Таймер сна это функция Phonograph Pro.</string>
     <string name="folder_view_is_a_pro_feature">Просмотр по папкам это функция Phonograph Pro.</string>
-    <string name="restore_purchase">Восстановить покупку</string>
     <string name="restoring_purchase">Восстановление покупки...</string>
     <string name="could_not_restore_purchase">Невозможно восстановить покупку.</string>
     <string name="purchase">Покупка</string>
