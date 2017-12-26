@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -61,7 +60,7 @@ public class PurchaseActivity extends AbsBaseActivity implements BillingProcesso
         setSupportActionBar(toolbar);
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.purchase) + " Phonograph Pro");
+        getSupportActionBar().setTitle(getString(R.string.buy_pro));
 
         restoreButton.setEnabled(false);
         purchaseButton.setEnabled(false);
