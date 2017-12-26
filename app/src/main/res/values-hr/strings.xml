@@ -30,6 +30,7 @@
     <string name="action_set_as_start_directory">Postavi kao početni direktorij</string>
     <string name="albums">Albumi</string>
     <string name="artists">Izvođači</string>
+    <string name="genres">Žanrovi</string>
     <string name="songs">Pjesme</string>
     <string name="playlists">Popisi naslova</string>
     <string name="unplayable_file">Nije mogu\u0107e reproducirati ovu pjesmu.</string>
@@ -115,7 +116,6 @@
     <string name="pref_header_now_playing_screen">Trenutna reprodukcija</string>
     <string name="pref_title_general_theme">Općenita tema</string>
     <string name="pref_header_audio">Zvuk</string>
-    <string name="pref_header_general">Općenito</string>
     <string name="pref_header_images">Slike</string>
     <string name="pref_header_lockscreen">Zaključani zaslon</string>
     <string name="pref_header_playlists">Popisi naslova</string>
@@ -151,6 +151,7 @@
     <string name="no_albums">Nema albuma</string>
     <string name="no_songs">Nema pjesama</string>
     <string name="no_artists">Nema izvođača</string>
+    <string name="no_genres">Nema žanrova</string>
     <string name="empty">Prazno</string>
     <string name="playlist_name_empty">Naziv popisa naslova</string>
     <string name="song">Pjesma</string>

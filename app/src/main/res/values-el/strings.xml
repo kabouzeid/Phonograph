@@ -107,7 +107,6 @@
     <string name="pref_header_now_playing_screen">Γίνεται αναπαραγωγή</string>
     <string name="pref_title_general_theme">Γενικό θέμα</string>
     <string name="pref_header_audio">Ήχος</string>
-    <string name="pref_header_general">Γενικά</string>
     <string name="pref_header_images">Εικόνες</string>
     <string name="pref_header_lockscreen">Οθόνη κλειδώματος</string>
     <string name="pref_title_navigation_bar">Έγχρωμη μπάρα πλοήγησης</string>

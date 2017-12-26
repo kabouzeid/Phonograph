@@ -107,7 +107,6 @@
     <string name="pref_header_now_playing_screen">播放面板</string>
     <string name="pref_title_general_theme">主題</string>
     <string name="pref_header_audio">音訊</string>
-    <string name="pref_header_general">一般</string>
     <string name="pref_header_images">圖片</string>
     <string name="pref_header_lockscreen">鎖定螢幕</string>
     <string name="pref_title_navigation_bar">彩色的導航列</string>

@@ -102,7 +102,6 @@
     <string name="pref_header_now_playing_screen">Toistetaan parhaillaan</string>
     <string name="pref_title_general_theme">Yleinen teema</string>
     <string name="pref_header_audio">Ääni</string>
-    <string name="pref_header_general">Yleinen</string>
     <string name="pref_header_images">Kuvat</string>
     <string name="pref_header_lockscreen">Lukitusnäyttö</string>
     <string name="pref_title_navigation_bar">Värillinen navigointipalkki</string>

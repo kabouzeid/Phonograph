@@ -115,7 +115,6 @@
     <string name="pref_header_now_playing_screen">Экран воспроизведения</string>
     <string name="pref_title_general_theme">Общая тема</string>
     <string name="pref_header_audio">Аудио</string>
-    <string name="pref_header_general">Общее</string>
     <string name="pref_header_images">Изображения</string>
     <string name="pref_header_lockscreen">Экран блокировки</string>
     <string name="pref_header_playlists">Плейлисты</string>

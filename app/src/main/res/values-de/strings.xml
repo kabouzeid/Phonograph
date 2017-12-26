@@ -115,7 +115,6 @@
     <string name="pref_header_now_playing_screen">Aktuelle Wiedergabe</string>
     <string name="pref_title_general_theme">Generelles Design</string>
     <string name="pref_header_audio">Audio</string>
-    <string name="pref_header_general">Generell</string>
     <string name="pref_header_images">Bilder</string>
     <string name="pref_header_lockscreen">Sperrbildschirm</string>
     <string name="pref_header_playlists">Wiedergabelisten</string>
@@ -140,7 +139,6 @@
     <string name="remove_action">Entfernen</string>
     <string name="rename_action">Umbenennen</string>
     <string name="create_action">Erstellen</string>
-    <string name="reset_action">Zurücksetzen</string>
     <string name="x_selected">%1$d ausgewählt</string>
     <string name="primary_color">Hauptfarbe</string>
     <string name="accent_color">Akzentfarbe</string>
@@ -162,7 +160,7 @@
     <string name="pref_summary_gapless_playback">"Kann bei einigen Geräten Wiedergabeprobleme verursachen."</string>
     <string name="pref_summary_ignore_media_store_artwork">Kann die Album Cover Qualität verbessern was jedoch die Ladezeit beeinträchtigt. Nur aktivieren falls Probleme mit niedrig aufgelösten Album Covern auftreten.</string>
     <string name="pref_summary_colored_navigation_bar">Färbt die Navigationsleiste mit der Hauptfarbe.</string>
-    <string name="pref_summary_colored_app_shortcuts">Färbt die App-Shortcuts mit der Hauptfarbe</string>
+    <string name="pref_summary_colored_app_shortcuts">Färbt die App-Shortcuts mit der Hauptfarbe.</string>
     <string name="pref_summary_audio_ducking">Benachrichtigungen, Navigation etc.</string>
     <string name="pref_summary_synchronized_lyrics_show">Aktuell werden nur synchronisierte Songtexte im LRC-Format unterstützt, entweder eingebettet oder als separate Datei.</string>
     <string name="could_not_download_album_cover">"Es konnte kein passendes Album Cover heruntergeladen werden."</string>
@@ -285,8 +283,6 @@
     <string name="pref_summary_blacklist">Der Inhalt der Ordner auf der Blacklist wird in deiner Bibliothek verborgen.</string>
     <string name="reset_artist_image">Künstler-Bild zurücksetzen</string>
     <string name="set_artist_image">Künstler-Bild festlegen</string>
-    <string name="library_categories">Bibliothek</string>
+    <string name="library_categories">Bibliotheks Kategorien</string>
     <string name="pref_summary_library_categories">Anzeige und Anordnung der einzelnen Kategorien festlegen.</string>
-    <string name="edit_categories">Kategorien bearbeiten</string>
-    <string name="at_least_one_category_must_be_enabled">Zumindest eine Kategorie muss aktiv sein.</string>
 </resources>

@@ -115,7 +115,6 @@
     <string name="pref_header_now_playing_screen">NowPlaying画面の設定</string>
     <string name="pref_title_general_theme">テーマカラー</string>
     <string name="pref_header_audio">オーディオ設定</string>
-    <string name="pref_header_general">一般設定</string>
     <string name="pref_header_images">画像の表示設定</string>
     <string name="pref_header_lockscreen">ロックスクリーンの設定</string>
     <string name="pref_header_playlists">プレイリスト</string>

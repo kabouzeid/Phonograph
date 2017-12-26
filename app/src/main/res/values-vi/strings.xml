@@ -114,7 +114,6 @@
     <string name="pref_header_now_playing_screen">Đang phát</string>
     <string name="pref_title_general_theme">Chủ đề chung</string>
     <string name="pref_header_audio">Âm thanh</string>
-    <string name="pref_header_general">Chung</string>
     <string name="pref_header_images">Hình ảnh</string>
     <string name="pref_header_lockscreen">Màn hình khóa</string>
     <string name="pref_header_playlists">Danh sách nhạc</string>

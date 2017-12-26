@@ -113,7 +113,6 @@
     <string name="pref_header_now_playing_screen">Přehrávač</string>
     <string name="pref_title_general_theme">Motiv</string>
     <string name="pref_header_audio">Zvuk</string>
-    <string name="pref_header_general">Všeobecné</string>
     <string name="pref_header_images">Obrázky</string>
     <string name="pref_header_lockscreen">Odemykací obrazovka</string>
     <string name="pref_header_playlists">Seznamy skladeb</string>

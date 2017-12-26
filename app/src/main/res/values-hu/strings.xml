@@ -114,7 +114,6 @@
     <string name="pref_header_now_playing_screen">Most játszott lista</string>
     <string name="pref_title_general_theme">Téma</string>
     <string name="pref_header_audio">Hang</string>
-    <string name="pref_header_general">Általános</string>
     <string name="pref_header_images">Képek</string>
     <string name="pref_header_lockscreen">Zárképernyő</string>
     <string name="pref_header_playlists">Lejátszási listák</string>

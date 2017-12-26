@@ -102,7 +102,6 @@
     <string name="pref_header_now_playing_screen">Відтворюється</string>
     <string name="pref_title_general_theme">Загальна тема</string>
     <string name="pref_header_audio">Аудіо</string>
-    <string name="pref_header_general">Загальні</string>
     <string name="pref_header_images">Зображення</string>
     <string name="pref_header_lockscreen">Екран блокування</string>
     <string name="pref_title_navigation_bar">Кольорова панель навігації</string>

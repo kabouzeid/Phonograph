@@ -30,6 +30,7 @@
     <string name="action_set_as_start_directory">Imposta come directory iniziale</string>
     <string name="albums">Album</string>
     <string name="artists">Artisti</string>
+    <string name="genres">Generi</string>
     <string name="songs">Brani</string>
     <string name="playlists">Playlist</string>
     <string name="unplayable_file">Impossibile riprodurre questo brano.</string>
@@ -115,7 +116,6 @@
     <string name="pref_header_now_playing_screen">Schermata in riproduzione</string>
     <string name="pref_title_general_theme">Tema generale</string>
     <string name="pref_header_audio">Audio</string>
-    <string name="pref_header_general">Generali</string>
     <string name="pref_header_images">Immagini</string>
     <string name="pref_header_lockscreen">Schermata di blocco</string>
     <string name="pref_header_playlists">Playlist</string>
@@ -151,6 +151,7 @@
     <string name="no_albums">Nessun album</string>
     <string name="no_songs">Nessun brano</string>
     <string name="no_artists">Nessun artista</string>
+    <string name="no_genres">Nessun genere</string>
     <string name="empty">Vuoto</string>
     <string name="playlist_name_empty">Nome playlist</string>
     <string name="song">Brano</string>

@@ -115,7 +115,6 @@
     <string name="pref_header_now_playing_screen">מנגן כעת</string>
     <string name="pref_title_general_theme">ערכת נושא כללית</string>
     <string name="pref_header_audio">שמע</string>
-    <string name="pref_header_general">כללי</string>
     <string name="pref_header_images">תמונות</string>
     <string name="pref_header_lockscreen">מסך נעילה</string>
     <string name="pref_header_playlists">רשימת השמעה</string>
@@ -151,6 +150,7 @@
     <string name="no_albums">אין אלבומים</string>
     <string name="no_songs">אין שירים</string>
     <string name="no_artists">אין אמנים</string>
+    <string name="no_genres">אין סגנונות</string>
     <string name="empty">ריק</string>
     <string name="playlist_name_empty">שם רשימת השמעה</string>
     <string name="song">שיר</string>

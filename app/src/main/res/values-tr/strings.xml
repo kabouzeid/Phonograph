@@ -115,7 +115,6 @@
     <string name="pref_header_now_playing_screen">Şuan çalınan</string>
     <string name="pref_title_general_theme">Genel tema</string>
     <string name="pref_header_audio">Ses</string>
-    <string name="pref_header_general">Genel</string>
     <string name="pref_header_images">Görüntüler</string>
     <string name="pref_header_lockscreen">Kilit ekranı</string>
     <string name="pref_header_playlists">Çalma listeleri</string>

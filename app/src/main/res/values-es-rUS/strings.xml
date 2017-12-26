@@ -115,7 +115,6 @@
     <string name="pref_header_now_playing_screen">Reproduciendo ahora</string>
     <string name="pref_title_general_theme">Tema general</string>
     <string name="pref_header_audio">Audio</string>
-    <string name="pref_header_general">General</string>
     <string name="pref_header_images">Imágenes</string>
     <string name="pref_header_lockscreen">Pantalla de bloqueo</string>
     <string name="pref_header_playlists">Listas de reproducción</string>

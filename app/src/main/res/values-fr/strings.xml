@@ -114,7 +114,6 @@
     <string name="pref_header_now_playing_screen">Lecture en cours</string>
     <string name="pref_title_general_theme">Thème général</string>
     <string name="pref_header_audio">Audio</string>
-    <string name="pref_header_general">Général</string>
     <string name="pref_header_images">Images</string>
     <string name="pref_header_lockscreen">Écran de verrouillage</string>
     <string name="pref_header_playlists">Listes de lecture</string>
