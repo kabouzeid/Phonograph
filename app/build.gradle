@@ -78,7 +78,6 @@ ext {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:support-compat:$supportLibVersion"
     implementation "com.android.support:support-core-utils:$supportLibVersion"
     implementation "com.android.support:support-core-ui:$supportLibVersion"
@@ -112,6 +111,7 @@ dependencies {
     implementation 'me.zhanghai.android.materialprogressbar:library:1.4.2'
     implementation 'org.eclipse.mylyn.github:org.eclipse.egit.github.core:2.1.5'
     implementation 'com.jakewharton:butterknife:8.8.1'
+    implementation 'org.bitbucket.ijabz:jaudiotagger:v2.2.4'
     implementation('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.11.0@aar') {
         transitive = true
     }
