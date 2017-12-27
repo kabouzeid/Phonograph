@@ -176,11 +176,11 @@
     <string name="report_bugs">Αναφορά σφαλμάτων</string>
     <string name="report_bugs_summary">Αναφέρετε σφάλματα ή ζητείστε νέα χαρακτηριστικά.</string>
     <string name="join_community">Γίνετε μέλος της κοινότητας μας στο Google Plus</string>
-    <string name="join_community_summary">Αν χρειάζεστε βοήθεια ή έχετε ερωτήσεις, η κοινότητά μας για το Phonograph στο Google Plus είναι ένα καλό μέρος για να πάτε.</string>
+    <string name="join_community_summary">Αν χρειάζεστε βοήθεια ή έχετε ερωτήσεις, η κοινότητά μας για το Vinyl Music Player στο Google Plus είναι ένα καλό μέρος για να πάτε.</string>
     <string name="translate">Μεταφράστε</string>
-    <string name="translate_summary">Βοηθήστε την μετάφραση του Phonograph στη μητρική σας γλώσσα.</string>
+    <string name="translate_summary">Βοηθήστε την μετάφραση του Vinyl Music Player στη μητρική σας γλώσσα.</string>
     <string name="rate_on_google_play">Βαθμολογήστε</string>
-    <string name="rate_on_google_play_summary">Αφήστε μια θετική αξιολόγηση  στο Google Play, αν σας αρέσει το Phonograph.</string>
+    <string name="rate_on_google_play_summary">Αφήστε μια θετική αξιολόγηση  στο Google Play, αν σας αρέσει το Vinyl Music Player.</string>
     <string name="donate">Δωρεά</string>
     <string name="donate_summary">Αν νομίζετε ότι αξίζει να πληρωθώ για την εργασία μου, μπορείτε να μου αφήσετε μερικά δολάρια εδώ.</string>
     <string name="aidan_follestad_summary">Για την μηχανή θεμάτων και κάποια άλλα ωραία πράγματα.</string>
@@ -192,7 +192,7 @@
     <string name="up_next">Επόμενο</string>
     <string name="pref_title_now_playing_screen_appearance">Εμφάνιση</string>
     <string name="intro_label">Εισαγωγή</string>
-    <string name="welcome_to_phonograph">"Καλώς ήρθατε στο Phonograph, ένα όμορφο και ελαφρύ πρόγραμμα αναπαραγωγής μουσικής για το Android.  "</string>
+    <string name="welcome_to_vinyl_music_player">"Καλώς ήρθατε στο Vinyl Music Player, ένα όμορφο και ελαφρύ πρόγραμμα αναπαραγωγής μουσικής για το Android.  "</string>
     <string name="open_playing_queue_instruction">Σύρετε την κάρτα στην οθόνη \"παίζει τώρα\" μέχρι να αποκαλυφθεί ολόκληρη η σειρά τραγουδιών.</string>
     <string name="rearrange_playing_queue_instruction">Κάντε αναδιάταξη της σειράς τραγουδιών  σύροντας ένα τραγούδι από τον αριθμό του.</string>
     <string name="library">Βιβλιοθήκη</string>
@@ -205,9 +205,9 @@
     <string name="could_not_scan_files">Δεν μπόρεσε να πραγματοποιηθεί σάρωση σε %d αρχεία.</string>
     <string name="listing_files">Λίστα αρχείων</string>
     <string name="new_start_directory">%s είναι ο νέος κατάλογος έναρξης.</string>
-    <string name="app_widget_big_name">Phonograph - Μεγάλο</string>
-    <string name="app_widget_classic_name">Phonograph - Κλασικό</string>
-    <string name="app_widget_small_name">Phonograph - Μικρό</string>
+    <string name="app_widget_big_name">Vinyl Music Player - Μεγάλο</string>
+    <string name="app_widget_classic_name">Vinyl Music Player - Κλασικό</string>
+    <string name="app_widget_small_name">Vinyl Music Player - Μικρό</string>
     <string name="report_an_issue">Αναφέρετε ένα πρόβλημα</string>
     <string name="bug_report_issue">Πρόβλημα</string>
     <string name="login">Είσοδος</string>

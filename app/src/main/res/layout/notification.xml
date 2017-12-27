@@ -59,7 +59,7 @@
             android:fadingEdge="horizontal"
             android:gravity="bottom"
             android:singleLine="true"
-            android:textAppearance="@style/Theme.Phonograph.Notification.Title"
+            android:textAppearance="@style/Theme.VinylMusicPlayer.Notification.Title"
             tools:ignore="NestedWeights" />
 
         <TextView
@@ -71,7 +71,7 @@
             android:ellipsize="marquee"
             android:fadingEdge="horizontal"
             android:singleLine="true"
-            android:textAppearance="@style/Theme.Phonograph.Notification" />
+            android:textAppearance="@style/Theme.VinylMusicPlayer.Notification" />
 
     </LinearLayout>
 

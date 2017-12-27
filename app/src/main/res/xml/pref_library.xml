@@ -2,7 +2,7 @@
 
     <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory android:title="@string/pref_header_library">
 
-        <com.kabouzeid.gramophone.preferences.LibraryPreference
+        <com.poupa.vinylmusicplayer.preferences.LibraryPreference
             android:key="library_categories"
             android:summary="@string/pref_summary_library_categories"
             android:title="@string/library_categories" />

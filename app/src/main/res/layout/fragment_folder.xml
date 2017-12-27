@@ -48,7 +48,7 @@
 
             </FrameLayout>
 
-            <com.kabouzeid.gramophone.views.BreadCrumbLayout
+            <com.poupa.vinylmusicplayer.views.BreadCrumbLayout
                 android:id="@+id/bread_crumbs"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tab_height"

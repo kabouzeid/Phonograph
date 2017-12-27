@@ -2,7 +2,7 @@
 
     <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory android:title="@string/blacklist">
 
-        <com.kabouzeid.gramophone.preferences.BlacklistPreference
+        <com.poupa.vinylmusicplayer.preferences.BlacklistPreference
             android:key="blacklist"
             android:summary="@string/pref_summary_blacklist"
             android:title="@string/blacklist" />

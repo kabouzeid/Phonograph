@@ -7,7 +7,7 @@
     android:foreground="?attr/rectSelector"
     tools:ignore="UnusedAttribute">
 
-    <com.kabouzeid.gramophone.views.IconImageView
+    <com.poupa.vinylmusicplayer.views.IconImageView
         android:id="@+id/drag_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -85,7 +85,7 @@
                 android:textColor="?android:textColorSecondary" />
         </LinearLayout>
 
-        <com.kabouzeid.gramophone.views.IconImageView
+        <com.poupa.vinylmusicplayer.views.IconImageView
             android:id="@+id/menu"
             style="@style/OverFlowButton"
             android:layout_gravity="center_vertical"

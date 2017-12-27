@@ -181,6 +181,6 @@
     <string name="version">버전</string>
     <string name="translate">번역</string>
     <string name="intro_label">소개</string>
-    <string name="welcome_to_phonograph">"Android를 위한 아름답고 가벼운 음악 플레이어인 Phonograph에 오신 것을 환영합니다."</string>
+    <string name="welcome_to_vinyl_music_player">"Android를 위한 아름답고 가벼운 음악 플레이어인 Vinyl Music Player에 오신 것을 환영합니다."</string>
     <string name="folders">폴더</string>
 </resources>

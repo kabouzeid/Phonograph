@@ -181,7 +181,7 @@
     <string name="permissions_denied">Autorisation refusée.</string>
     <string name="permission_external_storage_denied">Accès au stockage externe refusé.</string>
     <string name="support_development">Faire un don</string>
-    <string name="buy_pro">Achetez Phonograph Pro</string>
+    <string name="buy_pro">Achetez Vinyl Music Player Pro</string>
     <string name="thank_you">Merci !</string>
     <string name="restored_previous_purchase_please_restart">Achats précédents restaurés. Veuillez redémarrer l\'application pour débloquer toutes les fonctionnalités</string>
     <string name="version">Version</string>
@@ -194,11 +194,11 @@
     <string name="report_bugs">Signaler des bugs</string>
     <string name="report_bugs_summary">Signalez des bugs ou demandez des nouvelles fonctionnalités.</string>
     <string name="join_community">Rejoindre la communauté Google+</string>
-    <string name="join_community_summary">Si vous avez besoin d\'aide ou si vous avez des questions, la communauté Phonograph sur Google+ est un bon endroit où se rendre.</string>
+    <string name="join_community_summary">Si vous avez besoin d\'aide ou si vous avez des questions, la communauté Vinyl Music Player sur Google+ est un bon endroit où se rendre.</string>
     <string name="translate">Traduire</string>
-    <string name="translate_summary">Aidez à traduire Phonograph dans votre langue maternelle.</string>
+    <string name="translate_summary">Aidez à traduire Vinyl Music Player dans votre langue maternelle.</string>
     <string name="rate_on_google_play">Évaluer</string>
-    <string name="rate_on_google_play_summary">Laissez une note positive sur le Play Store si vous aimez Phonograph.</string>
+    <string name="rate_on_google_play_summary">Laissez une note positive sur le Play Store si vous aimez Vinyl Music Player.</string>
     <string name="donate">Faire un don</string>
     <string name="donate_summary">Si vous pensez que je mérite d\'être payé pour mon travail, vous pouvez me laisser quelques euros ici.</string>
     <string name="aidan_follestad_summary">Pour le moteur de thème et quelques autres trucs formidables.</string>
@@ -210,7 +210,7 @@
     <string name="up_next">Suivant</string>
     <string name="pref_title_now_playing_screen_appearance">Apparence</string>
     <string name="intro_label">Introduction</string>
-    <string name="welcome_to_phonograph">"Bienvenue sur Phonograph, un lecteur de musique beau et léger pour Android. "</string>
+    <string name="welcome_to_vinyl_music_player">"Bienvenue sur Vinyl Music Player, un lecteur de musique beau et léger pour Android. "</string>
     <string name="open_playing_queue_instruction">Vous pouvez glisser la carte dans l\'écran de lecture en cours pour afficher la file de lecture complète.</string>
     <string name="rearrange_playing_queue_instruction">Vous pouvez réorganiser la file de lecture en faisant glisser une chanson à partir de son numéro de piste.</string>
     <string name="library">Bibliothèque</string>
@@ -223,10 +223,10 @@
     <string name="could_not_scan_files">Impossible de scanner %d fichiers.</string>
     <string name="listing_files">Liste des fichiers</string>
     <string name="new_start_directory">%s est le nouveau répertoire de départ.</string>
-    <string name="app_widget_big_name">Phonograph - Grand</string>
-    <string name="app_widget_classic_name">Phonograph - Classique</string>
-    <string name="app_widget_small_name">Phonograph - Petit</string>
-    <string name="app_widget_card_name">Phonograph - Carte</string>
+    <string name="app_widget_big_name">Vinyl Music Player - Grand</string>
+    <string name="app_widget_classic_name">Vinyl Music Player - Classique</string>
+    <string name="app_widget_small_name">Vinyl Music Player - Petit</string>
+    <string name="app_widget_card_name">Vinyl Music Player - Carte</string>
     <string name="report_an_issue">Signaler un problème</string>
     <string name="bug_report_issue">Problème</string>
     <string name="login">Connexion</string>
@@ -256,7 +256,7 @@
     <string name="playlist_is_empty">La liste de lecture est vide</string>
     <string name="playing_notification_description">La notification de lecture fournit des actions pour la lecture/pause etc.</string>
     <string name="playing_notification_name">Notification de lecture</string>
-    <string name="black_theme_is_a_pro_feature">Le thème noir est une fonctionnalité Phonograph Pro</string>
+    <string name="black_theme_is_a_pro_feature">Le thème noir est une fonctionnalité Vinyl Music Player Pro</string>
     <string name="restoring_purchase">Restauration des achats...</string>
     <string name="could_not_restore_purchase">Impossible de restaurer les achats</string>
     <string name="purchase">Acheter</string>

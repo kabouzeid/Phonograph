@@ -168,11 +168,11 @@
     <string name="report_bugs">Reportar erros</string>
     <string name="report_bugs_summary">Reportar erros ou sugerir novas funcionalidades.</string>
     <string name="join_community">Junte-se à comunidade Google Plus</string>
-    <string name="join_community_summary">Se necessitar de ajuda ou tiver dúvidas, a comunidade Phonograph no Google Plus é um bom sítio para ir.</string>
+    <string name="join_community_summary">Se necessitar de ajuda ou tiver dúvidas, a comunidade Vinyl Music Player no Google Plus é um bom sítio para ir.</string>
     <string name="translate">Traduzir</string>
-    <string name="translate_summary">Ajude a traduzir o Phonograph para o seu idioma nativo.</string>
+    <string name="translate_summary">Ajude a traduzir o Vinyl Music Player para o seu idioma nativo.</string>
     <string name="rate_on_google_play">Classifique</string>
-    <string name="rate_on_google_play_summary">Deixe uma avaliação positiva no Google Play, se gosta do Phonograph.</string>
+    <string name="rate_on_google_play_summary">Deixe uma avaliação positiva no Google Play, se gosta do Vinyl Music Player.</string>
     <string name="donate">Doar</string>
     <string name="donate_summary">Se acha que mereço ser pago pelo meu trabalho neste produto, pode fazê-lo aqui.</string>
     <string name="aidan_follestad_summary">Pelo motor do tema e algumas outras coisas espetaculares.</string>
@@ -184,7 +184,7 @@
     <string name="up_next">A seguir</string>
     <string name="pref_title_now_playing_screen_appearance">Aparência</string>
     <string name="intro_label">Introdução</string>
-    <string name="welcome_to_phonograph">"Bem vindo ao Phonograph, um belo e leve leitor de música para Android. "</string>
+    <string name="welcome_to_vinyl_music_player">"Bem vindo ao Vinyl Music Player, um belo e leve leitor de música para Android. "</string>
     <string name="open_playing_queue_instruction">Deslize o cartão no ecrã de \"a reproduzir\" para cima para mostrar a fila de reprodução completa.</string>
     <string name="rearrange_playing_queue_instruction">Reorganizar a fila de reprodução arrastando a música desde o seu número</string>
     <string name="library">Biblioteca</string>
@@ -195,9 +195,9 @@
     <string name="scanned_files">Verificados %1$d de %2$d ficheiros.</string>
     <string name="could_not_scan_files">Não é possível verificar %d ficheiros.</string>
     <string name="new_start_directory">%s é a nova diretoria principal</string>
-    <string name="app_widget_big_name">Phonograph - Grande</string>
-    <string name="app_widget_classic_name">Phonograph - Clássico</string>
-    <string name="app_widget_small_name">Phonograph - Pequeno</string>
+    <string name="app_widget_big_name">Vinyl Music Player - Grande</string>
+    <string name="app_widget_classic_name">Vinyl Music Player - Clássico</string>
+    <string name="app_widget_small_name">Vinyl Music Player - Pequeno</string>
     <string name="report_an_issue">"Denunciar um problema "</string>
     <string name="bug_report_issue">Problema</string>
     <string name="login">Entrar</string>

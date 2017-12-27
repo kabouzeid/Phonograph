@@ -175,11 +175,11 @@
     <string name="report_bugs">Laporkan masalah</string>
     <string name="report_bugs_summary">Laporkan masalah atau sarankan fitur baru</string>
     <string name="join_community">Gabung di komunitas Google Plus</string>
-    <string name="join_community_summary">"Anda dapat meminta bantuan atau mengajukan pertanyaan di komunitas Phonograph di Google Plus. "</string>
+    <string name="join_community_summary">"Anda dapat meminta bantuan atau mengajukan pertanyaan di komunitas Vinyl Music Player di Google Plus. "</string>
     <string name="translate">Terjemahkan</string>
-    <string name="translate_summary">"Bantu terjemahkan Phonograph ke dalam bahasa Anda. "</string>
+    <string name="translate_summary">"Bantu terjemahkan Vinyl Music Player ke dalam bahasa Anda. "</string>
     <string name="rate_on_google_play">Beri nilai</string>
-    <string name="rate_on_google_play_summary">Tinggalkan penilaian positif di Google Play jika Anda menyukai Phonograph.</string>
+    <string name="rate_on_google_play_summary">Tinggalkan penilaian positif di Google Play jika Anda menyukai Vinyl Music Player.</string>
     <string name="donate">Donasikan</string>
     <string name="donate_summary">Jika Anda berpikir saya layak untuk dibayar atas apa yang saya kerjakan, Anda bisa meninggalkan beberapa dollar disini.</string>
     <string name="aidan_follestad_summary">Untuk sistem tema dan beberapa hal besar lainnya.</string>
@@ -191,7 +191,7 @@
     <string name="up_next">Berikutnya</string>
     <string name="pref_title_now_playing_screen_appearance">Tampilan</string>
     <string name="intro_label">Pengenalan</string>
-    <string name="welcome_to_phonograph">"Selamat datang di Phonograph, sebuah pemutar musik yang indah dan ringan untuk Android. "</string>
+    <string name="welcome_to_vinyl_music_player">"Selamat datang di Vinyl Music Player, sebuah pemutar musik yang indah dan ringan untuk Android. "</string>
     <string name="open_playing_queue_instruction">Geser ke atas pada kartu di layar yang sedang memutar untuk memperlihatkan dengan lengkap antrean yang sedang diputar.</string>
     <string name="rearrange_playing_queue_instruction">Atur ulang antrean yang sedang diputar dengan menyeret lagu dari nomor urut.</string>
     <string name="library">Pustaka</string>
@@ -204,9 +204,9 @@
     <string name="could_not_scan_files">Tidak dapat memindai %d berkas.</string>
     <string name="listing_files">Mencatat berkas-berkas</string>
     <string name="new_start_directory">%s adalah direktori awal yang baru.</string>
-    <string name="app_widget_big_name">Phonograph - Besar</string>
-    <string name="app_widget_classic_name">Phonograph - Klasik</string>
-    <string name="app_widget_small_name">Phonograph - Kecil</string>
+    <string name="app_widget_big_name">Vinyl Music Player - Besar</string>
+    <string name="app_widget_classic_name">Vinyl Music Player - Klasik</string>
+    <string name="app_widget_small_name">Vinyl Music Player - Kecil</string>
     <string name="report_an_issue">Laporkan masalah</string>
     <string name="bug_report_issue">Masalah</string>
     <string name="login">Masuk</string>

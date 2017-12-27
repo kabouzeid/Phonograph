@@ -177,9 +177,9 @@
     <string name="join_community">Присъедини се към обществото в Гугъл Плюс</string>
     <string name="join_community_summary">Ако имате нужда от помощ или някакви въпроси, посете обществото в Гугъл Плюс</string>
     <string name="translate">Преведи</string>
-    <string name="translate_summary">Преведете Phonograph на вашият роден език.</string>
+    <string name="translate_summary">Преведете Vinyl Music Player на вашият роден език.</string>
     <string name="rate_on_google_play">Оцени</string>
-    <string name="rate_on_google_play_summary">Оставете позитивна оценка в Гугъл Плей ако харесвате Phonograph.</string>
+    <string name="rate_on_google_play_summary">Оставете позитивна оценка в Гугъл Плей ако харесвате Vinyl Music Player.</string>
     <string name="donate">Напревете дарение</string>
     <string name="donate_summary">Ако смятате, че заслужавам заплащане за моята работа, вие бихте могли да дарите няколко долара тук.</string>
     <string name="aidan_follestad_summary">За темата и други страхотни неща.</string>
@@ -191,7 +191,7 @@
     <string name="up_next">Следващи песни</string>
     <string name="pref_title_now_playing_screen_appearance">Изглед</string>
     <string name="intro_label">Въеведение</string>
-    <string name="welcome_to_phonograph">"Добре дошли във Phonograph, красив и лек музикален плеър за Андроид. "</string>
+    <string name="welcome_to_vinyl_music_player">"Добре дошли във Vinyl Music Player, красив и лек музикален плеър за Андроид. "</string>
     <string name="open_playing_queue_instruction">Плъзнете картата в екранът на текущо възпроизвеждащата се песен, за видите списъкът с песни.</string>
     <string name="rearrange_playing_queue_instruction">Разместете списъкът с текущо възпроизвеждащи се песни, като хванете тракът за неговият номер.</string>
     <string name="library">Библиотека</string>
@@ -204,9 +204,9 @@
     <string name="could_not_scan_files">%d файла не бяха сканирани.</string>
     <string name="listing_files">Файловете се зареждат</string>
     <string name="new_start_directory">%s е новата заглавна директория.</string>
-    <string name="app_widget_big_name">Phonograph - Голям</string>
-    <string name="app_widget_classic_name">Phonograph - Класически</string>
-    <string name="app_widget_small_name">Phonograph - Малък</string>
+    <string name="app_widget_big_name">Vinyl Music Player - Голям</string>
+    <string name="app_widget_classic_name">Vinyl Music Player - Класически</string>
+    <string name="app_widget_small_name">Vinyl Music Player - Малък</string>
     <string name="report_an_issue">Съобщете за проблем</string>
     <string name="bug_report_issue">Проблем</string>
     <string name="login">Логин</string>

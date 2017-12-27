@@ -176,11 +176,11 @@
     <string name="report_bugs">回報程式錯誤</string>
     <string name="report_bugs_summary">建議新功能或回報問題</string>
     <string name="join_community">加入 Google+ 社交圈</string>
-    <string name="join_community_summary">如果您需要幫助或遇到問題，Google+ 社交圈的 Phonograph 社群是個發問的好地方。</string>
+    <string name="join_community_summary">如果您需要幫助或遇到問題，Google+ 社交圈的 Vinyl Music Player 社群是個發問的好地方。</string>
     <string name="translate">翻譯</string>
     <string name="translate_summary">幫助我們將這款 App 翻譯成您的語言</string>
     <string name="rate_on_google_play">評分</string>
-    <string name="rate_on_google_play_summary">如果您喜歡 Phonograph，在 Play商店給個好評吧 ！</string>
+    <string name="rate_on_google_play_summary">如果您喜歡 Vinyl Music Player，在 Play商店給個好評吧 ！</string>
     <string name="donate">捐助我們</string>
     <string name="donate_summary">如果您認為我的努力值得回報，請用您的零用錢讚賞我一下。</string>
     <string name="aidan_follestad_summary">製作主題引擎及其他超棒的東西</string>
@@ -192,7 +192,7 @@
     <string name="up_next">播放佇列：即將播放</string>
     <string name="pref_title_now_playing_screen_appearance">外觀</string>
     <string name="intro_label">程式介紹</string>
-    <string name="welcome_to_phonograph">"歡迎光臨 Phonograph，一個美麗又輕量的音樂播放器。"</string>
+    <string name="welcome_to_vinyl_music_player">"歡迎光臨 Vinyl Music Player，一個美麗又輕量的音樂播放器。"</string>
     <string name="open_playing_queue_instruction">在播放面板上滑來顯示播放佇列</string>
     <string name="rearrange_playing_queue_instruction">您可以更改歌曲播放的順序，上下拖曳播放佇列中的歌曲編號即可。</string>
     <string name="library">音樂庫</string>
@@ -205,9 +205,9 @@
     <string name="could_not_scan_files">不能掃描%d。</string>
     <string name="listing_files">列出文件</string>
     <string name="new_start_directory">%s是新的起始目錄</string>
-    <string name="app_widget_big_name">Phonograph - 大型</string>
-    <string name="app_widget_classic_name">Phonograph - 經典</string>
-    <string name="app_widget_small_name">Phonograph - 小型</string>
+    <string name="app_widget_big_name">Vinyl Music Player - 大型</string>
+    <string name="app_widget_classic_name">Vinyl Music Player - 經典</string>
+    <string name="app_widget_small_name">Vinyl Music Player - 小型</string>
     <string name="report_an_issue">回報程式錯誤</string>
     <string name="bug_report_issue">問題</string>
     <string name="login">登入</string>

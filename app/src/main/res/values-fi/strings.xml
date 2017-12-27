@@ -169,11 +169,11 @@
     <string name="report_bugs">Raportoi bugeja</string>
     <string name="report_bugs_summary">Raportoi bugeja tai ehdota uusia ominaisuuksia.</string>
     <string name="join_community">Liity Google Plus -yhteisöön</string>
-    <string name="join_community_summary">Jos tarvitset apua tai sinulla on kysymyksiä, Phonographin Google Plus -yhteisö on hyvä paikka sille.</string>
+    <string name="join_community_summary">Jos tarvitset apua tai sinulla on kysymyksiä, Vinyl Music Playerin Google Plus -yhteisö on hyvä paikka sille.</string>
     <string name="translate">Käännä</string>
-    <string name="translate_summary">Auta kääntämään Phonograph sinun äidinkielellesi.</string>
+    <string name="translate_summary">Auta kääntämään Vinyl Music Player sinun äidinkielellesi.</string>
     <string name="rate_on_google_play">Arvostele</string>
-    <string name="rate_on_google_play_summary">Jos pidät Phonographista, jätä sille positiivinen arvostelu Google Play -kaupassa.</string>
+    <string name="rate_on_google_play_summary">Jos pidät Vinyl Music Playerista, jätä sille positiivinen arvostelu Google Play -kaupassa.</string>
     <string name="donate">Lahjoita</string>
     <string name="donate_summary">Jos sinun mielestäsi minun kuuluisi saada korvausta työstäni, voit antaa minulle muutaman dollarin täällä.</string>
     <string name="aidan_follestad_summary">Teemamoottorista ja muutamista muista hienoista jutuista.</string>
@@ -185,7 +185,7 @@
     <string name="up_next">Seuraavaksi</string>
     <string name="pref_title_now_playing_screen_appearance">Ulkonäkö</string>
     <string name="intro_label">Esittely</string>
-    <string name="welcome_to_phonograph">"Tervetuloa Phonographiin, kauniiseen ja kevyeen musiikkisoittimeen Androidille. "</string>
+    <string name="welcome_to_vinyl_music_player">"Tervetuloa Vinyl Music Playeriin, kauniiseen ja kevyeen musiikkisoittimeen Androidille. "</string>
     <string name="open_playing_queue_instruction">Vedä korttia Toistetaan parhaillaan -ikkunassa ylös, nähdäksesi koko toistojonon.</string>
     <string name="rearrange_playing_queue_instruction">Järjestä toistojonoa vetämällä kappaletta sen raitanumerosta.</string>
     <string name="library">Kirjasto</string>
@@ -198,9 +198,9 @@
     <string name="could_not_scan_files">Ei voitu skannata %d tiedostoa.</string>
     <string name="listing_files">Listataan tiedostoja</string>
     <string name="new_start_directory">%s on uusi aloitushakemisto.</string>
-    <string name="app_widget_big_name">Phonograph - Iso</string>
-    <string name="app_widget_classic_name">Phonograph - Klassikko</string>
-    <string name="app_widget_small_name">Phonograph - Pieni</string>
+    <string name="app_widget_big_name">Vinyl Music Player - Iso</string>
+    <string name="app_widget_classic_name">Vinyl Music Player - Klassikko</string>
+    <string name="app_widget_small_name">Vinyl Music Player - Pieni</string>
     <string name="report_an_issue">Raportoi ongelma</string>
     <string name="bug_report_issue">Ongelma</string>
     <string name="login">Kirjaudu sisään</string>

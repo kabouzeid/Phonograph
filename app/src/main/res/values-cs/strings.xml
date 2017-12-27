@@ -179,7 +179,7 @@
     <string name="permissions_denied">"Oprávnění zamítnuta. "</string>
     <string name="permission_external_storage_denied">"Přístup k otevření externího úložiště zamítnut. "</string>
     <string name="support_development">Podpořte vývoj</string>
-    <string name="buy_pro">Zakoupit Phonograph Pro</string>
+    <string name="buy_pro">Zakoupit Vinyl Music Player Pro</string>
     <string name="thank_you">"Díky! "</string>
     <string name="version">Verze</string>
     <string name="author">Autor</string>
@@ -189,11 +189,11 @@
     <string name="report_bugs">Ohlásit chybu</string>
     <string name="report_bugs_summary">"Nahlásit chyby nebo požádat o nové funkce. "</string>
     <string name="join_community">Přidejte se ke komunitě Google Plus</string>
-    <string name="join_community_summary">Pokud potřebujete pomoc nebo máte otázky, komunita Phonographu na Google Plus je to správné místo.</string>
+    <string name="join_community_summary">Pokud potřebujete pomoc nebo máte otázky, komunita Vinyl Music Playeru na Google Plus je to správné místo.</string>
     <string name="translate">Překládejte</string>
-    <string name="translate_summary">"Pomozte nám přeložit Phonograph do vašeho mateřského jazyka. "</string>
+    <string name="translate_summary">"Pomozte nám přeložit Vinyl Music Player do vašeho mateřského jazyka. "</string>
     <string name="rate_on_google_play">Ohodnotit</string>
-    <string name="rate_on_google_play_summary">Pokud máte Phonograph rádi, zanechte pozitivní hodnocení na Google Play.</string>
+    <string name="rate_on_google_play_summary">Pokud máte Vinyl Music Player rádi, zanechte pozitivní hodnocení na Google Play.</string>
     <string name="donate">"Přispět "</string>
     <string name="donate_summary">Pokud si myslíte, že si za svou práci zasloužím dostat zaplaceno, tady mi můžete nechat pár korun.</string>
     <string name="aidan_follestad_summary">Za motivy a jiné další super věci.</string>
@@ -205,7 +205,7 @@
     <string name="up_next">"Další "</string>
     <string name="pref_title_now_playing_screen_appearance">Vzhled</string>
     <string name="intro_label">"Úvod "</string>
-    <string name="welcome_to_phonograph">"Vítejte ve Phonographu, krásném a lehkém přehrávači pro Android. "</string>
+    <string name="welcome_to_vinyl_music_player">"Vítejte ve Vinyl Music Playeru, krásném a lehkém přehrávači pro Android. "</string>
     <string name="open_playing_queue_instruction">"Potáhněte kartu v obrazovce Právě přehrávané nahoru pro zobrazení celé fronty přehrávání. "</string>
     <string name="rearrange_playing_queue_instruction">"Změňte pořadí fronty přetažením skladby za její číslo. "</string>
     <string name="library">"Knihovna "</string>
@@ -218,9 +218,9 @@
     <string name="could_not_scan_files">Nelze skenovat %d souborů.</string>
     <string name="listing_files">Načítání souborů</string>
     <string name="new_start_directory">%s je nová domovská složka.</string>
-    <string name="app_widget_big_name">Phonograph - Velký</string>
-    <string name="app_widget_classic_name">Phonograph - Klasický</string>
-    <string name="app_widget_small_name">Phonograph - Malý</string>
+    <string name="app_widget_big_name">Vinyl Music Player - Velký</string>
+    <string name="app_widget_classic_name">Vinyl Music Player - Klasický</string>
+    <string name="app_widget_small_name">Vinyl Music Player - Malý</string>
     <string name="report_an_issue">Nahlásit problém</string>
     <string name="bug_report_issue">Problém</string>
     <string name="login">Přihlášení</string>

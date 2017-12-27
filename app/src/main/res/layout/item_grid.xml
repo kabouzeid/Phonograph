@@ -13,7 +13,7 @@
         android:orientation="vertical"
         tools:ignore="UnusedAttribute,UselessParent">
 
-        <com.kabouzeid.gramophone.views.WidthFitSquareLayout
+        <com.poupa.vinylmusicplayer.views.WidthFitSquareLayout
             android:id="@+id/image_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -25,7 +25,7 @@
                 android:scaleType="centerCrop"
                 tools:ignore="ContentDescription" />
 
-        </com.kabouzeid.gramophone.views.WidthFitSquareLayout>
+        </com.poupa.vinylmusicplayer.views.WidthFitSquareLayout>
 
         <LinearLayout
             android:id="@+id/palette_color_container"

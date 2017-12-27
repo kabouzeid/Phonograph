@@ -40,7 +40,7 @@
         android:textSize="@dimen/md_listitem_textsize"
         tools:text="Item" />
 
-    <com.kabouzeid.gramophone.views.IconImageView
+    <com.poupa.vinylmusicplayer.views.IconImageView
         android:id="@+id/drag_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

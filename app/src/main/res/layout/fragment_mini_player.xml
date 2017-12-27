@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <com.kabouzeid.gramophone.views.IconImageView
+        <com.poupa.vinylmusicplayer.views.IconImageView
             android:id="@+id/mini_player_image"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -38,7 +38,7 @@
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
-        <com.kabouzeid.gramophone.views.IconImageView
+        <com.poupa.vinylmusicplayer.views.IconImageView
             android:id="@+id/mini_player_play_pause_button"
             android:layout_width="40dp"
             android:layout_height="40dp"

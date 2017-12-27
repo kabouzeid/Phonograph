@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.kabouzeid.gramophone.views.WidthFitSquareLayout
+                <com.poupa.vinylmusicplayer.views.WidthFitSquareLayout
                     android:id="@+id/album_cover_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -43,15 +43,15 @@
 
                     <fragment
                         android:id="@+id/player_album_cover_fragment"
-                        class="com.kabouzeid.gramophone.ui.fragments.player.PlayerAlbumCoverFragment"
+                        class="com.poupa.vinylmusicplayer.ui.fragments.player.PlayerAlbumCoverFragment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-                </com.kabouzeid.gramophone.views.WidthFitSquareLayout>
+                </com.poupa.vinylmusicplayer.views.WidthFitSquareLayout>
 
                 <fragment
                     android:id="@+id/playback_controls_fragment"
-                    class="com.kabouzeid.gramophone.ui.fragments.player.card.CardPlayerPlaybackControlsFragment"
+                    class="com.poupa.vinylmusicplayer.ui.fragments.player.card.CardPlayerPlaybackControlsFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/album_cover_container" />

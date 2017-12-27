@@ -169,11 +169,11 @@
     <string name="report_bugs">Повідомити про помилку</string>
     <string name="report_bugs_summary">Повідомити про помилку чи попросити нові функції.</string>
     <string name="join_community">Приєднатися до спільноти Google Plus</string>
-    <string name="join_community_summary">Якщо вам потрібна допомога або ви маєте будь-які питання, то вам слід долучитися до спільноти Phonograph у Google Plus.</string>
+    <string name="join_community_summary">Якщо вам потрібна допомога або ви маєте будь-які питання, то вам слід долучитися до спільноти Vinyl Music Player у Google Plus.</string>
     <string name="translate">Перекласти</string>
-    <string name="translate_summary">Допоможіть перекласти Phonograph на свою рідну мову.</string>
+    <string name="translate_summary">Допоможіть перекласти Vinyl Music Player на свою рідну мову.</string>
     <string name="rate_on_google_play">Оцінити</string>
-    <string name="rate_on_google_play_summary">Залиште позитивний відгук у Google Play, якщо вам подобається Phonograph.</string>
+    <string name="rate_on_google_play_summary">Залиште позитивний відгук у Google Play, якщо вам подобається Vinyl Music Player.</string>
     <string name="donate">Пожертва</string>
     <string name="donate_summary">Якщо ви вважаєте, що я заслуговую на оплату своєї  праці, ви можете залишити мені декілька доларів тут.</string>
     <string name="aidan_follestad_summary">За рушій тем та усілякі круті штуки.</string>
@@ -184,7 +184,7 @@
     <string name="loading_products">Завантаження продуктів...</string>
     <string name="up_next">До наступного</string>
     <string name="intro_label">Знайомство</string>
-    <string name="welcome_to_phonograph">"Вітаємо вас у Phonograph, красивому та легкому музичному програвачу на Android. "</string>
+    <string name="welcome_to_vinyl_music_player">"Вітаємо вас у Vinyl Music Player, красивому та легкому музичному програвачу на Android. "</string>
     <string name="open_playing_queue_instruction">Свайпніть картку на екрані «Зараз грає» щоб відкрити всю чергу відтворення.</string>
     <string name="rearrange_playing_queue_instruction">Змініть чергу відтворення, перетягнувши пісню за її номер.</string>
     <string name="library">Бібліотека</string>
@@ -197,7 +197,7 @@
     <string name="could_not_scan_files">Не вдалося просканувати %d файлів.</string>
     <string name="listing_files">Лістинг файлів</string>
     <string name="new_start_directory">%s є новий каталог запуску.</string>
-    <string name="app_widget_big_name">Phonograph - Великий</string>
-    <string name="app_widget_classic_name">Phonograph - Класичний</string>
-    <string name="app_widget_small_name">Phonograph - Малий</string>
+    <string name="app_widget_big_name">Vinyl Music Player - Великий</string>
+    <string name="app_widget_classic_name">Vinyl Music Player - Класичний</string>
+    <string name="app_widget_small_name">Vinyl Music Player - Малий</string>
 </resources>

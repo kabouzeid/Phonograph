@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.kabouzeid.gramophone.views.WidthFitSquareLayout
+            <com.poupa.vinylmusicplayer.views.WidthFitSquareLayout
                 android:id="@+id/image_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -31,7 +31,7 @@
                     android:transitionName="@string/transition_album_art"
                     tools:ignore="UnusedAttribute" />
 
-            </com.kabouzeid.gramophone.views.WidthFitSquareLayout>
+            </com.poupa.vinylmusicplayer.views.WidthFitSquareLayout>
 
             <LinearLayout
                 android:id="@+id/header"
