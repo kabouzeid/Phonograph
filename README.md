@@ -7,6 +7,8 @@
 **F-Droid ready**
 [Original code](https://github.com/kabouzeid/Phonograph)
 
-![Screenshots](./art/art.jpg?raw=true)
+![Screenshots](./art/art.png?raw=true)
 
 Icon made by [Nikita Golubev](https://www.flaticon.com/authors/nikita-golubev) from www.flaticon.com
+
+Album image by [Virginia State Parks](https://www.flickr.com/photos/vastateparksstaff/38645226714/) (CC BY 2.0)
