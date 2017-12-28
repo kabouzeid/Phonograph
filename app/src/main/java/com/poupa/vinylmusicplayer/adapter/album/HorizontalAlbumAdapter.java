@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
-import com.poupa.vinylmusicplayer.glide.PhonographColoredTarget;
+import com.poupa.vinylmusicplayer.glide.VinylMusicPlayerColoredTarget;
 import com.poupa.vinylmusicplayer.glide.SongGlideRequest;
 import com.poupa.vinylmusicplayer.helper.HorizontalAdapterHelper;
 import com.poupa.vinylmusicplayer.interfaces.CabHolder;
@@ -57,7 +57,7 @@ public class HorizontalAlbumAdapter extends AlbumAdapter {
         SongGlideRequest.Builder.from(Glide.with(activity), album.safeGetFirstSong())
                 .checkIgnoreMediaStore(activity)
                 .generatePalette(activity).build()
-                .into(new PhonographColoredTarget(holder.image) {
+                .into(new VinylMusicPlayerColoredTarget(holder.image) {
                     @Override
                     public void onLoadCleared(Drawable placeholder) {
                         super.onLoadCleared(placeholder);

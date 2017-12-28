@@ -73,31 +73,31 @@ import java.util.Random;
 public class MusicService extends Service implements SharedPreferences.OnSharedPreferenceChangeListener, Playback.PlaybackCallbacks {
     public static final String TAG = MusicService.class.getSimpleName();
 
-    public static final String PHONOGRAPH_PACKAGE_NAME = "com.poupa.vinylmusicplayer";
+    public static final String VINYL_MUSIC_PLAYER_PACKAGE_NAME = "com.poupa.vinylmusicplayer";
     public static final String MUSIC_PACKAGE_NAME = "com.android.music";
 
-    public static final String ACTION_TOGGLE_PAUSE = PHONOGRAPH_PACKAGE_NAME + ".togglepause";
-    public static final String ACTION_PLAY = PHONOGRAPH_PACKAGE_NAME + ".play";
-    public static final String ACTION_PLAY_PLAYLIST = PHONOGRAPH_PACKAGE_NAME + ".play.playlist";
-    public static final String ACTION_PAUSE = PHONOGRAPH_PACKAGE_NAME + ".pause";
-    public static final String ACTION_STOP = PHONOGRAPH_PACKAGE_NAME + ".stop";
-    public static final String ACTION_SKIP = PHONOGRAPH_PACKAGE_NAME + ".skip";
-    public static final String ACTION_REWIND = PHONOGRAPH_PACKAGE_NAME + ".rewind";
-    public static final String ACTION_QUIT = PHONOGRAPH_PACKAGE_NAME + ".quitservice";
-    public static final String INTENT_EXTRA_PLAYLIST = PHONOGRAPH_PACKAGE_NAME + "intentextra.playlist";
-    public static final String INTENT_EXTRA_SHUFFLE_MODE = PHONOGRAPH_PACKAGE_NAME + ".intentextra.shufflemode";
+    public static final String ACTION_TOGGLE_PAUSE = VINYL_MUSIC_PLAYER_PACKAGE_NAME + ".togglepause";
+    public static final String ACTION_PLAY = VINYL_MUSIC_PLAYER_PACKAGE_NAME + ".play";
+    public static final String ACTION_PLAY_PLAYLIST = VINYL_MUSIC_PLAYER_PACKAGE_NAME + ".play.playlist";
+    public static final String ACTION_PAUSE = VINYL_MUSIC_PLAYER_PACKAGE_NAME + ".pause";
+    public static final String ACTION_STOP = VINYL_MUSIC_PLAYER_PACKAGE_NAME + ".stop";
+    public static final String ACTION_SKIP = VINYL_MUSIC_PLAYER_PACKAGE_NAME + ".skip";
+    public static final String ACTION_REWIND = VINYL_MUSIC_PLAYER_PACKAGE_NAME + ".rewind";
+    public static final String ACTION_QUIT = VINYL_MUSIC_PLAYER_PACKAGE_NAME + ".quitservice";
+    public static final String INTENT_EXTRA_PLAYLIST = VINYL_MUSIC_PLAYER_PACKAGE_NAME + "intentextra.playlist";
+    public static final String INTENT_EXTRA_SHUFFLE_MODE = VINYL_MUSIC_PLAYER_PACKAGE_NAME + ".intentextra.shufflemode";
 
-    public static final String APP_WIDGET_UPDATE = PHONOGRAPH_PACKAGE_NAME + ".appwidgetupdate";
-    public static final String EXTRA_APP_WIDGET_NAME = PHONOGRAPH_PACKAGE_NAME + "app_widget_name";
+    public static final String APP_WIDGET_UPDATE = VINYL_MUSIC_PLAYER_PACKAGE_NAME + ".appwidgetupdate";
+    public static final String EXTRA_APP_WIDGET_NAME = VINYL_MUSIC_PLAYER_PACKAGE_NAME + "app_widget_name";
 
     // do not change these three strings as it will break support with other apps (e.g. last.fm scrobbling)
-    public static final String META_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".metachanged";
-    public static final String QUEUE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".queuechanged";
-    public static final String PLAY_STATE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".playstatechanged";
+    public static final String META_CHANGED = VINYL_MUSIC_PLAYER_PACKAGE_NAME + ".metachanged";
+    public static final String QUEUE_CHANGED = VINYL_MUSIC_PLAYER_PACKAGE_NAME + ".queuechanged";
+    public static final String PLAY_STATE_CHANGED = VINYL_MUSIC_PLAYER_PACKAGE_NAME + ".playstatechanged";
 
-    public static final String REPEAT_MODE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".repeatmodechanged";
-    public static final String SHUFFLE_MODE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".shufflemodechanged";
-    public static final String MEDIA_STORE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".mediastorechanged";
+    public static final String REPEAT_MODE_CHANGED = VINYL_MUSIC_PLAYER_PACKAGE_NAME + ".repeatmodechanged";
+    public static final String SHUFFLE_MODE_CHANGED = VINYL_MUSIC_PLAYER_PACKAGE_NAME + ".shufflemodechanged";
+    public static final String MEDIA_STORE_CHANGED = VINYL_MUSIC_PLAYER_PACKAGE_NAME + ".mediastorechanged";
 
     public static final String SAVED_POSITION = "POSITION";
     public static final String SAVED_POSITION_IN_TRACK = "POSITION_IN_TRACK";
@@ -217,7 +217,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
         mediaSession.setActive(true);
 
-        sendBroadcast(new Intent("com.poupa.vinylmusicplayer.PHONOGRAPH_MUSIC_SERVICE_CREATED"));
+        sendBroadcast(new Intent("com.poupa.vinylmusicplayer.VINYL_MUSIC_PLAYER_MUSIC_SERVICE_CREATED"));
     }
 
     private AudioManager getAudioManager() {
@@ -359,7 +359,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         PreferenceUtil.getInstance(this).unregisterOnSharedPreferenceChangedListener(this);
         wakeLock.release();
 
-        sendBroadcast(new Intent("com.poupa.vinylmusicplayer.PHONOGRAPH_MUSIC_SERVICE_DESTROYED"));
+        sendBroadcast(new Intent("com.poupa.vinylmusicplayer.VINYL_MUSIC_PLAYER_MUSIC_SERVICE_DESTROYED"));
     }
 
     @Override
@@ -1012,7 +1012,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
     // to let other apps know whats playing. i.E. last.fm (scrobbling) or musixmatch
     private void sendPublicIntent(@NonNull final String what) {
-        final Intent intent = new Intent(what.replace(PHONOGRAPH_PACKAGE_NAME, MUSIC_PACKAGE_NAME));
+        final Intent intent = new Intent(what.replace(VINYL_MUSIC_PLAYER_PACKAGE_NAME, MUSIC_PACKAGE_NAME));
 
         final Song song = getCurrentSong();
 
@@ -1027,7 +1027,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
         intent.putExtra("playing", isPlaying());
 
-        intent.putExtra("scrobbling_source", PHONOGRAPH_PACKAGE_NAME);
+        intent.putExtra("scrobbling_source", VINYL_MUSIC_PLAYER_PACKAGE_NAME);
 
         sendStickyBroadcast(intent);
     }

@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.poupa.vinylmusicplayer.R;
-import com.poupa.vinylmusicplayer.glide.PhonographColoredTarget;
+import com.poupa.vinylmusicplayer.glide.VinylMusicPlayerColoredTarget;
 import com.poupa.vinylmusicplayer.glide.SongGlideRequest;
 import com.poupa.vinylmusicplayer.misc.CustomFragmentStatePagerAdapter;
 import com.poupa.vinylmusicplayer.model.Song;
@@ -131,7 +131,7 @@ public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
             SongGlideRequest.Builder.from(Glide.with(this), song)
                     .checkIgnoreMediaStore(getActivity())
                     .generatePalette(getActivity()).build()
-                    .into(new PhonographColoredTarget(albumCover) {
+                    .into(new VinylMusicPlayerColoredTarget(albumCover) {
                         @Override
                         public void onColorReady(int color) {
                             setColor(color);

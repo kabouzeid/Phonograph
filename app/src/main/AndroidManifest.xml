@@ -138,7 +138,7 @@
             android:name="com.lge.support.SPLIT_WINDOW"
             android:value="true" />
         <meta-data
-            android:name="com.poupa.vinylmusicplayer.glide.PhonographGlideModule"
+            android:name="com.poupa.vinylmusicplayer.glide.VinylMusicPlayerGlideModule"
             android:value="GlideModule" />
         <meta-data
             android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"

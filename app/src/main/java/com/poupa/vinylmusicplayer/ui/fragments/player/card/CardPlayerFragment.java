@@ -486,7 +486,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
                 animatorSet.play(subHeaderAnimator);
             }
 
-            animatorSet.setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME);
+            animatorSet.setDuration(ViewUtil.VINYL_MUSIC_PLAYER_ANIM_TIME);
             return animatorSet;
         }
 

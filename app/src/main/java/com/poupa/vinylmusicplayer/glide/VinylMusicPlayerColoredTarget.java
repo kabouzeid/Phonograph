@@ -8,10 +8,10 @@ import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.poupa.vinylmusicplayer.R;
 import com.poupa.vinylmusicplayer.glide.palette.BitmapPaletteTarget;
 import com.poupa.vinylmusicplayer.glide.palette.BitmapPaletteWrapper;
-import com.poupa.vinylmusicplayer.util.PhonographColorUtil;
+import com.poupa.vinylmusicplayer.util.VinylMusicPlayerColorUtil;
 
-public abstract class PhonographColoredTarget extends BitmapPaletteTarget {
-    public PhonographColoredTarget(ImageView view) {
+public abstract class VinylMusicPlayerColoredTarget extends BitmapPaletteTarget {
+    public VinylMusicPlayerColoredTarget(ImageView view) {
         super(view);
     }
 
@@ -24,7 +24,7 @@ public abstract class PhonographColoredTarget extends BitmapPaletteTarget {
     @Override
     public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
         super.onResourceReady(resource, glideAnimation);
-        onColorReady(PhonographColorUtil.getColor(resource.getPalette(), getDefaultFooterColor()));
+        onColorReady(VinylMusicPlayerColorUtil.getColor(resource.getPalette(), getDefaultFooterColor()));
     }
 
     protected int getDefaultFooterColor() {

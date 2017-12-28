@@ -18,7 +18,7 @@ import com.poupa.vinylmusicplayer.R;
 import com.poupa.vinylmusicplayer.adapter.base.AbsMultiSelectAdapter;
 import com.poupa.vinylmusicplayer.adapter.base.MediaEntryViewHolder;
 import com.poupa.vinylmusicplayer.glide.ArtistGlideRequest;
-import com.poupa.vinylmusicplayer.glide.PhonographColoredTarget;
+import com.poupa.vinylmusicplayer.glide.VinylMusicPlayerColoredTarget;
 import com.poupa.vinylmusicplayer.helper.menu.SongsMenuHelper;
 import com.poupa.vinylmusicplayer.interfaces.CabHolder;
 import com.poupa.vinylmusicplayer.model.Artist;
@@ -124,7 +124,7 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
         if (holder.image == null) return;
         ArtistGlideRequest.Builder.from(Glide.with(activity), artist)
                 .generatePalette(activity).build()
-                .into(new PhonographColoredTarget(holder.image) {
+                .into(new VinylMusicPlayerColoredTarget(holder.image) {
                     @Override
                     public void onLoadCleared(Drawable placeholder) {
                         super.onLoadCleared(placeholder);

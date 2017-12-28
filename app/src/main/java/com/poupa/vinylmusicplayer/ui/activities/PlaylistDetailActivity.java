@@ -35,7 +35,7 @@ import com.poupa.vinylmusicplayer.model.Playlist;
 import com.poupa.vinylmusicplayer.model.PlaylistSong;
 import com.poupa.vinylmusicplayer.model.Song;
 import com.poupa.vinylmusicplayer.ui.activities.base.AbsSlidingMusicPanelActivity;
-import com.poupa.vinylmusicplayer.util.PhonographColorUtil;
+import com.poupa.vinylmusicplayer.util.VinylMusicPlayerColorUtil;
 import com.poupa.vinylmusicplayer.util.PlaylistsUtil;
 import com.poupa.vinylmusicplayer.util.ViewUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
@@ -167,7 +167,7 @@ public class PlaylistDetailActivity extends AbsSlidingMusicPanelActivity impleme
         cab = new MaterialCab(this, R.id.cab_stub)
                 .setMenu(menu)
                 .setCloseDrawableRes(R.drawable.ic_close_white_24dp)
-                .setBackgroundColor(PhonographColorUtil.shiftBackgroundColorForLightText(ThemeStore.primaryColor(this)))
+                .setBackgroundColor(VinylMusicPlayerColorUtil.shiftBackgroundColorForLightText(ThemeStore.primaryColor(this)))
                 .start(callback);
         return cab;
     }

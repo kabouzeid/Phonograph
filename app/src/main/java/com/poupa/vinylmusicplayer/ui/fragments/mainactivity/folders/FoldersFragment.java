@@ -46,7 +46,7 @@ import com.poupa.vinylmusicplayer.model.Song;
 import com.poupa.vinylmusicplayer.ui.activities.MainActivity;
 import com.poupa.vinylmusicplayer.ui.fragments.mainactivity.AbsMainActivityFragment;
 import com.poupa.vinylmusicplayer.util.FileUtil;
-import com.poupa.vinylmusicplayer.util.PhonographColorUtil;
+import com.poupa.vinylmusicplayer.util.VinylMusicPlayerColorUtil;
 import com.poupa.vinylmusicplayer.util.PreferenceUtil;
 import com.poupa.vinylmusicplayer.util.ViewUtil;
 import com.poupa.vinylmusicplayer.views.BreadCrumbLayout;
@@ -241,7 +241,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         cab = new MaterialCab(getMainActivity(), R.id.cab_stub)
                 .setMenu(menuRes)
                 .setCloseDrawableRes(R.drawable.ic_close_white_24dp)
-                .setBackgroundColor(PhonographColorUtil.shiftBackgroundColorForLightText(ThemeStore.primaryColor(getActivity())))
+                .setBackgroundColor(VinylMusicPlayerColorUtil.shiftBackgroundColorForLightText(ThemeStore.primaryColor(getActivity())))
                 .start(callback);
         return cab;
     }

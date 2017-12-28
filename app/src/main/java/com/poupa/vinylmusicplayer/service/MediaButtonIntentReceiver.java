@@ -9,7 +9,7 @@
  * governing permissions and limitations under the License.
  */
 
-// Modified for Phonograph by Karim Abou Zeid (kabouzeid).
+// Modified by Karim Abou Zeid (kabouzeid).
 
 package com.poupa.vinylmusicplayer.service;
 
@@ -176,7 +176,7 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
         if (mWakeLock == null) {
             Context appContext = context.getApplicationContext();
             PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-            mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Phonograph headset button");
+            mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Vinyl Music Player headset button");
             mWakeLock.setReferenceCounted(false);
         }
         if (DEBUG) Log.v(TAG, "Acquiring wake lock and sending " + msg.what);

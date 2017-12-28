@@ -36,7 +36,7 @@ import com.poupa.vinylmusicplayer.ui.activities.SearchActivity;
 import com.poupa.vinylmusicplayer.ui.fragments.mainactivity.AbsMainActivityFragment;
 import com.poupa.vinylmusicplayer.ui.fragments.mainactivity.library.pager.AbsLibraryPagerRecyclerViewCustomGridSizeFragment;
 import com.poupa.vinylmusicplayer.ui.fragments.mainactivity.library.pager.PlaylistsFragment;
-import com.poupa.vinylmusicplayer.util.PhonographColorUtil;
+import com.poupa.vinylmusicplayer.util.VinylMusicPlayerColorUtil;
 import com.poupa.vinylmusicplayer.util.PreferenceUtil;
 import com.poupa.vinylmusicplayer.util.Util;
 
@@ -154,7 +154,7 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
         cab = new MaterialCab(getMainActivity(), R.id.cab_stub)
                 .setMenu(menuRes)
                 .setCloseDrawableRes(R.drawable.ic_close_white_24dp)
-                .setBackgroundColor(PhonographColorUtil.shiftBackgroundColorForLightText(ThemeStore.primaryColor(getActivity())))
+                .setBackgroundColor(VinylMusicPlayerColorUtil.shiftBackgroundColorForLightText(ThemeStore.primaryColor(getActivity())))
                 .start(callback);
         return cab;
     }

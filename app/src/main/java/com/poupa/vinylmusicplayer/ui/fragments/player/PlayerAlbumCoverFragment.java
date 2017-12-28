@@ -156,7 +156,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
         favoriteIcon.setPivotY(favoriteIcon.getHeight() / 2);
 
         favoriteIcon.animate()
-                .setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME / 2)
+                .setDuration(ViewUtil.VINYL_MUSIC_PLAYER_ANIM_TIME / 2)
                 .setInterpolator(new DecelerateInterpolator())
                 .scaleX(1f)
                 .scaleY(1f)
@@ -168,7 +168,7 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
                     }
                 })
                 .withEndAction(() -> favoriteIcon.animate()
-                        .setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME / 2)
+                        .setDuration(ViewUtil.VINYL_MUSIC_PLAYER_ANIM_TIME / 2)
                         .setInterpolator(new AccelerateInterpolator())
                         .scaleX(0f)
                         .scaleY(0f)

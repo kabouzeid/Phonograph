@@ -30,7 +30,7 @@ import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
  */
 public class ViewUtil {
 
-    public final static int PHONOGRAPH_ANIM_TIME = 1000;
+    public final static int VINYL_MUSIC_PLAYER_ANIM_TIME = 1000;
 
     public static Animator createBackgroundColorTransition(final View v, @ColorInt final int startColor, @ColorInt final int endColor) {
         return createColorAnimator(v, "backgroundColor", startColor, endColor);
@@ -52,7 +52,7 @@ public class ViewUtil {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             animator.setInterpolator(new PathInterpolator(0.4f, 0f, 1f, 1f));
         }
-        animator.setDuration(PHONOGRAPH_ANIM_TIME);
+        animator.setDuration(VINYL_MUSIC_PLAYER_ANIM_TIME);
         return animator;
     }
 

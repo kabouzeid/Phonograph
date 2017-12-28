@@ -259,7 +259,7 @@ public abstract class AbsSlidingMusicPanelActivity extends AbsMusicServiceActivi
             if (navigationBarColorAnimator != null) navigationBarColorAnimator.cancel();
             navigationBarColorAnimator = ValueAnimator
                     .ofArgb(getWindow().getNavigationBarColor(), color)
-                    .setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME);
+                    .setDuration(ViewUtil.VINYL_MUSIC_PLAYER_ANIM_TIME);
             navigationBarColorAnimator.setInterpolator(new PathInterpolator(0.4f, 0f, 1f, 1f));
             navigationBarColorAnimator.addUpdateListener(animation -> AbsSlidingMusicPanelActivity.super.setNavigationbarColor((Integer) animation.getAnimatedValue()));
             navigationBarColorAnimator.start();

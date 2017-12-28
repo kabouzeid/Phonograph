@@ -28,7 +28,7 @@ import com.poupa.vinylmusicplayer.loader.AlbumLoader;
 import com.poupa.vinylmusicplayer.model.Song;
 import com.poupa.vinylmusicplayer.util.ImageUtil;
 import com.poupa.vinylmusicplayer.util.LastFMUtil;
-import com.poupa.vinylmusicplayer.util.PhonographColorUtil;
+import com.poupa.vinylmusicplayer.util.VinylMusicPlayerColorUtil;
 
 import org.jaudiotagger.tag.FieldKey;
 
@@ -89,7 +89,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
     @Override
     protected void loadCurrentImage() {
         Bitmap bitmap = getAlbumArt();
-        setImageBitmap(bitmap, PhonographColorUtil.getColor(PhonographColorUtil.generatePalette(bitmap), ATHUtil.resolveColor(this, R.attr.defaultFooterColor)));
+        setImageBitmap(bitmap, VinylMusicPlayerColorUtil.getColor(VinylMusicPlayerColorUtil.generatePalette(bitmap), ATHUtil.resolveColor(this, R.attr.defaultFooterColor)));
         deleteAlbumArt = false;
     }
 
@@ -125,7 +125,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
                                     @Override
                                     public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
                                         albumArtBitmap = ImageUtil.resizeBitmap(resource.getBitmap(), 2048);
-                                        setImageBitmap(albumArtBitmap, PhonographColorUtil.getColor(resource.getPalette(), ATHUtil.resolveColor(AlbumTagEditorActivity.this, R.attr.defaultFooterColor)));
+                                        setImageBitmap(albumArtBitmap, VinylMusicPlayerColorUtil.getColor(resource.getPalette(), ATHUtil.resolveColor(AlbumTagEditorActivity.this, R.attr.defaultFooterColor)));
                                         deleteAlbumArt = false;
                                         dataChanged();
                                         setResult(RESULT_OK);
@@ -208,9 +208,9 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
                     @Override
                     public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
-                        PhonographColorUtil.getColor(resource.getPalette(), Color.TRANSPARENT);
+                        VinylMusicPlayerColorUtil.getColor(resource.getPalette(), Color.TRANSPARENT);
                         albumArtBitmap = ImageUtil.resizeBitmap(resource.getBitmap(), 2048);
-                        setImageBitmap(albumArtBitmap, PhonographColorUtil.getColor(resource.getPalette(), ATHUtil.resolveColor(AlbumTagEditorActivity.this, R.attr.defaultFooterColor)));
+                        setImageBitmap(albumArtBitmap, VinylMusicPlayerColorUtil.getColor(resource.getPalette(), ATHUtil.resolveColor(AlbumTagEditorActivity.this, R.attr.defaultFooterColor)));
                         deleteAlbumArt = false;
                         dataChanged();
                         setResult(RESULT_OK);

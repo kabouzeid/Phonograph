@@ -36,7 +36,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     private static String WEBSITE = "https://adrien.poupa.fr/";
 
     private static String GOOGLE_PLUS_COMMUNITY = "https://plus.google.com/u/0/communities/106227738496107108513";
-    private static String TRANSLATE = "https://phonograph.oneskyapp.com/collaboration/project?id=26521";
     private static String RATE_ON_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.poupa.vinylmusicplayer";
 
     private static String KABOUZEID_GOOGLE_PLUS = "https://google.com/+KarimAbouZeid23697";
@@ -75,8 +74,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     LinearLayout reportBugs;
     @BindView(R.id.join_google_plus_community)
     LinearLayout joinGooglePlusCommunity;
-    @BindView(R.id.translate)
-    LinearLayout translate;
     @BindView(R.id.rate_on_google_play)
     LinearLayout rateOnGooglePlay;
     @BindView(R.id.kabouzeid_google_plus)
@@ -140,7 +137,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         reportBugs.setOnClickListener(this);
         writeAnEmail.setOnClickListener(this);
         joinGooglePlusCommunity.setOnClickListener(this);
-        translate.setOnClickListener(this);
         rateOnGooglePlay.setOnClickListener(this);
         aidanFollestadGooglePlus.setOnClickListener(this);
         aidanFollestadGitHub.setOnClickListener(this);
@@ -194,8 +190,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
             startActivity(Intent.createChooser(intent, "E-Mail"));
         } else if (v == joinGooglePlusCommunity) {
             openUrl(GOOGLE_PLUS_COMMUNITY);
-        } else if (v == translate) {
-            openUrl(TRANSLATE);
         } else if (v == rateOnGooglePlay) {
             openUrl(RATE_ON_GOOGLE_PLAY);
         } else if (v == aidanFollestadGooglePlus) {

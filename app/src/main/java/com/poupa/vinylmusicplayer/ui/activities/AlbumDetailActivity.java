@@ -34,7 +34,7 @@ import com.poupa.vinylmusicplayer.adapter.song.AlbumSongAdapter;
 import com.poupa.vinylmusicplayer.dialogs.AddToPlaylistDialog;
 import com.poupa.vinylmusicplayer.dialogs.DeleteSongsDialog;
 import com.poupa.vinylmusicplayer.dialogs.SleepTimerDialog;
-import com.poupa.vinylmusicplayer.glide.PhonographColoredTarget;
+import com.poupa.vinylmusicplayer.glide.VinylMusicPlayerColoredTarget;
 import com.poupa.vinylmusicplayer.glide.SongGlideRequest;
 import com.poupa.vinylmusicplayer.glide.palette.BitmapPaletteWrapper;
 import com.poupa.vinylmusicplayer.helper.MusicPlayerRemote;
@@ -52,7 +52,7 @@ import com.poupa.vinylmusicplayer.ui.activities.base.AbsSlidingMusicPanelActivit
 import com.poupa.vinylmusicplayer.ui.activities.tageditor.AbsTagEditorActivity;
 import com.poupa.vinylmusicplayer.ui.activities.tageditor.AlbumTagEditorActivity;
 import com.poupa.vinylmusicplayer.util.NavigationUtil;
-import com.poupa.vinylmusicplayer.util.PhonographColorUtil;
+import com.poupa.vinylmusicplayer.util.VinylMusicPlayerColorUtil;
 import com.poupa.vinylmusicplayer.util.Util;
 
 import java.util.Locale;
@@ -185,7 +185,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                         return false;
                     }
                 })
-                .into(new PhonographColoredTarget(albumArtImageView) {
+                .into(new VinylMusicPlayerColoredTarget(albumArtImageView) {
                     @Override
                     public void onColorReady(int color) {
                         setColors(color);
@@ -373,7 +373,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         cab = new MaterialCab(this, R.id.cab_stub)
                 .setMenu(menuRes)
                 .setCloseDrawableRes(R.drawable.ic_close_white_24dp)
-                .setBackgroundColor(PhonographColorUtil.shiftBackgroundColorForLightText(getPaletteColor()))
+                .setBackgroundColor(VinylMusicPlayerColorUtil.shiftBackgroundColorForLightText(getPaletteColor()))
                 .start(new MaterialCab.Callback() {
                     @Override
                     public boolean onCabCreated(MaterialCab materialCab, Menu menu) {
