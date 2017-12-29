@@ -39,7 +39,7 @@ static def gitBranch() {
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.2'
+    buildToolsVersion '27.0.3'
     dataBinding {
         enabled = true
     }
@@ -51,8 +51,8 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         applicationId 'com.kabouzeid.gramophone'
-        versionCode 147
-        versionName '0.16.4 BETA 2'
+        versionCode 148
+        versionName '0.16.4 BETA 3'
     }
     buildTypes {
         release {
