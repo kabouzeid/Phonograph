@@ -16,7 +16,7 @@ public class CategoryInfo implements Parcelable {
 
     public CategoryInfo(Parcel source) {
         category = (Category) source.readSerializable();
-        visible = source.readInt() == 1 ? true : false;
+        visible = source.readInt() == 1;
     }
 
 
