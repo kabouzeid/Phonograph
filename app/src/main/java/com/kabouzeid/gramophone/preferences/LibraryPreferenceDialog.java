@@ -29,9 +29,13 @@ public class LibraryPreferenceDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.preference_dialog_library_categories, null);
 
-        adapter = new CategoryInfoAdapter(savedInstanceState != null ?
-                savedInstanceState.getParcelableArrayList(PreferenceUtil.LIBRARY_CATEGORIES) :
-                PreferenceUtil.getInstance(getContext()).getLibraryCategoryInfos());
+        ArrayList<CategoryInfo> categoryInfos;
+        if (savedInstanceState != null) {
+            categoryInfos = savedInstanceState.getParcelableArrayList(PreferenceUtil.LIBRARY_CATEGORIES);
+        } else {
+            categoryInfos = PreferenceUtil.getInstance(getContext()).getLibraryCategoryInfos();
+        }
+        adapter = new CategoryInfoAdapter(categoryInfos);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
