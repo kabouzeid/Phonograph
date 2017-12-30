@@ -128,7 +128,7 @@
     <string name="pref_title_ignore_media_store_artwork">Negeer Mediaopslag illustraties</string>
     <string name="pref_title_gapless_playback">Afspelen zonder pauzes</string>
     <string name="pref_title_audio_ducking">Verminder volume bij focusverlies</string>
-    <string name="pref_title_last_added_interval">Laatst toegevoegde afspeellijst tussenpoos</string>
+    <string name="pref_title_last_added_interval">Laatst toegevoegd afspeellijst tussenpoos</string>
     <string name="pref_title_synchronized_lyrics_show">Gesynchr. songtekst weergeven</string>
     <string name="pref_title_remember_last_tab">Laatste tabblad onthouden</string>
     <string name="no_equalizer">Geen equalizer gevonden.</string>
