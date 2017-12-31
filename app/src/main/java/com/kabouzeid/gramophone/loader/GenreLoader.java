@@ -37,7 +37,8 @@ public class GenreLoader {
                         // try to remove the empty genre from the media store
                         try {
                             context.getContentResolver().delete(Genres.EXTERNAL_CONTENT_URI, Genres._ID + " == " + genre.id, null);
-                        } catch (IllegalArgumentException | UnsupportedOperationException ignored) {
+                        } catch (Exception e) {
+                            e.printStackTrace();
                             // nothing we can do then
                         }
                     }
