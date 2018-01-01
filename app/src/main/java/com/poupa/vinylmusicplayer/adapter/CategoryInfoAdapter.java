@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.poupa.vinylmusicplayer.R;
 import com.poupa.vinylmusicplayer.model.CategoryInfo;
@@ -44,6 +45,8 @@ public class CategoryInfoAdapter extends RecyclerView.Adapter<CategoryInfoAdapte
             if (!(categoryInfo.visible && isLastCheckedCategory(categoryInfo))) {
                 categoryInfo.visible = !categoryInfo.visible;
                 holder.checkBox.setChecked(categoryInfo.visible);
+            } else {
+                Toast.makeText(holder.itemView.getContext(), R.string.you_have_to_select_at_least_one_category, Toast.LENGTH_SHORT).show();
             }
         });
 

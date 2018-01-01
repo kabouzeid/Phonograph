@@ -30,7 +30,18 @@ public class GenreLoader {
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
-                    genres.add(getGenreFromCursor(context, cursor));
+                    Genre genre = getGenreFromCursor(context, cursor);
+                    if (genre.songCount > 0) {
+                        genres.add(genre);
+                    } else {
+                        // try to remove the empty genre from the media store
+                        try {
+                            context.getContentResolver().delete(Genres.EXTERNAL_CONTENT_URI, Genres._ID + " == " + genre.id, null);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            // nothing we can do then
+                        }
+                    }
                 } while (cursor.moveToNext());
             }
             cursor.close();
@@ -64,15 +75,10 @@ public class GenreLoader {
                 Genres.NAME
         };
 
-        // Genres that actually have songs
-        final String selection = Genres._ID + " IN" +
-                " (SELECT " + Genres.Members.GENRE_ID + " FROM audio_genres_map WHERE " + Genres.Members.AUDIO_ID + " IN" +
-                " (SELECT " + Genres._ID + " FROM audio_meta WHERE " + SongLoader.BASE_SELECTION + "))";
-
         try {
             return context.getContentResolver().query(
                     Genres.EXTERNAL_CONTENT_URI,
-                    projection, selection, null, PreferenceUtil.getInstance(context).getGenreSortOrder());
+                    projection, null, null, PreferenceUtil.getInstance(context).getGenreSortOrder());
         } catch (SecurityException e) {
             return null;
         }

@@ -14,7 +14,7 @@ apply plugin: 'com.jakewharton.hugo'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.2'
+    buildToolsVersion '27.0.3'
     dataBinding {
         enabled = true
     }
@@ -26,8 +26,8 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         applicationId 'com.poupa.vinylmusicplayer'
-        versionCode 147
-        versionName '0.16.4.2'
+        versionCode 149
+        versionName '0.16.4.3'
     }
     buildTypes {
         release {

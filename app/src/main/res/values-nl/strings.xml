@@ -30,6 +30,7 @@
     <string name="action_set_as_start_directory">Instellen als startmap</string>
     <string name="albums">Albums</string>
     <string name="artists">Artiesten</string>
+    <string name="genres">Genres</string>
     <string name="songs">Nummers</string>
     <string name="playlists">Afspeellijsten</string>
     <string name="unplayable_file">Kan dit nummer niet afspelen.</string>
@@ -112,6 +113,7 @@
     <string name="pref_header_now_playing_screen">Afspeelscherm</string>
     <string name="pref_title_general_theme">Algemeen thema</string>
     <string name="pref_header_audio">Audio</string>
+    <string name="pref_header_library">Bibliotheek</string>
     <string name="pref_header_images">Illustraties</string>
     <string name="pref_header_lockscreen">Vergrendelscherm</string>
     <string name="pref_header_playlists">Afspeellijst</string>
@@ -126,8 +128,9 @@
     <string name="pref_title_ignore_media_store_artwork">Negeer Mediaopslag illustraties</string>
     <string name="pref_title_gapless_playback">Afspelen zonder pauzes</string>
     <string name="pref_title_audio_ducking">Verminder volume bij focusverlies</string>
-    <string name="pref_title_last_added_interval">Laatst toegevoegde afspeellijst tussenpoos</string>
+    <string name="pref_title_last_added_interval">Laatst toegevoegd afspeellijst tussenpoos</string>
     <string name="pref_title_synchronized_lyrics_show">Gesynchr. songtekst weergeven</string>
+    <string name="pref_title_remember_last_tab">Laatste tabblad onthouden</string>
     <string name="no_equalizer">Geen equalizer gevonden.</string>
     <string name="no_audio_ID">"Speel eerst iets af, probeer dan opnieuw."</string>
     <string name="delete_action">Verwijderen</string>
@@ -135,6 +138,7 @@
     <string name="remove_action">Verwijderen</string>
     <string name="rename_action">Hernoemen</string>
     <string name="create_action">Aanmaken</string>
+    <string name="reset_action">Reset</string>
     <string name="x_selected">%1$d geselecteerd</string>
     <string name="primary_color">Primaire kleur</string>
     <string name="accent_color">Accentkleur</string>
@@ -146,6 +150,7 @@
     <string name="no_albums">Geen albums</string>
     <string name="no_songs">Geen nummers</string>
     <string name="no_artists">Geen artiesten</string>
+    <string name="no_genres">Geen genres</string>
     <string name="empty">Leeg</string>
     <string name="playlist_name_empty">Afspeellijstnaam</string>
     <string name="song">Nummer</string>
@@ -159,6 +164,7 @@
     <string name="pref_summary_colored_app_shortcuts">Kleurt de app-snelkoppelingen in de primaire kleur.</string>
     <string name="pref_summary_audio_ducking">Notificaties, navigatie, etc.</string>
     <string name="pref_summary_synchronized_lyrics_show">Momenteel worden gesynchr. songteksten alleen ondersteund in LRC-formaat. Of ingebed, of als separaat bestand.</string>
+    <string name="pref_summary_remember_last_tab">Ga naar het laatst geopende tabblad bij opstarten</string>
     <string name="could_not_download_album_cover">"Kan geen bijpassende albumhoes downloaden."</string>
     <string name="search_hint">Zoek in je bibliotheek…</string>
     <string name="favorites">Favorieten</string>
@@ -277,4 +283,6 @@
     <string name="pref_summary_blacklist">De inhoud van mappen op de zwarte lijst worden verborgen van je bibliotheek.</string>
     <string name="reset_artist_image">Artiest afbeelding resetten</string>
     <string name="set_artist_image">Artiest afbeelding instellen</string>
+    <string name="library_categories">Bibliotheek categorieën</string>
+    <string name="pref_summary_library_categories">Configureer de zichtbaarheid en volgorde van categorieën</string>
 </resources>
