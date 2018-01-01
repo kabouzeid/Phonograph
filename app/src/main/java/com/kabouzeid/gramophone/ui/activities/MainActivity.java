@@ -37,6 +37,7 @@ import com.kabouzeid.gramophone.helper.SearchQueryHelper;
 import com.kabouzeid.gramophone.loader.AlbumLoader;
 import com.kabouzeid.gramophone.loader.ArtistLoader;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
+import com.kabouzeid.gramophone.misc.MediaStoreUpdater;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.base.AbsSlidingMusicPanelActivity;
@@ -187,6 +188,9 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
                     break;
                 case R.id.nav_about:
                     new Handler().postDelayed(() -> startActivity(new Intent(MainActivity.this, AboutActivity.class)), 200);
+                    break;
+                case R.id.action_rebuild_media_index:
+                    new Handler().postDelayed(() -> MediaStoreUpdater.confirmUpdate(MainActivity.this), 200);
                     break;
             }
             return true;

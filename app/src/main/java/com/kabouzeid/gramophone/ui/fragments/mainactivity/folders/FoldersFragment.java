@@ -42,6 +42,7 @@ import com.kabouzeid.gramophone.helper.menu.SongsMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.LoaderIds;
 import com.kabouzeid.gramophone.misc.DialogAsyncTask;
+import com.kabouzeid.gramophone.misc.MediaStoreUpdater;
 import com.kabouzeid.gramophone.misc.UpdateToastMediaScannerCompletionListener;
 import com.kabouzeid.gramophone.misc.WrappedAsyncTaskLoader;
 import com.kabouzeid.gramophone.model.Song;
@@ -266,6 +267,9 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         switch (item.getItemId()) {
             case R.id.action_go_to_start_directory:
                 setCrumb(new BreadCrumbLayout.Crumb(tryGetCanonicalFile(PreferenceUtil.getInstance(getActivity()).getStartDirectory())), true);
+                return true;
+            case R.id.action_rebuild_media_index:
+                MediaStoreUpdater.confirmUpdate(getContext());
                 return true;
         }
         return super.onOptionsItemSelected(item);

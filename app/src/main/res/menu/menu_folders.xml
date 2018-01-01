@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_rebuild_media_index"
+        android:icon="@drawable/ic_sync_black_24dp"
+        android:title="@string/action_rebuild_media_index"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_go_to_start_directory"
         android:icon="@drawable/ic_bookmark_music_white_24dp"
         android:title="@string/action_go_to_start_directory"
