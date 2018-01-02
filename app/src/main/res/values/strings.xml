@@ -297,7 +297,8 @@
     <string name="action_rebuild_media_index">Rebuild media index</string>
     <string name="scan_action">Scan</string>
     <string name="scan_whole_file_system">Scan the whole file system?</string>
-    <string name="scan_warning">Updating the media index might take several minutes and use considerable resources. Scanning will be performed in the background while you can proceed with other activities. You will be informed once the index has been updated.</string>
+    <string name="scan_warning">Updating the media index might take a long time and use considerable resources. Scanning will be performed in the background while you can proceed with other activities. You will be informed once the index has been updated.</string>
     <string name="scan_index_updated">Media index updated</string>
     <string name="scan_updating_index">Updating media index</string>
+    <string name="scan_already_updating">Media index already updating</string>
 </resources>
