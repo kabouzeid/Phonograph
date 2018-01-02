@@ -29,17 +29,6 @@ public class MediaStoreUpdater {
     }
 
     public static void update(Context context) {
-        class ScanReceiver extends BroadcastReceiver {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if (Intent.ACTION_MEDIA_SCANNER_FINISHED.equals(intent.getAction())) {
-                    context.unregisterReceiver(this);
-                    Toast.makeText(context, R.string.scan_index_updated, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(context, R.string.scan_updating_index, Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
         IntentFilter filter = new IntentFilter();
         filter.addDataScheme("file");
         filter.addAction(Intent.ACTION_MEDIA_SCANNER_STARTED);
@@ -61,5 +50,17 @@ public class MediaStoreUpdater {
             }
         }
         return false;
+    }
+
+    static class ScanReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (Intent.ACTION_MEDIA_SCANNER_FINISHED.equals(intent.getAction())) {
+                context.unregisterReceiver(this);
+                Toast.makeText(context, R.string.scan_index_updated, Toast.LENGTH_SHORT).show();
+            } else if(Intent.ACTION_MEDIA_SCANNER_STARTED.equals(intent.getAction())) {
+                Toast.makeText(context, R.string.scan_updating_index, Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
