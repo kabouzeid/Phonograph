@@ -46,6 +46,9 @@ public class SleepTimerDialog extends DialogFragment {
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
         timerUpdater.cancel();
+        if (getActivity() instanceof DismissListener) {
+            ((DismissListener) getActivity()).onDismissed();
+        }
     }
 
     @NonNull
@@ -73,7 +76,7 @@ public class SleepTimerDialog extends DialogFragment {
                     PreferenceUtil.getInstance(getActivity()).setNextSleepTimerElapsedRealtime(nextSleepTimerElapsedTime);
                     AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
                     am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextSleepTimerElapsedTime, pi);
-
+                    getActivity().sendBroadcast(new Intent(MusicService.SLEEP_TIMER_CHANGED));
                     Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_set, minutes), Toast.LENGTH_SHORT).show();
                 })
                 .onNeutral((dialog, which) -> {
@@ -85,6 +88,7 @@ public class SleepTimerDialog extends DialogFragment {
                         AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
                         am.cancel(previous);
                         previous.cancel();
+                        getActivity().sendBroadcast(new Intent(MusicService.SLEEP_TIMER_CHANGED));
                         Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.sleep_timer_canceled), Toast.LENGTH_SHORT).show();
                     }
                 })
@@ -171,5 +175,9 @@ public class SleepTimerDialog extends DialogFragment {
         public void onFinish() {
             materialDialog.setActionButton(DialogAction.NEUTRAL, null);
         }
+    }
+
+    public interface DismissListener {
+        void onDismissed();
     }
 }

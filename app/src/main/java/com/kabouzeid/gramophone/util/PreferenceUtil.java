@@ -106,7 +106,11 @@ public final class PreferenceUtil {
     }
 
     public int getGeneralTheme() {
-        return getThemeResFromPrefValue(mPreferences.getString(GENERAL_THEME, ""));
+        return getThemeResFromPrefValue(getTheme());
+    }
+
+    public String getTheme() {
+        return mPreferences.getString(GENERAL_THEME, "");
     }
 
     @StyleRes

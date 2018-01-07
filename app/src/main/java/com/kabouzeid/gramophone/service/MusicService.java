@@ -98,6 +98,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     public static final String REPEAT_MODE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".repeatmodechanged";
     public static final String SHUFFLE_MODE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".shufflemodechanged";
     public static final String MEDIA_STORE_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".mediastorechanged";
+    public static final String SLEEP_TIMER_CHANGED = PHONOGRAPH_PACKAGE_NAME + ".sleeptimerchanged";
 
     public static final String SAVED_POSITION = "POSITION";
     public static final String SAVED_POSITION_IN_TRACK = "POSITION_IN_TRACK";
@@ -167,6 +168,14 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             }
         }
     };
+
+    private final BroadcastReceiver sleepTimerReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, @NonNull Intent intent) {
+            updateNotification();
+        }
+    };
+
     private ContentObserver mediaStoreObserver;
     private boolean notHandledMetaChangedForCurrentTrack;
 
@@ -201,6 +210,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         uiThreadHandler = new Handler();
 
         registerReceiver(widgetIntentReceiver, new IntentFilter(APP_WIDGET_UPDATE));
+        registerReceiver(sleepTimerReceiver, new IntentFilter(SLEEP_TIMER_CHANGED));
 
         initNotification();
 
@@ -348,6 +358,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     @Override
     public void onDestroy() {
         unregisterReceiver(widgetIntentReceiver);
+        unregisterReceiver(sleepTimerReceiver);
         if (becomingNoisyReceiverRegistered) {
             unregisterReceiver(becomingNoisyReceiver);
             becomingNoisyReceiverRegistered = false;

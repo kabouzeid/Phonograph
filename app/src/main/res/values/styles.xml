@@ -37,4 +37,13 @@
         <item name="android:transitionName" tools:ignore="NewApi">toolbar</item>
     </style>
 
+    <style name="Activity.Light.Dialog" parent="Base.Theme.AppCompat.Dialog">
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Activity.Dark.Dialog" parent="Base.Theme.AppCompat.Dialog">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>
