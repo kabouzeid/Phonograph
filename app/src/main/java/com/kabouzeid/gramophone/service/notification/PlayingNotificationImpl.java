@@ -2,13 +2,12 @@ package com.kabouzeid.gramophone.service.notification;
 
 import android.app.Notification;
 import android.app.PendingIntent;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.CountDownTimer;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
@@ -26,14 +25,19 @@ import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
-import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
+import com.kabouzeid.gramophone.util.SleepTimerUtil;
 import com.kabouzeid.gramophone.util.Util;
+
+import java.util.concurrent.TimeUnit;
 
 public class PlayingNotificationImpl extends PlayingNotification {
 
     private Target<BitmapPaletteWrapper> target;
+
+    private CountDownTimer countdown;
+    private long timerStopTime;
 
     @Override
     public synchronized void update() {
@@ -45,6 +49,38 @@ public class PlayingNotificationImpl extends PlayingNotification {
 
         final RemoteViews notificationLayout = new RemoteViews(service.getPackageName(), R.layout.notification);
         final RemoteViews notificationLayoutBig = new RemoteViews(service.getPackageName(), R.layout.notification_big);
+
+        if (SleepTimerUtil.isTimerRunning(service)) {
+            long stopTime = PreferenceUtil.getInstance(service).getNextSleepTimerElapsedRealTime();
+
+            if (countdown != null && stopTime != timerStopTime) {
+                countdown.cancel();
+                countdown = null;
+            }
+
+            if (countdown == null) {
+                timerStopTime = stopTime;
+                countdown = new CountDownTimer(timerStopTime - SystemClock.elapsedRealtime(), 60 * 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        update();
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        countdown = null;
+                    }
+                };
+                countdown.start();
+            }
+
+            notificationLayoutBig.setViewVisibility(R.id.sleep_timer, View.VISIBLE);
+        } else if (countdown != null) {
+            countdown.cancel();
+            countdown = null;
+
+            notificationLayoutBig.setViewVisibility(R.id.sleep_timer, View.GONE);
+        }
 
         if (TextUtils.isEmpty(song.title) && TextUtils.isEmpty(song.artistName)) {
             notificationLayout.setViewVisibility(R.id.media_titles, View.INVISIBLE);
@@ -65,15 +101,10 @@ public class PlayingNotificationImpl extends PlayingNotification {
 
         linkButtons(notificationLayout, notificationLayoutBig);
 
-        Intent action = new Intent(service, MainActivity.class);
-        action.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        final PendingIntent clickIntent = PendingIntent.getActivity(service, 0, action, 0);
-        final PendingIntent deleteIntent = buildPendingIntent(service, MusicService.ACTION_QUIT, null);
-
         final Notification notification = new NotificationCompat.Builder(service, NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notification)
-                .setContentIntent(clickIntent)
-                .setDeleteIntent(deleteIntent)
+                .setContentIntent(clickAction())
+                .setDeleteIntent(deleteAction())
                 .setCategory(NotificationCompat.CATEGORY_SERVICE)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -136,6 +167,7 @@ public class PlayingNotificationImpl extends PlayingNotification {
                                 Bitmap prev = createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_previous_white_24dp, primary), 1.5f);
                                 Bitmap next = createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_skip_next_white_24dp, primary), 1.5f);
                                 Bitmap playPause = createBitmap(Util.getTintedVectorDrawable(service, isPlaying ? R.drawable.ic_pause_white_24dp : R.drawable.ic_play_arrow_white_24dp, primary), 1.5f);
+                                Bitmap sleepTimer = createBitmap(Util.getTintedVectorDrawable(service, R.drawable.ic_timer_white_24dp, primary), 1.5f);
 
                                 notificationLayout.setTextColor(R.id.title, primary);
                                 notificationLayout.setTextColor(R.id.text, secondary);
@@ -146,9 +178,21 @@ public class PlayingNotificationImpl extends PlayingNotification {
                                 notificationLayoutBig.setTextColor(R.id.title, primary);
                                 notificationLayoutBig.setTextColor(R.id.text, secondary);
                                 notificationLayoutBig.setTextColor(R.id.text2, secondary);
+                                notificationLayoutBig.setTextColor(R.id.sleep_timer, primary);
                                 notificationLayoutBig.setImageViewBitmap(R.id.action_prev, prev);
                                 notificationLayoutBig.setImageViewBitmap(R.id.action_next, next);
                                 notificationLayoutBig.setImageViewBitmap(R.id.action_play_pause, playPause);
+                                notificationLayoutBig.setImageViewBitmap(R.id.action_sleep_timer, sleepTimer);
+
+                                if (SleepTimerUtil.isTimerRunning(service)) {
+                                    long millis = PreferenceUtil.getInstance(service).getNextSleepTimerElapsedRealTime() - SystemClock.elapsedRealtime();
+                                    long minutes = TimeUnit.MINUTES.convert(millis, TimeUnit.MILLISECONDS) + 1;
+                                    String text = String.format("%d min left", minutes) ;
+                                    notificationLayoutBig.setTextViewText(R.id.sleep_timer, text);
+                                    notificationLayoutBig.setViewVisibility(R.id.sleep_timer,View.VISIBLE);
+                                } else {
+                                    notificationLayoutBig.setViewVisibility(R.id.sleep_timer, View.GONE);
+                                }
                             }
                         });
             }
@@ -156,30 +200,21 @@ public class PlayingNotificationImpl extends PlayingNotification {
     }
 
     private void linkButtons(final RemoteViews notificationLayout, final RemoteViews notificationLayoutBig) {
-        PendingIntent pendingIntent;
+        PendingIntent previous = playbackAction(MusicService.ACTION_REWIND);
+        notificationLayout.setOnClickPendingIntent(R.id.action_prev, previous);
+        notificationLayoutBig.setOnClickPendingIntent(R.id.action_prev, previous);
 
-        final ComponentName serviceName = new ComponentName(service, MusicService.class);
+        PendingIntent playPause = playbackAction(MusicService.ACTION_TOGGLE_PAUSE);
+        notificationLayout.setOnClickPendingIntent(R.id.action_play_pause, playPause);
+        notificationLayoutBig.setOnClickPendingIntent(R.id.action_play_pause, playPause);
 
-        // Previous track
-        pendingIntent = buildPendingIntent(service, MusicService.ACTION_REWIND, serviceName);
-        notificationLayout.setOnClickPendingIntent(R.id.action_prev, pendingIntent);
-        notificationLayoutBig.setOnClickPendingIntent(R.id.action_prev, pendingIntent);
+        PendingIntent next = playbackAction(MusicService.ACTION_SKIP);
+        notificationLayout.setOnClickPendingIntent(R.id.action_next, next);
+        notificationLayoutBig.setOnClickPendingIntent(R.id.action_next, next);
 
-        // Play and pause
-        pendingIntent = buildPendingIntent(service, MusicService.ACTION_TOGGLE_PAUSE, serviceName);
-        notificationLayout.setOnClickPendingIntent(R.id.action_play_pause, pendingIntent);
-        notificationLayoutBig.setOnClickPendingIntent(R.id.action_play_pause, pendingIntent);
-
-        // Next track
-        pendingIntent = buildPendingIntent(service, MusicService.ACTION_SKIP, serviceName);
-        notificationLayout.setOnClickPendingIntent(R.id.action_next, pendingIntent);
-        notificationLayoutBig.setOnClickPendingIntent(R.id.action_next, pendingIntent);
-    }
-
-    private PendingIntent buildPendingIntent(Context context, final String action, final ComponentName serviceName) {
-        Intent intent = new Intent(action);
-        intent.setComponent(serviceName);
-        return PendingIntent.getService(context, 0, intent, 0);
+        PendingIntent sleepTimer = sleepTimerAction();
+        notificationLayout.setOnClickPendingIntent(R.id.action_sleep_timer, sleepTimer);
+        notificationLayoutBig.setOnClickPendingIntent(R.id.action_sleep_timer, sleepTimer);
     }
 
     private static Bitmap createBitmap(Drawable drawable, float sizeMultiplier) {

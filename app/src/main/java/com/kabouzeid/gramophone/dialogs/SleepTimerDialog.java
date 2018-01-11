@@ -24,6 +24,7 @@ import com.kabouzeid.gramophone.service.MusicService;
 import com.kabouzeid.gramophone.ui.activities.PurchaseActivity;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
+import com.kabouzeid.gramophone.util.SleepTimerUtil;
 import com.triggertrap.seekarc.SeekArc;
 
 import butterknife.BindView;
@@ -70,7 +71,7 @@ public class SleepTimerDialog extends DialogFragment {
 
                     final int minutes = seekArcProgress;
 
-                    PendingIntent pi = makeTimerPendingIntent(PendingIntent.FLAG_CANCEL_CURRENT);
+                    PendingIntent pi = SleepTimerUtil.createTimer(getActivity());
 
                     final long nextSleepTimerElapsedTime = SystemClock.elapsedRealtime() + minutes * 60 * 1000;
                     PreferenceUtil.getInstance(getActivity()).setNextSleepTimerElapsedRealtime(nextSleepTimerElapsedTime);
@@ -83,7 +84,7 @@ public class SleepTimerDialog extends DialogFragment {
                     if (getActivity() == null) {
                         return;
                     }
-                    final PendingIntent previous = makeTimerPendingIntent(PendingIntent.FLAG_NO_CREATE);
+                    final PendingIntent previous = SleepTimerUtil.getCurrentTimer(getActivity());
                     if (previous != null) {
                         AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
                         am.cancel(previous);
@@ -93,7 +94,7 @@ public class SleepTimerDialog extends DialogFragment {
                     }
                 })
                 .showListener(dialog -> {
-                    if (makeTimerPendingIntent(PendingIntent.FLAG_NO_CREATE) != null) {
+                    if (SleepTimerUtil.isTimerRunning(getActivity())) {
                         timerUpdater.start();
                     }
                 })
@@ -150,15 +151,6 @@ public class SleepTimerDialog extends DialogFragment {
 
     private void updateTimeDisplayTime() {
         timerDisplay.setText(seekArcProgress + " min");
-    }
-
-    private PendingIntent makeTimerPendingIntent(int flag) {
-        return PendingIntent.getService(getActivity(), 0, makeTimerIntent(), flag);
-    }
-
-    private Intent makeTimerIntent() {
-        return new Intent(getActivity(), MusicService.class)
-                .setAction(MusicService.ACTION_QUIT);
     }
 
     private class TimerUpdater extends CountDownTimer {
