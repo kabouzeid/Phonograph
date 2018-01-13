@@ -4,7 +4,7 @@
     <string name="currently_listening_to_x_by_x">Сейчас воспроизводится « %1$s » исполнителя %2$s</string>
     <string name="the_audio_file">Аудиофайл</string>
     <string name="x_has_been_set_as_ringtone">%1$s был установлен на звонок.</string>
-    <string name="action_set_as_ringtone">Установить как рингтон</string>
+    <string name="action_set_as_ringtone">Установить как мелодию звонка</string>
     <string name="action_share">Поделиться</string>
     <string name="action_settings">"Настройки"</string>
     <string name="action_grant">Разрешить</string>
@@ -13,7 +13,7 @@
     <string name="action_add_to_favorites">Добавить в избранное</string>
     <string name="action_remove_from_favorites">Удалить из избранного</string>
     <string name="action_search">Поиск</string>
-    <string name="action_play_next">Воспроизвести следующую</string>
+    <string name="action_play_next">Воспроизвести далее</string>
     <string name="action_play">Воспроизвести</string>
     <string name="action_play_pause">Воспроизведение/Пауза</string>
     <string name="action_previous">Предыдущий</string>
@@ -30,6 +30,7 @@
     <string name="action_set_as_start_directory">Назначить начальной папкой</string>
     <string name="albums">Альбомы</string>
     <string name="artists">Исполнители</string>
+    <string name="genres">Жанры</string>
     <string name="songs">Треки</string>
     <string name="playlists">Плейлисты</string>
     <string name="unplayable_file">\u041d\u0435\u0432\u043e\u0437\u043c\u043e\u0436\u043d\u043e \u0432\u043e\u0441\u043f\u0440\u043e\u0438\u0437\u0432\u0435\u0441\u0442\u0438 \u044d\u0442\u0443 \u043f\u0435\u0441\u043d\u044e.</string>
@@ -109,9 +110,10 @@
     <string name="this_year">Этот год</string>
     <string name="equalizer">Эквалайзер</string>
     <string name="pref_header_colors">Цвета</string>
-    <string name="pref_header_now_playing_screen">Экран воспроизведения</string>
-    <string name="pref_title_general_theme">Общая тема</string>
+    <string name="pref_header_now_playing_screen">Сейчас воспроизводится</string>
+    <string name="pref_title_general_theme">Главная тема</string>
     <string name="pref_header_audio">Аудио</string>
+    <string name="pref_header_library">Библиотека</string>
     <string name="pref_header_images">Изображения</string>
     <string name="pref_header_lockscreen">Экран блокировки</string>
     <string name="pref_header_playlists">Плейлисты</string>
@@ -128,6 +130,7 @@
     <string name="pref_title_audio_ducking">Уменьшить громкость при уведомлених</string>
     <string name="pref_title_last_added_interval">Интервал последнего добавленного плейлиста</string>
     <string name="pref_title_synchronized_lyrics_show">Показать синхронизированные тексты</string>
+    <string name="pref_title_remember_last_tab">Запомнить последнюю вкладку</string>
     <string name="no_equalizer">Эквалайзер не найден.</string>
     <string name="no_audio_ID">"Сначала воспроизведите песню, а затем попробуйте снова."</string>
     <string name="delete_action">Удалить</string>
@@ -135,6 +138,7 @@
     <string name="remove_action">Убрать</string>
     <string name="rename_action">Переименовать</string>
     <string name="create_action">Создать</string>
+    <string name="reset_action">Сброс</string>
     <string name="x_selected">%1$d выбрано</string>
     <string name="primary_color">Основной цвет</string>
     <string name="accent_color">Цвет акцента</string>
@@ -142,10 +146,11 @@
     <string name="accent_color_desc">Цвет акцента, по умолчанию — розовый</string>
     <string name="update_image">Обновить изображение</string>
     <string name="playlist_empty_text">Пустой плейлист</string>
-    <string name="no_playlists">Нет плейлистов</string>
+    <string name="no_playlists">Нет плейлистов для отображения</string>
     <string name="no_albums">Нет альбомов для отображения</string>
     <string name="no_songs">Нет песен для отображения</string>
     <string name="no_artists">Нет исполнителей для отображения</string>
+    <string name="no_genres">Нет жанров для отображения</string>
     <string name="empty">Пусто</string>
     <string name="playlist_name_empty">Имя плейлиста</string>
     <string name="song">Песня</string>
@@ -154,11 +159,12 @@
     <string name="pref_summary_classic_notification">Использовать классический дизайн уведомления.</string>
     <string name="pref_summary_colored_notification">"\u041e\u043a\u0440\u0430\u0448\u0438\u0432\u0430\u0435\u0442 \u0443\u0432\u0435\u0434\u043e\u043c\u043b\u0435\u043d\u0438\u0435 \u0432 \u0442\u043e\u043d \u043e\u0431\u043b\u043e\u0436\u043a\u0438 \u0430\u043b\u044c\u0431\u043e\u043c\u0430."</string>
     <string name="pref_summary_gapless_playback">"Может вызвать проблемы с воспроизведением на некоторых устройствах."</string>
-    <string name="pref_summary_ignore_media_store_artwork">Может увеличить качество обложки, но также увеличивает время их отрисовки. Влючайте только, если вы имеете проблемы с низким разрешением обложек альбомов.</string>
+    <string name="pref_summary_ignore_media_store_artwork">Может увеличить качество обложки, но также увеличивает время ее отрисовки. Влючайте только, если вы имеете проблемы с низким разрешением обложек альбомов.</string>
     <string name="pref_summary_colored_navigation_bar">Окрашивает панель навигации в основной цвет.</string>
     <string name="pref_summary_colored_app_shortcuts">Окрашивает шорткаты в основной цвет.</string>
     <string name="pref_summary_audio_ducking">Уведомления, навигация, т.д.</string>
     <string name="pref_summary_synchronized_lyrics_show">Сейчас только синхронизированные тексты в LRC формате поддерживаются. Либо встроенный, либо отдельный файл.</string>
+    <string name="pref_summary_remember_last_tab">Перейти на последнюю открытую вкладку при запуске</string>
     <string name="could_not_download_album_cover">"\u041d\u0435\u0432\u043e\u0437\u043c\u043e\u0436\u043d\u043e \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044c \u043f\u043e\u0434\u0445\u043e\u0434\u044f\u0449\u0443\u044e \u043e\u0431\u043b\u043e\u0436\u043a\u0443 \u0430\u043b\u044c\u0431\u043e\u043c\u0430."</string>
     <string name="search_hint">Поиск библиотеки...</string>
     <string name="favorites">Избранное</string>
@@ -174,8 +180,8 @@
     <string name="cancel_current_timer">Отменить текущий таймер</string>
     <string name="sleep_timer_canceled">Таймер сна отменен.</string>
     <string name="sleep_timer_set">Таймер сна установлен на %d минут(ы) с текущего момента</string>
-    <string name="action_new_playlist">Новый список воспроизведения...</string>
-    <string name="new_playlist_title">Новый список воспроизведения</string>
+    <string name="action_new_playlist">Новый плейлист...</string>
+    <string name="new_playlist_title">Новый плейлист</string>
     <string name="colored_footers">Окрашенные нижние колонтитулы</string>
     <string name="special_thanks_to">Особая благодарность</string>
     <string name="changelog">Список изменений</string>
@@ -223,7 +229,7 @@
     <string name="nothing_to_scan">Нечего сканировать.</string>
     <string name="scanned_files">Просканировано %1$d из %2$d файлов.</string>
     <string name="could_not_scan_files">Не удалось просканировать %d файлов.</string>
-    <string name="listing_files">Листинг файлов</string>
+    <string name="listing_files">Список файлов</string>
     <string name="new_start_directory">%s новая начальная директория.</string>
     <string name="app_widget_big_name">Phonograph - Большой</string>
     <string name="app_widget_classic_name">Phonograph - Классический</string>
@@ -254,7 +260,7 @@
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Вы будете перенаправлены на сайт для отчётов об ошибках.</string>
     <string name="app_shortcut_shuffle_all_short">Перемешать</string>
     <string name="app_shortcut_top_tracks_short">Популярные треки</string>
-    <string name="app_shortcut_last_added_short">@string/last_added</string>
+    <string name="app_shortcut_last_added_short">Последние добавленные</string>
     <string name="playlist_is_empty">Плейлист пуст</string>
     <string name="playing_notification_description">С помощью уведомления воспроизведения можно воспроизводить/ставить на паузу и т.д.</string>
     <string name="playing_notification_name">Уведомление воспроизведения</string>
@@ -273,8 +279,11 @@
     <string name="remove_from_blacklist">Убрать из черного списка</string>
     <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[Убрать <b>%1$s</b> из черного списка?]]></string>
     <string name="clear_blacklist">Очистить черный список</string>
-    <string name="do_you_want_to_clear_the_blacklist">Очистить черный список?</string>
+    <string name="do_you_want_to_clear_the_blacklist">Вы хотите очистить черный список?</string>
     <string name="pref_summary_blacklist">Занесенные в черный список папки скрыты из вашей библиотеки.</string>
     <string name="reset_artist_image">Сбросить картинку исполнителя</string>
     <string name="set_artist_image">Установить картинку исполнителя</string>
+    <string name="library_categories">Категории библиотеки</string>
+    <string name="pref_summary_library_categories">Настройте видимость и порядок категорий библиотеки.</string>
+    <string name="you_have_to_select_at_least_one_category">Вы должны выбрать хотя бы одну категорию.</string>
 </resources>

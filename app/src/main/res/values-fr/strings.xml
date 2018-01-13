@@ -128,6 +128,7 @@
     <string name="pref_title_ignore_media_store_artwork">Ignorer le stockage des pochettes</string>
     <string name="pref_title_gapless_playback">Lecture sans coupure</string>
     <string name="pref_title_audio_ducking">Réduire le volume lorse que le focus est interrompu</string>
+    <string name="pref_title_last_added_interval">Intervalle de la playlist \"Derniers ajouts\"</string>
     <string name="pref_title_synchronized_lyrics_show">Afficher les paroles synchronisées</string>
     <string name="pref_title_remember_last_tab">Se souvenir de la dernière fenêtre</string>
     <string name="no_equalizer">Impossible de trouver d\'égalisateur.</string>
@@ -266,6 +267,7 @@
     <string name="only_the_first_5_colors_available">Seules les 5 premières couleurs sont disponibles dans la version gratuite.</string>
     <string name="black_theme_is_a_pro_feature">Le thème noir est une fonctionnalité Phonograph Pro</string>
     <string name="sleep_timer_is_a_pro_feature">Le minuteur de sommeil est une fonctionnalité Phonograph Pro</string>
+    <string name="folder_view_is_a_pro_feature">La vue par dossier est une fonctionnalité Phonograph Pro.</string>
     <string name="restoring_purchase">Restauration des achats...</string>
     <string name="could_not_restore_purchase">Impossible de restaurer les achats</string>
     <string name="purchase">Acheter</string>
@@ -281,4 +283,7 @@
     <string name="pref_summary_blacklist">Le contenu des fichiers sur la liste noire n\'apparaît pas dans votre bibliothèque</string>
     <string name="reset_artist_image">Réinitialiser l\'image de l\'artiste</string>
     <string name="set_artist_image">Actualiser l\'image de l\'artiste</string>
+    <string name="library_categories">Catégories de la bibliothèque</string>
+    <string name="pref_summary_library_categories">Configurer la visibilité et l\'ordre des catégories.</string>
+    <string name="you_have_to_select_at_least_one_category">Vous devez sélectionner au moins une catégorie.</string>
 </resources>

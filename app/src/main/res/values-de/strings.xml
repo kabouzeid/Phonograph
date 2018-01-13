@@ -30,6 +30,7 @@
     <string name="action_set_as_start_directory">Als Start-Verzeichnis festlegen</string>
     <string name="albums">Alben</string>
     <string name="artists">Interpreten</string>
+    <string name="genres">Genres</string>
     <string name="songs">Titel</string>
     <string name="playlists">Wiedergabelisten</string>
     <string name="unplayable_file">Der Song konnte nicht abgespielt werden.</string>
@@ -112,6 +113,7 @@
     <string name="pref_header_now_playing_screen">Aktuelle Wiedergabe</string>
     <string name="pref_title_general_theme">Generelles Design</string>
     <string name="pref_header_audio">Audio</string>
+    <string name="pref_header_library">Bibliothek</string>
     <string name="pref_header_images">Bilder</string>
     <string name="pref_header_lockscreen">Sperrbildschirm</string>
     <string name="pref_header_playlists">Wiedergabelisten</string>
@@ -128,6 +130,7 @@
     <string name="pref_title_audio_ducking">Lautstärke bei Fokusverlust verringern</string>
     <string name="pref_title_last_added_interval">Intervall der \"Zuletzt hinzugefügt\"-Wiedergabeliste</string>
     <string name="pref_title_synchronized_lyrics_show">Synchronisierten Songtext anzeigen</string>
+    <string name="pref_title_remember_last_tab">Letzten Tab merken</string>
     <string name="no_equalizer">Kein Equalizer gefunden.</string>
     <string name="no_audio_ID">"Keine Audio ID, spiele etwas ab und versuche es erneut."</string>
     <string name="delete_action">Löschen</string>
@@ -135,6 +138,7 @@
     <string name="remove_action">Entfernen</string>
     <string name="rename_action">Umbenennen</string>
     <string name="create_action">Erstellen</string>
+    <string name="reset_action">Zurücksetzen</string>
     <string name="x_selected">%1$d ausgewählt</string>
     <string name="primary_color">Hauptfarbe</string>
     <string name="accent_color">Akzentfarbe</string>
@@ -146,6 +150,7 @@
     <string name="no_albums">Keine Alben</string>
     <string name="no_songs">Keine Songs</string>
     <string name="no_artists">Keine Interpreten</string>
+    <string name="no_genres">Keine Genres</string>
     <string name="empty">Leer</string>
     <string name="playlist_name_empty">Wiedergabelisten Name</string>
     <string name="song">Titel</string>
@@ -159,6 +164,7 @@
     <string name="pref_summary_colored_app_shortcuts">Färbt die App-Shortcuts mit der Hauptfarbe.</string>
     <string name="pref_summary_audio_ducking">Benachrichtigungen, Navigation etc.</string>
     <string name="pref_summary_synchronized_lyrics_show">Aktuell werden nur synchronisierte Songtexte im LRC-Format unterstützt, entweder eingebettet oder als separate Datei.</string>
+    <string name="pref_summary_remember_last_tab">Zuletzt geöffneten Tab beim Start anzeigen</string>
     <string name="could_not_download_album_cover">"Es konnte kein passendes Album Cover heruntergeladen werden."</string>
     <string name="search_hint">Durchsuche deine Mediathek</string>
     <string name="favorites">Favoriten</string>
@@ -254,7 +260,7 @@
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">Du wirst zur Issue Tracker Webseite weitergeleitet.</string>
     <string name="app_shortcut_shuffle_all_short">Zufällig</string>
     <string name="app_shortcut_top_tracks_short">Lieblingstitel</string>
-    <string name="app_shortcut_last_added_short">@string/last_added</string>
+    <string name="app_shortcut_last_added_short">Zuletzt hinzugefügt</string>
     <string name="playlist_is_empty">Die Wiedergabeliste ist leer</string>
     <string name="playing_notification_description">Die Benachrichtigung zur Steuerung von Play/Pause etc.</string>
     <string name="playing_notification_name">Wiedergabe-Benachrichtigung</string>
@@ -277,6 +283,7 @@
     <string name="pref_summary_blacklist">Der Inhalt der Ordner auf der Blacklist wird in deiner Bibliothek verborgen.</string>
     <string name="reset_artist_image">Künstler-Bild zurücksetzen</string>
     <string name="set_artist_image">Künstler-Bild festlegen</string>
-    <string name="library_categories">Bibliotheks Kategorien</string>
+    <string name="library_categories">Bibliothekskategorien</string>
     <string name="pref_summary_library_categories">Anzeige und Anordnung der einzelnen Kategorien festlegen.</string>
+    <string name="you_have_to_select_at_least_one_category">Mindestens eine Kategorie muss ausgewählt sein.</string>
 </resources>
