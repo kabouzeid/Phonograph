@@ -113,6 +113,7 @@
     <string name="pref_header_now_playing_screen">Trenutna reprodukcija</string>
     <string name="pref_title_general_theme">Općenita tema</string>
     <string name="pref_header_audio">Zvuk</string>
+    <string name="pref_header_library">Biblioteka</string>
     <string name="pref_header_images">Slike</string>
     <string name="pref_header_lockscreen">Zaključani zaslon</string>
     <string name="pref_header_playlists">Popisi naslova</string>
@@ -129,6 +130,7 @@
     <string name="pref_title_audio_ducking">Smanji glasn. prilikom drugih zvukova</string>
     <string name="pref_title_last_added_interval">Interval nedavnog popisa</string>
     <string name="pref_title_synchronized_lyrics_show">Prikaži sinkronizirane stihove</string>
+    <string name="pref_title_remember_last_tab">Zapamti zadnju karticu</string>
     <string name="no_equalizer">Ekvalizator nije pronađen.</string>
     <string name="no_audio_ID">"Reproducirajte nešto i pokušajte opet."</string>
     <string name="delete_action">Izbriši</string>
@@ -136,6 +138,7 @@
     <string name="remove_action">Ukloni</string>
     <string name="rename_action">Preimenuj</string>
     <string name="create_action">Stvori</string>
+    <string name="reset_action">Poništi</string>
     <string name="x_selected">%1$d odabrano</string>
     <string name="primary_color">Primarna boja</string>
     <string name="accent_color">Naglašena boja</string>
@@ -161,6 +164,7 @@
     <string name="pref_summary_colored_app_shortcuts">Boja prečace aplikacije u primarnu boju.</string>
     <string name="pref_summary_audio_ducking">Obavijesti, navigacija itd.</string>
     <string name="pref_summary_synchronized_lyrics_show">Trenutno su samo sinkronizirani stihovi u LRC formatu podržani. Ili ugrađeni ili u zasebnoj datoteci.</string>
+    <string name="pref_summary_remember_last_tab">Pri pokretanju otvori zadnje otvorenu karticu</string>
     <string name="could_not_download_album_cover">"Nije mogu\u0107e preuzeti odgovaraju\u0107i omot albuma."</string>
     <string name="search_hint">Pretražite svoju biblioteku...</string>
     <string name="favorites">Favoriti</string>
@@ -279,4 +283,7 @@
     <string name="pref_summary_blacklist">Sadržaj mapa na crnoj listi je skriven iz vaše biblioteke.</string>
     <string name="reset_artist_image">Resetiraj slike izvođača</string>
     <string name="set_artist_image">Postavi sliku izvođača</string>
+    <string name="library_categories">Kategorije biblioteke</string>
+    <string name="pref_summary_library_categories">Prilagodite vidljivost i poredak kategorija biblioteke</string>
+    <string name="you_have_to_select_at_least_one_category">Morate odabrati barem jednu kategoriju</string>
 </resources>
