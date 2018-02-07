@@ -30,10 +30,12 @@
     <string name="action_set_as_start_directory">Nastavit jako domovskou složku</string>
     <string name="albums">Alba</string>
     <string name="artists">Interpreti</string>
+    <string name="genres">Žánry</string>
     <string name="songs">Skladby</string>
     <string name="playlists">Playlisty</string>
     <string name="unplayable_file">Omlouv\u00e1me se, p\u0159i pokusu p\u0159ehr\u00e1t tuto skladbu do\u0161lo k chyb\u011b</string>
     <string name="biography_unavailable">Omlouv\u00e1me se, k tomuto interpretovi nem\u016f\u017eeme sehnat dopl\u0148uj\u00edc\u00ed informace.</string>
+    <string name="wiki_unavailable">Omlouv\u00e1me se, k tomuto albu nem\u016f\u017eeme sehnat dopl\u0148uj\u00edc\u00ed informace.</string>
     <string name="biography">Biografie</string>
     <string name="wiki">Wiki</string>
     <string name="audio_focus_denied">Nebylo možné získat ohnisko zvuku.</string>
@@ -107,9 +109,10 @@
     <string name="this_year">Tento rok</string>
     <string name="equalizer">Ekvalizér</string>
     <string name="pref_header_colors">Barvy</string>
-    <string name="pref_header_now_playing_screen">Přehrávač</string>
+    <string name="pref_header_now_playing_screen">Právě hraje</string>
     <string name="pref_title_general_theme">Motiv</string>
     <string name="pref_header_audio">Zvuk</string>
+    <string name="pref_header_library">Knihovna</string>
     <string name="pref_header_images">Obrázky</string>
     <string name="pref_header_lockscreen">Odemykací obrazovka</string>
     <string name="pref_header_playlists">Seznamy skladeb</string>
@@ -143,6 +146,7 @@
     <string name="no_albums">Žádná alba</string>
     <string name="no_songs">Žádně skladby</string>
     <string name="no_artists">Žádní interpreti</string>
+    <string name="no_genres">Žádné žánry</string>
     <string name="empty">Prázdné</string>
     <string name="playlist_name_empty">Pojmenování seznamu skladeb</string>
     <string name="song">Skladba</string>
@@ -183,6 +187,7 @@
     <string name="thank_you">"Díky! "</string>
     <string name="version">Verze</string>
     <string name="author">Autor</string>
+    <string name="write_an_email">Napsat e-mail</string>
     <string name="add_to_google_plus_circles">Přidat do kruhů Google Plus</string>
     <string name="follow_on_twitter">Sledovat na Twitteru</string>
     <string name="visit_website">Navštívit stránku</string>
@@ -247,6 +252,14 @@
     <string name="app_shortcut_shuffle_all_short">Náhodně</string>
     <string name="app_shortcut_top_tracks_short">Nejposlouchanější Skladby</string>
     <string name="app_shortcut_last_added_short">Posledně přidané</string>
+    <string name="playlist_is_empty">Playlist je prázdný</string>
+    <string name="only_the_first_5_colors_available">Ve verzi zdarma je dostupných pouze prvních 5 barev.</string>
     <string name="add_action">Přidat</string>
+    <string name="remove_from_blacklist">Odstranit z blacklistu</string>
+    <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[Chcete odstranit <b>%1$s</b> z blacklistu?]]></string>
+    <string name="clear_blacklist">Vyčistit blacklist</string>
+    <string name="do_you_want_to_clear_the_blacklist">Chcete vyčistit blacklist?</string>
+    <string name="pref_summary_blacklist">Obsah složek na blacklistu se nezobrazuje v hudební knihovně.</string>
     <string name="set_artist_image">Nastavit obrázek interpreta</string>
+    <string name="you_have_to_select_at_least_one_category">Musíte zvolit alespoň jednu kategorii.</string>
 </resources>
