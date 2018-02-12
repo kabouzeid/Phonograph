@@ -11,6 +11,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
+import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.PlaylistsUtil;
 
 import java.util.ArrayList;
@@ -46,12 +47,28 @@ public class AddToPlaylistDialog extends DialogFragment {
         for (int i = 1; i < playlistNames.length; i++) {
             playlistNames[i] = playlists.get(i - 1).name;
         }
+        final ArrayList<Song> songs = getArguments().getParcelableArrayList("songs");
+
+        if(songs != null && songs.size() == 1)
+        {
+            //TODO: display checkboxes instead of checkmark
+
+            Boolean[] songIsInPlaylist = new Boolean[playlists.size()];
+            for(int i = 0; i < playlists.size(); i++){
+                songIsInPlaylist[i] = PlaylistsUtil.doPlaylistContains(getActivity(), playlists.get(i).id, songs.get(0).id);
+
+                //TEMP
+                if(songIsInPlaylist[i]) {
+                    playlistNames[i + 1] = playlists.get(i).name + " \u2713";
+                }
+            }
+        }
+
         return new MaterialDialog.Builder(getActivity())
                 .title(R.string.add_playlist_title)
                 .items(playlistNames)
                 .itemsCallback((materialDialog, view, i, charSequence) -> {
                     //noinspection unchecked
-                    final ArrayList<Song> songs = getArguments().getParcelableArrayList("songs");
                     if (songs == null) return;
                     if (i == 0) {
                         materialDialog.dismiss();
