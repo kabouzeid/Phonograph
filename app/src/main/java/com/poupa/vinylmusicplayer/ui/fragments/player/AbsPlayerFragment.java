@@ -2,6 +2,9 @@ package com.poupa.vinylmusicplayer.ui.fragments.player;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.media.audiofx.AudioEffect;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -22,11 +25,16 @@ import com.poupa.vinylmusicplayer.ui.fragments.AbsMusicServiceFragment;
 import com.poupa.vinylmusicplayer.util.MusicUtil;
 import com.poupa.vinylmusicplayer.util.NavigationUtil;
 
+import butterknife.BindView;
+
 public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implements Toolbar.OnMenuItemClickListener, PaletteColorHolder {
     public static final String TAG = AbsPlayerFragment.class.getSimpleName();
 
     private Callbacks callbacks;
     private static boolean isToolbarShown = true;
+
+    @BindView(R.id.player_toolbar)
+    protected Toolbar toolbar;
 
     @Override
     public void onAttach(Context context) {
@@ -134,6 +142,21 @@ public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implemen
 
     protected String getUpNextAndQueueTime() {
         return getResources().getString(R.string.up_next) + "  •  " + MusicUtil.getReadableDurationString(MusicPlayerRemote.getQueueDurationMillis(MusicPlayerRemote.getPosition()));
+    }
+
+    protected boolean hasEqualizer() {
+        final Intent effects = new Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL);
+        PackageManager pm = getActivity().getPackageManager();
+        ResolveInfo ri = pm.resolveActivity(effects, 0);
+        return ri != null;
+    }
+
+    protected void setUpPlayerToolbar() {
+        // Hide equalizer if it is unavailable
+        if (!hasEqualizer()) {
+            MenuItem equalizerItem = toolbar.getMenu().findItem(R.id.action_equalizer);
+            equalizerItem.setVisible(false);
+        }
     }
 
     public abstract void onShow();

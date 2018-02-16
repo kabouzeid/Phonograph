@@ -15,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -66,8 +65,6 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     @Nullable
     @BindView(R.id.toolbar_container)
     FrameLayout toolbarContainer;
-    @BindView(R.id.player_toolbar)
-    Toolbar toolbar;
     @BindView(R.id.player_sliding_layout)
     SlidingUpPanelLayout slidingUpPanelLayout;
     @BindView(R.id.player_recycler_view)
@@ -231,11 +228,13 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
         playerAlbumCoverFragment.setCallbacks(this);
     }
 
-    private void setUpPlayerToolbar() {
+    protected void setUpPlayerToolbar() {
         toolbar.inflateMenu(R.menu.menu_player);
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
         toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
         toolbar.setOnMenuItemClickListener(this);
+
+        super.setUpPlayerToolbar();
     }
 
     @Override
