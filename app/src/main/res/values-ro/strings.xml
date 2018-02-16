@@ -189,7 +189,6 @@
     <string name="permissions_denied">Permisiune refuzată.</string>
     <string name="permission_external_storage_denied">Permisiunea de a accesa stocarea externă a fost respinsă.</string>
     <string name="support_development">Susţineţi dezvoltarea</string>
-    <string name="buy_pro">Cumpăraţi Vinyl Music Player Pro</string>
     <string name="thank_you">Mulţumesc!</string>
     <string name="restored_previous_purchase_please_restart">A fost restaurată achiziția anterioară. Reporniți aplicația pentru a utiliza toate funcțiile.</string>
     <string name="version">Versiune</string>
@@ -207,8 +206,6 @@
     <string name="translate_summary">Ajutaţi la traducerea Vinyl Music Player în limba maternă.</string>
     <string name="rate_on_google_play">Evaluaţi</string>
     <string name="rate_on_google_play_summary">Lăsați o evaluare pozitivă pe Google Play dacă vă place Vinyl Music Player.</string>
-    <string name="donate">Donaţi</string>
-    <string name="donate_summary">Dacă credeți că merit să fiu plătit pentru munca mea, puteți să-mi lăsați câțiva dolari aici.</string>
     <string name="aidan_follestad_summary">Pentru motorul tematic și câteva alte lucruri minunate.</string>
     <string name="michael_cook_summary">Pentru pictograma drăguţă a aplicației în stil material.</string>
     <string name="maarten_corpel_summary">Pentru ilustrația din magazinului Play și coperta albumului gol.</string>
@@ -265,14 +262,10 @@
     <string name="playing_notification_description">Notificarea de redare oferă acțiuni de redare/pauză etc.</string>
     <string name="playing_notification_name">Notificare de redare</string>
     <string name="only_the_first_5_colors_available">Numai primele 5 culori sunt disponibile în versiunea gratuită.</string>
-    <string name="black_theme_is_a_pro_feature">Tema întunecată este disponibilă doar în versiunea Vinyl Music Player Pro.</string>
-    <string name="sleep_timer_is_a_pro_feature">Temporizatorul este disponibil doar în versiunea Vinyl Music Player Pro</string>
-    <string name="folder_view_is_a_pro_feature">Afișarea dosarelor este disponibilă doar în versiunea Vinyl Music Player Pro.</string>
     <string name="restoring_purchase">Se restabilește achiziția...</string>
     <string name="could_not_restore_purchase">Nu a putut fi restabilită achiziția.</string>
     <string name="purchase">Cumpărare</string>
     <string name="restore">Restabilire</string>
-    <string name="no_purchase_found">Nu s-a găsit nicio achiziție.</string>
     <string name="eugene_cheung_summary">Pentru contribuțiile sale la codul sursă.</string>
     <string name="add_action">Adăugare</string>
     <string name="blacklist">Listă neagră</string>

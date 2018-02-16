@@ -189,7 +189,6 @@
     <string name="permissions_denied">Pristup odbijen.</string>
     <string name="permission_external_storage_denied">Dopuštenje za pristup vanjskoj pohrani je odbijeno.</string>
     <string name="support_development">Podrži razvoj</string>
-    <string name="buy_pro">Kupi Vinyl Music Player Pro</string>
     <string name="thank_you">Hvala vam!</string>
     <string name="restored_previous_purchase_please_restart">Prošle kupnje su vraćene. Molimo ponovno pokrenite aplikaciju kako bi omogućili nove značajke.</string>
     <string name="version">Verzija</string>
@@ -207,8 +206,6 @@
     <string name="translate_summary">Pomozite prevesti Vinyl Music Player na svoj jezik.</string>
     <string name="rate_on_google_play">Ocijeni</string>
     <string name="rate_on_google_play_summary">Ostavite pozitivnu ocjenu na Google Playu ako vam se sviđa Vinyl Music Player.</string>
-    <string name="donate">Doniraj</string>
-    <string name="donate_summary">Ako mislite da sam zaslužio biti plaćen za svoj rad, ostavite mi par dolara ovdje.</string>
     <string name="aidan_follestad_summary">Za pokretač teme i ostale super stvari.</string>
     <string name="michael_cook_summary">Za prekrasnu materijalnu ikonu.</string>
     <string name="maarten_corpel_summary">Za izradu Play Store ilustracije i slike praznog omota albuma.</string>
@@ -265,14 +262,10 @@
     <string name="playing_notification_description">Obavijest reprodukcije pruža radnje za reprodukciju/pauzu itd.</string>
     <string name="playing_notification_name">Obavijest reprodukcije</string>
     <string name="only_the_first_5_colors_available">Samo je prvih 5 boja dostupno u besplatnoj verziji.</string>
-    <string name="black_theme_is_a_pro_feature">Crna tema je Vinyl Music Player Pro značajka.</string>
-    <string name="sleep_timer_is_a_pro_feature">Tajmer za spavanje je Vinyl Music Player Pro značajka.</string>
-    <string name="folder_view_is_a_pro_feature">Prikaz mapa je Vinyl Music Player Pro značajka.</string>
     <string name="restoring_purchase">Vraćanje kupnje...</string>
     <string name="could_not_restore_purchase">Nije moguće vratiti kupnju.</string>
     <string name="purchase">Kupi</string>
     <string name="restore">Vrati</string>
-    <string name="no_purchase_found">Nema pronađenih kupnji.</string>
     <string name="eugene_cheung_summary">Za njegov doprinos izvornom kodu.</string>
     <string name="add_action">Dodaj</string>
     <string name="blacklist">Crna lista</string>

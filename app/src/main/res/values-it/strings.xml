@@ -189,7 +189,6 @@
     <string name="permissions_denied">Permesso negato.</string>
     <string name="permission_external_storage_denied">Permesso per accedere alla memoria esterna negato.</string>
     <string name="support_development">Supporta lo sviluppo</string>
-    <string name="buy_pro">Acquista Vinyl Music Player Pro</string>
     <string name="thank_you">Grazie!</string>
     <string name="restored_previous_purchase_please_restart">Ripristinato l\'acquisto precedente. Riavvia l\'app per utilizzare tutte le funzionalità.</string>
     <string name="version">Versione</string>
@@ -207,8 +206,6 @@
     <string name="translate_summary">Aiuta a tradurre Vinyl Music Player nella tua lingua.</string>
     <string name="rate_on_google_play">Valuta</string>
     <string name="rate_on_google_play_summary">Lascia una valutazione positiva su Google Play se ti piace Vinyl Music Player.</string>
-    <string name="donate">Dona</string>
-    <string name="donate_summary">"Se credi che mi meriti di essere pagato per il mio lavoro, puoi donare qui. "</string>
     <string name="aidan_follestad_summary">Per il theme engine e altre cose fantastiche.</string>
     <string name="michael_cook_summary">Per la bella icona in stile material.</string>
     <string name="maarten_corpel_summary">Per aver realizzato l\'illustrazione nel Play Store e la copertina album vuota.</string>
@@ -266,14 +263,10 @@
     <string name="playing_notification_description">La notifica di riproduzione offre azioni per play/pausa ecc.</string>
     <string name="playing_notification_name">Notifica di riproduzione</string>
     <string name="only_the_first_5_colors_available">Solo i primi cinque colori sono disponibili nella versione gratuita.</string>
-    <string name="black_theme_is_a_pro_feature">Il tema scuro è una funzionalità di Vinyl Music Player Pro.</string>
-    <string name="sleep_timer_is_a_pro_feature">Il timer di spegnimento è una funzionalità di Vinyl Music Player Pro.</string>
-    <string name="folder_view_is_a_pro_feature">La visualizzazione delle cartelle è una funzionalità di Vinyl Music Player Pro.</string>
     <string name="restoring_purchase">Ripristinando l\'acquisto...</string>
     <string name="could_not_restore_purchase">Impossibile ripristinare l\'acquisto.</string>
     <string name="purchase">Acquista</string>
     <string name="restore">Ripristina</string>
-    <string name="no_purchase_found">Nessun acquisto trovato.</string>
     <string name="eugene_cheung_summary">Per il suo contributo al codice sorgente.</string>
     <string name="add_action">Aggiungi</string>
     <string name="blacklist">Lista nera</string>

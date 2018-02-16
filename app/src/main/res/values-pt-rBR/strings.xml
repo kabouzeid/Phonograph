@@ -189,7 +189,6 @@
     <string name="permissions_denied">Permissões negadas.</string>
     <string name="permission_external_storage_denied">Permissão para acessar armazenamento externo negado.</string>
     <string name="support_development">Apoiar o desenvolvimento</string>
-    <string name="buy_pro">Habilitar versão Pro do Vinyl Music Player</string>
     <string name="thank_you">Obrigado!</string>
     <string name="restored_previous_purchase_please_restart">Restituídas compras anteriores. Por favor, reinicie o aplicativo pra usufruir dos novos recursos.</string>
     <string name="version">Versão</string>
@@ -207,8 +206,6 @@
     <string name="translate_summary">Ajude a traduzir o Vinyl Music Player para sua língua nativa.</string>
     <string name="rate_on_google_play">Nota</string>
     <string name="rate_on_google_play_summary">Dê uma nota positiva no Google Play se você gosta do Vinyl Music Player.</string>
-    <string name="donate">Doar</string>
-    <string name="donate_summary">Se você acha que eu mereço ser pago pelo meu trabalho, pode me deixar algum dinheiro aqui.</string>
     <string name="aidan_follestad_summary">Pelo mecanismo de temas e algumas outras coisas ótimas.</string>
     <string name="michael_cook_summary">Pelo lindo ícone material-design do app.</string>
     <string name="maarten_corpel_summary">Por fazer a ilustração da Play Store e a imagem dos álbuns vazios.</string>
@@ -265,14 +262,10 @@
     <string name="playing_notification_description">A notificação de reprodução fornece opções de pausar/continuar etc.</string>
     <string name="playing_notification_name">Notificação de reprodução</string>
     <string name="only_the_first_5_colors_available">Apenas as primeiras 5 cores estão disponíveis na versão grátis.</string>
-    <string name="black_theme_is_a_pro_feature">O tema escuro é um recurso da versão Pro do Vinyl Music Player.</string>
-    <string name="sleep_timer_is_a_pro_feature">Temporizador de soneca é um recurso da versão Pro do Vinyl Music Player</string>
-    <string name="folder_view_is_a_pro_feature">Visualização de pastas é um recurso da versão Pro do Vinyl Music Player.</string>
     <string name="restoring_purchase">Restituindo compra...</string>
     <string name="could_not_restore_purchase">Não foi possível restituir a compra.</string>
     <string name="purchase">Comprar</string>
     <string name="restore">Restituir</string>
-    <string name="no_purchase_found">Nenhuma compra feita.</string>
     <string name="eugene_cheung_summary">Pela sua contribuição com o código-fonte.</string>
     <string name="add_action">Adicionar</string>
     <string name="blacklist">Lista Negra</string>

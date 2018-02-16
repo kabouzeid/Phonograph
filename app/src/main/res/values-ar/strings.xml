@@ -172,8 +172,6 @@
     <string name="translate_summary">ساعدنا في ترجمة Vinyl Music Player إلى لغتك الأم</string>
     <string name="rate_on_google_play">قيّم</string>
     <string name="rate_on_google_play_summary">اترك تقييماً إيجابياً في متجر جوجل بلاي إذا أعجبك التطبيق.</string>
-    <string name="donate">تبرع لنا</string>
-    <string name="donate_summary">إذا كنت ترى أنني أستحق أن أحصل على جزاء مقابل عملي، يمكنك أن تكافئني ببضعة دولارات هنا.</string>
     <string name="aidan_follestad_summary">من أجل محرك السمات وميزات جميلة أخرى</string>
     <string name="michael_cook_summary">من أجل شعار التطبيق المطابق لفلسفة ماتيريال ديزاين</string>
     <string name="maarten_corpel_summary">من أجل وضع توضيحات البرنامج المتواجدة على المتجر وأيضاً صورة الألبوم الإفتراضية</string>

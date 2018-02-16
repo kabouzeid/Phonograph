@@ -183,7 +183,6 @@
     <string name="permissions_denied">未能获取权限。</string>
     <string name="permission_external_storage_denied">访问外部存储权限被拒绝。</string>
     <string name="support_development">支持开发者</string>
-    <string name="buy_pro">购买 Vinyl Music Player Pro</string>
     <string name="thank_you">非常感谢您！</string>
     <string name="restored_previous_purchase_please_restart">已恢复购买状态。请重启应用以使用所有功能。</string>
     <string name="version">版本</string>
@@ -201,8 +200,6 @@
     <string name="translate_summary">帮助翻译 Vinyl Music Player 。</string>
     <string name="rate_on_google_play">评分</string>
     <string name="rate_on_google_play_summary">如果喜欢 Vinyl Music Player 请在 Play Store 中留下您的好评。</string>
-    <string name="donate">捐赠</string>
-    <string name="donate_summary">如果您喜欢我的作品，也可以在这里来选择捐赠我。</string>
     <string name="aidan_follestad_summary">主题引擎以及其他一些优秀功能。</string>
     <string name="michael_cook_summary">精致的质感设计图标。</string>
     <string name="maarten_corpel_summary">Play Store 标题图以及空专辑封面的设计方案。</string>
@@ -259,14 +256,10 @@
     <string name="playing_notification_description">正在播放通知提供了播放/暂停等便捷操作。</string>
     <string name="playing_notification_name">正在播放通知</string>
     <string name="only_the_first_5_colors_available">免费版仅能使用前 5 个主题色。</string>
-    <string name="black_theme_is_a_pro_feature">黑色主题仅适用于 Vinyl Music Player Pro。</string>
-    <string name="sleep_timer_is_a_pro_feature">睡眠计时器仅适用于 Vinyl Music Player Pro。</string>
-    <string name="folder_view_is_a_pro_feature">文件夹视图仅适用于 Vinyl Music Player Pro。</string>
     <string name="restoring_purchase">正在恢复购买状态...</string>
     <string name="could_not_restore_purchase">无法恢复购买状态</string>
     <string name="purchase">购买</string>
     <string name="restore">恢复</string>
-    <string name="no_purchase_found">未找到购买记录</string>
     <string name="eugene_cheung_summary">因他对源代码的贡献。</string>
     <string name="add_action">添加</string>
     <string name="blacklist">黑名单</string>

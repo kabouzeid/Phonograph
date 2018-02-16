@@ -189,7 +189,6 @@
     <string name="permissions_denied">İzinler reddedildi.</string>
     <string name="permission_external_storage_denied">Harici depolamaya erişim izin reddedildi.</string>
     <string name="support_development">Geliştirmeyi destekleyin</string>
-    <string name="buy_pro">Vinyl Music Player Pro\'yu Satın Alın</string>
     <string name="thank_you">Teşekkürler!</string>
     <string name="restored_previous_purchase_please_restart">Önceki satın alma geri yüklendi. Tüm özellikleri kullanabilmek için lütfen uygulamayı tekrar başlatın.</string>
     <string name="version">Sürüm</string>
@@ -207,8 +206,6 @@
     <string name="translate_summary">Vinyl Music Player\'ı kendi dilinize çevirmek için yardımcı olun.</string>
     <string name="rate_on_google_play">Oy ver</string>
     <string name="rate_on_google_play_summary">Eğer Vinyl Music Player\'ı beğendiyseniz Google Play\'de olumlu oy verin.</string>
-    <string name="donate">Bağış yapın</string>
-    <string name="donate_summary">Eğer çalışmalarım için bana bağışta bulunmak istiyorsanız, buradan birkaç lira bırakabilirsiniz.</string>
     <string name="aidan_follestad_summary">Tema motoru ve diğer muhteşem özellikler için.</string>
     <string name="michael_cook_summary">Güzel materyal uygulama simgesi için.</string>
     <string name="maarten_corpel_summary">Play Store ve boş albüm kapağı düzenlemeleri için.</string>
@@ -265,14 +262,10 @@
     <string name="playing_notification_description">Çalma bildirimi, başlat/duraklat vb. işlemleri sağlar</string>
     <string name="playing_notification_name">Çalma bildirimi</string>
     <string name="only_the_first_5_colors_available">Ücretsiz sürümde sadece ilk 5 renk mevcuttur.</string>
-    <string name="black_theme_is_a_pro_feature">Siyah tema, Vinyl Music Player Pro özelliğidir.</string>
-    <string name="sleep_timer_is_a_pro_feature">Uyku zamanlayıcı bir Vinyl Music Player Pro özelliğidir.</string>
-    <string name="folder_view_is_a_pro_feature">Klasör görünümü bir Vinyl Music Player Pro özelliğidir.</string>
     <string name="restoring_purchase">Satın alma geri yükleniyor...</string>
     <string name="could_not_restore_purchase">Satın alma geri yüklenemedi.</string>
     <string name="purchase">Satın Al</string>
     <string name="restore">Geri yükle</string>
-    <string name="no_purchase_found">Satın alma bulunamadı.</string>
     <string name="eugene_cheung_summary">Kaynak koda yaptığı katkılardan dolayı.</string>
     <string name="add_action">Ekle</string>
     <string name="blacklist">Kara liste</string>

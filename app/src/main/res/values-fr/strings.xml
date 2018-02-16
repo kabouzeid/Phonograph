@@ -189,7 +189,6 @@
     <string name="permissions_denied">Autorisation refusée.</string>
     <string name="permission_external_storage_denied">Accès au stockage externe refusé.</string>
     <string name="support_development">Faire un don</string>
-    <string name="buy_pro">Achetez Vinyl Music Player Pro</string>
     <string name="thank_you">Merci !</string>
     <string name="restored_previous_purchase_please_restart">Achats précédents restaurés. Veuillez redémarrer l\'application pour débloquer toutes les fonctionnalités</string>
     <string name="version">Version</string>
@@ -207,8 +206,6 @@
     <string name="translate_summary">Aidez à traduire Vinyl Music Player dans votre langue maternelle.</string>
     <string name="rate_on_google_play">Évaluer</string>
     <string name="rate_on_google_play_summary">Laissez une note positive sur le Play Store si vous aimez Vinyl Music Player.</string>
-    <string name="donate">Faire un don</string>
-    <string name="donate_summary">Si vous pensez que je mérite d\'être payé pour mon travail, vous pouvez me laisser quelques euros ici.</string>
     <string name="aidan_follestad_summary">Pour le moteur de thème et quelques autres trucs formidables.</string>
     <string name="michael_cook_summary">Pour la jolie icône de l\'application material design.</string>
     <string name="maarten_corpel_summary">Pour avoir réalisé l\'illustration du Play Store ainsi que la pochette de l\'album vide.</string>
@@ -264,12 +261,10 @@
     <string name="playlist_is_empty">La liste de lecture est vide</string>
     <string name="playing_notification_description">La notification de lecture fournit des actions pour la lecture/pause etc.</string>
     <string name="playing_notification_name">Notification de lecture</string>
-    <string name="black_theme_is_a_pro_feature">Le thème noir est une fonctionnalité Vinyl Music Player Pro</string>
     <string name="restoring_purchase">Restauration des achats...</string>
     <string name="could_not_restore_purchase">Impossible de restaurer les achats</string>
     <string name="purchase">Acheter</string>
     <string name="restore">Restaurer</string>
-    <string name="no_purchase_found">Aucun achat trouvé.</string>
     <string name="eugene_cheung_summary">Pour ses contributions au code source</string>
     <string name="add_action">Ajouter</string>
     <string name="blacklist">Liste noire</string>

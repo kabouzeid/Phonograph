@@ -190,7 +190,6 @@
     <string name="permissions_denied">存取被拒</string>
     <string name="permission_external_storage_denied">無法取得存取外部儲存空間的權限。</string>
     <string name="support_development">支援開發</string>
-    <string name="buy_pro">購買 Phonograph Pro</string>
     <string name="thank_you">感謝您！</string>
     <string name="restored_previous_purchase_please_restart">恢復購買成功。請重啟應用以使用完整功能。</string>
     <string name="version">版本</string>
@@ -208,8 +207,6 @@
     <string name="translate_summary">幫助我們將這款 App 翻譯成您的語言</string>
     <string name="rate_on_google_play">評分</string>
     <string name="rate_on_google_play_summary">如果您喜歡 Vinyl Music Player，在 Play商店給個好評吧 ！</string>
-    <string name="donate">捐助我們</string>
-    <string name="donate_summary">如果您認為我的努力值得回報，請用您的零用錢讚賞我一下。</string>
     <string name="aidan_follestad_summary">製作主題引擎及其他超棒的東西</string>
     <string name="michael_cook_summary">繪製美麗的程式圖標</string>
     <string name="maarten_corpel_summary">為沒有專輯封面的歌曲繪製圖片與製作 Play 商店上的插圖</string>
@@ -265,14 +262,10 @@
     <string name="playing_notification_description">播放中通知提供了播放/暫停等操作</string>
     <string name="playing_notification_name">播放中通知</string>
     <string name="only_the_first_5_colors_available">免費版僅能使用前 5 個顏色</string>
-    <string name="black_theme_is_a_pro_feature">黑色主題僅供 Phonograph Pro 使用</string>
-    <string name="sleep_timer_is_a_pro_feature">睡眠定時器僅供 Phonograph Pro 使用</string>
-    <string name="folder_view_is_a_pro_feature">文件夾檢視僅供 Phonograph Pro 使用</string>
     <string name="restoring_purchase">恢復購買中...</string>
     <string name="could_not_restore_purchase">恢復購買失敗</string>
     <string name="purchase">購買</string>
     <string name="restore">恢復</string>
-    <string name="no_purchase_found">找不到購買紀錄</string>
     <string name="eugene_cheung_summary">原始碼貢獻者</string>
     <string name="add_action">新增</string>
     <string name="blacklist">黑名單</string>

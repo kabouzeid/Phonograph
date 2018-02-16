@@ -183,7 +183,6 @@
     <string name="permissions_denied">Odmówiono zezwolenia</string>
     <string name="permission_external_storage_denied">Pozwolenie na dostęp do pamięci zewnętrznej odrzucone</string>
     <string name="support_development">Wspomóż rozwój</string>
-    <string name="buy_pro">Kup wersję Pro</string>
     <string name="thank_you">Dziękuję!</string>
     <string name="restored_previous_purchase_please_restart">Przywrócono poprzedni zakup. Zrestartuj aplikację aby użyć wszystkich funkcji.</string>
     <string name="version">Wersja</string>
@@ -201,8 +200,6 @@
     <string name="translate_summary">Pomóż przetłumaczyć Vinyl Music Player na Twój ojczysty język</string>
     <string name="rate_on_google_play">Oceń</string>
     <string name="rate_on_google_play_summary">Jeśli polubiłeś/aś Vinyl Music Player, oceń go pozytywnie w sklepie Google Play</string>
-    <string name="donate">Wsparcie finansowe</string>
-    <string name="donate_summary">Jeśli uważasz, że odwaliłem kawał dobrej roboty, to tu możesz mnie wesprzeć kilkoma złotymi</string>
     <string name="aidan_follestad_summary">Za mechanizm motywów i kilka innych, świetnych rzeczy</string>
     <string name="michael_cook_summary">Za piękną ikonę aplikacji</string>
     <string name="maarten_corpel_summary">Za zilustrowanie aplikacji w sklepie Google Play</string>
@@ -259,14 +256,10 @@
     <string name="playing_notification_description">Powiadomienie odtwarzania pozwala na zatrzymywanie/wznawianie itd.</string>
     <string name="playing_notification_name">Powiadomienie o odtwarzaniu</string>
     <string name="only_the_first_5_colors_available">Tylko 5 pierwszych kolorów jest dostępnych w darmowej wersji.</string>
-    <string name="black_theme_is_a_pro_feature">Czarny motyw jest funkcją Vinyl Music Player Pro.</string>
-    <string name="sleep_timer_is_a_pro_feature">Wyłączenie czasowe jest funkcją Vinyl Music Player Pro.</string>
-    <string name="folder_view_is_a_pro_feature">Widok folderów jest funkcją Vinyl Music Player Pro.</string>
     <string name="restoring_purchase">Przywracanie zakupu...</string>
     <string name="could_not_restore_purchase">Nie można przywrócić zakupu.</string>
     <string name="purchase">Zakup</string>
     <string name="restore">Przywróć</string>
-    <string name="no_purchase_found">Nie znaleziono zakupu.</string>
     <string name="eugene_cheung_summary">Za jego wkład w kod źródłowy.</string>
     <string name="add_action">Dodaj</string>
     <string name="blacklist">Czarna lista</string>

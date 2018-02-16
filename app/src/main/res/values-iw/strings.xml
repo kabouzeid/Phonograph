@@ -189,7 +189,6 @@
     <string name="permissions_denied">הרשאות נדחו.</string>
     <string name="permission_external_storage_denied">הרשאה לגישה לאחסון החיצוני נדחתה.</string>
     <string name="support_development">תמיכה בפיתוח</string>
-    <string name="buy_pro">קנה את Vinyl Music Player Pro</string>
     <string name="thank_you">תודה לכם!</string>
     <string name="restored_previous_purchase_please_restart">רכישה קודמת שוחזרה. אנא הפעל מחדש את האפליקציה כדי שתוכל להשתמש באפשרויות החדשות.</string>
     <string name="version">גרסה</string>
@@ -207,8 +206,6 @@
     <string name="translate_summary">עזור לתרגם את Vinyl Music Player לשפת האם שלך.</string>
     <string name="rate_on_google_play">דרג</string>
     <string name="rate_on_google_play_summary">השאר דירוג חיובי ב-Google Play אם אתה אוהב את Vinyl Music Player.</string>
-    <string name="donate">תרומה</string>
-    <string name="donate_summary">אם אתם חושבים שמגיע לי לקבל תשלום על עבודתי, אתם יכולים להשאיר לי כמה שקלים כאן.</string>
     <string name="aidan_follestad_summary">על מנוע ערכת הנושא, ועוד כמה דברים נחמדים.</string>
     <string name="michael_cook_summary">על סמל האפליקציה בסגנון Material.</string>
     <string name="maarten_corpel_summary">על יצירת האיור בחנות Play, ותמונת האלבום הריק.</string>
@@ -265,14 +262,10 @@
     <string name="playing_notification_description">התראת הניגון מספקת פעולות הפעלה/השהייה וכו\'.</string>
     <string name="playing_notification_name">התראת ניגון</string>
     <string name="only_the_first_5_colors_available">רק 5 הצבעים הראשונים זמינים בגרסה החינמית.</string>
-    <string name="black_theme_is_a_pro_feature">ערכת הנושא השחורה היא אפשרות הזמינה ב-Vinyl Music Player Pro בלבד.</string>
-    <string name="sleep_timer_is_a_pro_feature">טיימר לשינה הוא אפשרות הזמינה ב-Vinyl Music Player Pro בלבד.</string>
-    <string name="folder_view_is_a_pro_feature">תצוגת תיקיות היא אפשרות הזמינה ב-Vinyl Music Player Pro בלבד.</string>
     <string name="restoring_purchase">משחזר רכישה...</string>
     <string name="could_not_restore_purchase">לא ניתן לשחזר רכישה.</string>
     <string name="purchase">קנה</string>
     <string name="restore">שחזר</string>
-    <string name="no_purchase_found">לא נמצאה רכישה.</string>
     <string name="eugene_cheung_summary">על התרומה שלו לקוד המקור.</string>
     <string name="add_action">הוסף</string>
     <string name="blacklist">רשימה שחורה</string>

@@ -72,8 +72,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     LinearLayout visitWebsite;
     @BindView(R.id.report_bugs)
     LinearLayout reportBugs;
-    @BindView(R.id.join_google_plus_community)
-    LinearLayout joinGooglePlusCommunity;
     @BindView(R.id.rate_on_google_play)
     LinearLayout rateOnGooglePlay;
     @BindView(R.id.kabouzeid_google_plus)
@@ -136,7 +134,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
         visitWebsite.setOnClickListener(this);
         reportBugs.setOnClickListener(this);
         writeAnEmail.setOnClickListener(this);
-        joinGooglePlusCommunity.setOnClickListener(this);
         rateOnGooglePlay.setOnClickListener(this);
         aidanFollestadGooglePlus.setOnClickListener(this);
         aidanFollestadGitHub.setOnClickListener(this);
@@ -188,8 +185,6 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
             intent.putExtra(Intent.EXTRA_EMAIL, "adrien@poupa.fr");
             intent.putExtra(Intent.EXTRA_SUBJECT, "Vinyl Music Player");
             startActivity(Intent.createChooser(intent, "E-Mail"));
-        } else if (v == joinGooglePlusCommunity) {
-            openUrl(GOOGLE_PLUS_COMMUNITY);
         } else if (v == rateOnGooglePlay) {
             openUrl(RATE_ON_GOOGLE_PLAY);
         } else if (v == aidanFollestadGooglePlus) {

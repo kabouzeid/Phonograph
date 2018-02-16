@@ -179,7 +179,6 @@
     <string name="permissions_denied">"Oprávnění zamítnuta. "</string>
     <string name="permission_external_storage_denied">"Přístup k otevření externího úložiště zamítnut. "</string>
     <string name="support_development">Podpořte vývoj</string>
-    <string name="buy_pro">Zakoupit Vinyl Music Player Pro</string>
     <string name="thank_you">"Díky! "</string>
     <string name="version">Verze</string>
     <string name="author">Autor</string>
@@ -194,8 +193,6 @@
     <string name="translate_summary">"Pomozte nám přeložit Vinyl Music Player do vašeho mateřského jazyka. "</string>
     <string name="rate_on_google_play">Ohodnotit</string>
     <string name="rate_on_google_play_summary">Pokud máte Vinyl Music Player rádi, zanechte pozitivní hodnocení na Google Play.</string>
-    <string name="donate">"Přispět "</string>
-    <string name="donate_summary">Pokud si myslíte, že si za svou práci zasloužím dostat zaplaceno, tady mi můžete nechat pár korun.</string>
     <string name="aidan_follestad_summary">Za motivy a jiné další super věci.</string>
     <string name="michael_cook_summary">Za pěknou Material ikonu aplikace.</string>
     <string name="maarten_corpel_summary">"Za vytvoření ilustrace do Play Store a prázdného obalu alba. "</string>

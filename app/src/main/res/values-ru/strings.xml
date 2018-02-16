@@ -189,7 +189,6 @@
     <string name="permissions_denied">"В разрешениях отказано "</string>
     <string name="permission_external_storage_denied">В разрешении на доступ к внешнему хранилищу отказано.</string>
     <string name="support_development">Поддержать разработку</string>
-    <string name="buy_pro">Купить Vinyl Music Player Pro</string>
     <string name="thank_you">Спасибо!</string>
     <string name="restored_previous_purchase_please_restart">Восстановлена предыдущая покупка. Пожалуйста, перезагрузите приложение, чтобы использовать все функции.</string>
     <string name="version">Версия</string>
@@ -207,8 +206,6 @@
     <string name="translate_summary">Перевести на свой язык</string>
     <string name="rate_on_google_play">Оценить</string>
     <string name="rate_on_google_play_summary">Если Вам понравилось приложение, оставьте положительный отзыв в Google Play.</string>
-    <string name="donate">Пожертвовать</string>
-    <string name="donate_summary">Если Вы считаете, что я заслуживаю плату за свои труды, Вы можете отправить мне несколько долларов.</string>
     <string name="aidan_follestad_summary">За движок тем и другой клёвый функционал.</string>
     <string name="michael_cook_summary">За красивую иконку.</string>
     <string name="maarten_corpel_summary">За иллюстрации в Play Store и пустые обложки альбомов.</string>
@@ -265,14 +262,10 @@
     <string name="playing_notification_description">С помощью уведомления воспроизведения можно воспроизводить/ставить на паузу и т.д.</string>
     <string name="playing_notification_name">Уведомление воспроизведения</string>
     <string name="only_the_first_5_colors_available">Только первые 5 цветов доступны в бесплатной версии.</string>
-    <string name="black_theme_is_a_pro_feature">Темная тема это функция Vinyl Music Player Pro.</string>
-    <string name="sleep_timer_is_a_pro_feature">Таймер сна это функция Vinyl Music Player Pro.</string>
-    <string name="folder_view_is_a_pro_feature">Просмотр по папкам это функция Vinyl Music Player Pro.</string>
     <string name="restoring_purchase">Восстановление покупки...</string>
     <string name="could_not_restore_purchase">Невозможно восстановить покупку.</string>
     <string name="purchase">Покупка</string>
     <string name="restore">Восстановление</string>
-    <string name="no_purchase_found">Покупка не найдена</string>
     <string name="eugene_cheung_summary">За его вклад в исходный код.</string>
     <string name="add_action">Добавить</string>
     <string name="blacklist">Черный список</string>

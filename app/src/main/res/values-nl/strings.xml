@@ -189,7 +189,6 @@
     <string name="permissions_denied">Machtiging geweigerd.</string>
     <string name="permission_external_storage_denied">Toegang tot externe opslag geweigerd.</string>
     <string name="support_development">Ondersteun ontwikkeling</string>
-    <string name="buy_pro">Vinyl Music Player Pro kopen</string>
     <string name="thank_you">Dankjewel!</string>
     <string name="restored_previous_purchase_please_restart">Verleden aankoop hersteld. Gelieve de app te herstarten om alle functies te benutten.</string>
     <string name="version">Versie</string>
@@ -207,8 +206,6 @@
     <string name="translate_summary">Help Vinyl Music Player te vertalen naar jouw moedertaal.</string>
     <string name="rate_on_google_play">Beoordelen</string>
     <string name="rate_on_google_play_summary">Laat een positieve beoordeling achter op Google Play als je Vinyl Music Player leuk vindt.</string>
-    <string name="donate">Doneer</string>
-    <string name="donate_summary">Als je vindt dat ik het verdient heb, mag je mij hier een paar dollar achterlaten.</string>
     <string name="aidan_follestad_summary">Voor de themamogelijkheden en andere goede functies.</string>
     <string name="michael_cook_summary">Voor het mooie material app icoon.</string>
     <string name="maarten_corpel_summary">Voor het maken van de Play Store illustratie en de lege album hoes.</string>
@@ -265,14 +262,10 @@
     <string name="playing_notification_description">De afspeelmelding biedt acties voor afspelen/pauzeren etc.</string>
     <string name="playing_notification_name">Afspeelmelding</string>
     <string name="only_the_first_5_colors_available">Alleen de eerste 5 kleuren zijn beschikbaar in de gratis versie.</string>
-    <string name="black_theme_is_a_pro_feature">Het zwarte thema is een Vinyl Music Player Pro functie.</string>
-    <string name="sleep_timer_is_a_pro_feature">Slaaptimer is een Vinyl Music Player Pro functie.</string>
-    <string name="folder_view_is_a_pro_feature">Mappenweergave is een Vinyl Music Player Pro functie.</string>
     <string name="restoring_purchase">Aankoop herstellen…</string>
     <string name="could_not_restore_purchase">Kan aankoop niet herstellen.</string>
     <string name="purchase">Koop</string>
     <string name="restore">Herstel</string>
-    <string name="no_purchase_found">Geen aankoop gevonden.</string>
     <string name="eugene_cheung_summary">Voor zijn bijdragen aan de broncode.</string>
     <string name="add_action">Toevoegen</string>
     <string name="blacklist">Zwarte lijst</string>

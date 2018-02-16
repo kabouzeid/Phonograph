@@ -214,8 +214,6 @@
     <string name="translate_summary">Help translating Vinyl Music Player to your native language.</string>
     <string name="rate_on_google_play">Rate</string>
     <string name="rate_on_google_play_summary">Leave a positive rating on Google Play if you like Vinyl Music Player.</string>
-    <string name="donate">Donate</string>
-    <string name="donate_summary">If you think I deserve to get paid for my work, you can leave me a few dollars here.</string>
     <string name="aidan_follestad_summary">For the theme engine and some other great stuff.</string>
     <string name="karim_abou_zeid_summary">Original author.</string>
     <string name="michael_cook_summary">For the pretty material app icon.</string>
@@ -273,14 +271,10 @@
     <string name="playing_notification_description">The playing notification provides actions for play/pause etc.</string>
     <string name="playing_notification_name">Playing notification</string>
     <string name="only_the_first_5_colors_available">Only the first 5 colors are available in the free version.</string>
-    <string name="black_theme_is_a_pro_feature">The black theme is Vinyl Music Player Pro feature.</string>
-    <string name="sleep_timer_is_a_pro_feature">Sleep timer is a Vinyl Music Player Pro feature</string>
-    <string name="folder_view_is_a_pro_feature">Folder view is a Vinyl Music Player Pro feature.</string>
     <string name="restoring_purchase">Restoring purchase…</string>
     <string name="could_not_restore_purchase">Could not restore purchase.</string>
     <string name="purchase">Purchase</string>
     <string name="restore">Restore</string>
-    <string name="no_purchase_found">No purchase found.</string>
     <string name="eugene_cheung_summary">For his contributions to the source code.</string>
     <string name="add_action">Add</string>
     <string name="blacklist">Blacklist</string>

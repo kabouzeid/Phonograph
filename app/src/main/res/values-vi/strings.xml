@@ -182,7 +182,6 @@
     <string name="permissions_denied">Quyền hạn bị từ chối.</string>
     <string name="permission_external_storage_denied">Quyền truy cập lưu trữ bên ngoài bị từ chối.</string>
     <string name="support_development">Hỗ trợ phát triển</string>
-    <string name="buy_pro">Mua Vinyl Music Player Pro</string>
     <string name="thank_you">Cảm ơn!</string>
     <string name="restored_previous_purchase_please_restart">Khôi phục mua trước đó. Vui lòng khởi động lại ứng dụng để sử dụng tất cả các tính năng.</string>
     <string name="version">Phiên bản</string>
@@ -200,8 +199,6 @@
     <string name="translate_summary">Hỗ trợ dịch Vinyl Music Player sang ngôn ngữ của bạn.</string>
     <string name="rate_on_google_play">Đánh giá</string>
     <string name="rate_on_google_play_summary">Hãy để lại một đánh giá tốt trên Google Play nếu bạn thích Vinyl Music Player.</string>
-    <string name="donate">Hỗ trợ</string>
-    <string name="donate_summary">Nếu bạn nghĩ rằng tôi xứng đáng để được trả tiền cho công việc của tôi, bạn có thể để lại cho tôi một vài đô la ở đây.</string>
     <string name="aidan_follestad_summary">Bộ máy chủ đề và một vài thứ tuyệt vời khác.</string>
     <string name="michael_cook_summary">Biểu tượng Material cho ứng dụng.</string>
     <string name="maarten_corpel_summary">Ảnh minh họa trên Play Store và ảnh bìa album rỗng.</string>
@@ -258,14 +255,10 @@
     <string name="playing_notification_description">Thông báo đang phát cung cấp các hành động để phát / tạm dừng vv.</string>
     <string name="playing_notification_name">Thông báo đang phát</string>
     <string name="only_the_first_5_colors_available">Chỉ 5 màu đầu tiên có trong phiên bản miễn phí.</string>
-    <string name="black_theme_is_a_pro_feature">Chủ đề màu đen là tính năng của Vinyl Music Player Pro.</string>
-    <string name="sleep_timer_is_a_pro_feature">Hẹn giờ ngủ là một tính năng của Vinyl Music Player Pro</string>
-    <string name="folder_view_is_a_pro_feature">Xem thư mục là một tính năng của Vinyl Music Player Pro.</string>
     <string name="restoring_purchase">Đang khôi phục mua hàng...</string>
     <string name="could_not_restore_purchase">Không thể khôi phục mua hàng.</string>
     <string name="purchase">Mua hàng</string>
     <string name="restore">Khôi phục</string>
-    <string name="no_purchase_found">Không tìm thấy hàng mua.</string>
     <string name="eugene_cheung_summary">Đối với đóng góp cho mã nguồn.</string>
     <string name="add_action">Thêm</string>
     <string name="blacklist">Danh sách đen</string>

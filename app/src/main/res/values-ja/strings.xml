@@ -183,7 +183,6 @@
     <string name="permissions_denied">権限が拒否されました</string>
     <string name="permission_external_storage_denied">内部ストレージへのアクセス権限が拒否されました</string>
     <string name="support_development">開発を支援</string>
-    <string name="buy_pro">Vinyl Music Player Proを購入する</string>
     <string name="thank_you">ありがとう！</string>
     <string name="restored_previous_purchase_please_restart">過去の購入を復元しました。すべての機能を使用するには、アプリを再起動してください。</string>
     <string name="version">バージョン</string>
@@ -201,8 +200,6 @@
     <string name="translate_summary">Vinyl Music Playerをあなたのネイティブ言語に対応させましょう。</string>
     <string name="rate_on_google_play">評価</string>
     <string name="rate_on_google_play_summary">Vinyl Music Playerを気に入っていただけましたか？Google Playに高評価をお願いします。</string>
-    <string name="donate">寄付</string>
-    <string name="donate_summary">私の仕事に対し対価が支払われるべきだと思いましたか？あなたは私に数ドルを寄付することができます。</string>
     <string name="aidan_follestad_summary">テーマエンジンやその他のグレートな働き。</string>
     <string name="michael_cook_summary">最高なマテリアルデザインのアイコン。</string>
     <string name="maarten_corpel_summary">Play Storeのイラストや空のアルバムのカバーの作成。</string>
@@ -259,14 +256,10 @@
     <string name="playing_notification_description">再生の通知は再生/一時停止などを提供します。</string>
     <string name="playing_notification_name">再生中の通知</string>
     <string name="only_the_first_5_colors_available">無料版では5色のみ利用可能です。</string>
-    <string name="black_theme_is_a_pro_feature">黒テーマはVinyl Music Player Proの機能です。</string>
-    <string name="sleep_timer_is_a_pro_feature">スリープ タイマーはVinyl Music Player Proの機能です。</string>
-    <string name="folder_view_is_a_pro_feature">フォルダー ビューはVinyl Music Player Proの機能です。</string>
     <string name="restoring_purchase">購入を復元中…</string>
     <string name="could_not_restore_purchase">購入情報を復元できませんでした。</string>
     <string name="purchase">購入</string>
     <string name="restore">復元</string>
-    <string name="no_purchase_found">購入履歴がありませんでした。</string>
     <string name="eugene_cheung_summary">ソースコードへの貢献。</string>
     <string name="add_action">追加</string>
     <string name="blacklist">ブラックリスト</string>
