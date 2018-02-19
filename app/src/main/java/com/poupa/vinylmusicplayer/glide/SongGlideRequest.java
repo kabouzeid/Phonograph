@@ -22,6 +22,7 @@ import com.poupa.vinylmusicplayer.R;
 import com.poupa.vinylmusicplayer.glide.audiocover.AudioFileCover;
 import com.poupa.vinylmusicplayer.glide.palette.BitmapPaletteWrapper;
 import com.poupa.vinylmusicplayer.model.Song;
+import com.poupa.vinylmusicplayer.service.MusicService;
 import com.poupa.vinylmusicplayer.util.MusicUtil;
 import com.poupa.vinylmusicplayer.util.PreferenceUtil;
 
@@ -138,28 +139,7 @@ public class SongGlideRequest {
         if (ignoreMediaStore) {
             return requestManager.as(BitmapPaletteWrapper.class).load(new AudioFileCover(song.data));
         } else {
-            return requestManager.as(BitmapPaletteWrapper.class).load(MusicUtil.getMediaStoreAlbumCoverUri(song.albumId)).listener(new RequestListener() {
-                @Override
-                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target target, boolean isFirstResource) {
-                    // Log the GlideException here (locally or with a remote logging framework):
-                    Log.e("Glide", "Load failed SongGlideRequest createBaseRequestBitmapPaletteWrapper else, " +
-                            "trying to load:"+MusicUtil.getMediaStoreAlbumCoverUri(song.albumId), e);
-
-                    // You can also log the individual causes:
-                    for (Throwable t : e.getRootCauses()) {
-                        Log.e("Glide", "Caused by SongGlideRequest createBaseRequestBitmapPaletteWrapper else", t);
-                    }
-                    // Or, to log all root causes locally, you can use the built in helper method:
-                    e.logRootCauses("Glide");
-
-                    return false; // Allow calling onLoadFailed on the Target.
-                }
-
-                @Override
-                public boolean onResourceReady(Object resource, Object model, Target target, DataSource dataSource, boolean isFirstResource) {
-                    return false;
-                }
-            });
+            return requestManager.as(BitmapPaletteWrapper.class).load(MusicUtil.getMediaStoreAlbumCoverUri(song.albumId));
         }
     }
 

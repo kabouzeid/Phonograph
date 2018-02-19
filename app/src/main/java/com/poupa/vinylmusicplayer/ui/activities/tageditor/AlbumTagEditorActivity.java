@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bumptech.glide.GenericTransitionOptions;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
@@ -116,7 +117,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
                                 .apply(new RequestOptions()
                                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                                         .error(R.drawable.default_album_art))
-                                //.transcode(new BitmapPaletteTranscoder(AlbumTagEditorActivity.this), BitmapPaletteWrapper.class)
+                                .transition(new GenericTransitionOptions<BitmapPaletteWrapper>().transition(android.R.anim.fade_in))
                                 .into(new SimpleTarget<BitmapPaletteWrapper>() {
                                     @Override
                                     public void onLoadFailed(@Nullable Drawable errorDrawable) {
@@ -196,7 +197,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
         Glide.with(AlbumTagEditorActivity.this)
                 .as(BitmapPaletteWrapper.class)
                 .load(selectedFileUri)
-                //.transcode(new BitmapPaletteTranscoder(AlbumTagEditorActivity.this), BitmapPaletteWrapper.class)
+                .transition(new GenericTransitionOptions<BitmapPaletteWrapper>().transition(android.R.anim.fade_in))
                 .apply(new RequestOptions()
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .skipMemoryCache(true))

@@ -159,6 +159,6 @@ public class BlurTransformation extends BitmapTransformation {
 
     @Override
     public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
-
+        messageDigest.update(("BlurTransformation(radius=" + blurRadius + ", sampling=" + sampling + ")").getBytes(CHARSET));
     }
 }

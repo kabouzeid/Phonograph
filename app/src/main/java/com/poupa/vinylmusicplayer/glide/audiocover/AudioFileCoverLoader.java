@@ -6,6 +6,7 @@ import com.bumptech.glide.load.Options;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
+import com.bumptech.glide.signature.ObjectKey;
 
 import java.io.InputStream;
 
@@ -18,7 +19,7 @@ public class AudioFileCoverLoader implements ModelLoader<AudioFileCover, InputSt
     @Override
     public LoadData<InputStream> buildLoadData(@NonNull AudioFileCover model, int width, int height,
                                                @NonNull Options options) {
-        return new LoadData<>(model, new AudioFileCoverFetcher(model));
+        return new LoadData<>(new ObjectKey(model.filePath), new AudioFileCoverFetcher(model));
     }
 
     @Override

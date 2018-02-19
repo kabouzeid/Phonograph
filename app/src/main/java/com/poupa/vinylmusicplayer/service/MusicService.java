@@ -586,7 +586,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                     .checkIgnoreMediaStore(MusicService.this)
                     .asBitmap().build();
             if (PreferenceUtil.getInstance(this).blurredAlbumArt()) {
-                //request.transform(); // TODO Glide
+                //request.transform(new BlurTransformation.Builder(MusicService.this) // TODO Glide
             }
             runOnUiThread(new Runnable() {
                 @Override

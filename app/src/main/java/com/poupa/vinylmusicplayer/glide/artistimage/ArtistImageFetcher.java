@@ -2,8 +2,10 @@ package com.poupa.vinylmusicplayer.glide.artistimage;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.bumptech.glide.Priority;
+import com.bumptech.glide.integration.okhttp3.OkHttpStreamFetcher;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.data.DataFetcher;
 import com.bumptech.glide.load.model.GlideUrl;
@@ -18,6 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
+import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
@@ -28,19 +33,16 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
     private Context context;
     private final LastFMRestClient lastFMRestClient;
     private final ArtistImage model;
-    private ModelLoader<GlideUrl, InputStream> urlLoader;
-    private final int width;
-    private final int height;
     private volatile boolean isCancelled;
-    private DataFetcher<InputStream> urlFetcher;
+    private Call<LastFmArtist> call;
+    private OkHttpClient okhttp;
+    private OkHttpStreamFetcher streamFetcher;
 
-    public ArtistImageFetcher(Context context, LastFMRestClient lastFMRestClient, ArtistImage model, ModelLoader<GlideUrl, InputStream> urlLoader, int width, int height) {
+    public ArtistImageFetcher(Context context, LastFMRestClient lastFMRestClient, OkHttpClient okhttp, ArtistImage model) {
         this.context = context;
         this.lastFMRestClient = lastFMRestClient;
         this.model = model;
-        this.urlLoader = urlLoader;
-        this.width = width;
-        this.height = height;
+        this.okhttp = okhttp;
     }
 
     @NonNull
@@ -52,60 +54,63 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
     @NonNull
     @Override
     public DataSource getDataSource() {
-        return DataSource.LOCAL;
+        return DataSource.REMOTE;
     }
 
     @Override
     public void loadData(@NonNull Priority priority, @NonNull DataCallback<? super InputStream> callback) {
-        if (!MusicUtil.isArtistNameUnknown(model.artistName) && Util.isAllowedToDownloadMetadata(context)) {
-            try {
-                Response<LastFmArtist> response = lastFMRestClient.getApiService().getArtistInfo(model.artistName, null, model.skipOkHttpCache ? "no-cache" : null).execute();
+        try {
+            if (!MusicUtil.isArtistNameUnknown(model.artistName) && Util.isAllowedToDownloadMetadata(context)) {
+                call = lastFMRestClient.getApiService().getArtistInfo(model.artistName, null, model.skipOkHttpCache ? "no-cache" : null);
+                call.enqueue(new Callback<LastFmArtist>() {
+                    @Override
+                    public void onResponse(@NonNull Call<LastFmArtist> call, @NonNull Response<LastFmArtist> response) {
+                        if (isCancelled) {
+                            callback.onDataReady(null);
+                            return;
+                        }
 
-                if (!response.isSuccessful()) {
-                    throw new IOException("Request failed with code: " + response.code());
-                }
+                        LastFmArtist lastFmArtist = response.body();
+                        if (lastFmArtist == null || lastFmArtist.getArtist() == null || lastFmArtist.getArtist().getImage() == null) {
+                            callback.onLoadFailed(new Exception("No artist image url found"));
+                            return;
+                        }
 
-                LastFmArtist lastFmArtist = response.body();
+                        String url = LastFMUtil.getLargestArtistImageUrl(lastFmArtist.getArtist().getImage());
+                        if (TextUtils.isEmpty(url) || TextUtils.isEmpty(url.trim())) {
+                            callback.onLoadFailed(new Exception("No artist image url found"));
+                            return;
+                        }
 
-                if (isCancelled) return;
+                        streamFetcher = new OkHttpStreamFetcher(okhttp, new GlideUrl(url));
+                        streamFetcher.loadData(priority, callback);
+                    }
 
-                if (lastFmArtist != null) {
-                    URL urlH = new URL(LastFMUtil.getLargestArtistImageUrl(lastFmArtist.getArtist().getImage()));
-                    InputStream is = urlH.openStream();
+                    @Override
+                    public void onFailure(@NonNull Call<LastFmArtist> call, @NonNull Throwable throwable) {
+                        callback.onLoadFailed(new Exception(throwable));
+                    }
+                });
 
-                    callback.onDataReady(is);
 
-                    /*GlideUrl url = new GlideUrl(LastFMUtil.getLargestArtistImageUrl(lastFmArtist.getArtist().getImage()));
-
-                    //urlFetcher = urlLoader.getResourceFetcher(url, width, height);
-                    ModelLoader.LoadData<InputStream> modelLoader = urlLoader.buildLoadData(url, width, height, new Options());
-                    if (modelLoader != null) {
-                        urlFetcher = modelLoader.fetcher;
-
-                        // Here we want to get the InputStream urlFetcher.loadData(priority, callback) is returning
-                        urlFetcher.loadData(priority, callback);
-
-                        //callback.onDataReady(urlFetcher.loadData(priority, callback));
-                    }*/
-                }
-            } catch (IOException e) {
-                callback.onLoadFailed(e);
             }
+        } catch (Exception e) {
+            callback.onLoadFailed(e);
         }
     }
 
     @Override
     public void cleanup() {
-        if (urlFetcher != null) {
-            urlFetcher.cleanup();
+        if (streamFetcher != null) {
+            streamFetcher.cleanup();
         }
     }
 
     @Override
     public void cancel() {
         isCancelled = true;
-        if (urlFetcher != null) {
-            urlFetcher.cancel();
+        if (streamFetcher != null) {
+            streamFetcher.cancel();
         }
     }
 }

@@ -89,6 +89,10 @@ dependencies {
     implementation 'de.psdev.licensesdialog:licensesdialog:1.8.3'
     implementation 'com.github.bumptech.glide:glide:4.6.1'
     implementation 'com.github.bumptech.glide:okhttp3-integration:4.6.1'
+    implementation ("com.github.bumptech.glide:recyclerview-integration:4.6.1") {
+        // Excludes the support library because it's already included by Glide.
+        transitive = false
+    }
     implementation 'com.heinrichreimersoftware:material-intro:1.6.2'
     implementation 'me.zhanghai.android.materialprogressbar:library:1.4.2'
     implementation 'org.eclipse.mylyn.github:org.eclipse.egit.github.core:2.1.5'

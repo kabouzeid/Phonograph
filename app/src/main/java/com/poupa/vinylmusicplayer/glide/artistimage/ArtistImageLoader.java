@@ -9,6 +9,7 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
+import com.bumptech.glide.signature.ObjectKey;
 import com.poupa.vinylmusicplayer.lastfm.rest.LastFMRestClient;
 
 import java.io.InputStream;
@@ -26,18 +27,18 @@ public class ArtistImageLoader implements ModelLoader<ArtistImage, InputStream> 
 
     private Context context;
     private LastFMRestClient lastFMClient;
-    private ModelLoader<GlideUrl, InputStream> urlLoader;
+    private OkHttpClient okhttp;
 
-    public ArtistImageLoader(Context context, LastFMRestClient lastFMRestClient, ModelLoader<GlideUrl, InputStream> urlLoader) {
+    public ArtistImageLoader(Context context, LastFMRestClient lastFMRestClient, OkHttpClient okhttp) {
         this.context = context;
         this.lastFMClient = lastFMRestClient;
-        this.urlLoader = urlLoader;
+        this.okhttp = okhttp;
     }
 
     @Override
     public LoadData<InputStream> buildLoadData(@NonNull ArtistImage model, int width, int height,
                                                @NonNull Options options) {
-        return new LoadData<>(model, new ArtistImageFetcher(context, lastFMClient, model, urlLoader, width, height));
+        return new LoadData<>(new ObjectKey(model.artistName), new ArtistImageFetcher(context, lastFMClient, okhttp, model));
     }
 
     @Override
@@ -49,6 +50,7 @@ public class ArtistImageLoader implements ModelLoader<ArtistImage, InputStream> 
         private LastFMRestClient lastFMClient;
         private OkHttpUrlLoader.Factory okHttpFactory;
         private Context context;
+        private OkHttpClient okHttp;
 
         public Factory(Context context) {
             this.context = context;
@@ -67,7 +69,7 @@ public class ArtistImageLoader implements ModelLoader<ArtistImage, InputStream> 
         @Override
         @NonNull
         public ModelLoader<ArtistImage, InputStream> build(@NonNull MultiModelLoaderFactory multiFactory) {
-            return new ArtistImageLoader(context, lastFMClient, okHttpFactory.build(multiFactory));
+            return new ArtistImageLoader(context, lastFMClient, okHttp);
         }
 
         @Override

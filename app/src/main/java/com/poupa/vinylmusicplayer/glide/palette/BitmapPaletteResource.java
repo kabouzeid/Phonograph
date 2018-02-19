@@ -12,11 +12,9 @@ import com.bumptech.glide.util.Util;
 public class BitmapPaletteResource implements Resource<BitmapPaletteWrapper> {
 
     private final BitmapPaletteWrapper bitmapPaletteWrapper;
-    private final BitmapPool bitmapPool;
 
-    public BitmapPaletteResource(BitmapPaletteWrapper bitmapPaletteWrapper, BitmapPool bitmapPool) {
+    public BitmapPaletteResource(BitmapPaletteWrapper bitmapPaletteWrapper) {
         this.bitmapPaletteWrapper = bitmapPaletteWrapper;
-        this.bitmapPool = bitmapPool;
     }
 
     @NonNull
@@ -38,6 +36,6 @@ public class BitmapPaletteResource implements Resource<BitmapPaletteWrapper> {
 
     @Override
     public void recycle() {
-        bitmapPool.put(bitmapPaletteWrapper.getBitmap());
+        bitmapPaletteWrapper.getBitmap().recycle();
     }
 }
