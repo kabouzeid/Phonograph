@@ -24,6 +24,8 @@ import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
@@ -170,17 +172,16 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     private void loadAlbumCover() {
         SongGlideRequest.Builder.from(Glide.with(this), getAlbum().safeGetFirstSong())
                 .checkIgnoreMediaStore(this)
-                .generatePalette(this).build()
-                .dontAnimate()
-                .listener(new RequestListener<Object, BitmapPaletteWrapper>() {
+                .generatePalette(this).buildAsBitmapPaletteWrapperDontAnimate()
+                .listener(new RequestListener<BitmapPaletteWrapper>() {
                     @Override
-                    public boolean onException(Exception e, Object model, Target<BitmapPaletteWrapper> target, boolean isFirstResource) {
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<BitmapPaletteWrapper> target, boolean isFirstResource) {
                         supportStartPostponedEnterTransition();
                         return false;
                     }
 
                     @Override
-                    public boolean onResourceReady(BitmapPaletteWrapper resource, Object model, Target<BitmapPaletteWrapper> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                    public boolean onResourceReady(BitmapPaletteWrapper resource, Object model, Target<BitmapPaletteWrapper> target, DataSource dataSource, boolean isFirstResource) {
                         supportStartPostponedEnterTransition();
                         return false;
                     }

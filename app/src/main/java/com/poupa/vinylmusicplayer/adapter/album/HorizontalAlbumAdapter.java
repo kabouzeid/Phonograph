@@ -56,7 +56,7 @@ public class HorizontalAlbumAdapter extends AlbumAdapter {
 
         SongGlideRequest.Builder.from(Glide.with(activity), album.safeGetFirstSong())
                 .checkIgnoreMediaStore(activity)
-                .generatePalette(activity).build()
+                .generatePalette(activity).buildAsBitmapPaletteWrapper()
                 .into(new VinylMusicPlayerColoredTarget(holder.image) {
                     @Override
                     public void onLoadCleared(Drawable placeholder) {

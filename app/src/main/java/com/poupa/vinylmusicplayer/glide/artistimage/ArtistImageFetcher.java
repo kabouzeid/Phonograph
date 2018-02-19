@@ -1,8 +1,10 @@
 package com.poupa.vinylmusicplayer.glide.artistimage;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.data.DataFetcher;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.ModelLoader;
@@ -14,6 +16,7 @@ import com.poupa.vinylmusicplayer.util.Util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 
 import retrofit2.Response;
 
@@ -40,31 +43,55 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
         this.height = height;
     }
 
+    @NonNull
     @Override
-    public String getId() {
-        // makes sure we never ever return null here
-        return String.valueOf(model.artistName);
+    public Class<InputStream> getDataClass() {
+        return InputStream.class;
+    }
+
+    @NonNull
+    @Override
+    public DataSource getDataSource() {
+        return DataSource.LOCAL;
     }
 
     @Override
-    public InputStream loadData(Priority priority) throws Exception {
+    public void loadData(@NonNull Priority priority, @NonNull DataCallback<? super InputStream> callback) {
         if (!MusicUtil.isArtistNameUnknown(model.artistName) && Util.isAllowedToDownloadMetadata(context)) {
-            Response<LastFmArtist> response = lastFMRestClient.getApiService().getArtistInfo(model.artistName, null, model.skipOkHttpCache ? "no-cache" : null).execute();
+            try {
+                Response<LastFmArtist> response = lastFMRestClient.getApiService().getArtistInfo(model.artistName, null, model.skipOkHttpCache ? "no-cache" : null).execute();
 
-            if (!response.isSuccessful()) {
-                throw new IOException("Request failed with code: " + response.code());
+                if (!response.isSuccessful()) {
+                    throw new IOException("Request failed with code: " + response.code());
+                }
+
+                LastFmArtist lastFmArtist = response.body();
+
+                if (isCancelled) return;
+
+                if (lastFmArtist != null) {
+                    URL urlH = new URL(LastFMUtil.getLargestArtistImageUrl(lastFmArtist.getArtist().getImage()));
+                    InputStream is = urlH.openStream();
+
+                    callback.onDataReady(is);
+
+                    /*GlideUrl url = new GlideUrl(LastFMUtil.getLargestArtistImageUrl(lastFmArtist.getArtist().getImage()));
+
+                    //urlFetcher = urlLoader.getResourceFetcher(url, width, height);
+                    ModelLoader.LoadData<InputStream> modelLoader = urlLoader.buildLoadData(url, width, height, new Options());
+                    if (modelLoader != null) {
+                        urlFetcher = modelLoader.fetcher;
+
+                        // Here we want to get the InputStream urlFetcher.loadData(priority, callback) is returning
+                        urlFetcher.loadData(priority, callback);
+
+                        //callback.onDataReady(urlFetcher.loadData(priority, callback));
+                    }*/
+                }
+            } catch (IOException e) {
+                callback.onLoadFailed(e);
             }
-
-            LastFmArtist lastFmArtist = response.body();
-
-            if (isCancelled) return null;
-
-            GlideUrl url = new GlideUrl(LastFMUtil.getLargestArtistImageUrl(lastFmArtist.getArtist().getImage()));
-            urlFetcher = urlLoader.getResourceFetcher(url, width, height);
-
-            return urlFetcher.loadData(priority);
         }
-        return null;
     }
 
     @Override

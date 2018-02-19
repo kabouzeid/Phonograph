@@ -130,7 +130,7 @@ public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
         private void loadAlbumCover() {
             SongGlideRequest.Builder.from(Glide.with(this), song)
                     .checkIgnoreMediaStore(getActivity())
-                    .generatePalette(getActivity()).build()
+                    .generatePalette(getActivity()).buildAsBitmapPaletteWrapper()
                     .into(new VinylMusicPlayerColoredTarget(albumCover) {
                         @Override
                         public void onColorReady(int color) {

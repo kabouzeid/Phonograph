@@ -2,19 +2,24 @@ package com.poupa.vinylmusicplayer.glide;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Log;
 
-import com.bumptech.glide.BitmapRequestBuilder;
-import com.bumptech.glide.DrawableRequestBuilder;
-import com.bumptech.glide.DrawableTypeRequest;
+import com.bumptech.glide.GenericTransitionOptions;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.signature.MediaStoreSignature;
 import com.poupa.vinylmusicplayer.R;
 import com.poupa.vinylmusicplayer.glide.audiocover.AudioFileCover;
-import com.poupa.vinylmusicplayer.glide.palette.BitmapPaletteTranscoder;
 import com.poupa.vinylmusicplayer.glide.palette.BitmapPaletteWrapper;
 import com.poupa.vinylmusicplayer.model.Song;
 import com.poupa.vinylmusicplayer.util.MusicUtil;
@@ -60,13 +65,14 @@ public class SongGlideRequest {
             return this;
         }
 
-        public DrawableRequestBuilder<GlideDrawable> build() {
+        public RequestBuilder<Drawable> build() {
             //noinspection unchecked
-            return createBaseRequest(requestManager, song, ignoreMediaStore)
-                    .diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
-                    .error(DEFAULT_ERROR_IMAGE)
-                    .animate(DEFAULT_ANIMATION)
-                    .signature(createSignature(song));
+            return createBaseRequestDrawable(requestManager, song, ignoreMediaStore)
+                    .transition(GenericTransitionOptions.with(DEFAULT_ANIMATION))
+                    .apply(new RequestOptions()
+                            .diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
+                            .error(DEFAULT_ERROR_IMAGE)
+                            .signature(createSignature(song)));
         }
     }
 
@@ -77,14 +83,14 @@ public class SongGlideRequest {
             this.builder = builder;
         }
 
-        public BitmapRequestBuilder<?, Bitmap> build() {
+        public RequestBuilder<Bitmap> build() {
             //noinspection unchecked
-            return createBaseRequest(builder.requestManager, builder.song, builder.ignoreMediaStore)
-                    .asBitmap()
-                    .diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
-                    .error(DEFAULT_ERROR_IMAGE)
-                    .animate(DEFAULT_ANIMATION)
-                    .signature(createSignature(builder.song));
+            return createBaseRequestBitmap(builder.requestManager, builder.song, builder.ignoreMediaStore)
+                    .transition(GenericTransitionOptions.with(DEFAULT_ANIMATION))
+                    .apply(new RequestOptions()
+                            .diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
+                            .error(DEFAULT_ERROR_IMAGE)
+                            .signature(createSignature(builder.song)));
         }
     }
 
@@ -97,23 +103,71 @@ public class SongGlideRequest {
             this.context = context;
         }
 
-        public BitmapRequestBuilder<?, BitmapPaletteWrapper> build() {
+        public RequestBuilder<BitmapPaletteWrapper> buildAsBitmapPaletteWrapper() {
             //noinspection unchecked
-            return createBaseRequest(builder.requestManager, builder.song, builder.ignoreMediaStore)
-                    .asBitmap()
-                    .transcode(new BitmapPaletteTranscoder(context), BitmapPaletteWrapper.class)
-                    .diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
-                    .error(DEFAULT_ERROR_IMAGE)
-                    .animate(DEFAULT_ANIMATION)
-                    .signature(createSignature(builder.song));
+            return createBaseRequestBitmapPaletteWrapper(builder.requestManager, builder.song, builder.ignoreMediaStore)
+                    //.transition(GenericTransitionOptions.with(new BitmapPaletteTranscoder(context), BitmapPaletteWrapper.class))
+                    .apply(new RequestOptions()
+                            .diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
+                            .error(DEFAULT_ERROR_IMAGE)
+                            .centerCrop()
+                            .signature(createSignature(builder.song)));
+        }
+
+        public RequestBuilder<BitmapPaletteWrapper> buildAsBitmapPaletteWrapperDontAnimate() {
+            //noinspection unchecked
+            return createBaseRequestBitmapPaletteWrapper(builder.requestManager, builder.song, builder.ignoreMediaStore)
+                    //.transition(GenericTransitionOptions.with(new BitmapPaletteTranscoder(context), BitmapPaletteWrapper.class))
+                    .apply(new RequestOptions()
+                            .diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
+                            .error(DEFAULT_ERROR_IMAGE)
+                            .dontAnimate()
+                            .signature(createSignature(builder.song)));
         }
     }
 
-    public static DrawableTypeRequest createBaseRequest(RequestManager requestManager, Song song, boolean ignoreMediaStore) {
+    public static RequestBuilder<Bitmap> createBaseRequestBitmap(RequestManager requestManager, Song song, boolean ignoreMediaStore) {
+        if (ignoreMediaStore) {
+            return requestManager.asBitmap().load(new AudioFileCover(song.data));
+        } else {
+            return requestManager.asBitmap().load(MusicUtil.getMediaStoreAlbumCoverUri(song.albumId));
+        }
+    }
+
+    public static RequestBuilder<BitmapPaletteWrapper> createBaseRequestBitmapPaletteWrapper(RequestManager requestManager, Song song, boolean ignoreMediaStore) {
+        if (ignoreMediaStore) {
+            return requestManager.as(BitmapPaletteWrapper.class).load(new AudioFileCover(song.data));
+        } else {
+            return requestManager.as(BitmapPaletteWrapper.class).load(MusicUtil.getMediaStoreAlbumCoverUri(song.albumId)).listener(new RequestListener() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target target, boolean isFirstResource) {
+                    // Log the GlideException here (locally or with a remote logging framework):
+                    Log.e("Glide", "Load failed SongGlideRequest createBaseRequestBitmapPaletteWrapper else, " +
+                            "trying to load:"+MusicUtil.getMediaStoreAlbumCoverUri(song.albumId), e);
+
+                    // You can also log the individual causes:
+                    for (Throwable t : e.getRootCauses()) {
+                        Log.e("Glide", "Caused by SongGlideRequest createBaseRequestBitmapPaletteWrapper else", t);
+                    }
+                    // Or, to log all root causes locally, you can use the built in helper method:
+                    e.logRootCauses("Glide");
+
+                    return false; // Allow calling onLoadFailed on the Target.
+                }
+
+                @Override
+                public boolean onResourceReady(Object resource, Object model, Target target, DataSource dataSource, boolean isFirstResource) {
+                    return false;
+                }
+            });
+        }
+    }
+
+    public static RequestBuilder<Drawable> createBaseRequestDrawable(RequestManager requestManager, Song song, boolean ignoreMediaStore) {
         if (ignoreMediaStore) {
             return requestManager.load(new AudioFileCover(song.data));
         } else {
-            return requestManager.loadFromMediaStore(MusicUtil.getMediaStoreAlbumCoverUri(song.albumId));
+            return requestManager.load(MusicUtil.getMediaStoreAlbumCoverUri(song.albumId));
         }
     }
 

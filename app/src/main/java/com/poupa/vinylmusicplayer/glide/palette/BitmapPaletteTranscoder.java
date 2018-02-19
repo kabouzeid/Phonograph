@@ -2,8 +2,10 @@ package com.poupa.vinylmusicplayer.glide.palette;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.Options;
 import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.transcode.ResourceTranscoder;
@@ -21,14 +23,9 @@ public class BitmapPaletteTranscoder implements ResourceTranscoder<Bitmap, Bitma
     }
 
     @Override
-    public Resource<BitmapPaletteWrapper> transcode(Resource<Bitmap> bitmapResource) {
+    public Resource<BitmapPaletteWrapper> transcode(@NonNull Resource<Bitmap> bitmapResource, @NonNull Options options) {
         Bitmap bitmap = bitmapResource.get();
         BitmapPaletteWrapper bitmapPaletteWrapper = new BitmapPaletteWrapper(bitmap, VinylMusicPlayerColorUtil.generatePalette(bitmap));
         return new BitmapPaletteResource(bitmapPaletteWrapper, bitmapPool);
-    }
-
-    @Override
-    public String getId() {
-        return "BitmapPaletteTranscoder.com.poupa.vinylmusicplayer.glide.palette";
     }
 }

@@ -1,9 +1,11 @@
 package com.poupa.vinylmusicplayer.glide;
 
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
-import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.transition.Transition;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.poupa.vinylmusicplayer.R;
 import com.poupa.vinylmusicplayer.glide.palette.BitmapPaletteTarget;
@@ -16,13 +18,13 @@ public abstract class VinylMusicPlayerColoredTarget extends BitmapPaletteTarget 
     }
 
     @Override
-    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-        super.onLoadFailed(e, errorDrawable);
+    public void onLoadFailed(@Nullable Drawable errorDrawable) {
+        super.onLoadFailed(errorDrawable);
         onColorReady(getDefaultFooterColor());
     }
 
     @Override
-    public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
+    public void onResourceReady(@NonNull BitmapPaletteWrapper resource, Transition<? super BitmapPaletteWrapper> glideAnimation) {
         super.onResourceReady(resource, glideAnimation);
         onColorReady(VinylMusicPlayerColorUtil.getColor(resource.getPalette(), getDefaultFooterColor()));
     }
