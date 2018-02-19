@@ -2,16 +2,21 @@ package com.poupa.vinylmusicplayer.glide;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Log;
 
-import com.bumptech.glide.BitmapRequestBuilder;
-import com.bumptech.glide.DrawableRequestBuilder;
-import com.bumptech.glide.DrawableTypeRequest;
+import com.bumptech.glide.GenericTransitionOptions;
 import com.bumptech.glide.Priority;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.poupa.vinylmusicplayer.App;
 import com.poupa.vinylmusicplayer.R;
@@ -27,7 +32,7 @@ import com.poupa.vinylmusicplayer.util.CustomArtistImageUtil;
  */
 public class ArtistGlideRequest {
 
-    private static final DiskCacheStrategy DEFAULT_DISK_CACHE_STRATEGY = DiskCacheStrategy.SOURCE;
+    private static final DiskCacheStrategy DEFAULT_DISK_CACHE_STRATEGY = DiskCacheStrategy.RESOURCE;
     private static final int DEFAULT_ERROR_IMAGE = R.drawable.default_artist_image;
     public static final int DEFAULT_ANIMATION = android.R.anim.fade_in;
 
@@ -64,15 +69,16 @@ public class ArtistGlideRequest {
             return this;
         }
 
-        public DrawableRequestBuilder<GlideDrawable> build() {
+        public RequestBuilder<Drawable> build() {
             //noinspection unchecked
-            return createBaseRequest(requestManager, artist, noCustomImage, forceDownload)
-                    .diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
-                    .error(DEFAULT_ERROR_IMAGE)
-                    .animate(DEFAULT_ANIMATION)
-                    .priority(Priority.LOW)
-                    .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                    .signature(createSignature(artist));
+            return createBaseRequestDrawable(requestManager, artist, noCustomImage, forceDownload)
+                    .transition(GenericTransitionOptions.with(DEFAULT_ANIMATION))
+                    .apply(new RequestOptions()
+                            .diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
+                            .error(DEFAULT_ERROR_IMAGE)
+                            .priority(Priority.LOW)
+                            .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                            .signature(createSignature(artist)));
         }
     }
 
@@ -83,16 +89,16 @@ public class ArtistGlideRequest {
             this.builder = builder;
         }
 
-        public BitmapRequestBuilder<?, Bitmap> build() {
+        public RequestBuilder<Bitmap> build() {
             //noinspection unchecked
-            return createBaseRequest(builder.requestManager, builder.artist, builder.noCustomImage, builder.forceDownload)
-                    .asBitmap()
-                    .diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
-                    .error(DEFAULT_ERROR_IMAGE)
-                    .animate(DEFAULT_ANIMATION)
-                    .priority(Priority.LOW)
-                    .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                    .signature(createSignature(builder.artist));
+            return createBaseRequestBitmap(builder.requestManager, builder.artist, builder.noCustomImage, builder.forceDownload)
+                    .transition(GenericTransitionOptions.with(DEFAULT_ANIMATION))
+                    .apply(new RequestOptions()
+                            .diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
+                            .error(DEFAULT_ERROR_IMAGE)
+                            .priority(Priority.LOW)
+                            .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                            .signature(createSignature(builder.artist)));
         }
     }
 
@@ -105,21 +111,53 @@ public class ArtistGlideRequest {
             this.context = context;
         }
 
-        public BitmapRequestBuilder<?, BitmapPaletteWrapper> build() {
+        public RequestBuilder<BitmapPaletteWrapper> build() {
             //noinspection unchecked
-            return createBaseRequest(builder.requestManager, builder.artist, builder.noCustomImage, builder.forceDownload)
-                    .asBitmap()
-                    .transcode(new BitmapPaletteTranscoder(context), BitmapPaletteWrapper.class)
-                    .diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
-                    .error(DEFAULT_ERROR_IMAGE)
-                    .animate(DEFAULT_ANIMATION)
-                    .priority(Priority.LOW)
-                    .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                    .signature(createSignature(builder.artist));
+            return createBaseRequestBitmapPaletteWrapper(builder.requestManager, builder.artist, builder.noCustomImage, builder.forceDownload)
+                    .transition(GenericTransitionOptions.with(DEFAULT_ANIMATION))
+                    //.transition(GenericTransitionOptions.with(new BitmapPaletteTranscoder(context), BitmapPaletteWrapper.class))
+                    .apply(new RequestOptions()
+                            .diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
+                            .error(DEFAULT_ERROR_IMAGE)
+                            .priority(Priority.LOW)
+                            .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                            .signature(createSignature(builder.artist)));
+        }
+
+        public RequestBuilder<BitmapPaletteWrapper> buildDontAnimate() {
+            //noinspection unchecked
+            return createBaseRequestBitmapPaletteWrapper(builder.requestManager, builder.artist, builder.noCustomImage, builder.forceDownload)
+                    .transition(GenericTransitionOptions.with(DEFAULT_ANIMATION))
+                    //.transition(GenericTransitionOptions.with(new BitmapPaletteTranscoder(context), BitmapPaletteWrapper.class))
+                    .apply(new RequestOptions()
+                            .diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
+                            .error(DEFAULT_ERROR_IMAGE)
+                            .priority(Priority.LOW)
+                            .dontAnimate()
+                            .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                            .signature(createSignature(builder.artist)));
         }
     }
 
-    public static DrawableTypeRequest createBaseRequest(RequestManager requestManager, Artist artist, boolean noCustomImage, boolean forceDownload) {
+    public static RequestBuilder<Bitmap> createBaseRequestBitmap(RequestManager requestManager, Artist artist, boolean noCustomImage, boolean forceDownload) {
+        boolean hasCustomImage = CustomArtistImageUtil.getInstance(App.getInstance()).hasCustomArtistImage(artist);
+        if (noCustomImage || !hasCustomImage) {
+            return requestManager.asBitmap().load(new ArtistImage(artist.getName(), forceDownload));
+        } else {
+            return requestManager.asBitmap().load(CustomArtistImageUtil.getFile(artist));
+        }
+    }
+
+    public static RequestBuilder<BitmapPaletteWrapper> createBaseRequestBitmapPaletteWrapper(RequestManager requestManager, Artist artist, boolean noCustomImage, boolean forceDownload) {
+        boolean hasCustomImage = CustomArtistImageUtil.getInstance(App.getInstance()).hasCustomArtistImage(artist);
+        if (noCustomImage || !hasCustomImage) {
+            return requestManager.as(BitmapPaletteWrapper.class).load(new ArtistImage(artist.getName(), forceDownload));
+        } else {
+            return requestManager.as(BitmapPaletteWrapper.class).load(CustomArtistImageUtil.getFile(artist));
+        }
+    }
+
+    public static RequestBuilder<Drawable> createBaseRequestDrawable(RequestManager requestManager, Artist artist, boolean noCustomImage, boolean forceDownload) {
         boolean hasCustomImage = CustomArtistImageUtil.getInstance(App.getInstance()).hasCustomArtistImage(artist);
         if (noCustomImage || !hasCustomImage) {
             return requestManager.load(new ArtistImage(artist.getName(), forceDownload));

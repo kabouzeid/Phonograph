@@ -34,10 +34,10 @@ import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.widget.Toast;
 
-import com.bumptech.glide.BitmapRequestBuilder;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.poupa.vinylmusicplayer.R;
 import com.poupa.vinylmusicplayer.appwidgets.AppWidgetBig;
 import com.poupa.vinylmusicplayer.appwidgets.AppWidgetCard;
@@ -582,24 +582,24 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
         if (PreferenceUtil.getInstance(this).albumArtOnLockscreen()) {
             final Point screenSize = Util.getScreenSize(MusicService.this);
-            final BitmapRequestBuilder<?, Bitmap> request = SongGlideRequest.Builder.from(Glide.with(MusicService.this), song)
+            final RequestBuilder<Bitmap> request = SongGlideRequest.Builder.from(Glide.with(MusicService.this), song)
                     .checkIgnoreMediaStore(MusicService.this)
                     .asBitmap().build();
             if (PreferenceUtil.getInstance(this).blurredAlbumArt()) {
-                request.transform(new BlurTransformation.Builder(MusicService.this).build());
+                //request.transform(new BlurTransformation.Builder(MusicService.this) // TODO Glide
             }
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     request.into(new SimpleTarget<Bitmap>(screenSize.x, screenSize.y) {
                         @Override
-                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                            super.onLoadFailed(e, errorDrawable);
+                        public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                            super.onLoadFailed(errorDrawable);
                             mediaSession.setMetadata(metaData.build());
                         }
 
                         @Override
-                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                        public void onResourceReady(@NonNull Bitmap resource, Transition<? super Bitmap> glideAnimation) {
                             metaData.putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, copy(resource));
                             mediaSession.setMetadata(metaData.build());
                         }

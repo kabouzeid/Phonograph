@@ -1,14 +1,15 @@
 package com.poupa.vinylmusicplayer.glide.artistimage;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
-import com.bumptech.glide.load.data.DataFetcher;
-import com.bumptech.glide.load.model.GenericLoaderFactory;
+import com.bumptech.glide.load.Options;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
-import com.bumptech.glide.load.model.stream.StreamModelLoader;
+import com.bumptech.glide.load.model.MultiModelLoaderFactory;
+import com.bumptech.glide.signature.ObjectKey;
 import com.poupa.vinylmusicplayer.lastfm.rest.LastFMRestClient;
 
 import java.io.InputStream;
@@ -20,30 +21,39 @@ import okhttp3.OkHttpClient;
  * @author Karim Abou Zeid (kabouzeid)
  */
 
-public class ArtistImageLoader implements StreamModelLoader<ArtistImage> {
+public class ArtistImageLoader implements ModelLoader<ArtistImage, InputStream> {
     // we need these very low values to make sure our artist image loading calls doesn't block the image loading queue
     private static final int TIMEOUT = 500;
 
     private Context context;
     private LastFMRestClient lastFMClient;
-    private ModelLoader<GlideUrl, InputStream> urlLoader;
+    private OkHttpClient okhttp;
 
-    public ArtistImageLoader(Context context, LastFMRestClient lastFMRestClient, ModelLoader<GlideUrl, InputStream> urlLoader) {
+    public ArtistImageLoader(Context context, LastFMRestClient lastFMRestClient, OkHttpClient okhttp) {
         this.context = context;
         this.lastFMClient = lastFMRestClient;
-        this.urlLoader = urlLoader;
+        this.okhttp = okhttp;
     }
 
     @Override
-    public DataFetcher<InputStream> getResourceFetcher(ArtistImage model, int width, int height) {
-        return new ArtistImageFetcher(context, lastFMClient, model, urlLoader, width, height);
+    public LoadData<InputStream> buildLoadData(@NonNull ArtistImage model, int width, int height,
+                                               @NonNull Options options) {
+        return new LoadData<>(new ObjectKey(model.artistName), new ArtistImageFetcher(context, lastFMClient, okhttp, model));
+    }
+
+    @Override
+    public boolean handles(@NonNull ArtistImage model) {
+        return true;
     }
 
     public static class Factory implements ModelLoaderFactory<ArtistImage, InputStream> {
         private LastFMRestClient lastFMClient;
         private OkHttpUrlLoader.Factory okHttpFactory;
+        private Context context;
+        private OkHttpClient okHttp;
 
         public Factory(Context context) {
+            this.context = context;
             okHttpFactory = new OkHttpUrlLoader.Factory(new OkHttpClient.Builder()
                     .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
                     .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
@@ -57,8 +67,9 @@ public class ArtistImageLoader implements StreamModelLoader<ArtistImage> {
         }
 
         @Override
-        public ModelLoader<ArtistImage, InputStream> build(Context context, GenericLoaderFactory factories) {
-            return new ArtistImageLoader(context, lastFMClient, okHttpFactory.build(context, factories));
+        @NonNull
+        public ModelLoader<ArtistImage, InputStream> build(@NonNull MultiModelLoaderFactory multiFactory) {
+            return new ArtistImageLoader(context, lastFMClient, okHttp);
         }
 
         @Override

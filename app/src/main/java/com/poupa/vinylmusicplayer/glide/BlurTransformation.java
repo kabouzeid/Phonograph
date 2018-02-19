@@ -19,10 +19,15 @@ import com.poupa.vinylmusicplayer.BuildConfig;
 import com.poupa.vinylmusicplayer.helper.StackBlur;
 import com.poupa.vinylmusicplayer.util.ImageUtil;
 
+import java.security.MessageDigest;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class BlurTransformation extends BitmapTransformation {
+
+    private static final String ID = "com.poupa.vinylmusicplayer.glide.BlurTransformation";
+
     public static final float DEFAULT_BLUR_RADIUS = 5f;
 
     private Context context;
@@ -41,7 +46,8 @@ public class BlurTransformation extends BitmapTransformation {
     }
 
     private BlurTransformation(Builder builder, BitmapPool bitmapPool) {
-        super(bitmapPool);
+        //super(bitmapPool);
+        super(builder.context);
         init(builder);
     }
 
@@ -91,7 +97,7 @@ public class BlurTransformation extends BitmapTransformation {
     }
 
     @Override
-    protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
+    protected Bitmap transform(@NonNull BitmapPool pool, @NonNull Bitmap toTransform, int outWidth, int outHeight) {
         int sampling;
         if (this.sampling == 0) {
             sampling = ImageUtil.calculateInSampleSize(toTransform.getWidth(), toTransform.getHeight(), 100);
@@ -142,7 +148,17 @@ public class BlurTransformation extends BitmapTransformation {
     }
 
     @Override
-    public String getId() {
-        return "BlurTransformation(radius=" + blurRadius + ", sampling=" + sampling + ")";
+    public boolean equals(Object o) {
+        return o instanceof BlurTransformation;
+    }
+
+    @Override
+    public int hashCode() {
+        return ID.hashCode();
+    }
+
+    @Override
+    public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
+        messageDigest.update(("BlurTransformation(radius=" + blurRadius + ", sampling=" + sampling + ")").getBytes(CHARSET));
     }
 }

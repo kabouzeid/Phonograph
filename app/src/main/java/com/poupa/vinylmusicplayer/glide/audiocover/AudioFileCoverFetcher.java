@@ -1,8 +1,10 @@
 package com.poupa.vinylmusicplayer.glide.audiocover;
 
 import android.media.MediaMetadataRetriever;
+import android.support.annotation.NonNull;
 
 import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.data.DataFetcher;
 
 import java.io.ByteArrayInputStream;
@@ -24,25 +26,35 @@ public class AudioFileCoverFetcher implements DataFetcher<InputStream> {
     }
 
     @Override
-    public String getId() {
-        // makes sure we never ever return null here
-        return String.valueOf(model.filePath);
-    }
-
-    @Override
-    public InputStream loadData(Priority priority) throws Exception {
+    public void loadData(@NonNull Priority priority, @NonNull DataCallback<? super InputStream> callback) {
         MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        InputStream data;
         try {
             retriever.setDataSource(model.filePath);
             byte[] picture = retriever.getEmbeddedPicture();
             if (picture != null) {
-                return new ByteArrayInputStream(picture);
+                data = new ByteArrayInputStream(picture);
             } else {
-                return fallback(model.filePath);
+                data = fallback(model.filePath);
             }
+            callback.onDataReady(data);
+        } catch (FileNotFoundException e) {
+            callback.onLoadFailed(e);
         } finally {
             retriever.release();
         }
+    }
+
+    @NonNull
+    @Override
+    public Class<InputStream> getDataClass() {
+        return InputStream.class;
+    }
+
+    @NonNull
+    @Override
+    public DataSource getDataSource() {
+        return DataSource.LOCAL;
     }
 
     private static final String[] FALLBACKS = {"cover.jpg", "album.jpg", "folder.jpg"};

@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
@@ -16,9 +17,9 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.poupa.vinylmusicplayer.R;
@@ -87,20 +88,20 @@ public class PlayingNotificationImpl extends PlayingNotification {
             @Override
             public void run() {
                 if (target != null) {
-                    Glide.clear(target);
+                    Glide.with(service).clear(target);
                 }
                 target = SongGlideRequest.Builder.from(Glide.with(service), song)
                         .checkIgnoreMediaStore(service)
-                        .generatePalette(service).build()
+                        .generatePalette(service).buildAsBitmapPaletteWrapper()
                         .into(new SimpleTarget<BitmapPaletteWrapper>(bigNotificationImageSize, bigNotificationImageSize) {
                             @Override
-                            public void onResourceReady(BitmapPaletteWrapper resource, GlideAnimation<? super BitmapPaletteWrapper> glideAnimation) {
+                            public void onResourceReady(@NonNull BitmapPaletteWrapper resource, Transition<? super BitmapPaletteWrapper> glideAnimation) {
                                 update(resource.getBitmap(), VinylMusicPlayerColorUtil.getColor(resource.getPalette(), Color.TRANSPARENT));
                             }
 
                             @Override
-                            public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                                super.onLoadFailed(e, errorDrawable);
+                            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                                super.onLoadFailed(errorDrawable);
                                 update(null, Color.WHITE);
                             }
 

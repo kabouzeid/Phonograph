@@ -266,8 +266,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     private void loadArtistImage() {
         ArtistGlideRequest.Builder.from(Glide.with(this), artist)
                 .forceDownload(forceDownload)
-                .generatePalette(this).build()
-                .dontAnimate()
+                .generatePalette(this).buildDontAnimate()
                 .into(new VinylMusicPlayerColoredTarget(artistImage) {
                     @Override
                     public void onColorReady(int color) {

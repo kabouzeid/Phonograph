@@ -1,8 +1,12 @@
 package com.poupa.vinylmusicplayer.glide.artistimage;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.bumptech.glide.Priority;
+import com.bumptech.glide.integration.okhttp3.OkHttpStreamFetcher;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.data.DataFetcher;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.ModelLoader;
@@ -14,7 +18,11 @@ import com.poupa.vinylmusicplayer.util.Util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 
+import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
@@ -25,60 +33,84 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
     private Context context;
     private final LastFMRestClient lastFMRestClient;
     private final ArtistImage model;
-    private ModelLoader<GlideUrl, InputStream> urlLoader;
-    private final int width;
-    private final int height;
     private volatile boolean isCancelled;
-    private DataFetcher<InputStream> urlFetcher;
+    private Call<LastFmArtist> call;
+    private OkHttpClient okhttp;
+    private OkHttpStreamFetcher streamFetcher;
 
-    public ArtistImageFetcher(Context context, LastFMRestClient lastFMRestClient, ArtistImage model, ModelLoader<GlideUrl, InputStream> urlLoader, int width, int height) {
+    public ArtistImageFetcher(Context context, LastFMRestClient lastFMRestClient, OkHttpClient okhttp, ArtistImage model) {
         this.context = context;
         this.lastFMRestClient = lastFMRestClient;
         this.model = model;
-        this.urlLoader = urlLoader;
-        this.width = width;
-        this.height = height;
+        this.okhttp = okhttp;
+    }
+
+    @NonNull
+    @Override
+    public Class<InputStream> getDataClass() {
+        return InputStream.class;
+    }
+
+    @NonNull
+    @Override
+    public DataSource getDataSource() {
+        return DataSource.REMOTE;
     }
 
     @Override
-    public String getId() {
-        // makes sure we never ever return null here
-        return String.valueOf(model.artistName);
-    }
+    public void loadData(@NonNull Priority priority, @NonNull DataCallback<? super InputStream> callback) {
+        try {
+            if (!MusicUtil.isArtistNameUnknown(model.artistName) && Util.isAllowedToDownloadMetadata(context)) {
+                call = lastFMRestClient.getApiService().getArtistInfo(model.artistName, null, model.skipOkHttpCache ? "no-cache" : null);
+                call.enqueue(new Callback<LastFmArtist>() {
+                    @Override
+                    public void onResponse(@NonNull Call<LastFmArtist> call, @NonNull Response<LastFmArtist> response) {
+                        if (isCancelled) {
+                            callback.onDataReady(null);
+                            return;
+                        }
 
-    @Override
-    public InputStream loadData(Priority priority) throws Exception {
-        if (!MusicUtil.isArtistNameUnknown(model.artistName) && Util.isAllowedToDownloadMetadata(context)) {
-            Response<LastFmArtist> response = lastFMRestClient.getApiService().getArtistInfo(model.artistName, null, model.skipOkHttpCache ? "no-cache" : null).execute();
+                        LastFmArtist lastFmArtist = response.body();
+                        if (lastFmArtist == null || lastFmArtist.getArtist() == null || lastFmArtist.getArtist().getImage() == null) {
+                            callback.onLoadFailed(new Exception("No artist image url found"));
+                            return;
+                        }
 
-            if (!response.isSuccessful()) {
-                throw new IOException("Request failed with code: " + response.code());
+                        String url = LastFMUtil.getLargestArtistImageUrl(lastFmArtist.getArtist().getImage());
+                        if (TextUtils.isEmpty(url) || TextUtils.isEmpty(url.trim())) {
+                            callback.onLoadFailed(new Exception("No artist image url found"));
+                            return;
+                        }
+
+                        streamFetcher = new OkHttpStreamFetcher(okhttp, new GlideUrl(url));
+                        streamFetcher.loadData(priority, callback);
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<LastFmArtist> call, @NonNull Throwable throwable) {
+                        callback.onLoadFailed(new Exception(throwable));
+                    }
+                });
+
+
             }
-
-            LastFmArtist lastFmArtist = response.body();
-
-            if (isCancelled) return null;
-
-            GlideUrl url = new GlideUrl(LastFMUtil.getLargestArtistImageUrl(lastFmArtist.getArtist().getImage()));
-            urlFetcher = urlLoader.getResourceFetcher(url, width, height);
-
-            return urlFetcher.loadData(priority);
+        } catch (Exception e) {
+            callback.onLoadFailed(e);
         }
-        return null;
     }
 
     @Override
     public void cleanup() {
-        if (urlFetcher != null) {
-            urlFetcher.cleanup();
+        if (streamFetcher != null) {
+            streamFetcher.cleanup();
         }
     }
 
     @Override
     public void cancel() {
         isCancelled = true;
-        if (urlFetcher != null) {
-            urlFetcher.cancel();
+        if (streamFetcher != null) {
+            streamFetcher.cancel();
         }
     }
 }

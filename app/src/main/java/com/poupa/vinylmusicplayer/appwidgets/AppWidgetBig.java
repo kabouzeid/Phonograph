@@ -7,15 +7,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RemoteViews;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.poupa.vinylmusicplayer.R;
 import com.poupa.vinylmusicplayer.appwidgets.base.BaseAppWidget;
@@ -24,6 +23,9 @@ import com.poupa.vinylmusicplayer.model.Song;
 import com.poupa.vinylmusicplayer.service.MusicService;
 import com.poupa.vinylmusicplayer.ui.activities.MainActivity;
 import com.poupa.vinylmusicplayer.util.Util;
+
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 public class AppWidgetBig extends BaseAppWidget {
     public static final String NAME = "app_widget_big";
@@ -92,20 +94,20 @@ public class AppWidgetBig extends BaseAppWidget {
             @Override
             public void run() {
                 if (target != null) {
-                    Glide.clear(target);
+                    Glide.with(appContext).clear(target);
                 }
                 target = SongGlideRequest.Builder.from(Glide.with(appContext), song)
                         .checkIgnoreMediaStore(appContext)
-                        .asBitmap().build()
+                        .asBitmap()
+                        .build()
                         .into(new SimpleTarget<Bitmap>(widgetImageSize, widgetImageSize) {
                             @Override
-                            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                                update(resource);
+                            public void onResourceReady(@NonNull Bitmap bitmap, Transition<? super Bitmap> transition) {
+                                update(bitmap);
                             }
 
                             @Override
-                            public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                                super.onLoadFailed(e, errorDrawable);
+                            public void onLoadFailed(@Nullable Drawable errorDrawable) {
                                 update(null);
                             }
 

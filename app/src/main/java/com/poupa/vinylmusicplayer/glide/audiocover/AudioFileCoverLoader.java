@@ -1,12 +1,12 @@
 package com.poupa.vinylmusicplayer.glide.audiocover;
 
-import android.content.Context;
+import android.support.annotation.NonNull;
 
-import com.bumptech.glide.load.data.DataFetcher;
-import com.bumptech.glide.load.model.GenericLoaderFactory;
+import com.bumptech.glide.load.Options;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
-import com.bumptech.glide.load.model.stream.StreamModelLoader;
+import com.bumptech.glide.load.model.MultiModelLoaderFactory;
+import com.bumptech.glide.signature.ObjectKey;
 
 import java.io.InputStream;
 
@@ -14,16 +14,23 @@ import java.io.InputStream;
  * @author Karim Abou Zeid (kabouzeid)
  */
 
-public class AudioFileCoverLoader implements StreamModelLoader<AudioFileCover> {
+public class AudioFileCoverLoader implements ModelLoader<AudioFileCover, InputStream> {
 
     @Override
-    public DataFetcher<InputStream> getResourceFetcher(AudioFileCover model, int width, int height) {
-        return new AudioFileCoverFetcher(model);
+    public LoadData<InputStream> buildLoadData(@NonNull AudioFileCover model, int width, int height,
+                                               @NonNull Options options) {
+        return new LoadData<>(new ObjectKey(model.filePath), new AudioFileCoverFetcher(model));
+    }
+
+    @Override
+    public boolean handles(@NonNull AudioFileCover model) {
+        return true;
     }
 
     public static class Factory implements ModelLoaderFactory<AudioFileCover, InputStream> {
         @Override
-        public ModelLoader<AudioFileCover, InputStream> build(Context context, GenericLoaderFactory factories) {
+        @NonNull
+        public ModelLoader<AudioFileCover, InputStream> build(@NonNull MultiModelLoaderFactory multiFactory) {
             return new AudioFileCoverLoader();
         }
 

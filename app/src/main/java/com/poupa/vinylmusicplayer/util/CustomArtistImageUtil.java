@@ -8,12 +8,14 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.poupa.vinylmusicplayer.App;
 import com.poupa.vinylmusicplayer.model.Artist;
 
@@ -49,20 +51,20 @@ public class CustomArtistImageUtil {
 
     public void setCustomArtistImage(final Artist artist, Uri uri) {
         Glide.with(App.getInstance())
-                .load(uri)
                 .asBitmap()
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
+                .load(uri)
+                .apply(new RequestOptions()
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
+                )
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        super.onLoadFailed(e, errorDrawable);
-                        e.printStackTrace();
-                        Toast.makeText(App.getInstance(), e.toString(), Toast.LENGTH_LONG).show();
+                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                        super.onLoadFailed(errorDrawable);
                     }
 
                     @Override
-                    public void onResourceReady(final Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    public void onResourceReady(@NonNull final Bitmap resource, Transition<? super Bitmap> glideAnimation) {
                         new AsyncTask<Void, Void, Void>() {
                             @SuppressLint("ApplySharedPref")
                             @Override

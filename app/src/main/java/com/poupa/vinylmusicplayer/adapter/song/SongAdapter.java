@@ -135,7 +135,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
 
         SongGlideRequest.Builder.from(Glide.with(activity), song)
                 .checkIgnoreMediaStore(activity)
-                .generatePalette(activity).build()
+                .generatePalette(activity).buildAsBitmapPaletteWrapper()
                 .into(new VinylMusicPlayerColoredTarget(holder.image) {
                     @Override
                     public void onLoadCleared(Drawable placeholder) {
