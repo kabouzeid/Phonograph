@@ -53,6 +53,8 @@ public class AddToPlaylistDialog extends DialogFragment {
         {
             //TODO: display checkboxes instead of checkmark
 
+            long startTime = System.currentTimeMillis();//TEMP
+
             Boolean[] songIsInPlaylist = new Boolean[playlists.size()];
             for(int i = 0; i < playlists.size(); i++){
                 songIsInPlaylist[i] = PlaylistsUtil.doPlaylistContains(getActivity(), playlists.get(i).id, songs.get(0).id);
@@ -62,6 +64,9 @@ public class AddToPlaylistDialog extends DialogFragment {
                     playlistNames[i + 1] = playlists.get(i).name + " \u2713";
                 }
             }
+
+            long difference = System.currentTimeMillis() - startTime;
+            long endTime = difference + startTime;
         }
 
         return new MaterialDialog.Builder(getActivity())
