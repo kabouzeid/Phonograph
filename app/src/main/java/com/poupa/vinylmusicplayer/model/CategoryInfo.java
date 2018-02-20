@@ -2,6 +2,7 @@ package com.poupa.vinylmusicplayer.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import com.poupa.vinylmusicplayer.R;
 
 public class CategoryInfo implements Parcelable {

@@ -3,7 +3,6 @@ package com.poupa.vinylmusicplayer.glide.palette;
 import android.support.annotation.NonNull;
 
 import com.bumptech.glide.load.engine.Resource;
-import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.util.Util;
 
 /**

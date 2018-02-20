@@ -1,7 +1,6 @@
 package com.poupa.vinylmusicplayer.glide;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.bumptech.glide.GenericTransitionOptions;
 import com.bumptech.glide.Priority;

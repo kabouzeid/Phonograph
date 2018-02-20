@@ -1,11 +1,5 @@
 package com.poupa.vinylmusicplayer.glide.artistimage;
 
-import android.support.annotation.NonNull;
-
-import com.bumptech.glide.load.Key;
-
-import java.security.MessageDigest;
-
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
