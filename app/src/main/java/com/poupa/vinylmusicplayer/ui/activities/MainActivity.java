@@ -27,7 +27,7 @@ import com.kabouzeid.appthemehelper.util.NavigationViewUtil;
 import com.poupa.vinylmusicplayer.R;
 import com.poupa.vinylmusicplayer.dialogs.ChangelogDialog;
 import com.poupa.vinylmusicplayer.glide.GlideApp;
-import com.poupa.vinylmusicplayer.glide.SongGlideRequest;
+import com.poupa.vinylmusicplayer.glide.VinylGlideExtension;
 import com.poupa.vinylmusicplayer.helper.MusicPlayerRemote;
 import com.poupa.vinylmusicplayer.helper.SearchQueryHelper;
 import com.poupa.vinylmusicplayer.loader.AlbumLoader;
@@ -192,8 +192,11 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             }
             ((TextView) navigationDrawerHeader.findViewById(R.id.title)).setText(song.title);
             ((TextView) navigationDrawerHeader.findViewById(R.id.text)).setText(song.artistName);
-            SongGlideRequest.from(GlideApp.with(this).asDrawable(), song)
-                    .build()
+            GlideApp.with(this)
+                    .asDrawable()
+                    .load(VinylGlideExtension.getSongModel(song))
+                    .transition(VinylGlideExtension.getDefaultTransition())
+                    .songOptions(song)
                     .into(((ImageView) navigationDrawerHeader.findViewById(R.id.image)));
         } else {
             if (navigationDrawerHeader != null) {

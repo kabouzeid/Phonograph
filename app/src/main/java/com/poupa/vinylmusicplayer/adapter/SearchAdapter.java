@@ -12,9 +12,8 @@ import android.view.ViewGroup;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.poupa.vinylmusicplayer.R;
 import com.poupa.vinylmusicplayer.adapter.base.MediaEntryViewHolder;
-import com.poupa.vinylmusicplayer.glide.ArtistGlideRequest;
 import com.poupa.vinylmusicplayer.glide.GlideApp;
-import com.poupa.vinylmusicplayer.glide.SongGlideRequest;
+import com.poupa.vinylmusicplayer.glide.VinylGlideExtension;
 import com.poupa.vinylmusicplayer.helper.MusicPlayerRemote;
 import com.poupa.vinylmusicplayer.helper.menu.SongMenuHelper;
 import com.poupa.vinylmusicplayer.model.Album;
@@ -73,16 +72,23 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 final Album album = (Album) dataSet.get(position);
                 holder.title.setText(album.getTitle());
                 holder.text.setText(album.getArtistName());
-                SongGlideRequest.from(GlideApp.with(activity).asDrawable(), album.safeGetFirstSong())
-                        .build()
+                GlideApp.with(activity)
+                        .asDrawable()
+                        .load(VinylGlideExtension.getSongModel(album.safeGetFirstSong()))
+                        .transition(VinylGlideExtension.getDefaultTransition())
+                        .songOptions(album.safeGetFirstSong())
                         .into(holder.image);
                 break;
             case ARTIST:
                 final Artist artist = (Artist) dataSet.get(position);
                 holder.title.setText(artist.getName());
                 holder.text.setText(MusicUtil.getArtistInfoString(activity, artist));
-                ArtistGlideRequest.from(GlideApp.with(activity).asBitmap(), artist)
-                        .build().into(holder.image);
+                GlideApp.with(activity)
+                        .asBitmap()
+                        .load(VinylGlideExtension.getArtistModel(artist))
+                        .transition(VinylGlideExtension.getDefaultTransition())
+                        .artistOptions(artist)
+                        .into(holder.image);
                 break;
             case SONG:
                 final Song song = (Song) dataSet.get(position);

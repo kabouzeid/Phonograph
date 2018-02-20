@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.afollestad.materialcab.MaterialCab;
 import com.poupa.vinylmusicplayer.R;
 import com.poupa.vinylmusicplayer.glide.GlideApp;
-import com.poupa.vinylmusicplayer.glide.SongGlideRequest;
+import com.poupa.vinylmusicplayer.glide.VinylGlideExtension;
 import com.poupa.vinylmusicplayer.helper.MusicPlayerRemote;
 import com.poupa.vinylmusicplayer.helper.menu.SongMenuHelper;
 import com.poupa.vinylmusicplayer.helper.menu.SongsMenuHelper;
@@ -85,8 +85,11 @@ public class ArtistSongAdapter extends ArrayAdapter<Song> implements MaterialCab
         songTitle.setText(song.title);
         songInfo.setText(song.albumName);
 
-        SongGlideRequest.from(GlideApp.with(activity).asDrawable(), song)
-                .build()
+        GlideApp.with(activity)
+                .asDrawable()
+                .load(VinylGlideExtension.getSongModel(song))
+                .transition(VinylGlideExtension.getDefaultTransition())
+                .songOptions(song)
                 .into(albumArt);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

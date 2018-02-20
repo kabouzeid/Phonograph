@@ -16,9 +16,9 @@ import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.poupa.vinylmusicplayer.R;
 import com.poupa.vinylmusicplayer.adapter.base.AbsMultiSelectAdapter;
 import com.poupa.vinylmusicplayer.adapter.base.MediaEntryViewHolder;
-import com.poupa.vinylmusicplayer.glide.ArtistGlideRequest;
 import com.poupa.vinylmusicplayer.glide.GlideApp;
 import com.poupa.vinylmusicplayer.glide.VinylColoredTarget;
+import com.poupa.vinylmusicplayer.glide.VinylGlideExtension;
 import com.poupa.vinylmusicplayer.helper.menu.SongsMenuHelper;
 import com.poupa.vinylmusicplayer.interfaces.CabHolder;
 import com.poupa.vinylmusicplayer.model.Artist;
@@ -122,8 +122,11 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
 
     protected void loadArtistImage(Artist artist, final ViewHolder holder) {
         if (holder.image == null) return;
-        ArtistGlideRequest.from(GlideApp.with(activity).asBitmapPalette(), artist)
-                .build()
+        GlideApp.with(activity)
+                .asBitmapPalette()
+                .load(VinylGlideExtension.getArtistModel(artist))
+                .transition(VinylGlideExtension.getDefaultTransition())
+                .artistOptions(artist)
                 .into(new VinylColoredTarget(holder.image) {
                     @Override
                     public void onLoadCleared(Drawable placeholder) {

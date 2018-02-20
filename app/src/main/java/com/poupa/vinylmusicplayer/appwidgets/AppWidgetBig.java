@@ -20,7 +20,7 @@ import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.poupa.vinylmusicplayer.R;
 import com.poupa.vinylmusicplayer.appwidgets.base.BaseAppWidget;
 import com.poupa.vinylmusicplayer.glide.GlideApp;
-import com.poupa.vinylmusicplayer.glide.SongGlideRequest;
+import com.poupa.vinylmusicplayer.glide.VinylGlideExtension;
 import com.poupa.vinylmusicplayer.model.Song;
 import com.poupa.vinylmusicplayer.service.MusicService;
 import com.poupa.vinylmusicplayer.ui.activities.MainActivity;
@@ -95,8 +95,11 @@ public class AppWidgetBig extends BaseAppWidget {
                 if (target != null) {
                     GlideApp.with(appContext).clear(target);
                 }
-                target = SongGlideRequest.from(GlideApp.with(appContext).asBitmap(), song)
-                        .build()
+                GlideApp.with(appContext)
+                        .asBitmap()
+                        .load(VinylGlideExtension.getSongModel(song))
+                        .transition(VinylGlideExtension.getDefaultTransition())
+                        .songOptions(song)
                         .into(new SimpleTarget<Bitmap>(widgetImageSize, widgetImageSize) {
                             @Override
                             public void onResourceReady(@NonNull Bitmap bitmap, Transition<? super Bitmap> transition) {

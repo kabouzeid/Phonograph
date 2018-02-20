@@ -32,9 +32,9 @@ import com.poupa.vinylmusicplayer.adapter.album.HorizontalAlbumAdapter;
 import com.poupa.vinylmusicplayer.adapter.song.ArtistSongAdapter;
 import com.poupa.vinylmusicplayer.dialogs.AddToPlaylistDialog;
 import com.poupa.vinylmusicplayer.dialogs.SleepTimerDialog;
-import com.poupa.vinylmusicplayer.glide.ArtistGlideRequest;
 import com.poupa.vinylmusicplayer.glide.GlideApp;
 import com.poupa.vinylmusicplayer.glide.VinylColoredTarget;
+import com.poupa.vinylmusicplayer.glide.VinylGlideExtension;
 import com.poupa.vinylmusicplayer.helper.MusicPlayerRemote;
 import com.poupa.vinylmusicplayer.interfaces.CabHolder;
 import com.poupa.vinylmusicplayer.interfaces.LoaderIds;
@@ -264,9 +264,11 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     }
 
     private void loadArtistImage() {
-        ArtistGlideRequest.from(GlideApp.with(this).asBitmapPalette(), artist)
-                .forceDownload(forceDownload)
-                .build()
+        GlideApp.with(this)
+                .asBitmapPalette()
+                .load(VinylGlideExtension.getArtistModel(artist, forceDownload))
+                .transition(VinylGlideExtension.getDefaultTransition())
+                .artistOptions(artist)
                 .dontAnimate()
                 .into(new VinylColoredTarget(artistImage) {
                     @Override

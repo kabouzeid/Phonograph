@@ -41,9 +41,10 @@ import com.poupa.vinylmusicplayer.appwidgets.AppWidgetBig;
 import com.poupa.vinylmusicplayer.appwidgets.AppWidgetCard;
 import com.poupa.vinylmusicplayer.appwidgets.AppWidgetClassic;
 import com.poupa.vinylmusicplayer.appwidgets.AppWidgetSmall;
+import com.poupa.vinylmusicplayer.glide.BlurTransformation;
 import com.poupa.vinylmusicplayer.glide.GlideApp;
 import com.poupa.vinylmusicplayer.glide.GlideRequest;
-import com.poupa.vinylmusicplayer.glide.SongGlideRequest;
+import com.poupa.vinylmusicplayer.glide.VinylGlideExtension;
 import com.poupa.vinylmusicplayer.helper.ShuffleHelper;
 import com.poupa.vinylmusicplayer.helper.StopWatch;
 import com.poupa.vinylmusicplayer.loader.PlaylistSongLoader;
@@ -581,10 +582,13 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
 
         if (PreferenceUtil.getInstance().albumArtOnLockscreen()) {
             final Point screenSize = Util.getScreenSize(MusicService.this);
-            final GlideRequest request = SongGlideRequest.from(GlideApp.with(MusicService.this).asBitmap(), song)
-                    .build();
+            GlideRequest request = GlideApp.with(MusicService.this)
+                    .asBitmap()
+                    .load(VinylGlideExtension.getSongModel(song))
+                    .transition(VinylGlideExtension.getDefaultTransition())
+                    .songOptions(song);
             if (PreferenceUtil.getInstance().blurredAlbumArt()) {
-                //request.transform(new BlurTransformation.Builder(MusicService.this) // TODO Glide
+                request.transform(new BlurTransformation.Builder(MusicService.this).build());
             }
             runOnUiThread(new Runnable() {
                 @Override

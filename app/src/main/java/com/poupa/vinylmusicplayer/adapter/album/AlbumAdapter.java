@@ -17,8 +17,8 @@ import com.poupa.vinylmusicplayer.R;
 import com.poupa.vinylmusicplayer.adapter.base.AbsMultiSelectAdapter;
 import com.poupa.vinylmusicplayer.adapter.base.MediaEntryViewHolder;
 import com.poupa.vinylmusicplayer.glide.GlideApp;
-import com.poupa.vinylmusicplayer.glide.SongGlideRequest;
 import com.poupa.vinylmusicplayer.glide.VinylColoredTarget;
+import com.poupa.vinylmusicplayer.glide.VinylGlideExtension;
 import com.poupa.vinylmusicplayer.helper.menu.SongsMenuHelper;
 import com.poupa.vinylmusicplayer.interfaces.CabHolder;
 import com.poupa.vinylmusicplayer.model.Album;
@@ -129,8 +129,11 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     protected void loadAlbumCover(Album album, final ViewHolder holder) {
         if (holder.image == null) return;
 
-        SongGlideRequest.from(GlideApp.with(activity).asBitmapPalette(), album.safeGetFirstSong())
-                .build()
+        GlideApp.with(activity)
+                .asBitmapPalette()
+                .load(VinylGlideExtension.getSongModel(album.safeGetFirstSong()))
+                .transition(VinylGlideExtension.getDefaultTransition())
+                .songOptions(album.safeGetFirstSong())
                 .into(new VinylColoredTarget(holder.image) {
                     @Override
                     public void onLoadCleared(Drawable placeholder) {

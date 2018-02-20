@@ -23,7 +23,7 @@ import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.poupa.vinylmusicplayer.R;
 import com.poupa.vinylmusicplayer.glide.GlideApp;
-import com.poupa.vinylmusicplayer.glide.SongGlideRequest;
+import com.poupa.vinylmusicplayer.glide.VinylGlideExtension;
 import com.poupa.vinylmusicplayer.glide.palette.BitmapPaletteWrapper;
 import com.poupa.vinylmusicplayer.model.Song;
 import com.poupa.vinylmusicplayer.service.MusicService;
@@ -90,8 +90,11 @@ public class PlayingNotificationImpl extends PlayingNotification {
                 if (target != null) {
                     GlideApp.with(service).clear(target);
                 }
-                target = SongGlideRequest.from(GlideApp.with(service).asBitmapPalette(), song)
-                        .build()
+                target = GlideApp.with(service)
+                        .asBitmapPalette()
+                        .load(VinylGlideExtension.getSongModel(song))
+                        .transition(VinylGlideExtension.getDefaultTransition())
+                        .songOptions(song)
                         .into(new SimpleTarget<BitmapPaletteWrapper>(bigNotificationImageSize, bigNotificationImageSize) {
                             @Override
                             public void onResourceReady(@NonNull BitmapPaletteWrapper resource, Transition<? super BitmapPaletteWrapper> glideAnimation) {

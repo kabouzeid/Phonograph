@@ -11,8 +11,8 @@ import android.widget.ImageView;
 
 import com.poupa.vinylmusicplayer.R;
 import com.poupa.vinylmusicplayer.glide.GlideApp;
-import com.poupa.vinylmusicplayer.glide.SongGlideRequest;
 import com.poupa.vinylmusicplayer.glide.VinylColoredTarget;
+import com.poupa.vinylmusicplayer.glide.VinylGlideExtension;
 import com.poupa.vinylmusicplayer.misc.CustomFragmentStatePagerAdapter;
 import com.poupa.vinylmusicplayer.model.Song;
 import com.poupa.vinylmusicplayer.util.PreferenceUtil;
@@ -128,8 +128,11 @@ public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
         }
 
         private void loadAlbumCover() {
-            SongGlideRequest.from(GlideApp.with(this).asBitmapPalette(), song)
-                    .build()
+            GlideApp.with(this)
+                    .asBitmapPalette()
+                    .load(VinylGlideExtension.getSongModel(song))
+                    .transition(VinylGlideExtension.getDefaultTransition())
+                    .songOptions(song)
                     .into(new VinylColoredTarget(albumCover) {
                         @Override
                         public void onColorReady(int color) {

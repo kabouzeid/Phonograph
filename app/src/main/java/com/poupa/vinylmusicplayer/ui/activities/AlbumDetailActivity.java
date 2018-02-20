@@ -36,8 +36,8 @@ import com.poupa.vinylmusicplayer.dialogs.AddToPlaylistDialog;
 import com.poupa.vinylmusicplayer.dialogs.DeleteSongsDialog;
 import com.poupa.vinylmusicplayer.dialogs.SleepTimerDialog;
 import com.poupa.vinylmusicplayer.glide.GlideApp;
-import com.poupa.vinylmusicplayer.glide.SongGlideRequest;
 import com.poupa.vinylmusicplayer.glide.VinylColoredTarget;
+import com.poupa.vinylmusicplayer.glide.VinylGlideExtension;
 import com.poupa.vinylmusicplayer.glide.palette.BitmapPaletteWrapper;
 import com.poupa.vinylmusicplayer.helper.MusicPlayerRemote;
 import com.poupa.vinylmusicplayer.interfaces.CabHolder;
@@ -169,8 +169,11 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     }
 
     private void loadAlbumCover() {
-        SongGlideRequest.from(GlideApp.with(this).asBitmapPalette(), getAlbum().safeGetFirstSong())
-                .build()
+        GlideApp.with(this)
+                .asBitmapPalette()
+                .load(VinylGlideExtension.getSongModel(getAlbum().safeGetFirstSong()))
+                .transition(VinylGlideExtension.getDefaultTransition())
+                .songOptions(getAlbum().safeGetFirstSong())
                 .dontAnimate()
                 .listener(new RequestListener<BitmapPaletteWrapper>() {
                     @Override

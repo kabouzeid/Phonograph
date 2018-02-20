@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.poupa.vinylmusicplayer.glide.GlideApp;
-import com.poupa.vinylmusicplayer.glide.SongGlideRequest;
 import com.poupa.vinylmusicplayer.glide.VinylColoredTarget;
+import com.poupa.vinylmusicplayer.glide.VinylGlideExtension;
 import com.poupa.vinylmusicplayer.helper.HorizontalAdapterHelper;
 import com.poupa.vinylmusicplayer.interfaces.CabHolder;
 import com.poupa.vinylmusicplayer.model.Album;
@@ -54,8 +54,11 @@ public class HorizontalAlbumAdapter extends AlbumAdapter {
     protected void loadAlbumCover(Album album, final ViewHolder holder) {
         if (holder.image == null) return;
 
-        SongGlideRequest.from(GlideApp.with(activity).asBitmapPalette(), album.safeGetFirstSong())
-                .build()
+        GlideApp.with(activity)
+                .asBitmapPalette()
+                .load(VinylGlideExtension.getSongModel(album.safeGetFirstSong()))
+                .transition(VinylGlideExtension.getDefaultTransition())
+                .songOptions(album.safeGetFirstSong())
                 .into(new VinylColoredTarget(holder.image) {
                     @Override
                     public void onLoadCleared(Drawable placeholder) {
