@@ -12,14 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.afollestad.materialcab.MaterialCab;
-import com.bumptech.glide.Glide;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.poupa.vinylmusicplayer.R;
 import com.poupa.vinylmusicplayer.adapter.base.AbsMultiSelectAdapter;
 import com.poupa.vinylmusicplayer.adapter.base.MediaEntryViewHolder;
-import com.poupa.vinylmusicplayer.glide.VinylMusicPlayerColoredTarget;
+import com.poupa.vinylmusicplayer.glide.GlideApp;
 import com.poupa.vinylmusicplayer.glide.SongGlideRequest;
+import com.poupa.vinylmusicplayer.glide.VinylColoredTarget;
 import com.poupa.vinylmusicplayer.helper.MusicPlayerRemote;
 import com.poupa.vinylmusicplayer.helper.menu.SongMenuHelper;
 import com.poupa.vinylmusicplayer.helper.menu.SongsMenuHelper;
@@ -133,10 +133,9 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
     protected void loadAlbumCover(Song song, final ViewHolder holder) {
         if (holder.image == null) return;
 
-        SongGlideRequest.Builder.from(Glide.with(activity), song)
-                .checkIgnoreMediaStore(activity)
-                .generatePalette(activity).buildAsBitmapPaletteWrapper()
-                .into(new VinylMusicPlayerColoredTarget(holder.image) {
+        SongGlideRequest.from(GlideApp.with(activity).asBitmapPalette(), song)
+                .build()
+                .into(new VinylColoredTarget(holder.image) {
                     @Override
                     public void onLoadCleared(Drawable placeholder) {
                         super.onLoadCleared(placeholder);

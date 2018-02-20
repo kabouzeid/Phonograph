@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.util.DialogUtils;
-import com.bumptech.glide.Glide;
 import com.github.ksoichiro.android.observablescrollview.ObservableListView;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
@@ -34,7 +33,8 @@ import com.poupa.vinylmusicplayer.adapter.song.ArtistSongAdapter;
 import com.poupa.vinylmusicplayer.dialogs.AddToPlaylistDialog;
 import com.poupa.vinylmusicplayer.dialogs.SleepTimerDialog;
 import com.poupa.vinylmusicplayer.glide.ArtistGlideRequest;
-import com.poupa.vinylmusicplayer.glide.VinylMusicPlayerColoredTarget;
+import com.poupa.vinylmusicplayer.glide.GlideApp;
+import com.poupa.vinylmusicplayer.glide.VinylColoredTarget;
 import com.poupa.vinylmusicplayer.helper.MusicPlayerRemote;
 import com.poupa.vinylmusicplayer.interfaces.CabHolder;
 import com.poupa.vinylmusicplayer.interfaces.LoaderIds;
@@ -49,9 +49,9 @@ import com.poupa.vinylmusicplayer.model.Song;
 import com.poupa.vinylmusicplayer.ui.activities.base.AbsSlidingMusicPanelActivity;
 import com.poupa.vinylmusicplayer.util.CustomArtistImageUtil;
 import com.poupa.vinylmusicplayer.util.NavigationUtil;
-import com.poupa.vinylmusicplayer.util.VinylMusicPlayerColorUtil;
 import com.poupa.vinylmusicplayer.util.PreferenceUtil;
 import com.poupa.vinylmusicplayer.util.Util;
+import com.poupa.vinylmusicplayer.util.VinylMusicPlayerColorUtil;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -115,7 +115,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         supportPostponeEnterTransition();
 
         lastFMRestClient = new LastFMRestClient(this);
-        usePalette = PreferenceUtil.getInstance(this).albumArtistColoredFooters();
+        usePalette = PreferenceUtil.getInstance().albumArtistColoredFooters();
 
         initViews();
         setUpObservableListViewParams();
@@ -211,7 +211,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
     protected void setUsePalette(boolean usePalette) {
         albumAdapter.usePalette(usePalette);
-        PreferenceUtil.getInstance(this).setAlbumArtistColoredFooters(usePalette);
+        PreferenceUtil.getInstance().setAlbumArtistColoredFooters(usePalette);
         this.usePalette = usePalette;
     }
 
@@ -264,10 +264,11 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     }
 
     private void loadArtistImage() {
-        ArtistGlideRequest.Builder.from(Glide.with(this), artist)
+        ArtistGlideRequest.from(GlideApp.with(this).asBitmapPalette(), artist)
                 .forceDownload(forceDownload)
-                .generatePalette(this).buildDontAnimate()
-                .into(new VinylMusicPlayerColoredTarget(artistImage) {
+                .build()
+                .dontAnimate()
+                .into(new VinylColoredTarget(artistImage) {
                     @Override
                     public void onColorReady(int color) {
                         setColors(color);

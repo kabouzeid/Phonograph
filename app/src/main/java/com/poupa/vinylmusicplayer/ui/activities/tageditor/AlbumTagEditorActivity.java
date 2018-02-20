@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.bumptech.glide.GenericTransitionOptions;
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -23,7 +22,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.ToolbarContentTintHelper;
 import com.poupa.vinylmusicplayer.R;
-import com.poupa.vinylmusicplayer.glide.palette.BitmapPaletteTranscoder;
+import com.poupa.vinylmusicplayer.glide.GlideApp;
 import com.poupa.vinylmusicplayer.glide.palette.BitmapPaletteWrapper;
 import com.poupa.vinylmusicplayer.lastfm.rest.LastFMRestClient;
 import com.poupa.vinylmusicplayer.lastfm.rest.model.LastFmAlbum;
@@ -111,7 +110,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
                 if (lastFmAlbum.getAlbum() != null) {
                     String url = LastFMUtil.getLargestAlbumImageUrl(lastFmAlbum.getAlbum().getImage());
                     if (!TextUtils.isEmpty(url) && url.trim().length() > 0) {
-                        Glide.with(AlbumTagEditorActivity.this)
+                        GlideApp.with(AlbumTagEditorActivity.this)
                                 .as(BitmapPaletteWrapper.class)
                                 .load(url)
                                 .apply(new RequestOptions()
@@ -194,7 +193,7 @@ public class AlbumTagEditorActivity extends AbsTagEditorActivity implements Text
 
     @Override
     protected void loadImageFromFile(@NonNull final Uri selectedFileUri) {
-        Glide.with(AlbumTagEditorActivity.this)
+        GlideApp.with(AlbumTagEditorActivity.this)
                 .as(BitmapPaletteWrapper.class)
                 .load(selectedFileUri)
                 .transition(new GenericTransitionOptions<BitmapPaletteWrapper>().transition(android.R.anim.fade_in))

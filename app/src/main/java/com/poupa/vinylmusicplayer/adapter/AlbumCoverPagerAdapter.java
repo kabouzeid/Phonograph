@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.poupa.vinylmusicplayer.R;
-import com.poupa.vinylmusicplayer.glide.VinylMusicPlayerColoredTarget;
+import com.poupa.vinylmusicplayer.glide.GlideApp;
 import com.poupa.vinylmusicplayer.glide.SongGlideRequest;
+import com.poupa.vinylmusicplayer.glide.VinylColoredTarget;
 import com.poupa.vinylmusicplayer.misc.CustomFragmentStatePagerAdapter;
 import com.poupa.vinylmusicplayer.model.Song;
 import com.poupa.vinylmusicplayer.util.PreferenceUtil;
@@ -114,24 +114,23 @@ public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
             super.onViewCreated(view, savedInstanceState);
             forceSquareAlbumCover(false);
             // TODO
-//            forceSquareAlbumCover(PreferenceUtil.getInstance(getContext()).forceSquareAlbumCover());
-            PreferenceUtil.getInstance(getActivity()).registerOnSharedPreferenceChangedListener(this);
+//            forceSquareAlbumCover(PreferenceUtil.getInstance().forceSquareAlbumCover());
+            PreferenceUtil.getInstance().registerOnSharedPreferenceChangedListener(this);
             loadAlbumCover();
         }
 
         @Override
         public void onDestroyView() {
             super.onDestroyView();
-            PreferenceUtil.getInstance(getActivity()).unregisterOnSharedPreferenceChangedListener(this);
+            PreferenceUtil.getInstance().unregisterOnSharedPreferenceChangedListener(this);
             unbinder.unbind();
             colorReceiver = null;
         }
 
         private void loadAlbumCover() {
-            SongGlideRequest.Builder.from(Glide.with(this), song)
-                    .checkIgnoreMediaStore(getActivity())
-                    .generatePalette(getActivity()).buildAsBitmapPaletteWrapper()
-                    .into(new VinylMusicPlayerColoredTarget(albumCover) {
+            SongGlideRequest.from(GlideApp.with(this).asBitmapPalette(), song)
+                    .build()
+                    .into(new VinylColoredTarget(albumCover) {
                         @Override
                         public void onColorReady(int color) {
                             setColor(color);
@@ -144,7 +143,7 @@ public class AlbumCoverPagerAdapter extends CustomFragmentStatePagerAdapter {
             switch (key) {
                 case PreferenceUtil.FORCE_SQUARE_ALBUM_COVER:
                     // TODO
-//                    forceSquareAlbumCover(PreferenceUtil.getInstance(getActivity()).forceSquareAlbumCover());
+//                    forceSquareAlbumCover(PreferenceUtil.getInstance().forceSquareAlbumCover());
                     break;
             }
         }

@@ -23,7 +23,6 @@ import android.widget.Toast;
 import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.util.DialogUtils;
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
@@ -36,8 +35,9 @@ import com.poupa.vinylmusicplayer.adapter.song.AlbumSongAdapter;
 import com.poupa.vinylmusicplayer.dialogs.AddToPlaylistDialog;
 import com.poupa.vinylmusicplayer.dialogs.DeleteSongsDialog;
 import com.poupa.vinylmusicplayer.dialogs.SleepTimerDialog;
-import com.poupa.vinylmusicplayer.glide.VinylMusicPlayerColoredTarget;
+import com.poupa.vinylmusicplayer.glide.GlideApp;
 import com.poupa.vinylmusicplayer.glide.SongGlideRequest;
+import com.poupa.vinylmusicplayer.glide.VinylColoredTarget;
 import com.poupa.vinylmusicplayer.glide.palette.BitmapPaletteWrapper;
 import com.poupa.vinylmusicplayer.helper.MusicPlayerRemote;
 import com.poupa.vinylmusicplayer.interfaces.CabHolder;
@@ -54,12 +54,11 @@ import com.poupa.vinylmusicplayer.ui.activities.base.AbsSlidingMusicPanelActivit
 import com.poupa.vinylmusicplayer.ui.activities.tageditor.AbsTagEditorActivity;
 import com.poupa.vinylmusicplayer.ui.activities.tageditor.AlbumTagEditorActivity;
 import com.poupa.vinylmusicplayer.util.NavigationUtil;
-import com.poupa.vinylmusicplayer.util.VinylMusicPlayerColorUtil;
 import com.poupa.vinylmusicplayer.util.Util;
-
-import java.util.Locale;
+import com.poupa.vinylmusicplayer.util.VinylMusicPlayerColorUtil;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -170,9 +169,9 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     }
 
     private void loadAlbumCover() {
-        SongGlideRequest.Builder.from(Glide.with(this), getAlbum().safeGetFirstSong())
-                .checkIgnoreMediaStore(this)
-                .generatePalette(this).buildAsBitmapPaletteWrapperDontAnimate()
+        SongGlideRequest.from(GlideApp.with(this).asBitmapPalette(), getAlbum().safeGetFirstSong())
+                .build()
+                .dontAnimate()
                 .listener(new RequestListener<BitmapPaletteWrapper>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<BitmapPaletteWrapper> target, boolean isFirstResource) {
@@ -186,7 +185,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                         return false;
                     }
                 })
-                .into(new VinylMusicPlayerColoredTarget(albumArtImageView) {
+                .into(new VinylColoredTarget(albumArtImageView) {
                     @Override
                     public void onColorReady(int color) {
                         setColors(color);

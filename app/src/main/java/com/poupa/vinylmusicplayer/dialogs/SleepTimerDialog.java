@@ -62,7 +62,7 @@ public class SleepTimerDialog extends DialogFragment {
                     PendingIntent pi = makeTimerPendingIntent(PendingIntent.FLAG_CANCEL_CURRENT);
 
                     final long nextSleepTimerElapsedTime = SystemClock.elapsedRealtime() + minutes * 60 * 1000;
-                    PreferenceUtil.getInstance(getActivity()).setNextSleepTimerElapsedRealtime(nextSleepTimerElapsedTime);
+                    PreferenceUtil.getInstance().setNextSleepTimerElapsedRealtime(nextSleepTimerElapsedTime);
                     AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
                     am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextSleepTimerElapsedTime, pi);
 
@@ -107,7 +107,7 @@ public class SleepTimerDialog extends DialogFragment {
             seekArc.setLayoutParams(layoutParams);
         });
 
-        seekArcProgress = PreferenceUtil.getInstance(getActivity()).getLastSleepTimerValue();
+        seekArcProgress = PreferenceUtil.getInstance().getLastSleepTimerValue();
         updateTimeDisplayTime();
         seekArc.setProgress(seekArcProgress);
 
@@ -129,7 +129,7 @@ public class SleepTimerDialog extends DialogFragment {
 
             @Override
             public void onStopTrackingTouch(SeekArc seekArc) {
-                PreferenceUtil.getInstance(getActivity()).setLastSleepTimerValue(seekArcProgress);
+                PreferenceUtil.getInstance().setLastSleepTimerValue(seekArcProgress);
             }
         });
 
@@ -151,7 +151,7 @@ public class SleepTimerDialog extends DialogFragment {
 
     private class TimerUpdater extends CountDownTimer {
         public TimerUpdater() {
-            super(PreferenceUtil.getInstance(getActivity()).getNextSleepTimerElapsedRealTime() - SystemClock.elapsedRealtime(), 1000);
+            super(PreferenceUtil.getInstance().getNextSleepTimerElapsedRealTime() - SystemClock.elapsedRealtime(), 1000);
         }
 
         @Override

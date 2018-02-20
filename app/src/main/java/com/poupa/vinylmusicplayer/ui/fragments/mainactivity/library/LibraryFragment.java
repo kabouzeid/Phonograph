@@ -36,9 +36,9 @@ import com.poupa.vinylmusicplayer.ui.activities.SearchActivity;
 import com.poupa.vinylmusicplayer.ui.fragments.mainactivity.AbsMainActivityFragment;
 import com.poupa.vinylmusicplayer.ui.fragments.mainactivity.library.pager.AbsLibraryPagerRecyclerViewCustomGridSizeFragment;
 import com.poupa.vinylmusicplayer.ui.fragments.mainactivity.library.pager.PlaylistsFragment;
-import com.poupa.vinylmusicplayer.util.VinylMusicPlayerColorUtil;
 import com.poupa.vinylmusicplayer.util.PreferenceUtil;
 import com.poupa.vinylmusicplayer.util.Util;
+import com.poupa.vinylmusicplayer.util.VinylMusicPlayerColorUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,7 +77,7 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
 
     @Override
     public void onDestroyView() {
-        PreferenceUtil.getInstance(getActivity()).unregisterOnSharedPreferenceChangedListener(this);
+        PreferenceUtil.getInstance().unregisterOnSharedPreferenceChangedListener(this);
         super.onDestroyView();
         pager.removeOnPageChangeListener(this);
         unbinder.unbind();
@@ -85,7 +85,7 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        PreferenceUtil.getInstance(getActivity()).registerOnSharedPreferenceChangedListener(this);
+        PreferenceUtil.getInstance().registerOnSharedPreferenceChangedListener(this);
         setStatusbarColorAuto(view);
         getMainActivity().setNavigationbarColorAuto();
         getMainActivity().setTaskDescriptionColorAuto();
@@ -98,12 +98,12 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
     public void onSharedPreferenceChanged(SharedPreferences preferences, String key) {
         if (PreferenceUtil.LIBRARY_CATEGORIES.equals(key)) {
             Fragment current = getCurrentFragment();
-            pagerAdapter.setCategoryInfos(PreferenceUtil.getInstance(getActivity()).getLibraryCategoryInfos());
+            pagerAdapter.setCategoryInfos(PreferenceUtil.getInstance().getLibraryCategoryInfos());
             pager.setOffscreenPageLimit(pagerAdapter.getCount() - 1);
             int position = pagerAdapter.getItemPosition(current);
             if (position < 0) position = 0;
             pager.setCurrentItem(position);
-            PreferenceUtil.getInstance(getContext()).setLastPage(position);
+            PreferenceUtil.getInstance().setLastPage(position);
 
             // hide the tab bar with single tab
             tabs.setVisibility(pagerAdapter.getCount() == 1 ? View.GONE : View.VISIBLE);
@@ -136,8 +136,8 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
         // hide the tab bar with single tab
         tabs.setVisibility(pagerAdapter.getCount() == 1 ? View.GONE : View.VISIBLE);
 
-        if (PreferenceUtil.getInstance(getContext()).rememberLastTab()) {
-            pager.setCurrentItem(PreferenceUtil.getInstance(getContext()).getLastPage());
+        if (PreferenceUtil.getInstance().rememberLastTab()) {
+            pager.setCurrentItem(PreferenceUtil.getInstance().getLastPage());
         }
         pager.addOnPageChangeListener(this);
     }
@@ -342,7 +342,7 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
 
     @Override
     public void onPageSelected(int position) {
-        PreferenceUtil.getInstance(getActivity()).setLastPage(position);
+        PreferenceUtil.getInstance().setLastPage(position);
     }
 
     @Override

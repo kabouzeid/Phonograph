@@ -4,12 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.poupa.vinylmusicplayer.App;
 import com.poupa.vinylmusicplayer.R;
 import com.poupa.vinylmusicplayer.helper.SortOrder;
 import com.poupa.vinylmusicplayer.model.CategoryInfo;
@@ -86,13 +86,13 @@ public final class PreferenceUtil {
 
     private final SharedPreferences mPreferences;
 
-    private PreferenceUtil(@NonNull final Context context) {
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+    private PreferenceUtil() {
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(App.getStaticContext());
     }
 
-    public static PreferenceUtil getInstance(@NonNull final Context context) {
+    public static PreferenceUtil getInstance() {
         if (sInstance == null) {
-            sInstance = new PreferenceUtil(context.getApplicationContext());
+            sInstance = new PreferenceUtil();
         }
         return sInstance;
     }

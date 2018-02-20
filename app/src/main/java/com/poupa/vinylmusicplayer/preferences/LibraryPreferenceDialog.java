@@ -33,7 +33,7 @@ public class LibraryPreferenceDialog extends DialogFragment {
         if (savedInstanceState != null) {
             categoryInfos = savedInstanceState.getParcelableArrayList(PreferenceUtil.LIBRARY_CATEGORIES);
         } else {
-            categoryInfos = PreferenceUtil.getInstance(getContext()).getLibraryCategoryInfos();
+            categoryInfos = PreferenceUtil.getInstance().getLibraryCategoryInfos();
         }
         adapter = new CategoryInfoAdapter(categoryInfos);
 
@@ -50,7 +50,7 @@ public class LibraryPreferenceDialog extends DialogFragment {
                 .negativeText(android.R.string.cancel)
                 .neutralText(R.string.reset_action)
                 .autoDismiss(false)
-                .onNeutral((dialog, action) -> adapter.setCategoryInfos(PreferenceUtil.getInstance(getContext()).getDefaultLibraryCategoryInfos()))
+                .onNeutral((dialog, action) -> adapter.setCategoryInfos(PreferenceUtil.getInstance().getDefaultLibraryCategoryInfos()))
                 .onNegative((dialog, action) -> dismiss())
                 .onPositive((dialog, action) -> {
                     updateCategories(adapter.getCategoryInfos());
@@ -68,7 +68,7 @@ public class LibraryPreferenceDialog extends DialogFragment {
     private void updateCategories(ArrayList<CategoryInfo> categories) {
         if (getSelected(categories) == 0) return;
 
-        PreferenceUtil.getInstance(getContext()).setLibraryCategoryInfos(categories);
+        PreferenceUtil.getInstance().setLibraryCategoryInfos(categories);
     }
 
     private int getSelected(ArrayList<CategoryInfo> categories) {

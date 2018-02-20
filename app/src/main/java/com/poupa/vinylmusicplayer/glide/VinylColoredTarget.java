@@ -12,8 +12,8 @@ import com.poupa.vinylmusicplayer.glide.palette.BitmapPaletteTarget;
 import com.poupa.vinylmusicplayer.glide.palette.BitmapPaletteWrapper;
 import com.poupa.vinylmusicplayer.util.VinylMusicPlayerColorUtil;
 
-public abstract class VinylMusicPlayerColoredTarget extends BitmapPaletteTarget {
-    public VinylMusicPlayerColoredTarget(ImageView view) {
+public abstract class VinylColoredTarget extends BitmapPaletteTarget {
+    public VinylColoredTarget(ImageView view) {
         super(view);
     }
 

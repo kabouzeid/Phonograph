@@ -11,12 +11,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.poupa.vinylmusicplayer.App;
+import com.poupa.vinylmusicplayer.glide.GlideApp;
 import com.poupa.vinylmusicplayer.model.Artist;
 
 import java.io.BufferedOutputStream;
@@ -50,7 +50,7 @@ public class CustomArtistImageUtil {
     }
 
     public void setCustomArtistImage(final Artist artist, Uri uri) {
-        Glide.with(App.getInstance())
+        GlideApp.with(App.getInstance())
                 .asBitmap()
                 .load(uri)
                 .apply(new RequestOptions()
@@ -88,7 +88,7 @@ public class CustomArtistImageUtil {
 
                                 if (succesful) {
                                     mPreferences.edit().putBoolean(getFileName(artist), true).commit();
-                                    ArtistSignatureUtil.getInstance(App.getInstance()).updateArtistSignature(artist.getName());
+                                    ArtistSignatureUtil.getInstance().updateArtistSignature(artist.getName());
                                     App.getInstance().getContentResolver().notifyChange(Uri.parse("content://media"), null); // trigger media store changed to force artist image reload
                                 }
                                 return null;
@@ -104,7 +104,7 @@ public class CustomArtistImageUtil {
             @Override
             protected Void doInBackground(Void... params) {
                 mPreferences.edit().putBoolean(getFileName(artist), false).commit();
-                ArtistSignatureUtil.getInstance(App.getInstance()).updateArtistSignature(artist.getName());
+                ArtistSignatureUtil.getInstance().updateArtistSignature(artist.getName());
                 App.getInstance().getContentResolver().notifyChange(Uri.parse("content://media"), null); // trigger media store changed to force artist image reload
 
                 File file = getFile(artist);
