@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <FrameLayout
+            <RelativeLayout
                 android:id="@+id/player_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -40,7 +40,14 @@
 
                 </com.kabouzeid.gramophone.views.WidthFitSquareLayout>
 
-            </FrameLayout>
+                <fragment
+                    android:id="@+id/playback_controls_fragment"
+                    class="com.kabouzeid.gramophone.ui.fragments.player.flat.FlatPlayerPlaybackControlsFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/album_cover_container" />
+
+            </RelativeLayout>
 
             <FrameLayout
                 android:id="@+id/toolbar_container"
@@ -62,13 +69,9 @@
             android:id="@+id/player_panel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/status_bar_padding"
             android:orientation="vertical">
 
-            <fragment
-                android:id="@+id/playback_controls_fragment"
-                class="com.kabouzeid.gramophone.ui.fragments.player.flat.FlatPlayerPlaybackControlsFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
