@@ -272,4 +272,18 @@
     <string name="could_not_restore_purchase">A vásárlást nem sikerült visszaállítani.</string>
     <string name="purchase">Vásárlás</string>
     <string name="restore">Visszaállítás</string>
+    <string name="no_purchase_found">Nem található vásárlás.</string>
+    <string name="eugene_cheung_summary">A forráskódhoz való hozzájárulásáért.</string>
+    <string name="add_action">Hozzáadás</string>
+    <string name="blacklist">Tiltólista</string>
+    <string name="remove_from_blacklist">Eltávolítás a tiltólistáról</string>
+    <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[Biztosan el szeretné távolítani <b>%1$s</b>-t a tiltólistáról?]]></string>
+    <string name="clear_blacklist">Tiltólista törlése</string>
+    <string name="do_you_want_to_clear_the_blacklist">Biztosan törölni szeretné a tiltólistát?</string>
+    <string name="pref_summary_blacklist">A tiltólistán lévő mappák tartalma nem szerepel a könyvtárban.</string>
+    <string name="reset_artist_image">Előadó képének visszaállítása</string>
+    <string name="set_artist_image">Előadó képének beállítása</string>
+    <string name="library_categories">Könyvtár kategóriák</string>
+    <string name="pref_summary_library_categories">Könyvtár kategóriák láthatóságának és sorrendjének beállítása.</string>
+    <string name="you_have_to_select_at_least_one_category">Legalább egy kategóriát ki kell választania.</string>
 </resources>

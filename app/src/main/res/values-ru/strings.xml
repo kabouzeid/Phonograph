@@ -27,7 +27,7 @@
     <string name="action_rename">Переименовать</string>
     <string name="action_delete">Удалить</string>
     <string name="action_scan">Сканировать</string>
-    <string name="action_set_as_start_directory">Назначить начальной папкой</string>
+    <string name="action_set_as_start_directory">Назначить начальной директорией</string>
     <string name="albums">Альбомы</string>
     <string name="artists">Исполнители</string>
     <string name="genres">Жанры</string>
@@ -142,7 +142,7 @@
     <string name="x_selected">%1$d выбрано</string>
     <string name="primary_color">Основной цвет</string>
     <string name="accent_color">Цвет акцента</string>
-    <string name="primary_color_desc">Основной цвет темы, по умолчанию - индиго.</string>
+    <string name="primary_color_desc">Основной цвет темы, по умолчанию — индиго.</string>
     <string name="accent_color_desc">Цвет акцента, по умолчанию — розовый</string>
     <string name="update_image">Обновить изображение</string>
     <string name="playlist_empty_text">Пустой плейлист</string>
@@ -202,7 +202,7 @@
     <string name="report_bugs">Отправить отчёт об ошибке</string>
     <string name="report_bugs_summary">Сообщить об ошибках или предложить новые функции.</string>
     <string name="join_community">Вступить в сообщество на Google Plus</string>
-    <string name="join_community_summary">Сообщество Phonograph в Google Plus - место, где вы сможете задать вопрос или получить помощь.</string>
+    <string name="join_community_summary">Сообщество Phonograph в Google Plus — место, где вы сможете задать вопрос или получить помощь.</string>
     <string name="translate">Перевести</string>
     <string name="translate_summary">Помогите перевести Phonograph на ваш родной язык.</string>
     <string name="rate_on_google_play">Оценить</string>
@@ -231,10 +231,10 @@
     <string name="could_not_scan_files">Не удалось просканировать %d файлов.</string>
     <string name="listing_files">Список файлов</string>
     <string name="new_start_directory">%s новая начальная директория.</string>
-    <string name="app_widget_big_name">Phonograph - Большой</string>
-    <string name="app_widget_classic_name">Phonograph - Классический</string>
-    <string name="app_widget_small_name">Phonograph - Маленький</string>
-    <string name="app_widget_card_name">Phonograph - Карточка</string>
+    <string name="app_widget_big_name">Phonograph — Большой</string>
+    <string name="app_widget_classic_name">Phonograph — Классический</string>
+    <string name="app_widget_small_name">Phonograph — Маленький</string>
+    <string name="app_widget_card_name">Phonograph — Карточка</string>
     <string name="report_an_issue">Сообщить об ошибке</string>
     <string name="bug_report_issue">Ошибка</string>
     <string name="login">Войти</string>
@@ -262,8 +262,8 @@
     <string name="app_shortcut_top_tracks_short">Популярные треки</string>
     <string name="app_shortcut_last_added_short">Последние добавленные</string>
     <string name="playlist_is_empty">Плейлист пуст</string>
-    <string name="playing_notification_description">С помощью уведомления воспроизведения можно воспроизводить/ставить на паузу и т.д.</string>
-    <string name="playing_notification_name">Уведомление воспроизведения</string>
+    <string name="playing_notification_description">С помощью уведомления о воспроизведении можно воспроизводить/ставить на паузу и т.д.</string>
+    <string name="playing_notification_name">Уведомление о воспроизведении</string>
     <string name="only_the_first_5_colors_available">Только первые 5 цветов доступны в бесплатной версии.</string>
     <string name="black_theme_is_a_pro_feature">Чёрная тема это функция Phonograph Pro.</string>
     <string name="sleep_timer_is_a_pro_feature">Таймер сна это функция Phonograph Pro.</string>
