@@ -36,7 +36,7 @@ public class AboutActivity extends AbsBaseActivity implements View.OnClickListen
     private static String GITHUB = "https://github.com/kabouzeid/Phonograph";
 
     private static String GOOGLE_PLUS = "https://google.com/+KarimAbouZeid23697";
-    private static String TWITTER = "https://twitter.com/karim23697";
+    private static String TWITTER = "https://twitter.com/karimjabouzeid";
     private static String WEBSITE = "https://kabouzeid.com/";
 
     private static String GOOGLE_PLUS_COMMUNITY = "https://plus.google.com/u/0/communities/106227738496107108513";
