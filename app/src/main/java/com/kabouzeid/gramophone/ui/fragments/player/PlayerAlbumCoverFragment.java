@@ -1,18 +1,25 @@
 package com.kabouzeid.gramophone.ui.fragments.player;
 
 import android.animation.Animator;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.Display;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.AlbumCoverPagerAdapter;
@@ -36,6 +43,9 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
     public static final String TAG = PlayerAlbumCoverFragment.class.getSimpleName();
 
     public static final int VISIBILITY_ANIM_DURATION = 300;
+    int clickCount = 0;
+    long startTime;
+
 
     private Unbinder unbinder;
 
@@ -65,8 +75,15 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
         return view;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+
         super.onViewCreated(view, savedInstanceState);
         viewPager.addOnPageChangeListener(this);
         viewPager.setOnTouchListener(new View.OnTouchListener() {
@@ -81,8 +98,51 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
                 }
             });
 
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                switch(event.getAction() & MotionEvent.ACTION_MASK) {
+
+                    case MotionEvent.ACTION_UP:
+
+                        clickCount++;
+
+                        if (clickCount==1){
+                            startTime = System.currentTimeMillis();
+                        }
+
+                        else if(clickCount == 2)
+                        {
+                            long duration =  System.currentTimeMillis() - startTime;
+                            if(duration <= 500)
+                            {
+
+
+                                if(event.getRawX()<width/2){
+                                    Log.i(TAG, "onTouch:********************left********");
+                                MusicPlayerRemote.seekTo(MusicPlayerRemote.getSongProgressMillis()-5000);
+                                onUpdateProgressViews(MusicPlayerRemote.getSongProgressMillis(), MusicPlayerRemote.getSongDurationMillis());
+                                showRewindAnimation();
+                                }
+                                else {
+                                    Log.i(TAG, "onTouch:********************right********");
+                                    MusicPlayerRemote.seekTo(MusicPlayerRemote.getSongProgressMillis()+5000);
+                                    onUpdateProgressViews(MusicPlayerRemote.getSongProgressMillis(), MusicPlayerRemote.getSongDurationMillis());
+                                    showForwardAnimation();
+                                }
+
+
+                                clickCount = 0;
+                                duration = 0;
+                            }else{
+                                clickCount = 1;
+                                startTime = System.currentTimeMillis();
+                            }
+                            break;
+                        }
+                }
+
+
                 return gestureDetector.onTouchEvent(event);
             }
         });
@@ -147,13 +207,15 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
 
     public void showHeartAnimation() {
         favoriteIcon.clearAnimation();
-
+        favoriteIcon.setImageResource(R.drawable.ic_favorite_white_24dp);
         favoriteIcon.setAlpha(0f);
         favoriteIcon.setScaleX(0f);
         favoriteIcon.setScaleY(0f);
         favoriteIcon.setVisibility(View.VISIBLE);
+        favoriteIcon.setX(0);
         favoriteIcon.setPivotX(favoriteIcon.getWidth() / 2);
         favoriteIcon.setPivotY(favoriteIcon.getHeight() / 2);
+        favoriteIcon.setColorFilter(getResources().getColor(R.color.md_pink_A400), android.graphics.PorterDuff.Mode.MULTIPLY);
 
         favoriteIcon.animate()
                 .setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME / 2)
@@ -172,6 +234,73 @@ public class PlayerAlbumCoverFragment extends AbsMusicServiceFragment implements
                         .setInterpolator(new AccelerateInterpolator())
                         .scaleX(0f)
                         .scaleY(0f)
+                        .alpha(0f)
+                        .start())
+                .start();
+    }
+    public void showForwardAnimation() {
+        favoriteIcon.clearAnimation();
+        favoriteIcon.setImageResource(R.drawable.ic_fast_forward_white_48);
+        favoriteIcon.setAlpha(0f);
+        favoriteIcon.setScaleX(0.2f);
+        favoriteIcon.setScaleY(0.2f);
+        favoriteIcon.setVisibility(View.VISIBLE);
+        favoriteIcon.setX(favoriteIcon.getWidth()/4);
+        favoriteIcon.setPivotX(favoriteIcon.getWidth()/2);
+        favoriteIcon.setPivotY(favoriteIcon.getHeight() / 2);
+        favoriteIcon.setColorFilter(getResources().getColor(R.color.md_white_1000), android.graphics.PorterDuff.Mode.MULTIPLY);
+
+        favoriteIcon.animate()
+                .setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME / 4)
+                .setInterpolator(new DecelerateInterpolator())
+                .scaleX(0.4f)
+                .scaleY(0.4f)
+                .alpha(1f)
+                .setListener(new SimpleAnimatorListener() {
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                        favoriteIcon.setVisibility(View.INVISIBLE);
+                    }
+                })
+                .withEndAction(() -> favoriteIcon.animate()
+                        .setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME / 4)
+                        .setInterpolator(new AccelerateInterpolator())
+                        .scaleX(0.2f)
+                        .scaleY(0.2f)
+                        .alpha(0f)
+                        .start())
+                .start();
+    }
+
+    public void showRewindAnimation() {
+        favoriteIcon.clearAnimation();
+        favoriteIcon.setImageResource(R.drawable.ic_fast_rewind_white_48);
+        favoriteIcon.setAlpha(0f);
+        favoriteIcon.setScaleX(0.2f);
+        favoriteIcon.setScaleY(0.2f);
+        favoriteIcon.setVisibility(View.VISIBLE);
+        favoriteIcon.setX(-favoriteIcon.getWidth()/4);
+        favoriteIcon.setPivotX(favoriteIcon.getWidth() / 2);
+        favoriteIcon.setPivotY(favoriteIcon.getHeight() / 2);
+        favoriteIcon.setColorFilter(getResources().getColor(R.color.md_white_1000), android.graphics.PorterDuff.Mode.MULTIPLY);
+
+        favoriteIcon.animate()
+                .setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME / 4)
+                .setInterpolator(new DecelerateInterpolator())
+                .scaleX(0.4f)
+                .scaleY(0.4f)
+                .alpha(1f)
+                .setListener(new SimpleAnimatorListener() {
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+                        favoriteIcon.setVisibility(View.INVISIBLE);
+                    }
+                })
+                .withEndAction(() -> favoriteIcon.animate()
+                        .setDuration(ViewUtil.PHONOGRAPH_ANIM_TIME / 4)
+                        .setInterpolator(new AccelerateInterpolator())
+                        .scaleX(0.2f)
+                        .scaleY(0.2f)
                         .alpha(0f)
                         .start())
                 .start();
