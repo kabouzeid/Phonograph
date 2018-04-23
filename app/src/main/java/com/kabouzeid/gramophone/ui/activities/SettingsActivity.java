@@ -200,15 +200,13 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                     return false;
                 }
 
-                int theme = PreferenceUtil.getThemeResFromPrefValue(themeName);
                 setSummary(generalTheme, o);
-                ThemeStore.editTheme(getActivity())
-                        .activityTheme(theme)
-                        .commit();
+
+                ThemeStore.markChanged(getActivity());
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
                     // Set the new theme so that updateAppShortcuts can pull it
-                    getActivity().setTheme(PreferenceUtil.getThemeResFromPrefValue((String) o));
+                    getActivity().setTheme(PreferenceUtil.getThemeResFromPrefValue(themeName));
                     new DynamicShortcutManager(getActivity()).updateDynamicShortcuts();
                 }
 
