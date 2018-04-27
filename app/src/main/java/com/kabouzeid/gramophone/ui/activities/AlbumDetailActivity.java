@@ -157,7 +157,10 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
 
     private void setUpObservableListViewParams() {
         toolbarColor = DialogUtils.resolveColor(this, R.attr.defaultFooterColor);
-        headerViewHeight = getResources().getDimensionPixelSize(R.dimen.title_view_height);
+        headerViewHeight = getResources().getDimensionPixelSize(R.dimen.detail_header_height);
+        if (headerViewHeight == 0) {
+            albumArtImageView.setVisibility(View.GONE);
+        }
     }
 
     private void setUpViews() {

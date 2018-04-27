@@ -53,7 +53,7 @@
                 <LinearLayout
                     android:id="@+id/header"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/title_view_height"
+                    android:layout_height="@dimen/detail_header_height"
                     android:background="?attr/defaultFooterColor"
                     android:elevation="@dimen/toolbar_elevation"
                     android:orientation="horizontal"
@@ -216,7 +216,7 @@
             <View
                 android:id="@+id/header_overlay"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/title_view_height"
+                android:layout_height="@dimen/detail_header_height"
                 android:elevation="@dimen/toolbar_elevation"
                 tools:ignore="UnusedAttribute" />
         </FrameLayout>
