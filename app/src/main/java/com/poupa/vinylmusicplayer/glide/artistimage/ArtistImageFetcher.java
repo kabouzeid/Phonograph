@@ -35,11 +35,11 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
     private OkHttpClient okhttp;
     private OkHttpStreamFetcher streamFetcher;
 
-    public ArtistImageFetcher(Context context, LastFMRestClient lastFMRestClient, OkHttpClient okhttp, ArtistImage model) {
+    public ArtistImageFetcher(Context context, LastFMRestClient lastFMRestClient, OkHttpClient okhttp, ArtistImage model, int width, int height) {
         this.context = context;
         this.lastFMRestClient = lastFMRestClient;
-        this.model = model;
         this.okhttp = okhttp;
+        this.model = model;
     }
 
     @NonNull
@@ -106,6 +106,9 @@ public class ArtistImageFetcher implements DataFetcher<InputStream> {
     @Override
     public void cancel() {
         isCancelled = true;
+        if (call != null) {
+            call.cancel();
+        }
         if (streamFetcher != null) {
             streamFetcher.cancel();
         }
