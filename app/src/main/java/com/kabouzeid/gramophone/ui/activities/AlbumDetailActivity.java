@@ -2,9 +2,7 @@ package com.kabouzeid.gramophone.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,7 +13,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,8 +27,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
-import com.kabouzeid.appthemehelper.ATH;
-import com.kabouzeid.appthemehelper.util.ATHUtil;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
 import com.kabouzeid.gramophone.R;
@@ -61,9 +56,8 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.Util;
 
-import java.util.Locale;
-
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -151,12 +145,13 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
             scrollY += headerViewHeight;
 
             // Change alpha of overlay
-            float headerAlpha = Math.max(0, Math.min(1, (float) 2*scrollY/headerViewHeight));
+            float headerAlpha = Math.max(0, Math.min(1, (float) 2 * scrollY / headerViewHeight));
             headerOverlay.setBackgroundColor(ColorUtil.withAlpha(toolbarColor, headerAlpha));
 
             // Translate name text
             headerView.setTranslationY(Math.max(-scrollY, -headerViewHeight));
             headerOverlay.setTranslationY(Math.max(-scrollY, -headerViewHeight));
+            albumArtImageView.setTranslationY(Math.max(-scrollY, -headerViewHeight));
         }
     };
 

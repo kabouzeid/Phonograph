@@ -45,13 +45,7 @@
                 android:dividerHeight="0dp"
                 android:scrollbars="none" />
 
-            <View
-                android:id="@+id/header_overlay"
-                android:elevation="@dimen/toolbar_elevation"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/title_view_height" />
-
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -65,15 +59,11 @@
                     android:orientation="horizontal"
                     tools:ignore="UnusedAttribute">
 
-                    <ImageView
-                        android:id="@+id/image"
+                    <!--placeholder image view, the actual image view can't go here or the shared element transition won't work right-->
+                    <View
                         android:layout_width="144dp"
                         android:layout_height="144dp"
-                        android:layout_margin="16dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/default_album_art"
-                        android:transitionName="@string/transition_album_art"
-                        tools:ignore="ContentDescription,UnusedAttribute" />
+                        android:layout_margin="16dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -211,7 +201,24 @@
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent" />
 
-            </LinearLayout>
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="144dp"
+                android:layout_height="144dp"
+                android:layout_margin="16dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_album_art"
+                android:transitionName="@string/transition_album_art"
+                tools:ignore="ContentDescription,UnusedAttribute" />
+
+            <View
+                android:id="@+id/header_overlay"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/title_view_height"
+                android:elevation="@dimen/toolbar_elevation"
+                tools:ignore="UnusedAttribute" />
         </FrameLayout>
 
     </LinearLayout>
