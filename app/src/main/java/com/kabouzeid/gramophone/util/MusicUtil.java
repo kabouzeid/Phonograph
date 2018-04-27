@@ -126,13 +126,16 @@ public class MusicUtil {
     public static String getPlaylistInfoString(@NonNull final Context context, @NonNull List<Song> songs) {
         final int songCount = songs.size();
         final String songString = songCount == 1 ? context.getResources().getString(R.string.song) : context.getResources().getString(R.string.songs);
+        final long duration = getTotalDuration(context, songs);
+        return songCount + " " + songString + " • " + MusicUtil.getReadableDurationString(duration);
+    }
 
+    public static long getTotalDuration(@NonNull final Context context, @NonNull List<Song> songs) {
         long duration = 0;
         for (int i = 0; i < songs.size(); i++) {
             duration += songs.get(i).duration;
         }
-
-        return songCount + " " + songString + " • " + MusicUtil.getReadableDurationString(duration);
+        return duration;
     }
 
     public static String getReadableDurationString(long songDurationMillis) {
