@@ -888,7 +888,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     }
 
     public void back(boolean force) {
-        if (getSongProgressMillis() > 2000) {
+        if (getSongProgressMillis() > 5000) {
             seek(0);
         } else {
             playPreviousSong(force);
