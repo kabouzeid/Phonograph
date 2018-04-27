@@ -171,15 +171,16 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             setSummary(generalTheme);
             generalTheme.setOnPreferenceChangeListener((preference, o) -> {
                 String themeName = (String) o;
-                int theme = PreferenceUtil.getThemeResFromPrefValue(themeName);
+
                 setSummary(generalTheme, o);
-                ThemeStore.editTheme(getActivity())
-                        .activityTheme(theme)
-                        .commit();
+
+                if (getActivity() != null) {
+                    ThemeStore.markChanged(getActivity());
+                }
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
                     // Set the new theme so that updateAppShortcuts can pull it
-                    getActivity().setTheme(PreferenceUtil.getThemeResFromPrefValue((String) o));
+                    getActivity().setTheme(PreferenceUtil.getThemeResFromPrefValue(themeName));
                     new DynamicShortcutManager(getActivity()).updateDynamicShortcuts();
                 }
 
@@ -195,17 +196,19 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
             });
 
             final ATEColorPreference primaryColorPref = (ATEColorPreference) findPreference("primary_color");
-            final int primaryColor = ThemeStore.primaryColor(getActivity());
-            primaryColorPref.setColor(primaryColor, ColorUtil.darkenColor(primaryColor));
-            primaryColorPref.setOnPreferenceClickListener(preference -> {
-                new ColorChooserDialog.Builder(getActivity(), R.string.primary_color)
-                        .accentMode(false)
-                        .allowUserColorInput(true)
-                        .allowUserColorInputAlpha(false)
-                        .preselect(primaryColor)
-                        .show(getActivity());
-                return true;
-            });
+            if (getActivity() != null) {
+                final int primaryColor = ThemeStore.primaryColor(getActivity());
+                primaryColorPref.setColor(primaryColor, ColorUtil.darkenColor(primaryColor));
+                primaryColorPref.setOnPreferenceClickListener(preference -> {
+                    new ColorChooserDialog.Builder(getActivity(), R.string.primary_color)
+                            .accentMode(false)
+                            .allowUserColorInput(true)
+                            .allowUserColorInputAlpha(false)
+                            .preselect(primaryColor)
+                            .show(getActivity());
+                    return true;
+                });
+            }
 
             final ATEColorPreference accentColorPref = (ATEColorPreference) findPreference("accent_color");
             final int accentColor = ThemeStore.accentColor(getActivity());
@@ -289,9 +292,12 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
         private boolean hasEqualizer() {
             final Intent effects = new Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL);
-            PackageManager pm = getActivity().getPackageManager();
-            ResolveInfo ri = pm.resolveActivity(effects, 0);
-            return ri != null;
+            if (getActivity() != null) {
+                PackageManager pm = getActivity().getPackageManager();
+                ResolveInfo ri = pm.resolveActivity(effects, 0);
+                return ri != null;
+            }
+            return false;
         }
 
         @Override

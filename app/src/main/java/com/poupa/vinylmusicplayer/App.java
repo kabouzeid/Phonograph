@@ -27,7 +27,6 @@ public class App extends Application {
         // default theme
         if (!ThemeStore.isConfigured(this, 1)) {
             ThemeStore.editTheme(this)
-                    .activityTheme(R.style.Theme_VinylMusicPlayer_Light)
                     .primaryColorRes(R.color.md_indigo_500)
                     .accentColorRes(R.color.md_pink_A400)
                     .commit();
