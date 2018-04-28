@@ -55,8 +55,8 @@
 
                 <!--placeholder image view, the actual image view can't go here or the shared element transition won't work right-->
                 <View
-                    android:layout_width="144dp"
-                    android:layout_height="144dp"
+                    android:layout_width="@dimen/detail_header_image_height"
+                    android:layout_height="@dimen/detail_header_image_height"
                     android:layout_margin="16dp" />
 
                 <LinearLayout
@@ -199,8 +199,8 @@
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="144dp"
-            android:layout_height="144dp"
+            android:layout_width="@dimen/detail_header_image_height"
+            android:layout_height="@dimen/detail_header_image_height"
             android:layout_margin="16dp"
             android:scaleType="centerCrop"
             android:src="@drawable/default_album_art"
