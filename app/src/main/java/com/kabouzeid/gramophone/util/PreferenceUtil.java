@@ -222,6 +222,12 @@ public final class PreferenceUtil {
         return mPreferences.getString(ARTIST_SORT_ORDER, SortOrder.ArtistSortOrder.ARTIST_A_Z);
     }
 
+    public void setArtistSortOrder(final String sortOrder) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putString(ARTIST_SORT_ORDER, sortOrder);
+        editor.apply();
+    }
+
     public final String getArtistSongSortOrder() {
         return mPreferences.getString(ARTIST_SONG_SORT_ORDER, SortOrder.ArtistSongSortOrder.SONG_A_Z);
     }
@@ -232,6 +238,12 @@ public final class PreferenceUtil {
 
     public final String getAlbumSortOrder() {
         return mPreferences.getString(ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_A_Z);
+    }
+
+    public void setAlbumSortOrder(final String sortOrder) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putString(ALBUM_SORT_ORDER, sortOrder);
+        editor.apply();
     }
 
     public final String getAlbumSongSortOrder() {
