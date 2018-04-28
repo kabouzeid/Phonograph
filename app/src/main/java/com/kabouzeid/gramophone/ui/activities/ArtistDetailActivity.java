@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,7 +81,9 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     @BindView(R.id.list)
     ObservableListView songListView;
     @BindView(R.id.title)
-    TextView artistName;
+    RelativeLayout artistName;
+    @BindView(R.id.album_title)
+    TextView artistNameTextView;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -302,7 +305,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     private void setColors(int color) {
         toolbarColor = color;
         artistName.setBackgroundColor(color);
-        artistName.setTextColor(MaterialValueHelper.getPrimaryTextColor(this, ColorUtil.isColorLight(color)));
+        artistNameTextView.setTextColor(MaterialValueHelper.getPrimaryTextColor(this, ColorUtil.isColorLight(color)));
         setNavigationbarColor(color);
         setTaskDescriptionColor(color);
     }
@@ -442,7 +445,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
             loadBiography();
         }
 
-        artistName.setText(artist.getName());
+        artistNameTextView.setText(artist.getName());
         songAdapter.swapDataSet(artist.getSongs());
         albumAdapter.swapDataSet(artist.albums);
     }

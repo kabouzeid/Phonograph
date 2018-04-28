@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,9 +56,8 @@ import com.kabouzeid.gramophone.util.NavigationUtil;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.Util;
 
-import java.util.Locale;
-
 import java.util.ArrayList;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,7 +85,9 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.title)
-    TextView albumTitleView;
+    RelativeLayout albumTitleView;
+    @BindView(R.id.album_title)
+    TextView albumTitleTextView;
     @BindView(R.id.list_background)
     View songsBackgroundView;
 
@@ -196,8 +198,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     private void setColors(int color) {
         toolbarColor = color;
         albumTitleView.setBackgroundColor(color);
-        albumTitleView.setTextColor(MaterialValueHelper.getPrimaryTextColor(this, ColorUtil.isColorLight(color)));
-
+        albumTitleTextView.setTextColor(MaterialValueHelper.getPrimaryTextColor(this, ColorUtil.isColorLight(color)));
         setNavigationbarColor(color);
         setTaskDescriptionColor(color);
     }
@@ -424,7 +425,8 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
             loadWiki();
         }
 
-        albumTitleView.setText(album.getTitle());
+        albumTitleTextView.setText(album.getTitle());
+
         adapter.swapDataSet(album.songs);
     }
 

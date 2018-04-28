@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Since this layout is clickable we have to use this -->
+<com.kabouzeid.gramophone.views.TouchInterceptFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="72dp"
     android:foreground="?attr/rectSelector"
@@ -21,6 +23,7 @@
         tools:ignore="ContentDescription" />
 
     <LinearLayout
+        android:id="@+id/song_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:descendantFocusability="blocksDescendants"
@@ -61,19 +64,26 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:descendantFocusability="blocksDescendants"
             android:orientation="vertical"
             android:paddingEnd="0dp"
             android:paddingLeft="16dp"
             android:paddingRight="0dp"
             android:paddingStart="16dp">
 
-            <TextView
-                android:id="@+id/title"
+            <com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView
+                android:id="@+id/title_scrollview"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                android:layout_height="wrap_content">
+
+                <com.kabouzeid.gramophone.views.AutoTruncateTextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+            </com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView>
 
             <TextView
                 android:id="@+id/text"
@@ -83,6 +93,7 @@
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="?android:textColorSecondary" />
+
         </LinearLayout>
 
         <com.kabouzeid.gramophone.views.IconImageView
@@ -110,4 +121,4 @@
         android:layout_marginStart="72dp"
         android:background="?attr/dividerColor" />
 
-</FrameLayout>
+</com.kabouzeid.gramophone.views.TouchInterceptFrameLayout>

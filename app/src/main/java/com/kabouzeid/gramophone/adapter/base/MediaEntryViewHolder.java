@@ -6,9 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.views.TouchInterceptHorizontalScrollView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,6 +19,10 @@ import butterknife.ButterKnife;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class MediaEntryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    @Nullable
+    @BindView(R.id.song_view)
+    public LinearLayout songView;
+
     @Nullable
     @BindView(R.id.image)
     public ImageView image;
@@ -28,6 +34,10 @@ public class MediaEntryViewHolder extends RecyclerView.ViewHolder implements Vie
     @Nullable
     @BindView(R.id.title)
     public TextView title;
+
+    @Nullable
+    @BindView(R.id.title_scrollview)
+    public TouchInterceptHorizontalScrollView title_scrollview;
 
     @Nullable
     @BindView(R.id.text)
@@ -74,6 +84,5 @@ public class MediaEntryViewHolder extends RecyclerView.ViewHolder implements Vie
 
     @Override
     public void onClick(View v) {
-
     }
 }
