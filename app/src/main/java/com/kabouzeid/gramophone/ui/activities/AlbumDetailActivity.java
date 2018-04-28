@@ -166,6 +166,11 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     private void setUpViews() {
         setUpRecyclerView();
         setUpSongsAdapter();
+        artistTextView.setOnClickListener(v -> {
+            if (album != null) {
+                NavigationUtil.goToArtist(AlbumDetailActivity.this, album.getArtistId());
+            }
+        });
     }
 
     private void loadAlbumCover() {
