@@ -15,6 +15,15 @@
     </group>
 
     <group
+        android:id="@+id/navigation_drawer_menu_category_media"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/action_rebuild_media_index"
+            android:icon="@drawable/ic_sync_white_24dp"
+            android:title="@string/action_rebuild_media_index" />
+    </group>
+
+    <group
         android:id="@+id/navigation_drawer_menu_category_other"
         android:checkableBehavior="none">
         <item
