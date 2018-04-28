@@ -60,7 +60,8 @@ public final class SortOrder {
                 + " DESC";
 
         /* Album sort order artist */
-        String ALBUM_ARTIST = MediaStore.Audio.Artists.DEFAULT_SORT_ORDER;
+        String ALBUM_ARTIST = MediaStore.Audio.Artists.DEFAULT_SORT_ORDER
+                + ", " + MediaStore.Audio.Albums.DEFAULT_SORT_ORDER;
 
         /* Album sort order year */
         String ALBUM_YEAR = MediaStore.Audio.Albums.FIRST_YEAR + " DESC";
