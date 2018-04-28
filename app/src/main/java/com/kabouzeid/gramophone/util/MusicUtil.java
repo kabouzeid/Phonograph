@@ -133,6 +133,12 @@ public class MusicUtil {
         return songCount + " " + songString;
     }
 
+    @NonNull
+    public static String getAlbumCountString(@NonNull final Context context, int albumCount) {
+        final String albumString = albumCount == 1 ? context.getResources().getString(R.string.album) : context.getResources().getString(R.string.albums);
+        return albumCount + " " + albumString;
+    }
+
     public static long getTotalDuration(@NonNull final Context context, @NonNull List<Song> songs) {
         long duration = 0;
         for (int i = 0; i < songs.size(); i++) {

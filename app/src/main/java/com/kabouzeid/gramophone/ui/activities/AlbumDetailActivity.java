@@ -158,9 +158,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     private void setUpObservableListViewParams() {
         toolbarColor = DialogUtils.resolveColor(this, R.attr.defaultFooterColor);
         headerViewHeight = getResources().getDimensionPixelSize(R.dimen.detail_header_height);
-        if (headerViewHeight == 0) {
-            albumArtImageView.setVisibility(View.GONE);
-        }
     }
 
     private void setUpViews() {
@@ -230,12 +227,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         setUpRecyclerViewPadding();
         recyclerView.setScrollViewCallbacks(observableScrollViewCallbacks);
         final View contentView = getWindow().getDecorView().findViewById(android.R.id.content);
-        contentView.post(() -> {
-            observableScrollViewCallbacks.onScrollChanged(-(headerViewHeight), false, false);
-            // necessary to fix a bug
-            recyclerView.scrollBy(0, 1);
-            recyclerView.scrollBy(0, -1);
-        });
+        contentView.post(() -> observableScrollViewCallbacks.onScrollChanged(-headerViewHeight, false, false));
     }
 
     private void setUpRecyclerViewPadding() {
