@@ -254,6 +254,12 @@ public final class PreferenceUtil {
         return mPreferences.getString(SONG_SORT_ORDER, SortOrder.SongSortOrder.SONG_A_Z);
     }
 
+    public void setSongSortOrder(final String sortOrder) {
+        final SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putString(SONG_SORT_ORDER, sortOrder);
+        editor.apply();
+    }
+
     public final String getGenreSortOrder() {
         return mPreferences.getString(GENRE_SORT_ORDER, SortOrder.GenreSortOrder.GENRE_A_Z);
     }

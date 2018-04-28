@@ -299,4 +299,5 @@
     <string name="sort_z_a">Descending</string>
     <string name="sort_artist">Artist</string>
     <string name="sort_album">Album</string>
+    <string name="sort_year">Year</string>
 </resources>

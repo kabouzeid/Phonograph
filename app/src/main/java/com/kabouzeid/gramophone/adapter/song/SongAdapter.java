@@ -190,24 +190,22 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
             return "";
         }
 
-//        @Nullable String sectionName = null;
-//        switch (PreferenceUtil.getInstance(activity).getSongSortOrder()) {
-//            case SortOrder.SongSortOrder.SONG_A_Z:
-//            case SortOrder.SongSortOrder.SONG_Z_A:
-//                sectionName = dataSet.get(position).title;
-//                break;
-//            case SortOrder.SongSortOrder.SONG_ALBUM:
-//                sectionName = dataSet.get(position).albumName;
-//                break;
-//            case SortOrder.SongSortOrder.SONG_ARTIST:
-//                sectionName = dataSet.get(position).artistName;
-//                break;
-//            case SortOrder.SongSortOrder.SONG_YEAR:
-//                sectionName = Integer.toString(dataSet.get(position).year);
-//                break;
-//        }
+        @Nullable String sectionName = null;
+        switch (PreferenceUtil.getInstance(activity).getSongSortOrder()) {
+            case SortOrder.SongSortOrder.SONG_A_Z:
+            case SortOrder.SongSortOrder.SONG_Z_A:
+                sectionName = dataSet.get(position).title;
+                break;
+            case SortOrder.SongSortOrder.SONG_ALBUM:
+                sectionName = dataSet.get(position).albumName;
+                break;
+            case SortOrder.SongSortOrder.SONG_ARTIST:
+                sectionName = dataSet.get(position).artistName;
+                break;
+            case SortOrder.SongSortOrder.SONG_YEAR:
+                return Integer.toString(dataSet.get(position).year);
+        }
 
-        String sectionName = dataSet.get(position).title;
         return MusicUtil.getSectionName(sectionName);
     }
 

@@ -64,8 +64,7 @@ public final class SortOrder {
                 + ", " + MediaStore.Audio.Albums.DEFAULT_SORT_ORDER;
 
         /* Album sort order year */
-        String ALBUM_YEAR = MediaStore.Audio.Albums.FIRST_YEAR + " DESC";
-
+        String ALBUM_YEAR = MediaStore.Audio.Media.YEAR + " DESC";
     }
 
     /**
