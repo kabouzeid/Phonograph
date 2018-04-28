@@ -1,226 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <include layout="@layout/shadow_statusbar_toolbar" />
+    <include layout="@layout/status_bar" />
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:elevation="@dimen/toolbar_elevation"
+        tools:ignore="UnusedAttribute">
 
-        <include layout="@layout/status_bar" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar"
+            android:background="@android:color/transparent" />
+
+        <ViewStub
+            android:id="@+id/cab_stub"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:scrollbars="none" />
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="@dimen/toolbar_elevation"
-            tools:ignore="UnusedAttribute">
+            android:orientation="vertical">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                style="@style/Toolbar"
-                android:background="@android:color/transparent" />
-
-            <ViewStub
-                android:id="@+id/cab_stub"
+            <LinearLayout
+                android:id="@+id/header"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
+                android:layout_height="@dimen/detail_header_height"
+                android:background="?attr/defaultFooterColor"
+                android:elevation="@dimen/toolbar_elevation"
+                android:orientation="horizontal"
+                tools:ignore="UnusedAttribute">
 
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView
-                android:id="@+id/list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:divider="@null"
-                android:dividerHeight="0dp"
-                android:scrollbars="none" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                <!--placeholder image view, the actual image view can't go here or the shared element transition won't work right-->
+                <View
+                    android:layout_width="144dp"
+                    android:layout_height="144dp"
+                    android:layout_margin="16dp" />
 
                 <LinearLayout
-                    android:id="@+id/header"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/detail_header_height"
-                    android:background="?attr/defaultFooterColor"
-                    android:elevation="@dimen/toolbar_elevation"
-                    android:orientation="horizontal"
-                    tools:ignore="UnusedAttribute">
-
-                    <!--placeholder image view, the actual image view can't go here or the shared element transition won't work right-->
-                    <View
-                        android:layout_width="144dp"
-                        android:layout_height="144dp"
-                        android:layout_margin="16dp" />
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginTop="16dp"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingEnd="16dp"
+                        android:paddingLeft="0dp"
+                        android:paddingRight="16dp"
+                        android:paddingStart="0dp">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <ImageView
+                            android:id="@+id/artist_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginLeft="0dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginStart="0dp"
+                            app:srcCompat="@drawable/ic_person_white_24dp"
+                            tools:ignore="ContentDescription,UnusedAttribute" />
+
+                        <TextView
+                            android:id="@+id/artist_text"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingEnd="16dp"
-                            android:paddingLeft="0dp"
-                            android:paddingRight="16dp"
-                            android:paddingStart="0dp">
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
-                            <ImageView
-                                android:id="@+id/artist_icon"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginLeft="0dp"
-                                android:layout_marginRight="8dp"
-                                android:layout_marginStart="0dp"
-                                app:srcCompat="@drawable/ic_person_white_24dp"
-                                tools:ignore="ContentDescription,UnusedAttribute" />
+                    </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/artist_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingEnd="16dp"
+                        android:paddingLeft="0dp"
+                        android:paddingRight="16dp"
+                        android:paddingStart="0dp">
 
-                        </LinearLayout>
+                        <ImageView
+                            android:id="@+id/duration_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginLeft="0dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginStart="0dp"
+                            app:srcCompat="@drawable/ic_access_time_white_24dp"
+                            tools:ignore="ContentDescription,UnusedAttribute" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/duration_text"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingEnd="16dp"
-                            android:paddingLeft="0dp"
-                            android:paddingRight="16dp"
-                            android:paddingStart="0dp">
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-                            <ImageView
-                                android:id="@+id/duration_icon"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginLeft="0dp"
-                                android:layout_marginRight="8dp"
-                                android:layout_marginStart="0dp"
-                                app:srcCompat="@drawable/ic_access_time_white_24dp"
-                                tools:ignore="ContentDescription,UnusedAttribute" />
+                    </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/duration_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingEnd="16dp"
+                        android:paddingLeft="0dp"
+                        android:paddingRight="16dp"
+                        android:paddingStart="0dp">
 
-                        </LinearLayout>
+                        <ImageView
+                            android:id="@+id/song_count_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginLeft="0dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginStart="0dp"
+                            app:srcCompat="@drawable/ic_music_note_white_24dp"
+                            tools:ignore="ContentDescription,UnusedAttribute" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/song_count_text"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingEnd="16dp"
-                            android:paddingLeft="0dp"
-                            android:paddingRight="16dp"
-                            android:paddingStart="0dp">
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-                            <ImageView
-                                android:id="@+id/song_count_icon"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginLeft="0dp"
-                                android:layout_marginRight="8dp"
-                                android:layout_marginStart="0dp"
-                                app:srcCompat="@drawable/ic_music_note_white_24dp"
-                                tools:ignore="ContentDescription,UnusedAttribute" />
+                    </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/song_count_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingEnd="16dp"
+                        android:paddingLeft="0dp"
+                        android:paddingRight="16dp"
+                        android:paddingStart="0dp">
 
-                        </LinearLayout>
+                        <ImageView
+                            android:id="@+id/album_year_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginLeft="0dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginStart="0dp"
+                            app:srcCompat="@drawable/ic_event_white_24dp"
+                            tools:ignore="ContentDescription,UnusedAttribute" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/album_year_text"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingEnd="16dp"
-                            android:paddingLeft="0dp"
-                            android:paddingRight="16dp"
-                            android:paddingStart="0dp">
-
-                            <ImageView
-                                android:id="@+id/album_year_icon"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginLeft="0dp"
-                                android:layout_marginRight="8dp"
-                                android:layout_marginStart="0dp"
-                                app:srcCompat="@drawable/ic_event_white_24dp"
-                                tools:ignore="ContentDescription,UnusedAttribute" />
-
-                            <TextView
-                                android:id="@+id/album_year_text"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                        </LinearLayout>
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent" />
-
-            </FrameLayout>
-
-            <ImageView
-                android:id="@+id/image"
-                android:layout_width="144dp"
-                android:layout_height="144dp"
-                android:layout_margin="16dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/default_album_art"
-                android:transitionName="@string/transition_album_art"
-                tools:ignore="ContentDescription,UnusedAttribute" />
+            </LinearLayout>
 
             <View
-                android:id="@+id/header_overlay"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/detail_header_height"
-                android:elevation="@dimen/toolbar_elevation"
-                tools:ignore="UnusedAttribute" />
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent" />
+
         </FrameLayout>
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="144dp"
+            android:layout_height="144dp"
+            android:layout_margin="16dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_album_art"
+            android:transitionName="@string/transition_album_art"
+            tools:ignore="ContentDescription,UnusedAttribute" />
 
-</FrameLayout>
+        <View
+            android:id="@+id/header_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/detail_header_height"
+            android:elevation="@dimen/toolbar_elevation"
+            tools:ignore="UnusedAttribute" />
+    </FrameLayout>
+
+</LinearLayout>

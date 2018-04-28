@@ -202,6 +202,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         setTaskDescriptionColor(color);
 
         toolbar.setBackgroundColor(color);
+        setSupportActionBar(toolbar); // needed to auto readjust the toolbar content color
         setStatusbarColor(color);
 
         int secondaryTextColor = MaterialValueHelper.getSecondaryTextColor(this, ColorUtil.isColorLight(color));
@@ -263,7 +264,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_album_detail, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void loadWiki() {
