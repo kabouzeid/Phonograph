@@ -225,7 +225,7 @@ public final class PreferenceUtil {
     public void setArtistSortOrder(final String sortOrder) {
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.putString(ARTIST_SORT_ORDER, sortOrder);
-        editor.apply();
+        editor.commit();
     }
 
     public final String getArtistSongSortOrder() {
@@ -243,7 +243,7 @@ public final class PreferenceUtil {
     public void setAlbumSortOrder(final String sortOrder) {
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.putString(ALBUM_SORT_ORDER, sortOrder);
-        editor.apply();
+        editor.commit();
     }
 
     public final String getAlbumSongSortOrder() {
@@ -257,7 +257,7 @@ public final class PreferenceUtil {
     public void setSongSortOrder(final String sortOrder) {
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.putString(SONG_SORT_ORDER, sortOrder);
-        editor.apply();
+        editor.commit();
     }
 
     public final String getGenreSortOrder() {

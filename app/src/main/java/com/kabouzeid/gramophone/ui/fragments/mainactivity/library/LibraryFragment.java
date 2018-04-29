@@ -36,9 +36,9 @@ import com.kabouzeid.gramophone.ui.activities.MainActivity;
 import com.kabouzeid.gramophone.ui.activities.SearchActivity;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.AbsMainActivityFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.AbsLibraryPagerRecyclerViewCustomGridSizeFragment;
-import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.PlaylistsFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.AlbumsFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.ArtistsFragment;
+import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.PlaylistsFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.pager.SongsFragment;
 import com.kabouzeid.gramophone.util.PhonographColorUtil;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
@@ -345,29 +345,29 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
         sortOrderMenu.clear();
 
         if (fragment instanceof AlbumsFragment) {
-            sortOrderMenu.add(0, R.id.action_album_sort_asc, 0, R.string.sort_a_z)
+            sortOrderMenu.add(0, R.id.action_album_sort_order_asc, 0, R.string.sort_order_a_z)
                     .setChecked(currentSortOrder.equals(SortOrder.AlbumSortOrder.ALBUM_A_Z));
-            sortOrderMenu.add(0, R.id.action_album_sort_desc, 1, R.string.sort_z_a)
+            sortOrderMenu.add(0, R.id.action_album_sort_order_desc, 1, R.string.sort_order_z_a)
                     .setChecked(currentSortOrder.equals(SortOrder.AlbumSortOrder.ALBUM_Z_A));
-            sortOrderMenu.add(0, R.id.action_album_sort_artist, 2, R.string.sort_artist)
+            sortOrderMenu.add(0, R.id.action_album_sort_order_artist, 2, R.string.sort_order_artist)
                     .setChecked(currentSortOrder.equals(SortOrder.AlbumSortOrder.ALBUM_ARTIST));
-            sortOrderMenu.add(0, R.id.action_album_sort_year, 3, R.string.sort_year)
+            sortOrderMenu.add(0, R.id.action_album_sort_order_year, 3, R.string.sort_order_year)
                     .setChecked(currentSortOrder.equals(SortOrder.AlbumSortOrder.ALBUM_YEAR));
         } else if (fragment instanceof ArtistsFragment) {
-            sortOrderMenu.add(0, R.id.action_artist_sort_asc, 0, R.string.sort_a_z)
+            sortOrderMenu.add(0, R.id.action_artist_sort_order_asc, 0, R.string.sort_order_a_z)
                     .setChecked(currentSortOrder.equals(SortOrder.ArtistSortOrder.ARTIST_A_Z));
-            sortOrderMenu.add(0, R.id.action_artist_sort_desc, 1, R.string.sort_z_a)
+            sortOrderMenu.add(0, R.id.action_artist_sort_order_desc, 1, R.string.sort_order_z_a)
                     .setChecked(currentSortOrder.equals(SortOrder.ArtistSortOrder.ARTIST_Z_A));
         } else if (fragment instanceof SongsFragment) {
-            sortOrderMenu.add(0, R.id.action_song_sort_asc, 0, R.string.sort_a_z)
+            sortOrderMenu.add(0, R.id.action_song_sort_order_asc, 0, R.string.sort_order_a_z)
                     .setChecked(currentSortOrder.equals(SortOrder.SongSortOrder.SONG_A_Z));
-            sortOrderMenu.add(0, R.id.action_song_sort_desc, 1, R.string.sort_z_a)
+            sortOrderMenu.add(0, R.id.action_song_sort_order_desc, 1, R.string.sort_order_z_a)
                     .setChecked(currentSortOrder.equals(SortOrder.SongSortOrder.SONG_Z_A));
-            sortOrderMenu.add(0, R.id.action_song_sort_artist, 2, R.string.sort_artist)
+            sortOrderMenu.add(0, R.id.action_song_sort_order_artist, 2, R.string.sort_order_artist)
                     .setChecked(currentSortOrder.equals(SortOrder.SongSortOrder.SONG_ARTIST));
-            sortOrderMenu.add(0, R.id.action_song_sort_album, 3, R.string.sort_album)
+            sortOrderMenu.add(0, R.id.action_song_sort_order_album, 3, R.string.sort_order_album)
                     .setChecked(currentSortOrder.equals(SortOrder.SongSortOrder.SONG_ALBUM));
-            sortOrderMenu.add(0, R.id.action_song_sort_year, 4, R.string.sort_year)
+            sortOrderMenu.add(0, R.id.action_song_sort_order_year, 4, R.string.sort_order_year)
                     .setChecked(currentSortOrder.equals(SortOrder.SongSortOrder.SONG_YEAR));
         }
 
@@ -378,43 +378,43 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
         String sortOrder = null;
         if (fragment instanceof AlbumsFragment) {
             switch (item.getItemId()) {
-                case R.id.action_album_sort_asc:
+                case R.id.action_album_sort_order_asc:
                     sortOrder = SortOrder.AlbumSortOrder.ALBUM_A_Z;
                     break;
-                case R.id.action_album_sort_desc:
+                case R.id.action_album_sort_order_desc:
                     sortOrder = SortOrder.AlbumSortOrder.ALBUM_Z_A;
                     break;
-                case R.id.action_album_sort_artist:
+                case R.id.action_album_sort_order_artist:
                     sortOrder = SortOrder.AlbumSortOrder.ALBUM_ARTIST;
                     break;
-                case R.id.action_album_sort_year:
+                case R.id.action_album_sort_order_year:
                     sortOrder = SortOrder.AlbumSortOrder.ALBUM_YEAR;
                     break;
             }
         } else if (fragment instanceof ArtistsFragment) {
             switch (item.getItemId()) {
-                case R.id.action_artist_sort_asc:
+                case R.id.action_artist_sort_order_asc:
                     sortOrder = SortOrder.ArtistSortOrder.ARTIST_A_Z;
                     break;
-                case R.id.action_artist_sort_desc:
+                case R.id.action_artist_sort_order_desc:
                     sortOrder = SortOrder.ArtistSortOrder.ARTIST_Z_A;
                     break;
             }
         } else if (fragment instanceof SongsFragment) {
             switch (item.getItemId()) {
-                case R.id.action_song_sort_asc:
+                case R.id.action_song_sort_order_asc:
                     sortOrder = SortOrder.SongSortOrder.SONG_A_Z;
                     break;
-                case R.id.action_song_sort_desc:
+                case R.id.action_song_sort_order_desc:
                     sortOrder = SortOrder.SongSortOrder.SONG_Z_A;
                     break;
-                case R.id.action_song_sort_artist:
+                case R.id.action_song_sort_order_artist:
                     sortOrder = SortOrder.SongSortOrder.SONG_ARTIST;
                     break;
-                case R.id.action_song_sort_album:
+                case R.id.action_song_sort_order_album:
                     sortOrder = SortOrder.SongSortOrder.SONG_ALBUM;
                     break;
-                case R.id.action_song_sort_year:
+                case R.id.action_song_sort_order_year:
                     sortOrder = SortOrder.SongSortOrder.SONG_YEAR;
                     break;
             }

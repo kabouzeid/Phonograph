@@ -63,8 +63,11 @@ public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFra
     @Override
     protected void saveSortOrder(String sortOrder) {
         PreferenceUtil.getInstance(getActivity()).setAlbumSortOrder(sortOrder);
-        onMediaStoreChanged();
-        getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    protected void setSortOrder(String sortOrder) {
+        getLoaderManager().restartLoader(LOADER_ID, null, this);
     }
 
     @Override

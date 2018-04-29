@@ -83,6 +83,7 @@ public abstract class AbsLibraryPagerRecyclerViewCustomGridSizeFragment<A extend
     public void setAndSaveSortOrder(final String sortOrder) {
         this.sortOrder = sortOrder;
         saveSortOrder(sortOrder);
+        setSortOrder(sortOrder);
     }
 
     /**
@@ -148,6 +149,8 @@ public abstract class AbsLibraryPagerRecyclerViewCustomGridSizeFragment<A extend
     protected abstract String loadSortOrder();
 
     protected abstract void saveSortOrder(String sortOrder);
+
+    protected abstract void setSortOrder(String sortOrder);
 
     protected int getMaxGridSizeForList() {
         if (isLandscape()) {
