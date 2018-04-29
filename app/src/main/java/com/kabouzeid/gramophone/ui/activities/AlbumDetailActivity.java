@@ -24,8 +24,6 @@ import com.afollestad.materialcab.MaterialCab;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.util.DialogUtils;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.kabouzeid.appthemehelper.util.ColorUtil;
 import com.kabouzeid.appthemehelper.util.MaterialValueHelper;
@@ -36,7 +34,6 @@ import com.kabouzeid.gramophone.dialogs.DeleteSongsDialog;
 import com.kabouzeid.gramophone.dialogs.SleepTimerDialog;
 import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
-import com.kabouzeid.gramophone.glide.palette.BitmapPaletteWrapper;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.interfaces.LoaderIds;
@@ -123,8 +120,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         setDrawUnderStatusbar(true);
         ButterKnife.bind(this);
 
-        supportPostponeEnterTransition();
-
         lastFMRestClient = new LastFMRestClient(this);
 
         setUpObservableListViewParams();
@@ -156,7 +151,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
     };
 
     private void setUpObservableListViewParams() {
-        toolbarColor = DialogUtils.resolveColor(this, R.attr.defaultFooterColor);
         headerViewHeight = getResources().getDimensionPixelSize(R.dimen.detail_header_height);
     }
 
@@ -168,6 +162,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                 NavigationUtil.goToArtist(AlbumDetailActivity.this, album.getArtistId());
             }
         });
+        setColors(DialogUtils.resolveColor(this, R.attr.defaultFooterColor));
     }
 
     private void loadAlbumCover() {
@@ -175,19 +170,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
                 .checkIgnoreMediaStore(this)
                 .generatePalette(this).build()
                 .dontAnimate()
-                .listener(new RequestListener<Object, BitmapPaletteWrapper>() {
-                    @Override
-                    public boolean onException(Exception e, Object model, Target<BitmapPaletteWrapper> target, boolean isFirstResource) {
-                        supportStartPostponedEnterTransition();
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(BitmapPaletteWrapper resource, Object model, Target<BitmapPaletteWrapper> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        supportStartPostponedEnterTransition();
-                        return false;
-                    }
-                })
                 .into(new PhonographColoredTarget(albumArtImageView) {
                     @Override
                     public void onColorReady(int color) {
@@ -453,7 +435,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
 
     @Override
     public void onLoadFinished(Loader<Album> loader, Album data) {
-        supportStartPostponedEnterTransition();
         setAlbum(data);
     }
 

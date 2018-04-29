@@ -137,15 +137,13 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
         setDrawUnderStatusbar(true);
         ButterKnife.bind(this);
 
-        supportPostponeEnterTransition();
-
         lastFMRestClient = new LastFMRestClient(this);
         usePalette = PreferenceUtil.getInstance(this).albumArtistColoredFooters();
 
         initViews();
         setUpObservableListViewParams();
-        setUpViews();
         setUpToolbar();
+        setUpViews();
 
         getSupportLoaderManager().initLoader(LOADER_ID, getIntent().getExtras(), this);
     }
@@ -158,7 +156,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     private boolean usePalette;
 
     private void setUpObservableListViewParams() {
-        toolbarColor = DialogUtils.resolveColor(this, R.attr.defaultFooterColor);
         headerViewHeight = getResources().getDimensionPixelSize(R.dimen.detail_header_height);
     }
 
@@ -170,6 +167,7 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
     private void setUpViews() {
         setUpSongListView();
         setUpAlbumRecyclerView();
+        setColors(DialogUtils.resolveColor(this, R.attr.defaultFooterColor));
     }
 
     private void setUpSongListView() {
@@ -465,7 +463,6 @@ public class ArtistDetailActivity extends AbsSlidingMusicPanelActivity implement
 
     @Override
     public void onLoadFinished(Loader<Artist> loader, Artist data) {
-        supportStartPostponedEnterTransition();
         setArtist(data);
     }
 
