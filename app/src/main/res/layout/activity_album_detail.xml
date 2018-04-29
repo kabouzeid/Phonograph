@@ -1,87 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/header_image_height"
-        android:scaleType="centerCrop"
-        android:src="@drawable/default_album_art"
-        android:transitionName="@string/transition_album_art"
-        tools:ignore="ContentDescription,UnusedAttribute" />
+    <include layout="@layout/status_bar" />
 
-    <View
-        android:id="@+id/list_background"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground" />
+        android:elevation="@dimen/toolbar_elevation"
+        tools:ignore="UnusedAttribute">
 
-    <com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        android:scrollbars="none" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/title_view_height"
-            android:height="@dimen/title_view_height"
-            android:background="?attr/defaultFooterColor"
-            android:elevation="@dimen/toolbar_elevation"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center_vertical"
-            android:paddingLeft="72dp"
-            android:paddingRight="72dp"
-            android:singleLine="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            tools:ignore="UnusedAttribute" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar"
             android:background="@android:color/transparent" />
 
-    </LinearLayout>
+        <ViewStub
+            android:id="@+id/cab_stub"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
 
-    <include layout="@layout/shadow_statusbar_toolbar" />
+    </FrameLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <include layout="@layout/status_bar" />
+        <com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:scrollbars="none" />
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="@dimen/toolbar_elevation"
-            tools:ignore="UnusedAttribute">
+            android:orientation="vertical">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                style="@style/Toolbar"
-                android:background="@android:color/transparent" />
-
-            <ViewStub
-                android:id="@+id/cab_stub"
+            <LinearLayout
+                android:id="@+id/header"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
+                android:layout_height="@dimen/detail_header_height"
+                android:background="?attr/defaultFooterColor"
+                android:elevation="@dimen/toolbar_elevation"
+                android:orientation="horizontal"
+                tools:ignore="UnusedAttribute">
+
+                <!--placeholder image view, the actual image view can't go here or the shared element transition won't work right-->
+                <View
+                    android:layout_width="@dimen/detail_header_image_height"
+                    android:layout_height="@dimen/detail_header_image_height"
+                    android:layout_margin="16dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingEnd="16dp"
+                        android:paddingLeft="0dp"
+                        android:paddingRight="16dp"
+                        android:paddingStart="0dp">
+
+                        <ImageView
+                            android:id="@+id/artist_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginLeft="0dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginStart="0dp"
+                            app:srcCompat="@drawable/ic_person_white_24dp"
+                            tools:ignore="ContentDescription,UnusedAttribute" />
+
+                        <TextView
+                            android:id="@+id/artist_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingEnd="16dp"
+                        android:paddingLeft="0dp"
+                        android:paddingRight="16dp"
+                        android:paddingStart="0dp">
+
+                        <ImageView
+                            android:id="@+id/song_count_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginLeft="0dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginStart="0dp"
+                            app:srcCompat="@drawable/ic_music_note_white_24dp"
+                            tools:ignore="ContentDescription,UnusedAttribute" />
+
+                        <TextView
+                            android:id="@+id/song_count_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingEnd="16dp"
+                        android:paddingLeft="0dp"
+                        android:paddingRight="16dp"
+                        android:paddingStart="0dp">
+
+                        <ImageView
+                            android:id="@+id/duration_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginLeft="0dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginStart="0dp"
+                            app:srcCompat="@drawable/ic_timer_white_24dp"
+                            tools:ignore="ContentDescription,UnusedAttribute" />
+
+                        <TextView
+                            android:id="@+id/duration_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingEnd="16dp"
+                        android:paddingLeft="0dp"
+                        android:paddingRight="16dp"
+                        android:paddingStart="0dp">
+
+                        <ImageView
+                            android:id="@+id/album_year_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginLeft="0dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginStart="0dp"
+                            app:srcCompat="@drawable/ic_event_white_24dp"
+                            tools:ignore="ContentDescription,UnusedAttribute" />
+
+                        <TextView
+                            android:id="@+id/album_year_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent" />
 
         </FrameLayout>
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="@dimen/detail_header_image_height"
+            android:layout_height="@dimen/detail_header_image_height"
+            android:layout_margin="16dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_album_art"
+            android:transitionName="@string/transition_album_art"
+            tools:ignore="ContentDescription,UnusedAttribute" />
 
-</FrameLayout>
+        <View
+            android:id="@+id/header_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/detail_header_height"
+            android:elevation="@dimen/toolbar_elevation"
+            tools:ignore="UnusedAttribute" />
+    </FrameLayout>
+
+</LinearLayout>
