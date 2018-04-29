@@ -78,18 +78,18 @@
                         android:paddingStart="0dp">
 
                         <ImageView
-                            android:id="@+id/song_count_icon"
+                            android:id="@+id/album_count_icon"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_marginEnd="8dp"
                             android:layout_marginLeft="0dp"
                             android:layout_marginRight="8dp"
                             android:layout_marginStart="0dp"
-                            app:srcCompat="@drawable/ic_music_note_white_24dp"
+                            app:srcCompat="@drawable/ic_album_white_24dp"
                             tools:ignore="ContentDescription,UnusedAttribute" />
 
                         <TextView
-                            android:id="@+id/song_count_text"
+                            android:id="@+id/album_count_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
@@ -108,18 +108,18 @@
                         android:paddingStart="0dp">
 
                         <ImageView
-                            android:id="@+id/album_count_icon"
+                            android:id="@+id/song_count_icon"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_marginEnd="8dp"
                             android:layout_marginLeft="0dp"
                             android:layout_marginRight="8dp"
                             android:layout_marginStart="0dp"
-                            app:srcCompat="@drawable/ic_album_white_24dp"
+                            app:srcCompat="@drawable/ic_music_note_white_24dp"
                             tools:ignore="ContentDescription,UnusedAttribute" />
 
                         <TextView
-                            android:id="@+id/album_count_text"
+                            android:id="@+id/song_count_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
