@@ -10,6 +10,8 @@ import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -45,7 +47,9 @@ public class AlbumLoader {
     @NonNull
     public static Album getAlbum(@NonNull final Context context, int albumId) {
         ArrayList<Song> songs = SongLoader.getSongs(SongLoader.makeSongCursor(context, AudioColumns.ALBUM_ID + "=?", new String[]{String.valueOf(albumId)}, getSongLoaderSortOrder(context)));
-        return new Album(songs);
+        Album album = new Album(songs);
+        sortSongsByTrackNumber(album);
+        return album;
     }
 
     @NonNull
@@ -55,6 +59,9 @@ public class AlbumLoader {
             for (Song song : songs) {
                 getOrCreateAlbum(albums, song.albumId).songs.add(song);
             }
+        }
+        for (Album album : albums) {
+            sortSongsByTrackNumber(album);
         }
         return albums;
     }
@@ -68,5 +75,9 @@ public class AlbumLoader {
         Album album = new Album();
         albums.add(album);
         return album;
+    }
+
+    private static void sortSongsByTrackNumber(Album album) {
+        Collections.sort(album.songs, (o1, o2) -> o1.trackNumber - o2.trackNumber);
     }
 }
