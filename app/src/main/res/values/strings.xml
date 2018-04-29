@@ -295,7 +295,7 @@
     <string name="library_categories">Library categories</string>
     <string name="pref_summary_library_categories">Configure visibility and order of library categories.</string>
     <string name="you_have_to_select_at_least_one_category">You have to select at least one category.</string>
-    <string name="action_sort">Sort order</string>
+    <string name="action_sort_order">Sort order</string>
     <string name="sort_a_z">Ascending</string>
     <string name="sort_z_a">Descending</string>
     <string name="sort_artist">Artist</string>
