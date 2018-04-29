@@ -18,6 +18,7 @@
 
 # RetroFit
 -dontwarn retrofit.**
+-dontwarn retrofit2.Platform$Java8
 -keep class retrofit.** { *; }
 -keepattributes Signature
 -keepattributes Exceptions
@@ -28,6 +29,9 @@
     **[] $VALUES;
     public *;
 }
+
+# Okio
+-dontwarn okio.**
 
 # ButterKnife
 -keep class butterknife.** { *; }
