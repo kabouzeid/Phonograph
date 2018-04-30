@@ -3,7 +3,6 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivity.folders;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.media.MediaScannerConnection;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,7 +28,6 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.afollestad.materialcab.MaterialCab;
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
@@ -533,7 +531,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         protected void onPostExecute(ArrayList<Song> songs) {
             super.onPostExecute(songs);
             OnSongsListedCallback callback = checkCallbackReference();
-            if (songs != null && callback != null && !songs.isEmpty())
+            if (songs != null && callback != null)
                 callback.onSongsListed(songs, extra);
         }
 
@@ -603,7 +601,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
                         File f = files.get(i);
                         paths[i] = FileUtil.safeGetCanonicalPath(f);
 
-                        if (isCancelled() || checkCallbackReference() == null) return paths;
+                        if (isCancelled() || checkCallbackReference() == null) return null;
                     }
                 } else {
                     paths = new String[1];
@@ -622,7 +620,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         protected void onPostExecute(String[] paths) {
             super.onPostExecute(paths);
             OnPathsListedCallback callback = checkCallbackReference();
-            if (callback != null) {
+            if (callback != null && paths != null) {
                 callback.onPathsListed(paths);
             }
         }
@@ -646,7 +644,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         }
 
         public interface OnPathsListedCallback {
-            void onPathsListed(@Nullable String[] paths);
+            void onPathsListed(@NonNull String[] paths);
         }
     }
 
