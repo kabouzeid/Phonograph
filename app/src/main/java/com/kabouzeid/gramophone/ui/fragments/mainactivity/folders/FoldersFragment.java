@@ -265,6 +265,12 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
             case R.id.action_go_to_start_directory:
                 setCrumb(new BreadCrumbLayout.Crumb(tryGetCanonicalFile(PreferenceUtil.getInstance(getActivity()).getStartDirectory())), true);
                 return true;
+            case R.id.action_scan:
+                BreadCrumbLayout.Crumb crumb = getActiveCrumb();
+                if (crumb != null) {
+                    new ListPathsAsyncTask(getActivity(), paths -> scanPaths(paths)).execute(new ListPathsAsyncTask.LoadingInfo(crumb.getFile(), getFileFilter()));
+                }
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
