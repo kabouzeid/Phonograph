@@ -296,4 +296,5 @@
     <string name="sort_order_album">Album</string>
     <string name="sort_order_year">Year</string>
     <string name="action_scan_directory">Scan directory</string>
+    <string name="scan_media">Scan media</string>
 </resources>

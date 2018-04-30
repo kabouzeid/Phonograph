@@ -14,6 +14,14 @@
             android:title="@string/folders" />
     </group>
 
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/action_scan"
+            android:icon="@drawable/ic_scanner_white_24dp"
+            android:title="@string/scan_media" />
+    </group>
+
+
     <group
         android:id="@+id/navigation_drawer_menu_category_other"
         android:checkableBehavior="none">
