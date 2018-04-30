@@ -1,7 +1,7 @@
 <resources>
+    <dimen name="detail_header_height">144dp</dimen>
+    <dimen name="detail_header_image_height">112dp</dimen>
     <dimen name="title_view_height">56dp</dimen>
-
-    <dimen name="header_image_height">180dp</dimen>
 
     <dimen name="card_on_app_bar_side_padding">72dp</dimen>
 

@@ -9,9 +9,11 @@
     <string name="michael_cook_cookicons" translatable="false">Michael Cook (Cookicons)</string>
     <string name="aleksandar_tesic" translatable="false">Aleksandar Tešić</string>
     <string name="eugene_cheung">Eugene Cheung</string>
+    <string name="adrian">Adrian</string>
 
     <string name="google_plus" translatable="false">Google Plus</string>
     <string name="git_hub" translatable="false">GitHub</string>
+    <string name="twitter" translatable="false">Twitter</string>
 
     <string name="card">Card</string>
     <string name="flat">Flat</string>
