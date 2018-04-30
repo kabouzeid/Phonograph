@@ -41,13 +41,12 @@ public class BlurTransformation extends BitmapTransformation {
     }
 
     private BlurTransformation(Builder builder) {
-        super(builder.context);
+        super();
         init(builder);
     }
 
     private BlurTransformation(Builder builder, BitmapPool bitmapPool) {
-        //super(bitmapPool);
-        super(builder.context);
+        super();
         init(builder);
     }
 
