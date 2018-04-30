@@ -21,12 +21,14 @@ import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
+import com.kabouzeid.gramophone.helper.SortOrder;
 import com.kabouzeid.gramophone.helper.menu.SongMenuHelper;
 import com.kabouzeid.gramophone.helper.menu.SongsMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
@@ -184,7 +186,27 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
     @NonNull
     @Override
     public String getSectionName(int position) {
-        return showSectionName ? MusicUtil.getSectionName(dataSet.get(position).title) : "";
+        if (!showSectionName) {
+            return "";
+        }
+
+        @Nullable String sectionName = null;
+        switch (PreferenceUtil.getInstance(activity).getSongSortOrder()) {
+            case SortOrder.SongSortOrder.SONG_A_Z:
+            case SortOrder.SongSortOrder.SONG_Z_A:
+                sectionName = dataSet.get(position).title;
+                break;
+            case SortOrder.SongSortOrder.SONG_ALBUM:
+                sectionName = dataSet.get(position).albumName;
+                break;
+            case SortOrder.SongSortOrder.SONG_ARTIST:
+                sectionName = dataSet.get(position).artistName;
+                break;
+            case SortOrder.SongSortOrder.SONG_YEAR:
+                return Integer.toString(dataSet.get(position).year);
+        }
+
+        return MusicUtil.getSectionName(sectionName);
     }
 
     public class ViewHolder extends MediaEntryViewHolder {

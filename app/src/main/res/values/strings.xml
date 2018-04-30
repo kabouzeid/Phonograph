@@ -297,4 +297,10 @@
     <string name="you_have_to_select_at_least_one_category">You have to select at least one category.</string>
     <string name="action_scan_directory">Scan directory</string>
     <string name="scan_media">Scan media</string>
+    <string name="action_sort_order">Sort order</string>
+    <string name="sort_order_a_z">Ascending</string>
+    <string name="sort_order_z_a">Descending</string>
+    <string name="sort_order_artist">Artist</string>
+    <string name="sort_order_album">Album</string>
+    <string name="sort_order_year">Year</string>
 </resources>

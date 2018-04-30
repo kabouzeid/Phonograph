@@ -14,6 +14,7 @@ import com.kabouzeid.gramophone.util.Util;
  */
 public abstract class AbsLibraryPagerRecyclerViewCustomGridSizeFragment<A extends RecyclerView.Adapter, LM extends RecyclerView.LayoutManager> extends AbsLibraryPagerRecyclerViewFragment<A, LM> {
     private int gridSize;
+    private String sortOrder;
 
     private boolean usePaletteInitialized;
     private boolean usePalette;
@@ -49,6 +50,13 @@ public abstract class AbsLibraryPagerRecyclerViewCustomGridSizeFragment<A extend
         return usePalette;
     }
 
+    public final String getSortOrder() {
+        if (sortOrder == null) {
+            sortOrder = loadSortOrder();
+        }
+        return sortOrder;
+    }
+
     public void setAndSaveGridSize(final int gridSize) {
         int oldLayoutRes = getItemLayoutRes();
         this.gridSize = gridSize;
@@ -70,6 +78,12 @@ public abstract class AbsLibraryPagerRecyclerViewCustomGridSizeFragment<A extend
         this.usePalette = usePalette;
         saveUsePalette(usePalette);
         setUsePalette(usePalette);
+    }
+
+    public void setAndSaveSortOrder(final String sortOrder) {
+        this.sortOrder = sortOrder;
+        saveSortOrder(sortOrder);
+        setSortOrder(sortOrder);
     }
 
     /**
@@ -131,6 +145,12 @@ public abstract class AbsLibraryPagerRecyclerViewCustomGridSizeFragment<A extend
     protected abstract void setUsePalette(boolean usePalette);
 
     protected abstract void setGridSize(int gridSize);
+
+    protected abstract String loadSortOrder();
+
+    protected abstract void saveSortOrder(String sortOrder);
+
+    protected abstract void setSortOrder(String sortOrder);
 
     protected int getMaxGridSizeForList() {
         if (isLandscape()) {
