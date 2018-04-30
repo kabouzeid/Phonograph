@@ -11,7 +11,6 @@ import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
