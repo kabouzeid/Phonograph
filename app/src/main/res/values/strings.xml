@@ -296,4 +296,5 @@
     <string name="pref_summary_library_categories">Configure visibility and order of library categories.</string>
     <string name="you_have_to_select_at_least_one_category">You have to select at least one category.</string>
     <string name="action_scan_directory">Scan directory</string>
+    <string name="scan_media">Scan media</string>
 </resources>

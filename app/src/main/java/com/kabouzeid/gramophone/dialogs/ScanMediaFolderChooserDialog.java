@@ -1,20 +1,29 @@
 package com.kabouzeid.gramophone.dialogs;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.media.MediaScannerConnection;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
+import com.kabouzeid.gramophone.misc.UpdateToastMediaScannerCompletionListener;
+import com.kabouzeid.gramophone.ui.fragments.mainactivity.folders.FoldersFragment;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,15 +32,25 @@ import java.util.List;
 /**
  * @author Aidan Follestad (afollestad), modified by Karim Abou Zeid
  */
-public class BlacklistFolderChooserDialog extends DialogFragment implements MaterialDialog.ListCallback {
+public class ScanMediaFolderChooserDialog extends DialogFragment implements MaterialDialog.ListCallback {
 
+    String initialPath = PreferenceUtil.getInstance(getContext()).getStartDirectory().getAbsolutePath();
     private File parentFolder;
     private File[] parentContents;
     private boolean canGoUp = false;
 
-    private FolderCallback callback;
+    public static ScanMediaFolderChooserDialog create() {
+        return new ScanMediaFolderChooserDialog();
+    }
 
-    String initialPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+    private static void scanPaths(@NonNull WeakReference<Activity> activityWeakReference, @NonNull Context applicationContext, @Nullable String[] toBeScanned) {
+        Activity activity = activityWeakReference.get();
+        if (toBeScanned == null || toBeScanned.length < 1) {
+            Toast.makeText(applicationContext, R.string.nothing_to_scan, Toast.LENGTH_SHORT).show();
+        } else {
+            MediaScannerConnection.scanFile(applicationContext, toBeScanned, null, activity != null ? new UpdateToastMediaScannerCompletionListener(activity, toBeScanned) : null);
+        }
+    }
 
     private String[] getContentsArray() {
         if (parentContents == null) {
@@ -65,10 +84,6 @@ public class BlacklistFolderChooserDialog extends DialogFragment implements Mate
         return null;
     }
 
-    public static BlacklistFolderChooserDialog create() {
-        return new BlacklistFolderChooserDialog();
-    }
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -98,11 +113,13 @@ public class BlacklistFolderChooserDialog extends DialogFragment implements Mate
                         .itemsCallback(this)
                         .autoDismiss(false)
                         .onPositive((dialog, which) -> {
+                            final Context applicationContext = getActivity().getApplicationContext();
+                            final WeakReference<Activity> activityWeakReference = new WeakReference<>(getActivity());
                             dismiss();
-                            callback.onFolderSelection(BlacklistFolderChooserDialog.this, parentFolder);
+                            new FoldersFragment.ListPathsAsyncTask(getActivity(), paths -> scanPaths(activityWeakReference, applicationContext, paths)).execute(new FoldersFragment.ListPathsAsyncTask.LoadingInfo(parentFolder, FoldersFragment.AUDIO_FILE_FILTER));
                         })
                         .onNegative((materialDialog, dialogAction) -> dismiss())
-                        .positiveText(R.string.add_action)
+                        .positiveText(R.string.action_scan_directory)
                         .negativeText(android.R.string.cancel);
         return builder.build();
     }
@@ -140,14 +157,6 @@ public class BlacklistFolderChooserDialog extends DialogFragment implements Mate
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString("current_path", parentFolder.getAbsolutePath());
-    }
-
-    public void setCallback(FolderCallback callback) {
-        this.callback = callback;
-    }
-
-    public interface FolderCallback {
-        void onFolderSelection(@NonNull BlacklistFolderChooserDialog dialog, @NonNull File folder);
     }
 
     private static class FolderSorter implements Comparator<File> {
