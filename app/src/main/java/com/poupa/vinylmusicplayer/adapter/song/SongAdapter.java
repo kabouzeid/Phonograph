@@ -21,12 +21,14 @@ import com.poupa.vinylmusicplayer.glide.GlideApp;
 import com.poupa.vinylmusicplayer.glide.VinylColoredTarget;
 import com.poupa.vinylmusicplayer.glide.VinylGlideExtension;
 import com.poupa.vinylmusicplayer.helper.MusicPlayerRemote;
+import com.poupa.vinylmusicplayer.helper.SortOrder;
 import com.poupa.vinylmusicplayer.helper.menu.SongMenuHelper;
 import com.poupa.vinylmusicplayer.helper.menu.SongsMenuHelper;
 import com.poupa.vinylmusicplayer.interfaces.CabHolder;
 import com.poupa.vinylmusicplayer.model.Song;
 import com.poupa.vinylmusicplayer.util.MusicUtil;
 import com.poupa.vinylmusicplayer.util.NavigationUtil;
+import com.poupa.vinylmusicplayer.util.PreferenceUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
@@ -186,7 +188,27 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
     @NonNull
     @Override
     public String getSectionName(int position) {
-        return showSectionName ? MusicUtil.getSectionName(dataSet.get(position).title) : "";
+        if (!showSectionName) {
+            return "";
+        }
+
+        @Nullable String sectionName = null;
+        switch (PreferenceUtil.getInstance().getSongSortOrder()) {
+            case SortOrder.SongSortOrder.SONG_A_Z:
+            case SortOrder.SongSortOrder.SONG_Z_A:
+                sectionName = dataSet.get(position).title;
+                break;
+            case SortOrder.SongSortOrder.SONG_ALBUM:
+                sectionName = dataSet.get(position).albumName;
+                break;
+            case SortOrder.SongSortOrder.SONG_ARTIST:
+                sectionName = dataSet.get(position).artistName;
+                break;
+            case SortOrder.SongSortOrder.SONG_YEAR:
+                return Integer.toString(dataSet.get(position).year);
+        }
+
+        return MusicUtil.getSectionName(sectionName);
     }
 
     public class ViewHolder extends MediaEntryViewHolder {

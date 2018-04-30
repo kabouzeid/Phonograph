@@ -19,12 +19,14 @@ import com.poupa.vinylmusicplayer.adapter.base.MediaEntryViewHolder;
 import com.poupa.vinylmusicplayer.glide.GlideApp;
 import com.poupa.vinylmusicplayer.glide.VinylColoredTarget;
 import com.poupa.vinylmusicplayer.glide.VinylGlideExtension;
+import com.poupa.vinylmusicplayer.helper.SortOrder;
 import com.poupa.vinylmusicplayer.helper.menu.SongsMenuHelper;
 import com.poupa.vinylmusicplayer.interfaces.CabHolder;
 import com.poupa.vinylmusicplayer.model.Artist;
 import com.poupa.vinylmusicplayer.model.Song;
 import com.poupa.vinylmusicplayer.util.MusicUtil;
 import com.poupa.vinylmusicplayer.util.NavigationUtil;
+import com.poupa.vinylmusicplayer.util.PreferenceUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
@@ -176,7 +178,15 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     @NonNull
     @Override
     public String getSectionName(int position) {
-        return MusicUtil.getSectionName(dataSet.get(position).getName());
+        @Nullable String sectionName = null;
+        switch (PreferenceUtil.getInstance().getArtistSortOrder()) {
+            case SortOrder.ArtistSortOrder.ARTIST_A_Z:
+            case SortOrder.ArtistSortOrder.ARTIST_Z_A:
+                sectionName = dataSet.get(position).getName();
+                break;
+        }
+
+        return MusicUtil.getSectionName(sectionName);
     }
 
     public class ViewHolder extends MediaEntryViewHolder {

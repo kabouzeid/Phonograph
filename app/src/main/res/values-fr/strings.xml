@@ -20,7 +20,7 @@
     <string name="action_next">Suivant</string>
     <string name="action_add_to_playing_queue">Ajouter à la liste de lecture</string>
     <string name="action_remove_from_playing_queue">Retirer de la liste de lecture</string>
-    <string name="action_add_to_playlist">Ajouter à la liste de lecture...</string>
+    <string name="action_add_to_playlist">Ajouter à la liste de lecture…</string>
     <string name="action_tag_editor">Éditeur d\'informations</string>
     <string name="action_delete_from_device">Supprimer de l\'appareil</string>
     <string name="action_details">Détails</string>
@@ -166,7 +166,7 @@
     <string name="pref_summary_synchronized_lyrics_show">Pour le moment seul les paroles synchronisées en format LRC sont supportées. Aussi bien en fichier intégré ou en fichier séparé.</string>
     <string name="pref_summary_remember_last_tab">Aller à la dernière catégorie ouverte lors du lancement</string>
     <string name="could_not_download_album_cover">"Impossible de t\u00e9l\u00e9charger la pochette correspondant \u00e0 l'album."</string>
-    <string name="search_hint">Recherche dans votre bibliothèque...</string>
+    <string name="search_hint">Recherche dans votre bibliothèque…</string>
     <string name="favorites">Favoris</string>
     <string name="last_added">Derniers ajouts</string>
     <string name="history">Titres écoutés récemment</string>
@@ -261,10 +261,6 @@
     <string name="playlist_is_empty">La liste de lecture est vide</string>
     <string name="playing_notification_description">La notification de lecture fournit des actions pour la lecture/pause etc.</string>
     <string name="playing_notification_name">Notification de lecture</string>
-    <string name="restoring_purchase">Restauration des achats...</string>
-    <string name="could_not_restore_purchase">Impossible de restaurer les achats</string>
-    <string name="purchase">Acheter</string>
-    <string name="restore">Restaurer</string>
     <string name="eugene_cheung_summary">Pour ses contributions au code source</string>
     <string name="add_action">Ajouter</string>
     <string name="blacklist">Liste noire</string>
@@ -278,4 +274,10 @@
     <string name="library_categories">Catégories de la bibliothèque</string>
     <string name="pref_summary_library_categories">Configurer la visibilité et l\'ordre des catégories.</string>
     <string name="you_have_to_select_at_least_one_category">Vous devez sélectionner au moins une catégorie.</string>
+    <string name="action_sort_order">Ordre de tri</string>
+    <string name="sort_order_a_z">Ascendant</string>
+    <string name="sort_order_z_a">Descendant</string>
+    <string name="sort_order_artist">Artiste</string>
+    <string name="sort_order_album">Album</string>
+    <string name="sort_order_year">Année</string>
 </resources>

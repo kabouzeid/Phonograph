@@ -29,13 +29,17 @@ import com.poupa.vinylmusicplayer.R;
 import com.poupa.vinylmusicplayer.adapter.MusicLibraryPagerAdapter;
 import com.poupa.vinylmusicplayer.dialogs.CreatePlaylistDialog;
 import com.poupa.vinylmusicplayer.helper.MusicPlayerRemote;
+import com.poupa.vinylmusicplayer.helper.SortOrder;
 import com.poupa.vinylmusicplayer.interfaces.CabHolder;
 import com.poupa.vinylmusicplayer.loader.SongLoader;
 import com.poupa.vinylmusicplayer.ui.activities.MainActivity;
 import com.poupa.vinylmusicplayer.ui.activities.SearchActivity;
 import com.poupa.vinylmusicplayer.ui.fragments.mainactivity.AbsMainActivityFragment;
 import com.poupa.vinylmusicplayer.ui.fragments.mainactivity.library.pager.AbsLibraryPagerRecyclerViewCustomGridSizeFragment;
+import com.poupa.vinylmusicplayer.ui.fragments.mainactivity.library.pager.AlbumsFragment;
+import com.poupa.vinylmusicplayer.ui.fragments.mainactivity.library.pager.ArtistsFragment;
 import com.poupa.vinylmusicplayer.ui.fragments.mainactivity.library.pager.PlaylistsFragment;
+import com.poupa.vinylmusicplayer.ui.fragments.mainactivity.library.pager.SongsFragment;
 import com.poupa.vinylmusicplayer.util.PreferenceUtil;
 import com.poupa.vinylmusicplayer.util.Util;
 import com.poupa.vinylmusicplayer.util.VinylMusicPlayerColorUtil;
@@ -194,9 +198,12 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
 
             menu.findItem(R.id.action_colored_footers).setChecked(absLibraryRecyclerViewCustomGridSizeFragment.usePalette());
             menu.findItem(R.id.action_colored_footers).setEnabled(absLibraryRecyclerViewCustomGridSizeFragment.canUsePalette());
+
+            setUpSortOrderMenu(absLibraryRecyclerViewCustomGridSizeFragment, menu.findItem(R.id.action_sort_order).getSubMenu());
         } else {
             menu.removeItem(R.id.action_grid_size);
             menu.removeItem(R.id.action_colored_footers);
+            menu.removeItem(R.id.action_sort_order);
         }
         Activity activity = getActivity();
         if (activity == null) return;
@@ -223,6 +230,9 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
                 return true;
             }
             if (handleGridSizeMenuItem(absLibraryRecyclerViewCustomGridSizeFragment, item)) {
+                return true;
+            }
+            if (handleSortOrderMenuItem(absLibraryRecyclerViewCustomGridSizeFragment, item)) {
                 return true;
             }
         }
@@ -324,6 +334,95 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
             toolbar.getMenu().findItem(R.id.action_colored_footers).setEnabled(fragment.canUsePalette());
             return true;
         }
+        return false;
+    }
+
+    private void setUpSortOrderMenu(@NonNull AbsLibraryPagerRecyclerViewCustomGridSizeFragment fragment, @NonNull SubMenu sortOrderMenu) {
+        String currentSortOrder = fragment.getSortOrder();
+        sortOrderMenu.clear();
+
+        if (fragment instanceof AlbumsFragment) {
+            sortOrderMenu.add(0, R.id.action_album_sort_order_asc, 0, R.string.sort_order_a_z)
+                    .setChecked(currentSortOrder.equals(SortOrder.AlbumSortOrder.ALBUM_A_Z));
+            sortOrderMenu.add(0, R.id.action_album_sort_order_desc, 1, R.string.sort_order_z_a)
+                    .setChecked(currentSortOrder.equals(SortOrder.AlbumSortOrder.ALBUM_Z_A));
+            sortOrderMenu.add(0, R.id.action_album_sort_order_artist, 2, R.string.sort_order_artist)
+                    .setChecked(currentSortOrder.equals(SortOrder.AlbumSortOrder.ALBUM_ARTIST));
+            sortOrderMenu.add(0, R.id.action_album_sort_order_year, 3, R.string.sort_order_year)
+                    .setChecked(currentSortOrder.equals(SortOrder.AlbumSortOrder.ALBUM_YEAR));
+        } else if (fragment instanceof ArtistsFragment) {
+            sortOrderMenu.add(0, R.id.action_artist_sort_order_asc, 0, R.string.sort_order_a_z)
+                    .setChecked(currentSortOrder.equals(SortOrder.ArtistSortOrder.ARTIST_A_Z));
+            sortOrderMenu.add(0, R.id.action_artist_sort_order_desc, 1, R.string.sort_order_z_a)
+                    .setChecked(currentSortOrder.equals(SortOrder.ArtistSortOrder.ARTIST_Z_A));
+        } else if (fragment instanceof SongsFragment) {
+            sortOrderMenu.add(0, R.id.action_song_sort_order_asc, 0, R.string.sort_order_a_z)
+                    .setChecked(currentSortOrder.equals(SortOrder.SongSortOrder.SONG_A_Z));
+            sortOrderMenu.add(0, R.id.action_song_sort_order_desc, 1, R.string.sort_order_z_a)
+                    .setChecked(currentSortOrder.equals(SortOrder.SongSortOrder.SONG_Z_A));
+            sortOrderMenu.add(0, R.id.action_song_sort_order_artist, 2, R.string.sort_order_artist)
+                    .setChecked(currentSortOrder.equals(SortOrder.SongSortOrder.SONG_ARTIST));
+            sortOrderMenu.add(0, R.id.action_song_sort_order_album, 3, R.string.sort_order_album)
+                    .setChecked(currentSortOrder.equals(SortOrder.SongSortOrder.SONG_ALBUM));
+            sortOrderMenu.add(0, R.id.action_song_sort_order_year, 4, R.string.sort_order_year)
+                    .setChecked(currentSortOrder.equals(SortOrder.SongSortOrder.SONG_YEAR));
+        }
+
+        sortOrderMenu.setGroupCheckable(0, true, true);
+    }
+
+    private boolean handleSortOrderMenuItem(@NonNull AbsLibraryPagerRecyclerViewCustomGridSizeFragment fragment, @NonNull MenuItem item) {
+        String sortOrder = null;
+        if (fragment instanceof AlbumsFragment) {
+            switch (item.getItemId()) {
+                case R.id.action_album_sort_order_asc:
+                    sortOrder = SortOrder.AlbumSortOrder.ALBUM_A_Z;
+                    break;
+                case R.id.action_album_sort_order_desc:
+                    sortOrder = SortOrder.AlbumSortOrder.ALBUM_Z_A;
+                    break;
+                case R.id.action_album_sort_order_artist:
+                    sortOrder = SortOrder.AlbumSortOrder.ALBUM_ARTIST;
+                    break;
+                case R.id.action_album_sort_order_year:
+                    sortOrder = SortOrder.AlbumSortOrder.ALBUM_YEAR;
+                    break;
+            }
+        } else if (fragment instanceof ArtistsFragment) {
+            switch (item.getItemId()) {
+                case R.id.action_artist_sort_order_asc:
+                    sortOrder = SortOrder.ArtistSortOrder.ARTIST_A_Z;
+                    break;
+                case R.id.action_artist_sort_order_desc:
+                    sortOrder = SortOrder.ArtistSortOrder.ARTIST_Z_A;
+                    break;
+            }
+        } else if (fragment instanceof SongsFragment) {
+            switch (item.getItemId()) {
+                case R.id.action_song_sort_order_asc:
+                    sortOrder = SortOrder.SongSortOrder.SONG_A_Z;
+                    break;
+                case R.id.action_song_sort_order_desc:
+                    sortOrder = SortOrder.SongSortOrder.SONG_Z_A;
+                    break;
+                case R.id.action_song_sort_order_artist:
+                    sortOrder = SortOrder.SongSortOrder.SONG_ARTIST;
+                    break;
+                case R.id.action_song_sort_order_album:
+                    sortOrder = SortOrder.SongSortOrder.SONG_ALBUM;
+                    break;
+                case R.id.action_song_sort_order_year:
+                    sortOrder = SortOrder.SongSortOrder.SONG_YEAR;
+                    break;
+            }
+        }
+
+        if (sortOrder != null) {
+            item.setChecked(true);
+            fragment.setAndSaveSortOrder(sortOrder);
+            return true;
+        }
+
         return false;
     }
 

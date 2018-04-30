@@ -70,8 +70,8 @@ public class ArtistLoader {
                 return artist;
             }
         }
-        Artist album = new Artist();
-        artists.add(album);
-        return album;
+        Artist artist = new Artist();
+        artists.add(artist);
+        return artist;
     }
 }
