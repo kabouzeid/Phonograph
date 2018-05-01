@@ -54,7 +54,6 @@ import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -141,7 +140,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState == null) {
-            setCrumb(new BreadCrumbLayout.Crumb(tryGetCanonicalFile((File) getArguments().getSerializable(PATH))), true);
+            setCrumb(new BreadCrumbLayout.Crumb(FileUtil.safeGetCanonicalFile((File) getArguments().getSerializable(PATH))), true);
         } else {
             breadCrumbs.restoreFromStateWrapper(savedInstanceState.getParcelable(CRUMBS));
             getLoaderManager().initLoader(LOADER_ID, null, this);
@@ -289,7 +288,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_go_to_start_directory:
-                setCrumb(new BreadCrumbLayout.Crumb(tryGetCanonicalFile(PreferenceUtil.getInstance(getActivity()).getStartDirectory())), true);
+                setCrumb(new BreadCrumbLayout.Crumb(FileUtil.safeGetCanonicalFile(PreferenceUtil.getInstance(getActivity()).getStartDirectory())), true);
                 return true;
             case R.id.action_scan:
                 BreadCrumbLayout.Crumb crumb = getActiveCrumb();
@@ -303,16 +302,15 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
 
     @Override
     public void onFileSelected(File file) {
-        file = tryGetCanonicalFile(file); // important as we compare the path value later
-        if (file.isDirectory()) {
-            setCrumb(new BreadCrumbLayout.Crumb(file), true);
+        final File canonicalFile = FileUtil.safeGetCanonicalFile(file); // important as we compare the path value later
+        if (canonicalFile.isDirectory()) {
+            setCrumb(new BreadCrumbLayout.Crumb(canonicalFile), true);
         } else {
             FileFilter fileFilter = pathname -> !pathname.isDirectory() && AUDIO_FILE_FILTER.accept(pathname);
-            new ListSongsAsyncTask(getActivity(), file, (songs, extra) -> {
-                File file1 = (File) extra;
+            new ListSongsAsyncTask(getActivity(), null, (songs, extra) -> {
                 int startIndex = -1;
                 for (int i = 0; i < songs.size(); i++) {
-                    if (file1.getPath().equals(songs.get(i).data)) { // path is already canonical here
+                    if (canonicalFile.getPath().equals(songs.get(i).data)) {
                         startIndex = i;
                         break;
                     }
@@ -320,20 +318,35 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
                 if (startIndex > -1) {
                     MusicPlayerRemote.openQueue(songs, startIndex, true);
                 } else {
-                    final File finalFile = file1;
-                    Snackbar.make(coordinatorLayout, Html.fromHtml(String.format(getString(R.string.not_listed_in_media_store), file1.getName())), Snackbar.LENGTH_LONG)
-                            .setAction(R.string.action_scan, v -> new ListPathsAsyncTask(getActivity(), paths -> scanPaths(paths)).execute(new ListPathsAsyncTask.LoadingInfo(finalFile, AUDIO_FILE_FILTER)))
+                    Snackbar.make(coordinatorLayout, Html.fromHtml(String.format(getString(R.string.not_listed_in_media_store), canonicalFile.getName())), Snackbar.LENGTH_LONG)
+                            .setAction(R.string.action_scan, v -> scanPaths(new String[]{canonicalFile.getPath()}))
                             .setActionTextColor(ThemeStore.accentColor(getActivity()))
                             .show();
                 }
-            }).execute(new ListSongsAsyncTask.LoadingInfo(toList(file.getParentFile()), fileFilter, getFileComparator()));
+            }).execute(new ListSongsAsyncTask.LoadingInfo(toList(canonicalFile.getParentFile()), fileFilter, getFileComparator()));
         }
     }
 
     @Override
     public void onMultipleItemAction(MenuItem item, ArrayList<File> files) {
         final int itemId = item.getItemId();
-        new ListSongsAsyncTask(getActivity(), null, (songs, extra) -> SongsMenuHelper.handleMenuClick(getActivity(), songs, itemId)).execute(new ListSongsAsyncTask.LoadingInfo(files, AUDIO_FILE_FILTER, getFileComparator()));
+        new ListSongsAsyncTask(getActivity(), null, (songs, extra) -> {
+            if (!songs.isEmpty()) {
+                SongsMenuHelper.handleMenuClick(getActivity(), songs, itemId);
+            }
+            if (songs.size() != files.size()) {
+                Snackbar.make(coordinatorLayout, R.string.some_files_are_not_listed_in_the_media_store, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.action_scan, v -> {
+                            String[] paths = new String[files.size()];
+                            for (int i = 0; i < files.size(); i++) {
+                                paths[i] = FileUtil.safeGetCanonicalPath(files.get(i));
+                            }
+                            scanPaths(paths);
+                        })
+                        .setActionTextColor(ThemeStore.accentColor(getActivity()))
+                        .show();
+            }
+        }).execute(new ListSongsAsyncTask.LoadingInfo(files, AUDIO_FILE_FILTER, getFileComparator()));
     }
 
     private ArrayList<File> toList(File file) {
@@ -369,7 +382,11 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
                     case R.id.action_add_to_current_playing:
                     case R.id.action_add_to_playlist:
                     case R.id.action_delete_from_device:
-                        new ListSongsAsyncTask(getActivity(), null, (songs, extra) -> SongsMenuHelper.handleMenuClick(getActivity(), songs, itemId)).execute(new ListSongsAsyncTask.LoadingInfo(toList(file), AUDIO_FILE_FILTER, getFileComparator()));
+                        new ListSongsAsyncTask(getActivity(), null, (songs, extra) -> {
+                            if (!songs.isEmpty()) {
+                                SongsMenuHelper.handleMenuClick(getActivity(), songs, itemId);
+                            }
+                        }).execute(new ListSongsAsyncTask.LoadingInfo(toList(file), AUDIO_FILE_FILTER, getFileComparator()));
                         return true;
                     case R.id.action_set_as_start_directory:
                         PreferenceUtil.getInstance(getActivity()).setStartDirectory(file);
@@ -396,10 +413,19 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
                     case R.id.action_details:
                     case R.id.action_set_as_ringtone:
                     case R.id.action_delete_from_device:
-                        new ListSongsAsyncTask(getActivity(), null, (songs, extra) -> SongMenuHelper.handleMenuClick(getActivity(), songs.get(0), itemId)).execute(new ListSongsAsyncTask.LoadingInfo(toList(file), AUDIO_FILE_FILTER, getFileComparator()));
+                        new ListSongsAsyncTask(getActivity(), null, (songs, extra) -> {
+                            if (!songs.isEmpty()) {
+                                SongMenuHelper.handleMenuClick(getActivity(), songs.get(0), itemId);
+                            } else {
+                                Snackbar.make(coordinatorLayout, Html.fromHtml(String.format(getString(R.string.not_listed_in_media_store), file.getName())), Snackbar.LENGTH_LONG)
+                                        .setAction(R.string.action_scan, v -> scanPaths(new String[]{FileUtil.safeGetCanonicalPath(file)}))
+                                        .setActionTextColor(ThemeStore.accentColor(getActivity()))
+                                        .show();
+                            }
+                        }).execute(new ListSongsAsyncTask.LoadingInfo(toList(file), AUDIO_FILE_FILTER, getFileComparator()));
                         return true;
                     case R.id.action_scan:
-                        new ListPathsAsyncTask(getActivity(), paths -> scanPaths(paths)).execute(new ListPathsAsyncTask.LoadingInfo(file, AUDIO_FILE_FILTER));
+                        scanPaths(new String[]{FileUtil.safeGetCanonicalPath(file)});
                         return true;
                 }
                 return false;
@@ -416,15 +442,6 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
     private void checkIsEmpty() {
         if (empty != null) {
             empty.setVisibility(adapter == null || adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
-        }
-    }
-
-    private static File tryGetCanonicalFile(File file) {
-        try {
-            return file.getCanonicalFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return file;
         }
     }
 
@@ -494,7 +511,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         private final Object extra;
 
         public ListSongsAsyncTask(Context context, Object extra, OnSongsListedCallback callback) {
-            super(context);
+            super(context, 500);
             this.extra = extra;
             contextWeakReference = new WeakReference<>(context);
             callbackWeakReference = new WeakReference<>(callback);
@@ -575,7 +592,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         private WeakReference<OnPathsListedCallback> onPathsListedCallbackWeakReference;
 
         public ListPathsAsyncTask(Context context, OnPathsListedCallback callback) {
-            super(context);
+            super(context, 500);
             onPathsListedCallbackWeakReference = new WeakReference<>(callback);
         }
 
@@ -608,7 +625,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
                     }
                 } else {
                     paths = new String[1];
-                    paths[0] = info.file.getPath();
+                    paths[0] = FileUtil.safeGetCanonicalPath(info.file);
                 }
 
                 return paths;
