@@ -260,7 +260,6 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
 
     public static final FileFilter AUDIO_FILE_FILTER = file -> !file.isHidden() && (file.isDirectory() ||
             FileUtil.fileIsMimeType(file, "audio/*", MimeTypeMap.getSingleton()) ||
-            FileUtil.fileIsMimeType(file, "application/opus", MimeTypeMap.getSingleton()) ||
             FileUtil.fileIsMimeType(file, "application/ogg", MimeTypeMap.getSingleton()));
 
     @Override
