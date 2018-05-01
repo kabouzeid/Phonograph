@@ -274,6 +274,7 @@
     <string name="restore">שחזר</string>
     <string name="no_purchase_found">לא נמצאה רכישה.</string>
     <string name="eugene_cheung_summary">על התרומה שלו לקוד המקור.</string>
+    <string name="adrian_summary">על יצירת העיצוב של מסך האלבום.</string>
     <string name="add_action">הוסף</string>
     <string name="blacklist">רשימה שחורה</string>
     <string name="remove_from_blacklist">הסר מהרשימה השחורה</string>
@@ -286,4 +287,12 @@
     <string name="library_categories">קטגוריות הספרייה</string>
     <string name="pref_summary_library_categories">הגדר את הנראות והסדר של הקטגוריות בספרייה.</string>
     <string name="you_have_to_select_at_least_one_category">עליך לבחור לפחות קטגוריה אחת.</string>
+    <string name="action_scan_directory">סרוק ספרייה</string>
+    <string name="scan_media">סרוק מדיה</string>
+    <string name="action_sort_order">סדר המיון</string>
+    <string name="sort_order_a_z">סדר עולה</string>
+    <string name="sort_order_z_a">סדר יורד</string>
+    <string name="sort_order_artist">אמן</string>
+    <string name="sort_order_album">אלבום</string>
+    <string name="sort_order_year">שנה</string>
 </resources>

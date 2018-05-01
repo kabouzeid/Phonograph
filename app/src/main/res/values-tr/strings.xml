@@ -274,6 +274,7 @@
     <string name="restore">Geri yükle</string>
     <string name="no_purchase_found">Satın alma bulunamadı.</string>
     <string name="eugene_cheung_summary">Kaynak koda yaptığı katkılardan dolayı.</string>
+    <string name="adrian_summary">Albüm sayfası tasarımı oluşturmak için.</string>
     <string name="add_action">Ekle</string>
     <string name="blacklist">Kara liste</string>
     <string name="remove_from_blacklist">Kara listeden kaldır</string>
@@ -286,4 +287,12 @@
     <string name="library_categories">Kitaplık kategorileri</string>
     <string name="pref_summary_library_categories">Kitaplık kategorilerinin görünürlüğünü ve sırasını yapılandırma.</string>
     <string name="you_have_to_select_at_least_one_category">En az bir kategori seçmeniz gerekiyor.</string>
+    <string name="action_scan_directory">Tarama dizini</string>
+    <string name="scan_media">Medyayı tara</string>
+    <string name="action_sort_order">Sıralama düzeni</string>
+    <string name="sort_order_a_z">Artan</string>
+    <string name="sort_order_z_a">Azalan</string>
+    <string name="sort_order_artist">Sanatçı</string>
+    <string name="sort_order_album">Albüm</string>
+    <string name="sort_order_year">Yıl</string>
 </resources>

@@ -201,7 +201,7 @@
     <string name="visit_website">Látogassa meg a honlapot</string>
     <string name="report_bugs">Hibajelentés</string>
     <string name="report_bugs_summary">Problémák jelentése, új funkciók kérése.</string>
-    <string name="join_community">Csatlakozzon a Google Plus közösséghezGoogle Plus közösség</string>
+    <string name="join_community">Csatlakozzon a Google Plus közösséghez</string>
     <string name="join_community_summary">Ha segítségre lenne szüksége, vagy kérdései vannak, keresse fel a Phonograph közösséget a Google Plus-on.</string>
     <string name="translate">Fordítás</string>
     <string name="translate_summary">Segítsen lefordítani a Phonograph-ot a saját nyelvére.</string>
@@ -274,6 +274,7 @@
     <string name="restore">Visszaállítás</string>
     <string name="no_purchase_found">Nem található vásárlás.</string>
     <string name="eugene_cheung_summary">A forráskódhoz való hozzájárulásáért.</string>
+    <string name="adrian_summary">Az album oldalának kialakításához.</string>
     <string name="add_action">Hozzáadás</string>
     <string name="blacklist">Tiltólista</string>
     <string name="remove_from_blacklist">Eltávolítás a tiltólistáról</string>
@@ -286,4 +287,12 @@
     <string name="library_categories">Könyvtár kategóriák</string>
     <string name="pref_summary_library_categories">Könyvtár kategóriák láthatóságának és sorrendjének beállítása.</string>
     <string name="you_have_to_select_at_least_one_category">Legalább egy kategóriát ki kell választania.</string>
+    <string name="action_scan_directory">Szkennelési könyvtár</string>
+    <string name="scan_media">Szkennelési média</string>
+    <string name="action_sort_order">Sorrend</string>
+    <string name="sort_order_a_z">Növekvő</string>
+    <string name="sort_order_z_a">Csökkenő</string>
+    <string name="sort_order_artist">Előadó</string>
+    <string name="sort_order_album">Album</string>
+    <string name="sort_order_year">Év</string>
 </resources>

@@ -275,6 +275,7 @@
     <string name="restore">Ripristina</string>
     <string name="no_purchase_found">Nessun acquisto trovato.</string>
     <string name="eugene_cheung_summary">Per il suo contributo al codice sorgente.</string>
+    <string name="adrian_summary">Per creare la pagina dell\'album.</string>
     <string name="add_action">Aggiungi</string>
     <string name="blacklist">Lista nera</string>
     <string name="remove_from_blacklist">Rimuovi dalla lista nera</string>
@@ -287,4 +288,12 @@
     <string name="library_categories">Categorie libreria</string>
     <string name="pref_summary_library_categories">Configura visibilità e ordine delle categorie della libreria.</string>
     <string name="you_have_to_select_at_least_one_category">Devi scegliere almeno una categoria.</string>
+    <string name="action_scan_directory">Scansiona cartella</string>
+    <string name="scan_media">Scansiona media</string>
+    <string name="action_sort_order">Ordine</string>
+    <string name="sort_order_a_z">Ascendente</string>
+    <string name="sort_order_z_a">Discendente</string>
+    <string name="sort_order_artist">Artista</string>
+    <string name="sort_order_album">Album</string>
+    <string name="sort_order_year">Anno</string>
 </resources>

@@ -274,6 +274,7 @@
     <string name="restore">Restituir</string>
     <string name="no_purchase_found">Nenhuma compra feita.</string>
     <string name="eugene_cheung_summary">Pela sua contribuição com o código-fonte.</string>
+    <string name="adrian_summary">Por criar o design da página de álbuns.</string>
     <string name="add_action">Adicionar</string>
     <string name="blacklist">Lista Negra</string>
     <string name="remove_from_blacklist">Remover da lista negra</string>
@@ -286,4 +287,12 @@
     <string name="library_categories">Categorias da biblioteca</string>
     <string name="pref_summary_library_categories">Configurar a visibilidade e a ordem das categorias da biblioteca.</string>
     <string name="you_have_to_select_at_least_one_category">Você deve selecionar ao menos uma categoria.</string>
+    <string name="action_scan_directory">Escanear pasta</string>
+    <string name="scan_media">Escanear mídia</string>
+    <string name="action_sort_order">Embaralhar ordem</string>
+    <string name="sort_order_a_z">Ascendente</string>
+    <string name="sort_order_z_a">Descendente</string>
+    <string name="sort_order_artist">Artista</string>
+    <string name="sort_order_album">Álbum</string>
+    <string name="sort_order_year">Ano</string>
 </resources>

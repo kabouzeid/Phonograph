@@ -113,6 +113,7 @@
     <string name="pref_header_now_playing_screen">Reproducción actual</string>
     <string name="pref_title_general_theme">Tema general</string>
     <string name="pref_header_audio">Audio</string>
+    <string name="pref_header_library">Biblioteca</string>
     <string name="pref_header_images">Imágenes</string>
     <string name="pref_header_lockscreen">Pantalla de bloqueo</string>
     <string name="pref_header_playlists">Listas de reproducción</string>
@@ -129,6 +130,7 @@
     <string name="pref_title_audio_ducking">Reducir volumen en la pérdida del enfoque</string>
     <string name="pref_title_last_added_interval">Intervalo de la última lista de reproducción</string>
     <string name="pref_title_synchronized_lyrics_show">Mostrar letras sincronizadas</string>
+    <string name="pref_title_remember_last_tab">Recordar la última pestaña</string>
     <string name="no_equalizer">No se encontró ningún ecualizador</string>
     <string name="no_audio_ID">"Reproduce una canción primero, luego intentalo otra vez."</string>
     <string name="delete_action">Borrar</string>
@@ -136,6 +138,7 @@
     <string name="remove_action">Eliminar</string>
     <string name="rename_action">Renombrar</string>
     <string name="create_action">Crear</string>
+    <string name="reset_action">Reiniciar</string>
     <string name="x_selected">%1$d seleccionado</string>
     <string name="primary_color">Color primario</string>
     <string name="accent_color">Color secundario</string>
@@ -161,6 +164,7 @@
     <string name="pref_summary_colored_app_shortcuts">Colorea los accesos directos con el color principal</string>
     <string name="pref_summary_audio_ducking">Notificaciones, navegación etc.</string>
     <string name="pref_summary_synchronized_lyrics_show">Actualmente sólo se admiten las letras sincronizadas en formato LRC. Tanto si están embebidas como si están en un archivo aparte.</string>
+    <string name="pref_summary_remember_last_tab">Ir a la última pestaña abierta en el lanzamiento</string>
     <string name="could_not_download_album_cover">"No se puede descargar una car\u00e1tula de \u00e1lbum que coincida."</string>
     <string name="search_hint">Buscar en la biblioteca...</string>
     <string name="favorites">Favoritos</string>
@@ -270,6 +274,7 @@
     <string name="restore">Restablecer</string>
     <string name="no_purchase_found">No purchase found.</string>
     <string name="eugene_cheung_summary">Por sus contribuciones al código fuente</string>
+    <string name="adrian_summary">Para crear el diseño de la página del álbum.</string>
     <string name="add_action">Añadir</string>
     <string name="blacklist">Lista Negra</string>
     <string name="remove_from_blacklist">Remover de la lista negra</string>
@@ -280,4 +285,15 @@
 El contenido de las carpetas de la lista negra está oculto en tu biblioteca"</string>
     <string name="reset_artist_image">Resetear la imagen del artista</string>
     <string name="set_artist_image">Establecer la imagen del artista</string>
+    <string name="library_categories">Categorías de la biblioteca</string>
+    <string name="pref_summary_library_categories">Configure la visibilidad y el orden de las categorías de la biblioteca.</string>
+    <string name="you_have_to_select_at_least_one_category">Debes seleccionar al menos una categoría.</string>
+    <string name="action_scan_directory">Escanear directorio</string>
+    <string name="scan_media">Escanear medios</string>
+    <string name="action_sort_order">Orden de clasificación</string>
+    <string name="sort_order_a_z">Ascendente</string>
+    <string name="sort_order_z_a">Descendente</string>
+    <string name="sort_order_artist">Artista</string>
+    <string name="sort_order_album">Álbum</string>
+    <string name="sort_order_year">Año</string>
 </resources>
