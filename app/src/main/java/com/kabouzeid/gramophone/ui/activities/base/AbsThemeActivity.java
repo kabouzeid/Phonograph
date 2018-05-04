@@ -15,6 +15,9 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.kabouzeid.gramophone.util.Util;
 
+import static android.view.View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+import static android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
@@ -71,9 +74,10 @@ public abstract class AbsThemeActivity extends ATHToolbarActivity {
         setTaskDescriptionColor(ThemeStore.primaryColor(this));
     }
 
-    public void setNavigationbarColor(int color) {
+    public void setNavigationbarColor(int color) { 
         if (ThemeStore.coloredNavigationBar(this)) {
             ATH.setNavigationbarColor(this, color);
+            setLightStatusbarAuto(color);
         } else {
             ATH.setNavigationbarColor(this, Color.BLACK);
         }
