@@ -59,9 +59,6 @@ public class AlbumLoader {
                 getOrCreateAlbum(albums, song.albumId).songs.add(song);
             }
         }
-        for (Album album : albums) {
-            sortSongsByTrackNumber(album);
-        }
         return albums;
     }
 
