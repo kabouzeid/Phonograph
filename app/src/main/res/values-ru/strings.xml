@@ -225,7 +225,8 @@
     <string name="folders">Папки</string>
     <string name="saved_playlist_to">"Плейлист сохранён в %s "</string>
     <string name="failed_to_save_playlist">Не удалось сохранить плейлист (%s).</string>
-    <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> не указано в медиа хранилище.]]></string>
+    <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> не указано в медиа-хранилище.]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">Некоторые файлы не указаны в медиа-хранилище.</string>
     <string name="nothing_to_scan">Нечего сканировать.</string>
     <string name="scanned_files">Просканировано %1$d из %2$d файлов.</string>
     <string name="could_not_scan_files">Не удалось просканировать %d файлов.</string>
@@ -274,6 +275,7 @@
     <string name="restore">Восстановление</string>
     <string name="no_purchase_found">Покупка не найдена</string>
     <string name="eugene_cheung_summary">За его вклад в исходный код.</string>
+    <string name="adrian_summary">За создание дизайна отображения альбомов.</string>
     <string name="add_action">Добавить</string>
     <string name="blacklist">Чёрный список</string>
     <string name="remove_from_blacklist">Убрать из чёрного списка</string>
@@ -286,4 +288,12 @@
     <string name="library_categories">Категории библиотеки</string>
     <string name="pref_summary_library_categories">Настройте видимость и порядок категорий библиотеки.</string>
     <string name="you_have_to_select_at_least_one_category">Вы должны выбрать хотя бы одну категорию.</string>
+    <string name="action_scan_directory">Сканировать</string>
+    <string name="scan_media">Сканировать файлы</string>
+    <string name="action_sort_order">Сортировка</string>
+    <string name="sort_order_a_z">По возрастанию</string>
+    <string name="sort_order_z_a">По убыванию</string>
+    <string name="sort_order_artist">Исполнитель</string>
+    <string name="sort_order_album">Альбом</string>
+    <string name="sort_order_year">Год</string>
 </resources>

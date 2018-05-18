@@ -30,6 +30,7 @@
     <string name="action_set_as_start_directory">Ustaw jako katalog startowy</string>
     <string name="albums">Albumy</string>
     <string name="artists">Wykonawcy</string>
+    <string name="genres">Gatunki</string>
     <string name="songs">Utwory</string>
     <string name="playlists">Listy odtwarzania</string>
     <string name="unplayable_file">Utw\u00f3r nie mo\u017ce zosta\u0107 odegrany</string>
@@ -112,6 +113,7 @@
     <string name="pref_header_now_playing_screen">Obecnie Grane</string>
     <string name="pref_title_general_theme">Styl tła motywu</string>
     <string name="pref_header_audio">Dźwięk</string>
+    <string name="pref_header_library">Biblioteka</string>
     <string name="pref_header_images">Obrazy</string>
     <string name="pref_header_lockscreen">Ekran blokady</string>
     <string name="pref_header_playlists">Lista odtwarzania</string>

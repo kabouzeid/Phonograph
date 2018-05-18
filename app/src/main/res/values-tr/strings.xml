@@ -125,7 +125,7 @@
     <string name="pref_title_blurred_album_art">Bulanık albüm kapağı</string>
     <string name="pref_title_colored_notification">Renkli bildirim</string>
     <string name="pref_title_classic_notification">Klasik bildirim tasarımı</string>
-    <string name="pref_title_ignore_media_store_artwork">Media Store albüm kapağını yoksay</string>
+    <string name="pref_title_ignore_media_store_artwork">Medya Deposu albüm kapağını yoksay</string>
     <string name="pref_title_gapless_playback">Aralıksız çalma</string>
     <string name="pref_title_audio_ducking">Odak kaybına neden olacak sesi azalt</string>
     <string name="pref_title_last_added_interval">Son eklenen çalma listesi süresi</string>
@@ -226,6 +226,7 @@
     <string name="saved_playlist_to">Çalma listesi %s kaydedildi.</string>
     <string name="failed_to_save_playlist">(%s) çalma listesine kaydetme başarısız.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> medya deposu listesinde yok.]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">Bazı dosyalar medya deposunda listelenmiyor.</string>
     <string name="nothing_to_scan">Taranacak bir şey yok</string>
     <string name="scanned_files">%1$d - %2$d dosya taranıyor.</string>
     <string name="could_not_scan_files">%d dosya taranamadı.</string>

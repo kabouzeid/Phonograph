@@ -228,6 +228,7 @@
     <string name="saved_playlist_to">재생 목록을 %s 로 저장했습니다.</string>
     <string name="failed_to_save_playlist">재생 목록을 저장하는 과정에서 오류가 발생했습니다. (%s)</string>
     <string name="not_listed_in_media_store"><![CDATA[미디어 스토어에서 <b>%s</b> 을(를) 찾을 수 없습니다.]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">몇몇 파일은 미디어 리스트에 기록되지 않습니다.</string>
     <string name="nothing_to_scan">스캔할 내용이 없습니다.</string>
     <string name="scanned_files">%2$d 개 중 %1$d 개 파일 스캔</string>
     <string name="could_not_scan_files">%d 개 파일을 스캔하지 못했습니다.</string>
@@ -288,4 +289,12 @@
     <string name="library_categories">보관함 카테고리</string>
     <string name="pref_summary_library_categories">보관함 카테고리의 표시 여부 및 배열 순서를 조정합니다.</string>
     <string name="you_have_to_select_at_least_one_category">적어도 하나의 카테고리는 선택해야 합니다.</string>
+    <string name="action_scan_directory">디렉토리 스캔하기</string>
+    <string name="scan_media">미디어 스캔</string>
+    <string name="action_sort_order">순서 정렬하기</string>
+    <string name="sort_order_a_z">오름차순</string>
+    <string name="sort_order_z_a">내림차순</string>
+    <string name="sort_order_artist">아티스트</string>
+    <string name="sort_order_album">앨범</string>
+    <string name="sort_order_year">연도</string>
 </resources>

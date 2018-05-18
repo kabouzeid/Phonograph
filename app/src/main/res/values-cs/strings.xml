@@ -226,6 +226,7 @@
     <string name="saved_playlist_to">Uloženo do playlistu %s.</string>
     <string name="failed_to_save_playlist">Chyba v uložení playlistu (%s).</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> není zobrazeno v seznamu souborů.]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">Některé soubory nejsou zobrazené v obchodě s médii.</string>
     <string name="nothing_to_scan">Nic ke skenování.</string>
     <string name="scanned_files">Naskenováno %1$d z %2$d souborů.</string>
     <string name="could_not_scan_files">Nelze skenovat %d souborů.</string>
@@ -274,6 +275,7 @@
     <string name="restore">Obnovit</string>
     <string name="no_purchase_found">Nebyl nalezen žádný nákup.</string>
     <string name="eugene_cheung_summary">Pro příspěvky ke zdrojovému kódu.</string>
+    <string name="adrian_summary">Pro vytvoření návrhu stránky alba.</string>
     <string name="add_action">Přidat</string>
     <string name="blacklist">Blacklist</string>
     <string name="remove_from_blacklist">Odstranit z blacklistu</string>
@@ -286,4 +288,12 @@
     <string name="library_categories">Kategorie knihovny</string>
     <string name="pref_summary_library_categories">Nastavit viditelnost a pořadí kategorií knihoven.</string>
     <string name="you_have_to_select_at_least_one_category">Musíte zvolit alespoň jednu kategorii.</string>
+    <string name="action_scan_directory">Skemování adresáře</string>
+    <string name="scan_media">Skenování médií</string>
+    <string name="action_sort_order">Seřazení</string>
+    <string name="sort_order_a_z">Vzestupně</string>
+    <string name="sort_order_z_a">Sestupně</string>
+    <string name="sort_order_artist">Interpret</string>
+    <string name="sort_order_album">Album</string>
+    <string name="sort_order_year">Rok</string>
 </resources>

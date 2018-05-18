@@ -226,6 +226,7 @@
     <string name="saved_playlist_to">Lejátszási lista mentve ide: %s.</string>
     <string name="failed_to_save_playlist">Nem sikerült menteni a lejátszási listát (%s).</string>
     <string name="not_listed_in_media_store"><![CDATA[A(z) <b>%s</b> nem szerepel a médiatárban.]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">Egyes fájlok nem szerepelnek a médiában.</string>
     <string name="nothing_to_scan">Nincs mit beolvasni.</string>
     <string name="scanned_files">%1$d/%2$d fájl beolvasva.</string>
     <string name="could_not_scan_files">%d fájl beolvasása nem sikerült.</string>
