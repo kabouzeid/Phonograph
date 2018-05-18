@@ -68,3 +68,6 @@ fastlane/screenshots/screenshots.html
 
 # scan temporary files
 fastlane/test_output
+
+# Google Play files
+fastlane/metadata/
