@@ -30,12 +30,22 @@ static def gitBranch() {
     branch
 }
 
+def getProperties(String fileName) {
+    final Properties properties = new Properties()
+    def file = file(fileName)
+    if (file.exists()) {
+        file.withInputStream { stream -> properties.load(stream) }
+    }
+    return properties
+}
+
+static def getProperty(@Nullable Properties properties, String name) {
+    return properties.getProperty(name) ?: "$name missing"
+}
+
 android {
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
-    dataBinding {
-        enabled = true
-    }
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 27
@@ -47,11 +57,21 @@ android {
         versionCode 161
         versionName '1.0.1'
     }
+    signingConfigs {
+        release {
+            Properties properties = getProperties('/Users/karim/Documents/PhonographRessources/privatekeys/keystore.properties')
+            storeFile file(getProperty(properties, 'storeFile'))
+            keyAlias getProperty(properties, 'keyAlias')
+            storePassword getProperty(properties, 'storePassword')
+            keyPassword getProperty(properties, 'keyPassword')
+        }
+    }
     buildTypes {
         release {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
         debug {
             applicationIdSuffix '.debug'
