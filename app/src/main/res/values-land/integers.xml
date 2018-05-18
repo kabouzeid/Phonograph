@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="detail_header_tile_maxLines">1</integer>
+</resources>
