@@ -418,7 +418,7 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
         artistTextView.setText(album.getArtistName());
         songCountTextView.setText(MusicUtil.getSongCountString(this, album.getSongCount()));
         durationTextView.setText(MusicUtil.getReadableDurationString(MusicUtil.getTotalDuration(this, album.songs)));
-        albumYearTextView.setText(String.valueOf(album.getYear()));
+        albumYearTextView.setText(album.getYear() > 0 ? String.valueOf(album.getYear()) : "-");
 
         adapter.swapDataSet(album.songs);
     }
