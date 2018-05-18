@@ -4,12 +4,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import com.kabouzeid.gramophone.util.MusicUtil;
+
 import java.util.ArrayList;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class Artist implements Parcelable {
+    public static final String UNKNOWN_ARTIST_DISPLAY_NAME = "Unknown Artist";
+
     public final ArrayList<Album> albums;
 
     public Artist(ArrayList<Album> albums) {
@@ -25,7 +29,11 @@ public class Artist implements Parcelable {
     }
 
     public String getName() {
-        return safeGetFirstAlbum().getArtistName();
+        String name = safeGetFirstAlbum().getArtistName();
+        if (MusicUtil.isArtistNameUnknown(name)) {
+            return UNKNOWN_ARTIST_DISPLAY_NAME;
+        }
+        return name;
     }
 
     public int getSongCount() {
