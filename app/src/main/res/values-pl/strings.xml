@@ -30,6 +30,7 @@
     <string name="action_set_as_start_directory">Ustaw jako katalog startowy</string>
     <string name="albums">Albumy</string>
     <string name="artists">Wykonawcy</string>
+    <string name="genres">Gatunki</string>
     <string name="songs">Utwory</string>
     <string name="playlists">Listy odtwarzania</string>
     <string name="unplayable_file">Utw\u00f3r nie mo\u017ce zosta\u0107 odegrany</string>
@@ -60,8 +61,6 @@
     <string name="action_go_to_album">Przejdź do albumu</string>
     <string name="label_playing_queue">Kolejka odtwarzania</string>
     <string name="no_results">Brak wyników</string>
-    <string name="action_re_download_artist_image">Zaktualizuj zdjęcie wykonawcy</string>
-    <string name="updated_artist_image">Zdjęcie wykonawcy zostało zaktualizowane</string>
     <string name="updating">Aktualizowanie...</string>
     <string name="added_title_to_playing_queue">"Dodano 1 tytuł do kolejki odtwarzania"</string>
     <string name="added_x_titles_to_playing_queue">Dodano %1$d tytuły do kolejki odtwarzania</string>
@@ -98,7 +97,6 @@
     <string name="action_save_playing_queue">Zapisz obecnie odtwarzaną kolejkę</string>
     <string name="action_go_to_start_directory">Przejdź do katalogu startowego</string>
     <string name="action_show_lyrics">Pokaż teksty</string>
-    <string name="last_opened">Ostatnio otwarte</string>
     <string name="light_theme_name">Jasny</string>
     <string name="dark_theme_name">Ciemny</string>
     <string name="black_theme_name">Czarny (AMOLED)</string>
@@ -115,14 +113,13 @@
     <string name="pref_header_now_playing_screen">Obecnie Grane</string>
     <string name="pref_title_general_theme">Styl tła motywu</string>
     <string name="pref_header_audio">Dźwięk</string>
-    <string name="pref_header_general">Ogólne</string>
+    <string name="pref_header_library">Biblioteka</string>
     <string name="pref_header_images">Obrazy</string>
     <string name="pref_header_lockscreen">Ekran blokady</string>
     <string name="pref_header_playlists">Lista odtwarzania</string>
     <string name="pref_header_notification">Powiadomienie</string>
     <string name="pref_title_navigation_bar">Kolorowy pasek nawigacyjny</string>
     <string name="pref_title_app_shortcuts">Kolorowe skróty aplikacji</string>
-    <string name="pref_title_set_default_start_page">Strona startowa</string>
     <string name="pref_title_album_art_on_lockscreen">Pokazuj okładki albumów</string>
     <string name="pref_title_auto_download_metadata">Automatycznie pobieraj dane</string>
     <string name="pref_title_blurred_album_art">Rozmywanie okładki albumu</string>
@@ -263,18 +260,17 @@
     <string name="playlist_is_empty">Lista odtwarzania jest pusta</string>
     <string name="playing_notification_description">Powiadomienie odtwarzania pozwala na zatrzymywanie/wznawianie itd.</string>
     <string name="playing_notification_name">Powiadomienie o odtwarzaniu</string>
-    <string name="buy">Kup</string>
     <string name="only_the_first_5_colors_available">Tylko 5 pierwszych kolorów jest dostępnych w darmowej wersji.</string>
     <string name="black_theme_is_a_pro_feature">Czarny motyw jest funkcją Phonograph Pro.</string>
     <string name="sleep_timer_is_a_pro_feature">Wyłączenie czasowe jest funkcją Phonograph Pro.</string>
     <string name="folder_view_is_a_pro_feature">Widok folderów jest funkcją Phonograph Pro.</string>
-    <string name="restore_purchase">Przywróć zakup</string>
     <string name="restoring_purchase">Przywracanie zakupu...</string>
     <string name="could_not_restore_purchase">Nie można przywrócić zakupu.</string>
     <string name="purchase">Zakup</string>
     <string name="restore">Przywróć</string>
     <string name="no_purchase_found">Nie znaleziono zakupu.</string>
     <string name="eugene_cheung_summary">Za jego wkład w kod źródłowy.</string>
+    <string name="adrian_summary">Za stworzenie design\'u strony albumu</string>
     <string name="add_action">Dodaj</string>
     <string name="blacklist">Czarna lista</string>
     <string name="remove_from_blacklist">Usuń z czarnej listy</string>
@@ -284,4 +280,15 @@
     <string name="pref_summary_blacklist">Zawartość czarnej listy jest niewidoczna w twojej bibliotece.</string>
     <string name="reset_artist_image">Wyczyść obraz artysty</string>
     <string name="set_artist_image">Zaktualizuj zdjęcie wykonawcy</string>
+    <string name="library_categories">Kategorie biblioteki</string>
+    <string name="pref_summary_library_categories">Ustawia widoczność i kolejność kategorii biblioteki</string>
+    <string name="you_have_to_select_at_least_one_category">Musisz wybrać co najmniej jedną kategorię</string>
+    <string name="action_scan_directory">Skanuj ścieżkę</string>
+    <string name="scan_media">Skanuj media</string>
+    <string name="action_sort_order">Kolejność sortowania</string>
+    <string name="sort_order_a_z">Rosnąco</string>
+    <string name="sort_order_z_a">Malejąco</string>
+    <string name="sort_order_artist">Artysta</string>
+    <string name="sort_order_album">Album</string>
+    <string name="sort_order_year">Rok</string>
 </resources>

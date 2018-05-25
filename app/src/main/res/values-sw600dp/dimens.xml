@@ -1,3 +1,4 @@
 <resources>
-    <dimen name="header_image_height">600dp</dimen>
+    <dimen name="detail_header_height">176dp</dimen>
+    <dimen name="detail_header_image_height">144dp</dimen>
 </resources>

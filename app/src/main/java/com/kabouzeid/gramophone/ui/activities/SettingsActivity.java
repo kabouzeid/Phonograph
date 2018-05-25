@@ -31,6 +31,8 @@ import com.kabouzeid.gramophone.appshortcuts.DynamicShortcutManager;
 import com.kabouzeid.gramophone.misc.NonProAllowedColors;
 import com.kabouzeid.gramophone.preferences.BlacklistPreference;
 import com.kabouzeid.gramophone.preferences.BlacklistPreferenceDialog;
+import com.kabouzeid.gramophone.preferences.LibraryPreference;
+import com.kabouzeid.gramophone.preferences.LibraryPreferenceDialog;
 import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreference;
 import com.kabouzeid.gramophone.preferences.NowPlayingScreenPreferenceDialog;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
@@ -149,7 +151,7 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
 
         @Override
         public void onCreatePreferences(Bundle bundle, String s) {
-            addPreferencesFromResource(R.xml.pref_general);
+            addPreferencesFromResource(R.xml.pref_library);
             addPreferencesFromResource(R.xml.pref_colors);
             addPreferencesFromResource(R.xml.pref_notification);
             addPreferencesFromResource(R.xml.pref_now_playing_screen);
@@ -167,6 +169,8 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                 return NowPlayingScreenPreferenceDialog.newInstance();
             } else if (preference instanceof BlacklistPreference) {
                 return BlacklistPreferenceDialog.newInstance();
+            } else if (preference instanceof LibraryPreference) {
+                return LibraryPreferenceDialog.newInstance();
             }
             return super.onCreatePreferenceDialog(preference);
         }
@@ -186,13 +190,6 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
         }
 
         private void invalidateSettings() {
-            final Preference defaultStartPage = findPreference("default_start_page");
-            setSummary(defaultStartPage);
-            defaultStartPage.setOnPreferenceChangeListener((preference, o) -> {
-                setSummary(defaultStartPage, o);
-                return true;
-            });
-
             final Preference generalTheme = findPreference("general_theme");
             setSummary(generalTheme);
             generalTheme.setOnPreferenceChangeListener((preference, o) -> {
@@ -203,15 +200,13 @@ public class SettingsActivity extends AbsBaseActivity implements ColorChooserDia
                     return false;
                 }
 
-                int theme = PreferenceUtil.getThemeResFromPrefValue(themeName);
                 setSummary(generalTheme, o);
-                ThemeStore.editTheme(getActivity())
-                        .activityTheme(theme)
-                        .commit();
+
+                ThemeStore.markChanged(getActivity());
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
                     // Set the new theme so that updateAppShortcuts can pull it
-                    getActivity().setTheme(PreferenceUtil.getThemeResFromPrefValue((String) o));
+                    getActivity().setTheme(PreferenceUtil.getThemeResFromPrefValue(themeName));
                     new DynamicShortcutManager(getActivity()).updateDynamicShortcuts();
                 }
 

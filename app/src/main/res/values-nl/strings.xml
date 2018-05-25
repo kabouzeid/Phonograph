@@ -30,6 +30,7 @@
     <string name="action_set_as_start_directory">Instellen als startmap</string>
     <string name="albums">Albums</string>
     <string name="artists">Artiesten</string>
+    <string name="genres">Genres</string>
     <string name="songs">Nummers</string>
     <string name="playlists">Afspeellijsten</string>
     <string name="unplayable_file">Kan dit nummer niet afspelen.</string>
@@ -60,8 +61,6 @@
     <string name="action_go_to_album">Ga naar album</string>
     <string name="label_playing_queue">Afspeelwachtrij</string>
     <string name="no_results">Geen resultaten</string>
-    <string name="action_re_download_artist_image">Artiest afbeelding bijwerken</string>
-    <string name="updated_artist_image">Artiest afbeelding bijgewerkt.</string>
     <string name="updating">Bijwerken…</string>
     <string name="added_title_to_playing_queue">"1 titel toegevoegd aan de afspeelwachtrij."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titels toegevoegd aan de afspeelwachtrij.</string>
@@ -98,7 +97,6 @@
     <string name="action_save_playing_queue">Afspeelwachtrij opslaan</string>
     <string name="action_go_to_start_directory">Ga naar startmap</string>
     <string name="action_show_lyrics">Toon songtekst</string>
-    <string name="last_opened">Laatst geopend</string>
     <string name="light_theme_name">Licht</string>
     <string name="dark_theme_name">Donker</string>
     <string name="black_theme_name">Zwart (AMOLED)</string>
@@ -115,14 +113,13 @@
     <string name="pref_header_now_playing_screen">Afspeelscherm</string>
     <string name="pref_title_general_theme">Algemeen thema</string>
     <string name="pref_header_audio">Audio</string>
-    <string name="pref_header_general">Algemeen</string>
+    <string name="pref_header_library">Bibliotheek</string>
     <string name="pref_header_images">Illustraties</string>
     <string name="pref_header_lockscreen">Vergrendelscherm</string>
     <string name="pref_header_playlists">Afspeellijst</string>
     <string name="pref_header_notification">Melding</string>
     <string name="pref_title_navigation_bar">Gekleurde navigatiebalk</string>
     <string name="pref_title_app_shortcuts">Gekleurde app-snelkoppelingen</string>
-    <string name="pref_title_set_default_start_page">Startpagina</string>
     <string name="pref_title_album_art_on_lockscreen">Toon albumhoes</string>
     <string name="pref_title_auto_download_metadata">Metadata autom. downloaden</string>
     <string name="pref_title_blurred_album_art">Vervaag albumhoes</string>
@@ -131,8 +128,9 @@
     <string name="pref_title_ignore_media_store_artwork">Negeer Mediaopslag illustraties</string>
     <string name="pref_title_gapless_playback">Afspelen zonder pauzes</string>
     <string name="pref_title_audio_ducking">Verminder volume bij focusverlies</string>
-    <string name="pref_title_last_added_interval">Laatst toegevoegde afspeellijst tussenpoos</string>
+    <string name="pref_title_last_added_interval">Laatst toegevoegd afspeellijst tussenpoos</string>
     <string name="pref_title_synchronized_lyrics_show">Gesynchr. songtekst weergeven</string>
+    <string name="pref_title_remember_last_tab">Laatste tabblad onthouden</string>
     <string name="no_equalizer">Geen equalizer gevonden.</string>
     <string name="no_audio_ID">"Speel eerst iets af, probeer dan opnieuw."</string>
     <string name="delete_action">Verwijderen</string>
@@ -140,6 +138,7 @@
     <string name="remove_action">Verwijderen</string>
     <string name="rename_action">Hernoemen</string>
     <string name="create_action">Aanmaken</string>
+    <string name="reset_action">Reset</string>
     <string name="x_selected">%1$d geselecteerd</string>
     <string name="primary_color">Primaire kleur</string>
     <string name="accent_color">Accentkleur</string>
@@ -151,6 +150,7 @@
     <string name="no_albums">Geen albums</string>
     <string name="no_songs">Geen nummers</string>
     <string name="no_artists">Geen artiesten</string>
+    <string name="no_genres">Geen genres</string>
     <string name="empty">Leeg</string>
     <string name="playlist_name_empty">Afspeellijstnaam</string>
     <string name="song">Nummer</string>
@@ -164,6 +164,7 @@
     <string name="pref_summary_colored_app_shortcuts">Kleurt de app-snelkoppelingen in de primaire kleur.</string>
     <string name="pref_summary_audio_ducking">Notificaties, navigatie, etc.</string>
     <string name="pref_summary_synchronized_lyrics_show">Momenteel worden gesynchr. songteksten alleen ondersteund in LRC-formaat. Of ingebed, of als separaat bestand.</string>
+    <string name="pref_summary_remember_last_tab">Ga naar het laatst geopende tabblad bij opstarten</string>
     <string name="could_not_download_album_cover">"Kan geen bijpassende albumhoes downloaden."</string>
     <string name="search_hint">Zoek in je bibliotheek…</string>
     <string name="favorites">Favorieten</string>
@@ -225,6 +226,7 @@
     <string name="saved_playlist_to">Afspeellijst opgeslagen in %s.</string>
     <string name="failed_to_save_playlist">Opslaan van afspeellijst (%s) mislukt.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> is niet aanwezig in mediaopslag.]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">Sommige bestanden worden niet vermeld in de mediaopslag.</string>
     <string name="nothing_to_scan">Niets te scannen.</string>
     <string name="scanned_files">%1$d van de %2$d bestanden gescand.</string>
     <string name="could_not_scan_files">Kan %d bestanden niet scannen.</string>
@@ -263,18 +265,17 @@
     <string name="playlist_is_empty">Afspeellijst is leeg</string>
     <string name="playing_notification_description">De afspeelmelding biedt acties voor afspelen/pauzeren etc.</string>
     <string name="playing_notification_name">Afspeelmelding</string>
-    <string name="buy">Kopen</string>
     <string name="only_the_first_5_colors_available">Alleen de eerste 5 kleuren zijn beschikbaar in de gratis versie.</string>
     <string name="black_theme_is_a_pro_feature">Het zwarte thema is een Phonograph Pro functie.</string>
     <string name="sleep_timer_is_a_pro_feature">Slaaptimer is een Phonograph Pro functie.</string>
     <string name="folder_view_is_a_pro_feature">Mappenweergave is een Phonograph Pro functie.</string>
-    <string name="restore_purchase">Aankoop herstellen</string>
     <string name="restoring_purchase">Aankoop herstellen…</string>
     <string name="could_not_restore_purchase">Kan aankoop niet herstellen.</string>
     <string name="purchase">Koop</string>
     <string name="restore">Herstel</string>
     <string name="no_purchase_found">Geen aankoop gevonden.</string>
     <string name="eugene_cheung_summary">Voor zijn bijdragen aan de broncode.</string>
+    <string name="adrian_summary">Om het albumpagina-uiterlijk te maken.</string>
     <string name="add_action">Toevoegen</string>
     <string name="blacklist">Zwarte lijst</string>
     <string name="remove_from_blacklist">Verwijderen van zwarte lijst</string>
@@ -284,4 +285,15 @@
     <string name="pref_summary_blacklist">De inhoud van mappen op de zwarte lijst worden verborgen van je bibliotheek.</string>
     <string name="reset_artist_image">Artiest afbeelding resetten</string>
     <string name="set_artist_image">Artiest afbeelding instellen</string>
+    <string name="library_categories">Bibliotheek categorieën</string>
+    <string name="pref_summary_library_categories">Configureer de zichtbaarheid en volgorde van categorieën</string>
+    <string name="you_have_to_select_at_least_one_category">Je moet tenminste één categorie selecteren.</string>
+    <string name="action_scan_directory">Map scannen</string>
+    <string name="scan_media">Media scannen</string>
+    <string name="action_sort_order">Sorteervolgorde</string>
+    <string name="sort_order_a_z">Oplopend</string>
+    <string name="sort_order_z_a">Aflopend</string>
+    <string name="sort_order_artist">Artiest</string>
+    <string name="sort_order_album">Album</string>
+    <string name="sort_order_year">Jaar</string>
 </resources>

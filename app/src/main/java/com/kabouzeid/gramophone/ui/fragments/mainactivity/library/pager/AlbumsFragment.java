@@ -56,6 +56,21 @@ public class AlbumsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFra
     }
 
     @Override
+    protected String loadSortOrder() {
+        return PreferenceUtil.getInstance(getActivity()).getAlbumSortOrder();
+    }
+
+    @Override
+    protected void saveSortOrder(String sortOrder) {
+        PreferenceUtil.getInstance(getActivity()).setAlbumSortOrder(sortOrder);
+    }
+
+    @Override
+    protected void setSortOrder(String sortOrder) {
+        getLoaderManager().restartLoader(LOADER_ID, null, this);
+    }
+
+    @Override
     public boolean loadUsePalette() {
         return PreferenceUtil.getInstance(getActivity()).albumColoredFooters();
     }

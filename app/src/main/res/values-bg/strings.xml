@@ -58,8 +58,6 @@
     <string name="action_go_to_album">Отиди в албум</string>
     <string name="label_playing_queue">Възпроизвеждащи се файлове</string>
     <string name="no_results">Няма резултати</string>
-    <string name="action_re_download_artist_image">Обнови снимката на изпълнителя</string>
-    <string name="updated_artist_image">Снимката на изпълнителя бе обновена.</string>
     <string name="updating">Обновява се...</string>
     <string name="added_title_to_playing_queue">"1 заглавие бе добавено към възпроизвеждащите се песни"</string>
     <string name="added_x_titles_to_playing_queue">%1$d заглавия бяха добавени към възпроизвеждащите се песни</string>
@@ -94,7 +92,6 @@
     <string name="action_clear_playing_queue">Изчисти списъкът с възпроизвеждащи се песни</string>
     <string name="action_go_to_start_directory">Отиди в началната директория</string>
     <string name="action_show_lyrics">Покажи текст</string>
-    <string name="last_opened">Последно отворена страница</string>
     <string name="light_theme_name">Светъл изглед</string>
     <string name="dark_theme_name">Тъмен изглед</string>
     <string name="black_theme_name">Черен изглед (AMOLED дисплеи)</string>
@@ -106,12 +103,10 @@
     <string name="pref_header_now_playing_screen">Текуща песен</string>
     <string name="pref_title_general_theme">Главна тема</string>
     <string name="pref_header_audio">Аудио</string>
-    <string name="pref_header_general">Главни</string>
     <string name="pref_header_images">Изображения</string>
     <string name="pref_header_lockscreen">Заключен екран</string>
     <string name="pref_title_navigation_bar">Оцветени навигационни бутони</string>
     <string name="pref_title_app_shortcuts">Оцветяване на бутоните</string>
-    <string name="pref_title_set_default_start_page">Начална страница</string>
     <string name="pref_title_album_art_on_lockscreen">Покажи обложката на албум</string>
     <string name="pref_title_blurred_album_art">Размажи обложката</string>
     <string name="pref_title_colored_notification">Оцвети известията</string>

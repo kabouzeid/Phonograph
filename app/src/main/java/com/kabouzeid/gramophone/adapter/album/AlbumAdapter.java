@@ -19,12 +19,14 @@ import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
 import com.kabouzeid.gramophone.glide.SongGlideRequest;
+import com.kabouzeid.gramophone.helper.SortOrder;
 import com.kabouzeid.gramophone.helper.menu.SongsMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Album;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
@@ -186,7 +188,20 @@ public class AlbumAdapter extends AbsMultiSelectAdapter<AlbumAdapter.ViewHolder,
     @NonNull
     @Override
     public String getSectionName(int position) {
-        return MusicUtil.getSectionName(dataSet.get(position).getTitle());
+        @Nullable String sectionName = null;
+        switch (PreferenceUtil.getInstance(activity).getAlbumSortOrder()) {
+            case SortOrder.AlbumSortOrder.ALBUM_A_Z:
+            case SortOrder.AlbumSortOrder.ALBUM_Z_A:
+                sectionName = dataSet.get(position).getTitle();
+                break;
+            case SortOrder.AlbumSortOrder.ALBUM_ARTIST:
+                sectionName = dataSet.get(position).getArtistName();
+                break;
+            case SortOrder.AlbumSortOrder.ALBUM_YEAR:
+                return Integer.toString(dataSet.get(position).getYear());
+        }
+
+        return MusicUtil.getSectionName(sectionName);
     }
 
     public class ViewHolder extends MediaEntryViewHolder {

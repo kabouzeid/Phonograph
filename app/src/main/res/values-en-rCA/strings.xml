@@ -60,8 +60,6 @@
     <string name="action_go_to_album">Go to album</string>
     <string name="label_playing_queue">Playing queue</string>
     <string name="no_results">No results</string>
-    <string name="action_re_download_artist_image">Update artist image</string>
-    <string name="updated_artist_image">Artist image updated.</string>
     <string name="updating">Updating…</string>
     <string name="added_title_to_playing_queue">"Added 1 title to the playing queue."</string>
     <string name="added_x_titles_to_playing_queue">Added %1$d titles to the playing queue.</string>
@@ -98,7 +96,6 @@
     <string name="action_save_playing_queue">Save playing queue</string>
     <string name="action_go_to_start_directory">Go to start directory</string>
     <string name="action_show_lyrics">Show lyrics</string>
-    <string name="last_opened">Last opened</string>
     <string name="light_theme_name">Light</string>
     <string name="dark_theme_name">Dark</string>
     <string name="black_theme_name">Black (AMOLED)</string>
@@ -115,14 +112,12 @@
     <string name="pref_header_now_playing_screen">Now playing</string>
     <string name="pref_title_general_theme">General theme</string>
     <string name="pref_header_audio">Audio</string>
-    <string name="pref_header_general">General</string>
     <string name="pref_header_images">Images</string>
     <string name="pref_header_lockscreen">Lockscreen</string>
     <string name="pref_header_playlists">Playlists</string>
     <string name="pref_header_notification">Notification</string>
     <string name="pref_title_navigation_bar">Colored navigation bar</string>
     <string name="pref_title_app_shortcuts">Coloured app shortcuts</string>
-    <string name="pref_title_set_default_start_page">Start page</string>
     <string name="pref_title_album_art_on_lockscreen">Show album cover</string>
     <string name="pref_title_auto_download_metadata">Auto download metadata</string>
     <string name="pref_title_blurred_album_art">Blur album cover</string>
@@ -263,12 +258,10 @@
     <string name="playlist_is_empty">Playlist is empty</string>
     <string name="playing_notification_description">The playing notification provides actions for play/pause etc.</string>
     <string name="playing_notification_name">Playing notification</string>
-    <string name="buy">Buy</string>
     <string name="only_the_first_5_colors_available">Only the first 5 colors are available in the free version.</string>
     <string name="black_theme_is_a_pro_feature">The black theme is Phonograph Pro feature.</string>
     <string name="sleep_timer_is_a_pro_feature">Sleep timer is a Phonograph Pro feature</string>
     <string name="folder_view_is_a_pro_feature">Folder view is a Phonograph Pro feature.</string>
-    <string name="restore_purchase">Restore purchase</string>
     <string name="restoring_purchase">Restoring purchase…</string>
     <string name="could_not_restore_purchase">Could not restore purchase.</string>
     <string name="purchase">Purchase</string>

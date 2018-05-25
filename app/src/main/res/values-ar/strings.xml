@@ -53,8 +53,6 @@
     <string name="action_go_to_album">اذهب إلى الألبوم</string>
     <string name="label_playing_queue">قائمة الانتظار</string>
     <string name="no_results">لا توجد نتائج</string>
-    <string name="action_re_download_artist_image">تحديث صورة الفنان</string>
-    <string name="updated_artist_image">تم تحديث صورة الفنان</string>
     <string name="updating">يتم التحديث...</string>
     <string name="added_title_to_playing_queue">"تمت الإضافة إلى قائمة الانتظار"</string>
     <string name="added_x_titles_to_playing_queue">تم إضافة %1$d عنوان إلى قائمة الانتظار</string>
@@ -88,7 +86,6 @@
     <string name="action_shuffle_playlist">تشغيل قائمة التشغيل عشوائيا</string>
     <string name="action_clear_playing_queue">مسح قائمة الانتظار</string>
     <string name="action_show_lyrics">اعرض كلمات الأغنية</string>
-    <string name="last_opened">آخر ما تم فتحه</string>
     <string name="light_theme_name">فاتح</string>
     <string name="dark_theme_name">داكن</string>
     <string name="black_theme_name">أسود (شاشات AMOLED)</string>
@@ -100,11 +97,9 @@
     <string name="pref_header_now_playing_screen">مشغل الآن</string>
     <string name="pref_title_general_theme">السمة العامة</string>
     <string name="pref_header_audio">الصوت</string>
-    <string name="pref_header_general">عام</string>
     <string name="pref_header_images">الصور</string>
     <string name="pref_header_lockscreen">قفل الشاشة</string>
     <string name="pref_title_navigation_bar">شريط تنقل ملون</string>
-    <string name="pref_title_set_default_start_page">صفحة البدء</string>
     <string name="pref_title_album_art_on_lockscreen">أظهر صورة الألبوم</string>
     <string name="pref_title_blurred_album_art">صورة األبوم شافة</string>
     <string name="pref_title_colored_notification">إشعار ملون</string>

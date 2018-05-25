@@ -30,7 +30,18 @@ public class GenreLoader {
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
-                    genres.add(getGenreFromCursor(context, cursor));
+                    Genre genre = getGenreFromCursor(context, cursor);
+                    if (genre.songCount > 0) {
+                        genres.add(genre);
+                    } else {
+                        // try to remove the empty genre from the media store
+                        try {
+                            context.getContentResolver().delete(Genres.EXTERNAL_CONTENT_URI, Genres._ID + " == " + genre.id, null);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            // nothing we can do then
+                        }
+                    }
                 } while (cursor.moveToNext());
             }
             cursor.close();

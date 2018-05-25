@@ -52,7 +52,6 @@
     <string name="action_go_to_album">Gå till album</string>
     <string name="label_playing_queue">Spelarkö</string>
     <string name="no_results">Inga resultat</string>
-    <string name="action_re_download_artist_image">Uppdatera artistbild</string>
     <string name="updating">Uppdaterar ...</string>
     <string name="added_title_to_playing_queue">"Lagt till 1 titel till spellistan."</string>
     <string name="created_playlist_x">Spellista %1$s skapad</string>
@@ -70,15 +69,12 @@ Vill du radera <b>%1$d</b> låtar?
     <string name="rename_playlist_title">Döp om spellista</string>
     <string name="delete_playlist_title">Radera spellista</string>
     <string name="add_playlist_title">"Lägg till i spellista"</string>
-    <string name="last_opened">Senast öppnad</string>
     <string name="light_theme_name">Ljus</string>
     <string name="dark_theme_name">Mörk</string>
     <string name="equalizer">Equalizer</string>
     <string name="pref_title_general_theme">Allmänt tema</string>
     <string name="pref_header_audio">Ljud</string>
-    <string name="pref_header_general">Allmänt</string>
     <string name="pref_title_navigation_bar">Färgad navigeringslist</string>
-    <string name="pref_title_set_default_start_page">Startsida</string>
     <string name="no_equalizer">Hittar ingen equalizer</string>
     <string name="no_audio_ID">"Inget ljud-ID, spela något annat och försök igen."</string>
     <string name="delete_action">Radera</string>

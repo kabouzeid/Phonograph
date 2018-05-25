@@ -37,7 +37,6 @@
     <string name="action_go_to_album">Gå til album</string>
     <string name="label_playing_queue">Songkø</string>
     <string name="no_results">Ingen resultat</string>
-    <string name="action_re_download_artist_image">Oppdater artistbilete</string>
     <string name="updating">Oppdaterer...</string>
     <string name="added_title_to_playing_queue">"La 1 tittel til songkøen."</string>
     <string name="added_x_titles_to_playing_queue">La %1$d titlar til songkøen.</string>
@@ -60,15 +59,12 @@
     <string name="delete_playlist_title">Slett speleliste</string>
     <string name="delete_playlists_title">Slett spelelister</string>
     <string name="add_playlist_title">"Legg til i speleliste"</string>
-    <string name="last_opened">Sist opna</string>
     <string name="light_theme_name">Lys</string>
     <string name="dark_theme_name">Mørk</string>
     <string name="equalizer">Equalizer</string>
     <string name="pref_title_general_theme">Generelt tema</string>
     <string name="pref_header_audio">Audio</string>
-    <string name="pref_header_general">Generelt</string>
     <string name="pref_title_navigation_bar">Farga navigasjonslinje</string>
-    <string name="pref_title_set_default_start_page">Startside</string>
     <string name="no_equalizer">Ingen equalizer funne</string>
     <string name="no_audio_ID">"Ingen audio-ID, spel noko og prøv igjen"</string>
     <string name="delete_action">Slett</string>

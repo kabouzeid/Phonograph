@@ -76,7 +76,11 @@ public class HorizontalAlbumAdapter extends AlbumAdapter {
 
     @Override
     protected String getAlbumText(Album album) {
-        return String.valueOf(album.getYear());
+		int year = album.getYear();
+		if(year > 0) {
+			return String.valueOf(year);
+		}
+		return "-";
     }
 
     @Override
