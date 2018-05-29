@@ -19,19 +19,22 @@ platform :android do
   desc "Deploy a new beta version to the Google Play"
   lane :beta do
     gradle(task: "clean assembleRelease")
-    upload_to_play_store(track: 'beta')
+    mapping_path = File.absolute_path "../app/build/outputs/mapping/release/mapping.txt"
+    upload_to_play_store(track: 'beta', mapping: mapping_path)
   end
 
   desc "Deploy a new staged release version to the Google Play"
   lane :deploy_staged do
     gradle(task: "clean assembleRelease")
-    upload_to_play_store(track: 'rollout', rollout: '0.1')
+    mapping_path = File.absolute_path "../app/build/outputs/mapping/release/mapping.txt"
+    upload_to_play_store(track: 'rollout', rollout: '0.1', mapping: mapping_path)
   end
 
   desc "Deploy a new version to the Google Play"
   lane :deploy do
     gradle(task: "clean assembleRelease")
-    upload_to_play_store
+    mapping_path = File.absolute_path "../app/build/outputs/mapping/release/mapping.txt"
+    upload_to_play_store(mapping: mapping_path)
   end
 
   desc "Generates a changelog from git commits and puts it in the clipboard"
