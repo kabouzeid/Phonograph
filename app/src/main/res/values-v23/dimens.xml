@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="status_bar_padding">24dp</dimen>
+    <dimen name="status_bar_padding">@*android:dimen/status_bar_height</dimen>
 </resources>
