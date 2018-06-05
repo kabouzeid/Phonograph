@@ -1,5 +1,6 @@
 package com.kabouzeid.gramophone.adapter;
 
+import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.support.annotation.LayoutRes;
@@ -11,8 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.kabouzeid.appthemehelper.util.ATHUtil;
+import com.kabouzeid.gramophone.App;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
@@ -22,6 +25,7 @@ import com.kabouzeid.gramophone.helper.menu.PlaylistMenuHelper;
 import com.kabouzeid.gramophone.helper.menu.SongsMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.loader.PlaylistSongLoader;
+import com.kabouzeid.gramophone.misc.WeakContextAsyncTask;
 import com.kabouzeid.gramophone.model.AbsCustomPlaylist;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
@@ -29,7 +33,9 @@ import com.kabouzeid.gramophone.model.smartplaylist.AbsSmartPlaylist;
 import com.kabouzeid.gramophone.model.smartplaylist.LastAddedPlaylist;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.PlaylistsUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -149,9 +155,53 @@ public class PlaylistAdapter extends AbsMultiSelectAdapter<PlaylistAdapter.ViewH
                     DeletePlaylistDialog.create(selection).show(activity.getSupportFragmentManager(), "DELETE_PLAYLIST");
                 }
                 break;
+            case R.id.action_save_playlist:
+                if (selection.size() == 1) {
+                    PlaylistMenuHelper.handleMenuClick(activity, selection.get(0), menuItem);
+                } else {
+                    new SavePlaylistsAsyncTask(activity).execute(selection);
+                }
+                break;
             default:
                 SongsMenuHelper.handleMenuClick(activity, getSongList(selection), menuItem.getItemId());
                 break;
+        }
+    }
+
+    private static class SavePlaylistsAsyncTask extends WeakContextAsyncTask<ArrayList<Playlist>, String, String> {
+        public SavePlaylistsAsyncTask(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected String doInBackground(ArrayList<Playlist>... params) {
+            int successes = 0;
+            int failures = 0;
+
+            String dir = "";
+
+            for (Playlist playlist : params[0]) {
+                try {
+                    dir = PlaylistsUtil.savePlaylist(App.getInstance().getApplicationContext(), playlist).getParent();
+                    successes++;
+                } catch (IOException e) {
+                    failures++;
+                    e.printStackTrace();
+                }
+            }
+
+            return failures == 0
+                    ? String.format(App.getInstance().getApplicationContext().getString(R.string.saved_x_playlists_to_x), successes, dir)
+                    : String.format(App.getInstance().getApplicationContext().getString(R.string.saved_x_playlists_to_x_failed_to_save_x), successes, dir, failures);
+        }
+
+        @Override
+        protected void onPostExecute(String string) {
+            super.onPostExecute(string);
+            Context context = getContext();
+            if (context != null) {
+                Toast.makeText(context, string, Toast.LENGTH_LONG).show();
+            }
         }
     }
 

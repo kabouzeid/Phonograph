@@ -14,4 +14,6 @@
     <item name="action_song_sort_order_artist" type="id" />
     <item name="action_song_sort_order_album" type="id" />
     <item name="action_song_sort_order_year" type="id" />
+
+    <item name="action_multi_select_adapter_check_all" type="id" />
 </resources>
