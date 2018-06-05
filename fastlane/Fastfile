@@ -12,6 +12,11 @@
 
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
+#
+# Usage: 1. fastlane changelog
+#        2. Prepare release
+#        3. fastlane tag
+#        4. fastlane beta|deploy_staged|deploy
 
 default_platform(:android)
 
