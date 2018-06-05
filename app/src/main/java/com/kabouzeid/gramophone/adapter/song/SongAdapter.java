@@ -203,7 +203,7 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
                 sectionName = dataSet.get(position).artistName;
                 break;
             case SortOrder.SongSortOrder.SONG_YEAR:
-                return Integer.toString(dataSet.get(position).year);
+                return MusicUtil.getYearString(dataSet.get(position).year);
         }
 
         return MusicUtil.getSectionName(sectionName);
