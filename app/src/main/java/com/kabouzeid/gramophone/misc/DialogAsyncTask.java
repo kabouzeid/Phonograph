@@ -2,7 +2,6 @@ package com.kabouzeid.gramophone.misc;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,9 +11,8 @@ import java.lang.ref.WeakReference;
 /**
  * @author Karim Abou Zeid (kabouzeid)
  */
-public abstract class DialogAsyncTask<Params, Progress, Result> extends AsyncTask<Params, Progress, Result> {
+public abstract class DialogAsyncTask<Params, Progress, Result> extends WeakContextAsyncTask<Params, Progress, Result> {
     private final int delay;
-    private WeakReference<Context> contextWeakReference;
     private WeakReference<Dialog> dialogWeakReference;
 
     private boolean supposedToBeDismissed;
@@ -24,8 +22,8 @@ public abstract class DialogAsyncTask<Params, Progress, Result> extends AsyncTas
     }
 
     public DialogAsyncTask(Context context, int showDelay) {
+        super(context);
         this.delay = showDelay;
-        contextWeakReference = new WeakReference<>(context);
         dialogWeakReference = new WeakReference<>(null);
     }
 
@@ -60,11 +58,6 @@ public abstract class DialogAsyncTask<Params, Progress, Result> extends AsyncTas
 
     @SuppressWarnings("unchecked")
     protected void onProgressUpdate(@NonNull Dialog dialog, Progress... values) {
-    }
-
-    @Nullable
-    protected Context getContext() {
-        return contextWeakReference.get();
     }
 
     @Nullable

@@ -48,7 +48,6 @@
     <string name="lyrics">Lyrics</string>
     <string name="album_or_artist_empty">The title or artist is empty.</string>
     <string name="saving_changes">Saving changes</string>
-    <string name="saving_to_file">Saving to file…</string>
     <string name="label_details">Details</string>
     <string name="label_file_name">File name</string>
     <string name="label_file_path">File path</string>
@@ -88,6 +87,7 @@
     <string name="delete_playlists_title">Delete playlists</string>
     <string name="clear_playlist_title">Clear playlist</string>
     <string name="save_playlist_title">Save as file</string>
+    <string name="save_playlists_title">Save as files</string>
     <string name="add_playlist_title">"Add to playlist"</string>
     <string name="action_shuffle_all">Shuffle all</string>
     <string name="action_shuffle_album">Shuffle album</string>
@@ -182,7 +182,6 @@
     <string name="sleep_timer_set">Sleep timer set for %d minutes from now.</string>
     <string name="action_new_playlist">New playlist…</string>
     <string name="new_playlist_title">New playlist</string>
-    <string name="export_playlists">Export playlists</string>
     <string name="grid_size_1">1</string>
     <string name="grid_size_2">2</string>
     <string name="grid_size_3">3</string>
@@ -234,6 +233,8 @@
     <string name="folders">Folders</string>
     <string name="saved_playlist_to">Saved playlist to %s.</string>
     <string name="failed_to_save_playlist">Failed to save playlist (%s).</string>
+    <string name="saved_x_playlists_to_x">Saved %1$d playlists to %2$s.</string>
+    <string name="saved_x_playlists_to_x_failed_to_save_x">Saved %1$d playlists to %2$s, failed to save %3$d.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> is not listed in the media store.]]></string>
     <string name="some_files_are_not_listed_in_the_media_store">Some files are not listed in the media store.</string>
     <string name="nothing_to_scan">Nothing to scan.</string>

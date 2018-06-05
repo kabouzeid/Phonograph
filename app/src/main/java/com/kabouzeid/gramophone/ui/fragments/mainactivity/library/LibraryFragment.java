@@ -188,7 +188,6 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
         inflater.inflate(R.menu.menu_main, menu);
         if (isPlaylistPage()) {
             menu.add(0, R.id.action_new_playlist, 0, R.string.new_playlist_title);
-            menu.add(0, R.id.action_export_playlists, 1, R.string.export_playlists);
         }
         Fragment currentFragment = getCurrentFragment();
         if (currentFragment instanceof AbsLibraryPagerRecyclerViewCustomGridSizeFragment && currentFragment.isAdded()) {
@@ -248,9 +247,6 @@ public class LibraryFragment extends AbsMainActivityFragment implements CabHolde
                 return true;
             case R.id.action_new_playlist:
                 CreatePlaylistDialog.create().show(getChildFragmentManager(), "CREATE_PLAYLIST");
-                return true;
-            case R.id.action_export_playlists:
-                // TODO
                 return true;
             case R.id.action_search:
                 startActivity(new Intent(getActivity(), SearchActivity.class));
