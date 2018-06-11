@@ -48,7 +48,6 @@
     <string name="lyrics">Stihovi</string>
     <string name="album_or_artist_empty">Polje za naziv ili izvođača je prazno.</string>
     <string name="saving_changes">Spremanje promjena</string>
-    <string name="saving_to_file">Spremanje u datoteku...</string>
     <string name="label_details">Detalji</string>
     <string name="label_file_name">Naziv datoteke</string>
     <string name="label_file_path">Odredište datoteke</string>

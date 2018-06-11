@@ -48,7 +48,6 @@
     <string name="lyrics">Paroles</string>
     <string name="album_or_artist_empty">Le champ \"titre\" ou \"artiste\" est vide.</string>
     <string name="saving_changes">Sauvegarde des modifications</string>
-    <string name="saving_to_file">Sauvegarde dans le fichier…</string>
     <string name="label_details">Détails</string>
     <string name="label_file_name">Nom du fichier</string>
     <string name="label_file_path">Chemin du fichier</string>

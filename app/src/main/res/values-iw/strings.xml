@@ -48,7 +48,6 @@
     <string name="lyrics">מילים</string>
     <string name="album_or_artist_empty">הכותרת או האמן ריקים.</string>
     <string name="saving_changes">שומר שינויים</string>
-    <string name="saving_to_file">שומר לקובץ...</string>
     <string name="label_details">פרטים</string>
     <string name="label_file_name">שם הקובץ</string>
     <string name="label_file_path">מיקום הקובץ</string>

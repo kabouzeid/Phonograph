@@ -48,7 +48,6 @@
     <string name="lyrics">Songteksten</string>
     <string name="album_or_artist_empty">De titel of artiest is leeg.</string>
     <string name="saving_changes">Wijzigingen opslaan</string>
-    <string name="saving_to_file">Opslaan in bestand…</string>
     <string name="label_details">Details</string>
     <string name="label_file_name">Bestandsnaam</string>
     <string name="label_file_path">Bestandspad</string>

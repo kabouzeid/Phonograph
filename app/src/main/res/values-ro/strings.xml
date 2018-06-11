@@ -48,7 +48,6 @@
     <string name="lyrics">Versuri</string>
     <string name="album_or_artist_empty">Titlul sau artistul lipseste.</string>
     <string name="saving_changes">Se salvează schimbările</string>
-    <string name="saving_to_file">Salvând în fișier...</string>
     <string name="label_details">Detalii</string>
     <string name="label_file_name">Nume fișier</string>
     <string name="label_file_path">Cale fișier</string>
@@ -226,6 +225,7 @@
     <string name="saved_playlist_to">Listă de redare salvată în %s.</string>
     <string name="failed_to_save_playlist">Salvarea listei de redare (%s) a eșuat.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> nu este listat(ă) în stocarea media.]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">Unele fișiere nu sunt listate in media</string>
     <string name="nothing_to_scan">Nimic de scanat.</string>
     <string name="scanned_files">Scanate %1$d din %2$d fişiere.</string>
     <string name="could_not_scan_files">Nu s-au putut scana %d fişiere.</string>
@@ -274,6 +274,7 @@
     <string name="restore">Restabilire</string>
     <string name="no_purchase_found">Nu s-a găsit nicio achiziție.</string>
     <string name="eugene_cheung_summary">Pentru contribuțiile sale la codul sursă.</string>
+    <string name="adrian_summary">Pentru crearea designului paginii albume</string>
     <string name="add_action">Adăugare</string>
     <string name="blacklist">Listă neagră</string>
     <string name="remove_from_blacklist">Eliminați din lista neagră</string>
@@ -286,4 +287,12 @@
     <string name="library_categories">Categorii</string>
     <string name="pref_summary_library_categories">Configurați vizibilitatea și ordinea categoriilor din bibliotecă.</string>
     <string name="you_have_to_select_at_least_one_category">Trebuie să selectați cel puțin o categorie.</string>
+    <string name="action_scan_directory">Scaneaza locatia</string>
+    <string name="scan_media">scanare media</string>
+    <string name="action_sort_order">Ordine de sortare</string>
+    <string name="sort_order_a_z">crescător</string>
+    <string name="sort_order_z_a">descrescător</string>
+    <string name="sort_order_artist">Artist</string>
+    <string name="sort_order_album">Album</string>
+    <string name="sort_order_year">An</string>
 </resources>

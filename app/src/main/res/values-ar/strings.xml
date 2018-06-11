@@ -40,7 +40,6 @@
     <string name="track_hint">"مقطع (2 للمقطع 2 أو 3004 لـCD3 للمقطع 4)"</string>
     <string name="album_or_artist_empty">حقل اسم الألبوم أو اسم الفنان فارغ</string>
     <string name="saving_changes">يتم حفظ التغييرات...</string>
-    <string name="saving_to_file">حفظ إلى الملف...</string>
     <string name="label_details">التفاصيل</string>
     <string name="label_file_name">اسم الملف</string>
     <string name="label_file_path">مسار الملف</string>

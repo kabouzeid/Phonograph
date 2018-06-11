@@ -48,7 +48,6 @@
     <string name="lyrics">Şarkı sözleri</string>
     <string name="album_or_artist_empty">Albüm başlığı veya albüm sanatçısı bilgisi yok.</string>
     <string name="saving_changes">Değişiklikler kaydediliyor</string>
-    <string name="saving_to_file">Dosyaya kaydediliyor...</string>
     <string name="label_details">Ayrıntılar</string>
     <string name="label_file_name">Dosya adı</string>
     <string name="label_file_path">Dosya yolu</string>

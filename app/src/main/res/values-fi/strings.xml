@@ -47,7 +47,6 @@
     <string name="lyrics">Sanoitukset</string>
     <string name="album_or_artist_empty">Nimi- tai artistikenttä on tyhjä.</string>
     <string name="saving_changes">Tallennetaan muutokset...</string>
-    <string name="saving_to_file">Tallennetaan tiedostoon...</string>
     <string name="label_details">Yksityiskohdat</string>
     <string name="label_file_name">Tiedostonimi</string>
     <string name="label_file_path">Tiedostopolku</string>

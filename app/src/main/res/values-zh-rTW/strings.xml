@@ -49,7 +49,6 @@
     <string name="lyrics">歌詞</string>
     <string name="album_or_artist_empty">專輯名稱或演出者欄是空的</string>
     <string name="saving_changes">正在儲存變更…</string>
-    <string name="saving_to_file">正在儲存為檔案...</string>
     <string name="label_details">詳細資訊</string>
     <string name="label_file_name">檔案名稱</string>
     <string name="label_file_path">檔案路徑</string>

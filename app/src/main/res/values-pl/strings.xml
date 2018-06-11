@@ -48,7 +48,6 @@
     <string name="lyrics">Tekst</string>
     <string name="album_or_artist_empty">Pole tytułu lub artysty jest puste</string>
     <string name="saving_changes">Zapisywanie zmian...</string>
-    <string name="saving_to_file">Zapisywanie do pliku...</string>
     <string name="label_details">Szczegóły</string>
     <string name="label_file_name">Nazwa pliku</string>
     <string name="label_file_path">Ścieżka pliku</string>

@@ -48,7 +48,6 @@
     <string name="lyrics">Lirik</string>
     <string name="album_or_artist_empty">Judul atau artis kosong.</string>
     <string name="saving_changes">Menyimpan perubahan</string>
-    <string name="saving_to_file">Menyimpan berkas...</string>
     <string name="label_details">Rincian</string>
     <string name="label_file_name">Nama berkas</string>
     <string name="label_file_path">Lokasi berkas</string>

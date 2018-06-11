@@ -48,7 +48,6 @@
     <string name="lyrics">Dalszöveg</string>
     <string name="album_or_artist_empty">A cím vagy az előadó üres.</string>
     <string name="saving_changes">Változások mentése</string>
-    <string name="saving_to_file">Mentés fájlba...</string>
     <string name="label_details">Részletek</string>
     <string name="label_file_name">Fájlnév</string>
     <string name="label_file_path">Útvonal</string>

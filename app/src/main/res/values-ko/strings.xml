@@ -48,7 +48,6 @@
     <string name="lyrics">가사</string>
     <string name="album_or_artist_empty">제목이나 아티스트 란이 비었습니다.</string>
     <string name="saving_changes">변경 사항 저장 중...</string>
-    <string name="saving_to_file">파일에 저장 중...</string>
     <string name="label_details">세부 정보</string>
     <string name="label_file_name">파일 이름</string>
     <string name="label_file_path">파일 경로</string>
@@ -277,6 +276,7 @@
     <string name="restore">복원</string>
     <string name="no_purchase_found">구매 내역이 없습니다.</string>
     <string name="eugene_cheung_summary">소스 코드에 대한 기여</string>
+    <string name="adrian_summary">앨범 페이지 디자인 제작</string>
     <string name="add_action">추가</string>
     <string name="blacklist">제외 목록</string>
     <string name="remove_from_blacklist">제외 목록에서 제거</string>

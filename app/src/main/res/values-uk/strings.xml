@@ -48,7 +48,6 @@
     <string name="lyrics">Текст пісні</string>
     <string name="album_or_artist_empty">Назва або виконавець відсутні.</string>
     <string name="saving_changes">Збереження змін</string>
-    <string name="saving_to_file">Збереження в файл...</string>
     <string name="label_details">Подробиці</string>
     <string name="label_file_name">Назва файлу</string>
     <string name="label_file_path">Шлях до файлу</string>

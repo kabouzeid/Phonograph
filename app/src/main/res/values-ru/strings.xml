@@ -48,7 +48,6 @@
     <string name="lyrics">Текст песни</string>
     <string name="album_or_artist_empty">Поля названия альбома или альбом исполнителя пусты</string>
     <string name="saving_changes">Сохранение изменений</string>
-    <string name="saving_to_file">Сохраняем файл...</string>
     <string name="label_details">Подробнее</string>
     <string name="label_file_name">Имя файла</string>
     <string name="label_file_path">Расположение</string>
@@ -289,7 +288,7 @@
     <string name="pref_summary_library_categories">Настройте видимость и порядок категорий библиотеки.</string>
     <string name="you_have_to_select_at_least_one_category">Вы должны выбрать хотя бы одну категорию.</string>
     <string name="action_scan_directory">Сканировать</string>
-    <string name="scan_media">Сканировать файлы</string>
+    <string name="scan_media">Сканировать медиа</string>
     <string name="action_sort_order">Сортировка</string>
     <string name="sort_order_a_z">По возрастанию</string>
     <string name="sort_order_z_a">По убыванию</string>

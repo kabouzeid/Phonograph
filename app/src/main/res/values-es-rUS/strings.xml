@@ -48,7 +48,6 @@
     <string name="lyrics">Letras</string>
     <string name="album_or_artist_empty">El título o artista está vacío.</string>
     <string name="saving_changes">Guardando cambios...</string>
-    <string name="saving_to_file">Guardando al archivo...</string>
     <string name="label_details">Detalles</string>
     <string name="label_file_name">Nombre del archivo</string>
     <string name="label_file_path">Ubicación del archivo</string>
