@@ -22,6 +22,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Locale;
 
 /**
@@ -122,7 +124,13 @@ public class CustomArtistImageUtil {
     }
 
     private static String getFileName(Artist artist) {
-        return String.format(Locale.US, "#%d#%s.jpeg", artist.getId(), artist.getName());
+        try {
+            return String.format(Locale.US, "#%d#%s.jpeg", artist.getId(), URLEncoder.encode(artist.getName(), "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            // UTF-8 should be always valid
+            return null;
+        }
     }
 
     public static File getFile(Artist artist) {
