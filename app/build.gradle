@@ -50,7 +50,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
 
-        renderscriptTargetApi 27
+            renderscriptTargetApi 28
         vectorDrawables.useSupportLibrary = true
 
         applicationId 'com.kabouzeid.gramophone'
