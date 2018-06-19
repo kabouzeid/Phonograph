@@ -15,6 +15,12 @@
             android:summary="@string/pref_summary_gapless_playback"
             android:title="@string/pref_title_gapless_playback" />
 
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="true"
+            android:key="remember_shuffle"
+            android:summary="@string/pref_summary_remember_shuffle"
+            android:title="@string/pref_title_remember_shuffle" />
+
         <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreference
             android:key="equalizer"
             android:title="@string/equalizer" />

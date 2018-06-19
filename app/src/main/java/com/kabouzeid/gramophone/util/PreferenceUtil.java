@@ -82,6 +82,8 @@ public final class PreferenceUtil {
 
     public static final String LIBRARY_CATEGORIES = "library_categories";
 
+    private static final String REMEMBER_SHUFFLE = "remember_shuffle";
+
     private static PreferenceUtil sInstance;
 
     private final SharedPreferences mPreferences;
@@ -430,6 +432,10 @@ public final class PreferenceUtil {
 
     public final boolean introShown() {
         return mPreferences.getBoolean(INTRO_SHOWN, false);
+    }
+
+    public final boolean rememberShuffle() {
+        return mPreferences.getBoolean(REMEMBER_SHUFFLE, true);
     }
 
     public final String autoDownloadImagesPolicy() {
