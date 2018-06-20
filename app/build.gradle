@@ -137,6 +137,5 @@ dependencies {
         transitive = true
     }
     implementation 'com.google.code.gson:gson:2.8.2'
-    implementation 'com.mpatric:mp3agic:0.9.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

@@ -4,10 +4,12 @@ import android.media.MediaMetadataRetriever;
 
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.data.DataFetcher;
-import com.mpatric.mp3agic.ID3v2;
-import com.mpatric.mp3agic.InvalidDataException;
-import com.mpatric.mp3agic.Mp3File;
-import com.mpatric.mp3agic.UnsupportedTagException;
+
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import org.jaudiotagger.audio.mp3.MP3File;
+import org.jaudiotagger.tag.TagException;
+import org.jaudiotagger.tag.images.Artwork;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -54,18 +56,19 @@ public class AudioFileCoverFetcher implements DataFetcher<InputStream> {
     private InputStream fallback(String path) throws FileNotFoundException {
         // Method 1: use embedded high resolution album art if there is any
         try {
-            Mp3File mp3File = new Mp3File(path);
-            if (mp3File.hasId3v2Tag()) {
-                ID3v2 id3v2Tag = mp3File.getId3v2Tag();
-                byte[] imageData = id3v2Tag.getAlbumImage();
-                if (imageData != null) {
+            MP3File mp3File = new MP3File(path);
+            if (mp3File.hasID3v2Tag()) {
+                Artwork art = mp3File.getTag().getFirstArtwork();
+                if (art != null) {
+                    byte[] imageData = art.getBinaryData();
                     return new ByteArrayInputStream(imageData);
                 }
             }
         // If there are any exceptions, we ignore them and continue to the other fallback method
+        } catch (ReadOnlyFileException ignored) {
+        } catch (InvalidAudioFrameException ignored) {
+        } catch (TagException ignored) {
         } catch (IOException ignored) {
-        } catch (InvalidDataException ignored) {
-        } catch (UnsupportedTagException ignored) {
         }
 
         // Method 2: look for album art in external files
