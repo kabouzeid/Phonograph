@@ -84,11 +84,6 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             navigationView.setFitsSystemWindows(false);
             //noinspection ConstantConditions
             findViewById(R.id.drawer_content_container).setFitsSystemWindows(false);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            drawerLayout.setOnApplyWindowInsetsListener((view, windowInsets) -> {
-                navigationView.dispatchApplyWindowInsets(windowInsets);
-                return windowInsets.replaceSystemWindowInsets(0, 0, 0, 0);
-            });
         }
 
         setUpDrawerLayout();
@@ -102,6 +97,8 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
         if (!checkShowIntro()) {
             checkShowChangelog();
         }
+
+        setStatusbarColor(ThemeStore.primaryColorDark(this));
     }
 
     private void setMusicChooser(int key) {

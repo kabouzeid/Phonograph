@@ -98,6 +98,14 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
     private Impl impl;
 
+    /**
+     * Indicate if the panel is collapsed
+     *
+     * By default its collapsed (app start) and it gets toggled based on onShow() and onHide()
+     * Needed to disable status bar color changes when the song changes but the panel is collapsed
+     * */
+    private boolean viewCollapsed = true;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (Util.isLandscape(getResources())) {
@@ -108,6 +116,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
         View view = inflater.inflate(R.layout.fragment_card_player, container, false);
         unbinder = ButterKnife.bind(this, view);
+        lastColor = ThemeStore.primaryColorDark(getContext());
         return view;
     }
 
@@ -377,11 +386,15 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     @Override
     public void onShow() {
         playbackControlsFragment.show();
+        ViewUtil.createStatusBarAnimator(getActivity(), ThemeStore.primaryColorDark(getContext()), lastColor, 100).start();
+        viewCollapsed = false;
     }
 
     @Override
     public void onHide() {
         playbackControlsFragment.hide();
+        ViewUtil.createStatusBarAnimator(getActivity(), lastColor, ThemeStore.primaryColorDark(getContext()), 100).start();
+        viewCollapsed = true;
         onBackPressed();
     }
 
@@ -462,6 +475,7 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
         public AnimatorSet createDefaultColorChangeAnimatorSet(int newColor) {
             Animator backgroundAnimator;
+            Animator statusBarAnimator = ViewUtil.createStatusBarAnimator(fragment.getActivity(), fragment.lastColor, newColor);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 int topMargin = fragment.getResources().getDimensionPixelSize(R.dimen.status_bar_padding);
                 //noinspection ConstantConditions
@@ -477,7 +491,11 @@ public class CardPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
             AnimatorSet animatorSet = new AnimatorSet();
 
-            animatorSet.play(backgroundAnimator);
+            if(fragment.viewCollapsed){
+                animatorSet.play(backgroundAnimator);
+            } else {
+                animatorSet.playTogether(backgroundAnimator, statusBarAnimator);
+            }
 
             if (!ATHUtil.isWindowBackgroundDark(fragment.getActivity())) {
                 int adjustedLastColor = ColorUtil.isColorLight(fragment.lastColor) ? ColorUtil.darkenColor(fragment.lastColor) : fragment.lastColor;

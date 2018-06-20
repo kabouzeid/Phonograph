@@ -4,15 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.activities.PurchaseActivity">
-
-    <include layout="@layout/status_bar" />
+    tools:context=".ui.activities.PurchaseActivity"
+    android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="128dp"
-        android:layout_below="@+id/status_bar"
         android:background="@color/md_green_500"
         android:elevation="4dp">
 

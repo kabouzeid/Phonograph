@@ -13,8 +13,6 @@
         android:orientation="vertical"
         tools:ignore="UselessParent">
 
-        <include layout="@layout/status_bar" />
-
         <android.support.v7.widget.Toolbar
             android:id="@+id/player_toolbar"
             style="@style/Toolbar"

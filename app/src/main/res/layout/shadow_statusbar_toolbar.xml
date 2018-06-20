@@ -4,27 +4,16 @@
     android:layout_height="@dimen/toolbar_scrim_height"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/dummy_statusbar_actionbar"
+    <View
+        android:id="@+id/dummy_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/status_bar_padding" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize" />
-
-    </LinearLayout>
+        android:layout_height="?actionBarSize" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignBottom="@id/dummy_statusbar_actionbar"
-        android:layout_alignTop="@id/dummy_statusbar_actionbar"
+        android:layout_alignBottom="@id/dummy_toolbar"
+        android:layout_alignTop="@id/dummy_toolbar"
         android:background="@drawable/toolbar_gradient" />
 
 </RelativeLayout>

@@ -60,8 +60,6 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
     private Unbinder unbinder;
 
-    @BindView(R.id.player_status_bar)
-    View playerStatusBar;
     @Nullable
     @BindView(R.id.toolbar_container)
     FrameLayout toolbarContainer;
@@ -94,6 +92,14 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
     private Impl impl;
 
+    /**
+     * Indicate if the panel is collapsed
+     *
+     * By default its collapsed (app start) and it gets toggled based on onShow() and onHide()
+     * Needed to disable status bar color changes when the song changes but the panel is collapsed
+     * */
+    private boolean viewCollapsed = true;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (Util.isLandscape(getResources())) {
@@ -104,6 +110,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
         View view = inflater.inflate(R.layout.fragment_flat_player, container, false);
         unbinder = ButterKnife.bind(this, view);
+        lastColor = ThemeStore.primaryColorDark(getContext());
         return view;
     }
 
@@ -372,11 +379,15 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
     @Override
     public void onShow() {
         playbackControlsFragment.show();
+        ViewUtil.createStatusBarAnimator(getActivity(), ThemeStore.primaryColorDark(getContext()), lastColor, 100).start();
+        viewCollapsed = false;
     }
 
     @Override
     public void onHide() {
         playbackControlsFragment.hide();
+        ViewUtil.createStatusBarAnimator(getActivity(), lastColor, ThemeStore.primaryColorDark(getContext()), 100).start();
+        viewCollapsed = true;
         onBackPressed();
     }
 
@@ -453,10 +464,13 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
 
         public AnimatorSet createDefaultColorChangeAnimatorSet(int newColor) {
             Animator backgroundAnimator = ViewUtil.createBackgroundColorTransition(fragment.playbackControlsFragment.getView(), fragment.lastColor, newColor);
-            Animator statusBarAnimator = ViewUtil.createBackgroundColorTransition(fragment.playerStatusBar, fragment.lastColor, newColor);
-
+			Animator statusBarAnimator = ViewUtil.createStatusBarAnimator(fragment.getActivity(), fragment.lastColor, newColor);
             AnimatorSet animatorSet = new AnimatorSet();
-            animatorSet.playTogether(backgroundAnimator, statusBarAnimator);
+            if(fragment.viewCollapsed){
+                animatorSet.play(backgroundAnimator);
+            } else {
+                animatorSet.playTogether(backgroundAnimator, statusBarAnimator);
+            }
 
             if (!ATHUtil.isWindowBackgroundDark(fragment.getActivity())) {
                 int adjustedLastColor = ColorUtil.isColorLight(fragment.lastColor) ? ColorUtil.darkenColor(fragment.lastColor) : fragment.lastColor;

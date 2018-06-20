@@ -4,14 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:transitionGroup="true"
-    tools:ignore="UnusedAttribute">
+    tools:ignore="UnusedAttribute"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <include layout="@layout/status_bar" />
 
         <FrameLayout
             android:layout_width="match_parent"
