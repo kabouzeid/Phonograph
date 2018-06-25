@@ -54,8 +54,8 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         applicationId 'com.kabouzeid.gramophone'
-        versionCode 162
-        versionName '1.1.0'
+        versionCode 163
+        versionName '1.1.1'
 
         // needed for material intro!
         dataBinding {
