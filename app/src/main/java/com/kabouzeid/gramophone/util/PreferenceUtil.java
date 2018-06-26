@@ -53,6 +53,7 @@ public final class PreferenceUtil {
 
     public static final String COLORED_NOTIFICATION = "colored_notification";
     public static final String CLASSIC_NOTIFICATION = "classic_notification";
+    public static final String DISAPPEARING_NOTIFICATION = "disappearing_notification";
 
     public static final String COLORED_APP_SHORTCUTS = "colored_app_shortcuts";
 
@@ -176,6 +177,10 @@ public final class PreferenceUtil {
 
     public final boolean classicNotification() {
         return mPreferences.getBoolean(CLASSIC_NOTIFICATION, false);
+    }
+
+    public final boolean disappearingNotification() {
+        return mPreferences.getBoolean(DISAPPEARING_NOTIFICATION, false);
     }
 
     public void setColoredNotification(final boolean value) {

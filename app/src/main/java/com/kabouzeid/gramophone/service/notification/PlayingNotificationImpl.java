@@ -43,6 +43,10 @@ public class PlayingNotificationImpl extends PlayingNotification {
 
         final boolean isPlaying = service.isPlaying();
 
+        if (!isPlaying && PreferenceUtil.getInstance(service).disappearingNotification()) {
+            stop();
+        }
+
         final RemoteViews notificationLayout = new RemoteViews(service.getPackageName(), R.layout.notification);
         final RemoteViews notificationLayoutBig = new RemoteViews(service.getPackageName(), R.layout.notification_big);
 

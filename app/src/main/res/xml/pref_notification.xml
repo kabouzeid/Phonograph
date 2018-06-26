@@ -14,6 +14,12 @@
             android:summary="@string/pref_summary_colored_notification"
             android:title="@string/pref_title_colored_notification" />
 
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:defaultValue="false"
+            android:key="disappearing_notification"
+            android:summary="@string/pref_summary_disappearing_notification"
+            android:title="@string/pref_title_disappearing_notification" />
+
     </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
 </android.support.v7.preference.PreferenceScreen>
