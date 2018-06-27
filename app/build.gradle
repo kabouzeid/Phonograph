@@ -56,11 +56,6 @@ android {
         applicationId 'com.kabouzeid.gramophone'
         versionCode 164
         versionName '1.1.2'
-
-        // needed for material intro!
-        dataBinding {
-            enabled = true
-        }
     }
     signingConfigs {
         release {
