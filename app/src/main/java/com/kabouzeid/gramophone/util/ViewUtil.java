@@ -3,6 +3,8 @@ package com.kabouzeid.gramophone.util;
 import android.animation.Animator;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -12,6 +14,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.support.annotation.ColorInt;
 import android.support.v4.view.ViewCompat;
 import android.util.DisplayMetrics;
@@ -30,70 +34,89 @@ import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
  */
 public class ViewUtil {
 
-    public final static int PHONOGRAPH_ANIM_TIME = 1000;
+	public final static int PHONOGRAPH_ANIM_TIME = 1000;
 
-    public static Animator createBackgroundColorTransition(final View v, @ColorInt final int startColor, @ColorInt final int endColor) {
-        return createColorAnimator(v, "backgroundColor", startColor, endColor);
-    }
+	public static Animator createBackgroundColorTransition(final View v, @ColorInt final int startColor, @ColorInt final int endColor) {
+		return createColorAnimator(v, "backgroundColor", startColor, endColor);
+	}
 
-    public static Animator createTextColorTransition(final TextView v, @ColorInt final int startColor, @ColorInt final int endColor) {
-        return createColorAnimator(v, "textColor", startColor, endColor);
-    }
+	public static Animator createTextColorTransition(final TextView v, @ColorInt final int startColor, @ColorInt final int endColor) {
+		return createColorAnimator(v, "textColor", startColor, endColor);
+	}
 
-    private static Animator createColorAnimator(Object target, String propertyName, @ColorInt int startColor, @ColorInt int endColor) {
-        ObjectAnimator animator;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            animator = ObjectAnimator.ofArgb(target, propertyName, startColor, endColor);
-        } else {
-            animator = ObjectAnimator.ofInt(target, propertyName, startColor, endColor);
-            animator.setEvaluator(new ArgbEvaluator());
-        }
+	public static Animator createStatusBarAnimator(final Activity activity, @ColorInt final int startColor, @ColorInt final int endColor) {
+		return createStatusBarAnimator(activity, startColor, endColor, PHONOGRAPH_ANIM_TIME);
+	}
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            animator.setInterpolator(new PathInterpolator(0.4f, 0f, 1f, 1f));
-        }
-        animator.setDuration(PHONOGRAPH_ANIM_TIME);
-        return animator;
-    }
+	public static Animator createStatusBarAnimator(final Activity activity, @ColorInt final int startColor, @ColorInt final int endColor, long duration) {
+		ValueAnimator animator = ValueAnimator.ofObject(new ArgbEvaluator(), startColor, endColor).setDuration(duration);
+		animator.addUpdateListener(animation -> {
+			if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+				View statusBar = activity.getWindow().getDecorView().getRootView().findViewById(R.id.status_bar);
+				if (statusBar != null) {
+					statusBar.setBackgroundColor((int) animator.getAnimatedValue());
+				} else {
+					activity.getWindow().setStatusBarColor(ColorUtil.darkenColor((int) animator.getAnimatedValue()));
+				}
+			}
+		});
+		return animator;
+	}
 
-    public static Drawable createSelectorDrawable(Context context, @ColorInt int color) {
-        final StateListDrawable baseSelector = new StateListDrawable();
-        baseSelector.addState(new int[]{android.R.attr.state_activated}, new ColorDrawable(color));
+	private static Animator createColorAnimator(Object target, String propertyName, @ColorInt int startColor, @ColorInt int endColor) {
+		ObjectAnimator animator;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			animator = ObjectAnimator.ofArgb(target, propertyName, startColor, endColor);
+		} else {
+			animator = ObjectAnimator.ofInt(target, propertyName, startColor, endColor);
+			animator.setEvaluator(new ArgbEvaluator());
+		}
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return new RippleDrawable(ColorStateList.valueOf(color), baseSelector, new ColorDrawable(Color.WHITE));
-        }
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			animator.setInterpolator(new PathInterpolator(0.4f, 0f, 1f, 1f));
+		}
+		animator.setDuration(PHONOGRAPH_ANIM_TIME);
+		return animator;
+	}
 
-        baseSelector.addState(new int[]{}, new ColorDrawable(Color.TRANSPARENT));
-        baseSelector.addState(new int[]{android.R.attr.state_pressed}, new ColorDrawable(color));
-        return baseSelector;
-    }
+	public static Drawable createSelectorDrawable(Context context, @ColorInt int color) {
+		final StateListDrawable baseSelector = new StateListDrawable();
+		baseSelector.addState(new int[]{android.R.attr.state_activated}, new ColorDrawable(color));
 
-    public static boolean hitTest(View v, int x, int y) {
-        final int tx = (int) (ViewCompat.getTranslationX(v) + 0.5f);
-        final int ty = (int) (ViewCompat.getTranslationY(v) + 0.5f);
-        final int left = v.getLeft() + tx;
-        final int right = v.getRight() + tx;
-        final int top = v.getTop() + ty;
-        final int bottom = v.getBottom() + ty;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+			return new RippleDrawable(ColorStateList.valueOf(color), baseSelector, new ColorDrawable(Color.WHITE));
+		}
 
-        return (x >= left) && (x <= right) && (y >= top) && (y <= bottom);
-    }
+		baseSelector.addState(new int[]{}, new ColorDrawable(Color.TRANSPARENT));
+		baseSelector.addState(new int[]{android.R.attr.state_pressed}, new ColorDrawable(color));
+		return baseSelector;
+	}
 
-    public static void setUpFastScrollRecyclerViewColor(Context context, FastScrollRecyclerView recyclerView, int accentColor) {
-        recyclerView.setPopupBgColor(accentColor);
-        recyclerView.setPopupTextColor(MaterialValueHelper.getPrimaryTextColor(context, ColorUtil.isColorLight(accentColor)));
-        recyclerView.setThumbColor(accentColor);
-        recyclerView.setTrackColor(ColorUtil.withAlpha(ATHUtil.resolveColor(context, R.attr.colorControlNormal), 0.12f));
-    }
+	public static boolean hitTest(View v, int x, int y) {
+		final int tx = (int) (ViewCompat.getTranslationX(v) + 0.5f);
+		final int ty = (int) (ViewCompat.getTranslationY(v) + 0.5f);
+		final int left = v.getLeft() + tx;
+		final int right = v.getRight() + tx;
+		final int top = v.getTop() + ty;
+		final int bottom = v.getBottom() + ty;
 
-    public static float convertDpToPixel(float dp, Resources resources) {
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        return dp * metrics.density;
-    }
+		return (x >= left) && (x <= right) && (y >= top) && (y <= bottom);
+	}
 
-    public static float convertPixelsToDp(float px, Resources resources) {
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        return px / metrics.density;
-    }
+	public static void setUpFastScrollRecyclerViewColor(Context context, FastScrollRecyclerView recyclerView, int accentColor) {
+		recyclerView.setPopupBgColor(accentColor);
+		recyclerView.setPopupTextColor(MaterialValueHelper.getPrimaryTextColor(context, ColorUtil.isColorLight(accentColor)));
+		recyclerView.setThumbColor(accentColor);
+		recyclerView.setTrackColor(ColorUtil.withAlpha(ATHUtil.resolveColor(context, R.attr.colorControlNormal), 0.12f));
+	}
+
+	public static float convertDpToPixel(float dp, Resources resources) {
+		DisplayMetrics metrics = resources.getDisplayMetrics();
+		return dp * metrics.density;
+	}
+
+	public static float convertPixelsToDp(float px, Resources resources) {
+		DisplayMetrics metrics = resources.getDisplayMetrics();
+		return px / metrics.density;
+	}
 }
