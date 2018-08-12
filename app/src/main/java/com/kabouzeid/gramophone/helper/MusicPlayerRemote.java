@@ -24,6 +24,7 @@ import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.service.MusicService;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -176,6 +177,9 @@ public class MusicPlayerRemote {
     public static void openQueue(final ArrayList<Song> queue, final int startPosition, final boolean startPlaying) {
         if (!tryToHandleOpenPlayingQueue(queue, startPosition, startPlaying) && musicService != null) {
             musicService.openQueue(queue, startPosition, startPlaying);
+            if (!PreferenceUtil.getInstance(musicService).rememberShuffle()){
+                setShuffleMode(MusicService.SHUFFLE_MODE_NONE);
+            }
         }
     }
 

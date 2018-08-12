@@ -30,6 +30,7 @@
     <string name="action_set_as_start_directory">Establecer como directorio de inicio</string>
     <string name="albums">Álbumes</string>
     <string name="artists">Artistas</string>
+    <string name="genres">Géneros</string>
     <string name="songs">Canciones</string>
     <string name="playlists">Listas de reproducción</string>
     <string name="unplayable_file">No se ha podido reproducir esta canci\u00f3n.</string>
@@ -47,7 +48,6 @@
     <string name="lyrics">Letras</string>
     <string name="album_or_artist_empty">El título o artista está vacío.</string>
     <string name="saving_changes">Guardando cambios...</string>
-    <string name="saving_to_file">Guardando al archivo...</string>
     <string name="label_details">Detalles</string>
     <string name="label_file_name">Nombre del archivo</string>
     <string name="label_file_path">Ubicación del archivo</string>
@@ -60,8 +60,6 @@
     <string name="action_go_to_album">Ir al álbum</string>
     <string name="label_playing_queue">Cola de reproducción</string>
     <string name="no_results">Sin resultados</string>
-    <string name="action_re_download_artist_image">Actualizar imagen del artista.</string>
-    <string name="updated_artist_image">Imagen del artista actualizada.</string>
     <string name="updating">Actualizando...</string>
     <string name="added_title_to_playing_queue">"1 canción añadida a la cola de reproducción."</string>
     <string name="added_x_titles_to_playing_queue">%1$d canciones añadidas a la cola de reproducción.</string>
@@ -98,7 +96,6 @@
     <string name="action_save_playing_queue">Guardar cola de reproducción</string>
     <string name="action_go_to_start_directory">Ir al directorio de inicio</string>
     <string name="action_show_lyrics">Mostrar letra</string>
-    <string name="last_opened">Última abierta</string>
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Oscuro</string>
     <string name="black_theme_name">Negro (AMOLED)</string>
@@ -115,14 +112,13 @@
     <string name="pref_header_now_playing_screen">Reproduciendo ahora</string>
     <string name="pref_title_general_theme">Tema general</string>
     <string name="pref_header_audio">Audio</string>
-    <string name="pref_header_general">General</string>
+    <string name="pref_header_library">Biblioteca</string>
     <string name="pref_header_images">Imágenes</string>
     <string name="pref_header_lockscreen">Pantalla de bloqueo</string>
     <string name="pref_header_playlists">Listas de reproducción</string>
     <string name="pref_header_notification">Notificación</string>
     <string name="pref_title_navigation_bar">Barra de navegación coloreada</string>
     <string name="pref_title_app_shortcuts">Accesos directos coloreados</string>
-    <string name="pref_title_set_default_start_page">Sección de inicio</string>
     <string name="pref_title_album_art_on_lockscreen">Mostrar carátula del álbum</string>
     <string name="pref_title_auto_download_metadata">Auto descargar metadata</string>
     <string name="pref_title_blurred_album_art">Desenfocar imagen de álbum</string>
@@ -133,6 +129,7 @@
     <string name="pref_title_audio_ducking">Reducir volumen al recibir notificaciones</string>
     <string name="pref_title_last_added_interval">Último intervalo de lista de reproducción añadido</string>
     <string name="pref_title_synchronized_lyrics_show">Mostrat letras sincronizadas</string>
+    <string name="pref_title_remember_last_tab">Recordar la última pestaña</string>
     <string name="no_equalizer">No se encontró ningún ecualizador.</string>
     <string name="no_audio_ID">"Reproduce una canción primero, e intenta de nuevo."</string>
     <string name="delete_action">Eliminar</string>
@@ -140,6 +137,7 @@
     <string name="remove_action">Eliminar</string>
     <string name="rename_action">Renombrar</string>
     <string name="create_action">Crear</string>
+    <string name="reset_action">Reiniciar</string>
     <string name="x_selected">%1$d seleccionado(s)</string>
     <string name="primary_color">Color principal</string>
     <string name="accent_color">Color de énfasis</string>
@@ -151,6 +149,7 @@
     <string name="no_albums">No hay álbumes</string>
     <string name="no_songs">No hay canciones</string>
     <string name="no_artists">No hay artistas</string>
+    <string name="no_genres">Sin géneros</string>
     <string name="empty">Vacío</string>
     <string name="playlist_name_empty">Nombre de la lista de reproducción</string>
     <string name="song">Canción</string>
@@ -164,6 +163,7 @@
     <string name="pref_summary_colored_app_shortcuts">Colorea los accesos directos con el color principal.</string>
     <string name="pref_summary_audio_ducking">Notificaciones, navegación, etc.</string>
     <string name="pref_summary_synchronized_lyrics_show">Actualmente sólo se admiten las letras sincronizadas en formato LRC. Ya sea incorporado o como un archivo independiente.</string>
+    <string name="pref_summary_remember_last_tab">Ir a la última pestaña abierta al iniciar</string>
     <string name="could_not_download_album_cover">"No se puede descargar una car\u00e1tula de \u00e1lbum coincidente."</string>
     <string name="search_hint">Buscar en la biblioteca...</string>
     <string name="favorites">Favoritos</string>
@@ -263,12 +263,10 @@
     <string name="playlist_is_empty">La lista de reproducción está vacía</string>
     <string name="playing_notification_description">La notificación de reproducción proporciona acciones para reproducir/pausar, etc.</string>
     <string name="playing_notification_name">Notificación de reproducción</string>
-    <string name="buy">Comprar</string>
     <string name="only_the_first_5_colors_available">Solo los primeros 5 colores están disponibles en la versión gratuita.</string>
     <string name="black_theme_is_a_pro_feature">El tema negro es una función de Phonograph Pro.</string>
     <string name="sleep_timer_is_a_pro_feature">El temporizador de apagado es una función de Phonograph Pro</string>
     <string name="folder_view_is_a_pro_feature">La vista de carpetas es una función de Phonograph Pro.</string>
-    <string name="restore_purchase">Restaurar compra</string>
     <string name="restoring_purchase">Restaurando compra...</string>
     <string name="could_not_restore_purchase">No se pudo restaurar la compra.</string>
     <string name="purchase">Comprar</string>
@@ -284,4 +282,5 @@
     <string name="pref_summary_blacklist">El contenido de las carpetas de Lista negra está oculto de tu librería.</string>
     <string name="reset_artist_image">Reiniciar imagen de Artista</string>
     <string name="set_artist_image">Establecer imagen de Artista</string>
+    <string name="you_have_to_select_at_least_one_category">Tienes que seleccionar al menos una categoría.</string>
 </resources>

@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -74,12 +73,9 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         });
         recyclerView.setAdapter(adapter);
 
-        recyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                hideSoftKeyboard();
-                return false;
-            }
+        recyclerView.setOnTouchListener((v, event) -> {
+            hideSoftKeyboard();
+            return false;
         });
 
         setUpToolBar();
@@ -133,12 +129,7 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         });
 
         searchView.setQuery(query, false);
-        searchView.post(new Runnable() {
-            @Override
-            public void run() {
-                searchView.setOnQueryTextListener(SearchActivity.this);
-            }
-        });
+        searchView.post(() -> searchView.setOnQueryTextListener(SearchActivity.this));
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -208,19 +199,19 @@ public class SearchActivity extends AbsMusicServiceActivity implements SearchVie
         public List<Object> loadInBackground() {
             List<Object> results = new ArrayList<>();
             if (!TextUtils.isEmpty(query)) {
-                List songs = SongLoader.getSongs(getContext(), query);
+                List songs = SongLoader.getSongs(getContext(), query.trim());
                 if (!songs.isEmpty()) {
                     results.add(getContext().getResources().getString(R.string.songs));
                     results.addAll(songs);
                 }
 
-                List artists = ArtistLoader.getArtists(getContext(), query);
+                List artists = ArtistLoader.getArtists(getContext(), query.trim());
                 if (!artists.isEmpty()) {
                     results.add(getContext().getResources().getString(R.string.artists));
                     results.addAll(artists);
                 }
 
-                List albums = AlbumLoader.getAlbums(getContext(), query);
+                List albums = AlbumLoader.getAlbums(getContext(), query.trim());
                 if (!albums.isEmpty()) {
                     results.add(getContext().getResources().getString(R.string.albums));
                     results.addAll(albums);

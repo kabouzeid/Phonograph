@@ -12,11 +12,13 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Phonograph.Light"
@@ -94,6 +96,7 @@
         </activity>
         <activity android:name=".ui.activities.AlbumDetailActivity" />
         <activity android:name=".ui.activities.ArtistDetailActivity" />
+        <activity android:name=".ui.activities.GenreDetailActivity" />
         <activity android:name=".ui.activities.PlaylistDetailActivity" />
         <activity
             android:name=".ui.activities.tageditor.SongTagEditorActivity"
@@ -136,9 +139,6 @@
         <meta-data
             android:name="com.lge.support.SPLIT_WINDOW"
             android:value="true" />
-        <meta-data
-            android:name="com.crashlytics.ApiKey"
-            android:value="b23725bd3d266aa65c5a3dd1816b2f801524a189" />
         <meta-data
             android:name="com.kabouzeid.gramophone.glide.PhonographGlideModule"
             android:value="GlideModule" />

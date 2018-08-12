@@ -8,25 +8,17 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
-import com.crashlytics.android.answers.AddToCartEvent;
-import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.ContentViewEvent;
-import com.crashlytics.android.answers.PurchaseEvent;
 import com.kabouzeid.appthemehelper.color.MaterialColor;
 import com.kabouzeid.gramophone.App;
-import com.kabouzeid.gramophone.BuildConfig;
 import com.kabouzeid.gramophone.R;
 import com.kabouzeid.gramophone.ui.activities.base.AbsBaseActivity;
 
 import java.lang.ref.WeakReference;
-import java.math.BigDecimal;
-import java.util.Currency;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,42 +53,22 @@ public class PurchaseActivity extends AbsBaseActivity implements BillingProcesso
         setSupportActionBar(toolbar);
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.purchase) + " Phonograph Pro");
+        getSupportActionBar().setTitle(getString(R.string.buy_pro));
 
         restoreButton.setEnabled(false);
         purchaseButton.setEnabled(false);
 
-        restoreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (restorePurchaseAsyncTask == null || restorePurchaseAsyncTask.getStatus() != AsyncTask.Status.RUNNING) {
-                    restorePurchase();
-                }
+        restoreButton.setOnClickListener(v -> {
+            if (restorePurchaseAsyncTask == null || restorePurchaseAsyncTask.getStatus() != AsyncTask.Status.RUNNING) {
+                restorePurchase();
             }
         });
 
-        purchaseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                billingProcessor.purchase(PurchaseActivity.this, App.PRO_VERSION_PRODUCT_ID);
-
-                if (!BuildConfig.DEBUG) {
-                    Answers.getInstance().logAddToCart(new AddToCartEvent()
-                            .putCurrency(Currency.getInstance("EUR"))
-                            .putItemId("pro_version")
-                            .putItemName("Phonograph Pro")
-                            .putItemPrice(BigDecimal.valueOf(3)));
-                }
-            }
+        purchaseButton.setOnClickListener(v -> {
+            billingProcessor.purchase(PurchaseActivity.this, App.PRO_VERSION_PRODUCT_ID);
         });
 
         billingProcessor = new BillingProcessor(this, App.GOOGLE_PLAY_LICENSE_KEY, this);
-
-        if (!BuildConfig.DEBUG) {
-            Answers.getInstance().logContentView(new ContentViewEvent()
-                    .putContentName("Purchase Activity")
-                    .putContentId("1"));
-        }
     }
 
     private void restorePurchase() {
@@ -110,15 +82,6 @@ public class PurchaseActivity extends AbsBaseActivity implements BillingProcesso
     public void onProductPurchased(@NonNull String productId, @Nullable TransactionDetails details) {
         Toast.makeText(this, R.string.thank_you, Toast.LENGTH_SHORT).show();
         setResult(RESULT_OK);
-
-        if (!BuildConfig.DEBUG) {
-            Answers.getInstance().logPurchase(new PurchaseEvent()
-                    .putCurrency(Currency.getInstance("EUR"))
-                    .putItemPrice(BigDecimal.valueOf(3))
-                    .putItemId("pro_version")
-                    .putSuccess(true)
-                    .putItemName("Phonograph Pro"));
-        }
     }
 
     @Override

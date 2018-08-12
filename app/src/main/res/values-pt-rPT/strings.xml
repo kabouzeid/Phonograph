@@ -41,7 +41,6 @@
     <string name="track_hint">"Faixa (2 para faixa 2 ou 3004 para CD3 faixa 4)"</string>
     <string name="album_or_artist_empty">O título do álbum ou o artista está vazio.</string>
     <string name="saving_changes">A gravar alterações</string>
-    <string name="saving_to_file">A gravar no ficheiro...</string>
     <string name="label_details">Detalhes</string>
     <string name="label_file_name">Nome do ficheiro</string>
     <string name="label_file_path">Local do ficheiro</string>
@@ -54,8 +53,6 @@
     <string name="action_go_to_album">Ir para o álbum</string>
     <string name="label_playing_queue">Fila de reprodução</string>
     <string name="no_results">Sem resultados</string>
-    <string name="action_re_download_artist_image">Atualizar imagem do artista</string>
-    <string name="updated_artist_image">Imagem do artista atualizada.</string>
     <string name="updating">A atualizar...</string>
     <string name="added_title_to_playing_queue">"Adicionada uma música à fila de reprodução."</string>
     <string name="added_x_titles_to_playing_queue">Adicionadas %1$d títulos à fila de reprodução.</string>
@@ -90,7 +87,6 @@
     <string name="action_clear_playing_queue">Limpar fila de reprodução</string>
     <string name="action_go_to_start_directory">Ir para diretoria principal</string>
     <string name="action_show_lyrics">Mostrar letra</string>
-    <string name="last_opened">Abertas recentemente</string>
     <string name="light_theme_name">Claro</string>
     <string name="dark_theme_name">Escuro</string>
     <string name="black_theme_name">Preto (AMOLED)</string>
@@ -102,11 +98,9 @@
     <string name="pref_header_now_playing_screen">A reproduzir</string>
     <string name="pref_title_general_theme">Tema geral</string>
     <string name="pref_header_audio">Áudio</string>
-    <string name="pref_header_general">Geral</string>
     <string name="pref_header_images">Imagens</string>
     <string name="pref_header_lockscreen">Ecrã de Bloqueio</string>
     <string name="pref_title_navigation_bar">Barra de navegação colorida</string>
-    <string name="pref_title_set_default_start_page">Página Inicial</string>
     <string name="pref_title_album_art_on_lockscreen">Mostrar capa do álbum</string>
     <string name="pref_title_blurred_album_art">Desfocar capa do álbum</string>
     <string name="pref_title_colored_notification">Notificação colorida</string>

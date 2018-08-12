@@ -19,12 +19,14 @@ import com.kabouzeid.gramophone.adapter.base.AbsMultiSelectAdapter;
 import com.kabouzeid.gramophone.adapter.base.MediaEntryViewHolder;
 import com.kabouzeid.gramophone.glide.ArtistGlideRequest;
 import com.kabouzeid.gramophone.glide.PhonographColoredTarget;
+import com.kabouzeid.gramophone.helper.SortOrder;
 import com.kabouzeid.gramophone.helper.menu.SongsMenuHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Artist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.util.MusicUtil;
 import com.kabouzeid.gramophone.util.NavigationUtil;
+import com.kabouzeid.gramophone.util.PreferenceUtil;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
@@ -173,7 +175,15 @@ public class ArtistAdapter extends AbsMultiSelectAdapter<ArtistAdapter.ViewHolde
     @NonNull
     @Override
     public String getSectionName(int position) {
-        return MusicUtil.getSectionName(dataSet.get(position).getName());
+        @Nullable String sectionName = null;
+        switch (PreferenceUtil.getInstance(activity).getArtistSortOrder()) {
+            case SortOrder.ArtistSortOrder.ARTIST_A_Z:
+            case SortOrder.ArtistSortOrder.ARTIST_Z_A:
+                sectionName = dataSet.get(position).getName();
+                break;
+        }
+
+        return MusicUtil.getSectionName(sectionName);
     }
 
     public class ViewHolder extends MediaEntryViewHolder {

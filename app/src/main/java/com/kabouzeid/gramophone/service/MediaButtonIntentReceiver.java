@@ -99,7 +99,9 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
 
             final int keycode = event.getKeyCode();
             final int action = event.getAction();
-            final long eventTime = event.getEventTime();
+            final long eventTime = event.getEventTime() != 0 ?
+                    event.getEventTime() : System.currentTimeMillis();
+            // Fallback to system time if event time was not available.
 
             String command = null;
             switch (keycode) {
@@ -133,7 +135,7 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
 
                         // The service may or may not be running, but we need to send it
                         // a command.
-                        if (keycode == KeyEvent.KEYCODE_HEADSETHOOK) {
+                        if (keycode == KeyEvent.KEYCODE_HEADSETHOOK || keycode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE) {
                             if (eventTime - mLastClickTime >= DOUBLE_CLICK) {
                                 mClickCounter = 0;
                             }

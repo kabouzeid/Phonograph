@@ -47,7 +47,6 @@
     <string name="lyrics">Lời bài hát</string>
     <string name="album_or_artist_empty">Tiêu đề hoặc nghệ sĩ rỗng.</string>
     <string name="saving_changes">Đang lưu thay đổi</string>
-    <string name="saving_to_file">Đang lưu tập tin...</string>
     <string name="label_details">Chi tiết</string>
     <string name="label_file_name">Tên tập tin</string>
     <string name="label_file_path">Đường dẫn tập tin</string>
@@ -60,8 +59,6 @@
     <string name="action_go_to_album">Đi đến album</string>
     <string name="label_playing_queue">Hàng đợi phát</string>
     <string name="no_results">Không có kết quả</string>
-    <string name="action_re_download_artist_image">Cập nhật hình ảnh nghệ sĩ</string>
-    <string name="updated_artist_image">Hình ảnh nghệ sĩ được cập nhật.</string>
     <string name="updating">Đang cập nhật...</string>
     <string name="added_title_to_playing_queue">"Đã thêm 1 bài vào hàng đợi phát."</string>
     <string name="added_x_titles_to_playing_queue">Đã thêm %1$d bài vào hàng đợi phát.</string>
@@ -97,7 +94,6 @@
     <string name="action_save_playing_queue">Lưu hàng đợi phát</string>
     <string name="action_go_to_start_directory">Tới thư mục đầu</string>
     <string name="action_show_lyrics">Hiện lời bài hát</string>
-    <string name="last_opened">Được mở sau cùng</string>
     <string name="light_theme_name">Sáng</string>
     <string name="dark_theme_name">Tối</string>
     <string name="black_theme_name">Đen (AMOLED)</string>
@@ -114,14 +110,12 @@
     <string name="pref_header_now_playing_screen">Đang phát</string>
     <string name="pref_title_general_theme">Chủ đề chung</string>
     <string name="pref_header_audio">Âm thanh</string>
-    <string name="pref_header_general">Chung</string>
     <string name="pref_header_images">Hình ảnh</string>
     <string name="pref_header_lockscreen">Màn hình khóa</string>
     <string name="pref_header_playlists">Danh sách nhạc</string>
     <string name="pref_header_notification">Thông báo</string>
     <string name="pref_title_navigation_bar">Màu thanh điều hướng</string>
     <string name="pref_title_app_shortcuts">Màu sắc biểu tượng ứng dụng</string>
-    <string name="pref_title_set_default_start_page">Trang bắt đầu</string>
     <string name="pref_title_album_art_on_lockscreen">Hiện bìa album</string>
     <string name="pref_title_auto_download_metadata">Tự động tải xuống siêu dữ liệu</string>
     <string name="pref_title_blurred_album_art">Làm mờ bìa album</string>
@@ -262,12 +256,10 @@
     <string name="playlist_is_empty">Danh sách nhạc trống</string>
     <string name="playing_notification_description">Thông báo đang phát cung cấp các hành động để phát / tạm dừng vv.</string>
     <string name="playing_notification_name">Thông báo đang phát</string>
-    <string name="buy">Mua</string>
     <string name="only_the_first_5_colors_available">Chỉ 5 màu đầu tiên có trong phiên bản miễn phí.</string>
     <string name="black_theme_is_a_pro_feature">Chủ đề màu đen là tính năng của Phonograph Pro.</string>
     <string name="sleep_timer_is_a_pro_feature">Hẹn giờ ngủ là một tính năng của Phonograph Pro</string>
     <string name="folder_view_is_a_pro_feature">Xem thư mục là một tính năng của Phonograph Pro.</string>
-    <string name="restore_purchase">Khôi phục mua hàng</string>
     <string name="restoring_purchase">Đang khôi phục mua hàng...</string>
     <string name="could_not_restore_purchase">Không thể khôi phục mua hàng.</string>
     <string name="purchase">Mua hàng</string>

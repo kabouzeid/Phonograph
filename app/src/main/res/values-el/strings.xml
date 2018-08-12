@@ -45,7 +45,6 @@
     <string name="lyrics">Στίχοι</string>
     <string name="album_or_artist_empty">Το πεδίο \"Τίτλος\" ή \"Καλλιτέχνης\" είναι άδειο</string>
     <string name="saving_changes">"Γίνεται αποθήκευση αλλαγών... "</string>
-    <string name="saving_to_file">Αποθήκευση στο αρχείο...</string>
     <string name="label_details">Λεπτομέρειες</string>
     <string name="label_file_name">Όνομα αρχείου</string>
     <string name="label_file_path">Διαδρομή αρχείου</string>
@@ -58,8 +57,6 @@
     <string name="action_go_to_album">Πήγαινε στο άλμπουμ</string>
     <string name="label_playing_queue">Ουρά αναπαραγωγής</string>
     <string name="no_results">Κανένα αποτέλεσμα</string>
-    <string name="action_re_download_artist_image">Ανανέωση εικόνας καλλιτέχνη</string>
-    <string name="updated_artist_image">Ανανεώθηκε το πορτρέτο του καλλιτέχνη</string>
     <string name="updating">Γίνεται ανανέωση...</string>
     <string name="added_title_to_playing_queue">"Προστέθηκε ένας τίτλος στην ουρά αναπαραγωγής"</string>
     <string name="added_x_titles_to_playing_queue">"Προστέθηκαν %1$d τίτλοι στην ουρά αναπαραγωγής "</string>
@@ -95,7 +92,6 @@
     <string name="action_clear_playing_queue">Εκκαθάριση της ουράς αναπαραγωγής</string>
     <string name="action_go_to_start_directory">Πηγαίνετε στον κατάλογο έναρξης</string>
     <string name="action_show_lyrics">Εμφάνιση στίχων</string>
-    <string name="last_opened">Τελευταίο</string>
     <string name="light_theme_name">Ανοιχτό</string>
     <string name="dark_theme_name">Σκούρο</string>
     <string name="black_theme_name">Μαύρο (AMOLED οθόνη)</string>
@@ -107,12 +103,10 @@
     <string name="pref_header_now_playing_screen">Γίνεται αναπαραγωγή</string>
     <string name="pref_title_general_theme">Γενικό θέμα</string>
     <string name="pref_header_audio">Ήχος</string>
-    <string name="pref_header_general">Γενικά</string>
     <string name="pref_header_images">Εικόνες</string>
     <string name="pref_header_lockscreen">Οθόνη κλειδώματος</string>
     <string name="pref_title_navigation_bar">Έγχρωμη μπάρα πλοήγησης</string>
     <string name="pref_title_app_shortcuts">Χρωματιστές συντομεύσεις εφαρμογής</string>
-    <string name="pref_title_set_default_start_page">Αρχική σελίδα</string>
     <string name="pref_title_album_art_on_lockscreen">Εμφάνιση album art</string>
     <string name="pref_title_blurred_album_art">Θάμπωμα πορτρέτων καλλιτεχνών</string>
     <string name="pref_title_colored_notification">Χρωματιστή πλοήγηση</string>

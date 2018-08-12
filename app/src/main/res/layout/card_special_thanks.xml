@@ -299,6 +299,65 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/dividerColor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/adrian"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/adrian_summary"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/adrian_website"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/website"
+                    android:textColor="#4183c4" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/adrian_twitter"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/twitter"
+                    android:textColor="#00aced" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

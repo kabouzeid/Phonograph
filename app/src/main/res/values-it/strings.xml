@@ -30,6 +30,7 @@
     <string name="action_set_as_start_directory">Imposta come directory iniziale</string>
     <string name="albums">Album</string>
     <string name="artists">Artisti</string>
+    <string name="genres">Generi</string>
     <string name="songs">Brani</string>
     <string name="playlists">Playlist</string>
     <string name="unplayable_file">Impossibile riprodurre questo brano.</string>
@@ -47,7 +48,6 @@
     <string name="lyrics">Testi</string>
     <string name="album_or_artist_empty">Il titolo o l\'artista sono vuoti.</string>
     <string name="saving_changes">Salvando le modifiche</string>
-    <string name="saving_to_file">Salvataggio in corso...</string>
     <string name="label_details">Dettagli</string>
     <string name="label_file_name">Nome file</string>
     <string name="label_file_path">Percorso file</string>
@@ -60,8 +60,6 @@
     <string name="action_go_to_album">Vai all\'album</string>
     <string name="label_playing_queue">Coda di riproduzione</string>
     <string name="no_results">Nessun risultato</string>
-    <string name="action_re_download_artist_image">Aggiorna immagine artista</string>
-    <string name="updated_artist_image">Immagine artista aggiornata.</string>
     <string name="updating">Aggiornamento...</string>
     <string name="added_title_to_playing_queue">"Un brano aggiunto alla coda di riproduzione."</string>
     <string name="added_x_titles_to_playing_queue">%1$d titoli aggiunti alla coda.</string>
@@ -98,7 +96,6 @@
     <string name="action_save_playing_queue">Salva la coda di riproduzione</string>
     <string name="action_go_to_start_directory">Vai alla directory iniziale</string>
     <string name="action_show_lyrics">Mostra testo</string>
-    <string name="last_opened">Ultima aperta</string>
     <string name="light_theme_name">Chiaro</string>
     <string name="dark_theme_name">Scuro</string>
     <string name="black_theme_name">Nero (AMOLED)</string>
@@ -115,14 +112,13 @@
     <string name="pref_header_now_playing_screen">Schermata in riproduzione</string>
     <string name="pref_title_general_theme">Tema generale</string>
     <string name="pref_header_audio">Audio</string>
-    <string name="pref_header_general">Generali</string>
+    <string name="pref_header_library">Libreria</string>
     <string name="pref_header_images">Immagini</string>
     <string name="pref_header_lockscreen">Schermata di blocco</string>
     <string name="pref_header_playlists">Playlist</string>
     <string name="pref_header_notification">Notifica</string>
     <string name="pref_title_navigation_bar">Barra di navigazione colorata</string>
     <string name="pref_title_app_shortcuts">Scorciatoie app colorate</string>
-    <string name="pref_title_set_default_start_page">Pagina iniziale</string>
     <string name="pref_title_album_art_on_lockscreen">Mostra copertina album nella schermata di blocco</string>
     <string name="pref_title_auto_download_metadata">Scarica automaticamente i dati</string>
     <string name="pref_title_blurred_album_art">Sfoca la copertina</string>
@@ -133,6 +129,7 @@
     <string name="pref_title_audio_ducking">Riduci volume in caso di perdita di focus audio</string>
     <string name="pref_title_last_added_interval">Ultimo intervallo di playlist aggiunto</string>
     <string name="pref_title_synchronized_lyrics_show">Mostra testi sincronizzati</string>
+    <string name="pref_title_remember_last_tab">Ricorda ultima scheda</string>
     <string name="no_equalizer">Nessun equalizzatore trovato</string>
     <string name="no_audio_ID">"Riproduci un brano e prova di nuovo."</string>
     <string name="delete_action">Elimina</string>
@@ -140,6 +137,7 @@
     <string name="remove_action">Rimuovi</string>
     <string name="rename_action">Rinomina</string>
     <string name="create_action">Crea</string>
+    <string name="reset_action">Reimposta</string>
     <string name="x_selected">%1$d selezionati</string>
     <string name="primary_color">Colore principale</string>
     <string name="accent_color">Colore secondario</string>
@@ -151,6 +149,7 @@
     <string name="no_albums">Nessun album</string>
     <string name="no_songs">Nessun brano</string>
     <string name="no_artists">Nessun artista</string>
+    <string name="no_genres">Nessun genere</string>
     <string name="empty">Vuoto</string>
     <string name="playlist_name_empty">Nome playlist</string>
     <string name="song">Brano</string>
@@ -164,6 +163,7 @@
     <string name="pref_summary_colored_app_shortcuts">Colora le scorciatoie dell\'app con il colore principale.</string>
     <string name="pref_summary_audio_ducking">Notifiche, navigazione ecc.</string>
     <string name="pref_summary_synchronized_lyrics_show">Attualmente solo i testi sincronizzati in formato LRC sono supportati. Sia integrati o come file separati.</string>
+    <string name="pref_summary_remember_last_tab">All\'avvio vai all\'ultima scheda aperta</string>
     <string name="could_not_download_album_cover">"Impossibile scaricare una copertina adatta."</string>
     <string name="search_hint">Cercando nella tua libreria...</string>
     <string name="favorites">Preferiti</string>
@@ -225,6 +225,7 @@
     <string name="saved_playlist_to">Playlist salvata in %s.</string>
     <string name="failed_to_save_playlist">Salvataggio playlist fallito (%s).</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> non è elencato nel media store.]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">Alcuni file non sono elencati nel media store.</string>
     <string name="nothing_to_scan">Nulla da scansionare.</string>
     <string name="scanned_files">Scansione effettuata per %1$d su %2$d file.</string>
     <string name="could_not_scan_files">Non è stato possibile effettuare la scansione di %d file.</string>
@@ -264,18 +265,17 @@
     <string name="playlist_is_empty">La playlist è vuota</string>
     <string name="playing_notification_description">La notifica di riproduzione offre azioni per play/pausa ecc.</string>
     <string name="playing_notification_name">Notifica di riproduzione</string>
-    <string name="buy">Acquista</string>
     <string name="only_the_first_5_colors_available">Solo i primi cinque colori sono disponibili nella versione gratuita.</string>
     <string name="black_theme_is_a_pro_feature">Il tema scuro è una funzionalità di Phonograph Pro.</string>
     <string name="sleep_timer_is_a_pro_feature">Il timer di spegnimento è una funzionalità di Phonograph Pro.</string>
     <string name="folder_view_is_a_pro_feature">La visualizzazione delle cartelle è una funzionalità di Phonograph Pro.</string>
-    <string name="restore_purchase">Ripristina acquisto</string>
     <string name="restoring_purchase">Ripristinando l\'acquisto...</string>
     <string name="could_not_restore_purchase">Impossibile ripristinare l\'acquisto.</string>
     <string name="purchase">Acquista</string>
     <string name="restore">Ripristina</string>
     <string name="no_purchase_found">Nessun acquisto trovato.</string>
     <string name="eugene_cheung_summary">Per il suo contributo al codice sorgente.</string>
+    <string name="adrian_summary">Per creare la pagina dell\'album.</string>
     <string name="add_action">Aggiungi</string>
     <string name="blacklist">Lista nera</string>
     <string name="remove_from_blacklist">Rimuovi dalla lista nera</string>
@@ -285,4 +285,15 @@
     <string name="pref_summary_blacklist">Il contenuto delle cartelle in lista nera sono nascoste dalla tua libreria.</string>
     <string name="reset_artist_image">Reimposta immagine artista</string>
     <string name="set_artist_image">Imposta immagine artista</string>
+    <string name="library_categories">Categorie libreria</string>
+    <string name="pref_summary_library_categories">Configura visibilità e ordine delle categorie della libreria.</string>
+    <string name="you_have_to_select_at_least_one_category">Devi scegliere almeno una categoria.</string>
+    <string name="action_scan_directory">Scansiona cartella</string>
+    <string name="scan_media">Scansiona media</string>
+    <string name="action_sort_order">Ordine</string>
+    <string name="sort_order_a_z">Ascendente</string>
+    <string name="sort_order_z_a">Discendente</string>
+    <string name="sort_order_artist">Artista</string>
+    <string name="sort_order_album">Album</string>
+    <string name="sort_order_year">Anno</string>
 </resources>

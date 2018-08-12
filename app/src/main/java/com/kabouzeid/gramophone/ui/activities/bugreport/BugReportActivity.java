@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,7 +16,6 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -25,7 +23,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.util.TintHelper;
@@ -170,31 +167,18 @@ public class BugReportActivity extends AbsThemeActivity {
             }
         });
 
-        inputPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEND) {
-                    reportIssue();
-                    return true;
-                }
-                return false;
+        inputPassword.setOnEditorActionListener((textView, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
+                reportIssue();
+                return true;
             }
+            return false;
         });
 
-        textDeviceInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                copyDeviceInfoToClipBoard();
-            }
-        });
+        textDeviceInfo.setOnClickListener(v -> copyDeviceInfoToClipBoard());
 
         TintHelper.setTintAuto(sendFab, accentColor, true);
-        sendFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reportIssue();
-            }
-        });
+        sendFab.setOnClickListener(v -> reportIssue());
 
         TintHelper.setTintAuto(inputTitle, accentColor, false);
         TintHelper.setTintAuto(inputDescription, accentColor, false);
@@ -392,19 +376,8 @@ public class BugReportActivity extends AbsThemeActivity {
                             .title(R.string.bug_report_failed)
                             .content(R.string.bug_report_failed_unknown)
                             .positiveText(android.R.string.ok)
-                            .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog,
-                                                    @NonNull DialogAction which) {
-                                    tryToFinishActivity();
-                                }
-                            })
-                            .cancelListener(new DialogInterface.OnCancelListener() {
-                                @Override
-                                public void onCancel(DialogInterface dialog) {
-                                    tryToFinishActivity();
-                                }
-                            })
+                            .onPositive((dialog, which) -> tryToFinishActivity())
+                            .cancelListener(dialog -> tryToFinishActivity())
                             .show();
                     break;
             }

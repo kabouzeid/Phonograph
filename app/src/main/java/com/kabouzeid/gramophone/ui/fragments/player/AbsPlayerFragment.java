@@ -113,12 +113,7 @@ public abstract class AbsPlayerFragment extends AbsMusicServiceFragment implemen
 
         setToolbarShown(false);
 
-        toolbar.animate().alpha(0f).setDuration(PlayerAlbumCoverFragment.VISIBILITY_ANIM_DURATION).withEndAction(new Runnable() {
-            @Override
-            public void run() {
-                toolbar.setVisibility(View.GONE);
-            }
-        });
+        toolbar.animate().alpha(0f).setDuration(PlayerAlbumCoverFragment.VISIBILITY_ANIM_DURATION).withEndAction(() -> toolbar.setVisibility(View.GONE));
     }
 
     protected void toggleToolbar(@Nullable final View toolbar) {

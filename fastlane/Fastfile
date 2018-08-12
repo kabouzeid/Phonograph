@@ -1,0 +1,57 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+#
+# Usage: 1. fastlane changelog
+#        2. Prepare release
+#        3. fastlane tag
+#        4. fastlane beta|deploy_staged|deploy
+
+default_platform(:android)
+
+platform :android do
+  desc "Deploy a new beta version to the Google Play"
+  lane :beta do
+    gradle(task: "clean assembleRelease")
+    mapping_path = File.absolute_path "../app/build/outputs/mapping/release/mapping.txt"
+    upload_to_play_store(track: 'beta', mapping: mapping_path)
+  end
+
+  desc "Deploy a new staged release version to the Google Play"
+  lane :deploy_staged do
+    gradle(task: "clean assembleRelease")
+    mapping_path = File.absolute_path "../app/build/outputs/mapping/release/mapping.txt"
+    upload_to_play_store(track: 'rollout', rollout: '0.1', mapping: mapping_path)
+  end
+
+  desc "Deploy a new version to the Google Play"
+  lane :deploy do
+    gradle(task: "clean assembleRelease")
+    mapping_path = File.absolute_path "../app/build/outputs/mapping/release/mapping.txt"
+    upload_to_play_store(mapping: mapping_path)
+  end
+
+  desc "Generates a changelog from git commits and puts it in the clipboard"
+  lane :changelog do
+    changelog = changelog_from_git_commits(merge_commit_filtering: 'exclude_merges')
+    clipboard(value: changelog)
+  end
+
+  desc "Creates and pushes a release tag"
+  lane :tag do
+    tag = prompt(text: "Version name: ")
+    add_git_tag(tag: tag)
+    push_git_tags(tag: tag)
+  end
+end

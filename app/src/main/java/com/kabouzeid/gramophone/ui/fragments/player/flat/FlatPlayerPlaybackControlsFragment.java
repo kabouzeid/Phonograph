@@ -150,13 +150,10 @@ public class FlatPlayerPlaybackControlsFragment extends AbsMusicServiceFragment 
         playPauseButton.setImageDrawable(playPauseDrawable);
         updatePlayPauseColor();
         playPauseButton.setOnClickListener(new PlayPauseButtonOnClickHandler());
-        playPauseButton.post(new Runnable() {
-            @Override
-            public void run() {
-                if (playPauseButton != null) {
-                    playPauseButton.setPivotX(playPauseButton.getWidth() / 2);
-                    playPauseButton.setPivotY(playPauseButton.getHeight() / 2);
-                }
+        playPauseButton.post(() -> {
+            if (playPauseButton != null) {
+                playPauseButton.setPivotX(playPauseButton.getWidth() / 2);
+                playPauseButton.setPivotY(playPauseButton.getHeight() / 2);
             }
         });
     }
@@ -179,18 +176,8 @@ public class FlatPlayerPlaybackControlsFragment extends AbsMusicServiceFragment 
 
     private void setUpPrevNext() {
         updatePrevNextColor();
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MusicPlayerRemote.playNextSong();
-            }
-        });
-        prevButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MusicPlayerRemote.back();
-            }
-        });
+        nextButton.setOnClickListener(v -> MusicPlayerRemote.playNextSong());
+        prevButton.setOnClickListener(v -> MusicPlayerRemote.back());
     }
 
     private void updateProgressTextColor() {
@@ -209,12 +196,7 @@ public class FlatPlayerPlaybackControlsFragment extends AbsMusicServiceFragment 
     }
 
     private void setUpShuffleButton() {
-        shuffleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MusicPlayerRemote.toggleShuffleMode();
-            }
-        });
+        shuffleButton.setOnClickListener(v -> MusicPlayerRemote.toggleShuffleMode());
     }
 
     private void updateShuffleState() {
@@ -229,12 +211,7 @@ public class FlatPlayerPlaybackControlsFragment extends AbsMusicServiceFragment 
     }
 
     private void setUpRepeatButton() {
-        repeatButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MusicPlayerRemote.cycleRepeatMode();
-            }
-        });
+        repeatButton.setOnClickListener(v -> MusicPlayerRemote.cycleRepeatMode());
     }
 
     private void updateRepeatState() {

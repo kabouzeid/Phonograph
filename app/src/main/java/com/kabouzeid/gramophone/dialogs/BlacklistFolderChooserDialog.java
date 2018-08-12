@@ -11,7 +11,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.gramophone.R;
 
@@ -98,24 +97,13 @@ public class BlacklistFolderChooserDialog extends DialogFragment implements Mate
                         .items((CharSequence[]) getContentsArray())
                         .itemsCallback(this)
                         .autoDismiss(false)
-                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                dismiss();
-                                callback.onFolderSelection(BlacklistFolderChooserDialog.this, parentFolder);
-                            }
+                        .onPositive((dialog, which) -> {
+                            dismiss();
+                            callback.onFolderSelection(BlacklistFolderChooserDialog.this, parentFolder);
                         })
-                        .onNegative(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                                dismiss();
-                            }
-                        })
+                        .onNegative((materialDialog, dialogAction) -> dismiss())
                         .positiveText(R.string.add_action)
                         .negativeText(android.R.string.cancel);
-        if (File.pathSeparator.equals(initialPath)) {
-            canGoUp = false;
-        }
         return builder.build();
     }
 
@@ -126,7 +114,7 @@ public class BlacklistFolderChooserDialog extends DialogFragment implements Mate
             if (parentFolder.getAbsolutePath().equals("/storage/emulated")) {
                 parentFolder = parentFolder.getParentFile();
             }
-            canGoUp = parentFolder.getParent() != null;
+            checkIfCanGoUp();
         } else {
             parentFolder = parentContents[canGoUp ? i - 1 : i];
             canGoUp = true;
@@ -138,11 +126,7 @@ public class BlacklistFolderChooserDialog extends DialogFragment implements Mate
     }
 
     private void checkIfCanGoUp() {
-        try {
-            canGoUp = parentFolder.getPath().split(File.pathSeparator).length > 1;
-        } catch (IndexOutOfBoundsException e) {
-            canGoUp = false;
-        }
+        canGoUp = parentFolder.getParent() != null;
     }
 
     private void reload() {

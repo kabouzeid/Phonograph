@@ -16,6 +16,7 @@ import com.kabouzeid.gramophone.glide.SongGlideRequest;
 import com.kabouzeid.gramophone.helper.HorizontalAdapterHelper;
 import com.kabouzeid.gramophone.interfaces.CabHolder;
 import com.kabouzeid.gramophone.model.Album;
+import com.kabouzeid.gramophone.util.MusicUtil;
 
 import java.util.ArrayList;
 
@@ -76,7 +77,7 @@ public class HorizontalAlbumAdapter extends AlbumAdapter {
 
     @Override
     protected String getAlbumText(Album album) {
-        return String.valueOf(album.getYear());
+        return MusicUtil.getYearString(album.getYear());
     }
 
     @Override

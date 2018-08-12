@@ -23,6 +23,7 @@ import com.kabouzeid.gramophone.helper.MusicPlayerRemote;
 import com.kabouzeid.gramophone.loader.PlaylistLoader;
 import com.kabouzeid.gramophone.loader.SongLoader;
 import com.kabouzeid.gramophone.model.Artist;
+import com.kabouzeid.gramophone.model.Genre;
 import com.kabouzeid.gramophone.model.Playlist;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.model.lyrics.AbsSynchronizedLyrics;
@@ -31,7 +32,6 @@ import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.tag.FieldKey;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,16 +115,41 @@ public class MusicUtil {
     }
 
     @NonNull
-    public static String getPlaylistInfoString(@NonNull final Context context, @NonNull List<Song> songs) {
-        final int songCount = songs.size();
-        final String songString = songCount == 1 ? context.getResources().getString(R.string.song) : context.getResources().getString(R.string.songs);
+    public static String getGenreInfoString(@NonNull final Context context, @NonNull final Genre genre) {
+        int songCount = genre.songCount;
+        String songString = songCount == 1 ? context.getResources().getString(R.string.song) : context.getResources().getString(R.string.songs);
+        return songCount + " " + songString;
+    }
 
+    @NonNull
+    public static String getPlaylistInfoString(@NonNull final Context context, @NonNull List<Song> songs) {
+        final long duration = getTotalDuration(context, songs);
+        return MusicUtil.getSongCountString(context, songs.size()) + " • " + MusicUtil.getReadableDurationString(duration);
+    }
+
+    @NonNull
+    public static String getSongCountString(@NonNull final Context context, int songCount) {
+        final String songString = songCount == 1 ? context.getResources().getString(R.string.song) : context.getResources().getString(R.string.songs);
+        return songCount + " " + songString;
+    }
+
+    @NonNull
+    public static String getAlbumCountString(@NonNull final Context context, int albumCount) {
+        final String albumString = albumCount == 1 ? context.getResources().getString(R.string.album) : context.getResources().getString(R.string.albums);
+        return albumCount + " " + albumString;
+    }
+
+    @NonNull
+    public static String getYearString(int year) {
+        return year > 0 ? String.valueOf(year) : "-";
+    }
+
+    public static long getTotalDuration(@NonNull final Context context, @NonNull List<Song> songs) {
         long duration = 0;
         for (int i = 0; i < songs.size(); i++) {
             duration += songs.get(i).duration;
         }
-
-        return songCount + " " + songString + " • " + MusicUtil.getReadableDurationString(duration);
+        return duration;
     }
 
     public static String getReadableDurationString(long songDurationMillis) {
@@ -269,6 +294,7 @@ public class MusicUtil {
 
     public static boolean isArtistNameUnknown(@Nullable String artistName) {
         if (TextUtils.isEmpty(artistName)) return false;
+        if (artistName.equals(Artist.UNKNOWN_ARTIST_DISPLAY_NAME)) return true;
         artistName = artistName.trim().toLowerCase();
         return artistName.equals("unknown") || artistName.equals("<unknown>");
     }
@@ -310,14 +336,11 @@ public class MusicUtil {
                 patterns.add(Pattern.compile(String.format(format, filename), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
                 patterns.add(Pattern.compile(String.format(format, songtitle), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
 
-                File[] files = dir.listFiles(new FileFilter() {
-                    @Override
-                    public boolean accept(File f) {
-                        for (Pattern pattern : patterns) {
-                            if (pattern.matcher(f.getName()).matches()) return true;
-                        }
-                        return false;
+                File[] files = dir.listFiles(f -> {
+                    for (Pattern pattern : patterns) {
+                        if (pattern.matcher(f.getName()).matches()) return true;
                     }
+                    return false;
                 });
 
                 if (files != null && files.length > 0) {

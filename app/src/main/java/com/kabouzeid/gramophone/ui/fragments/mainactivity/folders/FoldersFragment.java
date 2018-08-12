@@ -3,7 +3,6 @@ package com.kabouzeid.gramophone.ui.fragments.mainactivity.folders;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.media.MediaScannerConnection;
 import android.os.Bundle;
 import android.os.Environment;
@@ -29,7 +28,6 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.afollestad.materialcab.MaterialCab;
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kabouzeid.appthemehelper.ThemeStore;
 import com.kabouzeid.appthemehelper.common.ATHToolbarActivity;
@@ -56,7 +54,6 @@ import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -143,9 +140,9 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState == null) {
-            setCrumb(new BreadCrumbLayout.Crumb(tryGetCanonicalFile((File) getArguments().getSerializable(PATH))), true);
+            setCrumb(new BreadCrumbLayout.Crumb(FileUtil.safeGetCanonicalFile((File) getArguments().getSerializable(PATH))), true);
         } else {
-            breadCrumbs.restoreFromStateWrapper((BreadCrumbLayout.SavedStateWrapper) savedInstanceState.getParcelable(CRUMBS));
+            breadCrumbs.restoreFromStateWrapper(savedInstanceState.getParcelable(CRUMBS));
             getLoaderManager().initLoader(LOADER_ID, null, this);
         }
     }
@@ -261,15 +258,9 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         ToolbarContentTintHelper.handleOnPrepareOptionsMenu(getActivity(), toolbar);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_go_to_start_directory:
-                setCrumb(new BreadCrumbLayout.Crumb(tryGetCanonicalFile(PreferenceUtil.getInstance(getActivity()).getStartDirectory())), true);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+    public static final FileFilter AUDIO_FILE_FILTER = file -> !file.isHidden() && (file.isDirectory() ||
+            FileUtil.fileIsMimeType(file, "audio/*", MimeTypeMap.getSingleton()) ||
+            FileUtil.fileIsMimeType(file, "application/ogg", MimeTypeMap.getSingleton()));
 
     @Override
     public void onCrumbSelection(BreadCrumbLayout.Crumb crumb, int index) {
@@ -293,138 +284,68 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
     }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_go_to_start_directory:
+                setCrumb(new BreadCrumbLayout.Crumb(FileUtil.safeGetCanonicalFile(PreferenceUtil.getInstance(getActivity()).getStartDirectory())), true);
+                return true;
+            case R.id.action_scan:
+                BreadCrumbLayout.Crumb crumb = getActiveCrumb();
+                if (crumb != null) {
+                    new ListPathsAsyncTask(getActivity(), paths -> scanPaths(paths)).execute(new ListPathsAsyncTask.LoadingInfo(crumb.getFile(), AUDIO_FILE_FILTER));
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onFileSelected(File file) {
-        file = tryGetCanonicalFile(file); // important as we compare the path value later
-        if (file.isDirectory()) {
-            setCrumb(new BreadCrumbLayout.Crumb(file), true);
+        final File canonicalFile = FileUtil.safeGetCanonicalFile(file); // important as we compare the path value later
+        if (canonicalFile.isDirectory()) {
+            setCrumb(new BreadCrumbLayout.Crumb(canonicalFile), true);
         } else {
-            FileFilter fileFilter = new FileFilter() {
-                @Override
-                public boolean accept(File pathname) {
-                    return !pathname.isDirectory() && getFileFilter().accept(pathname);
-                }
-            };
-            new ListSongsAsyncTask(getActivity(), file, new ListSongsAsyncTask.OnSongsListedCallback() {
-                @Override
-                public void onSongsListed(@NonNull ArrayList<Song> songs, Object extra) {
-                    File file = (File) extra;
-                    int startIndex = -1;
-                    for (int i = 0; i < songs.size(); i++) {
-                        if (file.getPath().equals(songs.get(i).data)) { // path is already canonical here
-                            startIndex = i;
-                            break;
-                        }
-                    }
-                    if (startIndex > -1) {
-                        MusicPlayerRemote.openQueue(songs, startIndex, true);
-                    } else {
-                        final File finalFile = file;
-                        Snackbar.make(coordinatorLayout, Html.fromHtml(String.format(getString(R.string.not_listed_in_media_store), file.getName())), Snackbar.LENGTH_LONG)
-                                .setAction(R.string.action_scan, new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        new ListPathsAsyncTask(getActivity(), new ListPathsAsyncTask.OnPathsListedCallback() {
-                                            @Override
-                                            public void onPathsListed(@Nullable String[] paths) {
-                                                scanPaths(paths);
-                                            }
-                                        }).execute(new ListPathsAsyncTask.LoadingInfo(finalFile, getFileFilter()));
-                                    }
-                                })
-                                .setActionTextColor(ThemeStore.accentColor(getActivity()))
-                                .show();
+            FileFilter fileFilter = pathname -> !pathname.isDirectory() && AUDIO_FILE_FILTER.accept(pathname);
+            new ListSongsAsyncTask(getActivity(), null, (songs, extra) -> {
+                int startIndex = -1;
+                for (int i = 0; i < songs.size(); i++) {
+                    if (canonicalFile.getPath().equals(songs.get(i).data)) {
+                        startIndex = i;
+                        break;
                     }
                 }
-            }).execute(new ListSongsAsyncTask.LoadingInfo(toList(file.getParentFile()), fileFilter, getFileComparator()));
+                if (startIndex > -1) {
+                    MusicPlayerRemote.openQueue(songs, startIndex, true);
+                } else {
+                    Snackbar.make(coordinatorLayout, Html.fromHtml(String.format(getString(R.string.not_listed_in_media_store), canonicalFile.getName())), Snackbar.LENGTH_LONG)
+                            .setAction(R.string.action_scan, v -> scanPaths(new String[]{canonicalFile.getPath()}))
+                            .setActionTextColor(ThemeStore.accentColor(getActivity()))
+                            .show();
+                }
+            }).execute(new ListSongsAsyncTask.LoadingInfo(toList(canonicalFile.getParentFile()), fileFilter, getFileComparator()));
         }
     }
 
     @Override
     public void onMultipleItemAction(MenuItem item, ArrayList<File> files) {
         final int itemId = item.getItemId();
-        new ListSongsAsyncTask(getActivity(), null, new ListSongsAsyncTask.OnSongsListedCallback() {
-            @Override
-            public void onSongsListed(@NonNull ArrayList<Song> songs, Object extra) {
+        new ListSongsAsyncTask(getActivity(), null, (songs, extra) -> {
+            if (!songs.isEmpty()) {
                 SongsMenuHelper.handleMenuClick(getActivity(), songs, itemId);
             }
-        }).execute(new ListSongsAsyncTask.LoadingInfo(files, getFileFilter(), getFileComparator()));
-    }
-
-    @Override
-    public void onFileMenuClicked(final File file, View view) {
-        PopupMenu popupMenu = new PopupMenu(getActivity(), view);
-        if (file.isDirectory()) {
-            popupMenu.inflate(R.menu.menu_item_directory);
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    final int itemId = item.getItemId();
-                    switch (itemId) {
-                        case R.id.action_play_next:
-                        case R.id.action_add_to_current_playing:
-                        case R.id.action_add_to_playlist:
-                        case R.id.action_delete_from_device:
-                            new ListSongsAsyncTask(getActivity(), null, new ListSongsAsyncTask.OnSongsListedCallback() {
-                                @Override
-                                public void onSongsListed(@NonNull ArrayList<Song> songs, Object extra) {
-                                    SongsMenuHelper.handleMenuClick(getActivity(), songs, itemId);
-                                }
-                            }).execute(new ListSongsAsyncTask.LoadingInfo(toList(file), getFileFilter(), getFileComparator()));
-                            return true;
-                        case R.id.action_set_as_start_directory:
-                            PreferenceUtil.getInstance(getActivity()).setStartDirectory(file);
-                            Toast.makeText(getActivity(), String.format(getString(R.string.new_start_directory), file.getPath()), Toast.LENGTH_SHORT).show();
-                            return true;
-                        case R.id.action_scan:
-                            new ListPathsAsyncTask(getActivity(), new ListPathsAsyncTask.OnPathsListedCallback() {
-                                @Override
-                                public void onPathsListed(@Nullable String[] paths) {
-                                    scanPaths(paths);
-                                }
-                            }).execute(new ListPathsAsyncTask.LoadingInfo(file, getFileFilter()));
-                            return true;
-                    }
-                    return false;
-                }
-            });
-        } else {
-            popupMenu.inflate(R.menu.menu_item_file);
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    final int itemId = item.getItemId();
-                    switch (itemId) {
-                        case R.id.action_play_next:
-                        case R.id.action_add_to_current_playing:
-                        case R.id.action_add_to_playlist:
-                        case R.id.action_go_to_album:
-                        case R.id.action_go_to_artist:
-                        case R.id.action_share:
-                        case R.id.action_tag_editor:
-                        case R.id.action_details:
-                        case R.id.action_set_as_ringtone:
-                        case R.id.action_delete_from_device:
-                            new ListSongsAsyncTask(getActivity(), null, new ListSongsAsyncTask.OnSongsListedCallback() {
-                                @Override
-                                public void onSongsListed(@NonNull ArrayList<Song> songs, Object extra) {
-                                    SongMenuHelper.handleMenuClick(getActivity(), songs.get(0), itemId);
-                                }
-                            }).execute(new ListSongsAsyncTask.LoadingInfo(toList(file), getFileFilter(), getFileComparator()));
-                            return true;
-                        case R.id.action_scan:
-                            new ListPathsAsyncTask(getActivity(), new ListPathsAsyncTask.OnPathsListedCallback() {
-                                @Override
-                                public void onPathsListed(@Nullable String[] paths) {
-                                    scanPaths(paths);
-                                }
-                            }).execute(new ListPathsAsyncTask.LoadingInfo(file, getFileFilter()));
-                            return true;
-                    }
-                    return false;
-                }
-            });
-        }
-        popupMenu.show();
+            if (songs.size() != files.size()) {
+                Snackbar.make(coordinatorLayout, R.string.some_files_are_not_listed_in_the_media_store, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.action_scan, v -> {
+                            String[] paths = new String[files.size()];
+                            for (int i = 0; i < files.size(); i++) {
+                                paths[i] = FileUtil.safeGetCanonicalPath(files.get(i));
+                            }
+                            scanPaths(paths);
+                        })
+                        .setActionTextColor(ThemeStore.accentColor(getActivity()))
+                        .show();
+            }
+        }).execute(new ListSongsAsyncTask.LoadingInfo(files, AUDIO_FILE_FILTER, getFileComparator()));
     }
 
     private ArrayList<File> toList(File file) {
@@ -433,17 +354,14 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         return files;
     }
 
-    Comparator<File> fileComparator = new Comparator<File>() {
-        @Override
-        public int compare(File lhs, File rhs) {
-            if (lhs.isDirectory() && !rhs.isDirectory()) {
-                return -1;
-            } else if (!lhs.isDirectory() && rhs.isDirectory()) {
-                return 1;
-            } else {
-                return lhs.getName().compareToIgnoreCase
-                        (rhs.getName());
-            }
+    Comparator<File> fileComparator = (lhs, rhs) -> {
+        if (lhs.isDirectory() && !rhs.isDirectory()) {
+            return -1;
+        } else if (!lhs.isDirectory() && rhs.isDirectory()) {
+            return 1;
+        } else {
+            return lhs.getName().compareToIgnoreCase
+                    (rhs.getName());
         }
     };
 
@@ -451,17 +369,68 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         return fileComparator;
     }
 
-    FileFilter audioFileFilter = new FileFilter() {
-        @Override
-        public boolean accept(File file) {
-            return !file.isHidden() && (file.isDirectory() ||
-                    FileUtil.fileIsMimeType(file, "audio/*", MimeTypeMap.getSingleton()) ||
-                    FileUtil.fileIsMimeType(file, "application/ogg", MimeTypeMap.getSingleton()));
+    @Override
+    public void onFileMenuClicked(final File file, View view) {
+        PopupMenu popupMenu = new PopupMenu(getActivity(), view);
+        if (file.isDirectory()) {
+            popupMenu.inflate(R.menu.menu_item_directory);
+            popupMenu.setOnMenuItemClickListener(item -> {
+                final int itemId = item.getItemId();
+                switch (itemId) {
+                    case R.id.action_play_next:
+                    case R.id.action_add_to_current_playing:
+                    case R.id.action_add_to_playlist:
+                    case R.id.action_delete_from_device:
+                        new ListSongsAsyncTask(getActivity(), null, (songs, extra) -> {
+                            if (!songs.isEmpty()) {
+                                SongsMenuHelper.handleMenuClick(getActivity(), songs, itemId);
+                            }
+                        }).execute(new ListSongsAsyncTask.LoadingInfo(toList(file), AUDIO_FILE_FILTER, getFileComparator()));
+                        return true;
+                    case R.id.action_set_as_start_directory:
+                        PreferenceUtil.getInstance(getActivity()).setStartDirectory(file);
+                        Toast.makeText(getActivity(), String.format(getString(R.string.new_start_directory), file.getPath()), Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.action_scan:
+                        new ListPathsAsyncTask(getActivity(), paths -> scanPaths(paths)).execute(new ListPathsAsyncTask.LoadingInfo(file, AUDIO_FILE_FILTER));
+                        return true;
+                }
+                return false;
+            });
+        } else {
+            popupMenu.inflate(R.menu.menu_item_file);
+            popupMenu.setOnMenuItemClickListener(item -> {
+                final int itemId = item.getItemId();
+                switch (itemId) {
+                    case R.id.action_play_next:
+                    case R.id.action_add_to_current_playing:
+                    case R.id.action_add_to_playlist:
+                    case R.id.action_go_to_album:
+                    case R.id.action_go_to_artist:
+                    case R.id.action_share:
+                    case R.id.action_tag_editor:
+                    case R.id.action_details:
+                    case R.id.action_set_as_ringtone:
+                    case R.id.action_delete_from_device:
+                        new ListSongsAsyncTask(getActivity(), null, (songs, extra) -> {
+                            if (!songs.isEmpty()) {
+                                SongMenuHelper.handleMenuClick(getActivity(), songs.get(0), itemId);
+                            } else {
+                                Snackbar.make(coordinatorLayout, Html.fromHtml(String.format(getString(R.string.not_listed_in_media_store), file.getName())), Snackbar.LENGTH_LONG)
+                                        .setAction(R.string.action_scan, v -> scanPaths(new String[]{FileUtil.safeGetCanonicalPath(file)}))
+                                        .setActionTextColor(ThemeStore.accentColor(getActivity()))
+                                        .show();
+                            }
+                        }).execute(new ListSongsAsyncTask.LoadingInfo(toList(file), AUDIO_FILE_FILTER, getFileComparator()));
+                        return true;
+                    case R.id.action_scan:
+                        scanPaths(new String[]{FileUtil.safeGetCanonicalPath(file)});
+                        return true;
+                }
+                return false;
+            });
         }
-    };
-
-    private FileFilter getFileFilter() {
-        return audioFileFilter;
+        popupMenu.show();
     }
 
     @Override
@@ -472,15 +441,6 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
     private void checkIsEmpty() {
         if (empty != null) {
             empty.setVisibility(adapter == null || adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
-        }
-    }
-
-    private static File tryGetCanonicalFile(File file) {
-        try {
-            return file.getCanonicalFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return file;
         }
     }
 
@@ -535,7 +495,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
                 }
             }
             if (directory != null) {
-                List<File> files = FileUtil.listFiles(directory, foldersFragment.getFileFilter());
+                List<File> files = FileUtil.listFiles(directory, AUDIO_FILE_FILTER);
                 Collections.sort(files, foldersFragment.getFileComparator());
                 return files;
             } else {
@@ -550,7 +510,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         private final Object extra;
 
         public ListSongsAsyncTask(Context context, Object extra, OnSongsListedCallback callback) {
-            super(context);
+            super(context, 500);
             this.extra = extra;
             contextWeakReference = new WeakReference<>(context);
             callbackWeakReference = new WeakReference<>(callback);
@@ -590,7 +550,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         protected void onPostExecute(ArrayList<Song> songs) {
             super.onPostExecute(songs);
             OnSongsListedCallback callback = checkCallbackReference();
-            if (songs != null && callback != null && !songs.isEmpty())
+            if (songs != null && callback != null)
                 callback.onSongsListed(songs, extra);
         }
 
@@ -627,11 +587,11 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         }
     }
 
-    private static class ListPathsAsyncTask extends ListingFilesDialogAsyncTask<ListPathsAsyncTask.LoadingInfo, String, String[]> {
+    public static class ListPathsAsyncTask extends ListingFilesDialogAsyncTask<ListPathsAsyncTask.LoadingInfo, String, String[]> {
         private WeakReference<OnPathsListedCallback> onPathsListedCallbackWeakReference;
 
         public ListPathsAsyncTask(Context context, OnPathsListedCallback callback) {
-            super(context);
+            super(context, 500);
             onPathsListedCallbackWeakReference = new WeakReference<>(callback);
         }
 
@@ -660,11 +620,11 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
                         File f = files.get(i);
                         paths[i] = FileUtil.safeGetCanonicalPath(f);
 
-                        if (isCancelled() || checkCallbackReference() == null) return paths;
+                        if (isCancelled() || checkCallbackReference() == null) return null;
                     }
                 } else {
                     paths = new String[1];
-                    paths[0] = info.file.getPath();
+                    paths[0] = FileUtil.safeGetCanonicalPath(info.file);
                 }
 
                 return paths;
@@ -679,7 +639,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         protected void onPostExecute(String[] paths) {
             super.onPostExecute(paths);
             OnPathsListedCallback callback = checkCallbackReference();
-            if (callback != null) {
+            if (callback != null && paths != null) {
                 callback.onPathsListed(paths);
             }
         }
@@ -703,7 +663,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
         }
 
         public interface OnPathsListedCallback {
-            void onPathsListed(@Nullable String[] paths);
+            void onPathsListed(@NonNull String[] paths);
         }
     }
 
@@ -722,25 +682,10 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
                     .title(R.string.listing_files)
                     .progress(true, 0)
                     .progressIndeterminateStyle(true)
-                    .cancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
-                            cancel(false);
-                        }
-                    })
-                    .dismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            cancel(false);
-                        }
-                    })
+                    .cancelListener(dialog -> cancel(false))
+                    .dismissListener(dialog -> cancel(false))
                     .negativeText(android.R.string.cancel)
-                    .onNegative(new MaterialDialog.SingleButtonCallback() {
-                        @Override
-                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            cancel(false);
-                        }
-                    })
+                    .onNegative((dialog, which) -> cancel(false))
                     .show();
         }
     }

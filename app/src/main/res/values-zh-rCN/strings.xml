@@ -30,13 +30,14 @@
     <string name="action_set_as_start_directory">设为起始目录</string>
     <string name="albums">专辑</string>
     <string name="artists">艺术家</string>
+    <string name="genres">流派</string>
     <string name="songs">歌曲</string>
     <string name="playlists">播放列表</string>
     <string name="unplayable_file">\u65e0\u6cd5\u64ad\u653e\u8be5\u6b4c\u66f2\u3002</string>
     <string name="biography_unavailable">\u627e\u4e0d\u5230\u8be5\u827a\u672f\u5bb6\u7684\u4e2a\u4eba\u4fe1\u606f\u3002</string>
-    <string name="wiki_unavailable">\u65e0\u6cd5\u627e\u5230\u6b64\u4e13\u8f91 Wiki \u4fe1\u606f\u3002</string>
+    <string name="wiki_unavailable">\u627e\u4e0d\u5230\u6b64\u4e13\u8f91\u7684\u767e\u79d1\u6570\u636e\u3002</string>
     <string name="biography">歌手简介</string>
-    <string name="wiki">Wiki</string>
+    <string name="wiki">百科</string>
     <string name="audio_focus_denied">无法获取音频焦点。</string>
     <string name="album">专辑</string>
     <string name="artist">艺术家</string>
@@ -47,7 +48,6 @@
     <string name="lyrics">歌词</string>
     <string name="album_or_artist_empty">标题或艺术家名称为空。</string>
     <string name="saving_changes">正在保存更改</string>
-    <string name="saving_to_file">保存至文件...</string>
     <string name="label_details">详情</string>
     <string name="label_file_name">文件名</string>
     <string name="label_file_path">文件路径</string>
@@ -60,8 +60,6 @@
     <string name="action_go_to_album">查看专辑</string>
     <string name="label_playing_queue">播放队列</string>
     <string name="no_results">没有找到结果</string>
-    <string name="action_re_download_artist_image">更新艺术家图片</string>
-    <string name="updated_artist_image">艺术家图片已更新。</string>
     <string name="updating">正在更新…</string>
     <string name="added_title_to_playing_queue">"此歌曲已加入播放队列。"</string>
     <string name="added_x_titles_to_playing_queue">%1$d 首歌曲已加入播放队列。</string>
@@ -98,7 +96,6 @@
     <string name="action_save_playing_queue">保存播放队列</string>
     <string name="action_go_to_start_directory">跳转至起始目录</string>
     <string name="action_show_lyrics">显示歌词</string>
-    <string name="last_opened">最后打开时的页面</string>
     <string name="light_theme_name">浅色</string>
     <string name="dark_theme_name">暗色</string>
     <string name="black_theme_name">黑色（AMOLED）</string>
@@ -115,14 +112,13 @@
     <string name="pref_header_now_playing_screen">正在播放界面</string>
     <string name="pref_title_general_theme">全局主题</string>
     <string name="pref_header_audio">声音</string>
-    <string name="pref_header_general">常规</string>
+    <string name="pref_header_library">媒体库</string>
     <string name="pref_header_images">图片</string>
     <string name="pref_header_lockscreen">锁屏</string>
     <string name="pref_header_playlists">播放列表</string>
     <string name="pref_header_notification">通知</string>
     <string name="pref_title_navigation_bar">着色导航栏</string>
     <string name="pref_title_app_shortcuts">着色应用快捷方式</string>
-    <string name="pref_title_set_default_start_page">起始页</string>
     <string name="pref_title_album_art_on_lockscreen">显示专辑封面</string>
     <string name="pref_title_auto_download_metadata">自动下载元数据</string>
     <string name="pref_title_blurred_album_art">专辑封面模糊化</string>
@@ -133,6 +129,7 @@
     <string name="pref_title_audio_ducking">音频焦点丢失时降低音量</string>
     <string name="pref_title_last_added_interval">最近添加播放列表间隔</string>
     <string name="pref_title_synchronized_lyrics_show">显示同步歌词</string>
+    <string name="pref_title_remember_last_tab">记住最后打开页面</string>
     <string name="no_equalizer">没有找到均衡器。</string>
     <string name="no_audio_ID">"请在播放歌曲后再次尝试此操作。"</string>
     <string name="delete_action">删除</string>
@@ -140,6 +137,7 @@
     <string name="remove_action">移除</string>
     <string name="rename_action">重命名</string>
     <string name="create_action">创建</string>
+    <string name="reset_action">重置</string>
     <string name="x_selected">已选择 %1$d</string>
     <string name="primary_color">主色调</string>
     <string name="accent_color">强调色</string>
@@ -151,6 +149,7 @@
     <string name="no_albums">没有专辑</string>
     <string name="no_songs">没有歌曲</string>
     <string name="no_artists">没有艺术家</string>
+    <string name="no_genres">没有流派</string>
     <string name="empty">空</string>
     <string name="playlist_name_empty">播放列表名称</string>
     <string name="song">歌曲</string>
@@ -164,6 +163,7 @@
     <string name="pref_summary_colored_app_shortcuts">用主色调着色应用快捷方式。</string>
     <string name="pref_summary_audio_ducking">通知、导航等</string>
     <string name="pref_summary_synchronized_lyrics_show">当前仅支持 LRC 格式同步歌词。内嵌或外置均可。</string>
+    <string name="pref_summary_remember_last_tab">启动时跳转到最后打开页面</string>
     <string name="could_not_download_album_cover">"\u65e0\u6cd5\u4e0b\u8f7d\u5230\u5339\u914d\u7684\u4e13\u8f91\u5c01\u9762\u3002"</string>
     <string name="search_hint">正在扫描</string>
     <string name="favorites">收藏夹</string>
@@ -225,6 +225,7 @@
     <string name="saved_playlist_to">已保存播放列表到 %s。</string>
     <string name="failed_to_save_playlist">保存播放列表（%s）失败。</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> 没有列在媒体储存中。]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">部分文件未在媒体储存中列出</string>
     <string name="nothing_to_scan">没有可扫描的对象。</string>
     <string name="scanned_files">已扫描 %1$d/%2$d 个文件。</string>
     <string name="could_not_scan_files">%d 个文件无法扫描。</string>
@@ -259,16 +260,14 @@
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">将带您跳转至报告问题的网站。</string>
     <string name="app_shortcut_shuffle_all_short">随机播放</string>
     <string name="app_shortcut_top_tracks_short">最喜欢的歌曲</string>
-    <string name="app_shortcut_last_added_short">@string/last_added</string>
+    <string name="app_shortcut_last_added_short">最近添加</string>
     <string name="playlist_is_empty">播放列表为空</string>
     <string name="playing_notification_description">正在播放通知提供了播放/暂停等便捷操作。</string>
     <string name="playing_notification_name">正在播放通知</string>
-    <string name="buy">购买</string>
     <string name="only_the_first_5_colors_available">免费版仅能使用前 5 个主题色。</string>
     <string name="black_theme_is_a_pro_feature">黑色主题仅适用于 Phonograph Pro。</string>
     <string name="sleep_timer_is_a_pro_feature">睡眠计时器仅适用于 Phonograph Pro。</string>
     <string name="folder_view_is_a_pro_feature">文件夹视图仅适用于 Phonograph Pro。</string>
-    <string name="restore_purchase">恢复购买状态</string>
     <string name="restoring_purchase">正在恢复购买状态...</string>
     <string name="could_not_restore_purchase">无法恢复购买状态</string>
     <string name="purchase">购买</string>
@@ -282,4 +281,17 @@
     <string name="clear_blacklist">清除黑名单</string>
     <string name="do_you_want_to_clear_the_blacklist">您想清除黑名单？</string>
     <string name="pref_summary_blacklist">黑名单中文件夹将在媒体库中隐藏。</string>
+    <string name="reset_artist_image">重置艺术家图片</string>
+    <string name="set_artist_image">设置艺术家图片</string>
+    <string name="library_categories">媒体库类别</string>
+    <string name="pref_summary_library_categories">配置媒体库类别可见性和顺序。</string>
+    <string name="you_have_to_select_at_least_one_category">您必需选择至少一个类别。</string>
+    <string name="action_scan_directory">扫描音乐</string>
+    <string name="scan_media">扫描音乐</string>
+    <string name="action_sort_order">排序方式</string>
+    <string name="sort_order_a_z">按首字符（正序）</string>
+    <string name="sort_order_z_a">按首字符（倒序）</string>
+    <string name="sort_order_artist">艺术家</string>
+    <string name="sort_order_album">专辑</string>
+    <string name="sort_order_year">年份</string>
 </resources>
