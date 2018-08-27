@@ -84,6 +84,8 @@ public final class PreferenceUtil {
 
     private static final String REMEMBER_SHUFFLE = "remember_shuffle";
 
+    private static final String RG_SOURCE_MODE = "replaygain_srource_mode";
+
     private static PreferenceUtil sInstance;
 
     private final SharedPreferences mPreferences;
@@ -294,6 +296,21 @@ public final class PreferenceUtil {
         }
 
         return (System.currentTimeMillis() - interval) / 1000;
+    }
+
+    public byte getReplayGainSourceMode() {
+        byte sourceMode = 0;
+
+        switch (mPreferences.getString(RG_SOURCE_MODE, "none")) {
+            case "track":
+                sourceMode = 1;
+                break;
+            case "album":
+                sourceMode = 2;
+                break;
+        }
+
+        return sourceMode;
     }
 
     public int getLastSleepTimerValue() {

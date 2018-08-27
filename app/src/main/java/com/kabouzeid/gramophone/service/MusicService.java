@@ -498,6 +498,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
     private boolean openCurrent() {
         synchronized (this) {
             try {
+                applyReplayGain();
                 return playback.setDataSource(getTrackUri(getCurrentSong()));
             } catch (Exception e) {
                 return false;
@@ -1040,6 +1041,31 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
         appWidgetCard.notifyChange(this, what);
     }
 
+    private void applyReplayGain() {
+        byte mode = PreferenceUtil.getInstance(this).getReplayGainSourceMode();
+        if (mode != 0) {
+            Song song = getCurrentSong();
+            float adjust = 0f;
+
+            if (mode == 2) {
+                adjust = (song.replaygainTrack != 0 ? song.replaygainTrack : adjust);
+                adjust = (song.replaygainAlbum != 0 ? song.replaygainAlbum : adjust);
+            }
+
+            if (mode == 1) {
+                adjust = (song.replaygainAlbum != 0 ? song.replaygainAlbum : adjust);
+                adjust = (song.replaygainTrack != 0 ? song.replaygainTrack : adjust);
+            }
+
+            float rgResult = ((float) Math.pow(10, (adjust / 20)));
+            rgResult = Math.max(0, Math.min(1, rgResult));
+
+            playback.setReplaygain(rgResult);
+        } else {
+            playback.setReplaygain(Float.NaN);
+        }
+    }
+
     private static final long MEDIA_SESSION_ACTIONS = PlaybackStateCompat.ACTION_PLAY
             | PlaybackStateCompat.ACTION_PAUSE
             | PlaybackStateCompat.ACTION_PLAY_PAUSE
@@ -1165,7 +1191,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                     } else {
                         currentDuckVolume = 1f;
                     }
-                    service.playback.setVolume(currentDuckVolume);
+                    service.playback.setDuckingFactor(currentDuckVolume);
                     break;
 
                 case UNDUCK:
@@ -1179,7 +1205,7 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                     } else {
                         currentDuckVolume = 1f;
                     }
-                    service.playback.setVolume(currentDuckVolume);
+                    service.playback.setDuckingFactor(currentDuckVolume);
                     break;
 
                 case TRACK_WENT_TO_NEXT:

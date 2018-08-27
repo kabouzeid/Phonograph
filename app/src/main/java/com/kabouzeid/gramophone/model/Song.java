@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * @author Karim Abou Zeid (kabouzeid)
  */
 public class Song implements Parcelable {
-    public static final Song EMPTY_SONG = new Song(-1, "", -1, -1, -1, "", -1, -1, "", -1, "");
+    public static final Song EMPTY_SONG = new Song(-1, "", -1, -1, -1, "", -1, -1, "", -1, "", 0, 0);
 
     public final int id;
     public final String title;
@@ -20,8 +20,10 @@ public class Song implements Parcelable {
     public final String albumName;
     public final int artistId;
     public final String artistName;
+    public final float replaygainTrack;
+    public final float replaygainAlbum;
 
-    public Song(int id, String title, int trackNumber, int year, long duration, String data, long dateModified, int albumId, String albumName, int artistId, String artistName) {
+    public Song(int id, String title, int trackNumber, int year, long duration, String data, long dateModified, int albumId, String albumName, int artistId, String artistName, float replaygainTrack, float replaygainAlbum) {
         this.id = id;
         this.title = title;
         this.trackNumber = trackNumber;
@@ -33,6 +35,8 @@ public class Song implements Parcelable {
         this.albumName = albumName;
         this.artistId = artistId;
         this.artistName = artistName;
+        this.replaygainTrack = replaygainTrack;
+        this.replaygainAlbum = replaygainAlbum;
     }
 
     @Override
@@ -51,10 +55,10 @@ public class Song implements Parcelable {
         if (artistId != song.artistId) return false;
         if (title != null ? !title.equals(song.title) : song.title != null) return false;
         if (data != null ? !data.equals(song.data) : song.data != null) return false;
-        if (albumName != null ? !albumName.equals(song.albumName) : song.albumName != null)
-            return false;
+        if (albumName != null ? !albumName.equals(song.albumName) : song.albumName != null) return false;
+        if (replaygainTrack != song.replaygainTrack) return false;
+        if (replaygainAlbum != song.replaygainAlbum) return false;
         return artistName != null ? artistName.equals(song.artistName) : song.artistName == null;
-
     }
 
     @Override
@@ -70,6 +74,8 @@ public class Song implements Parcelable {
         result = 31 * result + (albumName != null ? albumName.hashCode() : 0);
         result = 31 * result + artistId;
         result = 31 * result + (artistName != null ? artistName.hashCode() : 0);
+        result = 31 * result + (int) replaygainTrack;
+        result = 31 * result + (int) replaygainAlbum;
         return result;
     }
 
@@ -87,6 +93,8 @@ public class Song implements Parcelable {
                 ", albumName='" + albumName + '\'' +
                 ", artistId=" + artistId +
                 ", artistName='" + artistName + '\'' +
+                ", ReplayGainTrack='" + replaygainTrack + '\'' +
+                ", ReplayGainAlbum='" + replaygainAlbum + '\'' +
                 '}';
     }
 
@@ -109,6 +117,8 @@ public class Song implements Parcelable {
         dest.writeString(this.albumName);
         dest.writeInt(this.artistId);
         dest.writeString(this.artistName);
+        dest.writeFloat(this.replaygainTrack);
+        dest.writeFloat(this.replaygainAlbum);
     }
 
     protected Song(Parcel in) {
@@ -123,6 +133,8 @@ public class Song implements Parcelable {
         this.albumName = in.readString();
         this.artistId = in.readInt();
         this.artistName = in.readString();
+        this.replaygainTrack = in.readFloat();
+        this.replaygainAlbum = in.readFloat();
     }
 
     public static final Creator<Song> CREATOR = new Creator<Song>() {

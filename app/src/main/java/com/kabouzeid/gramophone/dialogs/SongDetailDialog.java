@@ -74,6 +74,8 @@ public class SongDetailDialog extends DialogFragment {
         final TextView trackLength = dialogView.findViewById(R.id.track_length);
         final TextView bitRate = dialogView.findViewById(R.id.bitrate);
         final TextView samplingRate = dialogView.findViewById(R.id.sampling_rate);
+        final TextView replaygainTrack = dialogView.findViewById(R.id.replaygain_track);
+        final TextView replaygainAlbum = dialogView.findViewById(R.id.replaygain_album);
 
         fileName.setText(makeTextWithTitle(context, R.string.label_file_name, "-"));
         filePath.setText(makeTextWithTitle(context, R.string.label_file_path, "-"));
@@ -82,6 +84,8 @@ public class SongDetailDialog extends DialogFragment {
         trackLength.setText(makeTextWithTitle(context, R.string.label_track_length, "-"));
         bitRate.setText(makeTextWithTitle(context, R.string.label_bit_rate, "-"));
         samplingRate.setText(makeTextWithTitle(context, R.string.label_sampling_rate, "-"));
+        replaygainTrack.setText(makeTextWithTitle(context, R.string.label_rg_track, "-"));
+        replaygainAlbum.setText(makeTextWithTitle(context, R.string.label_rg_album, "-"));
 
         if (song != null) {
             final File songFile = new File(song.data);
@@ -107,6 +111,9 @@ public class SongDetailDialog extends DialogFragment {
                 fileName.setText(makeTextWithTitle(context, R.string.label_file_name, song.title));
                 trackLength.setText(makeTextWithTitle(context, R.string.label_track_length, MusicUtil.getReadableDurationString(song.duration)));
             }
+
+            replaygainTrack.setText(makeTextWithTitle(context, R.string.label_rg_track, Float.isNaN(song.replaygainTrack)? "-" : song.replaygainTrack + " dB"));
+            replaygainAlbum.setText(makeTextWithTitle(context, R.string.label_rg_album, Float.isNaN(song.replaygainAlbum)? "-" : song.replaygainAlbum + " dB"));
         }
 
         return dialog;

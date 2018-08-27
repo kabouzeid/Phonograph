@@ -295,4 +295,6 @@
     <string name="sort_order_artist">Artiste</string>
     <string name="sort_order_album">Album</string>
     <string name="sort_order_year">Année</string>
+    <string name="none">Aucun</string>
+    <string name="track">Piste</string>
 </resources>
