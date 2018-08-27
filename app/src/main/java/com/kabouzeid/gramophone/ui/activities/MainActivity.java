@@ -43,7 +43,6 @@ import com.kabouzeid.gramophone.ui.activities.intro.AppIntroActivity;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.folders.FoldersFragment;
 import com.kabouzeid.gramophone.ui.fragments.mainactivity.library.LibraryFragment;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
-import com.kabouzeid.gramophone.util.Util;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;
@@ -76,19 +75,11 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setDrawUnderStatusbar(true);
         ButterKnife.bind(this);
 
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
-            Util.setStatusBarTranslucent(getWindow());
-            drawerLayout.setFitsSystemWindows(false);
-            navigationView.setFitsSystemWindows(false);
-            //noinspection ConstantConditions
-            findViewById(R.id.drawer_content_container).setFitsSystemWindows(false);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            drawerLayout.setOnApplyWindowInsetsListener((view, windowInsets) -> {
-                navigationView.dispatchApplyWindowInsets(windowInsets);
-                return windowInsets.replaceSystemWindowInsets(0, 0, 0, 0);
-            });
+            navigationView.setFitsSystemWindows(false); // for header to go below statusbar
         }
 
         setUpDrawerLayout();
