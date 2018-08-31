@@ -134,7 +134,7 @@
     <string name="pref_title_synchronized_lyrics_show">Show synchronized lyrics</string>
     <string name="pref_title_remember_last_tab">Remember last tab</string>
     <string name="pref_title_remember_shuffle">Remember shuffle</string>
-    <string name="pref_title_rg_source_mode">ReplayGain Source Mode</string>
+    <string name="pref_title_rg_source_mode">ReplayGain source mode</string>
     <string name="no_equalizer">No equalizer found.</string>
     <string name="no_audio_ID">"Play a song first, then try again."</string>
     <string name="delete_action">Delete</string>
@@ -313,4 +313,8 @@
     <string name="sort_order_year">Year</string>
     <string name="none">None</string>
     <string name="track">Track</string>
+    <string name="label_with_rg_info">With Replaygain Tags :</string>
+    <string name="label_without_rg_info">Without Replaygain Tags :</string>
+    <string name="title_rg_preamp">ReplayGain preamp</string>
+    <string name="summary_rg_preamp">Set preamp when RpelayGain is enabled</string>
 </resources>

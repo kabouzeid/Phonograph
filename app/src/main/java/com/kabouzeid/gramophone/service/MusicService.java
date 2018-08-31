@@ -1057,6 +1057,12 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
                 adjust = (song.replaygainTrack != 0 ? song.replaygainTrack : adjust);
             }
 
+            if (adjust == 0) {
+                adjust = PreferenceUtil.getInstance(this).getRgPreampWithoutTag();
+            } else {
+                adjust += PreferenceUtil.getInstance(this).getRgPreampWithTag();
+            }
+
             float rgResult = ((float) Math.pow(10, (adjust / 20)));
             rgResult = Math.max(0, Math.min(1, rgResult));
 
@@ -1147,6 +1153,15 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             case PreferenceUtil.CLASSIC_NOTIFICATION:
                 initNotification();
                 updateNotification();
+                break;
+            case PreferenceUtil.RG_SOURCE_MODE:
+                applyReplayGain();
+                break;
+            case PreferenceUtil.RG_PREAMP_WITH_TAG:
+                applyReplayGain();
+                break;
+            case PreferenceUtil.RG_PREAMP_WITHOUT_TAG:
+                applyReplayGain();
                 break;
         }
     }

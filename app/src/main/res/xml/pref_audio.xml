@@ -34,6 +34,12 @@
             android:positiveButtonText="@null"
             android:title="@string/pref_title_rg_source_mode" />
 
+        <com.kabouzeid.gramophone.preferences.PreAmpPreference
+            android:key="replaygain_preamp"
+            android:summary="@string/summary_rg_preamp"
+            android:title="@string/title_rg_preamp"
+            />
+
     </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
 </android.support.v7.preference.PreferenceScreen>
