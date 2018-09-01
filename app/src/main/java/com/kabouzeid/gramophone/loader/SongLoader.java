@@ -7,11 +7,10 @@ import android.provider.MediaStore;
 import android.provider.MediaStore.Audio.AudioColumns;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
+import com.kabouzeid.gramophone.loader.replaygain.ReplaygainTagExtractor;
 import com.kabouzeid.gramophone.model.Song;
 import com.kabouzeid.gramophone.provider.BlacklistStore;
 import com.kabouzeid.gramophone.util.PreferenceUtil;
-
 import java.util.ArrayList;
 
 /**
@@ -92,8 +91,11 @@ public class SongLoader {
         final String albumName = cursor.getString(8);
         final int artistId = cursor.getInt(9);
         final String artistName = cursor.getString(10);
+        ReplaygainTagExtractor.processReplaygainValues(data);
+        final float replaygainTrack = ReplaygainTagExtractor.replaygainTrack;
+        final float replaygainAlbum = ReplaygainTagExtractor.replaygainAlbum;
 
-        return new Song(id, title, trackNumber, year, duration, data, dateModified, albumId, albumName, artistId, artistName);
+        return new Song(id, title, trackNumber, year, duration, data, dateModified, albumId, albumName, artistId, artistName, replaygainTrack, replaygainAlbum);
     }
 
     @Nullable

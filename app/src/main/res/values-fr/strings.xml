@@ -295,4 +295,10 @@
     <string name="sort_order_artist">Artiste</string>
     <string name="sort_order_album">Album</string>
     <string name="sort_order_year">Année</string>
+    <string name="none">Aucun</string>
+    <string name="track">Piste</string>
+    <string name="label_with_rg_info">Avec les tags ReplayGain :</string>
+    <string name="label_without_rg_info">Sans les tags ReplayGain :</string>
+    <string name="title_rg_preamp">ReplayGain preamp</string>
+    <string name="summary_rg_preamp">Fixer la préamplification quand ReplayGain est activé</string>
 </resources>

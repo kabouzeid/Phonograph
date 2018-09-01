@@ -68,4 +68,22 @@
         android:textAppearance="?android:textAppearanceMedium"
         android:textSize="16sp" />
 
+    <TextView
+        android:id="@+id/replaygain_track"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:paddingTop="16dp"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/replaygain_album"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:paddingTop="16dp"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textSize="16sp" />
+
 </LinearLayout>

@@ -40,4 +40,16 @@
         <item>this_year</item>
     </string-array>
 
+    <string-array name="pref_audio_replaygain_source_mode_titles">
+        <item>@string/none</item>
+        <item>@string/track</item>
+        <item>@string/album</item>
+    </string-array>
+
+    <string-array name="pref_audio_replaygain_source_mode_values">
+        <item>none</item>
+        <item>track</item>
+        <item>album</item>
+    </string-array>
+
 </resources>

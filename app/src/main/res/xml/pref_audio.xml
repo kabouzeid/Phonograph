@@ -25,6 +25,21 @@
             android:key="equalizer"
             android:title="@string/equalizer" />
 
+        <com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:defaultValue="none"
+            android:entries="@array/pref_audio_replaygain_source_mode_titles"
+            android:entryValues="@array/pref_audio_replaygain_source_mode_values"
+            android:key="replaygain_srource_mode"
+            android:negativeButtonText="@null"
+            android:positiveButtonText="@null"
+            android:title="@string/pref_title_rg_source_mode" />
+
+        <com.kabouzeid.gramophone.preferences.PreAmpPreference
+            android:key="replaygain_preamp"
+            android:summary="@string/summary_rg_preamp"
+            android:title="@string/title_rg_preamp"
+            />
+
     </com.kabouzeid.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
 
 </android.support.v7.preference.PreferenceScreen>

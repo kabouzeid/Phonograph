@@ -31,6 +31,10 @@ public class MultiPlayer implements Playback, MediaPlayer.OnErrorListener, Media
 
     private boolean mIsInitialized = false;
 
+    private float duckingFactor = Float.NaN;
+    private float replaygain = Float.NaN;
+
+
     /**
      * Constructor of <code>MultiPlayer</code>
      */
@@ -294,6 +298,29 @@ public class MultiPlayer implements Playback, MediaPlayer.OnErrorListener, Media
     @Override
     public int getAudioSessionId() {
         return mCurrentMediaPlayer.getAudioSessionId();
+    }
+
+
+    public void setReplaygain(float replaygain) {
+        this.replaygain = replaygain;
+        updateVolume();
+    }
+
+    public void setDuckingFactor(float duckingFactor) {
+        this.duckingFactor = duckingFactor;
+        updateVolume();
+    }
+
+    private void updateVolume() {
+        float volume = 1.0f;
+        if (!Float.isNaN(replaygain)) {
+            volume = replaygain;
+        }
+        if(!Float.isNaN(duckingFactor)) {
+            volume *= duckingFactor;
+        }
+
+        setVolume(volume);
     }
 
     /**

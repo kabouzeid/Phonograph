@@ -6,6 +6,7 @@ import android.provider.MediaStore;
 import android.provider.MediaStore.Audio.AudioColumns;
 import android.support.annotation.NonNull;
 
+import com.kabouzeid.gramophone.loader.replaygain.ReplaygainTagExtractor;
 import com.kabouzeid.gramophone.model.PlaylistSong;
 
 import java.util.ArrayList;
@@ -42,8 +43,11 @@ public class PlaylistSongLoader {
         final int artistId = cursor.getInt(9);
         final String artistName = cursor.getString(10);
         final int idInPlaylist = cursor.getInt(11);
+        ReplaygainTagExtractor.processReplaygainValues(data);
+        final float replaygainTrack = ReplaygainTagExtractor.replaygainTrack;
+        final float replaygainAlbum = ReplaygainTagExtractor.replaygainAlbum;
 
-        return new PlaylistSong(id, title, trackNumber, year, duration, data, dateModified, albumId, albumName, artistId, artistName, playlistId, idInPlaylist);
+        return new PlaylistSong(id, title, trackNumber, year, duration, data, dateModified, albumId, albumName, artistId, artistName, replaygainTrack, replaygainAlbum, playlistId, idInPlaylist);
     }
 
     public static Cursor makePlaylistSongCursor(@NonNull final Context context, final int playlistId) {
