@@ -137,7 +137,6 @@ public class SongAdapter extends AbsMultiSelectAdapter<SongAdapter.ViewHolder, S
 
         SongGlideRequest.Builder.from(Glide.with(activity), song)
                 .checkIgnoreMediaStore(activity)
-                .useAlbumDirectoryCover(song.getParentDirectory(), activity)
                 .generatePalette(activity).build()
                 .into(new PhonographColoredTarget(holder.image) {
                     @Override

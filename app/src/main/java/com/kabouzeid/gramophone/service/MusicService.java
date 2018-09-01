@@ -585,7 +585,6 @@ public class MusicService extends Service implements SharedPreferences.OnSharedP
             final Point screenSize = Util.getScreenSize(MusicService.this);
             final BitmapRequestBuilder<?, Bitmap> request = SongGlideRequest.Builder.from(Glide.with(MusicService.this), song)
                     .checkIgnoreMediaStore(MusicService.this)
-                    .useAlbumDirectoryCover(song.getParentDirectory(), MusicService.this)
                     .asBitmap().build();
             if (PreferenceUtil.getInstance(this).blurredAlbumArt()) {
                 request.transform(new BlurTransformation.Builder(MusicService.this).build());

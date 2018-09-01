@@ -96,7 +96,6 @@ public class AppWidgetBig extends BaseAppWidget {
                 }
                 target = SongGlideRequest.Builder.from(Glide.with(appContext), song)
                         .checkIgnoreMediaStore(appContext)
-                        .useAlbumDirectoryCover(song.getParentDirectory(), appContext)
                         .asBitmap().build()
                         .into(new SimpleTarget<Bitmap>(widgetImageSize, widgetImageSize) {
                             @Override

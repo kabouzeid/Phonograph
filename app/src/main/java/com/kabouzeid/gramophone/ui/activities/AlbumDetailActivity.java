@@ -167,7 +167,6 @@ public class AlbumDetailActivity extends AbsSlidingMusicPanelActivity implements
 
     private void loadAlbumCover() {
         SongGlideRequest.Builder.from(Glide.with(this), getAlbum().safeGetFirstSong())
-                .useAlbumDirectoryCover(getAlbum().getDirectory(), this)
                 .checkIgnoreMediaStore(this)
                 .generatePalette(this).build()
                 .dontAnimate()

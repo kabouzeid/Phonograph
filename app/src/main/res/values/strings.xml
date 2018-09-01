@@ -128,7 +128,6 @@
     <string name="pref_title_colored_notification">Colored notification</string>
     <string name="pref_title_classic_notification">Classic notification design</string>
     <string name="pref_title_ignore_media_store_artwork">Ignore Media Store covers</string>
-    <string name="pref_title_use_folder_artwork">Use folder artworks</string>
     <string name="pref_title_gapless_playback">Gapless playback</string>
     <string name="pref_title_audio_ducking">Reduce volume on focus loss</string>
     <string name="pref_title_last_added_interval">Last added playlist interval</string>
@@ -165,7 +164,6 @@
     <string name="pref_summary_colored_notification">"Colors the notification in the album cover\u2019s vibrant color."</string>
     <string name="pref_summary_gapless_playback">"Can cause playback issues on some devices."</string>
     <string name="pref_summary_ignore_media_store_artwork">Can increase the album cover quality but causes slower image loading times. Only enable this if you have problems with low resolution artworks.</string>
-    <string name="pref_summary_use_folder_artwork">Use artworks like (cover.jpg/png, album.jpg/png and folder.jpg/png) from folders but causes slower image loading times.</string>
     <string name="pref_summary_colored_navigation_bar">Colors the navigation bar in the primary color.</string>
     <string name="pref_summary_colored_app_shortcuts">Colors the app shortcuts in the primary color.</string>
     <string name="pref_summary_audio_ducking">Notifications, navigation etc.</string>

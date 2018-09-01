@@ -56,7 +56,6 @@ public class PlayingNotificationImpl24 extends PlayingNotification {
 
         final int bigNotificationImageSize = service.getResources().getDimensionPixelSize(R.dimen.notification_big_image_size);
         service.runOnUiThread(() -> SongGlideRequest.Builder.from(Glide.with(service), song)
-                .useAlbumDirectoryCover(song.getParentDirectory(), service)
                 .checkIgnoreMediaStore(service)
                 .generatePalette(service).build()
                 .into(new SimpleTarget<BitmapPaletteWrapper>(bigNotificationImageSize, bigNotificationImageSize) {
