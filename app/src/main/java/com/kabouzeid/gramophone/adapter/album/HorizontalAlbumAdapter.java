@@ -57,6 +57,7 @@ public class HorizontalAlbumAdapter extends AlbumAdapter {
 
         SongGlideRequest.Builder.from(Glide.with(activity), album.safeGetFirstSong())
                 .checkIgnoreMediaStore(activity)
+                .useAlbumDirectoryCover(album.getDirectory(), activity)
                 .generatePalette(activity).build()
                 .into(new PhonographColoredTarget(holder.image) {
                     @Override

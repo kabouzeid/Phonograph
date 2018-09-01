@@ -2,6 +2,7 @@ package com.kabouzeid.gramophone.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import java.io.File;
 
 /**
  * @author Karim Abou Zeid (kabouzeid)
@@ -37,6 +38,10 @@ public class Song implements Parcelable {
         this.artistName = artistName;
         this.replaygainTrack = replaygainTrack;
         this.replaygainAlbum = replaygainAlbum;
+    }
+
+    public String getParentDirectory() {
+        return new File(data).getParent();
     }
 
     @Override

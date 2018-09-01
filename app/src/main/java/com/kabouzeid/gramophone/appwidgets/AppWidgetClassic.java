@@ -94,6 +94,7 @@ public class AppWidgetClassic extends BaseAppWidget {
                 }
                 target = SongGlideRequest.Builder.from(Glide.with(appContext), song)
                         .checkIgnoreMediaStore(appContext)
+                        .useAlbumDirectoryCover(song.getParentDirectory(), appContext)
                         .generatePalette(service).build()
                         .centerCrop()
                         .into(new SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {

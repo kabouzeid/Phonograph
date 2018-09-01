@@ -101,6 +101,7 @@ public class AppWidgetCard extends BaseAppWidget {
                 }
                 target = SongGlideRequest.Builder.from(Glide.with(service), song)
                         .checkIgnoreMediaStore(service)
+                        .useAlbumDirectoryCover(song.getParentDirectory(), service)
                         .generatePalette(service).build()
                         .centerCrop()
                         .into(new SimpleTarget<BitmapPaletteWrapper>(imageSize, imageSize) {

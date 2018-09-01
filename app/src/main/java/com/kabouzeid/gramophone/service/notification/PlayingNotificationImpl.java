@@ -91,6 +91,7 @@ public class PlayingNotificationImpl extends PlayingNotification {
                 }
                 target = SongGlideRequest.Builder.from(Glide.with(service), song)
                         .checkIgnoreMediaStore(service)
+                        .useAlbumDirectoryCover(song.getParentDirectory(), service)
                         .generatePalette(service).build()
                         .into(new SimpleTarget<BitmapPaletteWrapper>(bigNotificationImageSize, bigNotificationImageSize) {
                             @Override

@@ -228,6 +228,7 @@ public class MainActivity extends AbsSlidingMusicPanelActivity {
             ((TextView) navigationDrawerHeader.findViewById(R.id.title)).setText(song.title);
             ((TextView) navigationDrawerHeader.findViewById(R.id.text)).setText(song.artistName);
             SongGlideRequest.Builder.from(Glide.with(this), song)
+                    .useAlbumDirectoryCover(song.getParentDirectory(), this)
                     .checkIgnoreMediaStore(this).build()
                     .into(((ImageView) navigationDrawerHeader.findViewById(R.id.image)));
         } else {

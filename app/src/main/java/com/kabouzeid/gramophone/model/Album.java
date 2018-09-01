@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -51,6 +52,10 @@ public class Album implements Parcelable {
     @NonNull
     public Song safeGetFirstSong() {
         return songs.isEmpty() ? Song.EMPTY_SONG : songs.get(0);
+    }
+
+    public String getDirectory() {
+        return new File(safeGetFirstSong().data).getParent();
     }
 
     @Override
