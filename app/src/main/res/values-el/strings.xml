@@ -45,7 +45,6 @@
     <string name="lyrics">Στίχοι</string>
     <string name="album_or_artist_empty">Το πεδίο \"Τίτλος\" ή \"Καλλιτέχνης\" είναι άδειο</string>
     <string name="saving_changes">"Γίνεται αποθήκευση αλλαγών... "</string>
-    <string name="saving_to_file">Αποθήκευση στο αρχείο...</string>
     <string name="label_details">Λεπτομέρειες</string>
     <string name="label_file_name">Όνομα αρχείου</string>
     <string name="label_file_path">Διαδρομή αρχείου</string>

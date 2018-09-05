@@ -49,7 +49,6 @@
     <string name="lyrics">歌詞</string>
     <string name="album_or_artist_empty">專輯名稱或演出者欄是空的</string>
     <string name="saving_changes">正在儲存變更…</string>
-    <string name="saving_to_file">正在儲存為檔案...</string>
     <string name="label_details">詳細資訊</string>
     <string name="label_file_name">檔案名稱</string>
     <string name="label_file_path">檔案路徑</string>
@@ -227,6 +226,7 @@
     <string name="saved_playlist_to">已儲存播放清單至%s</string>
     <string name="failed_to_save_playlist">無法儲存播放清單 \"%s\"</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b>未被列在音樂庫裡。]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">部分檔案未被列在音樂庫中。</string>
     <string name="nothing_to_scan">沒有東西可掃描。</string>
     <string name="scanned_files">已掃描%2$d個檔案夾中的%1$d個。</string>
     <string name="could_not_scan_files">不能掃描%d。</string>
@@ -275,6 +275,7 @@
     <string name="restore">恢復</string>
     <string name="no_purchase_found">找不到購買紀錄</string>
     <string name="eugene_cheung_summary">原始碼貢獻者</string>
+    <string name="adrian_summary">創建專輯頁面</string>
     <string name="add_action">新增</string>
     <string name="blacklist">黑名單</string>
     <string name="remove_from_blacklist">從黑名單中移除</string>
@@ -287,4 +288,12 @@
     <string name="library_categories">音樂庫類別</string>
     <string name="pref_summary_library_categories">調整音樂庫類別的顯示與排序</string>
     <string name="you_have_to_select_at_least_one_category">你至少要選擇 1 個類別</string>
+    <string name="action_scan_directory">掃描檔案</string>
+    <string name="scan_media">掃描音樂</string>
+    <string name="action_sort_order">排列方式</string>
+    <string name="sort_order_a_z">升序排列</string>
+    <string name="sort_order_z_a">降序排列</string>
+    <string name="sort_order_artist">演出者</string>
+    <string name="sort_order_album">專輯</string>
+    <string name="sort_order_year">年份</string>
 </resources>

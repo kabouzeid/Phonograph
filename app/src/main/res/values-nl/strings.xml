@@ -48,7 +48,6 @@
     <string name="lyrics">Songteksten</string>
     <string name="album_or_artist_empty">De titel of artiest is leeg.</string>
     <string name="saving_changes">Wijzigingen opslaan</string>
-    <string name="saving_to_file">Opslaan in bestand…</string>
     <string name="label_details">Details</string>
     <string name="label_file_name">Bestandsnaam</string>
     <string name="label_file_path">Bestandspad</string>
@@ -226,6 +225,7 @@
     <string name="saved_playlist_to">Afspeellijst opgeslagen in %s.</string>
     <string name="failed_to_save_playlist">Opslaan van afspeellijst (%s) mislukt.</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> is niet aanwezig in mediaopslag.]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">Sommige bestanden worden niet vermeld in de mediaopslag.</string>
     <string name="nothing_to_scan">Niets te scannen.</string>
     <string name="scanned_files">%1$d van de %2$d bestanden gescand.</string>
     <string name="could_not_scan_files">Kan %d bestanden niet scannen.</string>
@@ -274,6 +274,7 @@
     <string name="restore">Herstel</string>
     <string name="no_purchase_found">Geen aankoop gevonden.</string>
     <string name="eugene_cheung_summary">Voor zijn bijdragen aan de broncode.</string>
+    <string name="adrian_summary">Om het albumpagina-uiterlijk te maken.</string>
     <string name="add_action">Toevoegen</string>
     <string name="blacklist">Zwarte lijst</string>
     <string name="remove_from_blacklist">Verwijderen van zwarte lijst</string>
@@ -285,4 +286,13 @@
     <string name="set_artist_image">Artiest afbeelding instellen</string>
     <string name="library_categories">Bibliotheek categorieën</string>
     <string name="pref_summary_library_categories">Configureer de zichtbaarheid en volgorde van categorieën</string>
+    <string name="you_have_to_select_at_least_one_category">Je moet tenminste één categorie selecteren.</string>
+    <string name="action_scan_directory">Map scannen</string>
+    <string name="scan_media">Media scannen</string>
+    <string name="action_sort_order">Sorteervolgorde</string>
+    <string name="sort_order_a_z">Oplopend</string>
+    <string name="sort_order_z_a">Aflopend</string>
+    <string name="sort_order_artist">Artiest</string>
+    <string name="sort_order_album">Album</string>
+    <string name="sort_order_year">Jaar</string>
 </resources>

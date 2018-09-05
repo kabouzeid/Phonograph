@@ -48,7 +48,6 @@
     <string name="lyrics">Paroles</string>
     <string name="album_or_artist_empty">Le champ \"titre\" ou \"artiste\" est vide.</string>
     <string name="saving_changes">Sauvegarde des modifications</string>
-    <string name="saving_to_file">Sauvegarde dans le fichier…</string>
     <string name="label_details">Détails</string>
     <string name="label_file_name">Nom du fichier</string>
     <string name="label_file_path">Chemin du fichier</string>
@@ -226,6 +225,7 @@
     <string name="saved_playlist_to">Liste de lecture sauvegardée dans %s.</string>
     <string name="failed_to_save_playlist">Impossible de sauvegarder la liste de lecture (%s).</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> n\'est pas dans le catalogue de médias.]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">Des fichiers ne sont pas listés dans les documents.</string>
     <string name="nothing_to_scan">Rien à analyser.</string>
     <string name="scanned_files">%1$d fichiers scannés sur %2$d.</string>
     <string name="could_not_scan_files">Impossible de scanner %d fichiers.</string>
@@ -274,6 +274,7 @@
     <string name="restore">Restaurer</string>
     <string name="no_purchase_found">Aucun achat trouvé.</string>
     <string name="eugene_cheung_summary">Pour ses contributions au code source</string>
+    <string name="adrian_summary">Pour créer le design de la page d\'album.</string>
     <string name="add_action">Ajouter</string>
     <string name="blacklist">Liste noire</string>
     <string name="remove_from_blacklist">Retirer de la liste noire</string>
@@ -286,4 +287,12 @@
     <string name="library_categories">Catégories de la bibliothèque</string>
     <string name="pref_summary_library_categories">Configurer la visibilité et l\'ordre des catégories.</string>
     <string name="you_have_to_select_at_least_one_category">Vous devez sélectionner au moins une catégorie.</string>
+    <string name="action_scan_directory">Scanner le dossier.</string>
+    <string name="scan_media">Scanner les médias.</string>
+    <string name="action_sort_order">Ordre de tri</string>
+    <string name="sort_order_a_z">Ascendant</string>
+    <string name="sort_order_z_a">Descendant</string>
+    <string name="sort_order_artist">Artiste</string>
+    <string name="sort_order_album">Album</string>
+    <string name="sort_order_year">Année</string>
 </resources>

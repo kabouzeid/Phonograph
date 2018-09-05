@@ -48,7 +48,6 @@
     <string name="lyrics">歌词</string>
     <string name="album_or_artist_empty">标题或艺术家名称为空。</string>
     <string name="saving_changes">正在保存更改</string>
-    <string name="saving_to_file">保存至文件...</string>
     <string name="label_details">详情</string>
     <string name="label_file_name">文件名</string>
     <string name="label_file_path">文件路径</string>
@@ -226,6 +225,7 @@
     <string name="saved_playlist_to">已保存播放列表到 %s。</string>
     <string name="failed_to_save_playlist">保存播放列表（%s）失败。</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> 没有列在媒体储存中。]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">部分文件未在媒体储存中列出</string>
     <string name="nothing_to_scan">没有可扫描的对象。</string>
     <string name="scanned_files">已扫描 %1$d/%2$d 个文件。</string>
     <string name="could_not_scan_files">%d 个文件无法扫描。</string>
@@ -286,4 +286,12 @@
     <string name="library_categories">媒体库类别</string>
     <string name="pref_summary_library_categories">配置媒体库类别可见性和顺序。</string>
     <string name="you_have_to_select_at_least_one_category">您必需选择至少一个类别。</string>
+    <string name="action_scan_directory">扫描音乐</string>
+    <string name="scan_media">扫描音乐</string>
+    <string name="action_sort_order">排序方式</string>
+    <string name="sort_order_a_z">按首字符（正序）</string>
+    <string name="sort_order_z_a">按首字符（倒序）</string>
+    <string name="sort_order_artist">艺术家</string>
+    <string name="sort_order_album">专辑</string>
+    <string name="sort_order_year">年份</string>
 </resources>

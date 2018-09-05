@@ -48,7 +48,6 @@
     <string name="lyrics">Stihovi</string>
     <string name="album_or_artist_empty">Polje za naziv ili izvođača je prazno.</string>
     <string name="saving_changes">Spremanje promjena</string>
-    <string name="saving_to_file">Spremanje u datoteku...</string>
     <string name="label_details">Detalji</string>
     <string name="label_file_name">Naziv datoteke</string>
     <string name="label_file_path">Odredište datoteke</string>
@@ -226,6 +225,7 @@
     <string name="saved_playlist_to">Popis naslova spremljen u %s.</string>
     <string name="failed_to_save_playlist">Popis naslova nije spremljen (%s).</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> nije na popisu media storea.]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">Neke datoteke nisu u medijskom spremniku.</string>
     <string name="nothing_to_scan">Nema ništa za skeniranje.</string>
     <string name="scanned_files">Skenirano %1$d od %2$d datoteka</string>
     <string name="could_not_scan_files">Nije moguće skenirati %d datoteka.</string>
@@ -274,6 +274,7 @@
     <string name="restore">Vrati</string>
     <string name="no_purchase_found">Nema pronađenih kupnji.</string>
     <string name="eugene_cheung_summary">Za njegov doprinos izvornom kodu.</string>
+    <string name="adrian_summary">Za stvaranje dizajna stranice albuma.</string>
     <string name="add_action">Dodaj</string>
     <string name="blacklist">Crna lista</string>
     <string name="remove_from_blacklist">Ukloni sa crne liste</string>
@@ -286,4 +287,12 @@
     <string name="library_categories">Kategorije biblioteke</string>
     <string name="pref_summary_library_categories">Prilagodite vidljivost i poredak kategorija biblioteke</string>
     <string name="you_have_to_select_at_least_one_category">Morate odabrati barem jednu kategoriju</string>
+    <string name="action_scan_directory">Skeniraj direktorij</string>
+    <string name="scan_media">Skeniraj medije</string>
+    <string name="action_sort_order">Način sortiranja</string>
+    <string name="sort_order_a_z">Uzlazno</string>
+    <string name="sort_order_z_a">Silazno</string>
+    <string name="sort_order_artist">Izvođač</string>
+    <string name="sort_order_album">Album</string>
+    <string name="sort_order_year">Godina</string>
 </resources>

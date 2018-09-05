@@ -16,8 +16,8 @@
     <string name="action_play_next">Putar selanjutnya</string>
     <string name="action_play">Putar</string>
     <string name="action_play_pause">Putar/Jeda</string>
-    <string name="action_previous">Musik Sebelumnya</string>
-    <string name="action_next">Musik Selanjutnya</string>
+    <string name="action_previous">Sebelumnya</string>
+    <string name="action_next">Selanjutnya</string>
     <string name="action_add_to_playing_queue">Tambahkan ke antrean putar</string>
     <string name="action_remove_from_playing_queue">Hapus dari antrian</string>
     <string name="action_add_to_playlist">Tambahkan ke daftar putar...</string>
@@ -48,7 +48,6 @@
     <string name="lyrics">Lirik</string>
     <string name="album_or_artist_empty">Judul atau artis kosong.</string>
     <string name="saving_changes">Menyimpan perubahan</string>
-    <string name="saving_to_file">Menyimpan berkas...</string>
     <string name="label_details">Rincian</string>
     <string name="label_file_name">Nama berkas</string>
     <string name="label_file_path">Lokasi berkas</string>

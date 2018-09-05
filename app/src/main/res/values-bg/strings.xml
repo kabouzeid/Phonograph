@@ -45,7 +45,6 @@
     <string name="lyrics">Текст на песента</string>
     <string name="album_or_artist_empty">Заглавието или артистът са празни</string>
     <string name="saving_changes">Запазване на промените</string>
-    <string name="saving_to_file">Запазване като файл...</string>
     <string name="label_details">Детайли</string>
     <string name="label_file_name">Име на файл</string>
     <string name="label_file_path">Местоположение на файла</string>

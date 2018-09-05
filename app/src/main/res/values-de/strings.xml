@@ -48,7 +48,6 @@
     <string name="lyrics">Songtext</string>
     <string name="album_or_artist_empty">Der Titel oder der Interpret ist leer.</string>
     <string name="saving_changes">Speichere Änderungen…</string>
-    <string name="saving_to_file">In Datei speichern...</string>
     <string name="label_details">Details</string>
     <string name="label_file_name">Dateiname</string>
     <string name="label_file_path">Dateipfad</string>
@@ -226,6 +225,7 @@
     <string name="saved_playlist_to">Playlist wurde in %s gespeichert.</string>
     <string name="failed_to_save_playlist">Speichern der Playlist fehlgeschlagen (%s).</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b> ist nicht im Media Store gelistet.]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">Einige Dateien sind nicht im Medienverzeichnis gelistet.</string>
     <string name="nothing_to_scan">Nichts zu scannen.</string>
     <string name="scanned_files">%1$d von %2$d Dateien gescannt.</string>
     <string name="could_not_scan_files">%d Dateien konnten nicht gescannt werden.</string>
@@ -274,6 +274,7 @@
     <string name="restore">Wiederherstellen</string>
     <string name="no_purchase_found">Kein Kauf gefunden.</string>
     <string name="eugene_cheung_summary">Für seinen Beitrag zum Quellcode.</string>
+    <string name="adrian_summary">Für die Erstellung des Designs der Album-Seite.</string>
     <string name="add_action">Hinzufügen</string>
     <string name="blacklist">Blacklist</string>
     <string name="remove_from_blacklist">Von Blacklist entfernen</string>
@@ -286,4 +287,12 @@
     <string name="library_categories">Bibliothekskategorien</string>
     <string name="pref_summary_library_categories">Anzeige und Anordnung der einzelnen Kategorien festlegen.</string>
     <string name="you_have_to_select_at_least_one_category">Mindestens eine Kategorie muss ausgewählt sein.</string>
+    <string name="action_scan_directory">Verzeichnis scannen</string>
+    <string name="scan_media">Medien scannen</string>
+    <string name="action_sort_order">Sortierung</string>
+    <string name="sort_order_a_z">Aufsteigend</string>
+    <string name="sort_order_z_a">Absteigend</string>
+    <string name="sort_order_artist">Interpret</string>
+    <string name="sort_order_album">Album</string>
+    <string name="sort_order_year">Jahr</string>
 </resources>

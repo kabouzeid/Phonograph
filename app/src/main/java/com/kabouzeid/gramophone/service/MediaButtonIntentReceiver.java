@@ -99,7 +99,9 @@ public class MediaButtonIntentReceiver extends BroadcastReceiver {
 
             final int keycode = event.getKeyCode();
             final int action = event.getAction();
-            final long eventTime = event.getEventTime();
+            final long eventTime = event.getEventTime() != 0 ?
+                    event.getEventTime() : System.currentTimeMillis();
+            // Fallback to system time if event time was not available.
 
             String command = null;
             switch (keycode) {

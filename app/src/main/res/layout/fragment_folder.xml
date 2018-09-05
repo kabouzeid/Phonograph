@@ -1,89 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".ui.fragments.mainactivity.folders.FoldersFragment">
 
-    <FrameLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="0dp"
         tools:ignore="UnusedAttribute">
 
-        <include layout="@layout/status_bar" />
-
-    </FrameLayout>
-
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/coordinator_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:ignore="UnusedAttribute">
+            app:layout_scrollFlags="scroll|enterAlways">
 
-            <FrameLayout
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/Toolbar"
+                android:elevation="0dp"
+                tools:ignore="UnusedAttribute">
+
+            </android.support.v7.widget.Toolbar>
+
+            <ViewStub
+                android:id="@+id/cab_stub"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlways">
-
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    style="@style/Toolbar"
-                    android:elevation="0dp"
-                    tools:ignore="UnusedAttribute">
-
-                </android.support.v7.widget.Toolbar>
-
-                <ViewStub
-                    android:id="@+id/cab_stub"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize" />
-
-            </FrameLayout>
-
-            <com.kabouzeid.gramophone.views.BreadCrumbLayout
-                android:id="@+id/bread_crumbs"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/tab_height"
-                android:paddingEnd="8dp"
-                android:paddingLeft="60dp"
-                android:paddingRight="8dp"
-                android:paddingStart="60dp" />
-
-        </android.support.design.widget.AppBarLayout>
-
-        <FrameLayout
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:scrollbars="none" />
-
-            <TextView
-                android:id="@android:id/empty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/empty"
-                android:textColor="?android:textColorSecondary"
-                android:textSize="@dimen/empty_text_size" />
+                android:layout_height="?attr/actionBarSize" />
 
         </FrameLayout>
 
-    </android.support.design.widget.CoordinatorLayout>
+        <com.kabouzeid.gramophone.views.BreadCrumbLayout
+            android:id="@+id/bread_crumbs"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tab_height"
+            android:paddingEnd="8dp"
+            android:paddingLeft="60dp"
+            android:paddingRight="8dp"
+            android:paddingStart="60dp" />
 
-</LinearLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:scrollbars="none" />
+
+        <TextView
+            android:id="@android:id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/empty"
+            android:textColor="?android:textColorSecondary"
+            android:textSize="@dimen/empty_text_size" />
+
+    </FrameLayout>
+
+</android.support.design.widget.CoordinatorLayout>

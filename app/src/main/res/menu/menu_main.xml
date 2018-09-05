@@ -51,6 +51,13 @@
     </item>
 
     <item
+        android:id="@+id/action_sort_order"
+        android:title="@string/action_sort_order">
+        <menu>
+        </menu>
+    </item>
+
+    <item
         android:id="@+id/action_colored_footers"
         android:checkable="true"
         android:title="@string/colored_footers" />

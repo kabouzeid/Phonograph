@@ -48,7 +48,6 @@
     <string name="lyrics">歌詞</string>
     <string name="album_or_artist_empty">アルバム名またはアルバムアーティストの欄が空白です</string>
     <string name="saving_changes">変更を保存しています</string>
-    <string name="saving_to_file">ファイルに保存…</string>
     <string name="label_details">詳細情報</string>
     <string name="label_file_name">ファイル名</string>
     <string name="label_file_path">パス</string>
@@ -226,6 +225,7 @@
     <string name="saved_playlist_to">プレイリストを%sに保存しました。</string>
     <string name="failed_to_save_playlist">プレイリスト(%s)の保存に失敗しました。</string>
     <string name="not_listed_in_media_store"><![CDATA[<b>%s</b>はメディアストアにリストされていません。]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">Alguns arquivos não estão listados na biblioteca local.</string>
     <string name="nothing_to_scan">スキャンするものがありません。</string>
     <string name="scanned_files">%1$d中の%2$dをスキャンしました。</string>
     <string name="could_not_scan_files">%d個のファイルをスキャンできませんでした。</string>
@@ -274,6 +274,7 @@
     <string name="restore">復元</string>
     <string name="no_purchase_found">購入履歴がありませんでした。</string>
     <string name="eugene_cheung_summary">ソースコードへの貢献。</string>
+    <string name="adrian_summary">Por criar o design da página de álbuns.</string>
     <string name="add_action">追加</string>
     <string name="blacklist">ブラックリスト</string>
     <string name="remove_from_blacklist">ブラックリストから除去</string>
@@ -286,4 +287,12 @@
     <string name="library_categories">ライブラリのカテゴリ</string>
     <string name="pref_summary_library_categories">ライブラリに表示するカテゴリとその順番を設定します。</string>
     <string name="you_have_to_select_at_least_one_category">最低でも1つのカテゴリを選択を選択してください</string>
+    <string name="action_scan_directory">ディレクトリをスキャン</string>
+    <string name="scan_media">メディアをスキャン</string>
+    <string name="action_sort_order">並べ替え</string>
+    <string name="sort_order_a_z">昇順</string>
+    <string name="sort_order_z_a">降順</string>
+    <string name="sort_order_artist">Artista</string>
+    <string name="sort_order_album">Álbum</string>
+    <string name="sort_order_year">Ano</string>
 </resources>

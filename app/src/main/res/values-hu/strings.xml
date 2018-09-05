@@ -48,7 +48,6 @@
     <string name="lyrics">Dalszöveg</string>
     <string name="album_or_artist_empty">A cím vagy az előadó üres.</string>
     <string name="saving_changes">Változások mentése</string>
-    <string name="saving_to_file">Mentés fájlba...</string>
     <string name="label_details">Részletek</string>
     <string name="label_file_name">Fájlnév</string>
     <string name="label_file_path">Útvonal</string>
@@ -201,7 +200,7 @@
     <string name="visit_website">Látogassa meg a honlapot</string>
     <string name="report_bugs">Hibajelentés</string>
     <string name="report_bugs_summary">Problémák jelentése, új funkciók kérése.</string>
-    <string name="join_community">Csatlakozzon a Google Plus közösséghezGoogle Plus közösség</string>
+    <string name="join_community">Csatlakozzon a Google Plus közösséghez</string>
     <string name="join_community_summary">Ha segítségre lenne szüksége, vagy kérdései vannak, keresse fel a Phonograph közösséget a Google Plus-on.</string>
     <string name="translate">Fordítás</string>
     <string name="translate_summary">Segítsen lefordítani a Phonograph-ot a saját nyelvére.</string>
@@ -226,6 +225,7 @@
     <string name="saved_playlist_to">Lejátszási lista mentve ide: %s.</string>
     <string name="failed_to_save_playlist">Nem sikerült menteni a lejátszási listát (%s).</string>
     <string name="not_listed_in_media_store"><![CDATA[A(z) <b>%s</b> nem szerepel a médiatárban.]]></string>
+    <string name="some_files_are_not_listed_in_the_media_store">Egyes fájlok nem szerepelnek a médiában.</string>
     <string name="nothing_to_scan">Nincs mit beolvasni.</string>
     <string name="scanned_files">%1$d/%2$d fájl beolvasva.</string>
     <string name="could_not_scan_files">%d fájl beolvasása nem sikerült.</string>
@@ -272,4 +272,27 @@
     <string name="could_not_restore_purchase">A vásárlást nem sikerült visszaállítani.</string>
     <string name="purchase">Vásárlás</string>
     <string name="restore">Visszaállítás</string>
+    <string name="no_purchase_found">Nem található vásárlás.</string>
+    <string name="eugene_cheung_summary">A forráskódhoz való hozzájárulásáért.</string>
+    <string name="adrian_summary">Az album oldalának kialakításához.</string>
+    <string name="add_action">Hozzáadás</string>
+    <string name="blacklist">Tiltólista</string>
+    <string name="remove_from_blacklist">Eltávolítás a tiltólistáról</string>
+    <string name="do_you_want_to_remove_from_the_blacklist"><![CDATA[Biztosan el szeretné távolítani <b>%1$s</b>-t a tiltólistáról?]]></string>
+    <string name="clear_blacklist">Tiltólista törlése</string>
+    <string name="do_you_want_to_clear_the_blacklist">Biztosan törölni szeretné a tiltólistát?</string>
+    <string name="pref_summary_blacklist">A tiltólistán lévő mappák tartalma nem szerepel a könyvtárban.</string>
+    <string name="reset_artist_image">Előadó képének visszaállítása</string>
+    <string name="set_artist_image">Előadó képének beállítása</string>
+    <string name="library_categories">Könyvtár kategóriák</string>
+    <string name="pref_summary_library_categories">Könyvtár kategóriák láthatóságának és sorrendjének beállítása.</string>
+    <string name="you_have_to_select_at_least_one_category">Legalább egy kategóriát ki kell választania.</string>
+    <string name="action_scan_directory">Szkennelési könyvtár</string>
+    <string name="scan_media">Szkennelési média</string>
+    <string name="action_sort_order">Sorrend</string>
+    <string name="sort_order_a_z">Növekvő</string>
+    <string name="sort_order_z_a">Csökkenő</string>
+    <string name="sort_order_artist">Előadó</string>
+    <string name="sort_order_album">Album</string>
+    <string name="sort_order_year">Év</string>
 </resources>

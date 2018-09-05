@@ -47,7 +47,6 @@
     <string name="lyrics">Lời bài hát</string>
     <string name="album_or_artist_empty">Tiêu đề hoặc nghệ sĩ rỗng.</string>
     <string name="saving_changes">Đang lưu thay đổi</string>
-    <string name="saving_to_file">Đang lưu tập tin...</string>
     <string name="label_details">Chi tiết</string>
     <string name="label_file_name">Tên tập tin</string>
     <string name="label_file_path">Đường dẫn tập tin</string>
