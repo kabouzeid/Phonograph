@@ -335,7 +335,7 @@ public class FlatPlayerFragment extends AbsPlayerFragment implements PlayerAlbum
                             toolbar.getMenu()
                                     .add(Menu.NONE, R.id.action_show_lyrics, Menu.NONE, R.string.action_show_lyrics)
                                     .setIcon(drawable)
-                                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
                         }
                 }
             }
