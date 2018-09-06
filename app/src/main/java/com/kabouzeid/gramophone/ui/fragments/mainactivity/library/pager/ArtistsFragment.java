@@ -41,7 +41,7 @@ public class ArtistsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFr
     protected ArtistAdapter createAdapter() {
         int itemLayoutRes = getItemLayoutRes();
         notifyLayoutResChanged(itemLayoutRes);
-        ArrayList<Artist> dataSet = getAdapter() == null ? new ArrayList<Artist>() : getAdapter().getDataSet();
+        ArrayList<Artist> dataSet = getAdapter() == null ? new ArrayList<>() : getAdapter().getDataSet();
         return new ArtistAdapter(
                 getLibraryFragment().getMainActivity(),
                 dataSet,
@@ -131,7 +131,7 @@ public class ArtistsFragment extends AbsLibraryPagerRecyclerViewCustomGridSizeFr
 
     @Override
     public void onLoaderReset(Loader<ArrayList<Artist>> loader) {
-        getAdapter().swapDataSet(new ArrayList<Artist>());
+        getAdapter().swapDataSet(new ArrayList<>());
     }
 
     private static class AsyncArtistLoader extends WrappedAsyncTaskLoader<ArrayList<Artist>> {

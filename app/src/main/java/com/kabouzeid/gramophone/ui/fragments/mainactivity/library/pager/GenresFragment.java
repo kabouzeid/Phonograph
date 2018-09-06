@@ -35,7 +35,7 @@ public class GenresFragment extends AbsLibraryPagerRecyclerViewFragment<GenreAda
     @NonNull
     @Override
     protected GenreAdapter createAdapter() {
-        ArrayList<Genre> dataSet = getAdapter() == null ? new ArrayList<Genre>() : getAdapter().getDataSet();
+        ArrayList<Genre> dataSet = getAdapter() == null ? new ArrayList<>() : getAdapter().getDataSet();
         return new GenreAdapter(getLibraryFragment().getMainActivity(), dataSet, R.layout.item_list_no_image);
     }
 
@@ -61,7 +61,7 @@ public class GenresFragment extends AbsLibraryPagerRecyclerViewFragment<GenreAda
 
     @Override
     public void onLoaderReset(Loader<ArrayList<Genre>> loader) {
-        getAdapter().swapDataSet(new ArrayList<Genre>());
+        getAdapter().swapDataSet(new ArrayList<>());
     }
 
     private static class AsyncGenreLoader extends WrappedAsyncTaskLoader<ArrayList<Genre>> {

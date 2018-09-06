@@ -194,7 +194,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
     }
 
     private void setUpAdapter() {
-        adapter = new SongFileAdapter(getMainActivity(), new LinkedList<File>(), R.layout.item_list, this, this);
+        adapter = new SongFileAdapter(getMainActivity(), new LinkedList<>(), R.layout.item_list, this, this);
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onChanged() {
@@ -291,7 +291,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
             case R.id.action_scan:
                 BreadCrumbLayout.Crumb crumb = getActiveCrumb();
                 if (crumb != null) {
-                    new ListPathsAsyncTask(getActivity(), paths -> scanPaths(paths)).execute(new ListPathsAsyncTask.LoadingInfo(crumb.getFile(), AUDIO_FILE_FILTER));
+                    new ListPathsAsyncTask(getActivity(), this::scanPaths).execute(new ListPathsAsyncTask.LoadingInfo(crumb.getFile(), AUDIO_FILE_FILTER));
                 }
                 return true;
         }
@@ -391,7 +391,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
                         Toast.makeText(getActivity(), String.format(getString(R.string.new_start_directory), file.getPath()), Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.action_scan:
-                        new ListPathsAsyncTask(getActivity(), paths -> scanPaths(paths)).execute(new ListPathsAsyncTask.LoadingInfo(file, AUDIO_FILE_FILTER));
+                        new ListPathsAsyncTask(getActivity(), this::scanPaths).execute(new ListPathsAsyncTask.LoadingInfo(file, AUDIO_FILE_FILTER));
                         return true;
                 }
                 return false;
@@ -472,7 +472,7 @@ public class FoldersFragment extends AbsMainActivityFragment implements MainActi
 
     @Override
     public void onLoaderReset(Loader<List<File>> loader) {
-        updateAdapter(new LinkedList<File>());
+        updateAdapter(new LinkedList<>());
     }
 
     private static class AsyncFileLoader extends WrappedAsyncTaskLoader<List<File>> {
